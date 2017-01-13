@@ -1,0 +1,1100 @@
+<%- include('../layouts/head_top'); %>
+<%- include('../layouts/head_bottom'); %>
+<%- include('../layouts/header'); %>
+<%- include('../layouts/nav'); %>
+
+
+<!-- MAIN PANEL -->
+<div id="main" role="main">
+
+    <!-- RIBBON -->
+    <div id="ribbon">
+
+        <!-- breadcrumb -->
+        <ol class="breadcrumb">
+            <li>后台管理</li>
+            <li>表单模板</li>
+        </ol>
+        <!-- end breadcrumb -->
+
+        <!-- You can also add more buttons to the
+        ribbon for further usability
+
+        Example below:
+
+        <span class="ribbon-button-alignment pull-right">
+        <span id="search" class="btn btn-ribbon hidden-xs" data-title="search"><i class="fa-grid"></i> Change Grid</span>
+        <span id="add" class="btn btn-ribbon hidden-xs" data-title="add"><i class="fa-plus"></i> Add</span>
+        <span id="search" class="btn btn-ribbon" data-title="search"><i class="fa-search"></i> <span class="hidden-mobile">Search</span></span>
+        </span> -->
+
+    </div>
+    <!-- END RIBBON -->
+
+
+    <!-- MAIN CONTENT -->
+    <div id="content">
+
+
+        <!--
+            The ID "widget-grid" will start to initialize all widgets below
+            You do not need to use widgets if you dont want to. Simply remove
+            the <section></section> and you can use wells or panels instead
+            -->
+
+
+        <!-- well -->
+        <div class="well">
+            <!-- row -->
+            <div class="row">
+                <!-- col -->
+                <div class="col-xs-12">
+                    <legend>新增客户信息</legend>
+
+
+                    <!-- row -->
+                    <div class="search-form">
+
+                        <form class="form-horizontal" method="post" action="/customer/create" id="create-customer">
+
+
+                            <legend>
+                                下拉与输入
+                            </legend>
+                            <div class="col-xs-12">
+
+                                <!--输入字段-->
+                                <div class="col-xs-4">
+                                    <div class="form-group">
+                                        <label class="col-xs-4 control-label">:</label>
+                                        <div class="col-xs-8">
+                                            <input class="form-control" placeholder="提示信息" type="text" value="默认值"
+                                                   name="">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!--下拉选择 有键值-->
+                                <div class="col-xs-4">
+                                    <div class="form-group">
+                                        <label class="col-xs-4 control-label">下拉选项:</label>
+                                        <div class="col-xs-8">
+                                            <select class="form-control" name="">
+                                                <option>- 请选择 -</option>
+                                                <option value="1">选项1</option>
+                                                <option value="2">选项2</option>
+                                            </select>
+
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!--下拉选择 无键值-->
+                                <div class="col-xs-4">
+                                    <div class="form-group">
+                                        <div class="col-xs-12">
+                                            <select class="form-control" name="">
+                                                <option>- 请选择 -</option>
+                                                <option value="1">选项1</option>
+                                                <option value="2">选项2</option>
+                                            </select>
+
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                            </div>
+                            <div class="col-xs-12">
+
+                                <!--下拉选择+输入组合-->
+                                <div class="col-xs-4">
+                                    <div class="form-group">
+                                        <div class="col-xs-4 tight-right">
+                                            <select class="form-control" name="">
+                                                <option>- 请选择 -</option>
+                                                <option value="1">选项1</option>
+                                                <option value="2">选项2</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-xs-8">
+                                            <input class="form-control" placeholder="提示信息" type="text" value="默认值"
+                                                   name="">
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <!--下拉选择 无键值-->
+                                <div class="col-xs-4">
+                                    <div class="form-group">
+                                        <div class="col-xs-12">
+                                            <select class="select2" name="">
+                                                <option>- 带搜索的选择 请选择 -</option>
+                                                <option value="1">选项1</option>
+                                                <option value="2">选项2</option>
+                                                <option value="3">选项3</option>
+                                            </select>
+
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <!--下拉选择 无键值-->
+                                <div class="col-xs-4">
+                                    <div class="form-group">
+                                        <label class="col-xs-3 control-label">范围选择:</label>
+                                        <div class="col-xs-4 tight-right">
+                                            <select class="form-control" name="">
+                                                <option>- 起始 请选择 -</option>
+                                                <option value="1">选项1</option>
+                                                <option value="2">选项2</option>
+                                                <option value="3">选项3</option>
+                                            </select>
+                                        </div>
+                                        <label class="col-xs-1 control-label "> 至 </label>
+                                        <div class="col-xs-4 ">
+                                            <select class="form-control" name="">
+                                                <option>- 截止 请选择 -</option>
+                                                <option value="1">选项1</option>
+                                                <option value="2">选项2</option>
+                                                <option value="3">选项3</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                            </div>
+                            <div class="col-xs-12">
+                                <!--键值+下拉选择+输入组合-->
+                                <div class="col-xs-4">
+                                    <div class="form-group">
+                                        <label class="col-xs-4 control-label "> 请选择: </label>
+                                        <div class="col-xs-4 tight-right">
+                                            <select class="form-control" name="">
+                                                <option>- 请选择 -</option>
+                                                <option value="1">选项1</option>
+                                                <option value="2">选项2</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-xs-4 tight-left">
+                                            <input class="form-control" placeholder="提示信息" type="text" value="默认值"
+                                                   name="">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!--键值+下拉选择+输入组合-->
+                                <div class="col-xs-4">
+                                    <div class="form-group dwy-area">
+                                        <div class="col-xs-4 tight-right">
+                                            <select class="form-control dwy-province" name="province">
+                                                <option>- 省 -</option>
+                                                <option value="1">选项1</option>
+                                                <option value="2">选项2</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-xs-4 tight-right">
+                                            <select class="form-control dwy-city" name="city">
+                                                <option>- 市 -</option>
+                                                <option value="1">选项1</option>
+                                                <option value="2">选项2</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-xs-4 tight-right">
+                                            <select class="form-control dwy-district" name="district">
+                                                <option>- 区 -</option>
+                                                <option value="1">选项1</option>
+                                                <option value="2">选项2</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--键值+下拉选择+输入组合-->
+                                <div class="col-xs-4">
+                                    <div class="form-group dwy-area">
+                                        <div class="col-xs-4 tight-right">
+                                            <select class="form-control dwy-province" name="province">
+                                                <option>- 省 -</option>
+                                                <option value="1">选项1</option>
+                                                <option value="2">选项2</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-xs-4 tight-right">
+                                            <select class="form-control dwy-city" name="city">
+                                                <option>- 市 -</option>
+                                                <option value="1">选项1</option>
+                                                <option value="2">选项2</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-xs-4 tight-right">
+                                            <select class="form-control dwy-district" name="district">
+                                                <option>- 区 -</option>
+                                                <option value="1">选项1</option>
+                                                <option value="2">选项2</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <legend>
+                                验证类
+                            </legend>
+                            <div class="col-xs-12">
+                                <!--键值+下拉选择+输入组合-->
+                                <div class="col-xs-4">
+                                    <div class="form-group">
+                                        <label class="col-xs-4 control-label "> *必选项-手机号: </label>
+                                        <div class="col-xs-4 tight-right">
+                                            <input class="form-control validate[required,funcCall[custom_validate_fn.isMobile]]"
+                                                   placeholder="输入号码" type="tel" value="18606538962"
+                                                   name="mobile">
+                                        </div>
+                                        <div class="col-xs-4 tight-left">
+                                            <a href="/" class="btn-primary btn-sm btn">AJAX 按钮</a>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!--键值+下拉选择+输入组合-->
+                                <div class="col-xs-4">
+                                    <div class="form-group">
+                                        <label class="col-xs-3 control-label "> *必选项: </label>
+                                        <div class="col-xs-5 tight-right">
+                                            <input class="form-control validate[required]" placeholder="输入姓名"
+                                                   type="text" value=""
+                                                   name="name">
+                                        </div>
+                                        <div class="col-xs-4 tight-left">
+                                            <select class="form-control" name="gender">
+                                                <option>- 客户性别 -</option>
+                                                <option value="1">男</option>
+                                                <option value="2">女</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <!--输入字段-->
+                                <div class="col-xs-4">
+                                    <div class="form-group">
+                                        <label class="col-xs-4 control-label">数字输入:</label>
+                                        <div class="col-xs-8">
+                                            <input class="form-control" placeholder=""
+                                                   type="number" value="" step="0.5" min="10" max="100"
+                                                   name="">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!--输入字段-->
+                                <div class="col-xs-4">
+                                    <div class="form-group">
+                                        <label class="col-xs-4 control-label">*E-mail:</label>
+                                        <div class="col-xs-8">
+                                            <input class="form-control validate[required,custom[email]]"
+                                                   placeholder="输入姓名"
+                                                   type="text" value=""
+                                                   name="email" id="email">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!--输入字段-->
+                                <div class="col-xs-4">
+                                    <div class="form-group">
+                                        <label class="col-xs-4 control-label">*数字范围:</label>
+                                        <div class="col-xs-8">
+                                            <input class="form-control validate[required,min[10.5],max[20.5]]"
+                                                   placeholder="输入姓名"
+                                                   type="text" value=""
+                                                   name="" id="">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!--输入字段-->
+                                <div class="col-xs-4">
+                                    <div class="form-group">
+                                        <label class="col-xs-4 control-label">*长度范围:</label>
+                                        <div class="col-xs-8">
+                                            <input class="form-control validate[required,minSize[6],maxSize[12]]"
+                                                   placeholder="输入姓名"
+                                                   type="text" value=""
+                                                   name="" id="">
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <!--输入字段-->
+                                <div class="col-xs-8">
+                                    <div class="form-group">
+                                        <label class="col-xs-2 control-label">*URL:</label>
+                                        <div class="col-xs-10">
+                                            <input class="form-control validate[required,custom[url]]"
+                                                   placeholder="输入姓名"
+                                                   type="text" value=""
+                                                   name="" id="">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!--输入字段-->
+                                <div class="col-xs-4">
+                                    <div class="form-group">
+                                        <label class="col-xs-4 control-label">*纯数字:</label>
+                                        <div class="col-xs-8">
+                                            <input class="form-control validate[required,custom[onlyNumberSp]]"
+                                                   placeholder="输入姓名"
+                                                   type="text" value=""
+                                                   name="" id="">
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                            </div>
+
+                            <legend>单选与多选</legend>
+
+                            <div class="col-xs-12">
+                                <div class="col-xs-8">
+                                    <div class="form-group">
+                                        <label class="col-xs-2 control-label">*单选-行内:</label>
+                                        <div class="col-xs-10">
+                                            <label class="radio radio-inline">
+
+                                                <input type="radio" class="radiobox validate[required]" name="style-0a">
+                                                <span>Radiobox 1</span>
+
+                                            </label>
+                                            <label class="radio radio-inline">
+                                                <input type="radio" class="radiobox" name="style-0a">
+                                                <span>Radiobox 2</span>
+                                            </label>
+                                            <label class="radio radio-inline">
+                                                <input type="radio" class="radiobox" name="style-0a">
+                                                <span>Radiobox 3</span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-xs-8">
+                                    <div class="form-group">
+                                        <label class="col-xs-2 control-label">单选-多行:</label>
+                                        <div class="col-xs-10">
+                                            <div class="radio">
+                                                <label>
+                                                    <input type="radio" class="radiobox style-0" checked="checked"
+                                                           name="style-0">
+                                                    <span>Radiobox 1</span>
+                                                </label>
+                                            </div>
+                                            <div class="radio">
+                                                <label>
+                                                    <input type="radio" class="radiobox style-0" name="style-0">
+                                                    <span>Radiobox 2</span>
+                                                </label>
+                                            </div>
+                                            <div class="radio">
+                                                <label>
+                                                    <input type="radio" class="radiobox style-0" name="style-0">
+                                                    <span>Radiobox 3</span>
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-xs-12">
+                                <div class="col-xs-8">
+                                    <div class="form-group">
+                                        <label class="col-xs-2 control-label">多选-行内:</label>
+                                        <div class="col-xs-10">
+                                            <label class="checkbox-inline">
+                                                <input type="checkbox" class="checkbox style-0">
+                                                <span>Checkbox 1</span>
+                                            </label>
+                                            <label class="checkbox-inline">
+                                                <input type="checkbox" class="checkbox style-0">
+                                                <span>Checkbox 2</span>
+                                            </label>
+                                            <label class="checkbox-inline">
+                                                <input type="checkbox" class="checkbox style-0">
+                                                <span>Checkbox 3</span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-xs-8">
+                                    <div class="form-group">
+                                        <label class="col-xs-2 control-label">*多选-多行:</label>
+                                        <div class="col-xs-10">
+
+                                            <div class="checkbox">
+                                                <label>
+                                                    <input type="checkbox" class="checkbox style-0 validate[required]"
+                                                           name="check-box-1">
+                                                    <span>Checkbox 1</span>
+                                                </label>
+                                            </div>
+
+                                            <div class="checkbox">
+                                                <label>
+                                                    <input type="checkbox" class="checkbox style-0" name="check-box-1">
+                                                    <span>Checkbox 2</span>
+                                                </label>
+                                            </div>
+
+                                            <div class="checkbox">
+                                                <label>
+                                                    <input type="checkbox" class="checkbox style-0" name="check-box-1">
+                                                    <span>Checkbox 3</span>
+                                                </label>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <legend>时间相关</legend>
+
+                            <div class="col-xs-12">
+                                <!--输入字段-->
+                                <div class="col-xs-4">
+                                    <div class="form-group">
+                                        <label class="col-xs-4 control-label">*日期选择:</label>
+                                        <div class="col-xs-8">
+                                            <input class="form-control fg-date-picker validate[required]" placeholder=""
+                                                   type="text"
+                                                   value=""
+                                                   name="1">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!--输入字段-->
+                                <div class="col-xs-4">
+                                    <div class="form-group">
+                                        <label class="col-xs-4 control-label">日期时间选择:</label>
+                                        <div class="col-xs-8">
+                                            <input class="form-control fg-date-time-picker" placeholder="" type="text"
+                                                   value=""
+                                                   name="2">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!--输入字段-->
+                                <div class="col-xs-4">
+                                    <div class="form-group">
+                                        <label class="col-xs-4 control-label">时间选择:</label>
+                                        <div class="col-xs-8">
+                                            <input class="form-control fg-time-picker" placeholder="" type="text"
+                                                   value=""
+                                                   name="3">
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--输入字段-->
+                                <div class="col-xs-4">
+                                    <div class="form-group">
+                                        <label class="col-xs-4 control-label">自定义时间选择:</label>
+                                        <div class="col-xs-8">
+                                            <input class="form-control fg-custom-picker" placeholder="" type="text"
+                                                   value=""
+                                                   name="3">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <div class="col-xs-12">
+                                <!--输入字段-->
+                                <div class="col-xs-4">
+                                    <div class="form-group">
+                                        <label class="col-xs-4 control-label">楼盘名:</label>
+                                        <div class="col-xs-8">
+                                            <input class="form-control" placeholder="提示信息" type="text" value=""
+                                                   name="">
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--输入字段-->
+                                <div class="col-xs-4">
+                                    <div class="form-group">
+                                        <label class="col-xs-4 control-label">楼盘坐标:</label>
+                                        <div class="col-xs-8">
+                                            <input class="form-control" placeholder="提示信息" type="text" value=""
+                                                   name="">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-xs-4">
+                                    <button class="btn-primary btn-sm">获取定位</button>
+                                </div>
+                            </div>
+
+
+                            <div class="col-xs-12">
+
+                                <!--输入字段-->
+                                <div class="col-xs-8">
+                                    <div class="form-group">
+                                        <label class="col-xs-2 control-label">客户地址:</label>
+                                        <div class="col-xs-10">
+                                            <textarea name="" class="form-control" placeholder="提示信息" id="" cols="30"
+                                                      rows="5"></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div class="col-xs-12">
+                                <!--输入字段-->
+                                <div class="col-xs-8">
+                                    <div class="form-group">
+                                        <label class="col-xs-2 control-label">量尺空间:</label>
+                                        <div class="col-xs-10">
+                                            <label class="checkbox-inline">
+                                                <input type="checkbox">
+                                                客餐厅
+                                            </label>
+                                            <label class="checkbox-inline">
+                                                <input type="checkbox">
+                                                儿童房
+                                            </label>
+                                            <label class="checkbox-inline">
+                                                <input type="checkbox">
+                                                客卧房
+                                            </label>
+                                            <label class="checkbox-inline">
+                                                <input type="checkbox">
+                                                书房
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-xs-12">
+                                <!--下拉选择 无键值-->
+                                <div class="col-xs-4">
+                                    <div class="form-group">
+                                        <label class="col-xs-4 control-label">设计师:</label>
+                                        <div class="col-xs-8 tight-right">
+                                            <select class="form-control" name="">
+                                                <option>- 起始 请选择 -</option>
+                                                <option value="1">选项1</option>
+                                                <option value="2">选项2</option>
+                                                <option value="3">选项3</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--下拉选择 无键值-->
+                                <div class="col-xs-4">
+                                    <div class="form-group">
+                                        <label class="col-xs-4 control-label">希望量尺时间:</label>
+                                        <div class="col-xs-8 tight-right">
+                                            <span class="form-control">TIME</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div class="col-xs-8">
+                                <hr class="simple">
+                                <div class="col-xs-12 text-center">
+                                    <button class="btn btn-primary " type="submit">
+                                        <i class="fa fa-save"></i>
+                                        确认添加
+                                    </button>
+                                </div>
+                            </div>
+
+                        </form>
+
+                        <form class="form-horizontal" method="post" action="/template/upload/single" id=""
+                              enctype="multipart/form-data">
+
+                            <legend>文件上传</legend>
+                            <div class="col-xs-12">
+                                <!--下拉选择 无键值-->
+                                <div class="col-xs-8">
+                                    <div class="form-group">
+                                        <label class="col-xs-2 control-label">上传文件</label>
+                                        <div class="col-xs-10">
+                                            <input type="file" class="btn btn-default" id="exampleInputFile1"
+                                                   name="file_name">
+                                            <p class="help-block">
+                                                提示信息
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xs-8">
+                                <div class="form-group">
+                                    <label class="col-xs-2 control-label">多选-行内:</label>
+                                    <div class="col-xs-10">
+                                        <label class="checkbox-inline">
+                                            <input type="checkbox" class="checkbox style-0" name="check_nam" value="1">
+                                            <span>Checkbox 1</span>
+                                        </label>
+                                        <label class="checkbox-inline">
+                                            <input type="checkbox" class="checkbox style-0" name="check_nam" value="2">
+                                            <span>Checkbox 2</span>
+                                        </label>
+                                        <label class="checkbox-inline">
+                                            <input type="checkbox" class="checkbox style-0" name="check_nam" value="3">
+                                            <span>Checkbox 3</span>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <div class="col-xs-12">
+                                <!--输入字段-->
+                                <div class="col-xs-4">
+                                    <div class="form-group">
+                                        <label class="col-xs-4 control-label">附带数据:</label>
+                                        <div class="col-xs-8">
+                                            <input class="form-control" placeholder="提示信息" type="text" value="hello"
+                                                   name="data_name">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!--输入字段-->
+                                <div class="col-xs-8">
+                                    <div class="form-group">
+                                        <label class="col-xs-2 control-label">附带数据(组):</label>
+                                        <div class="col-xs-5">
+                                            <input class="form-control" placeholder="提示信息" type="text" value="value1"
+                                                   name="data_name_2[]">
+                                        </div>
+                                        <div class="col-xs-5">
+                                            <input class="form-control" placeholder="提示信息" type="text" value="value2"
+                                                   name="data_name_2[]">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <div class="col-xs-8">
+                                <hr class="simple">
+                                <div class="col-xs-12 text-center">
+                                    <button class="btn btn-primary " type="submit">
+                                        <i class="fa fa-save"></i>
+                                        确认上传
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+
+
+                        <form class="form-horizontal" method="post" action="/template/upload/multi" id=""
+                              enctype="multipart/form-data">
+
+                            <legend>文件组上传</legend>
+                            <div class="col-xs-12">
+                                <!--下拉选择 无键值-->
+                                <div class="col-xs-8">
+                                    <div class="form-group">
+                                        <label class="col-xs-2 control-label">上传文件(组)</label>
+                                        <div class="col-xs-10">
+                                            <input type="file" class="btn btn-default" id="exampleInputFile1"
+                                                   name="file_name">
+                                            <p class="help-block">
+                                                提示信息
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-xs-12">
+                                <!--下拉选择 无键值-->
+                                <div class="col-xs-8">
+                                    <div class="form-group">
+                                        <label class="col-xs-2 control-label">上传文件(组)</label>
+                                        <div class="col-xs-10">
+                                            <input type="file" class="btn btn-default" id="exampleInputFile1"
+                                                   name="file_name">
+                                            <p class="help-block">
+                                                提示信息
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <div class="col-xs-12">
+                                <!--输入字段-->
+                                <div class="col-xs-4">
+                                    <div class="form-group">
+                                        <label class="col-xs-4 control-label">附带数据:</label>
+                                        <div class="col-xs-8">
+                                            <input class="form-control" placeholder="提示信息" type="text" value="hello"
+                                                   name="data_name">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!--输入字段-->
+                                <div class="col-xs-8">
+                                    <div class="form-group">
+                                        <label class="col-xs-2 control-label">附带数据(组):</label>
+                                        <div class="col-xs-5">
+                                            <input class="form-control" placeholder="提示信息" type="text" value="value1"
+                                                   name="data_name_2[]">
+                                        </div>
+                                        <div class="col-xs-5">
+                                            <input class="form-control" placeholder="提示信息" type="text" value="value2"
+                                                   name="data_name_2[]">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <div class="col-xs-8">
+                                <hr class="simple">
+                                <div class="col-xs-12 text-center">
+                                    <button class="btn btn-primary " type="submit">
+                                        <i class="fa fa-save"></i>
+                                        确认上传
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+
+
+                        <form class="form-horizontal" method="post" action="/template/upload/custom" id=""
+                              enctype="multipart/form-data">
+
+                            <legend>自定义</legend>
+                            <div class="col-xs-12">
+                                <!--下拉选择 无键值-->
+                                <div class="col-xs-8">
+                                    <div class="form-group">
+                                        <label class="col-xs-2 control-label">上传文件(组)</label>
+                                        <div class="col-xs-10">
+                                            <input type="file" class="btn btn-default" id="exampleInputFile1"
+                                                   name="file_name">
+                                            <p class="help-block">
+                                                提示信息
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xs-12">
+                                <!--下拉选择 无键值-->
+                                <div class="col-xs-8">
+                                    <div class="form-group">
+                                        <label class="col-xs-2 control-label">上传文件(组)</label>
+                                        <div class="col-xs-10">
+                                            <input type="file" class="btn btn-default" id="exampleInputFile1"
+                                                   name="file_name">
+                                            <p class="help-block">
+                                                提示信息
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xs-12">
+                                <!--下拉选择 无键值-->
+                                <div class="col-xs-8">
+                                    <div class="form-group">
+                                        <label class="col-xs-2 control-label">上传文件</label>
+                                        <div class="col-xs-10">
+                                            <input type="file" class="btn btn-default" id="exampleInputFile1"
+                                                   name="file_name2">
+                                            <p class="help-block">
+                                                提示信息
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <div class="col-xs-12">
+                                <!--输入字段-->
+                                <div class="col-xs-4">
+                                    <div class="form-group">
+                                        <label class="col-xs-4 control-label">附带数据:</label>
+                                        <div class="col-xs-8">
+                                            <input class="form-control" placeholder="提示信息" type="text" value="hello"
+                                                   name="data_name">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!--输入字段-->
+                                <div class="col-xs-8">
+                                    <div class="form-group">
+                                        <label class="col-xs-2 control-label">附带数据(组):</label>
+                                        <div class="col-xs-5">
+                                            <input class="form-control" placeholder="提示信息" type="text" value="value1"
+                                                   name="data_name_2[]">
+                                        </div>
+                                        <div class="col-xs-5">
+                                            <input class="form-control" placeholder="提示信息" type="text" value="value2"
+                                                   name="data_name_2[]">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <div class="col-xs-8">
+                                <hr class="simple">
+                                <div class="col-xs-12 text-center">
+                                    <button class="btn btn-primary " type="submit">
+                                        <i class="fa fa-save"></i>
+                                        确认上传
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                        <form class="form-horizontal" method="post" action="/template/upload/any" id=""
+                              enctype="multipart/form-data">
+
+                            <legend>任意文件</legend>
+                            <div class="col-xs-12">
+                                <!--下拉选择 无键值-->
+                                <div class="col-xs-8">
+                                    <div class="form-group">
+                                        <label class="col-xs-2 control-label">上传文件(组)</label>
+                                        <div class="col-xs-10">
+                                            <input type="file" class="btn btn-default" id="exampleInputFile1"
+                                                   name="file_name_a">
+                                            <p class="help-block">
+                                                提示信息
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xs-12">
+                                <!--下拉选择 无键值-->
+                                <div class="col-xs-8">
+                                    <div class="form-group">
+                                        <label class="col-xs-2 control-label">上传文件(组)</label>
+                                        <div class="col-xs-10">
+                                            <input type="file" class="btn btn-default" id="exampleInputFile1"
+                                                   name="file_name_a">
+                                            <p class="help-block">
+                                                提示信息
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xs-12">
+                                <!--下拉选择 无键值-->
+                                <div class="col-xs-8">
+                                    <div class="form-group">
+                                        <label class="col-xs-2 control-label">上传文件</label>
+                                        <div class="col-xs-10">
+                                            <input type="file" class="btn btn-default" id="exampleInputFile1"
+                                                   name="file_name_b">
+                                            <p class="help-block">
+                                                提示信息
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <div class="col-xs-12">
+                                <!--输入字段-->
+                                <div class="col-xs-4">
+                                    <div class="form-group">
+                                        <label class="col-xs-4 control-label">附带数据:</label>
+                                        <div class="col-xs-8">
+                                            <input class="form-control" placeholder="提示信息" type="text" value="hello"
+                                                   name="data_name">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!--输入字段-->
+                                <div class="col-xs-8">
+                                    <div class="form-group">
+                                        <label class="col-xs-2 control-label">附带数据(组):</label>
+                                        <div class="col-xs-5">
+                                            <input class="form-control" placeholder="提示信息" type="text" value="value1"
+                                                   name="data_name_2[]">
+                                        </div>
+                                        <div class="col-xs-5">
+                                            <input class="form-control" placeholder="提示信息" type="text" value="value2"
+                                                   name="data_name_2[]">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <div class="col-xs-8">
+                                <hr class="simple">
+                                <div class="col-xs-12 text-center">
+                                    <button class="btn btn-primary " type="submit">
+                                        <i class="fa fa-save"></i>
+                                        确认上传
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+
+
+                    </div>
+                    <!-- end row -->
+
+                </div>
+                <!-- end col -->
+            </div>
+            <!-- end row -->
+        </div>
+        <!-- end well -->
+
+
+    </div>
+    <!-- END MAIN CONTENT -->
+
+</div>
+<!-- END MAIN PANEL -->
+
+<%- include('../layouts/footer'); %>
+<%- include('../layouts/footer_common_script'); %>
+
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+
+        /* DO NOT REMOVE : GLOBAL FUNCTIONS!
+         *
+         * pageSetUp(); WILL CALL THE FOLLOWING FUNCTIONS
+         *
+         * // activate tooltips
+         * $("[rel=tooltip]").tooltip();
+         *
+         * // activate popovers
+         * $("[rel=popover]").popover();
+         *
+         * // activate popovers with hover states
+         * $("[rel=popover-hover]").popover({ trigger: "hover" });
+         *
+         * // activate inline charts
+         * runAllCharts();
+         *
+         * // setup widgets
+         * setup_widgets_desktop();
+         *
+         * // run form elements
+         * runAllForms();
+         *
+         ********************************
+         *
+         * pageSetUp() is needed whenever you load a page.
+         * It initializes and checks for all basic elements of the page
+         * and makes rendering easier.
+         *
+         */
+
+        pageSetUp();
+
+        /*
+         * ALL PAGE RELATED SCRIPTS CAN GO BELOW HERE
+         * eg alert("my home function");
+         *
+         * var pagefunction = function() {
+         *   ...
+         * }
+         * loadScript("js/plugin/_PLUGIN_NAME_.js", pagefunction);
+         *
+         * TO LOAD A SCRIPT:
+         * var pagefunction = function (){
+         *  loadScript(".../plugin.js", run_after_loaded);
+         * }
+         *
+         * OR
+         *
+         * loadScript(".../plugin.js", run_after_loaded);
+         */
+
+        $("#create-customer").validationEngine('attach', {
+            onValidationComplete: function (form, status) {
+                alert("The form status is: " + status + ", it will never submit");
+            }
+        })
+
+
+        DWY_area.init({
+            //可不填
+            target: '.dwy-area',
+            province: '.dwy-province',
+            city: '.dwy-city',
+            district: '.dwy-district'
+        });
+
+
+        $(".fg-date-picker").flatpickr(data_time_picker.data_picker); // jQuery
+
+        $(".fg-date-time-picker").flatpickr(data_time_picker.data_time_picker); // jQuery
+
+        $(".fg-time-picker").flatpickr(data_time_picker.time_picker); // jQuery
+
+        $(".fg-custom-picker").flatpickr({
+            //最早可选时间
+            minDate: new Date(), // "today" / "2016-12-20" / 1477673788975
+
+            //最晚可选时间
+            maxDate: "2017-12-20",
+
+            //是否启用时分秒
+            enableTime: true,
+
+            dateFormat: 'Y-m-d H:i:S'
+
+            // create an extra input solely for display purposes
+//            altInput: true,
+//            altFormat: "F j, Y h:i K"
+        });
+
+
+        var pageFunction = function () {
+
+        }
+
+        pageFunction();
+
+    })
+
+</script>
+
+
+<%- include('../layouts/foot'); %>

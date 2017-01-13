@@ -1,0 +1,338 @@
+<%- include('layouts/head_top'); %>
+<%- include('layouts/head_bottom'); %>
+
+<style>
+    .smart-style-2 nav > ul > li > a {
+        padding-top: 16px;
+        padding-bottom: 16px;
+        width: 98%;
+    }
+
+    nav ul span.menu-item-parent {
+        font-size: 14px;
+    }
+
+    .well {
+        padding: 10px 15px;
+    }
+
+    .search-form {
+        width: 1200px;
+        float: none;
+        margin: auto;
+        padding-top: 20px;
+    }
+
+    @media (min-width: 768px) {
+        .form-horizontal .control-label {
+            text-align: right;
+            margin-bottom: 0;
+            padding-top: 7px;
+            padding-left: 5px;
+            padding-right: 5px;
+        }
+    }
+
+    .tight-left[class^="col-xs"] {
+        padding-left: 5px;
+    }
+
+    .tight-right[class^="col-xs"] {
+        padding-right: 5px;
+    }
+
+    .search-form > form > div > div {
+
+    }
+
+    #content {
+        min-height: 800px;
+    }
+</style>
+
+<%- include('layouts/header'); %>
+<%- include('layouts/nav'); %>
+
+
+<!-- MAIN PANEL -->
+<div id="main" role="main">
+
+    <!-- RIBBON -->
+    <div id="ribbon">
+
+        <!-- breadcrumb -->
+        <ol class="breadcrumb">
+            <li>后台管理</li>
+            <li>订单管理页面</li>
+        </ol>
+        <!-- end breadcrumb -->
+
+        <!-- You can also add more buttons to the
+        ribbon for further usability
+
+        Example below:
+
+        <span class="ribbon-button-alignment pull-right">
+        <span id="search" class="btn btn-ribbon hidden-xs" data-title="search"><i class="fa-grid"></i> Change Grid</span>
+        <span id="add" class="btn btn-ribbon hidden-xs" data-title="add"><i class="fa-plus"></i> Add</span>
+        <span id="search" class="btn btn-ribbon" data-title="search"><i class="fa-search"></i> <span class="hidden-mobile">Search</span></span>
+        </span> -->
+
+    </div>
+    <!-- END RIBBON -->
+
+
+    <!-- MAIN CONTENT -->
+    <div id="content">
+
+
+        <!--
+            The ID "widget-grid" will start to initialize all widgets below
+            You do not need to use widgets if you dont want to. Simply remove
+            the <section></section> and you can use wells or panels instead
+            -->
+
+
+        <!-- well -->
+        <div class="well">
+            <!-- row -->
+            <div class="row">
+                <!-- col -->
+                <div class="col-xs-12">
+                    <!--<legend>客户搜索</legend>-->
+                    <!-- row -->
+                    <div class="row search-form">
+                        <form class="form-horizontal" method="get">
+
+                            <div class="col-xs-12">
+
+                                <!--输入字段-->
+                                <div class="col-xs-4">
+                                    <div class="form-group">
+                                        <label class="col-xs-4 control-label">客户号:</label>
+                                        <div class="col-xs-8">
+                                            <input class="form-control" placeholder="请输入客户号" type="text" value="<%= DWYRequest.query.cid %>" name="cid">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-xs-4">
+                                    <div class="form-group">
+                                        <label class="col-xs-4 control-label">客户手机:</label>
+                                        <div class="col-xs-8">
+                                            <input class="form-control" placeholder="请输入客户手机" type="text" value="<%= DWYRequest.query.mobile %>" name="mobile">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-xs-4">
+                                    <div class="form-group">
+                                        <label class="col-xs-4 control-label">订单品牌:</label>
+                                        <div class="col-xs-8">
+                                            <select class="form-control" name="brandId">
+                                                <option value="">- 请选择 -</option>
+                                                <%
+                                                brandInfo.forEach(function (element) { %>
+                                                <option value="<%= element.id %>" <%= (DWYRequest.query.brandId == element.id)?"selected":"" %> ><%= element.name %></option>
+                                                <%  }) %>
+                                            </select>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xs-12">
+                                <div class="col-xs-4">
+                                    <div class="form-group">
+                                        <label class="col-xs-3 control-label">建单日期:</label>
+                                        <div class="col-xs-4">
+                                            <input class="form-control fg-date-time-picker" placeholder="" type="text" value="<%= DWYRequest.query.startDate%>"
+                                                   name="startDate">
+                                        </div>
+                                        <label class="col-xs-1 control-label "> 至 </label>
+                                        <div class="col-xs-4">
+                                            <input class="form-control fg-date-time-picker" placeholder="" type="text" value="<%= DWYRequest.query.endDate%>"
+                                                   name="endDate">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xs-4">
+                                    <div class="form-group">
+                                        <label class="col-xs-3 control-label">订单状态:</label>
+                                        <div class="col-xs-4 tight-right">
+                                            <select class="form-control" name="startCode">
+                                                <option value="">- 起始 请选择 -</option>
+                                                <%
+                                                stcodeInfo.forEach(function (element) { %>
+                                                <option value="<%= element.id %>" <%= (DWYRequest.query.startCode == element.id)?"selected":"" %>><%= element.name %></option>
+                                                <%  }) %>
+                                            </select>
+                                        </div>
+                                        <label class="col-xs-1 control-label "> 至 </label>
+                                        <div class="col-xs-4 ">
+                                            <select class="form-control" name="endCode">
+                                                <option value="">- 截止 请选择 -</option>
+                                                <%
+                                                stcodeInfo.forEach(function (element) { %>
+                                                <option value="<%= element.id %>" <%= (DWYRequest.query.endCode == element.id)?"selected":"" %>><%= element.name %></option>
+                                                <%  }) %>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-xs-12">
+                                <hr class="simple">
+                                <div class="col-xs-12">
+                                    <button class="btn btn-primary " type="submit">
+                                        <i class="fa fa-save"></i>
+                                        确认
+                                    </button>
+                                </div>
+                            </div>
+
+                        </form>
+                    </div>
+                    <!-- end row -->
+                </div>
+                <!-- end col -->
+            </div>
+            <!-- end row -->
+        </div>
+        <!-- end well -->
+
+        <div class="well">
+
+            <!-- row -->
+            <div class="row">
+                <div class="col-xs-12">
+                    <h6>订单列表</h6>
+                    <hr class="simple">
+                </div>
+            </div>
+
+            <!-- row -->
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-striped">
+                            <thead>
+                            <tr>
+                                <th>序号</th>
+                                <th>客户号</th>
+                                <th>客户姓名</th>
+                                <th>订单号</th>
+                                <th>品牌</th>
+                                <th>产品类型</th>
+                                <th>空间类型</th>
+                                <th>订单所属柜员/门店</th>
+                                <th>预计发货时间</th>
+                                <th>订单状态</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <%
+                            var num = 1;
+                            orderList.result.forEach(function (element) { %>
+                            <tr>
+                                <td><%= num %></td>
+                                <td><%= element.cid %></td>
+                                <td><%= element.name %></td>
+                                <td><%= element.tid %></td>
+                                <td><%= getAssistVal(element.brandId,brandInfo) %></td>
+                                <td><%= getAssistVal(element.prodType,prodInfo) %></td>
+                                <td><%= element.spaceName %></td>
+                                <td><%= element.gid %>/<%= element.bid %></td>
+                                <td><%= getLocalDate(element.deliveryDate) %></td>
+                                <td><%= getAssistVal(element.stcode,stcodeInfo) %></td>
+                            </tr>
+                            <% num++ }) %>
+
+                            </tbody>
+                        </table>
+                        <%- pagination %>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- END MAIN CONTENT -->
+
+</div>
+<!-- END MAIN PANEL -->
+
+<%- include('layouts/footer'); %>
+<%- include('layouts/footer_common_script'); %>
+
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+
+        /* DO NOT REMOVE : GLOBAL FUNCTIONS!
+         *
+         * pageSetUp(); WILL CALL THE FOLLOWING FUNCTIONS
+         *
+         * // activate tooltips
+         * $("[rel=tooltip]").tooltip();
+         *
+         * // activate popovers
+         * $("[rel=popover]").popover();
+         *
+         * // activate popovers with hover states
+         * $("[rel=popover-hover]").popover({ trigger: "hover" });
+         *
+         * // activate inline charts
+         * runAllCharts();
+         *
+         * // setup widgets
+         * setup_widgets_desktop();
+         *
+         * // run form elements
+         * runAllForms();
+         *
+         ********************************
+         *
+         * pageSetUp() is needed whenever you load a page.
+         * It initializes and checks for all basic elements of the page
+         * and makes rendering easier.
+         *
+         */
+
+        pageSetUp();
+
+        /*
+         * ALL PAGE RELATED SCRIPTS CAN GO BELOW HERE
+         * eg alert("my home function");
+         *
+         * var pagefunction = function() {
+         *   ...
+         * }
+         * loadScript("js/plugin/_PLUGIN_NAME_.js", pagefunction);
+         *
+         * TO LOAD A SCRIPT:
+         * var pagefunction = function (){
+         *  loadScript(".../plugin.js", run_after_loaded);
+         * }
+         *
+         * OR
+         *
+         * loadScript(".../plugin.js", run_after_loaded);
+         */
+
+        var pageFunction = function () {
+
+        }
+
+        $(".fg-date-time-picker").flatpickr(data_time_picker.data_time_picker); // jQuery
+
+        pageFunction();
+
+    })
+
+</script>
+
+
+<%- include('layouts/foot'); %>

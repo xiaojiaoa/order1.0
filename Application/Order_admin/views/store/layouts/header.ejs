@@ -1,0 +1,160 @@
+<!--
+
+TABLE OF CONTENTS.
+
+Use search to find needed section.
+
+===================================================================
+
+|  01. #CSS Links                |  all CSS links and file paths  |
+|  02. #FAVICONS                 |  Favicon links and file paths  |
+|  03. #GOOGLE FONT              |  Google font link              |
+|  04. #APP SCREEN / ICONS       |  app icons, screen backdrops   |
+|  05. #BODY                     |  body tag                      |
+|  06. #HEADER                   |  header tag                    |
+|  07. #PROJECTS                 |  project lists                 |
+|  08. #TOGGLE LAYOUT BUTTONS    |  layout buttons and actions    |
+|  09. #MOBILE                   |  mobile view dropdown          |
+|  10. #SEARCH                   |  search field                  |
+|  11. #NAVIGATION               |  left panel & navigation       |
+|  12. #MAIN PANEL               |  main panel                    |
+|  13. #MAIN CONTENT             |  content holder                |
+|  14. #PAGE FOOTER              |  page footer                   |
+|  15. #SHORTCUT AREA            |  dropdown shortcuts area       |
+|  16. #PLUGINS                  |  all scripts and plugins       |
+
+===================================================================
+
+-->
+
+<!-- #BODY -->
+<!-- Possible Classes
+
+    * 'smart-style-{SKIN#}'
+    * 'smart-rtl'         - Switch theme mode to RTL
+    * 'menu-on-top'       - Switch to top navigation (no DOM change required)
+    * 'no-menu'			  - Hides the menu completely
+    * 'hidden-menu'       - Hides the main menu but still accessable by hovering over left edge
+    * 'fixed-header'      - Fixes the header
+    * 'fixed-navigation'  - Fixes the main menu
+    * 'fixed-ribbon'      - Fixes breadcrumb
+    * 'fixed-page-footer' - Fixes footer
+    * 'container'         - boxed layout mode (non-responsive: will not work with fixed-navigation & fixed-ribbon)
+-->
+<style>
+    .smart-style-2 nav > ul > li > a {
+        padding-top: 16px;
+        padding-bottom: 16px;
+        width: 98%;
+    }
+
+    nav ul span.menu-item-parent {
+        font-size: 14px;
+    }
+
+    .well {
+        padding: 10px 15px;
+    }
+
+    .search-form {
+        min-width: 1200px;
+        float: left;
+        padding-top: 20px;
+    }
+
+    @media (min-width: 768px) {
+        .form-horizontal .control-label {
+            text-align: right;
+            margin-bottom: 0;
+            padding-top: 7px;
+            padding-left: 5px;
+            padding-right: 5px;
+        }
+    }
+
+    .tight-left[class*="col-xs"] {
+        padding-left: 5px;
+    }
+
+    .tight-right[class*="col-xs"] {
+        padding-right: 5px;
+    }
+
+    .search-form > form > div > div {
+
+    }
+
+    #content {
+        min-height: 800px;
+    }
+
+    /*展示型内容*/
+    .dwy-show-well {
+        overflow-x: scroll;
+    }
+
+    .dwy-show-content {
+        /*min-width: 1480px;*/
+        width: 1400px;
+    }
+
+    .dwy-show-content > div.col-xs-12 {
+
+    }
+
+    /*global*/
+
+    .ml-20 {
+        margin-left: 20px;
+    }
+    
+    .from-to{
+        float: left;
+    }
+</style>
+
+
+<body class="fixed-header fixed-navigation fixed-page-footer smart-style-2">
+
+<!-- #HEADER -->
+<header id="header">
+    <!--<div id="logo-group">-->
+
+    <!--&lt;!&ndash; PLACE YOUR LOGO HERE &ndash;&gt;-->
+    <!---->
+    <!--&lt;!&ndash; END LOGO PLACEHOLDER &ndash;&gt;-->
+
+
+    <!--&lt;!&ndash; END AJAX-DROPDOWN &ndash;&gt;-->
+    <!--</div>-->
+    <div style="color: #fff;line-height: 30px;padding: 10px 30px;font-size: 24px;width: 400px;font-style: italic;">布兰沙 -
+        门店管理系统
+    </div>
+
+    <!-- #TOGGLE LAYOUT BUTTONS -->
+    <!-- pulled right: nav area -->
+    <div class="pull-right">
+
+        <!-- collapse menu button -->
+        <div id="hide-menu" class="btn-header pull-right">
+            <span> <a href="javascript:void(0);" data-action="toggleMenu" title="Collapse Menu"><i
+                            class="fa fa-reorder"></i></a> </span>
+        </div>
+        <!-- end collapse menu -->
+
+
+        <!-- logout button -->
+        <div id="logout" class="btn-header transparent pull-right">
+            <span>  <a href="\login" title="登出" data-action="userLogout"
+                       data-logout-msg="点击 Yes 确认退出">
+                    &nbsp;<i
+                            class="fa fa-sign-out"> <span style="font-size: 14px;">退出登录</span></i> &nbsp;</a> </span>
+        </div>
+        <!-- end logout button -->
+
+
+    </div>
+    <!-- end pulled right: nav area -->
+
+</header>
+<!-- END HEADER -->

@@ -1,0 +1,248 @@
+//jquery validate engien custom function
+var custom_validate_fn = {
+    //手机验证
+    isMobile: function (field, rules, i, options) {
+        var value = field.val();
+        return (value.length == 11 && /^1[3578]\d{9}$/.test(value)) ? true : '请输入有效的手机号码';
+    },
+
+    //密码验证
+    regexPassword: function (field, rules, i, options) {
+        // -S-密码校验
+        var value = field.val();
+        return /^(?![^a-zA-Z]+$)(?!\D+$).{8,16}$/.test(value) ? true : "8-16位字符，其中包括至少一个字母和一个数字";
+    },
+    //邮箱验证
+    isEMail: function (field, rules, i, options) {
+        var value = field.val();
+        return (/^\w+((-\w+)|(\.\w+))*\@[A-Za-z0-9]+((\.|-)[A-Za-z0-9]+)*\.[A-Za-z0-9]+$/.test(value)) ? true : '请输入正确的邮箱格式';
+    },
+    //身份证验证
+    // -S-身份证验证
+    isIdCardNo: function (field, rules, i, options) {
+
+        function isDate6(sDate) {
+            if (!/^[0-9]{6}$/.test(sDate)) {
+                return false;
+            }
+            var year, month, day;
+            year = sDate.substring(0, 4);
+            month = sDate.substring(4, 6);
+            if (year < 1700 || year > 2500) return false
+            if (month < 1 || month > 12) return false
+            return true
+        }
+
+        function isDate8(sDate) {
+            if (!/^[0-9]{8}$/.test(sDate)) {
+                return false;
+            }
+            var year, month, day;
+            year = sDate.substring(0, 4);
+            month = sDate.substring(4, 6);
+            day = sDate.substring(6, 8);
+            var iaMonthDays = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+            if (year < 1700 || year > 2500) return false;
+            if (((year % 4 == 0) && (year % 100 != 0)) || (year % 400 == 0)) iaMonthDays[1] = 29;
+            if (month < 1 || month > 12) return false;
+            if (day < 1 || day > iaMonthDays[month - 1]) return false;
+            return true
+        }
+
+        function isIdCardNo(num) {
+            var factorArr = [7, 9, 10, 5, 8, 4, 2, 1, 6, 3, 7, 9, 10, 5, 8, 4, 2, 1];
+            var parityBit = ["1", "0", "X", "9", "8", "7", "6", "5", "4", "3", "2"];
+            var varArray = [];
+            var intValue;
+            var lngProduct = 0;
+            var intCheckDigit;
+            var intStrLen = num.length;
+            var idNumber = num;
+            // initialize
+            if ((intStrLen != 15) && (intStrLen != 18)) {
+                return false;
+            }
+            // check and set value
+            for (i = 0; i < intStrLen; i++) {
+                varArray[i] = idNumber.charAt(i);
+                if ((varArray[i] < '0' || varArray[i] > '9') && (i != 17)) {
+                    return false;
+                } else if (i < 17) {
+                    varArray[i] = varArray[i] * factorArr[i];
+                }
+            }
+            if (intStrLen == 18) {
+                //check date
+                var date8 = idNumber.substring(6, 14);
+                if (isDate8(date8) == false) {
+                    return false;
+                }
+                // calculate the sum of the products
+                for (i = 0; i < 17; i++) {
+                    lngProduct = lngProduct + varArray[i];
+                }
+                // calculate the check digit
+                intCheckDigit = parityBit[lngProduct % 11];
+                // check last digit
+                if (varArray[17] != intCheckDigit) {
+                    return false;
+                }
+            }
+            else {        //length is 15
+                //check date
+                var date6 = idNumber.substring(6, 12);
+                if (isDate6(date6) == false) {
+                    return false;
+                }
+            }
+            return true;
+        }
+
+        // -S-密码校验
+        var value = field.val();
+        return isIdCardNo(value) ? true : "请正确输入您的身份证号码";
+    },
+
+};
+
+var data_time_picker = {
+    data_picker: {
+        dateFormat: 'Y-m-d',
+        locale: "zh"
+    },
+    data_time_picker: {
+        dateFormat: 'Y-m-d H:i:S',
+        locale: "zh",
+        enableTime: true,
+    },
+    time_picker: {
+        dateFormat: 'H:i:S',
+        locale: "zh",
+        noCalendar: true,
+        enableTime: true,
+    }
+}
+
+var DWY_area = {
+    area: {},
+    getAreaList: function (id, callback) {
+
+        if (DWY_area.area[id]) {
+            callback ? callback(DWY_area.area[id]) : '';
+            return;
+        }
+
+        $.ajax({
+            url: '/cascade/api/areas' + (((id != 'province') && id) ? '?id=' + id : ''),
+            method: "get",
+            success: function (data) {
+                //console.log(data);
+                if (id)
+                    DWY_area.area[id] = data;
+                else
+                    DWY_area.area.province = data;
+
+                //有回调执行回调
+                callback ? callback(data) : '';
+            }
+        })
+    },
+    refreshCity: function ($city, $district, province_id) {
+
+        $city.find('option').remove();
+
+        DWY_area.getAreaList(province_id, function (data) {
+            var city_option_list = [];
+            if (data.length > 1) {
+                //多个选项
+                city_option_list.push(new Option('- 市 -'));
+                for (var i in data) {
+                    city_option_list.push(new Option(data[i].name, data[i].id));
+                }
+                $city.append($(city_option_list).clone());
+
+                DWY_area.clearDistrict($district);
+
+            } else {
+                //如果只有一个选项
+                $city.append($(new Option(data[0].name, data[0].id)).attr('selected', true));
+                $city.trigger('change');
+            }
+
+        })
+    },
+    refreshDistrict: function ($district, city_id) {
+
+        $district.find('option').remove();
+
+
+        DWY_area.getAreaList(city_id, function (data) {
+            var district_option_list = [];
+            if (data.length > 1) {
+                //多个选项
+                district_option_list.push(new Option('- 区 -'));
+                for (var i in data) {
+                    district_option_list.push(new Option(data[i].name, data[i].id));
+                }
+                $district.append($(district_option_list).clone());
+
+            } else {
+                //如果只有一个选项
+                $district.append($(new Option(data[0].name, data[0].id)).attr('selected', true));
+            }
+
+        })
+    },
+    clearDistrict: function ($district) {
+        $district.find('option').remove();
+        $district.append(new Option('- 区 -'));
+    },
+    init: function (config) {
+        var _config = config || {};
+        _config.target = _config.target || '.dwy-area';
+        _config.province = _config.province || '.dwy-province';
+        _config.city = _config.city || '.dwy-city';
+        _config.district = _config.district || '.dwy-district';
+
+        if (!_config.target) {
+            console.log('目标不存在!')
+        }
+
+        DWY_area.getAreaList('province', function (data) {
+
+            var province_option_list = [];
+
+            province_option_list.push(new Option('- 省 -'));
+
+            for (var i in data) {
+                province_option_list.push(new Option(data[i].name, data[i].id));
+            }
+
+
+            $(_config.target).each(function (index, element) {
+                var area_select = $(element);
+                var province = area_select.find(_config.province);
+                var city = area_select.find(_config.city);
+                var district = area_select.find(_config.district);
+
+                province.find('option').remove();
+                province.append($(province_option_list).clone());
+
+
+                province.on({
+                    change: function (e) {
+                        var province_id = $(this).val();
+                        DWY_area.refreshCity(city, district, province_id);
+                    }
+                })
+                city.on({
+                    change: function (e) {
+                        var city_id = $(this).val();
+                        DWY_area.refreshDistrict(district, city_id);
+                    }
+                })
+            })
+        })
+
+    }
+}

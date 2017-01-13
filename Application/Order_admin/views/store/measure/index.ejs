@@ -1,0 +1,458 @@
+<%- include('../layouts/head_top'); %>
+<%- include('../layouts/head_bottom'); %>
+<%- include('../layouts/header'); %>
+<%- include('../layouts/nav'); %>
+
+
+<!-- MAIN PANEL -->
+<div id="main" role="main">
+
+    <!-- RIBBON -->
+    <div id="ribbon">
+
+        <!-- breadcrumb -->
+        <ol class="breadcrumb">
+            <li>后台管理</li>
+            <li>量尺录入</li>
+        </ol>
+        <!-- end breadcrumb -->
+
+        <!-- You can also add more buttons to the
+        ribbon for further usability
+
+        Example below:
+
+        <span class="ribbon-button-alignment pull-right">
+        <span id="search" class="btn btn-ribbon hidden-xs" data-title="search"><i class="fa-grid"></i> Change Grid</span>
+        <span id="add" class="btn btn-ribbon hidden-xs" data-title="add"><i class="fa-plus"></i> Add</span>
+        <span id="search" class="btn btn-ribbon" data-title="search"><i class="fa-search"></i> <span class="hidden-mobile">Search</span></span>
+        </span> -->
+
+    </div>
+    <!-- END RIBBON -->
+
+
+    <!-- MAIN CONTENT -->
+    <div id="content">
+
+
+        <!--
+            The ID "widget-grid" will start to initialize all widgets below
+            You do not need to use widgets if you dont want to. Simply remove
+            the <section></section> and you can use wells or panels instead
+            -->
+
+
+        <!-- well -->
+        <div class="well">
+            <!-- row -->
+            <div class="row">
+                <!-- col -->
+                <div class="col-xs-12">
+                    <legend>新增量尺信息</legend>
+
+
+                    <!-- row -->
+                    <div class="row search-form">
+                        <form class="form-horizontal" method="post" action="/measure/doCreate">
+
+
+                            <div class="col-xs-12">
+
+                                <!--键值+下拉选择+输入组合-->
+                                <div class="col-xs-4">
+                                    <div class="form-group">
+                                        <label class="col-xs-4 control-label "> 客户号: </label>
+                                        <div class="col-xs-5 tight-right">
+                                            <input class="form-control" placeholder="客户号" type="text"
+                                                   name="cid" value="<%= custInfo.cid %>">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!--键值+下拉选择+输入组合-->
+                                <div class="col-xs-4">
+                                    <div class="form-group">
+                                        <label class="col-xs-4 control-label "> 客户姓名: </label>
+                                        <div class="col-xs-5 tight-right">
+                                            <input class="form-control" placeholder="客户姓名" type="text"
+                                                   name="custName" value=<%= custInfo.custName %>>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div class="col-xs-12">
+
+                                <!--键值+下拉选择+输入组合-->
+                                <div class="col-xs-4">
+                                    <div class="form-group">
+                                        <label class="col-xs-4 control-label "> 客户电话: </label>
+                                        <div class="col-xs-5 tight-right">
+                                            <input class="form-control" placeholder="客户电话" type="text"
+                                                   name="mobile" value=<%= custInfo.custMobile %>>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!--键值+下拉选择+输入组合-->
+                                <div class="col-xs-4">
+                                    <div class="form-group">
+                                        <label class="col-xs-4 control-label "> 设计师: </label>
+                                        <div class="col-xs-5 tight-right">
+                                            <input class="form-control" placeholder="设计师" type="text"
+                                                   name="desName" value=<%= custInfo.desName %>>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div class="col-xs-12">
+
+                                <!--键值+下拉选择+输入组合-->
+                                <div class="col-xs-4">
+                                    <div class="form-group">
+                                        <label class="col-xs-4 control-label "> 量尺时间: </label>
+                                        <div class="col-xs-8">
+                                            <input class="form-control fg-date-time-picker" placeholder="" type="text"
+                                                   name="finishTime">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!--键值+下拉选择+输入组合-->
+                                <div class="col-xs-4">
+                                    <div class="form-group">
+                                        <label class="col-xs-4 control-label "> 计划首次沟通时间: </label>
+                                        <div class="col-xs-8">
+                                            <input class="form-control fg-date-time-picker" placeholder="" type="text"
+                                                   name="firstCommTime">
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div class="col-xs-12">
+
+                                <div class="col-xs-4">
+                                    <div class="form-group">
+                                        <label class="col-xs-4 control-label">装修阶段:</label>
+                                        <div class="col-xs-8 tight-right">
+                                            <select class="form-control" name="decoStageId">
+                                                <option>- 起始 请选择 -</option>
+                                                <%
+                                                decoInfo.forEach(function (element) { %>
+                                                <option value="<%= element.id %>"><%= element.name %></option>
+                                                <%  }) %>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-xs-4">
+                                    <div class="form-group">
+                                        <label class="col-xs-4 control-label "> 计划入住时间: </label>
+                                        <div class="col-xs-8">
+                                            <input class="form-control fg-date-picker" placeholder="" type="text"
+                                                   name="planDate">
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div class="col-xs-12">
+
+                                <div class="col-xs-4">
+                                    <div class="form-group">
+                                        <label class="col-xs-4 control-label">量尺性质:</label>
+                                        <div class="col-xs-8 tight-right">
+                                            <select class="form-control" name="measPropId">
+                                                <option value="">- 起始 请选择 -</option>
+                                                <%
+                                                propertyInfo.forEach(function (element) { %>
+                                                <option value="<%= element.id %>"><%= element.name %></option>
+                                                <%  }) %>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-xs-4">
+                                    <div class="form-group">
+                                        <label class="col-xs-4 control-label ">面积: </label>
+                                        <div class="col-xs-5 tight-right">
+                                            <input class="form-control" placeholder="面积" type="area"
+                                                   name="area">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-xs-4">
+                                    <div class="form-group">
+                                        <label class="col-xs-4 control-label "> 房价: </label>
+                                        <div class="col-xs-5 tight-right">
+                                            <input class="form-control" placeholder="房价" type="hsePrice"
+                                                   name="hsePrice">
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div class="col-xs-12">
+
+                                <div class="col-xs-4">
+                                    <div class="form-group">
+                                        <label class="col-xs-4 control-label ">预算: </label>
+                                        <div class="col-xs-5 tight-right">
+                                            <input class="form-control" placeholder="预算" type="text"
+                                                   name="budget">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-xs-4">
+                                    <div class="form-group">
+                                        <label class="col-xs-4 control-label "> 家庭成员: </label>
+                                        <div class="col-xs-8 tight-right">
+                                            <select class="form-control" name="fmlyNumId">
+                                                <option value="">- 起始 请选择 -</option>
+                                                <%
+                                                memberInfo.forEach(function (element) { %>
+                                                <option value="<%= element.id %>"><%= element.name %></option>
+                                                <%  }) %>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-xs-4">
+                                    <div class="form-group">
+                                        <label class="col-xs-4 control-label">孩子性别:</label>
+                                        <div class="col-xs-8 tight-right">
+                                            <select class="form-control" name="children">
+                                                <option value="">- 起始 请选择 -</option>
+                                                <option value="1">男孩</option>
+                                                <option value="2">女孩</option>
+                                                <option value="3">男孩女孩都有</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div class="col-xs-12">
+
+                                <div class="col-xs-4">
+                                    <div class="form-group">
+                                        <label class="col-xs-4 control-label">装修风格:</label>
+                                        <div class="col-xs-8 tight-right">
+                                            <select class="form-control" name="decoStyleId">
+                                                <option value="">- 起始 请选择 -</option>
+                                                <%
+                                                styleInfo.forEach(function (element) { %>
+                                                <option value="<%= element.id %>"><%= element.name %></option>
+                                                <%  }) %>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-xs-4">
+                                    <div class="form-group">
+                                        <label class="col-xs-4 control-label">喜欢主材颜色:</label>
+                                        <div class="col-xs-8 tight-right">
+                                            <select class="form-control" name="decoColorId">
+                                                <option value="">- 起始 请选择 -</option>
+                                                <%
+                                                colorInfo.forEach(function (element) { %>
+                                                <option value="<%= element.id %>"><%= element.name %></option>
+                                                <%  }) %>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-xs-4">
+                                    <div class="form-group">
+                                        <label class="col-xs-4 control-label ">客户职业: </label>
+                                        <div class="col-xs-5 tight-right">
+                                            <input class="form-control" placeholder="客户职业" type="text"
+                                                   name="custOcp">
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div class="col-xs-12">
+                                <div class="col-xs-4">
+                                    <div class="form-group">
+                                        <label class="col-xs-4 control-label ">户型厅数量: </label>
+                                        <div class="col-xs-5 tight-right">
+                                            <input class="form-control" placeholder="户型厅数量" type="text"
+                                                   name="hseTypeLiving">
+                                        </div>
+                                    </div>
+                                 </div>
+                                <div class="col-xs-4">
+                                    <div class="form-group">
+                                        <label class="col-xs-4 control-label ">户型房数量: </label>
+                                        <div class="col-xs-5 tight-right">
+                                            <input class="form-control" placeholder="户型房数量" type="text"
+                                                   name="hseTypeBed">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xs-4">
+                                    <div class="form-group">
+                                        <label class="col-xs-4 control-label ">户型厨数量: </label>
+                                        <div class="col-xs-5 tight-right">
+                                            <input class="form-control" placeholder="户型厨数量" type="text"
+                                                   name="hseTypeKit">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xs-4">
+                                    <div class="form-group">
+                                        <label class="col-xs-4 control-label ">户型卫数量: </label>
+                                        <div class="col-xs-5 tight-right">
+                                            <input class="form-control" placeholder="户型卫数量" type="text"
+                                                   name="hseTypeWashin">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xs-4">
+                                    <div class="form-group">
+                                        <div class="col-xs-5 tight-right">
+                                            <input class="form-control" placeholder="流水号" type="hidden"
+                                                   name="lid" value=<%= lid %> >
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <div class="col-xs-12">
+
+                                <!--输入字段-->
+                                <div class="col-xs-8">
+                                    <div class="form-group">
+                                        <label class="col-xs-2 control-label">备注:</label>
+                                        <div class="col-xs-10">
+                                            <textarea name="remark" class="form-control" placeholder="请填写备注" id="" cols="30"
+                                                      rows="5"></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div class="col-xs-8">
+                                <hr class="simple">
+                                <div class="col-xs-12 text-center">
+                                    <button class="btn btn-primary " type="submit">
+                                        <i class="fa fa-save"></i>
+                                        确认添加
+                                    </button>
+                                </div>
+                            </div>
+
+                        </form>
+                    </div>
+                    <!-- end row -->
+
+                </div>
+                <!-- end col -->
+            </div>
+            <!-- end row -->
+        </div>
+        <!-- end well -->
+
+
+    </div>
+    <!-- END MAIN CONTENT -->
+
+</div>
+<!-- END MAIN PANEL -->
+
+<%- include('../layouts/footer'); %>
+<%- include('../layouts/footer_common_script'); %>
+
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+
+        /* DO NOT REMOVE : GLOBAL FUNCTIONS!
+         *
+         * pageSetUp(); WILL CALL THE FOLLOWING FUNCTIONS
+         *
+         * // activate tooltips
+         * $("[rel=tooltip]").tooltip();
+         *
+         * // activate popovers
+         * $("[rel=popover]").popover();
+         *
+         * // activate popovers with hover states
+         * $("[rel=popover-hover]").popover({ trigger: "hover" });
+         *
+         * // activate inline charts
+         * runAllCharts();
+         *
+         * // setup widgets
+         * setup_widgets_desktop();
+         *
+         * // run form elements
+         * runAllForms();
+         *
+         ********************************
+         *
+         * pageSetUp() is needed whenever you load a page.
+         * It initializes and checks for all basic elements of the page
+         * and makes rendering easier.
+         *
+         */
+
+        pageSetUp();
+
+        /*
+         * ALL PAGE RELATED SCRIPTS CAN GO BELOW HERE
+         * eg alert("my home function");
+         *
+         * var pagefunction = function() {
+         *   ...
+         * }
+         * loadScript("js/plugin/_PLUGIN_NAME_.js", pagefunction);
+         *
+         * TO LOAD A SCRIPT:
+         * var pagefunction = function (){
+         *  loadScript(".../plugin.js", run_after_loaded);
+         * }
+         *
+         * OR
+         *
+         * loadScript(".../plugin.js", run_after_loaded);
+         */
+
+        var pageFunction = function () {
+
+        }
+
+        $(".fg-date-picker").flatpickr(data_time_picker.data_picker); // jQuery
+
+        $(".fg-date-time-picker").flatpickr(data_time_picker.data_time_picker); // jQuery
+
+        pageFunction();
+
+    })
+
+</script>
+
+
+<%- include('../layouts/foot'); %>
