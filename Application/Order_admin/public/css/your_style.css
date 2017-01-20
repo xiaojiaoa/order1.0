@@ -1,19 +1,72 @@
-/*
- * It is advised not to edit the smartadmin_production.css
- * as this will override any changes you make in the 
- * later versions of this theme. 
- * 
- * We advise that you use use this CSS to override 
- * SmartAdmin styles. 
- * 
- * Rename the stylesheet to whatever your liking so it will stay
- * unique to you with each update of SmartAdmin.
- */
+.smart-style-2 nav > ul > li > a {
+    padding-top: 16px;
+    padding-bottom: 16px;
+    width: 98%;
+}
 
-/*
- * INDEX
- * 
- * - HTML
- * - BODY
- * - CUSTOM STYLES
- */
+nav ul span.menu-item-parent {
+    font-size: 14px;
+}
+
+.well {
+    padding: 10px 15px;
+}
+
+.search-form {
+    width: 1200px;
+    float: none;
+    margin: auto;
+    padding-top: 20px;
+}
+
+@media (min-width: 768px) {
+    .form-horizontal .control-label {
+        text-align: right;
+        margin-bottom: 0;
+        padding-top: 7px;
+        padding-left: 5px;
+        padding-right: 5px;
+    }
+}
+
+.tight-left[class^="col-xs"] {
+    padding-left: 5px;
+}
+
+.tight-right[class^="col-xs"] {
+    padding-right: 5px;
+}
+
+.search-form > form > div > div {
+
+}
+
+#content {
+    min-height: 800px;
+}
+
+.mark-row{
+    background: #fdcc9c;
+}
+
+
+.flatpickr-input[readonly] {
+    background-color: #fff;
+}
+
+.table-information tr td:nth-of-type(2n+1){
+    background: rgba(216, 212, 212, 0.5);
+
+}
+.table-noneinf tr td:nth-of-type(2n+1){
+    background: transparent;
+}
+.order-number{
+    margin-right: 20px;
+}
+.tab-operate{
+    margin-left: 20px;
+}
+.margin-left-20{
+    margin-left: 20px;
+}

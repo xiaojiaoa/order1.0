@@ -55,6 +55,46 @@ var IndexController = require('./Controller/IndexController');
 router.get('/', Middleware.AuthCheck, IndexController.indexPage);
 
 /*
+ * 页面范围: 客户相关
+ * 控制器:   CustomerController
+ * */
+var CustomerController = require('./Controller/CustomerController');
+
+// 获取客户列表
+router.get('/customers', Middleware.AuthCheck, Middleware.FilterEmptyField, CustomerController.listPage);
+
+// 获取客户详情页面
+router.get('/customer/detail', Middleware.AuthCheck, CustomerController.detailPage);
+// router.get('/customer/detail/:cid', Middleware.AuthCheck, CustomerController.detailPage);
+
+/*
+ * 页面范围: 订单相关
+ * 控制器:   OrderController
+ * */
+var OrderController = require('./Controller/OrderController');
+
+// 订单页面
+router.get('/orders', Middleware.AuthCheck, Middleware.FilterEmptyField, OrderController.listPage);
+
+// 订单详情页面
+// router.get('/order/detail/:tid', Middleware.AuthCheck, OrderController.detailPage);
+router.get('/order/detail', Middleware.AuthCheck, OrderController.detailPage);
+
+// 补单详情页面
+router.get('/order/resupply/detail/:tid/:pid', Middleware.AuthCheck, OrderController.resupplyDetailPage);
+
+
+/*
+ * 页面范围: 任务序列相关
+ * 控制器:   TaskseqController
+ * */
+var TaskseqController = require('./Controller/TaskseqController');
+
+// 流水详情
+router.get('/taskseq/index', Middleware.AuthCheck, TaskseqController.indexPage);
+
+
+/*
  * 页面范围: *模板相关-参考用
  * 控制器:   TemplateController
  * */

@@ -9,7 +9,7 @@ var request = require('request');
 var IndexController = {
 
     indexPage: function (req, res) {
-        res.render('order/index', Base.mergeData(helper.mergeObject({title: '门店登录系统'}, {})));
+        res.render('order/index', Base.mergeData(helper.mergeObject({title: '订单登录系统'}, {})));
     }
 };
 

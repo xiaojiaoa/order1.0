@@ -1,0 +1,412 @@
+<%- include('../layouts/head_top'); %>
+<%- include('../layouts/head_bottom'); %>
+<%- include('../layouts/header'); %>
+<%- include('../layouts/nav'); %>
+
+
+<!-- MAIN PANEL -->
+<div id="main" role="main">
+
+    <!-- RIBBON -->
+    <div id="ribbon">
+
+        <!-- breadcrumb -->
+        <ol class="breadcrumb">
+            <li>后台管理</li>
+            <li>流水信息</li>
+        </ol>
+        <!-- end breadcrumb -->
+
+    </div>
+    <!-- END RIBBON -->
+
+
+    <!-- MAIN CONTENT -->
+    <div id="content">
+
+        <!-- well -->
+        <div class="well dwy-show-well">
+            <!-- row -->
+            <div class="row">
+                <!-- col -->
+                <div class="col-xs-12 dwy-show-content">
+                    <legend>基本信息</legend>
+                    <!-- row -->
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-striped table-information">
+                            <tbody>
+                            <tr>
+                                <td>客户编号</td>
+                                <td><a href="/customer/detail">12345</a></td>
+                                <td>客户姓名</td>
+                                <td>张先生</td>
+                                <td>客户电话</td>
+                                <td>187234654798</td>
+                            </tr>
+                            <tr>
+                                <td>建档日期</td>
+                                <td>2016-10-10 10：10：10</td>
+                                <td>建档人</td>
+                                <td>李四</td>
+                                <td>提交量尺时间</td>
+                                <td>2016-10-10 10：10：10</td>
+                            </tr>
+                            <tr>
+                                <td>设计师</td>
+                                <td>张三</td>
+                                <td>专卖店</td>
+                                <td>A浙江省杭州市西湖区湖滨银泰店</td>
+                                <td>专卖店编号</td>
+                                <td>A12</td>
+                            </tr>
+                            <tr>
+                                <td>量尺空间</td>
+                                <td colspan="3">客餐厅 主卧房 客卧房 儿童房 书房 厨房 门厅 卫生间</td>
+                                <td>希望量尺时间</td>
+                                <td>2016-10-10 10：10：10</td>
+                            </tr>
+                            <tr>
+                                <td>客户地址</td>
+                                <td colspan="3">杭州市西湖区西溪路525号</td>
+                                <td>楼盘位置</td>
+                                <td>浙大科技园（128.23456，<a href="">查看地图</a>）</td>
+                            </tr>
+                            <tr>
+                                <td>客户备注</td>
+                                <td colspan="5">客厅边做个榻榻米</td>
+                            </tr>
+
+                            </tbody>
+                        </table>
+
+                    </div>
+
+
+                    <!-- end row -->
+                </div>
+                <!-- end col -->
+            </div>
+
+            <div class="row">
+                <!-- col -->
+                <div class="col-xs-12 dwy-show-content">
+                    <legend>量尺信息 <a class="pull-right">云端量尺照片</a></legend>
+                    <!-- row -->
+
+                    <table class="table table-bordered table-striped table-information">
+                        <tbody>
+                        <tr>
+                            <td>量尺时间</td>
+                            <td colspan="3">2016-10-10 10：10：10</td>
+                            <td>计划首次沟通时间</td>
+                            <td>2016-10-10 10：10：10</td>
+                        </tr>
+                        <tr>
+                            <td>客户性质</td>
+                            <td>新客户</td>
+                            <td>装修阶段</td>
+                            <td>准备装修</td>
+                            <td>计划入住时间</td>
+                            <td>三个月以上</td>
+                        </tr>
+                        <tr>
+                            <td>量尺性质</td>
+                            <td>免费量尺</td>
+                            <td>客户职业</td>
+                            <td>企业主</td>
+                            <td>面积</td>
+                            <td>180</td>
+                        </tr>
+                        <tr>
+                            <td>房价</td>
+                            <td>20000元/平米</td>
+                            <td>户型</td>
+                            <td>3室1厅2卫1厨</td>
+                            <td>预算</td>
+                            <td>180000</td>
+                        </tr>
+                        <tr>
+                            <td>家庭成员</td>
+                            <td>4人</td>
+                            <td>其他</td>
+                            <td>男孩</td>
+                            <td>装修风格</td>
+                            <td>欧式</td>
+                        </tr>
+                        <tr>
+                            <td>预购家具</td>
+                            <td colspan="3">衣柜 橱柜 书柜 床</td>
+                            <td>喜欢主材颜色</td>
+                            <td>象牙白</td>
+                        </tr>
+                        <tr>
+                            <td>量尺备注</td>
+                            <td colspan="5">二楼后面的房间做衣帽间<br>
+                                客厅上面做两排大书柜，书比较多
+                            </td>
+                        </tr>
+
+
+                        </tbody>
+                    </table>
+
+                </div>
+                <!-- end row -->
+            </div>
+            <!-- end col -->
+
+            <div class="row">
+                <!-- col -->
+                <div class="col-xs-12 dwy-show-content">
+                    <legend>相关文件 <a class="tab-operate">显示全部效果图</a></legend>
+
+                    <table class="table table-bordered table-striped">
+                        <thead>
+                        <tr>
+                            <th>序号</th>
+                            <th>空间</th>
+                            <th>文件类型</th>
+                            <th>单空间价格</th>
+                            <th>文件名称</th>
+                            <th>文件大小</th>
+                            <th>上传人</th>
+                            <th>上传时间</th>
+                            <th>备注</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td>1</td>
+                            <td>客餐厅</td>
+                            <td>效果图</td>
+                            <td>20000</td>
+                            <td><a >1.jpg</a></td>
+                            <td>111K</td>
+                            <td>张三</td>
+                            <td>16-10-10 12：12：12</td>
+                            <td></td>
+                        </tr>
+                        </tbody>
+                    </table>
+
+
+                </div>
+                <!-- end row -->
+            </div>
+
+            <div class="row">
+                <!-- col -->
+                <div class="col-xs-12 dwy-show-content">
+                    <legend>查房信息</legend>
+
+                    <table class="table table-bordered table-striped">
+                        <thead>
+                        <tr>
+                            <th>序号</th>
+                            <th>查房人姓名</th>
+                            <th>查房时间</th>
+                            <th>查房意见</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td>1</td>
+                            <td>张三</td>
+                            <td>16-10-10 12：12：12</td>
+                            <td>晚上约了看格局</td>
+                        </tr>
+                        </tbody>
+                    </table>
+
+
+                </div>
+                <!-- end row -->
+            </div>
+            <!-- end col -->
+            <div class="row">
+                <!-- col -->
+                <div class="col-xs-12 dwy-show-content">
+                    <legend>客户跟进</legend>
+                    <!-- row -->
+
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-striped">
+                            <thead>
+                            <tr>
+                                <th>沟通时间</th>
+                                <th>沟通情况</th>
+                                <th>待成交关键点</th>
+                                <th>修改意见</th>
+                                <th>下次沟通时间</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td>16-10-10 12：12：12</td>
+                                <td>客户来确认格局，厨房用瑞士白，家具用英伦白象</td>
+                                <td></td>
+                                <td></td>
+                                <td>16-10-10 12：12：12</td>
+                            </tr>
+
+                            </tbody>
+                        </table>
+
+                    </div>
+
+
+                </div>
+                <!-- end row -->
+            </div>
+
+            <div class="row">
+                <!-- col -->
+                <div class="col-xs-12 dwy-show-content">
+                    <legend>合同</legend>
+                    <!-- row -->
+
+                    <table class="table table-bordered table-striped table-information">
+                        <tbody>
+                        <tr>
+                            <td>合同登记时间</td>
+                            <td>2016-10-10</td>
+                            <td>合同总金额</td>
+                            <td>180000</td>
+                            <td>合同编号</td>
+                            <td>180000</td>
+                        </tr>
+                        <tr>
+                            <td>是否VIP</td>
+                            <td>否</td>
+                            <td>购买原因</td>
+                            <td colspan="3"> 准备装修</td>
+                        </tr>
+                        <tr>
+                            <td>最晚下单日期</td>
+                            <td>2016-10-10</td>
+                            <td>约定交付日期</td>
+                            <td>2016-10-10</td>
+                            <td>日期锁定</td>
+                            <td>是</td>
+                        </tr>
+                        <tr>
+                            <td>合同备注</td>
+                            <td colspan="5">20000元/平米</td>
+                        </tr>
+                       </tbody>
+                    </table>
+
+                </div>
+                <!-- end row -->
+            </div>
+
+            <div class="row">
+                <!-- col -->
+                <div class="col-xs-12 dwy-show-content">
+                    <legend>订单列表 <a class="tab-operate">相关附件</a> <span class="pull-right">已下单完毕</span></legend>
+                    <!-- row -->
+
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-striped">
+                            <thead>
+                            <tr>
+                                <th>空间名</th>
+                                <th>订单号</th>
+                                <th>产品信息</th>
+                                <th>颜色</th>
+                                <th>类型</th>
+                                <th>难度</th>
+                                <th>建单人</th>
+                                <th>约定交付</th>
+                                <th>预计发货日</th>
+                                <th>订单状态</th>
+                                <th>零售价</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td>1</td>
+                                <td><a href="/order/detail">555555555555</a></td>
+                                <td>客餐厅储物柜</td>
+                                <td>象牙白</td>
+                                <td>08系统柜</td>
+                                <td>四级</td>
+                                <td>张三</td>
+                                <td>16-10-10</td>
+                                <td>10-10已发货</td>
+                                <td>已回访</td>
+                                <td>18000.00</td>
+                            </tr>
+
+                            <tr>
+                                <td></td>
+                                <td colspan="9" class="text-align-right">零售价合计：</td>
+                                <td>18000.00</td>
+                            </tr>
+
+                            </tbody>
+                        </table>
+
+                    </div>
+
+
+                </div>
+                <!-- end row -->
+            </div>
+
+            <div class="row">
+                <!-- col -->
+                <div class="col-xs-12 dwy-show-content">
+                    <legend>交流意见</legend>
+                    <!-- row -->
+
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-striped">
+                            <thead>
+                            <tr>
+                                <th>序号</th>
+                                <th>发表人</th>
+                                <th>发表时间</th>
+                                <th>内容</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td>1</td>
+                                <td>张三</td>
+                                <td>16-10-10 12：12：12</td>
+                                <td>约定交付日期为2016-10-10</td>
+                            </tr>
+
+                            </tbody>
+                        </table>
+
+                    </div>
+
+
+                </div>
+                <!-- end row -->
+            </div>
+        </div>
+    </div>
+    <!-- end row -->
+</div>
+
+
+<%- include('../layouts/footer'); %>
+<%- include('../layouts/footer_common_script'); %>
+
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+
+        pageSetUp();
+
+
+    })
+
+</script>
+
+
+<%- include('../layouts/foot'); %>

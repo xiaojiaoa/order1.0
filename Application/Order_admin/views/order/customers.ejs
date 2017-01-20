@@ -1,0 +1,310 @@
+<%- include('layouts/head_top'); %>
+<%- include('layouts/head_bottom'); %>
+<%- include('layouts/header'); %>
+<%- include('layouts/nav'); %>
+
+
+<!-- MAIN PANEL -->
+<div id="main" role="main">
+
+    <!-- RIBBON -->
+    <div id="ribbon">
+
+        <!-- breadcrumb -->
+        <ol class="breadcrumb">
+            <li>后台管理</li>
+            <li>员工管理页面</li>
+        </ol>
+
+
+    </div>
+    <!-- END RIBBON -->
+
+    <!-- MAIN CONTENT -->
+    <div id="content">
+
+        <!-- well -->
+        <div class="well">
+            <!-- row -->
+            <div class="row">
+                <!-- col -->
+                <div class="col-xs-12">
+                    <!--<legend>客户搜索</legend>-->
+                    <!-- row -->
+                    <div class="row search-form">
+                        <form class="form-horizontal" method="get">
+
+                            <div class="col-xs-12">
+
+                                <div class="col-xs-3">
+                                    <div class="form-group">
+                                        <label class="col-xs-4 control-label">专卖店:</label>
+                                        <div class="col-xs-8">
+                                            <input class="form-control" placeholder="请输入专卖店" value="" type="text"
+                                                   name="">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-xs-3">
+                                    <div class="form-group">
+                                        <label class="col-xs-4 control-label">客户电话:</label>
+                                        <div class="col-xs-8">
+                                            <input class="form-control" placeholder="请输入客户电话" value="" type="text"
+                                                   name="mobile">
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <div class="col-xs-6">
+                                    <div class="form-group">
+                                        <label class="col-xs-2">&nbsp;</label>
+                                        <div class="col-xs-4">
+                                            <select class="form-control" name="">
+                                                <option value="10">客户号</option>
+                                                <option value="20">流水号</option>
+                                            </select>
+                                        </div>
+                                        <label class="control-label " style="float: left"> &nbsp;&nbsp;&nbsp; </label>
+                                        <div class="col-xs-4">
+                                            <input class="form-control"  value="" type="text" name="">
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                            </div>
+
+                            <div class="col-xs-12">
+                                <div class="col-xs-3">
+                                    <div class="form-group">
+                                        <label class="col-xs-4 control-label">客户地址:</label>
+                                        <div class="col-xs-8">
+                                            <input class="form-control" value="" type="text" name="">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-xs-3">
+                                    <div class="form-group">
+                                        <label class="col-xs-4 control-label">区域:</label>
+                                        <div class="col-xs-8">
+                                            <select class="form-control" name="">
+                                                <option value="">- 请选择 -</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xs-6">
+                                    <div class="form-group">
+                                        <label class="col-xs-2 control-label">建客日期:</label>
+                                        <div class="col-xs-4">
+                                            <input class="form-control fg-date-picker" type="text"
+                                                   value="" name="startDate" readonly="readonly">
+                                        </div>
+                                        <label class="control-label " style="float: left"> 至 </label>
+                                        <div class="col-xs-4">
+                                            <input class="form-control fg-date-picker" type="text"
+                                                   value="" name="endDate" readonly="readonly">
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+
+
+                            <div class="col-xs-12">
+                                <div class="col-xs-3">
+                                    <div class="form-group">
+                                        <label class="col-xs-4 control-label">下单完毕:</label>
+                                        <div class="col-xs-8">
+                                            <select class="form-control" name="">
+                                                <option value="">- 请选择 -</option>
+                                                <option value="2">完毕</option>
+                                                <option value="3">未完</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xs-3">
+                                    <div class="form-group">
+                                        <label class="col-xs-4 control-label">收款状态:</label>
+                                        <div class="col-xs-8">
+                                            <select class="form-control" name="">
+                                                <option value="">- 请选择 -</option>
+                                                <option value="2">部分款</option>
+                                                <option value="3">已收齐</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xs-6">
+                                    <div class="form-group">
+                                        <label class="col-xs-2 control-label">客户状态:</label>
+                                        <div class="col-xs-4">
+                                            <select class="form-control" name="">
+                                                <option value="">- 请选择 -</option>
+                                            </select>
+                                        </div>
+                                        <label class="control-label " style="float: left"> 至 </label>
+                                        <div class="col-xs-4">
+                                            <select class="form-control" name="">
+                                                <option value="">- 请选择 -</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div class="col-xs-12">
+                                <div class="col-xs-3">
+                                    <div class="form-group">
+                                        <label class="col-xs-4 control-label">排产许可:</label>
+                                        <div class="col-xs-8">
+                                            <select class="form-control" name="">
+                                                <option value="">- 请选择 -</option>
+                                                <option value="2">许可</option>
+                                                <option value="3">暂缓</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xs-3">&nbsp;</div>
+                                <div class="col-xs-6">
+                                    <div class="form-group">
+                                        <label class="col-xs-2 control-label">送货任务:</label>
+                                        <div class="col-xs-4">
+                                            <select class="form-control" name="">
+                                                <option value="">- 请选择 -</option>
+                                            </select>
+                                        </div>
+                                        <label class="control-label " style="float: left"> 至 </label>
+                                        <div class="col-xs-4">
+                                            <select class="form-control" name="">
+                                                <option value="">- 请选择 -</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-xs-12">
+                                <hr class="simple">
+                                <div class="col-xs-12 text-center">
+                                    <button class="btn btn-primary " type="submit">
+                                        <i class="fa fa-save"></i>
+                                        确认
+                                    </button>
+                                </div>
+                            </div>
+
+                        </form>
+                    </div>
+                    <!-- end row -->
+                </div>
+                <!-- end col -->
+            </div>
+            <!-- end row -->
+        </div>
+        <!-- end well -->
+
+        <div class="well">
+
+            <!-- row -->
+            <div class="row">
+                <div class="col-xs-12">
+                    <h6>客户列表</h6>
+                    <hr class="simple">
+                </div>
+            </div>
+
+            <!-- row -->
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-striped">
+                            <thead>
+                            <tr>
+                                <th>序号</th>
+                                <th>客户号</th>
+                                <th>客户名</th>
+                                <th>客户电话</th>
+                                <th>流水号</th>
+                                <th>订单数</th>
+                                <th>零售总额</th>
+                                <th>客户地址</th>
+                                <th>楼盘名称</th>
+                                <th>送货区域</th>
+                                <th>新建日期</th>
+                                <th>约定交付</th>
+                                <th>品牌</th>
+                                <th>专卖店</th>
+                                <th>状态</th>
+                                <th>收款</th>
+                                <th>未入/总包数</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+
+                            <tr>
+                                <td>1</td>
+                                <td><a href="/customer/detail">12345</a></td>
+                                <td>张先生</td>
+                                <td>13003615688</td>
+                                <td><a href="taskseq/index">565555</a></td>
+                                <td>0</td>
+                                <td>18000.00</td>
+                                <td>杭州市西湖区西湖路西湖街88号</td>
+                                <td>昆仑公馆</td>
+                                <td>昆仑公馆</td>
+                                <td>2016.10.10</td>
+                                <td>2016.10.10</td>
+                                <td>昆仑公馆</td>
+                                <td>浙江省杭州市湖滨银泰店</td>
+                                <td>待量尺</td>
+                                <td>18000.00</td>
+                                <td>10/123</td>
+                            </tr>
+
+                            </tbody>
+                        </table>
+                        <%- pagination %>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- END MAIN CONTENT -->
+
+</div>
+<!-- END MAIN PANEL -->
+
+<%- include('layouts/footer'); %>
+<%- include('layouts/footer_common_script'); %>
+
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+
+
+        pageSetUp();
+
+
+        var pageFunction = function () {
+
+        }
+
+        $(".fg-date-picker").flatpickr(data_time_picker.data_picker); // jQuery
+
+        pageFunction();
+
+    })
+
+</script>
+
+
+<%- include('layouts/foot'); %>
