@@ -81,7 +81,7 @@ router.get('/orders', Middleware.AuthCheck, Middleware.FilterEmptyField, OrderCo
 router.get('/order/detail', Middleware.AuthCheck, OrderController.detailPage);
 
 // 补单详情页面
-router.get('/order/resupply/detail/:tid/:pid', Middleware.AuthCheck, OrderController.resupplyDetailPage);
+// router.get('/order/resupply/detail/:tid/:pid', Middleware.AuthCheck, OrderController.resupplyDetailPage);
 
 
 /*
