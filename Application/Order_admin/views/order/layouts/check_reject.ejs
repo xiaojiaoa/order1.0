@@ -1,0 +1,68 @@
+<form class="form-horizontal  layer-template" method="post" id="check_reject" action="" >
+
+
+    <div class="col-xs-12">
+
+        <div class="form-group">
+            <label class="col-xs-2 control-label"><span class="requird"></span> 退回类型:</label>
+            <div class="col-xs-8">
+                <select class="form-control validate[required]" name="type" data-prompt-position="bottomLeft:20,5">
+                    <option value="">- 请选择 -</option>
+                    <option value="1">工艺结构问题</option>
+                    <option value="2">图纸不详</option>
+                    <option value="3">设计修改</option>
+                    <option value="4">其它</option>
+                </select>
+            </div>
+
+        </div>
+
+    </div>
+    <div class="col-xs-12">
+
+        <div class="form-group">
+            <label class="col-xs-2 control-label"><span class="requird"></span> 退回原因:</label>
+            <div class="col-xs-8">
+                <textarea name="reason" class="form-control validate[required]"
+                          placeholder="退回原因" id="" cols="30"
+                          rows="5"></textarea>
+            </div>
+
+        </div>
+    </div>
+    <div class="col-xs-12">
+        <hr class="simple">
+        <div class="col-xs-12 text-center">
+            <button class="btn btn-primary " type="submit">
+                退回
+            </button>
+        </div>
+    </div>
+    <div class="dwy-clear"></div>
+</form>
+<script type="text/javascript">
+
+    $(document).ready(function () {
+
+        $("#check_reject").validationEngine();
+
+        //弹出类
+        $('#check-reject-modal').on({
+            click: function (e) {
+                layer.open({
+                    title: false,
+                    type: 1,
+                    area: '700px',
+                    content: $('#check_reject'),
+                    cancel: function () {
+                        //右上角关闭回调
+                    },
+
+                });
+            }
+        })
+
+
+    })
+
+</script>

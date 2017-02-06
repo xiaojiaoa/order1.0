@@ -1,3 +1,7 @@
+#main {
+    min-width: 1420px;
+    background: #fff;
+}
 .smart-style-2 nav > ul > li > a {
     padding-top: 16px;
     padding-bottom: 16px;
@@ -69,4 +73,70 @@ nav ul span.menu-item-parent {
 }
 .margin-left-20{
     margin-left: 20px;
+}
+
+
+/*必填项标记*/
+.requird{
+
+}
+.requird:before{
+    content: "*";
+}
+.unit {
+    position: absolute;
+    right: 0;
+    top: 8px;
+}
+
+.unit:after {
+    content: attr(code-data);
+    position: absolute;
+    left: 0;
+    top: 0;
+    white-space: nowrap;
+}
+.unit-insert{
+    position: absolute;
+    right: 15px;
+    top: 8px;
+    background: #fff;
+    color: #8e8a8a;
+}
+
+.label {
+    font-size: 10px;
+    padding: 4px 6px;
+    border: none;
+    text-shadow: none;
+    border-radius: 3px;
+    font-weight: 200;
+    margin-left: 10px;
+}
+.label-primary {
+    background-color: #3b9ff3;
+    border-color: #3292E2;
+    color: white;
+}
+.label-primary:hover {
+    background-color:#3E90D4;
+    border-color:#2F7DBE;
+}
+.label-primary[href]:focus,.label-primary[href]:hover{
+    background-color:#3E90D4;
+    border-color:#2F7DBE;
+}
+.label-success {
+    background-color: #5cb85c;
+}
+/*thead>tr>th{*/
+    /*text-align: center;*/
+/*}*/
+
+.layer-template{
+    display: none;
+    padding: 20px;
+}
+.dwy-clear {
+    clear: both;
 }

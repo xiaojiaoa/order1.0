@@ -230,15 +230,15 @@
                             resupplyList.result.forEach(function (element) { %>
                             <tr>
                                 <td><%= num %></td>
-                                <td><%= getAssistVal(element.brandId,brandInfo) %></td>
+                                <td><%= DWY_Helper.getAssistVal(element.brandId,brandInfo) %></td>
                                 <td><%= element.spaceName %></td>
                                 <td><%= element.tid %></td>
                                 <td><%= element.lid %></td>
-                                <td><%= getAssistVal(element.prodType,prodInfo) %></td>
+                                <td><%= DWY_Helper.getAssistVal(element.prodType,prodInfo) %></td>
                                 <td><%= element.gid %></td>
-                                <td><%= getLocalDate(element.addTime) %></td>
+                                <td><%= DWY_Helper.getLocalDate(element.addTime) %></td>
                                 <td><%= element.cause %></td>
-                                <td><%= getAssistVal(element.stcode,stcodeInfo) %></td>
+                                <td><%= DWY_Helper.getAssistVal(element.stcode,stcodeInfo) %></td>
                             </tr>
                             <% num++ }) %>
 

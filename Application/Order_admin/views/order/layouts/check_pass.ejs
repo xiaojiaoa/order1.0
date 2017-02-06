@@ -1,0 +1,102 @@
+<form class="form-horizontal  layer-template" method="post" id="check_pass" action="" >
+
+    <div class="col-xs-12">
+        <div class="form-group">
+            <label class="col-xs-2 control-label"><span class="requird"></span>审核总价:</label>
+            <div class="col-xs-6">
+                <input class="form-control validate[required]" type="text"  value="" name="price" data-prompt-position="bottomLeft:20,5">
+            </div>
+            <div class="col-xs-4 tight-left">
+                <a class="btn-primary btn-sm btn">&nbsp;计算&nbsp;</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-xs-12">
+
+        <div class="form-group">
+            <label class="col-xs-2 control-label">零售总价:</label>
+            <div class="col-xs-6">
+                <input class="form-control" type="text"  value="" name="price" readonly>
+            </div>
+
+        </div>
+
+    </div>
+    <div class="col-xs-12">
+        <div class="form-group">
+            <label class="col-xs-2 control-label">最终计价:</label>
+            <div class="col-xs-6">
+                <table class="table table-bordered">
+                    <thead>
+                    <tr>
+                        <th>价格类型</th>
+                        <th>总价</th>
+                        <th>审核总价</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>结算价</td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>出厂价</td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    </tbody>
+                </table>
+
+            </div>
+
+        </div>
+
+    </div>
+    <div class="col-xs-12">
+
+        <div class="form-group">
+            <label class="col-xs-2 control-label">备注:</label>
+            <div class="col-xs-6">
+                <input class="form-control" type="text"  value="" name="remark">
+            </div>
+
+        </div>
+    </div>
+    <div class="col-xs-12">
+        <hr class="simple">
+        <div class="col-xs-12 text-center">
+            <button class="btn btn-primary " type="submit">
+                <i class="fa fa-save"></i>
+                审核提交
+            </button>
+        </div>
+    </div>
+    <div class="dwy-clear"></div>
+</form>
+<script type="text/javascript">
+
+    $(document).ready(function () {
+
+        $("#check_pass").validationEngine();
+
+        //弹出类
+        $('#check-pass-modal').on({
+            click: function (e) {
+                layer.open({
+                    title: false,
+                    type: 1,
+                    area: '700px',
+                    content: $('#check_pass'),
+                    cancel: function () {
+                        //右上角关闭回调
+                    },
+
+                });
+            }
+        })
+
+
+    })
+
+</script>

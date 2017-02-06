@@ -162,7 +162,7 @@
                             </tr>
                             <tr>
                                 <td>相关文件</td>
-                                <td colspan="3"></td>
+                                <td colspan="3"><a >4568794561234566798.jpg</a></td>
                             </tr>
                             <tr>
                                 <td>同客户订单</td>
@@ -188,7 +188,7 @@
             <div class="row">
                 <!-- col -->
                 <div class="col-xs-12 dwy-show-content">
-                    <legend>状态信息</legend>
+                    <legend>状态信息 <a class="label label-primary" >解锁（:审核中时显示）</a></legend>
                     <!-- row -->
                     <div class="table-responsive">
                         <table class="table table-bordered table-striped table-information">
@@ -198,8 +198,24 @@
                                 <td colspan="3">审核未加急  拆单不许可  排产未定</td>
                             </tr>
                             <tr>
-                                <td>审核时间</td>
-                                <td>待审核 <a class="margin-left-20">标记为审核中</a></td>
+                                <td>审核时间:认领订单 时，显示此行</td>
+                                <td>待审核 <a class="label label-primary margin-left-20" id="submitOrder">标记为审核中</a> </td>
+                                <td>审核人</td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>审核时间:已回访 时，显示此行</td>
+                                <td>2016-10-10 10：10：10</td>
+                                <td>审核人</td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>审核时间:审核中 时，显示此行</td>
+                                <td>
+                                    审核中
+                                    <a class="label label-primary margin-left-20" id="check-pass-modal">提交审核</a>
+                                    <a class="label label-primary margin-left-20" id="check-reject-modal">审核退回</a>
+                                </td>
                                 <td>审核人</td>
                                 <td></td>
                             </tr>
@@ -289,7 +305,7 @@
                             </tr>
                             <tr>
                                 <td>流程记录</td>
-                                <td colspan="3">发浙联物流，自提 <a class="margin-left-20">添加/查看更多</a></td>
+                                <td colspan="3">发浙联物流，自提 <a class="margin-left-20" href="/order/process">添加/查看更多</a></td>
                             </tr>
 
                             </tbody>
@@ -378,17 +394,32 @@
 <%- include('../layouts/footer_common_script'); %>
 
 
+
 <script type="text/javascript">
 
     $(document).ready(function () {
 
-
-
         pageSetUp();
+
+
+        $("#submitOrder").click(function () {
+            layer.confirm('确认标记为审核中?',{icon: 3, title:'提示'},function(index){
+//                $.ajax({
+//                    url: '/order/doSubmit/'+tid,
+//                    method: 'post',
+//                    success: function (data) {
+//                        window.location.reload();
+//                    }
+//                });
+            },function(index){
+                layer.close(index)})
+        })
+
 
     })
 
 </script>
-
-
 <%- include('../layouts/foot'); %>
+<%- include('../layouts/check_pass'); %>
+<%- include('../layouts/check_reject'); %>
+

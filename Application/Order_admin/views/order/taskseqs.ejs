@@ -246,14 +246,14 @@
                                 <td><%= element.realEstate %></td>
                                 <td><a href="/taskseq/index/<%= element.lid %>"><%= element.lid %></a></td>
                                 <td><%= element.gname %></td>
-                                <td><%= getLocalDate(element.addTime) %></td>
-                                <td><%= getLocalDate(element.appointmentTime) %></td>
-                                <td><%= getLocalDate(element.finishTime) %></td>
+                                <td><%= DWY_Helper.getLocalDate(element.addTime) %></td>
+                                <td><%= DWY_Helper.getLocalDate(element.appointmentTime) %></td>
+                                <td><%= DWY_Helper.getLocalDate(element.finishTime) %></td>
                                 <td><%= element.amount %></td>
-                                <td><%= getLocalDate(element.creatTime) %></td>
-                                <td><%= getLocalDate(element.deliveryDate) %></td>
+                                <td><%= DWY_Helper.getLocalDate(element.creatTime) %></td>
+                                <td><%= DWY_Helper.getLocalDate(element.deliveryDate) %></td>
                                 <td><%= element.desName %></td>
-                                <td><%= getAssistVal(element.stcode,statusInfo)  %></td>
+                                <td><%= DWY_Helper.getAssistVal(element.stcode,statusInfo)  %></td>
                             </tr>
                             <% num++ }) %>
 

@@ -73,36 +73,138 @@ app.use('/', home);
 app.use('/', passport);
 
 
-//添加自定义函数
-app.locals.genPagination = function () {
-    return this;
-};
+app.locals.DWY_Helper = {
 
-app.locals.functionName = function () {
-    return 'aaaaa';
-};
-
-//添加时间格式化函数
-app.locals.getLocalDate = function (timestamp) {
-    if(timestamp ){
-        var time = parseInt(timestamp);
-        return new Date(time).toLocaleString();
-    }
-    return null;
-};
-
-//字典翻译
-app.locals.getAssistVal = function (code,list) {
-    if(list&&code){
-        for(var i =0;i<list.length;i++){
-           var element = list[i]
-           if(element&&element.id == code){
-               return element.name;
-           }
+    //增加时间格式化工具
+    getLocalDate: function (timestamp) {
+        if (timestamp) {
+            var time = parseInt(timestamp);
+            return new Date(time).format('yyyy-MM-dd hh:mm:ss');
         }
-    }
-    return code;
-};
+        return null;
+    },
+
+    //字典翻译
+    getAssistVal: function (code, list) {
+        if (list && code) {
+            for (var i = 0; i < list.length; i++) {
+                var element = list[i]
+                if (element && element.id == code) {
+                    return element.name;
+                }
+            }
+        }
+        return code;
+    },
+
+    //字典拼接
+    getAssistStr: function (code, list) {
+        var assistStr = "";
+        if (list && code) {
+            var codes = code.split(",");
+            for (var i = 0; i < codes.length; i++) {
+                for (var j = 0; j < list.length; j++) {
+                    var element = list[j]
+                    if (element && element.id == codes[i]) {
+                        assistStr = assistStr + "  " + element.name;
+                    }
+                }
+            }
+        }
+        return assistStr;
+    },
+
+    //字典翻译
+    getResupply: function (code) {
+        if (code) {
+            code = code.replace(/\s+/g, "");
+            if (code == "B") {
+                return "补单"
+            } else {
+                return "增单"
+            }
+        }
+        return code;
+    },
+
+    //字典翻译
+    getChildrenGender: function (code) {
+        if (code) {
+            if (code == "0") {
+                return ""
+            }
+            if (code == "1") {
+                return "男孩"
+            }
+            if (code == "2") {
+                return "女孩"
+            } else {
+                return "男孩女孩都有"
+            }
+        }
+        return code;
+    },
+
+    //判断是否已婚
+    getMarryStatus: function (code) {
+        if (code) {
+            if (code == "1") {
+                return "已婚"
+            }
+            if (code == "2") {
+                return "未婚"
+            } else {
+                return "保密"
+            }
+        }
+        return code;
+    },
+
+    //判断订单文件类型
+    getFileType: function (code) {
+        if (code) {
+            if (code == "1") {
+                return "普通订单"
+            }
+            if (code == "2") {
+                return "补单"
+            } else {
+                return "增单"
+            }
+        }
+        return code;
+    },
+
+    renderSize: function (value) {
+        if (null == value || value == '') {
+            return "0 Bytes";
+        }
+        var unitArr = new Array("Bytes", "KB", "MB", "GB", "TB", "PB", "EB", "ZB", "YB");
+        var index = 0;
+        var srcsize = parseFloat(value);
+        index = Math.floor(Math.log(srcsize) / Math.log(1024));
+        var size = srcsize / Math.pow(1024, index);
+        size = size.toFixed(2);//保留的小数位数
+        return size + unitArr[index];
+    },
+
+    //判断是否有权限
+    hasPermission: function (code, permission) {
+        if (permission && code) {
+            var i = permission.length;
+            while (i--) {
+                if (permission[i].fucId == code) {
+                    return true;
+                }
+            }
+            return false;
+        }
+        return false;
+    },
+
+}
+
+
 
 
 module.exports = app;

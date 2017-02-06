@@ -62,7 +62,18 @@ var OrderController = {
                 res.render('order/order/order_detail', returnData);
             });
     },
-
+    resupplyDetailPage: function (req, res) {
+        res.render('order/order/resupply_detail');
+    },
+    checkPage: function (req, res) {
+        res.render('order/order/order_check');
+    },
+    processPage: function (req, res) {
+        res.render('order/order/order_process');
+    },
+    permitPage: function (req, res) {
+        res.render('order/order/order_permit');
+    },
 };
 
 module.exports = OrderController;

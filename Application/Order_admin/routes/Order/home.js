@@ -76,12 +76,23 @@ var OrderController = require('./Controller/OrderController');
 // 订单页面
 router.get('/orders', Middleware.AuthCheck, Middleware.FilterEmptyField, OrderController.listPage);
 
-// 订单详情页面
+// 订单详情页面   订单信息（认领订单）
 // router.get('/order/detail/:tid', Middleware.AuthCheck, OrderController.detailPage);
 router.get('/order/detail', Middleware.AuthCheck, OrderController.detailPage);
 
-// 补单详情页面
-// router.get('/order/resupply/detail/:tid/:pid', Middleware.AuthCheck, OrderController.resupplyDetailPage);
+// 补单详情页面   补单信息（已完成）
+router.get('/order/resupply/detail', Middleware.AuthCheck, OrderController.resupplyDetailPage);
+
+
+//  订单审核页面
+router.get('/order/check', Middleware.AuthCheck, OrderController.checkPage);
+
+//  订单流程记录页面
+router.get('/order/process', Middleware.AuthCheck, OrderController.processPage);
+
+//  订单许可页面
+router.get('/order/permit', Middleware.AuthCheck, OrderController.permitPage);
+
 
 
 /*

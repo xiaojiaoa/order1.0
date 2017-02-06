@@ -1,0 +1,137 @@
+<%- include('../layouts/head_top'); %>
+<%- include('../layouts/head_bottom'); %>
+<%- include('../layouts/header'); %>
+<%- include('../layouts/nav'); %>
+
+
+<!-- MAIN PANEL -->
+<div id="main" role="main">
+
+    <!-- RIBBON -->
+    <div id="ribbon">
+
+        <!-- breadcrumb -->
+        <ol class="breadcrumb">
+            <li>后台管理</li>
+            <li>补单详情页</li>
+        </ol>
+        <!-- end breadcrumb -->
+
+
+    </div>
+    <!-- END RIBBON -->
+
+
+    <!-- MAIN CONTENT -->
+    <div id="content">
+
+
+        <!-- well -->
+        <div class="well">
+            <!-- row -->
+            <div class="row">
+
+                <div class="col-xs-12 dwy-show-content">
+                    <legend>流程记录</legend>
+                    <!-- row -->
+
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-striped">
+                            <thead>
+                            <tr>
+                                <th>序号</th>
+                                <th>来源</th>
+                                <th>时间</th>
+                                <th>内容</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td>1</td>
+                                <td>张三</td>
+                                <td>2016-10-10 10：10：10</td>
+                                <td>设计文件asdfserg54866</td>
+                            </tr>
+                            <tr>
+                                <td>2</td>
+                                <td>张三</td>
+                                <td>2016-10-10 10：10：10</td>
+                                <td>设计文件asdfserg54866</td>
+                            </tr>
+                            </tbody>
+                        </table>
+
+                    </div>
+
+                    <!-- end row -->
+                </div>
+
+            </div>
+
+            <div class="row">
+                <!-- col -->
+                <div class="col-xs-12">
+                    <legend>新增流程</legend>
+                    <!-- row -->
+                    <form class="form-horizontal" method="post" action="/taskseq/doWardround" id="create-process">
+                        <div class="col-xs-12">
+
+                            <!--输入字段-->
+                            <div class="col-xs-8">
+                                <div class="form-group">
+                                    <label class="col-xs-2 control-label"><span class="requird"></span> 内容:</label>
+                                    <div class="col-xs-10">
+                                            <textarea name="content" class="form-control validate[required]"
+                                                      placeholder="流程内容" id="" cols="30"
+                                                      rows="5"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="col-xs-8">
+                            <hr class="simple">
+                            <div class="col-xs-12 text-center">
+                                <button class="btn btn-primary " type="submit">
+                                    <i class="fa fa-save"></i>
+                                    发表
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+
+                    <!-- end row -->
+                </div>
+                <!-- end col -->
+            </div>
+
+        </div>
+        <!-- end row -->
+    </div>
+    <!-- end well -->
+
+
+</div>
+<!-- END MAIN CONTENT -->
+
+</div>
+<!-- END MAIN PANEL -->
+
+<%- include('../layouts/footer'); %>
+<%- include('../layouts/footer_common_script'); %>
+
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+
+        $("#create-process").validationEngine();
+        pageSetUp();
+
+
+    })
+
+</script>
+
+
+<%- include('../layouts/foot'); %>
