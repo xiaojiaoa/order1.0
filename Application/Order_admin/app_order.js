@@ -41,7 +41,8 @@ app.use(session({
     name: orderSessionConfig.name,
     resave: orderSessionConfig.resave,
     saveUninitialized: orderSessionConfig.saveUninitialized,
-    secret: orderSessionConfig.secret
+    secret: orderSessionConfig.secret,
+    cookie: {maxAge: 1800000}
 }));
 
 // uncomment after placing your favicon in /public
@@ -62,8 +63,37 @@ var passport = require('./routes/Order/passport');
 
 //把USER信息加入到全局
 app.use(function(req, res, next) {
+    //登录用户信息
     res.locals.user = req.session.user;
+    //菜单信息
+    res.locals.menu = req.session.menu;
+    //权限信息
+    res.locals.permission = req.session.permission;
+    //请求本身
     res.locals.DWYRequest = req;
+    next();
+});
+
+//错误或者正确信息处理
+app.use(function (req, res, next) {
+    if (req.session.DWY_message) {
+        res.locals.DWY_message = req.session.DWY_message;
+        req.session.DWY_message = '';
+    } else {
+        res.locals.DWY_message = '';
+    }
+    next();
+});
+
+//取回上一次错误提交时的请求参数
+app.use(function (req, res, next) {
+    console.log(req.session.DWY_last_request_param)
+    if (req.session.DWY_last_request_param) {
+        res.locals.DWY_last_request_param = req.session.DWY_last_request_param;
+        req.session.DWY_last_request_param = '';
+    } else {
+        res.locals.DWY_last_request_param = '';
+    }
     next();
 });
 
@@ -72,6 +102,12 @@ app.use('/', home);
 
 app.use('/', passport);
 
+var DWY_GLOBAL = require('./routes/Order/config/global');
+
+//大王椰全局变量
+app.locals.DWY_GLOBAL = {
+    Static: DWY_GLOBAL.server.Static.remote_server()
+}
 
 app.locals.DWY_Helper = {
 

@@ -140,3 +140,56 @@ nav ul span.menu-item-parent {
 .dwy-clear {
     clear: both;
 }
+
+
+
+.layer-template {
+    display: none;
+    padding: 20px;
+}
+
+.dwy-clear {
+    clear: both;
+}
+
+.dwy_image img {
+    width: 300px;
+    height: auto;
+
+}
+
+.dwy-image-layer img:hover {
+    -webkit-box-shadow: 0px 3px 4px 0px rgba(206, 206, 206, 0.75);
+    -moz-box-shadow: 0px 3px 4px 0px rgba(206, 206, 206, 0.75);
+    box-shadow: 0px 3px 4px 0px rgba(206, 206, 206, 0.75);
+}
+
+.dwy-image-layer img {
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    border: 2px solid #eee;
+    -webkit-transition: all .15s;
+    -moz-transition: all .15s;
+    -ms-transition: all .15s;
+    -o-transition: all .15s;
+    transition: all .15s;
+    -webkit-box-shadow: 0px 0px 0px 0px rgba(126, 206, 244, 0.75);
+    -moz-box-shadow: 0px 0px 0px 0px rgba(126, 206, 244, 0.75);
+    box-shadow: 0px 0px 0px 0px rgba(126, 206, 244, 0.75);
+}
+
+.dwy-image-layer {
+    padding-top: 20px;
+    padding-bottom: 20px;
+    text-align: center;
+}
+
+
+.smart-style-2 .login-info a span {
+    max-width: 200px;
+}
+
+.login-info>span{
+    height:auto;
+}

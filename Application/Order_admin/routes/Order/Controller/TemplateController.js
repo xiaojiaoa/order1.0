@@ -20,6 +20,8 @@ var stream = require('stream');
 
 var GlobalConfig = require('../config/global');
 
+var _ = require('lodash');
+
 var TemplateController = {
 
     //请求方式
@@ -149,7 +151,7 @@ var TemplateController = {
     singleApi: function (req, res) {
     },
 
-    doSingleUpload: function (req, res) {
+    doImgUpload: function (req, res) {
 
 
         //请求文件
@@ -158,30 +160,36 @@ var TemplateController = {
         //请求数据
         var data = req.body;
 
-        //var formData = {
-        //    // Pass a simple key-value pair
-        //    my_field: 'my_value',
-        //    // Pass data via Buffers
-        //    my_buffer: new Buffer([1, 2, 3]),
-        //    // Pass data via Streams
-        //    my_file: fs.createReadStream(__dirname + '/unicycle.jpg'),
-        //    // Pass multiple values /w an Array
-        //    attachments: [
-        //        fs.createReadStream(__dirname + '/attachment1.jpg'),
-        //        fs.createReadStream(__dirname + '/attachment2.jpg')
-        //    ],
-        //    // Pass optional meta-data with an 'options' object with style: {value: DATA, options: OPTIONS}
-        //    // Use case: for some types of streams, you'll need to provide "file"-related information manually.
-        //    // See the `form-data` README for more information about options: https://github.com/form-data/form-data
-        //    custom_file: {
-        //        value:  fs.createReadStream('/dev/urandom'),
-        //        options: {
-        //            filename: 'topsecret.jpg',
-        //            contentType: 'image/jpg'
-        //        }
-        //    }
-        //};
+        var formData = helper.mergeObject(data, {file: fs.createReadStream(file.destination + file.filename)});
 
+        request(Base.mergeRequestOptions({
+            method: 'post',
+            host: GlobalConfig.server.Upload.host,
+            port: GlobalConfig.server.Upload.port,
+            url: '/api/statics/img',
+            formData: formData
+        }, req, res), function (error, response, body) {
+            if (!error && response.statusCode == 200) {
+                // Show the HTML for the Google homepage
+
+                var $data = JSON.parse(body);
+
+                res.status(200).send(_.merge({}, $data, {tmp_path: file.filename}));
+
+            } else {
+                Base.handlerError(res, req, error, response, body);
+            }
+        })
+    },
+
+    doSingleUpload: function (req, res) {
+
+
+        //请求文件
+        var file = req.file;
+
+        //请求数据
+        var data = req.body;
 
         var formData = helper.mergeObject(data, {file: fs.createReadStream(file.destination + file.filename)});
 
@@ -197,11 +205,9 @@ var TemplateController = {
 
                 var $data = JSON.parse(body);
 
-                var returnData = Base.mergeData(helper.mergeObject({
-                    title: '页面标题',
-                }, {keyName: $data}));
-
-                res.status(200).send(JSON.stringify($data));
+                fs.unlink(file.destination + file.filename, function () {
+                    res.status(200).send(_.merge({}, $data, {tmp_path: file.filename}));
+                });
 
             } else {
                 Base.handlerError(res, req, error, response, body);
@@ -253,6 +259,25 @@ var TemplateController = {
             if (!error && response.statusCode == 200) {
 
                 res.send(JSON.parse(body));
+            } else {
+                Base.handlerError(res, req, error, response, body);
+            }
+        });
+    },
+
+    downloadData: function (req,res) {
+        var url = req.url.replace('/download', '');
+
+        request(Base.mergeRequestOptions({
+            host:'www.dwy_node.com',
+            port:'8080',
+            url: url,
+            method: req.method,
+            timeout: 5000
+        }, req, res), function (error, response, body) {
+            if (!error && response.statusCode == 200) {
+
+                res.send(response);
             } else {
                 Base.handlerError(res, req, error, response, body);
             }

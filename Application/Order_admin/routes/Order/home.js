@@ -9,12 +9,28 @@ var express = require('express');
 
 //for multipart form data
 var multer = require('multer');
-var upload = multer({dest: 'uploads/'});
+
+var storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+        cb(null, __dirname + '/../../public/uploads/')
+    },
+    filename: function (req, file, cb) {
+        cb(null, file.originalname.toLowerCase())
+    }
+});
+var upload = multer({storage: storage});
+// var upload = multer({dest: 'uploads/'});
 
 var _ = require('lodash');
 
 var router = express.Router();
 
+
+var Base = require('./Controller/BaseController');
+
+var helper = require('./config/helper');
+
+var request = require('request');
 /*
  * 中间件
  * */
@@ -24,9 +40,40 @@ var Middleware = {
         if (!req.session.auth) {
             console.log('SESSION HAS NO AUTH');
             res.redirect('/login');
-            return;
+        } else {
+            //增加token失效验证. token存在但过期时,自动发送refresh_token并保存新的token到用户session
+            var user_auth = req.session.auth;
+
+            if ((new Date().getTime() - user_auth.time) > 1600000) {
+
+                //refresh_token request
+                request(Base.mergeRequestOptions({
+                    method: 'POST',
+                    url: '/api/refresh',
+                    form: {refreshToken: user_auth.refresh_token}
+                }, req, res), function (error, response, body) {
+                    if (!error && response.statusCode == 201) {
+                        // Show the HTML for the Google homepage.
+                        let $data = JSON.parse(body);
+                        console.log(JSON.stringify($data));
+
+                        //TOKEN 存入session
+                        var user_session = req.session;
+                        user_session.auth = {
+                            access_token: $data.userTokenString,
+                            refresh_token: $data.refreshTokenString,
+                            time: new Date().getTime(),
+                        };
+
+                        next();
+                    } else {
+                        res.redirect('/login');
+                    }
+                })
+            } else {
+                next();
+            }
         }
-        next();
     },
     //过滤去掉空字段
     FilterEmptyField: function (req, res, next) {
