@@ -96,7 +96,7 @@
                                     <hr class="simple">
                                     <div>
                                         订单信息（难度、许可）时显示此区域
-                                        <form class="form-horizontal" method="post" id="check_reject" action="" >
+                                        <form class="form-horizontal" method="post"  action="" >
                                             <div class="col-xs-4">
                                                 <select class="form-control" name="type">
                                                     <option value="">- 未定 -</option>
@@ -217,7 +217,7 @@
                             <tr>
                                 <td>许可状态： 订单信息（难度、许可）时显示此区行</td>
                                 <td colspan="3">
-                                    <form class="form-horizontal" method="post" id="check_reject" action="" >
+                                    <form class="form-horizontal" method="post" action="" >
                                             <div class="col-xs-3">
                                                 <select class="form-control" name="type">
                                                     <option value="">- 审核是否加急 -</option>
@@ -264,7 +264,7 @@
                                 <td>
                                     审核中
                                     <a class="label label-primary margin-left-20" id="check-pass-modal">提交审核</a>
-                                    <a class="label label-primary margin-left-20" id="check-reject-modal">审核退回</a>
+                                    <a class="label label-primary margin-left-20 reject-modal" id="check-reject-modal">审核退回</a>
                                 </td>
                                 <td>审核人</td>
                                 <td></td>
@@ -276,14 +276,40 @@
                                 <td>张三</td>
                             </tr>
                             <tr>
-                                <td>拆单时间</td>
-                                <td></td>
+                                <td>拆单时间（拆单中）</td>
+                                <td>
+                                    拆单中
+                                    <a class="label label-primary margin-left-20" id="doTearPass">确定拆单</a>
+                                    <a class="label label-primary margin-left-20 reject-modal" >拆单退回</a>
+                                </td>
                                 <td>拆单人</td>
                                 <td></td>
                             </tr>
                             <tr>
-                                <td>拆单审核</td>
+                                <td>拆单时间（待拆单）</td>
+                                <td>
+                                    待拆单
+                                    <a class="label label-primary">标记为拆单中</a>
+                                </td>
+                                <td>拆单人</td>
                                 <td></td>
+                            </tr>
+                            <tr>
+                                <td>拆单审核（待拆单审核）</td>
+                                <td>
+                                    待拆单审核
+                                    <a class="label label-primary">标记为拆单审核中</a>
+                                </td>
+                                <td>审核人</td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>拆单审核（拆单审核中）</td>
+                                <td>
+                                    拆单审核中
+                                    <a class="label label-primary margin-left-20" id="doTearCheckPass">确定审核</a>
+                                    <a class="label label-primary margin-left-20 reject-modal" >拆单审核退回</a>
+                                </td>
                                 <td>审核人</td>
                                 <td></td>
                             </tr>
@@ -464,12 +490,24 @@
             },function(index){
                 layer.close(index)})
         })
+        $("#doTearPass").click(function () {
+            layer.confirm('确定拆单完毕吗？',{icon: 3, title:'提示'},function(index){
+                layer.close(index)
+            },function(index){
+                layer.close(index)})
+        })
+        $("#doTearCheckPass").click(function () {
+            layer.confirm('确定拆单完毕吗？',{icon: 3, title:'提示'},function(index){
+                layer.close(index)
+            },function(index){
+                layer.close(index)})
+        })
 
 
     })
 
 </script>
 <%- include('../layouts/foot'); %>
-<%- include('../layouts/check_pass'); %>
-<%- include('../layouts/check_reject'); %>
+<%- include('./check_pass'); %>
+<%- include('./order_reject'); %>
 

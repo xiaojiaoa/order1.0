@@ -19,31 +19,11 @@
         </ol>
         <!-- end breadcrumb -->
 
-        <!-- You can also add more buttons to the
-        ribbon for further usability
-
-        Example below:
-
-        <span class="ribbon-button-alignment pull-right">
-        <span id="search" class="btn btn-ribbon hidden-xs" data-title="search"><i class="fa-grid"></i> Change Grid</span>
-        <span id="add" class="btn btn-ribbon hidden-xs" data-title="add"><i class="fa-plus"></i> Add</span>
-        <span id="search" class="btn btn-ribbon" data-title="search"><i class="fa-search"></i> <span class="hidden-mobile">Search</span></span>
-        </span> -->
-
     </div>
     <!-- END RIBBON -->
 
-
     <!-- MAIN CONTENT -->
     <div id="content">
-
-
-        <!--
-            The ID "widget-grid" will start to initialize all widgets below
-            You do not need to use widgets if you dont want to. Simply remove
-            the <section></section> and you can use wells or panels instead
-            -->
-
 
         <!-- well -->
         <div class="well">
@@ -58,126 +38,162 @@
 
                             <div class="col-xs-12">
 
-                                <div class="col-xs-4">
+                                <div class="col-xs-6">
                                     <div class="form-group">
-                                        <label class="col-xs-4 control-label">客户手机:</label>
+                                        <label class="col-xs-2">&nbsp;</label>
+                                        <div class="col-xs-4">
+                                            <select class="form-control" name="">
+                                                <option value="1">流水号</option>
+                                                <option value="2">原订单号</option>
+                                                <option value="3">补单号</option>
+                                                <option value="4">入库流水号</option>
+                                            </select>
+                                        </div>
+                                        <label class="control-label " style="float: left"> &nbsp;&nbsp;&nbsp; </label>
+                                        <div class="col-xs-4">
+                                            <input class="form-control"  value="" type="text" name="">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xs-3">
+                                    <div class="form-group">
+                                        <label class="col-xs-4 control-label">客户电话:</label>
                                         <div class="col-xs-8">
-                                            <input class="form-control" placeholder="请输入客户手机" type="text" name="mobile">
+                                            <input class="form-control" value="" type="text"
+                                                   name="">
                                         </div>
                                     </div>
                                 </div>
 
-                                <!--输入字段-->
-                                <div class="col-xs-4">
-                                    <div class="form-group">
-                                        <label class="col-xs-4 control-label">流水号:</label>
-                                        <div class="col-xs-8">
-                                            <input class="form-control" placeholder="请输入订单号" type="text" name="lid">
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <!--输入字段-->
-                                <div class="col-xs-4">
-                                    <div class="form-group">
-                                        <label class="col-xs-4 control-label">订单号:</label>
-                                        <div class="col-xs-8">
-                                            <input class="form-control" placeholder="请输入订单号" type="text" name="tid">
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="col-xs-4">
+                                <div class="col-xs-3">
                                     <div class="form-group">
                                         <label class="col-xs-4 control-label">订单品牌:</label>
                                         <div class="col-xs-8">
-                                            <select class="form-control" name="brandId">
+                                            <select class="form-control" name="">
                                                 <option value="">- 请选择 -</option>
-                                                <%
-                                                brandInfo.forEach(function (element) { %>
-                                                <option value="<%= element.id %>"><%= element.name %></option>
-                                                <%  }) %>
                                             </select>
-
                                         </div>
                                     </div>
                                 </div>
 
-                                <div class="col-xs-4">
+                            </div>
+
+                            <div class="col-xs-12">
+
+                                <div class="col-xs-6">
                                     <div class="form-group">
-                                        <label class="col-xs-4 control-label">空间类型:</label>
-                                        <div class="col-xs-8">
-                                            <select class="form-control" name="brandId">
+                                        <label class="col-xs-2 control-label">补单状态:</label>
+                                        <div class="col-xs-4">
+                                            <select class="form-control" name="">
                                                 <option value="">- 请选择 -</option>
-                                                <option value="1">选项1</option>
-                                                <option value="2">选项2</option>
                                             </select>
-
+                                        </div>
+                                        <label class="control-label " style="float: left"> 至 </label>
+                                        <div class="col-xs-4">
+                                            <select class="form-control" name="">
+                                                <option value="">- 请选择 -</option>
+                                            </select>
                                         </div>
                                     </div>
                                 </div>
 
-                                <div class="col-xs-4">
+                                <div class="col-xs-3">
+                                    <div class="form-group">
+                                        <label class="col-xs-4 control-label">订单类型:</label>
+                                        <div class="col-xs-8">
+                                            <select class="form-control" name="">
+                                                <option value="">- 请选择 -</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xs-3">
                                     <div class="form-group">
                                         <label class="col-xs-4 control-label">补单原因:</label>
                                         <div class="col-xs-8">
-                                            <select class="form-control" name="cause ">
+                                            <select class="form-control" name="">
                                                 <option value="">- 请选择 -</option>
-                                                <%
-                                                reasonInfo.forEach(function (element) { %>
-                                                <option value="<%= element.id %>"><%= element.name %></option>
-                                                <%  }) %>
                                             </select>
-
                                         </div>
                                     </div>
                                 </div>
 
                             </div>
+
+
                             <div class="col-xs-12">
-                                <div class="col-xs-4">
+                                <div class="col-xs-6">
                                     <div class="form-group">
-                                        <label class="col-xs-3 control-label">建单日期:</label>
+                                        <label class="col-xs-2 control-label">补单建单日期:</label>
                                         <div class="col-xs-4">
-                                            <input class="form-control fg-date-time-picker" placeholder="" type="text"
-                                                   name="startDate">
+                                            <input class="form-control fg-date-picker" type="text"
+                                                   value="" name="startDate" >
                                         </div>
-                                        <label class="col-xs-1 control-label "> 至 </label>
+                                        <label class="control-label " style="float: left"> 至 </label>
                                         <div class="col-xs-4">
-                                            <input class="form-control fg-date-time-picker" placeholder="" type="text"
-                                                   name="endDate">
+                                            <input class="form-control fg-date-picker" type="text"
+                                                   value="" name="endDate" >
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-xs-4">
+
+                                <div class="col-xs-3">
                                     <div class="form-group">
-                                        <label class="col-xs-3 control-label">订单状态:</label>
-                                        <div class="col-xs-4 tight-right">
-                                            <select class="form-control" name="startCode">
+                                        <label class="col-xs-4 control-label">难度:</label>
+                                        <div class="col-xs-8">
+                                            <select class="form-control" name="">
                                                 <option value="">- 请选择 -</option>
-                                                <%
-                                                stcodeInfo.forEach(function (element) { %>
-                                                <option value="<%= element.id %>"><%= element.name %></option>
-                                                <%  }) %>
-                                            </select>
-                                        </div>
-                                        <label class="col-xs-1 control-label "> 至 </label>
-                                        <div class="col-xs-4 ">
-                                            <select class="form-control" name="endCode">
-                                                <option value="">- 请选择 -</option>
-                                                <%
-                                                stcodeInfo.forEach(function (element) { %>
-                                                <option value="<%= element.id %>"><%= element.name %></option>
-                                                <%  }) %>
                                             </select>
                                         </div>
                                     </div>
                                 </div>
+
+
                             </div>
+
+                            <div class="col-xs-12">
+                                <div class="col-xs-6">
+                                    <div class="form-group">
+                                        <label class="col-xs-2 control-label">原订单建单日期:</label>
+                                        <div class="col-xs-4">
+                                            <input class="form-control fg-date-picker" type="text"
+                                                   value="" name="" >
+                                        </div>
+                                        <label class="control-label " style="float: left"> 至 </label>
+                                        <div class="col-xs-4">
+                                            <input class="form-control fg-date-picker" type="text"
+                                                   value="" name="" >
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xs-6">
+                                    <div class="form-group">
+                                        <label class="col-xs-2 control-label">补单建单人:</label>
+                                        <div class="col-xs-5">
+                                            <select class="form-control" name="">
+                                                <option value="">- 请选择 -</option>
+                                                <option value="1">- 输入门店角色号/部门号 -</option>
+                                                <option value="2">- 输入柜员 -</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-xs-4">
+                                            <input class="form-control fg-date-picker" type="text"
+                                                   value="" name="">
+                                        </div>
+                                    </div>
+                                </div>
+
+
+
+                            </div>
+
+
+
+
 
                             <div class="col-xs-12">
                                 <hr class="simple">
-                                <div class="col-xs-12">
+                                <div class="col-xs-12 text-center">
                                     <button class="btn btn-primary " type="submit">
                                         <i class="fa fa-save"></i>
                                         确认
@@ -200,7 +216,7 @@
             <!-- row -->
             <div class="row">
                 <div class="col-xs-12">
-                    <h6>登记列表</h6>
+                    <h6>补单列表</h6>
                     <hr class="simple">
                 </div>
             </div>
@@ -216,35 +232,33 @@
                                 <th>品牌</th>
                                 <th>类型</th>
                                 <th>补单订单号</th>
-                                <th>原流水号</th>
-                                <th>产品类型</th>
-                                <th>补单建单柜员</th>
+                                <th>原订单号</th>
+                                <th>产品信息</th>
+                                <th>补单建单柜员（门店/部门号+订单号）</th>
                                 <th>补单建单时间</th>
                                 <th>补单原因</th>
                                 <th>补单当前状态</th>
+                                <th>审核加盟价</th>
+                                <th>出厂价</th>
                             </tr>
                             </thead>
                             <tbody>
-                            <%
-                            var num = 1;
-                            resupplyList.result.forEach(function (element) { %>
-                            <tr>
-                                <td><%= num %></td>
-                                <td><%= DWY_Helper.getAssistVal(element.brandId,brandInfo) %></td>
-                                <td><%= element.spaceName %></td>
-                                <td><%= element.tid %></td>
-                                <td><%= element.lid %></td>
-                                <td><%= DWY_Helper.getAssistVal(element.prodType,prodInfo) %></td>
-                                <td><%= element.gid %></td>
-                                <td><%= DWY_Helper.getLocalDate(element.addTime) %></td>
-                                <td><%= element.cause %></td>
-                                <td><%= DWY_Helper.getAssistVal(element.stcode,stcodeInfo) %></td>
-                            </tr>
-                            <% num++ }) %>
-
+                           <tr>
+                               <td>1</td>
+                               <td>布兰莎</td>
+                               <td>具体类型</td>
+                               <td><a href="/order/resupply/detail">11222</a></td>
+                               <td><a href="/order/detail">11222</a></td>
+                               <td>衣柜</td>
+                               <td>564798456465321/356456</td>
+                               <td>2016-10-10</td>
+                               <td>损坏</td>
+                               <td>已发货</td>
+                               <td>0.00</td>
+                               <td>0.00</td>
+                           </tr>
                             </tbody>
                         </table>
-                        <%- pagination %>
 
                     </div>
                 </div>
@@ -264,64 +278,10 @@
 
     $(document).ready(function () {
 
-        /* DO NOT REMOVE : GLOBAL FUNCTIONS!
-         *
-         * pageSetUp(); WILL CALL THE FOLLOWING FUNCTIONS
-         *
-         * // activate tooltips
-         * $("[rel=tooltip]").tooltip();
-         *
-         * // activate popovers
-         * $("[rel=popover]").popover();
-         *
-         * // activate popovers with hover states
-         * $("[rel=popover-hover]").popover({ trigger: "hover" });
-         *
-         * // activate inline charts
-         * runAllCharts();
-         *
-         * // setup widgets
-         * setup_widgets_desktop();
-         *
-         * // run form elements
-         * runAllForms();
-         *
-         ********************************
-         *
-         * pageSetUp() is needed whenever you load a page.
-         * It initializes and checks for all basic elements of the page
-         * and makes rendering easier.
-         *
-         */
+
 
         pageSetUp();
-
-        /*
-         * ALL PAGE RELATED SCRIPTS CAN GO BELOW HERE
-         * eg alert("my home function");
-         *
-         * var pagefunction = function() {
-         *   ...
-         * }
-         * loadScript("js/plugin/_PLUGIN_NAME_.js", pagefunction);
-         *
-         * TO LOAD A SCRIPT:
-         * var pagefunction = function (){
-         *  loadScript(".../plugin.js", run_after_loaded);
-         * }
-         *
-         * OR
-         *
-         * loadScript(".../plugin.js", run_after_loaded);
-         */
-
-        var pageFunction = function () {
-
-        }
-
-        $(".fg-date-time-picker").flatpickr(data_time_picker.data_time_picker); // jQuery
-
-        pageFunction();
+        $(".fg-date-picker").flatpickr(data_time_picker.data_picker); // jQuery
 
     })
 

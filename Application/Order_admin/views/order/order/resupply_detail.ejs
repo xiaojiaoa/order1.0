@@ -130,6 +130,7 @@
                                 <td colspan="3">
                                     <p>设计文件1、<a href="/order/resupply/detail" class="order-number">
                                             儿童房衣柜.jpg</a></p>
+                                    <a class="label label-primary" >文件上传</a>
                                 </td>
                             </tr>
                             <tr>
@@ -153,7 +154,7 @@
             <div class="row">
                 <!-- col -->
                 <div class="col-xs-12 dwy-show-content">
-                    <legend>状态信息</legend>
+                    <legend>状态信息 <a class="label label-primary" >解锁（受理中/拆单中 时显示）</a></legend>
                     <!-- row -->
                     <div class="table-responsive">
                         <table class="table table-bordered table-striped table-information">
@@ -163,8 +164,22 @@
                                 <td colspan="3">审核未加急   拆单许可</td>
                             </tr>
                             <tr>
-                                <td>受理时间</td>
-                                <td>2016-10-10   10：10：10</td>
+                                <td>受理时间（受理中）</td>
+                                <td>
+                                    受理中
+                                    <a class="label label-primary margin-left-20" id="check-pass-modal">确认受理</a>
+                                    <a class="label label-primary margin-left-20 reject-modal">补单受理退回</a>
+
+                                </td>
+                                <td>受理人</td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>受理时间（待受理）</td>
+                                <td>
+                                    待受理
+                                    <a class="label label-primary">标记为受理中</a>
+                                </td>
                                 <td>受理人</td>
                                 <td></td>
                             </tr>
@@ -182,11 +197,25 @@
                             </tr>
                             <tr>
                                 <td>拆单时间</td>
-                                <td>2016-10-10   10：10：10</td>
+                                <td>
+                                    拆单中
+                                    <a class="label label-primary margin-left-20" id="doTearPass">确认拆单</a>
+                                    <a class="label label-primary margin-left-20 reject-modal">拆单退回</a>
+
+                                </td>
                                 <td>拆单人</td>
                                 <td></td>
                             </tr>
+                            <tr>
+                                <td>拆单时间（待拆单）</td>
+                                <td>
+                                    待拆单
+                                    <a class="label label-primary">标记为拆单中</a>
 
+                                </td>
+                                <td>拆单人</td>
+                                <td></td>
+                            </tr>
                             <tr>
                                 <td>特排时间</td>
                                 <td>2016-10-10   10：10：10</td>
@@ -322,10 +351,17 @@
 
 
         pageSetUp();
-
+        $("#doTearPass").click(function () {
+            layer.confirm('确定拆单完毕吗？',{icon: 3, title:'提示'},function(index){
+                layer.close(index)
+            },function(index){
+                layer.close(index)})
+        })
     })
 
 </script>
 
 
 <%- include('../layouts/foot'); %>
+<%- include('./check_pass'); %>
+<%- include('./order_reject'); %>

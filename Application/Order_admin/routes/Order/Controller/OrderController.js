@@ -62,6 +62,15 @@ var OrderController = {
                 res.render('order/order/order_detail', returnData);
             });
     },
+    resupplyPage: function (req, res) {
+        res.render('order/order/resupplys');
+    },
+    acceptPage: function (req, res) {
+        res.render('order/order/resupplys_accept');
+    },
+    tearsPage: function (req, res) {
+        res.render('order/order/resupplys_tears');
+    },
     resupplyDetailPage: function (req, res) {
         res.render('order/order/resupply_detail');
     },

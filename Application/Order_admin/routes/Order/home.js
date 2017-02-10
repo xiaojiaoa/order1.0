@@ -127,6 +127,16 @@ router.get('/orders', Middleware.AuthCheck, Middleware.FilterEmptyField, OrderCo
 // router.get('/order/detail/:tid', Middleware.AuthCheck, OrderController.detailPage);
 router.get('/order/detail', Middleware.AuthCheck, OrderController.detailPage);
 
+// 补单页面
+router.get('/orders/resupplys', Middleware.AuthCheck, Middleware.FilterEmptyField, OrderController.resupplyPage);
+
+// 补单受理页面
+router.get('/orders/resupplys/accept', Middleware.AuthCheck, Middleware.FilterEmptyField, OrderController.acceptPage);
+
+// 补单拆单页面
+router.get('/orders/resupplys/tears', Middleware.AuthCheck, Middleware.FilterEmptyField, OrderController.tearsPage);
+
+
 // 补单详情页面   补单信息（已完成）
 router.get('/order/resupply/detail', Middleware.AuthCheck, OrderController.resupplyDetailPage);
 
@@ -139,6 +149,19 @@ router.get('/order/process', Middleware.AuthCheck, OrderController.processPage);
 
 //  订单许可页面
 router.get('/order/permit', Middleware.AuthCheck, OrderController.permitPage);
+
+
+/*
+ * 页面范围: 拆单
+ * 控制器:   TearController
+ * */
+var TearController = require('./Controller/TearController');
+
+// 拆单页面
+router.get('/tears', Middleware.AuthCheck, Middleware.FilterEmptyField, TearController.listPage);
+
+// 拆单审核页面
+router.get('/tears/check', Middleware.AuthCheck, Middleware.FilterEmptyField, TearController.checkPage);
 
 
 

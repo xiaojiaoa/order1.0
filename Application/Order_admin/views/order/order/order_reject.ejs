@@ -1,4 +1,4 @@
-<form class="form-horizontal  layer-template" method="post" id="check_reject" action="" >
+<form class="form-horizontal  layer-template" method="post" id="order_reject" action="" >
 
 
     <div class="col-xs-12">
@@ -44,16 +44,16 @@
 
     $(document).ready(function () {
 
-        $("#check_reject").validationEngine();
+        $("#order_reject").validationEngine();
 
         //弹出类
-        $('#check-reject-modal').on({
+        $('.reject-modal').on({
             click: function (e) {
                 layer.open({
                     title: false,
                     type: 1,
                     area: '700px',
-                    content: $('#check_reject'),
+                    content: $('#order_reject'),
                     cancel: function () {
                         //右上角关闭回调
                     },
