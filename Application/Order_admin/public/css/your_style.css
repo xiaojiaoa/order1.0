@@ -129,6 +129,10 @@ nav ul span.menu-item-parent {
 .label-success {
     background-color: #5cb85c;
 }
+.label-danger {
+    background-color: #d9534f;
+}
+
 /*thead>tr>th{*/
     /*text-align: center;*/
 /*}*/
@@ -202,4 +206,61 @@ nav ul span.menu-item-parent {
     width: 100%;
     background: #fff;
     z-index: 999;
+}
+
+.close-info{
+    background-color: rgba(244, 244, 244, 1);
+    color: #999999;
+}
+
+
+.table-expand a{
+    padding:10px;
+    cursor: pointer;
+}
+.table-expand .level-1-title{
+    padding-left: 40px;
+    color: #5a5a5a;
+}
+
+.separation{
+    border-right: 1px #928c8c solid;
+    padding: 0 5px;
+}
+tr>td>.separation:last-child{
+    border-right:none;
+}
+.divider{
+    margin: 0 6px;
+    display: inline-block;
+    height: 8px;
+    width: 1px;
+    background: #ccc;
+}
+
+.padding-right-10{
+    padding-right: 10px;
+}
+.padding-left-5{
+    padding-left:5px;
+}
+.margin-left-10{
+    margin-left: 10px;
+}
+.smart-style-2 .btn-warning ,.btn-warning {
+    color: #fff;
+    background-color: #f0ad4e;
+    border-color: #eea236;
+}
+
+.employee-info .text-left{
+    color: #999999;
+}
+.upimg-input{
+    width: 80px;
+    border: none;
+    background: transparent;
+}
+.to-block{
+    display: block;
 }

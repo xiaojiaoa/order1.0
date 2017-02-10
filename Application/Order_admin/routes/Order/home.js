@@ -163,6 +163,75 @@ router.get('/tears', Middleware.AuthCheck, Middleware.FilterEmptyField, TearCont
 // 拆单审核页面
 router.get('/tears/check', Middleware.AuthCheck, Middleware.FilterEmptyField, TearController.checkPage);
 
+/*
+ * 页面范围: 门店管理
+ * 控制器:   SroresController
+ * */
+var StoresController = require('./Controller/StoresController');
+
+// 门店管理页面
+router.get('/storesManage', Middleware.AuthCheck, Middleware.FilterEmptyField, StoresController.listPage);
+
+// 门店详情页面
+router.get('/storesManage/detail/:cid', Middleware.AuthCheck, StoresController.detailPage);
+
+// 新建门店页面
+router.get('/storesManage/create', Middleware.AuthCheck, StoresController.createPage);
+
+// 新建门店
+router.post('/storesManage/doCreate', Middleware.AuthCheck, StoresController.doCreate);
+
+// 修改门店页面
+router.get('/storesManage/modify/:cid', Middleware.AuthCheck, StoresController.modifyPage);
+
+// 修改门店
+router.post('/storesManage/doModify', Middleware.AuthCheck, StoresController.doModify);
+
+
+/*
+ * 页面范围: 部门相关
+ * 控制器:   DepartmentController
+ * */
+
+var DepartmentController = require('./Controller/DepartmentController');
+
+// 获取部门信息
+router.get('/department', Middleware.AuthCheck, Middleware.FilterEmptyField, DepartmentController.listPage);
+
+// 新增门店部门
+router.post('/department/doCreate', Middleware.AuthCheck, DepartmentController.doCreate);
+
+// 更新部门信息
+router.post('/department/doModify', Middleware.AuthCheck, DepartmentController.doModify);
+
+// 删除部门
+router.delete('/department/doDelete/:id', Middleware.AuthCheck, DepartmentController.doDelete);
+
+
+/*
+ * 页面范围: 角色相关
+ * 控制器:   RolesController
+ * */
+
+var RolesController = require('./Controller/RolesController');
+
+// 获取角色信息
+router.get('/roles', Middleware.AuthCheck, Middleware.FilterEmptyField, RolesController.listPage);
+
+// 新增角色页面
+router.get('/roles/create', Middleware.AuthCheck, RolesController.createPage);
+
+// 新增角色
+router.post('/roles/doCreate', Middleware.AuthCheck, RolesController.doCreate);
+
+// 更新角色页面
+router.get('/roles/modify/:cid', Middleware.AuthCheck, RolesController.modifyPage);
+
+// 更新角色
+router.post('/roles/doModify', Middleware.AuthCheck, RolesController.doModify);
+
+// 删除部门
+router.delete('/roles/doDelete/:id', Middleware.AuthCheck, RolesController.doDelete);
 
 
 /*

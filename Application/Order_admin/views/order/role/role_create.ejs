@@ -1,0 +1,128 @@
+<%- include('../layouts/head_top'); %>
+<%- include('../layouts/head_bottom'); %>
+<%- include('../layouts/header'); %>
+<%- include('../layouts/nav'); %>
+
+
+<!-- MAIN PANEL -->
+<div id="main" role="main">
+
+    <!-- RIBBON -->
+    <div id="ribbon">
+
+        <!-- breadcrumb -->
+        <ol class="breadcrumb">
+            <li>后台管理</li>
+            <li>新建角色</li>
+        </ol>
+        <!-- end breadcrumb -->
+    </div>
+    <!-- END RIBBON -->
+
+    <!-- MAIN CONTENT -->
+    <div id="content">
+
+        <!-- well -->
+        <div class="well">
+            <!-- row -->
+            <div class="row">
+                <!-- col -->
+                <div class="col-xs-12">
+                    <legend>新建角色</legend>
+
+                    <!-- row -->
+                    <div class="row">
+                        <form class="form-horizontal" method="post" action="/roles/doCreate" id="create-store">
+
+                            <div class="col-xs-12">
+                                <!--输入字段-->
+                                <div class="col-xs-8">
+                                    <div class="form-group">
+                                        <label class="col-xs-2 control-label"><span class="requird"></span> 角色:</label>
+                                        <div class="col-xs-4">
+                                            <input class="form-control validate[required]"
+                                                   value="<%= DWY_last_request_param.resideAddress %>"
+                                                   name="resideAddress">
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div class="col-xs-12">
+
+                                <div class="col-xs-8">
+                                    <div class="form-group">
+                                        <label class="col-xs-2 control-label "><span class="requird"></span> 权限:
+                                        </label>
+                                        <div class="col-xs-8">
+                                            <label class="checkbox-inline to-block no-margin">
+                                                <input type="checkbox" class="checkbox validate[minCheckbox[1]]"
+                                                       name="roles" value="1">
+                                                <span>权限1</span>
+                                            </label>
+                                            <label class="checkbox-inline to-block no-margin">
+                                                <input type="checkbox" class="checkbox validate[minCheckbox[1]]"
+                                                       name="roles" value="2">
+                                                <span>权限1</span>
+                                            </label>
+                                            <label class="checkbox-inline to-block no-margin">
+                                                <input type="checkbox" class="checkbox validate[minCheckbox[1]]"
+                                                       name="roles" value="3">
+                                                <span>权限1</span>
+                                            </label>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div class="col-xs-8">
+                                <hr class="simple">
+                                <div class="col-xs-12 text-center">
+
+                                    <button class="btn btn-primary " type="submit">
+                                        <i class="fa fa-save"></i>
+                                        确认添加
+                                    </button>
+                                </div>
+                            </div>
+
+                        </form>
+                    </div>
+                    <!-- end row -->
+
+                </div>
+                <!-- end col -->
+            </div>
+            <!-- end row -->
+        </div>
+        <!-- end well -->
+
+
+    </div>
+    <!-- END MAIN CONTENT -->
+
+</div>
+<!-- END MAIN PANEL -->
+
+<%- include('../layouts/footer'); %>
+<%- include('../layouts/footer_common_script'); %>
+
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+
+//        pageSetUp();
+
+        $("#create-store").validationEngine();
+
+
+    })
+
+</script>
+
+
+<%- include('../layouts/foot'); %>

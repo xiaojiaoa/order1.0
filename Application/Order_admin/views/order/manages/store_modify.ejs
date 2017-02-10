@@ -1,0 +1,338 @@
+<%- include('../layouts/head_top'); %>
+<%- include('../layouts/head_bottom'); %>
+<%- include('../layouts/header'); %>
+<%- include('../layouts/nav'); %>
+
+
+<!-- MAIN PANEL -->
+<div id="main" role="main">
+
+    <!-- RIBBON -->
+    <div id="ribbon">
+
+        <!-- breadcrumb -->
+        <ol class="breadcrumb">
+            <li>后台管理</li>
+            <li>修改门店信息</li>
+        </ol>
+        <!-- end breadcrumb -->
+    </div>
+    <!-- END RIBBON -->
+
+    <!-- MAIN CONTENT -->
+    <div id="content">
+
+        <!-- well -->
+        <div class="well">
+            <!-- row -->
+            <div class="row">
+                <!-- col -->
+                <div class="col-xs-12">
+                    <legend>修改门店信息</legend>
+
+                    <!-- row -->
+                    <div class="row">
+                        <form class="form-horizontal" method="post" action="/storesManage/doCreate" id="create-store">
+
+                            <div class="col-xs-12">
+
+                                <!--输入字段-->
+                                <div class="col-xs-8">
+                                    <div class="form-group">
+                                        <label class="col-xs-2 control-label"><span class="requird"></span> 门店名称:</label>
+                                        <div class="col-xs-10">
+                                            <input class="form-control validate[required]" placeholder="请输入门店名称"
+                                                   value="<%= DWY_last_request_param.resideAddress %>"
+                                                   name="resideAddress">
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div class="col-xs-12">
+
+                                <div class="col-xs-4">
+                                    <div class="form-group">
+                                        <label class="col-xs-4 control-label "><span class="requird"></span> 店长姓名:
+                                        </label>
+                                        <div class="col-xs-8">
+                                            <input class="form-control validate[required]"
+                                                   value="<%= DWY_last_request_param.mobile %>"
+                                                   name="">
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                                <div class="col-xs-4">
+                                    <div class="form-group">
+                                        <label class="col-xs-4 control-label "><span class="requird"></span> 店长手机:
+                                        </label>
+                                        <div class="col-xs-8">
+                                            <input class="form-control validate[required,funcCall[custom_validate_fn.isMobile]]"
+                                                   placeholder="输入号码" type="tel"
+                                                   value="<%= DWY_last_request_param.mobile %>"
+                                                   name="mobile">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <input type="hidden" name="empType" value="20">
+
+
+
+                            </div>
+
+                            <div class="col-xs-12">
+
+                                <!--输入字段-->
+                                <div class="col-xs-4">
+                                    <div class="form-group">
+                                        <label class="col-xs-4 control-label"><span class="requird"></span>
+                                            门店类型:</label>
+                                        <div class="col-xs-8">
+                                            <select class="form-control validate[required]" name="idcardType">
+                                                <option value="">- 请选择 -</option>
+                                                <option value="1" <%= (DWY_last_request_param.idcardType == 1) ? 'selected' : '' %> >
+                                                    路边店
+                                                </option>
+                                                <option value="2" <%= (DWY_last_request_param.idcardType == 2) ? 'selected' : '' %> >
+                                                    商超店
+                                                </option>
+                                                <option value="3" <%= (DWY_last_request_param.idcardType == 3) ? 'selected' : '' %> >
+                                                    卖场店
+                                                </option>
+                                                <option value="4" <%= (DWY_last_request_param.idcardType == 4) ? 'selected' : '' %> >
+                                                    仓储店
+                                                </option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-xs-4">
+                                    <div class="form-group">
+                                        <label class="col-xs-4 control-label"><span class="requird"></span>
+                                            经营类型:</label>
+                                        <div class="col-xs-8">
+                                            <select class="form-control validate[required]" name="idcardType">
+                                                <option value="">- 请选择 -</option>
+                                                <option value="1" <%= (DWY_last_request_param.idcardType == 1) ? 'selected' : '' %> >
+                                                    自营店
+                                                </option>
+                                                <option value="2" <%= (DWY_last_request_param.idcardType == 2) ? 'selected' : '' %> >
+                                                    加盟店
+                                                </option>
+
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                            </div>
+
+                            <div class="col-xs-12">
+
+                                <!--输入字段-->
+                                <div class="col-xs-4">
+                                    <div class="form-group">
+                                        <label class="col-xs-4 control-label"><span class="requird"></span>
+                                            是否自带仓库:</label>
+                                        <div class="col-xs-8">
+                                            <select class="form-control validate[required]" name="">
+                                                <option value="">- 请选择 -</option>
+                                                <option value="1" <%= (DWY_last_request_param.idcardType == 1) ? 'selected' : '' %> >
+                                                    是
+                                                </option>
+                                                <option value="2" <%= (DWY_last_request_param.idcardType == 2) ? 'selected' : '' %> >
+                                                    否
+                                                </option>
+
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-xs-4">
+                                    <div class="form-group">
+                                        <label class="col-xs-4 control-label"><span class="requird"></span>
+                                            最低保证金:</label>
+                                        <div class="col-xs-8">
+                                            <input class="form-control validate[required]"
+                                                   value="<%= DWY_last_request_param.mobile %>"
+                                                   name="mobile">
+                                            <span code-data="元" class="unit"></span>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                            </div>
+
+
+                            <div class="col-xs-12">
+
+                                <!--输入字段-->
+                                <div class="col-xs-8">
+                                    <div class="form-group">
+                                        <label class="col-xs-2 control-label"><span class="requird"></span> 门店地址:</label>
+                                        <div class="col-xs-10">
+                                            <input class="form-control validate[required]" placeholder="请输入详细地址"
+                                                   value="<%= DWY_last_request_param.resideAddress %>"
+                                                   name="resideAddress">
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="col-xs-12">
+                                <div class="col-xs-8">
+                                    <div class="form-group">
+                                        <label class="col-xs-2 control-label">备注:</label>
+                                        <div class="col-xs-10">
+                                            <textarea name="seqRemark" class="form-control"
+                                                      cols="30"
+                                                      rows="5"></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-xs-8">
+                                <hr class="simple">
+                                <div class="col-xs-12 text-center">
+
+                                    <button class="btn btn-primary " type="submit">
+                                        <i class="fa fa-save"></i>
+                                        确认添加
+                                    </button>
+                                </div>
+                            </div>
+
+                        </form>
+                    </div>
+                    <!-- end row -->
+
+                </div>
+                <!-- end col -->
+            </div>
+            <!-- end row -->
+        </div>
+        <!-- end well -->
+
+
+    </div>
+    <!-- END MAIN CONTENT -->
+
+</div>
+<!-- END MAIN PANEL -->
+
+<%- include('../layouts/footer'); %>
+<%- include('../layouts/footer_common_script'); %>
+
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+
+//        pageSetUp();
+
+        $("#create-store").validationEngine();
+
+
+//        结合html5标准事件 oninput 和 IE 专属事件 onpropertychange 事件来动态监听输入框值变化
+        $('#mobile').on('input propertychange', function () {
+            var mobile = this.value;
+            if ($("#mobile").validationEngine('validate')) {
+                $.ajax({
+                    url: '/getEmployeesByMobile/' + mobile,
+                    success: function (data) {
+                        console.log('employees3333',data)
+                        if(data.result.length !=0){
+                            location.href = "/employees/detail/" + data.result[0].id;
+                        }
+                    }
+                });
+            }
+        });
+
+        $(".fg-date-picker").flatpickr(data_time_picker.data_picker); // jQuery
+
+
+        DWY_area.init({});
+
+         var idPhotoNum = 1;
+        var idPhotoOneName = $("#idPhotoOneName");
+        var idPhotoTwoName = $("#idPhotoTwoName");
+        var idPhotoOne = $("#idPhotoOne");
+        var idPhotoTwo = $("#idPhotoTwo");
+
+        $('#dwy_file_upload').on({
+            change: function (e) {
+                var _this = $(this);
+                var label = $("#label-upload-file");
+
+                var formData = new FormData();
+                formData.append('file_name', _this.prop('files')[0])
+
+                $.ajax({
+                    url: '/template/upload/img',
+                    data: formData,
+                    type: 'POST',
+                    processData: false, // 不处理发送的数据，因为data值是Formdata对象，不需要对数据做处理
+                    contentType: false, // 不设置Content-type请求头
+                    success: function (data) {
+                        if (data.code == 200) {
+                            if(!idPhotoOne.val()){
+                                idPhotoOneFuc(data);
+                                label.html('上传成功 <i class="fa fa-check">');
+                                return;
+                            }
+                            if(!idPhotoTwo.val()){
+                                idPhotoTwoFuc(data);
+                                label.html('上传成功 <i class="fa fa-check">');
+                                return;
+                            }
+                            switch(idPhotoNum%2){
+                                case 1:
+                                    idPhotoOneFuc(data);
+                                    break;
+                                case 0:
+                                    idPhotoTwoFuc(data);
+                                    break;
+                            }
+                            idPhotoNum++;
+                            label.html('上传成功 <i class="fa fa-check">');
+                        } else {
+                            label.html('上传失败 <i class="fa fa-times">');
+                        }
+                    },
+                    error: function (error) {
+                        label.html('上传失败 <i class="fa fa-times">');
+                    }
+                })
+            }
+        })
+
+        function idPhotoOneFuc(data) {
+            idPhotoOne.val(data.data.url);
+            idPhotoOneName.html('<a  class="fancybox dwy_image" href="/uploads/'+data.data.name+'" data-fancybox-group="gallery" title="'+data.data.name+'">'+data.data.name+'</a>')
+
+        }
+        function idPhotoTwoFuc(data) {
+            idPhotoTwo.val(data.data.url);
+            idPhotoTwoName.html('<a  class="fancybox dwy_image" href="/uploads/'+data.data.name+'" data-fancybox-group="gallery" title="'+data.data.name+'">'+data.data.name+'</a>')
+
+        }
+
+        //图片浏览
+        $('.fancybox').fancybox();
+
+    })
+
+</script>
+
+
+<%- include('../layouts/foot'); %>

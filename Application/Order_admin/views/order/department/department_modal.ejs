@@ -1,0 +1,163 @@
+<form class="form-horizontal  layer-template" method="post" id="create-department" action="/department/doCreate" >
+    <div class="col-xs-12">
+        <div class="form-group">
+            <label class="col-xs-2 control-label"><span class="requird"></span>部门名称:</label>
+            <div class="col-xs-6">
+                <input class="form-control validate[required]" type="text"  value="" name="name" data-prompt-position="bottomLeft:20,5">
+            </div>
+            <input name="parentId" value="0" type="hidden">
+        </div>
+    </div>
+
+    <div class="col-xs-12">
+        <hr class="simple">
+        <div class="col-xs-12 text-center">
+            <button class="btn btn-primary " type="submit">
+                <i class="fa fa-save"></i>
+                新建
+            </button>
+        </div>
+    </div>
+    <div class="dwy-clear"></div>
+</form>
+
+<form class="form-horizontal  layer-template" method="post" id="create-departmentChild" action="/department/doCreate" >
+    <div class="col-xs-12">
+        <div class="form-group">
+            <label class="col-xs-2 control-label">部门名称:</label>
+            <div class="col-xs-6">
+                <label class="control-label text-align-left" id="parentDepartmentName">部门名称</label>
+                <input name="parentId" value="" type="hidden" id="parentDepartmentId">
+            </div>
+        </div>
+    </div>
+    <div class="col-xs-12">
+        <div class="form-group">
+            <label class="col-xs-2 control-label"><span class="requird"></span>子级名称:</label>
+            <div class="col-xs-6">
+                <input class="form-control validate[required]" type="text"  value="" name="name" data-prompt-position="bottomLeft:20,5">
+            </div>
+        </div>
+    </div>
+
+    <div class="col-xs-12">
+        <hr class="simple">
+        <div class="col-xs-12 text-center">
+            <button class="btn btn-primary " type="submit">
+                <i class="fa fa-save"></i>
+                新建
+            </button>
+        </div>
+    </div>
+    <div class="dwy-clear"></div>
+</form>
+
+<form class="form-horizontal  layer-template" method="post" id="modify-department" action="/department/doModify" >
+    <div class="col-xs-12">
+        <div class="form-group">
+            <label class="col-xs-2 control-label"><span class="requird"></span>部门名称:</label>
+            <div class="col-xs-6">
+                <input class="form-control validate[required]" type="text" id="modifyName"  value="部门名称" name="name" data-prompt-position="bottomLeft:20,5">
+                <input name="id" value="" type="hidden" id="modifyId">
+            </div>
+        </div>
+    </div>
+
+    <div class="col-xs-12">
+        <hr class="simple">
+        <div class="col-xs-12 text-center">
+            <button class="btn btn-primary " type="submit">
+                <i class="fa fa-save"></i>
+                修改
+            </button>
+        </div>
+    </div>
+    <div class="dwy-clear"></div>
+</form>
+
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+
+        $("#create-department").validationEngine({scroll: false});
+        $("#create-departmentChild").validationEngine({scroll: false});
+        $("#modify-department").validationEngine({scroll: false});
+
+        //新建部门
+        $('#department-modal').on({
+            click: function (e) {
+                layer.open({
+                    title: false,
+                    type: 1,
+                    area: '500px',
+                    content: $('#create-department'),
+                    cancel: function () {
+                        //右上角关闭回调
+                    },
+
+                });
+            }
+        })
+
+        //新建子级
+        $('.departmentChild-modal').on({
+            click: function (e) {
+                var parentDepartment = $(this).attr('parent');
+                var parentDepartmentId = $(this).attr('parentId');
+                $('#parentDepartmentName').text(parentDepartment);
+                $('#parentDepartmentId').val(parentDepartmentId);
+                layer.open({
+                    title: false,
+                    type: 1,
+                    area: '500px',
+                    content: $('#create-departmentChild'),
+                    cancel: function () {
+                        //右上角关闭回调
+                    },
+
+                });
+            }
+        })
+
+        //修改部门
+        $('.departmentModify-modal').on({
+            click: function (e) {
+                var departmentName = $(this).attr('name');
+                var departmentId = $(this).attr('selfId');
+                $('#modifyName').val(departmentName);
+                $('#modifyId').val(departmentId);
+                layer.open({
+                    title: false,
+                    type: 1,
+                    area: '500px',
+                    content: $('#modify-department'),
+                    cancel: function () {
+                        //右上角关闭回调
+                    },
+
+                });
+            }
+        })
+        
+        $(".delete-department").on({
+            click: function () {
+                var id = $(this).attr('selfId');
+                layer.confirm('确认删除?',{icon: 3, title:'提示'},
+                    function(index){
+                        $.ajax({
+                            url: '/department/doDelete/'+id,
+                            method: 'delete',
+                            success: function (data) {
+                                window.location.reload();
+                            }
+                        });
+                },
+                    function(index){layer.close(index)})
+            }
+        })
+
+
+    })
+
+</script>

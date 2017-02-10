@@ -1,0 +1,151 @@
+<%- include('../layouts/head_top'); %>
+<%- include('../layouts/head_bottom'); %>
+<%- include('../layouts/header'); %>
+<%- include('../layouts/nav'); %>
+
+
+<!-- MAIN PANEL -->
+<div id="main" role="main">
+
+    <!-- RIBBON -->
+    <div id="ribbon">
+
+        <!-- breadcrumb -->
+        <ol class="breadcrumb">
+            <li>后台管理</li>
+            <li>角色信息</li>
+        </ol>
+        <!-- end breadcrumb -->
+
+    </div>
+    <!-- END RIBBON -->
+
+
+    <!-- MAIN CONTENT -->
+    <div id="content">
+
+        <div class="well">
+
+            <!-- row -->
+            <div class="row">
+                <div class="col-xs-12">
+                    <h6>默认角色
+                        <a class="label label-primary" href="/roles/create" >新建角色</a>
+                    </h6>
+                    <hr class="simple">
+                </div>
+            </div>
+
+            <!-- row -->
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-striped table-expand">
+                            <thead>
+                            <tr>
+                                <th>角色</th>
+                                <th>权限</th>
+                                <th width="300">操作</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+
+                            <tr>
+                                <td>设计师</td>
+                                <td><span class="separation">权限1</span><span class="separation">权限2</span></td>
+                                <td>
+                                    <a href="/roles/modify/555">修改</a>
+                                    <a class="delete-role"  selfId="设计师">删除</a>
+
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="well">
+
+            <!-- row -->
+            <div class="row">
+                <div class="col-xs-12">
+                    <h6>门店自定义角色
+                        <a class="label label-primary" id="department-modal" >新建自定义角色</a>
+                    </h6>
+                    <hr class="simple">
+                </div>
+            </div>
+
+            <!-- row -->
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-striped table-expand">
+                            <thead>
+                            <tr>
+                                <th>角色</th>
+                                <th>权限</th>
+                                <th width="300">操作</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+
+                            <tr>
+                                <td>设计师</td>
+                                <td><span class="separation">权限1</span><span class="separation">权限2</span></td>
+                                <td>
+                                    <a class="roleModify-modal" name="设计师"  selfId="111">修改</a>
+                                    <a class="delete-role"  selfId="111">删除</a>
+
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+    <!-- end well -->
+
+
+</div>
+<!-- END MAIN CONTENT -->
+
+</div>
+<!-- END MAIN PANEL -->
+
+<%- include('../layouts/footer'); %>
+<%- include('../layouts/footer_common_script'); %>
+
+
+<script type="text/javascript">
+
+    $(function () {
+        $(".delete-role").on({
+            click: function () {
+                layer.confirm('确定删除该角色？',{icon: 3, title:'提示'},
+                    function(index){
+//                        $.ajax({
+//                            url: '/employees/setStatus/'+employeesId+'/1',
+//                            method: 'put',
+//                            success: function (data) {
+//                                window.location.reload();
+//                            }
+//                        });
+                        layer.close(index)
+                    },
+                    function(index){layer.close(index)})
+            }
+        })
+    })
+</script>
+
+
+<%- include('../layouts/foot'); %>
