@@ -6,5 +6,5 @@ module.exports = {
     name: 'DWY_ORDER_SID',
     resave: true,
     saveUninitialized: true,
-    secret: 'keyboard cat'
+    secret: 'keyboard dog'
 };

@@ -10,26 +10,6 @@ var session = require('express-session');
 var RedisStore = require('connect-redis')(session);
 var orderSessionConfig = require('./routes/Order/config/session');
 
-/* BEGIN 增加模板继承支持 */
-var hbs = require('hbs');
-var blocks = {};
-
-hbs.registerHelper('extend', function (name, context) {
-    var block = blocks[name];
-    if (!block) {
-        block = blocks[name] = [];
-    }
-
-    block.push(context.fn(this)); // for older versions of handlebars, use block.push(context(this));
-});
-
-hbs.registerHelper('block', function (name) {
-    var val = (blocks[name] || []).join('\n');
-
-    // clear the block
-    blocks[name] = [];
-    return val;
-});
 
 /* END 增加模板继承支持 */
 
@@ -37,11 +17,12 @@ var app = express();
 
 //
 app.use(session({
-    order: new RedisStore(orderSessionConfig.order),
+    store: new RedisStore(orderSessionConfig.order),
     name: orderSessionConfig.name,
     resave: orderSessionConfig.resave,
     saveUninitialized: orderSessionConfig.saveUninitialized,
-    secret: orderSessionConfig.secret
+    secret: orderSessionConfig.secret,
+    cookie: {maxAge: 1800000}
 }));
 
 // uncomment after placing your favicon in /public
