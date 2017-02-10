@@ -10,8 +10,8 @@ var Global = {
         //订单服务器
         Order: {
             http: 'http://',
-            host: '192.2.17.21',
-            port: '8081',
+            host: '192.2.17.63',
+            port: '8082',
             remote_server: function () {
                 return Global.server.Order.http + Global.server.Order.host + (Global.server.Order.port ? ':' + Global.server.Order.port : '');
             }
