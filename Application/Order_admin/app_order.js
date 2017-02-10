@@ -11,8 +11,6 @@ var RedisStore = require('connect-redis')(session);
 var orderSessionConfig = require('./routes/Order/config/session');
 
 
-/* END 增加模板继承支持 */
-
 var app = express();
 
 //
@@ -43,8 +41,37 @@ var passport = require('./routes/Order/passport');
 
 //把USER信息加入到全局
 app.use(function(req, res, next) {
+    //登录用户信息
     res.locals.user = req.session.user;
+    //菜单信息
+    res.locals.menu = req.session.menu;
+    //权限信息
+    res.locals.permission = req.session.permission;
+    //请求本身
     res.locals.DWYRequest = req;
+    next();
+});
+
+//错误或者正确信息处理
+app.use(function (req, res, next) {
+    if (req.session.DWY_message) {
+        res.locals.DWY_message = req.session.DWY_message;
+        req.session.DWY_message = '';
+    } else {
+        res.locals.DWY_message = '';
+    }
+    next();
+});
+
+//取回上一次错误提交时的请求参数
+app.use(function (req, res, next) {
+    console.log(req.session.DWY_last_request_param)
+    if (req.session.DWY_last_request_param) {
+        res.locals.DWY_last_request_param = req.session.DWY_last_request_param;
+        req.session.DWY_last_request_param = '';
+    } else {
+        res.locals.DWY_last_request_param = '';
+    }
     next();
 });
 
@@ -53,6 +80,12 @@ app.use('/', home);
 
 app.use('/', passport);
 
+var DWY_GLOBAL = require('./routes/Order/config/global');
+
+//大王椰全局变量
+app.locals.DWY_GLOBAL = {
+    Static: DWY_GLOBAL.server.Static.remote_server()
+}
 
 app.locals.DWY_Helper = {
 
@@ -61,6 +94,14 @@ app.locals.DWY_Helper = {
         if (timestamp) {
             var time = parseInt(timestamp);
             return new Date(time).format('yyyy-MM-dd hh:mm:ss');
+        }
+        return null;
+    },
+
+    getLocalDateYMD: function (timestamp) {
+        if (timestamp) {
+            var time = parseInt(timestamp);
+            return new Date(time).format('yyyy-MM-dd');
         }
         return null;
     },
@@ -155,6 +196,34 @@ app.locals.DWY_Helper = {
         }
         return code;
     },
+
+    //checkbox 状态判断  code为[{},{}]
+    checkboxStatus: function (code, option) {
+        if (option && code) {
+            for(var i = 0; i < code.length; i++) {
+                var element = code[i];
+                if (element && element.id == option) {
+                    return 'checked';
+                }
+            }
+        }
+        return code;
+    },
+
+    //checkbox 状态判断  code为 ,分隔的字符串
+    checkboxStatusStr: function (code, option) {
+        if (option && code) {
+            var codeArry = code.split(",");
+            for(var i = 0; i < codeArry.length; i++) {
+                var element = codeArry[i];
+                if (element && element == option) {
+                    return 'checked';
+                }
+            }
+        }
+        return code;
+    },
+
 
     renderSize: function (value) {
         if (null == value || value == '') {

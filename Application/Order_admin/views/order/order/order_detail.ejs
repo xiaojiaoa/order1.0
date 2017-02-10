@@ -91,7 +91,24 @@
                             </tr>
                             <tr>
                                 <td>难度等级</td>
-                                <td>二级</td>
+                                <td>
+                                    <div>二级</div>
+                                    <hr class="simple">
+                                    <div>
+                                        订单信息（难度、许可）时显示此区域
+                                        <form class="form-horizontal" method="post" id="check_reject" action="" >
+                                            <div class="col-xs-4">
+                                                <select class="form-control" name="type">
+                                                    <option value="">- 未定 -</option>
+                                                    <option value="1">一级</option>
+                                                </select>
+                                            </div>
+                                            <div class="col-xs-2">
+                                                <button class="btn btn-primary " type="submit">确定</button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </td>
                                 <td>零售价</td>
                                 <td>0.00元</td>
                             </tr>
@@ -196,6 +213,39 @@
                             <tr>
                                 <td>许可状态</td>
                                 <td colspan="3">审核未加急  拆单不许可  排产未定</td>
+                            </tr>
+                            <tr>
+                                <td>许可状态： 订单信息（难度、许可）时显示此区行</td>
+                                <td colspan="3">
+                                    <form class="form-horizontal" method="post" id="check_reject" action="" >
+                                            <div class="col-xs-3">
+                                                <select class="form-control" name="type">
+                                                    <option value="">- 审核是否加急 -</option>
+                                                    <option value="1">审核未加急</option>
+                                                    <option value="2">审核加急</option>
+                                                </select>
+                                            </div>
+                                            <div class="col-xs-3">
+                                                <select class="form-control" name="type">
+                                                    <option value="">- 拆单是否许可 -</option>
+                                                    <option value="1">拆单未许可</option>
+                                                    <option value="2">拆单许可</option>
+                                                    <option value="3">拆单加急</option>
+                                                </select>
+                                            </div>
+                                            <div class="col-xs-3">
+                                                <select class="form-control" name="type">
+                                                    <option value="">- 排产是否许可 -</option>
+                                                    <option value="1">排产未定</option>
+                                                    <option value="2">排产暂缓</option>
+                                                    <option value="3">排产许可</option>
+                                                </select>
+                                            </div>
+                                            <div class="col-xs-2">
+                                                <a class="btn btn-primary " id="">标记待审核</a>
+                                            </div>
+                                    </form>
+                                </td>
                             </tr>
                             <tr>
                                 <td>审核时间:认领订单 时，显示此行</td>

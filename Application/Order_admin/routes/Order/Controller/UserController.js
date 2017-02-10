@@ -13,6 +13,8 @@ var helper = require('../config/helper');
 //请求模块
 var request = require('request');
 
+//引入权限
+var Permissions = require('../config/permission');
 
 var UserController = {
     indexPage: function (req, res) {
@@ -20,6 +22,7 @@ var UserController = {
         var returnData = Base.mergeData(helper.mergeObject(
             {
                 title: '个人中心',
+                Permission :Permissions,
             },
             //Customize Data
             {}

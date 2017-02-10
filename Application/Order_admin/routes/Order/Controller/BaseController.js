@@ -3,6 +3,8 @@
 //站点全局配置
 var globalConfig = require('../config/global');
 
+var _ = require('lodash');
+
 //求请处理
 var request = require('request');
 
@@ -30,7 +32,7 @@ var BaseController = {
         if (req.session.auth) {
 
             //TODO 打印TOKEN
-            console.log(req.session.auth.access_token);
+            // console.log(req.session.auth.access_token);
 
             options.headers = {
                 'access_token': req.session.auth.access_token
@@ -47,21 +49,67 @@ var BaseController = {
     handlerError: function (res, req, error, response, body) {
         console.log('Error:');
         console.log(response);
+
+        var user_session = req.session;
+
+        //返回错误信息
+        var returnInfo = function (status, code, msg, redirect) {
+            if (req.xhr) {
+                res.status(500).send({code: code, msg: msg});
+            } else {
+                res.redirect(redirect || 'back');
+            }
+        };
+
+        //检查是否可以解析出错误
         try {
             var $res = JSON.parse(response.body);
         } catch (e) {
-            res.status(200).send(response);
+
+            if (user_session) {
+                user_session.DWY_message = {
+                    type: 'error',
+                    msg: '服务器错误',
+                    sign: parseInt(Math.random() * 1000),
+                };
+
+                //如果有请求参数,参数放入到 DWY_last_request_param 结合入口文件使用
+                if (user_session) {
+                    user_session.DWY_last_request_param = _.isEmpty(req.body) ? _.isEmpty(req.query) ? "" : req.query  : req.body;
+                }
+            }
+
+            returnInfo(500, '500', '服务器错误');
+            // res.status(200).send(response);
             return;
         }
+
+        //错误信息放入session 结合入口文件使用
+        if (user_session) {
+            user_session.DWY_message = {
+                type: 'error',
+                msg: $res.msg,
+                sign: parseInt(Math.random() * 1000),
+            };
+        }
+
+        //如果有请求参数,参数放入到 DWY_last_request_param 结合入口文件使用
+        if (user_session) {
+            user_session.DWY_last_request_param = _.isEmpty(req.body) ? _.isEmpty(req.query) ? "" : req.query  : req.body;
+        }
+
+        //根据错误代码做对应处理
         switch ($res.code.toString()) {
             case '1015':
-                res.redirect('/login');
-                break;
+                // res.redirect('/login');
+                // break;
             case '1016':
-                res.redirect('/login');
+                returnInfo(500, $res.code, $res.msg, '/login');
+                // res.redirect('/login');
                 break;
             default:
-                res.status(404).send('未定义的错误处理');
+                // res.status(404).send('未定义的错误处理');
+                returnInfo(500, $res.code, $res.msg);
         }
     },
 
@@ -94,22 +142,24 @@ var BaseController = {
                     console.log('Error:');
                     console.log(response);
 
-                    if (!response) {
-                        res.status(500).send('没有收到服务器回复');
-                        return;
-                    }
+                    BaseController.handlerError(res, req, error, response, body);
 
-                    var $res = JSON.parse(response.body);
-                    switch ($res.code.toString()) {
-                        case '1015':
-                            res.redirect('/login');
-                            break;
-                        case '1016':
-                            res.redirect('/login');
-                            break;
-                        default:
-                            res.status(404).send('未定义的错误处理');
-                    }
+                    // if (!response) {
+                    //     res.status(500).send('没有收到服务器回复');
+                    //     return;
+                    // }
+                    //
+                    // var $res = JSON.parse(response.body);
+                    // switch ($res.code.toString()) {
+                    //     case '1015':
+                    //         res.redirect('/login');
+                    //         break;
+                    //     case '1016':
+                    //         res.redirect('/login');
+                    //         break;
+                    //     default:
+                    //         res.status(404).send('未定义的错误处理');
+                    // }
                     return;
                 }
 
