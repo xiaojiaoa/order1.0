@@ -251,57 +251,103 @@
                         <table class="table table-bordered table-striped">
                             <thead>
                             <tr>
-                                <th>序号</th>
-                                <th>客户号</th>
-                                <th>客户姓名</th>
-                                <th>流水号</th>
+                                <th><label class="checkbox-inline">
+                                        <input type="checkbox" class="checkbox"
+                                               id="checkAll">
+                                        <span>&nbsp;</span>
+                                    </label>序号</th>
                                 <th>订单号</th>
-                                <th>品牌</th>
-                                <th>产品类型</th>
-                                <th>空间类型</th>
+                                <th>审核加急</th>
+                                <th>拆单许可</th>
+                                <th>排产许可</th>
+                                <th>颜色</th>
+                                <th>类型</th>
+                                <th>难度</th>
+                                <th>专卖店</th>
+                                <th>客户号</th>
+                                <th>客户名称</th>
                                 <th>产品信息</th>
-                                <th>订单当前所属柜员（门店号/部门号）</th>
-                                <th>预计发货</th>
+                                <th>收款确认日期</th>
                                 <th>订单状态</th>
-                                <th>货位号</th>
                             </tr>
                             </thead>
                             <tbody>
                             <tr>
-                                <td>1</td>
+                                <td>
+                                    <label class="checkbox-inline">
+                                        <input type="checkbox" class="checkbox"
+                                               name="roles" value="1">
+                                        <span>1</span>
+                                    </label>
+                                </td>
+                                <td><a href="/order/detail">12345</a></td>
+                                <td>未加急</td>
+                                <td>未许可</td>
+                                <td>未定</td>
+                                <td>其他</td>
+                                <td>新橱柜18</td>
+                                <td>未定</td>
+                                <td>杭州市湖滨银泰店</td>
                                 <td><a href="/customer/detail">12345</a></td>
-                                <td>张先生</td>
-                                <td><a href="/taskseq/index">565555</a></td>
-                                <td><a href="/order/detail">565555</a></td>
-                                <td>昆仑公馆</td>
-                                <td>具体类型</td>
-                                <td>客餐厅</td>
-                                <td>衣柜</td>
-                                <td>564798456465321/356456</td>
+                                <td>张三</td>
+                                <td>橱柜柜体</td>
                                 <td>2016-10-10</td>
                                 <td>建单中</td>
-                                <td>5645678</td>
                             </tr>
-                            <tr class="mark-row">
-                                <td>2</td>
+                            <tr>
+                                <td>
+                                    <label class="checkbox-inline">
+                                        <input type="checkbox" class="checkbox"
+                                               name="roles" value="2">
+                                        <span>1</span>
+                                    </label>
+                                </td>
+                                <td><a href="/order/detail">12345</a></td>
+                                <td>未加急</td>
+                                <td>未许可</td>
+                                <td>未定</td>
+                                <td>其他</td>
+                                <td>新橱柜18</td>
+                                <td>未定</td>
+                                <td>杭州市湖滨银泰店</td>
                                 <td><a href="/customer/detail">12345</a></td>
-                                <td>张先生</td>
-                                <td><a href="/taskseq/index">565555</a></td>
-                                <td><a href="/order/detail">565555</a></td>
-                                <td>昆仑公馆</td>
-                                <td>具体类型</td>
-                                <td>客餐厅</td>
-                                <td>衣柜</td>
-                                <td>564798456465321/356456</td>
+                                <td>张三</td>
+                                <td>橱柜柜体</td>
                                 <td>2016-10-10</td>
-                                <td>审核退回</td>
-                                <td>5645678</td>
+                                <td>建单中</td>
                             </tr>
 
                             </tbody>
                         </table>
-
                     </div>
+                </div>
+            </div>
+        </div>
+
+        <!--footer-btn-div-->
+        <div class="" >
+            <div class="col-xs-8 form-horizontal form-group">
+                <label class="col-xs-2 control-label"> 将选中订单设置为: </label>
+                <div class="col-xs-3">
+                    <select class="form-control" name="type">
+                        <option value="">- 请选择 -</option>
+                        <option value="1">审核未加急</option>
+                        <option value="2">审核加急</option>
+                    </select>
+                </div>
+                <div class="col-xs-3">
+                    <button class="btn btn-primary">确定</button>
+                </div>
+            </div>
+            <div class="col-xs-8 form-horizontal">
+                <label class="col-xs-2 control-label "> 将选中订单难度设置为: </label>
+                <div class="col-xs-3">
+                    <select class="form-control" name="type">
+                        <option value="">- 请选择 -</option>
+                    </select>
+                </div>
+                <div class="col-xs-3">
+                    <button class="btn btn-primary">确定</button>
                 </div>
             </div>
         </div>
@@ -323,6 +369,19 @@
 
 
         $(".fg-date-picker").flatpickr(data_time_picker.data_picker); // jQuery
+        var checkedCode = [];
+        $("#checkAll").change(function () {
+            if($(this).is(":checked")){
+                $(":checkbox").prop('checked',true);
+                $("input[name='roles']:checked").each(function (i) {
+                    checkedCode[i] = this.value;
+                });
+                console.log(checkedCode);
+            }else{
+                $(":checkbox").prop('checked',false);
+                checkedCode = [];
+            }
+        })
 
 
     })

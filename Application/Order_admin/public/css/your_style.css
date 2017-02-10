@@ -193,3 +193,13 @@ nav ul span.menu-item-parent {
 .login-info>span{
     height:auto;
 }
+
+.footer-btn-div{
+    position: fixed;
+    /*margin-bottom: 70px;*/
+    padding: 10px;
+    bottom: 52px;
+    width: 100%;
+    background: #fff;
+    z-index: 999;
+}

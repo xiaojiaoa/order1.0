@@ -71,3 +71,11 @@
 
 <!-- MAIN APP JS FILE -->
 <script src="/js/app.min.js"></script>
+
+<script>
+    $(function () {
+        var type = window.location.pathname;
+//    console.log('window', window.location.pathname)
+        $('ul.menu-list li:has(a[href="' + type + '"])').addClass('active');
+    })
+</script>

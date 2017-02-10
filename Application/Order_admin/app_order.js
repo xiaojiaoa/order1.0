@@ -10,28 +10,28 @@ var session = require('express-session');
 var RedisStore = require('connect-redis')(session);
 var orderSessionConfig = require('./routes/Order/config/session');
 
-/* BEGIN 增加模板继承支持 */
-var hbs = require('hbs');
-var blocks = {};
-
-hbs.registerHelper('extend', function (name, context) {
-    var block = blocks[name];
-    if (!block) {
-        block = blocks[name] = [];
-    }
-
-    block.push(context.fn(this)); // for older versions of handlebars, use block.push(context(this));
-});
-
-hbs.registerHelper('block', function (name) {
-    var val = (blocks[name] || []).join('\n');
-
-    // clear the block
-    blocks[name] = [];
-    return val;
-});
-
-/* END 增加模板继承支持 */
+// /* BEGIN 增加模板继承支持 */
+// var hbs = require('hbs');
+// var blocks = {};
+//
+// hbs.registerHelper('extend', function (name, context) {
+//     var block = blocks[name];
+//     if (!block) {
+//         block = blocks[name] = [];
+//     }
+//
+//     block.push(context.fn(this)); // for older versions of handlebars, use block.push(context(this));
+// });
+//
+// hbs.registerHelper('block', function (name) {
+//     var val = (blocks[name] || []).join('\n');
+//
+//     // clear the block
+//     blocks[name] = [];
+//     return val;
+// });
+//
+// /* END 增加模板继承支持 */
 
 var app = express();
 
@@ -116,6 +116,14 @@ app.locals.DWY_Helper = {
         if (timestamp) {
             var time = parseInt(timestamp);
             return new Date(time).format('yyyy-MM-dd hh:mm:ss');
+        }
+        return null;
+    },
+
+    getLocalDateYMD: function (timestamp) {
+        if (timestamp) {
+            var time = parseInt(timestamp);
+            return new Date(time).format('yyyy-MM-dd');
         }
         return null;
     },
@@ -210,6 +218,34 @@ app.locals.DWY_Helper = {
         }
         return code;
     },
+
+    //checkbox 状态判断  code为[{},{}]
+    checkboxStatus: function (code, option) {
+        if (option && code) {
+            for(var i = 0; i < code.length; i++) {
+                var element = code[i];
+                if (element && element.id == option) {
+                    return 'checked';
+                }
+            }
+        }
+        return code;
+    },
+
+    //checkbox 状态判断  code为 ,分隔的字符串
+    checkboxStatusStr: function (code, option) {
+        if (option && code) {
+            var codeArry = code.split(",");
+            for(var i = 0; i < codeArry.length; i++) {
+                var element = codeArry[i];
+                if (element && element == option) {
+                    return 'checked';
+                }
+            }
+        }
+        return code;
+    },
+
 
     renderSize: function (value) {
         if (null == value || value == '') {
