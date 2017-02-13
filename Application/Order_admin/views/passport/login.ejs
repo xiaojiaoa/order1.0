@@ -129,8 +129,8 @@
                         }
                     },
                     error: function (response) {
-//                        var data = JSON.parse(response.responseText);
-                        var data = (response.responseText);
+                        var data = JSON.parse(response.responseText);
+//                        var data = (response.responseText);
                         layer.msg(data.msg)
                         getValidateInfo();
                     }

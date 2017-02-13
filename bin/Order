@@ -4,8 +4,10 @@
  *  导入环境变量
  *  */
 
-// require('dotenv').config();
+var path = require('path');
 
+require('dotenv').config({path: path.join(__dirname, '../.env')});
+console.log('Welcome to ' + process.env.APP_NAME);
 /**
  * Module dependencies.
  */
@@ -18,7 +20,7 @@ var http = require('http');
  * Get port from environment and store in Express.
  */
 
-var port = normalizePort(process.env.PORT || '8081');
+var port = normalizePort(process.env.APP_PORT);
 app.set('port', port);
 
 /**
