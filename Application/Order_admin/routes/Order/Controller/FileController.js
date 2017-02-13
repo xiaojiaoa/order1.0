@@ -40,7 +40,6 @@ var FileController = {
         var tid = req.params.tid;
         // var stcode = req.params.stcode;
         Base.multiDataRequest(req, res, [
-                {url: '/api/taskseqs/stcode/'+lid, method: 'GET', resConfig: {keyName: 'stcodeInfo', is_must: true}},
                 // {url: '/api/assist/file/type?type='+stcode, method: 'GET', resConfig: {keyName: 'fileTypeInfo', is_must: true}},
                 {url: '/api/assist/order/spaceinfo?pid=0', method: 'GET', resConfig: {keyName: 'spaceInfo', is_must: true}},
                 {url: '/api/order/file/'+ lid+"?ordType="+ordType+"&tid="+tid, method: 'GET', resConfig: {keyName: 'fileInfo', is_must: false}},
