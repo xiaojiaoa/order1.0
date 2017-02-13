@@ -42,8 +42,8 @@
                                         <label class="col-xs-4 control-label">门店名称:</label>
                                         <div class="col-xs-8">
                                             <input class="form-control"  type="text"
-                                                   value="<%= DWYRequest.query.name %>"
-                                                   name="name">
+                                                   value="<%= DWYRequest.query.storeName %>"
+                                                   name="storeName">
                                         </div>
                                     </div>
                                 </div>
@@ -54,8 +54,8 @@
                                         <label class="col-xs-4 control-label">门店编号:</label>
                                         <div class="col-xs-8">
                                             <input class="form-control"  type="text"
-                                                   value="<%= DWYRequest.query.mobile %>"
-                                                   name="mobile">
+                                                   value="<%= DWYRequest.query.bid %>"
+                                                   name="bid">
                                         </div>
                                     </div>
                                 </div>
@@ -64,12 +64,12 @@
                                     <div class="form-group">
                                         <label class="col-xs-2 control-label">建客日期:</label>
                                         <div class="col-xs-4">
-                                            <input class="form-control fg-date-time-picker" placeholder="" type="text"  value="<%= DWYRequest.query.startDate %>"
+                                            <input class="form-control fg-date-time-picker" value="<%= DWYRequest.query.startDate %>"
                                                    name="startDate">
                                         </div>
                                         <label class="control-label " style="float: left"> 至 </label>
                                         <div class="col-xs-4">
-                                            <input class="form-control fg-date-time-picker" placeholder="" type="text"  value="<%= DWYRequest.query.endDate %>"
+                                            <input class="form-control fg-date-time-picker" value="<%= DWYRequest.query.endDate %>"
                                                    name="endDate">
                                         </div>
                                     </div>
@@ -82,12 +82,11 @@
                                     <div class="form-group">
                                         <label class="col-xs-4 control-label">门店类型:</label>
                                         <div class="col-xs-8">
-                                            <select class="form-control" name="ctype">
+                                            <select class="form-control" name="addrType">
                                                 <option value="">- 请选择 -</option>
-                                                <option value="1" <%= (DWYRequest.query.ctype == 1)?"selected":"" %> >路边店</option>
-                                                <option value="2" <%= (DWYRequest.query.ctype == 2)?"selected":"" %>>商超店</option>
-                                                <option value="3" <%= (DWYRequest.query.ctype == 3)?"selected":"" %>>卖场店</option>
-                                                <option value="4" <%= (DWYRequest.query.ctype == 4)?"selected":"" %>>仓储店</option>
+                                                <% addrTypesList.forEach(function (element) { %>
+                                                    <option value="<%= element.id %>" <%= (DWYRequest.query.addrType == element.id )?"selected":"" %> ><%= element.name %></option>
+                                                <% }) %>
                                             </select>
                                         </div>
                                     </div>
@@ -98,10 +97,11 @@
                                     <div class="form-group">
                                         <label class="col-xs-4 control-label">经营类型:</label>
                                         <div class="col-xs-8">
-                                            <select class="form-control" name="ctype">
+                                            <select class="form-control" name="storeType">
                                                 <option value="">- 请选择 -</option>
-                                                <option value="1" <%= (DWYRequest.query.ctype == 1)?"selected":"" %> >自营店</option>
-                                                <option value="2" <%= (DWYRequest.query.ctype == 2)?"selected":"" %>>加盟店</option>
+                                                <% storeTypes.forEach(function (element) { %>
+                                                <option value="<%= element.id %>" <%= (DWYRequest.query.storeType == element.id )?"selected":"" %> ><%= element.name %></option>
+                                                <% }) %>
                                             </select>
                                         </div>
                                     </div>
@@ -168,25 +168,36 @@
                             </tr>
                             </thead>
                             <tbody>
+                            <%
+                            if(storeList.totalItems != 0  ){
+                            storeList.result.forEach(function (element, index) { %>
                             <tr>
-                                <td>1</td>
-                                <td><a href="/storesManage/detail/5555">5555</a></td>
-                                <td>湖滨银泰店</td>
-                                <td>湖滨银泰店</td>
-                                <td>湖滨银泰店</td>
-                                <td>湖滨银泰店</td>
-                                <td>湖滨银泰店</td>
-                                <td>湖滨银泰店</td>
-                                <td>湖滨银泰店</td>
-                                <td>湖滨银泰店</td>
-                                <td>湖滨银泰店</td>
-                                <td><a href="/department">部门信息</a> <a href="/roles" class="margin-left-20">角色信息</a></td>
+                                <td><%= index %></td>
+                                <td><a href="/storesManage/detail/<%= element.bid %>"><%= element.bid %></a></td>
+                                <td><%= element.storeName %></td>
+                                <td><%= element.storeGid %></td>
+                                <td><%= element.mobile %></td>
+                                <td><%= element.address %></td>
+                                <td><%= DWY_Helper.getAssistVal(element.addrType, addrTypesList) %></td>
+                                <td><%= DWY_Helper.getAssistVal(element.storeType, storeTypes) %></td>
+                                <td><%= DWY_Helper.getWhether(element.isWarehouse) %></td>
+                                <td><%= DWY_Helper.getLocalDate(element.addTime) %></td>
+                                <td><%= element.minFunds %></td>
+                                <td>
+                                    <a href="/department/<%= element.bid %>">部门信息</a>
+                                    <a href="/roles" class="margin-left-20">角色信息</a>
+                                </td>
                             </tr>
-
+                            <%  })
+                            }else{ %>
+                            <tr>
+                                <td colspan="12" align="center">暂无结果</td>
+                            </tr>
+                            <% } %>
 
                             </tbody>
                         </table>
-                        <!--pagination-->
+                        <%- pagination %>
 
                     </div>
                 </div>

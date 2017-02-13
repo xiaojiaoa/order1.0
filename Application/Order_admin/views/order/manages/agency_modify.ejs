@@ -13,7 +13,7 @@
         <!-- breadcrumb -->
         <ol class="breadcrumb">
             <li>后台管理</li>
-            <li>新建门店</li>
+            <li>修改机构</li>
         </ol>
         <!-- end breadcrumb -->
     </div>
@@ -28,38 +28,22 @@
             <div class="row">
                 <!-- col -->
                 <div class="col-xs-12">
-                    <legend>新建门店信息</legend>
+                    <legend>修改机构信息</legend>
 
                     <!-- row -->
                     <div class="row">
-                        <form class="form-horizontal" method="post" action="/storesManage/doCreate" id="create-store">
-
-                            <div class="col-xs-12">
-
-                                <!--输入字段-->
-                                <div class="col-xs-8">
-                                    <div class="form-group">
-                                        <label class="col-xs-2 control-label"><span class="requird"></span> 门店名称:</label>
-                                        <div class="col-xs-10">
-                                            <input class="form-control validate[required]" placeholder="请输入门店名称"
-                                                   value="<%= DWY_last_request_param.storeName %>"
-                                                   name="storeName">
-                                        </div>
-                                    </div>
-                                </div>
-
-                            </div>
+                        <form class="form-horizontal" method="post" action="/agency/doModify" id="create-store">
 
                             <div class="col-xs-12">
 
                                 <div class="col-xs-4">
                                     <div class="form-group">
-                                        <label class="col-xs-4 control-label "><span class="requird"></span> 店长姓名:
+                                        <label class="col-xs-4 control-label "><span class="requird"></span> 负责人姓名:
                                         </label>
                                         <div class="col-xs-8">
                                             <input class="form-control validate[required]"
-                                                   value="<%= DWY_last_request_param.storeGid %>"
-                                                   name="storeGid">
+                                                   value="<%= DWY_last_request_param.mobile %>"
+                                                   name="">
                                         </div>
 
                                     </div>
@@ -67,7 +51,7 @@
 
                                 <div class="col-xs-4">
                                     <div class="form-group">
-                                        <label class="col-xs-4 control-label "><span class="requird"></span> 店长手机:
+                                        <label class="col-xs-4 control-label "><span class="requird"></span> 负责人手机:
                                         </label>
                                         <div class="col-xs-8">
                                             <input class="form-control validate[required,funcCall[custom_validate_fn.isMobile]]"
@@ -78,7 +62,7 @@
                                     </div>
                                 </div>
 
-                                <!--<input type="hidden" name="empType" value="20">-->
+                                <input type="hidden" name="empType" value="20">
 
 
 
@@ -86,58 +70,44 @@
 
                             <div class="col-xs-12">
 
+                                <div class="col-xs-4">
+                                    <div class="form-group">
+                                        <label class="col-xs-4 control-label"><span class="requird"></span> 机构名称:</label>
+                                        <div class="col-xs-8">
+                                            <input class="form-control validate[required]"
+                                                   value="<%= DWY_last_request_param.resideAddress %>"
+                                                   name="resideAddress">
+                                        </div>
+                                    </div>
+                                </div>
+
                                 <!--输入字段-->
                                 <div class="col-xs-4">
                                     <div class="form-group">
                                         <label class="col-xs-4 control-label"><span class="requird"></span>
-                                            门店类型:</label>
+                                            机构类型:</label>
                                         <div class="col-xs-8">
-                                            <select class="form-control validate[required]" name="addrType">
+                                            <select class="form-control validate[required]" name="idcardType">
                                                 <option value="">- 请选择 -</option>
-                                                <% addrTypesList.forEach(function (element) { %>
-                                                <option value="<%= element.id %>" <%= (DWY_last_request_param.addrType == element.id )?"selected":"" %> >
-                                                    <%= element.name %>
-                                                </option>
-                                                <% }) %>
                                             </select>
                                         </div>
                                     </div>
                                 </div>
-
-                                <div class="col-xs-4">
-                                    <div class="form-group">
-                                        <label class="col-xs-4 control-label"><span class="requird"></span>
-                                            经营类型:</label>
-                                        <div class="col-xs-8">
-                                            <select class="form-control validate[required]" name="storeType">
-                                                <option value="">- 请选择 -</option>
-                                                <% storeTypes.forEach(function (element) { %>
-                                                <option value="<%= element.id %>" <%= (DWY_last_request_param.storeType == element.id )?"selected":"" %> >
-                                                    <%= element.name %>
-                                                </option>
-                                                <% }) %>
-                                            </select>
-                                        </div>
-                                    </div>
-                                </div>
-
-
                             </div>
 
                             <div class="col-xs-12">
 
-                                <!--输入字段-->
                                 <div class="col-xs-4">
                                     <div class="form-group">
                                         <label class="col-xs-4 control-label"><span class="requird"></span>
                                             是否自带仓库:</label>
                                         <div class="col-xs-8">
-                                            <select class="form-control validate[required]" name="isWarehouse">
+                                            <select class="form-control validate[required]" name="">
                                                 <option value="">- 请选择 -</option>
-                                                <option value="1" <%= (DWY_last_request_param.isWarehouse == 1) ? 'selected' : '' %> >
+                                                <option value="1" <%= (DWY_last_request_param.idcardType == 1) ? 'selected' : '' %> >
                                                     是
                                                 </option>
-                                                <option value="2" <%= (DWY_last_request_param.isWarehouse == 2) ? 'selected' : '' %> >
+                                                <option value="2" <%= (DWY_last_request_param.idcardType == 2) ? 'selected' : '' %> >
                                                     否
                                                 </option>
 
@@ -152,27 +122,25 @@
                                             最低保证金:</label>
                                         <div class="col-xs-8">
                                             <input class="form-control validate[required]"
-                                                   value="<%= DWY_last_request_param.minFunds %>"
-                                                   name="minFunds">
+                                                   value="<%= DWY_last_request_param.mobile %>"
+                                                   name="mobile">
                                             <span code-data="元" class="unit"></span>
                                         </div>
                                     </div>
                                 </div>
-
 
                             </div>
 
 
                             <div class="col-xs-12">
 
-                                <!--输入字段-->
                                 <div class="col-xs-8">
                                     <div class="form-group">
-                                        <label class="col-xs-2 control-label"><span class="requird"></span> 门店地址:</label>
+                                        <label class="col-xs-2 control-label"><span class="requird"></span> 机构地址:</label>
                                         <div class="col-xs-10">
                                             <input class="form-control validate[required]" placeholder="请输入详细地址"
-                                                   value="<%= DWY_last_request_param.address %>"
-                                                   name="address">
+                                                   value="<%= DWY_last_request_param.resideAddress %>"
+                                                   name="resideAddress">
                                         </div>
                                     </div>
                                 </div>
@@ -183,7 +151,7 @@
                                     <div class="form-group">
                                         <label class="col-xs-2 control-label">备注:</label>
                                         <div class="col-xs-10">
-                                            <textarea name="remark" class="form-control"
+                                            <textarea name="seqRemark" class="form-control"
                                                       cols="30"
                                                       rows="5"></textarea>
                                         </div>
@@ -197,7 +165,7 @@
 
                                     <button class="btn btn-primary " type="submit">
                                         <i class="fa fa-save"></i>
-                                        确认添加
+                                        修改
                                     </button>
                                 </div>
                             </div>
@@ -234,20 +202,20 @@
 
 
 //        结合html5标准事件 oninput 和 IE 专属事件 onpropertychange 事件来动态监听输入框值变化
-//        $('#mobile').on('input propertychange', function () {
-//            var mobile = this.value;
-//            if ($("#mobile").validationEngine('validate')) {
-//                $.ajax({
-//                    url: '/getEmployeesByMobile/' + mobile,
-//                    success: function (data) {
-//                        console.log('employees3333',data)
-//                        if(data.result.length !=0){
-//                            location.href = "/employees/detail/" + data.result[0].id;
-//                        }
-//                    }
-//                });
-//            }
-//        });
+        $('#mobile').on('input propertychange', function () {
+            var mobile = this.value;
+            if ($("#mobile").validationEngine('validate')) {
+                $.ajax({
+                    url: '/getEmployeesByMobile/' + mobile,
+                    success: function (data) {
+                        console.log('employees3333',data)
+                        if(data.result.length !=0){
+                            location.href = "/employees/detail/" + data.result[0].id;
+                        }
+                    }
+                });
+            }
+        });
 
         $(".fg-date-picker").flatpickr(data_time_picker.data_picker); // jQuery
 

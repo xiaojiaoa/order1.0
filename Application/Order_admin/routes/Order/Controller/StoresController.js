@@ -8,26 +8,52 @@ var queryString = require('qs');
 var helper = require('../config/helper');
 
 var request = require('request');
-
+//引入权限
+var Permissions = require('../config/permission');
 
 var StoresController = {
     listPage: function (req, res) {
-        // Base.multiDataRequest(req, res, [
-        //     {url: '/api/stores/departments', method: 'GET', resConfig: {keyName: 'departmentsInfo', is_must: true}}
-        // ], function (req, res, resultList) {
-        //     var returnData = Base.mergeData(helper.mergeObject({
-        //         title: ' ',
-        //     }, resultList));
-        //     res.render('store/department/index', returnData);
-        // });
-        res.render('order/manages/store');
+        var paramObject = helper.genPaginationQuery(req);
+        Base.multiDataRequest(req, res, [
+            {url: '/api/stores?'+ queryString.stringify(req.query), method: 'GET', resConfig: {keyName: 'storeList', is_must: true}},
+            {url: '/api/assist/store/types', method: 'GET', resConfig: {keyName: 'storeTypes', is_must: true}},
+            {url: '/api/assist/store/addrTypes', method: 'GET', resConfig: {keyName: 'addrTypesList', is_must: true}},
+        ], function (req, res, resultList) {
+
+            var paginationInfo =  resultList.storeList;
+
+            var boostrapPaginator = new Pagination.TemplatePaginator(helper.genPageInfo({
+                prelink: paramObject.withoutPageNo,
+                current: paginationInfo.page,
+                rowsPerPage: paginationInfo.pageSize,
+                totalResult: paginationInfo.totalItems
+            }));
+
+            var returnData = Base.mergeData(helper.mergeObject({
+                title: ' ',
+                pagination: boostrapPaginator.render(),
+                Permission :Permissions,
+            },resultList));
+            console.log('/api/stores?'+ queryString.stringify(req.query))
+            res.render('order/manages/store', returnData);
+        });
+
     },
     detailPage: function (req, res) {
         var cid =  req.params.cid;
         res.render('order/manages/store_detail');
     },
     createPage: function (req, res) {
-        res.render('order/manages/store_create');
+        Base.multiDataRequest(req, res, [
+            {url: '/api/assist/store/types', method: 'GET', resConfig: {keyName: 'storeTypes', is_must: true}},
+            {url: '/api/assist/store/addrTypes', method: 'GET', resConfig: {keyName: 'addrTypesList', is_must: true}},
+        ], function (req, res, resultList) {
+
+            var returnData = Base.mergeData(helper.mergeObject({
+                title: ' ',
+            },resultList));
+            res.render('order/manages/store_create', returnData);
+        });
     },
     modifyPage: function (req, res) {
         res.render('order/manages/store_modify');

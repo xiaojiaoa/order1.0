@@ -10,7 +10,7 @@ var helper = require('../config/helper');
 var request = require('request');
 
 
-var RolesController = {
+var AgencyController = {
     listPage: function (req, res) {
         // Base.multiDataRequest(req, res, [
         //     {url: '/api/stores/departments', method: 'GET', resConfig: {keyName: 'departmentsInfo', is_must: true}}
@@ -20,22 +20,24 @@ var RolesController = {
         //     }, resultList));
         //     res.render('store/department/index', returnData);
         // });
-        res.render('order/role/index');
+        res.render('order/manages/agency');
+    },
+    detailPage: function (req, res) {
+        var cid =  req.params.cid;
+        res.render('order/manages/agency_detail');
     },
     createPage: function (req, res) {
-
-        res.render('order/role/role_create');
+        res.render('order/manages/agency_create');
     },
     modifyPage: function (req, res) {
-
-        res.render('order/role/role_modify');
+        res.render('order/manages/agency_modify');
     },
     doCreate: function (req, res) {
         // console.log('999'+ JSON.stringify(req.body))
         request(Base.mergeRequestOptions({
             method: 'post',
             url: '/api/stores/departments',
-            form:req.body,
+            form: req.body,
         }, req, res), function (error, response, body) {
             if (!error && response.statusCode == 201) {
                 res.redirect("/department");
@@ -51,7 +53,7 @@ var RolesController = {
         var cid = req.body.cid;
         request(Base.mergeRequestOptions({
             method: 'put',
-            url: '/api/stores/departments/'+cid+"?"+queryString.stringify(req.body),
+            url: '/api/stores/departments/' + cid + "?" + queryString.stringify(req.body),
         }, req, res), function (error, response, body) {
             if (!error && response.statusCode == 201) {
                 res.redirect("/department");
@@ -67,7 +69,7 @@ var RolesController = {
         var id = req.params.id;
         request(Base.mergeRequestOptions({
             method: 'delete',
-            url: '/api/stores/departments/'+id,
+            url: '/api/stores/departments/' + id,
             // form:req.body,
         }, req, res), function (error, response, body) {
             if (!error && response.statusCode == 204) {
@@ -78,46 +80,6 @@ var RolesController = {
         })
     },
 
-    createDiyPage: function (req, res) {
-
-        res.render('order/role/role_diy_create');
-    },
-    modifyDiyPage: function (req, res) {
-
-        res.render('order/role/role_diy_modify');
-    },
-    doDiyCreate: function (req, res) {
-        // console.log('999'+ JSON.stringify(req.body))
-        request(Base.mergeRequestOptions({
-            method: 'post',
-            url: '/api/stores/departments',
-            form:req.body,
-        }, req, res), function (error, response, body) {
-            if (!error && response.statusCode == 201) {
-                res.redirect("/department");
-            } else {
-                Base.handlerError(res, req, error, response, body);
-            }
-        })
-
-
-    },
-    doDiyModify: function (req, res) {
-
-        var cid = req.body.cid;
-        request(Base.mergeRequestOptions({
-            method: 'put',
-            url: '/api/stores/departments/'+cid+"?"+queryString.stringify(req.body),
-        }, req, res), function (error, response, body) {
-            if (!error && response.statusCode == 201) {
-                res.redirect("/department");
-            } else {
-                Base.handlerError(res, req, error, response, body);
-            }
-        })
-    },
-
-
 };
 
-module.exports = RolesController;
+module.exports = AgencyController;

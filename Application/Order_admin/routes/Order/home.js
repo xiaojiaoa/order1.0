@@ -125,7 +125,7 @@ router.get('/orders', Middleware.AuthCheck, Middleware.FilterEmptyField, OrderCo
 
 // 订单详情页面   订单信息（认领订单）
 // router.get('/order/detail/:tid', Middleware.AuthCheck, OrderController.detailPage);
-router.get('/order/detail', Middleware.AuthCheck, OrderController.detailPage);
+router.get('/order/detail/:tid', Middleware.AuthCheck, OrderController.detailPage);
 
 // 补单页面
 router.get('/orders/resupplys', Middleware.AuthCheck, Middleware.FilterEmptyField, OrderController.resupplyPage);
@@ -149,6 +149,12 @@ router.get('/order/process', Middleware.AuthCheck, OrderController.processPage);
 
 //  订单许可页面
 router.get('/order/permit', Middleware.AuthCheck, OrderController.permitPage);
+
+// 订单排料页面
+router.get('/orders/nesting', Middleware.AuthCheck, OrderController.nestingPage);
+
+// 订单包装页面
+router.get('/orders/package', Middleware.AuthCheck, OrderController.packagePage);
 
 
 /*
@@ -189,6 +195,36 @@ router.post('/storesManage/doModify', Middleware.AuthCheck, StoresController.doM
 
 
 /*
+ * 页面范围: 机构相关
+ * 控制器:   AgencyController
+ * */
+
+var AgencyController = require('./Controller/AgencyController');
+
+// 获取机构信息
+router.get('/agency', Middleware.AuthCheck, Middleware.FilterEmptyField, AgencyController.listPage);
+
+// 机构详情页面
+router.get('/agency/detail/:cid', Middleware.AuthCheck, AgencyController.detailPage);
+
+// 新建门店页面
+router.get('/agency/create', Middleware.AuthCheck, AgencyController.createPage);
+
+// 新增机构
+router.post('/agency/doCreate', Middleware.AuthCheck, AgencyController.doCreate);
+
+// 修改机构页面
+router.get('/agency/modify/:cid', Middleware.AuthCheck, AgencyController.modifyPage);
+
+// 修改机构信息
+router.post('/agency/doModify', Middleware.AuthCheck, AgencyController.doModify);
+
+// 禁用机构
+router.delete('/agency/doDelete/:id', Middleware.AuthCheck, AgencyController.doDelete);
+
+
+
+/*
  * 页面范围: 部门相关
  * 控制器:   DepartmentController
  * */
@@ -196,7 +232,7 @@ router.post('/storesManage/doModify', Middleware.AuthCheck, StoresController.doM
 var DepartmentController = require('./Controller/DepartmentController');
 
 // 获取部门信息
-router.get('/department', Middleware.AuthCheck, Middleware.FilterEmptyField, DepartmentController.listPage);
+router.get('/department/:cid', Middleware.AuthCheck, Middleware.FilterEmptyField, DepartmentController.listPage);
 
 // 新增门店部门
 router.post('/department/doCreate', Middleware.AuthCheck, DepartmentController.doCreate);
@@ -206,6 +242,8 @@ router.post('/department/doModify', Middleware.AuthCheck, DepartmentController.d
 
 // 删除部门
 router.delete('/department/doDelete/:id', Middleware.AuthCheck, DepartmentController.doDelete);
+
+
 
 
 /*
@@ -229,6 +267,18 @@ router.get('/roles/modify/:cid', Middleware.AuthCheck, RolesController.modifyPag
 
 // 更新角色
 router.post('/roles/doModify', Middleware.AuthCheck, RolesController.doModify);
+
+// 新增自定义角色页面
+router.get('/rolesDiy/create', Middleware.AuthCheck, RolesController.createDiyPage);
+
+// 新增自定义角色
+router.post('/roles/doDiyCreate', Middleware.AuthCheck, RolesController.doDiyCreate);
+
+// 更新自定义角色页面
+router.get('/roles/modifyDiy/:cid', Middleware.AuthCheck, RolesController.modifyDiyPage);
+
+// 更新自定义角色
+router.post('/roles/doDiyModify', Middleware.AuthCheck, RolesController.doDiyModify);
 
 // 删除部门
 router.delete('/roles/doDelete/:id', Middleware.AuthCheck, RolesController.doDelete);

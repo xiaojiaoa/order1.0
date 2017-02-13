@@ -1,0 +1,141 @@
+<%- include('../layouts/head_top'); %>
+<%- include('../layouts/head_bottom'); %>
+<%- include('../layouts/header'); %>
+<%- include('../layouts/nav'); %>
+
+<!-- MAIN PANEL -->
+<div id="main" role="main">
+
+    <!-- RIBBON -->
+    <div id="ribbon">
+
+        <!-- breadcrumb -->
+        <ol class="breadcrumb">
+            <li>后台管理</li>
+            <li>机构信息</li>
+        </ol>
+        <!-- end breadcrumb -->
+
+
+    </div>
+    <!-- END RIBBON -->
+
+
+    <!-- MAIN CONTENT -->
+    <div id="content">
+        <!-- well -->
+        <div class="well">
+            <!-- row -->
+            <div class="row">
+                <!-- col -->
+                <div class="col-xs-12 dwy-show-content">
+                    <legend>基本信息
+                        <a class="label label-primary" href="/agency/modify/555">修改</a>
+                        <a class="label label-primary" id="openStore">启用</a>
+                        <a class="label label-danger" id="closeStore">禁用</a>
+                    </legend>
+
+                    <!-- row -->
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-striped table-information close-info">
+                            <tbody>
+                            <tr>
+                                <td>机构编号</td>
+                                <td>23456123</td>
+                                <td>负责人姓名</td>
+                                <td>张先生</td>
+                                <td>负责人电话</td>
+                                <td>187234654798</td>
+                            </tr>
+                            <tr>
+                                <td>新建日期</td>
+                                <td>2016-10-10    10：10：10</td>
+                                <td>新建人</td>
+                                <td>李四</td>
+                                <td>机构类型</td>
+                                <td>嘉兴工厂</td>
+                            </tr>
+                            <tr>
+                                <td>机构名称</td>
+                                <td>大王椰集团</td>
+                                <td>是否自带仓库</td>
+                                <td>是</td>
+                                <td>机构最低保证金</td>
+                                <td>20000.00 元</td>
+                            </tr>
+                            <tr>
+                                <td>机构地址</td>
+                                <td colspan="5">杭州市西湖区西溪路525号</td>
+                            </tr>
+                            <tr>
+                                <td>备注</td>
+                                <td colspan="5">备注</td>
+                            </tr>
+
+                            </tbody>
+                        </table>
+
+                    </div>
+                    <!-- end row -->
+                </div>
+                <!-- end col -->
+            </div>
+            <!-- end row -->
+        </div>
+        <!-- end well -->
+
+
+    </div>
+    <!-- END MAIN CONTENT -->
+
+</div>
+<!-- END MAIN PANEL -->
+
+<%- include('../layouts/footer'); %>
+<%- include('../layouts/footer_common_script'); %>
+
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+
+        $("#closeStore").on({
+            click: function () {
+                layer.confirm('确定禁用该机构？',{icon: 3, title:'提示'},
+                    function(index){
+//                        $.ajax({
+//                            url: '/employees/setStatus/'+employeesId+'/1',
+//                            method: 'put',
+//                            success: function (data) {
+//                                window.location.reload();
+//                            }
+//                        });
+                        layer.close(index)
+                    },
+                    function(index){layer.close(index)})
+            }
+        });
+        $("#openStore").on({
+            click: function () {
+                layer.confirm('确定启用该机构？',{icon: 3, title:'提示'},
+                    function(index){
+//                        $.ajax({
+//                            url: '/employees/setStatus/'+employeesId+'/1',
+//                            method: 'put',
+//                            success: function (data) {
+//                                window.location.reload();
+//                            }
+//                        });
+                        layer.close(index)
+                    },
+                    function(index){layer.close(index)})
+            }
+        })
+
+
+    })
+
+</script>
+
+<%- include('../layouts/foot'); %>
+<%- include('./money_modal'); %>

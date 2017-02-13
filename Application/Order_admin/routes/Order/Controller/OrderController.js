@@ -21,13 +21,16 @@ var OrderController = {
 
     listPage: function (req, res) {
 
+        console.log(req);
         var paramObject = helper.genPaginationQuery(req);
         Base.multiDataRequest(req, res, [
-            {url: '/api/customers?'+ queryString.stringify(req.query), method: 'GET', resConfig: {keyName: 'customerList', is_must: true}},
-            {url: '/api/assist/taskseq/status', method: 'GET', resConfig: {keyName: 'statusInfo', is_must: false}}
+            {url: '/api/orders?'+ queryString.stringify(req.query), method: 'GET', resConfig: {keyName: 'orderList', is_must: true}},
+            {url: '/api/assist/order/stcodes', method: 'GET', resConfig: {keyName: 'stcodeInfo', is_must: false}},
+            {url: '/api/assist/brandinfo', method: 'GET', resConfig: {keyName: 'brandInfo', is_must: false}},
+            {url: '/api/assist/space/prod', method: 'GET', resConfig: {keyName: 'prodInfo', is_must: false}}
         ], function (req, res, resultList) {
 
-            var paginationInfo =  resultList.customerList;
+            var paginationInfo =  resultList.orderList;
 
             var boostrapPaginator = new Pagination.TemplatePaginator(helper.genPageInfo({
                 prelink: paramObject.withoutPageNo,
@@ -38,11 +41,11 @@ var OrderController = {
 
             var returnData = Base.mergeData(helper.mergeObject({
                 title: ' ',
-                pagination: boostrapPaginator.render(),
-                Permission :Permissions,
+                pagination: boostrapPaginator.render()
             },resultList));
             res.render('order/orders', returnData);
         });
+
     },
     detailPage: function (req, res) {
 
@@ -104,6 +107,12 @@ var OrderController = {
         //     res.render('order/order/order_permit', returnData);
         // });
         res.render('order/order/order_permit');
+    },
+    nestingPage: function (req, res) {
+        res.render('order/order/nesting');
+    },
+    packagePage: function (req, res) {
+        res.render('order/order/package');
     },
 };
 
