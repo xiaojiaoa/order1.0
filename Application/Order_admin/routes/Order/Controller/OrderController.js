@@ -49,17 +49,17 @@ var OrderController = {
     },
     detailPage: function (req, res) {
 
-        // var tid = req.params.tid;
+        var tid = req.params.tid;
         Base.multiDataRequest(req, res, [
-                // {url: '/api/orders/'+tid, method: 'GET', resConfig: {keyName: 'orderInfo', is_must: true}},
+                {url: '/api/orders/'+tid, method: 'GET', resConfig: {keyName: 'orderInfo', is_must: true}},
                 // {url: '/api/assist/taskseq/status', method: 'GET', resConfig: {keyName: 'statusInfo', is_must: false}},
-                // {url: '/api/assist/order/stcodes', method: 'GET', resConfig: {keyName: 'stcodeInfo', is_must: false}},
+                {url: '/api/assist/order/stcodes', method: 'GET', resConfig: {keyName: 'stcodeInfo', is_must: false}},
                 {url: '/api/assist/deco/style' , method: 'GET', resConfig: {keyName: 'styleInfo', is_must: true}},
             ],
             function (req, res, resultList) {
                 var returnData = Base.mergeData(helper.mergeObject({
                     title: ' ',
-                    // tid:tid,
+                    tid:tid,
                     Permission :Permissions,
                 }, resultList));
                 res.render('order/order/order_detail', returnData);

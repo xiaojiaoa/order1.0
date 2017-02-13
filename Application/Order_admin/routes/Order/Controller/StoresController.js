@@ -41,7 +41,17 @@ var StoresController = {
     },
     detailPage: function (req, res) {
         var cid =  req.params.cid;
-        res.render('order/manages/store_detail');
+        Base.multiDataRequest(req, res, [
+            {url: '/api/stores/'+cid, method: 'GET', resConfig: {keyName: 'storeInfo', is_must: true}},
+            {url: '/api/assist/store/types', method: 'GET', resConfig: {keyName: 'storeTypes', is_must: true}},
+            {url: '/api/assist/store/addrTypes', method: 'GET', resConfig: {keyName: 'addrTypesList', is_must: true}},
+        ], function (req, res, resultList) {
+
+            var returnData = Base.mergeData(helper.mergeObject({
+                title: ' ',
+            },resultList));
+            res.render('order/manages/store_detail', returnData);
+        });
     },
     createPage: function (req, res) {
         Base.multiDataRequest(req, res, [
@@ -62,11 +72,11 @@ var StoresController = {
         // console.log('999'+ JSON.stringify(req.body))
         request(Base.mergeRequestOptions({
             method: 'post',
-            url: '/api/stores/departments',
+            url: '/api/stores',
             form: req.body,
         }, req, res), function (error, response, body) {
             if (!error && response.statusCode == 201) {
-                res.redirect("/department");
+                res.redirect("/storesManage");
             } else {
                 Base.handlerError(res, req, error, response, body);
             }

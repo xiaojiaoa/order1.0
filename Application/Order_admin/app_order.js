@@ -15,12 +15,12 @@ var app = express();
 
 //
 app.use(session({
-    store: new RedisStore(orderSessionConfig.order),
+    store: process.env.SESSION_DRIVER ? new RedisStore(orderSessionConfig.redis) : '',
     name: orderSessionConfig.name,
     resave: orderSessionConfig.resave,
     saveUninitialized: orderSessionConfig.saveUninitialized,
     secret: orderSessionConfig.secret,
-    cookie: {maxAge: 1800000}
+    cookie: {maxAge: parseInt(process.env.SESSION_TIME || 1800000)}
 }));
 
 // uncomment after placing your favicon in /public
@@ -40,7 +40,7 @@ var passport = require('./routes/Order/passport');
 
 
 //把USER信息加入到全局
-app.use(function(req, res, next) {
+app.use(function (req, res, next) {
     //登录用户信息
     res.locals.user = req.session.user;
     //菜单信息
@@ -269,7 +269,7 @@ app.locals.DWY_Helper = {
     //checkbox 状态判断  code为[{},{}]
     checkboxStatus: function (code, option) {
         if (option && code) {
-            for(var i = 0; i < code.length; i++) {
+            for (var i = 0; i < code.length; i++) {
                 var element = code[i];
                 if (element && element.id == option) {
                     return 'checked';
@@ -283,7 +283,7 @@ app.locals.DWY_Helper = {
     checkboxStatusStr: function (code, option) {
         if (option && code) {
             var codeArry = code.split(",");
-            for(var i = 0; i < codeArry.length; i++) {
+            for (var i = 0; i < codeArry.length; i++) {
                 var element = codeArry[i];
                 if (element && element == option) {
                     return 'checked';
@@ -322,8 +322,6 @@ app.locals.DWY_Helper = {
     },
 
 }
-
-
 
 
 module.exports = app;

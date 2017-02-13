@@ -7,9 +7,12 @@ pm2 monit 监控实例
 pm2 stop 暂停
 pm2 指令大全 :http://pm2.keymetrics.io/docs/usage/quick-start/
 
+02-13
+增加.env 请重新运行npm install 把根目录的.env_example复制并改名.env
+
 
 12-30
-考虑吧config都提出来
+~~考虑吧config都提出来~~
 
 Controller请求格式
 -请求页面 xxxPage
