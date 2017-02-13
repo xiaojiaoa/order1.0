@@ -78,9 +78,10 @@
                                     </div>
                                 </div>
 
-                                <!--<input type="hidden" name="empType" value="20">-->
-
-
+                                <input type="hidden" name="precinctId" value="1000">
+                                <input type="hidden" name="biotopeId" value="1000">
+                                <input type="hidden" name="finSign" value="1000">
+                                <input type="hidden" name="actSign" value="1000">
 
                             </div>
 
@@ -159,7 +160,46 @@
                                     </div>
                                 </div>
 
+                            </div>
+                            <div class="col-xs-12">
+                                <div class="col-xs-4">
+                                    <div class="form-group">
+                                        <label class="col-xs-4 control-label"><span class="requird"></span>
+                                            预警资金:</label>
+                                        <div class="col-xs-8">
+                                            <input class="form-control validate[required]"
+                                                   value="<%= DWY_last_request_param.warnFunds %>"
+                                                   name="warnFunds">
+                                            <span code-data="元" class="unit"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
 
+                            <div class="col-xs-12">
+
+                                <div class="col-xs-8">
+                                    <div class="form-group dwy-area">
+                                        <label class="col-xs-2 control-label">门店所在地:</label>
+                                        <div class="col-xs-10 no-padding">
+                                            <div class="col-xs-3">
+                                                <select class="form-control dwy-province validate[required]" name="">
+                                                    <option value="">- 省 -</option>
+                                                </select>
+                                            </div>
+                                            <div class="col-xs-3">
+                                                <select class="form-control dwy-city validate[required]" name="">
+                                                    <option value="">- 市 -</option>
+                                                </select>
+                                            </div>
+                                            <div class="col-xs-3">
+                                                <select class="form-control dwy-district validate[required]" name="areaId">
+                                                    <option value="">- 区 -</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
 
 
@@ -250,6 +290,7 @@
 //        });
 
         $(".fg-date-picker").flatpickr(data_time_picker.data_picker); // jQuery
+        DWY_area.init({});
 
     })
 

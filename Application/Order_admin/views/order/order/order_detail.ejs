@@ -37,66 +37,68 @@
                             <tbody>
                             <tr>
                                 <td>主材颜色</td>
-                                <td>象牙白</td>
+                                <td>(静态数据)象牙白</td>
                                 <td>订单类型</td>
-                                <td>新配套-五金</td>
+                                <td>(静态数据)新配套-五金</td>
                             </tr>
                             <tr>
                                 <td>型号</td>
-                                <td></td>
+                                <td>(静态数据)</td>
                                 <td>风格</td>
-                                <td></td>
+                                <td><%= DWY_Helper.getAssistVal(orderInfo.decoStyleId, styleInfo) %></td>
                             </tr>
                             <tr>
                                 <td>专卖店</td>
-                                <td>浙江省杭州市西湖区湖滨银泰店</td>
+                                <td><%= orderInfo.storeAddress %></td>
                                 <td>专卖店编号</td>
-                                <td>A12</td>
+                                <td><%= orderInfo.bid %></td>
                             </tr>
                             <tr>
                                 <td>收货人</td>
-                                <td>张三</td>
+                                <td><%= orderInfo.recName %></td>
                                 <td>联系电话</td>
-                                <td>13546798465</td>
+                                <td><%= orderInfo.recMobile %></td>
                             </tr>
                             <tr>
                                 <td>收货地址</td>
-                                <td colspan="3">杭州市西湖区西溪路525号</td>
+                                <td colspan="3"><%= orderInfo.recAddress %></td>
                             </tr>
                             <tr>
                                 <td>客户编号</td>
-                                <td><a href="/customer/detail">12345</a></td>
+                                <td><a href="/customer/detail<%= orderInfo.cid %>"><%= orderInfo.cid %></a></td>
                                 <td>客户姓名</td>
-                                <td>张三</td>
+                                <td><%= orderInfo.name %></td>
                             </tr>
                             <tr>
                                 <td>客户电话</td>
-                                <td>1354678946532</td>
+                                <td><%= orderInfo.mobile %></td>
                                 <td>约定交付日期</td>
-                                <td>2016-10-10</td>
+                                <td><%= DWY_Helper.getLocalDate(orderInfo.deliveryDate) %></td>
                             </tr>
                             <tr>
                                 <td>客户地址</td>
-                                <td colspan="3">杭州市西湖区西溪路525号</td>
+                                <td colspan="3"><%= orderInfo.address %></td>
                             </tr>
                             <tr>
                                 <td>流水号</td>
-                                <td colspan="3"><a href="/taskseq/index">565555</a></td>
+                                <td colspan="3"><a href="/taskseq/index/<%= orderInfo.lid %>"><%= orderInfo.lid %></a>
+                                </td>
                             </tr>
                             <tr>
                                 <td>产品信息</td>
-                                <td>龙头，书柜共两件</td>
+                                <td><%= orderInfo.prodInfo %></td>
                                 <td>包装信息</td>
-                                <td>新配套-五金</td>
+                                <td>(静态数据)</td>
                             </tr>
                             <tr>
                                 <td>难度等级</td>
                                 <td>
-                                    <div>二级</div>
-                                    <hr class="simple">
-                                    <div>
+                                    <div><%= orderInfo.difficulty %></div>
+
+                                    <div style="display: none">
+                                        <hr class="simple">
                                         订单信息（难度、许可）时显示此区域
-                                        <form class="form-horizontal" method="post"  action="" >
+                                        <form class="form-horizontal" method="post" action="">
                                             <div class="col-xs-4">
                                                 <select class="form-control" name="type">
                                                     <option value="">- 未定 -</option>
@@ -110,35 +112,35 @@
                                     </div>
                                 </td>
                                 <td>零售价</td>
-                                <td>0.00元</td>
+                                <td>(静态数据)0.00元</td>
                             </tr>
                             <tr>
                                 <td>所在空间</td>
-                                <td>象牙白</td>
+                                <td><%= orderInfo.spaceName %></td>
                                 <td>产品</td>
-                                <td>新配套-五金</td>
+                                <td>(静态数据)</td>
                             </tr>
                             <tr>
                                 <td>建单人</td>
-                                <td>张三  13568749894</td>
+                                <td><%= orderInfo.channelName %> 13568749894(静态数据)</td>
                                 <td>橱柜设计师</td>
-                                <td>新配套-五金</td>
+                                <td>(静态数据)</td>
                             </tr>
                             <tr>
                                 <td>建单时间</td>
-                                <td>2016-10-10    10：10：10</td>
+                                <td><%= DWY_Helper.getLocalDate(orderInfo.addTime) %></td>
                                 <td>提交时间</td>
-                                <td>2016-10-10    10：10：10</td>
+                                <td>(静态数据)</td>
                             </tr>
                             <tr>
                                 <td>方案码</td>
-                                <td>客厅边做个榻榻米</td>
+                                <td>(静态数据)</td>
                                 <td>软件序列号</td>
-                                <td>新配套-五金</td>
+                                <td>(静态数据)</td>
                             </tr>
                             <tr>
                                 <td>备注</td>
-                                <td colspan="3">象牙白</td>
+                                <td colspan="3"><%= orderInfo.remark %></td>
                             </tr>
                             <tr>
                                 <td>电商产品信息</td>
@@ -159,35 +161,43 @@
                                         </thead>
                                         <tbody>
                                         <tr>
-                                            <td>132465</td>
-                                            <td>asddas-46566</td>
-                                            <td>衣柜asdsad</td>
-                                            <td>760*480*220</td>
-                                            <td></td>
-                                            <td>个</td>
-                                            <td>1</td>
-                                            <td></td>
-                                            <td></td>
+                                            <td>(静态数据)132465</td>
+                                            <td>(静态数据)asddas-46566</td>
+                                            <td>(静态数据)衣柜asdsad</td>
+                                            <td>(静态数据)760*480*220</td>
+                                            <td>(静态数据)</td>
+                                            <td>(静态数据)个</td>
+                                            <td>(静态数据)1</td>
+                                            <td>(静态数据)</td>
+                                            <td>(静态数据)</td>
                                         </tr>
                                         <tr>
                                             <td colspan="6" class="text-align-right">合计</td>
-                                            <td colspan="3">12</td>
+                                            <td colspan="3">(静态数据)12</td>
                                         </tr>
                                         </tbody>
                                     </table>
                                 </td>
                             </tr>
-                            <tr>
-                                <td>相关文件</td>
-                                <td colspan="3"><a >4568794561234566798.jpg</a></td>
-                            </tr>
+
                             <tr>
                                 <td>同客户订单</td>
-                                <td colspan="3"><a>231465489456</a></td>
+                                <td colspan="3">
+                                    <%
+                                    var orderList = "";
+                                    orderInfo.orders.forEach(function (orderElement) { %>
+                                    <a href="/order/detail/<%= orderElement %>"><%= orderElement %></a>
+                                    <% }) %>
+                                </td>
                             </tr>
                             <tr>
                                 <td>相关订单</td>
-                                <td colspan="3"><a href="/order/resupply/detail">231465489456</a></td>
+                                <td colspan="3">
+                                    <%
+                                    orderInfo.resupplys.forEach(function (element) { %>
+                                    <a href="/order/resupply/detail/<%= element.tid %>/<%= element.resId %>"><%= element.resId %></a>
+                                    <% }) %>
+                                </td>
                             </tr>
 
 
@@ -205,70 +215,125 @@
             <div class="row">
                 <!-- col -->
                 <div class="col-xs-12 dwy-show-content">
-                    <legend>状态信息 <a class="label label-primary" >解锁（:审核中时显示）</a></legend>
+                    <legend>相关文件
+                        <a class="label label-primary" href="/file/create/<%= orderInfo.lid %>/<%= orderInfo.stcode %>">文件管理</a>
+                    </legend>
+
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-striped">
+                            <thead>
+                            <tr>
+                                <th>序号</th>
+                                <th>文件名</th>
+                                <th>文件类型</th>
+                                <!--<th>文件大小</th>-->
+                                <th>上传人</th>
+                                <th>上传时间</th>
+                                <th>备注</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <%
+                            orderInfo.ordfiles.forEach(function (element, index) { %>
+                            <tr>
+                                <td><%= index + 1 %></td>
+                                <td>
+                                    <a href="<%= DWY_GLOBAL.Static %>/download?url=<%= element.savePath %>"><%= element.fileName %></a>
+                                </td>
+                                <td><%= DWY_Helper.getFileType(element.ordType) %></td>
+                                <td><%= element.gid %></td>
+                                <td><%= DWY_Helper.getLocalDate(element.addTime) %></td>
+                                <td><%= element.remark %></td>
+                            </tr>
+                            <% }) %>
+
+                            </tbody>
+                        </table>
+
+                    </div>
+
+
+                    <!-- end row -->
+                </div>
+                <!-- end col -->
+            </div>
+
+            <div class="row">
+                <!-- col -->
+                <div class="col-xs-12 dwy-show-content">
+                    <legend>状态信息 (订单状态:<%= orderInfo.stcode %><%= DWY_Helper.getAssistVal(orderInfo.stcode, stcodeInfo) %> )
+                        <% if( (orderInfo.stcode == 250) || (orderInfo.stcode == 450) ){ %>
+                        <!--审核中-->
+                        <a class="label label-primary">解锁</a>
+                        <% } %>
+                    </legend>
                     <!-- row -->
                     <div class="table-responsive">
                         <table class="table table-bordered table-striped table-information">
                             <tbody>
                             <tr>
                                 <td>许可状态</td>
-                                <td colspan="3">审核未加急  拆单不许可  排产未定</td>
+                                <td colspan="3">审核未加急 拆单不许可 排产未定</td>
                             </tr>
-                            <tr>
+                            <tr style="display: none">
                                 <td>许可状态： 订单信息（难度、许可）时显示此区行</td>
                                 <td colspan="3">
-                                    <form class="form-horizontal" method="post" action="" >
-                                            <div class="col-xs-3">
-                                                <select class="form-control" name="type">
-                                                    <option value="">- 审核是否加急 -</option>
-                                                    <option value="1">审核未加急</option>
-                                                    <option value="2">审核加急</option>
-                                                </select>
-                                            </div>
-                                            <div class="col-xs-3">
-                                                <select class="form-control" name="type">
-                                                    <option value="">- 拆单是否许可 -</option>
-                                                    <option value="1">拆单未许可</option>
-                                                    <option value="2">拆单许可</option>
-                                                    <option value="3">拆单加急</option>
-                                                </select>
-                                            </div>
-                                            <div class="col-xs-3">
-                                                <select class="form-control" name="type">
-                                                    <option value="">- 排产是否许可 -</option>
-                                                    <option value="1">排产未定</option>
-                                                    <option value="2">排产暂缓</option>
-                                                    <option value="3">排产许可</option>
-                                                </select>
-                                            </div>
-                                            <div class="col-xs-2">
-                                                <a class="btn btn-primary " id="">标记待审核</a>
-                                            </div>
+                                    <form class="form-horizontal" method="post" action="">
+                                        <div class="col-xs-3">
+                                            <select class="form-control" name="type">
+                                                <option value="">- 审核是否加急 -</option>
+                                                <option value="1">审核未加急</option>
+                                                <option value="2">审核加急</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-xs-3">
+                                            <select class="form-control" name="type">
+                                                <option value="">- 拆单是否许可 -</option>
+                                                <option value="1">拆单未许可</option>
+                                                <option value="2">拆单许可</option>
+                                                <option value="3">拆单加急</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-xs-3">
+                                            <select class="form-control" name="type">
+                                                <option value="">- 排产是否许可 -</option>
+                                                <option value="1">排产未定</option>
+                                                <option value="2">排产暂缓</option>
+                                                <option value="3">排产许可</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-xs-2">
+                                            <a class="btn btn-primary " id="">标记待审核</a>
+                                        </div>
                                     </form>
                                 </td>
                             </tr>
+
                             <tr>
-                                <td>审核时间:认领订单 时，显示此行</td>
-                                <td>待审核 <a class="label label-primary margin-left-20" id="submitOrder">标记为审核中</a> </td>
-                                <td>审核人</td>
-                                <td></td>
-                            </tr>
-                            <tr>
-                                <td>审核时间:已回访 时，显示此行</td>
-                                <td>2016-10-10 10：10：10</td>
-                                <td>审核人</td>
-                                <td></td>
-                            </tr>
-                            <tr>
-                                <td>审核时间:审核中 时，显示此行</td>
+                                <td>审核时间</td>
+
+                                <% switch(orderInfo.stcode){
+                                    case 250:  %>
                                 <td>
                                     审核中
                                     <a class="label label-primary margin-left-20" id="check-pass-modal">提交审核</a>
                                     <a class="label label-primary margin-left-20 reject-modal" id="check-reject-modal">审核退回</a>
                                 </td>
+                                <%        break;
+                                    case 220: %>
+                                <td>待审核
+                                    <a class="label label-primary margin-left-20" id="submitOrder">标记为审核中</a>
+                                </td>
+                                <%         break;
+                                    default: %>
+                                        <td>2016-02-02</td>
+                                <%  } %>
+
+
                                 <td>审核人</td>
                                 <td></td>
                             </tr>
+
                             <tr>
                                 <td>收款确认</td>
                                 <td></td>
@@ -276,43 +341,56 @@
                                 <td>张三</td>
                             </tr>
                             <tr>
-                                <td>拆单时间（拆单中）</td>
+                                <td>拆单时间</td>
+                                <% switch (orderInfo.stcode){
+                                    case 450: %>
                                 <td>
                                     拆单中
                                     <a class="label label-primary margin-left-20" id="doTearPass">确定拆单</a>
-                                    <a class="label label-primary margin-left-20 reject-modal" >拆单退回</a>
+                                    <a class="label label-primary margin-left-20 reject-modal">拆单退回</a>
                                 </td>
+                                <%         break;
+
+                                    default: %>
+                                <td>2016-02-02</td>
+                                <%  } %>
+
                                 <td>拆单人</td>
                                 <td></td>
                             </tr>
+                            <!--<tr>-->
+                                <!--<td>拆单时间（待拆单）</td>-->
+                                <!--<td>-->
+                                    <!--待拆单-->
+                                    <!--<a class="label label-primary">标记为拆单中</a>-->
+                                <!--</td>-->
+                                <!--<td>拆单人</td>-->
+                                <!--<td></td>-->
+                            <!--</tr>-->
                             <tr>
-                                <td>拆单时间（待拆单）</td>
+                                <td>拆单审核</td>
+                                <% switch (orderInfo.stcode){
+                                case 475: %>
                                 <td>
-                                    待拆单
-                                    <a class="label label-primary">标记为拆单中</a>
+                                    拆单审核中
+                                    <a class="label label-primary margin-left-20" id="doTearCheckPass">确定审核</a>
+                                    <a class="label label-primary margin-left-20 reject-modal">拆单审核退回</a>
                                 </td>
-                                <td>拆单人</td>
-                                <td></td>
-                            </tr>
-                            <tr>
-                                <td>拆单审核（待拆单审核）</td>
+                                <%        break;
+                                case 472: %>
                                 <td>
                                     待拆单审核
                                     <a class="label label-primary">标记为拆单审核中</a>
                                 </td>
+                                <%         break;
+                                    default: %>
+                                <td>2016-02-02</td>
+                                <%  } %>
+
                                 <td>审核人</td>
                                 <td></td>
                             </tr>
-                            <tr>
-                                <td>拆单审核（拆单审核中）</td>
-                                <td>
-                                    拆单审核中
-                                    <a class="label label-primary margin-left-20" id="doTearCheckPass">确定审核</a>
-                                    <a class="label label-primary margin-left-20 reject-modal" >拆单审核退回</a>
-                                </td>
-                                <td>审核人</td>
-                                <td></td>
-                            </tr>
+
                             <tr>
                                 <td>特排时间</td>
                                 <td></td>
@@ -381,7 +459,8 @@
                             </tr>
                             <tr>
                                 <td>流程记录</td>
-                                <td colspan="3">发浙联物流，自提 <a class="margin-left-20" href="/order/process">添加/查看更多</a></td>
+                                <td colspan="3">发浙联物流，自提 <a class="margin-left-20" href="/order/process">添加/查看更多</a>
+                                </td>
                             </tr>
 
                             </tbody>
@@ -398,7 +477,7 @@
             <div class="row">
 
                 <div class="col-xs-12">
-                    <legend>发货清单</legend>
+                    <legend>发货清单(静态数据)</legend>
                     <div class="table-responsive">
                         <table class="table table-bordered table-striped">
                             <thead>
@@ -441,9 +520,9 @@
                                 <td>231654689</td>
                                 <td>3246549</td>
                                 <td>入库完毕</td>
-                                <td>10-10  10：10</td>
+                                <td>10-10 10：10</td>
                                 <td>张三</td>
-                                <td>10-10  10：10</td>
+                                <td>10-10 10：10</td>
                                 <td>张三</td>
                                 <td></td>
                                 <td>98796556</td>
@@ -470,7 +549,6 @@
 <%- include('../layouts/footer_common_script'); %>
 
 
-
 <script type="text/javascript">
 
     $(document).ready(function () {
@@ -479,7 +557,7 @@
 
 
         $("#submitOrder").click(function () {
-            layer.confirm('确认标记为审核中?',{icon: 3, title:'提示'},function(index){
+            layer.confirm('确认标记为审核中?', {icon: 3, title: '提示'}, function (index) {
 //                $.ajax({
 //                    url: '/order/doSubmit/'+tid,
 //                    method: 'post',
@@ -487,20 +565,23 @@
 //                        window.location.reload();
 //                    }
 //                });
-            },function(index){
-                layer.close(index)})
+            }, function (index) {
+                layer.close(index)
+            })
         })
         $("#doTearPass").click(function () {
-            layer.confirm('确定拆单完毕吗？',{icon: 3, title:'提示'},function(index){
+            layer.confirm('确定拆单完毕吗？', {icon: 3, title: '提示'}, function (index) {
                 layer.close(index)
-            },function(index){
-                layer.close(index)})
+            }, function (index) {
+                layer.close(index)
+            })
         })
         $("#doTearCheckPass").click(function () {
-            layer.confirm('确定拆单完毕吗？',{icon: 3, title:'提示'},function(index){
+            layer.confirm('确定拆单完毕吗？', {icon: 3, title: '提示'}, function (index) {
                 layer.close(index)
-            },function(index){
-                layer.close(index)})
+            }, function (index) {
+                layer.close(index)
+            })
         })
 
 

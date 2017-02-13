@@ -1,0 +1,225 @@
+<%- include('../layouts/head_top'); %>
+<%- include('../layouts/head_bottom'); %>
+<%- include('../layouts/header'); %>
+<%- include('../layouts/nav'); %>
+
+
+<!-- MAIN PANEL -->
+<div id="main" role="main">
+
+    <!-- RIBBON -->
+    <div id="ribbon">
+
+        <!-- breadcrumb -->
+        <ol class="breadcrumb">
+            <li>后台管理</li>
+            <li>订单文件详情</li>
+        </ol>
+
+    </div>
+    <!-- END RIBBON -->
+
+
+    <!-- MAIN CONTENT -->
+    <div id="content">
+
+
+        <!--
+            The ID "widget-grid" will start to initialize all widgets below
+            You do not need to use widgets if you dont want to. Simply remove
+            the <section></section> and you can use wells or panels instead
+            -->
+
+
+        <!-- well -->
+        <div class="well">
+
+            <div class="row">
+                <!-- col -->
+                <div class="col-xs-12 dwy-show-content">
+                    <legend> 相关文件
+                    </legend>
+                    <!-- row -->
+
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-striped">
+                            <thead>
+                            <tr>
+                                <th>流水号:</th>
+                                <th>订单号:</th>
+                                <th>文件名:</th>
+                                <th>文件类型:</th>
+                                <th>增单/补单号:</th>
+                                <th>上传时间:</th>
+                                <th>上传柜员:</th>
+                                <th>备注:</th>
+                                <th>操作:</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <%
+                            fileInfo.forEach(function (element) { %>
+                            <tr>
+                                <td><%= element.lid %></td>
+                                <td><%= element.tid  %></td>
+                                <td><%= element.fileName %></td>
+                                <td><%= DWY_Helper.getFileType(element.ordType) %></td>
+                                <td><%= element.resId  %></td>
+                                <td><%= DWY_Helper.getLocalDate(element.addTime) %></td>
+                                <td><%= element.gid %></td>
+                                <td><%= element.remark %></td>
+                                <td><a onclick="deleteFile(<%= element.id %>)">删除</a> <a href="<%= DWY_GLOBAL.Static %>/download?url=<%= element.savePath %>">下载</a></td>
+                            </tr>
+                            <% }) %>
+
+                            </tbody>
+                        </table>
+
+                    </div>
+
+
+                </div>
+                <!-- end row -->
+            </div>
+            <!-- end row -->
+        </div>
+        <!-- end well -->
+
+
+    </div>
+    <!-- END MAIN CONTENT -->
+
+</div>
+<!-- END MAIN PANEL -->
+
+<%- include('../layouts/footer'); %>
+<%- include('../layouts/footer_common_script'); %>
+
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+
+        pageSetUp();
+
+        $('#parentSpaceType').change(function () {
+            var p1 = $('#parentSpaceType').children('option:selected').val();
+            if (p1) {
+                DWY_space.getAreaList(p1)
+            }
+        })
+
+        var DWY_space = {
+            space: {},
+            getAreaList: function (id) {
+                $.ajax({
+                    url: '/order/space/' + id,
+                    method: "get",
+                    success: function (data) {
+                        refreshSpace(data)
+                    }
+                })
+            }
+        }
+
+        var refreshSpace = function (date) {
+            $("#spaceType").find('option').remove();
+            if (date.length > 1) {
+                for (var i = 0; i < date.length; i++) {
+                    $("#spaceType").append("<option value='" + date[i].id + "'>" + date[i].name + "</option>");
+                }
+            }
+        }
+
+        var pageFunction = function () {
+
+        }
+        pageFunction();
+
+    })
+
+    function submitForm() {
+
+        var formData = new FormData(document.getElementById('singleSubmit'));
+
+//        $.ajax({
+//            url: '/template/upload/single',
+//            data: formData,
+//            type: 'POST',
+//            // THIS MUST BE DONE FOR FILE UPLOADING
+//            processData: false, // 不处理发送的数据，因为data值是Formdata对象，不需要对数据做处理
+//            contentType: false, // 不设置Content-type请求头
+//            // ... Other options like success and et
+//            success: function (data) {
+//                console.log(data);
+//            },
+//            error: function () {
+//            }
+//        })
+
+    }
+
+    function deleteFile(id) {
+        layer.confirm('确认删除该文件?',{icon: 3, title:'提示'},function(index){
+            $.ajax({
+                url: '/file/order/doDelete/'+id,
+                method: 'delete',
+                success: function (data) {
+                    window.location.reload();
+                }
+            });
+        },function(index){
+            layer.close(index)})
+    }
+
+    $('#dwy_file_upload').on({
+        change: function (e) {
+            var _this = $(this);
+            var label = $("#label-upload-file");
+            var lid = $("[name=lid]");
+            var tid = $("[name=tid]");
+            var formData = new FormData();
+
+            formData.append('file_name', _this.prop('files')[0])
+            formData.append('lid', lid.val())
+            formData.append('tid', tid.val())
+
+//            console.log(window.aaa = formData);
+            label.html('上传中 <i class="fa fa-circle-o-notch fa-spin">');
+            label.attr('disabled', true);
+
+
+            $.ajax({
+                url: '/template/upload/single',
+                data: formData,
+                type: 'POST',
+                // THIS MUST BE DONE FOR FILE UPLOADING
+                processData: false, // 不处理发送的数据，因为data值是Formdata对象，不需要对数据做处理
+                contentType: false, // 不设置Content-type请求头
+                // ... Other options like success and et
+                success: function (data) {
+                    label.attr('disabled', false);
+                    if (data.code == 200) {
+                        var fileName = $('[name=fileName]').val(data.data.name);
+                        var fileSize = $('[name=fileSize]').val(data.data.size);
+                        var savePath = $('[name=savePath]').val(data.data.url);
+                        label.html('上传成功 <i class="fa fa-check">');
+
+                        // 图片预览
+//                        $('#test-image-upload').attr('src', '/uploads/' + data.tmp_path);
+                    } else {
+                        label.html('上传失败 <i class="fa fa-times">');
+                    }
+                },
+                error: function () {
+                    label.attr('disabled', false);
+                    label.html('上传失败 <i class="fa fa-times">');
+                }
+            })
+        }
+    })
+
+</script>
+
+
+<%- include('../layouts/foot'); %>

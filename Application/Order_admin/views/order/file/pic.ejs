@@ -1,0 +1,100 @@
+<%- include('../layouts/head_top'); %>
+<%- include('../layouts/head_bottom'); %>
+<%- include('../layouts/header'); %>
+<%- include('../layouts/nav'); %>
+
+
+<!-- MAIN PANEL -->
+<div id="main" role="main">
+
+    <!-- RIBBON -->
+    <div id="ribbon">
+
+        <!-- breadcrumb -->
+        <ol class="breadcrumb">
+            <li>后台管理</li>
+            <li>效果图</li>
+        </ol>
+
+    </div>
+    <!-- END RIBBON -->
+
+
+    <!-- MAIN CONTENT -->
+    <div id="content">
+
+
+        <!-- well -->
+        <div class="well">
+            <!-- row -->
+            <div class="row">
+                <!-- col -->
+                <div class="col-xs-12">
+
+                    <div class="search-form">
+
+                        <form class="form-horizontal" method="post"  >
+
+                            <legend>
+                                效果图
+                            </legend>
+                            <div class="col-xs-12">
+
+                                <%
+                                picInfo.forEach(function (element) { %>
+                                <div class="col-xs-3 dwy-image-layer"><a class="fancybox dwy_image"
+                                                         href="<%= DWY_GLOBAL.Static + "/"+ element.savePath %>"
+                                                         data-fancybox-group="gallery"
+                                                         title="大王椰"><img
+                                                src="<%= DWY_GLOBAL.Static + "/"+ element.savePath %>"
+                                                alt=""/></a></div>
+                                <% }) %>
+
+                            </div>
+
+                        </form>
+
+                    </div>
+                    <!-- end row -->
+                </div>
+                <!-- end col -->
+            </div>
+            <!-- end row -->
+        </div>
+        <!-- end well -->
+
+
+    </div>
+    <!-- END MAIN CONTENT -->
+
+</div>
+<!-- END MAIN PANEL -->
+
+<%- include('../layouts/footer'); %>
+<%- include('../layouts/footer_common_script'); %>
+
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+
+
+        pageSetUp();
+
+
+        //图片浏览
+        $('.fancybox').fancybox();
+
+
+        var pageFunction = function () {
+
+        }
+
+        pageFunction();
+
+    })
+
+</script>
+
+
+<%- include('../layouts/foot'); %>

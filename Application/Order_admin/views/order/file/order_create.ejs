@@ -1,0 +1,326 @@
+<%- include('../layouts/head_top'); %>
+<%- include('../layouts/head_bottom'); %>
+<%- include('../layouts/header'); %>
+<%- include('../layouts/nav'); %>
+
+
+<!-- MAIN PANEL -->
+<div id="main" role="main">
+
+    <!-- RIBBON -->
+    <div id="ribbon">
+
+        <!-- breadcrumb -->
+        <ol class="breadcrumb">
+            <li>后台管理</li>
+            <li>文件上传</li>
+        </ol>
+        <!-- end breadcrumb -->
+
+
+    </div>
+    <!-- END RIBBON -->
+
+
+    <!-- MAIN CONTENT -->
+    <div id="content">
+
+
+
+        <!-- well -->
+        <div class="well">
+            <!-- row -->
+            <div class="row">
+                <!-- col -->
+                <div class="col-xs-12">
+                    <legend>文件上传</legend>
+
+
+                    <!-- row -->
+                    <div class="row search-form">
+                        <form class="form-horizontal" method="post" action="/file/order/doCreate" id="file-order">
+
+                            <div class="col-xs-12">
+
+                                <!--键值+下拉选择+输入组合-->
+                                <div class="col-xs-4">
+                                    <div class="form-group">
+                                        <label class="col-xs-4 control-label "><span class="requird"></span> 文件类型: </label>
+                                        <div class="col-xs-4 tight-right">
+                                            <select class="form-control validate[required]" name="type">
+                                                <option value="">- 文件类型 -</option>
+                                                <%
+                                                fileTypeInfo.forEach(function (element) { %>
+                                                <option value="<%= element.id %>"><%= element.name %></option>
+                                                <% }) %>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+
+
+                            <div class="col-xs-12">
+
+                                <!--输入字段-->
+                                <div class="col-xs-8">
+                                    <div class="form-group">
+                                        <label class="col-xs-2 control-label"><span class="requird"></span> 备注:</label>
+                                        <div class="col-xs-10">
+                                            <input class="form-control validate[required]" name="remark">
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div class="col-xs-12">
+
+                                <!--输入字段-->
+                                <div class="col-xs-8">
+                                    <div class="form-group">
+                                        <label class="col-xs-2 control-label">文件地址:</label>
+                                        <div class="col-xs-10">
+                                            <input class="form-control" readonly value=""
+                                                   name="savePath">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-xs-4">
+                                    <div class="col-xs-12 text-left">
+                                        <!--<button class="btn btn-primary " type="submit">-->
+                                        <!--<i class="fa fa-save"></i>-->
+                                        <!--添加文件-->
+                                        <!--</button>-->
+                                        <!---->
+                                        <label for="dwy_file_upload" class="btn btn-primary" id="label-upload-file">
+
+                                            点击上传 <i class="fa fa-upload"></i> </label>
+                                        <input type="file" name="file_name" id="dwy_file_upload" style="display: none;">
+                                        <input type="hidden" name="liquid_number" id="liquid_number" value="<%= lid %>">
+                                    </div>
+                                </div>
+
+                                <input type="hidden" name="fileName" value="">
+                                <input type="hidden" name="fileSize" value="">
+                                <input type="hidden" name="lid" value="<%= lid %>">
+                                <input type="hidden" name="tid" value="<%= tid %>">
+                                <input type="hidden" name="ordType" value="<%= ordType %>">
+                                <input type="hidden" name="stcode" value="<%= stcode %>">
+
+                            </div>
+
+
+                            <div class="col-xs-8">
+                                <hr class="simple">
+                                <div class="col-xs-12 text-center">
+                                    <button class="btn btn-primary " type="submit">
+                                        <i class="fa fa-save"></i>
+                                        确认添加
+                                    </button>
+                                </div>
+                            </div>
+
+                        </form>
+                    </div>
+                    <div class="col-xs-12">
+                        <img src="" alt="" id="test-image-upload">
+                    </div>
+
+                </div>
+                <!-- end col -->
+            </div>
+
+            <div class="row">
+                <!-- col -->
+                <div class="col-xs-12 dwy-show-content">
+                    <legend> 相关文件
+                    </legend>
+                    <!-- row -->
+
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-striped">
+                            <thead>
+                            <tr>
+                                <th>流水号:</th>
+                                <th>订单号:</th>
+                                <th>文件名:</th>
+                                <th>文件类型:</th>
+                                <th>增单/补单号:</th>
+                                <th>上传时间:</th>
+                                <th>上传柜员:</th>
+                                <th>备注:</th>
+                                <th>操作:</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <%
+                            fileInfo.forEach(function (element) { %>
+                            <tr>
+                                <td><%= element.lid %></td>
+                                <td><%= element.tid  %></td>
+                                <td><%= element.fileName %></td>
+                                <td><%= DWY_Helper.getFileType(element.ordType) %></td>
+                                <td><%= element.resId  %></td>
+                                <td><%= DWY_Helper.getLocalDate(element.addTime) %></td>
+                                <td><%= element.gid %></td>
+                                <td><%= element.remark %></td>
+                                <td><a onclick="deleteFile(<%= element.id %>)">删除</a> <a href="<%= DWY_GLOBAL.Static %>/download?url=<%= element.savePath %>">下载</a></td>
+                            </tr>
+                            <% }) %>
+
+                            </tbody>
+                        </table>
+
+                    </div>
+
+
+                </div>
+                <!-- end row -->
+            </div>
+            <!-- end row -->
+        </div>
+        <!-- end well -->
+
+
+    </div>
+    <!-- END MAIN CONTENT -->
+
+</div>
+<!-- END MAIN PANEL -->
+
+<%- include('../layouts/footer'); %>
+<%- include('../layouts/footer_common_script'); %>
+
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+
+        $("#file-order").validationEngine();
+
+        pageSetUp();
+
+        $('#parentSpaceType').change(function () {
+            var p1 = $('#parentSpaceType').children('option:selected').val();
+            if (p1) {
+                DWY_space.getAreaList(p1)
+            }
+        })
+
+        var DWY_space = {
+            space: {},
+            getAreaList: function (id) {
+                $.ajax({
+                    url: '/order/space/' + id,
+                    method: "get",
+                    success: function (data) {
+                        refreshSpace(data)
+                    }
+                })
+            }
+        }
+
+        var refreshSpace = function (date) {
+            $("#spaceType").find('option').remove();
+            if (date.length > 1) {
+                for (var i = 0; i < date.length; i++) {
+                    $("#spaceType").append("<option value='" + date[i].id + "'>" + date[i].name + "</option>");
+                }
+            }
+        }
+
+        var pageFunction = function () {
+
+        }
+        pageFunction();
+
+    })
+
+    function submitForm() {
+
+        var formData = new FormData(document.getElementById('singleSubmit'));
+
+//        $.ajax({
+//            url: '/template/upload/single',
+//            data: formData,
+//            type: 'POST',
+//            // THIS MUST BE DONE FOR FILE UPLOADING
+//            processData: false, // 不处理发送的数据，因为data值是Formdata对象，不需要对数据做处理
+//            contentType: false, // 不设置Content-type请求头
+//            // ... Other options like success and et
+//            success: function (data) {
+//                console.log(data);
+//            },
+//            error: function () {
+//            }
+//        })
+
+    }
+
+    function deleteFile(id) {
+        layer.confirm('确认删除该文件?',{icon: 3, title:'提示'},function(index){
+            $.ajax({
+                url: '/file/order/doDelete/'+id,
+                method: 'delete',
+                success: function (data) {
+                    window.location.reload();
+                }
+            });
+        },function(index){
+            layer.close(index)})
+    }
+
+    $('#dwy_file_upload').on({
+        change: function (e) {
+            var _this = $(this);
+            var label = $("#label-upload-file");
+            var lid = $("[name=lid]");
+            var tid = $("[name=tid]");
+            var formData = new FormData();
+
+            formData.append('file_name', _this.prop('files')[0])
+            formData.append('lid', lid.val())
+            formData.append('tid', tid.val())
+
+//            console.log(window.aaa = formData);
+            label.html('上传中 <i class="fa fa-circle-o-notch fa-spin">');
+            label.attr('disabled', true);
+
+
+            $.ajax({
+                url: '/template/upload/single',
+                data: formData,
+                type: 'POST',
+                // THIS MUST BE DONE FOR FILE UPLOADING
+                processData: false, // 不处理发送的数据，因为data值是Formdata对象，不需要对数据做处理
+                contentType: false, // 不设置Content-type请求头
+                // ... Other options like success and et
+                success: function (data) {
+                    label.attr('disabled', false);
+                    if (data.code == 200) {
+                        var fileName = $('[name=fileName]').val(data.data.name);
+                        var fileSize = $('[name=fileSize]').val(data.data.size);
+                        var savePath = $('[name=savePath]').val(data.data.url);
+                        label.html('上传成功 <i class="fa fa-check">');
+
+                        // 图片预览
+//                        $('#test-image-upload').attr('src', '/uploads/' + data.tmp_path);
+                    } else {
+                        label.html('上传失败 <i class="fa fa-times">');
+                    }
+                },
+                error: function () {
+                    label.attr('disabled', false);
+                    label.html('上传失败 <i class="fa fa-times">');
+                }
+            })
+        }
+    })
+
+</script>
+
+
+<%- include('../layouts/foot'); %>

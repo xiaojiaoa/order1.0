@@ -124,7 +124,6 @@ var OrderController = require('./Controller/OrderController');
 router.get('/orders', Middleware.AuthCheck, Middleware.FilterEmptyField, OrderController.listPage);
 
 // 订单详情页面   订单信息（认领订单）
-// router.get('/order/detail/:tid', Middleware.AuthCheck, OrderController.detailPage);
 router.get('/order/detail/:tid', Middleware.AuthCheck, OrderController.detailPage);
 
 // 补单页面
@@ -138,7 +137,7 @@ router.get('/orders/resupplys/tears', Middleware.AuthCheck, Middleware.FilterEmp
 
 
 // 补单详情页面   补单信息（已完成）
-router.get('/order/resupply/detail', Middleware.AuthCheck, OrderController.resupplyDetailPage);
+router.get('/order/resupply/detail/:tid/:pid', Middleware.AuthCheck, OrderController.resupplyDetailPage);
 
 
 //  订单审核页面
@@ -291,7 +290,39 @@ router.delete('/roles/doDelete/:id', Middleware.AuthCheck, RolesController.doDel
 var TaskseqController = require('./Controller/TaskseqController');
 
 // 流水详情
-router.get('/taskseq/index', Middleware.AuthCheck, TaskseqController.indexPage);
+router.get('/taskseq/index/:lid', Middleware.AuthCheck, TaskseqController.indexPage);
+
+
+/*
+ * 页面范围: 文件上传相关
+ * 控制器:   FileController
+ * */
+var FileController = require('./Controller/FileController');
+
+// 新增文件上传地址
+router.get('/file/create/:lid/:type', Middleware.AuthCheck, FileController.createPage);
+
+// 新增文件上传地址
+router.get('/file/order/create/:lid/:stcode/:tid/:type', Middleware.AuthCheck, FileController.createOrderFilePage);
+
+// 显示所有效果图
+router.get('/file/pic/:lid', Middleware.AuthCheck, FileController.picPage);
+
+//
+router.get('/file/order/detail/:lid', Middleware.AuthCheck, FileController.orderFileDetail);
+
+// 新增上传文件
+router.post('/file/doCreate', Middleware.AuthCheck, FileController.doCreate);
+
+// 新增订单文件上传
+router.post('/file/order/doCreate', Middleware.AuthCheck, FileController.doCreateOrderFile);
+
+// 删除上传文件
+router.delete('/file/doDelete/:id', Middleware.AuthCheck, FileController.doDelete);
+
+// 删除订单上传文件
+router.delete('/file/order/doDelete/:id', Middleware.AuthCheck, FileController.doDeleteOrderFile);
+
 
 
 /*
