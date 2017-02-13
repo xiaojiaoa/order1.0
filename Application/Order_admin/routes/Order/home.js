@@ -231,7 +231,7 @@ router.delete('/agency/doDelete/:id', Middleware.AuthCheck, AgencyController.doD
 var DepartmentController = require('./Controller/DepartmentController');
 
 // 获取部门信息
-router.get('/department/:cid', Middleware.AuthCheck, Middleware.FilterEmptyField, DepartmentController.listPage);
+router.get('/department/:bid', Middleware.AuthCheck, Middleware.FilterEmptyField, DepartmentController.listPage);
 
 // 新增门店部门
 router.post('/department/doCreate', Middleware.AuthCheck, DepartmentController.doCreate);
@@ -253,7 +253,7 @@ router.delete('/department/doDelete/:id', Middleware.AuthCheck, DepartmentContro
 var RolesController = require('./Controller/RolesController');
 
 // 获取角色信息
-router.get('/roles', Middleware.AuthCheck, Middleware.FilterEmptyField, RolesController.listPage);
+router.get('/roles/:bid/:scope', Middleware.AuthCheck, Middleware.FilterEmptyField, RolesController.listPage);
 
 // 新增角色页面
 router.get('/roles/create', Middleware.AuthCheck, RolesController.createPage);
@@ -303,7 +303,8 @@ var FileController = require('./Controller/FileController');
 router.get('/file/create/:lid/:type', Middleware.AuthCheck, FileController.createPage);
 
 // 新增文件上传地址
-router.get('/file/order/create/:lid/:stcode/:tid/:type', Middleware.AuthCheck, FileController.createOrderFilePage);
+router.get('/file/order/create/:lid/:type/:tid', Middleware.AuthCheck, FileController.createOrderFilePage);
+// router.get('/file/order/create/:lid/:stcode/:tid/:type', Middleware.AuthCheck, FileController.createOrderFilePage);
 
 // 显示所有效果图
 router.get('/file/pic/:lid', Middleware.AuthCheck, FileController.picPage);

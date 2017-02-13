@@ -4,7 +4,7 @@
  *  导入环境变量
  *  */
 
-require('dotenv').config();
+// require('dotenv').config();
 
 /**
  * Module dependencies.

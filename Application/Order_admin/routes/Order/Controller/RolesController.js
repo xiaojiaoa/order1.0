@@ -12,15 +12,14 @@ var request = require('request');
 
 var RolesController = {
     listPage: function (req, res) {
-        // Base.multiDataRequest(req, res, [
-        //     {url: '/api/stores/departments', method: 'GET', resConfig: {keyName: 'departmentsInfo', is_must: true}}
-        // ], function (req, res, resultList) {
-        //     var returnData = Base.mergeData(helper.mergeObject({
-        //         title: ' ',
-        //     }, resultList));
-        //     res.render('store/department/index', returnData);
-        // });
-        res.render('order/role/index');
+        Base.multiDataRequest(req, res, [
+            {url: '/api/stores/departments', method: 'GET', resConfig: {keyName: 'departmentsInfo', is_must: true}}
+        ], function (req, res, resultList) {
+            var returnData = Base.mergeData(helper.mergeObject({
+                title: ' ',
+            }, resultList));
+            res.render('order/role/index', returnData);
+        });
     },
     createPage: function (req, res) {
 
