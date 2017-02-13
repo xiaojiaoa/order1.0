@@ -9,7 +9,7 @@ module.exports = {
         {
             name: "DWY_ORDER",
             script: "./bin/Order",
-            instances: "2",
+            instances: "1",
             exec_mode: "cluster",
             watch: "true",
             ignore_watch: ["node_modules", "Application/Order_admin/public", "Application/Order_admin/views"],
@@ -20,14 +20,13 @@ module.exports = {
             },
             env_production: {
                 NODE_ENV: "production",
-                Jiahui:"YES"
             }
         },
-         //Second application
+        //Second application
         {
             name: "DWY_STORE",
             script: "../node_dwy/bin/Store",
-            instances: "2",
+            instances: "1",
             exec_mode: "cluster",
             watch: "true",
             ignore_watch: ["node_modules", "Application/Store_admin/public", "Application/Store_admin/views"],
