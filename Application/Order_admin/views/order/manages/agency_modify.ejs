@@ -42,8 +42,8 @@
                                         </label>
                                         <div class="col-xs-8">
                                             <input class="form-control validate[required]"
-                                                   value="<%= DWY_last_request_param.mobile %>"
-                                                   name="">
+                                                   value="<%= DWY_last_request_param.orgEmp %>"
+                                                   name="orgEmp">
                                         </div>
 
                                     </div>
@@ -62,7 +62,7 @@
                                     </div>
                                 </div>
 
-                                <input type="hidden" name="empType" value="20">
+                                <input type="hidden" name="id" value="<%= cid %>">
 
 
 
@@ -75,8 +75,8 @@
                                         <label class="col-xs-4 control-label"><span class="requird"></span> 机构名称:</label>
                                         <div class="col-xs-8">
                                             <input class="form-control validate[required]"
-                                                   value="<%= DWY_last_request_param.resideAddress %>"
-                                                   name="resideAddress">
+                                                   value="<%= DWY_last_request_param.name %>"
+                                                   name="name">
                                         </div>
                                     </div>
                                 </div>
@@ -87,8 +87,13 @@
                                         <label class="col-xs-4 control-label"><span class="requird"></span>
                                             机构类型:</label>
                                         <div class="col-xs-8">
-                                            <select class="form-control validate[required]" name="idcardType">
+                                            <select class="form-control validate[required]" name="orgType">
                                                 <option value="">- 请选择 -</option>
+                                                <% organTypes.forEach(function (element) { %>
+                                                <option value="<%= element.id %>" <%= (DWY_last_request_param.orgType == element.id )?"selected":"" %> >
+                                                    <%= element.name %>
+                                                </option>
+                                                <% }) %>
                                             </select>
                                         </div>
                                     </div>
@@ -102,12 +107,12 @@
                                         <label class="col-xs-4 control-label"><span class="requird"></span>
                                             是否自带仓库:</label>
                                         <div class="col-xs-8">
-                                            <select class="form-control validate[required]" name="">
+                                            <select class="form-control validate[required]" name="isWareh">
                                                 <option value="">- 请选择 -</option>
-                                                <option value="1" <%= (DWY_last_request_param.idcardType == 1) ? 'selected' : '' %> >
+                                                <option value="1" <%= (DWY_last_request_param.isWareh == 1) ? 'selected' : '' %> >
                                                     是
                                                 </option>
-                                                <option value="2" <%= (DWY_last_request_param.idcardType == 2) ? 'selected' : '' %> >
+                                                <option value="2" <%= (DWY_last_request_param.isWareh == 2) ? 'selected' : '' %> >
                                                     否
                                                 </option>
 
@@ -116,18 +121,18 @@
                                     </div>
                                 </div>
 
-                                <div class="col-xs-4">
-                                    <div class="form-group">
-                                        <label class="col-xs-4 control-label"><span class="requird"></span>
-                                            最低保证金:</label>
-                                        <div class="col-xs-8">
-                                            <input class="form-control validate[required]"
-                                                   value="<%= DWY_last_request_param.mobile %>"
-                                                   name="mobile">
-                                            <span code-data="元" class="unit"></span>
-                                        </div>
-                                    </div>
-                                </div>
+                                <!--<div class="col-xs-4">-->
+                                    <!--<div class="form-group">-->
+                                        <!--<label class="col-xs-4 control-label"><span class="requird"></span>-->
+                                            <!--最低保证金:</label>-->
+                                        <!--<div class="col-xs-8">-->
+                                            <!--<input class="form-control validate[required]"-->
+                                                   <!--value="<%= DWY_last_request_param.mobile %>"-->
+                                                   <!--name="mobile">-->
+                                            <!--<span code-data="元" class="unit"></span>-->
+                                        <!--</div>-->
+                                    <!--</div>-->
+                                <!--</div>-->
 
                             </div>
 
@@ -139,8 +144,8 @@
                                         <label class="col-xs-2 control-label"><span class="requird"></span> 机构地址:</label>
                                         <div class="col-xs-10">
                                             <input class="form-control validate[required]" placeholder="请输入详细地址"
-                                                   value="<%= DWY_last_request_param.resideAddress %>"
-                                                   name="resideAddress">
+                                                   value="<%= DWY_last_request_param.address %>"
+                                                   name="address">
                                         </div>
                                     </div>
                                 </div>
@@ -151,9 +156,8 @@
                                     <div class="form-group">
                                         <label class="col-xs-2 control-label">备注:</label>
                                         <div class="col-xs-10">
-                                            <textarea name="seqRemark" class="form-control"
-                                                      cols="30"
-                                                      rows="5"></textarea>
+                                            <textarea name="remark" class="form-control"
+                                                      cols="30" rows="5"></textarea>
                                         </div>
                                     </div>
                                 </div>
@@ -200,24 +204,6 @@
 
         $("#create-store").validationEngine();
 
-
-//        结合html5标准事件 oninput 和 IE 专属事件 onpropertychange 事件来动态监听输入框值变化
-        $('#mobile').on('input propertychange', function () {
-            var mobile = this.value;
-            if ($("#mobile").validationEngine('validate')) {
-                $.ajax({
-                    url: '/getEmployeesByMobile/' + mobile,
-                    success: function (data) {
-                        console.log('employees3333',data)
-                        if(data.result.length !=0){
-                            location.href = "/employees/detail/" + data.result[0].id;
-                        }
-                    }
-                });
-            }
-        });
-
-        $(".fg-date-picker").flatpickr(data_time_picker.data_picker); // jQuery
 
     })
 

@@ -150,7 +150,7 @@
                                 <th>机构类型</th>
                                 <th>是否自带仓库</th>
                                 <th>新建日期</th>
-                                <th>最低保证金</th>
+                                <!--<th>最低保证金</th>-->
                                 <th>查看</th>
                             </tr>
                             </thead>
@@ -167,9 +167,9 @@
                                 <td><%= DWY_Helper.getAssistVal(element.orgType, organTypes) %></td>
                                 <td><%= DWY_Helper.getWhether(element.isWareh) %></td>
                                 <td><%= DWY_Helper.getLocalDate(element.addTime) %></td>
-                                <td>最低保证金</td>
+                                <!--<td>最低保证金</td>-->
                                 <td>
-                                    <a href="/department/<%= element.id %>">部门信息</a>
+                                    <a href="/department/organizations/<%= element.id %>">部门信息</a>
                                     <a href="/roles/<%= element.id %>/2" class="margin-left-20">角色信息</a>
                                 </td>
                             </tr>

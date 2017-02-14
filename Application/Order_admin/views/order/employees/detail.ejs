@@ -1,0 +1,285 @@
+<%- include('../layouts/head_top'); %>
+<%- include('../layouts/head_bottom'); %>
+<%- include('../layouts/header'); %>
+<%- include('../layouts/nav'); %>
+
+
+<!-- MAIN PANEL -->
+<div id="main" role="main">
+
+    <!-- RIBBON -->
+    <div id="ribbon">
+
+        <!-- breadcrumb -->
+        <ol class="breadcrumb">
+            <li>后台管理</li>
+            <li>柜员信息</li>
+        </ol>
+        <!-- end breadcrumb -->
+    </div>
+    <!-- END RIBBON -->
+
+    <!-- MAIN CONTENT -->
+    <div id="content">
+
+        <!-- well -->
+        <div class="well">
+            <!-- row -->
+            <div class="row">
+                <!-- col -->
+                <div class="col-xs-12">
+                    <legend>柜员信息</legend>
+                    <!-- row -->
+                    <div class="row form-horizontal">
+                        <!--employee-info-->
+                        <div class="col-xs-6 <%= (employeesInfo.stcode == '2' ) ? 'employee-info': '' %> " id="info-area">
+                            <div class="col-xs-12">
+                                <label class="text-right col-xs-3">柜员号:</label>
+                                <h4 class="text-left col-xs-9 padding-left-5">
+                                    <%= employeesInfo.id %>
+
+                                    <% if(employeesInfo.stcode == 2) { %>
+                                    <span  class="label label-danger" id="close-icon">
+                                        已关闭
+                                    </span >
+                                    <% } %>
+
+                                </h4>
+                            </div>
+                            <div class="col-xs-12">
+                                <div class="col-xs-6">
+                                    <label class="text-right col-xs-6">柜员手机:</label>
+                                    <p class="text-left col-xs-6"><%= employeesInfo.mobile %></p>
+                                </div>
+                                <div class="col-xs-6">
+                                    <label class="text-right col-xs-6">柜员姓名:</label>
+                                    <p class="text-left col-xs-6"><%= employeesInfo.name %>
+                                        <% switch(employeesInfo.gender){
+                                        case 0:%>
+                                        <span class="margin-left-10">保密</span>
+                                        <%    break;
+                                        case 1:%>
+                                        <span class="margin-left-10">先生</span>
+                                        <%    break;
+                                        case 2:%>
+                                        <span class="margin-left-10">女士</span>
+                                        <%       break;
+                                        } %>
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="col-xs-12">
+                                <div class="col-xs-6">
+                                    <label class="text-right col-xs-6">证件类型:</label>
+                                    <p class="text-left col-xs-6">
+                                        <% switch(employeesInfo.idcardType){
+                                        case 1:%>
+                                        身份证
+                                        <%    break;
+                                        case 2:%>
+                                        护照
+                                        <%    break;
+                                        case 3:%>
+                                        军官证
+                                        <%       break;
+                                        } %>
+                                    </p>
+                                </div>
+                                <div class="col-xs-6">
+                                    <label class="text-right col-xs-6">证件号码:</label>
+                                    <p class="text-left col-xs-6"><%= employeesInfo.idcard %></p>
+                                </div>
+                            </div>
+                            <div class="col-xs-12">
+                                <div class="col-xs-6">
+                                    <label class="text-right col-xs-6">员工属性:</label>
+                                    <p class="text-left col-xs-6">
+                                        <% switch(employeesInfo.empType){
+                                        case 10:%>
+                                        企业
+                                        <%    break;
+                                        case 20:%>
+                                        加盟店
+                                        <%    break;
+                                        } %>
+                                    </p>
+                                </div>
+                                <div class="col-xs-6">
+                                    <label class="text-right col-xs-6">所属部门:</label>
+                                    <p class="text-left col-xs-6"><%= employeesInfo.storeDepartment.name %></p>
+                                </div>
+                            </div>
+                            <div class="col-xs-12">
+                                <div class="col-xs-6">
+                                    <label class="text-right col-xs-6">角色:</label>
+                                    <p class="text-left col-xs-6">
+                                        <% employeesInfo.role.forEach(function (element, index) { %>
+                                        <span class="margin-right-5"><%= element.name %></span>
+                                        <% }) %>
+                                    </p>
+                                </div>
+                                <div class="col-xs-6">
+                                    <label class="text-right col-xs-6">生日:</label>
+                                    <p class="text-left col-xs-6"><%= DWY_Helper.getLocalDateYMD(employeesInfo.birthday)%></p>
+                                </div>
+                            </div>
+                            <div class="col-xs-12">
+                                <div class="col-xs-6">
+                                    <label class="text-right col-xs-6">学历:</label>
+                                    <p class="text-left col-xs-6"><%= DWY_Helper.getAssistVal(employeesInfo.education,educationInfo) %></p>
+                                </div>
+                                <div class="col-xs-6">
+                                    <label class="text-right col-xs-6">婚否:</label>
+                                    <p class="text-left col-xs-6">
+                                        <% switch(employeesInfo.isMarrige){
+                                        case 1:%>
+                                        未婚
+                                        <%    break;
+                                        case 2:%>
+                                        已婚
+                                        <%    break;
+                                        } %>
+                                    </p>
+                                </div>
+                            </div>
+
+
+                            <div class="col-xs-12">
+                                <label class="text-right col-xs-3">出生地:</label>
+                                <p class="text-left col-xs-1">中国</p>
+                                <p class="text-left col-xs-2"><%= employeesInfo.birthProvinceName %></p>
+                                <p class="text-left col-xs-2"><%= employeesInfo.birthCityName %></p>
+                                <p class="text-left col-xs-2"><%= employeesInfo.birthDistName %></p>
+                            </div>
+                            <div class="col-xs-12">
+                                <label class="text-right col-xs-3">居住地:</label>
+                                <p class="text-left col-xs-1">中国</p>
+                                <p class="text-left col-xs-2"><%= employeesInfo.resideProvinceName %></p>
+                                <p class="text-left col-xs-2"><%= employeesInfo.resideCityName %></p>
+                                <p class="text-left col-xs-2"><%= employeesInfo.resideDistName %></p>
+                            </div>
+                            <div class="col-xs-12">
+                                <label class="text-right col-xs-3">居住详细地址:</label>
+                                <p class="text-left col-xs-9"><%= employeesInfo.resideAddress %></p>
+                            </div>
+
+
+
+
+                            <div class="col-xs-8">
+                                <hr class="simple">
+
+                                <% if(employeesInfo.stcode == 2) { %>
+                                <div class="col-xs-12 text-center" id="open-employee-btn">
+                                    <a class="btn btn-primary" id="open-employee">
+                                        <i class="fa fa-unlock"></i>
+                                        解锁
+                                    </a>
+                                </div>
+                                <% }else{  %>
+                                <div class="col-xs-12 text-center" id="close-employee-btn">
+
+                                    <a class="btn btn-primary " href="/employees/modify/<%= employeesInfo.id %>">
+                                        <i class="fa fa-edit"></i>
+                                        修改柜员信息
+                                    </a>
+                                    <a class="btn btn-primary" id="reset-password" >
+                                        <i class="fa fa-refresh"></i>
+                                        密码重置
+                                    </a>
+                                    <a class="btn btn-warning" id="close-employee">
+                                        <i class="fa fa-unlock-alt"></i>
+                                        关闭账号
+                                    </a>
+                                </div>
+                                <% } %>
+
+
+
+                            </div>
+                        </div>
+                    </div>
+                    <!-- end row -->
+
+                </div>
+                <!-- end col -->
+            </div>
+            <!-- end row -->
+        </div>
+        <!-- end well -->
+
+
+    </div>
+    <!-- END MAIN CONTENT -->
+
+</div>
+<!-- END MAIN PANEL -->
+
+<%- include('../layouts/footer'); %>
+<%- include('../layouts/footer_common_script'); %>
+
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+
+        var employeesId = '<%= employeesInfo.id %>';
+
+        $("#close-employee").on({
+            click: function () {
+                layer.confirm('确定关闭该柜员账号？',{icon: 3, title:'提示'},
+                    function(index){
+                        $.ajax({
+                            url: '/employees/setStatus/'+employeesId+'/2',
+                            method: 'put',
+                            success: function (data) {
+                                window.location.reload();
+                            }
+                        });
+
+                    },
+                    function(index){layer.close(index)})
+            }
+        })
+
+        $("#open-employee").on({
+            click: function () {
+                layer.confirm('确定解锁该柜员账号？',{icon: 3, title:'提示'},
+                    function(index){
+                        $.ajax({
+                            url: '/employees/setStatus/'+employeesId+'/1',
+                            method: 'put',
+                            success: function (data) {
+                                window.location.reload();
+                            }
+                        });
+
+                    },
+                    function(index){layer.close(index)})
+            }
+        })
+
+        $("#reset-password").on({
+            click: function () {
+
+                layer.confirm('确定重置该柜员密码？',{icon: 3, title:'提示'},
+                    function(index){
+                        $.ajax({
+                            url: '/employees/resetPassword/'+employeesId,
+                            method: 'put',
+                            success: function (data) {
+//                                window.location.reload();
+                                layer.close(index)
+                                layer.msg('密码已重置为手机号码后8位', {icon: 1, time: 2000});
+                            }
+                        });
+                    },
+                    function(index){layer.close(index)})
+            }
+        })
+    })
+
+</script>
+
+
+<%- include('../layouts/foot'); %>

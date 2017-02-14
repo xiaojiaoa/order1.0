@@ -137,7 +137,7 @@ router.get('/orders/resupplys/tears', Middleware.AuthCheck, Middleware.FilterEmp
 
 
 // 补单详情页面   补单信息（已完成）
-router.get('/order/resupply/detail/:tid/:pid', Middleware.AuthCheck, OrderController.resupplyDetailPage);
+router.get('/order/resupply/detail', Middleware.AuthCheck, OrderController.resupplyDetailPage);
 
 
 //  订单审核页面
@@ -230,8 +230,9 @@ router.delete('/agency/doDelete/:id', Middleware.AuthCheck, AgencyController.doD
 
 var DepartmentController = require('./Controller/DepartmentController');
 
-// 获取部门信息
-router.get('/department/:bid', Middleware.AuthCheck, Middleware.FilterEmptyField, DepartmentController.listPage);
+// 获取某个 角色/机构 部门信息
+router.get('/department/:type/:bid', Middleware.AuthCheck, Middleware.FilterEmptyField, DepartmentController.listPage);
+
 
 // 新增门店部门
 router.post('/department/doCreate', Middleware.AuthCheck, DepartmentController.doCreate);
@@ -240,7 +241,7 @@ router.post('/department/doCreate', Middleware.AuthCheck, DepartmentController.d
 router.post('/department/doModify', Middleware.AuthCheck, DepartmentController.doModify);
 
 // 删除部门
-router.delete('/department/doDelete/:id', Middleware.AuthCheck, DepartmentController.doDelete);
+router.delete('/department/doDelete/:type/:id', Middleware.AuthCheck, DepartmentController.doDelete);
 
 
 
@@ -277,6 +278,41 @@ router.post('/roles/doDiyModify', Middleware.AuthCheck, RolesController.doDiyMod
 
 // 删除部门
 router.delete('/roles/doDelete', Middleware.AuthCheck, RolesController.doDelete);
+
+
+
+/*
+ * 页面范围: 员工相关
+ * 控制器:   EmployeeController
+ * */
+var EmployeeController = require('./Controller/EmployeeController');
+
+// 获取员工信息
+router.get('/employees', Middleware.AuthCheck, Middleware.FilterEmptyField, EmployeeController.listPage);
+
+// 员工详情页面
+router.get('/employees/detail/:cid', Middleware.AuthCheck, EmployeeController.detailPage);
+router.get('/getEmployeesByMobile/:mobile', Middleware.AuthCheck, EmployeeController.ifHaved);
+
+// 新增员工页面
+router.get('/employees/create', Middleware.AuthCheck, Middleware.FilterEmptyField, EmployeeController.createPage);
+
+// 新增员工
+router.post('/employees/doCreate', Middleware.AuthCheck, EmployeeController.doCreate);
+
+// 修改员工详情页面
+router.get('/employees/modify/:cid', Middleware.AuthCheck, EmployeeController.modifyPage);
+
+// 修改员工信息
+router.post('/employees/doModify', Middleware.AuthCheck, EmployeeController.doModify);
+
+// 重置员工密码
+router.put('/employees/resetPassword/:cid', Middleware.AuthCheck, EmployeeController.resetPassword);
+
+// 关闭/解锁 员工账号
+router.put('/employees/setStatus/:cid/:type', Middleware.AuthCheck, EmployeeController.setStatus);
+
+
 
 
 /*

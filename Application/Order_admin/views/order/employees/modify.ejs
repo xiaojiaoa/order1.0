@@ -1,0 +1,503 @@
+<%- include('../layouts/head_top'); %>
+<%- include('../layouts/head_bottom'); %>
+<%- include('../layouts/header'); %>
+<%- include('../layouts/nav'); %>
+
+
+<!-- MAIN PANEL -->
+<div id="main" role="main">
+
+    <!-- RIBBON -->
+    <div id="ribbon">
+
+        <!-- breadcrumb -->
+        <ol class="breadcrumb">
+            <li>后台管理</li>
+            <li>修改柜员信息</li>
+        </ol>
+        <!-- end breadcrumb -->
+    </div>
+    <!-- END RIBBON -->
+
+    <!-- MAIN CONTENT -->
+    <div id="content">
+
+        <!-- well -->
+        <div class="well">
+            <!-- row -->
+            <div class="row">
+                <!-- col -->
+                <div class="col-xs-12">
+                    <legend>修改柜员信息</legend>
+
+                    <!-- row -->
+                    <div class="row">
+                        <form class="form-horizontal" method="post" action="/employees/doModify" id="create-employees">
+
+                            <div class="col-xs-12">
+
+                                <div class="col-xs-4">
+                                    <div class="form-group">
+                                        <label class="col-xs-4 control-label "> <span class="requird"></span>柜员手机:
+                                        </label>
+                                        <div class="col-xs-8">
+                                            <input class="form-control"
+                                                   type="tel" value="<%= employeesInfo.mobile %>" name="mobile"
+                                                   readonly>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                                <div class="col-xs-4">
+                                    <div class="form-group">
+                                        <label class="col-xs-4 control-label "><span class="requird"></span> 柜员姓名:
+                                        </label>
+                                        <div class="col-xs-4 tight-right">
+                                            <input class="form-control validate[required]" placeholder="输入姓名"
+                                                   type="text" value="<%= employeesInfo.name %>"
+                                                   name="name">
+                                        </div>
+                                        <div class="col-xs-4 tight-left">
+                                            <select class="form-control" name="gender">
+                                                <option value="0">- 柜员性别 -</option>
+                                                <option value="1" <%= (employeesInfo.gender == 1) ? 'selected' : '' %> >
+                                                    先生
+                                                </option>
+                                                <option value="2" <%= (employeesInfo.gender == 2) ? 'selected' : '' %> >
+                                                    女士
+                                                </option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <input type="hidden" name="empType" value="20">
+                                <input type="hidden" name="cid" value="<%= cid %>">
+
+                            </div>
+
+                            <div class="col-xs-12">
+
+                                <!--输入字段-->
+                                <div class="col-xs-4">
+                                    <div class="form-group">
+                                        <label class="col-xs-4 control-label"><span class="requird"></span>
+                                            证件类型:</label>
+                                        <div class="col-xs-8">
+                                            <select class="form-control validate[required]" name="idcardType">
+                                                <option value="1" <%= (employeesInfo.idcardType == 1) ? 'selected' : '' %> >
+                                                    身份证
+                                                </option>
+                                                <option value="2" <%= (employeesInfo.idcardType == 2) ? 'selected' : '' %> >
+                                                    护照
+                                                </option>
+                                                <option value="3" <%= (employeesInfo.idcardType == 3) ? 'selected' : '' %> >
+                                                    军官证
+                                                </option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-xs-4">
+                                    <div class="form-group">
+                                        <label class="col-xs-4 control-label "><span class="requird"></span> 证件号码:
+                                        </label>
+                                        <div class="col-xs-8">
+                                            <input class="form-control validate[required,funcCall[custom_validate_fn.isIdCardNo]]"
+                                                   placeholder="输入证件号码" value="<%= employeesInfo.idcard %>"
+                                                   name="idcard">
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                                <div class="col-xs-4">
+                                    <div class="pull-left padding-right-10">
+                                        <p id="idPhotoOneName">
+                                            <a  class="fancybox dwy_image" href="<%= DWY_GLOBAL.Static + "/"+ employeesInfo.idPhotoOne %>"
+                                                data-fancybox-group="gallery" title="身份证照片1">身份证照片1</a>
+                                        </p>
+                                        <p id="idPhotoTwoName">
+                                            <a  class="fancybox dwy_image" href="<%= DWY_GLOBAL.Static + "/"+ employeesInfo.idPhotoTwo %>"
+                                                data-fancybox-group="gallery" title="身份证照片2">身份证照片2</a>
+                                        </p>
+
+                                        <input type="hidden" name="idPhotoOne" id="idPhotoOne" value="<%= employeesInfo.idPhotoOne %>">
+                                        <input type="hidden" name="idPhotoTwo" id="idPhotoTwo" value="<%= employeesInfo.idPhotoTwo %>">
+                                    </div>
+                                    <div class="col-xs-2 no-padding">
+                                        <label for="dwy_file_upload" class="btn-primary btn-sm btn"
+                                               id="label-upload-file">
+                                            上传照片<i class="fa fa-upload"></i>
+                                        </label>
+                                        <input type="file" name="file_name" id="dwy_file_upload" style="display: none">
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div class="col-xs-12">
+
+                                <!--输入字段-->
+                                <div class="col-xs-8">
+                                    <div class="form-group">
+                                        <label class="col-xs-2 control-label"><span class="requird"></span>所属部门:</label>
+                                        <div class="col-xs-10">
+                                            <select class="form-control validate[required]" name="did">
+                                                <option value="">- 请选择 -</option>
+
+                                                <% departmentsInfo.forEach(function (element, index) {
+                                                if(element.subDeparts.length != 0){ %>
+                                                <optgroup label="<%= element.name %>">
+                                                    <% element.subDeparts.forEach(function (element) { %>
+                                                    <option value="<%= element.id %>" <%= (employeesInfo.storeDepartment.id == element.id) ? 'selected' : '' %> >
+                                                        <%= element.name %>
+                                                    </option>
+                                                    <% }) %>
+                                                    \
+                                                </optgroup>
+                                                <% }else{ %>
+                                                <option value="<%= element.id %>" <%= (employeesInfo.storeDepartment.id == element.id) ? 'selected' : '' %> >
+                                                    <%= element.name %>
+                                                </option>
+                                                <% }
+                                                }) %>
+
+                                            </select>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                                <div class="col-xs-4">
+                                    <a href="/department" class="btn-primary btn-sm btn">查看所有部门信息</a>
+                                </div>
+
+                            </div>
+
+                            <div class="col-xs-12">
+
+                                <!--输入字段-->
+                                <div class="col-xs-8">
+                                    <div class="form-group">
+                                        <label class="col-xs-2 control-label"><span class="requird"></span> 角色:</label>
+                                        <div class="col-xs-10">
+
+                                            <% rolesInfo.forEach(function (element, index) { %>
+                                            <label class="checkbox-inline">
+                                                <input type="checkbox" class="checkbox style-0 validate[minCheckbox[1]]"
+                                                       name="roles" value="<%= element.id %>"
+                                                        <%= DWY_Helper.checkboxStatus(employeesInfo.role, element.id) %>
+                                                >
+                                                <span><%= element.name %></span>
+                                            </label>
+                                            <% }) %>
+
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div class="col-xs-12">
+                                <!--输入字段-->
+                                <div class="col-xs-4">
+                                    <div class="form-group">
+                                        <label class="col-xs-4 control-label">生日:</label>
+                                        <div class="col-xs-8">
+                                            <input class="form-control fg-date-picker" name="birthday"
+                                                   value="<%= DWY_Helper.getLocalDateYMD(employeesInfo.birthday)%>">
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div class="col-xs-12">
+
+                                <div class="col-xs-4">
+                                    <div class="form-group">
+                                        <label class="col-xs-4 control-label">学历:</label>
+                                        <div class="col-xs-8">
+                                            <select class="form-control" name="education">
+                                                <option value="">- 请选择 -</option>
+                                                <% educationInfo.forEach(function (element, index) { %>
+
+                                                <option value="<%= element.id %>"  <%= (employeesInfo.education == element.id) ? 'selected' : '' %> >
+                                                    <%= element.name %>
+                                                </option>
+
+                                                <% }) %>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-xs-4">
+                                    <div class="form-group">
+                                        <label class="col-xs-4 control-label">婚否:</label>
+                                        <div class="col-xs-8">
+                                            <select class="form-control" name="isMarrige">
+                                                <option value="">- 请选择 -</option>
+                                                <option value="1" <%= (employeesInfo.isMarrige == 1) ? 'selected' : '' %> >
+                                                    未婚
+                                                </option>
+                                                <option value="2" <%= (employeesInfo.isMarrige == 2) ? 'selected' : '' %> >
+                                                    已婚
+                                                </option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div class="col-xs-12">
+
+                                <!--输入字段-->
+                                <div class="col-xs-8">
+                                    <div class="form-group dwy-area">
+                                        <label class="col-xs-2 control-label">出生所在地:</label>
+                                        <div class="col-xs-10 no-padding">
+                                            <div class="col-xs-3">
+                                                <select class="form-control" name="nationality">
+                                                    <option value="中国"> 中国</option>
+                                                </select>
+                                            </div>
+                                            <div class="col-xs-3">
+                                                <select class="form-control dwy-province" name="birthProvince">
+                                                    <option value="">- 省 -</option>
+                                                </select>
+                                            </div>
+                                            <div class="col-xs-3">
+                                                <select class="form-control dwy-city" name="birthCity">
+                                                    <option value="">- 市 -</option>
+                                                </select>
+                                            </div>
+                                            <div class="col-xs-3">
+                                                <select class="form-control dwy-district" name="birthDist">
+                                                    <option value="">- 区 -</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div class="col-xs-12">
+
+                                <!--输入字段-->
+                                <div class="col-xs-8">
+                                    <div class="form-group dwy-area">
+                                        <label class="col-xs-2 control-label">居住所在地:</label>
+                                        <div class="col-xs-10 no-padding">
+                                            <div class="col-xs-3">
+                                                <select class="form-control">
+                                                    <option value="中国"> 中国</option>
+                                                </select>
+                                            </div>
+                                            <div class="col-xs-3">
+                                                <select class="form-control dwy-province resideProvince" name="resideProvince">
+                                                    <option value="">- 省 -</option>
+                                                </select>
+                                            </div>
+                                            <div class="col-xs-3">
+                                                <select class="form-control dwy-city" name="resideCity">
+                                                    <option value="">- 市 -</option>
+                                                </select>
+                                            </div>
+                                            <div class="col-xs-3">
+                                                <select class="form-control dwy-district" name="resideDist">
+                                                    <option value="">- 区 -</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+
+
+                            <div class="col-xs-12">
+
+                                <!--输入字段-->
+                                <div class="col-xs-8">
+                                    <div class="form-group">
+                                        <label class="col-xs-2 control-label">居住详细地址:</label>
+                                        <div class="col-xs-10">
+                                            <input class="form-control" placeholder="请输入居住详细地址"
+                                                   value="<%= employeesInfo.resideAddress %>"
+                                                   name="resideAddress">
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+
+
+                            <div class="col-xs-8">
+                                <hr class="simple">
+                                <div class="col-xs-12 text-center">
+
+                                    <button class="btn btn-primary " type="submit">
+                                        <i class="fa fa-save"></i>
+                                        确认添加
+                                    </button>
+                                </div>
+                            </div>
+
+                        </form>
+                    </div>
+                    <!-- end row -->
+
+                </div>
+                <!-- end col -->
+            </div>
+            <!-- end row -->
+        </div>
+        <!-- end well -->
+
+
+    </div>
+    <!-- END MAIN CONTENT -->
+
+</div>
+<!-- END MAIN PANEL -->
+
+<%- include('../layouts/footer'); %>
+<%- include('../layouts/footer_common_script'); %>
+
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+
+//        pageSetUp();
+
+        $("#create-employees").validationEngine();
+
+
+        $(".fg-date-picker").flatpickr(data_time_picker.data_picker); // jQuery
+
+//        DWY_area.init({});
+        DWY_area.init({
+            defaultValue:[
+                {
+                    name:'birthProvince',
+                    value: '<%= employeesInfo.birthProvince %>',
+                    key:'province',
+                    linkcity:'birthCity',
+                    linkdis:'birthDist',
+                    cityId: '<%= employeesInfo.birthCity %>'
+                },
+                {name:'birthCity', value: '<%= employeesInfo.birthCity %>', key:'city',linkdis:'birthDist',disId: '<%= employeesInfo.birthDist %>'},
+                {name:'birthDist', value: '<%= employeesInfo.birthDist %>', key:'district'},
+                {
+                    name:'resideProvince',
+                    value: '<%= employeesInfo.resideProvince %>',
+                    key:'province',
+                    linkcity:'resideCity',
+                    linkdis:'resideDist',
+                    cityId: '<%= employeesInfo.resideCity %>'
+                },
+                {name:'resideCity', value: '<%= employeesInfo.resideCity %>', key:'city',linkdis:'resideDist',disId: '<%= employeesInfo.resideDist %>'},
+                {name:'resideDist', value: '<%= employeesInfo.resideDist %>', key:'district'},
+            ]
+        });
+
+        <!--setTimeout(function () {-->
+            <!--$("select[name=birthProvince]").val(<%= employeesInfo.birthProvince %>);-->
+            <!--$("select[name=birthCity]").val(<%= employeesInfo.birthCity %>);-->
+            <!--$("select[name=birthDist]").val(<%= employeesInfo.birthDist %>);-->
+            <!--$("select[name=resideProvince]").val(<%= employeesInfo.resideProvince %>);-->
+            <!--$("select[name=resideCity]").val(<%= employeesInfo.resideCity %>);-->
+            <!--$("select[name=resideDist]").val(<%= employeesInfo.resideDist %>);-->
+        <!--},500)-->
+//        DWY_area.setValue();
+
+
+
+
+        var idPhotoNum = 1;
+        var idPhotoOneName = $("#idPhotoOneName");
+        var idPhotoTwoName = $("#idPhotoTwoName");
+        var idPhotoOne = $("#idPhotoOne");
+        var idPhotoTwo = $("#idPhotoTwo");
+
+        $('#dwy_file_upload').on({
+            change: function (e) {
+                var _this = $(this);
+                var label = $("#label-upload-file");
+
+                var formData = new FormData();
+                formData.append('file_name', _this.prop('files')[0])
+
+                $.ajax({
+                    url: '/template/upload/img',
+                    data: formData,
+                    type: 'POST',
+                    processData: false, // 不处理发送的数据，因为data值是Formdata对象，不需要对数据做处理
+                    contentType: false, // 不设置Content-type请求头
+                    success: function (data) {
+                        if (data.code == 200) {
+                            if (!idPhotoOne.val()) {
+                                idPhotoOneFuc(data);
+                                label.html('上传成功 <i class="fa fa-check">');
+                                return;
+                            }
+                            if (!idPhotoTwo.val()) {
+                                idPhotoTwoFuc(data);
+                                label.html('上传成功 <i class="fa fa-check">');
+                                return;
+                            }
+                            switch (idPhotoNum % 2) {
+                                case 1:
+                                    idPhotoOneFuc(data);
+                                    break;
+                                case 0:
+                                    idPhotoTwoFuc(data);
+                                    break;
+                            }
+                            idPhotoNum++;
+                            label.html('上传成功 <i class="fa fa-check">');
+                        } else {
+                            label.html('上传失败 <i class="fa fa-times">');
+                        }
+                    },
+                    error: function (error) {
+                        label.html('上传失败 <i class="fa fa-times">');
+                    }
+                })
+            }
+        })
+
+        function idPhotoOneFuc(data) {
+            idPhotoOne.val(data.data.url);
+            idPhotoOneName.html('<a  class="fancybox dwy_image" href="/uploads/'
+                + data.data.name + '" data-fancybox-group="gallery" title="' + data.data.name + '">'
+                + data.data.name + '</a>')
+
+        }
+
+        function idPhotoTwoFuc(data) {
+            idPhotoTwo.val(data.data.url);
+            idPhotoTwoName.html('<a  class="fancybox dwy_image" href="/uploads/'
+                + data.data.name + '" data-fancybox-group="gallery" title="' + data.data.name + '">'
+                + data.data.name + '</a>')
+//            idPhotoTwoName.text(data.data.name);
+//            idPhotoTwoName.attr("href","/uploads/"+data.data.name);
+//            idPhotoTwoName.attr("title",data.data.name);
+        }
+
+        //图片浏览
+        $('.fancybox').fancybox();
+
+    })
+
+</script>
+
+
+<%- include('../layouts/foot'); %>
