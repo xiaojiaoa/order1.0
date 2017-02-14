@@ -163,7 +163,7 @@
                                 <th>经营类型</th>
                                 <th>是否自带仓库</th>
                                 <th>新建日期</th>
-                                <th>最低保证金</th>
+                                <th>最低保证金(元)</th>
                                 <th>查看</th>
                             </tr>
                             </thead>
@@ -184,7 +184,7 @@
                                 <td><%= DWY_Helper.getLocalDate(element.addTime) %></td>
                                 <td><%= element.minFunds %></td>
                                 <td>
-                                    <a href="/department/<%= element.bid %>">部门信息</a>
+                                    <a href="/department/stores/<%= element.bid %>">部门信息</a>
                                     <a href="/roles/<%= element.bid %>/1" class="margin-left-20">角色信息</a>
                                 </td>
                             </tr>

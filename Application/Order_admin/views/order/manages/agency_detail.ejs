@@ -30,7 +30,7 @@
                 <!-- col -->
                 <div class="col-xs-12 dwy-show-content">
                     <legend>基本信息
-                        <a class="label label-primary" href="/agency/modify/555">修改</a>
+                        <a class="label label-primary" href="/agency/modify/<%= organizationsInfo.id %>">修改</a>
                         <a class="label label-primary" id="openStore">启用</a>
                         <a class="label label-danger" id="closeStore">禁用</a>
                     </legend>
@@ -41,35 +41,35 @@
                             <tbody>
                             <tr>
                                 <td>机构编号</td>
-                                <td>23456123</td>
+                                <td><%= organizationsInfo.id %></td>
                                 <td>负责人姓名</td>
-                                <td>张先生</td>
+                                <td><%= organizationsInfo.orgEmp %></td>
                                 <td>负责人电话</td>
-                                <td>187234654798</td>
+                                <td></td>
                             </tr>
                             <tr>
                                 <td>新建日期</td>
-                                <td>2016-10-10    10：10：10</td>
+                                <td><%= DWY_Helper.getLocalDate(organizationsInfo.addTime) %></td>
                                 <td>新建人</td>
-                                <td>李四</td>
+                                <td><%= organizationsInfo.gname %></td>
                                 <td>机构类型</td>
-                                <td>嘉兴工厂</td>
+                                <td><td><%= DWY_Helper.getAssistVal(organizationsInfo.orgType, organTypes) %></td></td>
                             </tr>
                             <tr>
                                 <td>机构名称</td>
-                                <td>大王椰集团</td>
+                                <td><%= organizationsInfo.name %></td>
                                 <td>是否自带仓库</td>
-                                <td>是</td>
+                                <td><%= DWY_Helper.getWhether(organizationsInfo.isWareh) %></td>
                                 <td>机构最低保证金</td>
-                                <td>20000.00 元</td>
+                                <td> </td>
                             </tr>
                             <tr>
                                 <td>机构地址</td>
-                                <td colspan="5">杭州市西湖区西溪路525号</td>
+                                <td colspan="5"><%= organizationsInfo.address %></td>
                             </tr>
                             <tr>
                                 <td>备注</td>
-                                <td colspan="5">备注</td>
+                                <td colspan="5"><%= organizationsInfo.remark %></td>
                             </tr>
 
                             </tbody>

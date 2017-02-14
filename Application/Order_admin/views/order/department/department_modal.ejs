@@ -7,6 +7,7 @@
             </div>
             <input name="parentId" value="0" type="hidden">
             <input name="bid" value="<%= bid %>" type="hidden">
+            <input name="type" value="<%= type %>" type="hidden">
         </div>
     </div>
 
@@ -30,6 +31,7 @@
                 <label class="control-label text-align-left" id="parentDepartmentName">部门名称</label>
                 <input name="parentId" value="" type="hidden" id="parentDepartmentId">
                 <input name="bid" value="<%= bid %>" type="hidden">
+                <input name="type" value="<%= type %>" type="hidden">
             </div>
         </div>
     </div>
@@ -61,6 +63,8 @@
             <div class="col-xs-6">
                 <input class="form-control validate[required]" type="text" id="modifyName"  value="部门名称" name="name" data-prompt-position="bottomLeft:20,5">
                 <input name="id" value="" type="hidden" id="modifyId">
+                <input name="bid" value="<%= bid %>" type="hidden">
+                <input name="type" value="<%= type %>" type="hidden">
             </div>
         </div>
     </div>
@@ -145,10 +149,11 @@
         $(".delete-department").on({
             click: function () {
                 var id = $(this).attr('selfId');
+                var type = $("#urlType").val();
                 layer.confirm('确认删除?',{icon: 3, title:'提示'},
                     function(index){
                         $.ajax({
-                            url: '/department/doDelete/'+id,
+                            url: '/department/doDelete/'+type+'/'+id,
                             method: 'delete',
                             success: function (data) {
                                 window.location.reload();

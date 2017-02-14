@@ -235,6 +235,7 @@ nav ul span.menu-item-parent {
 .separation {
     border-right: 1px #928c8c solid;
     padding: 0 5px;
+    white-space: nowrap;
 }
 
 tr > td > .separation:last-child {

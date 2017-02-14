@@ -39,23 +39,50 @@ var AgencyController = {
     },
     detailPage: function (req, res) {
         var cid =  req.params.cid;
-        res.render('order/manages/agency_detail');
+        Base.multiDataRequest(req, res, [
+            {url: '/api/organizations/'+cid, method: 'GET', resConfig: {keyName: 'organizationsInfo', is_must: true}},
+            {url: '/api/assist/organ/types', method: 'GET', resConfig: {keyName: 'organTypes', is_must: true}},
+        ], function (req, res, resultList) {
+
+            var returnData = Base.mergeData(helper.mergeObject({
+                title: ' ',
+            },resultList));
+            res.render('order/manages/agency_detail', returnData);
+        });
     },
     createPage: function (req, res) {
-        res.render('order/manages/agency_create');
+        Base.multiDataRequest(req, res, [
+            {url: '/api/assist/organ/types', method: 'GET', resConfig: {keyName: 'organTypes', is_must: true}},
+        ], function (req, res, resultList) {
+
+            var returnData = Base.mergeData(helper.mergeObject({
+                title: ' ',
+            },resultList));
+            res.render('order/manages/agency_create', returnData);
+        });
     },
     modifyPage: function (req, res) {
-        res.render('order/manages/agency_modify');
+        var cid =  req.params.cid;
+        Base.multiDataRequest(req, res, [
+            {url: '/api/assist/organ/types', method: 'GET', resConfig: {keyName: 'organTypes', is_must: true}},
+        ], function (req, res, resultList) {
+
+            var returnData = Base.mergeData(helper.mergeObject({
+                title: ' ',
+                cid:cid,
+            },resultList));
+            res.render('order/manages/agency_modify', returnData);
+        });
     },
     doCreate: function (req, res) {
         // console.log('999'+ JSON.stringify(req.body))
         request(Base.mergeRequestOptions({
             method: 'post',
-            url: '/api/stores/departments',
+            url: '/api/organizations',
             form: req.body,
         }, req, res), function (error, response, body) {
             if (!error && response.statusCode == 201) {
-                res.redirect("/department");
+                res.redirect("/agency");
             } else {
                 Base.handlerError(res, req, error, response, body);
             }
