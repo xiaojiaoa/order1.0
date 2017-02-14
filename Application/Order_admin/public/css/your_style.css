@@ -2,6 +2,7 @@
     min-width: 1420px;
     background: #fff;
 }
+
 .smart-style-2 nav > ul > li > a {
     padding-top: 16px;
     padding-bottom: 16px;
@@ -49,40 +50,44 @@ nav ul span.menu-item-parent {
     min-height: 800px;
 }
 
-.mark-row{
+.mark-row {
     background: #fdcc9c;
 }
-
 
 .flatpickr-input[readonly] {
     background-color: #fff;
 }
 
-.table-information tr td:nth-of-type(2n+1){
+.table-information tr td:nth-of-type(2n+1) {
     background: rgba(216, 212, 212, 0.5);
 
 }
-.table-noneinf tr td:nth-of-type(2n+1){
+
+.table-noneinf tr td:nth-of-type(2n+1) {
     background: transparent;
 }
-.order-number{
+
+.order-number {
     margin-right: 20px;
 }
-.tab-operate{
-    margin-left: 20px;
-}
-.margin-left-20{
+
+.tab-operate {
     margin-left: 20px;
 }
 
+.margin-left-20 {
+    margin-left: 20px;
+}
 
 /*必填项标记*/
-.requird{
+.requird {
 
 }
-.requird:before{
+
+.requird:before {
     content: "*";
 }
+
 .unit {
     position: absolute;
     right: 0;
@@ -96,7 +101,8 @@ nav ul span.menu-item-parent {
     top: 0;
     white-space: nowrap;
 }
-.unit-insert{
+
+.unit-insert {
     position: absolute;
     right: 15px;
     top: 8px;
@@ -113,39 +119,43 @@ nav ul span.menu-item-parent {
     font-weight: 200;
     margin-left: 10px;
 }
+
 .label-primary {
     background-color: #3b9ff3;
     border-color: #3292E2;
     color: white;
 }
+
 .label-primary:hover {
-    background-color:#3E90D4;
-    border-color:#2F7DBE;
+    background-color: #3E90D4;
+    border-color: #2F7DBE;
 }
-.label-primary[href]:focus,.label-primary[href]:hover{
-    background-color:#3E90D4;
-    border-color:#2F7DBE;
+
+.label-primary[href]:focus, .label-primary[href]:hover {
+    background-color: #3E90D4;
+    border-color: #2F7DBE;
 }
+
 .label-success {
     background-color: #5cb85c;
 }
+
 .label-danger {
     background-color: #d9534f;
 }
 
 /*thead>tr>th{*/
-    /*text-align: center;*/
+/*text-align: center;*/
 /*}*/
 
-.layer-template{
+.layer-template {
     display: none;
     padding: 20px;
 }
+
 .dwy-clear {
     clear: both;
 }
-
-
 
 .layer-template {
     display: none;
@@ -189,16 +199,15 @@ nav ul span.menu-item-parent {
     text-align: center;
 }
 
-
 .smart-style-2 .login-info a span {
     max-width: 200px;
 }
 
-.login-info>span{
-    height:auto;
+.login-info > span {
+    height: auto;
 }
 
-.footer-btn-div{
+.footer-btn-div {
     position: fixed;
     /*margin-bottom: 70px;*/
     padding: 10px;
@@ -208,29 +217,31 @@ nav ul span.menu-item-parent {
     z-index: 999;
 }
 
-.close-info{
+.close-info {
     background-color: rgba(244, 244, 244, 1);
     color: #999999;
 }
 
-
-.table-expand a{
-    padding:10px;
+.table-expand a {
+    padding: 10px;
     cursor: pointer;
 }
-.table-expand .level-1-title{
+
+.table-expand .level-1-title {
     padding-left: 40px;
     color: #5a5a5a;
 }
 
-.separation{
+.separation {
     border-right: 1px #928c8c solid;
     padding: 0 5px;
 }
-tr>td>.separation:last-child{
-    border-right:none;
+
+tr > td > .separation:last-child {
+    border-right: none;
 }
-.divider{
+
+.divider {
     margin: 0 6px;
     display: inline-block;
     height: 8px;
@@ -238,32 +249,65 @@ tr>td>.separation:last-child{
     background: #ccc;
 }
 
-.padding-right-10{
+.padding-right-10 {
     padding-right: 10px;
 }
-.padding-left-5{
-    padding-left:5px;
+
+.padding-left-5 {
+    padding-left: 5px;
 }
-.margin-left-10{
+
+.margin-left-10 {
     margin-left: 10px;
 }
-.smart-style-2 .btn-warning ,.btn-warning {
+
+.smart-style-2 .btn-warning, .btn-warning {
     color: #fff;
     background-color: #f0ad4e;
     border-color: #eea236;
 }
 
-.employee-info .text-left{
+.employee-info .text-left {
     color: #999999;
 }
-.upimg-input{
+
+.upimg-input {
     width: 80px;
     border: none;
     background: transparent;
 }
-.to-block{
+
+.to-block {
     display: block;
 }
-.cursor-pointer{
+
+.cursor-pointer {
     cursor: pointer;
+}
+
+.orderItemLayerTit > ul {
+    padding: 0;
+}
+
+.orderItemLayerTit > ul li {
+    list-style: none;
+    float: left;
+    padding: 2px 5px;
+    text-align: left;
+    cursor: pointer;
+}
+
+.orderItemMenu li.selected {
+    color: #169BD5;
+}
+
+.btn-primary-other {
+    background: #fff;
+    color: #333;
+    border: 1px solid #797979;
+}
+
+.orderItemButton button {
+    margin: 0 20px;
+    padding: 10px 56px;
 }

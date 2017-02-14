@@ -218,6 +218,7 @@
                     <legend>相关文件
                         <!--<a class="label label-primary" href="/file/create/<%= orderInfo.lid %>/<%= orderInfo.stcode %>">文件管理</a>-->
                         <a class="label label-primary" href="/file/order/create/<%= orderInfo.lid %>/1/<%= tid %>">文件管理</a>
+                        <button class="label label-primary" id="orderItem">订单物料</button>
                     </legend>
 
                     <div class="table-responsive">
@@ -584,6 +585,20 @@
             }, function (index) {
                 layer.close(index)
             })
+        })
+        $('#orderItem').on({
+            click: function (e) {
+                layer.open({
+                    title: false,
+                    type: 1,
+                    area: '1200px',
+                    content: $('#orderItemCon'),
+                    cancel: function () {
+                        //右上角关闭回调
+                    },
+
+                });
+            }
         })
 
 
