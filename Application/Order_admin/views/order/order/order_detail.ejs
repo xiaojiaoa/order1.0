@@ -241,7 +241,8 @@
                                 <td>
                                     <a href="<%= DWY_GLOBAL.Static %>/download?url=<%= element.savePath %>"><%= element.fileName %></a>
                                 </td>
-                                <td><%= DWY_Helper.getFileType(element.ordType) %></td>
+                                <td><%= DWY_Helper.getAssistVal(element.ordType, allFileTypeInfo) %></td>
+
                                 <td><%= element.gid %></td>
                                 <td><%= DWY_Helper.getLocalDate(element.addTime) %></td>
                                 <td><%= element.remark %></td>

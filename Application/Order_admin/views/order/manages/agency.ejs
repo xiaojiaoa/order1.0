@@ -54,8 +54,8 @@
                                         <label class="col-xs-4 control-label">机构编号:</label>
                                         <div class="col-xs-8">
                                             <input class="form-control" type="text"
-                                                   value="<%= DWYRequest.query.mobile %>"
-                                                   name="mobile">
+                                                   value="<%= DWYRequest.query.id %>"
+                                                   name="id">
                                         </div>
                                     </div>
                                 </div>
@@ -69,11 +69,12 @@
                                     <div class="form-group">
                                         <label class="col-xs-4 control-label">机构类型:</label>
                                         <div class="col-xs-8">
-                                            <select class="form-control" name="ctype">
+                                            <select class="form-control" name="orgType">
                                                 <option value="">- 请选择 -</option>
-                                                <option value="1" <%= (DWYRequest.query.ctype == 1) ? "selected" : "" %> >
-                                                    萧山工厂
-                                                </option>
+                                                <% organTypes.forEach(function (element) { %>
+                                                <option value="<%= element.id %>" <%= (DWYRequest.query.orgType == element.id )?"selected":"" %> ><%= element.name %></option>
+                                                <% }) %>
+
                                             </select>
                                         </div>
                                     </div>
@@ -154,23 +155,34 @@
                             </tr>
                             </thead>
                             <tbody>
+                            <%
+                            if(organizationsList.totalItems != 0  ){
+                            organizationsList.result.forEach(function (element, index) { %>
                             <tr>
-                                <td>1</td>
-                                <td><a href="/agency/detail/5555">5555</a></td>
-                                <td>大王椰萧山工厂</td>
-                                <td>13546798465</td>
-                                <td>湖滨银泰店</td>
-                                <td>湖滨银泰店</td>
-                                <td>湖滨银泰店</td>
-                                <td>湖滨银泰店</td>
-                                <td>湖滨银泰店</td>
-                                <td><a href="/department">部门信息</a> <a href="/roles" class="margin-left-20">角色信息</a></td>
+                                <td><%= index+1 %></td>
+                                <td><a href="/agency/detail/<%= element.id %>"><%= element.id %></a></td>
+                                <td><%= element.name %></td>
+                                <td><%= element.mobile %></td>
+                                <td><%= element.address %></td>
+                                <td><%= DWY_Helper.getAssistVal(element.orgType, organTypes) %></td>
+                                <td><%= DWY_Helper.getWhether(element.isWareh) %></td>
+                                <td><%= DWY_Helper.getLocalDate(element.addTime) %></td>
+                                <td>最低保证金</td>
+                                <td>
+                                    <a href="/department/<%= element.id %>">部门信息</a>
+                                    <a href="/roles/<%= element.id %>/2" class="margin-left-20">角色信息</a>
+                                </td>
                             </tr>
-
+                            <%  })
+                            }else{ %>
+                            <tr>
+                                <td colspan="12" align="center">暂无结果</td>
+                            </tr>
+                            <% } %>
 
                             </tbody>
                         </table>
-                        <!--pagination-->
+                        <%- pagination %>
 
                     </div>
                 </div>

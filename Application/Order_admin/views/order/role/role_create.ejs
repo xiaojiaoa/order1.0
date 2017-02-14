@@ -13,7 +13,7 @@
         <!-- breadcrumb -->
         <ol class="breadcrumb">
             <li>后台管理</li>
-            <li>新建角色</li>
+            <li><%= (type == 'sys') ? '新建角色' : '新建自定义角色' %></li>
         </ol>
         <!-- end breadcrumb -->
     </div>
@@ -28,7 +28,7 @@
             <div class="row">
                 <!-- col -->
                 <div class="col-xs-12">
-                    <legend>新建角色</legend>
+                    <legend><%= (type == 'sys') ? '新建角色' : '新建自定义角色' %></legend>
 
                     <!-- row -->
                     <div class="row">
@@ -41,8 +41,8 @@
                                         <label class="col-xs-2 control-label"><span class="requird"></span> 角色:</label>
                                         <div class="col-xs-4">
                                             <input class="form-control validate[required]"
-                                                   value="<%= DWY_last_request_param.resideAddress %>"
-                                                   name="resideAddress">
+                                                   value="<%= DWY_last_request_param.name %>"
+                                                   name="name">
                                         </div>
                                     </div>
                                 </div>
@@ -59,7 +59,7 @@
                                             <% permissionsList.forEach(function (element) { %>
                                             <label class="checkbox-inline to-block no-margin">
                                                 <input type="checkbox" class="checkbox validate[minCheckbox[1]]"
-                                                       name="roles" value="<%= element.id%>">
+                                                       name="permission" value="<%= element.id%>">
                                                 <span><%= element.name%></span>
                                             </label>
                                             <%  }) %>
@@ -71,6 +71,10 @@
                                 </div>
 
                             </div>
+
+                            <input type="hidden" name="bid" value="<%= (type == 'sys') ? '':bid %>">
+                            <input type="hidden" name="scope" value="<%= scope %>">
+                            <input type="hidden" name="bidUrl" value="<%= bid %>">
 
                             <div class="col-xs-8">
                                 <hr class="simple">

@@ -8,19 +8,34 @@ var queryString = require('qs');
 var helper = require('../config/helper');
 
 var request = require('request');
-
+var Permissions = require('../config/permission');
 
 var AgencyController = {
     listPage: function (req, res) {
-        // Base.multiDataRequest(req, res, [
-        //     {url: '/api/stores/departments', method: 'GET', resConfig: {keyName: 'departmentsInfo', is_must: true}}
-        // ], function (req, res, resultList) {
-        //     var returnData = Base.mergeData(helper.mergeObject({
-        //         title: ' ',
-        //     }, resultList));
-        //     res.render('store/department/index', returnData);
-        // });
-        res.render('order/manages/agency');
+
+        var paramObject = helper.genPaginationQuery(req);
+        Base.multiDataRequest(req, res, [
+            {url: '/api/organizations/page?'+ queryString.stringify(req.query), method: 'GET', resConfig: {keyName: 'organizationsList', is_must: true}},
+            {url: '/api/assist/organ/types', method: 'GET', resConfig: {keyName: 'organTypes', is_must: true}},
+            // {url: '/api/assist/store/addrTypes', method: 'GET', resConfig: {keyName: 'addrTypesList', is_must: true}},
+        ], function (req, res, resultList) {
+
+            var paginationInfo =  resultList.organizationsList;
+
+            var boostrapPaginator = new Pagination.TemplatePaginator(helper.genPageInfo({
+                prelink: paramObject.withoutPageNo,
+                current: paginationInfo.page,
+                rowsPerPage: paginationInfo.pageSize,
+                totalResult: paginationInfo.totalItems
+            }));
+
+            var returnData = Base.mergeData(helper.mergeObject({
+                title: ' ',
+                pagination: boostrapPaginator.render(),
+                Permission :Permissions,
+            },resultList));
+            res.render('order/manages/agency', returnData);
+        });
     },
     detailPage: function (req, res) {
         var cid =  req.params.cid;

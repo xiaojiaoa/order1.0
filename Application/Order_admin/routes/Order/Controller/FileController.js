@@ -41,9 +41,9 @@ var FileController = {
         // var stcode = req.params.stcode;
         Base.multiDataRequest(req, res, [
                 // {url: '/api/assist/file/type?type='+stcode, method: 'GET', resConfig: {keyName: 'fileTypeInfo', is_must: true}},
-                {url: '/api/assist/order/spaceinfo?pid=0', method: 'GET', resConfig: {keyName: 'spaceInfo', is_must: true}},
+                // {url: '/api/assist/order/spaceinfo?pid=0', method: 'GET', resConfig: {keyName: 'spaceInfo', is_must: true}},
                 {url: '/api/order/file/'+ lid+"?ordType="+ordType+"&tid="+tid, method: 'GET', resConfig: {keyName: 'fileInfo', is_must: false}},
-                {url: '/api/assist/order/spaceinfo', method: 'GET', resConfig: {keyName: 'allSpaceInfo', is_must: true}},
+                // {url: '/api/assist/order/spaceinfo', method: 'GET', resConfig: {keyName: 'allSpaceInfo', is_must: true}},
                 {url: '/api/assist/file/type', method: 'GET', resConfig: {keyName: 'allFileTypeInfo', is_must: true}}
             ],
             function (req, res, resultList) {
@@ -99,17 +99,19 @@ var FileController = {
         })
     },
     doCreateOrderFile: function (req, res) {
-        var lid = req.body.lid;
+        console.log('file/measfile')
+        var lid = req.body.liquid_number;
         var tid = req.body.tid;
         var ordType = req.body.ordType;
-        var stcode = req.body.stcode;
+        // var stcode = req.body.stcode;
         request(Base.mergeRequestOptions({
             method: 'post',
             url: '/api/order/file/measfile',
             form:req.body,
         }, req, res), function (error, response, body) {
             if (!error && response.statusCode == 201) {
-                res.redirect("/file/order/create/"+lid+"/"+stcode+"/"+tid+"/"+ordType);
+                res.redirect("/file/order/create/"+lid+"/"+ordType+"/"+tid);
+                // res.redirect("/file/order/create/"+lid+"/"+stcode+"/"+tid+"/"+ordType);
             } else {
                 Base.handlerError(res, req, error, response, body);
             }

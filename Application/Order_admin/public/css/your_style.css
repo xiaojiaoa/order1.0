@@ -264,3 +264,6 @@ tr>td>.separation:last-child{
 .to-block{
     display: block;
 }
+.cursor-pointer{
+    cursor: pointer;
+}
