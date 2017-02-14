@@ -56,21 +56,15 @@
                                         <label class="col-xs-2 control-label "><span class="requird"></span> 权限:
                                         </label>
                                         <div class="col-xs-8">
+                                            <% permissionsList.forEach(function (element) { %>
                                             <label class="checkbox-inline to-block no-margin">
                                                 <input type="checkbox" class="checkbox validate[minCheckbox[1]]"
-                                                       name="roles" value="1">
-                                                <span>权限1</span>
+                                                       name="roles" value="<%= element.id%>">
+                                                <span><%= element.name%></span>
                                             </label>
-                                            <label class="checkbox-inline to-block no-margin">
-                                                <input type="checkbox" class="checkbox validate[minCheckbox[1]]"
-                                                       name="roles" value="2">
-                                                <span>权限1</span>
-                                            </label>
-                                            <label class="checkbox-inline to-block no-margin">
-                                                <input type="checkbox" class="checkbox validate[minCheckbox[1]]"
-                                                       name="roles" value="3">
-                                                <span>权限1</span>
-                                            </label>
+                                            <%  }) %>
+
+
                                         </div>
 
                                     </div>

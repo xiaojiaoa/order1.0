@@ -256,22 +256,22 @@ var RolesController = require('./Controller/RolesController');
 router.get('/roles/:bid/:scope', Middleware.AuthCheck, Middleware.FilterEmptyField, RolesController.listPage);
 
 // 新增角色页面
-router.get('/roles/create', Middleware.AuthCheck, RolesController.createPage);
+router.get('/roles/create/:scope', Middleware.AuthCheck, RolesController.createPage);
 
 // 新增角色
-router.post('/roles/doCreate', Middleware.AuthCheck, RolesController.doCreate);
+router.post('/roles/doCreate/:scope', Middleware.AuthCheck, RolesController.doCreate);
 
 // 更新角色页面
-router.get('/roles/modify/:cid', Middleware.AuthCheck, RolesController.modifyPage);
+router.get('/roles/modify/:scope', Middleware.AuthCheck, RolesController.modifyPage);
 
 // 更新角色
-router.post('/roles/doModify', Middleware.AuthCheck, RolesController.doModify);
+router.post('/roles/doModify/:scope', Middleware.AuthCheck, RolesController.doModify);
 
 // 新增自定义角色页面
-router.get('/rolesDiy/create', Middleware.AuthCheck, RolesController.createDiyPage);
+router.get('/rolesDiy/create/:bid/:scope', Middleware.AuthCheck, RolesController.createDiyPage);
 
 // 新增自定义角色
-router.post('/roles/doDiyCreate', Middleware.AuthCheck, RolesController.doDiyCreate);
+router.post('/roles/doDiyCreate/:bid/:scope', Middleware.AuthCheck, RolesController.doDiyCreate);
 
 // 更新自定义角色页面
 router.get('/roles/modifyDiy/:cid', Middleware.AuthCheck, RolesController.modifyDiyPage);

@@ -12,18 +12,31 @@ var request = require('request');
 
 var RolesController = {
     listPage: function (req, res) {
+        var bid = req.params.bid;
+        var scope = req.params.scope;
         Base.multiDataRequest(req, res, [
-            {url: '/api/stores/departments', method: 'GET', resConfig: {keyName: 'departmentsInfo', is_must: true}}
+            {url: '/api/roles/'+bid+'?scope='+scope, method: 'GET', resConfig: {keyName: 'rolesInfo', is_must: true}}
         ], function (req, res, resultList) {
             var returnData = Base.mergeData(helper.mergeObject({
                 title: ' ',
+                bid:bid,
+                scope:scope,
             }, resultList));
             res.render('order/role/index', returnData);
         });
     },
     createPage: function (req, res) {
-
-        res.render('order/role/role_create');
+        console.log('scope22222')
+        var scope = req.params.scope;
+        console.log('scope22222',scope)
+        Base.multiDataRequest(req, res, [
+            {url: '/api/permissions?scope='+scope, method: 'GET', resConfig: {keyName: 'permissionsList', is_must: true}}
+        ], function (req, res, resultList) {
+            var returnData = Base.mergeData(helper.mergeObject({
+                title: ' ',
+            }, resultList));
+            res.render('order/role/role_create', returnData);
+        });
     },
     modifyPage: function (req, res) {
 
