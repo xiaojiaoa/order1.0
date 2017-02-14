@@ -347,4 +347,19 @@ router.post('/template/upload/any', upload.any(), TemplateController.doAnyUpload
 router.get('/cascade/*', TemplateController.getData);
 
 
+/*
+ * 页面范围: 物料管理相关
+ * 控制器:   MaterialController
+ * */
+var  MaterialController = require('./Controller/MaterialController');
+
+// 物料管理首页
+router.get('/materialManage', Middleware.AuthCheck, MaterialController.indexPage);
+// 物料详情页面
+router.get('/materialManage/detail/:mid', Middleware.AuthCheck, MaterialController.detailPage);
+// 物料出入库总计页面
+router.get('/materialManage/summary', Middleware.AuthCheck, MaterialController.summaryPage);
+
+
+
 module.exports = router;
