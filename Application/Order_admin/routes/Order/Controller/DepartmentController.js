@@ -14,15 +14,7 @@ var DepartmentController = {
     listPage: function (req, res) {
         var bid = req.params.bid;
         var type = req.params.type;
-        var url = '';
-        // switch (type){
-        //     case 'organizations':
-        //         url = '/api/organizations/departments/';
-        //         break;
-        //     case 'store':
-        //         url = '/api/stores/departments/';
-        //         break;
-        // }
+
         Base.multiDataRequest(req, res, [
             {url: '/api/'+type+'/departments/'+bid, method: 'GET', resConfig: {keyName: 'departmentsInfo', is_must: true}}
         ], function (req, res, resultList) {
@@ -35,23 +27,9 @@ var DepartmentController = {
         });
     },
 
-    // organizationsListPage: function (req, res) {
-    //     var bid = req.params.bid;
-    //     Base.multiDataRequest(req, res, [
-    //         {url: '/api/organizations/departments/'+bid, method: 'GET', resConfig: {keyName: 'departmentsInfo', is_must: true}}
-    //     ], function (req, res, resultList) {
-    //         var returnData = Base.mergeData(helper.mergeObject({
-    //             title: ' ',
-    //             bid: bid,
-    //         }, resultList));
-    //         res.render('order/department/index', returnData);
-    //     });
-    // },
-
     doCreate: function (req, res) {
         var bid = req.body.bid;
         var type = req.body.type;
-        console.log('departments',type)
         request(Base.mergeRequestOptions({
             method: 'post',
             url: '/api/'+type+'/departments',
@@ -70,7 +48,6 @@ var DepartmentController = {
         var bid = req.body.bid;
         var cid = req.body.cid;
         var type = req.body.type;
-        console.log('doModify'+bid+':'+type+':'+cid)
         request(Base.mergeRequestOptions({
             method: 'put',
             url: '/api/'+type+'/departments/'+cid+"?"+queryString.stringify(req.body),

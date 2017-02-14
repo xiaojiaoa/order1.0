@@ -16,7 +16,7 @@ var EmployeeController = {
 
         Base.multiDataRequest(req, res, [
             {url: '/api/employees?' + (queryString.stringify(req.query)), method: 'GET', resConfig: {keyName: 'userList', is_must: true}},
-            {url: '/api/stores/departments', method: 'GET', resConfig: {keyName: 'departmentsInfo', is_must: true}},
+            // {url: '/api/stores/departments', method: 'GET', resConfig: {keyName: 'departmentsInfo', is_must: true}},
         ], function (req, res, resultList) {
 
             var paginationInfo = resultList.userList;

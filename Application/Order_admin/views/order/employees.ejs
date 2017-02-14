@@ -37,18 +37,26 @@
 
                             <div class="col-xs-12">
 
-                                <!--输入字段-->
                                 <div class="col-xs-3">
                                     <div class="form-group">
-                                        <label class="col-xs-4 control-label">员工姓名:</label>
+                                        <label class="col-xs-4 control-label">门店号:</label>
+
                                         <div class="col-xs-8">
-                                            <input class="form-control" placeholder="请输入员工姓名" type="text" value="<%= DWYRequest.query.name %>"
+                                            <label class="control-label text-align-left">11111</label>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-xs-3">
+                                    <div class="form-group">
+                                        <label class="col-xs-4 control-label">柜员号:</label>
+                                        <div class="col-xs-8">
+                                            <input class="form-control" value="<%= DWYRequest.query.name %>"
                                                    name="name">
                                         </div>
                                     </div>
                                 </div>
 
-                                <!--输入字段-->
                                 <div class="col-xs-3">
                                     <div class="form-group">
                                         <label class="col-xs-4 control-label">柜员手机:</label>
@@ -59,6 +67,28 @@
                                     </div>
                                 </div>
 
+                            </div>
+
+                            <div class="col-xs-12">
+
+                                <!--输入字段-->
+                                <div class="col-xs-3">
+                                    <div class="form-group">
+                                        <label class="col-xs-4 control-label">员工属性:</label>
+                                        <div class="col-xs-8">
+                                            <select class="form-control" name="did">
+                                                <option value="">- 请选择 -</option>
+
+
+
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!--输入字段-->
+
+
                                 <!--下拉选择 有键值-->
                                 <div class="col-xs-3">
                                     <div class="form-group">
@@ -68,27 +98,29 @@
                                             <select class="form-control" name="did">
                                                 <option value="">- 请选择 -</option>
 
-                                                <% departmentsInfo.forEach(function (element, index) {
-                                                if(element.subDeparts.length != 0){%>
-                                                <optgroup label="<%= element.name %>">
-                                                    <% element.subDeparts.forEach(function (element) {  %>
-                                                    <option value="<%= element.id %>" <%= (DWYRequest.query.did == element.id)?"selected":"" %> >
-                                                        <%= element.name %>
-                                                    </option>
-                                                    <%  }) %>
-                                                </optgroup>
-                                                <%  }else{ %>
-                                                <option value="<%= element.id %>" <%= (DWYRequest.query.did == element.id)?"selected":"" %> >
-                                                    <%= element.name %>
-                                                </option>
-                                                <%  }
-                                                }) %>
+
 
                                             </select>
 
                                         </div>
                                     </div>
                                 </div>
+
+                                <div class="col-xs-6">
+                                    <div class="form-group">
+                                        <label class="col-xs-2 control-label">建立日期:</label>
+                                        <div class="col-xs-4">
+                                            <input class="form-control fg-date-time-picker" placeholder="" type="text" value="<%= DWYRequest.query.startDate%>"
+                                                   name="startDate">
+                                        </div>
+                                        <label class="from-to control-label "> 至 </label>
+                                        <div class="col-xs-4">
+                                            <input class="form-control fg-date-time-picker" placeholder="" type="text" value="<%= DWYRequest.query.endDate%>"
+                                                   name="endDate">
+                                        </div>
+                                    </div>
+                                </div>
+
                             </div>
 
 
@@ -149,17 +181,16 @@
                             </thead>
                             <tbody>
                             <%
-                            var num = 1;
-                            userList.result.forEach(function (element) { %>
+                            userList.result.forEach(function (element, index) { %>
                             <tr>
-                                <td><%= num %></td>
+                                <td><%= index+1 %></td>
                                 <td><a href="/employees/detail/<%= element.id %>"><%= element.id %></a></td>
                                 <td><%= element.name %></td>
                                 <td><%= element.mobile %></td>
                                 <% if(element.empType == 10){ %> <td>企业</td> <% }else{ %> <td>加盟店</td> <%} %>
                                 <td><%= element.deptNme %></td>
                             </tr>
-                            <% num++ }) %>
+                            <% }) %>
 
                             </tbody>
                         </table>
@@ -186,7 +217,7 @@
 
         pageSetUp();
 
-
+        $(".fg-date-time-picker").flatpickr(data_time_picker.data_picker);  // jQuery
 
     })
 

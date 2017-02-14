@@ -66,7 +66,19 @@ var StoresController = {
         });
     },
     modifyPage: function (req, res) {
-        res.render('order/manages/store_modify');
+        var cid = req.params.cid;
+        Base.multiDataRequest(req, res, [
+            {url: '/api/stores/'+cid, method: 'GET', resConfig: {keyName: 'storeInfo', is_must: true}},
+            {url: '/api/assist/store/types', method: 'GET', resConfig: {keyName: 'storeTypes', is_must: true}},
+            {url: '/api/assist/store/addrTypes', method: 'GET', resConfig: {keyName: 'addrTypesList', is_must: true}},
+        ], function (req, res, resultList) {
+
+            var returnData = Base.mergeData(helper.mergeObject({
+                title: ' ',
+                cid:cid,
+            },resultList));
+            res.render('order/manages/store_modify', returnData);
+        });
     },
     doCreate: function (req, res) {
         // console.log('999'+ JSON.stringify(req.body))
@@ -86,17 +98,18 @@ var StoresController = {
     },
     doModify: function (req, res) {
 
-        var cid = req.body.cid;
+        var cid = req.body.storeId;
         request(Base.mergeRequestOptions({
             method: 'put',
-            url: '/api/stores/departments/' + cid + "?" + queryString.stringify(req.body),
+            url: '/api/stores/' + cid + "?" + queryString.stringify(req.body),
         }, req, res), function (error, response, body) {
             if (!error && response.statusCode == 201) {
-                res.redirect("/department");
+                res.redirect("/storesManage");
             } else {
                 Base.handlerError(res, req, error, response, body);
             }
         })
+
     },
 
 

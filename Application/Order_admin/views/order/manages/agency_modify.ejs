@@ -42,7 +42,7 @@
                                         </label>
                                         <div class="col-xs-8">
                                             <input class="form-control validate[required]"
-                                                   value="<%= DWY_last_request_param.orgEmp %>"
+                                                   value="<%= organizationsInfo.orgEmp %>"
                                                    name="orgEmp">
                                         </div>
 
@@ -56,13 +56,13 @@
                                         <div class="col-xs-8">
                                             <input class="form-control validate[required,funcCall[custom_validate_fn.isMobile]]"
                                                    placeholder="输入号码" type="tel"
-                                                   value="<%= DWY_last_request_param.mobile %>"
+                                                   value="<%= organizationsInfo.mobile %>"
                                                    name="mobile">
                                         </div>
                                     </div>
                                 </div>
 
-                                <input type="hidden" name="id" value="<%= cid %>">
+                                <input type="hidden" name="cid" value="<%= cid %>">
 
 
 
@@ -75,7 +75,7 @@
                                         <label class="col-xs-4 control-label"><span class="requird"></span> 机构名称:</label>
                                         <div class="col-xs-8">
                                             <input class="form-control validate[required]"
-                                                   value="<%= DWY_last_request_param.name %>"
+                                                   value="<%= organizationsInfo.name %>"
                                                    name="name">
                                         </div>
                                     </div>
@@ -90,7 +90,7 @@
                                             <select class="form-control validate[required]" name="orgType">
                                                 <option value="">- 请选择 -</option>
                                                 <% organTypes.forEach(function (element) { %>
-                                                <option value="<%= element.id %>" <%= (DWY_last_request_param.orgType == element.id )?"selected":"" %> >
+                                                <option value="<%= element.id %>" <%= (organizationsInfo.orgType == element.id )?"selected":"" %> >
                                                     <%= element.name %>
                                                 </option>
                                                 <% }) %>
@@ -109,10 +109,10 @@
                                         <div class="col-xs-8">
                                             <select class="form-control validate[required]" name="isWareh">
                                                 <option value="">- 请选择 -</option>
-                                                <option value="1" <%= (DWY_last_request_param.isWareh == 1) ? 'selected' : '' %> >
+                                                <option value="1" <%= (organizationsInfo.isWareh == 1) ? 'selected' : '' %> >
                                                     是
                                                 </option>
-                                                <option value="2" <%= (DWY_last_request_param.isWareh == 2) ? 'selected' : '' %> >
+                                                <option value="2" <%= (organizationsInfo.isWareh == 2) ? 'selected' : '' %> >
                                                     否
                                                 </option>
 
@@ -144,7 +144,7 @@
                                         <label class="col-xs-2 control-label"><span class="requird"></span> 机构地址:</label>
                                         <div class="col-xs-10">
                                             <input class="form-control validate[required]" placeholder="请输入详细地址"
-                                                   value="<%= DWY_last_request_param.address %>"
+                                                   value="<%= organizationsInfo.address %>"
                                                    name="address">
                                         </div>
                                     </div>
@@ -157,7 +157,7 @@
                                         <label class="col-xs-2 control-label">备注:</label>
                                         <div class="col-xs-10">
                                             <textarea name="remark" class="form-control"
-                                                      cols="30" rows="5"></textarea>
+                                                      cols="30" rows="5"><%= organizationsInfo.remark %></textarea>
                                         </div>
                                     </div>
                                 </div>

@@ -64,6 +64,7 @@ var AgencyController = {
     modifyPage: function (req, res) {
         var cid =  req.params.cid;
         Base.multiDataRequest(req, res, [
+            {url: '/api/organizations/'+cid, method: 'GET', resConfig: {keyName: 'organizationsInfo', is_must: true}},
             {url: '/api/assist/organ/types', method: 'GET', resConfig: {keyName: 'organTypes', is_must: true}},
         ], function (req, res, resultList) {
 
@@ -95,10 +96,10 @@ var AgencyController = {
         var cid = req.body.cid;
         request(Base.mergeRequestOptions({
             method: 'put',
-            url: '/api/stores/departments/' + cid + "?" + queryString.stringify(req.body),
+            url: '/api/organizations/' + cid + "?" + queryString.stringify(req.body),
         }, req, res), function (error, response, body) {
             if (!error && response.statusCode == 201) {
-                res.redirect("/department");
+                res.redirect("/agency");
             } else {
                 Base.handlerError(res, req, error, response, body);
             }
