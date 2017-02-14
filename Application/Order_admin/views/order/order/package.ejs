@@ -25,10 +25,291 @@
     <div id="content">
 
 
+        <!-- well -->
+        <div class="well">
+
+            <!-- row -->
+            <div class="row">
+                <div class="col-xs-12">
+                    <h3 class="text-align-center">张三包装中</h3>
+                    <hr class="simple">
+                </div>
+            </div>
+
+            <!-- row -->
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-striped">
+                            <thead>
+                            <tr>
+                                <th><label class="checkbox-inline">
+                                    <input type="checkbox" class="checkbox"
+                                           id="checkAll">
+                                    <span>&nbsp;</span>
+                                </label>序号</th>
+                                <th>订单号</th>
+                                <th>批次号</th>
+                                <th>专卖店</th>
+                                <th>客户名称</th>
+                                <th>楼栋</th>
+                                <th>楼层</th>
+                                <th>房间</th>
+                                <th>下单日期</th>
+                                <th>受理日期</th>
+                                <th>交货日期</th>
+                                <th>包装状态</th>
+                                <th>备注</th>
+                                <th>客户地址导入</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td>
+                                    <label class="checkbox-inline">
+                                        <input type="checkbox" class="checkbox"
+                                               name="roles" value="1">
+                                        <span>1</span>
+                                    </label>
+                                </td>
+                                <td><a href="/order/detail/3301001000002">3301001000002</a></td>
+                                <td>3301001000002</td>
+                                <td>浙江省杭州市湖滨银泰店</td>
+                                <td>张三</td>
+                                <td>12</td>
+                                <td>12</td>
+                                <td>女孩房</td>
+                                <td>杭州市湖滨银泰店</td>
+                                <td>2016-10-10</td>
+                                <td>2016-10-10</td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <label class="checkbox-inline">
+                                        <input type="checkbox" class="checkbox"
+                                               name="roles" value="1">
+                                        <span>1</span>
+                                    </label>
+                                </td>
+                                <td><a href="/order/detail/3301001000002">3301001000002</a></td>
+                                <td>3301001000002</td>
+                                <td>浙江省杭州市湖滨银泰店</td>
+                                <td>张三</td>
+                                <td>12</td>
+                                <td>12</td>
+                                <td>女孩房</td>
+                                <td>杭州市湖滨银泰店</td>
+                                <td>2016-10-10</td>
+                                <td>2016-10-10</td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <!-- row -->
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="col-xs-3">
+                        <a class="btn btn-primary" id="form-modal-package">生成包装</a>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+        <!-- end well -->
+        <!--well-->
+        <div class="well">
+            <!-- row -->
+            <div class="row">
+                <div class="col-xs-12">
+                    <h3 class="text-align-center">待包装订单</h3>
+                    <hr class="simple">
+                </div>
+            </div>
+
+            <!-- row -->
+            <!-- row -->
+            <div class="row">
+                <!-- col -->
+                <div class="col-xs-12">
+                    <!--<legend>客户搜索</legend>-->
+                    <div class="row search-form">
+                        <form class="form-horizontal" method="get">
+
+                            <div class="col-xs-12">
+
+                                <!--输入字段-->
+                                <div class="col-xs-3">
+                                    <div class="form-group">
+                                        <label class="col-xs-4 control-label">订单号:</label>
+                                        <div class="col-xs-8">
+                                            <input class="form-control" placeholder="请输入订单号" type="text" value="" name="tid">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-xs-3">
+                                    <div class="form-group">
+                                        <label class="col-xs-4 control-label">专卖店名:</label>
+                                        <div class="col-xs-8">
+                                            <input class="form-control" placeholder="请输入专卖店名" type="text" value="" name="storeName">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-xs-6">
+                                    <div class="form-group">
+                                        <label class="col-xs-2 control-label">建单日期:</label>
+                                        <div class="col-xs-4">
+                                            <input class="form-control fg-date-time-picker flatpickr-input" placeholder="" type="text" value="" name="startDate" readonly="readonly">
+                                        </div>
+                                        <label class="from-to control-label "> 至 </label>
+                                        <div class="col-xs-4">
+                                            <input class="form-control fg-date-time-picker flatpickr-input" placeholder="" type="text" value="" name="endDate" readonly="readonly">
+                                        </div>
+                                    </div>
+                                </div>
 
 
-    </div>
-    <!-- end well -->
+                            </div>
+                            <div class="col-xs-12">
+
+                                <div class="col-xs-3"></div>
+
+                                <div class="col-xs-3"></div>
+
+                                <div class="col-xs-6">
+                                    <div class="form-group">
+                                        <label class="col-xs-2 control-label">交货日期:</label>
+                                        <div class="col-xs-4">
+                                            <input class="form-control fg-date-time-picker flatpickr-input" placeholder="" type="text" value="" name="startDate" readonly="readonly">
+                                        </div>
+                                        <label class="from-to control-label "> 至 </label>
+                                        <div class="col-xs-4">
+                                            <input class="form-control fg-date-time-picker flatpickr-input" placeholder="" type="text" value="" name="endDate" readonly="readonly">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-xs-12">
+                                <hr class="simple">
+                                <div class="col-xs-12 text-center" style="margin-bottom:20px;">
+                                    <button class="btn btn-primary " type="submit">
+                                        <i class="fa fa-save"></i>
+                                        确认
+                                    </button>
+                                </div>
+                                <hr class="simple">
+                            </div>
+
+                        </form>
+                    </div>
+                    <!-- end row -->
+                </div>
+                <!-- end col -->
+            </div>
+            <!-- end row -->
+            <!-- row -->
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-striped">
+                            <thead>
+                            <tr>
+                                <th><label class="checkbox-inline">
+                                    <input type="checkbox" class="checkbox"
+                                           id="checkAll">
+                                    <span>&nbsp;</span>
+                                </label>序号</th>
+                                <th>订单号</th>
+                                <th>批次号</th>
+                                <th>专卖店</th>
+                                <th>客户名称</th>
+                                <th>楼栋</th>
+                                <th>楼层</th>
+                                <th>房间</th>
+                                <th>下单日期</th>
+                                <th>受理日期</th>
+                                <th>交货日期</th>
+                                <th>包装状态</th>
+                                <th>备注</th>
+                                <th>客户地址导入</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td>
+                                    <label class="checkbox-inline">
+                                        <input type="checkbox" class="checkbox"
+                                               name="roles" value="1">
+                                        <span>1</span>
+                                    </label>
+                                </td>
+                                <td><a href="/order/detail/3301001000002">3301001000002</a></td>
+                                <td>3301001000002</td>
+                                <td>浙江省杭州市湖滨银泰店</td>
+                                <td>张三</td>
+                                <td>12</td>
+                                <td>12</td>
+                                <td>女孩房</td>
+                                <td>杭州市湖滨银泰店</td>
+                                <td>2016-10-10</td>
+                                <td>2016-10-10</td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <label class="checkbox-inline">
+                                        <input type="checkbox" class="checkbox"
+                                               name="roles" value="1">
+                                        <span>1</span>
+                                    </label>
+                                </td>
+                                <td><a href="/order/detail/3301001000002">3301001000002</a></td>
+                                <td>3301001000002</td>
+                                <td>浙江省杭州市湖滨银泰店</td>
+                                <td>张三</td>
+                                <td>12</td>
+                                <td>12</td>
+                                <td>女孩房</td>
+                                <td>杭州市湖滨银泰店</td>
+                                <td>2016-10-10</td>
+                                <td>2016-10-10</td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <!-- row -->
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="col-xs-3">
+                        <a class="btn btn-primary" id="">标记为包装中</a>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <!--end well-->
+      </div>
+
 
 
 </div>
@@ -39,16 +320,209 @@
 
 <%- include('../layouts/footer'); %>
 <%- include('../layouts/footer_common_script'); %>
+<!--生成包装列表-->
+<form class="form-horizontal  layer-template" method="post" id="layer-form" action=""
+      style="display: none;">
+
+    <div class="row">
+        <div class="col-xs-5">
+        <div class="table-responsive">
+            <table class="table table-bordered table-striped">
+                <thead>
+                <tr>
+                    <th>包装序号</th>
+                    <th>包装名称</th>
+                    <th>包装类型</th>
+                    <th>包装分类</th>
+                    <th>包装产品</th>
+                    <th>包装产品材料</th>
+                    <th>重量</th>
+                </tr>
+                </thead>
+                <tbody>
+
+                <tr>
+                    <td>8</td>
+                    <td>D008</td>
+                    <td>工件</td>
+                    <td></td>
+                    <td>主卧抽屉01</td>
+                    <td>象牙白实木</td>
+                    <td>3.256</td>
+                </tr>
+                <tr>
+                    <td>8</td>
+                    <td>D008</td>
+                    <td>工件</td>
+                    <td></td>
+                    <td>主卧抽屉02</td>
+                    <td>象牙白实木</td>
+                    <td>3.256</td>
+                </tr>
+                <tr>
+                    <td>8</td>
+                    <td>D008</td>
+                    <td>工件</td>
+                    <td></td>
+                    <td>主卧抽屉03</td>
+                    <td>象牙白实木</td>
+                    <td>3.256</td>
+                </tr>
+
+                </tbody>
+            </table>
 
 
+        </div>
+    </div>
+        <div class="col-xs-7">
+            <div class="table-responsive">
+                <table class="table table-bordered table-striped">
+                    <thead>
+                    <tr>
+                        <td>包装工件</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <th></th>
+                        <th>层数</th>
+                        <th>材料</th>
+                        <th>名称</th>
+                        <th>规格尺寸</th>
+                        <th>标签号</th>
+                        <th>数量</th>
+                        <th>重量</th>
+                        <th>封边</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+
+                    <tr>
+                        <td></td>
+                        <td>8</td>
+                        <td>D008</td>
+                        <td>工件</td>
+                        <td></td>
+                        <td>主卧抽屉01</td>
+                        <td>象牙白实木</td>
+                        <td>3.256</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>8</td>
+                        <td>D008</td>
+                        <td>工件</td>
+                        <td></td>
+                        <td>主卧抽屉02</td>
+                        <td>象牙白实木</td>
+                        <td>3.256</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>8</td>
+                        <td>D008</td>
+                        <td>工件</td>
+                        <td></td>
+                        <td>主卧抽屉03</td>
+                        <td>象牙白实木</td>
+                        <td>3.256</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>合计</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    </tbody>
+                </table>
+
+
+            </div>
+        </div>
+    </div>
+
+
+    <div class="col-xs-12">
+        <hr class="simple">
+        <div class="col-xs-12 text-center">
+            <a class="btn btn-primary" onclick="layer.confirm('确定撤销包装吗？',{icon: 3, title:'提示'},function(index){layer.close(index)},function(index){layer.close(index)})">撤销包装</a>
+            <a class="btn btn-primary" onclick="layer.open({title:'包装清单',type:1,area:['400px','250px'],content:$('#layer-form-package-confirm')})">包装清单</a>
+        </div>
+    </div>
+    <div class="dwy-clear"></div>
+</form>
+<!--END 生成包装列表-->
+<!--生成包装清单-->
+<div id="layer-form-package-confirm" style="display:none">
+<div class="row" >
+    <div class="col-xs-12">
+        <div class="table-responsive">
+            <table class="table table-bordered table-striped text-center">
+
+                <tbody>
+                <tr><td><a href="#">工件包装清单(Y)</a></td></tr>
+                <tr><td><a href="#">工件包装清单(X)</a></td></tr>
+                <tr><td><a href="#">工件包装清单(W)</a></td></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<div class="col-xs-12">
+    <hr class="simple">
+    <div class="col-xs-12 text-center">
+        <a class="btn btn-primary" href="#">打印</a>
+        <a class="btn btn-primary" href="#">预览</a>
+    </div>
+</div>
+</div>
+<!--END 生成包装清单-->
 <script type="text/javascript">
 
     $(document).ready(function () {
-
-
-
         pageSetUp();
-        $(".fg-date-picker").flatpickr(data_time_picker.data_picker); // jQuery
+      //日期组件
+        $(".fg-date-time-picker").flatpickr(data_time_picker.data_time_picker);
+        //弹出类
+              $('#form-modal-package').on({
+            click: function (e) {
+                layer.open({
+                    title: '包装单',
+                    type: 1,
+                    area: '1440px',
+                    content: $('#layer-form'),
+                    cancel: function () {
+                        //右上角关闭回调
+                    },
+                    // 仅在需要自定义按钮时使用
+//                    btn: ['按钮一', '按钮二', '按钮三'],
+//                    yes: function (index, layero) {
+//                        //按钮【按钮一】的回调
+//                    },
+//                    btn2: function (index, layero) {
+//                        //按钮【按钮二】的回调
+//                    },
+//                    btn3: function (index, layero) {
+//                        //按钮【按钮三】的回调
+//                    }
+                });
+            }
+        });
 
 
     })
