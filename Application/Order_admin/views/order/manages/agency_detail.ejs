@@ -30,14 +30,18 @@
                 <!-- col -->
                 <div class="col-xs-12 dwy-show-content">
                     <legend>基本信息
-                        <a class="label label-primary" href="/agency/modify/<%= organizationsInfo.id %>">修改</a>
+                        <% if( organizationsInfo.stcode == 2 ){ %>
                         <a class="label label-primary" id="openStore">启用</a>
+                        <% }else{ %>
+                        <a class="label label-primary" href="/agency/modify/<%= organizationsInfo.id %>">修改</a>
                         <a class="label label-danger" id="closeStore">禁用</a>
+                        <% } %>
+
                     </legend>
 
                     <!-- row -->
                     <div class="table-responsive">
-                        <table class="table table-bordered table-striped table-information close-info">
+                        <table class="table table-bordered table-striped table-information <%= ( organizationsInfo.stcode == 2 )? 'close-info':'' %>">
                             <tbody>
                             <tr>
                                 <td>机构编号</td>
@@ -99,18 +103,18 @@
 
     $(document).ready(function () {
 
+        var organizationsId = '<%= organizationsInfo.id %>';
         $("#closeStore").on({
             click: function () {
                 layer.confirm('确定禁用该机构？',{icon: 3, title:'提示'},
                     function(index){
-//                        $.ajax({
-//                            url: '/employees/setStatus/'+employeesId+'/1',
-//                            method: 'put',
-//                            success: function (data) {
-//                                window.location.reload();
-//                            }
-//                        });
-                        layer.close(index)
+                        $.ajax({
+                            url: '/agency/setStatus/'+organizationsId+'/2',
+                            method: 'put',
+                            success: function (data) {
+                                window.location.reload();
+                            }
+                        });
                     },
                     function(index){layer.close(index)})
             }
@@ -119,14 +123,13 @@
             click: function () {
                 layer.confirm('确定启用该机构？',{icon: 3, title:'提示'},
                     function(index){
-//                        $.ajax({
-//                            url: '/employees/setStatus/'+employeesId+'/1',
-//                            method: 'put',
-//                            success: function (data) {
-//                                window.location.reload();
-//                            }
-//                        });
-                        layer.close(index)
+                        $.ajax({
+                            url: '/agency/setStatus/'+organizationsId+'/1',
+                            method: 'put',
+                            success: function (data) {
+                                window.location.reload();
+                            }
+                        });
                     },
                     function(index){layer.close(index)})
             }

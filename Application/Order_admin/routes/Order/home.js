@@ -102,6 +102,22 @@ var IndexController = require('./Controller/IndexController');
 router.get('/', Middleware.AuthCheck, IndexController.indexPage);
 
 /*
+ * 页面范围: 用户操作相关
+ * 控制器:   UserController
+ * */
+var UserController = require('./Controller/UserController');
+
+router.get('/userCenter', Middleware.AuthCheck, UserController.indexPage);
+
+// 修改密码页面
+router.get('/user/setPassword', Middleware.AuthCheck, UserController.passwordPage);
+
+// 修改密码
+router.post('/user/doPassword', Middleware.AuthCheck, UserController.doPassword);
+
+
+
+/*
  * 页面范围: 客户相关
  * 控制器:   CustomerController
  * */
@@ -192,6 +208,9 @@ router.get('/storesManage/modify/:cid', Middleware.AuthCheck, StoresController.m
 // 修改门店
 router.post('/storesManage/doModify', Middleware.AuthCheck, StoresController.doModify);
 
+// 禁用/解锁 门店
+router.put('/storesManage/setStatus/:cid/:type', Middleware.AuthCheck, StoresController.setStatus);
+
 
 /*
  * 页面范围: 机构相关
@@ -218,8 +237,8 @@ router.get('/agency/modify/:cid', Middleware.AuthCheck, AgencyController.modifyP
 // 修改机构信息
 router.post('/agency/doModify', Middleware.AuthCheck, AgencyController.doModify);
 
-// 禁用机构
-router.delete('/agency/doDelete/:id', Middleware.AuthCheck, AgencyController.doDelete);
+// 禁用/解锁 机构
+router.put('/agency/setStatus/:cid/:type', Middleware.AuthCheck, AgencyController.setStatus);
 
 
 
@@ -287,30 +306,30 @@ router.delete('/roles/doDelete', Middleware.AuthCheck, RolesController.doDelete)
  * */
 var EmployeeController = require('./Controller/EmployeeController');
 
-// 获取员工信息
-router.get('/employees', Middleware.AuthCheck, Middleware.FilterEmptyField, EmployeeController.listPage);
+// 获取门店下的员工信息
+router.get('/:type/employees', Middleware.AuthCheck, Middleware.FilterEmptyField, EmployeeController.listPage);
 
 // 员工详情页面
-router.get('/employees/detail/:cid', Middleware.AuthCheck, EmployeeController.detailPage);
-router.get('/getEmployeesByMobile/:mobile', Middleware.AuthCheck, EmployeeController.ifHaved);
+router.get('/:type/employees/detail/:bid/:cid', Middleware.AuthCheck, EmployeeController.detailPage);
+// router.get('/getEmployeesByMobile/:mobile', Middleware.AuthCheck, EmployeeController.ifHaved);
 
 // 新增员工页面
-router.get('/employees/create', Middleware.AuthCheck, Middleware.FilterEmptyField, EmployeeController.createPage);
+router.get('/:type/employees/create/:bid', Middleware.AuthCheck, Middleware.FilterEmptyField, EmployeeController.createPage);
 
 // 新增员工
 router.post('/employees/doCreate', Middleware.AuthCheck, EmployeeController.doCreate);
 
 // 修改员工详情页面
-router.get('/employees/modify/:cid', Middleware.AuthCheck, EmployeeController.modifyPage);
+router.get('/:type/employees/modify/:bid/:cid', Middleware.AuthCheck, EmployeeController.modifyPage);
 
 // 修改员工信息
 router.post('/employees/doModify', Middleware.AuthCheck, EmployeeController.doModify);
 
 // 重置员工密码
-router.put('/employees/resetPassword/:cid', Middleware.AuthCheck, EmployeeController.resetPassword);
+router.put('/:type/employees/resetPassword/:cid', Middleware.AuthCheck, EmployeeController.resetPassword);
 
 // 关闭/解锁 员工账号
-router.put('/employees/setStatus/:cid/:type', Middleware.AuthCheck, EmployeeController.setStatus);
+router.put('/:bidtype/employees/setStatus/:cid/:type', Middleware.AuthCheck, EmployeeController.setStatus);
 
 
 

@@ -12,7 +12,7 @@
         <!-- breadcrumb -->
         <ol class="breadcrumb">
             <li>后台管理</li>
-            <li>基础页面</li>
+            <li>柜员管理</li>
         </ol>
         <!-- end breadcrumb -->
 
@@ -39,10 +39,17 @@
 
                                 <div class="col-xs-3">
                                     <div class="form-group">
-                                        <label class="col-xs-4 control-label">门店号:</label>
+                                        <% switch (type) {
+                                            case 'stores': %>
+                                            <label class="col-xs-4 control-label">门店号:</label>
+                                        <%        break;
+                                            case 'organizations': %>
+                                        <label class="col-xs-4 control-label">机构号:</label>
+                                        <%        break;
+                                        } %>
 
                                         <div class="col-xs-8">
-                                            <label class="control-label text-align-left">11111</label>
+                                            <input class="form-control" value="<%=  bid %>" name="bid" readonly>
                                         </div>
                                     </div>
                                 </div>
@@ -51,8 +58,8 @@
                                     <div class="form-group">
                                         <label class="col-xs-4 control-label">柜员号:</label>
                                         <div class="col-xs-8">
-                                            <input class="form-control" value="<%= DWYRequest.query.name %>"
-                                                   name="name">
+                                            <input class="form-control" value="<%= DWYRequest.query.id %>"
+                                                   name="id">
                                         </div>
                                     </div>
                                 </div>
@@ -74,14 +81,10 @@
                                 <!--输入字段-->
                                 <div class="col-xs-3">
                                     <div class="form-group">
-                                        <label class="col-xs-4 control-label">员工属性:</label>
+                                        <label class="col-xs-4 control-label">柜员姓名:</label>
                                         <div class="col-xs-8">
-                                            <select class="form-control" name="did">
-                                                <option value="">- 请选择 -</option>
-
-
-
-                                            </select>
+                                            <input class="form-control"  value="<%= DWYRequest.query.name %>"
+                                                   name="name">
                                         </div>
                                     </div>
                                 </div>
@@ -97,7 +100,21 @@
 
                                             <select class="form-control" name="did">
                                                 <option value="">- 请选择 -</option>
-
+                                                <% departmentsInfo.forEach(function (element, index) {
+                                                if(element.subDeparts.length != 0){%>
+                                                <optgroup label="<%= element.name %>">
+                                                    <% element.subDeparts.forEach(function (element) {  %>
+                                                    <option value="<%= element.id %>" <%= (DWYRequest.query.did == element.id)?"selected":"" %> >
+                                                        <%= element.name %>
+                                                    </option>
+                                                    <%  }) %>
+                                                </optgroup>
+                                                <%  }else{ %>
+                                                <option value="<%= element.id %>" <%= (DWYRequest.query.did == element.id)?"selected":"" %> >
+                                                    <%= element.name %>
+                                                </option>
+                                                <%  }
+                                                }) %>
 
 
                                             </select>
@@ -127,7 +144,7 @@
                             <div class="col-xs-12">
                                 <hr class="simple">
                                 <div class="col-xs-12 text-center">
-                                    <a class="btn btn-primary margin-right-5" href="/employees/create">
+                                    <a class="btn btn-primary margin-right-5" href="/stores/employees/create/<%=  bid %>">
                                         <i class="fa fa-save"></i>
                                         新增柜员
                                     </a>
@@ -154,10 +171,20 @@
             <div class="row">
                 <div class="col-xs-12">
                     <h6>
-                        员工列表
-                        <a class="label label-primary" href="/department">
+                        员工列表 type<%=  type %>  bid<%=  bid %>  did<%=  did %>
+
+                        <% switch (type) {
+                        case 'stores': %>
+                        <a class="label label-primary" href="/department/stores/<%=  bid %>">
                             查看所有部门信息
                         </a>
+                        <%        break;
+                        case 'organizations': %>
+                        <a class="label label-primary" href="/department/organizations/<%=  user.bid %>">
+                            查看所有部门信息
+                        </a>
+                        <%        break;
+                        } %>
                     </h6>
 
                     <hr class="simple">
@@ -181,16 +208,21 @@
                             </thead>
                             <tbody>
                             <%
-                            userList.result.forEach(function (element, index) { %>
+                                if(employeesList.totalItems != 0){
+                                employeesList.result.forEach(function (element, index) { %>
                             <tr>
                                 <td><%= index+1 %></td>
-                                <td><a href="/employees/detail/<%= element.id %>"><%= element.id %></a></td>
+                                <td><a href="/stores/employees/detail/<%=  bid %>/<%= element.id %>"><%= element.id %></a></td>
                                 <td><%= element.name %></td>
                                 <td><%= element.mobile %></td>
                                 <% if(element.empType == 10){ %> <td>企业</td> <% }else{ %> <td>加盟店</td> <%} %>
                                 <td><%= element.deptNme %></td>
                             </tr>
-                            <% }) %>
+                            <% })
+                                }else{ %>
+                            <td colspan="6" class="text-align-center">暂无结果</td>
+                            <%  }%>
+
 
                             </tbody>
                         </table>

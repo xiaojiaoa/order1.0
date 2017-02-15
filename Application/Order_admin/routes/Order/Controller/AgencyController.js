@@ -107,20 +107,20 @@ var AgencyController = {
     },
 
 
-    doDelete: function (req, res) {
-
-        var id = req.params.id;
+    setStatus: function (req, res) {
+        var cid = req.params.cid;
+        var type = req.params.type;
         request(Base.mergeRequestOptions({
-            method: 'delete',
-            url: '/api/stores/departments/' + id,
-            // form:req.body,
+            method: 'put',
+            url: '/api/organizations/stcode/'+cid+'?stcode='+type,
         }, req, res), function (error, response, body) {
-            if (!error && response.statusCode == 204) {
-                res.sendStatus(200)
+            if (!error && response.statusCode == 201) {
+                res.sendStatus(200);
             } else {
                 Base.handlerError(res, req, error, response, body);
             }
         })
+
     },
 
 };

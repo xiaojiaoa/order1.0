@@ -20,7 +20,7 @@ nav ul span.menu-item-parent {
 .search-form {
     width: 1200px;
     float: none;
-    margin: auto;
+    /*margin: auto;*/
     padding-top: 20px;
 }
 
@@ -48,6 +48,26 @@ nav ul span.menu-item-parent {
 
 #content {
     min-height: 800px;
+}
+
+/*展示型内容*/
+.dwy-show-well {
+    overflow-x: scroll;
+}
+
+.dwy-show-content {
+    /*min-width: 1480px;*/
+    width: 1400px;
+}
+
+/*global*/
+
+.ml-20 {
+    margin-left: 20px;
+}
+
+.from-to{
+    float: left;
 }
 
 .mark-row {

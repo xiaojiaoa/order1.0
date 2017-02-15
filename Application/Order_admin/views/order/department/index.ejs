@@ -64,7 +64,12 @@
                             <tr class="level-1">
                                 <td class="level-1-title"><%= element.name %></td>
                                 <td>
-                                    <a href="/employees?did=<%= element.id %>">查看柜员</a>
+                                    <% if(type == 'stores') {  %>
+                                    <a href="/stores/employees?bid=<%= bid %>&did=<%= element.id %>">查看柜员</a>
+                                    <% }else{ %>
+                                    <a>机构查看柜员接口未定</a>
+                                    <% } %>
+
                                     <a class="departmentModify-modal" name="<%= element.name %>"  selfId="<%= element.id %>">修改</a>
                                     <a class="delete-department"  selfId="<%= element.id %>">删除</a>
                                 </td>

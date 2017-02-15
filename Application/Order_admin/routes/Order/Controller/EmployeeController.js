@@ -13,13 +13,15 @@ var request = require('request');
 var EmployeeController = {
     listPage: function (req, res) {
         var paramObject = helper.genPaginationQuery(req);
-
+        var type = req.params.type;
+        var bid = req.query.bid;
+        var did = req.query.did;
         Base.multiDataRequest(req, res, [
-            {url: '/api/employees?' + (queryString.stringify(req.query)), method: 'GET', resConfig: {keyName: 'userList', is_must: true}},
-            // {url: '/api/stores/departments', method: 'GET', resConfig: {keyName: 'departmentsInfo', is_must: true}},
+            {url: '/api/'+type+'/employees?' + (queryString.stringify(req.query)), method: 'GET', resConfig: {keyName: 'employeesList', is_must: true}},
+            {url: '/api/'+type+'/departments/'+bid, method: 'GET', resConfig: {keyName: 'departmentsInfo', is_must: true}},
         ], function (req, res, resultList) {
 
-            var paginationInfo = resultList.userList;
+            var paginationInfo = resultList.employeesList;
             console.log('paginationInfo',paginationInfo);
 
             var boostrapPaginator = new Pagination.TemplatePaginator(helper.genPageInfo({
@@ -29,9 +31,11 @@ var EmployeeController = {
                 totalResult: paginationInfo.totalItems
             }));
 
-
             var returnData = Base.mergeData(helper.mergeObject({
-                title: '门店登录系统',
+                title: '柜员管理',
+                type: type,
+                bid: bid,
+                did: did,
                 pagination: boostrapPaginator.render()
             }, resultList));
 
@@ -39,55 +43,25 @@ var EmployeeController = {
 
         });
 
-        // request(Base.mergeRequestOptions(
-        //     {
-        //     method: 'get',
-        //     url: '/api/employees?' + (queryString.stringify(req.query)),
-        // }, req, res), function (error, response, body) {
-        //     if (!error && response.statusCode == 200) {
-        //         // Show the HTML for the Google homepage
-        //
-        //         var paginationInfo = JSON.parse(body);
-        //         console.log('paginationInfo',paginationInfo);
-        //
-        //         var boostrapPaginator = new Pagination.TemplatePaginator(helper.genPageInfo({
-        //             prelink: paramObject.withoutPageNo,
-        //             current: paginationInfo.page,
-        //             rowsPerPage: paginationInfo.pageSize,
-        //             totalResult: paginationInfo.totalItems
-        //         }));
-        //
-        //         console.log(boostrapPaginator.render());
-        //
-        //         var returnData = Base.mergeData(helper.mergeObject({
-        //             title: '门店登录系统',
-        //             pagination: boostrapPaginator.render()
-        //         }, {'userList': paginationInfo}));
-        //
-        //         res.render('store/employees', returnData);
-        //
-        //     } else {
-        //         Base.handlerError(res, req, error, response, body);
-        //     }
-        // })
-
     },
     createPage: function (req, res) {
+        var type = req.params.type;
+        var bid = req.params.bid;
+        var scope = (type == 'stores')? 1 : 2 ;
         Base.multiDataRequest(req, res, [
-            {url: '/api/stores/departments', method: 'GET', resConfig: {keyName: 'departmentsInfo', is_must: true}},
-            {url: '/api/roles', method: 'GET', resConfig: {keyName: 'rolesInfo', is_must: true}},
+            {url: '/api/'+type+'/departments/'+bid, method: 'GET', resConfig: {keyName: 'departmentsInfo', is_must: true}},
+            {url: '/api/roles/'+bid+'?scope='+scope, method: 'GET', resConfig: {keyName: 'rolesInfo', is_must: true}},
             {url: '/api/assist/education', method: 'GET', resConfig: {keyName: 'educationInfo', is_must: true}},
         ], function (req, res, resultList) {
-
-
             var returnData = Base.mergeData(helper.mergeObject({
                 title: ' ',
+                bid: bid,
+                type: type
             }, resultList));
-            console.log('employees'+ JSON.stringify(resultList))
             res.render('order/employees/create', returnData);
         });
-        // res.render('store/employees/create')
     },
+
     doCreate: function (req, res) {
         var roles = req.body.roles;
         var role ="";
@@ -116,14 +90,17 @@ var EmployeeController = {
         })
     },
     detailPage: function (req, res) {
+        var type =  req.params.type;
+        var bid =  req.params.bid;
         var cid =  req.params.cid;
         Base.multiDataRequest(req, res, [
-            {url: '/api/employees/'+cid, method: 'GET', resConfig: {keyName: 'employeesInfo', is_must: true}},
+            {url: '/api/'+type+'/employees/'+cid, method: 'GET', resConfig: {keyName: 'employeesInfo', is_must: true}},
             {url: '/api/assist/education', method: 'GET', resConfig: {keyName: 'educationInfo', is_must: true}},
         ], function (req, res, resultList) {
 
             var returnData = Base.mergeData(helper.mergeObject({
                 title: ' ',
+                type:type,
             }, resultList));
             res.render('order/employees/detail', returnData);
         });
@@ -146,11 +123,13 @@ var EmployeeController = {
     },
     modifyPage: function (req, res) {
         var cid =  req.params.cid;
-        // console.log('999'+ JSON.stringify(req.body))
+        var type =  req.params.type;
+        var bid =  req.params.bid;
+        var scope = (type == 'stores')? 1 : 2 ;
         Base.multiDataRequest(req, res, [
-            {url: '/api/employees/'+cid, method: 'GET', resConfig: {keyName: 'employeesInfo', is_must: true}},
-            {url: '/api/stores/departments', method: 'GET', resConfig: {keyName: 'departmentsInfo', is_must: true}},
-            {url: '/api/roles', method: 'GET', resConfig: {keyName: 'rolesInfo', is_must: true}},
+            {url: '/api/'+type+'/employees/'+cid, method: 'GET', resConfig: {keyName: 'employeesInfo', is_must: true}},
+            {url: '/api/'+type+'/departments/'+bid, method: 'GET', resConfig: {keyName: 'departmentsInfo', is_must: true}},
+            {url: '/api/roles/'+bid+'?scope='+scope, method: 'GET', resConfig: {keyName: 'rolesInfo', is_must: true}},
             {url: '/api/assist/education', method: 'GET', resConfig: {keyName: 'educationInfo', is_must: true}},
         ], function (req, res, resultList) {
 
@@ -158,7 +137,7 @@ var EmployeeController = {
                 title: ' ',
                 cid:cid
             }, resultList));
-            console.log('employees'+ JSON.stringify(resultList))
+            // console.log('employees'+ JSON.stringify(resultList))
             res.render('order/employees/modify', returnData);
         });
     },
@@ -192,9 +171,10 @@ var EmployeeController = {
     },
     resetPassword: function (req, res) {
         var cid = req.params.cid;
+        var type = req.params.type;
         request(Base.mergeRequestOptions({
             method: 'put',
-            url: '/api/employees/password/rest/'+cid,
+            url: '/api/stores/employees/password/rest/'+cid,
         }, req, res), function (error, response, body) {
             if (!error && response.statusCode == 201) {
                 res.sendStatus(200);
@@ -207,10 +187,11 @@ var EmployeeController = {
     setStatus: function (req, res) {
         var cid = req.params.cid;
         var type = req.params.type;
+        var bidtype = req.params.bidtype;
         // console.log('cid'+cid+'--type'+type)
         request(Base.mergeRequestOptions({
             method: 'put',
-            url: '/api/employees/stcode/'+cid+'?stcode='+type,
+            url: '/api/stores/employees/stcode/'+cid+'?stcode='+type,
         }, req, res), function (error, response, body) {
             if (!error && response.statusCode == 201) {
                 res.sendStatus(200);

@@ -13,7 +13,7 @@
         <!-- breadcrumb -->
         <ol class="breadcrumb">
             <li>后台管理</li>
-            <li>基础页面</li>
+            <li>个人中心</li>
         </ol>
 
 
@@ -31,29 +31,36 @@
             <div class="row dwy-show-content">
                 <div class="col-xs-6">
                     <!-- col -->
+                    <legend>个人信息</legend>
                     <div class="col-xs-12">
-                        <legend>个人信息</legend>
-                        <div class="col-xs-4">
-                            <label class="text-right tight-left col-xs-4">编号:</label>
-                            <p class="text-left col-xs-8 tight-left">23465465</p>
+                        <div class="col-xs-6">
+                            <label class="text-right tight-left col-xs-4">机构编号:</label>
+                            <p class="text-left col-xs-8 tight-left"><%= user.bid %></p>
                         </div>
-                        <div class="col-xs-4">
+                        <div class="col-xs-6">
                             <label class="text-right tight-left col-xs-4">姓名:</label>
-                            <p class="text-left col-xs-8 tight-left">张三</p>
+                            <p class="text-left col-xs-8 tight-left"><%= user.name %></p>
                         </div>
+
                         <!-- end row -->
                     </div>
                     <div class="col-xs-12">
-                        <div class="col-xs-4">
-                            <label class="text-right tight-left col-xs-4">职务:</label>
-                            <p class="text-left col-xs-8 tight-left">审单员</p>
+                        <div class="col-xs-6">
+                            <label class="text-right tight-left col-xs-4">柜员编号:</label>
+                            <p class="text-left col-xs-8 tight-left"><%= user.id %></p>
                         </div>
-                        <div class="col-xs-4">
+
+                        <div class="col-xs-6">
                             <label class="text-right tight-left col-xs-4">手机:</label>
-                            <p class="text-left col-xs-8 tight-left">1354879456</p>
+                            <p class="text-left col-xs-8 tight-left"><%= user.mobile %></p>
                         </div>
-                        <!-- end row -->
                     </div>
+                    <!--<div class="col-xs-12">-->
+                        <!--<div class="col-xs-4">-->
+                            <!--<label class="text-right tight-left col-xs-4">职务:</label>-->
+                            <!--<p class="text-left col-xs-8 tight-left">审单员</p>-->
+                        <!--</div>-->
+                    <!--</div>-->
                     <div class="col-xs-12">
                         <hr class="simple">
                         <div class="col-xs-12 text-align-center">
