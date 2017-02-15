@@ -47,8 +47,8 @@ var BaseController = {
 
     //处理错误
     handlerError: function (res, req, error, response, body) {
-        console.log('Error:');
-        console.log(response);
+        //console.log('Error:');
+        //console.log(response);
 
         var user_session = req.session;
 
@@ -60,6 +60,7 @@ var BaseController = {
                 res.redirect(redirect || 'back');
             }
         };
+
 
         //检查是否可以解析出错误
         try {
@@ -80,7 +81,6 @@ var BaseController = {
             }
 
             returnInfo(500, '500', '服务器错误');
-            // res.status(200).send(response);
             return;
         }
 
@@ -101,14 +101,10 @@ var BaseController = {
         //根据错误代码做对应处理
         switch ($res.code.toString()) {
             case '1015':
-                // res.redirect('/login');
-                // break;
             case '1016':
                 returnInfo(500, $res.code, $res.msg, '/login');
-                // res.redirect('/login');
                 break;
             default:
-                // res.status(404).send('未定义的错误处理');
                 returnInfo(500, $res.code, $res.msg);
         }
     },
@@ -139,27 +135,28 @@ var BaseController = {
                 if (!BaseController._checkResponseStatus(error, response)) {
                     count--;
                     is_fail = true;
-                    console.log('Error:');
-                    console.log(response);
 
                     BaseController.handlerError(res, req, error, response, body);
 
-                    // if (!response) {
-                    //     res.status(500).send('没有收到服务器回复');
-                    //     return;
-                    // }
+                    //console.log('Error:');
+                    //console.log(response);
                     //
-                    // var $res = JSON.parse(response.body);
-                    // switch ($res.code.toString()) {
-                    //     case '1015':
-                    //         res.redirect('/login');
-                    //         break;
-                    //     case '1016':
-                    //         res.redirect('/login');
-                    //         break;
-                    //     default:
-                    //         res.status(404).send('未定义的错误处理');
-                    // }
+                    //if (!response) {
+                    //    res.status(500).send('没有收到服务器回复');
+                    //    return;
+                    //}
+                    //
+                    //var $res = JSON.parse(response.body);
+                    //switch ($res.code.toString()) {
+                    //    case '1015':
+                    //        res.redirect('/login');
+                    //        break;
+                    //    case '1016':
+                    //        res.redirect('/login');
+                    //        break;
+                    //    default:
+                    //        res.status(404).send($res);
+                    //}
                     return;
                 }
 
@@ -168,8 +165,8 @@ var BaseController = {
                 if (count != resultLength) {
 
                 } else {
-                    console.log('CallResult:');
-                    console.log(resultList);
+                    //console.log('CallResult:');
+                    //console.log(resultList);
 
                     //回调处理
                     callBack(req, res, resultList);

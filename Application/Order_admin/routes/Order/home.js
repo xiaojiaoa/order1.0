@@ -282,21 +282,13 @@ router.get('/roles/create/:bid/:scope/:type', Middleware.AuthCheck, RolesControl
 router.post('/roles/doCreate', Middleware.AuthCheck, RolesController.doCreate);
 
 // 更新角色页面
-router.get('/roles/modify', Middleware.AuthCheck, RolesController.modifyPage);
+router.get('/roles/modify/:bid/:scope/:stcode', Middleware.AuthCheck, RolesController.modifyPage);
 
 // 更新角色
 router.post('/roles/doModify', Middleware.AuthCheck, RolesController.doModify);
 
-
-
-// 更新自定义角色页面
-router.get('/roles/modifyDiy', Middleware.AuthCheck, RolesController.modifyDiyPage);
-
-// 更新自定义角色
-router.post('/roles/doDiyModify', Middleware.AuthCheck, RolesController.doDiyModify);
-
-// 删除部门
-router.delete('/roles/doDelete', Middleware.AuthCheck, RolesController.doDelete);
+// 删除角色
+router.put('/roles/setStatus/:stcode', Middleware.AuthCheck, RolesController.setStatus);
 
 
 

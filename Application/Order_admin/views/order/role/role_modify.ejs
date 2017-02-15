@@ -32,7 +32,7 @@
 
                     <!-- row -->
                     <div class="row">
-                        <form class="form-horizontal" method="post" action="/roles/doCreate" id="create-store">
+                        <form class="form-horizontal" method="post" action="/roles/doModify" id="create-store">
 
                             <div class="col-xs-12">
                                 <!--输入字段-->
@@ -41,14 +41,17 @@
                                         <label class="col-xs-2 control-label"><span class="requird"></span> 角色:</label>
                                         <div class="col-xs-4">
                                             <input class="form-control validate[required]"
-                                                   value="<%= DWY_last_request_param.resideAddress %>"
-                                                   name="resideAddress">
+                                                   value="<%= rolesInfo.name %>"
+                                                   name="name">
+                                            <input type="hidden" name="cid" value="<%= stcode %>">
+                                            <input type="hidden" name="bid" value="<%= rolesInfo.bid %>">
+                                            <input type="hidden" name="scope" value="<%= scope %>">
+                                            <input type="hidden" name="bidUrl" value="<%= bid %>">
                                         </div>
                                     </div>
                                 </div>
 
                             </div>
-
                             <div class="col-xs-12">
 
                                 <div class="col-xs-8">
@@ -56,21 +59,25 @@
                                         <label class="col-xs-2 control-label "><span class="requird"></span> 权限:
                                         </label>
                                         <div class="col-xs-8">
+
+                                            <%
+                                            var permissionStr = '';
+                                            rolesInfo.permissionList.forEach(function (element) {
+                                                permissionStr += element.id+','
+                                            })
+                                            permissionStr = permissionStr.substring(0,permissionStr.length-1);
+
+                                            permissionsAllList.forEach(function (element) { %>
                                             <label class="checkbox-inline to-block no-margin">
                                                 <input type="checkbox" class="checkbox validate[minCheckbox[1]]"
-                                                       name="roles" value="1">
-                                                <span>权限1</span>
+                                                       name="permission" value="<%= element.id %>"
+                                                        <%= DWY_Helper.checkboxStatusStr(permissionStr, element.id) %>
+                                                >
+                                                <span><%= element.name %></span>
+
                                             </label>
-                                            <label class="checkbox-inline to-block no-margin">
-                                                <input type="checkbox" class="checkbox validate[minCheckbox[1]]"
-                                                       name="roles" value="2">
-                                                <span>权限1</span>
-                                            </label>
-                                            <label class="checkbox-inline to-block no-margin">
-                                                <input type="checkbox" class="checkbox validate[minCheckbox[1]]"
-                                                       name="roles" value="3">
-                                                <span>权限1</span>
-                                            </label>
+                                            <%  }) %>
+
                                         </div>
 
                                     </div>

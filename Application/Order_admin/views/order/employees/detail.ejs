@@ -161,11 +161,20 @@
                         <% }else{ %>
                         <div class="col-xs-12 text-center" id="close-employee-btn">
 
+                            <% if(type == 'stores'){ %>
+                            <a class="btn btn-primary ">
+                                <i class="fa fa-edit"></i>
+                                门店可否修改柜员信息未定
+                            </a>
+                            <%  }else{ %>
                             <a class="btn btn-primary "
                                href="/<%= type %>/employees/modify/<%= employeesInfo.bid %>/<%= employeesInfo.id %>">
                                 <i class="fa fa-edit"></i>
                                 修改柜员信息
                             </a>
+                            <%  } %>
+
+
                             <a class="btn btn-primary" id="reset-password">
                                 <i class="fa fa-refresh"></i>
                                 密码重置

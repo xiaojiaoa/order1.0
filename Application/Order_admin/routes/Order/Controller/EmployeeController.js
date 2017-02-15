@@ -16,8 +16,9 @@ var EmployeeController = {
         var type = req.params.type;
         var bid = req.query.bid;
         var did = req.query.did;
+        var employeesUrl = (type == 'stores')? '/api/stores/employees?' : '/api/employees?' ;
         Base.multiDataRequest(req, res, [
-            {url: '/api/'+type+'/employees?' + (queryString.stringify(req.query)), method: 'GET', resConfig: {keyName: 'employeesList', is_must: true}},
+            {url: employeesUrl + (queryString.stringify(req.query)), method: 'GET', resConfig: {keyName: 'employeesList', is_must: true}},
             {url: '/api/'+type+'/departments/'+bid, method: 'GET', resConfig: {keyName: 'departmentsInfo', is_must: true}},
         ], function (req, res, resultList) {
 
@@ -93,8 +94,9 @@ var EmployeeController = {
         var type =  req.params.type;
         var bid =  req.params.bid;
         var cid =  req.params.cid;
+        var employeesUrl = (type == 'stores')? '/api/stores/employees/' : '/api/employees/' ;
         Base.multiDataRequest(req, res, [
-            {url: '/api/'+type+'/employees/'+cid, method: 'GET', resConfig: {keyName: 'employeesInfo', is_must: true}},
+            {url: employeesUrl+cid, method: 'GET', resConfig: {keyName: 'employeesInfo', is_must: true}},
             {url: '/api/assist/education', method: 'GET', resConfig: {keyName: 'educationInfo', is_must: true}},
         ], function (req, res, resultList) {
 
@@ -126,8 +128,9 @@ var EmployeeController = {
         var type =  req.params.type;
         var bid =  req.params.bid;
         var scope = (type == 'stores')? 1 : 2 ;
+        var employeesUrl = (type == 'stores')? '/api/stores/employees/' : '/api/employees/' ;
         Base.multiDataRequest(req, res, [
-            {url: '/api/'+type+'/employees/'+cid, method: 'GET', resConfig: {keyName: 'employeesInfo', is_must: true}},
+            {url: employeesUrl+cid, method: 'GET', resConfig: {keyName: 'employeesInfo', is_must: true}},
             {url: '/api/'+type+'/departments/'+bid, method: 'GET', resConfig: {keyName: 'departmentsInfo', is_must: true}},
             {url: '/api/roles/'+bid+'?scope='+scope, method: 'GET', resConfig: {keyName: 'rolesInfo', is_must: true}},
             {url: '/api/assist/education', method: 'GET', resConfig: {keyName: 'educationInfo', is_must: true}},

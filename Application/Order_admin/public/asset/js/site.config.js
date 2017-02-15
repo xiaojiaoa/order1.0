@@ -147,7 +147,7 @@ var DWY_area = {
             }
         })
     },
-    refreshCity: function ($city, $district, province_id) {
+    refreshCity: function ($city, $district, province_id, city_id) {
 
         $city.find('option').remove();
 
@@ -155,47 +155,83 @@ var DWY_area = {
             var city_option_list = [];
             if (data.length > 1) {
                 //多个选项
-                city_option_list.push(new Option('- 市 -'));
+                city_option_list.push(new Option('- 市 -',''));
                 for (var i in data) {
                     city_option_list.push(new Option(data[i].name, data[i].id));
                 }
                 $city.append($(city_option_list).clone());
 
-                DWY_area.clearDistrict($district);
-
+                // DWY_area.clearDistrict($district);
+                if(!city_id){
+                    DWY_area.clearDistrict($district);
+                }
+                if(city_id){
+                    $city.val(city_id)
+                }
             } else {
                 //如果只有一个选项
                 $city.append($(new Option(data[0].name, data[0].id)).attr('selected', true));
                 $city.trigger('change');
+                if(city_id){
+                    $city.val(city_id)
+                }
             }
 
         })
+
+
     },
-    refreshDistrict: function ($district, city_id) {
-
+    refreshDistrict: function ($district, city_id, district_id) {
         $district.find('option').remove();
-
 
         DWY_area.getAreaList(city_id, function (data) {
             var district_option_list = [];
             if (data.length > 1) {
                 //多个选项
-                district_option_list.push(new Option('- 区 -'));
+                district_option_list.push(new Option('- 区 -',''));
                 for (var i in data) {
                     district_option_list.push(new Option(data[i].name, data[i].id));
                 }
                 $district.append($(district_option_list).clone());
 
+                if(district_id){
+                    $district.val(district_id)
+                }
             } else {
                 //如果只有一个选项
                 $district.append($(new Option(data[0].name, data[0].id)).attr('selected', true));
+                if(district_id){
+                    $district.val(district_id)
+                }
             }
 
         })
+
     },
     clearDistrict: function ($district) {
         $district.find('option').remove();
-        $district.append(new Option('- 区 -'));
+        $district.append(new Option('- 区 -',''));
+    },
+    setValue: function (list) {
+        if(list){
+            for(var i=0; i<list.length; i++){
+                var element = list[i];
+                if(element.value){
+                    switch (element.key){
+                        case 'province':
+                            DWY_area.refreshCity($('select[name='+element.linkcity+']'), $('select[name='+element.linkdis+']'), element.value, element.cityId);
+                            break;
+                        case 'city':
+                            DWY_area.refreshDistrict($('select[name='+element.linkdis+']'), element.value, element.disId);
+                            break;
+                    }
+                    $("select[name="+element.name+"]").val(element.value);
+                }
+
+                // $("select[name=birthCity]").val(650400);
+            }
+
+        }
     },
     init: function (config) {
         var _config = config || {};
@@ -203,6 +239,8 @@ var DWY_area = {
         _config.province = _config.province || '.dwy-province';
         _config.city = _config.city || '.dwy-city';
         _config.district = _config.district || '.dwy-district';
+
+        _config.defaultValue = _config.defaultValue || [];
 
         if (!_config.target) {
             console.log('目标不存在!')
@@ -212,7 +250,7 @@ var DWY_area = {
 
             var province_option_list = [];
 
-            province_option_list.push(new Option('- 省 -'));
+            province_option_list.push(new Option('- 省 -',''));
 
             for (var i in data) {
                 province_option_list.push(new Option(data[i].name, data[i].id));
@@ -224,25 +262,62 @@ var DWY_area = {
                 var province = area_select.find(_config.province);
                 var city = area_select.find(_config.city);
                 var district = area_select.find(_config.district);
-
                 province.find('option').remove();
                 province.append($(province_option_list).clone());
-
 
                 province.on({
                     change: function (e) {
                         var province_id = $(this).val();
                         DWY_area.refreshCity(city, district, province_id);
                     }
-                })
+                });
                 city.on({
                     change: function (e) {
                         var city_id = $(this).val();
                         DWY_area.refreshDistrict(district, city_id);
                     }
                 })
-            })
+
+
+            });
+
+            DWY_area.setValue(_config.defaultValue);
+
         })
 
-    }
+    },
+
 }
+
+
+$(document).ready(function () {
+    var dwy_msg_type = $('input[name=dwy-message-type]');
+    var dwy_msg_info = $('input[name=dwy-message-info]');
+    var dwy_msg_sign = $('input[name=dwy-message-sign]');
+
+
+    //信息处理
+    if (dwy_msg_sign.val() && (dwy_msg_sign.val() != localStorage.getItem('dwy_msg_sign'))) {
+        if (dwy_msg_type.val() == 'error') {
+            $.smallBox({
+                title: "操作失败",
+                content: dwy_msg_info.val(),
+                color: "#C46A69",
+                iconSmall: "fa fa-times fa-2x fadeInRight animated",
+                timeout: 3000
+            });
+        }
+
+        if (dwy_msg_type.val() == 'info') {
+            $.smallBox({
+                title: "操作成功",
+                content: dwy_msg_info.val(),
+                color: "#8ac38b",
+                iconSmall: "fa fa-times fa-2x fadeInRight animated",
+                timeout: 3000
+            });
+        }
+
+        localStorage.setItem('dwy_msg_sign', dwy_msg_sign.val());
+    }
+});
