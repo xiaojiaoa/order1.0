@@ -12,7 +12,7 @@
         <!-- breadcrumb -->
         <ol class="breadcrumb">
             <li>后台管理</li>
-            <li>机构管理</li>
+            <li>物流管理</li>
         </ol>
         <!-- end breadcrumb -->
 
@@ -29,166 +29,65 @@
         <div class="well">
             <!-- row -->
             <div class="row">
-                <div class="col-xs-12">
-                    <h3 class="text-align-center">材料出入仓查询</h3>
-                    <hr class="simple">
-                </div>
-            </div>
-            <!--end row-->
-            <!-- row -->
-            <div class="row">
                 <!-- col -->
-                <div class="col-xs-12">
-                    <!--<legend>客户搜索</legend>-->
+                <div class="col-xs-12 dwy-show-content">
+                    <legend>基本信息
+
+                        <a class="label label-primary" href="/materialManage/materialType/modify">修改</a>
+                        <a class="label label-danger" id="closeStore">禁用</a>
+
+                    </legend>
+
                     <!-- row -->
-                    <div class="row search-form">
-                        <form class="form-horizontal" method="get">
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-striped table-information ">
+                            <tbody>
+                            <tr>
+                                <td>物料编号</td>
+                                <td>42010001</td>
+                                <td>物料名称</td>
+                                <td>银白下框</td>
+                                <td>材料库名字</td>
+                                <td>布兰莎原材料库</td>
+                                <td>折算系数</td>
+                                <td>1</td>
+                            </tr>
+                            <tr>
+                                <td>规格</td>
+                                <td>wy02</td>
+                                <td>颜色</td>
+                                <td>银白</td>
+                                <td>厚度</td>
+                                <td>0mm</td>
+                                <td>密度</td>
+                                <td>0</td>
+                            </tr>
+                            <tr>
+                                <td>单位</td>
+                                <td>支</td>
+                                <td>移动平均单价</td>
+                                <td>元</td>
+                                <td>分类</td>
+                                <td colspan="3">
+                                    铝材>框架>银白框架
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>其他</td>
+                                <td>已启动库存预警</td>
+                                <td>最小库存</td>
+                                <td colspan="5">
+                                    当真实库存小于150.00支时预警，小于1.00支时提示预计缺货
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>说明</td>
+                                <td colspan="7"></td>
+                            </tr>
 
-                            <div class="col-xs-12">
+                            </tbody>
+                        </table>
 
-                                <div class="col-xs-3">
-                                    <div class="form-group">
-                                        <label class="col-xs-4 control-label">物料编号:</label>
-                                        <div class="col-xs-8">
-                                            <input class="form-control" placeholder="" value="" type="text" name="">
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="col-xs-3">
-                                    <div class="form-group">
-                                        <label class="col-xs-4 control-label">材料名称:</label>
-                                        <div class="col-xs-8">
-                                            <input class="form-control" placeholder="请输入材料名称" value="" type="text" name="materialName">
-                                        </div>
-                                    </div>
-                                </div>
-
-
-                                <div class="col-xs-3">
-                                    <div class="form-group">
-                                        <label class="col-xs-4 control-label">所属分类:</label>
-                                        <div class="col-xs-8">
-                                            <select class="form-control" name="">
-                                                <option value="板材">板材</option>
-                                                <option value="外加工板材">外加工板材</option>
-                                                <option value="素板">素板</option>
-                                                <option value="封边带">封边带</option>
-                                                <option value="玻璃">玻璃</option>
-                                                <option value="金属">金属</option>
-                                                <option value="……">……</option>
-
-                                            </select>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-xs-3">
-
-                                </div>
-
-
-                            </div>
-
-                            <div class="col-xs-12">
-                                <div class="col-xs-3">
-                                    <div class="form-group">
-                                        <label class="col-xs-4 control-label">事项类别:</label>
-                                        <div class="col-xs-8">
-                                            <select class="form-control" name="">
-                                                <option value="采购入仓">采购入仓</option>
-                                                <option value="车间领料">车间领料</option>
-                                                <option value="采购退回">采购退回</option>
-                                                <option value="车间退料">车间退料</option>
-                                                <option value="转出">转出</option>
-                                                <option value="转入">转入</option>
-
-
-                                            </select>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-xs-6">
-                                    <div class="form-group">
-                                        <label class="col-xs-2"></label>
-                                        <div class="col-xs-4">
-                                            <select class="form-control" name="">
-                                                <option value="1">收款确认日期</option>
-                                                <option value="2">约定交付日期</option>
-                                            </select>
-                                        </div>
-                                        <div class="col-xs-2">
-                                            <input class="form-control fg-date-picker flatpickr-input fg-date-time-picker" type="text" value="" name="startDate" readonly="readonly">
-                                        </div>
-                                        <label class="control-label " style="float: left"> 至 </label>
-                                        <div class="col-xs-2">
-                                            <input class="form-control fg-date-picker flatpickr-input fg-date-time-picker" type="text" value="" name="endDate" readonly="readonly">
-                                        </div>
-                                    </div>
-                                </div>
-
-
-                            </div>
-
-
-                            <div class="col-xs-12">
-
-                                <div class="col-xs-3">
-                                    <div class="form-group">
-                                        <label class="col-xs-4 control-label">经手人:</label>
-                                        <div class="col-xs-8">
-                                            <input class="form-control" placeholder="请输入经手人" value="" type="text" name="">
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-xs-3">
-                                    <div class="form-group">
-                                        <label class="col-xs-4 control-label">领料部门:</label>
-                                        <div class="col-xs-8">
-                                            <select class="form-control" name="">
-                                                <option value="财务部">财务部</option>
-                                                <option value="采购中心">采购中心</option>
-                                                <option value="订单服务中心">订单服务中心</option>
-                                                <option value="工业工程部">工业工程部</option>
-                                                <option value="工艺技术中心">工艺技术中心</option>
-                                                <option value="基建部">基建部</option>
-                                                <option value="……">……</option>
-
-
-                                            </select>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-xs-3">
-                                    <div class="form-group">
-                                        <label class="col-xs-4 control-label">单号:</label>
-                                        <div class="col-xs-8">
-                                            <input class="form-control" placeholder="请输入订单号" value="" type="text" name="">
-                                        </div>
-                                    </div>
-                                </div>
-
-
-
-                                <div class="col-xs-3">
-
-                                </div>
-
-
-                            </div>
-
-
-
-                            <div class="col-xs-12">
-                                <hr class="simple">
-                                <div class="col-xs-12 text-center">
-                                    <button class="btn btn-primary " type="submit">
-                                        <i class="fa fa-save"></i>
-                                        确认
-                                    </button>
-                                </div>
-                            </div>
-
-                        </form>
                     </div>
                     <!-- end row -->
                 </div>
@@ -196,63 +95,96 @@
             </div>
             <!-- end row -->
         </div>
-<!--end well-->
-
+        <!--end well-->
         <!--well-->
         <div class="well">
-
-
             <!-- row -->
             <div class="row">
-                <div class="col-xs-12">
-                    <div class="table-responsive">
+                <!-- col -->
+                <div class="col-xs-12 dwy-show-content">
+                    <legend>库存状况
 
+                        <span class="spanStyle01">剩余3160000支</span>
+                        <a href="/materialManage/summary">出入仓明细</a>
+
+                    </legend>
+
+                    <!-- row -->
+                    <div class="table-responsive">
                         <table class="table table-bordered table-striped">
                             <thead>
                             <tr>
-                                <th>序号</th>
-                                <th>材料编号</th>
-                                <th>材料分类</th>
-                                <th>材料名称</th>
-                                <th>领料部门</th>
-                                <th>供应商ID</th>
-                                <th>厚度</th>
-                                <th>密度</th>
-                                <th>发生日期</th>
-                                <th>数量</th>
-                                <th>事项</th>
-                                <th>经手</th>
-                                <th>单号</th>
+                                <th>预计日期</th>
+                                <th>预购事项</th>
+                                <th>预计发生数量</th>
+                                <th>虚拟库存</th>
                                 <th>备注</th>
                             </tr>
                             </thead>
                             <tbody>
 
                             <tr>
-                                <td>1</td>
-                                <td>1213212</td>
-                                <td>素板</td>
-                                <td>8mmE0中纤板</td>
-                                <td>-</td>
-                                <td>0</td>
-                                <td>0</td>
-                                <td>0</td>
                                 <td>2016-10-10</td>
-                                <td>1.0000张</td>
-                                <td>车间领料</td>
-                                <td>张三</td>
-                                <td>LL1610101234</td>
+                                <td>材料订购</td>
+                                <td>1000000支</td>
+                                <td>1000000支</td>
                                 <td></td>
                             </tr>
 
                             </tbody>
                         </table>
-                                        </div>
+
+
+                    </div>
+                    <!-- end row -->
                 </div>
+                <!-- end col -->
             </div>
+            <!-- end row -->
         </div>
         <!--end well-->
-    </div>
+        <!--well-->
+        <div class="well">
+            <!-- row -->
+            <div class="row">
+                <!-- col -->
+                <div class="col-xs-12 dwy-show-content">
+                    <legend>订购情况
+
+                                        </legend>
+
+                    <!-- row -->
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-striped">
+                            <thead>
+                            <tr>
+                                <th>订购日期</th>
+                                <th>订购数量</th>
+                                <th>备注</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+
+                            <tr>
+                                <td>2016-10-10</td>
+                                <td>1000000支</td>
+                                <td></td>
+                            </tr>
+
+                            </tbody>
+                        </table>
+
+
+                    </div>
+                    <!-- end row -->
+                </div>
+                <!-- end col -->
+            </div>
+            <!-- end row -->
+        </div>
+        <!--end well-->
+
+         </div>
     <!-- END MAIN CONTENT -->
 
 </div>
@@ -270,6 +202,36 @@
         pageSetUp();
 
         $(".fg-date-time-picker").flatpickr(data_time_picker.data_picker); // jQuery
+        $("#closeStore").on({
+            click: function () {
+                layer.confirm('确定禁用该机构？',{icon: 3, title:'提示'},
+                    function(index){
+                       /* $.ajax({
+                         url: '/agency/setStatus/'+organizationsId+'/2',
+                         method: 'put',
+                         success: function (data) {
+                         window.location.reload();
+                         }
+                         });*/
+                    },
+                    function(index){layer.close(index)})
+            }
+        });
+        $("#openStore").on({
+            click: function () {
+                layer.confirm('确定启用该机构？',{icon: 3, title:'提示'},
+                    function(index){
+                     /*   $.ajax({
+                            url: '/agency/setStatus/'+organizationsId+'/1',
+                            method: 'put',
+                            success: function (data) {
+                                window.location.reload();
+                            }
+                        });*/
+                    },
+                    function(index){layer.close(index)})
+            }
+        })
     })
 
 </script>

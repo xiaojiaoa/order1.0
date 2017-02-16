@@ -332,3 +332,8 @@ tr > td > .separation:last-child {
     margin: 0 20px;
     padding: 10px 56px;
 }
+.spanStyle01{
+    font-size: 14px;
+    display: inline-block;
+    margin: 0px 40px;
+}
