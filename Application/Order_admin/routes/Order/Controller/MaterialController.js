@@ -41,6 +41,9 @@ var MaterialController = {
     materialModifyPage: function (req, res) {
         res.render('order/material/material_modify');
     },
+    doCreate: function (req, res) {
+        console.log('物料创建'+ JSON.stringify(req.body))
+    },
 };
 
 module.exports = MaterialController;

@@ -12,7 +12,8 @@
         <!-- breadcrumb -->
         <ol class="breadcrumb">
             <li>后台管理</li>
-            <li>机构管理</li>
+            <li>物料管理</li>
+            <li>新建物料</li>
         </ol>
         <!-- end breadcrumb -->
 
@@ -23,9 +24,349 @@
 
     <!-- MAIN CONTENT -->
     <div id="content">
+        <!--well-->
+        <div class="well">
+            <!-- row -->
+            <div class="row">
+                <!-- col -->
+                <div class="col-xs-12">
+                    <legend>新建物料</legend>
 
- 这是物料创建页面
+                    <!-- row -->
+                    <div class="row">
+                        <form class="form-horizontal" method="post" action="/materialManage/material/doCreate" id="create-material">
 
+                            <div id="step1">
+                             <div class="col-xs-12">
+                                 <!--输入字段-->
+                                 <div class="col-xs-6">
+                                     <div class="form-group">
+                                         <label class="col-xs-4 control-label"><span class="requird"></span>
+                                             分类:</label>
+                                         <div class="col-xs-8">
+                                             <select class="form-control validate[required]" name="matType" id="matType">
+                                                 <option value="">- 请选择 -</option>
+                                                 <option value="13">
+                                                     仓储店
+                                                 </option>
+                                                 <option value="12">
+                                                     卖场店
+                                                 </option>
+
+                                                 <option value="11">
+                                                     商超店
+                                                 </option>
+
+                                                 <option value="10">
+                                                     路边店
+                                                 </option>
+
+                                             </select>
+                                         </div>
+                                     </div>
+                                 </div>
+                             </div>
+                             <div class="col-xs-12">
+                                 <div class="col-xs-6">
+                                     <div class="form-group">
+                                         <label class="col-xs-4 control-label">
+                                         </label>
+                                         <div class="col-xs-8">
+                                             <select class="form-control validate[required]" name="arcType" id="arcType">
+                                                 <option value="">- 请选择 -</option>
+
+                                                 <option value="11">
+                                                     加盟店
+                                                 </option>
+
+                                                 <option value="10">
+                                                     自营店
+                                                 </option>
+
+
+                                             </select>
+                                         </div>
+                                     </div>
+                                 </div>
+                             </div>
+                             <div class="col-xs-12">
+
+                                 <!--输入字段-->
+                                 <div class="col-xs-6">
+                                     <div class="form-group">
+                                         <label class="col-xs-4 control-label">
+                                           </label>
+                                         <div class="col-xs-8">
+                                             <select class="form-control validate[required]" name="colType" id="colType">
+                                                 <option value="">- 请选择 -</option>
+
+                                                 <option value="13">
+                                                     仓储店
+                                                 </option>
+
+                                                 <option value="12">
+                                                     卖场店
+                                                 </option>
+
+                                                 <option value="11">
+                                                     商超店
+                                                 </option>
+
+                                                 <option value="10">
+                                                     路边店
+                                                 </option>
+
+                                             </select>
+                                         </div>
+                                     </div>
+                                 </div>
+
+
+
+                             </div>
+                             <div class="col-xs-8">
+                                 <hr class="simple">
+                                 <div class="col-xs-12 text-center">
+
+                                     <a class="btn btn-primary nextStep" href="#step2">
+                                         下一步
+                                     </a>
+                                 </div>
+                             </div>
+                         </div>
+                            <div id="step2">
+                                <div class="col-xs-12">
+
+                                    <div class="col-xs-4">
+                                        <div class="form-group">
+                                            <label class="col-xs-4 control-label "><span class="requird"></span> 店长姓名:
+                                            </label>
+                                            <div class="col-xs-8">
+                                                <input class="form-control validate[required]" value="大饼" name="storeGid">
+                                            </div>
+
+                                        </div>
+                                    </div>
+
+                                    <div class="col-xs-4">
+                                        <div class="form-group">
+                                            <label class="col-xs-4 control-label "><span class="requird"></span> 店长手机:
+                                            </label>
+                                            <div class="col-xs-8">
+                                                <input class="form-control validate[required,funcCall[custom_validate_fn.isMobile]]" placeholder="输入号码" type="tel" value="13107727679" name="mobile">
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <input type="hidden" name="storeId" value="33010010">
+
+
+
+                                </div>
+                                <div class="col-xs-12">
+
+                                    <!--输入字段-->
+                                    <div class="col-xs-4">
+                                        <div class="form-group">
+                                            <label class="col-xs-4 control-label"><span class="requird"></span>
+                                                门店类型:</label>
+                                            <div class="col-xs-8">
+                                                <select class="form-control validate[required]" name="addrType">
+                                                    <option value="">- 请选择 -</option>
+
+                                                    <option value="13">
+                                                        仓储店
+                                                    </option>
+
+                                                    <option value="12">
+                                                        卖场店
+                                                    </option>
+
+                                                    <option value="11">
+                                                        商超店
+                                                    </option>
+
+                                                    <option value="10">
+                                                        路边店
+                                                    </option>
+
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-xs-4">
+                                        <div class="form-group">
+                                            <label class="col-xs-4 control-label"><span class="requird"></span>
+                                                经营类型:</label>
+                                            <div class="col-xs-8">
+                                                <select class="form-control validate[required]" name="storeType">
+                                                    <option value="">- 请选择 -</option>
+
+                                                    <option value="11">
+                                                        加盟店
+                                                    </option>
+
+                                                    <option value="10">
+                                                        自营店
+                                                    </option>
+
+
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+                                </div>
+                                <div class="col-xs-12">
+
+                                    <!--输入字段-->
+                                    <div class="col-xs-4">
+                                        <div class="form-group">
+                                            <label class="col-xs-4 control-label"><span class="requird"></span>
+                                                是否自带仓库:</label>
+                                            <div class="col-xs-8">
+                                                <select class="form-control validate[required]" name="isWarehouse">
+                                                    <option value="">- 请选择 -</option>
+                                                    <option value="1" selected="">
+                                                        是
+                                                    </option>
+                                                    <option value="2">
+                                                        否
+                                                    </option>
+
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-xs-4">
+                                        <div class="form-group">
+                                            <label class="col-xs-4 control-label"><span class="requird"></span>
+                                                最低保证金:</label>
+                                            <div class="col-xs-8">
+                                                <input class="form-control validate[required]" value="50000" name="minFunds">
+                                                <span code-data="元" class="unit"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+                                </div>
+                                <div class="col-xs-12">
+                                <div class="col-xs-4">
+                                    <div class="form-group">
+                                        <label class="col-xs-4 control-label"><span class="requird"></span>
+                                            预警资金:</label>
+                                        <div class="col-xs-8">
+                                            <input class="form-control validate[required]" value="" name="warnFunds">
+                                            <span code-data="元" class="unit"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xs-4">
+                                    <div class="form-group">
+                                        <label class="col-xs-4 control-label">门店所在行政区:</label>
+                                        <div class="col-xs-8">
+                                            <input class="form-control validate" value="武昌区" name="" readonly="">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                                <div class="col-xs-12">
+                                    <div class="col-xs-4">
+                                        <div class="form-group">
+                                            <label class="col-xs-4 control-label"><span class="requird"></span>
+                                                预警资金:</label>
+                                            <div class="col-xs-8">
+                                                <input class="form-control validate[required]" value="" name="warnFunds">
+                                                <span code-data="元" class="unit"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-4">
+                                        <div class="form-group">
+                                            <label class="col-xs-4 control-label">门店所在行政区:</label>
+                                            <div class="col-xs-8">
+                                                <input class="form-control validate" value="武昌区" name="" readonly="">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xs-12">
+                                    <div class="col-xs-4">
+                                        <div class="form-group">
+                                            <label class="col-xs-4 control-label"><span class="requird"></span>
+                                                预警资金:</label>
+                                            <div class="col-xs-8">
+                                                <input class="form-control validate[required]" value="" name="warnFunds">
+                                                <span code-data="元" class="unit"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-4">
+                                        <div class="form-group">
+                                            <label class="col-xs-4 control-label">门店所在行政区:</label>
+                                            <div class="col-xs-8">
+                                                <input class="form-control validate" value="武昌区" name="" readonly="">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xs-12">
+                                    <div class="col-xs-4">
+                                        <div class="form-group">
+                                            <label class="col-xs-4 control-label"><span class="requird"></span>
+                                                预警资金:</label>
+                                            <div class="col-xs-8">
+                                                <input class="form-control validate[required]" value="" name="warnFunds">
+                                                <span code-data="元" class="unit"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-4">
+                                        <div class="form-group">
+                                            <label class="col-xs-4 control-label">门店所在行政区:</label>
+                                            <div class="col-xs-8">
+                                                <input class="form-control validate" value="武昌区" name="" readonly="">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xs-8">
+                                    <hr class="simple">
+                                    <div class="col-xs-12 text-center">
+
+                                        <a class="btn btn-primary preStep" href="#step1">
+                                            上一步
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="col-xs-8">
+                                    <hr class="simple">
+                                    <div class="col-xs-12 text-center">
+                                        <button class="btn btn-primary  margin-right-5" type="submit">
+                                            <i class="fa fa-save"></i>
+                                            提交
+                                        </button>
+                                        <button class="btn btn-primary " type="submit" id="newAgain">
+                                            <i class="fa fa-save"></i>
+                                            提交并继续新建
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <!-- end row -->
+
+                </div>
+                <!-- end col -->
+            </div>
+            <!-- end row -->
+        </div>
+        <!--end well-->
     </div>
     <!-- END MAIN CONTENT -->
 
@@ -40,11 +381,25 @@
 
     $(document).ready(function () {
 
-
         pageSetUp();
 
         $(".fg-date-time-picker").flatpickr(data_time_picker.data_picker); // jQuery
-    })
+
+        //表单验证
+        $("#create-material").validationEngine();
+        //下一步操作
+        $(".nextStep").click(function () {
+            if ($("#matType").validationEngine('validate')&&$("#arcType").validationEngine('validate')&&$("#colType").validationEngine('validate')) {
+                $("#step1").css('display','none');
+                $("#step2").css('display','block');
+            }
+        })
+        //上一步操作
+        $(".preStep").click(function () {
+            $("#step1").css('display','block');
+            $("#step2").css('display','none');
+        })
+          })
 
 </script>
 
