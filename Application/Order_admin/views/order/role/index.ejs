@@ -56,12 +56,12 @@
                                 <td>
                                     <% element.permissionList.forEach(function (element) {  %>
                                     <span class="separation"><%= element.name %></span>
-                                    <% }) %>
+                                    <%   }) %>
 
                                 </td>
                                 <td>
-                                    <a href="/roles/modify/555">修改</a>
-                                    <a class="delete-role"  selfId="设计师">删除</a>
+                                    <a href="/roles/modify/<%= bid %>/<%= scope %>/<%= element.id %>">修改</a>
+                                    <a class="delete-role"  selfId="<%= element.id %>">删除</a>
 
                                 </td>
                             </tr>
@@ -112,8 +112,8 @@
 
                                 </td>
                                 <td>
-                                    <a href="/roles/modifyDiy/555">修改</a>
-                                    <a class="delete-role"  selfId="设计师">删除</a>
+                                    <a href="/roles/modify/<%= bid %>/<%= scope %>/<%= element.id %>">修改</a>
+                                    <a class="delete-role"  selfId="<%= element.id %>">删除</a>
 
                                 </td>
                             </tr>
@@ -147,16 +147,16 @@
     $(function () {
         $(".delete-role").on({
             click: function () {
+                var roleId = $(this).attr('selfId');
                 layer.confirm('确定删除该角色？',{icon: 3, title:'提示'},
                     function(index){
-//                        $.ajax({
-//                            url: '/employees/setStatus/'+employeesId+'/1',
-//                            method: 'put',
-//                            success: function (data) {
-//                                window.location.reload();
-//                            }
-//                        });
-                        layer.close(index)
+                        $.ajax({
+                            url: '/roles/setStatus/'+roleId,
+                            method: 'put',
+                            success: function (data) {
+                                window.location.reload();
+                            }
+                        });
                     },
                     function(index){layer.close(index)})
             }

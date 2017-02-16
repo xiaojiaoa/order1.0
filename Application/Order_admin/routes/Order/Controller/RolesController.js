@@ -42,8 +42,22 @@ var RolesController = {
         });
     },
     modifyPage: function (req, res) {
+        var bid = req.params.bid;
+        var scope = req.params.scope;
+        var stcode = req.params.stcode;
 
-        res.render('order/role/role_modify');
+        Base.multiDataRequest(req, res, [
+            {url: '/api/permissions?scope='+scope, method: 'GET', resConfig: {keyName: 'permissionsAllList', is_must: true}},
+            {url: '/api/roles/detail/'+stcode, method: 'GET', resConfig: {keyName: 'rolesInfo', is_must: true}}
+        ], function (req, res, resultList) {
+            var returnData = Base.mergeData(helper.mergeObject({
+                title: ' ',
+                bid:bid,
+                scope:scope,
+                stcode:stcode,
+            }, resultList));
+            res.render('order/role/role_modify', returnData);
+        });
     },
 
     doCreate: function (req, res) {
@@ -76,14 +90,26 @@ var RolesController = {
 
 
     doModify: function (req, res) {
-
         var cid = req.body.cid;
+        var bidUrl = req.body.bidUrl;
+        var scope = req.body.scope;
+
+        var permissions = req.body.permission;
+        var permission ="";
+        if(permissions&&(typeof permissions == 'object')){
+            for (var i=0;i<permissions.length;i++)
+            {
+                permission += permissions[i] +","
+            }
+            permission = permission.substring(0,permission.length-1);
+            req.body.permission = permission;
+        }
         request(Base.mergeRequestOptions({
             method: 'put',
-            url: '/api/stores/departments/'+cid+"?"+queryString.stringify(req.body),
+            url: '/api/roles/'+cid+"?"+queryString.stringify(req.body),
         }, req, res), function (error, response, body) {
             if (!error && response.statusCode == 201) {
-                res.redirect("/department");
+                res.redirect("/roles/"+bidUrl+'/'+scope);
             } else {
                 Base.handlerError(res, req, error, response, body);
             }
@@ -91,15 +117,14 @@ var RolesController = {
     },
 
 
-    doDelete: function (req, res) {
-
-        var id = req.params.id;
+    setStatus: function (req, res) {
+        var id = req.params.stcode;
         request(Base.mergeRequestOptions({
-            method: 'delete',
-            url: '/api/stores/departments/'+id,
+            method: 'put',
+            url: '/api/roles/stcode/'+id+'?stcode=2',
             // form:req.body,
         }, req, res), function (error, response, body) {
-            if (!error && response.statusCode == 204) {
+            if (!error && response.statusCode == 201) {
                 res.sendStatus(200)
             } else {
                 Base.handlerError(res, req, error, response, body);
@@ -107,25 +132,6 @@ var RolesController = {
         })
     },
 
-
-    modifyDiyPage: function (req, res) {
-
-        res.render('order/role/role_diy_modify');
-    },
-    doDiyModify: function (req, res) {
-
-        var cid = req.body.cid;
-        request(Base.mergeRequestOptions({
-            method: 'put',
-            url: '/api/stores/departments/'+cid+"?"+queryString.stringify(req.body),
-        }, req, res), function (error, response, body) {
-            if (!error && response.statusCode == 201) {
-                res.redirect("/department");
-            } else {
-                Base.handlerError(res, req, error, response, body);
-            }
-        })
-    },
 
 
 };
