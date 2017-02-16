@@ -152,14 +152,14 @@
                                                 if(element.subDeparts.length != 0){ %>
                                                 <optgroup label="<%= element.name %>">
                                                     <% element.subDeparts.forEach(function (element) { %>
-                                                    <option value="<%= element.id %>" <%= (employeesInfo.storeDepartment.id == element.id) ? 'selected' : '' %> >
+                                                    <option value="<%= element.id %>" <%= (employeesInfo.department.id == element.id) ? 'selected' : '' %> >
                                                         <%= element.name %>
                                                     </option>
                                                     <% }) %>
                                                     \
                                                 </optgroup>
                                                 <% }else{ %>
-                                                <option value="<%= element.id %>" <%= (employeesInfo.storeDepartment.id == element.id) ? 'selected' : '' %> >
+                                                <option value="<%= element.id %>" <%= (employeesInfo.department.id == element.id) ? 'selected' : '' %> >
                                                     <%= element.name %>
                                                 </option>
                                                 <% }

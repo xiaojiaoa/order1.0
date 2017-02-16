@@ -127,7 +127,7 @@ var CustomerController = require('./Controller/CustomerController');
 router.get('/customers', Middleware.AuthCheck, Middleware.FilterEmptyField, CustomerController.listPage);
 
 // 获取客户详情页面
-router.get('/customer/detail', Middleware.AuthCheck, CustomerController.detailPage);
+router.get('/customer/detail/:cid', Middleware.AuthCheck, CustomerController.detailPage);
 // router.get('/customer/detail/:cid', Middleware.AuthCheck, CustomerController.detailPage);
 
 /*
@@ -141,6 +141,20 @@ router.get('/orders', Middleware.AuthCheck, Middleware.FilterEmptyField, OrderCo
 
 // 订单详情页面   订单信息（认领订单）
 router.get('/order/detail/:tid', Middleware.AuthCheck, OrderController.detailPage);
+
+// 标记为审核中
+router.post('/orders/getTask/:tid', Middleware.AuthCheck, OrderController.getTask);
+// 解锁订单
+router.post('/orders/unlock/:tid', Middleware.AuthCheck, OrderController.doUnlock);
+
+// 审核未通过（退单）
+router.post('/orders/notPass', Middleware.AuthCheck, OrderController.notPass);
+// 审核通过
+router.post('/orders/doPass', Middleware.AuthCheck, OrderController.doPass);
+// 设置难度等级
+router.post('/orders/updateDifficultyLevel', Middleware.AuthCheck, OrderController.updateDifficultyLevel);
+
+
 
 // 补单页面
 router.get('/orders/resupplys', Middleware.AuthCheck, Middleware.FilterEmptyField, OrderController.resupplyPage);
@@ -157,7 +171,7 @@ router.get('/order/resupply/detail', Middleware.AuthCheck, OrderController.resup
 
 
 //  订单审核页面
-router.get('/order/check', Middleware.AuthCheck, OrderController.checkPage);
+router.get('/order/check/:type', Middleware.AuthCheck, OrderController.checkPage);
 
 //  订单流程记录页面
 router.get('/order/process', Middleware.AuthCheck, OrderController.processPage);
@@ -220,18 +234,28 @@ var  MaterialController = require('./Controller/MaterialController');
 
 // 物料管理首页
 router.get('/materialManage', Middleware.AuthCheck, MaterialController.indexPage);
+
 // 物料详情页面
 router.get('/materialManage/detail/:mid', Middleware.AuthCheck, MaterialController.detailPage);
+
 // 物料出入库总计页面
 router.get('/materialManage/summary', Middleware.AuthCheck, MaterialController.summaryPage);
+
 //物料分类页面
 router.get('/materialManage/materialType', Middleware.AuthCheck, MaterialController.materialTypePage);
+
 //物料分类-新建分类页面
 router.get('/materialManage/materialType/create', Middleware.AuthCheck, MaterialController.materialTypeCreatePage);
+
 //物料分类-修改分类页面
 router.get('/materialManage/materialType/modify', Middleware.AuthCheck, MaterialController.materialTypeModifyPage);
+
 //物料新建页面
 router.get('/materialManage/material/create', Middleware.AuthCheck, MaterialController.materialCreatePage);
+
+// 新建物料
+router.post('/materialManage/material/doCreate', Middleware.AuthCheck, MaterialController.doCreate);
+
 //物料修改页面
 router.get('/materialManage/material/modify', Middleware.AuthCheck, MaterialController.materialModifyPage);
 
