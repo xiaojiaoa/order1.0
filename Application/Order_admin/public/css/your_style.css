@@ -71,7 +71,7 @@ nav ul span.menu-item-parent {
 }
 
 .mark-row {
-    background: #fdcc9c;
+    background: #fdcc9c !important;
 }
 
 .flatpickr-input[readonly] {

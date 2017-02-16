@@ -1,22 +1,23 @@
-<form class="form-horizontal  layer-template" method="post" id="check_pass" action="" >
+<form class="form-horizontal  layer-template" method="post" id="check_pass" action="/orders/doPass" >
 
     <div class="col-xs-12">
         <div class="form-group">
             <label class="col-xs-2 control-label"><span class="requird"></span>审核总价:</label>
             <div class="col-xs-6">
-                <input class="form-control validate[required]" type="text"  value="" name="price" data-prompt-position="bottomLeft:20,5">
+                <input class="form-control validate[required]"  value="" name="money" data-prompt-position="bottomLeft:20,5">
             </div>
             <div class="col-xs-4 tight-left">
                 <a class="btn-primary btn-sm btn">&nbsp;计算&nbsp;</a>
             </div>
         </div>
     </div>
+    <input value="<%= tid %>" name="tid" type="hidden">
     <div class="col-xs-12">
 
         <div class="form-group">
             <label class="col-xs-2 control-label">零售总价:</label>
             <div class="col-xs-6">
-                <input class="form-control" type="text"  value="" name="price" readonly>
+                <input class="form-control"  value="" name="" readonly>
             </div>
 
         </div>
@@ -77,283 +78,7 @@
 
 
 
-<!--订单详情---订单物料-弹出样式-->
-<form class="form-horizontal  layer-template" method="post" id="orderItemCon" action="" >
-    <div class="col-xs-12">
-        <div class="form-group">
-            <div class="col-xs-12">
-                <div class="col-xs-12">
-                    <h3 class="text-align-center">订单物料</h3>
-                    <hr class="simple">
-                </div>
-                <div class="orderItemLayerTit">
-                    <ul class="orderItemMenu">
-                        <li>标准件</li>
-                        <li>非标件</li>
-                        <li>配件</li>
-                        <li>门板</li>
-                        <li>柜体型号</li>
-                        <li>成品</li>
-                        <div class="dwy-clear "></div>
-                    </ul>
-                </div>
-                <div class="orderItemLayerTable">
-                    <table class="table table-bordered">
-                        <thead>
-                        <tr>
-                            <th>图纸号</th>
-                            <th>序号</th>
-                            <th>编号</th>
-                            <th>名称</th>
-                            <th>产品编号</th>
-                            <th>颜色</th>
-                            <th>长</th>
-                            <th>宽</th>
-                            <th>高</th>
-                            <th>数量</th>
-                            <th>备注</th>
-                            <th>系统价</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <tr>
-                            <td></td>
-                            <td>1</td>
-                            <td></td>
-                            <td>上轨</td>
-                            <td></td>
-                            <td>象牙白</td>
-                            <td>111.00</td>
-                            <td>111.00</td>
-                            <td>111.00</td>
-                            <td>12</td>
-                            <td></td>
-                            <td>123456.00</td>
-                        </tr>
-                        <tr>
-                            <td>合计</td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td>111.00</td>
-                            <td>111.00</td>
-                            <td>111.00</td>
-                            <td></td>
-                            <td></td>
-                            <td>123456.00</td>
-                        </tr>
-                        </tbody>
-                    </table>
-                    <table class="table table-bordered" style="display:none">
-                        <thead>
-                        <tr>
-                            <th>图纸号</th>
-                            <th>序号</th>
-                            <th>产品</th>
-                            <th>编号</th>
-                            <th>名称</th>
-                            <th>数量</th>
-                            <th>长</th>
-                            <th>宽</th>
-                            <th>高</th>
-                            <th>颜色</th>
-                            <th>纹理</th>
-                            <th>封边</th>
-                            <th>拉手/扣手</th>
-                            <th>工艺信息</th>
-                            <th>单包设置</th>
-                            <th>备注</th>
-                            <th>系统价</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <tr>
-                            <td></td>
-                            <td>1</td>
-                            <td>开料表</td>
-                            <td></td>
-                            <td>上轨</td>
-                            <td>1</td>
-                            <td>111.00</td>
-                            <td>111.00</td>
-                            <td>111.00</td>
-                            <td>象牙白</td>
-                            <td>无纹理</td>
-                            <td></td>
-                            <td></td>
-                            <td>无</td>
-                            <td></td>
-                            <td></td>
-                            <td>123456.00</td>
-                        </tr>
-                        </tbody>
-                    </table>
-                    <table class="table table-bordered" style="display:none">
-                        <thead>
-                        <tr>
-                            <th>图纸号</th>
-                            <th>序号</th>
-                            <th>产品</th>
-                            <th>编号</th>
-                            <th>品名</th>
-                            <th>规格</th>
-                            <th>单位</th>
-                            <th>宽</th>
-                            <th>深</th>
-                            <th>高</th>
-                            <th>数量</th>
-                            <th>备注</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <tr>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                        </tr>
-                        </tbody>
-                    </table>
-                    <table class="table table-bordered" style="display:none">
-                        <thead>
-                        <tr>
-                            <th>编号</th>
-                            <th>产品编号</th>
-                            <th>名称</th>
-                            <th>宽</th>
-                            <th>长</th>
-                            <th>厚</th>
-                            <th>面积</th>
-                            <th>数量</th>
-                            <th>颜色</th>
-                            <th>纹路</th>
-                            <th>备注</th>
-                            <th>门型编号</th>
-                            <th>封边颜色</th>
-                            <th>玻璃</th>
-                            <th>模压编号</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <tr>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                        </tr>
-                        </tbody>
-                    </table>
-                    <table class="table table-bordered" style="display:none">
-                        <thead>
-                        <tr>
-                            <th>产品编号</th>
-                            <th>名称</th>
-                            <th>宽</th>
-                            <th>深</th>
-                            <th>高</th>
-                            <th>备注</th>
-                            <th>数量</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <tr>
-                            <td>开料表</td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                        </tr>
-                        </tbody>
-                    </table>
-                    <table class="table table-bordered" style="display:none">
-                        <thead>
-                        <tr>
-                            <th>图纸号</th>
-                            <th>序号</th>
-                            <th>产品</th>
-                            <th>名称</th>
-                            <th>数量</th>
-                            <th>长</th>
-                            <th>宽</th>
-                            <th>高</th>
-                            <th>材料</th>
-                            <th>纹理</th>
-                            <th>封边</th>
-                            <th>开槽</th>
-                            <th>拉手/扣手</th>
-                            <th>单包设置</th>
-                            <th>备注</th>
-                            <th>系统价</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <tr>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                        </tr>
-                        </tbody>
-                    </table>
-                </div>
-                <div class="col-xs-12">
-                    <hr class="simple">
-                    <div class="col-xs-12 orderItemButton text-center">
-                            <button class="btn btn-primary" type="submit">
-                                保存
-                            </button>
-                            <button class="btn btn-primary-other" type="submit">
-                                导出
-                            </button>
-                            <button class="btn btn-primary-other">
-                                取消
-                            </button>
-                            <div class="dwy-clear"></div>
-                    </div>
-                </div>
-            </div>
 
-        </div>
-
-    </div>
-
-    <div class="dwy-clear"></div>
-</form>
 <script type="text/javascript">
 
     $(document).ready(function () {
@@ -375,10 +100,7 @@
                 });
             }
         })
-        $(".orderItemMenu li").click(function(){
-            $(this).addClass("selected").siblings().removeClass("selected");
-            $(".orderItemLayerTable table").eq($(this).index()).show().siblings().hide();
-        })
+
     })
 
 </script>
