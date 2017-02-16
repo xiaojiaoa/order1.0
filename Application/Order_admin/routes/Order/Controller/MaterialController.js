@@ -26,6 +26,21 @@ var MaterialController = {
     summaryPage: function (req, res) {
         res.render('order/material/material_summary');
     },
+    materialTypePage: function (req, res) {
+        res.render('order/material/material_type');
+    },
+    materialTypeCreatePage: function (req, res) {
+        res.render('order/material/material_type_create');
+    },
+    materialTypeModifyPage: function (req, res) {
+        res.render('order/material/material_type_modify');
+    },
+    materialCreatePage: function (req, res) {
+        res.render('order/material/material_create');
+    },
+    materialModifyPage: function (req, res) {
+        res.render('order/material/material_modify');
+    },
 };
 
 module.exports = MaterialController;
