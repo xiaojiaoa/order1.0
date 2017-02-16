@@ -460,5 +460,5 @@ router.get('/supplier/create', Middleware.AuthCheck,supplierController.supplierC
 //供应商分类
 router.get('/supplier/sort_create', Middleware.AuthCheck,supplierController.supplierSortCreatPage);
 
-
+  
 module.exports = router;

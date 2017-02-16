@@ -13,7 +13,7 @@
         <!-- breadcrumb -->
         <ol class="breadcrumb">
             <li>后台管理</li>
-            <li>供应商详情</li>
+            <li>供应商分类</li>
         </ol>
         <!-- end breadcrumb -->
     </div>
@@ -101,11 +101,8 @@
                                         <i class="fa fa-search"></i>
                                         搜索
                                     </button>
-                                    <a class="btn btn-primary margin-right-5" href="/supplier/sort">
-                                        供应商分类
-                                    </a>
-                                    <a class="btn btn-primary margin-right-5" href="/supplier/create">
-                                        添加供应商
+                                    <a class="btn btn-primary margin-right-5" href="/supplier/sort_create">
+                                        添加分类
                                     </a>
                                 </div>
                             </div>
@@ -116,60 +113,46 @@
                 <!-- end col -->
             </div>
             <!-- end row -->
+            <!--start row-->
         </div>
-        <!-- end well -->
         <div class="well">
-            <!-- row -->
-            <div class="row">
-                <div class="col-xs-12">
-                    <h6>供应商列表</h6>
-                    <hr class="simple">
-                </div>
-            </div>
-            <!-- row -->
             <div class="row">
                 <div class="col-xs-12">
                     <div class="table-responsive">
-                        <table class="table table-bordered table-striped">
+                        <table class="table table-bordered table-striped table-expand">
                             <thead>
                             <tr>
-                                <th>序号</th>
-                                <th>客户号</th>
-                                <th>客户姓名</th>
-                                <th>流水号</th>
-                                <th>订单号</th>
-                                <th>品牌</th>
-                                <th>产品类型</th>
-                                <th>空间类型</th>
-                                <th>产品信息</th>
-                                <th>订单当前所属柜员（门店号/部门号）</th>
-                                <th>预计发货</th>
-                                <th>订单状态</th>
-                                <th>货位号</th>
+                                <th width="300">供应商</th>
+                                <th>操作</th>
                             </tr>
                             </thead>
                             <tbody>
-                            <tr class="">
-                                <td>1</td>
-                                <td>123456</td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <th></th>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <th>2333</th>
+                            <tr class="level-0">
+                                <td>供应商1</td>
+                                <td>
+                                    <a class="departmentChild-modal" parent="" parentId="" href="/supplier/sort_create">新建子级</a>
+                                    <a class="departmentModify-modal" name="" selfId="">修改</a>
+                                    <a class="delete-department" selfId="">删除</a>
+                                </td>
+                            </tr>
+                            <tr class="level-1">
+                                <td class="level-1-title">子级</td>
+                                <td>
+                                    <a href="">查看分类</a>
+                                    <a class="departmentModify-modal" name=""  selfId="">修改</a>
+                                    <a class="delete-department"  selfId="">删除</a>
+                                </td>
                             </tr>
                             </tbody>
                         </table>
+
                     </div>
                 </div>
             </div>
+            <!--end row-->
         </div>
+        <!-- end well -->
+
     </div>
 </div>
 
