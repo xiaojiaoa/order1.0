@@ -421,7 +421,20 @@ router.get('/cascade/*', TemplateController.getData);
 
 
 
+/*
+ * 页面范围: 供应商相关
+ * 控制器:   supplierController
+ * */
+var supplierController = require('./Controller/supplierController');
 
+// 供应商详情
+router.get('/supplier', Middleware.AuthCheck,supplierController.supplierPage);
+//供应商分类
+router.get('/supplier/sort', Middleware.AuthCheck,supplierController.supplierSortPage);
+//供应商分类
+router.get('/supplier/create', Middleware.AuthCheck,supplierController.supplierCreatPage);
+//供应商分类
+router.get('/supplier/sort_create', Middleware.AuthCheck,supplierController.supplierSortCreatPage);
 
 
 module.exports = router;
