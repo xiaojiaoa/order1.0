@@ -25,12 +25,16 @@
 
 
         <!-- well -->
-        <div class="well dwy-show-well">
+        <div class="well">
             <!-- row -->
             <div class="row">
                 <!-- col -->
                 <div class="col-xs-12 dwy-show-content">
-                    <legend>基本信息</legend>
+                    <legend>基本信息
+                        <% if( orderInfo.stcode == 250 ){ %>
+                        <a class="label label-primary" id="modifyInfo-modal">修改</a>
+                        <% } %>
+                    </legend>
                     <!-- row -->
                     <div class="table-responsive">
                         <table class="table table-bordered table-striped table-information">
@@ -65,7 +69,7 @@
                             </tr>
                             <tr>
                                 <td>客户编号</td>
-                                <td><a href="/customer/detail<%= orderInfo.cid %>"><%= orderInfo.cid %></a></td>
+                                <td><a href="/customer/detail/<%= orderInfo.cid %>"><%= orderInfo.cid %></a></td>
                                 <td>客户姓名</td>
                                 <td><%= orderInfo.name %></td>
                             </tr>
@@ -93,23 +97,26 @@
                             <tr>
                                 <td>难度等级</td>
                                 <td>
-                                    <div><%= orderInfo.difficulty %></div>
-
-                                    <div style="display: none">
-                                        <hr class="simple">
-                                        订单信息（难度、许可）时显示此区域
-                                        <form class="form-horizontal" method="post" action="">
-                                            <div class="col-xs-4">
-                                                <select class="form-control" name="type">
-                                                    <option value="">- 未定 -</option>
-                                                    <option value="1">一级</option>
-                                                </select>
-                                            </div>
-                                            <div class="col-xs-2">
-                                                <button class="btn btn-primary " type="submit">确定</button>
-                                            </div>
-                                        </form>
-                                    </div>
+                                    <% if(orderInfo.stcode == 110){ %>
+                                    <form class="form-horizontal" method="post" action="/orders/updateDifficultyLevel">
+                                        <div class="col-xs-4">
+                                            <select class="form-control" name="difficulty">
+                                                <option value="">- 未定 -</option>
+                                                <% difficultyList.forEach(function (element) { %>
+                                                    <option value="<%= element.id %>" <%= orderInfo.difficulty == element.id ? 'selected': '' %>>
+                                                        <%= element.name %>
+                                                    </option>
+                                                <% }) %>
+                                            </select>
+                                            <input value="<%= tid %>" name="tids" type="hidden">
+                                        </div>
+                                        <div class="col-xs-2">
+                                            <button class="btn btn-primary ">确定</button>
+                                        </div>
+                                    </form>
+                                    <% }else{
+                                        DWY_Helper.getAssistVal(orderInfo.difficulty,difficultyList)
+                                    } %>
                                 </td>
                                 <td>零售价</td>
                                 <td>(静态数据)0.00元</td>
@@ -186,7 +193,7 @@
                                     <%
                                     var orderList = "";
                                     orderInfo.orders.forEach(function (orderElement) { %>
-                                    <a href="/order/detail/<%= orderElement %>"><%= orderElement %></a>
+                                    <a class="order-number" href="/order/detail/<%= orderElement %>"><%= orderElement %></a>
                                     <% }) %>
                                 </td>
                             </tr>
@@ -195,7 +202,7 @@
                                 <td colspan="3">
                                     <%
                                     orderInfo.resupplys.forEach(function (element) { %>
-                                    <a href="/order/resupply/detail/<%= element.tid %>/<%= element.resId %>"><%= element.resId %></a>
+                                    <a class="order-number" href="/order/resupply/detail/<%= element.tid %>/<%= element.resId %>"><%= element.resId %></a>
                                     <% }) %>
                                 </td>
                             </tr>
@@ -218,7 +225,10 @@
                     <legend>相关文件
                         <!--<a class="label label-primary" href="/file/create/<%= orderInfo.lid %>/<%= orderInfo.stcode %>">文件管理</a>-->
                         <a class="label label-primary" href="/file/order/create/<%= orderInfo.lid %>/1/<%= tid %>">文件管理</a>
+                        <% if( orderInfo.stcode != 250&& orderInfo.stcode != 110&& orderInfo.stcode != 220&& orderInfo.stcode != 280 ){ %>
                         <button class="label label-primary" id="orderItem">订单物料</button>
+                        <% } %>
+
                     </legend>
 
                     <div class="table-responsive">
@@ -266,8 +276,7 @@
                 <div class="col-xs-12 dwy-show-content">
                     <legend>状态信息 (订单状态:<%= orderInfo.stcode %><%= DWY_Helper.getAssistVal(orderInfo.stcode, stcodeInfo) %> )
                         <% if( (orderInfo.stcode == 250) || (orderInfo.stcode == 450) ){ %>
-                        <!--审核中-->
-                        <a class="label label-primary">解锁</a>
+                        <a class="label label-primary" id="doUnlock">解锁</a>
                         <% } %>
                     </legend>
                     <!-- row -->
@@ -276,11 +285,8 @@
                             <tbody>
                             <tr>
                                 <td>许可状态</td>
-                                <td colspan="3">审核未加急 拆单不许可 排产未定</td>
-                            </tr>
-                            <tr style="display: none">
-                                <td>许可状态： 订单信息（难度、许可）时显示此区行</td>
                                 <td colspan="3">
+                                    <% if(orderInfo.stcode == 110){ %>
                                     <form class="form-horizontal" method="post" action="">
                                         <div class="col-xs-3">
                                             <select class="form-control" name="type">
@@ -309,11 +315,16 @@
                                             <a class="btn btn-primary " id="">标记待审核</a>
                                         </div>
                                     </form>
+                                    <% }else{
+                                        '审核未加急 拆单不许可 排产未定'
+                                    } %>
+
                                 </td>
                             </tr>
 
+
                             <tr>
-                                <td>审核时间</td>
+                                <td width="200">审核时间</td>
 
                                 <% switch(orderInfo.stcode){
                                     case 250:  %>
@@ -329,11 +340,11 @@
                                 </td>
                                 <%         break;
                                     default: %>
-                                        <td>2016-02-02</td>
+                                        <td></td>
                                 <%  } %>
 
 
-                                <td>审核人</td>
+                                <td  width="200">审核人</td>
                                 <td></td>
                             </tr>
 
@@ -341,7 +352,7 @@
                                 <td>收款确认</td>
                                 <td></td>
                                 <td>确认人</td>
-                                <td>张三</td>
+                                <td></td>
                             </tr>
                             <tr>
                                 <td>拆单时间</td>
@@ -355,7 +366,7 @@
                                 <%         break;
 
                                     default: %>
-                                <td>2016-02-02</td>
+                                <td></td>
                                 <%  } %>
 
                                 <td>拆单人</td>
@@ -387,7 +398,7 @@
                                 </td>
                                 <%         break;
                                     default: %>
-                                <td>2016-02-02</td>
+                                <td></td>
                                 <%  } %>
 
                                 <td>审核人</td>
@@ -428,7 +439,7 @@
                                 <td>开始安装时间</td>
                                 <td></td>
                                 <td>结束安装时间</td>
-                                <td>2016-10-10 10：10：10</td>
+                                <td></td>
                             </tr>
                             <tr>
                                 <td>安装人</td>
@@ -561,17 +572,28 @@
 
         $("#submitOrder").click(function () {
             layer.confirm('确认标记为审核中?', {icon: 3, title: '提示'}, function (index) {
-//                $.ajax({
-//                    url: '/order/doSubmit/'+tid,
-//                    method: 'post',
-//                    success: function (data) {
-//                        window.location.reload();
-//                    }
-//                });
-            }, function (index) {
-                layer.close(index)
-            })
+                $.ajax({
+                    url: '/orders/getTask/<%= tid %>',
+                    method: 'post',
+                    success: function (data) {
+                        location.href='/order/check/getOrder'
+                    }
+                });
+            }, function (index) { layer.close(index) })
         })
+
+        $("#doUnlock").click(function () {
+            layer.confirm('确认解锁该订单?', {icon: 3, title: '提示'}, function (index) {
+                $.ajax({
+                    url: '/orders/unlock/<%= tid %>',
+                    method: 'post',
+                    success: function (data) {
+                        location.href='/order/check/waitOrder'
+                    }
+                });
+            }, function (index) { layer.close(index) })
+        })
+
         $("#doTearPass").click(function () {
             layer.confirm('确定拆单完毕吗？', {icon: 3, title: '提示'}, function (index) {
                 layer.close(index)
@@ -586,20 +608,7 @@
                 layer.close(index)
             })
         })
-        $('#orderItem').on({
-            click: function (e) {
-                layer.open({
-                    title: false,
-                    type: 1,
-                    area: '1200px',
-                    content: $('#orderItemCon'),
-                    cancel: function () {
-                        //右上角关闭回调
-                    },
 
-                });
-            }
-        })
 
 
     })
@@ -608,4 +617,9 @@
 <%- include('../layouts/foot'); %>
 <%- include('./check_pass'); %>
 <%- include('./order_reject'); %>
+<%- include('./materiel_modal'); %>
+<% if( orderInfo.stcode == 250 ){ %>
+    <%- include('./check_modifyInfo'); %>
+<% } %>
+
 

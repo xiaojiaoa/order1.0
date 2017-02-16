@@ -1,0 +1,210 @@
+<form class="form-horizontal  layer-template padding-10" method="post" id="modifyOrderInfo" action="" >
+    <legend>专卖店信息</legend>
+    <div class="col-xs-12">
+        <div class="col-xs-6">
+            <div class="form-group">
+                <label class="col-xs-4 control-label">专卖店编号:</label>
+                <div class="col-xs-8">
+                    <input class="form-control"  value="" name="" readonly>
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-6">
+            <div class="form-group">
+                <label class="col-xs-4 control-label">专卖店名:</label>
+                <div class="col-xs-8">
+                    <input class="form-control"  value="" name="" readonly>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-xs-12">
+        <div class="col-xs-6">
+            <div class="form-group">
+                <label class="col-xs-4 control-label">收货人:</label>
+                <div class="col-xs-8">
+                    <input class="form-control"  value="" name="" readonly>
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-6">
+            <div class="form-group">
+                <label class="col-xs-4 control-label">联系电话:</label>
+                <div class="col-xs-8">
+                    <input class="form-control"  value="" name="" readonly>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-xs-12">
+
+        <div class="col-xs-12">
+            <div class="form-group">
+                <label class="col-xs-2 control-label">收货地址:</label>
+                <div class="col-xs-10">
+                    <input class="form-control"  value="" name="" readonly>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <legend>其他信息</legend>
+
+    <input value="<%= tid %>" name="tid" type="hidden">
+
+    <div class="col-xs-12">
+        <div class="col-xs-6">
+            <div class="form-group">
+                <label class="col-xs-4 control-label">客户姓名:</label>
+                <div class="col-xs-8">
+                    <input class="form-control"  value="" name="" readonly>
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-6">
+            <div class="form-group">
+                <label class="col-xs-4 control-label">客户电话:</label>
+                <div class="col-xs-8">
+                    <input class="form-control"  value="" name="" readonly>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-xs-12">
+        <div class="col-xs-12">
+            <div class="form-group">
+                <label class="col-xs-2 control-label"><span class="requird"></span> 产品信息:</label>
+                <div class="col-xs-4">
+                    <input class="form-control validate[required]"  value="" name="" >
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <div class="col-xs-12">
+        <div class="col-xs-12">
+            <div class="form-group">
+                <label class="col-xs-2 control-label"><span class="requird"></span> 客户地址:</label>
+                <div class="col-xs-10">
+                    <input class="form-control validate[required]"  value="" name="" >
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <div class="col-xs-12">
+        <div class="col-xs-6">
+            <div class="form-group">
+                <label class="col-xs-4 control-label"><span class="requird"></span> 零售价:</label>
+                <div class="col-xs-8">
+                    <input class="form-control validate[required]"  value="" name="" >
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-6">
+            <div class="form-group">
+                <label class="col-xs-4 control-label"><span class="requird"></span> 加盟价:</label>
+                <div class="col-xs-8">
+                    <input class="form-control validate[required]"  value="" name="" >
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-xs-12">
+        <div class="col-xs-6">
+            <div class="form-group">
+                <label class="col-xs-4 control-label"><span class="requird"></span> 空间/产品:</label>
+                <div class="col-xs-4">
+                    <input class="form-control" value="主卧（公寓）" readonly>
+                </div>
+                <div class="col-xs-4">
+                    <select class="form-control validate[required]" name="">
+                        <option>- 请选择 -</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-6">
+            <div class="form-group">
+                <label class="col-xs-4 control-label"><span class="requird"></span> 主材颜色:</label>
+                <div class="col-xs-8">
+                    <select class="form-control validate[required]" name="">
+                        <option>- 请选择 -</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-xs-12">
+        <div class="col-xs-6">
+            <div class="form-group">
+                <label class="col-xs-4 control-label"><span class="requird"></span> 约定交付日期:</label>
+                <div class="col-xs-8">
+                    <input class="form-control"  value="2016-10-10" name="" readonly>
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-6">
+            <div class="form-group">
+                <label class="col-xs-12 control-label text-align-left">设计文件请到附件管理中上传</label>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="col-xs-12">
+
+        <div class="form-group">
+            <label class="col-xs-2 control-label">备注:</label>
+            <div class="col-xs-8">
+                <textarea name="remark" class="form-control"
+                          placeholder="请填写备注"  cols="30" rows="5"></textarea>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="col-xs-12">
+        <hr class="simple">
+        <div class="col-xs-12 text-center">
+            <button class="btn btn-primary " type="submit">
+                <i class="fa fa-save"></i>
+                确认修改
+            </button>
+        </div>
+    </div>
+    <div class="dwy-clear"></div>
+</form>
+
+
+
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+
+        $("#modifyOrderInfo").validationEngine();
+
+        //弹出类
+        $('#modifyInfo-modal').on({
+            click: function (e) {
+                layer.open({
+                    title: false,
+                    type: 1,
+                    area: '1000px',
+                    content: $('#modifyOrderInfo'),
+                    cancel: function () {
+                        //右上角关闭回调
+                    },
+
+                });
+            }
+        })
+
+    })
+
+</script>

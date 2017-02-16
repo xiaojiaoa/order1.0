@@ -92,12 +92,12 @@
                                     } %>
                                 </td>
                                 <td>所属部门</td>
-                                <td><%= employeesInfo.storeDepartment ? employeesInfo.storeDepartment.name : '' %></td>
+                                <td><%= employeesInfo.department.name %></td>
                             </tr>
                             <tr>
                                 <td>角色</td>
                                 <td colspan="3">
-                                    <% employeesInfo.role.forEach(function (element, index) { %>
+                                    <% employeesInfo.role.forEach(function (element) { %>
                                     <span class="margin-right-5"><%= element.name %></span>
                                     <% }) %>
                                 </td>
@@ -164,7 +164,7 @@
                             <% if(type == 'stores'){ %>
                             <a class="btn btn-primary ">
                                 <i class="fa fa-edit"></i>
-                                门店可否修改柜员信息未定
+                                门店可否修改柜员信息未定？？？
                             </a>
                             <%  }else{ %>
                             <a class="btn btn-primary "

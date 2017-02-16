@@ -191,10 +191,11 @@ var EmployeeController = {
         var cid = req.params.cid;
         var type = req.params.type;
         var bidtype = req.params.bidtype;
+        var apiUrl = (type == 'stores')? '/api/stores/employees/stcode/' : '/api/employees/stcode/' ;
         // console.log('cid'+cid+'--type'+type)
         request(Base.mergeRequestOptions({
             method: 'put',
-            url: '/api/stores/employees/stcode/'+cid+'?stcode='+type,
+            url: apiUrl+cid+'?stcode='+type,
         }, req, res), function (error, response, body) {
             if (!error && response.statusCode == 201) {
                 res.sendStatus(200);
