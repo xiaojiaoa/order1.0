@@ -42,7 +42,7 @@ var MaterialController = {
         res.render('order/material/material_modify');
     },
     doCreate: function (req, res) {
-        console.log('物料创建'+ JSON.stringify(req.body))
+        console.log('物料创建'+ JSON.stringify(req.body));
     },
 };
 
