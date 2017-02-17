@@ -471,6 +471,8 @@ var NetworkBookController = require('./Controller/NetworkBookController');
 // 流水详情
 router.get('/networkBook', Middleware.AuthCheck, NetworkBookController.indexPage);
 
+// 分配门店创建量尺任务
+router.post('/networkBook/doMeasure', Middleware.AuthCheck, NetworkBookController.doMeasure);
 
 
 

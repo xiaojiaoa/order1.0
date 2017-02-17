@@ -26,8 +26,6 @@
     <div id="content">
 
 
-
-
         <!-- well -->
         <div class="well">
 
@@ -38,7 +36,6 @@
                     <hr class="simple">
                 </div>
             </div>
-<%= JSON.stringify(measureList)%>
             <!-- row -->
             <div class="row">
                 <div class="col-xs-12">
@@ -52,50 +49,28 @@
                                 <th>客户手机号</th>
                                 <th>所在地址(行政区域编码)</th>
                                 <th>操作</th>
-                                                          </tr>
+                            </tr>
                             </thead>
                             <tbody>
-
-                            <tr class=" ">
-                                <td>1</td>
-                                <td>10000076</td>
-                                <td>连城璧</td>
-                                <td>88</td>
-
-                                <td>萧山</td>
-                                <td>   <a class="btn btn-primary choiceShop">分配店铺</a></td>
-                            </tr>
-
-                            <tr class=" ">
-                                <td>1</td>
-                                <td>10000076</td>
-                                <td>连城璧</td>
-                                <td>花湖</td>
-
-                                <td>999</td>
-                                <td>   <a class="btn btn-primary choiceShop">分配店铺</a></td>
-                            </tr>
-
-                            <tr class=" ">
-                                <td>1</td>
-                                <td>10000076</td>
-                                <td>连城璧</td>
-                                <td>789</td>
-
-                                <td>萧山</td>
-                                <td>   <a class="btn btn-primary choiceShop">分配店铺</a></td>
-                            </tr>
-
-
-
-
-
-
-
+                                    <% measureList.forEach(function (element, index) { %>
+                                    <tr>
+                                        <td><%= index+1 %></td>
+                                        <td><%= element.id %></td>
+                                        <td><%= element.custName %></td>
+                                        <td><%= element.custMobile %></td>
+                                        <td><%= element.address %></td>
+                                        <td><a class="btn btn-primary choiceShop"
+                                               data-id="<%= element.id %>"
+                                               data-province="<%= element.province %>"
+                                               data-city="<%= element.city %>"
+                                               data-address="<%= element.address %>"
+                                            >分配店铺</a></td>
+                                    </tr>
+                                    <% }) %>
 
                             </tbody>
                         </table>
-                        <div><ul class="pagination"></ul></div>
+
 
                     </div>
                 </div>
@@ -112,48 +87,187 @@
 
 <%- include('../layouts/footer'); %>
 <%- include('../layouts/footer_common_script'); %>
+<link rel="stylesheet" href="/css/SearchControl_min.css"/>
+<script type="text/javascript" src="http://api.map.baidu.com/api?v=1.4"></script>
+<script src="/js/SearchControl.js"></script>
 
+<div id="modal-map" class="modal-content" style="display: none;">
+    <div class="modal-body">
+        <div class="row">
+            <div class="col-xs-8">
+                <div id="map_container"></div>
+            </div>
+            <div class="col-xs-4">
+
+                <div class="col-xs-12 margin-bottom-10">
+                    <div class="form-group">
+                        <label class="col-xs-3 control-label">地区选择:</label>
+                        <div class="col-xs-8 no-padding">
+                            <div class="col-xs-6">
+                                <select id='BMapLib_provinces' class="form-control">
+                                    <option type="0" value="0">- 全国 -</option>
+                                </select>
+                            </div>
+                            <div class="col-xs-6">
+                                <select id='BMapLib_city' class="form-control">
+                                    <option type="0" value="0">- 全国 -</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-xs-12 margin-bottom-10">
+                    <div class="form-group">
+                        <label class="col-xs-3 control-label">详细地址:</label>
+                        <div class="col-xs-8">
+                            <div class="input-group">
+                                <input data-widget="quickdelete" id="BMapLib_PoiSearch" class="form-control"
+                                       type="search" placeholder="请输入地址"/>
+                                <span class="input-group-addon btn btn-primary" id="BMapLib_sc_b0">搜索</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="BMapLib_tipBox" class="BMapLib_tipBox">
+                    <div></div>
+                </div>
+
+                <div class="col-xs-12 BMapLib_resultArea margin-top-10" id="BMapLib_resultArea">
+                    <p><label class="col-xs-3 control-label">查询城市:</label><span id="BMapLib_cityTab">北京市</span>
+                    </p>
+                    <p><label class="col-xs-3 control-label">查询楼盘:</label><span
+                                id="search_address">&nbsp;</span></p>
+                    <p><label class="col-xs-3 control-label">查询经纬度:</label><span id="longLatitude">&nbsp;</span>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-primary" id="save">保存</button>
+    </div>
+</div>
 <!--选择店铺列表-->
-<form class="form-horizontal  layer-template" method="post" id="layer-form" action=""
+<form class="form-horizontal  layer-template" method="post" id="layer-form" action="/networkBook/doMeasure"
       style="display: none;">
 
-    <div class="row">
+    <div class="row" style="padding: 30px 40px 0 0;">
         <div class="col-xs-12">
+            <div class="col-xs-6">
                 <div class="form-group">
-                    <label class="col-xs-3 control-label">
-                    </label>
+                    <label class="col-xs-4 control-label"><span class="requird"></span> 客户名:</label>
+                    <div class="col-xs-8">
+                        <input class="form-control validate[required]"
+                               value="" name="custName">
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-6">
+                <div class="form-group">
+                    <label class="col-xs-4 control-label"><span class="requird"></span> 客户手机号:</label>
+                    <div class="col-xs-8">
+                        <input class="form-control validate[required]"
+                               value="" name="custMobile">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <input type="hidden" name="id" value="" id="ebisId">
+        <div class="col-xs-12">
+            <!--输入字段-->
+            <div class="col-xs-6">
+                <div class="form-group">
+                    <label class="col-xs-4 control-label"><span class="requird"></span> 楼盘名:</label>
+                    <div class="col-xs-8">
+                        <input class="form-control validate[required]" placeholder="楼盘名"
+                              value="" name="realEstate">
+                    </div>
+                </div>
+            </div>
+            <!--输入字段-->
+            <div class="col-xs-6">
+                <div class="form-group">
+                    <label class="col-xs-4 control-label"><span class="requird"></span> 楼盘坐标:</label>
                     <div class="col-xs-6">
-                        <select class="form-control validate[required]" name="arcType" id="arcType">
+                        <input class="form-control validate[required]" placeholder="楼盘坐标"
+                                value="" name="realEstateGps">
+                    </div>
+                    <div class="col-xs-2">
+                        <a class="btn btn-primary" id="mapModal">获取定位</a>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+        <div class="col-xs-12">
+            <div class="col-xs-6">
+                <div class="form-group">
+                    <label class="col-xs-4 control-label"><span class="requird"></span> 选择门店:</label>
+                    <div class="col-xs-8">
+                        <select class="form-control validate[required]" name="did">
                             <option value="">- 请选择店铺-</option>
-
-                            <option value="11">
-                                加盟店
-                            </option>
-
-                            <option value="10">
-                                自营店
-                            </option>
-
-
+                            <% storesList.forEach(function (element) {  %>
+                            <option value="<%= element.id %>"><%= element.storeName %></option>
+                            <%   }) %>
                         </select>
                     </div>
                 </div>
+            </div>
+            <div class="col-xs-6">
+                <div class="form-group">
+                    <label class="col-xs-4 control-label"><span class="requird"></span> 预约量尺时间:</label>
+                    <div class="col-xs-8">
+                        <input class="form-control fg-date-picker validate[required]" name="appointmentTime"
+                               value="">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-12">
+
+            <!--输入字段-->
+            <div class="col-xs-12">
+                <div class="form-group dwy-area">
+                    <label class="col-xs-2 control-label"><span class="requird"></span> 所在地址:</label>
+                    <div class="col-xs-10 no-padding">
+
+                        <div class="col-xs-3">
+                            <select class="form-control dwy-province validate[required]" name="province">
+                                <option value="">- 省 -</option>
+                            </select>
+                        </div>
+                        <div class="col-xs-3">
+                            <select class="form-control dwy-city validate[required]" name="city">
+                                <option value="">- 市 -</option>
+                            </select>
+                        </div>
+                        <div class="col-xs-3">
+                            <select class="form-control dwy-district validate[required]" name="address">
+                                <option value="">- 区 -</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
         </div>
     </div>
 
 
-  <div class="row">
-      <div class="col-xs-12">
-          <hr class="simple">
-          <div class="col-xs-12 text-center">
-              <button class="btn btn-primary  margin-right-5" type="submit">
-                  <i class="fa fa-save"></i>
-                  提交
-              </button>
-          </div>
-      </div>
-  </div>
+    <div class="row">
+        <div class="col-xs-12">
+            <hr class="simple">
+            <div class="col-xs-12 text-center">
+                <button class="btn btn-primary  margin-right-5" type="submit">
+                    <i class="fa fa-save"></i>
+                    提交
+                </button>
+            </div>
+        </div>
+    </div>
     <div class="dwy-clear"></div>
 </form>
 <!--END 选择店铺列表-->
@@ -161,11 +275,17 @@
 
     $(document).ready(function () {
 
-
+        $("#layer-form").validationEngine();
+        $(".fg-date-picker").flatpickr(data_time_picker.data_time_picker);
         pageSetUp();
         //弹出类
         $('.choiceShop').on({
             click: function (e) {
+                var ebisId = $(this).attr('data-id');
+                var province = $(this).attr('data-province');
+                var city = $(this).attr('data-city');
+                var address = $(this).attr('data-address');
+                $('#ebisId').val(ebisId)
                 layer.open({
                     title: '分配店铺',
                     type: 1,
@@ -174,20 +294,78 @@
                     cancel: function () {
                         //右上角关闭回调
                     },
-                    // 仅在需要自定义按钮时使用
-//                    btn: ['按钮一', '按钮二', '按钮三'],
-//                    yes: function (index, layero) {
-//                        //按钮【按钮一】的回调
-//                    },
-//                    btn2: function (index, layero) {
-//                        //按钮【按钮二】的回调
-//                    },
-//                    btn3: function (index, layero) {
-//                        //按钮【按钮三】的回调
-//                    }
+                });
+
+                DWY_area.init({
+                    defaultValue:[
+                        {
+                            name:'province',
+                            value: province,
+                            key:'province',
+                            linkcity:'city',
+                            linkdis:'address',
+                            cityId: city
+                        },
+                        {name:'city', value: city, key:'city',linkdis:'address',disId: address},
+                        {name:'address', value: address, key:'district'},
+
+                    ]
+                });
+
+            }
+        });
+
+//        DWY_area.init({
+//            defaultValue:[
+//                {
+//                    name:'province',
+//                    value: 430000,
+//                    key:'province',
+//                    linkcity:'city',
+//                    linkdis:'address',
+//                    cityId: 430100
+//                },
+//                {name:'city', value: 430100, key:'city',linkdis:'address',disId: 430102},
+//                {name:'address', value: 430102, key:'district'},
+//
+//            ]
+//        });
+
+
+
+        $('#mapModal').on({
+            click: function (e) {
+                layer.open({
+                    title: '定位',
+                    type: 1,
+                    area: '1200px',
+                    content: $('#modal-map'),
+                    cancel: function () {
+                        //右上角关闭回调
+                    },
                 });
             }
         });
+
+        $("#save").click(function () {
+            $("input[name=realEstate ]").val($("#search_address").text());
+            $("input[name=realEstateGps ]").val($("#longLatitude").text());
+            layer.close(2)
+        })
+
+        // 创建地图对象并初始化
+        var baiduMap = new BMap.Map("map_container");
+        var point = new BMap.Point(116.404, 39.915);
+        baiduMap.centerAndZoom(point, 14);
+
+        //创建检索控件
+        var searchControl = new BMapLib.SearchControl({
+            map: baiduMap, //关联地图对象
+            type: 'LOCAL_SEARCH'  //检索类型
+        });
+
+
+
     })
 
 </script>
