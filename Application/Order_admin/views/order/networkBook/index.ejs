@@ -44,7 +44,7 @@
                             <thead>
                             <tr>
                                 <th>序号</th>
-                                <th>客户号</th>
+                                <!--<th>客户号</th>-->
                                 <th>客户姓名</th>
                                 <th>客户手机号</th>
                                 <th>所在地址(行政区域编码)</th>
@@ -52,21 +52,20 @@
                             </tr>
                             </thead>
                             <tbody>
-                                    <% measureList.forEach(function (element, index) { %>
-                                    <tr>
-                                        <td><%= index+1 %></td>
-                                        <td><%= element.id %></td>
-                                        <td><%= element.custName %></td>
-                                        <td><%= element.custMobile %></td>
-                                        <td><%= element.address %></td>
-                                        <td><a class="btn btn-primary choiceShop"
-                                               data-id="<%= element.id %>"
-                                               data-province="<%= element.province %>"
-                                               data-city="<%= element.city %>"
-                                               data-address="<%= element.address %>"
-                                            >分配店铺</a></td>
-                                    </tr>
-                                    <% }) %>
+                            <% measureList.forEach(function (element, index) { %>
+                            <tr>
+                                <td><%= index + 1 %></td>
+                                <td><%= element.custName %></td>
+                                <td><%= element.custMobile %></td>
+                                <td><%= element.address %></td>
+                                <td><a class="btn btn-primary choiceShop"
+                                       data-id="<%= element.id %>"
+                                       data-province="<%= element.province %>"
+                                       data-city="<%= element.city %>"
+                                       data-address="<%= element.address %>"
+                                    >分配店铺</a></td>
+                            </tr>
+                            <% }) %>
 
                             </tbody>
                         </table>
@@ -182,7 +181,7 @@
                     <label class="col-xs-4 control-label"><span class="requird"></span> 楼盘名:</label>
                     <div class="col-xs-8">
                         <input class="form-control validate[required]" placeholder="楼盘名"
-                              value="" name="realEstate">
+                               value="" name="realEstate">
                     </div>
                 </div>
             </div>
@@ -192,7 +191,7 @@
                     <label class="col-xs-4 control-label"><span class="requird"></span> 楼盘坐标:</label>
                     <div class="col-xs-6">
                         <input class="form-control validate[required]" placeholder="楼盘坐标"
-                                value="" name="realEstateGps">
+                               value="" name="realEstateGps">
                     </div>
                     <div class="col-xs-2">
                         <a class="btn btn-primary" id="mapModal">获取定位</a>
@@ -209,9 +208,9 @@
                     <div class="col-xs-8">
                         <select class="form-control validate[required]" name="did">
                             <option value="">- 请选择店铺-</option>
-                            <% storesList.forEach(function (element) {  %>
+                            <% storesList.forEach(function (element) { %>
                             <option value="<%= element.id %>"><%= element.storeName %></option>
-                            <%   }) %>
+                            <% }) %>
                         </select>
                     </div>
                 </div>
@@ -297,17 +296,17 @@
                 });
 
                 DWY_area.init({
-                    defaultValue:[
+                    defaultValue: [
                         {
-                            name:'province',
+                            name: 'province',
                             value: province,
-                            key:'province',
-                            linkcity:'city',
-                            linkdis:'address',
+                            key: 'province',
+                            linkcity: 'city',
+                            linkdis: 'address',
                             cityId: city
                         },
-                        {name:'city', value: city, key:'city',linkdis:'address',disId: address},
-                        {name:'address', value: address, key:'district'},
+                        {name: 'city', value: city, key: 'city', linkdis: 'address', disId: address},
+                        {name: 'address', value: address, key: 'district'},
 
                     ]
                 });
@@ -331,11 +330,10 @@
 //            ]
 //        });
 
-
-
+        var index;
         $('#mapModal').on({
             click: function (e) {
-                layer.open({
+                index =  layer.open({
                     title: '定位',
                     type: 1,
                     area: '1200px',
@@ -350,7 +348,8 @@
         $("#save").click(function () {
             $("input[name=realEstate ]").val($("#search_address").text());
             $("input[name=realEstateGps ]").val($("#longLatitude").text());
-            layer.close(2)
+            console.log(index)
+            layer.close(index)
         })
 
         // 创建地图对象并初始化
@@ -363,7 +362,6 @@
             map: baiduMap, //关联地图对象
             type: 'LOCAL_SEARCH'  //检索类型
         });
-
 
 
     })
