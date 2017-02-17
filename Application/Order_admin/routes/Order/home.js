@@ -386,6 +386,8 @@ var TaskseqController = require('./Controller/TaskseqController');
 router.get('/taskseq/index/:lid', Middleware.AuthCheck, TaskseqController.indexPage);
 
 
+
+
 /*
  * 页面范围: 文件上传相关
  * 控制器:   FileController
@@ -464,10 +466,12 @@ router.get('/supplier/sort_create', Middleware.AuthCheck,supplierController.supp
  * 页面范围: 网络预约相关
  * 控制器:   networkBookController
  * */
-var networkBookController = require('./Controller/networkBookController');
+var NetworkBookController = require('./Controller/NetworkBookController');
 
 // 流水详情
-router.get('/networkBook', Middleware.AuthCheck, networkBookController.indexPage);
+router.get('/networkBook', Middleware.AuthCheck, NetworkBookController.indexPage);
 
-  
+
+
+
 module.exports = router;
