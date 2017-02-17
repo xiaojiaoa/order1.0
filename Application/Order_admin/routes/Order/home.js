@@ -460,5 +460,14 @@ router.get('/supplier/create', Middleware.AuthCheck,supplierController.supplierC
 //供应商分类
 router.get('/supplier/sort_create', Middleware.AuthCheck,supplierController.supplierSortCreatPage);
 
+/*
+ * 页面范围: 网络预约相关
+ * 控制器:   networkBookController
+ * */
+var networkBookController = require('./Controller/networkBookController');
+
+// 流水详情
+router.get('/networkBook', Middleware.AuthCheck, networkBookController.indexPage);
+
   
 module.exports = router;
