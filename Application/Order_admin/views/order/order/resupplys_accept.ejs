@@ -29,7 +29,7 @@
             <!-- row -->
             <div class="row">
                 <div class="col-xs-12">
-                    <h3 class="text-align-center">张三受理中</h3>
+                    <h3 class="text-align-center"><%= user.name %>受理中</h3>
                     <hr class="simple">
                     <div class="table-responsive">
                         <table class="table table-bordered table-striped">
@@ -50,8 +50,8 @@
                                 <td><a href="/order/resupply/detail">11222</a></td>
                                 <td>二级</td>
                                 <td>浙江省杭州市湖滨银泰店</td>
-                                <td>张三</td>
-                                <td>张三</td>
+                                <td><%= user.name %></td>
+                                <td><%= user.name %></td>
                                 <td>2016-10-10</td>
                             </tr>
 
@@ -139,8 +139,8 @@
                             <td><a href="/order/resupply/detail">11222</a></td>
                             <td>二级</td>
                             <td>浙江省杭州市湖滨银泰店</td>
-                            <td>张三</td>
-                            <td>张三</td>
+                            <td><%= user.name %></td>
+                            <td><%= user.name %></td>
                             <td>2016-10-10</td>
                         </tr>
 

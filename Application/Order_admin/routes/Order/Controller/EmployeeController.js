@@ -83,7 +83,7 @@ var EmployeeController = {
         }, req, res), function (error, response, body) {
             if (!error && response.statusCode == 201) {
                 // var lid = JSON.parse(body).lid;
-                res.redirect("/employees");
+                res.redirect("/customers");
 
             } else {
                 Base.handlerError(res, req, error, response, body);

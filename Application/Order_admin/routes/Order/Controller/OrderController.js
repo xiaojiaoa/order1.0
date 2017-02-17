@@ -143,8 +143,8 @@ var OrderController = {
     acceptPage: function (req, res) {
         res.render('order/order/resupplys_accept');
     },
-    tearsPage: function (req, res) {
-        res.render('order/order/resupplys_tears');
+    apartPage: function (req, res) {
+        res.render('order/order/resupplys_apart');
     },
     resupplyDetailPage: function (req, res) {
         res.render('order/order/resupply_detail');
