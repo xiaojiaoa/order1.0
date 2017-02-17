@@ -337,3 +337,10 @@ tr > td > .separation:last-child {
     display: inline-block;
     margin: 0px 40px;
 }
+#step2{
+   /* display:none;*/
+}
+.strongStyle01 strong{
+    display: inline-block;
+    margin-left:15px;
+}

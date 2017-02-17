@@ -1,0 +1,196 @@
+<%- include('../layouts/head_top'); %>
+<%- include('../layouts/head_bottom'); %>
+<%- include('../layouts/header'); %>
+<%- include('../layouts/nav'); %>
+
+
+<!-- MAIN PANEL -->
+<div id="main" role="main">
+
+    <!-- RIBBON -->
+    <div id="ribbon">
+
+        <!-- breadcrumb -->
+        <ol class="breadcrumb">
+            <li>后台管理</li>
+            <li>网络预约</li>
+        </ol>
+        <!-- end breadcrumb -->
+
+
+    </div>
+    <!-- END RIBBON -->
+
+
+    <!-- MAIN CONTENT -->
+    <div id="content">
+
+
+
+
+        <!-- well -->
+        <div class="well">
+
+            <!-- row -->
+            <div class="row">
+                <div class="col-xs-12">
+                    <h6>预约列表</h6>
+                    <hr class="simple">
+                </div>
+            </div>
+
+            <!-- row -->
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-striped">
+                            <thead>
+                            <tr>
+                                <th>序号</th>
+                                <th>客户号</th>
+                                <th>客户姓名</th>
+                                <th>客户手机号</th>
+                                <th>所在地址(行政区域编码)</th>
+                                <th>操作</th>
+                                                          </tr>
+                            </thead>
+                            <tbody>
+
+                            <tr class=" ">
+                                <td>1</td>
+                                <td>10000076</td>
+                                <td>连城璧</td>
+                                <td>88</td>
+
+                                <td>萧山</td>
+                                <td>   <a class="btn btn-primary choiceShop">分配店铺</a></td>
+                            </tr>
+
+                            <tr class=" ">
+                                <td>1</td>
+                                <td>10000076</td>
+                                <td>连城璧</td>
+                                <td>花湖</td>
+
+                                <td>999</td>
+                                <td>   <a class="btn btn-primary choiceShop">分配店铺</a></td>
+                            </tr>
+
+                            <tr class=" ">
+                                <td>1</td>
+                                <td>10000076</td>
+                                <td>连城璧</td>
+                                <td>789</td>
+
+                                <td>萧山</td>
+                                <td>   <a class="btn btn-primary choiceShop">分配店铺</a></td>
+                            </tr>
+
+
+
+
+
+
+
+
+                            </tbody>
+                        </table>
+                        <div><ul class="pagination"></ul></div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- end well -->
+
+
+    </div>
+    <!-- END MAIN CONTENT -->
+
+</div>
+<!-- END MAIN PANEL -->
+
+<%- include('../layouts/footer'); %>
+<%- include('../layouts/footer_common_script'); %>
+
+<!--选择店铺列表-->
+<form class="form-horizontal  layer-template" method="post" id="layer-form" action=""
+      style="display: none;">
+
+    <div class="row">
+        <div class="col-xs-12">
+                <div class="form-group">
+                    <label class="col-xs-3 control-label">
+                    </label>
+                    <div class="col-xs-6">
+                        <select class="form-control validate[required]" name="arcType" id="arcType">
+                            <option value="">- 请选择店铺-</option>
+
+                            <option value="11">
+                                加盟店
+                            </option>
+
+                            <option value="10">
+                                自营店
+                            </option>
+
+
+                        </select>
+                    </div>
+                </div>
+
+        </div>
+    </div>
+
+
+  <div class="row">
+      <div class="col-xs-12">
+          <hr class="simple">
+          <div class="col-xs-12 text-center">
+              <button class="btn btn-primary  margin-right-5" type="submit">
+                  <i class="fa fa-save"></i>
+                  提交
+              </button>
+          </div>
+      </div>
+  </div>
+    <div class="dwy-clear"></div>
+</form>
+<!--END 选择店铺列表-->
+<script type="text/javascript">
+
+    $(document).ready(function () {
+
+
+        pageSetUp();
+        //弹出类
+        $('.choiceShop').on({
+            click: function (e) {
+                layer.open({
+                    title: '分配店铺',
+                    type: 1,
+                    area: '800px',
+                    content: $('#layer-form'),
+                    cancel: function () {
+                        //右上角关闭回调
+                    },
+                    // 仅在需要自定义按钮时使用
+//                    btn: ['按钮一', '按钮二', '按钮三'],
+//                    yes: function (index, layero) {
+//                        //按钮【按钮一】的回调
+//                    },
+//                    btn2: function (index, layero) {
+//                        //按钮【按钮二】的回调
+//                    },
+//                    btn3: function (index, layero) {
+//                        //按钮【按钮三】的回调
+//                    }
+                });
+            }
+        });
+    })
+
+</script>
+
+
+<%- include('../layouts/foot'); %>

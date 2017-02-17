@@ -234,18 +234,28 @@ var  MaterialController = require('./Controller/MaterialController');
 
 // 物料管理首页
 router.get('/materialManage', Middleware.AuthCheck, MaterialController.indexPage);
+
 // 物料详情页面
 router.get('/materialManage/detail/:mid', Middleware.AuthCheck, MaterialController.detailPage);
+
 // 物料出入库总计页面
 router.get('/materialManage/summary', Middleware.AuthCheck, MaterialController.summaryPage);
+
 //物料分类页面
 router.get('/materialManage/materialType', Middleware.AuthCheck, MaterialController.materialTypePage);
+
 //物料分类-新建分类页面
 router.get('/materialManage/materialType/create', Middleware.AuthCheck, MaterialController.materialTypeCreatePage);
+
 //物料分类-修改分类页面
 router.get('/materialManage/materialType/modify', Middleware.AuthCheck, MaterialController.materialTypeModifyPage);
+
 //物料新建页面
 router.get('/materialManage/material/create', Middleware.AuthCheck, MaterialController.materialCreatePage);
+
+// 新建物料
+router.post('/materialManage/material/doCreate', Middleware.AuthCheck, MaterialController.doCreate);
+
 //物料修改页面
 router.get('/materialManage/material/modify', Middleware.AuthCheck, MaterialController.materialModifyPage);
 
@@ -435,7 +445,29 @@ router.get('/cascade/*', TemplateController.getData);
 
 
 
+/*
+ * 页面范围: 供应商相关
+ * 控制器:   supplierController
+ * */
+var supplierController = require('./Controller/supplierController');
 
+// 供应商详情
+router.get('/supplier', Middleware.AuthCheck,supplierController.supplierPage);
+//供应商分类
+router.get('/supplier/sort', Middleware.AuthCheck,supplierController.supplierSortPage);
+//供应商分类
+router.get('/supplier/create', Middleware.AuthCheck,supplierController.supplierCreatPage);
+//供应商分类
+router.get('/supplier/sort_create', Middleware.AuthCheck,supplierController.supplierSortCreatPage);
 
+/*
+ * 页面范围: 网络预约相关
+ * 控制器:   networkBookController
+ * */
+var networkBookController = require('./Controller/networkBookController');
 
+// 流水详情
+router.get('/networkBook', Middleware.AuthCheck, networkBookController.indexPage);
+
+  
 module.exports = router;
