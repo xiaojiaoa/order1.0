@@ -139,56 +139,37 @@
 
                                     <div class="col-xs-4">
                                         <div class="form-group">
-                                            <label class="col-xs-4 control-label "><span class="requird"></span> 店长姓名:
+                                            <label class="col-xs-4 control-label "><span class="requird"></span> 分类:
                                             </label>
-                                            <div class="col-xs-8">
-                                                <input class="form-control validate[required]" value="大饼" name="storeGid">
+                                            <div class="col-xs-8 control-label strongStyle01 text-left">
+                                             <strong>铝材</strong><strong>框架</strong><strong>银白框架</strong>
                                             </div>
 
                                         </div>
                                     </div>
 
-                                    <div class="col-xs-4">
-                                        <div class="form-group">
-                                            <label class="col-xs-4 control-label "><span class="requird"></span> 店长手机:
-                                            </label>
-                                            <div class="col-xs-8">
-                                                <input class="form-control validate[required,funcCall[custom_validate_fn.isMobile]]" placeholder="输入号码" type="tel" value="13107727679" name="mobile">
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <input type="hidden" name="storeId" value="33010010">
 
 
-
-                                </div>
+                                  </div>
                                 <div class="col-xs-12">
 
                                     <!--输入字段-->
                                     <div class="col-xs-4">
                                         <div class="form-group">
                                             <label class="col-xs-4 control-label"><span class="requird"></span>
-                                                门店类型:</label>
+                                                颜色:</label>
                                             <div class="col-xs-8">
                                                 <select class="form-control validate[required]" name="addrType">
                                                     <option value="">- 请选择 -</option>
 
                                                     <option value="13">
-                                                        仓储店
+                                                        象牙白
                                                     </option>
 
                                                     <option value="12">
-                                                        卖场店
+                                                        玉米黄
                                                     </option>
 
-                                                    <option value="11">
-                                                        商超店
-                                                    </option>
-
-                                                    <option value="10">
-                                                        路边店
-                                                    </option>
 
                                                 </select>
                                             </div>
@@ -198,17 +179,17 @@
                                     <div class="col-xs-4">
                                         <div class="form-group">
                                             <label class="col-xs-4 control-label"><span class="requird"></span>
-                                                经营类型:</label>
+                                                尺寸:</label>
                                             <div class="col-xs-8">
                                                 <select class="form-control validate[required]" name="storeType">
                                                     <option value="">- 请选择 -</option>
 
                                                     <option value="11">
-                                                        加盟店
+                                                      1米
                                                     </option>
 
                                                     <option value="10">
-                                                        自营店
+                                                        2米
                                                     </option>
 
 
@@ -386,9 +367,9 @@
         $(".fg-date-time-picker").flatpickr(data_time_picker.data_picker); // jQuery
 
         //表单验证
-        $("#create-material").validationEngine();
+        $("#create-material").validationEngine()
         //下一步操作
-        $(".nextStep").click(function () {
+      /*  $(".nextStep").click(function () {
             if ($("#matType").validationEngine('validate')&&$("#arcType").validationEngine('validate')&&$("#colType").validationEngine('validate')) {
                 $("#step1").css('display','none');
                 $("#step2").css('display','block');
@@ -399,7 +380,7 @@
             $("#step1").css('display','block');
             $("#step2").css('display','none');
         })
-          })
+          })*/
 
 </script>
 

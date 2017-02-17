@@ -13,20 +13,10 @@
         <!-- breadcrumb -->
         <ol class="breadcrumb">
             <li>后台管理</li>
-            <li>个人中心</li>
+            <li>网络预约</li>
         </ol>
         <!-- end breadcrumb -->
 
-        <!-- You can also add more buttons to the
-        ribbon for further usability
-
-        Example below:
-
-        <span class="ribbon-button-alignment pull-right">
-        <span id="search" class="btn btn-ribbon hidden-xs" data-title="search"><i class="fa-grid"></i> Change Grid</span>
-        <span id="add" class="btn btn-ribbon hidden-xs" data-title="add"><i class="fa-plus"></i> Add</span>
-        <span id="search" class="btn btn-ribbon" data-title="search"><i class="fa-search"></i> <span class="hidden-mobile">Search</span></span>
-        </span> -->
 
     </div>
     <!-- END RIBBON -->
@@ -36,75 +26,80 @@
     <div id="content">
 
 
-        <!--
-            The ID "widget-grid" will start to initialize all widgets below
-            You do not need to use widgets if you dont want to. Simply remove
-            the <section></section> and you can use wells or panels instead
-            -->
 
 
         <!-- well -->
         <div class="well">
+
             <!-- row -->
             <div class="row">
-                <!-- col -->
                 <div class="col-xs-12">
-                    <legend>个人信息</legend>
-                    <!-- row -->
-                    <div class="row search-form">
-                        <div class="form-horizontal" method="get">
-
-                            <div class="col-xs-6">
-                                <!--输入字段-->
-                                <div class="col-xs-6">
-                                    <label class="text-right col-xs-6">门店编号:</label>
-                                    <p class="text-left col-xs-6"><%= user.bid %></p>
-                                </div>
-                                <!--输入字段-->
-                                <div class="col-xs-6">
-                                    <label class="text-right col-xs-6">柜员姓名:</label>
-                                    <p class="text-left col-xs-6"><%= user.name %></p>
-                                </div>
-
-                                <!--输入字段-->
-                                <div class="col-xs-6">
-                                    <label class="text-right col-xs-6">柜员编号:</label>
-                                    <p class="text-left col-xs-6"><%= user.id %></p>
-                                </div>
-
-                                <!--输入字段-->
-                                <div class="col-xs-6">
-                                    <label class="text-right col-xs-6">柜员手机:</label>
-                                    <p class="text-left col-xs-6"><%= user.mobile %></p>
-                                </div>
-
-
-                            </div>
-
-                            <div style="clear: both;"></div>
-
-                            <div class="col-xs-6">
-                                <hr class="simple">
-                                <div class="col-xs-12 text-center">
-                                    <a class="btn btn-primary" href="/customer/create">
-                                        <i class="fa fa-save"></i>
-                                        新建客户
-                                    </a>
-                                    <span style="width: 20px;display: inline-block;"></span>
-                                    <a class="btn btn-primary" href="/customer/create/company">
-                                        <i class="fa fa-save"></i>
-                                        新建企业客户
-                                    </a>
-                                </div>
-                            </div>
-
-                        </div>
-                    </div>
-                    <!-- end row -->
+                    <h6>预约列表</h6>
+                    <hr class="simple">
                 </div>
-                <!-- end col -->
             </div>
-            <!-- end row -->
+
+            <!-- row -->
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-striped">
+                            <thead>
+                            <tr>
+                                <th>序号</th>
+                                <th>客户号</th>
+                                <th>客户姓名</th>
+                                <th>客户手机号</th>
+                                <th>所在地址(行政区域编码)</th>
+                                <th>操作</th>
+                                                          </tr>
+                            </thead>
+                            <tbody>
+
+                            <tr class=" ">
+                                <td>1</td>
+                                <td>10000076</td>
+                                <td>连城璧</td>
+                                <td>88</td>
+
+                                <td>萧山</td>
+                                <td>   <a class="btn btn-primary choiceShop">分配店铺</a></td>
+                            </tr>
+
+                            <tr class=" ">
+                                <td>1</td>
+                                <td>10000076</td>
+                                <td>连城璧</td>
+                                <td>花湖</td>
+
+                                <td>999</td>
+                                <td>   <a class="btn btn-primary choiceShop">分配店铺</a></td>
+                            </tr>
+
+                            <tr class=" ">
+                                <td>1</td>
+                                <td>10000076</td>
+                                <td>连城璧</td>
+                                <td>789</td>
+
+                                <td>萧山</td>
+                                <td>   <a class="btn btn-primary choiceShop">分配店铺</a></td>
+                            </tr>
+
+
+
+
+
+
+
+
+                            </tbody>
+                        </table>
+                        <div><ul class="pagination"></ul></div>
+
+                    </div>
+                </div>
+            </div>
         </div>
         <!-- end well -->
 
@@ -118,68 +113,81 @@
 <%- include('../layouts/footer'); %>
 <%- include('../layouts/footer_common_script'); %>
 
+<!--选择店铺列表-->
+<form class="form-horizontal  layer-template" method="post" id="layer-form" action=""
+      style="display: none;">
 
+    <div class="row">
+        <div class="col-xs-12">
+                <div class="form-group">
+                    <label class="col-xs-3 control-label">
+                    </label>
+                    <div class="col-xs-6">
+                        <select class="form-control validate[required]" name="arcType" id="arcType">
+                            <option value="">- 请选择店铺-</option>
+
+                            <option value="11">
+                                加盟店
+                            </option>
+
+                            <option value="10">
+                                自营店
+                            </option>
+
+
+                        </select>
+                    </div>
+                </div>
+
+        </div>
+    </div>
+
+
+  <div class="row">
+      <div class="col-xs-12">
+          <hr class="simple">
+          <div class="col-xs-12 text-center">
+              <button class="btn btn-primary  margin-right-5" type="submit">
+                  <i class="fa fa-save"></i>
+                  提交
+              </button>
+          </div>
+      </div>
+  </div>
+    <div class="dwy-clear"></div>
+</form>
+<!--END 选择店铺列表-->
 <script type="text/javascript">
 
     $(document).ready(function () {
 
-        /* DO NOT REMOVE : GLOBAL FUNCTIONS!
-         *
-         * pageSetUp(); WILL CALL THE FOLLOWING FUNCTIONS
-         *
-         * // activate tooltips
-         * $("[rel=tooltip]").tooltip();
-         *
-         * // activate popovers
-         * $("[rel=popover]").popover();
-         *
-         * // activate popovers with hover states
-         * $("[rel=popover-hover]").popover({ trigger: "hover" });
-         *
-         * // activate inline charts
-         * runAllCharts();
-         *
-         * // setup widgets
-         * setup_widgets_desktop();
-         *
-         * // run form elements
-         * runAllForms();
-         *
-         ********************************
-         *
-         * pageSetUp() is needed whenever you load a page.
-         * It initializes and checks for all basic elements of the page
-         * and makes rendering easier.
-         *
-         */
 
         pageSetUp();
-
-        /*
-         * ALL PAGE RELATED SCRIPTS CAN GO BELOW HERE
-         * eg alert("my home function");
-         *
-         * var pagefunction = function() {
-         *   ...
-         * }
-         * loadScript("js/plugin/_PLUGIN_NAME_.js", pagefunction);
-         *
-         * TO LOAD A SCRIPT:
-         * var pagefunction = function (){
-         *  loadScript(".../plugin.js", run_after_loaded);
-         * }
-         *
-         * OR
-         *
-         * loadScript(".../plugin.js", run_after_loaded);
-         */
-
-        var pageFunction = function () {
-
-        }
-
-        pageFunction();
-
+        //弹出类
+        $('.choiceShop').on({
+            click: function (e) {
+                layer.open({
+                    title: '分配店铺',
+                    type: 1,
+                    area: '800px',
+                    content: $('#layer-form'),
+                    cancel: function () {
+                        //右上角关闭回调
+                    },
+                    // 仅在需要自定义按钮时使用
+//                    btn: ['按钮一', '按钮二', '按钮三'],
+//                    yes: function (index, layero) {
+//                        //按钮【按钮一】的回调
+//                    },
+//                    btn2: function (index, layero) {
+//                        //按钮【按钮二】的回调
+//                    },
+//                    btn3: function (index, layero) {
+//                        //按钮【按钮三】的回调
+//                    }
+                });
+            }
+        });
     })
 
 </script>
