@@ -138,7 +138,9 @@ var EmployeeController = {
 
             var returnData = Base.mergeData(helper.mergeObject({
                 title: ' ',
-                cid:cid
+                cid:cid,
+                type:type,
+                bid:bid,
             }, resultList));
             // console.log('employees'+ JSON.stringify(resultList))
             res.render('order/employees/modify', returnData);
@@ -191,7 +193,7 @@ var EmployeeController = {
         var cid = req.params.cid;
         var type = req.params.type;
         var bidtype = req.params.bidtype;
-        var apiUrl = (type == 'stores')? '/api/stores/employees/stcode/' : '/api/employees/stcode/' ;
+        var apiUrl = (bidtype == 'stores')? '/api/stores/employees/stcode/' : '/api/employees/stcode/' ;
         // console.log('cid'+cid+'--type'+type)
         request(Base.mergeRequestOptions({
             method: 'put',

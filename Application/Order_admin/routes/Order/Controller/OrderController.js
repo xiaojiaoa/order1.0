@@ -250,28 +250,28 @@ var OrderController = {
     },
     permitPage: function (req, res) {
 
-        // var paramObject = helper.genPaginationQuery(req);
-        // Base.multiDataRequest(req, res, [
-        //     {url: '', method: 'GET', resConfig: {keyName: 'Info', is_must: true}},
-        // ], function (req, res, resultList) {
-        //
-        //     var paginationInfo =  resultList.Info;
-        //
-        //     var boostrapPaginator = new Pagination.TemplatePaginator(helper.genPageInfo({
-        //         prelink: paramObject.withoutPageNo,
-        //         current: paginationInfo.page,
-        //         rowsPerPage: paginationInfo.pageSize,
-        //         totalResult: paginationInfo.totalItems
-        //     }));
-        //
-        //     var returnData = Base.mergeData(helper.mergeObject({
-        //         title: ' ',
-        //         pagination: boostrapPaginator.render(),
-        //         Permission :Permissions,
-        //     },resultList));
-        //     res.render('order/order/order_permit', returnData);
-        // });
-        res.render('order/order/order_permit');
+        var paramObject = helper.genPaginationQuery(req);
+        Base.multiDataRequest(req, res, [
+            {url: '/api/assist/order/difficulty', method: 'GET', resConfig: {keyName: 'difficultyList', is_must: true}},
+            {url: '/api/orders/review/gid', method: 'GET', resConfig: {keyName: 'selfList', is_must: true}},
+        ], function (req, res, resultList) {
+
+            var paginationInfo =  resultList.selfList;
+
+            var boostrapPaginator = new Pagination.TemplatePaginator(helper.genPageInfo({
+                prelink: paramObject.withoutPageNo,
+                current: paginationInfo.page,
+                rowsPerPage: paginationInfo.pageSize,
+                totalResult: paginationInfo.totalItems
+            }));
+
+            var returnData = Base.mergeData(helper.mergeObject({
+                title: ' ',
+                pagination: boostrapPaginator.render(),
+                Permission :Permissions,
+            },resultList));
+            res.render('order/order/order_permit', returnData);
+        });
     },
     nestingPage: function (req, res) {
         res.render('order/order/nesting');

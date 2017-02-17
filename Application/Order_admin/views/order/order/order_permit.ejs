@@ -326,28 +326,32 @@
 
         <!--footer-btn-div-->
         <div class="" >
-            <div class="col-xs-8 form-horizontal form-group">
-                <label class="col-xs-2 control-label"> 将选中订单设置为: </label>
-                <div class="col-xs-3">
-                    <select class="form-control" name="type">
-                        <option value="">- 请选择 -</option>
-                        <option value="1">审核未加急</option>
-                        <option value="2">审核加急</option>
-                    </select>
-                </div>
-                <div class="col-xs-3">
-                    <button class="btn btn-primary">确定</button>
-                </div>
-            </div>
+            <!--<div class="col-xs-8 form-horizontal form-group">-->
+                <!--<label class="col-xs-2 control-label"> 将选中订单设置为: </label>-->
+                <!--<div class="col-xs-3">-->
+                    <!--<select class="form-control" name="type">-->
+                        <!--<option value="">- 请选择 -</option>-->
+                        <!--<option value="1">审核未加急</option>-->
+                        <!--<option value="2">审核加急</option>-->
+                    <!--</select>-->
+                <!--</div>-->
+                <!--<div class="col-xs-3">-->
+                    <!--<button class="btn btn-primary">确定</button>-->
+                <!--</div>-->
+            <!--</div>-->
             <div class="col-xs-8 form-horizontal">
                 <label class="col-xs-2 control-label "> 将选中订单难度设置为: </label>
                 <div class="col-xs-3">
-                    <select class="form-control" name="type">
+                    <select class="form-control" name="difficulty">
                         <option value="">- 请选择 -</option>
+                        <% difficultyList.forEach(function (element) {  %>
+                        <option value="<%= element.id %>"><%= element.name %></option>
+                        <% }) %>
                     </select>
                 </div>
                 <div class="col-xs-3">
-                    <button class="btn btn-primary">确定</button>
+                    <button class="btn btn-primary" id="submitDifficulty">确定</button>
+                    <input type="hidden" class="" id="checkedValue">
                 </div>
             </div>
         </div>
@@ -369,18 +373,41 @@
 
 
         $(".fg-date-picker").flatpickr(data_time_picker.data_picker); // jQuery
-        var checkedCode = [];
+
+        var checkedValue = $('#checkedValue');
         $("#checkAll").change(function () {
             if($(this).is(":checked")){
                 $(":checkbox").prop('checked',true);
                 $("input[name='roles']:checked").each(function (i) {
-                    checkedCode[i] = this.value;
+                    checkedValue.addClass(this.value+',')
                 });
-                console.log(checkedCode);
             }else{
                 $(":checkbox").prop('checked',false);
-                checkedCode = [];
+                checkedValue.removeClass()
             }
+        })
+        $("input[name='roles']").change(function () {
+            if($(this).is(':checked')){
+                checkedValue.addClass(this.value+',')
+            }else{
+                checkedValue.removeClass(this.value+',')
+            }
+
+        });
+
+        $('#submitDifficulty').click(function () {
+            var tids = checkedValue.attr('class');
+            tids = tids.substring(0,tids.length-1);
+            var difficulty = $('select[name=difficulty]').val();
+            if(!tids){
+                layer.msg('请先选择订单', {icon: 2, time: 2000});
+                return;
+            }
+            if(!difficulty){
+                layer.msg('请选择难度等级', {icon: 2, time: 2000});
+                return;
+            }
+            console.log(tids);
         })
 
 
