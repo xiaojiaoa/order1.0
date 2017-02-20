@@ -101,35 +101,21 @@
                             </thead>
                             <tbody>
 
-                     <!--       <tr>
-
+                            <tr>
+                               <td>1</td>
                                 <td>56456</td>
                                 <td>颜色</td>
                                 <td>3</td>
                                 <td>
                                     <a href="javascript:void(0)">修改</a>
-                                    <a href="javascript:void(0)">禁用</a>
-                                    <a href="javascript:void(0)">新建值</a>
+                                    <a href="javascript:void(0)" class="margin-left-20">禁用</a>
+                                    <a href="javascript:void(0)" class="margin-left-20">新建值</a>
                                 </td>
 
-                                  </tr>-->
-                                                      <%
-                            attributeList.result.forEach(function (element, index) { %>
-                                                      <tr>
-                                                          <td><%= index+1 %></td>
-                                                          <td><%= element.id %></td>
-                                                          <td><a href="mmm/001"><%= element.name %></a></td>
-                                                          <td><%= element.length %></td>
-                                                          <td>
-                                                              <a href="javascript:void(0)">修改</a>
-                                                              <a href="javascript:void(0)" class="margin-left-20">禁用</a>
-                                                              <a href="javascript:void(0)" class="margin-left-20">新建值</a>
-                                                          </td>
-                                                      </tr>
-                                                      <% }) %>
+                                  </tr>
+
                             </tbody>
                         </table>
-                        <%- pagination %>
 
                     </div>
                 </div>

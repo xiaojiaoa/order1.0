@@ -57,7 +57,68 @@ var MaterialController = {
         console.log('物料创建'+ JSON.stringify(req.body));
     },
     materialAttributePage:function (req, res) {
-        res.render('order/material/material_attribute');
+        var paramObject = helper.genPaginationQuery(req);
+        Base.multiDataRequest(req, res, [
+            {url: '/api/attributes?'+ queryString.stringify(req.query), method: 'GET', resConfig: {keyName: 'attributeList', is_must: true}}
+        ], function (req, res, resultList) {
+
+            var paginationInfo =  resultList.attributeList;
+
+            var boostrapPaginator = new Pagination.TemplatePaginator(helper.genPageInfo({
+                prelink: paramObject.withoutPageNo,
+                current: paginationInfo.page,
+                rowsPerPage: paginationInfo.pageSize,
+                totalResult: paginationInfo.totalItems
+            }));
+
+            var returnData = Base.mergeData(helper.mergeObject({
+                title: ' ',
+                pagination: boostrapPaginator.render()
+            },resultList));
+        res.render('order/material/material_attribute',returnData);
+        });
+    },
+    mateAttriDetailPage: function (req, res) {
+       /* var mid =  req.params.mid;
+        Base.multiDataRequest(req, res, [
+            {url: 'api/attributes/'+mid, method: 'GET', resConfig: {keyName: 'attributesDetail', is_must: true}},
+        ], function (req, res, resultList) {
+
+            var returnData = Base.mergeData(helper.mergeObject({
+                title: ' ',
+            },resultList));
+
+        });*/
+        res.render('order/material/material_attribute_detail');
+    },
+    attrCreate: function (req, res) {
+        //console.log('增加物料属性'+ JSON.stringify(req.body));
+        request(Base.mergeRequestOptions({
+            method: 'post',
+            url: '/api/attributes',
+            form: req.body,
+        }, req, res), function (error, response, body) {
+            if (!error && response.statusCode == 201) {
+                res.redirect("/materialManage/materialAttribute");
+            } else {
+                Base.handlerError(res, req, error, response, body);
+            }
+        })
+    },
+    attrChange: function (req, res) {
+        //console.log('修改物料属性'+ JSON.stringify(req.body));
+        var aid = req.body.aid;
+        request(Base.mergeRequestOptions({
+            method: 'put',
+            url: '/api/attributes/' + aid + "?" + queryString.stringify(req.body),
+        }, req, res), function (error, response, body) {
+            if (!error && response.statusCode == 201) {
+                res.redirect("/materialManage/materialAttribute");
+            } else {
+                Base.handlerError(res, req, error, response, body);
+            }
+        })
+
     },
 };
 

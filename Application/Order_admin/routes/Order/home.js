@@ -297,6 +297,14 @@ router.get('/materialManage/material/modify', Middleware.AuthCheck, MaterialCont
 //物料属性页面
 router.get('/materialManage/materialAttribute', Middleware.AuthCheck, MaterialController.materialAttributePage);
 
+//增加物料属性接口
+router.post('/material/attrCreate', Middleware.AuthCheck, MaterialController.attrCreate);
+
+//修改物料属性接口
+router.post('/material/attrChange', Middleware.AuthCheck, MaterialController.attrChange);
+
+//物料属性详情页面
+router.get('/materialManage/mateAttri/detail/:mid', Middleware.AuthCheck, MaterialController.mateAttriDetailPage);
 
 
 /*
