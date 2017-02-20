@@ -92,6 +92,7 @@
                         <table class="table table-bordered table-striped">
                             <thead>
                             <tr>
+                                <th>序号</th>
                                 <th>属性ID</th>
                                 <th>名称</th>
                                 <th>长度</th>
@@ -100,7 +101,8 @@
                             </thead>
                             <tbody>
 
-                            <tr>
+                     <!--       <tr>
+
                                 <td>56456</td>
                                 <td>颜色</td>
                                 <td>3</td>
@@ -110,10 +112,24 @@
                                     <a href="javascript:void(0)">新建值</a>
                                 </td>
 
-                            </tr>
+                                  </tr>-->
+                                                      <%
+                            attributeList.result.forEach(function (element, index) { %>
+                                                      <tr>
+                                                          <td><%= index+1 %></td>
+                                                          <td><%= element.id %></td>
+                                                          <td><a href="mmm/001"><%= element.name %></a></td>
+                                                          <td><%= element.length %></td>
+                                                          <td>
+                                                              <a href="javascript:void(0)">修改</a>
+                                                              <a href="javascript:void(0)" class="margin-left-20">禁用</a>
+                                                              <a href="javascript:void(0)" class="margin-left-20">新建值</a>
+                                                          </td>
+                                                      </tr>
+                                                      <% }) %>
                             </tbody>
                         </table>
-
+                        <%- pagination %>
 
                     </div>
                 </div>

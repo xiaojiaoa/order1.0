@@ -56,6 +56,9 @@ var MaterialController = {
     doCreate: function (req, res) {
         console.log('物料创建'+ JSON.stringify(req.body));
     },
+    materialAttributePage:function (req, res) {
+        res.render('order/material/material_attribute');
+    },
 };
 
 module.exports = MaterialController;

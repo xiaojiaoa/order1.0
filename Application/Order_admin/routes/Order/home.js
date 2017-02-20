@@ -294,6 +294,8 @@ router.post('/materialManage/material/doCreate', Middleware.AuthCheck, MaterialC
 //物料修改页面
 router.get('/materialManage/material/modify', Middleware.AuthCheck, MaterialController.materialModifyPage);
 
+//物料属性页面
+router.get('/materialManage/materialAttribute', Middleware.AuthCheck, MaterialController.materialAttributePage);
 
 
 
