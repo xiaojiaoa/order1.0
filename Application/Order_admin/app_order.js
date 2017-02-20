@@ -154,6 +154,19 @@ app.locals.DWY_Helper = {
         return code;
     },
 
+    //字典翻译
+    getAssistValByCode: function (code, list) {
+        if (list && code) {
+            for (var i = 0; i < list.length; i++) {
+                var element = list[i]
+                if (element && element.code == code) {
+                    return element.name;
+                }
+            }
+        }
+        return code;
+    },
+
     //字典拼接
     getAssistStr: function (code, list) {
         var assistStr = "";

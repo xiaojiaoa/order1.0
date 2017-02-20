@@ -421,8 +421,11 @@ var FileController = require('./Controller/FileController');
 router.get('/file/create/:lid/:type', Middleware.AuthCheck, FileController.createPage);
 
 // 新增文件上传地址
-router.get('/file/order/create/:lid/:type/:tid', Middleware.AuthCheck, FileController.createOrderFilePage);
-// router.get('/file/order/create/:lid/:stcode/:tid/:type', Middleware.AuthCheck, FileController.createOrderFilePage);
+// router.get('/file/order/create/:lid/:type/:tid', Middleware.AuthCheck, FileController.createOrderFilePage);
+router.get('/file/order/create/:lid/:stcode/:type/:tid', Middleware.AuthCheck, FileController.createOrderFilePage);
+
+// 新增文件上传地址(拆单)
+// router.get('/file/order/apart/:lid/:type/:tid', Middleware.AuthCheck, FileController.createApartFilePage);
 
 // 显示所有效果图
 router.get('/file/pic/:lid', Middleware.AuthCheck, FileController.picPage);
@@ -454,6 +457,10 @@ router.get('/template', TemplateController.createPage);
 
 //单文件上传
 router.post('/template/upload/single', [upload.single('file_name'), Middleware.FilterEmptyField], TemplateController.doSingleUpload);
+
+//图片上传
+router.post('/template/upload/img', [upload.single('file_name'), Middleware.FilterEmptyField], TemplateController.doImgUpload);
+
 
 //文件组上传
 router.post('/template/upload/multi', upload.array('file_name'), TemplateController.doMultiUpload);

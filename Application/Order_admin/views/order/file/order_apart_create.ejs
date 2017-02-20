@@ -49,8 +49,8 @@
                                         <div class="col-xs-10">
                                             <select class="form-control validate[required]" name="type">
                                                 <option value="">- 文件类型 -</option>
-                                                <% fileTypeInfo.forEach(function (element) { %>
-                                                <option value="<%= element.code %>"><%= element.name %></option>
+                                                <% FileTypeInfo.forEach(function (element) { %>
+                                                <option value="<%= element.id %>"><%= element.name %></option>
                                                 <%  }) %>
 
                                             </select>
@@ -105,10 +105,8 @@
 
                                 <input type="hidden" name="fileName" value="">
                                 <input type="hidden" name="fileSize" value="">
-                                <input type="hidden" name="lid" value="<%= lid %>">
                                 <input type="hidden" name="tid" value="<%= tid %>">
                                 <input type="hidden" name="ordType" value="<%= ordType %>">
-                                <input type="hidden" name="stcode" value="<%= stcode %>">
 
                             </div>
 
@@ -162,7 +160,7 @@
                             <tr>
                                 <td><%= index+1 %></td>
                                 <td><%= element.fileName %></td>
-                                <td><%= DWY_Helper.getAssistVal(element.ordType, allFileTypeInfo) %></td>
+                                <td><%= DWY_Helper.getAssistVal(element.ordType, FileTypeInfo) %></td>
                                 <td><%= element.gid %></td>
                                 <td><%= DWY_Helper.getLocalDate(element.addTime) %></td>
                                 <td><%= element.remark %></td>
@@ -209,7 +207,7 @@
             change: function (e) {
                 var _this = $(this);
                 var label = $("#label-upload-file");
-                var lid = $("[name=lid]");
+                var lid = $("[name=liquid_number]");
                 var tid = $("[name=tid]");
                 var formData = new FormData();
 

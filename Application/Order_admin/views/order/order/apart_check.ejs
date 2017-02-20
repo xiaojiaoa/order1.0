@@ -55,17 +55,17 @@
                             doingList.result.forEach(function (element, index) { %>
                             <tr>
                                 <td><%= index+1 %></td>
-                                <td></td>
-                                <td><%= element.difficultyLevel %></td>
-                                <td><%= element.prodTypeName %></td>
-                                <td></td>
+                                <td><%= element.colorStr %></td>
+                                <td><%= element.difficultyStr %></td>
+                                <td><%= element.productTypeStr %></td>
+                                <td><%= element.modelStr %></td>
                                 <td><a href="/order/detail/<%= element.tid %>"><%= element.tid %></a></td>
-                                <td><%= element.bName %></td>
-                                <td><%= element.cName %></td>
-                                <td><%= element.prodInfo %></td>
-                                <td></td>
-                                <td><%= user.name %></td>
-                                <td><%= element.taskTime %></td>
+                                <td><%= element.storeName %></td>
+                                <td><%= element.customerName %></td>
+                                <td><%= element.productInfo %></td>
+                                <td><%= element.modelFile %></td>
+                                <td><%= element.apartOperator %></td>
+                                <td><%= element.apartTaskTime %></td>
                             </tr>
                             <% })
                             }else{ %>
@@ -144,19 +144,19 @@
 
                             <div class="col-xs-12">
 
-                                <div class="col-xs-6">
+                                <div class="col-xs-12">
                                     <div class="form-group">
-                                        <div class="col-xs-3">
-                                            <select class="form-control" name="brand">
+                                        <div class="col-xs-2">
+                                            <select class="form-control" name="brandId">
                                                 <option value="">- 品牌 -</option>
                                                 <% brandinfoList.forEach(function (element) {  %>
-                                                <option value="<%= element.id %>" <%= (DWYRequest.query.brand == element.id)?"selected":"" %> >
+                                                <option value="<%= element.id %>" <%= (DWYRequest.query.brandId == element.id)?"selected":"" %> >
                                                     <%= element.name %>
                                                 </option>
                                                 <% }) %>
                                             </select>
                                         </div>
-                                        <div class="col-xs-3">
+                                        <div class="col-xs-2">
                                             <select class="form-control" name="difficulty">
                                                 <option value="">- 难度 -</option>
                                                 <% difficultyList.forEach(function (element) {  %>
@@ -166,11 +166,27 @@
                                                 <% }) %>
                                             </select>
                                         </div>
-                                        <div class="col-xs-3">
-                                            <select class="form-control" name="prodType">
+                                        <div class="col-xs-2">
+                                            <select class="form-control" name="productType">
                                                 <option value="">- 类型 -</option>
                                                 <% prodList.forEach(function (element) {  %>
-                                                <option value="<%= element.id %>" <%= (DWYRequest.query.prodType == element.id)?"selected":"" %> >
+                                                <option value="<%= element.id %>" <%= (DWYRequest.query.productType == element.id)?"selected":"" %> >
+                                                    <%= element.name %>
+                                                </option>
+                                                <% }) %>
+                                            </select>
+                                        </div>
+                                        <div class="col-xs-2">
+                                            <select class="form-control" name="model">
+                                                <option value="">- 型号 -</option>
+
+                                            </select>
+                                        </div>
+                                        <div class="col-xs-2">
+                                            <select class="form-control" name="color">
+                                                <option value="">- 颜色 -</option>
+                                                <% colorList.forEach(function (element) {  %>
+                                                <option value="<%= element.id %>" <%= (DWYRequest.query.color == element.id)?"selected":"" %> >
                                                     <%= element.name %>
                                                 </option>
                                                 <% }) %>
@@ -180,35 +196,39 @@
                                     </div>
                                 </div>
 
+
+
+
+                            </div>
+
+                            <div class="col-xs-12">
+
                                 <div class="col-xs-4">
                                     <div class="form-group">
-                                        <label class="col-xs-4 control-label">门店地址:</label>
+                                        <label class="col-xs-4 control-label">门店名称:</label>
                                         <div class="col-xs-8">
-                                            <input class="form-control"  value="<%= DWYRequest.query.storeAddress %>" type="text"
-                                                   name="storeAddress">
+                                            <input class="form-control"  value="<%= DWYRequest.query.storeName %>" type="text"
+                                                   name="storeName">
                                         </div>
                                     </div>
                                 </div>
 
+
+                                <div class="col-xs-4">
+                                    <div class="form-group">
+                                        <label class="col-xs-4 control-label">审核人:</label>
+                                        <div class="col-xs-8">
+                                            <input class="form-control"  value="<%= DWYRequest.query.auditor %>" type="text"
+                                                   name="auditor ">
+                                        </div>
+                                    </div>
+                                </div>
 
                             </div>
 
 
                             <div class="col-xs-12">
-                                <div class="col-xs-6">
-                                    <div class="form-group">
-                                        <label class="pull-left control-label">&nbsp;收款日期</label>
-                                        <div class="col-xs-3">
-                                            <input class="form-control fg-date-picker" type="text"
-                                                   value="<%= DWYRequest.query.startTime %>" name="startTime">
-                                        </div>
-                                        <label class="control-label " style="float: left"> 至 </label>
-                                        <div class="col-xs-3">
-                                            <input class="form-control fg-date-picker" type="text"
-                                                   value="<%= DWYRequest.query.endTime %>" name="endTime">
-                                        </div>
-                                    </div>
-                                </div>
+
                                 <div class="col-xs-4">
                                     <div class="form-group">
                                         <label class="col-xs-4 control-label">是否下单完毕:</label>
@@ -221,6 +241,22 @@
                                         </div>
                                     </div>
                                 </div>
+
+                                <div class="col-xs-8">
+                                    <div class="form-group">
+                                        <label class="col-xs-2 control-label">&nbsp;收款日期:</label>
+                                        <div class="col-xs-4">
+                                            <input class="form-control fg-date-picker" type="text"
+                                                   value="<%= DWYRequest.query.startTime %>" name="startTime">
+                                        </div>
+                                        <label class="control-label " style="float: left"> 至 </label>
+                                        <div class="col-xs-4">
+                                            <input class="form-control fg-date-picker" type="text"
+                                                   value="<%= DWYRequest.query.endTime %>" name="endTime">
+                                        </div>
+                                    </div>
+                                </div>
+
                             </div>
 
 
@@ -266,18 +302,18 @@
                         apartReviewList.result.forEach(function (element, index) { %>
                         <tr>
                             <td><%= index+1 %></td>
-                            <td></td>
-                            <td><%= element.difficultyLevel %></td>
-                            <td><%= element.prodTypeName %></td>
-                            <td></td>
+                            <td><%= element.colorStr %></td>
+                            <td><%= element.difficultyStr %></td>
+                            <td><%= element.productTypeStr %></td>
+                            <td><%= element.modelStr %></td>
                             <td><a href="/order/detail/<%= element.tid %>"><%= element.tid %></a></td>
-                            <td><%= element.bName %></td>
-                            <td><%= element.cName %></td>
-                            <td><%= element.prodInfo %></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
+                            <td><%= element.storeName %></td>
+                            <td><%= element.customerName %></td>
+                            <td><%= element.productInfo %></td>
+                            <td><%= element.modelFile %></td>
+                            <td><%= element.apartOperator %></td>
+                            <td><%= element.apartTaskTime %></td>
+                            <td><%= element.auditor %></td>
                         </tr>
                         <% })
                         }else{ %>

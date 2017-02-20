@@ -64,6 +64,8 @@ var EmployeeController = {
     },
 
     doCreate: function (req, res) {
+        var type = req.body.type;
+        var bid = req.body.bid;
         var roles = req.body.roles;
         var role ="";
         if(roles&&(typeof roles == 'object')){
@@ -83,7 +85,7 @@ var EmployeeController = {
         }, req, res), function (error, response, body) {
             if (!error && response.statusCode == 201) {
                 // var lid = JSON.parse(body).lid;
-                res.redirect("/customers");
+                res.redirect("/"+type+"/employees?bid="+bid);
 
             } else {
                 Base.handlerError(res, req, error, response, body);
