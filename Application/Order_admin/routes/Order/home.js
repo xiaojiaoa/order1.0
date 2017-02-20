@@ -303,6 +303,9 @@ router.post('/material/attrCreate', Middleware.AuthCheck, MaterialController.att
 //修改物料属性接口
 router.post('/material/attrChange', Middleware.AuthCheck, MaterialController.attrChange);
 
+// 禁用/解锁 物料属性
+router.put('/mateAttr/setStatus/:aid/:type', Middleware.AuthCheck, MaterialController.setAttrStatus);
+
 //物料属性详情页面
 router.get('/materialManage/mateAttri/detail/:mid', Middleware.AuthCheck, MaterialController.mateAttriDetailPage);
 

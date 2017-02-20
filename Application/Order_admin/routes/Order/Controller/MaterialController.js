@@ -106,14 +106,29 @@ var MaterialController = {
         })
     },
     attrChange: function (req, res) {
-        //console.log('修改物料属性'+ JSON.stringify(req.body));
-        var aid = req.body.aid;
+        console.log('修改物料属性'+ JSON.stringify(req.body));
+        var mid = req.body.storeId;
         request(Base.mergeRequestOptions({
             method: 'put',
-            url: '/api/attributes/' + aid + "?" + queryString.stringify(req.body),
+            url: '/api/stores/' + cid + "?" + queryString.stringify(req.body),
         }, req, res), function (error, response, body) {
             if (!error && response.statusCode == 201) {
                 res.redirect("/materialManage/materialAttribute");
+            } else {
+                Base.handlerError(res, req, error, response, body);
+            }
+        })
+
+    },
+    setAttrStatus: function (req, res) {
+        var cid = req.params.aid;
+        var type = req.params.type;
+        request(Base.mergeRequestOptions({
+            method: 'put',
+            url: '/api/attributes/stcode/'+cid+'?stcode='+type,
+        }, req, res), function (error, response, body) {
+            if (!error && response.statusCode == 201) {
+                res.sendStatus(200);
             } else {
                 Base.handlerError(res, req, error, response, body);
             }
