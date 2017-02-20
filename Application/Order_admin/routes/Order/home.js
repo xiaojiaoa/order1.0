@@ -267,11 +267,23 @@ router.get('/materialManage/summary', Middleware.AuthCheck, MaterialController.s
 //物料分类页面
 router.get('/materialManage/materialType', Middleware.AuthCheck, MaterialController.materialTypePage);
 
-//物料分类-新建分类页面
-router.get('/materialManage/materialType/create', Middleware.AuthCheck, MaterialController.materialTypeCreatePage);
+//物料分类-新建一级分类页面
+router.get('/materialManage/materialType/creOne', Middleware.AuthCheck, MaterialController.materialTypeCreOnePage);
 
-//物料分类-修改分类页面
-router.get('/materialManage/materialType/modify', Middleware.AuthCheck, MaterialController.materialTypeModifyPage);
+//物料分类-新建二级分类页面
+router.get('/materialManage/materialType/creTwo', Middleware.AuthCheck, MaterialController.materialTypeCreTwoPage);
+
+//物料分类-新建三级分类页面
+router.get('/materialManage/materialType/creThree', Middleware.AuthCheck, MaterialController.materialTypeCreThreePage);
+
+//物料分类-修改一级分类页面
+router.get('/materialManage/materialType/chagOne/:co', Middleware.AuthCheck, MaterialController.materialTypeChagOnePage);
+
+//物料分类-修改二级分类页面
+router.get('/materialManage/materialType/chagTwo/:cs', Middleware.AuthCheck, MaterialController.materialTypeChagTwoPage);
+
+//物料分类-修改三级分类页面
+router.get('/materialManage/materialType/chagThree/:ct', Middleware.AuthCheck, MaterialController.materialTypeChagThreePage);
 
 //物料新建页面
 router.get('/materialManage/material/create', Middleware.AuthCheck, MaterialController.materialCreatePage);
