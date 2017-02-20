@@ -29,11 +29,23 @@ var MaterialController = {
     materialTypePage: function (req, res) {
         res.render('order/material/material_type');
     },
-    materialTypeCreatePage: function (req, res) {
-        res.render('order/material/material_type_create');
+    materialTypeCreOnePage: function (req, res) {
+        res.render('order/material/material_type_creOne');
     },
-    materialTypeModifyPage: function (req, res) {
-        res.render('order/material/material_type_modify');
+    materialTypeCreTwoPage: function (req, res) {
+        res.render('order/material/material_type_creTwo');
+    },
+    materialTypeCreThreePage: function (req, res) {
+        res.render('order/material/material_type_creThree');
+    },
+    materialTypeChagOnePage: function (req, res) {
+        res.render('order/material/material_type_chagOne');
+    },
+    materialTypeChagTwoPage: function (req, res) {
+        res.render('order/material/material_type_chagTwo');
+    },
+    materialTypeChagThreePage: function (req, res) {
+        res.render('order/material/material_type_chagThree');
     },
     materialCreatePage: function (req, res) {
         res.render('order/material/material_create');
