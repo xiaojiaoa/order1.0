@@ -296,21 +296,30 @@ router.post('/materialManage/material/doCreate', Middleware.AuthCheck, MaterialC
 //物料修改页面
 router.get('/materialManage/material/modify', Middleware.AuthCheck, MaterialController.materialModifyPage);
 
-//物料属性页面
-router.get('/materialManage/materialAttribute', Middleware.AuthCheck, MaterialController.materialAttributePage);
 
-//增加物料属性接口
-router.post('/material/attrCreate', Middleware.AuthCheck, MaterialController.attrCreate);
+
+/*
+ * 页面范围: 物料属性相关
+ * 控制器:   MaterialAttrController
+ * */
+var MaterialAttrController = require('./Controller/MaterialAttrController');
+//物料属性页面
+router.get('/materialManage/materialAttribute', Middleware.AuthCheck, MaterialAttrController.materialAttributePage);
+
+//新建物料属性接口
+router.post('/material/attrCreate', Middleware.AuthCheck, MaterialAttrController.attrCreate);
 
 //修改物料属性接口
-router.post('/material/attrChange', Middleware.AuthCheck, MaterialController.attrChange);
+router.post('/material/attrChange', Middleware.AuthCheck, MaterialAttrController.attrChange);
 
 // 禁用/解锁 物料属性
-router.put('/mateAttr/setStatus/:aid/:type', Middleware.AuthCheck, MaterialController.setAttrStatus);
+router.put('/mateAttr/setStatus/:aid/:type', Middleware.AuthCheck, MaterialAttrController.setAttrStatus);
 
-//物料属性详情页面
-router.get('/materialManage/mateAttri/detail/:mid', Middleware.AuthCheck, MaterialController.mateAttriDetailPage);
+//物料属性值详情页面
+router.get('/materialManage/mateAttr/detail/:mid', Middleware.AuthCheck, MaterialAttrController.mateAttrDetailPage);
 
+//新建物料属性值接口
+router.post('/material/attrValCreate', Middleware.AuthCheck, MaterialAttrController.attrValCreate);
 
 /*
  * 页面范围: 机构相关
@@ -443,16 +452,65 @@ router.get('/factory/create', Middleware.AuthCheck, FactoryController.createPage
 router.post('/factory/doCreate', Middleware.AuthCheck, FactoryController.doCreate);
 
 // 修改工厂详情页面
-router.get('/:type/employees/modify/:bid/:cid', Middleware.AuthCheck, FactoryController.modifyPage);
+router.get('/factory/modify/:ftyId', Middleware.AuthCheck, FactoryController.modifyPage);
 
 // 修改工厂信息
-router.post('/employees/doModify', Middleware.AuthCheck, FactoryController.doModify);
-
-// 重置员工密码
-router.put('/:type/employees/resetPassword/:cid', Middleware.AuthCheck, FactoryController.resetPassword);
+router.post('/factory/doModify', Middleware.AuthCheck, FactoryController.doModify);
 
 // 关闭/解锁 工厂
-router.put('/:bidtype/employees/setStatus/:cid/:type', Middleware.AuthCheck, FactoryController.setStatus);
+router.put('/factory/setStatus/:ftyId/:type', Middleware.AuthCheck, FactoryController.setStatus);
+
+
+// 获取仓库列表
+router.get('/warehouse', Middleware.AuthCheck, Middleware.FilterEmptyField, FactoryController.listWarehousePage);
+
+// 新增仓库页面
+router.get('/warehouse/create', Middleware.AuthCheck, FactoryController.createWarehousePage);
+
+// 新增仓库
+router.post('/warehouse/doCreate', Middleware.AuthCheck, FactoryController.doWarehouseCreate);
+
+
+// 获取仓库区域列表
+router.get('/region', Middleware.AuthCheck, Middleware.FilterEmptyField, FactoryController.listRegionPage);
+
+// 新增仓库区域页面
+router.get('/region/create/:whseId', Middleware.AuthCheck, FactoryController.createRegionPage);
+
+// 新增仓库区域
+router.post('/region/doCreate', Middleware.AuthCheck, FactoryController.doRegionCreate);
+
+
+
+/*
+ * 页面范围: 货位管理
+ * 控制器:   CargospaceController
+ * */
+var CargospaceControlle = require('./Controller/CargospaceControlle');
+
+// 获取货位列表
+router.get('/factory', Middleware.AuthCheck, Middleware.FilterEmptyField, CargospaceControlle.listPage);
+
+// 货位详情页面
+router.get('/factory/detail/:ftyId', Middleware.AuthCheck, CargospaceControlle.detailPage);
+
+// 新增货位页面
+router.get('/factory/create', Middleware.AuthCheck, CargospaceControlle.createPage);
+
+// 新增货位页面-下一步
+router.get('/factory/createNext', Middleware.AuthCheck, CargospaceControlle.createNextPage);
+
+// 新增货位
+router.post('/factory/doCreate', Middleware.AuthCheck, CargospaceControlle.doCreate);
+
+// 修改货位详情页面
+router.get('/factory/modify/:ftyId', Middleware.AuthCheck, CargospaceControlle.modifyPage);
+
+// 修改货位信息
+router.post('/factory/doModify', Middleware.AuthCheck, CargospaceControlle.doModify);
+
+// 关闭/解锁 货位
+router.put('/factory/setStatus/:ftyId/:type', Middleware.AuthCheck, CargospaceControlle.setStatus);
 
 
 /*

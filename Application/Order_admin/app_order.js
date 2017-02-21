@@ -225,7 +225,7 @@ app.locals.DWY_Helper = {
                 return "工厂";
                 break;
             case 2:
-                return "区域";
+                return "仓储中心";
                 break;
 
         }

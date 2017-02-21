@@ -13,7 +13,7 @@
         <!-- breadcrumb -->
         <ol class="breadcrumb">
             <li>后台管理</li>
-            <li>新建工厂</li>
+            <li>修改工厂信息</li>
         </ol>
         <!-- end breadcrumb -->
     </div>
@@ -28,11 +28,11 @@
             <div class="row">
                 <!-- col -->
                 <div class="col-xs-12">
-                    <legend>新建工厂信息</legend>
+                    <legend>修改工厂信息</legend>
 
                     <!-- row -->
                     <div class="row">
-                        <form class="form-horizontal" method="post" action="/factory/doCreate" id="create-store">
+                        <form class="form-horizontal" method="post" action="/factory/doModify" id="create-store">
 
                             <div class="col-xs-12">
 
@@ -138,9 +138,6 @@
                                         <div class="col-xs-8">
                                             <select class="form-control validate[required]" name="bid">
                                                 <option value="">- 请选择 -</option>
-                                                <%  factoryList.forEach(function (element) {  %>
-                                                <option value="<%= element.id %>"><%= element.name %></option>
-                                                <% }) %>
 
                                             </select>
                                         </div>
@@ -154,8 +151,6 @@
                                         <div class="col-xs-8">
                                             <select class="form-control validate[required]" name="storeType">
                                                 <option value="">- 请选择 -</option>
-                                                <option value="1">是</option>
-                                                <option value="2">否</option>
 
                                             </select>
                                         </div>
