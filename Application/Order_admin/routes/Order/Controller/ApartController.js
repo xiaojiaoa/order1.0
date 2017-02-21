@@ -22,7 +22,7 @@ var ApartController = {
     listPage: function (req, res) {
         var paramObject = helper.genPaginationQuery(req);
         Base.multiDataRequest(req, res, [
-            {url: '/api/orders/apart/gid', method: 'GET', resConfig: {keyName: 'apartinfList', is_must: true}},
+            {url: '/api/orders/apart/gid', method: 'GET', resConfig: {keyName: 'apartingList', is_must: true}},
             {url: '/api/orders/apart/waitReview/gid', method: 'GET', resConfig: {keyName: 'waitReviewList', is_must: true}},
             {url: '/api/orders/apart?'+ (queryString.stringify(req.query)), method: 'GET', resConfig: {keyName: 'apartList', is_must: true}},
             {url: '/api/assist/brandinfo', method: 'GET', resConfig: {keyName: 'brandinfoList', is_must: true}},
@@ -31,7 +31,7 @@ var ApartController = {
             {url: '/api/assist/order/difficulty', method: 'GET', resConfig: {keyName: 'difficultyList', is_must: true}},
         ], function (req, res, resultList) {
 
-            var paginationInfoOne =  resultList.apartinfList;
+            var paginationInfoOne =  resultList.apartingList;
             var paginationInfTwo =  resultList.waitReviewList;
             var paginationInfThr =  resultList.apartList;
 
@@ -127,7 +127,7 @@ var ApartController = {
             {url: '/api/orders/apartReview/gid', method: 'GET', resConfig: {keyName: 'doingList', is_must: true}},
             {url: '/api/orders/apartReview?'+ (queryString.stringify(req.query)), method: 'GET', resConfig: {keyName: 'apartReviewList', is_must: true}},
             {url: '/api/assist/brandinfo', method: 'GET', resConfig: {keyName: 'brandinfoList', is_must: true}},
-            // {url: '/api/assist/deco/color', method: 'GET', resConfig: {keyName: 'colorList', is_must: true}},
+            {url: '/api/assist/deco/color', method: 'GET', resConfig: {keyName: 'colorList', is_must: true}},
             {url: '/api/assist/space/prod', method: 'GET', resConfig: {keyName: 'prodList', is_must: true}},
             {url: '/api/assist/order/difficulty', method: 'GET', resConfig: {keyName: 'difficultyList', is_must: true}},
         ], function (req, res, resultList) {
@@ -193,7 +193,7 @@ var ApartController = {
             url: '/api/orders/apartReview/notPass?'+queryString.stringify(req.body),
         }, req, res), function (error, response, body) {
             if (!error && response.statusCode == 201) {
-                res.redirect("/apart");
+                res.redirect("/apart/check");
             } else {
                 Base.handlerError(res, req, error, response, body);
             }

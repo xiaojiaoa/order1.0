@@ -25,7 +25,145 @@
     <div id="content">
 
 
-这是物料分类页面
+        <!-- well -->
+        <div class="well">
+            <!-- row -->
+            <div class="row">
+                <!-- col -->
+                <div class="col-xs-12">
+                    <!--<legend>物料搜索</legend>-->
+                    <!-- row -->
+                    <div class="row search-form">
+                        <form class="form-horizontal" method="get">
+
+                            <div class="col-xs-12">
+
+                                <div class="col-xs-3">
+                                    <div class="form-group">
+                                        <label class="col-xs-4 control-label">分类编码:</label>
+                                        <div class="col-xs-8">
+                                            <input class="form-control" placeholder="请输入分类编码" value="" type="text" name="">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-xs-3">
+                                    <div class="form-group">
+                                        <label class="col-xs-4 control-label">名称:</label>
+                                        <div class="col-xs-8">
+                                            <input class="form-control" placeholder="请输入名称" value="" type="text" name="">
+                                        </div>
+                                    </div>
+                                </div>
+
+
+
+                            </div>
+
+
+
+                            <div class="col-xs-12 ">
+                                <hr class="simple">
+                                <div class="col-xs-12 text-center">
+                                    <button class="btn btn-primary " type="submit">
+                                        <i class="fa fa-search"></i>
+                                        查询
+                                    </button>
+                                    <a class="btn btn-primary margin-right-5" href="/materialManage/materialType/creOne">
+                                        <i class="fa fa-save"></i>
+                                        新建分类
+                                    </a>
+                                </div>
+                            </div>
+
+
+
+
+
+                        </form>
+                    </div>
+                    <!-- end row -->
+                </div>
+                <!-- end col -->
+
+                <!-- end row -->
+            </div>
+        </div>
+        <!-- end well -->
+        <!--well-->
+        <div class="well">
+
+                      <!-- row -->
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-striped">
+                            <thead>
+                            <tr>
+                                <th>一级分类</th>
+                                <th>二级分类</th>
+                                <th>三级分类</th>
+                                <th>上级编码</th>
+                                <th>添加时间</th>
+                                <th>备注</th>
+                                <th>操作</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+
+                            <tr>
+                                <td>铝材</td>
+                                <td></td>
+                                <td></td>
+                                <td>0</td>
+                                <td>2016-10-10</td>
+                                <td></td>
+                                <td>
+                                    <a href="/materialManage/materialType/creTwo">新建子类</a>
+                                    <a href="/materialManage/materialType/chagOne/1111">修改</a>
+                                    <a>禁用</a>
+                                    <a href="/materialManage/material/create">新建物料</a>
+                                </td>
+
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td>框架</td>
+                                <td></td>
+                                <td>01100001</td>
+                                <td>2016-10-10</td>
+                                <td></td>
+                                <td>
+                                    <a href="/materialManage/materialType/creThree">新建子类</a>
+                                    <a href="/materialManage/materialType/chagTwo/2222">修改</a>
+                                    <a>禁用</a>
+                                    <a href="/materialManage/material/create">新建物料</a>
+                                </td>
+
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td></td>
+                                <td>银白下框</td>
+                                <td>01100001</td>
+                                <td>2016-10-10</td>
+                                <td></td>
+                                <td>
+                                    <a href="/materialManage/materialType/chagThree/3333">修改</a>
+                                    <a>禁用</a>
+                                    <a href="/materialManage/material/create">新建物料</a>
+                                </td>
+
+                            </tr>
+                            </tbody>
+                        </table>
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--end well-->
     </div>
     <!-- END MAIN CONTENT -->
 

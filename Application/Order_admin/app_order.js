@@ -154,6 +154,19 @@ app.locals.DWY_Helper = {
         return code;
     },
 
+    //字典翻译
+    getAssistValByCode: function (code, list) {
+        if (list && code) {
+            for (var i = 0; i < list.length; i++) {
+                var element = list[i]
+                if (element && element.code == code) {
+                    return element.name;
+                }
+            }
+        }
+        return code;
+    },
+
     //字典拼接
     getAssistStr: function (code, list) {
         var assistStr = "";
@@ -201,6 +214,20 @@ app.locals.DWY_Helper = {
                 break;
             default:
                 return "否";
+        }
+        return code;
+    },
+
+    //字典翻译-工厂类型
+    getFactoryType: function (code) {
+        switch (code){
+            case 1:
+                return "工厂";
+                break;
+            case 2:
+                return "区域";
+                break;
+
         }
         return code;
     },

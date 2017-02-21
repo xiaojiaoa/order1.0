@@ -52,12 +52,12 @@
                             <tr>
                                 <td><%= index+1 %></td>
                                 <td><a href="/order/detail/<%= element.tid %>"><%= element.tid %></a></td>
-                                <td><%= element.difficultyLevel %></td>
-                                <td><%= element.prodTypeName %></td>
-                                <td><%= element.bName %></td>
-                                <td><%= element.cName %></td>
-                                <td><%= element.prodInfo %></td>
-                                <td><%= user.name %></td>
+                                <td><%= element.difficultyStr %></td>
+                                <td><%= element.productTypeStr %></td>
+                                <td><%= element.storeName %></td>
+                                <td><%= element.customerName %></td>
+                                <td><%= element.productInfo %></td>
+                                <td><%= element.createOperator%></td>
                                 <td><%= element.taskTime%></td>
                             </tr>
                             <%    })
@@ -137,10 +137,10 @@
                                 <div class="col-xs-6">
                                     <div class="form-group">
                                         <div class="col-xs-3">
-                                            <select class="form-control" name="brand">
+                                            <select class="form-control" name="brandId">
                                                 <option value="">- 品牌 -</option>
                                                 <% brandinfoList.forEach(function (element) {  %>
-                                                <option value="<%= element.id %>" <%= (DWYRequest.query.brand == element.id)?"selected":"" %>>
+                                                <option value="<%= element.id %>" <%= (DWYRequest.query.brandId == element.id)?"selected":"" %>>
                                                     <%= element.name %>
                                                 </option>
                                                 <% }) %>
@@ -157,10 +157,10 @@
                                             </select>
                                         </div>
                                         <div class="col-xs-3">
-                                            <select class="form-control" name="prodType">
+                                            <select class="form-control" name="productType">
                                                 <option value="">- 类型 -</option>
                                                 <% prodList.forEach(function (element) {  %>
-                                                <option value="<%= element.id %>" <%= (DWYRequest.query.prodType == element.id)?"selected":"" %>>
+                                                <option value="<%= element.id %>" <%= (DWYRequest.query.productType == element.id)?"selected":"" %>>
                                                     <%= element.name %>
                                                 </option>
                                                 <% }) %>
@@ -191,10 +191,10 @@
                             <div class="col-xs-12">
                                 <div class="col-xs-6">
                                     <div class="form-group">
-                                        <label class="col-xs-3 control-label">专卖店地址:</label>
+                                        <label class="col-xs-3 control-label">专卖店名称:</label>
                                         <div class="col-xs-6">
-                                            <input class="form-control"  value="<%= DWYRequest.query.storeAddress %>"
-                                                   name="storeAddress">
+                                            <input class="form-control"  value="<%= DWYRequest.query.storeName %>"
+                                                   name="storeName">
                                         </div>
                                     </div>
                                 </div>
@@ -252,14 +252,14 @@
                         <tr>
                             <td><%= index+1 %></td>
                             <td><a href="/order/detail/<%= element.tid %>"><%= element.tid %></a></td>
-                            <td><%= element.difficultyLevel %></td>
-                            <td><%= element.prodTypeName %></td>
-                            <td><%= element.bName %></td>
-                            <td><%= element.cName %></td>
-                            <td><%= element.prodInfo %></td>
-                            <td><%= user.name %></td>
+                            <td><%= element.difficultyStr %></td>
+                            <td><%= element.productTypeStr %></td>
+                            <td><%= element.storeName %></td>
+                            <td><%= element.customerName %></td>
+                            <td><%= element.productInfo %></td>
+                            <td><%= element.createOperator%></td>
                             <td><%= element.taskTime%></td>
-                            <td><%= user.name %></td>
+                            <td><%= element.auditor%></td>
                         </tr>
                         <%    })
 

@@ -167,7 +167,7 @@ router.get('/orders/resupplys/apart', Middleware.AuthCheck, Middleware.FilterEmp
 
 
 // 补单详情页面   补单信息（已完成）
-router.get('/order/resupply/detail', Middleware.AuthCheck, OrderController.resupplyDetailPage);
+router.get('/order/resupply/detail/:tid', Middleware.AuthCheck, OrderController.resupplyDetailPage);
 
 
 //  订单审核页面
@@ -207,7 +207,6 @@ router.post('/apart/unlock/:tid', Middleware.AuthCheck, ApartController.doUnlock
 router.post('/apart/notPass', Middleware.AuthCheck, ApartController.notPass);
 // 审核通过
 router.post('/apart/doPass/:tid', Middleware.AuthCheck, ApartController.doPass);
-
 
 // 标记为审核中 (待拆单审核)
 router.post('/apartCheck/getTask/:tid', Middleware.AuthCheck, ApartController.getTaskCheck);
@@ -267,11 +266,23 @@ router.get('/materialManage/summary', Middleware.AuthCheck, MaterialController.s
 //物料分类页面
 router.get('/materialManage/materialType', Middleware.AuthCheck, MaterialController.materialTypePage);
 
-//物料分类-新建分类页面
-router.get('/materialManage/materialType/create', Middleware.AuthCheck, MaterialController.materialTypeCreatePage);
+//物料分类-新建一级分类页面
+router.get('/materialManage/materialType/creOne', Middleware.AuthCheck, MaterialController.materialTypeCreOnePage);
 
-//物料分类-修改分类页面
-router.get('/materialManage/materialType/modify', Middleware.AuthCheck, MaterialController.materialTypeModifyPage);
+//物料分类-新建二级分类页面
+router.get('/materialManage/materialType/creTwo', Middleware.AuthCheck, MaterialController.materialTypeCreTwoPage);
+
+//物料分类-新建三级分类页面
+router.get('/materialManage/materialType/creThree', Middleware.AuthCheck, MaterialController.materialTypeCreThreePage);
+
+//物料分类-修改一级分类页面
+router.get('/materialManage/materialType/chagOne/:co', Middleware.AuthCheck, MaterialController.materialTypeChagOnePage);
+
+//物料分类-修改二级分类页面
+router.get('/materialManage/materialType/chagTwo/:cs', Middleware.AuthCheck, MaterialController.materialTypeChagTwoPage);
+
+//物料分类-修改三级分类页面
+router.get('/materialManage/materialType/chagThree/:ct', Middleware.AuthCheck, MaterialController.materialTypeChagThreePage);
 
 //物料新建页面
 router.get('/materialManage/material/create', Middleware.AuthCheck, MaterialController.materialCreatePage);
@@ -282,7 +293,20 @@ router.post('/materialManage/material/doCreate', Middleware.AuthCheck, MaterialC
 //物料修改页面
 router.get('/materialManage/material/modify', Middleware.AuthCheck, MaterialController.materialModifyPage);
 
+//物料属性页面
+router.get('/materialManage/materialAttribute', Middleware.AuthCheck, MaterialController.materialAttributePage);
 
+//增加物料属性接口
+router.post('/material/attrCreate', Middleware.AuthCheck, MaterialController.attrCreate);
+
+//修改物料属性接口
+router.post('/material/attrChange', Middleware.AuthCheck, MaterialController.attrChange);
+
+// 禁用/解锁 物料属性
+router.put('/mateAttr/setStatus/:aid/:type', Middleware.AuthCheck, MaterialController.setAttrStatus);
+
+//物料属性详情页面
+router.get('/materialManage/mateAttri/detail/:mid', Middleware.AuthCheck, MaterialController.mateAttriDetailPage);
 
 
 /*
@@ -397,6 +421,35 @@ router.put('/:type/employees/resetPassword/:cid', Middleware.AuthCheck, Employee
 router.put('/:bidtype/employees/setStatus/:cid/:type', Middleware.AuthCheck, EmployeeController.setStatus);
 
 
+/*
+ * 页面范围: 仓储管理
+ * 控制器:   FactoryController
+ * */
+var FactoryController = require('./Controller/FactoryController');
+
+// 获取工厂列表
+router.get('/factory', Middleware.AuthCheck, Middleware.FilterEmptyField, FactoryController.listPage);
+
+// 工厂详情页面
+router.get('/factory/detail/:ftyId', Middleware.AuthCheck, FactoryController.detailPage);
+
+// 新增工厂页面
+router.get('/factory/create', Middleware.AuthCheck, FactoryController.createPage);
+
+// 新增工厂
+router.post('/factory/doCreate', Middleware.AuthCheck, FactoryController.doCreate);
+
+// 修改工厂详情页面
+router.get('/:type/employees/modify/:bid/:cid', Middleware.AuthCheck, FactoryController.modifyPage);
+
+// 修改工厂信息
+router.post('/employees/doModify', Middleware.AuthCheck, FactoryController.doModify);
+
+// 重置员工密码
+router.put('/:type/employees/resetPassword/:cid', Middleware.AuthCheck, FactoryController.resetPassword);
+
+// 关闭/解锁 工厂
+router.put('/:bidtype/employees/setStatus/:cid/:type', Middleware.AuthCheck, FactoryController.setStatus);
 
 
 /*
@@ -421,8 +474,11 @@ var FileController = require('./Controller/FileController');
 router.get('/file/create/:lid/:type', Middleware.AuthCheck, FileController.createPage);
 
 // 新增文件上传地址
-router.get('/file/order/create/:lid/:type/:tid', Middleware.AuthCheck, FileController.createOrderFilePage);
-// router.get('/file/order/create/:lid/:stcode/:tid/:type', Middleware.AuthCheck, FileController.createOrderFilePage);
+// router.get('/file/order/create/:lid/:type/:tid', Middleware.AuthCheck, FileController.createOrderFilePage);
+router.get('/file/order/create/:lid/:stcode/:type/:tid', Middleware.AuthCheck, FileController.createOrderFilePage);
+
+// 新增文件上传地址(拆单)
+// router.get('/file/order/apart/:lid/:type/:tid', Middleware.AuthCheck, FileController.createApartFilePage);
 
 // 显示所有效果图
 router.get('/file/pic/:lid', Middleware.AuthCheck, FileController.picPage);
@@ -455,6 +511,10 @@ router.get('/template', TemplateController.createPage);
 //单文件上传
 router.post('/template/upload/single', [upload.single('file_name'), Middleware.FilterEmptyField], TemplateController.doSingleUpload);
 
+//图片上传
+router.post('/template/upload/img', [upload.single('file_name'), Middleware.FilterEmptyField], TemplateController.doImgUpload);
+
+
 //文件组上传
 router.post('/template/upload/multi', upload.array('file_name'), TemplateController.doMultiUpload);
 
@@ -472,13 +532,15 @@ router.get('/cascade/*', TemplateController.getData);
 
 /*
  * 页面范围: 供应商相关
- * 控制器:   supplierController
+ * 控制器:   SupplierController
  * */
-var supplierController = require('./Controller/SupplierController');
+
+var SupplierController = require('./Controller/SupplierController');
 
 // 供应商详情
-router.get('/supplier', Middleware.AuthCheck,supplierController.supplierPage);
+router.get('/supplier', Middleware.AuthCheck,SupplierController.supplierPage);
 //供应商分类
+
 router.get('/supplier/sort', Middleware.AuthCheck,supplierController.supplierSortPage);
 //供应商信息
 router.get('/supplier/detail', Middleware.AuthCheck,supplierController.supplierDetailPage);
@@ -510,6 +572,7 @@ router.get('/purchase/apply_detail', Middleware.AuthCheck,purchaseController.pur
 router.get('/purchase/detail', Middleware.AuthCheck,purchaseController.purchaseDetailPage);
 // 采购单详情
 router.get('/purchase/order_detail', Middleware.AuthCheck,purchaseController.purchaseOrderDetailPage);
+
 
 /*
  * 页面范围: 网络预约相关
