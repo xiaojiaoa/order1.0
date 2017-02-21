@@ -13,7 +13,7 @@
         <!-- breadcrumb -->
         <ol class="breadcrumb">
             <li>后台管理</li>
-            <li>添加供应商</li>
+            <li>新建供应商</li>
         </ol>
         <!-- end breadcrumb -->
     </div>
@@ -47,52 +47,6 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-xs-6">
-                                    <div class="form-group">
-                                        <label class="col-xs-2 control-label">建单日期:</label>
-                                        <div class="col-xs-4">
-                                            <input class="form-control fg-date-time-picker" placeholder="" type="text" value="<%= DWYRequest.query.startDate%>"
-                                                   name="startDate">
-                                        </div>
-                                        <label class="from-to control-label "> 至 </label>
-                                        <div class="col-xs-4">
-                                            <input class="form-control fg-date-time-picker" placeholder="" type="text" value="<%= DWYRequest.query.endDate%>"
-                                                   name="endDate">
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-xs-12">
-
-                                <div class="col-xs-3">
-                                    <div class="form-group">
-                                        <label class="col-xs-4 control-label">订单品牌:</label>
-                                        <div class="col-xs-8">
-                                            <select class="form-control" name="brandId">
-                                                <option value="">- 请选择 -</option>
-
-                                            </select>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-xs-3"></div>
-                                <div class="col-xs-6">
-                                    <div class="form-group">
-                                        <label class="col-xs-2 control-label">订单状态:</label>
-                                        <div class="col-xs-4">
-                                            <select class="form-control" name="startCode">
-                                                <option value="">- 起始 请选择 -</option>
-                                            </select>
-                                        </div>
-                                        <label class="from-to control-label "> 至 </label>
-                                        <div class="col-xs-4 ">
-                                            <select class="form-control" name="endCode">
-                                                <option value="">- 截止 请选择 -</option>
-
-                                            </select>
-                                        </div>
-                                    </div>
-                                </div>
                             </div>
                             <div class="col-xs-12">
                                 <hr class="simple">
@@ -112,10 +66,12 @@
             <!-- end row -->
         </div>
         <!-- end well -->
-        <form class="form-horizontal" method="post" id="" action="" >
+        <form class="form-horizontal" method="post" id="creat-supplier" action="" >
             <div class="col-xs-12">
-                <h3 class="text-align-center">添加供应商</h3>
-                <hr class="simple">
+                <legend>
+                    新建供应商
+                    <a class="label label-danger" id="closeStore">禁用</a>
+                </legend>
             </div>
             <div class="col-xs-12">
                 <div class="form-group">
@@ -127,39 +83,35 @@
                                         <hr class="simple">
                                     </div>
                                     <div class="row">
-                                        <form class="form-horizontal" method="post" action="/employees/doCreate" id="create-employees">
                                             <div class="col-xs-12">
-                                                <div class="col-xs-4">
+                                                <div class="col-xs-3">
                                                     <div class="form-group">
                                                         <label class="col-xs-4 control-label "><span class="requird"></span> 供应商名称:
                                                         </label>
                                                         <div class="col-xs-8">
-                                                            <input class="form-control" value="" name="">
+                                                            <input class="form-control validate[required]" value="" name="">
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class="col-xs-4">
+                                                <div class="col-xs-3">
                                                     <div class="form-group">
                                                         <label class="col-xs-4 control-label "><span class="requird"></span>联系人:
                                                         </label>
                                                         <div class="col-xs-8">
-                                                            <input class="form-control" value="" name="">
+                                                            <input class="form-control validate[required]" value="" name="">
                                                         </div>
                                                     </div>
                                                 </div>
-                                            </div>
-                                            <div class="col-xs-12">
-                                                <div class="col-xs-4">
+                                                <div class="col-xs-3">
                                                     <div class="form-group">
                                                         <label class="col-xs-4 control-label "><span class="requird"></span> 联系人电话:
                                                         </label>
                                                         <div class="col-xs-8">
-                                                            <input class="form-control" value="" name="">
+                                                            <input class="form-control validate[required,funcCall[custom_validate_fn.isMobile]]" value="" name="">
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
-                                        </form>
                                     </div>
                                 </div>
                         </div>
@@ -174,39 +126,37 @@
                                         <hr class="simple">
                                     </div>
                                     <div class="row">
-                                        <form class="form-horizontal" method="post" action="/employees/doCreate" id="create-employees">
                                             <div class="col-xs-12">
-                                                <div class="col-xs-4">
+                                                <div class="col-xs-3">
                                                     <div class="form-group">
                                                         <label class="col-xs-4 control-label "><span class="requird"></span> 区域:
                                                         </label>
                                                         <div class="col-xs-8">
-                                                            <input class="form-control" value="" name="">
+                                                            <input class="form-control validate[required]" value="" name="">
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class="col-xs-4">
+                                                <div class="col-xs-3">
                                                     <div class="form-group">
                                                         <label class="col-xs-4 control-label "><span class="requird"></span>供应商等级:
                                                         </label>
                                                         <div class="col-xs-8">
-                                                            <input class="form-control" value="" name="">
+                                                            <select class="form-control validate[required]" name="brandId">
+                                                                <option value="">- 请选择 -</option>
+                                                            </select>
                                                         </div>
                                                     </div>
                                                 </div>
-                                            </div>
-                                            <div class="col-xs-12">
-                                                <div class="col-xs-4">
+                                                <div class="col-xs-3">
                                                     <div class="form-group">
                                                         <label class="col-xs-4 control-label "><span class="requird"></span> 详细地点:
                                                         </label>
                                                         <div class="col-xs-8">
-                                                            <input class="form-control" value="" name="">
+                                                            <input class="form-control validate[required]" value="" name="">
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
-                                        </form>
                                     </div>
                             </div>
                         </div>
@@ -221,47 +171,46 @@
                                         <hr class="simple">
                                     </div>
                                     <div class="row">
-                                        <form class="form-horizontal" method="post" action="/employees/doCreate" id="create-employees">
                                             <div class="col-xs-12">
-                                                <div class="col-xs-4">
+                                                <div class="col-xs-3">
                                                     <div class="form-group">
                                                         <label class="col-xs-4 control-label "><span class="requird"></span> 联系电话:
                                                         </label>
                                                         <div class="col-xs-8">
-                                                            <input class="form-control" value="" name="">
+                                                            <input class="form-control validate[required,funcCall[custom_validate_fn.isMobile]]" value="" name="">
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class="col-xs-4">
+                                                <div class="col-xs-3">
                                                     <div class="form-group">
                                                         <label class="col-xs-4 control-label "><span class="requird"></span>开户行及银行:
                                                         </label>
                                                         <div class="col-xs-8">
-                                                            <input class="form-control" value="" name="">
+                                                            <input class="form-control validate[required]" value="" name="">
                                                         </div>
                                                     </div>
                                                 </div>
-                                            </div>
-                                            <div class="col-xs-12">
-                                                <div class="col-xs-4">
+                                                <div class="col-xs-3">
                                                     <div class="form-group">
                                                         <label class="col-xs-4 control-label "><span class="requird"></span>开票信息:
                                                         </label>
                                                         <div class="col-xs-8">
-                                                            <input class="form-control" value="" name="">
+                                                            <input class="form-control validate[required]" value="" name="">
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
                                             <div class="col-xs-12">
                                                 <hr class="simple">
-                                                <div class="col-xs-12 text-center">
+                                                <div class="col-xs-10 text-center">
                                                     <button class="btn btn-primary " type="submit">
-                                                        添加
+                                                        新建
                                                     </button>
+                                                    <a class="btn btn-primary margin-right-5" href="offer_product">
+                                                        可提供产品
+                                                    </a>
                                                 </div>
                                             </div>
-                                        </form>
                                     </div>
                             </div>
                         </div>
@@ -278,6 +227,7 @@
 <script type="text/javascript">
     $(document).ready(function () {
         pageSetUp();
+        $("#creat-supplier").validationEngine();
         $(".fg-date-picker").flatpickr(data_time_picker.data_picker); // jQuery
     })
 </script>

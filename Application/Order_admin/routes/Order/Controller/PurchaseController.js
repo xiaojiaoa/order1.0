@@ -17,28 +17,23 @@ var request = require('request');
 var Permissions = require('../config/permission');
 
 
-var supplierController = {
-    supplierPage: function (req, res) {
-        res.render('order/supplier/index');
+var PurchaseController = {
+    purchasePage: function (req, res) {
+        res.render('order/purchase/index');
     },
-    supplierSortPage: function (req, res) {
-        res.render('order/supplier/sort');
+    purchaseApplyCreatPage: function (req, res) {
+        res.render('order/purchase/apply_creat');
     },
-    supplierCreatPage: function (req, res) {
-        res.render('order/supplier/creat');
+    purchaseApplyDetailPage: function (req, res) {
+        res.render('order/purchase/apply_detail');
     },
-    supplierModifyPage: function (req, res) {
-        res.render('order/supplier/modify');
+    purchaseDetailPage: function (req, res) {
+        res.render('order/purchase/detail');
     },
-    supplierSortCreatPage: function (req, res) {
-        res.render('order/supplier/sort_creat');
+    purchaseOrderDetailPage: function (req, res) {
+        res.render('order/purchase/order_detail');
     },
-    supplierOfferProductPage: function (req, res) {
-        res.render('order/supplier/offer_product');
-    },
-    supplierSortModifyPage: function (req, res) {
-        res.render('order/supplier/sort_modify');
-    },
+
 };
 
-module.exports = supplierController;
+module.exports = PurchaseController;

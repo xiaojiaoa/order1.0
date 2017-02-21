@@ -51,34 +51,39 @@
                             </tr>
                             </thead>
                             <tbody>
+                            <%
+                            if(scheduleList.totalItems != 0  ){
+                            scheduleList.result.forEach(function (element, index) { %>
                             <tr>
                                 <td>
                                     <label class="checkbox-inline">
                                         <input type="checkbox" class="checkbox"
                                                name="roles" value="2">
-                                        <span>1</span>
+                                        <span><%= index+1 %></span>
                                     </label>
                                 </td>
-                                <td>是</td>
-                                <td>是</td>
-                                <td>是</td>
-                                <td>正常单</td>
-                                <td>异型柜</td>
-                                <td>苹果木</td>
-                                <td><a href="/order/detail/555">123456</a></td>
-                                <td>123456</td>
-                                <td>浙江省杭州市湖滨银泰店</td>
-                                <td><%= user.name %></td>
-                                <td>2016-10-10</td>
-                                <td>2222.00</td>
-                                <td>2016-10-10</td>
-                                <td>女孩房</td>
-                                <td></td>
-                                <td>是</td>
-                                <td>0</td>
-                                <td>0</td>
-                                <td>1111.00</td>
+                                <td><%= element.urgent %></td>
+                                <td><%= element.tryInstall %></td>
+                                <td><%= element.received %></td>
+                                <td><%= element.orderTypeStr %></td>
+                                <td><%= element.productTypeStr %></td>
+                                <td><%= element.colorStr %></td>
+                                <td><a href="/order/detail/<%= element.tid %>"><%= element.tid %></a></td>
+                                <td><%= element.batchNumber %></td>
+                                <td><%= element.storeName %></td>
+                                <td><%= element.cName %></td>
+                                <td><%= element.orderTime %></td>
+                                <td><%= element.retailPrice %></td>
+                                <td><%= element.deliveryTime %></td>
+                                <td><%= element.room %></td>
+                                <td><%= element.remark %></td>
+                                <td><%= element.audit %></td>
+                                <td><%= element.lackOrderNumber %></td>
+                                <td><%= element.lackReceivedNumver %></td>
+                                <td><%= element.custFactoryPrice %></td>
                             </tr>
+                            <%  })
+                            }%>
                             </tbody>
                         </table>
                     </div>
@@ -91,6 +96,7 @@
                             <button class="btn btn-primary" id="nestingSub">排料提交</button>
                         </div>
                     </div>
+                    <%- pagination %>
                 </div>
             </div>
         </div>
@@ -112,7 +118,7 @@
                                 <div class="col-xs-6">
                                     <div class="form-group">
                                         <div class="col-xs-3">
-                                            <select class="form-control" name="">
+                                            <select class="form-control" name="orderType">
                                                 <option value="">- 订单类型 -</option>
                                                 <option value="">正常单</option>
                                                 <option value="">增单</option>
@@ -122,7 +128,7 @@
                                             </select>
                                         </div>
                                         <div class="col-xs-3">
-                                            <select class="form-control" name="">
+                                            <select class="form-control" name="productType">
                                                 <option value="">- 产品类型 -</option>
                                                 <option value="">板式衣柜</option>
                                                 <option value="">框架衣柜</option>
@@ -130,7 +136,7 @@
                                             </select>
                                         </div>
                                         <div class="col-xs-3">
-                                            <select class="form-control" name="">
+                                            <select class="form-control" name="color">
                                                 <option value="">- 颜色 -</option>
                                                 <option value="">英伦白象</option>
                                                 <option value="">象牙白</option>
@@ -143,8 +149,8 @@
                                     <div class="form-group">
                                         <label class="col-xs-4 control-label">专卖店名:</label>
                                         <div class="col-xs-8">
-                                            <input class="form-control"  value="" type="text"
-                                                   name="mobile">
+                                            <input class="form-control"  value="<%= DWYRequest.query.storeName %>" type="text"
+                                                   name="storeName">
                                         </div>
                                     </div>
                                 </div>
@@ -155,12 +161,12 @@
                                         <label class="pull-left control-label">&nbsp下单日期</label>
                                         <div class="col-xs-3">
                                             <input class="form-control fg-date-picker" type="text"
-                                                   value="" name="startDate">
+                                                   value="<%= DWYRequest.query.orderStartTime %>" name="orderStartTime">
                                         </div>
                                         <label class="control-label " style="float: left"> 至 </label>
                                         <div class="col-xs-3">
                                             <input class="form-control fg-date-picker" type="text"
-                                                   value="" name="endDate">
+                                                   value="<%= DWYRequest.query.orderEndTime %>" name="orderEndTime">
                                         </div>
                                     </div>
                                 </div>
@@ -169,12 +175,12 @@
                                         <label class="pull-left control-label col-xs-4">&nbsp交货日期:</label>
                                         <div class="col-xs-3">
                                             <input class="form-control fg-date-picker" type="text"
-                                                   value="" name="startDate">
+                                                   value="<%= DWYRequest.query.deliveryStartTime %>" name="deliveryStartTime">
                                         </div>
                                         <label class="control-label" style="float: left"> 至 </label>
                                         <div class="col-xs-3">
                                             <input class="form-control fg-date-picker" type="text"
-                                                   value="" name="endDate">
+                                                   value="<%= DWYRequest.query.deliveryEndTime %>" name="deliveryEndTime">
                                         </div>
                                     </div>
                                 </div>
@@ -221,34 +227,39 @@
                         </tr>
                         </thead>
                         <tbody>
+                        <%
+                        if(scheduleAllList.totalItems != 0  ){
+                        scheduleAllList.result.forEach(function (element, index) { %>
                         <tr>
                             <td>
                                 <label class="checkbox-inline">
                                     <input type="checkbox" class="checkbox"
                                            name="roles" value="2">
-                                    <span>1</span>
+                                    <span><%= index+1 %></span>
                                 </label>
                             </td>
-                            <td>是</td>
-                            <td>是</td>
-                            <td>是</td>
-                            <td>正常单</td>
-                            <td>异型柜</td>
-                            <td>苹果木</td>
-                            <td><a href="/order/detail/555">123456</a></td>
-                            <td>123456</td>
-                            <td>浙江省杭州市湖滨银泰店</td>
-                            <td><%= user.name %></td>
-                            <td>2016-10-10</td>
-                            <td>2222.00</td>
-                            <td>2016-10-10</td>
-                            <td>女孩房</td>
-                            <td></td>
-                            <td>是</td>
-                            <td>0</td>
-                            <td>0</td>
-                            <td>1111.00</td>
+                            <td><%= element.urgent %></td>
+                            <td><%= element.tryInstall %></td>
+                            <td><%= element.received %></td>
+                            <td><%= element.orderTypeStr %></td>
+                            <td><%= element.productTypeStr %></td>
+                            <td><%= element.colorStr %></td>
+                            <td><a href="/order/detail/<%= element.tid %>"><%= element.tid %></a></td>
+                            <td><%= element.batchNumber %></td>
+                            <td><%= element.storeName %></td>
+                            <td><%= element.cName %></td>
+                            <td><%= element.orderTime %></td>
+                            <td><%= element.retailPrice %></td>
+                            <td><%= element.deliveryTime %></td>
+                            <td><%= element.room %></td>
+                            <td><%= element.remark %></td>
+                            <td><%= element.audit %></td>
+                            <td><%= element.lackOrderNumber %></td>
+                            <td><%= element.lackReceivedNumver %></td>
+                            <td><%= element.custFactoryPrice %></td>
                         </tr>
+                        <%  })
+                        }%>
                         </tbody>
                     </table>
                 </div>
@@ -277,7 +288,7 @@
         pageSetUp();
         $(".fg-date-picker").flatpickr(data_time_picker.data_picker); // jQuery
         $("#editBatchNum").click(function () {
-            layer.confirm('批次号&nbsp<input />',{title:'提示'},function(index){
+            layer.confirm('批次号&nbsp<input  />',{title:'提示'},function(index){
                 layer.close(index)
             },function(index){
                 layer.close(index)})

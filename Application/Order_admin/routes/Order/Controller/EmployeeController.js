@@ -172,7 +172,6 @@ var EmployeeController = {
                 Base.handlerError(res, req, error, response, body);
             }
         })
-
     },
     resetPassword: function (req, res) {
         var cid = req.params.cid;
@@ -187,7 +186,6 @@ var EmployeeController = {
                 Base.handlerError(res, req, error, response, body);
             }
         })
-
     },
     setStatus: function (req, res) {
         var cid = req.params.cid;

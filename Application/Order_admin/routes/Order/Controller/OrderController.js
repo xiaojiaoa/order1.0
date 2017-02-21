@@ -21,7 +21,6 @@ var OrderController = {
 
     listPage: function (req, res) {
 
-        console.log(req);
         var paramObject = helper.genPaginationQuery(req);
         Base.multiDataRequest(req, res, [
             {url: '/api/orders?'+ queryString.stringify(req.query), method: 'GET', resConfig: {keyName: 'orderList', is_must: true}},
@@ -274,7 +273,28 @@ var OrderController = {
         });
     },
     nestingPage: function (req, res) {
-        res.render('order/order/nesting');
+        var gid =  req.params.gid;
+        var paramObject = helper.genPaginationQuery(req);
+        Base.multiDataRequest(req, res, [
+            {url: '/api/orders/schedule'+(queryString.stringify(req.query)), method: 'GET', resConfig: {keyName: 'scheduleAllList', is_must: true}},
+            {url: '/api/orders/schedule/gid'+(queryString.stringify(req.query)), method: 'GET', resConfig: {keyName: 'scheduleList', is_must: true}},
+        ], function (req, res, resultList) {
+            var paginationInfo =  resultList.scheduleAllList;
+            var boostrapPaginator = new Pagination.TemplatePaginator(helper.genPageInfo({
+                prelink: paramObject.withoutPageNo,
+                current: paginationInfo.page,
+                rowsPerPage: paginationInfo.pageSize,
+                totalResult: paginationInfo.totalItems
+            }));
+            var returnData = Base.mergeData(helper.mergeObject({
+                title: ' ',
+                pagination: boostrapPaginator.render(),
+                Permission :Permissions,
+            },resultList));
+           console.log('1111',resultList);
+            res.render('order/order/nesting', returnData);
+
+        });
     },
     packagePage: function (req, res) {
         res.render('order/order/package');

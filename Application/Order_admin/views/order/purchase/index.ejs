@@ -1,0 +1,176 @@
+<%- include('../layouts/head_top'); %>
+<%- include('../layouts/head_bottom'); %>
+<%- include('../layouts/header'); %>
+<%- include('../layouts/nav'); %>
+
+
+<!-- MAIN PANEL -->
+<div id="main" role="main">
+
+    <!-- RIBBON -->
+    <div id="ribbon">
+
+        <!-- breadcrumb -->
+        <ol class="breadcrumb">
+            <li>后台管理</li>
+            <li>采购详情</li>
+        </ol>
+        <!-- end breadcrumb -->
+    </div>
+    <!-- END RIBBON -->
+    <!-- MAIN CONTENT -->
+    <div id="content">
+        <!-- start well -->
+        <div class="well">
+            <!-- row -->
+            <div class="row">
+                <!-- col -->
+                <div class="col-xs-12">
+                    <!--<legend>客户搜索</legend>-->
+                    <div class="row search-form">
+                        <form class="form-horizontal" method="get">
+                            <div class="col-xs-12">
+                                <!--输入字段-->
+                                <div class="col-xs-3">
+                                    <div class="form-group">
+                                        <label class="col-xs-4 control-label">订单号:</label>
+                                        <div class="col-xs-8">
+                                            <input class="form-control" placeholder="请输入订单号" type="text" value="<%= DWYRequest.query.tid %>" name="tid">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xs-3">
+                                    <div class="form-group">
+                                        <label class="col-xs-4 control-label">客户手机:</label>
+                                        <div class="col-xs-8">
+                                            <input class="form-control" placeholder="请输入客户手机" type="text" value="<%= DWYRequest.query.mobile %>" name="mobile">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xs-6">
+                                    <div class="form-group">
+                                        <label class="col-xs-2 control-label">建单日期:</label>
+                                        <div class="col-xs-4">
+                                            <input class="form-control fg-date-time-picker" placeholder="" type="text" value="<%= DWYRequest.query.startDate%>"
+                                                   name="startDate">
+                                        </div>
+                                        <label class="from-to control-label "> 至 </label>
+                                        <div class="col-xs-4">
+                                            <input class="form-control fg-date-time-picker" placeholder="" type="text" value="<%= DWYRequest.query.endDate%>"
+                                                   name="endDate">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xs-12">
+
+                                <div class="col-xs-3">
+                                    <div class="form-group">
+                                        <label class="col-xs-4 control-label">订单品牌:</label>
+                                        <div class="col-xs-8">
+                                            <select class="form-control" name="brandId">
+                                                <option value="">- 请选择 -</option>
+
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xs-3"></div>
+                                <div class="col-xs-6">
+                                    <div class="form-group">
+                                        <label class="col-xs-2 control-label">订单状态:</label>
+                                        <div class="col-xs-4">
+                                            <select class="form-control" name="startCode">
+                                                <option value="">- 起始 请选择 -</option>
+                                            </select>
+                                        </div>
+                                        <label class="from-to control-label "> 至 </label>
+                                        <div class="col-xs-4 ">
+                                            <select class="form-control" name="endCode">
+                                                <option value="">- 截止 请选择 -</option>
+
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xs-12">
+                                <hr class="simple">
+                                <div class="col-xs-12 text-center">
+                                    <button class="btn btn-primary " type="submit">
+                                        <i class="fa fa-search"></i>
+                                        搜索
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <!-- end row -->
+                </div>
+                <!-- end col -->
+            </div>
+            <!-- end row -->
+        </div>
+        <!-- end well -->
+        <div class="well">
+            <!-- row -->
+            <div class="row">
+                <div class="col-xs-12">
+                    <legend>
+                        已采购列表
+                        <a class="label label-primary" href="/purchase/apply_creat">新建请购单</a>
+                    </legend>
+                </div>
+            </div>
+            <!-- row -->
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-striped">
+                            <thead>
+                            <tr>
+                                <th>序号</th>
+                                <th>采购单编号</th>
+                                <th>产品名称</th>
+                                <th>供应商名称</th>
+                                <th>购买时间</th>
+                                <th>库存</th>
+                                <th>操作</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr class="">
+                                <td>
+                                    <label class="checkbox-inline">
+                                        <input type="checkbox" class="checkbox" name="roles" value="2">
+                                        <span>1</span>
+                                    </label>
+                                </td>
+                                <td>123456</td>
+                                <td>电脑 </td>
+                                <td></td>
+                                <td></td>
+                                <td>10</td>
+                                <td>
+                                    <a class="label label-primary" href="/purchase/apply_detail">详情</a>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<%- include('../layouts/footer'); %>
+<%- include('../layouts/footer_common_script'); %>
+<script type="text/javascript">
+    $(document).ready(function () {
+        pageSetUp();
+        $(".fg-date-picker").flatpickr(data_time_picker.data_picker); // jQuery
+    })
+</script>
+<%- include('../layouts/foot'); %>
+

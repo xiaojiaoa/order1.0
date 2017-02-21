@@ -17,19 +17,31 @@ var request = require('request');
 var Permissions = require('../config/permission');
 
 
-var supplierController = {
+var SupplierController = {
     supplierPage: function (req, res) {
         res.render('order/supplier/index');
     },
     supplierSortPage: function (req, res) {
         res.render('order/supplier/sort');
     },
+    supplierDetailPage: function (req, res) {
+        res.render('order/supplier/detail');
+    },
     supplierCreatPage: function (req, res) {
         res.render('order/supplier/creat');
+    },
+    supplierModifyPage: function (req, res) {
+        res.render('order/supplier/modify');
     },
     supplierSortCreatPage: function (req, res) {
         res.render('order/supplier/sort_creat');
     },
+    supplierOfferProductPage: function (req, res) {
+        res.render('order/supplier/offer_product');
+    },
+    supplierSortModifyPage: function (req, res) {
+        res.render('order/supplier/sort_modify');
+    },
 };
 
-module.exports = supplierController;
+module.exports = SupplierController;

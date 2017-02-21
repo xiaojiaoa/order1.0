@@ -1,0 +1,79 @@
+<%- include('../layouts/head_top'); %>
+<%- include('../layouts/head_bottom'); %>
+<%- include('../layouts/header'); %>
+<%- include('../layouts/nav'); %>
+
+<!-- MAIN PANEL -->
+<div id="main" role="main">
+
+    <!-- RIBBON -->
+    <div id="ribbon">
+
+        <!-- breadcrumb -->
+        <ol class="breadcrumb">
+            <li>后台管理</li>
+            <li>请购信息</li>
+        </ol>
+        <!-- end breadcrumb -->
+    </div>
+    <!-- END RIBBON -->
+    <!-- MAIN CONTENT -->
+    <div id="content">
+        <div class="well">
+            <!-- row -->
+            <div class="row">
+                <!-- col -->
+                <div class="col-xs-12">
+                    <legend>
+                        请购信息
+                        <a class="label label-primary">审核</a>
+                    </legend>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="col-xs-3">
+                        <a class="btn btn-primary" href="/purchase/detail">生成采购单</a>
+                    </div>
+                </div>
+            </div>
+            <div class="row margin-top-10">
+                <div class="col-xs-12">
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-striped">
+                            <thead>
+                            <tr>
+                                <th>序号</th>
+                                <th>请购人</th>
+                                <th>请购时间</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr class="">
+                                <td>
+                                    <label class="checkbox-inline">
+                                        <input type="checkbox" class="checkbox" name="roles" value="2">
+                                        <span>1</span>
+                                    </label>
+                                </td>
+                                <td>123456</td>
+                                <td>2017-02-20</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<%- include('../layouts/footer'); %>
+<%- include('../layouts/footer_common_script'); %>
+<script type="text/javascript">
+    $(document).ready(function () {
+        pageSetUp();
+        $(".fg-date-picker").flatpickr(data_time_picker.data_picker); // jQuery
+    })
+</script>
+<%- include('../layouts/foot'); %>

@@ -474,16 +474,42 @@ router.get('/cascade/*', TemplateController.getData);
  * 页面范围: 供应商相关
  * 控制器:   supplierController
  * */
-var supplierController = require('./Controller/supplierController');
+var supplierController = require('./Controller/SupplierController');
 
 // 供应商详情
 router.get('/supplier', Middleware.AuthCheck,supplierController.supplierPage);
 //供应商分类
 router.get('/supplier/sort', Middleware.AuthCheck,supplierController.supplierSortPage);
-//供应商分类
+//供应商信息
+router.get('/supplier/detail', Middleware.AuthCheck,supplierController.supplierDetailPage);
+//供应商添加
 router.get('/supplier/create', Middleware.AuthCheck,supplierController.supplierCreatPage);
-//供应商分类
+//供应商修改
+router.get('/supplier/modify', Middleware.AuthCheck,supplierController.supplierModifyPage);
+//供应商分类添加
 router.get('/supplier/sort_create', Middleware.AuthCheck,supplierController.supplierSortCreatPage);
+//供应商分类修改
+router.get('/supplier/sort_modify', Middleware.AuthCheck,supplierController.supplierSortModifyPage);
+//供应商可供商品
+router.get('/supplier/offer_product', Middleware.AuthCheck,supplierController.supplierOfferProductPage);
+
+
+/*
+ * 页面范围: 采购管理相关
+ * 控制器:   purchaseController
+ * */
+var purchaseController = require('./Controller/purchaseController');
+
+// 已采购详情
+router.get('/purchase', Middleware.AuthCheck,purchaseController.purchasePage);
+// 新建请购单
+router.get('/purchase/apply_creat', Middleware.AuthCheck,purchaseController.purchaseApplyCreatPage);
+// 请购单详情
+router.get('/purchase/apply_detail', Middleware.AuthCheck,purchaseController.purchaseApplyDetailPage);
+// 采购详情
+router.get('/purchase/detail', Middleware.AuthCheck,purchaseController.purchaseDetailPage);
+// 采购单详情
+router.get('/purchase/order_detail', Middleware.AuthCheck,purchaseController.purchaseOrderDetailPage);
 
 /*
  * 页面范围: 网络预约相关

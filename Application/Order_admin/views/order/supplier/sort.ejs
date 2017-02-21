@@ -101,9 +101,6 @@
                                         <i class="fa fa-search"></i>
                                         搜索
                                     </button>
-                                    <a class="btn btn-primary margin-right-5" href="/supplier/sort_create">
-                                        添加分类
-                                    </a>
                                 </div>
                             </div>
                         </form>
@@ -118,11 +115,17 @@
         <div class="well">
             <div class="row">
                 <div class="col-xs-12">
+                    <legend>
+                        供应商分类
+                        <!--<a class="label label-primary" href="">修改</a>-->
+                        <a class="label label-primary" href="/supplier/sort_create">添加分类</a>
+                        <a class="label label-danger" id="closeStore">禁用</a>
+                    </legend>
                     <div class="table-responsive">
                         <table class="table table-bordered table-striped table-expand">
                             <thead>
                             <tr>
-                                <th width="300">供应商</th>
+                                <th width="300">供应商分类名称</th>
                                 <th>操作</th>
                             </tr>
                             </thead>
@@ -131,16 +134,17 @@
                                 <td>供应商1</td>
                                 <td>
                                     <a class="departmentChild-modal" parent="" parentId="" href="/supplier/sort_create">新建子级</a>
-                                    <a class="departmentModify-modal" name="" selfId="">修改</a>
-                                    <a class="delete-department" selfId="">删除</a>
+                                    <!--<a class="supplierModify-modal" name="供应商1" selfId="111">修改</a>-->
+                                    <a class="supplierModify-modal" href="sort_modify">修改</a>
+                                    <a class="delete-department" selfId="1113">删除</a>
                                 </td>
                             </tr>
                             <tr class="level-1">
                                 <td class="level-1-title">子级</td>
                                 <td>
-                                    <a href="">查看分类</a>
-                                    <a class="departmentModify-modal" name=""  selfId="">修改</a>
-                                    <a class="delete-department"  selfId="">删除</a>
+                                    <!--<a class="supplierModify-modal" name="子级"  selfId="222">修改</a>-->
+                                    <a class="supplierModify-modal" href="sort_modify">修改</a>
+                                    <a class="delete-department"  selfId="222">删除</a>
                                 </td>
                             </tr>
                             </tbody>
@@ -155,6 +159,8 @@
 
     </div>
 </div>
+
+
 
 <%- include('../layouts/footer'); %>
 <%- include('../layouts/footer_common_script'); %>
