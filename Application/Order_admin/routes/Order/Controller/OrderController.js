@@ -307,10 +307,22 @@ var OrderController = {
                 pagination: boostrapPaginator.render(),
                 Permission :Permissions,
             },resultList));
-           console.log('1111',resultList);
             res.render('order/order/nesting', returnData);
 
         });
+    },
+    getNestingTask: function (req, res) {
+        var ids = req.params.cid;
+        request(Base.mergeRequestOptions({
+            method: 'put',
+            url: '/api/orders/schedule/getTask'+'?tids='+ids,
+        }, req, res), function (error, response, body) {
+            if (!error && response.statusCode == 204) {
+                res.sendStatus(200)
+            } else {
+                Base.handlerError(res, req, error, response, body);
+            }
+        })
     },
     packagePage: function (req, res) {
         res.render('order/order/package');

@@ -182,6 +182,9 @@ router.get('/order/permit', Middleware.AuthCheck, OrderController.permitPage);
 // 订单排料页面
 router.get('/orders/nesting', Middleware.AuthCheck, OrderController.nestingPage);
 
+//标记排料中页面
+router.get('/orders/getNestingTask/:cid', Middleware.AuthCheck, OrderController.getNestingTask);
+
 // 订单包装页面
 router.get('/orders/package', Middleware.AuthCheck, OrderController.packagePage);
 
@@ -541,37 +544,37 @@ var SupplierController = require('./Controller/SupplierController');
 router.get('/supplier', Middleware.AuthCheck,SupplierController.supplierPage);
 //供应商分类
 
-router.get('/supplier/sort', Middleware.AuthCheck,supplierController.supplierSortPage);
+router.get('/supplier/sort', Middleware.AuthCheck,SupplierController.supplierSortPage);
 //供应商信息
-router.get('/supplier/detail', Middleware.AuthCheck,supplierController.supplierDetailPage);
+router.get('/supplier/detail', Middleware.AuthCheck,SupplierController.supplierDetailPage);
 //供应商添加
-router.get('/supplier/create', Middleware.AuthCheck,supplierController.supplierCreatPage);
+router.get('/supplier/create', Middleware.AuthCheck,SupplierController.supplierCreatPage);
 //供应商修改
-router.get('/supplier/modify', Middleware.AuthCheck,supplierController.supplierModifyPage);
+router.get('/supplier/modify', Middleware.AuthCheck,SupplierController.supplierModifyPage);
 //供应商分类添加
-router.get('/supplier/sort_create', Middleware.AuthCheck,supplierController.supplierSortCreatPage);
+router.get('/supplier/sort_create', Middleware.AuthCheck,SupplierController.supplierSortCreatPage);
 //供应商分类修改
-router.get('/supplier/sort_modify', Middleware.AuthCheck,supplierController.supplierSortModifyPage);
+router.get('/supplier/sort_modify', Middleware.AuthCheck,SupplierController.supplierSortModifyPage);
 //供应商可供商品
-router.get('/supplier/offer_product', Middleware.AuthCheck,supplierController.supplierOfferProductPage);
+router.get('/supplier/offer_product', Middleware.AuthCheck,SupplierController.supplierOfferProductPage);
 
 
 /*
  * 页面范围: 采购管理相关
  * 控制器:   purchaseController
  * */
-var purchaseController = require('./Controller/purchaseController');
+var PurchaseController = require('./Controller/PurchaseController');
 
 // 已采购详情
-router.get('/purchase', Middleware.AuthCheck,purchaseController.purchasePage);
+router.get('/purchase', Middleware.AuthCheck,PurchaseController.purchasePage);
 // 新建请购单
-router.get('/purchase/apply_creat', Middleware.AuthCheck,purchaseController.purchaseApplyCreatPage);
+router.get('/purchase/apply_creat', Middleware.AuthCheck,PurchaseController.purchaseApplyCreatPage);
 // 请购单详情
-router.get('/purchase/apply_detail', Middleware.AuthCheck,purchaseController.purchaseApplyDetailPage);
+router.get('/purchase/apply_detail', Middleware.AuthCheck,PurchaseController.purchaseApplyDetailPage);
 // 采购详情
-router.get('/purchase/detail', Middleware.AuthCheck,purchaseController.purchaseDetailPage);
+router.get('/purchase/detail', Middleware.AuthCheck,PurchaseController.purchaseDetailPage);
 // 采购单详情
-router.get('/purchase/order_detail', Middleware.AuthCheck,purchaseController.purchaseOrderDetailPage);
+router.get('/purchase/order_detail', Middleware.AuthCheck,PurchaseController.purchaseOrderDetailPage);
 
 
 /*

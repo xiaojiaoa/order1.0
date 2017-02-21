@@ -204,7 +204,13 @@
                     <table class="table table-bordered table-striped">
                         <thead>
                         <tr>
-                            <th>序号</th>
+                            <th>
+                                <label class="checkbox-inline">
+                                    <input type="checkbox" class="checkbox"
+                                           id="checkAll"  />
+                                    <span>序号</span>
+                                </label>
+                            </th>
                             <th>加急</th>
                             <th>试装</th>
                             <th>是否收款</th>
@@ -234,7 +240,7 @@
                             <td>
                                 <label class="checkbox-inline">
                                     <input type="checkbox" class="checkbox"
-                                           name="roles" value="2">
+                                           name="roles" value="<%= element.tid %>">
                                     <span><%= index+1 %></span>
                                 </label>
                             </td>
@@ -266,7 +272,8 @@
                 <div class="col-xs-12">
                     <hr class="simple">
                     <div class="col-xs-2 text-center">
-                        <button class="btn btn-primary">标记为排料中</button>
+                        <button class="btn btn-primary" id="getNestingTask">标记为排料中</button>
+                        <input type="hidden" class="" id="checkedValue">
                     </div>
                 </div>
             </div>
@@ -298,6 +305,46 @@
                 layer.close(index)
             },function(index){
                 layer.close(index)})
+        })
+        var checkedValue = $('#checkedValue');
+        $("#checkAll").change(function () {
+            if($(this).is(":checked")){
+                $(":checkbox").prop('checked',true);
+                $("input[name='roles']:checked").each(function (i) {
+                    checkedValue.addClass(this.value+',')
+                });
+            }else{
+                $(":checkbox").prop('checked',false);
+                checkedValue.removeClass()
+            }
+        })
+        $("input[name='roles']").change(function () {
+            if($(this).is(':checked')){
+                checkedValue.addClass(this.value+',')
+            }else{
+                checkedValue.removeClass(this.value+',')
+            }
+        });
+        $(
+            function trim(str){
+                return str.replace(/[ ]/g,"");  //去除字符算中的空格
+            }
+        )
+        $("#getNestingTask").click(function(){
+            var cid = checkedValue.attr('class');
+//            cid.replace(/\s+/g,"");
+            alert(cid)
+            layer.confirm('确认标记?',{icon: 3, title:'提示'},
+                function(index){
+                    $.ajax({
+                        url: '/orders/getNestingTask/'+cid,
+                        method: 'get',
+                        success: function (data) {
+                            window.location.reload();
+                        }
+                    });
+                },
+                function(index){layer.close(index)})
         })
     })
 </script>
