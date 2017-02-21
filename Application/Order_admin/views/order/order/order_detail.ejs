@@ -412,18 +412,50 @@
 
                             <tr>
                                 <td>排料时间</td>
+                                <% switch (orderInfo.stcode){
+                                case 775: %>
+                                <td>
+                                    排料中
+                                    <a class="label label-primary doPass"  data-stcode="<%= orderInfo.stcode %>">确认排料</a>
+                                    <a class="label label-primary margin-left-20 reject-modal">排料退回</a>
+                                </td>
+                                <%        break;
+                                case 772: %>
+                                <td>
+                                    待排料
+                                    <a class="label label-primary doGetTask" data-stcode="<%= orderInfo.stcode %>">标记为排料中</a>
+                                </td>
+                                <%         break;
+                                    default: %>
                                 <td></td>
-                                <td>特排人</td>
+                                <%  } %>
+                                <td>排料人</td>
+                                <td></td>
+                            </tr>
+
+                            <tr>
+                                <td>包装时间</td>
+                                <% switch (orderInfo.stcode){
+                                case 775: %>
+                                <td>
+                                    包装中
+                                    <a class="label label-primary doPass"  data-stcode="<%= orderInfo.stcode %>">生成包装</a>
+                                </td>
+                                <%        break;
+                                case 772: %>
+                                <td>
+                                    待包装
+                                    <a class="label label-primary doGetTask" data-stcode="<%= orderInfo.stcode %>">标记为待包装中</a>
+                                </td>
+                                <%         break;
+                                    default: %>
+                                <td></td>
+                                <%  } %>
+                                <td>包装人</td>
                                 <td></td>
                             </tr>
                             <tr>
                                 <td>排产时间</td>
-                                <td></td>
-                                <td>特排人</td>
-                                <td></td>
-                            </tr>
-                            <tr>
-                                <td>包装时间</td>
                                 <td></td>
                                 <td>排产人</td>
                                 <td></td>
@@ -675,7 +707,7 @@
             switch (orderStcode){
                 case '450':
                     ajaxUrl = '/apart/doPass/<%= tid %>';
-                    locationUrl = '/apart';
+                    locationUrl = '/apart/check';
                     text = '确定拆单完毕吗?';
                     break;
                 case '475':

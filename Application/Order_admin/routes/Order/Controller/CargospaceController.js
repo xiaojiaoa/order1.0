@@ -10,7 +10,7 @@ var helper = require('../config/helper');
 var request = require('request');
 
 
-var CargospaceControlle = {
+var CargospaceController = {
     listPage: function (req, res) {
         var paramObject = helper.genPaginationQuery(req);
         Base.multiDataRequest(req, res, [
@@ -179,4 +179,4 @@ var CargospaceControlle = {
 
 };
 
-module.exports = CargospaceControlle;
+module.exports = CargospaceController;
