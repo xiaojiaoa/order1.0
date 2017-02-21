@@ -193,7 +193,7 @@ var ApartController = {
             url: '/api/orders/apartReview/notPass?'+queryString.stringify(req.body),
         }, req, res), function (error, response, body) {
             if (!error && response.statusCode == 201) {
-                res.redirect("/apart");
+                res.redirect("/apart/check");
             } else {
                 Base.handlerError(res, req, error, response, body);
             }

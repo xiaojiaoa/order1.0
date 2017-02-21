@@ -167,7 +167,7 @@ router.get('/orders/resupplys/apart', Middleware.AuthCheck, Middleware.FilterEmp
 
 
 // 补单详情页面   补单信息（已完成）
-router.get('/order/resupply/detail', Middleware.AuthCheck, OrderController.resupplyDetailPage);
+router.get('/order/resupply/detail/:tid', Middleware.AuthCheck, OrderController.resupplyDetailPage);
 
 
 //  订单审核页面
@@ -207,7 +207,6 @@ router.post('/apart/unlock/:tid', Middleware.AuthCheck, ApartController.doUnlock
 router.post('/apart/notPass', Middleware.AuthCheck, ApartController.notPass);
 // 审核通过
 router.post('/apart/doPass/:tid', Middleware.AuthCheck, ApartController.doPass);
-
 
 // 标记为审核中 (待拆单审核)
 router.post('/apartCheck/getTask/:tid', Middleware.AuthCheck, ApartController.getTaskCheck);
@@ -409,6 +408,35 @@ router.put('/:type/employees/resetPassword/:cid', Middleware.AuthCheck, Employee
 router.put('/:bidtype/employees/setStatus/:cid/:type', Middleware.AuthCheck, EmployeeController.setStatus);
 
 
+/*
+ * 页面范围: 仓储管理
+ * 控制器:   FactoryController
+ * */
+var FactoryController = require('./Controller/FactoryController');
+
+// 获取工厂列表
+router.get('/factory', Middleware.AuthCheck, Middleware.FilterEmptyField, FactoryController.listPage);
+
+// 工厂详情页面
+router.get('/factory/detail/:ftyId', Middleware.AuthCheck, FactoryController.detailPage);
+
+// 新增工厂页面
+router.get('/factory/create', Middleware.AuthCheck, FactoryController.createPage);
+
+// 新增工厂
+router.post('/factory/doCreate', Middleware.AuthCheck, FactoryController.doCreate);
+
+// 修改工厂详情页面
+router.get('/:type/employees/modify/:bid/:cid', Middleware.AuthCheck, FactoryController.modifyPage);
+
+// 修改工厂信息
+router.post('/employees/doModify', Middleware.AuthCheck, FactoryController.doModify);
+
+// 重置员工密码
+router.put('/:type/employees/resetPassword/:cid', Middleware.AuthCheck, FactoryController.resetPassword);
+
+// 关闭/解锁 工厂
+router.put('/:bidtype/employees/setStatus/:cid/:type', Middleware.AuthCheck, FactoryController.setStatus);
 
 
 /*
