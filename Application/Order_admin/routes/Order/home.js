@@ -200,11 +200,13 @@ router.get('/apart/check', Middleware.AuthCheck, Middleware.FilterEmptyField, Ap
 
 // 标记为审核中 (待拆单)
 router.post('/apart/getTask/:tid', Middleware.AuthCheck, ApartController.getTask);
+
 // 解锁订单
 router.post('/apart/unlock/:tid', Middleware.AuthCheck, ApartController.doUnlock);
 
 // 审核未通过（退单）
 router.post('/apart/notPass', Middleware.AuthCheck, ApartController.notPass);
+
 // 审核通过
 router.post('/apart/doPass/:tid', Middleware.AuthCheck, ApartController.doPass);
 
@@ -474,31 +476,31 @@ router.post('/region/doCreate', Middleware.AuthCheck, FactoryController.doRegion
  * 页面范围: 货位管理
  * 控制器:   CargospaceController
  * */
-var CargospaceControlle = require('./Controller/CargospaceControlle');
+var CargospaceController = require('./Controller/CargospaceController');
 
 // 获取货位列表
-router.get('/factory', Middleware.AuthCheck, Middleware.FilterEmptyField, CargospaceControlle.listPage);
+router.get('/factory', Middleware.AuthCheck, Middleware.FilterEmptyField, CargospaceController.listPage);
 
 // 货位详情页面
-router.get('/factory/detail/:ftyId', Middleware.AuthCheck, CargospaceControlle.detailPage);
+router.get('/factory/detail/:ftyId', Middleware.AuthCheck, CargospaceController.detailPage);
 
 // 新增货位页面
-router.get('/factory/create', Middleware.AuthCheck, CargospaceControlle.createPage);
+router.get('/factory/create', Middleware.AuthCheck, CargospaceController.createPage);
 
 // 新增货位页面-下一步
-router.get('/factory/createNext', Middleware.AuthCheck, CargospaceControlle.createNextPage);
+router.get('/factory/createNext', Middleware.AuthCheck, CargospaceController.createNextPage);
 
 // 新增货位
-router.post('/factory/doCreate', Middleware.AuthCheck, CargospaceControlle.doCreate);
+router.post('/factory/doCreate', Middleware.AuthCheck, CargospaceController.doCreate);
 
 // 修改货位详情页面
-router.get('/factory/modify/:ftyId', Middleware.AuthCheck, CargospaceControlle.modifyPage);
+router.get('/factory/modify/:ftyId', Middleware.AuthCheck, CargospaceController.modifyPage);
 
 // 修改货位信息
-router.post('/factory/doModify', Middleware.AuthCheck, CargospaceControlle.doModify);
+router.post('/factory/doModify', Middleware.AuthCheck, CargospaceController.doModify);
 
 // 关闭/解锁 货位
-router.put('/factory/setStatus/:ftyId/:type', Middleware.AuthCheck, CargospaceControlle.setStatus);
+router.put('/factory/setStatus/:ftyId/:type', Middleware.AuthCheck, CargospaceController.setStatus);
 
 
 /*
