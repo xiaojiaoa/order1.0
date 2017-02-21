@@ -112,6 +112,8 @@ var MaterialAttrController = {
     },
     attrValChange: function (req, res) {
         //console.log('修改物料属性值'+ JSON.stringify(req.body));
+        var code=req.body.code;
+        var aid=req.body.attrId;
         request(Base.mergeRequestOptions({
             method: 'put',
             url: '/api/attributes/value/'+code+'?'+queryString.stringify(req.body),
