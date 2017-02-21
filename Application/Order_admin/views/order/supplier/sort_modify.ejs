@@ -1,0 +1,122 @@
+<%- include('../layouts/head_top'); %>
+<%- include('../layouts/head_bottom'); %>
+<%- include('../layouts/header'); %>
+<%- include('../layouts/nav'); %>
+
+
+<!-- MAIN PANEL -->
+<div id="main" role="main">
+
+    <!-- RIBBON -->
+    <div id="ribbon">
+
+        <!-- breadcrumb -->
+        <ol class="breadcrumb">
+            <li>后台管理</li>
+            <li>添加供应商分类</li>
+        </ol>
+        <!-- end breadcrumb -->
+    </div>
+    <!-- END RIBBON -->
+    <!-- MAIN CONTENT -->
+    <div id="content">
+        <!-- well -->
+        <div class="well">
+            <!-- row -->
+            <div class="row">
+                <!-- col -->
+                <div class="col-xs-12">
+                    <legend>新增供应商分类</legend>
+                    <!-- row -->
+                    <div class="row">
+                        <form class="form-horizontal" method="post" action="/employees/doCreate" id="create-employees">
+
+                            <div class="col-xs-12">
+                                <div class="col-xs-4">
+                                    <div class="form-group">
+                                        <label class="col-xs-4 control-label"><span class="requird"></span> 上级分类:</label>
+                                        <div class="col-xs-8">
+                                            <select class="form-control" name="education">
+                                                <option value="">- 请选择 -</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xs-12">
+                                <!--输入字段-->
+                                <div class="col-xs-4">
+                                    <div class="form-group">
+                                        <label class="col-xs-4 control-label "><span class="requird"></span> 分类名称:
+                                        </label>
+                                        <div class="col-xs-8">
+                                            <input class="form-control validate[required,funcCall[custom_validate_fn.isIdCardNo]]"
+                                                    value=""
+                                                   name="idcard">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xs-12">
+                                <div class="col-xs-4">
+                                    <div class="form-group">
+                                        <label class="col-xs-4 control-label"><span class="requird"></span> 标识:</label>
+                                        <div class="col-xs-8">
+                                            <select class="form-control" name="education">
+                                                <option value="">- 请选择 -</option>
+                                                <option value="">- 内部 -</option>
+                                                <option value="">- 外部 -</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xs-12">
+                                <!--输入字段-->
+                                <div class="col-xs-8">
+                                    <div class="form-group">
+                                        <label class="col-xs-2 control-label">备注:</label>
+                                        <div class="col-xs-8">
+                                            <textarea name="seqRemark" class="form-control" id="" cols="20" rows="5"></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+
+
+                            <div class="col-xs-8">
+                                <hr class="simple">
+                                <div class="col-xs-12 text-center">
+
+                                    <button class="btn btn-primary " type="submit">
+                                        <i class="fa fa-save"></i>
+                                        确认添加
+                                    </button>
+                                </div>
+                            </div>
+
+                        </form>
+                    </div>
+                    <!-- end row -->
+
+                </div>
+                <!-- end col -->
+            </div>
+            <!-- end row -->
+        </div>
+
+
+    </div>
+</div>
+
+<%- include('../layouts/footer'); %>
+<%- include('../layouts/footer_common_script'); %>
+<script type="text/javascript">
+    $(document).ready(function () {
+        pageSetUp();
+        $(".fg-date-picker").flatpickr(data_time_picker.data_picker); // jQuery
+    })
+</script>
+<%- include('../layouts/foot'); %>
+
