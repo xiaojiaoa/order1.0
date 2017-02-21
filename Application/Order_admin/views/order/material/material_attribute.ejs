@@ -104,7 +104,7 @@
                                                       <tr class="<%= ( element.stcode == 1 )? 'close-info':'' %>">
                                                           <td><%= index+1 %></td>
                                                           <td><%= element.id %></td>
-                                                          <td><a href="/materialManage/mateAttri/detail/<%= element.id %>"><%= element.name %></a></td>
+                                                          <td><a href="/materialManage/mateAttr/detail/<%= element.id %>" class="<%= ( element.stcode == 1 )? 'close-info':'' %>"><%= element.name %></a></td>
                                                           <td><%= element.length %></td>
                                                           <td>
                                                               <% if( element.stcode == 1 ){ %>
@@ -112,7 +112,7 @@
                                                               <% }else{ %>
                                                               <a href="javascript:void(0)" class="attrChange">修改</a>
                                                               <a href="javascript:void(0)" class="margin-left-20 closeStore" id="closeStore">禁用</a>
-                                                              <a href="javascript:void(0)" class="margin-left-20">新建值</a>
+                                                              <a href="javascript:void(0)" class="margin-left-20 creAttrVal attrValCreate">新建值</a>
                                                               <% } %>
                                                           </td>
                                                       </tr>
@@ -183,3 +183,4 @@
 
 <%- include('../layouts/foot'); %>
 <%- include('./attribute_modal'); %>
+<%- include('./attrVal_modal'); %>

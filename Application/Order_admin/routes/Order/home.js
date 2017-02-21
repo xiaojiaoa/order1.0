@@ -294,21 +294,30 @@ router.post('/materialManage/material/doCreate', Middleware.AuthCheck, MaterialC
 //物料修改页面
 router.get('/materialManage/material/modify', Middleware.AuthCheck, MaterialController.materialModifyPage);
 
-//物料属性页面
-router.get('/materialManage/materialAttribute', Middleware.AuthCheck, MaterialController.materialAttributePage);
 
-//增加物料属性接口
-router.post('/material/attrCreate', Middleware.AuthCheck, MaterialController.attrCreate);
+
+/*
+ * 页面范围: 物料属性相关
+ * 控制器:   MaterialAttrController
+ * */
+var MaterialAttrController = require('./Controller/MaterialAttrController');
+//物料属性页面
+router.get('/materialManage/materialAttribute', Middleware.AuthCheck, MaterialAttrController.materialAttributePage);
+
+//新建物料属性接口
+router.post('/material/attrCreate', Middleware.AuthCheck, MaterialAttrController.attrCreate);
 
 //修改物料属性接口
-router.post('/material/attrChange', Middleware.AuthCheck, MaterialController.attrChange);
+router.post('/material/attrChange', Middleware.AuthCheck, MaterialAttrController.attrChange);
 
 // 禁用/解锁 物料属性
-router.put('/mateAttr/setStatus/:aid/:type', Middleware.AuthCheck, MaterialController.setAttrStatus);
+router.put('/mateAttr/setStatus/:aid/:type', Middleware.AuthCheck, MaterialAttrController.setAttrStatus);
 
-//物料属性详情页面
-router.get('/materialManage/mateAttri/detail/:mid', Middleware.AuthCheck, MaterialController.mateAttriDetailPage);
+//物料属性值详情页面
+router.get('/materialManage/mateAttr/detail/:mid', Middleware.AuthCheck, MaterialAttrController.mateAttrDetailPage);
 
+//新建物料属性值接口
+router.post('/material/attrValCreate', Middleware.AuthCheck, MaterialAttrController.attrValCreate);
 
 /*
  * 页面范围: 机构相关
