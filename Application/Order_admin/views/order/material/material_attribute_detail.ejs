@@ -61,9 +61,9 @@
                                         <i class="fa fa-search"></i>
                                         查询
                                     </button>
-                                    <a class="btn btn-primary attrCreate" href="javascript:void(0)">
+                                    <a class="btn btn-primary " href="javascript:void(0)">
                                         <i class="fa fa-save"></i>
-                                        新建属性
+                                        新建属性值
                                     </a>
                                 </div>
                             </div>
@@ -100,26 +100,22 @@
                             </tr>
                             </thead>
                             <tbody>
-                                                     <%attributeList.result.forEach(function (element, index) { %>
-                                                      <tr class="<%= ( element.stcode == 1 )? 'close-info':'' %>">
-                                                          <td><%= index+1 %></td>
-                                                          <td><%= element.id %></td>
-                                                          <td><a href="/materialManage/mateAttri/detail/<%= element.id %>"><%= element.name %></a></td>
-                                                          <td><%= element.length %></td>
-                                                          <td>
-                                                              <% if( element.stcode == 1 ){ %>
-                                                              <a href="javascript:void(0)" id="openStore" class="openStore">启用</a>
-                                                              <% }else{ %>
-                                                              <a href="javascript:void(0)" class="attrChange">修改</a>
-                                                              <a href="javascript:void(0)" class="margin-left-20 closeStore" id="closeStore">禁用</a>
-                                                              <a href="javascript:void(0)" class="margin-left-20">新建值</a>
-                                                              <% } %>
-                                                          </td>
-                                                      </tr>
-                                                      <% }) %>
+
+                            <tr>
+                               <td>1</td>
+                                <td>56456</td>
+                                <td>颜色</td>
+                                <td>3</td>
+                                <td>
+                                    <a href="javascript:void(0)">修改</a>
+                                    <a href="javascript:void(0)" class="margin-left-20">禁用</a>
+                                    <a href="javascript:void(0)" class="margin-left-20">新建值</a>
+                                </td>
+
+                                  </tr>
+
                             </tbody>
                         </table>
-                        <%- pagination %>
 
                     </div>
                 </div>
@@ -138,48 +134,16 @@
 
 <%- include('../layouts/footer'); %>
 <%- include('../layouts/footer_common_script'); %>
+
 <script type="text/javascript">
+
     $(document).ready(function () {
-        //启用、禁用物料属性
-        $(".closeStore").on({
-            click: function () {
-               var attrId= $(this).parent().parent().children().eq(1).text();
-                console.log(attrId);
-                layer.confirm('确定禁用该属性？',{icon: 3, title:'提示'},
-                    function(index){
-                        $.ajax({
-                            url: '/mateAttr/setStatus/'+attrId+'/1',
-                            method: 'put',
-                            success: function (data) {
-                                window.location.reload();
-                            }
-                        });
-                    },
-                    function(index){layer.close(index)})
-            }
-        });
-        $(".openStore").on({
-            click: function () {
-                var attrId= $(this).parent().parent().children().eq(1).text();
-                console.log(attrId);
-                layer.confirm('确定启用该属性？',{icon: 3, title:'提示'},
-                    function(index){
-                        $.ajax({
-                            url: '/mateAttr/setStatus/'+attrId+'/2',
-                            method: 'put',
-                            success: function (data) {
-                                window.location.reload();
-                            }
-                        });
-                    },
-                    function(index){layer.close(index)})
-            }
-        })
-
-
+        pageSetUp();
+      //日期组件
+        $(".fg-date-time-picker").flatpickr(data_time_picker.data_time_picker);
     })
+
 </script>
 
 
 <%- include('../layouts/foot'); %>
-<%- include('./attribute_modal'); %>

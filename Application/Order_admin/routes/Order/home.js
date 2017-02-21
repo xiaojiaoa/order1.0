@@ -293,7 +293,20 @@ router.post('/materialManage/material/doCreate', Middleware.AuthCheck, MaterialC
 //物料修改页面
 router.get('/materialManage/material/modify', Middleware.AuthCheck, MaterialController.materialModifyPage);
 
+//物料属性页面
+router.get('/materialManage/materialAttribute', Middleware.AuthCheck, MaterialController.materialAttributePage);
 
+//增加物料属性接口
+router.post('/material/attrCreate', Middleware.AuthCheck, MaterialController.attrCreate);
+
+//修改物料属性接口
+router.post('/material/attrChange', Middleware.AuthCheck, MaterialController.attrChange);
+
+// 禁用/解锁 物料属性
+router.put('/mateAttr/setStatus/:aid/:type', Middleware.AuthCheck, MaterialController.setAttrStatus);
+
+//物料属性详情页面
+router.get('/materialManage/mateAttri/detail/:mid', Middleware.AuthCheck, MaterialController.mateAttriDetailPage);
 
 
 /*
@@ -519,18 +532,18 @@ router.get('/cascade/*', TemplateController.getData);
 
 /*
  * 页面范围: 供应商相关
- * 控制器:   supplierController
+ * 控制器:   SupplierController
  * */
-var supplierController = require('./Controller/supplierController');
+var SupplierController = require('./Controller/SupplierController');
 
 // 供应商详情
-router.get('/supplier', Middleware.AuthCheck,supplierController.supplierPage);
+router.get('/supplier', Middleware.AuthCheck,SupplierController.supplierPage);
 //供应商分类
-router.get('/supplier/sort', Middleware.AuthCheck,supplierController.supplierSortPage);
+router.get('/supplier/sort', Middleware.AuthCheck,SupplierController.supplierSortPage);
 //供应商分类
-router.get('/supplier/create', Middleware.AuthCheck,supplierController.supplierCreatPage);
+router.get('/supplier/create', Middleware.AuthCheck,SupplierController.supplierCreatPage);
 //供应商分类
-router.get('/supplier/sort_create', Middleware.AuthCheck,supplierController.supplierSortCreatPage);
+router.get('/supplier/sort_create', Middleware.AuthCheck,SupplierController.supplierSortCreatPage);
 
 /*
  * 页面范围: 网络预约相关

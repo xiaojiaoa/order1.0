@@ -17,7 +17,7 @@ var request = require('request');
 var Permissions = require('../config/permission');
 
 
-var supplierController = {
+var SupplierController = {
     supplierPage: function (req, res) {
         res.render('order/supplier/index');
     },
@@ -32,4 +32,4 @@ var supplierController = {
     },
 };
 
-module.exports = supplierController;
+module.exports = SupplierController;
