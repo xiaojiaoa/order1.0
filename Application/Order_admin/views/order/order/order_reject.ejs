@@ -6,6 +6,9 @@
             case 450: %>
                 action='/apart/notPass'
         <%       break;
+            case 450: %>
+                action='/apartCheck/notPass'
+        <%       break;
         } %>
       >
 
@@ -58,18 +61,6 @@
         //弹出类
         $('.reject-modal').on({
             click: function (e) {
-//                var orderStcode = $(this).attr('data-stcode');
-//                var ajaxUrl = '';
-//                var locationUrl = '';
-//                var content = $('#order_reject');
-//                switch (orderStcode){
-//                    case '290':
-//
-//                        break;
-//                    case '':
-//                        break;
-//                }
-
                 layer.open({
                     title: false,
                     type: 1,

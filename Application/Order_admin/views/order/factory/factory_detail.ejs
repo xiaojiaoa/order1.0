@@ -1,0 +1,143 @@
+<%- include('../layouts/head_top'); %>
+<%- include('../layouts/head_bottom'); %>
+<%- include('../layouts/header'); %>
+<%- include('../layouts/nav'); %>
+
+<!-- MAIN PANEL -->
+<div id="main" role="main">
+
+    <!-- RIBBON -->
+    <div id="ribbon">
+
+        <!-- breadcrumb -->
+        <ol class="breadcrumb">
+            <li>后台管理</li>
+            <li>工厂信息</li>
+        </ol>
+        <!-- end breadcrumb -->
+
+
+    </div>
+    <!-- END RIBBON -->
+
+
+    <!-- MAIN CONTENT -->
+    <div id="content">
+        <!-- well -->
+        <div class="well">
+            <!-- row -->
+            <div class="row">
+                <!-- col -->
+                <div class="col-xs-12 dwy-show-content">
+                    <legend>基本信息
+                        <% if( factoryInfo.stcode == 2 ){ %>
+                        <a class="label label-primary" id="openStore">启用</a>
+                        <% }else{ %>
+                        <a class="label label-primary" href="/factory/modify/<%= factoryInfo.ftyId %>">修改</a>
+                        <a class="label label-danger" id="closeStore">禁用</a>
+                        <a class="label label-primary" href="/warehouse/create">新建仓库</a>
+                        <a class="label label-primary" href="/factory/modify/<%= factoryInfo.ftyId %>">查看所有仓库</a>
+                        <% } %>
+
+                    </legend>
+
+                    <!-- row -->
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-striped table-information <%= ( factoryInfo.stcode == 2 )? 'close-info':'' %>">
+                            <tbody>
+                            <tr>
+                                <td>工厂编号</td>
+                                <td><%= factoryInfo.ftyId %></td>
+                                <td>工厂名称</td>
+                                <td><%= factoryInfo.name %></td>
+                                <td>类型</td>
+                                <td><%= DWY_Helper.getFactoryType(factoryInfo.type) %></td>
+                            </tr>
+                            <tr>
+                                <td>新建日期</td>
+                                <td><%= DWY_Helper.getLocalDate(factoryInfo.addTime) %></td>
+                                <td>工厂所在省市区</td>
+                                <td> <%= factoryInfo.province %> <%= factoryInfo.city %> <%= factoryInfo.dist %></td>
+                                <td>所属机构</td>
+                                <td><%= DWY_Helper.getAssistVal(factoryInfo.bid, factoryList) %></td>
+                            </tr>
+                            <tr>
+                                <td>物流约束标识</td>
+                                <td><%= DWY_Helper.getWhether(factoryInfo.areaFlag) %></td>
+                                <td>详细地址</td>
+                                <td  colspan="3"><%= factoryInfo.address %></td>
+                            </tr>
+                            <tr>
+                                <td>配送范围</td>
+                                <td colspan="5"><%= factoryInfo.area %></td>
+                            </tr>
+                            <tr>
+                                <td>备注</td>
+                                <td colspan="5"><%= factoryInfo.remark %></td>
+                            </tr>
+
+                            </tbody>
+                        </table>
+
+                    </div>
+                    <!-- end row -->
+                </div>
+                <!-- end col -->
+            </div>
+            <!-- end row -->
+        </div>
+        <!-- end well -->
+
+
+    </div>
+    <!-- END MAIN CONTENT -->
+
+</div>
+<!-- END MAIN PANEL -->
+
+<%- include('../layouts/footer'); %>
+<%- include('../layouts/footer_common_script'); %>
+
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+
+        var ftyId = '<%= factoryInfo.ftyId %>';
+        $("#closeStore").on({
+            click: function () {
+                layer.confirm('确定禁用该工厂？',{icon: 3, title:'提示'},
+                    function(index){
+                        $.ajax({
+                            url: '/factory/setStatus/'+ftyId+'/2',
+                            method: 'put',
+                            success: function (data) {
+                                window.location.reload();
+                            }
+                        });
+                    },
+                    function(index){layer.close(index)})
+            }
+        });
+        $("#openStore").on({
+            click: function () {
+                layer.confirm('确定启用该工厂？',{icon: 3, title:'提示'},
+                    function(index){
+                        $.ajax({
+                            url: '/factory/setStatus/'+ftyId+'/1',
+                            method: 'put',
+                            success: function (data) {
+                                window.location.reload();
+                            }
+                        });
+                    },
+                    function(index){layer.close(index)})
+            }
+        })
+
+
+    })
+
+</script>
+
+<%- include('../layouts/foot'); %>

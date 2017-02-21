@@ -121,8 +121,8 @@
                             <tr>
                                 <td>同客户补单</td>
                                 <td colspan="3">
-                                    <a href="/order/resupply/detail" class="order-number">231465489456</a>
-                                    <a href="/order/resupply/detail" class="order-number">231465489456</a>
+                                    <a href="/order/resupply/detail/11222" class="order-number">231465489456</a>
+                                    <a href="/order/resupply/detail/11222" class="order-number">231465489456</a>
                                 </td>
                             </tr>
 
@@ -148,7 +148,12 @@
                 <!-- col -->
                 <div class="col-xs-12 dwy-show-content">
                     <legend>相关文件
-                        <a class="label label-primary">文件管理</a>
+                        <% if( (orderInfo.stcode == 250) || (orderInfo.stcode == 450) || (orderInfo.stcode == 475) ){ %>
+                        <a class="label label-primary" href="/file/order/create/<%= orderInfo.lid %>/<%= orderInfo.stcode %>/2/<%= tid %>">文件管理</a>
+                        <% } %>
+                        <% if( orderInfo.stcode == 450 || orderInfo.stcode == 475){ %>
+                         <button class="label label-primary" id="orderItem">订单物料</button>
+                        <% } %>
                     </legend>
 
                     <div class="table-responsive">
@@ -182,7 +187,12 @@
             <div class="row">
                 <!-- col -->
                 <div class="col-xs-12 dwy-show-content">
-                    <legend>状态信息 <a class="label label-primary" >解锁（受理中/拆单中 时显示）</a></legend>
+                    <legend>状态信息  (调试订单状态:<%= orderInfo.stcode %><%= DWY_Helper.getAssistVal(orderInfo.stcode, stcodeInfo) %> )
+
+                        <% if( (orderInfo.stcode == 250) || (orderInfo.stcode == 450) || (orderInfo.stcode == 475) ){ %>
+                        <a class="label label-primary" id="doUnlock" data-stcode="<%= orderInfo.stcode %>">&nbsp; 解锁 &nbsp;</a>
+                        <% } %>
+                    </legend>
                     <!-- row -->
                     <div class="table-responsive">
                         <table class="table table-bordered table-striped table-information">
@@ -192,67 +202,74 @@
                                 <td colspan="3">审核未加急   拆单许可</td>
                             </tr>
                             <tr>
-                                <td>受理时间（受理中）</td>
-                                <td>
+                                <td width="20%">受理时间</td>
+                                <% switch (orderInfo.stcode){
+                                case 250: %>
+                                <td width="30%">
                                     受理中
-                                    <a class="label label-primary margin-left-20" id="check-pass-modal">确认受理</a>
+                                    <a class="label label-primary doPass"  data-stcode="<%= orderInfo.stcode %>">确认受理</a>
                                     <a class="label label-primary margin-left-20 reject-modal">补单受理退回</a>
-
                                 </td>
-                                <td>受理人</td>
-                                <td></td>
-                            </tr>
-                            <tr>
-                                <td>受理时间（待受理）</td>
+                                <%        break;
+                                case 220: %>
                                 <td>
                                     待受理
-                                    <a class="label label-primary">标记为受理中</a>
+                                    <a class="label label-primary doGetTask" data-stcode="<%= orderInfo.stcode %>">标记为受理中</a>
                                 </td>
-                                <td>受理人</td>
+                                <%         break;
+                                    default: %>
                                 <td></td>
+                                <%  } %>
+
+                                <td width="20%">受理人</td>
+                                <td width="30%"></td>
                             </tr>
+
                             <tr>
                                 <td>补单确认</td>
-                                <td>2016-10-10   10：10：10</td>
+                                <td></td>
                                 <td>确认人</td>
-                                <td><%= user.name %></td>
+                                <td></td>
                             </tr>
                             <tr>
                                 <td>收款确认</td>
-                                <td>2016-10-10   10：10：10</td>
+                                <td></td>
                                 <td>确认人</td>
-                                <td><%= user.name %></td>
+                                <td></td>
                             </tr>
                             <tr>
                                 <td>拆单时间</td>
+                                <% switch (orderInfo.stcode){
+                                case 450: %>
                                 <td>
                                     拆单中
-                                    <a class="label label-primary margin-left-20" id="doTearPass">确认拆单</a>
+                                    <a class="label label-primary doPass"  data-stcode="<%= orderInfo.stcode %>">确认拆单</a>
                                     <a class="label label-primary margin-left-20 reject-modal">拆单退回</a>
-
                                 </td>
-                                <td>拆单人</td>
-                                <td></td>
-                            </tr>
-                            <tr>
-                                <td>拆单时间（待拆单）</td>
+                                <%        break;
+                                case 290: %>
                                 <td>
                                     待拆单
-                                    <a class="label label-primary">标记为拆单中</a>
-
+                                    <a class="label label-primary doGetTask" data-stcode="<%= orderInfo.stcode %>">标记为拆单中</a>
                                 </td>
+                                <%         break;
+                                    default: %>
+                                <td></td>
+                                <%  } %>
+
                                 <td>拆单人</td>
                                 <td></td>
                             </tr>
+
                             <tr>
                                 <td>特排时间</td>
-                                <td>2016-10-10   10：10：10</td>
+                                <td></td>
                                 <td>特排人</td>
                                 <td></td>
                             </tr>
                             <tr>
                                 <td>排产时间</td>
-                                <td>2016-10-10   10：10：10</td>
+                                <td></td>
                                 <td>排产人</td>
                                 <td></td>
                             </tr>
@@ -278,7 +295,7 @@
                                 <td>开始安装时间</td>
                                 <td></td>
                                 <td>结束安装时间</td>
-                                <td>2016-10-10 10：10：10</td>
+                                <td></td>
                             </tr>
                             <tr>
                                 <td>安装人</td>
@@ -375,16 +392,123 @@
 <script type="text/javascript">
 
     $(document).ready(function () {
-
-
-
         pageSetUp();
-        $("#doTearPass").click(function () {
-            layer.confirm('确定拆单完毕吗？',{icon: 3, title:'提示'},function(index){
-                layer.close(index)
-            },function(index){
-                layer.close(index)})
+
+        $(".doGetTask").click(function () {
+            var orderStcode = $(this).attr('data-stcode');
+            var ajaxUrl = '';
+            var locationUrl = '';
+            var text = '';
+            switch (orderStcode){
+                case '220':
+                    ajaxUrl = '/orders/getTask/<%= tid %>';
+                    locationUrl = '/order/check/getOrder';
+                    text = '确认标记为审核中?';
+                    break;
+                case '290':
+                    ajaxUrl = '/apart/getTask/<%= tid %>';
+                    locationUrl = '/apart';
+                    text = '确认标记为拆单中?';
+                    break;
+                case '472':
+                    ajaxUrl = '/apartCheck/getTask/<%= tid %>';
+                    locationUrl = '/apart/check';
+                    text = '确认标记为拆单审核中?';
+                    break;
+            }
+            layer.confirm(text, {icon: 3, title: '提示'}, function (index) {
+                $.ajax({
+                    url: ajaxUrl,
+                    method: 'post',
+                    success: function (data) {
+                        location.href = locationUrl
+                    },
+                    error: function (response) {
+                        layer.close(index)
+                        var data = JSON.parse(response.responseText);
+//                        var data = (response.responseText);
+                        $.smallBox({
+                            title: "操作失败",
+                            content: data.msg,
+                            color: "#C46A69",
+                            iconSmall: "fa fa-times fa-2x fadeInRight animated",
+                            timeout: 3000
+                        });
+                    }
+                });
+            }, function (index) { layer.close(index) })
         })
+
+        $("#doUnlock").click(function () {
+            var orderStcode = $(this).attr('data-stcode');
+            var ajaxUrl = '';
+            var locationUrl = '';
+            switch (orderStcode){
+                case '250':
+                    ajaxUrl = '/orders/unlock/<%= tid %>';
+                    locationUrl = '/order/check/waitOrder';
+                    break;
+                case '450':
+                    ajaxUrl = '/apart/unlock/<%= tid %>';
+                    locationUrl = '/apart';
+                    break;
+                case '475':
+                    ajaxUrl = '/apartCheck/unlock/<%= tid %>';
+                    locationUrl = '/apart/check';
+                    break;
+            }
+            layer.confirm('确认解锁该订单?', {icon: 3, title: '提示'}, function (index) {
+                $.ajax({
+                    url: ajaxUrl,
+                    method: 'post',
+                    success: function (data) {
+                        location.href = locationUrl
+                    }
+                });
+            }, function (index) { layer.close(index) })
+        })
+
+        $(".doPass").click(function () {
+            var orderStcode = $(this).attr('data-stcode');
+            var ajaxUrl = '';
+            var locationUrl = '';
+            var text = '';
+            switch (orderStcode){
+                case '450':
+                    ajaxUrl = '/apart/doPass/<%= tid %>';
+                    locationUrl = '/apart';
+                    text = '确定拆单完毕吗?';
+                    break;
+                case '475':
+                    ajaxUrl = '/apartCheck/doPass/<%= tid %>';
+                    locationUrl = '/apart/check';
+                    text = '确认拆单审核完毕吗?';
+                    break;
+
+            }
+            layer.confirm(text, {icon: 3, title: '提示'}, function (index) {
+                $.ajax({
+                    url: ajaxUrl,
+                    method: 'post',
+                    success: function (data) {
+                        location.href = locationUrl
+                    },
+                    error: function (response) {
+                        layer.close(index)
+                        var data = JSON.parse(response.responseText);
+//                        var data = (response.responseText);
+                        $.smallBox({
+                            title: "操作失败",
+                            content: data.msg,
+                            color: "#C46A69",
+                            iconSmall: "fa fa-times fa-2x fadeInRight animated",
+                            timeout: 3000
+                        });
+                    }
+                });
+            }, function (index) { layer.close(index) })
+        })
+
     })
 
 </script>
@@ -393,3 +517,5 @@
 <%- include('../layouts/foot'); %>
 <%- include('./check_pass'); %>
 <%- include('./order_reject'); %>
+<%- include('./materiel_modal'); %>
+

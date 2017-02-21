@@ -1,0 +1,287 @@
+<%- include('../layouts/head_top'); %>
+<%- include('../layouts/head_bottom'); %>
+<%- include('../layouts/header'); %>
+<%- include('../layouts/nav'); %>
+
+
+<!-- MAIN PANEL -->
+<div id="main" role="main">
+
+    <!-- RIBBON -->
+    <div id="ribbon">
+
+        <!-- breadcrumb -->
+        <ol class="breadcrumb">
+            <li>后台管理</li>
+            <li>修改工厂信息</li>
+        </ol>
+        <!-- end breadcrumb -->
+    </div>
+    <!-- END RIBBON -->
+
+    <!-- MAIN CONTENT -->
+    <div id="content">
+
+        <!-- well -->
+        <div class="well">
+            <!-- row -->
+            <div class="row">
+                <!-- col -->
+                <div class="col-xs-12">
+                    <legend>修改工厂信息</legend>
+
+                    <!-- row -->
+                    <div class="row">
+                        <form class="form-horizontal" method="post" action="/factory/doModify" id="create-store">
+
+                            <div class="col-xs-12">
+
+                                <!--输入字段-->
+                                <div class="col-xs-8">
+                                    <div class="form-group">
+                                        <label class="col-xs-2 control-label"><span class="requird"></span>
+                                            工厂名称:</label>
+                                        <div class="col-xs-10">
+                                            <input class="form-control validate[required]"
+                                                   value="<%= DWY_last_request_param.name %>"
+                                                   name="name">
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div class="col-xs-12">
+
+                                <div class="col-xs-4">
+                                    <div class="form-group">
+                                        <label class="col-xs-4 control-label "><span class="requird"></span> 工厂类型:
+                                        </label>
+                                        <div class="col-xs-8">
+                                            <select class="form-control validate[required]" name="type">
+                                                <option value="">- 请选择 -</option>
+                                                <option value="1">工厂</option>
+                                                <option value="2">仓储中心</option>
+
+                                            </select>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                                <div class="col-xs-4">
+                                    <div class="form-group">
+                                        <label class="col-xs-4 control-label "><span class="requird"></span> 编号:</label>
+                                        <div class="col-xs-8">
+                                            <input class="form-control validate[required]"
+                                                   value="<%= DWY_last_request_param.ftyId %>"
+                                                   name="ftyId">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="pull-left control-label text-muted">10~49为工厂，50~99为区域仓库</div>
+
+
+                            </div>
+
+                            <div class="col-xs-12">
+
+                                <div class="col-xs-8">
+                                    <div class="form-group dwy-area">
+                                        <label class="col-xs-2 control-label"><span class="requird"></span>
+                                            工厂所在:</label>
+                                        <div class="col-xs-10 no-padding">
+                                            <div class="col-xs-3">
+                                                <select class="form-control dwy-province validate[required]"
+                                                        name="province">
+                                                    <option value="">- 省 -</option>
+                                                </select>
+                                            </div>
+                                            <div class="col-xs-3">
+                                                <select class="form-control dwy-city validate[required]" name="city">
+                                                    <option value="">- 市 -</option>
+                                                </select>
+                                            </div>
+                                            <div class="col-xs-3">
+                                                <select class="form-control dwy-district validate[required]"
+                                                        name="dist">
+                                                    <option value="">- 区 -</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xs-12">
+
+                                <!--输入字段-->
+                                <div class="col-xs-8">
+                                    <div class="form-group">
+                                        <label class="col-xs-2 control-label"> 详细地址:</label>
+                                        <div class="col-xs-10">
+                                            <input class="form-control"
+                                                   value="<%= DWY_last_request_param.address %>"
+                                                   name="address">
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div class="col-xs-12">
+
+                                <!--输入字段-->
+                                <div class="col-xs-4">
+                                    <div class="form-group">
+                                        <label class="col-xs-4 control-label"><span class="requird"></span>
+                                            所属机构:</label>
+                                        <div class="col-xs-8">
+                                            <select class="form-control validate[required]" name="bid">
+                                                <option value="">- 请选择 -</option>
+
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-xs-4">
+                                    <div class="form-group">
+                                        <label class="col-xs-4 control-label"><span class="requird"></span>
+                                            物流约束标识:</label>
+                                        <div class="col-xs-8">
+                                            <select class="form-control validate[required]" name="storeType">
+                                                <option value="">- 请选择 -</option>
+
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-xs-12">
+                                <div class="col-xs-8">
+                                    <div class="form-group dwy-area">
+                                        <label class="col-xs-2 control-label"><span class="requird"></span>
+                                            配送范围:</label>
+                                        <div class="col-xs-10 no-padding">
+                                            <div class="col-xs-3">
+                                                <select class="form-control dwy-province validate[required]" name="">
+                                                    <option value="">- 省 -</option>
+                                                </select>
+                                            </div>
+                                            <div class="col-xs-3">
+                                                <select class="form-control dwy-city validate[required]" name="area0">
+                                                    <option value="">- 市 -</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <div class="col-xs-12" id="addBtn">
+                                <div class="col-xs-8">
+                                    <label class="col-xs-2 control-label"></label>
+                                    <div class="form-group col-xs-10">
+                                        <a class="btn btn-primary" id="addArea">添加配送省市</a>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                            <input type="hidden" value="2" name="areaFlag">
+
+                            <div class="col-xs-12">
+                                <div class="col-xs-8">
+                                    <div class="form-group">
+                                        <label class="col-xs-2 control-label">备注:</label>
+                                        <div class="col-xs-10">
+                                            <textarea name="remark" class="form-control"
+                                                      cols="30" rows="5"></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-xs-8">
+                                <hr class="simple">
+                                <div class="col-xs-12 text-center">
+
+                                    <button class="btn btn-primary " type="submit">
+                                        <i class="fa fa-save"></i>
+                                        确认添加
+                                    </button>
+                                </div>
+                            </div>
+
+                        </form>
+                    </div>
+                    <!-- end row -->
+
+                </div>
+                <!-- end col -->
+            </div>
+            <!-- end row -->
+        </div>
+        <!-- end well -->
+
+
+    </div>
+    <!-- END MAIN CONTENT -->
+
+</div>
+<!-- END MAIN PANEL -->
+
+<%- include('../layouts/footer'); %>
+<%- include('../layouts/footer_common_script'); %>
+
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+
+//        pageSetUp();
+
+        $("#create-store").validationEngine();
+
+        var num = 1;
+        var beforeHere = $('#addBtn');
+        $('#addArea').click(function () {
+            var html = '<div class="col-xs-12">'+
+                            '<div class="col-xs-8">'+
+                            '<div class="form-group dwy-area'+num+'">'+
+                            '<label class="col-xs-2 control-label"></label>'+
+                        '<div class="col-xs-10 no-padding">'+
+                           ' <div class="col-xs-3">'+
+                            '<select class="form-control dwy-province'+num+' validate[required]" name="">'+
+                            '<option value="">- 省 -</option>'+
+                            '</select>'+
+                            '</div>'+
+                            '<div class="col-xs-3">'+
+                            '<select class="form-control dwy-city'+num+' validate[required]" name="area'+num+'">'+
+                            '<option value="">- 市 -</option>'+
+                            '</select>'+
+                            '</div>'+
+                            '</div>'+
+                            '</div>'+
+                            '</div>'+
+                         ' </div>';
+            beforeHere.before(html);
+            DWY_area.init({
+                //可不填
+                target: '.dwy-area'+num,
+                province: '.dwy-province'+num,
+                city: '.dwy-city'+num,
+            });
+            num++;
+        })
+        $(".fg-date-picker").flatpickr(data_time_picker.data_picker); // jQuery
+        DWY_area.init({});
+
+    })
+
+</script>
+
+
+<%- include('../layouts/foot'); %>

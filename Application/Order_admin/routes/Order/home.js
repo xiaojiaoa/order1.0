@@ -167,7 +167,7 @@ router.get('/orders/resupplys/apart', Middleware.AuthCheck, Middleware.FilterEmp
 
 
 // 补单详情页面   补单信息（已完成）
-router.get('/order/resupply/detail', Middleware.AuthCheck, OrderController.resupplyDetailPage);
+router.get('/order/resupply/detail/:tid', Middleware.AuthCheck, OrderController.resupplyDetailPage);
 
 
 //  订单审核页面
@@ -207,7 +207,6 @@ router.post('/apart/unlock/:tid', Middleware.AuthCheck, ApartController.doUnlock
 router.post('/apart/notPass', Middleware.AuthCheck, ApartController.notPass);
 // 审核通过
 router.post('/apart/doPass/:tid', Middleware.AuthCheck, ApartController.doPass);
-
 
 // 标记为审核中 (待拆单审核)
 router.post('/apartCheck/getTask/:tid', Middleware.AuthCheck, ApartController.getTaskCheck);
@@ -431,6 +430,84 @@ router.put('/:type/employees/resetPassword/:cid', Middleware.AuthCheck, Employee
 router.put('/:bidtype/employees/setStatus/:cid/:type', Middleware.AuthCheck, EmployeeController.setStatus);
 
 
+/*
+ * 页面范围: 仓储管理
+ * 控制器:   FactoryController
+ * */
+var FactoryController = require('./Controller/FactoryController');
+
+// 获取工厂列表
+router.get('/factory', Middleware.AuthCheck, Middleware.FilterEmptyField, FactoryController.listPage);
+
+// 工厂详情页面
+router.get('/factory/detail/:ftyId', Middleware.AuthCheck, FactoryController.detailPage);
+
+// 新增工厂页面
+router.get('/factory/create', Middleware.AuthCheck, FactoryController.createPage);
+
+// 新增工厂
+router.post('/factory/doCreate', Middleware.AuthCheck, FactoryController.doCreate);
+
+// 修改工厂详情页面
+router.get('/factory/modify/:ftyId', Middleware.AuthCheck, FactoryController.modifyPage);
+
+// 修改工厂信息
+router.post('/factory/doModify', Middleware.AuthCheck, FactoryController.doModify);
+
+// 关闭/解锁 工厂
+router.put('/factory/setStatus/:ftyId/:type', Middleware.AuthCheck, FactoryController.setStatus);
+
+
+// 获取仓库列表
+router.get('/warehouse', Middleware.AuthCheck, Middleware.FilterEmptyField, FactoryController.listWarehousePage);
+
+// 新增仓库页面
+router.get('/warehouse/create', Middleware.AuthCheck, FactoryController.createWarehousePage);
+
+// 新增仓库
+router.post('/warehouse/doCreate', Middleware.AuthCheck, FactoryController.doWarehouseCreate);
+
+
+// 获取仓库区域列表
+router.get('/region', Middleware.AuthCheck, Middleware.FilterEmptyField, FactoryController.listRegionPage);
+
+// 新增仓库区域页面
+router.get('/region/create/:whseId', Middleware.AuthCheck, FactoryController.createRegionPage);
+
+// 新增仓库区域
+router.post('/region/doCreate', Middleware.AuthCheck, FactoryController.doRegionCreate);
+
+
+
+/*
+ * 页面范围: 货位管理
+ * 控制器:   CargospaceController
+ * */
+var CargospaceControlle = require('./Controller/CargospaceControlle');
+
+// 获取货位列表
+router.get('/factory', Middleware.AuthCheck, Middleware.FilterEmptyField, CargospaceControlle.listPage);
+
+// 货位详情页面
+router.get('/factory/detail/:ftyId', Middleware.AuthCheck, CargospaceControlle.detailPage);
+
+// 新增货位页面
+router.get('/factory/create', Middleware.AuthCheck, CargospaceControlle.createPage);
+
+// 新增货位页面-下一步
+router.get('/factory/createNext', Middleware.AuthCheck, CargospaceControlle.createNextPage);
+
+// 新增货位
+router.post('/factory/doCreate', Middleware.AuthCheck, CargospaceControlle.doCreate);
+
+// 修改货位详情页面
+router.get('/factory/modify/:ftyId', Middleware.AuthCheck, CargospaceControlle.modifyPage);
+
+// 修改货位信息
+router.post('/factory/doModify', Middleware.AuthCheck, CargospaceControlle.doModify);
+
+// 关闭/解锁 货位
+router.put('/factory/setStatus/:ftyId/:type', Middleware.AuthCheck, CargospaceControlle.setStatus);
 
 
 /*
@@ -455,8 +532,11 @@ var FileController = require('./Controller/FileController');
 router.get('/file/create/:lid/:type', Middleware.AuthCheck, FileController.createPage);
 
 // 新增文件上传地址
-router.get('/file/order/create/:lid/:type/:tid', Middleware.AuthCheck, FileController.createOrderFilePage);
-// router.get('/file/order/create/:lid/:stcode/:tid/:type', Middleware.AuthCheck, FileController.createOrderFilePage);
+// router.get('/file/order/create/:lid/:type/:tid', Middleware.AuthCheck, FileController.createOrderFilePage);
+router.get('/file/order/create/:lid/:stcode/:type/:tid', Middleware.AuthCheck, FileController.createOrderFilePage);
+
+// 新增文件上传地址(拆单)
+// router.get('/file/order/apart/:lid/:type/:tid', Middleware.AuthCheck, FileController.createApartFilePage);
 
 // 显示所有效果图
 router.get('/file/pic/:lid', Middleware.AuthCheck, FileController.picPage);
@@ -488,6 +568,10 @@ router.get('/template', TemplateController.createPage);
 
 //单文件上传
 router.post('/template/upload/single', [upload.single('file_name'), Middleware.FilterEmptyField], TemplateController.doSingleUpload);
+
+//图片上传
+router.post('/template/upload/img', [upload.single('file_name'), Middleware.FilterEmptyField], TemplateController.doImgUpload);
+
 
 //文件组上传
 router.post('/template/upload/multi', upload.array('file_name'), TemplateController.doMultiUpload);
