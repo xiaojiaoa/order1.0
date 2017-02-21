@@ -8,16 +8,15 @@
             </div>
         </div>
     </div>
-    <input name="attrId" value="" type="hidden" id="attrId">
-    <input name="name" value="" type="hidden" id="attrName">
     <div class="col-xs-12">
         <div class="form-group">
             <label class="col-xs-2 control-label"><span class="requird"></span>新建值:</label>
             <div class="col-xs-6">
-                <input class="form-control validate[required]" type="text"  value="" name="value" data-prompt-position="bottomLeft:20,5">
+                <input class="form-control validate[required]" type="text"  value="" name="name" data-prompt-position="bottomLeft:20,5">
             </div>
         </div>
     </div>
+    <input name="attrId" value="" type="hidden" id="attrId">
     <div class="col-xs-12" style="display: none;">
         <div class="form-group">
             <label class="col-xs-2 control-label"><span class="requird"></span>编码:</label>
@@ -47,9 +46,15 @@
         //新建属性值
         $('.attrValCreate').on({
             click: function (e) {
-                $("#attrId").val($(this).parent().parent().children().eq(1).text());
-                $("#attrName").val($(this).parent().parent().children().eq(2).text());
-                $(".attrName").text($(this).parent().parent().children().eq(2).text());
+                //用来区分物料属性主页和物料数值详细页新建值的区别
+                if($(this).parent().is("td")){
+                    $("#attrId").val($(this).parent().parent().children().eq(1).text());//属性id
+                    $(".attrName").text($(this).parent().parent().children().eq(2).text());//属性名
+                }
+                else{
+                    $(".attrName").text($("#attrName").text());//属性名
+                }
+
                 layer.open({
                     title: false,
                     type: 1,

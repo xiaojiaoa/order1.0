@@ -54,7 +54,7 @@ var MaterialAttrController = {
         })
     },
     attrChange: function (req, res) {
-       // console.log('修改物料属性'+ JSON.stringify(req.body));
+        //console.log('修改物料属性'+ JSON.stringify(req.body));
         var aid = req.body.aid;
         request(Base.mergeRequestOptions({
             method: 'put',
@@ -84,7 +84,7 @@ var MaterialAttrController = {
 
     },
     attrValCreate: function (req, res) {
-        console.log('增加物料的属性值'+ JSON.stringify(req.body));
+       // console.log('增加物料的属性值'+ JSON.stringify(req.body));
         request(Base.mergeRequestOptions({
             method: 'post',
             url: '/api/attributes/value',
@@ -98,17 +98,34 @@ var MaterialAttrController = {
         })
     },
     mateAttrDetailPage: function (req, res) {
-        /*  var mid =  req.params.mid;
+          var mid =  req.params.mid;
          Base.multiDataRequest(req, res, [
          {url: '/api/attributes/'+mid, method: 'GET', resConfig: {keyName: 'attributeDetail', is_must: true}},
          ], function (req, res, resultList) {
 
          var returnData = Base.mergeData(helper.mergeObject({
-         title: ' ',
+             title: ' ',
+             mid:mid,
          },resultList));
          res.render('order/material/material_attribute_detail',returnData);
-         });*/
-        res.render('order/material/material_attribute_detail');
+         });
+    },
+    setAttrValStatus: function (req, res) {
+        var aid = req.params.aid;
+        var code = req.params.code;
+        var type = req.params.type;
+        console.log('ajx'+ JSON.stringify(req.params));
+        request(Base.mergeRequestOptions({
+            method: 'put',
+            url: '/api/attributes/value/'+code+'?stcode='+type+"&" + aid,
+        }, req, res), function (error, response, body) {
+            if (!error && response.statusCode == 201) {
+                res.sendStatus(200);
+            } else {
+                Base.handlerError(res, req, error, response, body);
+            }
+        })
+
     },
 };
 

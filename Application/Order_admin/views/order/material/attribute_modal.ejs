@@ -87,7 +87,7 @@
         $('.attrChange').on({
             click: function (e) {
                 $("#attrChangeId").val($(this).parent().parent().children().eq(1).text());
-                $("#attrChangeName").val($(this).parent().parent().children().eq(2).text());
+                $("#attrChangeName").val($.trim($(this).parent().parent().children().eq(2).text()));
                 $("#attrChangeVal").val($(this).parent().parent().children().eq(3).text());
 
                 layer.open({
