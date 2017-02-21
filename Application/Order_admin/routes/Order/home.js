@@ -440,16 +440,65 @@ router.get('/factory/create', Middleware.AuthCheck, FactoryController.createPage
 router.post('/factory/doCreate', Middleware.AuthCheck, FactoryController.doCreate);
 
 // 修改工厂详情页面
-router.get('/:type/employees/modify/:bid/:cid', Middleware.AuthCheck, FactoryController.modifyPage);
+router.get('/factory/modify/:ftyId', Middleware.AuthCheck, FactoryController.modifyPage);
 
 // 修改工厂信息
-router.post('/employees/doModify', Middleware.AuthCheck, FactoryController.doModify);
-
-// 重置员工密码
-router.put('/:type/employees/resetPassword/:cid', Middleware.AuthCheck, FactoryController.resetPassword);
+router.post('/factory/doModify', Middleware.AuthCheck, FactoryController.doModify);
 
 // 关闭/解锁 工厂
-router.put('/:bidtype/employees/setStatus/:cid/:type', Middleware.AuthCheck, FactoryController.setStatus);
+router.put('/factory/setStatus/:ftyId/:type', Middleware.AuthCheck, FactoryController.setStatus);
+
+
+// 获取仓库列表
+router.get('/warehouse', Middleware.AuthCheck, Middleware.FilterEmptyField, FactoryController.listWarehousePage);
+
+// 新增仓库页面
+router.get('/warehouse/create', Middleware.AuthCheck, FactoryController.createWarehousePage);
+
+// 新增仓库
+router.post('/warehouse/doCreate', Middleware.AuthCheck, FactoryController.doWarehouseCreate);
+
+
+// 获取仓库区域列表
+router.get('/region', Middleware.AuthCheck, Middleware.FilterEmptyField, FactoryController.listRegionPage);
+
+// 新增仓库区域页面
+router.get('/region/create/:whseId', Middleware.AuthCheck, FactoryController.createRegionPage);
+
+// 新增仓库区域
+router.post('/region/doCreate', Middleware.AuthCheck, FactoryController.doRegionCreate);
+
+
+
+/*
+ * 页面范围: 货位管理
+ * 控制器:   CargospaceController
+ * */
+var CargospaceControlle = require('./Controller/CargospaceControlle');
+
+// 获取货位列表
+router.get('/factory', Middleware.AuthCheck, Middleware.FilterEmptyField, CargospaceControlle.listPage);
+
+// 货位详情页面
+router.get('/factory/detail/:ftyId', Middleware.AuthCheck, CargospaceControlle.detailPage);
+
+// 新增货位页面
+router.get('/factory/create', Middleware.AuthCheck, CargospaceControlle.createPage);
+
+// 新增货位页面-下一步
+router.get('/factory/createNext', Middleware.AuthCheck, CargospaceControlle.createNextPage);
+
+// 新增货位
+router.post('/factory/doCreate', Middleware.AuthCheck, CargospaceControlle.doCreate);
+
+// 修改货位详情页面
+router.get('/factory/modify/:ftyId', Middleware.AuthCheck, CargospaceControlle.modifyPage);
+
+// 修改货位信息
+router.post('/factory/doModify', Middleware.AuthCheck, CargospaceControlle.doModify);
+
+// 关闭/解锁 货位
+router.put('/factory/setStatus/:ftyId/:type', Middleware.AuthCheck, CargospaceControlle.setStatus);
 
 
 /*
