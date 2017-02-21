@@ -104,7 +104,13 @@
                                                       <tr class="<%= ( element.stcode == 1 )? 'close-info':'' %>">
                                                           <td><%= index+1 %></td>
                                                           <td><%= element.id %></td>
-                                                          <td><a href="/materialManage/mateAttr/detail/<%= element.id %>" class="<%= ( element.stcode == 1 )? 'close-info':'' %>"><%= element.name %></a></td>
+                                                          <td>
+                                                              <% if( element.stcode == 1 ){ %>
+                                                              <a href="javascript:void(0)" class="close-info"><%= element.name %></a>
+                                                              <% }else{ %>
+                                                              <a href="/materialManage/mateAttr/detail/<%= element.id %>" class=" "><%= element.name %></a>
+                                                              <% } %>
+                                                          </td>
                                                           <td><%= element.length %></td>
                                                           <td>
                                                               <% if( element.stcode == 1 ){ %>

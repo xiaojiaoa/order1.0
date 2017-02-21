@@ -1,22 +1,31 @@
-<!--新建属性-->
-<form class="form-horizontal  layer-template" method="post" id="attrCreate-form" action="/material/attrCreate" >
+<!--新建属性值-->
+<form class="form-horizontal  layer-template" method="post" id="attrValCreate-form" action="/material/attrValCreate" >
     <div class="col-xs-12">
         <div class="form-group">
-            <label class="col-xs-2 control-label"><span class="requird"></span>名称:</label>
-            <div class="col-xs-6">
-                <input class="form-control validate[required]" type="text"  value="" name="name" data-prompt-position="bottomLeft:20,5">
+            <label class="col-xs-2 control-label"><span class="requird"></span>上级名称:</label>
+            <div class="col-xs-8 control-label strongStyle01 text-left" >
+               <strong class="attrName"></strong>
             </div>
         </div>
     </div>
+    <input name="attrId" value="" type="hidden" id="attrId">
+    <input name="name" value="" type="hidden" id="attrName">
     <div class="col-xs-12">
         <div class="form-group">
-            <label class="col-xs-2 control-label"><span class="requird"></span>长度:</label>
+            <label class="col-xs-2 control-label"><span class="requird"></span>新建值:</label>
             <div class="col-xs-6">
-                <input class="form-control validate[required,custom[onlyNumberSp]]" type="text"  value="" name="length" data-prompt-position="bottomLeft:20,5">
+                <input class="form-control validate[required]" type="text"  value="" name="value" data-prompt-position="bottomLeft:20,5">
             </div>
         </div>
     </div>
-
+    <div class="col-xs-12" style="display: none;">
+        <div class="form-group">
+            <label class="col-xs-2 control-label"><span class="requird"></span>编码:</label>
+            <div class="col-xs-6">
+                <input class="form-control validate[required,custom[onlyNumberSp]]" type="text"  value="" name="" data-prompt-position="bottomLeft:20,5">
+            </div>
+        </div>
+    </div>
     <div class="col-xs-12">
         <hr class="simple">
         <div class="col-xs-12 text-center">
@@ -28,53 +37,24 @@
     </div>
     <div class="dwy-clear"></div>
 </form>
-<!--修改属性-->
-<form class="form-horizontal  layer-template" method="post" id="attrChange-form" action="/material/attrChange" >
-    <div class="col-xs-12">
-        <div class="form-group">
-            <label class="col-xs-2 control-label"><span class="requird"></span>名称:</label>
-            <div class="col-xs-6">
-                <input class="form-control validate[required]" type="text"  value="" name="name" data-prompt-position="bottomLeft:20,5" id="attrChangeName">
-            </div>
 
-        </div>
-    </div>
-    <div class="col-xs-12">
-        <div class="form-group">
-            <label class="col-xs-2 control-label"><span class="requird"></span>长度:</label>
-            <div class="col-xs-6">
-                <input class="form-control validate[required,custom[onlyNumberSp]]" type="text"  value="" name="length" data-prompt-position="bottomLeft:20,5"id="attrChangeVal">
-            </div>
-            <input name="aid" value="" type="hidden" id="attrChangeId">
-        </div>
-    </div>
-
-    <div class="col-xs-12">
-        <hr class="simple">
-        <div class="col-xs-12 text-center">
-            <button class="btn btn-primary " type="submit">
-                <i class="fa fa-save"></i>
-                修改
-            </button>
-        </div>
-    </div>
-    <div class="dwy-clear"></div>
-</form>
 <script type="text/javascript">
 
     $(document).ready(function () {
 
-        $("#attrCreate-form").validationEngine({scroll: false});
-        $("#attrChange-form").validationEngine({scroll: false});
+        $("#attrValCreate-form").validationEngine({scroll: false});
 
-        //新建属性
-        $('.attrCreate').on({
+        //新建属性值
+        $('.attrValCreate').on({
             click: function (e) {
+                $("#attrId").val($(this).parent().parent().children().eq(1).text());
+                $("#attrName").val($(this).parent().parent().children().eq(2).text());
+                $(".attrName").text($(this).parent().parent().children().eq(2).text());
                 layer.open({
                     title: false,
                     type: 1,
                     area: '500px',
-                    content: $('#attrCreate-form'),
+                    content: $('#attrValCreate-form'),
                     cancel: function () {
                         //右上角关闭回调
                     },
@@ -82,31 +62,6 @@
                 });
             }
         })
-
-        //修改属性
-        $('.attrChange').on({
-            click: function (e) {
-                $("#attrChangeId").val($(this).parent().parent().children().eq(1).text());
-                $("#attrChangeName").val($(this).parent().parent().children().eq(2).text());
-                $("#attrChangeVal").val($(this).parent().parent().children().eq(3).text());
-
-                layer.open({
-                    title: false,
-                    type: 1,
-                    area: '500px',
-                    content: $('#attrChange-form'),
-                    cancel: function () {
-                        //右上角关闭回调
-                    },
-
-                });
-            }
-        })
-
-
-
-
-
     })
 
 </script>
