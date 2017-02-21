@@ -317,11 +317,15 @@ router.put('/mateAttr/setStatus/:aid/:type', Middleware.AuthCheck, MaterialAttrC
 //新建物料属性值接口
 router.post('/material/attrValCreate', Middleware.AuthCheck, MaterialAttrController.attrValCreate);
 
+//修改物料属性值接口
+router.post('/material/attrValChange', Middleware.AuthCheck, MaterialAttrController.attrValChange);
+
 //物料属性值详情页面
 router.get('/materialManage/mateAttr/detail/:mid', Middleware.AuthCheck, MaterialAttrController.mateAttrDetailPage);
 
 // 禁用/解锁 物料属性值状态
 router.put('/mateAttrVal/setStatus/:code/:type/:aid', Middleware.AuthCheck, MaterialAttrController.setAttrValStatus);
+
 
 /*
  * 页面范围: 机构相关

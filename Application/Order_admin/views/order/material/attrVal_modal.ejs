@@ -16,7 +16,7 @@
             </div>
         </div>
     </div>
-    <input name="attrId" value="" type="hidden" id="attrId">
+    <input name="attrId" value='' type="hidden" id="attrId">
     <div class="col-xs-12" style="display: none;">
         <div class="form-group">
             <label class="col-xs-2 control-label"><span class="requird"></span>编码:</label>
@@ -36,23 +36,65 @@
     </div>
     <div class="dwy-clear"></div>
 </form>
+<!--修改属性值-->
+<form class="form-horizontal  layer-template" method="post" id="attrValChange-form" action="/material/attrValChange" >
+    <div class="col-xs-12">
+        <div class="form-group">
+            <label class="col-xs-2 control-label"><span class="requird"></span>上级名称:</label>
+            <div class="col-xs-8 control-label strongStyle01 text-left" >
+                <strong class="attrName"></strong>
+            </div>
+        </div>
+    </div>
+    <div class="col-xs-12">
+        <div class="form-group">
+            <label class="col-xs-2 control-label"><span class="requird"></span>名称:</label>
+            <div class="col-xs-6">
+                <input class="form-control validate[required]" type="text"  value="" name="name" data-prompt-position="bottomLeft:20,5" id="attrValChangeName">
+            </div>
+
+        </div>
+    </div>
+    <div class="col-xs-12">
+        <div class="form-group">
+            <label class="col-xs-2 control-label"><span class="requird"></span>编码:</label>
+            <div class="col-xs-6">
+                <input class="form-control validate[required,custom[onlyNumberSp]]" type="text"  value="" name="code" data-prompt-position="bottomLeft:20,5"id="attrValChange">
+            </div>
+            <input name="attrId" value="" type="hidden" id="attrValId">
+        </div>
+    </div>
+
+    <div class="col-xs-12">
+        <hr class="simple">
+        <div class="col-xs-12 text-center">
+            <button class="btn btn-primary " type="submit">
+                <i class="fa fa-save"></i>
+                修改
+            </button>
+        </div>
+    </div>
+    <div class="dwy-clear"></div>
+</form>
 
 <script type="text/javascript">
 
     $(document).ready(function () {
 
         $("#attrValCreate-form").validationEngine({scroll: false});
+        $("#attrValChange-form").validationEngine({scroll: false});
 
         //新建属性值
         $('.attrValCreate').on({
             click: function (e) {
                 //用来区分物料属性主页和物料数值详细页新建值的区别
                 if($(this).parent().is("td")){
-                    $("#attrId").val($(this).parent().parent().children().eq(1).text());//属性id
-                    $(".attrName").text($(this).parent().parent().children().eq(2).text());//属性名
+                    $(".attrName").text($(this).parent().parent().children().eq(2).text());//显示上级名称
+                    $("#attrId").val($(this).parent().parent().children().eq(1).text());//获取属性id
                 }
                 else{
-                    $(".attrName").text($("#attrName").text());//属性名
+                    $(".attrName").text($("#attrName").text());//显示上级名称
+                    $("#attrId").val( $("#attrId1").val());//获取属性id
                 }
 
                 layer.open({
@@ -60,6 +102,25 @@
                     type: 1,
                     area: '500px',
                     content: $('#attrValCreate-form'),
+                    cancel: function () {
+                        //右上角关闭回调
+                    },
+
+                });
+            }
+        })
+        //修改属性值
+        $('.attrValChange').on({
+            click: function (e) {
+                $(".attrName").text($("#attrName").text());//显示上级名称
+                $("#attrValChangeName").val($.trim($(this).parent().parent().children().eq(1).text()));//显示名称
+                $("#attrValChange").val($(this).parent().parent().children().eq(2).text());//显示编码
+                $("#attrValId").val( $("#attrId1").val());//获取上级名称id
+                layer.open({
+                    title: false,
+                    type: 1,
+                    area: '500px',
+                    content: $('#attrValChange-form'),
                     cancel: function () {
                         //右上角关闭回调
                     },

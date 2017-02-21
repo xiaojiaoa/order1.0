@@ -100,19 +100,19 @@
                             </thead>
                             <tbody>
                             <% attributeDetail.attributeValueList.forEach(function (element, index) { %>
-                            <tr class="<%= ( element.stcode == 1 )? 'close-info':'' %>">
+                            <tr>
                                 <% if(index==0){%>
                                 <td id="attrName"><%= attributeDetail.name %></td>
                                 <% }else{ %>
                                 <td></td>
                                 <% } %>
-                                <td><%= element.name %></td>
-                                <td><%= element.code %></td>
+                                <td class="<%= ( element.stcode == 1 )? 'close-info':'' %>"><%= element.name %></td>
+                                <td class="<%= ( element.stcode == 1 )? 'close-info':'' %>"><%= element.code %></td>
                                 <td>
                                     <% if( element.stcode == 1 ){ %>
                                     <a href="javascript:void(0)" id="openStore" class="openStore">启用</a>
                                     <% }else{ %>
-                                    <a href="javascript:void(0)" class="attrChange">修改</a>
+                                    <a href="javascript:void(0)" class="attrValChange">修改</a>
                                     <a href="javascript:void(0)" class="margin-left-20 closeStore" id="closeStore">禁用</a>
                                     <% } %>
                                 </td>
@@ -124,6 +124,7 @@
                     </div>
                 </div>
             </div>
+            <input name="attrId1" value='<%= mid %>' type="hidden" id="attrId1">
         </div>
         <!--end well-->
     </div>
