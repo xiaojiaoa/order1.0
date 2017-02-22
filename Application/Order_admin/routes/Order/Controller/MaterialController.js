@@ -18,34 +18,42 @@ var Permissions = require('../config/permission');
 
 var MaterialController = {
     indexPage: function (req, res) {
-        res.render('order/material/material_index');
+        var paramObject = helper.genPaginationQuery(req);
+        Base.multiDataRequest(req, res, [
+            {url: '/api/materials?'+ queryString.stringify(req.query), method: 'GET', resConfig: {keyName: 'mateList', is_must: true}}
+        ], function (req, res, resultList) {
+
+            var paginationInfo =  resultList.mateList;
+
+            var boostrapPaginator = new Pagination.TemplatePaginator(helper.genPageInfo({
+                prelink: paramObject.withoutPageNo,
+                current: paginationInfo.page,
+                rowsPerPage: paginationInfo.pageSize,
+                totalResult: paginationInfo.totalItems
+            }));
+
+            var returnData = Base.mergeData(helper.mergeObject({
+                title: ' ',
+                pagination: boostrapPaginator.render()
+            },resultList));
+            res.render('order/material/material_index',returnData);
+        });
     },
     detailPage: function (req, res) {
-    res.render('order/material/material_detail');
+        var mid =  req.params.mid;
+        Base.multiDataRequest(req, res, [
+            {url: '/api/materials/'+mid, method: 'GET', resConfig: {keyName: 'mateInfo', is_must: true}},
+        ], function (req, res, resultList) {
+            var returnData = Base.mergeData(helper.mergeObject({
+                title: ' ',
+                mid:mid,
+            },resultList));
+            res.render('order/material/material_detail',returnData);
+        });
+    //res.render('order/material/material_detail');
     },
     summaryPage: function (req, res) {
         res.render('order/material/material_summary');
-    },
-    materialTypePage: function (req, res) {
-        res.render('order/material/material_type');
-    },
-    materialTypeCreOnePage: function (req, res) {
-        res.render('order/material/material_type_creOne');
-    },
-    materialTypeCreTwoPage: function (req, res) {
-        res.render('order/material/material_type_creTwo');
-    },
-    materialTypeCreThreePage: function (req, res) {
-        res.render('order/material/material_type_creThree');
-    },
-    materialTypeChagOnePage: function (req, res) {
-        res.render('order/material/material_type_chagOne');
-    },
-    materialTypeChagTwoPage: function (req, res) {
-        res.render('order/material/material_type_chagTwo');
-    },
-    materialTypeChagThreePage: function (req, res) {
-        res.render('order/material/material_type_chagThree');
     },
     materialCreatePage: function (req, res) {
         res.render('order/material/material_create');
@@ -55,6 +63,22 @@ var MaterialController = {
     },
     doCreate: function (req, res) {
         console.log('物料创建'+ JSON.stringify(req.body));
+    },
+    setMaterialStatus: function (req, res) {
+        var mid = req.params.mid;
+        var type = req.params.type;
+        console.log('ajx'+ JSON.stringify(req.params));
+        request(Base.mergeRequestOptions({
+            method: 'put',
+            url: '/api/materials/'+mid+'/stcode?stcode='+type,
+        }, req, res), function (error, response, body) {
+            if (!error && response.statusCode == 201) {
+                res.sendStatus(200);
+            } else {
+                Base.handlerError(res, req, error, response, body);
+            }
+        })
+
     },
 };
 

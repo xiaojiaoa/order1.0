@@ -64,13 +64,13 @@
                                         <label class="col-xs-3 control-label">分类：</label>
                                         <div class="col-xs-5">
                                             <select class="form-control" name="">
+                                                <option value="">- 请选择 -</option>
                                                 <option value="板材">板材</option>
                                                 <option value="外加工板材">外加工板材</option>
                                                 <option value="素板">素板</option>
                                                 <option value="封边带">封边带</option>
                                                 <option value="玻璃">玻璃</option>
                                                 <option value="金属">金属</option>
-                                                <option value="……">……</option>
 
                                             </select>
                                         </div>
@@ -103,6 +103,7 @@
                                         <label class="col-xs-4 control-label">其他：</label>
                                         <div class="col-xs-8">
                                             <select class="form-control" name="">
+                                                <option value="">- 请选择 -</option>
                                                 <option value="预计缺货">预计缺货</option>
                                                 <option value="真是库存预警">真是库存预警</option>
 
@@ -156,8 +157,7 @@
             <!-- row -->
             <div class="row">
                 <div class="col-xs-12">
-                    <h6>材料列表</h6>
-                    <a href="/materialManage/material/create">新建物料</a>
+                    <h6>材料列表  <a class="label label-primary" href="/materialManage/material/create">新建物料</a></h6>
                     <hr class="simple">
                 </div>
             </div>
@@ -170,22 +170,21 @@
                             <thead>
                             <tr>
                                 <th>序号</th>
-                                <th>材料编号</th>
-                                <th>物料编号2</th>
-                                <th>物料编号3</th>
-                                <th>材料名称</th>
+                                <th>物料编号</th>
+                                <th>物料名称</th>
                                 <th>分类</th>
-                                <th>规格</th>
                                 <th>单位</th>
-                                <th>真实库存</th>
+                                <th>库存</th>
                                 <th>预警数量</th>
-                                <th>虚拟库存</th>
+                                <th>可用数量</th>
                                 <th>预警</th>
+                                <th>出厂价格</th>
+                                <th>价格单位</th>
                                 <th>启用</th>
                                 <th>条码</th>
                             </tr>
                             </thead>
-                            <tbody>
+                          <!--  <tbody>
 
                             <tr>
                                 <td>1</td>
@@ -201,9 +200,28 @@
                                 <td>4567.0000</td>
                                 <td>是</td>
                                 <td>是</td>
-                                <td><a href="#">打印</a></td>
+                                <td><a href="javascript:void(0)">打印</a></td>
                             </tr>
 
+                            </tbody>-->
+                            <tbody>
+                            <% mateList.result.forEach(function (element, index) { %>
+                            <tr>
+                                <td><%= index+1 %></td>
+                                <td><a href="/materialManage/detail/<%= element.id %>" class=" "><%= element.id %></a></td>
+                                <td><%= element.name %></td>
+                                <td><%= element.catName%></td>
+                                <td><%= element.unit%></td>
+                                <td><%= element.stock%></td>
+                                <td><%= element.warning%></td>
+                                <td><%= element.usable%></td>
+                                <td><%= element.stcode%></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td><a href="javascript:void(0)">打印</a></td>
+                            </tr>
+                            <% }) %>
                             </tbody>
                         </table>
 

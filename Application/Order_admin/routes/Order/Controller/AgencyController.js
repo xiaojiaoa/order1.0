@@ -92,7 +92,6 @@ var AgencyController = {
 
     },
     doModify: function (req, res) {
-
         var cid = req.body.cid;
         request(Base.mergeRequestOptions({
             method: 'put',

@@ -13,7 +13,7 @@
         <!-- breadcrumb -->
         <ol class="breadcrumb">
             <li>后台管理</li>
-            <li>新建供应商分类</li>
+            <li>修改供应商分类</li>
         </ol>
         <!-- end breadcrumb -->
     </div>
@@ -26,10 +26,10 @@
             <div class="row">
                 <!-- col -->
                 <div class="col-xs-12">
-                    <legend>新增供应商分类</legend>
+                    <legend>修改供应商分类</legend>
                     <!-- row -->
                     <div class="row">
-                        <form class="form-horizontal" method="post" action="/employees/doCreate" id="create-supllier">
+                        <form class="form-horizontal" method="post" action="/employees/doCreate" id="create-employees">
 
                             <div class="col-xs-12">
                                 <div class="col-xs-4">
@@ -50,7 +50,7 @@
                                         <label class="col-xs-4 control-label "><span class="requird"></span> 分类名称:
                                         </label>
                                         <div class="col-xs-8">
-                                            <input class="form-control validate[required]"
+                                            <input class="form-control validate[required,funcCall[custom_validate_fn.isIdCardNo]]"
                                                     value=""
                                                    name="idcard">
                                         </div>
@@ -62,7 +62,7 @@
                                     <div class="form-group">
                                         <label class="col-xs-4 control-label"><span class="requird"></span> 标识:</label>
                                         <div class="col-xs-8">
-                                            <select class="form-control validate[required]" name="education">
+                                            <select class="form-control" name="education">
                                                 <option value="">- 请选择 -</option>
                                                 <option value="">- 内部 -</option>
                                                 <option value="">- 外部 -</option>
@@ -91,7 +91,7 @@
 
                                     <button class="btn btn-primary " type="submit">
                                         <i class="fa fa-save"></i>
-                                        确认添加
+                                        确认修改
                                     </button>
                                 </div>
                             </div>
@@ -115,7 +115,6 @@
 <script type="text/javascript">
     $(document).ready(function () {
         pageSetUp();
-        $("#create-supllier").validationEngine();
         $(".fg-date-picker").flatpickr(data_time_picker.data_picker); // jQuery
     })
 </script>

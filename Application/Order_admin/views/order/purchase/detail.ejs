@@ -3,17 +3,15 @@
 <%- include('../layouts/header'); %>
 <%- include('../layouts/nav'); %>
 
-
 <!-- MAIN PANEL -->
 <div id="main" role="main">
 
     <!-- RIBBON -->
     <div id="ribbon">
-
         <!-- breadcrumb -->
         <ol class="breadcrumb">
             <li>后台管理</li>
-            <li>供应商分类</li>
+            <li>采购信息</li>
         </ol>
         <!-- end breadcrumb -->
     </div>
@@ -110,65 +108,136 @@
                 <!-- end col -->
             </div>
             <!-- end row -->
-            <!--start row-->
         </div>
+        <!-- end well -->
         <div class="well">
+            <!-- row -->
             <div class="row">
+                <!-- col -->
                 <div class="col-xs-12">
                     <legend>
-                        供应商分类
-                        <!--<a class="label label-primary" href="">修改</a>-->
-                        <a class="label label-primary" href="/supplier/sort_create">添加分类</a>
-                        <a class="label label-danger" id="closeStore">禁用</a>
+                        采购信息
                     </legend>
-                    <div class="table-responsive">
-                        <table class="table table-bordered table-striped table-expand">
-                            <thead>
-                            <tr>
-                                <th width="300">供应商分类名称</th>
-                                <th>操作</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <tr class="level-0">
-                                <td>供应商1</td>
-                                <td>
-                                    <a class="departmentChild-modal" parent="" parentId="" href="/supplier/sort_create">新建子级</a>
-                                    <!--<a class="supplierModify-modal" name="供应商1" selfId="111">修改</a>-->
-                                    <a class="supplierModify-modal" href="sort_modify">修改</a>
-                                    <a class="delete-department" selfId="1113">删除</a>
-                                </td>
-                            </tr>
-                            <tr class="level-1">
-                                <td class="level-1-title">子级</td>
-                                <td>
-                                    <!--<a class="supplierModify-modal" name="子级"  selfId="222">修改</a>-->
-                                    <a class="supplierModify-modal" href="sort_modify">修改</a>
-                                    <a class="delete-department"  selfId="222">删除</a>
-                                </td>
-                            </tr>
-                            </tbody>
-                        </table>
-
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="col-xs-3">
+                        <button class="btn btn-primary" id="purchaseMerge">合并</button>
+                        <input type="hidden" class="" id="checkedValue" />
+                        <a class="btn btn-primary" href="/purchase/detail">审核</a>
                     </div>
                 </div>
             </div>
-            <!--end row-->
+            <div class="row margin-top-10">
+                <div class="col-xs-12">
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-striped">
+                            <thead>
+                            <tr>
+                                <th>
+                                    <label class="checkbox-inline">
+                                        <input type="checkbox" class="checkbox"
+                                               id="checkAll"  />
+                                        <span>序号</span>
+                                    </label>
+                                </th>
+                                <th>采购单编号</th>
+                                <th>供应商名称</th>
+                                <th>预计交付时间</th>
+                                <th>创建时间</th>
+                                <th>采购状态</th>
+                                <!--<th>操作</th>-->
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <%
+                            if(purchasesLists.totalItems != 0  ){
+                                purchasesLists.result.forEach(function (element, index) { %>
+                            <tr class="">
+                                <td>
+                                    <label class="checkbox-inline">
+                                        <input type="checkbox" class="checkbox" name="roles" value="<%= element.id %>">
+                                        <span><%= index+1 %></span>
+                                    </label>
+                                </td>
+                                <td><a href="/purchase/order_detail/<%= element.id %>"><%= element.id %></a></td>
+                                <td><%= element.suppName %></td>
+                                <td><%= DWY_Helper.getLocalDate(element.deliveryDate) %></td>
+                                <td><%= DWY_Helper.getLocalDate(element.addTime) %></td>
+                                <td><%= element.stcode %></td>
+                                <!--<td>-->
+                                    <!--<a class="label label-primary" href="/purchase/order_detail/<%= element.id %>">详情</a>-->
+                                <!--</td>-->
+                            </tr>
+                            <%  })
+                            }else{ %>
+                            <td colspan="7" class="text-align-center">暂无结果</td>
+                            <%  }%>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
         </div>
-        <!-- end well -->
-
     </div>
 </div>
-
-
-
-<%- include('../layouts/footer'); %>
-<%- include('../layouts/footer_common_script'); %>
-<script type="text/javascript">
-    $(document).ready(function () {
-        pageSetUp();
-        $(".fg-date-picker").flatpickr(data_time_picker.data_picker); // jQuery
-    })
-</script>
+    <%- include('../layouts/footer'); %>
+    <%- include('../layouts/footer_common_script'); %>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            pageSetUp();
+            $(".fg-date-picker").flatpickr(data_time_picker.data_picker); // jQuery
+            //合并采购单
+            var checkedValue = $('#checkedValue');
+            $("#checkAll").change(function () {
+                if($(this).is(":checked")){
+                    $(":checkbox").prop('checked',true);
+                    $("input[name='roles']:checked").each(function (i) {
+                        checkedValue.addClass(this.value+',')
+                    });
+                }else{
+                    $(":checkbox").prop('checked',false);
+                    checkedValue.removeClass()
+                }
+            })
+            $("input[name='roles']").change(function () {
+                if($(this).is(':checked')){
+                    checkedValue.addClass(this.value+',')
+                }else{
+                    checkedValue.removeClass(this.value+',')
+                }
+            });
+            $("#purchaseMerge").click(function(){
+                var tid = checkedValue.attr('class').replace(/[ ]/g,"");
+                tid = tid.substring(0,tid.length-1);
+                layer.confirm('确认标记?',{icon: 3, title:'提示'},
+                    function(index){
+                        $.ajax({
+                            url: '/api/purchases/merge/'+tid,
+                            method: 'post',
+                            success: function (data) {
+                                window.location.reload();
+                            },
+                            error: function (response) {
+                                layer.close(index)
+                                var data = JSON.parse(response.responseText);
+//                        var data = (response.responseText);
+                                $.smallBox({
+                                    title: "操作失败",
+                                    content: data.msg,
+                                    color: "#C46A69",
+                                    iconSmall: "fa fa-times fa-2x fadeInRight animated",
+                                    timeout: 3000
+                                });
+                                setTimeout(function(){
+                                    window.location.reload();
+                                },5000)
+                            }
+                        });
+                    },
+                    function(index){layer.close(index)})
+            })
+        })
+    </script>
 <%- include('../layouts/foot'); %>
-

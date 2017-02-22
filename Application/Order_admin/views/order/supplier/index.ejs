@@ -101,12 +101,6 @@
                                         <i class="fa fa-search"></i>
                                         搜索
                                     </button>
-                                    <a class="btn btn-primary margin-right-5" href="/supplier/sort">
-                                        供应商分类
-                                    </a>
-                                    <a class="btn btn-primary margin-right-5" href="/supplier/create">
-                                        添加供应商
-                                    </a>
                                 </div>
                             </div>
                         </form>
@@ -122,8 +116,12 @@
             <!-- row -->
             <div class="row">
                 <div class="col-xs-12">
-                    <h6>供应商列表</h6>
-                    <hr class="simple">
+                    <legend>
+                        供应商列表
+                        <a class="label label-primary" href="/supplier/sort">供应商分类</a>
+                        <a class="label label-primary" href="/supplier/create">添加供应商</a>
+                        <!--<a class="label label-primary" href="/supplier/modify">修改供应商信息</a>-->
+                    </legend>
                 </div>
             </div>
             <!-- row -->
@@ -133,7 +131,7 @@
                         <table class="table table-bordered table-striped">
                             <thead>
                             <tr>
-                                <th>序号</th>
+                                <!--<th>序号</th>-->
                                 <th>客户号</th>
                                 <th>客户姓名</th>
                                 <th>流水号</th>
@@ -150,8 +148,13 @@
                             </thead>
                             <tbody>
                             <tr class="">
-                                <td>1</td>
-                                <td>123456</td>
+                                <!--<td>-->
+                                    <!--<label class="checkbox-inline">-->
+                                        <!--<input type="checkbox" class="checkbox" name="roles" value="2">-->
+                                        <!--<span>1</span>-->
+                                    <!--</label>-->
+                                <!--</td>-->
+                                <td><a href="supplier/detail">123456</a></td>
                                 <td></td>
                                 <td></td>
                                 <td></td>

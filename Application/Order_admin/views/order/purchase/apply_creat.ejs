@@ -1,0 +1,164 @@
+<%- include('../layouts/head_top'); %>
+<%- include('../layouts/head_bottom'); %>
+<%- include('../layouts/header'); %>
+<%- include('../layouts/nav'); %>
+
+
+<!-- MAIN PANEL -->
+<div id="main" role="main">
+
+    <!-- RIBBON -->
+    <div id="ribbon">
+
+        <!-- breadcrumb -->
+        <ol class="breadcrumb">
+            <li>后台管理</li>
+            <li>新建请购单</li>
+        </ol>
+        <!-- end breadcrumb -->
+    </div>
+    <!-- END RIBBON -->
+    <!-- MAIN CONTENT -->
+    <div id="content">
+        <!-- start well -->
+        <div class="well">
+            <!-- row -->
+            <div class="row">
+                <!-- col -->
+                <div class="col-xs-12">
+                    <!--<legend>客户搜索</legend>-->
+                    <div class="row search-form">
+                        <form class="form-horizontal" method="get">
+                            <div class="col-xs-12">
+                                <!--输入字段-->
+                                <div class="col-xs-3">
+                                    <div class="form-group">
+                                        <label class="col-xs-4 control-label">订单号:</label>
+                                        <div class="col-xs-8">
+                                            <input class="form-control" placeholder="请输入订单号" type="text" value="<%= DWYRequest.query.tid %>" name="tid">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xs-3">
+                                    <div class="form-group">
+                                        <label class="col-xs-4 control-label">客户手机:</label>
+                                        <div class="col-xs-8">
+                                            <input class="form-control" placeholder="请输入客户手机" type="text" value="<%= DWYRequest.query.mobile %>" name="mobile">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xs-12">
+                                <hr class="simple">
+                                <div class="col-xs-12 text-center">
+                                    <button class="btn btn-primary " type="submit">
+                                        <i class="fa fa-search"></i>
+                                        搜索
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <!-- end row -->
+                </div>
+                <!-- end col -->
+            </div>
+            <!-- end row -->
+        </div>
+        <!-- end well -->
+        <form class="form-horizontal" method="post" id="creat-supplier" action="" >
+            <div class="col-xs-12">
+                <legend>
+                    新建请购单
+                    <!--<a class="label label-danger" id="closeStore">禁用</a>-->
+                </legend>
+            </div>
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="col-xs-3">
+                        <a class="btn btn-primary" id="">生成请购单</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-12">
+                <div class="orderItemLayerTit">
+                    <ul class="orderItemMenu">
+                        <li>物料一级分类名称1</li>
+                        <li>物料一级分类名称2</li>
+                        <div class="dwy-clear "></div>
+                    </ul>
+                </div>
+                <div class="orderItemLayerTable">
+                    <table class="table table-bordered">
+                        <thead>
+                        <tr>
+                            <th>物料编号1</th>
+                            <th>物料名称</th>
+                            <th>物料库名</th>
+                            <th>折算系数</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td>
+                                <label class="checkbox-inline">
+                                    <input type="checkbox" class="checkbox"
+                                           name="roles" value="2">
+                                    <span>001</span>
+                                </label>
+                            </td>
+                            <td>1</td>
+                            <td></td>
+                            <td>上轨</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <table class="table table-bordered" style="display:none">
+                        <thead>
+                        <tr>
+                            <th>物料编号2</th>
+                            <th>物料名称</th>
+                            <th>物料库名</th>
+                            <th>折算系数</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td>
+                                <label class="checkbox-inline">
+                                    <input type="checkbox" class="checkbox"
+                                           name="roles" value="2">
+                                    <span>002</span>
+                                </label>
+                            </td>
+                            <td>2</td>
+                            <td></td>
+                            <td>上轨</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+            <div class="dwy-clear"></div>
+        </form>
+    </div>
+</div>
+
+<%- include('../layouts/footer'); %>
+<%- include('../layouts/footer_common_script'); %>
+<script type="text/javascript">
+    $(document).ready(function () {
+        pageSetUp();
+        $("#creat-supplier").validationEngine();
+
+        $(".orderItemMenu li").click(function(){
+            $(this).addClass("selected").siblings().removeClass("selected");
+            $(".orderItemLayerTable table").eq($(this).index()).show().siblings().hide();
+        });
+
+        $(".fg-date-picker").flatpickr(data_time_picker.data_picker); // jQuery
+    })
+</script>
+<%- include('../layouts/foot'); %>
+
