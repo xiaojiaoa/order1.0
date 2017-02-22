@@ -166,7 +166,7 @@
                                         <label class="col-xs-2 control-label"><span class="requird"></span>配送范围:</label>
                                         <div class="col-xs-10 no-padding" id="addAreaHere">
                                             <% factoryInfo.areaList.forEach(function (element, index) { %>
-                                            <div class="margin-bottom-10">
+                                            <div class="margin-bottom-10" id="areaSection<%= index %>">
                                                 <div class="col-xs-3">
                                                     <select class="form-control dwy-province<%= index %> provinceCode validate[required]"
                                                             name="areaprovince<%= index %>" data-code="<%= index %>" >
@@ -178,6 +178,9 @@
                                                         <option value="">- 市 -</option>
                                                     </select>
                                                 </div>
+                                                <% if(index != 0){ %>
+                                                <a class="deleteInco" data-code="<%= index %>"><i class="fa fa-trash-o"></i></a>
+                                                <% } %>
                                                 <div class="dwy-clear"></div>
                                             </div>
                                             <% }) %>
@@ -203,6 +206,7 @@
                             </div>
 
                             <input type="hidden" value="" name="area" id="area">
+                            <!--<input type="hidden" value="" id="areaArry">-->
                             <input type="hidden" value="<%= factoryInfo.areaList.length %>" name="areaNum" id="areaNum">
 
                             <div class="col-xs-12">
@@ -261,6 +265,7 @@
         var areaFor = $('#area');
         var codes = [];
         var num = '<%= factoryInfo.areaList.length %>';
+        var addNum = num;
         var defaultValue = [
             {
                 name:'province',
@@ -318,18 +323,45 @@
 
         $(".dwy-area").on("change",".cityCode,.provinceCode",function(){
             var areaCode = $(this).val();
-            var num = $(this).attr('data-code');
-            console.log(num)
-            codes[num] = areaCode;
-            areaFor.val(codes);
+            var index = $(this).attr('data-code');
+            if(areaCode){
+                codes[index] = areaCode;
+            }else{
+                codes[index] = $('select[name=areaprovince'+index+']').val();
+            }
+            var areaArry = codes.filter(function (item, index) {
+                return item != '';
+            })
+            areaFor.val(areaArry);
+            console.log(index)
             console.log('codes',areaFor.val())
+        });
+
+        $(".dwy-area").on("click",".deleteInco",function(){
+            var index = $(this).attr('data-code');
+            codes[index] = '';
+            $('#areaSection'+index).remove();
+
+            var areaArry = codes.filter(function (item, index) {
+                return item != '';
+            })
+
+            console.log('codes',areaArry)
+            console.log('codesOld',codes)
+
+            areaFor.val(areaArry);
+            addNum = addNum-1;
         });
 
 
         var areaNum = $('#areaNum');
         var beforeHere = $('#addAreaHere');
         $('#addArea').click(function () {
-            var html = '<div class="margin-bottom-10">'+
+            if(addNum>= 15){
+                layer.msg('最多保存15个配送范围！', {icon: 2, time: 2000});
+                return
+            }
+            var html = '<div class="margin-bottom-10" id="areaSection'+num+'">'+
                 '<div class="col-xs-3">'+
                 '<select class="form-control dwy-province'+num+' provinceCode validate[required]" name="areaprovince'+num+'" data-code="'+num+'">'+
                 '<option value="">- 省 -</option>'+
@@ -340,7 +372,7 @@
                 '<option value="">- 市 -</option>'+
                 '</select>'+
                 '</div>'+
-                '<div class="dwy-clear"></div>'+
+                '<a class="deleteInco" data-code="'+num+'"><i class="fa fa-trash-o"></i></a><div class="dwy-clear"></div>'+
                 '</div>';
             beforeHere.append(html);
             DWY_area.init({
@@ -350,6 +382,7 @@
                 city: '.dwy-city'+num,
             });
             num++;
+            addNum++;
             areaNum.val(num);
         })
 

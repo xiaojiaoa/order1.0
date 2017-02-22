@@ -13,7 +13,7 @@
         <!-- breadcrumb -->
         <ol class="breadcrumb">
             <li>后台管理</li>
-            <li>新建仓库</li>
+            <li>修改仓库</li>
         </ol>
         <!-- end breadcrumb -->
     </div>
@@ -28,11 +28,11 @@
             <div class="row">
                 <!-- col -->
                 <div class="col-xs-12">
-                    <legend>新建仓库信息</legend>
+                    <legend>修改仓库信息</legend>
 
                     <!-- row -->
                     <div class="row">
-                        <form class="form-horizontal" method="post" action="/warehouse/doCreate" id="create-store">
+                        <form class="form-horizontal" method="post" action="/warehouse/doModify" id="create-store">
 
                             <div class="col-xs-12">
 
@@ -45,12 +45,12 @@
                                             <select class="form-control validate[required]" name="ftyIdselect" disabled>
                                                 <option value="">- 请选择 -</option>
                                                 <% factoryList.forEach(function (element) {  %>
-                                                <option value="<%= element.ftyId %>"  <%= (ftyId == element.ftyId )?"selected":"" %> >
+                                                <option value="<%= element.ftyId %>"  <%= (warehouseInfo.ftyId == element.ftyId )?"selected":"" %> >
                                                     <%= element.name %>
                                                 </option>
                                                 <% }) %>
                                             </select>
-                                            <input name="ftyId" value="<%= ftyId %>" type="hidden">
+                                            <input name="ftyId" value="<%= warehouseInfo.ftyId %>" type="hidden">
                                         </div>
                                     </div>
                                 </div>
@@ -65,7 +65,7 @@
                                         </label>
                                         <div class="col-xs-8">
                                             <input class="form-control validate[required]"
-                                                   value="<%= DWY_last_request_param.name %>"
+                                                   value="<%= warehouseInfo.name %>"
                                                    name="name">
 
                                         </div>
@@ -80,7 +80,9 @@
                                             <select class="form-control validate[required]" name="type">
                                                 <option value="">- 请选择 -</option>
                                                 <% warehouseTypes.forEach(function (element) {  %>
-                                                <option value="<%= element.id %>"><%= element.name %></option>
+                                                <option value="<%= element.id %>" <%= (warehouseInfo.type == element.id )?"selected":"" %> >
+                                                    <%= element.name %>
+                                                </option>
                                                 <% }) %>
                                             </select>
                                         </div>
@@ -97,8 +99,8 @@
                                         <label class="col-xs-4 control-label"><span class="requird"></span> 编号:</label>
                                         <div class="col-xs-8">
                                             <input class="form-control validate[required]"
-                                                   value="<%= DWY_last_request_param.whseId %>"
-                                                   name="whseId">
+                                                   value="<%= warehouseInfo.whseId %>"
+                                                   name="whseId" readonly>
                                         </div>
                                     </div>
                                 </div>
@@ -112,7 +114,7 @@
                                         <label class="col-xs-2 control-label">备注:</label>
                                         <div class="col-xs-10">
                                             <textarea name="remark" class="form-control"
-                                                      cols="30" rows="5"></textarea>
+                                                      cols="30" rows="5"><%= warehouseInfo.remark %></textarea>
                                         </div>
                                     </div>
                                 </div>

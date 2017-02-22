@@ -6,10 +6,15 @@
     <!-- User info -->
     <div class="login-info">
 				<span> <!-- User image size is adjusted inside CSS, it should stay as it -->
-
+                    <a>欢迎您!</a>
 					<a href="javascript:void(0);" id="show-shortcut" data-action="toggleShortcut">
                         <span>
-							欢迎您! <%= user.name %>
+							<%= user.name %>
+                            (
+                            <% user.role.forEach(function (element) { %>
+                            <%= element.name %>
+                            <% }) %>
+                            )
 						</span>
                     </a>
 
