@@ -84,7 +84,20 @@ var PurchaseController = {
                 res.render('order/purchase/order_detail', returnData);
             });
     },
-
+    //合并采购单
+    purchaseMerge: function (req, res) {
+        var tid = req.params.tid;
+        request(Base.mergeRequestOptions({
+            method: 'put',
+            url: '/api/purchases/merge?purcIds='+tid,
+        }, req, res), function (error, response, body) {
+            if (!error && response.statusCode == 201) {
+                res.sendStatus(200)
+            }else{
+                Base.handlerError(res, req, error, response, body);
+            }
+        })
+    },
 };
 
 module.exports = PurchaseController;

@@ -661,7 +661,8 @@ router.get('/purchase/apply_detail', Middleware.AuthCheck,PurchaseController.pur
 router.get('/purchase/detail', Middleware.AuthCheck,PurchaseController.purchaseDetailPage);
 // 采购单详情
 router.get('/purchase/order_detail/:tid', Middleware.AuthCheck,PurchaseController.purchaseOrderDetailPage);
-
+// 合并采购单
+router.post('/api/purchases/merge/:tid', Middleware.AuthCheck,PurchaseController.purchaseMerge);
 
 /*
  * 页面范围: 网络预约相关

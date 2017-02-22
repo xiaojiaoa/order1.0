@@ -264,6 +264,7 @@
                             <td><%= DWY_Helper.getLocalDate(element.orderTime) %></td>
                             <td><%= element.retailPrice %></td>
                             <td><%= DWY_Helper.getLocalDate(element.deliveryTime) %></td>
+
                             <td><%= element.room %></td>
                             <td><%= element.remark %></td>
                             <td><%= element.audit %></td>
@@ -303,6 +304,7 @@
     $(document).ready(function () {
         pageSetUp();
         $(".fg-date-picker").flatpickr(data_time_picker.data_picker); // jQuery
+
         //修改批次号
         var editBatchNum = $('#editBatchNum');
         $("#checkAll2").change(function () {
@@ -397,7 +399,6 @@
                         error: function (response) {
                             layer.close(index)
                             var data = JSON.parse(response.responseText);
-//                        var data = (response.responseText);
                             $.smallBox({
                                 title: "操作失败",
                                 content: data.msg,
