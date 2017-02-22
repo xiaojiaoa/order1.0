@@ -325,14 +325,21 @@ router.post('/material/attrCreate', Middleware.AuthCheck, MaterialAttrController
 //修改物料属性接口
 router.post('/material/attrChange', Middleware.AuthCheck, MaterialAttrController.attrChange);
 
-// 禁用/解锁 物料属性
+// 禁用/解锁 物料属性状态
 router.put('/mateAttr/setStatus/:aid/:type', Middleware.AuthCheck, MaterialAttrController.setAttrStatus);
+
+//新建物料属性值接口
+router.post('/material/attrValCreate', Middleware.AuthCheck, MaterialAttrController.attrValCreate);
+
+//修改物料属性值接口
+router.post('/material/attrValChange', Middleware.AuthCheck, MaterialAttrController.attrValChange);
 
 //物料属性值详情页面
 router.get('/materialManage/mateAttr/detail/:mid', Middleware.AuthCheck, MaterialAttrController.mateAttrDetailPage);
 
-//新建物料属性值接口
-router.post('/material/attrValCreate', Middleware.AuthCheck, MaterialAttrController.attrValCreate);
+// 禁用/解锁 物料属性值状态
+router.put('/mateAttrVal/setStatus/:code/:type/:aid', Middleware.AuthCheck, MaterialAttrController.setAttrValStatus);
+
 
 /*
  * 页面范围: 机构相关
@@ -504,6 +511,7 @@ router.post('/region/doCreate', Middleware.AuthCheck, FactoryController.doRegion
  * 页面范围: 货位管理
  * 控制器:   CargospaceController
  * */
+
 var CargospaceController = require('./Controller/CargospaceController');
 
 // 获取货位列表

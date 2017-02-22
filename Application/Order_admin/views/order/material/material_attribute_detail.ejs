@@ -61,7 +61,7 @@
                                         <i class="fa fa-search"></i>
                                         查询
                                     </button>
-                                    <a class="btn btn-primary " href="javascript:void(0)">
+                                    <a class="btn btn-primary attrValCreate" href="javascript:void(0)">
                                         <i class="fa fa-save"></i>
                                         新建属性值
                                     </a>
@@ -92,34 +92,39 @@
                         <table class="table table-bordered table-striped">
                             <thead>
                             <tr>
-                                <th>序号</th>
-                                <th>属性ID</th>
+                                <th>上级名称</th>
                                 <th>名称</th>
-                                <th>长度</th>
+                                <th>编码</th>
                                 <th>操作</th>
                             </tr>
                             </thead>
                             <tbody>
-
+                            <% attributeDetail.attributeValueList.forEach(function (element, index) { %>
                             <tr>
-                               <td>1</td>
-                                <td>56456</td>
-                                <td>颜色</td>
-                                <td>3</td>
+                                <% if(index==0){%>
+                                <td id="attrName"><%= attributeDetail.name %></td>
+                                <% }else{ %>
+                                <td></td>
+                                <% } %>
+                                <td class="<%= ( element.stcode == 1 )? 'close-info':'' %>"><%= element.name %></td>
+                                <td class="<%= ( element.stcode == 1 )? 'close-info':'' %>"><%= element.code %></td>
                                 <td>
-                                    <a href="javascript:void(0)">修改</a>
-                                    <a href="javascript:void(0)" class="margin-left-20">禁用</a>
-                                    <a href="javascript:void(0)" class="margin-left-20">新建值</a>
+                                    <% if( element.stcode == 1 ){ %>
+                                    <a href="javascript:void(0)" id="openStore" class="openStore">启用</a>
+                                    <% }else{ %>
+                                    <a href="javascript:void(0)" class="attrValChange">修改</a>
+                                    <a href="javascript:void(0)" class="margin-left-20 closeStore" id="closeStore">禁用</a>
+                                    <% } %>
                                 </td>
-
-                                  </tr>
-
+                            </tr>
+                            <% }) %>
                             </tbody>
                         </table>
 
                     </div>
                 </div>
             </div>
+            <input name="attrId1" value='<%= mid %>' type="hidden" id="attrId1">
         </div>
         <!--end well-->
     </div>
@@ -141,9 +146,46 @@
         pageSetUp();
       //日期组件
         $(".fg-date-time-picker").flatpickr(data_time_picker.data_time_picker);
+        var attrId= '<%= mid %>';
+        //启用、禁用物料属性值状态
+        $(".closeStore").on({
+            click: function () {
+                var code= $(this).parent().parent().children().eq(2).text();
+                console.log(code);
+                layer.confirm('确定禁用该属性？',{icon: 3, title:'提示'},
+                    function(index){
+                        $.ajax({
+                            url: '/mateAttrVal/setStatus/'+code+'/1/'+attrId,
+                            method: 'put',
+                            success: function (data) {
+                                window.location.reload();
+                            }
+                        });
+                    },
+                    function(index){layer.close(index)})
+            }
+        });
+        $(".openStore").on({
+            click: function () {
+                var code= $(this).parent().parent().children().eq(2).text();
+                console.log(code);
+                layer.confirm('确定启用该属性？',{icon: 3, title:'提示'},
+                    function(index){
+                        $.ajax({
+                            url: '/mateAttrVal/setStatus/'+code+'/2/'+attrId,
+                            method: 'put',
+                            success: function (data) {
+                                window.location.reload();
+                            }
+                        });
+                    },
+                    function(index){layer.close(index)})
+            }
+        })
     })
 
 </script>
 
 
 <%- include('../layouts/foot'); %>
+<%- include('./attrVal_modal'); %>
