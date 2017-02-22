@@ -183,7 +183,10 @@ router.get('/order/permit', Middleware.AuthCheck, OrderController.permitPage);
 router.get('/orders/nesting', Middleware.AuthCheck, OrderController.nestingPage);
 
 //标记排料中页面
-router.get('/orders/getNestingTask/:cid', Middleware.AuthCheck, OrderController.getNestingTask);
+router.post('/orders/getNestingTask/:cid', Middleware.AuthCheck, OrderController.getNestingTask);
+//修改批次页面
+router.post('/order/editBatchNum/:cid/:bid', Middleware.AuthCheck, OrderController.editBatchNum);
+
 
 // 订单包装页面
 router.get('/orders/package', Middleware.AuthCheck, OrderController.packagePage);
@@ -603,7 +606,6 @@ var SupplierController = require('./Controller/SupplierController');
 // 供应商详情
 router.get('/supplier', Middleware.AuthCheck,SupplierController.supplierPage);
 //供应商分类
-
 router.get('/supplier/sort', Middleware.AuthCheck,SupplierController.supplierSortPage);
 //供应商信息
 router.get('/supplier/detail', Middleware.AuthCheck,SupplierController.supplierDetailPage);
@@ -625,7 +627,7 @@ router.get('/supplier/offer_product', Middleware.AuthCheck,SupplierController.su
  * */
 var PurchaseController = require('./Controller/PurchaseController');
 
-// 已采购详情
+// 已请购详情
 router.get('/purchase', Middleware.AuthCheck,PurchaseController.purchasePage);
 // 新建请购单
 router.get('/purchase/apply_creat', Middleware.AuthCheck,PurchaseController.purchaseApplyCreatPage);
@@ -634,7 +636,7 @@ router.get('/purchase/apply_detail', Middleware.AuthCheck,PurchaseController.pur
 // 采购详情
 router.get('/purchase/detail', Middleware.AuthCheck,PurchaseController.purchaseDetailPage);
 // 采购单详情
-router.get('/purchase/order_detail', Middleware.AuthCheck,PurchaseController.purchaseOrderDetailPage);
+router.get('/purchase/order_detail/:tid', Middleware.AuthCheck,PurchaseController.purchaseOrderDetailPage);
 
 
 /*

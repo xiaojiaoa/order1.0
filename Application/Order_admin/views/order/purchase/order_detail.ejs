@@ -32,6 +32,7 @@
                 <div class="col-xs-12">
                     <div class="col-xs-3">
                         <a class="btn btn-primary" href="/purchase/detail">审核</a>
+                        <a class="btn btn-primary" href="/purchase/detail">打印</a>
                     </div>
                 </div>
             </div>
@@ -42,25 +43,28 @@
                             <thead>
                             <tr>
                                 <th>序号</th>
-                                <th>采购单编号</th>
-                                <th>供应商信息</th>
-                                <th>操作</th>
+                                <th>请购单号</th>
+                                <th>数量</th>
+                                <th>最小数量</th>
+                                <th>材料名称</th>
                             </tr>
                             </thead>
                             <tbody>
-                            <tr class="">
+                            <%
+                            purchaseOrderList.reqMaters.forEach(function (element, index) { %>
+                            <tr>
                                 <td>
                                     <label class="checkbox-inline">
                                         <input type="checkbox" class="checkbox" name="roles" value="2">
-                                        <span>1</span>
+                                        <span><%= index+1 %></span>
                                     </label>
                                 </td>
-                                <td>123456</td>
-                                <td>供应商1</td>
-                                <td>
-                                    <a class="label label-primary" href="/purchase/order_detail">详情</a>
-                                </td>
+                                <td><%= element.reqId %></td>
+                                <td><%= element.amount %></td>
+                                <td><%= element.minAmount %></td>
+                                <td><%= element.mateName %></td>
                             </tr>
+                            <% }) %>
                             </tbody>
                         </table>
                     </div>

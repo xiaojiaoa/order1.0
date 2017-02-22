@@ -13,7 +13,7 @@
         <!-- breadcrumb -->
         <ol class="breadcrumb">
             <li>后台管理</li>
-            <li>采购详情</li>
+            <li>请购详情</li>
         </ol>
         <!-- end breadcrumb -->
     </div>
@@ -117,7 +117,7 @@
             <div class="row">
                 <div class="col-xs-12">
                     <legend>
-                        已采购列表
+                        已请购列表
                         <a class="label label-primary" href="/purchase/apply_creat">新建请购单</a>
                     </legend>
                 </div>
@@ -129,32 +129,40 @@
                         <table class="table table-bordered table-striped">
                             <thead>
                             <tr>
-                                <th>序号</th>
-                                <th>采购单编号</th>
-                                <th>产品名称</th>
-                                <th>供应商名称</th>
-                                <th>购买时间</th>
-                                <th>库存</th>
+                                <th>请购单号</th>
+                                <th>请购人</th>
+                                <th>请购人部门</th>
+                                <th>请购时间</th>
+                                <th>审核人</th>
+                                <th>审核人部门</th>
+                                <th>审核时间</th>
+                                <th>生成时间</th>
+                                <th>请购状态</th>
                                 <th>操作</th>
                             </tr>
                             </thead>
                             <tbody>
-                            <tr class="">
-                                <td>
-                                    <label class="checkbox-inline">
-                                        <input type="checkbox" class="checkbox" name="roles" value="2">
-                                        <span>1</span>
-                                    </label>
-                                </td>
-                                <td>123456</td>
-                                <td>电脑 </td>
-                                <td></td>
-                                <td></td>
-                                <td>10</td>
+                            <%
+                            if(purchasesList.totalItems != 0  ){
+                            purchasesList.result.forEach(function (element, index) { %>
+                            <tr>
+                                <td><%= element.id %></td>
+                                <td><%= element.addEmp %></td>
+                                <td><%= element.addDept %></td>
+                                <td><%= element.addTime %></td>
+                                <td><%= element.reviewEmp %></td>
+                                <td><%= element.reviewDept %></td>
+                                <td><%= element.reviewTime %></td>
+                                <td><%= element.buildTime %></td>
+                                <td><%= element.stcode %></td>
                                 <td>
                                     <a class="label label-primary" href="/purchase/apply_detail">详情</a>
                                 </td>
                             </tr>
+                            <%  })
+                            }else{ %>
+                            <td colspan="6" class="text-align-center">暂无结果</td>
+                            <%  }%>
                             </tbody>
                         </table>
                     </div>

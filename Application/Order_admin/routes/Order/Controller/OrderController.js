@@ -47,7 +47,6 @@ var OrderController = {
 
     },
     detailPage: function (req, res) {
-
         var tid = req.params.tid;
         Base.multiDataRequest(req, res, [
                 {url: '/api/orders/'+tid, method: 'GET', resConfig: {keyName: 'orderInfo', is_must: true}},
@@ -217,7 +216,6 @@ var OrderController = {
             ], function (req, res, resultList) {
 
                 var paginationInfo =  resultList.selfList;
-
                 var boostrapPaginator = new Pagination.TemplatePaginator(helper.genPageInfo({
                     prelink: paramObject.withoutPageNo,
                     current: paginationInfo.page,
@@ -288,12 +286,14 @@ var OrderController = {
             res.render('order/order/order_permit', returnData);
         });
     },
+    //订单排料页面
     nestingPage: function (req, res) {
-        var gid =  req.params.gid;
         var paramObject = helper.genPaginationQuery(req);
         Base.multiDataRequest(req, res, [
-            {url: '/api/orders/schedule'+(queryString.stringify(req.query)), method: 'GET', resConfig: {keyName: 'scheduleAllList', is_must: true}},
-            {url: '/api/orders/schedule/gid'+(queryString.stringify(req.query)), method: 'GET', resConfig: {keyName: 'scheduleList', is_must: true}},
+            {url: '/api/orders/schedule?'+(queryString.stringify(req.query)), method: 'GET', resConfig: {keyName: 'scheduleAllList', is_must: true}},
+            {url: '/api/orders/schedule/gid', method: 'GET', resConfig: {keyName: 'scheduleList', is_must: true}},
+            {url: '/api/assist/deco/color', method: 'GET', resConfig: {keyName: 'colorList', is_must: true}},
+            {url: '/api/assist/space/prod?spaceId=10', method: 'GET', resConfig: {keyName: 'prodList', is_must: true}},
         ], function (req, res, resultList) {
             var paginationInfo =  resultList.scheduleAllList;
             var boostrapPaginator = new Pagination.TemplatePaginator(helper.genPageInfo({
@@ -311,19 +311,36 @@ var OrderController = {
 
         });
     },
+    //标记为排料中
     getNestingTask: function (req, res) {
         var ids = req.params.cid;
         request(Base.mergeRequestOptions({
             method: 'put',
-            url: '/api/orders/schedule/getTask'+'?tids='+ids,
+            url: '/api/orders/schedule/getTask?tids='+ids,
         }, req, res), function (error, response, body) {
-            if (!error && response.statusCode == 204) {
+            if (!error && response.statusCode == 201) {
                 res.sendStatus(200)
             } else {
                 Base.handlerError(res, req, error, response, body);
             }
         })
     },
+    //修改批次号
+    editBatchNum: function (req, res) {
+        var cid = req.params.cid;
+        var bid = req.params.bid;
+        request(Base.mergeRequestOptions({
+            method: 'put',
+            url: '/api/orders/schedule/edit/batchnumber?batchNumber='+cid+'&tids='+bid,
+        }, req, res), function (error, response, body) {
+            if (!error && response.statusCode == 201) {
+                res.sendStatus(200)
+            } else {
+                Base.handlerError(res, req, error, response, body);
+            }
+        })
+    },
+
     packagePage: function (req, res) {
         res.render('order/order/package');
     },

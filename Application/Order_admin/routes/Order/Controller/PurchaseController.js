@@ -18,20 +18,71 @@ var Permissions = require('../config/permission');
 
 
 var PurchaseController = {
+    //已请购列表
     purchasePage: function (req, res) {
-        res.render('order/purchase/index');
+        var paramObject = helper.genPaginationQuery(req);
+        Base.multiDataRequest(req, res, [
+            {url: '/api/purchase/request/'+(queryString.stringify(req.query)), method: 'GET', resConfig: {keyName: 'purchasesList', is_must: true}},
+        ], function (req, res, resultList) {
+            var paginationInfo =  resultList.purchasesList;
+            var boostrapPaginator = new Pagination.TemplatePaginator(helper.genPageInfo({
+                prelink: paramObject.withoutPageNo,
+                current: paginationInfo.page,
+                rowsPerPage: paginationInfo.pageSize,
+                totalResult: paginationInfo.totalItems
+            }));
+            var returnData = Base.mergeData(helper.mergeObject({
+                title: ' ',
+                pagination: boostrapPaginator.render(),
+                Permission :Permissions,
+            },resultList));
+            res.render('order/purchase/index', returnData);
+
+        });
     },
+    //新建请购单
     purchaseApplyCreatPage: function (req, res) {
         res.render('order/purchase/apply_creat');
     },
+    //请购单详情
     purchaseApplyDetailPage: function (req, res) {
         res.render('order/purchase/apply_detail');
     },
+    //采购列表
     purchaseDetailPage: function (req, res) {
-        res.render('order/purchase/detail');
+        var paramObject = helper.genPaginationQuery(req);
+        Base.multiDataRequest(req, res, [
+            {url: '/api/purchases?'+(queryString.stringify(req.query)), method: 'GET', resConfig: {keyName: 'purchasesLists', is_must: true}},
+        ], function (req, res, resultList) {
+            var paginationInfo =  resultList.purchasesLists;
+            var boostrapPaginator = new Pagination.TemplatePaginator(helper.genPageInfo({
+                prelink: paramObject.withoutPageNo,
+                current: paginationInfo.page,
+                rowsPerPage: paginationInfo.pageSize,
+                totalResult: paginationInfo.totalItems
+            }));
+            var returnData = Base.mergeData(helper.mergeObject({
+                title: ' ',
+                pagination: boostrapPaginator.render(),
+                Permission :Permissions,
+            },resultList));
+            res.render('order/purchase/detail', returnData);
+        });
     },
+    //采购单详情
     purchaseOrderDetailPage: function (req, res) {
-        res.render('order/purchase/order_detail');
+        var tid = req.params.tid;
+        Base.multiDataRequest(req, res, [
+                {url: '/api/purchases/'+tid, method: 'GET', resConfig: {keyName: 'purchaseOrderList', is_must: true}},
+            ],
+            function (req, res, resultList) {
+                var returnData = Base.mergeData(helper.mergeObject({
+                    title: ' ',
+                    tid:tid,
+                    Permission :Permissions,
+                }, resultList));
+                res.render('order/purchase/order_detail', returnData);
+            });
     },
 
 };
