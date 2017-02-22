@@ -86,10 +86,9 @@
         //修改属性
         $('.attrChange').on({
             click: function (e) {
-                $("#attrChangeId").val($(this).parent().parent().children().eq(1).text());
-                $("#attrChangeName").val($(this).parent().parent().children().eq(2).text());
-                $("#attrChangeVal").val($(this).parent().parent().children().eq(3).text());
-
+                $("#attrChangeName").val($.trim($(this).parent().parent().children().eq(2).text()));//显示名称
+                $("#attrChangeVal").val($(this).parent().parent().children().eq(3).text());//显示长度
+                $("#attrChangeId").val($(this).parent().parent().children().eq(1).text());//获取属性ID
                 layer.open({
                     title: false,
                     type: 1,

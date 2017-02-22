@@ -226,12 +226,12 @@
                         <!--<a class="label label-primary" href="/file/create/<%= orderInfo.lid %>/<%= orderInfo.stcode %>">文件管理</a>-->
 
                         <% if( orderInfo.stcode == 250 || orderInfo.stcode == 450 || orderInfo.stcode == 475
-                                || orderInfo.stcode == 550 || orderInfo.stcode == 650 ){ %>
+                                || orderInfo.stcode == 550 || orderInfo.stcode == 650 || orderInfo.stcode == 635){ %>
                         <a class="label label-primary" href="/file/order/create/<%= orderInfo.lid %>/<%= orderInfo.stcode %>/1/<%= tid %>">文件管理</a>
                         <% } %>
 
                         <% if( orderInfo.stcode == 450 || orderInfo.stcode == 475
-                                || orderInfo.stcode == 550 || orderInfo.stcode == 650  ){ %>
+                                || orderInfo.stcode == 550 || orderInfo.stcode == 650 || orderInfo.stcode == 635  ){ %>
                         <button class="label label-primary" id="orderItem">订单物料</button>
                         <% } %>
 
@@ -281,7 +281,7 @@
                 <!-- col -->
                 <div class="col-xs-12 dwy-show-content">
                     <legend>状态信息 (调试订单状态:<%= orderInfo.stcode %><%= DWY_Helper.getAssistVal(orderInfo.stcode, stcodeInfo) %> )
-                        <% if( (orderInfo.stcode == 250) || (orderInfo.stcode == 450) || (orderInfo.stcode == 475) ){ %>
+                        <% if( (orderInfo.stcode == 250) || (orderInfo.stcode == 450) || (orderInfo.stcode == 475) || (orderInfo.stcode == 635) ){ %>
                         <a class="label label-primary" id="doUnlock" data-stcode="<%= orderInfo.stcode %>">&nbsp; 解锁 &nbsp;</a>
                         <% } %>
                     </legend>
@@ -413,14 +413,14 @@
                             <tr>
                                 <td>排料时间</td>
                                 <% switch (orderInfo.stcode){
-                                case 775: %>
+                                case 635: %>
                                 <td>
                                     排料中
                                     <a class="label label-primary doPass"  data-stcode="<%= orderInfo.stcode %>">确认排料</a>
                                     <a class="label label-primary margin-left-20 reject-modal">排料退回</a>
                                 </td>
                                 <%        break;
-                                case 772: %>
+                                case 632: %>
                                 <td>
                                     待排料
                                     <a class="label label-primary doGetTask" data-stcode="<%= orderInfo.stcode %>">标记为排料中</a>
@@ -646,6 +646,11 @@
                     locationUrl = '/apart/check';
                     text = '确认标记为拆单审核中?';
                     break;
+                case '632':
+                    ajaxUrl = '/schedule/getTask/<%= tid %>';
+                    locationUrl = '/orders/nesting';
+                    text = '确认标记为排料中?';
+                    break;
             }
             layer.confirm(text, {icon: 3, title: '提示'}, function (index) {
                 $.ajax({
@@ -687,6 +692,10 @@
                     ajaxUrl = '/apartCheck/unlock/<%= tid %>';
                     locationUrl = '/apart/check';
                     break;
+                case '635':
+                    ajaxUrl = '/schedule/unlock/<%= tid %>';
+                    locationUrl = '/orders/nesting';
+                    break;
             }
             layer.confirm('确认解锁该订单?', {icon: 3, title: '提示'}, function (index) {
                 $.ajax({
@@ -694,6 +703,17 @@
                     method: 'post',
                     success: function (data) {
                         location.href = locationUrl
+                    },
+                    error: function (response) {
+                        layer.close(index)
+                        var data = JSON.parse(response.responseText);
+                        $.smallBox({
+                            title: "操作失败",
+                            content: data.msg,
+                            color: "#C46A69",
+                            iconSmall: "fa fa-times fa-2x fadeInRight animated",
+                            timeout: 3000
+                        });
                     }
                 });
             }, function (index) { layer.close(index) })
@@ -714,6 +734,11 @@
                     ajaxUrl = '/apartCheck/doPass/<%= tid %>';
                     locationUrl = '/apart/check';
                     text = '确认拆单审核完毕吗?';
+                    break;
+                case '635':
+                    ajaxUrl = '/schedule/doPass/<%= tid %>';
+                    locationUrl = '/orders/package';
+                    text = '确定排料提交吗?';
                     break;
 
             }
