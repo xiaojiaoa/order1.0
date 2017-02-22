@@ -116,26 +116,16 @@ var FactoryController = {
         });
     },
     doModify: function (req, res) {
-        var cid = req.body.cid;
-        var roles = req.body.roles;
-        var role ="";
-        if(roles&&(typeof roles == 'object')){
-            for (var i=0;i<roles.length;i++)
-            {
-                role += roles[i] +","
-            }
-            role = role.substring(0,role.length-1);
-            req.body.roles = role;
-        }
-
+        var ftyId = req.body.ftyId;
+console.log('555',JSON.stringify(req.body))
         request(Base.mergeRequestOptions({
             method: 'put',
-            url: '/api/employees/'+cid+"?"+queryString.stringify(req.body),
+            url: '/api/whse/factory/update?'+queryString.stringify(req.body),
             // form:req.body,
         }, req, res), function (error, response, body) {
             if (!error && response.statusCode == 201) {
                 // var lid = JSON.parse(body).lid;
-                res.redirect("/employees/detail/"+cid);
+                res.redirect("/factory/detail/"+ftyId);
 
             } else {
                 Base.handlerError(res, req, error, response, body);

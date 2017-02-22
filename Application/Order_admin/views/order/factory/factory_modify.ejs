@@ -75,7 +75,7 @@
                                         <div class="col-xs-8">
                                             <input class="form-control validate[required]"
                                                    value="<%= factoryInfo.ftyId %>"
-                                                   name="ftyId">
+                                                   name="ftyId" readonly>
                                         </div>
                                     </div>
                                 </div>
@@ -150,7 +150,7 @@
                                         <label class="col-xs-4 control-label"><span class="requird"></span>
                                             物流约束标识:</label>
                                         <div class="col-xs-8">
-                                            <select class="form-control validate[required]" name="storeType">
+                                            <select class="form-control validate[required]" name="areaFlag">
                                                 <option value="">- 请选择 -</option>
                                                 <option value="1" <%= (factoryInfo.areaFlag == 1 )?"selected":"" %>>是</option>
                                                 <option value="2" <%= (factoryInfo.areaFlag == 2 )?"selected":"" %>>否</option>
@@ -163,36 +163,47 @@
                             <div class="col-xs-12">
                                 <div class="col-xs-8">
                                     <div class="form-group dwy-area">
-                                        <label class="col-xs-2 control-label"><span class="requird"></span>
-                                            配送范围:</label>
-                                        <div class="col-xs-10 no-padding">
-                                            <div class="col-xs-3">
-                                                <select class="form-control dwy-province validate[required]" name="">
-                                                    <option value="">- 省 -</option>
-                                                </select>
+                                        <label class="col-xs-2 control-label"><span class="requird"></span>配送范围:</label>
+                                        <div class="col-xs-10 no-padding" id="addAreaHere">
+                                            <% factoryInfo.areaList.forEach(function (element, index) { %>
+                                            <div class="margin-bottom-10">
+                                                <div class="col-xs-3">
+                                                    <select class="form-control dwy-province<%= index %> provinceCode validate[required]"
+                                                            name="areaprovince<%= index %>" data-code="<%= index %>" >
+                                                        <option value="">- 省 -</option>
+                                                    </select>
+                                                </div>
+                                                <div class="col-xs-3">
+                                                    <select class="form-control dwy-city<%= index %> cityCode" name="area<%= index %>" data-code="<%= index %>">
+                                                        <option value="">- 市 -</option>
+                                                    </select>
+                                                </div>
+                                                <div class="dwy-clear"></div>
                                             </div>
-                                            <div class="col-xs-3">
-                                                <select class="form-control dwy-city validate[required]" name="area0">
-                                                    <option value="">- 市 -</option>
-                                                </select>
-                                            </div>
+                                            <% }) %>
+
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                            </div>
+
+
+                            <div class="col-xs-12">
+                                <div class="col-xs-8">
+                                    <div class="form-group">
+                                        <label class="col-xs-2 control-label"></label>
+                                        <div class="col-xs-8">
+                                            <p class="text-muted">市或区不选，表示整个省都是配送范围</p>
+                                            <a class="btn btn-primary" id="addArea">添加配送省市</a>
                                         </div>
                                     </div>
                                 </div>
                             </div>
 
-
-                            <div class="col-xs-12" id="addBtn">
-                                <div class="col-xs-8">
-                                    <label class="col-xs-2 control-label"></label>
-                                    <div class="form-group col-xs-10">
-                                        <a class="btn btn-primary" id="addArea">添加配送省市</a>
-                                    </div>
-
-                                </div>
-                            </div>
-
-                            <input type="hidden" value="2" name="areaFlag">
+                            <input type="hidden" value="" name="area" id="area">
+                            <input type="hidden" value="<%= factoryInfo.areaList.length %>" name="areaNum" id="areaNum">
 
                             <div class="col-xs-12">
                                 <div class="col-xs-8">
@@ -247,54 +258,102 @@
 
         $("#create-store").validationEngine();
 
-        var num = 1;
-        var beforeHere = $('#addBtn');
+        var areaFor = $('#area');
+        var codes = [];
+        var num = '<%= factoryInfo.areaList.length %>';
+        var defaultValue = [
+            {
+                name:'province',
+                value: '<%= factoryInfo.province %>',
+                key:'province',
+                linkcity:'city',
+                linkdis:'dist',
+                cityId: '<%= factoryInfo.city %>'
+            },
+            {name:'city', value: '<%= factoryInfo.city %>', key:'city',linkdis:'dist',disId: '<%= factoryInfo.dist %>'},
+            {name:'dist', value: '<%= factoryInfo.dist %>', key:'district'},
+        ];
+//        初始化 area 值 及 配送区域地址联动初值
+        var areaList =  <%- JSON.stringify(factoryInfo.areaList) %>;
+
+        console.log('areaList',areaList.length)
+        console.log('areaList',areaList)
+
+        for(var i=0,j=3 ;i<areaList.length;i++){
+            if(areaList[i].city){
+                codes[i] = areaList[i].city;
+                defaultValue[j] ={
+                    name:'areaprovince'+i,
+                    value: areaList[i].province,
+                    key:'province',
+                    linkcity:'area'+i,
+                    cityId: areaList[i].city
+                };
+                defaultValue[j+1] ={name:'area'+i, value: areaList[i].city, key:'city'};
+                DWY_area.init({
+                    province: '.dwy-province'+i,
+                    city: '.dwy-city'+i,
+                });
+                j += 2;
+            }else{
+                codes[i] = areaList[i].province;
+                defaultValue[j] ={
+                    name:'areaprovince'+i,
+                    value: areaList[i].province,
+                    key:'province',
+                    linkcity:'area'+i,
+                };
+                DWY_area.init({
+                    province: '.dwy-province'+i,
+                    city: '.dwy-city'+i,
+                });
+                j++;
+            }
+        }
+        areaFor.val(codes);
+        console.log('defaultValue',defaultValue)
+        DWY_area.init({
+            defaultValue:defaultValue
+        });
+
+        $(".dwy-area").on("change",".cityCode,.provinceCode",function(){
+            var areaCode = $(this).val();
+            var num = $(this).attr('data-code');
+            console.log(num)
+            codes[num] = areaCode;
+            areaFor.val(codes);
+            console.log('codes',areaFor.val())
+        });
+
+
+        var areaNum = $('#areaNum');
+        var beforeHere = $('#addAreaHere');
         $('#addArea').click(function () {
-            var html = '<div class="col-xs-12">'+
-                            '<div class="col-xs-8">'+
-                            '<div class="form-group dwy-area'+num+'">'+
-                            '<label class="col-xs-2 control-label"></label>'+
-                        '<div class="col-xs-10 no-padding">'+
-                           ' <div class="col-xs-3">'+
-                            '<select class="form-control dwy-province'+num+' validate[required]" name="">'+
-                            '<option value="">- 省 -</option>'+
-                            '</select>'+
-                            '</div>'+
-                            '<div class="col-xs-3">'+
-                            '<select class="form-control dwy-city'+num+' validate[required]" name="area'+num+'">'+
-                            '<option value="">- 市 -</option>'+
-                            '</select>'+
-                            '</div>'+
-                            '</div>'+
-                            '</div>'+
-                            '</div>'+
-                         ' </div>';
-            beforeHere.before(html);
+            var html = '<div class="margin-bottom-10">'+
+                '<div class="col-xs-3">'+
+                '<select class="form-control dwy-province'+num+' provinceCode validate[required]" name="areaprovince'+num+'" data-code="'+num+'">'+
+                '<option value="">- 省 -</option>'+
+                '</select>'+
+                '</div>'+
+                '<div class="col-xs-3">'+
+                '<select class="form-control dwy-city'+num+' cityCode" name="area'+num+'" data-code="'+num+'">'+
+                '<option value="">- 市 -</option>'+
+                '</select>'+
+                '</div>'+
+                '<div class="dwy-clear"></div>'+
+                '</div>';
+            beforeHere.append(html);
             DWY_area.init({
                 //可不填
-                target: '.dwy-area'+num,
+                target: '.dwy-area',
                 province: '.dwy-province'+num,
                 city: '.dwy-city'+num,
             });
             num++;
+            areaNum.val(num);
         })
-        $(".fg-date-picker").flatpickr(data_time_picker.data_picker); // jQuery
 
-        DWY_area.init({
-            defaultValue:[
-                {
-                    name:'province',
-                    value: '<%= factoryInfo.province %>',
-                    key:'province',
-                    linkcity:'city',
-                    linkdis:'dist',
-                    cityId: '<%= factoryInfo.city %>'
-                },
-                {name:'city', value: '<%= factoryInfo.city %>', key:'city',linkdis:'dist',disId: '<%= factoryInfo.dist %>'},
-                {name:'dist', value: '<%= factoryInfo.dist %>', key:'district'},
 
-            ]
-        });
 
     })
 

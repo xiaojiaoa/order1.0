@@ -55,9 +55,9 @@
                             </tr>
                             <tr>
                                 <td>新建日期</td>
-                                <td><%= DWY_Helper.getLocalDate(factoryInfo.addTime) %></td>
+                                <td><%= DWY_Helper.getLocalDateYMD(factoryInfo.addTime) %></td>
                                 <td>工厂所在省市区</td>
-                                <td> <%= factoryInfo.province %> <%= factoryInfo.city %> <%= factoryInfo.dist %></td>
+                                <td> <%= factoryInfo.provinceName %> <%= factoryInfo.cityName %> <%= factoryInfo.distName %></td>
                                 <td>所属机构</td>
                                 <td><%= DWY_Helper.getAssistVal(factoryInfo.bid, factoryList) %></td>
                             </tr>
@@ -69,7 +69,7 @@
                             </tr>
                             <tr>
                                 <td>配送范围</td>
-                                <td colspan="5"><%= factoryInfo.area %></td>
+                                <td colspan="5"><%= factoryInfo.areaName %></td>
                             </tr>
                             <tr>
                                 <td>备注</td>

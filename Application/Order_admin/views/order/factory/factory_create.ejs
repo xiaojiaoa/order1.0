@@ -276,7 +276,7 @@
                 '</select>'+
                 '</div>'+
                 '<div class="col-xs-3">'+
-                '<select class="form-control dwy-city'+num+' cityCode validate[required]" name="area'+num+'" data-code="'+num+'">'+
+                '<select class="form-control dwy-city'+num+' cityCode" name="area'+num+'" data-code="'+num+'">'+
                 '<option value="">- 市 -</option>'+
                 '</select>'+
                 '</div>'+
@@ -292,7 +292,6 @@
             num++;
             areaNum.val(num);
         })
-        $(".fg-date-picker").flatpickr(data_time_picker.data_picker); // jQuery
         DWY_area.init({});
 
     })
