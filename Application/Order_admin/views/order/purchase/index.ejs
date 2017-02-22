@@ -13,7 +13,7 @@
         <!-- breadcrumb -->
         <ol class="breadcrumb">
             <li>后台管理</li>
-            <li>供应商分类</li>
+            <li>请购详情</li>
         </ol>
         <!-- end breadcrumb -->
     </div>
@@ -110,57 +110,67 @@
                 <!-- end col -->
             </div>
             <!-- end row -->
-            <!--start row-->
         </div>
+        <!-- end well -->
         <div class="well">
+            <!-- row -->
             <div class="row">
                 <div class="col-xs-12">
                     <legend>
-                        供应商分类
-                        <!--<a class="label label-primary" href="">修改</a>-->
-                        <a class="label label-primary" href="/supplier/sort_create">添加分类</a>
-                        <a class="label label-danger" id="closeStore">禁用</a>
+                        已请购列表
+                        <a class="label label-primary" href="/purchase/apply_creat">新建请购单</a>
                     </legend>
+                </div>
+            </div>
+            <!-- row -->
+            <div class="row">
+                <div class="col-xs-12">
                     <div class="table-responsive">
-                        <table class="table table-bordered table-striped table-expand">
+                        <table class="table table-bordered table-striped">
                             <thead>
                             <tr>
-                                <th width="300">供应商分类名称</th>
+                                <th>请购单号</th>
+                                <th>请购人</th>
+                                <th>请购人部门</th>
+                                <th>请购时间</th>
+                                <th>审核人</th>
+                                <th>审核人部门</th>
+                                <th>审核时间</th>
+                                <th>生成时间</th>
+                                <th>请购状态</th>
                                 <th>操作</th>
                             </tr>
                             </thead>
                             <tbody>
-                            <tr class="level-0">
-                                <td>供应商1</td>
+                            <%
+                            if(purchasesList.totalItems != 0  ){
+                            purchasesList.result.forEach(function (element, index) { %>
+                            <tr>
+                                <td><%= element.id %></td>
+                                <td><%= element.addEmp %></td>
+                                <td><%= element.addDept %></td>
+                                <td><%= element.addTime %></td>
+                                <td><%= element.reviewEmp %></td>
+                                <td><%= element.reviewDept %></td>
+                                <td><%= element.reviewTime %></td>
+                                <td><%= element.buildTime %></td>
+                                <td><%= element.stcode %></td>
                                 <td>
-                                    <a class="departmentChild-modal" parent="" parentId="" href="/supplier/sort_create">新建子级</a>
-                                    <!--<a class="supplierModify-modal" name="供应商1" selfId="111">修改</a>-->
-                                    <a class="supplierModify-modal" href="sort_modify">修改</a>
-                                    <a class="delete-department" selfId="1113">删除</a>
+                                    <a class="label label-primary" href="/purchase/apply_detail">详情</a>
                                 </td>
                             </tr>
-                            <tr class="level-1">
-                                <td class="level-1-title">子级</td>
-                                <td>
-                                    <!--<a class="supplierModify-modal" name="子级"  selfId="222">修改</a>-->
-                                    <a class="supplierModify-modal" href="sort_modify">修改</a>
-                                    <a class="delete-department"  selfId="222">删除</a>
-                                </td>
-                            </tr>
+                            <%  })
+                            }else{ %>
+                            <td colspan="6" class="text-align-center">暂无结果</td>
+                            <%  }%>
                             </tbody>
                         </table>
-
                     </div>
                 </div>
             </div>
-            <!--end row-->
         </div>
-        <!-- end well -->
-
     </div>
 </div>
-
-
 
 <%- include('../layouts/footer'); %>
 <%- include('../layouts/footer_common_script'); %>

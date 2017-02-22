@@ -181,6 +181,23 @@ router.get('/order/permit', Middleware.AuthCheck, OrderController.permitPage);
 
 // 订单排料页面
 router.get('/orders/nesting', Middleware.AuthCheck, OrderController.nestingPage);
+//标记排料中页面
+router.post('/orders/getNestingTask/:cid', Middleware.AuthCheck, OrderController.getNestingTask);
+//修改批次页面
+router.post('/order/editBatchNum/:cid/:bid', Middleware.AuthCheck, OrderController.editBatchNum);
+// 标记为审核中 (待排料)
+router.post('/schedule/getTask/:tid', Middleware.AuthCheck, OrderController.getTaskSchedule);
+
+// 解锁订单
+router.post('/schedule/unlock/:tid', Middleware.AuthCheck, OrderController.doUnlockSchedule);
+
+// 审核未通过（退单）
+router.post('/schedule/notPass', Middleware.AuthCheck, OrderController.notPassSchedule);
+
+// 审核通过
+router.post('/schedule/doPass/:tid', Middleware.AuthCheck, OrderController.doPassSchedule);
+
+
 
 // 订单包装页面
 router.get('/orders/package', Middleware.AuthCheck, OrderController.packagePage);
@@ -472,11 +489,13 @@ router.get('/factory/modify/:ftyId', Middleware.AuthCheck, FactoryController.mod
 // 修改工厂信息
 router.post('/factory/doModify', Middleware.AuthCheck, FactoryController.doModify);
 
-// 关闭/解锁 工厂
-router.put('/factory/setStatus/:ftyId/:type', Middleware.AuthCheck, FactoryController.setStatus);
+// 关闭 工厂
+router.delete('/factory/doClose/:ftyId', Middleware.AuthCheck, FactoryController.doClose);
 
+// 解锁 工厂
+router.put('/factory/doOpen/:ftyId', Middleware.AuthCheck, FactoryController.doOpen);
 
-// 获取仓库列表
+// 获取所有仓库列表
 router.get('/warehouse', Middleware.AuthCheck, Middleware.FilterEmptyField, FactoryController.listWarehousePage);
 
 // 新增仓库页面
@@ -484,6 +503,9 @@ router.get('/warehouse/create', Middleware.AuthCheck, FactoryController.createWa
 
 // 新增仓库
 router.post('/warehouse/doCreate', Middleware.AuthCheck, FactoryController.doWarehouseCreate);
+
+// 获取某工厂下的仓库列表
+router.get('/factory/warehouse/:ftyId', Middleware.AuthCheck, Middleware.FilterEmptyField, FactoryController.listFacWarehousePage);
 
 
 // 获取仓库区域列表
@@ -505,28 +527,28 @@ router.post('/region/doCreate', Middleware.AuthCheck, FactoryController.doRegion
 var CargospaceController = require('./Controller/CargospaceController');
 
 // 获取货位列表
-router.get('/factory', Middleware.AuthCheck, Middleware.FilterEmptyField, CargospaceController.listPage);
+router.get('/cargospace', Middleware.AuthCheck, Middleware.FilterEmptyField, CargospaceController.listPage);
 
 // 货位详情页面
-router.get('/factory/detail/:ftyId', Middleware.AuthCheck, CargospaceController.detailPage);
+router.get('/cargospace/detail/:ftyId', Middleware.AuthCheck, CargospaceController.detailPage);
 
 // 新增货位页面
-router.get('/factory/create', Middleware.AuthCheck, CargospaceController.createPage);
+router.get('/cargospace/create', Middleware.AuthCheck, CargospaceController.createPage);
 
 // 新增货位页面-下一步
-router.get('/factory/createNext', Middleware.AuthCheck, CargospaceController.createNextPage);
+router.get('/cargospace/createNext', Middleware.AuthCheck, CargospaceController.createNextPage);
 
 // 新增货位
-router.post('/factory/doCreate', Middleware.AuthCheck, CargospaceController.doCreate);
+router.post('/cargospace/doCreate', Middleware.AuthCheck, CargospaceController.doCreate);
 
 // 修改货位详情页面
-router.get('/factory/modify/:ftyId', Middleware.AuthCheck, CargospaceController.modifyPage);
+router.get('/cargospace/modify/:ftyId', Middleware.AuthCheck, CargospaceController.modifyPage);
 
 // 修改货位信息
-router.post('/factory/doModify', Middleware.AuthCheck, CargospaceController.doModify);
+router.post('/cargospace/doModify', Middleware.AuthCheck, CargospaceController.doModify);
 
 // 关闭/解锁 货位
-router.put('/factory/setStatus/:ftyId/:type', Middleware.AuthCheck, CargospaceController.setStatus);
+router.put('/cargospace/setStatus/:ftyId/:type', Middleware.AuthCheck, CargospaceController.setStatus);
 
 
 /*
@@ -611,16 +633,45 @@ router.get('/cascade/*', TemplateController.getData);
  * 页面范围: 供应商相关
  * 控制器:   SupplierController
  * */
+
 var SupplierController = require('./Controller/SupplierController');
 
 // 供应商详情
 router.get('/supplier', Middleware.AuthCheck,SupplierController.supplierPage);
 //供应商分类
 router.get('/supplier/sort', Middleware.AuthCheck,SupplierController.supplierSortPage);
-//供应商分类
+//供应商信息
+router.get('/supplier/detail', Middleware.AuthCheck,SupplierController.supplierDetailPage);
+//供应商添加
 router.get('/supplier/create', Middleware.AuthCheck,SupplierController.supplierCreatPage);
-//供应商分类
+//供应商修改
+router.get('/supplier/modify', Middleware.AuthCheck,SupplierController.supplierModifyPage);
+//供应商分类添加
 router.get('/supplier/sort_create', Middleware.AuthCheck,SupplierController.supplierSortCreatPage);
+//供应商分类修改
+router.get('/supplier/sort_modify', Middleware.AuthCheck,SupplierController.supplierSortModifyPage);
+//供应商可供商品
+router.get('/supplier/offer_product', Middleware.AuthCheck,SupplierController.supplierOfferProductPage);
+
+
+/*
+ * 页面范围: 采购管理相关
+ * 控制器:   purchaseController
+ * */
+var PurchaseController = require('./Controller/PurchaseController');
+
+// 已请购详情
+router.get('/purchase', Middleware.AuthCheck,PurchaseController.purchasePage);
+// 新建请购单
+router.get('/purchase/apply_creat', Middleware.AuthCheck,PurchaseController.purchaseApplyCreatPage);
+// 请购单详情
+router.get('/purchase/apply_detail', Middleware.AuthCheck,PurchaseController.purchaseApplyDetailPage);
+// 采购详情
+router.get('/purchase/detail', Middleware.AuthCheck,PurchaseController.purchaseDetailPage);
+// 采购单详情
+router.get('/purchase/order_detail/:tid', Middleware.AuthCheck,PurchaseController.purchaseOrderDetailPage);
+// 合并采购单
+router.post('/api/purchases/merge/:tid', Middleware.AuthCheck,PurchaseController.purchaseMerge);
 
 /*
  * 页面范围: 网络预约相关

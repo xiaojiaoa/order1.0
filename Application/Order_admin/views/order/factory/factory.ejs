@@ -66,7 +66,7 @@
                                             <select class="form-control" name="type">
                                                 <option value="">- 请选择 -</option>
                                                 <option value="1" <%= (DWYRequest.query.type == 1 )?"selected":"" %>>工厂</option>
-                                                <option value="2"  <%= (DWYRequest.query.type == 2 )?"selected":"" %>>区域</option>
+                                                <option value="2"  <%= (DWYRequest.query.type == 2 )?"selected":"" %>>仓储中心</option>
 
                                             </select>
                                         </div>
@@ -136,12 +136,12 @@
                                 <td><%= element.ftyId %></td>
                                 <td><a href="/factory/detail/<%= element.ftyId %>"><%= element.name %></a></td>
                                 <td><%= DWY_Helper.getFactoryType(element.type) %></td>
-                                <td><%= element.province %> <%= element.city %> <%= element.dist %></td>
-                                <td></td>
-                                <td><%= DWY_Helper.getLocalDate(element.addTime) %></td>
+                                <td><%= element.provinceName %> <%= element.cityName %> <%= element.distName %></td>
+                                <td><%= DWY_Helper.getWhether(element.areaFlag) %></td>
+                                <td><%= DWY_Helper.getLocalDateYMD(element.addTime) %></td>
                                 <td>
-                                    <a href="/department/stores/<%= element.ftyId %>">新建仓库</a>
-                                    <a href="/roles/<%= element.ftyId %>/1" class="margin-left-20">查看所有仓库</a>
+                                    <a href="/warehouse/create/<%= element.ftyId %>">新建仓库</a>
+                                    <a href="/factory/warehouse/<%= element.ftyId %>" class="margin-left-20">查看所有仓库</a>
                                 </td>
                             </tr>
                             <%  })

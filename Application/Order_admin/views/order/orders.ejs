@@ -181,21 +181,19 @@
                                 <td><%= index+1 %></td>
                                 <td><a href="/customer/detail/<%= element.cid %>"><%= element.cid %></a></td>
                                 <td><%= element.name %></td>
-                                <td><a href="/taskseq/index/555">流水号</a></td>
+                                <td><a href="/taskseq/index/<%= element.lid %>"><%= element.lid %></a></td>
                                 <td><a href="/order/detail/<%= element.tid %>"><%= element.tid %></a></td>
                                 <td><%= DWY_Helper.getAssistVal(element.brandId,brandInfo) %></td>
                                 <td><%= DWY_Helper.getAssistVal(element.prodType,prodInfo) %></td>
                                 <td><%= element.spaceName %></td>
-                                <td></td>
+                                <td><%= element.prodInfo %></td>
                                 <td><%= element.bid %>/<%= element.gid %></td>
                                 <td><%= DWY_Helper.getLocalDate(element.deliveryDate) %></td>
                                 <td><%= DWY_Helper.getAssistVal(element.stcode,stcodeInfo) %></td>
-                                <td></td>
+                                <td><%= element.cargoSpaceId %></td>
                             </tr>
                             <%  })
                             } %>
-
-
                             <!--<tr class="mark-row">-->
                                 <!--<td>2</td>-->
                                 <!--<td><a href="/customer/detail">12345</a></td>-->

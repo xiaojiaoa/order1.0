@@ -1,0 +1,353 @@
+<%- include('../layouts/head_top'); %>
+<%- include('../layouts/head_bottom'); %>
+<%- include('../layouts/header'); %>
+<%- include('../layouts/nav'); %>
+
+
+<!-- MAIN PANEL -->
+<div id="main" role="main">
+
+    <!-- RIBBON -->
+    <div id="ribbon">
+
+        <!-- breadcrumb -->
+        <ol class="breadcrumb">
+            <li>后台管理</li>
+            <li>供应商可供商品</li>
+        </ol>
+        <!-- end breadcrumb -->
+    </div>
+    <!-- END RIBBON -->
+    <!-- MAIN CONTENT -->
+    <div id="content">
+        <!-- start well -->
+        <div class="well">
+            <!-- row -->
+            <div class="row">
+                <!-- col -->
+                <div class="col-xs-12">
+                    <!--<legend>客户搜索</legend>-->
+                        <div class="table-responsive">
+                            <table class="table table-bordered table-striped">
+                                <thead>
+                                <tr>
+                                    <th>物料编号1</th>
+                                    <th>物料名称</th>
+                                    <th>物料库名</th>
+                                    <th>折算系数</th>
+                                    <th>规格</th>
+                                    <th>颜色</th>
+                                    <th>厚度</th>
+                                    <th>密度</th>
+                                    <th>单位</th>
+                                    <th>移动平均单价</th>
+                                    <th>分类</th>
+                                    <th>其他</th>
+                                    <th>最小库存</th>
+                                    <th>说明</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr>
+                                    <td>001</td>
+                                    <td>1</td>
+                                    <td></td>
+                                    <td>上轨</td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    <!-- end row -->
+                </div>
+                <!-- end col -->
+            </div>
+            <!-- end row -->
+        </div>
+        <!-- end well -->
+        <div class="well">
+            <!-- row -->
+            <div class="row">
+                <div class="col-xs-12">
+                    <h6 class="col-xs-4">可供应物料信息</h6>
+                    <hr class="simple">
+                </div>
+            </div>
+            <!-- row -->
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="row search-form">
+                        <form class="form-horizontal" method="get">
+                            <div class="col-xs-12">
+                                <!--输入字段-->
+                                <div class="col-xs-3">
+                                    <div class="form-group">
+                                        <label class="col-xs-4 control-label">物料名称:</label>
+                                        <div class="col-xs-8">
+                                            <input class="form-control" placeholder="请输入物料名称" type="text" value="" name="tid">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xs-3">
+                                    <div class="form-group">
+                                        <label class="col-xs-4 control-label">物料分类:</label>
+                                        <div class="col-xs-8">
+                                            <select class="form-control" name="brandId">
+                                                <option value="">- 请选择 -</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xs-12">
+                                <hr class="simple">
+                                <div class="col-xs-12 text-center">
+                                    <button class="btn btn-primary " type="submit">
+                                        <i class="fa fa-search"></i>
+                                        搜索
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <!---供应商可供物料---->
+
+                    <form class="form-horizontal margin-top-10" method="post" id="orderItemCon" action="" >
+                        <div class="col-xs-12">
+                            <div class="form-group">
+                                <div class="col-xs-12">
+                                    <div class="well">
+                                        <div class="row">
+                                            <div class="col-xs-12">
+                                                <div class="">
+                                                    <button class="btn btn-primary" id="editBatchNum">确认</button>
+                                                </div>
+                                                <hr class="simple">
+                                            </div>
+                                        </div>
+                                        <div class="orderItemLayerTit">
+                                            <ul class="orderItemMenu">
+                                                <li>物料一级分类名称1</li>
+                                                <li>物料一级分类名称2</li>
+                                                <li>物料一级分类名称3</li>
+                                                <li>物料一级分类名称4</li>
+                                                <div class="dwy-clear "></div>
+                                            </ul>
+                                        </div>
+                                        <div class="orderItemLayerTable">
+                                            <table class="table table-bordered">
+                                                <thead>
+                                                <tr>
+                                                    <th>物料编号1</th>
+                                                    <th>物料名称</th>
+                                                    <th>物料库名</th>
+                                                    <th>折算系数</th>
+                                                    <th>规格</th>
+                                                    <th>颜色</th>
+                                                    <th>厚度</th>
+                                                    <th>密度</th>
+                                                    <th>单位</th>
+                                                    <th>移动平均单价</th>
+                                                    <th>分类</th>
+                                                    <th>其他</th>
+                                                    <th>最小库存</th>
+                                                    <th>说明</th>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                <tr>
+                                                    <td>
+                                                        <label class="checkbox-inline">
+                                                            <input type="checkbox" class="checkbox"
+                                                                   name="roles" value="2">
+                                                            <span>001</span>
+                                                        </label>
+                                                    </td>
+                                                    <td>1</td>
+                                                    <td></td>
+                                                    <td>上轨</td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                </tr>
+                                                </tbody>
+                                            </table>
+                                            <table class="table table-bordered" style="display:none">
+                                                <thead>
+                                                <tr>
+                                                    <th>物料编号2</th>
+                                                    <th>物料名称</th>
+                                                    <th>物料库名</th>
+                                                    <th>折算系数</th>
+                                                    <th>规格</th>
+                                                    <th>颜色</th>
+                                                    <th>厚度</th>
+                                                    <th>密度</th>
+                                                    <th>单位</th>
+                                                    <th>移动平均单价</th>
+                                                    <th>分类</th>
+                                                    <th>其他</th>
+                                                    <th>最小库存</th>
+                                                    <th>说明</th>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                <tr>
+                                                    <td>
+                                                        <label class="checkbox-inline">
+                                                            <input type="checkbox" class="checkbox"
+                                                                   name="roles" value="2">
+                                                            <span>002</span>
+                                                        </label>
+                                                    </td>
+                                                    <td>2</td>
+                                                    <td></td>
+                                                    <td>上轨</td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                </tr>
+                                                </tbody>
+                                            </table>
+                                            <table class="table table-bordered" style="display:none">
+                                                <thead>
+                                                <tr>
+                                                    <th>物料编号3</th>
+                                                    <th>物料名称</th>
+                                                    <th>物料库名</th>
+                                                    <th>折算系数</th>
+                                                    <th>规格</th>
+                                                    <th>颜色</th>
+                                                    <th>厚度</th>
+                                                    <th>密度</th>
+                                                    <th>单位</th>
+                                                    <th>移动平均单价</th>
+                                                    <th>分类</th>
+                                                    <th>其他</th>
+                                                    <th>最小库存</th>
+                                                    <th>说明</th>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                <tr>
+                                                    <td>
+                                                        <label class="checkbox-inline">
+                                                            <input type="checkbox" class="checkbox"
+                                                                   name="roles" value="2">
+                                                            <span>003</span>
+                                                        </label>
+                                                    </td>
+                                                    <td>3</td>
+                                                    <td></td>
+                                                    <td>上轨</td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                </tr>
+                                                </tbody>
+                                            </table>
+                                            <table class="table table-bordered" style="display:none">
+                                                <thead>
+                                                <tr>
+                                                    <th>物料编号4</th>
+                                                    <th>物料名称</th>
+                                                    <th>物料库名</th>
+                                                    <th>折算系数</th>
+                                                    <th>规格</th>
+                                                    <th>颜色</th>
+                                                    <th>厚度</th>
+                                                    <th>密度</th>
+                                                    <th>单位</th>
+                                                    <th>移动平均单价</th>
+                                                    <th>分类</th>
+                                                    <th>其他</th>
+                                                    <th>最小库存</th>
+                                                    <th>说明</th>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                <tr>
+                                                    <td>
+                                                        <label class="checkbox-inline">
+                                                            <input type="checkbox" class="checkbox"
+                                                                   name="roles" value="2">
+                                                            <span>004</span>
+                                                        </label>
+                                                    </td>
+                                                    <td>4</td>
+                                                    <td></td>
+                                                    <td>上轨</td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                        <div class="dwy-clear"></div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<%- include('../layouts/footer'); %>
+<%- include('../layouts/footer_common_script'); %>
+<script type="text/javascript">
+    $(document).ready(function () {
+        pageSetUp();
+        $(".fg-date-picker").flatpickr(data_time_picker.data_picker); // jQuery
+
+        $(".orderItemMenu li").click(function(){
+            $(this).addClass("selected").siblings().removeClass("selected");
+            $(".orderItemLayerTable table").eq($(this).index()).show().siblings().hide();
+        })
+    })
+</script>
+<%- include('../layouts/foot'); %>
+
