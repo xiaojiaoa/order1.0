@@ -31,66 +31,99 @@
             <div class="row">
                 <!-- col -->
                 <div class="col-xs-12 dwy-show-content">
-                    <legend>基本信息
+                    <legend>物料信息
 
-                        <a class="label label-primary" href="/materialManage/materialType/modify">修改</a>
+                        <% if( mateInfo.stcode == 1 ){ %>
+                        <a class="label label-primary" id="openStore">启用</a>
+                        <% }else{ %>
+                        <a class="label label-primary" href="/materialManage/material/modify/<%= mateInfo.id%>">修改</a>
                         <a class="label label-danger" id="closeStore">禁用</a>
+                        <% } %>
 
                     </legend>
 
                     <!-- row -->
                     <div class="table-responsive">
-                        <table class="table table-bordered table-striped table-information ">
+                        <table class="table table-bordered table-striped table-information " class="<%= ( mateInfo.stcode == 1 )? 'close-info':'' %>">
                             <tbody>
                             <tr>
                                 <td>物料编号</td>
-                                <td>42010001</td>
+                                <td><%= mateInfo.id %></td>
                                 <td>物料名称</td>
-                                <td>银白下框</td>
-                                <td>材料库名字</td>
-                                <td>布兰莎原材料库</td>
-                                <td>折算系数</td>
-                                <td>1</td>
-                            </tr>
-                            <tr>
-                                <td>规格</td>
-                                <td>wy02</td>
-                                <td>颜色</td>
-                                <td>银白</td>
-                                <td>厚度</td>
-                                <td>0mm</td>
-                                <td>密度</td>
-                                <td>0</td>
-                            </tr>
-                            <tr>
-                                <td>单位</td>
-                                <td>支</td>
-                                <td>移动平均单价</td>
-                                <td>元</td>
+                                <td><%= mateInfo.name %></td>
                                 <td>分类</td>
-                                <td colspan="3">
-                                    铝材>框架>银白框架
-                                </td>
+                                <td><%= mateInfo.catName %></td>
                             </tr>
                             <tr>
-                                <td>其他</td>
-                                <td>已启动库存预警</td>
-                                <td>最小库存</td>
-                                <td colspan="5">
-                                    当真实库存小于150.00支时预警，小于1.00支时提示预计缺货
-                                </td>
+                                <td>预警</td>
+                                <td><%= mateInfo.warning %></td>
+                                <td>可用</td>
+                                <td><%= mateInfo.warning %></td>
+                                <td>单位</td>
+                                <td><%= mateInfo.unit%></td>
                             </tr>
                             <tr>
-                                <td>说明</td>
-                                <td colspan="7"></td>
+                                <td>出厂价格</td>
+                                <td>1000</td>
+                                <td>价格单位</td>
+                                <td>元/顿</td>
+                                <td>物料图片</td>
+                                <td>
+                                    <a href="javascript:void(0)">图片地址</a>
+                                </td>
                             </tr>
+                            <%
+                            var isTr = true;
+                            var attrsLength = mateInfo.attrs.length;
+                            mateInfo.attrs.forEach(function(element, index){
+                            if(isTr){ %>
+                            <tr>
+                                <td><%= element.attrName %></td>
+                                <td><%= element.attrValue %></td>
 
+                                <% if( (index+1 == attrsLength) && (attrsLength %3 == 1) ){ %>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                            <% }
+
+                                isTr = false;
+                                }else{
+
+                                if((index)%3 == 2 ){
+                                %>
+                                <td><%= element.attrName %></td>
+                                <td><%= element.attrValue %></td>
+
+                            </tr>
+                            <% isTr = true;
+                            }else{ %>
+                            <td><%= element.attrName %></td>
+                            <td><%= element.attrValue %></td>
+
+                            <% if( (index+1 == attrsLength) && (attrsLength%3 == 2) ){ %>
+                            <td></td>
+                            <td></td>
+                            </tr>
+                            <% } %>
+
+                            <% } }
+                            }) %>
+
+                            <tr>
+                                <td>备注</td>
+                                <td colspan="5"></td>
+                            </tr>
                             </tbody>
                         </table>
 
                     </div>
+
                     <!-- end row -->
                 </div>
+
                 <!-- end col -->
             </div>
             <!-- end row -->
@@ -202,32 +235,35 @@
         pageSetUp();
 
         $(".fg-date-time-picker").flatpickr(data_time_picker.data_picker); // jQuery
+        //启用、禁用物料详情页状态
+        var mid='<%= mid %>';
+        console.log(mid);
         $("#closeStore").on({
             click: function () {
-                layer.confirm('确定禁用该机构？',{icon: 3, title:'提示'},
+                layer.confirm('确定禁用该属性？',{icon: 3, title:'提示'},
                     function(index){
-                       /* $.ajax({
-                         url: '/agency/setStatus/'+organizationsId+'/2',
-                         method: 'put',
-                         success: function (data) {
-                         window.location.reload();
-                         }
-                         });*/
+                        $.ajax({
+                            url: '/material/setStatus/'+mid+'/1',
+                            method: 'put',
+                            success: function (data) {
+                                window.location.reload();
+                            }
+                        });
                     },
                     function(index){layer.close(index)})
             }
         });
         $("#openStore").on({
             click: function () {
-                layer.confirm('确定启用该机构？',{icon: 3, title:'提示'},
+                layer.confirm('确定启用该属性？',{icon: 3, title:'提示'},
                     function(index){
-                     /*   $.ajax({
-                            url: '/agency/setStatus/'+organizationsId+'/1',
+                        $.ajax({
+                            url: '/material/setStatus/'+mid+'/2',
                             method: 'put',
                             success: function (data) {
                                 window.location.reload();
                             }
-                        });*/
+                        });
                     },
                     function(index){layer.close(index)})
             }
