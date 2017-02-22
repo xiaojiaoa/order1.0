@@ -109,8 +109,8 @@
                 layer.confirm('确定禁用该工厂？',{icon: 3, title:'提示'},
                     function(index){
                         $.ajax({
-                            url: '/factory/setStatus/'+ftyId+'/2',
-                            method: 'put',
+                            url: '/factory/doClose/'+ftyId,
+                            method: 'delete',
                             success: function (data) {
                                 window.location.reload();
                             }
@@ -124,7 +124,7 @@
                 layer.confirm('确定启用该工厂？',{icon: 3, title:'提示'},
                     function(index){
                         $.ajax({
-                            url: '/factory/setStatus/'+ftyId+'/1',
+                            url: '/factory/doOpen/'+ftyId,
                             method: 'put',
                             success: function (data) {
                                 window.location.reload();

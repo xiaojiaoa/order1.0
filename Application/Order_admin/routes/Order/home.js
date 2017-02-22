@@ -182,6 +182,20 @@ router.get('/order/permit', Middleware.AuthCheck, OrderController.permitPage);
 // 订单排料页面
 router.get('/orders/nesting', Middleware.AuthCheck, OrderController.nestingPage);
 
+// 标记为审核中 (待排料)
+router.post('/schedule/getTask/:tid', Middleware.AuthCheck, OrderController.getTaskSchedule);
+
+// 解锁订单
+router.post('/schedule/unlock/:tid', Middleware.AuthCheck, OrderController.doUnlockSchedule);
+
+// 审核未通过（退单）
+router.post('/schedule/notPass', Middleware.AuthCheck, OrderController.notPassSchedule);
+
+// 审核通过
+router.post('/schedule/doPass/:tid', Middleware.AuthCheck, OrderController.doPassSchedule);
+
+
+
 // 订单包装页面
 router.get('/orders/package', Middleware.AuthCheck, OrderController.packagePage);
 
@@ -456,11 +470,13 @@ router.get('/factory/modify/:ftyId', Middleware.AuthCheck, FactoryController.mod
 // 修改工厂信息
 router.post('/factory/doModify', Middleware.AuthCheck, FactoryController.doModify);
 
-// 关闭/解锁 工厂
-router.put('/factory/setStatus/:ftyId/:type', Middleware.AuthCheck, FactoryController.setStatus);
+// 关闭 工厂
+router.delete('/factory/doClose/:ftyId', Middleware.AuthCheck, FactoryController.doClose);
 
+// 解锁 工厂
+router.put('/factory/doOpen/:ftyId', Middleware.AuthCheck, FactoryController.doOpen);
 
-// 获取仓库列表
+// 获取所有仓库列表
 router.get('/warehouse', Middleware.AuthCheck, Middleware.FilterEmptyField, FactoryController.listWarehousePage);
 
 // 新增仓库页面
@@ -468,6 +484,9 @@ router.get('/warehouse/create', Middleware.AuthCheck, FactoryController.createWa
 
 // 新增仓库
 router.post('/warehouse/doCreate', Middleware.AuthCheck, FactoryController.doWarehouseCreate);
+
+// 获取某工厂下的仓库列表
+router.get('/factory/warehouse/:ftyId', Middleware.AuthCheck, Middleware.FilterEmptyField, FactoryController.listFacWarehousePage);
 
 
 // 获取仓库区域列表

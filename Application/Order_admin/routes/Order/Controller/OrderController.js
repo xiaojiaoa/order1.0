@@ -292,6 +292,63 @@ var OrderController = {
     nestingPage: function (req, res) {
         res.render('order/order/nesting');
     },
+
+    getTaskSchedule: function (req, res) {
+        var tid = req.params.tid;
+        request(Base.mergeRequestOptions({
+            method: 'put',
+            url: '/api/orders/schedule/getTask?tids='+tid,
+        }, req, res), function (error, response, body) {
+            if (!error && response.statusCode == 201) {
+                res.sendStatus(200);
+                // res.redirect("/order/check/getOrder");
+            } else {
+                Base.handlerError(res, req, error, response, body);
+            }
+        })
+    },
+    doUnlockSchedule: function (req, res) {
+        var tid = req.params.tid;
+        request(Base.mergeRequestOptions({
+            method: 'put',
+            url: '/api/orders/schedule/unlock/'+tid,
+        }, req, res), function (error, response, body) {
+            if (!error && response.statusCode == 201) {
+                res.sendStatus(200);
+            } else {
+                Base.handlerError(res, req, error, response, body);
+            }
+        })
+
+    },
+    notPassSchedule: function (req, res) {
+        request(Base.mergeRequestOptions({
+            method: 'put',
+            url: '/api/orders/schedule/notPass?'+queryString.stringify(req.body),
+        }, req, res), function (error, response, body) {
+            if (!error && response.statusCode == 201) {
+                console.log('statusCode')
+                res.redirect("/orders/nesting");
+            } else {
+                Base.handlerError(res, req, error, response, body);
+            }
+        })
+
+    },
+    doPassSchedule: function (req, res) {
+        var tid = req.params.tid;
+        request(Base.mergeRequestOptions({
+            method: 'put',
+            url: '/api/orders/schedule/pass?tid='+tid,
+        }, req, res), function (error, response, body) {
+            if (!error && response.statusCode == 201) {
+                res.sendStatus(200);
+            } else {
+                Base.handlerError(res, req, error, response, body);
+            }
+        })
+
+    },
     packagePage: function (req, res) {
         res.render('order/order/package');
     },

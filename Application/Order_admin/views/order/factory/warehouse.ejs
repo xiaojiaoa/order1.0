@@ -24,6 +24,7 @@
     <!-- MAIN CONTENT -->
     <div id="content">
         <!-- well -->
+        <% if(!typePage){ %>
         <div class="well">
             <!-- row -->
             <div class="row">
@@ -99,6 +100,8 @@
             </div>
             <!-- end row -->
         </div>
+        <% } %>
+
         <!-- end well -->
 
         <div class="well">
@@ -131,8 +134,14 @@
                             </thead>
                             <tbody>
                             <%
-                            if( warehouseList.result && (warehouseList.result.length > 0)  ){
-                            warehouseList.result.forEach(function (element, index) { %>
+                                if(typePage == 'all'){
+                                    var forEachList = warehouseList;
+
+                                }else{
+                                    var forEachList = warehouseList.result;
+                                }
+                            if( (warehouseList.result && (warehouseList.result.length > 0)) || typePage == 'all'  ){
+                                forEachList.forEach(function (element, index) { %>
                             <tr class="<%= element.stcode == 1 ? '' : 'disabletr' %>">
                                 <td><%= index+1 %></td>
                                 <td><%= element.whseId %></td>
@@ -161,7 +170,10 @@
 
                             </tbody>
                         </table>
+                        <% if(!typePage){ %>
                         <%- pagination %>
+                        <% } %>
+
 
                     </div>
                 </div>

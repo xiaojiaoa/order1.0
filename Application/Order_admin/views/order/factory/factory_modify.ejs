@@ -43,7 +43,7 @@
                                             工厂名称:</label>
                                         <div class="col-xs-10">
                                             <input class="form-control validate[required]"
-                                                   value="<%= DWY_last_request_param.name %>"
+                                                   value="<%= factoryInfo.name %>"
                                                    name="name">
                                         </div>
                                     </div>
@@ -60,8 +60,8 @@
                                         <div class="col-xs-8">
                                             <select class="form-control validate[required]" name="type">
                                                 <option value="">- 请选择 -</option>
-                                                <option value="1">工厂</option>
-                                                <option value="2">仓储中心</option>
+                                                <option value="1" <%= (factoryInfo.type == 1 )?"selected":"" %>>工厂</option>
+                                                <option value="2" <%= (factoryInfo.type == 2 )?"selected":"" %>>仓储中心</option>
 
                                             </select>
                                         </div>
@@ -74,14 +74,11 @@
                                         <label class="col-xs-4 control-label "><span class="requird"></span> 编号:</label>
                                         <div class="col-xs-8">
                                             <input class="form-control validate[required]"
-                                                   value="<%= DWY_last_request_param.ftyId %>"
+                                                   value="<%= factoryInfo.ftyId %>"
                                                    name="ftyId">
                                         </div>
                                     </div>
                                 </div>
-                                <div class="pull-left control-label text-muted">10~49为工厂，50~99为区域仓库</div>
-
-
                             </div>
 
                             <div class="col-xs-12">
@@ -120,7 +117,7 @@
                                         <label class="col-xs-2 control-label"> 详细地址:</label>
                                         <div class="col-xs-10">
                                             <input class="form-control"
-                                                   value="<%= DWY_last_request_param.address %>"
+                                                   value="<%= factoryInfo.address %>"
                                                    name="address">
                                         </div>
                                     </div>
@@ -138,7 +135,11 @@
                                         <div class="col-xs-8">
                                             <select class="form-control validate[required]" name="bid">
                                                 <option value="">- 请选择 -</option>
-
+                                                <%  factoryList.forEach(function (element) {  %>
+                                                <option value="<%= element.id %>" <%= (factoryInfo.bid == element.id )?"selected":"" %> >
+                                                    <%= element.name %>
+                                                </option>
+                                                <% }) %>
                                             </select>
                                         </div>
                                     </div>
@@ -151,7 +152,8 @@
                                         <div class="col-xs-8">
                                             <select class="form-control validate[required]" name="storeType">
                                                 <option value="">- 请选择 -</option>
-
+                                                <option value="1" <%= (factoryInfo.areaFlag == 1 )?"selected":"" %>>是</option>
+                                                <option value="2" <%= (factoryInfo.areaFlag == 2 )?"selected":"" %>>否</option>
                                             </select>
                                         </div>
                                     </div>
@@ -198,7 +200,7 @@
                                         <label class="col-xs-2 control-label">备注:</label>
                                         <div class="col-xs-10">
                                             <textarea name="remark" class="form-control"
-                                                      cols="30" rows="5"></textarea>
+                                                      cols="30" rows="5"><%= factoryInfo.remark %></textarea>
                                         </div>
                                     </div>
                                 </div>
@@ -277,7 +279,22 @@
             num++;
         })
         $(".fg-date-picker").flatpickr(data_time_picker.data_picker); // jQuery
-        DWY_area.init({});
+
+        DWY_area.init({
+            defaultValue:[
+                {
+                    name:'province',
+                    value: '<%= factoryInfo.province %>',
+                    key:'province',
+                    linkcity:'city',
+                    linkdis:'dist',
+                    cityId: '<%= factoryInfo.city %>'
+                },
+                {name:'city', value: '<%= factoryInfo.city %>', key:'city',linkdis:'dist',disId: '<%= factoryInfo.dist %>'},
+                {name:'dist', value: '<%= factoryInfo.dist %>', key:'district'},
+
+            ]
+        });
 
     })
 

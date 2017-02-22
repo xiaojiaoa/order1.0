@@ -73,7 +73,7 @@
                                     <div class="form-group">
                                         <label class="col-xs-4 control-label "><span class="requird"></span> 编号:</label>
                                         <div class="col-xs-8">
-                                            <input class="form-control validate[required]"
+                                            <input class="form-control validate[required,custom[onlyNumberSp]]"
                                                    value="<%= DWY_last_request_param.ftyId %>"
                                                    name="ftyId">
                                         </div>
@@ -152,7 +152,7 @@
                                         <label class="col-xs-4 control-label"><span class="requird"></span>
                                             物流约束标识:</label>
                                         <div class="col-xs-8">
-                                            <select class="form-control validate[required]" name="storeType">
+                                            <select class="form-control validate[required]" name="areaFlag">
                                                 <option value="">- 请选择 -</option>
                                                 <option value="1">是</option>
                                                 <option value="2">否</option>
@@ -166,36 +166,44 @@
                             <div class="col-xs-12">
                                 <div class="col-xs-8">
                                     <div class="form-group dwy-area">
-                                        <label class="col-xs-2 control-label"><span class="requird"></span>
-                                            配送范围:</label>
-                                        <div class="col-xs-10 no-padding">
-                                            <div class="col-xs-3">
-                                                <select class="form-control dwy-province validate[required]" name="">
-                                                    <option value="">- 省 -</option>
-                                                </select>
+                                        <label class="col-xs-2 control-label"><span class="requird"></span>配送范围:</label>
+                                        <div class="col-xs-10 no-padding" id="addAreaHere">
+                                            <div class="margin-bottom-10">
+                                                <div class="col-xs-3">
+                                                    <select class="form-control dwy-province provinceCode validate[required]" data-code="0" >
+                                                        <option value="">- 省 -</option>
+                                                    </select>
+                                                </div>
+                                                <div class="col-xs-3">
+                                                    <select class="form-control dwy-city cityCode" name="area0" data-code="0">
+                                                        <option value="">- 市 -</option>
+                                                    </select>
+                                                </div>
+                                                <div class="dwy-clear"></div>
                                             </div>
-                                            <div class="col-xs-3">
-                                                <select class="form-control dwy-city validate[required]" name="area0">
-                                                    <option value="">- 市 -</option>
-                                                </select>
-                                            </div>
+
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                            </div>
+
+
+                            <div class="col-xs-12">
+                                <div class="col-xs-8">
+                                    <div class="form-group">
+                                        <label class="col-xs-2 control-label"></label>
+                                        <div class="col-xs-8">
+                                            <p class="text-muted">市或区不选，表示整个省都是配送范围</p>
+                                            <a class="btn btn-primary" id="addArea">添加配送省市</a>
                                         </div>
                                     </div>
                                 </div>
                             </div>
 
-
-                            <div class="col-xs-12" id="addBtn">
-                                <div class="col-xs-8">
-                                    <label class="col-xs-2 control-label"></label>
-                                    <div class="form-group col-xs-10">
-                                        <a class="btn btn-primary" id="addArea">添加配送省市</a>
-                                    </div>
-
-                                </div>
-                            </div>
-
-                            <input type="hidden" value="2" name="areaFlag">
+                            <input type="hidden" value="" name="area" id="area">
+                            <input type="hidden" value="" name="areaNum" id="areaNum">
 
                             <div class="col-xs-12">
                                 <div class="col-xs-8">
@@ -243,43 +251,46 @@
 
 
 <script type="text/javascript">
-
     $(document).ready(function () {
-
 //        pageSetUp();
+        var areaFor = $('#area');
+        var codes = []
+        $(".dwy-area").on("change",".cityCode,.provinceCode",function(){
+            var areaCode = $(this).val();
+            var num = $(this).attr('data-code');
+            console.log(num)
+            codes[num] = areaCode;
+            areaFor.val(codes)
+            console.log('codes',areaFor.val())
+        });
 
         $("#create-store").validationEngine();
-
         var num = 1;
-        var beforeHere = $('#addBtn');
+        var areaNum = $('#areaNum');
+        var beforeHere = $('#addAreaHere');
         $('#addArea').click(function () {
-            var html = '<div class="col-xs-12">'+
-                            '<div class="col-xs-8">'+
-                            '<div class="form-group dwy-area'+num+'">'+
-                            '<label class="col-xs-2 control-label"></label>'+
-                        '<div class="col-xs-10 no-padding">'+
-                           ' <div class="col-xs-3">'+
-                            '<select class="form-control dwy-province'+num+' validate[required]" name="">'+
-                            '<option value="">- 省 -</option>'+
-                            '</select>'+
-                            '</div>'+
-                            '<div class="col-xs-3">'+
-                            '<select class="form-control dwy-city'+num+' validate[required]" name="area'+num+'">'+
-                            '<option value="">- 市 -</option>'+
-                            '</select>'+
-                            '</div>'+
-                            '</div>'+
-                            '</div>'+
-                            '</div>'+
-                         ' </div>';
-            beforeHere.before(html);
+            var html = '<div class="margin-bottom-10">'+
+                '<div class="col-xs-3">'+
+                '<select class="form-control dwy-province'+num+' provinceCode validate[required]" data-code="'+num+'">'+
+                '<option value="">- 省 -</option>'+
+                '</select>'+
+                '</div>'+
+                '<div class="col-xs-3">'+
+                '<select class="form-control dwy-city'+num+' cityCode validate[required]" name="area'+num+'" data-code="'+num+'">'+
+                '<option value="">- 市 -</option>'+
+                '</select>'+
+                '</div>'+
+                '<div class="dwy-clear"></div>'+
+                '</div>';
+            beforeHere.append(html);
             DWY_area.init({
                 //可不填
-                target: '.dwy-area'+num,
+                target: '.dwy-area',
                 province: '.dwy-province'+num,
                 city: '.dwy-city'+num,
             });
             num++;
+            areaNum.val(num);
         })
         $(".fg-date-picker").flatpickr(data_time_picker.data_picker); // jQuery
         DWY_area.init({});
