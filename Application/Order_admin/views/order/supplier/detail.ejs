@@ -33,48 +33,46 @@
                         <table class="table table-bordered table-striped table-information">
                             <tbody>
                             <tr>
-                                <td>供应商名称</td>
-                                <td colspan="3"><h4>111</h4></td>
+                                <td>供应商分类编号</td>
+                                <td colspan=""><%= suppliersDetail.cateId  %></td>
+                                <td>供应商分类名称</td>
+                                <td colspan=""><%= suppliersDetail.name  %></td>
                             </tr>
                             <tr>
-                                <td>联系人</td>
-                                <td>111</td>
-                                <td>联系人电话</td>
-                                <td>
-                                    <span class="margin-left-10"></span>
-                                </td>
+                                <td>联系人姓名</td>
+                                <td><%= suppliersDetail.contact  %></td>
+                                <td>联系人手机</td>
+                                <td><%= suppliersDetail.contactMobile  %></td>
                             </tr>
                             <tr>
-                                <td>供应区域</td>
+                                <td>供应商所在地区</td>
                                 <td colspan="3">
-                                    <span class="margin-right-5-10">中国</span>
-                                    <span class="margin-right-5-10"></span>
-                                    <span class="margin-right-5-10"></span>
-                                    <span class="margin-right-5-10"></span>
+                                    <span class="margin-right-5-10"><%= suppliersDetail.province  %>,</span>
+                                    <span class="margin-right-5-10"><%= suppliersDetail.city  %>,</span>
+                                    <span class="margin-right-5-10"><%= suppliersDetail.dist  %>,</span>
                                 </td>
                             </tr>
                             <tr>
-                                <td>供应商等级</td>
-                                <td colspan="3"></td>
+                                <td>财务联系人</td>
+                                <td colspan=""><%= suppliersDetail.financeContact  %></td>
+                                <td>财务联系人手机</td>
+                                <td colspan=""><%= suppliersDetail.financeContactMobile  %></td>
                             </tr>
                             <tr>
-                                <td>详细地点</td>
-                                <td colspan="3">
-                                    <span class="margin-right-5-10">中国</span>
-                                    <span class="margin-right-5-10"></span>
-                                    <span class="margin-right-5-10"></span>
-                                    <span class="margin-right-5-10"></span>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>财务负责人联系电话</td>
-                                <td>11111111111</td>
-                                <td>开户行及银行</td>
-                                <td>银行</td>
+                                <td>开户银行</td>
+                                <td><%= suppliersDetail.depositBank  %></td>
+                                <td>开户卡号</td>
+                                <td><%= suppliersDetail.depositNo  %></td>
                             </tr>
                             <tr>
                                 <td>开票信息</td>
-                                <td colspan="3">开票</td>
+                                <td><%= suppliersDetail.invoiceInfo  %></td>
+                                <td>详细地址</td>
+                                <td colspan="3"><%= suppliersDetail.address  %></td>
+                            </tr>
+                            <tr>
+                                <td>备注</td>
+                                <td colspan="3"><%= suppliersDetail.remark  %></td>
                             </tr>
                             </tbody>
                         </table>
