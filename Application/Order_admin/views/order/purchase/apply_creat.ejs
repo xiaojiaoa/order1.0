@@ -66,7 +66,7 @@
             <!-- end row -->
         </div>
         <!-- end well -->
-        <form class="form-horizontal" method="post" id="creat-supplier" action="" >
+        <form class="form-horizontal" method="post" id="creat-supplier" action="/purchase/applyCreat" >
             <div class="col-xs-12">
                 <legend>
                     新建请购单
@@ -76,7 +76,7 @@
             <div class="row">
                 <div class="col-xs-12">
                     <div class="col-xs-3">
-                        <a class="btn btn-primary" id="">生成请购单</a>
+                        <button class="btn btn-primary">生成请购单</button>
                     </div>
                 </div>
             </div>
@@ -92,10 +92,11 @@
                     <table class="table table-bordered">
                         <thead>
                         <tr>
-                            <th>物料编号1</th>
+                            <th>序号</th>
+                            <th>物料编号</th>
                             <th>物料名称</th>
-                            <th>物料库名</th>
-                            <th>折算系数</th>
+                            <th>库存</th>
+                            <th>出厂价格</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -109,7 +110,8 @@
                             </td>
                             <td>1</td>
                             <td></td>
-                            <td>上轨</td>
+                            <td>1</td>
+                            <td>1</td>
                         </tr>
                         </tbody>
                     </table>
@@ -118,8 +120,10 @@
                         <tr>
                             <th>物料编号2</th>
                             <th>物料名称</th>
-                            <th>物料库名</th>
-                            <th>折算系数</th>
+                            <th>供应商</th>
+                            <th>单位</th>
+                            <th>最小数量</th>
+                            <th>预计交付时间</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -133,12 +137,13 @@
                             </td>
                             <td>2</td>
                             <td></td>
-                            <td>上轨</td>
+                            <td>1</td>
+                            <td>1</td>
+                            <td>1</td>
                         </tr>
                         </tbody>
                     </table>
                 </div>
-
             </div>
             <div class="dwy-clear"></div>
         </form>
