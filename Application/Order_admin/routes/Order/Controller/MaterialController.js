@@ -38,6 +38,7 @@ var MaterialController = {
             },resultList));
             res.render('order/material/material_index',returnData);
         });
+        //res.render('order/material/material_index');
     },
     detailPage: function (req, res) {
         var mid =  req.params.mid;

@@ -18,7 +18,27 @@ var Permissions = require('../config/permission');
 
 var MaterialTypeController = {
     materialTypePage: function (req, res) {
-        res.render('order/material/material_type');
+        var paramObject = helper.genPaginationQuery(req);
+        Base.multiDataRequest(req, res, [
+            {url: '/api/categories?'+ queryString.stringify(req.query), method: 'GET', resConfig: {keyName: 'mateTypeList', is_must: true}}
+        ], function (req, res, resultList) {
+
+            var paginationInfo =  resultList.mateTypeList;
+
+            var boostrapPaginator = new Pagination.TemplatePaginator(helper.genPageInfo({
+                prelink: paramObject.withoutPageNo,
+                current: paginationInfo.page,
+                rowsPerPage: paginationInfo.pageSize,
+                totalResult: paginationInfo.totalItems
+            }));
+
+            var returnData = Base.mergeData(helper.mergeObject({
+                title: ' ',
+                pagination: boostrapPaginator.render()
+            },resultList));
+            res.render('order/material/material_type',returnData);
+        });
+       // res.render('order/material/material_type');
     },
     materialTypeCreOnePage: function (req, res) {
         res.render('order/material/material_type_creOne');
