@@ -1,0 +1,50 @@
+<script type="text/javascript">
+
+    $(document).ready(function () {
+        //确认选中的物料属性
+        Array.prototype.indexOf = function(val) {
+            for (var i = 0; i < this.length; i++) {
+                if (this[i] == val) return i;
+            }
+            return -1;
+        };
+        Array.prototype.remove = function(val) {
+            var index = this.indexOf(val);
+            if (index > -1) {
+                this.splice(index, 1);
+            }
+        };
+        var inputs=document.getElementsByName('attr');
+        var txt=document.getElementById('show');
+        var attributes=document.getElementById('attributes');
+        var sum=document.getElementById("attrValLength");
+        for(var i=0;i<inputs.length;i++)
+        {
+            var attrId=[];//选中属性的id
+            var attrName=[];//选中属性的name
+            var attrLength=[];//选中属性的length
+            inputs[i].onclick=function(){
+                if(this.checked){
+                    attrId.push(this.value);
+                    attrName.push(this.parentNode.innerText);
+                    attrLength.push(this.parentNode.lastChild.previousSibling.innerHTML);
+                }
+                else{
+                    attrId.remove(this.value);
+                    attrName.remove(this.parentNode.innerText);
+                    attrLength.remove(this.parentNode.lastChild.previousSibling.innerHTML);
+
+                }
+                txt.innerHTML=attrName.join(',');
+                attributes.value=attrId.join(',');
+                sum.value=eval(attrLength.join('+'));
+            }
+        }
+        if(sum>8){
+            layer.alert('物料属性的长度之和超过8位，请重新选择！',{icon: 3, title:'提示'})
+        }
+
+
+    })
+
+</script>
