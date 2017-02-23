@@ -42,14 +42,15 @@
                                         <label class="col-xs-2 control-label"><span class="requird"></span>
                                             所属工厂:</label>
                                         <div class="col-xs-10">
-                                            <select class="form-control validate[required]" name="type">
+                                            <select class="form-control validate[required]" name="ftyIdselect" disabled>
                                                 <option value="">- 请选择 -</option>
-                                                <% organizationsList.forEach(function (element) {  %>
-                                                <option value="<%= element.id %>"  <%= (DWY_last_request_param.storeType == element.id )?"selected":"" %> >
+                                                <% factoryList.forEach(function (element) {  %>
+                                                <option value="<%= element.ftyId %>"  <%= (ftyId == element.ftyId )?"selected":"" %> >
                                                     <%= element.name %>
                                                 </option>
                                                 <% }) %>
                                             </select>
+                                            <input name="ftyId" value="<%= ftyId %>" type="hidden">
                                         </div>
                                     </div>
                                 </div>
@@ -64,8 +65,8 @@
                                         </label>
                                         <div class="col-xs-8">
                                             <input class="form-control validate[required]"
-                                                   value="<%= DWY_last_request_param.ftyId %>"
-                                                   name="ftyId">
+                                                   value="<%= DWY_last_request_param.name %>"
+                                                   name="name">
 
                                         </div>
 
@@ -96,8 +97,8 @@
                                         <label class="col-xs-4 control-label"><span class="requird"></span> 编号:</label>
                                         <div class="col-xs-8">
                                             <input class="form-control validate[required]"
-                                                   value="<%= DWY_last_request_param.address %>"
-                                                   name="address">
+                                                   value="<%= DWY_last_request_param.whseId %>"
+                                                   name="whseId">
                                         </div>
                                     </div>
                                 </div>

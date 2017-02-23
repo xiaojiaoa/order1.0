@@ -495,24 +495,36 @@ router.delete('/factory/doClose/:ftyId', Middleware.AuthCheck, FactoryController
 // 解锁 工厂
 router.put('/factory/doOpen/:ftyId', Middleware.AuthCheck, FactoryController.doOpen);
 
-// 获取所有仓库列表
-router.get('/warehouse', Middleware.AuthCheck, Middleware.FilterEmptyField, FactoryController.listWarehousePage);
+
+// 获取仓库列表
+router.get('/warehouse/:ftyId', Middleware.AuthCheck, Middleware.FilterEmptyField, FactoryController.listWarehousePage);
 
 // 新增仓库页面
-router.get('/warehouse/create', Middleware.AuthCheck, FactoryController.createWarehousePage);
+router.get('/warehouse/create/:ftyId', Middleware.AuthCheck, FactoryController.createWarehousePage);
 
 // 新增仓库
 router.post('/warehouse/doCreate', Middleware.AuthCheck, FactoryController.doWarehouseCreate);
 
-// 获取某工厂下的仓库列表
-router.get('/factory/warehouse/:ftyId', Middleware.AuthCheck, Middleware.FilterEmptyField, FactoryController.listFacWarehousePage);
+// 修改仓库详情页面
+router.get('/warehouse/modify/:whseId', Middleware.AuthCheck, FactoryController.modifyWarehousePage);
+
+// 修改仓库信息
+router.post('/warehouse/doModify', Middleware.AuthCheck, FactoryController.doModifyWarehouse);
+
+// 关闭 仓库
+router.delete('/warehouse/doClose/:whseId', Middleware.AuthCheck, FactoryController.doCloseWarehouse);
+
+// 解锁 仓库
+router.put('/warehouse/doOpen/:whseId', Middleware.AuthCheck, FactoryController.doOpenWarehouse);
+
+
 
 
 // 获取仓库区域列表
-router.get('/region', Middleware.AuthCheck, Middleware.FilterEmptyField, FactoryController.listRegionPage);
+router.get('/region/:ftyId/:whseId', Middleware.AuthCheck, Middleware.FilterEmptyField, FactoryController.listRegionPage);
 
 // 新增仓库区域页面
-router.get('/region/create/:whseId', Middleware.AuthCheck, FactoryController.createRegionPage);
+router.get('/region/create/:ftyId/:whseId', Middleware.AuthCheck, FactoryController.createRegionPage);
 
 // 新增仓库区域
 router.post('/region/doCreate', Middleware.AuthCheck, FactoryController.doRegionCreate);

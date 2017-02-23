@@ -168,7 +168,7 @@
                                     <div class="form-group dwy-area">
                                         <label class="col-xs-2 control-label"><span class="requird"></span>配送范围:</label>
                                         <div class="col-xs-10 no-padding" id="addAreaHere">
-                                            <div class="margin-bottom-10">
+                                            <div class="margin-bottom-10" id="areaSection0">
                                                 <div class="col-xs-3">
                                                     <select class="form-control dwy-province provinceCode validate[required]" data-code="0" >
                                                         <option value="">- 省 -</option>
@@ -257,19 +257,43 @@
         var codes = []
         $(".dwy-area").on("change",".cityCode,.provinceCode",function(){
             var areaCode = $(this).val();
-            var num = $(this).attr('data-code');
-            console.log(num)
-            codes[num] = areaCode;
-            areaFor.val(codes)
+            var index = $(this).attr('data-code');
+            codes[index] = areaCode;
+            var areaArry = codes.filter(function (item, index) {
+                return item != '';
+            })
+            areaFor.val(areaArry)
+            console.log(index)
             console.log('codes',areaFor.val())
+        });
+
+        $(".dwy-area").on("click",".deleteInco",function(){
+            var index = $(this).attr('data-code');
+            codes[index] = '';
+            $('#areaSection'+index).remove();
+
+            var areaArry = codes.filter(function (item, index) {
+                return item != '';
+            })
+
+            console.log('codes',areaArry)
+            console.log('codesOld',codes)
+
+            areaFor.val(areaArry);
+            addNum = addNum-1;
         });
 
         $("#create-store").validationEngine();
         var num = 1;
+        var addNum = num;
         var areaNum = $('#areaNum');
         var beforeHere = $('#addAreaHere');
         $('#addArea').click(function () {
-            var html = '<div class="margin-bottom-10">'+
+            if(addNum>= 15){
+                layer.msg('最多保存15个配送范围！', {icon: 2, time: 2000});
+                return
+            }
+            var html = '<div class="margin-bottom-10" id="areaSection'+num+'">'+
                 '<div class="col-xs-3">'+
                 '<select class="form-control dwy-province'+num+' provinceCode validate[required]" data-code="'+num+'">'+
                 '<option value="">- 省 -</option>'+
@@ -280,7 +304,7 @@
                 '<option value="">- 市 -</option>'+
                 '</select>'+
                 '</div>'+
-                '<div class="dwy-clear"></div>'+
+                '<a class="deleteInco" data-code="'+num+'"><i class="fa fa-trash-o"></i></a><div class="dwy-clear"></div>'+
                 '</div>';
             beforeHere.append(html);
             DWY_area.init({
@@ -290,6 +314,7 @@
                 city: '.dwy-city'+num,
             });
             num++;
+            addNum++;
             areaNum.val(num);
         })
         DWY_area.init({});
