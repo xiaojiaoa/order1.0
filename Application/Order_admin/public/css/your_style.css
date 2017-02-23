@@ -371,3 +371,9 @@ tr > td > .separation:last-child {
     margin-left: 0px!important;
     float: left;
 }
+#purchaseTable{
+    display:none;
+}
+#purchaseTable:first-of-type{
+    display:table;
+}

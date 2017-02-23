@@ -683,16 +683,28 @@ var PurchaseController = require('./Controller/PurchaseController');
 
 // 已请购详情
 router.get('/purchase', Middleware.AuthCheck,PurchaseController.purchasePage);
-// 新建请购单
-router.get('/purchase/apply_creat', Middleware.AuthCheck,PurchaseController.purchaseApplyCreatPage);
+
+// 新建请购单页面
+router.get('/purchase/applyCreat', Middleware.AuthCheck,PurchaseController.purchaseApplyCreatPage);
+
 // 请购单详情
-router.get('/purchase/apply_detail', Middleware.AuthCheck,PurchaseController.purchaseApplyDetailPage);
+router.get('/purchase/applyDetail/:tid', Middleware.AuthCheck,PurchaseController.purchaseApplyDetailPage);
+
+// 请购单审核
+router.post('/purchase/applyReview/:tid', Middleware.AuthCheck,PurchaseController.purchaseApplyReview);
+
 // 采购详情
-router.get('/purchase/detail', Middleware.AuthCheck,PurchaseController.purchaseDetailPage);
+router.get('/purchase/detail', Middleware.AuthCheck,PurchaseController.purchaseDetail);
+// 生成采购单
+router.post('/purchases/Order/:tid', Middleware.AuthCheck,PurchaseController.purchaseOrder);
 // 采购单详情
-router.get('/purchase/order_detail/:tid', Middleware.AuthCheck,PurchaseController.purchaseOrderDetailPage);
+router.get('/purchase/orderDetail/:tid', Middleware.AuthCheck,PurchaseController.purchaseOrderDetail);
 // 合并采购单
-router.post('/api/purchases/merge/:tid', Middleware.AuthCheck,PurchaseController.purchaseMerge);
+router.post('/purchases/merge/:tid', Middleware.AuthCheck,PurchaseController.purchaseMerge);
+// 审核采购单
+router.post('/purchases/review/:tid', Middleware.AuthCheck,PurchaseController.purchaseReview);
+// 提交采购单
+router.post('/purchases/submit/:tid', Middleware.AuthCheck,PurchaseController.purchaseSubmit);
 
 /*
  * 页面范围: 网络预约相关

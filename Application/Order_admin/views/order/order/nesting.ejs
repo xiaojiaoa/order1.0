@@ -91,7 +91,7 @@
                             </tr>
                             <%  })
                             }else{ %>
-                            <td colspan="6" class="text-align-center">暂无结果</td>
+                            <td colspan="20" class="text-align-center">暂无结果</td>
                             <%  }%>
                             </tbody>
                         </table>
@@ -138,7 +138,7 @@
                                             <select class="form-control" name="productType">
                                                 <option value="">- 产品类型 -</option>
                                                 <% prodList.forEach(function (element) { %>
-                                                <option value="<%= element.id %>" <%= (DWYRequest.query.addrType == element.id )?"selected":"" %> ><%= element.name %></option>
+                                                <option value="<%= element.id %>" <%= (DWYRequest.query.productType == element.id )?"selected":"" %> ><%= element.name %></option>
                                                 <% }) %>
                                             </select>
                                         </div>
@@ -146,7 +146,7 @@
                                             <select class="form-control" name="color">
                                                 <option value="">- 颜色 -</option>
                                                 <% colorList.forEach(function (element) { %>
-                                                <option value="<%= element.id %>" <%= (DWYRequest.query.addrType == element.id )?"selected":"" %> ><%= element.name %></option>
+                                                <option value="<%= element.id %>" <%= (DWYRequest.query.color == element.id )?"selected":"" %> ><%= element.name %></option>
                                                 <% }) %>
                                             </select>
                                         </div>
@@ -264,7 +264,6 @@
                             <td><%= DWY_Helper.getLocalDate(element.orderTime) %></td>
                             <td><%= element.retailPrice %></td>
                             <td><%= DWY_Helper.getLocalDate(element.deliveryTime) %></td>
-
                             <td><%= element.room %></td>
                             <td><%= element.remark %></td>
                             <td><%= element.audit %></td>
@@ -274,7 +273,7 @@
                         </tr>
                         <%  })
                         }else{ %>
-                        <td colspan="6" class="text-align-center">暂无结果</td>
+                        <td colspan="20" class="text-align-center">暂无结果</td>
                         <%  }%>
                         </tbody>
                     </table>
@@ -286,6 +285,7 @@
                         <input type="hidden" class="" id="checkedValue">
                     </div>
                 </div>
+                <%- pagination %>
             </div>
             <!-- end row -->
         </div>
@@ -309,7 +309,7 @@
         var editBatchNum = $('#editBatchNum');
         $("#checkAll2").change(function () {
             if($(this).is(":checked")){
-                $(":checkbox").prop('checked',true);
+                $("input[name='role']").prop('checked',true);
                 $("input[name='role']:checked").each(function (i) {
                     editBatchNum.addClass(this.value+',')
                 });
@@ -369,7 +369,7 @@
         var checkedValue = $('#checkedValue');
         $("#checkAll").change(function () {
             if($(this).is(":checked")){
-                $(":checkbox").prop('checked',true);
+                $("input[name='roles']").prop('checked',true);
                 $("input[name='roles']:checked").each(function (i) {
                     checkedValue.addClass(this.value+',')
                 });
