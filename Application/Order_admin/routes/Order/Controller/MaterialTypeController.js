@@ -41,7 +41,15 @@ var MaterialTypeController = {
        // res.render('order/material/material_type');
     },
     materialTypeCreOnePage: function (req, res) {
-        res.render('order/material/material_type_creOne');
+        Base.multiDataRequest(req, res, [
+            {url: '/api/attributes/list/usable?'+ queryString.stringify(req.query), method: 'GET', resConfig: {keyName: 'usableAttrList', is_must: true}}
+        ], function (req, res, resultList) {
+            var returnData = Base.mergeData(helper.mergeObject({
+                title: ' ',
+            },resultList));
+            res.render('order/material/material_type_creOne',returnData);
+        });
+       // res.render('order/material/material_type_creOne');
     },
     materialTypeCreTwoPage: function (req, res) {
         res.render('order/material/material_type_creTwo');
@@ -57,6 +65,20 @@ var MaterialTypeController = {
     },
     materialTypeChagThreePage: function (req, res) {
         res.render('order/material/material_type_chagThree');
+    },
+    materialTypeCreOneDo: function (req, res) {
+        console.log('新建物料一级分类'+ JSON.stringify(req.body));
+        request(Base.mergeRequestOptions({
+            method: 'post',
+            url: '/api/categories?'+queryString.stringify(req.body),
+        }, req, res), function (error, response, body) {
+            if (!error && response.statusCode == 201) {
+                res.redirect("/materialManage/materialType");
+            } else {
+                Base.handlerError(res, req, error, response, body);
+            }
+        })
+
     },
 };
 

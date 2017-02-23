@@ -337,6 +337,9 @@ router.get('/materialManage/materialType', Middleware.AuthCheck, MaterialTypeCon
 //物料分类-新建一级分类页面
 router.get('/materialManage/materialType/creOne', Middleware.AuthCheck, MaterialTypeController.materialTypeCreOnePage);
 
+// 物料分类-新建一级分类页面--数据接口
+router.put('/materialManage/materialType/creOneDo', Middleware.AuthCheck, MaterialTypeController.materialTypeCreOneDo);
+
 //物料分类-新建二级分类页面
 router.get('/materialManage/materialType/creTwo', Middleware.AuthCheck, MaterialTypeController.materialTypeCreTwoPage);
 

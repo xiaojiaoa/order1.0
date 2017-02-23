@@ -365,3 +365,9 @@ tr > td > .separation:last-child {
 .margin-left-78{
     margin-left:78px;
 }
+#my-label label{
+    width: 50%;
+    box-sizing: border-box;
+    margin-left: 0px!important;
+    float: left;
+}

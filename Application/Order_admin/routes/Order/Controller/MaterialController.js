@@ -18,7 +18,7 @@ var Permissions = require('../config/permission');
 
 var MaterialController = {
     indexPage: function (req, res) {
-        var paramObject = helper.genPaginationQuery(req);
+  /*      var paramObject = helper.genPaginationQuery(req);
         Base.multiDataRequest(req, res, [
             {url: '/api/materials?'+ queryString.stringify(req.query), method: 'GET', resConfig: {keyName: 'mateList', is_must: true}}
         ], function (req, res, resultList) {
@@ -37,8 +37,8 @@ var MaterialController = {
                 pagination: boostrapPaginator.render()
             },resultList));
             res.render('order/material/material_index',returnData);
-        });
-        //res.render('order/material/material_index');
+        });*/
+        res.render('order/material/material_index');
     },
     detailPage: function (req, res) {
         var mid =  req.params.mid;
