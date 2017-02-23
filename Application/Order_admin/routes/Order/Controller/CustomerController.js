@@ -21,29 +21,29 @@ var CustomerController = {
 
     listPage: function (req, res) {
 
-        // var paramObject = helper.genPaginationQuery(req);
-        // Base.multiDataRequest(req, res, [
-        //     {url: '/api/customers?'+ queryString.stringify(req.query), method: 'GET', resConfig: {keyName: 'customerList', is_must: true}},
-        //     {url: '/api/assist/taskseq/status', method: 'GET', resConfig: {keyName: 'statusInfo', is_must: false}}
-        // ], function (req, res, resultList) {
-        //
-        //     var paginationInfo =  resultList.customerList;
-        //
-        //     var boostrapPaginator = new Pagination.TemplatePaginator(helper.genPageInfo({
-        //         prelink: paramObject.withoutPageNo,
-        //         current: paginationInfo.page,
-        //         rowsPerPage: paginationInfo.pageSize,
-        //         totalResult: paginationInfo.totalItems
-        //     }));
-        //
-        //     var returnData = Base.mergeData(helper.mergeObject({
-        //         title: ' ',
-        //         pagination: boostrapPaginator.render(),
-        //         Permission :Permissions,
-        //     },resultList));
-        //     res.render('order/customers', returnData);
-        // });
-        res.render('order/customers');
+        var paramObject = helper.genPaginationQuery(req);
+        Base.multiDataRequest(req, res, [
+            {url: '/api/customers?'+ queryString.stringify(req.query), method: 'GET', resConfig: {keyName: 'customerList', is_must: true}},
+            {url: '/api/assist/taskseq/status', method: 'GET', resConfig: {keyName: 'statusInfo', is_must: false}}
+        ], function (req, res, resultList) {
+
+            var paginationInfo =  resultList.customerList;
+
+            var boostrapPaginator = new Pagination.TemplatePaginator(helper.genPageInfo({
+                prelink: paramObject.withoutPageNo,
+                current: paginationInfo.page,
+                rowsPerPage: paginationInfo.pageSize,
+                totalResult: paginationInfo.totalItems
+            }));
+
+            var returnData = Base.mergeData(helper.mergeObject({
+                title: ' ',
+                pagination: boostrapPaginator.render(),
+                Permission :Permissions,
+            },resultList));
+            console.log('/api/customers?'+ queryString.stringify(req.query))
+            res.render('order/customers', returnData);
+        });
     },
     detailPage: function (req, res) {
         // var cid =  req.params.cid;
