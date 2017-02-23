@@ -338,13 +338,19 @@ router.get('/materialManage/materialType', Middleware.AuthCheck, MaterialTypeCon
 router.get('/materialManage/materialType/creOne', Middleware.AuthCheck, MaterialTypeController.materialTypeCreOnePage);
 
 // 物料分类-新建一级分类页面--数据接口
-router.put('/materialManage/materialType/creOneDo', Middleware.AuthCheck, MaterialTypeController.materialTypeCreOneDo);
+router.post('/materialManage/materialType/creOneDo', Middleware.AuthCheck, MaterialTypeController.materialTypeCreOneDo);
 
 //物料分类-新建二级分类页面
-router.get('/materialManage/materialType/creTwo', Middleware.AuthCheck, MaterialTypeController.materialTypeCreTwoPage);
+router.get('/materialManage/materialType/creTwo/:pid', Middleware.AuthCheck, MaterialTypeController.materialTypeCreTwoPage);
+
+// 物料分类-新建二级分类页面--数据接口
+router.post('/materialManage/materialType/creTwoDo', Middleware.AuthCheck, MaterialTypeController.materialTypeCreTwoDo);
 
 //物料分类-新建三级分类页面
-router.get('/materialManage/materialType/creThree', Middleware.AuthCheck, MaterialTypeController.materialTypeCreThreePage);
+router.get('/materialManage/materialType/creThree/:pid', Middleware.AuthCheck, MaterialTypeController.materialTypeCreThreePage);
+
+//物料分类-新建三级分类页面--数据接口
+router.post('/materialManage/materialType/creThreeDo', Middleware.AuthCheck, MaterialTypeController.materialTypeCreThreeDo);
 
 //物料分类-修改一级分类页面
 router.get('/materialManage/materialType/chagOne/:co', Middleware.AuthCheck, MaterialTypeController.materialTypeChagOnePage);
