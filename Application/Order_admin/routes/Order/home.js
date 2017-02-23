@@ -282,27 +282,6 @@ router.get('/materialManage/detail/:mid', Middleware.AuthCheck, MaterialControll
 // 物料出入库总计页面
 router.get('/materialManage/summary', Middleware.AuthCheck, MaterialController.summaryPage);
 
-//物料分类页面
-router.get('/materialManage/materialType', Middleware.AuthCheck, MaterialController.materialTypePage);
-
-//物料分类-新建一级分类页面
-router.get('/materialManage/materialType/creOne', Middleware.AuthCheck, MaterialController.materialTypeCreOnePage);
-
-//物料分类-新建二级分类页面
-router.get('/materialManage/materialType/creTwo', Middleware.AuthCheck, MaterialController.materialTypeCreTwoPage);
-
-//物料分类-新建三级分类页面
-router.get('/materialManage/materialType/creThree', Middleware.AuthCheck, MaterialController.materialTypeCreThreePage);
-
-//物料分类-修改一级分类页面
-router.get('/materialManage/materialType/chagOne/:co', Middleware.AuthCheck, MaterialController.materialTypeChagOnePage);
-
-//物料分类-修改二级分类页面
-router.get('/materialManage/materialType/chagTwo/:cs', Middleware.AuthCheck, MaterialController.materialTypeChagTwoPage);
-
-//物料分类-修改三级分类页面
-router.get('/materialManage/materialType/chagThree/:ct', Middleware.AuthCheck, MaterialController.materialTypeChagThreePage);
-
 //物料新建页面
 router.get('/materialManage/material/create', Middleware.AuthCheck, MaterialController.materialCreatePage);
 
@@ -310,8 +289,10 @@ router.get('/materialManage/material/create', Middleware.AuthCheck, MaterialCont
 router.post('/materialManage/material/doCreate', Middleware.AuthCheck, MaterialController.doCreate);
 
 //物料修改页面
-router.get('/materialManage/material/modify', Middleware.AuthCheck, MaterialController.materialModifyPage);
+router.get('/materialManage/material/modify/:mid', Middleware.AuthCheck, MaterialController.materialModifyPage);
 
+// 禁用/解锁 物料详情
+router.put('/material/setStatus/:mid/:type', Middleware.AuthCheck, MaterialController.setMaterialStatus);
 
 
 /*
@@ -342,6 +323,34 @@ router.get('/materialManage/mateAttr/detail/:mid', Middleware.AuthCheck, Materia
 
 // 禁用/解锁 物料属性值状态
 router.put('/mateAttrVal/setStatus/:code/:type/:aid', Middleware.AuthCheck, MaterialAttrController.setAttrValStatus);
+
+
+/*
+ * 页面范围: 物料分类相关
+ * 控制器:  MaterialTypeController
+ * */
+var MaterialTypeController = require('./Controller/MaterialTypeController');
+
+//物料分类页面
+router.get('/materialManage/materialType', Middleware.AuthCheck, MaterialTypeController.materialTypePage);
+
+//物料分类-新建一级分类页面
+router.get('/materialManage/materialType/creOne', Middleware.AuthCheck, MaterialTypeController.materialTypeCreOnePage);
+
+//物料分类-新建二级分类页面
+router.get('/materialManage/materialType/creTwo', Middleware.AuthCheck, MaterialTypeController.materialTypeCreTwoPage);
+
+//物料分类-新建三级分类页面
+router.get('/materialManage/materialType/creThree', Middleware.AuthCheck, MaterialTypeController.materialTypeCreThreePage);
+
+//物料分类-修改一级分类页面
+router.get('/materialManage/materialType/chagOne/:co', Middleware.AuthCheck, MaterialTypeController.materialTypeChagOnePage);
+
+//物料分类-修改二级分类页面
+router.get('/materialManage/materialType/chagTwo/:cs', Middleware.AuthCheck, MaterialTypeController.materialTypeChagTwoPage);
+
+//物料分类-修改三级分类页面
+router.get('/materialManage/materialType/chagThree/:ct', Middleware.AuthCheck, MaterialTypeController.materialTypeChagThreePage);
 
 
 /*
@@ -486,24 +495,36 @@ router.delete('/factory/doClose/:ftyId', Middleware.AuthCheck, FactoryController
 // 解锁 工厂
 router.put('/factory/doOpen/:ftyId', Middleware.AuthCheck, FactoryController.doOpen);
 
-// 获取所有仓库列表
-router.get('/warehouse', Middleware.AuthCheck, Middleware.FilterEmptyField, FactoryController.listWarehousePage);
+
+// 获取仓库列表
+router.get('/warehouse/:ftyId', Middleware.AuthCheck, Middleware.FilterEmptyField, FactoryController.listWarehousePage);
 
 // 新增仓库页面
-router.get('/warehouse/create', Middleware.AuthCheck, FactoryController.createWarehousePage);
+router.get('/warehouse/create/:ftyId', Middleware.AuthCheck, FactoryController.createWarehousePage);
 
 // 新增仓库
 router.post('/warehouse/doCreate', Middleware.AuthCheck, FactoryController.doWarehouseCreate);
 
-// 获取某工厂下的仓库列表
-router.get('/factory/warehouse/:ftyId', Middleware.AuthCheck, Middleware.FilterEmptyField, FactoryController.listFacWarehousePage);
+// 修改仓库详情页面
+router.get('/warehouse/modify/:whseId', Middleware.AuthCheck, FactoryController.modifyWarehousePage);
+
+// 修改仓库信息
+router.post('/warehouse/doModify', Middleware.AuthCheck, FactoryController.doModifyWarehouse);
+
+// 关闭 仓库
+router.delete('/warehouse/doClose/:whseId', Middleware.AuthCheck, FactoryController.doCloseWarehouse);
+
+// 解锁 仓库
+router.put('/warehouse/doOpen/:whseId', Middleware.AuthCheck, FactoryController.doOpenWarehouse);
+
+
 
 
 // 获取仓库区域列表
-router.get('/region', Middleware.AuthCheck, Middleware.FilterEmptyField, FactoryController.listRegionPage);
+router.get('/region/:ftyId/:whseId', Middleware.AuthCheck, Middleware.FilterEmptyField, FactoryController.listRegionPage);
 
 // 新增仓库区域页面
-router.get('/region/create/:whseId', Middleware.AuthCheck, FactoryController.createRegionPage);
+router.get('/region/create/:ftyId/:whseId', Middleware.AuthCheck, FactoryController.createRegionPage);
 
 // 新增仓库区域
 router.post('/region/doCreate', Middleware.AuthCheck, FactoryController.doRegionCreate);

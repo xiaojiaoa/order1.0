@@ -128,7 +128,7 @@ app.locals.DWY_Helper = {
     getLocalDate: function (timestamp) {
         if (timestamp) {
             var time = parseInt(timestamp);
-            return new Date(time).format('yyyy-MM-dd hh:mm:ss');
+            return new Date(time).format('yyyy-MM-dd HH:mm:ss');
         }
         return null;
     },
@@ -347,7 +347,29 @@ app.locals.DWY_Helper = {
         }
         return false;
     },
-
+    //判断物料分类级别
+    judgeMateType:function(number) {
+        var string = number.toString();
+        var j = 0;
+        var a;
+        for (var i = string.length - 1; i > 0; i--) {
+            if (parseInt(string[i]) == 0) {
+                j++;
+            }
+            else {
+                break;
+            }
+        }
+        if (j >= 6) {
+            a = "一级"
+        }
+        else if (j < 6 && j >= 4) {
+            a = "二级"
+        } else {
+            a = "三级"
+        }
+        return a;
+    },
 }
 
 

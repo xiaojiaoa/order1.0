@@ -349,3 +349,19 @@ tr > td > .separation:last-child {
 .padding-left-0{
     padding-left: 0px;
 }
+.deleteInco{
+    background-color: #d9534f;
+    padding: 4px 6px;
+    border-radius: 10px;
+    color: #fff;
+    margin-left: 10px;
+    line-height: 32px;
+    cursor: pointer;
+}
+.deleteInco:hover{
+    background-color: #ef514c;
+    color: #fff;
+}
+.margin-left-78{
+    margin-left:78px;
+}

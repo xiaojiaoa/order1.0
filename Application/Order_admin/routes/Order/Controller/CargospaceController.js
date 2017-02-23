@@ -12,9 +12,15 @@ var request = require('request');
 
 var CargospaceController = {
     listPage: function (req, res) {
+        var ftyId = req.params.ftyId;
+        var whseId = req.params.whseId;
+
         var paramObject = helper.genPaginationQuery(req);
         Base.multiDataRequest(req, res, [
             {url: '/api/whse/factory?' + (queryString.stringify(req.query)), method: 'GET', resConfig: {keyName: 'factoryList', is_must: true}},
+            {url: '/api/whse/factory/list', method: 'GET', resConfig: {keyName: 'factoryList', is_must: true}},
+            {url: '/api/whse/warehouse/list/'+ftyId, method: 'GET', resConfig: {keyName: 'warehouseList', is_must: true}},
+            {url: '/api/whse/region/list/'+whseId, method: 'GET', resConfig: {keyName: 'regionList', is_must: true}},
         ], function (req, res, resultList) {
 
             var paginationInfo = resultList.factoryList;
@@ -31,7 +37,7 @@ var CargospaceController = {
                 pagination: boostrapPaginator.render()
             }, resultList));
 
-            res.render('order/factory/factory', returnData);
+            res.render('order/cargospace/index', returnData);
 
         });
     },

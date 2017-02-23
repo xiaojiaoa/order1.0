@@ -41,9 +41,9 @@
                             <tbody>
                             <tr>
                                 <td>主材颜色</td>
-                                <td>(静态数据)象牙白</td>
+                                <td><%= orderInfo.decoColor %></td>
                                 <td>订单类型</td>
-                                <td>(静态数据)新配套-五金</td>
+                                <td>普通订单</td>
                             </tr>
                             <tr>
                                 <td>型号</td>
@@ -92,7 +92,7 @@
                                 <td>产品信息</td>
                                 <td><%= orderInfo.prodInfo %></td>
                                 <td>包装信息</td>
-                                <td>(静态数据)</td>
+                                <td></td>
                             </tr>
                             <tr>
                                 <td>难度等级</td>
@@ -119,30 +119,24 @@
                                     } %>
                                 </td>
                                 <td>零售价</td>
-                                <td>(静态数据)0.00元</td>
+                                <td><%= orderInfo.retailPrice %>元</td>
                             </tr>
                             <tr>
                                 <td>所在空间</td>
                                 <td><%= orderInfo.spaceName %></td>
                                 <td>产品</td>
-                                <td>(静态数据)</td>
+                                <td><%= orderInfo.prodTypeName %></td>
                             </tr>
                             <tr>
                                 <td>建单人</td>
                                 <td><%= orderInfo.channelName %> 13568749894(静态数据)</td>
-                                <td>橱柜设计师</td>
-                                <td>(静态数据)</td>
+                                <td>设计师</td>
+                                <td><%= orderInfo.designer %></td>
                             </tr>
                             <tr>
                                 <td>建单时间</td>
                                 <td><%= DWY_Helper.getLocalDate(orderInfo.addTime) %></td>
                                 <td>提交时间</td>
-                                <td>(静态数据)</td>
-                            </tr>
-                            <tr>
-                                <td>方案码</td>
-                                <td>(静态数据)</td>
-                                <td>软件序列号</td>
                                 <td>(静态数据)</td>
                             </tr>
                             <tr>
@@ -345,12 +339,12 @@
                                 </td>
                                 <%         break;
                                     default: %>
-                                        <td></td>
+                                        <td><%= DWY_Helper.getLocalDate(orderStatusInfo.reviewTime) %></td>
                                 <%  } %>
 
 
                                 <td  width="20%">审核人</td>
-                                <td width="30%"></td>
+                                <td width="30%"><%= orderStatusInfo.reviewName %></td>
                             </tr>
 
                             <tr>
@@ -378,11 +372,11 @@
                                 <%         break;
 
                                     default: %>
-                                <td></td>
+                                <td><%= DWY_Helper.getLocalDate(orderStatusInfo.apartTime) %></td>
                                 <%  } %>
 
                                 <td>拆单人</td>
-                                <td></td>
+                                <td><%= orderStatusInfo.apartName %></td>
                             </tr>
 
                             <tr>
@@ -402,11 +396,11 @@
                                 </td>
                                 <%         break;
                                     default: %>
-                                <td></td>
+                                <td><%= DWY_Helper.getLocalDate(orderStatusInfo.apartReviewTime) %></td>
                                 <%  } %>
 
                                 <td>审核人</td>
-                                <td></td>
+                                <td><%= orderStatusInfo.apartReviewName %></td>
                             </tr>
 
                             <tr>
@@ -426,10 +420,10 @@
                                 </td>
                                 <%         break;
                                     default: %>
-                                <td></td>
+                                <td><%= DWY_Helper.getLocalDate(orderStatusInfo.scheduleTime) %></td>
                                 <%  } %>
                                 <td>排料人</td>
-                                <td></td>
+                                <td><%= orderStatusInfo.scheduleName %></td>
                             </tr>
 
                             <tr>
@@ -515,7 +509,9 @@
                             </tr>
                             <tr>
                                 <td>流程记录</td>
-                                <td colspan="3">发浙联物流，自提 <a class="margin-left-20" href="/order/process">添加/查看更多</a>
+                                <td colspan="3">
+                                    <!--发浙联物流，自提 <a class="margin-left-20" href="/order/process">添加/查看更多-->
+                                    </a>
                                 </td>
                             </tr>
 
@@ -533,7 +529,7 @@
             <div class="row">
 
                 <div class="col-xs-12">
-                    <legend>发货清单(静态数据)</legend>
+                    <legend>发货清单</legend>
                     <div class="table-responsive">
                         <table class="table table-bordered table-striped">
                             <thead>
@@ -564,24 +560,7 @@
                             </thead>
                             <tbody>
                             <tr>
-                                <td>1</td>
-                                <td>仓库</td>
-                                <td>01</td>
-                                <td></td>
-                                <td>电商库存</td>
-                                <td></td>
-                                <td>720*640*130</td>
-                                <td></td>
-                                <td>龙头456782</td>
-                                <td>231654689</td>
-                                <td>3246549</td>
-                                <td>入库完毕</td>
-                                <td>10-10 10：10</td>
-                                <td><%= user.name %></td>
-                                <td>10-10 10：10</td>
-                                <td><%= user.name %></td>
-                                <td></td>
-                                <td>98796556</td>
+                                <td colspan="18" class="text-align-center">暂无数据</td>
                             </tr>
 
                             </tbody>
