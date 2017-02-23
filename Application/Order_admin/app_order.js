@@ -128,7 +128,7 @@ app.locals.DWY_Helper = {
     getLocalDate: function (timestamp) {
         if (timestamp) {
             var time = parseInt(timestamp);
-            return new Date(time).format('yyyy-MM-dd hh:mm:ss');
+            return new Date(time).format('yyyy-MM-dd HH:mm:ss');
         }
         return null;
     },

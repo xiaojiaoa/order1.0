@@ -146,8 +146,8 @@
                                 <td><%= element.remark %></td>
                                 <td>
                                     <% if(element.stcode == 1){ %>
-                                    <a href="/region/create/<%= element.whseId %>">新建仓库区域</a>
-                                    <a href="/region/<%= element.whseId %>">查看所有区域</a>
+                                    <a href="/region/create/<%= element.ftyId %>/<%= element.whseId %>">新建仓库区域</a>
+                                    <a href="/region/<%= element.ftyId %>/<%= element.whseId %>">查看所有区域</a>
                                     <a href="/warehouse/modify/<%= element.whseId %>">修改</a>
                                     <a class="txt-color-red todoClose" data-id="<%= element.whseId %>">禁用</a>
                                     <%  }else{ %>

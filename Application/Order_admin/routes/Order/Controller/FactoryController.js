@@ -280,6 +280,7 @@ console.log('555',JSON.stringify(req.body))
     },
 
     listRegionPage: function (req, res) {
+        var ftyId = req.params.ftyId;
         var whseId = req.params.whseId;
         var paramObject = helper.genPaginationQuery(req);
         Base.multiDataRequest(req, res, [
@@ -298,6 +299,7 @@ console.log('555',JSON.stringify(req.body))
 
             var returnData = Base.mergeData(helper.mergeObject({
                 title: '',
+                ftyId:ftyId,
                 pagination: boostrapPaginator.render()
             }, resultList));
 

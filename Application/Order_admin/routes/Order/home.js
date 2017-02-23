@@ -495,6 +495,7 @@ router.delete('/factory/doClose/:ftyId', Middleware.AuthCheck, FactoryController
 // 解锁 工厂
 router.put('/factory/doOpen/:ftyId', Middleware.AuthCheck, FactoryController.doOpen);
 
+
 // 获取仓库列表
 router.get('/warehouse/:ftyId', Middleware.AuthCheck, Middleware.FilterEmptyField, FactoryController.listWarehousePage);
 
@@ -520,10 +521,10 @@ router.put('/warehouse/doOpen/:whseId', Middleware.AuthCheck, FactoryController.
 
 
 // 获取仓库区域列表
-router.get('/region/:whseId', Middleware.AuthCheck, Middleware.FilterEmptyField, FactoryController.listRegionPage);
+router.get('/region/:ftyId/:whseId', Middleware.AuthCheck, Middleware.FilterEmptyField, FactoryController.listRegionPage);
 
 // 新增仓库区域页面
-router.get('/region/create/:whseId', Middleware.AuthCheck, FactoryController.createRegionPage);
+router.get('/region/create/:ftyId/:whseId', Middleware.AuthCheck, FactoryController.createRegionPage);
 
 // 新增仓库区域
 router.post('/region/doCreate', Middleware.AuthCheck, FactoryController.doRegionCreate);
