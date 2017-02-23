@@ -651,12 +651,12 @@ router.get('/cascade/*', TemplateController.getData);
 
 var SupplierController = require('./Controller/SupplierController');
 
-// 供应商详情
+// 供应商列表
 router.get('/supplier', Middleware.AuthCheck,SupplierController.supplierPage);
+//供应商详情
+router.get('/supplier/detail/:tid', Middleware.AuthCheck,SupplierController.supplierDetailPage);
 //供应商分类
 router.get('/supplier/sort', Middleware.AuthCheck,SupplierController.supplierSortPage);
-//供应商信息
-router.get('/supplier/detail', Middleware.AuthCheck,SupplierController.supplierDetailPage);
 //供应商添加
 router.get('/supplier/create', Middleware.AuthCheck,SupplierController.supplierCreatPage);
 //供应商修改
