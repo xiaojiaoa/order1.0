@@ -77,13 +77,13 @@
                                     <div class="form-group">
                                         <label class="col-xs-2 control-label">预计发货时间:</label>
                                         <div class="col-xs-4">
-                                            <input class="form-control fg-date-time-picker" placeholder="" type="text" value="<%= DWYRequest.query.startDate%>"
-                                                   name="">
+                                            <input class="form-control fg-date-time-picker" placeholder="" type="text" value="<%= DWYRequest.query.startDeliveryDate%>"
+                                                   name="startDeliveryDate">
                                         </div>
                                         <label class="from-to control-label "> 至 </label>
                                         <div class="col-xs-4">
-                                            <input class="form-control fg-date-time-picker" placeholder="" type="text" value="<%= DWYRequest.query.endDate%>"
-                                                   name="">
+                                            <input class="form-control fg-date-time-picker" placeholder="" type="text" value="<%= DWYRequest.query.endDeliveryDate%>"
+                                                   name="endDeliveryDate">
                                         </div>
                                     </div>
                                 </div>
@@ -177,8 +177,7 @@
                                 <th>品牌</th>
                                 <th>产品类型</th>
                                 <th>空间类型</th>
-                                <th>产品信息</th>
-                                <th>订单当前所属柜员（门店号/部门号）</th>
+                                <th>订单当前所属柜员（门店号/柜员姓名）</th>
                                 <th>预计发货</th>
                                 <th>订单状态</th>
                                 <th>货位号</th>
@@ -199,8 +198,7 @@
                                 <td><%= DWY_Helper.getAssistVal(element.brandId,brandInfo) %></td>
                                 <td><%= DWY_Helper.getAssistVal(element.prodType,prodInfo) %></td>
                                 <td><%= element.spaceName %></td>
-                                <td><%= element.prodInfo %></td>
-                                <td><%= element.bid %>/<%= element.gid %></td>
+                                <td><%= element.bname %>/<%= element.gname %></td>
                                 <td><%= DWY_Helper.getLocalDate(element.deliveryDate) %></td>
                                 <td><%= DWY_Helper.getAssistVal(element.stcode,stcodeInfo) %></td>
                                 <td><%= element.cargoSpaceId %></td>
