@@ -349,7 +349,6 @@ tr > td > .separation:last-child {
 .padding-left-0{
     padding-left: 0px;
 }
-
 .deleteInco{
     background-color: #d9534f;
     padding: 4px 6px;
@@ -362,5 +361,19 @@ tr > td > .separation:last-child {
 .deleteInco:hover{
     background-color: #ef514c;
     color: #fff;
-
+}
+.margin-left-78{
+    margin-left:78px;
+}
+#my-label label{
+    width: 50%;
+    box-sizing: border-box;
+    margin-left: 0px!important;
+    float: left;
+}
+#purchaseTable{
+    display:none;
+}
+#purchaseTable:first-of-type{
+    display:table;
 }

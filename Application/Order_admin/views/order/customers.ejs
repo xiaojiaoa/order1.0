@@ -13,15 +13,17 @@
         <!-- breadcrumb -->
         <ol class="breadcrumb">
             <li>后台管理</li>
-            <li>员工管理页面</li>
+            <li>客户查询</li>
         </ol>
 
 
     </div>
     <!-- END RIBBON -->
 
+
     <!-- MAIN CONTENT -->
     <div id="content">
+
 
         <!-- well -->
         <div class="well">
@@ -32,167 +34,69 @@
                     <!--<legend>客户搜索</legend>-->
                     <!-- row -->
                     <div class="row search-form">
-                        <form class="form-horizontal" method="get">
+                        <form class="form-horizontal" method="get" id="search-customer">
 
                             <div class="col-xs-12">
 
+                                <!--输入字段-->
                                 <div class="col-xs-3">
                                     <div class="form-group">
-                                        <label class="col-xs-4 control-label">专卖店:</label>
+                                        <label class="col-xs-4 control-label"><span class="requird"></span> 客户号:</label>
                                         <div class="col-xs-8">
-                                            <input class="form-control" placeholder="请输入专卖店" value="" type="text"
-                                                   name="">
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="col-xs-3">
-                                    <div class="form-group">
-                                        <label class="col-xs-4 control-label">客户电话:</label>
-                                        <div class="col-xs-8">
-                                            <input class="form-control" placeholder="请输入客户电话" value="" type="text"
-                                                   name="mobile">
-                                        </div>
-                                    </div>
-                                </div>
-
-
-                                <div class="col-xs-6">
-                                    <div class="form-group">
-                                        <label class="col-xs-2">&nbsp;</label>
-                                        <div class="col-xs-4">
-                                            <select class="form-control" name="">
-                                                <option value="10">客户号</option>
-                                                <option value="20">流水号</option>
-                                            </select>
-                                        </div>
-                                        <label class="control-label " style="float: left"> &nbsp;&nbsp;&nbsp; </label>
-                                        <div class="col-xs-4">
-                                            <input class="form-control"  value="" type="text" name="">
-                                        </div>
-                                    </div>
-                                </div>
-
-
-                            </div>
-
-                            <div class="col-xs-12">
-                                <div class="col-xs-3">
-                                    <div class="form-group">
-                                        <label class="col-xs-4 control-label">客户地址:</label>
-                                        <div class="col-xs-8">
-                                            <input class="form-control" value="" type="text" name="">
+                                            <input class="form-control validate[groupRequired[someName]]" placeholder="请输入客户号" value="<%= DWYRequest.query.cid %>" type="text" name="cid">
                                         </div>
                                     </div>
                                 </div>
 
                                 <div class="col-xs-3">
                                     <div class="form-group">
-                                        <label class="col-xs-4 control-label">区域:</label>
+                                        <label class="col-xs-4 control-label"><span class="requird"></span> 客户手机:</label>
                                         <div class="col-xs-8">
-                                            <select class="form-control" name="">
-                                                <option value="">- 请选择 -</option>
-                                            </select>
+                                            <input class="form-control validate[groupRequired[someName],funcCall[custom_validate_fn.isMobile]]" placeholder="请输入客户手机" value="<%= DWYRequest.query.mobile %>" type="text" name="mobile">
                                         </div>
                                     </div>
                                 </div>
+
+
                                 <div class="col-xs-6">
                                     <div class="form-group">
                                         <label class="col-xs-2 control-label">建客日期:</label>
                                         <div class="col-xs-4">
-                                            <input class="form-control fg-date-picker" type="text"
-                                                   value="" name="startDate" readonly="readonly">
+                                            <input class="form-control fg-date-time-picker" placeholder="" type="text"  value="<%= DWYRequest.query.startDate %>"
+                                                   name="startDate">
                                         </div>
                                         <label class="control-label " style="float: left"> 至 </label>
                                         <div class="col-xs-4">
-                                            <input class="form-control fg-date-picker" type="text"
-                                                   value="" name="endDate" readonly="readonly">
+                                            <input class="form-control fg-date-time-picker" placeholder="" type="text"  value="<%= DWYRequest.query.endDate %>"
+                                                   name="endDate">
                                         </div>
                                     </div>
                                 </div>
 
-                            </div>
-
-
-                            <div class="col-xs-12">
-                                <div class="col-xs-3">
-                                    <div class="form-group">
-                                        <label class="col-xs-4 control-label">下单完毕:</label>
-                                        <div class="col-xs-8">
-                                            <select class="form-control" name="">
-                                                <option value="">- 请选择 -</option>
-                                                <option value="2">完毕</option>
-                                                <option value="3">未完</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-xs-3">
-                                    <div class="form-group">
-                                        <label class="col-xs-4 control-label">收款状态:</label>
-                                        <div class="col-xs-8">
-                                            <select class="form-control" name="">
-                                                <option value="">- 请选择 -</option>
-                                                <option value="2">部分款</option>
-                                                <option value="3">已收齐</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-xs-6">
-                                    <div class="form-group">
-                                        <label class="col-xs-2 control-label">客户状态:</label>
-                                        <div class="col-xs-4">
-                                            <select class="form-control" name="">
-                                                <option value="">- 请选择 -</option>
-                                            </select>
-                                        </div>
-                                        <label class="control-label " style="float: left"> 至 </label>
-                                        <div class="col-xs-4">
-                                            <select class="form-control" name="">
-                                                <option value="">- 请选择 -</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                </div>
 
                             </div>
 
                             <div class="col-xs-12">
                                 <div class="col-xs-3">
                                     <div class="form-group">
-                                        <label class="col-xs-4 control-label">排产许可:</label>
+                                        <label class="col-xs-4 control-label">客户类型:</label>
                                         <div class="col-xs-8">
-                                            <select class="form-control" name="">
+                                            <select class="form-control" name="ctype">
                                                 <option value="">- 请选择 -</option>
-                                                <option value="2">许可</option>
-                                                <option value="3">暂缓</option>
+                                                <option value="10" <%= (DWYRequest.query.ctype == 10)?"selected":"" %> >个人客户</option>
+                                                <option value="20" <%= (DWYRequest.query.ctype == 20)?"selected":"" %>>企业客户</option>
                                             </select>
+
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-xs-3">&nbsp;</div>
-                                <div class="col-xs-6">
-                                    <div class="form-group">
-                                        <label class="col-xs-2 control-label">送货任务:</label>
-                                        <div class="col-xs-4">
-                                            <select class="form-control" name="">
-                                                <option value="">- 请选择 -</option>
-                                            </select>
-                                        </div>
-                                        <label class="control-label " style="float: left"> 至 </label>
-                                        <div class="col-xs-4">
-                                            <select class="form-control" name="">
-                                                <option value="">- 请选择 -</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                </div>
+
                             </div>
 
                             <div class="col-xs-12">
                                 <hr class="simple">
                                 <div class="col-xs-12 text-center">
+                                    <span style="width: 20px;display: inline-block;"></span>
                                     <button class="btn btn-primary " type="submit">
                                         <i class="fa fa-save"></i>
                                         确认
@@ -232,45 +136,38 @@
                                 <th>客户名</th>
                                 <th>客户电话</th>
                                 <th>流水号</th>
-                                <th>订单数</th>
-                                <th>零售总额</th>
-                                <th>客户地址</th>
-                                <th>楼盘名称</th>
-                                <th>送货区域</th>
-                                <th>新建日期</th>
-                                <th>约定交付</th>
-                                <th>品牌</th>
-                                <th>专卖店</th>
-                                <th>状态</th>
-                                <th>收款</th>
-                                <th>未入/总包数</th>
+                                <th>流水状态</th>
                             </tr>
                             </thead>
                             <tbody>
-
+                            <%
+                            var num = 1;
+                            if(customerList.result && (customerList.result instanceof Array) && customerList.result.length != 0  ){
+                            customerList.result.forEach(function (element) { %>
                             <tr>
-                                <td>1</td>
-                                <td><a href="/customer/detail">12345</a></td>
-                                <td>张先生</td>
-                                <td>13003615688</td>
-                                <td><a href="taskseq/index">565555</a></td>
-                                <td>0</td>
-                                <td>18000.00</td>
-                                <td>杭州市西湖区西湖路西湖街88号</td>
-                                <td>昆仑公馆</td>
-                                <td>昆仑公馆</td>
-                                <td>2016.10.10</td>
-                                <td>2016.10.10</td>
-                                <td>昆仑公馆</td>
-                                <td>浙江省杭州市湖滨银泰店</td>
-                                <td>待量尺</td>
-                                <td>18000.00</td>
-                                <td>10/123</td>
+                                <td><%= num %></td>
+                                <td><a href="/customer/detail/<%= element.cid %>"><%= element.cid %></a></td>
+                                <td><%= element.name %></td>
+                                <td><%= element.mobile %></td>
+                                <% if (element.custFlowDtos.length) { %>
+                                <% var custFlow = element.custFlowDtos[0] %>
+                                <td><a href="/taskseq/index/<%= custFlow.lid %>"><%= custFlow.lid %></a></td>
+                                <td><%= DWY_Helper.getAssistVal(custFlow.stcode, statusInfo) %></td>
+                                <% }  else { %>
+                                <td></td>
+                                <td></td>
+                                <% } %>
                             </tr>
+                            <% num++ })
+                            }else{ %>
+                            <tr>
+                                <td colspan="100" align="center">暂无结果</td>
+                            </tr>
+                            <% } %>
 
                             </tbody>
                         </table>
-
+                        <%- pagination %>
 
                     </div>
                 </div>
@@ -290,15 +187,15 @@
 
     $(document).ready(function () {
 
+        $("#search-customer").validationEngine();
 
         pageSetUp();
-
 
         var pageFunction = function () {
 
         }
 
-        $(".fg-date-picker").flatpickr(data_time_picker.data_picker); // jQuery
+        $(".fg-date-time-picker").flatpickr(data_time_picker.data_time_picker); // jQuery
 
         pageFunction();
 

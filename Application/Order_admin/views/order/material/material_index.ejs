@@ -157,7 +157,7 @@
             <!-- row -->
             <div class="row">
                 <div class="col-xs-12">
-                    <h6>材料列表  <a class="label label-primary" href="/materialManage/material/create">新建物料</a></h6>
+                    <h6>物料列表  <a class="label label-primary" href="/materialManage/material/create">新建物料</a></h6>
                     <hr class="simple">
                 </div>
             </div>
@@ -184,45 +184,7 @@
                                 <th>条码</th>
                             </tr>
                             </thead>
-                          <!--  <tbody>
 
-                            <tr>
-                                <td>1</td>
-                                <td><a href="/materialManage/detail/12345">12345</a></td>
-                                <td>56798654</td>
-                                <td>13003615688</td>
-                                <td>银白下框</td>
-                                <td>铝材</td>
-                                <td>wy-6</td>
-                                <td>支</td>
-                                <td>316.0000</td>
-                                <td>200.00</td>
-                                <td>4567.0000</td>
-                                <td>是</td>
-                                <td>是</td>
-                                <td><a href="javascript:void(0)">打印</a></td>
-                            </tr>
-
-                            </tbody>-->
-                            <tbody>
-                            <% mateList.result.forEach(function (element, index) { %>
-                            <tr>
-                                <td><%= index+1 %></td>
-                                <td><a href="/materialManage/detail/<%= element.id %>" class=" "><%= element.id %></a></td>
-                                <td><%= element.name %></td>
-                                <td><%= element.catName%></td>
-                                <td><%= element.unit%></td>
-                                <td><%= element.stock%></td>
-                                <td><%= element.warning%></td>
-                                <td><%= element.usable%></td>
-                                <td><%= element.stcode%></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td><a href="javascript:void(0)">打印</a></td>
-                            </tr>
-                            <% }) %>
-                            </tbody>
                         </table>
 
 

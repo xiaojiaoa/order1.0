@@ -12,7 +12,8 @@
         <!-- breadcrumb -->
         <ol class="breadcrumb">
             <li>后台管理</li>
-            <li>机构管理</li>
+            <li>物料管理</li>
+            <li>查看物料分类</li>
         </ol>
         <!-- end breadcrumb -->
 
@@ -100,6 +101,8 @@
                         <table class="table table-bordered table-striped">
                             <thead>
                             <tr>
+                             <!--   <th>显示id</th>
+                                <th>显示级别</th>-->
                                 <th>一级分类</th>
                                 <th>二级分类</th>
                                 <th>三级分类</th>
@@ -107,57 +110,77 @@
                                 <th>添加时间</th>
                                 <th>备注</th>
                                 <th>操作</th>
+                                <th></th>
                             </tr>
                             </thead>
                             <tbody>
-
+                            <%
+                            if(mateTypeList.totalItems != 0  ){
+                            mateTypeList.result.forEach(function (element, index) { %>
                             <tr>
-                                <td>铝材</td>
-                                <td></td>
-                                <td></td>
-                                <td>0</td>
-                                <td>2016-10-10</td>
-                                <td></td>
-                                <td>
-                                    <a href="/materialManage/materialType/creTwo">新建子类</a>
-                                    <a href="/materialManage/materialType/chagOne/1111">修改</a>
-                                    <a>禁用</a>
-                                    <a href="/materialManage/material/create">新建物料</a>
-                                </td>
+                             <!--   <td><%= element.id %></td>
+                                <td><%= DWY_Helper.judgeMateType(element.id) %></td>-->
 
+                                  <!--判断物料分类级别-->
+                                <% switch (DWY_Helper.judgeMateType(element.id)){
+                                case "一级": %>
+                                <td><%= element.name %></td>
+                                <td></td>
+                                <td></td>
+                                <%        break;
+                                case "二级": %>
+                                <td></td>
+                                <td><%= element.name %></td>
+                                <td></td>
+                                <%         break;
+                                default: %>
+                                <td></td>
+                                <td></td>
+                                <td><%= element.name %></td>
+                                <%  } %>
+                                <!--END 判断物料分类级别-->
+
+                                <td><%= element.parentId %></td>
+                                <td><%= DWY_Helper.getLocalDate(element.addTime) %></td>
+                                <td><%= element.remark %></td>
+
+                                <!--根据物料级别不同执行不同操作-->
+                                <% switch (DWY_Helper.judgeMateType(element.id)){
+                                case "一级": %>
+                                <td>
+                                    <a href="/materialManage/materialType/creTwo/<%= element.parentId %>">新建子类</a>
+                                    <a href="/materialManage/materialType/chagOne/<%= element.id %>" class="margin-left-20">修改</a>
+                                    <a href="javascript:void(0)" class="margin-left-20 closeStore" >禁用</a>
+                                    <a href="/materialManage/material/create" class="margin-left-20">新建物料</a>
+                                </td>
+                                <%        break;
+                                case "二级": %>
+                                <td>
+                                    <a href="/materialManage/materialType/creThree/<%= element.parentId %>">新建子类</a>
+                                    <a href="/materialManage/materialType/chagTwo/<%= element.id %>"  class="margin-left-20">修改</a>
+                                    <a href="javascript:void(0)" class="margin-left-20 closeStore">禁用</a>
+                                    <a href="/materialManage/material/create" class="margin-left-20">新建物料</a>
+                                </td>
+                                <%         break;
+                                default: %>
+                                <td>
+                                    <a href="/materialManage/materialType/chagThree/<%= element.id %>" class="margin-left-78">修改</a>
+                                    <a href="javascript:void(0)" class="margin-left-20 closeStore" >禁用</a>
+                                    <a href="/materialManage/material/create"  class="margin-left-20">新建物料</a>
+                                </td>
+                                <%  } %>
+                                <!--END 根据物料级别不同执行不同操作-->
                             </tr>
+                            <% })
+
+                            }else{ %>
                             <tr>
-                                <td></td>
-                                <td>框架</td>
-                                <td></td>
-                                <td>01100001</td>
-                                <td>2016-10-10</td>
-                                <td></td>
-                                <td>
-                                    <a href="/materialManage/materialType/creThree">新建子类</a>
-                                    <a href="/materialManage/materialType/chagTwo/2222">修改</a>
-                                    <a>禁用</a>
-                                    <a href="/materialManage/material/create">新建物料</a>
-                                </td>
-
+                                <td colspan="6" align="center">暂无结果</td>
                             </tr>
-                            <tr>
-                                <td></td>
-                                <td></td>
-                                <td>银白下框</td>
-                                <td>01100001</td>
-                                <td>2016-10-10</td>
-                                <td></td>
-                                <td>
-                                    <a href="/materialManage/materialType/chagThree/3333">修改</a>
-                                    <a>禁用</a>
-                                    <a href="/materialManage/material/create">新建物料</a>
-                                </td>
-
-                            </tr>
+                            <% } %>
                             </tbody>
                         </table>
-
+                        <%- pagination %>
 
                     </div>
                 </div>

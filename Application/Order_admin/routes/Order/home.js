@@ -337,11 +337,20 @@ router.get('/materialManage/materialType', Middleware.AuthCheck, MaterialTypeCon
 //物料分类-新建一级分类页面
 router.get('/materialManage/materialType/creOne', Middleware.AuthCheck, MaterialTypeController.materialTypeCreOnePage);
 
+// 物料分类-新建一级分类页面--数据接口
+router.post('/materialManage/materialType/creOneDo', Middleware.AuthCheck, MaterialTypeController.materialTypeCreOneDo);
+
 //物料分类-新建二级分类页面
-router.get('/materialManage/materialType/creTwo', Middleware.AuthCheck, MaterialTypeController.materialTypeCreTwoPage);
+router.get('/materialManage/materialType/creTwo/:pid', Middleware.AuthCheck, MaterialTypeController.materialTypeCreTwoPage);
+
+// 物料分类-新建二级分类页面--数据接口
+router.post('/materialManage/materialType/creTwoDo', Middleware.AuthCheck, MaterialTypeController.materialTypeCreTwoDo);
 
 //物料分类-新建三级分类页面
-router.get('/materialManage/materialType/creThree', Middleware.AuthCheck, MaterialTypeController.materialTypeCreThreePage);
+router.get('/materialManage/materialType/creThree/:pid', Middleware.AuthCheck, MaterialTypeController.materialTypeCreThreePage);
+
+//物料分类-新建三级分类页面--数据接口
+router.post('/materialManage/materialType/creThreeDo', Middleware.AuthCheck, MaterialTypeController.materialTypeCreThreeDo);
 
 //物料分类-修改一级分类页面
 router.get('/materialManage/materialType/chagOne/:co', Middleware.AuthCheck, MaterialTypeController.materialTypeChagOnePage);
@@ -671,12 +680,12 @@ router.get('/cascade/*', TemplateController.getData);
 
 var SupplierController = require('./Controller/SupplierController');
 
-// 供应商详情
+// 供应商列表
 router.get('/supplier', Middleware.AuthCheck,SupplierController.supplierPage);
+//供应商详情
+router.get('/supplier/detail/:tid', Middleware.AuthCheck,SupplierController.supplierDetailPage);
 //供应商分类
 router.get('/supplier/sort', Middleware.AuthCheck,SupplierController.supplierSortPage);
-//供应商信息
-router.get('/supplier/detail', Middleware.AuthCheck,SupplierController.supplierDetailPage);
 //供应商添加
 router.get('/supplier/create', Middleware.AuthCheck,SupplierController.supplierCreatPage);
 //供应商修改
@@ -697,16 +706,28 @@ var PurchaseController = require('./Controller/PurchaseController');
 
 // 已请购详情
 router.get('/purchase', Middleware.AuthCheck,PurchaseController.purchasePage);
-// 新建请购单
-router.get('/purchase/apply_creat', Middleware.AuthCheck,PurchaseController.purchaseApplyCreatPage);
+
+// 新建请购单页面
+router.get('/purchase/applyCreat', Middleware.AuthCheck,PurchaseController.purchaseApplyCreatPage);
+
 // 请购单详情
-router.get('/purchase/apply_detail', Middleware.AuthCheck,PurchaseController.purchaseApplyDetailPage);
+router.get('/purchase/applyDetail/:tid', Middleware.AuthCheck,PurchaseController.purchaseApplyDetailPage);
+
+// 请购单审核
+router.post('/purchase/applyReview/:tid', Middleware.AuthCheck,PurchaseController.purchaseApplyReview);
+
 // 采购详情
-router.get('/purchase/detail', Middleware.AuthCheck,PurchaseController.purchaseDetailPage);
+router.get('/purchase/detail', Middleware.AuthCheck,PurchaseController.purchaseDetail);
+// 生成采购单
+router.post('/purchases/Order/:tid', Middleware.AuthCheck,PurchaseController.purchaseOrder);
 // 采购单详情
-router.get('/purchase/order_detail/:tid', Middleware.AuthCheck,PurchaseController.purchaseOrderDetailPage);
+router.get('/purchase/orderDetail/:tid', Middleware.AuthCheck,PurchaseController.purchaseOrderDetail);
 // 合并采购单
-router.post('/api/purchases/merge/:tid', Middleware.AuthCheck,PurchaseController.purchaseMerge);
+router.post('/purchases/merge/:tid', Middleware.AuthCheck,PurchaseController.purchaseMerge);
+// 审核采购单
+router.post('/purchases/review/:tid', Middleware.AuthCheck,PurchaseController.purchaseReview);
+// 提交采购单
+router.post('/purchases/submit/:tid', Middleware.AuthCheck,PurchaseController.purchaseSubmit);
 
 /*
  * 页面范围: 网络预约相关
