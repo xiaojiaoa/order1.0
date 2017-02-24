@@ -14,7 +14,7 @@
             <li>后台管理</li>
             <li>物料管理 </li>
             <li>查看物料分类</li>
-            <li>新建二级分类</li>
+            <li>修改物料分类</li>
         </ol>
         <!-- end breadcrumb -->
 
@@ -32,11 +32,52 @@
             <div class="row">
                 <!-- col -->
                 <div class="col-xs-12">
-                    <legend>新建二级分类</legend>
+                    <legend>修改物料分类</legend>
 
                     <!-- row -->
                     <div class="row">
-                        <form class="form-horizontal" method="post" action="/materialManage/materialType/creTwoDo" id="material_type_creTwo">
+                        <form class="form-horizontal" method="post" action="/materialManage/materialType/modify" id="material_type_modify">
+
+
+                            <!--输入字段-->
+                            <% if( mateCategory.stairCategory &&  mateCategory.secondaryCategory){ %>
+                            <div class="col-xs-12">
+                                <div class="col-xs-6">
+                                    <div class="form-group">
+                                        <label class="col-xs-4 control-label"><span class="requird"></span>
+                                            父类:</label>
+                                        <div class="col-xs-8">
+                                            <span class="form-control "><%= mateCategory.stairCategory %></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xs-12">
+                                <div class="col-xs-6">
+                                    <div class="form-group">
+                                        <label class="col-xs-4 control-label">
+                                        </label>
+                                        <div class="col-xs-8">
+                                            <span class="form-control"><%= mateCategory.secondaryCategory %></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <% }else{ %>
+                            <div class="col-xs-12">
+                                <div class="col-xs-6">
+                                    <div class="form-group">
+                                        <label class="col-xs-4 control-label"><span class="requird"></span>
+                                            父类:</label>
+                                        <div class="col-xs-8">
+                                            <span class="form-control"><%= mateCategory.stairCategory %></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <% } %>
+
+
 
                             <div class="col-xs-12">
                                 <!--输入字段-->
@@ -63,7 +104,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <input name="parentId " value='<%= pid %>' type="hidden" id="parentId ">
+                            <input name="id" value='<%= id %>' type="hidden" >
                             <div class="col-xs-8">
                                 <hr class="simple">
                                 <div class="col-xs-12 text-center">
@@ -104,7 +145,7 @@
 
         $(".fg-date-time-picker").flatpickr(data_time_picker.data_picker); // jQuery
         //初始化表单
-        $("#material_type_creTwo").validationEngine('');
+        $("#material_type_modify").validationEngine('');
     })
 
 </script>

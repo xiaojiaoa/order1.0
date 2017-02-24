@@ -337,29 +337,23 @@ router.get('/materialManage/materialType', Middleware.AuthCheck, MaterialTypeCon
 //物料分类-新建一级分类页面
 router.get('/materialManage/materialType/creOne', Middleware.AuthCheck, MaterialTypeController.materialTypeCreOnePage);
 
+//物料分类-新建二级、三级分类页面
+router.get('/materialManage/materialType/creOther/:id', Middleware.AuthCheck, MaterialTypeController.materialTypeCreOtherPage);
+
 // 物料分类-新建一级分类页面--数据接口
 router.post('/materialManage/materialType/creOneDo', Middleware.AuthCheck, MaterialTypeController.materialTypeCreOneDo);
 
-//物料分类-新建二级分类页面
-router.get('/materialManage/materialType/creTwo/:pid', Middleware.AuthCheck, MaterialTypeController.materialTypeCreTwoPage);
+// 物料分类-新建二级、三级分类--数据接口
+router.post('/materialManage/materialType/creOtherDo', Middleware.AuthCheck, MaterialTypeController.materialTypeCreOtherDo);
 
-// 物料分类-新建二级分类页面--数据接口
-router.post('/materialManage/materialType/creTwoDo', Middleware.AuthCheck, MaterialTypeController.materialTypeCreTwoDo);
+//物料分类-修改分类页面
+router.get('/materialManage/materialType/modify/:id', Middleware.AuthCheck, MaterialTypeController.materialTypeModify);
 
-//物料分类-新建三级分类页面
-router.get('/materialManage/materialType/creThree/:pid', Middleware.AuthCheck, MaterialTypeController.materialTypeCreThreePage);
+// 物料分类-修改分类页面--数据接口
+router.post('/materialManage/materialType/modify', Middleware.AuthCheck, MaterialTypeController.materialTypeDoModify);
 
-//物料分类-新建三级分类页面--数据接口
-router.post('/materialManage/materialType/creThreeDo', Middleware.AuthCheck, MaterialTypeController.materialTypeCreThreeDo);
-
-//物料分类-修改一级分类页面
-router.get('/materialManage/materialType/chagOne/:co', Middleware.AuthCheck, MaterialTypeController.materialTypeChagOnePage);
-
-//物料分类-修改二级分类页面
-router.get('/materialManage/materialType/chagTwo/:cs', Middleware.AuthCheck, MaterialTypeController.materialTypeChagTwoPage);
-
-//物料分类-修改三级分类页面
-router.get('/materialManage/materialType/chagThree/:ct', Middleware.AuthCheck, MaterialTypeController.materialTypeChagThreePage);
+// 禁用/解锁 物料分类状态
+router.put('/materialType/setStatus/:id/:type', Middleware.AuthCheck, MaterialTypeController.setMaterialTypeStatus);
 
 
 /*
