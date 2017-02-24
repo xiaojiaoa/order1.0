@@ -148,7 +148,7 @@
                                 <% switch (DWY_Helper.judgeMateType(element.id)){
                                 case "一级": %>
                                 <td>
-                                    <a href="/materialManage/materialType/creTwo">新建子类</a>
+                                    <a href="/materialManage/materialType/creTwo/<%= element.parentId %>">新建子类</a>
                                     <a href="/materialManage/materialType/chagOne/<%= element.id %>" class="margin-left-20">修改</a>
                                     <a href="javascript:void(0)" class="margin-left-20 closeStore" >禁用</a>
                                     <a href="/materialManage/material/create" class="margin-left-20">新建物料</a>
@@ -156,7 +156,7 @@
                                 <%        break;
                                 case "二级": %>
                                 <td>
-                                    <a href="/materialManage/materialType/creThree">新建子类</a>
+                                    <a href="/materialManage/materialType/creThree/<%= element.parentId %>">新建子类</a>
                                     <a href="/materialManage/materialType/chagTwo/<%= element.id %>"  class="margin-left-20">修改</a>
                                     <a href="javascript:void(0)" class="margin-left-20 closeStore">禁用</a>
                                     <a href="/materialManage/material/create" class="margin-left-20">新建物料</a>
@@ -180,7 +180,7 @@
                             <% } %>
                             </tbody>
                         </table>
-
+                        <%- pagination %>
 
                     </div>
                 </div>

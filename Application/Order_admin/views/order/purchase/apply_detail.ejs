@@ -125,7 +125,7 @@
                             </tr>
                             <tr>
                                 <td>预计交付时间</td>
-                                <td><%= element.deliveryDate %></td>
+                                <td><%= DWY_Helper.getLocalDate(element.deliveryDate) %></td>
                                 <td>订单编号</td>
                                 <td><%= element.orderId %></td>
 

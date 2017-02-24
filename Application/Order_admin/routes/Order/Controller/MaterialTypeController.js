@@ -52,10 +52,30 @@ var MaterialTypeController = {
        // res.render('order/material/material_type_creOne');
     },
     materialTypeCreTwoPage: function (req, res) {
-        res.render('order/material/material_type_creTwo');
+        var pid =  req.params.pid;
+        Base.multiDataRequest(req, res, [
+            {},
+        ], function (req, res, resultList) {
+            var returnData = Base.mergeData(helper.mergeObject({
+                title: ' ',
+                mid:pid,
+            },resultList));
+            res.render('order/material/material_type_creTwo',returnData);
+        });
+        //res.render('order/material/material_type_creTwo');
     },
     materialTypeCreThreePage: function (req, res) {
-        res.render('order/material/material_type_creThree');
+        var pid =  req.params.pid;
+        Base.multiDataRequest(req, res, [
+            {},
+        ], function (req, res, resultList) {
+            var returnData = Base.mergeData(helper.mergeObject({
+                title: ' ',
+                pid:pid,
+            },resultList));
+            res.render('order/material/material_type_creThree',returnData);
+        });
+       // res.render('order/material/material_type_creThree');
     },
     materialTypeChagOnePage: function (req, res) {
         res.render('order/material/material_type_chagOne');
@@ -67,10 +87,41 @@ var MaterialTypeController = {
         res.render('order/material/material_type_chagThree');
     },
     materialTypeCreOneDo: function (req, res) {
+       // console.log('新建物料一级分类'+ JSON.stringify(req.body));
+        request(Base.mergeRequestOptions({
+            method: 'post',
+            url: '/api/categories',
+            form: req.body,
+        }, req, res), function (error, response, body) {
+            if (!error && response.statusCode == 201) {
+                res.redirect("/materialManage/materialType");
+            } else {
+                Base.handlerError(res, req, error, response, body);
+            }
+        })
+
+    },
+    materialTypeCreTwoDo: function (req, res) {
+         console.log('新建物料一级分类'+ JSON.stringify(req.body));
+        request(Base.mergeRequestOptions({
+            method: 'post',
+            url: '/api/categories',
+            form: req.body,
+        }, req, res), function (error, response, body) {
+            if (!error && response.statusCode == 201) {
+                res.redirect("/materialManage/materialType");
+            } else {
+                Base.handlerError(res, req, error, response, body);
+            }
+        })
+
+    },
+    materialTypeCreThreeDo: function (req, res) {
         console.log('新建物料一级分类'+ JSON.stringify(req.body));
         request(Base.mergeRequestOptions({
             method: 'post',
-            url: '/api/categories?'+queryString.stringify(req.body),
+            url: '/api/categories',
+            form: req.body,
         }, req, res), function (error, response, body) {
             if (!error && response.statusCode == 201) {
                 res.redirect("/materialManage/materialType");

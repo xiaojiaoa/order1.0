@@ -18,14 +18,44 @@ var Permissions = require('../config/permission');
 
 
 var SupplierController = {
+    //供应商列表
     supplierPage: function (req, res) {
-        res.render('order/supplier/index');
+        var paramObject = helper.genPaginationQuery(req);
+        Base.multiDataRequest(req, res, [
+            {url: '/api/suppliers', method: 'GET', resConfig: {keyName: 'suppliersList', is_must: true}},
+        ], function (req, res, resultList) {
+            var paginationInfo =  resultList.suppliersList;
+            var boostrapPaginator = new Pagination.TemplatePaginator(helper.genPageInfo({
+                prelink: paramObject.withoutPageNo,
+                current: paginationInfo.page,
+                rowsPerPage: paginationInfo.pageSize,
+                totalResult: paginationInfo.totalItems
+            }));
+            var returnData = Base.mergeData(helper.mergeObject({
+                title: ' ',
+                pagination: boostrapPaginator.render(),
+                Permission :Permissions,
+            },resultList));
+            res.render('order/supplier/index', returnData);
+        });
+    },
+    //供应商详情
+    supplierDetailPage: function (req, res) {
+        var tid = req.params.tid;
+        Base.multiDataRequest(req, res, [
+                {url: '/api/suppliers/'+tid, method: 'GET', resConfig: {keyName: 'suppliersDetail', is_must: true}},
+            ],
+            function (req, res, resultList) {
+                var returnData = Base.mergeData(helper.mergeObject({
+                    title: ' ',
+                    tid:tid,
+                    Permission :Permissions,
+                }, resultList));
+                res.render('order/supplier/detail', returnData);
+            });
     },
     supplierSortPage: function (req, res) {
         res.render('order/supplier/sort');
-    },
-    supplierDetailPage: function (req, res) {
-        res.render('order/supplier/detail');
     },
     supplierCreatPage: function (req, res) {
         res.render('order/supplier/creat');
