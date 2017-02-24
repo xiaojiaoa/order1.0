@@ -24,7 +24,7 @@ var TaskseqController = {
         var lid =  req.params.lid;
         Base.multiDataRequest(req, res, [
                 {url: '/api/taskseqs/basic/'+lid, method: 'GET', resConfig: {keyName: 'taskseqInfo', is_must: true}},
-                {url: '/api/tasks/measure/'+ lid, method: 'GET', resConfig: {keyName: 'measureInfo', is_must: false}},
+                {url: '/api/ebis/measure/'+ lid, method: 'GET', resConfig: {keyName: 'measureInfo', is_must: false}},
                 {url: '/api/taskseqs/wardround/'+ lid, method: 'GET', resConfig: {keyName: 'wardroundInfo', is_must: false}},
                 {url: '/api/taskseqs/followupassist?lid='+ lid, method: 'GET', resConfig: {keyName: 'followupInfo', is_must: false}},
                 {url: '/api/files/'+ lid, method: 'GET', resConfig: {keyName: 'fileInfo', is_must: false}},
