@@ -21,19 +21,39 @@ var TaskseqController = {
 
     indexPage: function (req, res) {
 
-        var paramObject = helper.genPaginationQuery(req);
+        var lid =  req.params.lid;
         Base.multiDataRequest(req, res, [
-            {url: '/api/assist/taskseq/status', method: 'GET', resConfig: {keyName: 'statusInfo', is_must: false}}
-        ], function (req, res, resultList) {
-            var returnData = Base.mergeData(helper.mergeObject({
-                title: ' ',
-                // lid:lid,
-                Permission :Permissions,
-            }, resultList));
+                {url: '/api/taskseqs/basic/'+lid, method: 'GET', resConfig: {keyName: 'taskseqInfo', is_must: true}},
+                {url: '/api/tasks/measure/'+ lid, method: 'GET', resConfig: {keyName: 'measureInfo', is_must: false}},
+                {url: '/api/taskseqs/wardround/'+ lid, method: 'GET', resConfig: {keyName: 'wardroundInfo', is_must: false}},
+                {url: '/api/taskseqs/followupassist?lid='+ lid, method: 'GET', resConfig: {keyName: 'followupInfo', is_must: false}},
+                {url: '/api/files/'+ lid, method: 'GET', resConfig: {keyName: 'fileInfo', is_must: false}},
+                {url: '/api/contracts/'+ lid, method: 'GET', resConfig: {keyName: 'contractInfo', is_must: false}},
+                {url: '/api/taskseqs/space/'+ lid, method: 'GET', resConfig: {keyName: 'seqSpaceInfo', is_must: false}},
+                {url: '/api/assist/deco/stage', method: 'GET', resConfig: {keyName: 'decoInfo', is_must: false}},
+                {url: '/api/assist/meas/property', method: 'GET', resConfig: {keyName: 'propertyInfo', is_must: false}},
+                {url: '/api/assist/deco/style', method: 'GET', resConfig: {keyName: 'styleInfo', is_must: false}},
+                {url: '/api/assist/order/spaceinfo', method: 'GET', resConfig: {keyName: 'spaceInfo', is_must: false}},
+                {url: '/api/assist/deco/color', method: 'GET', resConfig: {keyName: 'colorInfo', is_must: false}},
+                {url: '/api/assist/brandinfo', method: 'GET', resConfig: {keyName: 'brandInfo', is_must: false}},
+                {url: '/api/assist/space/prod', method: 'GET', resConfig: {keyName: 'prodInfo', is_must: false}},
+                {url: '/api/assist/order/stcodes', method: 'GET', resConfig: {keyName: 'stcodeInfo', is_must: false}},
+                {url: '/api/assist/fmly/member' , method: 'GET', resConfig: {keyName: 'memberInfo', is_must: false}},
+                {url: '/api/assist/taskseq/status', method: 'GET', resConfig: {keyName: 'statusInfo', is_must: false}},
+                {url: '/api/assist/file/type', method: 'GET', resConfig: {keyName: 'fileTypeInfo', is_must: false}},
+                {url: '/api/assist/want/purchase' , method: 'GET', resConfig: {keyName: 'purchaseInfo', is_must: false}}
+            ],
+            function (req, res, resultList) {
+                var returnData = Base.mergeData(helper.mergeObject({
+                    title: ' ',
+                    lid:lid,
+                    Permission :Permissions,
+                }, resultList));
 
-            res.render('order/taskseq/index', returnData);
-        });
+                res.render('order/taskseq/index', returnData);
+            });
     },
+
     listPage: function (req, res) {
 
     var paramObject = helper.genPaginationQuery(req);

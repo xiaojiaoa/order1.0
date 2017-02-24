@@ -40,45 +40,35 @@
                             <tbody>
                             <tr>
                                 <td>客户编号</td>
-                                <td>23456123</td>
+                                <td><%= customerInfo.cid %></td>
                                 <td>客户姓名</td>
-                                <td>张先生</td>
+                                <td><%= customerInfo.name %></td>
                                 <td>客户电话</td>
-                                <td>187234654798</td>
+                                <td><%= customerInfo.mobile %></td>
                             </tr>
                             <tr>
                                 <td>建档日期</td>
-                                <td>2016-10-10 10：10：10</td>
-                                <td>建档人</td>
-                                <td>李四</td>
-                                <td>提交量尺时间</td>
-                                <td>2016-10-10 10：10：10</td>
+                                <td><%= DWY_Helper.getLocalDate(customerInfo.addTime) %></td>
+                                <td>建档人编号</td>
+                                <td><%= customerInfo.gid %></td>
+                                <td>客户生日</td>
+                                <td><%= DWY_Helper.getLocalDate(customerInfo.birthday) %></td>
                             </tr>
+
                             <tr>
-                                <td>设计师</td>
-                                <td><%= user.name %></td>
-                                <td>专卖店</td>
-                                <td>A浙江省杭州市西湖区湖滨银泰店</td>
-                                <td>专卖店编号</td>
-                                <td>A12</td>
-                            </tr>
-                            <tr>
-                                <td>量尺空间</td>
-                                <td colspan="3">客餐厅 主卧房 客卧房 儿童房 书房 厨房 门厅 卫生间</td>
-                                <td>希望量尺时间</td>
-                                <td>2016-10-10 10：10：10</td>
+                                <td>年收入</td>
+                                <td><%= customerInfo.annualIncome %></td>
+                                <td>家庭收入</td>
+                                <td><%= customerInfo.familyImcome %></td>
+                                <td>是否已婚</td>
+                                <td><%= DWY_Helper.getMarryStatus(customerInfo.isMarrige) %></td>
                             </tr>
                             <tr>
                                 <td>客户地址</td>
-                                <td colspan="3">杭州市西湖区西溪路525号</td>
-                                <td>楼盘位置</td>
-                                <td>浙大科技园（128.23456，<a href="">查看地图</a>）</td>
+                                <td colspan="3"><%= customerInfo.address %></td>
+                                <td>家庭情况</td>
+                                <td><%= customerInfo.familyInfo %></td>
                             </tr>
-                            <tr>
-                                <td>客户备注</td>
-                                <td colspan="5">客厅边做个榻榻米</td>
-                            </tr>
-
                             </tbody>
                         </table>
 
@@ -106,17 +96,21 @@
                             </tr>
                             </thead>
                             <tbody>
+                            <%
+                            customerInfo.custFlowDtos.forEach(function (element) { %>
                             <tr>
-                                <td><a href="/taskseq/index">565555</a></td>
-                                <td>
-                                    <a href="/order/detail/555" class="order-number">111111</a>
-                                    <a href="/order/detail/555" class="order-number">222222</a>
-                                    <a href="/order/detail/555" class="order-number">33333</a>
-                                </td>
-                                <td>待量尺</td>
-                                <td>2016-10-10</td>
+                                <td><a href="/taskseq/index/<%= element.lid %>"><%= element.lid %></a></td>
+                                <%
+                                    var orderList="";
+                                    element.orders.forEach(function (orderElement) {
+                                        orderList = orderList+"<a href=/order/detail/"+ orderElement.tid +">"+orderElement.tid+"     &nbsp</a>";
+                                    })
+                                %>
+                                <td><%- orderList %></td>
+                                <td><%= DWY_Helper.getAssistVal(element.stcode,statusInfo) %></td>
+                                <td><%= DWY_Helper.getLocalDate(element.addTime) %></td>
                             </tr>
-
+                            <% }) %>
                             </tbody>
                         </table>
 
@@ -145,63 +139,8 @@
 <script type="text/javascript">
 
     $(document).ready(function () {
-
-        /* DO NOT REMOVE : GLOBAL FUNCTIONS!
-         *
-         * pageSetUp(); WILL CALL THE FOLLOWING FUNCTIONS
-         *
-         * // activate tooltips
-         * $("[rel=tooltip]").tooltip();
-         *
-         * // activate popovers
-         * $("[rel=popover]").popover();
-         *
-         * // activate popovers with hover states
-         * $("[rel=popover-hover]").popover({ trigger: "hover" });
-         *
-         * // activate inline charts
-         * runAllCharts();
-         *
-         * // setup widgets
-         * setup_widgets_desktop();
-         *
-         * // run form elements
-         * runAllForms();
-         *
-         ********************************
-         *
-         * pageSetUp() is needed whenever you load a page.
-         * It initializes and checks for all basic elements of the page
-         * and makes rendering easier.
-         *
-         */
-
         pageSetUp();
 
-        /*
-         * ALL PAGE RELATED SCRIPTS CAN GO BELOW HERE
-         * eg alert("my home function");
-         *
-         * var pagefunction = function() {
-         *   ...
-         * }
-         * loadScript("js/plugin/_PLUGIN_NAME_.js", pagefunction);
-         *
-         * TO LOAD A SCRIPT:
-         * var pagefunction = function (){
-         *  loadScript(".../plugin.js", run_after_loaded);
-         * }
-         *
-         * OR
-         *
-         * loadScript(".../plugin.js", run_after_loaded);
-         */
-
-        var pageFunction = function () {
-
-        }
-
-        pageFunction();
 
     })
 

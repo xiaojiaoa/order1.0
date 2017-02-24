@@ -41,27 +41,24 @@ var CustomerController = {
                 pagination: boostrapPaginator.render(),
                 Permission :Permissions,
             },resultList));
-            console.log('/api/customers?'+ queryString.stringify(req.query))
             res.render('order/customers', returnData);
         });
     },
     detailPage: function (req, res) {
-        // var cid =  req.params.cid;
-        // Base.multiDataRequest(req, res, [
-        //         {url: '/api/customers?'+ queryString.stringify(req.query), method: 'GET', resConfig: {keyName: 'customerList', is_must: true}},
-        //         {url: '/api/assist/taskseq/status', method: 'GET', resConfig: {keyName: 'statusInfo', is_must: false}}
-        //     ],
-        //     function (req, res, resultList) {
-        //         var returnData = Base.mergeData(helper.mergeObject({
-        //             title: ' ',
-        //             // cid:cid,
-        //             Permission :Permissions,
-        //         }, resultList));
-        //         // var customerInfo = resultList.customerInfo;
-        //         res.render('order/customer/detail', returnData);
-        //
-        //     });
-        res.render('order/customer/detail');
+        var cid =  req.params.cid;
+        Base.multiDataRequest(req, res, [
+                {url: '/api/customers/'+ cid, method: 'GET', resConfig: {keyName: 'customersInfo', is_must: true}},
+                {url: '/api/assist/taskseq/status', method: 'GET', resConfig: {keyName: 'statusInfo', is_must: false}}
+            ],
+            function (req, res, resultList) {
+                var returnData = Base.mergeData(helper.mergeObject({
+                    title: ' ',
+                    cid:cid,
+                    Permission :Permissions,
+                }, resultList));
+                res.render('order/customer/detail', returnData);
+
+            });
     }
 
 };
