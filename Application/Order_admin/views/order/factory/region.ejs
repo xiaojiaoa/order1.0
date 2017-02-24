@@ -13,6 +13,7 @@
         <ol class="breadcrumb">
             <li>后台管理</li>
             <li><a href="/factory">工厂列表</a></li>
+            <li><a href="/warehouse/<%= ftyId %>">上级仓库列表</a></li>
             <li>仓库区域</li>
         </ol>
         <!-- end breadcrumb -->
@@ -107,6 +108,10 @@
                                 <th>所属工厂</th>
                                 <th>所属仓库</th>
                                 <th>区域名称</th>
+                                <th>已有行/列/层</th>
+                                <th>最大承重</th>
+                                <th>最大存货数量</th>
+                                <th>货架长宽高</th>
                                 <th>新建时间</th>
                                 <th>备注</th>
                                 <th width="350">操作</th>
@@ -119,26 +124,30 @@
                             <tr class="<%= element.stcode == 1 ? '' : 'disabletr' %>">
                                 <td><%= index+1 %></td>
                                 <td><%= element.regionId %></td>
-                                <td><a href="/factory/detail/<%= element.ftyId %>"><%= element.ftyId %></a></td>
-                                <td><%= element.whseId %></td>
+                                <td><a href="/factory/detail/<%= element.ftyId %>"><%= element.ftyName %></a></td>
+                                <td><%= element.whseName %></td>
                                 <td><%= element.name %></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
                                 <td><%= DWY_Helper.getLocalDateYMD(element.addTime) %></td>
                                 <td><%= element.remark %></td>
                                 <td>
                                     <% if(element.stcode == 1){ %>
-                                    <a href="/region/create/<%= element.whseId %>">新建货位</a>
-                                    <a href="/department/stores/<%= element.ftyId %>">查看所有货位</a>
-                                    <a>修改</a>
-                                    <a class="txt-color-red">禁用</a>
+                                    <a href="/cargospace/createNext/<%= element.ftyId %>/<%= element.whseId %>/<%= element.regionId %>">新建货位</a>
+                                    <a href="/cargospace?isAll=1&ftyId=<%= element.ftyId %>&whseId=<%= element.whseId %>&regionId=<%= element.regionId %>">查看所有货位</a>
+                                    <a href="/region/modify/<%= element.whseId %>/<%= element.regionId %>">修改</a>
+                                    <a class="txt-color-red todoClose" data-id="<%= element.regionId %>" >禁用</a>
                                     <%  }else{ %>
-                                    <a>启用</a>
+                                    <a class="todoOpen" data-id="<%= element.regionId %>">启用</a>
                                     <%  }%>
                                 </td>
                             </tr>
                             <%  })
                             }else{ %>
                             <tr>
-                                <td colspan="8" align="center">暂无数据</td>
+                                <td colspan="12" align="center">暂无数据</td>
                             </tr>
                             <% } %>
 
@@ -167,7 +176,63 @@
 
         pageSetUp();
 
-        $(".fg-date-time-picker").flatpickr(data_time_picker.data_picker); // jQuery
+
+
+        $(".todoClose").on({
+            click: function () {
+                var id = $(this).attr('data-id');
+                layer.confirm('确定禁用该仓库区域?',{icon: 3, title:'提示'},
+                    function(index){
+                        $.ajax({
+                            url: '/region/doClose/'+id,
+                            method: 'delete',
+                            success: function (data) {
+                                window.location.reload();
+                            },
+                            error: function (response) {
+                                layer.close(index)
+                                var data = JSON.parse(response.responseText);
+                                $.smallBox({
+                                    title: "操作失败",
+                                    content: data.msg,
+                                    color: "#C46A69",
+                                    iconSmall: "fa fa-times fa-2x fadeInRight animated",
+                                    timeout: 3000
+                                });
+                            }
+                        });
+                    },
+                    function(index){layer.close(index)})
+            }
+        })
+
+        $(".todoOpen").on({
+            click: function () {
+                var id = $(this).attr('data-id');
+                layer.confirm('确定启用该仓库区域?',{icon: 3, title:'提示'},
+                    function(index){
+                        $.ajax({
+                            url: '/region/doOpen/'+id,
+                            method: 'put',
+                            success: function (data) {
+                                window.location.reload();
+                            },
+                            error: function (response) {
+                                layer.close(index)
+                                var data = JSON.parse(response.responseText);
+                                $.smallBox({
+                                    title: "操作失败",
+                                    content: data.msg,
+                                    color: "#C46A69",
+                                    iconSmall: "fa fa-times fa-2x fadeInRight animated",
+                                    timeout: 3000
+                                });
+                            }
+                        });
+                    },
+                    function(index){layer.close(index)})
+            }
+        })
     })
 
 </script>

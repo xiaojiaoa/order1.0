@@ -1,0 +1,131 @@
+<%- include('../layouts/head_top'); %>
+<%- include('../layouts/head_bottom'); %>
+<%- include('../layouts/header'); %>
+<%- include('../layouts/nav'); %>
+
+
+<!-- MAIN PANEL -->
+<div id="main" role="main">
+
+    <!-- RIBBON -->
+    <div id="ribbon">
+
+        <!-- breadcrumb -->
+        <ol class="breadcrumb">
+            <li>后台管理</li>
+            <li>新建货位</li>
+        </ol>
+        <!-- end breadcrumb -->
+    </div>
+    <!-- END RIBBON -->
+
+    <!-- MAIN CONTENT -->
+    <div id="content">
+
+        <!-- well -->
+        <div class="well">
+            <!-- row -->
+            <div class="row">
+                <!-- col -->
+                <div class="col-xs-12">
+                    <legend>新建货位</legend>
+
+                    <!-- row -->
+                    <div class="row">
+                        <form class="form-horizontal" method="post" action="/cargospace/doNext" id="create-store">
+
+                            <div class="col-xs-10">
+
+                                <div class="form-group">
+                                    <label class="col-xs-2 control-label "><span class="requird"></span> 所属工厂:
+                                    </label>
+                                    <div class="col-xs-8">
+                                        <select class="form-control validate[required]" name="ftyId" id="ftyId">
+                                            <option value="">- 请选择 -</option>
+                                            <% factoryList.forEach(function (element) { %>
+                                            <option value="<%= element.ftyId %>"  >
+                                                <%= element.name %>
+                                            </option>
+                                            <% }) %>
+                                        </select>
+
+                                    </div>
+
+                                </div>
+
+
+                            </div>
+
+                            <div class="col-xs-10">
+                                <div class="form-group">
+                                    <label class="col-xs-2 control-label "><span class="requird"></span> 所属仓库:</label>
+                                    <div class="col-xs-8">
+                                        <select class="form-control validate[required]" name="whseId" id="whseId">
+                                            <option value="">- 请选择 -</option>
+
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-xs-10">
+
+                                <div class="form-group">
+                                    <label class="col-xs-2 control-label"><span class="requird"></span> 仓库区域:</label>
+                                    <div class="col-xs-8">
+                                        <select class="form-control validate[required]" name="regionId" id="regionId">
+                                            <option value="">- 请选择 -</option>
+
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <div class="col-xs-8">
+                                <hr class="simple">
+                                <div class="col-xs-12 text-center">
+
+                                    <button class="btn btn-primary " type="submit">
+                                        下一步
+                                    </button>
+                                </div>
+                            </div>
+
+                        </form>
+                    </div>
+                    <!-- end row -->
+
+                </div>
+                <!-- end col -->
+            </div>
+            <!-- end row -->
+        </div>
+        <!-- end well -->
+
+
+    </div>
+    <!-- END MAIN CONTENT -->
+
+</div>
+<!-- END MAIN PANEL -->
+
+<%- include('../layouts/footer'); %>
+<%- include('../layouts/footer_common_script'); %>
+
+<%- include('./js_function'); %>
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+
+//        pageSetUp();
+
+        $("#create-store").validationEngine();
+
+    })
+
+</script>
+
+
+<%- include('../layouts/foot'); %>

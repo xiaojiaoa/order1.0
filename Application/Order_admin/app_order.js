@@ -320,6 +320,31 @@ app.locals.DWY_Helper = {
         return code;
     },
 
+    //字典翻译-ftyId
+    getAssistValFtyId: function (code, list) {
+        if (list && code) {
+            for (var i = 0; i < list.length; i++) {
+                var element = list[i]
+                if (element && element.ftyId == code) {
+                    return element.name;
+                }
+            }
+        }
+        return code;
+    },
+//字典翻译-whseId
+    getAssistValWhseId: function (code, list) {
+        if (list && code) {
+            for (var i = 0; i < list.length; i++) {
+                var element = list[i]
+                if (element && element.whseId == code) {
+                    return element.name;
+                }
+            }
+        }
+        return code;
+    },
+
 
     renderSize: function (value) {
         if (null == value || value == '') {

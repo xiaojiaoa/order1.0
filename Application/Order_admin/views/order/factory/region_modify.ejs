@@ -1,0 +1,155 @@
+<%- include('../layouts/head_top'); %>
+<%- include('../layouts/head_bottom'); %>
+<%- include('../layouts/header'); %>
+<%- include('../layouts/nav'); %>
+
+
+<!-- MAIN PANEL -->
+<div id="main" role="main">
+
+    <!-- RIBBON -->
+    <div id="ribbon">
+
+        <!-- breadcrumb -->
+        <ol class="breadcrumb">
+            <li>后台管理</li>
+            <li>修改仓库区域信息</li>
+        </ol>
+        <!-- end breadcrumb -->
+    </div>
+    <!-- END RIBBON -->
+
+    <!-- MAIN CONTENT -->
+    <div id="content">
+
+        <!-- well -->
+        <div class="well">
+            <!-- row -->
+            <div class="row">
+                <!-- col -->
+                <div class="col-xs-12">
+                    <legend>修改仓库区域信息</legend>
+
+                    <!-- row -->
+                    <div class="row">
+                        <form class="form-horizontal" method="post" action="/region/doModify" id="create-store">
+                            <div class="col-xs-12">
+
+                                <div class="col-xs-4">
+                                    <div class="form-group">
+                                        <label class="col-xs-4 control-label "><span class="requird"></span> 所属工厂:
+                                        </label>
+                                        <div class="col-xs-8">
+                                            <input class="form-control " value="" readonly>
+
+                                            <input name="ftyId" value="" type="hidden">
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                                <div class="col-xs-4">
+                                    <div class="form-group">
+                                        <label class="col-xs-4 control-label "><span class="requird"></span> 所属仓库:</label>
+                                        <div class="col-xs-8">
+                                            <input class="form-control " value="" readonly>
+
+                                            <input name="whseId" value="<%= regionInfo.whseId %>" type="hidden">
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-xs-12">
+                                <div class="col-xs-8">
+                                    <div class="form-group">
+                                        <label class="col-xs-2 control-label"><span class="requird"></span>
+                                            区域名称:</label>
+                                        <div class="col-xs-10">
+                                            <input class="form-control validate[required]"
+                                                   value="<%= regionInfo.name %>"
+                                                   name="name">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+
+                            <div class="col-xs-12">
+
+                                <!--输入字段-->
+                                <div class="col-xs-4">
+                                    <div class="form-group">
+                                        <label class="col-xs-4 control-label"><span class="requird"></span> 编号:</label>
+                                        <div class="col-xs-8">
+                                            <input class="form-control validate[required]"
+                                                   value="<%= regionInfo.regionId %>"
+                                                   name="regionId" readonly>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+
+
+                            <div class="col-xs-12">
+                                <div class="col-xs-8">
+                                    <div class="form-group">
+                                        <label class="col-xs-2 control-label">备注:</label>
+                                        <div class="col-xs-10">
+                                            <textarea name="remark" class="form-control"
+                                                      cols="30" rows="5"><%= regionInfo.remark %></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-xs-8">
+                                <hr class="simple">
+                                <div class="col-xs-12 text-center">
+
+                                    <button class="btn btn-primary " type="submit">
+                                        <i class="fa fa-save"></i>
+                                        保存
+                                    </button>
+                                </div>
+                            </div>
+
+                        </form>
+                    </div>
+                    <!-- end row -->
+
+                </div>
+                <!-- end col -->
+            </div>
+            <!-- end row -->
+        </div>
+        <!-- end well -->
+
+
+    </div>
+    <!-- END MAIN CONTENT -->
+
+</div>
+<!-- END MAIN PANEL -->
+
+<%- include('../layouts/footer'); %>
+<%- include('../layouts/footer_common_script'); %>
+
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+
+//        pageSetUp();
+
+        $("#create-store").validationEngine();
+
+    })
+
+</script>
+
+
+<%- include('../layouts/foot'); %>

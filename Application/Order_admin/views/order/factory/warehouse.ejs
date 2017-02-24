@@ -13,7 +13,7 @@
         <ol class="breadcrumb">
             <li>后台管理</li>
             <li><a href="/factory">工厂列表</a></li>
-            <li>该工厂下仓库列表</li>
+            <li>仓库列表</li>
         </ol>
         <!-- end breadcrumb -->
 
@@ -139,7 +139,7 @@
                             <tr class="<%= element.stcode == 1 ? '' : 'disabletr' %>">
                                 <td><%= index+1 %></td>
                                 <td><%= element.whseId %></td>
-                                <td><a href="/factory/detail/<%= element.ftyId %>"><%= element.ftyId %></a></td>
+                                <td><a href="/factory/detail/<%= element.ftyId %>"><%= element.ftyName %></a></td>
                                 <td><%= element.name %></td>
                                 <td><%= DWY_Helper.getAssistVal(element.type, warehouseTypes) %></td>
                                 <td><%= DWY_Helper.getLocalDateYMD(element.addTime) %></td>
@@ -188,7 +188,6 @@
 
         pageSetUp();
 
-        $(".fg-date-time-picker").flatpickr(data_time_picker.data_picker); // jQuery
 
         $(".todoClose").on({
             click: function () {

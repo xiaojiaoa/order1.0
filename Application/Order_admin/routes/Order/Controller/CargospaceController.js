@@ -11,19 +11,60 @@ var request = require('request');
 
 
 var CargospaceController = {
-    listPage: function (req, res) {
+    unlistPage: function (req, res) {
+        Base.multiDataRequest(req, res, [
+            {url: '/api/whse/factory/list', method: 'GET', resConfig: {keyName: 'factoryList', is_must: true}},
+        ], function (req, res, resultList) {
+            var returnData = Base.mergeData(helper.mergeObject({
+                title: '',
+            }, resultList));
+            res.render('order/cargospace/index_unselect', returnData);
+        });
+    },
+    getWarehouse: function (req, res) {
         var ftyId = req.params.ftyId;
-        var whseId = req.params.whseId;
 
+        request(Base.mergeRequestOptions({
+            method: 'GET',
+            url: '/api/whse/warehouse/list/'+ftyId,
+        }, req, res), function (error, response, body) {
+            if (!error && response.statusCode == 200) {
+                // res.sendStatus(200);
+                res.status(200).json(body)
+
+            } else {
+                Base.handlerError(res, req, error, response, body);
+            }
+        })
+
+    },
+    getRegion: function (req, res) {
+        var whseId = req.params.whseId;
+        request(Base.mergeRequestOptions({
+            method: 'GET',
+            url: '/api/whse/region/list/'+whseId,
+        }, req, res), function (error, response, body) {
+            if (!error && response.statusCode == 200) {
+                res.status(200).json(body)
+            } else {
+                Base.handlerError(res, req, error, response, body);
+            }
+        })
+
+    },
+    listPage: function (req, res) {
+        var ftyId = req.query.ftyId;
+        var whseId = req.query.whseId;
+        var regionId = req.query.regionId;
         var paramObject = helper.genPaginationQuery(req);
         Base.multiDataRequest(req, res, [
-            {url: '/api/whse/factory?' + (queryString.stringify(req.query)), method: 'GET', resConfig: {keyName: 'factoryList', is_must: true}},
+            {url: '/api/whse/cargospace?'+ queryString.stringify(req.query), method: 'GET', resConfig: {keyName: 'cargospaceList', is_must: true}},
             {url: '/api/whse/factory/list', method: 'GET', resConfig: {keyName: 'factoryList', is_must: true}},
             {url: '/api/whse/warehouse/list/'+ftyId, method: 'GET', resConfig: {keyName: 'warehouseList', is_must: true}},
             {url: '/api/whse/region/list/'+whseId, method: 'GET', resConfig: {keyName: 'regionList', is_must: true}},
         ], function (req, res, resultList) {
 
-            var paginationInfo = resultList.factoryList;
+            var paginationInfo = resultList.cargospaceList;
 
             var boostrapPaginator = new Pagination.TemplatePaginator(helper.genPageInfo({
                 prelink: paramObject.withoutPageNo,
@@ -34,23 +75,33 @@ var CargospaceController = {
 
             var returnData = Base.mergeData(helper.mergeObject({
                 title: '',
+                ftyId:ftyId,
+                whseId:whseId,
                 pagination: boostrapPaginator.render()
             }, resultList));
 
             res.render('order/cargospace/index', returnData);
 
         });
+
     },
     createPage: function (req, res) {
         Base.multiDataRequest(req, res, [
-            {url: '/api/organizations/factory', method: 'GET', resConfig: {keyName: 'factoryList', is_must: true}},
+            {url: '/api/whse/factory/list', method: 'GET', resConfig: {keyName: 'factoryList', is_must: true}},
         ], function (req, res, resultList) {
             var returnData = Base.mergeData(helper.mergeObject({
                 title: ' ',
             }, resultList));
-            res.render('order/factory/factory_create', returnData);
+            res.render('order/cargospace/create_first', returnData);
         });
     },
+    doNext: function (req, res) {
+        var ftyId = req.body.ftyId;
+        var whseId = req.body.whseId;
+        var regionId = req.body.regionId;
+        res.redirect("/cargospace/createNext/"+ftyId+"/"+whseId+"/"+regionId);
+    },
+
     createNextPage: function (req, res) {
         Base.multiDataRequest(req, res, [
             {url: '/api/organizations/factory', method: 'GET', resConfig: {keyName: 'factoryList', is_must: true}},
@@ -93,34 +144,19 @@ var CargospaceController = {
         })
     },
     detailPage: function (req, res) {
-        var ftyId =  req.params.ftyId;
+        var spaceId =  req.params.spaceId;
         Base.multiDataRequest(req, res, [
-            {url: '/api/whse/factory/'+ftyId, method: 'GET', resConfig: {keyName: 'factoryInfo', is_must: true}},
-            {url: '/api/organizations/factory', method: 'GET', resConfig: {keyName: 'factoryList', is_must: true}},
+            {url: '/api/whse/cargospace/'+spaceId, method: 'GET', resConfig: {keyName: 'cargospaceInfo', is_must: true}},
         ], function (req, res, resultList) {
 
             var returnData = Base.mergeData(helper.mergeObject({
                 title: ' ',
             }, resultList));
-            res.render('order/factory/factory_detail', returnData);
+            res.render('order/cargospace/detail', returnData);
         });
     },
 
-    ifHaved: function (req, res) {
-        var mobile =  req.params.mobile;
-        request(Base.mergeRequestOptions({
-            method: 'get',
-            url: '/api/employees?mobile='+mobile,
-        }, req, res), function (error, response, body) {
-            if (!error && response.statusCode == 200) {
-                if(body){
-                    var $data = JSON.parse(body);
-                    // res.redirect("/customer/detail/"+custInfo.cid);
-                    res.send($data);
-                }
-            }
-        })
-    },
+
     modifyPage: function (req, res) {
         var ftyId =  req.params.ftyId;
         Base.multiDataRequest(req, res, [
