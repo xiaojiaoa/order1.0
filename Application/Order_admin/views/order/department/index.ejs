@@ -66,9 +66,11 @@
                                 <td>
                                     <% if(type == 'stores') {  %>
                                     <a href="/stores/employees?bid=<%= bid %>&did=<%= element.id %>">查看柜员</a>
-                                    <% }else{ %>
-                                    <a>机构查看柜员接口未定</a>
-                                    <% } %>
+                                    <% }else{
+                                        if(bid ==  user.bid){ %>
+                                        <a href="/organizations/employees?bid=<%= bid %>&did=<%= element.id %>">查看柜员</a>
+                                        <% }
+                                     } %>
 
                                     <a class="departmentModify-modal" name="<%= element.name %>"  selfId="<%= element.id %>">修改</a>
                                     <a class="delete-department"  selfId="<%= element.id %>">删除</a>

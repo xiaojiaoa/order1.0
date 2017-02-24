@@ -1,0 +1,138 @@
+<%- include('../layouts/head_top'); %>
+<%- include('../layouts/head_bottom'); %>
+<%- include('../layouts/header'); %>
+<%- include('../layouts/nav'); %>
+
+<!-- MAIN PANEL -->
+<div id="main" role="main">
+
+    <!-- RIBBON -->
+    <div id="ribbon">
+
+        <!-- breadcrumb -->
+        <ol class="breadcrumb">
+            <li>后台管理</li>
+            <li>货位信息</li>
+        </ol>
+        <!-- end breadcrumb -->
+
+
+    </div>
+    <!-- END RIBBON -->
+
+
+    <!-- MAIN CONTENT -->
+    <div id="content">
+        <!-- well -->
+        <div class="well">
+            <!-- row -->
+            <div class="row">
+                <!-- col -->
+                <div class="col-xs-12 dwy-show-content">
+                    <legend>基本信息
+                        <% if( cargospaceInfo.usable == 2 ){ %>
+                        <a class="label label-primary" id="openStore">启用</a>
+                        <% }else{ %>
+                        <a class="label label-primary" href="/cargospace/modify/<%= cargospaceInfo.spaceId %>">修改</a>
+                        <a class="label label-danger" id="closeStore">禁用</a>
+                        <% } %>
+
+                    </legend>
+
+                    <!-- row -->
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-striped table-information <%= ( cargospaceInfo.usable == 2 )? 'close-info':'' %>">
+                            <tbody>
+                            <tr>
+                                <td>货位编号</td>
+                                <td><%= cargospaceInfo.spaceId %></td>
+                                <td>所在行/列/层</td>
+                                <td><%= cargospaceInfo.spaceRow %>行<%= cargospaceInfo.spaceColumn %>列<%= cargospaceInfo.spaceLayer %>层</td>
+                                <td>所属工厂</td>
+                                <td><%= cargospaceInfo.ftyId %></td>
+                            </tr>
+                            <tr>
+                                <td>所属仓库</td>
+                                <td><%= cargospaceInfo.whseId %></td>
+                                <td>所属仓库区域</td>
+                                <td><%= cargospaceInfo.regionId %></td>
+                                <td>已有行/列/层</td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>最大承重</td>
+                                <td><%= cargospaceInfo.maxWeight %>KG</td>
+                                <td>最大存货数量</td>
+                                <td><%= cargospaceInfo.maxAmount %></td>
+                                <td>货架长宽高</td>
+                                <td><%= cargospaceInfo.sizeLength %>*<%= cargospaceInfo.sizeWidth %>*<%= cargospaceInfo.sizeHeight %></td>
+                            </tr>
+                            <tr>
+                                <td>货位状态</td>
+                                <td colspan="5"><%= cargospaceInfo.usable ==1 ? '可用':'禁用' %></td>
+                            </tr>
+                            </tbody>
+                        </table>
+
+                    </div>
+                    <!-- end row -->
+                </div>
+                <!-- end col -->
+            </div>
+            <!-- end row -->
+        </div>
+        <!-- end well -->
+
+
+    </div>
+    <!-- END MAIN CONTENT -->
+
+</div>
+<!-- END MAIN PANEL -->
+
+<%- include('../layouts/footer'); %>
+<%- include('../layouts/footer_common_script'); %>
+
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+
+        var spaceId = '<%= cargospaceInfo.spaceId %>';
+        $("#closeStore").on({
+            click: function () {
+                layer.confirm('确定禁用该货位？',{icon: 3, title:'提示'},
+                    function(index){
+                        $.ajax({
+                            url: '/cargospace/doClose/'+spaceId,
+                            method: 'delete',
+                            success: function (data) {
+                                window.location.reload();
+                            }
+                        });
+                    },
+                    function(index){layer.close(index)})
+            }
+        });
+        $("#openStore").on({
+            click: function () {
+                layer.confirm('确定启用该货位？',{icon: 3, title:'提示'},
+                    function(index){
+                        $.ajax({
+                            url: '/cargospace/doOpen/'+spaceId,
+                            method: 'put',
+                            success: function (data) {
+                                window.location.reload();
+                            }
+                        });
+                    },
+                    function(index){layer.close(index)})
+            }
+        })
+
+
+    })
+
+</script>
+
+<%- include('../layouts/foot'); %>

@@ -1,54 +1,7 @@
 <%- include('layouts/head_top'); %>
 <%- include('layouts/head_bottom'); %>
 
-<style>
-    .smart-style-2 nav > ul > li > a {
-        padding-top: 16px;
-        padding-bottom: 16px;
-        width: 98%;
-    }
 
-    nav ul span.menu-item-parent {
-        font-size: 14px;
-    }
-
-    .well {
-        padding: 10px 15px;
-    }
-
-    .search-form {
-        width: 1200px;
-        float: none;
-        margin: auto;
-        padding-top: 20px;
-    }
-
-    @media (min-width: 768px) {
-        .form-horizontal .control-label {
-            text-align: right;
-            margin-bottom: 0;
-            padding-top: 7px;
-            padding-left: 5px;
-            padding-right: 5px;
-        }
-    }
-
-    .tight-left[class^="col-xs"] {
-        padding-left: 5px;
-    }
-
-    .tight-right[class^="col-xs"] {
-        padding-right: 5px;
-    }
-
-    .search-form > form > div > div {
-
-    }
-
-    #content {
-        min-height: 800px;
-    }
-</style>
 
 <%- include('layouts/header'); %>
 <%- include('layouts/nav'); %>
@@ -63,7 +16,7 @@
         <!-- breadcrumb -->
         <ol class="breadcrumb">
             <li>后台管理</li>
-            <li>登记管理页面</li>
+            <li>流水信息</li>
         </ol>
         <!-- end breadcrumb -->
 
@@ -116,25 +69,6 @@
                                     </div>
                                 </div>
 
-                                  <div class="col-xs-4">
-                                     <div class="form-group">
-                                         <label class="col-xs-4 control-label">客户手机:</label>
-                                         <div class="col-xs-8">
-                                              <input class="form-control" placeholder="请输入客户手机" type="text" name="mobile" value="<%= DWYRequest.query.mobile %>">
-                                          </div>
-                                      </div>
-                                   </div>
-
-                                   <div class="col-xs-4">
-                                       <div class="form-group">
-                                             <label class="col-xs-4 control-label">设计师姓名</label>
-                                             <div class="col-xs-8">
-                                                   <input class="form-control" placeholder="请输入设计师姓名" type="text" name="desName" value="<%= DWYRequest.query.desName %>">
-                                          </div>
-                                   </div>
-                            </div>
-                          </div>
-                            <div class="col-xs-12">
                                 <div class="col-xs-8">
                                     <div class="form-group">
                                         <label class="col-xs-2 control-label">流水创建日期:</label>
@@ -149,9 +83,19 @@
                                         </div>
                                     </div>
                                 </div>
+
                             </div>
 
                             <div class="col-xs-12">
+                                <div class="col-xs-4">
+                                    <div class="form-group">
+                                        <label class="col-xs-4 control-label">客户手机:</label>
+                                        <div class="col-xs-8">
+                                            <input class="form-control" placeholder="请输入客户手机" type="text" name="mobile" value="<%= DWYRequest.query.mobile %>">
+                                        </div>
+                                    </div>
+                                </div>
+
                                 <div class="col-xs-8">
                                     <div class="form-group">
                                         <label class="col-xs-2 control-label">流水状态:</label>
@@ -179,11 +123,23 @@
                             </div>
 
                             <div class="col-xs-12">
+                                <div class="col-xs-4">
+                                    <div class="form-group">
+                                        <label class="col-xs-4 control-label">设计师姓名</label>
+                                        <div class="col-xs-8">
+                                            <input class="form-control" placeholder="请输入设计师姓名" type="text" name="desName" value="<%= DWYRequest.query.desName %>">
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div class="col-xs-12">
                                 <hr class="simple">
-                                <div class="col-xs-12">
+                                <div class="col-xs-12 text-center">
                                     <button class="btn btn-primary " type="submit">
-                                        <i class="fa fa-save"></i>
-                                        确认
+                                        <i class="fa fa-search"></i>
+                                        查询
                                     </button>
                                 </div>
                             </div>
@@ -226,8 +182,6 @@
                                 <th>建流水时间</th>
                                 <th>预约量尺时间</th>
                                 <th>完成量尺时间</th>
-                                <th>合同金额</th>
-                                <th>合同日期</th>
                                 <th>预期交付时间</th>
                                 <th>设计师</th>
                                 <th>流水状态</th>
@@ -240,7 +194,7 @@
                             <tr>
                                 <td><%= num %></td>
                                 <td><%= element.channelId %></td>
-                                <td><%= element.cid %></td>
+                                <td><a href="/customer/detail/<%= element.cid %>"><%= element.cid %></a></td>
                                 <td><%= element.custName %></td>
                                 <td><%= element.custMobile %></td>
                                 <td><%= element.realEstate %></td>
@@ -249,8 +203,6 @@
                                 <td><%= DWY_Helper.getLocalDate(element.addTime) %></td>
                                 <td><%= DWY_Helper.getLocalDate(element.appointmentTime) %></td>
                                 <td><%= DWY_Helper.getLocalDate(element.finishTime) %></td>
-                                <td><%= element.amount %></td>
-                                <td><%= DWY_Helper.getLocalDate(element.creatTime) %></td>
                                 <td><%= DWY_Helper.getLocalDate(element.deliveryDate) %></td>
                                 <td><%= element.desName %></td>
                                 <td><%= DWY_Helper.getAssistVal(element.stcode,statusInfo)  %></td>
@@ -279,62 +231,13 @@
 
     $(document).ready(function () {
 
-        /* DO NOT REMOVE : GLOBAL FUNCTIONS!
-         *
-         * pageSetUp(); WILL CALL THE FOLLOWING FUNCTIONS
-         *
-         * // activate tooltips
-         * $("[rel=tooltip]").tooltip();
-         *
-         * // activate popovers
-         * $("[rel=popover]").popover();
-         *
-         * // activate popovers with hover states
-         * $("[rel=popover-hover]").popover({ trigger: "hover" });
-         *
-         * // activate inline charts
-         * runAllCharts();
-         *
-         * // setup widgets
-         * setup_widgets_desktop();
-         *
-         * // run form elements
-         * runAllForms();
-         *
-         ********************************
-         *
-         * pageSetUp() is needed whenever you load a page.
-         * It initializes and checks for all basic elements of the page
-         * and makes rendering easier.
-         *
-         */
-
         pageSetUp();
-
-        /*
-         * ALL PAGE RELATED SCRIPTS CAN GO BELOW HERE
-         * eg alert("my home function");
-         *
-         * var pagefunction = function() {
-         *   ...
-         * }
-         * loadScript("js/plugin/_PLUGIN_NAME_.js", pagefunction);
-         *
-         * TO LOAD A SCRIPT:
-         * var pagefunction = function (){
-         *  loadScript(".../plugin.js", run_after_loaded);
-         * }
-         *
-         * OR
-         *
-         * loadScript(".../plugin.js", run_after_loaded);
-         */
 
         var pageFunction = function () {
 
         }
 
-        $(".fg-date-time-picker").flatpickr(data_time_picker.data_time_picker); // jQuery
+        $(".fg-date-time-picker").flatpickr(data_time_picker.data_picker); // jQuery
 
         pageFunction();
 

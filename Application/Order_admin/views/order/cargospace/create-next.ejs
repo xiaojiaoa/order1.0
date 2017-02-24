@@ -13,7 +13,7 @@
         <!-- breadcrumb -->
         <ol class="breadcrumb">
             <li>后台管理</li>
-            <li>新建仓库区域</li>
+            <li>新建货位</li>
         </ol>
         <!-- end breadcrumb -->
     </div>
@@ -28,85 +28,165 @@
             <div class="row">
                 <!-- col -->
                 <div class="col-xs-12">
-                    <legend>新建仓库区域</legend>
+                    <legend>新建货位</legend>
 
                     <!-- row -->
                     <div class="row">
-                        <form class="form-horizontal" method="post" action="/region/doCreate" id="create-store">
+                        <form class="form-horizontal" method="post" action="/cargospace/doCreate" id="create-store">
                             <div class="col-xs-12">
 
                                 <div class="col-xs-4">
                                     <div class="form-group">
-                                        <label class="col-xs-4 control-label "><span class="requird"></span> 所属工厂:
-                                        </label>
+                                        <label class="col-xs-4 control-label ">工厂:</label>
                                         <div class="col-xs-8">
-                                            <input class="form-control validate[required]"
-                                                   value="<%= DWY_last_request_param.ftyId %>"
-                                                   name="ftyId">
-
+                                            <label class="control-label "><strong><%= regionInfo.ftyName %></strong></label>
                                         </div>
-
                                     </div>
                                 </div>
 
                                 <div class="col-xs-4">
                                     <div class="form-group">
-                                        <label class="col-xs-4 control-label "><span class="requird"></span> 所属仓库:</label>
+                                        <label class="col-xs-4 control-label ">仓库:</label>
                                         <div class="col-xs-8">
-                                            <input class="form-control validate[required]"
-                                                   value="<%= DWY_last_request_param.ftyId %>"
-                                                   name="ftyId">
-
+                                            <label class="control-label "><strong><%= regionInfo.whseName %></strong></label>
                                         </div>
                                     </div>
                                 </div>
+
+                            </div>
+
+                            <div class="col-xs-12">
+
+                                <div class="col-xs-4">
+                                    <div class="form-group">
+                                        <label class="col-xs-4 control-label ">仓库区域:</label>
+                                        <div class="col-xs-8">
+                                            <label class="control-label "><strong><%= regionInfo.name %></strong></label>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <input type="hidden" name="ftyId" value="<%= ftyId %>">
+                                <input type="hidden" name="whseId" value="<%= whseId %>">
+                                <input type="hidden" name="regionId" value="<%= regionId %>">
                             </div>
 
                             <div class="col-xs-12">
                                 <div class="col-xs-8">
                                     <div class="form-group">
                                         <label class="col-xs-2 control-label"><span class="requird"></span>
-                                            区域名称:</label>
+                                            新建类型:</label>
                                         <div class="col-xs-10">
-                                            <input class="form-control validate[required]"
-                                                   value="<%= DWY_last_request_param.ftyId %>"
-                                                   name="ftyId">
+
+                                            <label class="radio radio-inline">
+                                                <input type="radio" class="radiobox validate[required]" name="type" value="1" checked>
+                                                <span>新建单个货位</span>
+                                            </label>
+                                            <label class="radio radio-inline">
+                                                <input type="radio" class="radiobox validate[required]" name="type" value="2">
+                                                <span>新建一行</span>
+                                            </label>
+                                            <label class="radio radio-inline">
+                                                <input type="radio" class="radiobox validate[required]" name="type" value="3">
+                                                <span>新建一列</span>
+                                            </label>
+
+
                                         </div>
                                     </div>
                                 </div>
                             </div>
 
-
-
-                            <div class="col-xs-12">
-
-                                <!--输入字段-->
-                                <div class="col-xs-4">
-                                    <div class="form-group">
-                                        <label class="col-xs-4 control-label"><span class="requird"></span> 编号:</label>
-                                        <div class="col-xs-8">
-                                            <input class="form-control validate[required]"
-                                                   value="<%= DWY_last_request_param.address %>"
-                                                   name="address">
+                            <div id="addAnother">
+                                <div class="col-xs-12">
+                                    <div class="col-xs-8">
+                                        <div class="form-group">
+                                            <label class="col-xs-2 control-label"><span class="requird"></span> 第几行/列/层:</label>
+                                            <div class="col-xs-10">
+                                                <div class="col-xs-4 no-padding">
+                                                    <div class="col-xs-8 no-padding">
+                                                        <input class="form-control validate[required, custom[onlyNumberSp]]" placeholder="行" type="text"
+                                                               name="spaceRow" value="<%= DWY_last_request_param.spaceRow %>">
+                                                    </div>
+                                                    <label class="control-label ">行 </label>
+                                                </div>
+                                                <div class="col-xs-4 no-padding">
+                                                    <div class="col-xs-8 no-padding">
+                                                        <input class="form-control validate[required,custom[onlyNumberSp]]" placeholder="列" type="text"
+                                                               name="spaceColumn" value="<%= DWY_last_request_param.spaceColumn %>">
+                                                    </div>
+                                                    <label class="control-label ">列 </label>
+                                                </div>
+                                                <div class="col-xs-4 no-padding">
+                                                    <div class="col-xs-8 no-padding">
+                                                        <input class="form-control validate[required,custom[onlyNumberSp]]" placeholder="层" type="text"
+                                                               name="spaceLayer" value="<%= DWY_last_request_param.spaceLayer %>">
+                                                    </div>
+                                                    <label class="control-label ">层 </label>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-
                             </div>
+
 
 
                             <div class="col-xs-12">
                                 <div class="col-xs-8">
                                     <div class="form-group">
-                                        <label class="col-xs-2 control-label">备注:</label>
+                                        <label class="col-xs-2 control-label"><span class="requird"></span> 货架长宽高:</label>
                                         <div class="col-xs-10">
-                                            <textarea name="remark" class="form-control"
-                                                      cols="30" rows="5"></textarea>
+                                            <div class="col-xs-4 no-padding">
+                                                <div class="col-xs-8 no-padding">
+                                                    <input class="form-control validate[required, custom[onlyNumberSp]]" placeholder="长" type="text"
+                                                           name="sizeLength" value="<%= DWY_last_request_param.sizeLength %>">
+                                                </div>
+                                                <label class="control-label ">长(cm) </label>
+                                            </div>
+                                            <div class="col-xs-4 no-padding">
+                                                <div class="col-xs-8 no-padding">
+                                                    <input class="form-control validate[required,custom[onlyNumberSp]]" placeholder="宽" type="text"
+                                                           name="sizeWidth" value="<%= DWY_last_request_param.sizeWidth %>">
+                                                </div>
+                                                <label class="control-label ">宽(cm) </label>
+                                            </div>
+                                            <div class="col-xs-4 no-padding">
+                                                <div class="col-xs-8 no-padding">
+                                                    <input class="form-control validate[required,custom[onlyNumberSp]]" placeholder="高" type="text"
+                                                           name="sizeHeight" value="<%= DWY_last_request_param.sizeHeight %>">
+                                                </div>
+                                                <label class="control-label ">高(cm) </label>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
 
+                            <div class="col-xs-12">
+                                <div class="col-xs-4">
+                                    <div class="form-group">
+                                        <label class="col-xs-4 control-label"><span class="requird"></span> 最大承重:</label>
+                                        <div class="col-xs-8">
+                                            <input class="form-control validate[required]"
+                                                   value="<%= DWY_last_request_param.maxWeight %>"
+                                                   name="maxWeight" placeholder="0为不限">
+                                            <span code-data="千克" class="unit"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xs-4">
+                                    <div class="form-group">
+                                        <label class="col-xs-4 control-label"><span class="requird"></span> 最大存货数量:</label>
+                                        <div class="col-xs-8">
+                                            <input class="form-control validate[required]"
+                                                   value="<%= DWY_last_request_param.maxAmount %>"
+                                                   name="maxAmount" placeholder="0为不限">
+                                            <span code-data="件" class="unit"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                             <div class="col-xs-8">
                                 <hr class="simple">
                                 <div class="col-xs-12 text-center">
@@ -147,6 +227,111 @@
 //        pageSetUp();
 
         $("#create-store").validationEngine();
+
+        var addAnother = $('#addAnother');
+        var addAnotherDiv = '<div class="col-xs-12">'+
+                            '<div class="col-xs-8">'+
+                            '<div class="form-group">'+
+                            '<label class="col-xs-2 control-label"><span class="requird"></span> 第几行/列/层:</label>'+
+                        '<div class="col-xs-10">'+
+                            '<div class="col-xs-4 no-padding">'+
+                            '<div class="col-xs-8 no-padding">'+
+                            '<input class="form-control validate[required, custom[onlyNumberSp]]" placeholder="行" type="text"'+
+                        ' name="spaceRow" value="">'+
+                            '</div>'+
+                            '<label class="control-label ">行 </label>'+
+                            '</div>'+
+                            '<div class="col-xs-4 no-padding">'+
+                            '<div class="col-xs-8 no-padding">'+
+                            '<input class="form-control validate[required,custom[onlyNumberSp]]" placeholder="列" type="text"'+
+                        ' name="spaceColumn" value="">'+
+                            '</div>'+
+                            '<label class="control-label ">列 </label>'+
+                            '</div>'+
+                            '<div class="col-xs-4 no-padding">'+
+                            '<div class="col-xs-8 no-padding">'+
+                            '<input class="form-control validate[required,custom[onlyNumberSp]]" placeholder="层" type="text"'+
+                        ' name="spaceLayer" value="">'+
+                            '</div>'+
+                            '<label class="control-label ">层 </label> </div> </div> </div> </div> </div>';
+
+        var addRow = '<div class="col-xs-12">'+
+                            '<div class="col-xs-8">'+
+                            '<div class="form-group">'+
+                            '<label class="col-xs-2 control-label"><span class="requird"></span> 第几行:</label>'+
+                        '<div class="col-xs-10">'+
+                            '<div class="col-xs-4 no-padding">'+
+                            '<div class="col-xs-8 no-padding">'+
+                            '<input class="form-control validate[required,custom[onlyNumberSp]]" placeholder="行" type="text" '+
+                        ' name="spaceRow" value=""> '+
+                            '</div><label class="control-label ">行 </label>'+
+                            '</div></div></div></div></div><div class="col-xs-12">'+
+                            '<div class="col-xs-8">'+
+                            '<div class="form-group">'+
+                            '<label class="col-xs-2 control-label"><span class="requird"></span> 拥有列/层:</label>'+
+                        '<div class="col-xs-10">'+
+                            '<div class="col-xs-4 no-padding">'+
+                            '<div class="col-xs-8 no-padding">'+
+                            '<input class="form-control validate[required,custom[onlyNumberSp]]" placeholder="列" type="text" '+
+                        ' name="spaceColumn" value="">'+
+                            '</div>'+
+                            '<label class="control-label ">列 </label>'+
+                            '</div>'+
+                            '<div class="col-xs-4 no-padding">'+
+                            '<div class="col-xs-8 no-padding">'+
+                            '<input class="form-control validate[required,custom[onlyNumberSp]]" placeholder="层" type="text" '+
+                         ' name="spaceLayer" value="">'+
+                            '</div>'+
+                            '<label class="control-label ">层 </label>'+
+                            '</div></div></div></div></div>';
+
+        var addCol = '<div class="col-xs-12">'+
+                            '<div class="col-xs-8">'+
+                            '<div class="form-group">'+
+                            '<label class="col-xs-2 control-label"><span class="requird"></span> 第几列:</label>'+
+                        '<div class="col-xs-10">'+
+                            '<div class="col-xs-4 no-padding">'+
+                            '<div class="col-xs-8 no-padding">'+
+                            '<input class="form-control validate[required,custom[onlyNumberSp]]" placeholder="列" type="text"'+
+                        ' name="spaceColumn" value="">'+
+                            '</div>'+
+                            '<label class="control-label ">列 </label>'+
+                            '</div> </div> </div> </div> </div>'+
+                            '<div class="col-xs-12">'+
+                            '<div class="col-xs-8">'+
+                            '<div class="form-group">'+
+                            '<label class="col-xs-2 control-label"><span class="requird"></span> 拥有行/层:</label>'+
+                        '<div class="col-xs-10">'+
+                            '<div class="col-xs-4 no-padding">'+
+                            '<div class="col-xs-8 no-padding">'+
+                            '<input class="form-control validate[required,custom[onlyNumberSp]]" placeholder="行" type="text"'+
+                        ' name="spaceRow" value="">'+
+                            '</div>'+
+                            '<label class="control-label ">行 </label>'+
+                            '</div>'+
+                            '<div class="col-xs-4 no-padding">'+
+                            '<div class="col-xs-8 no-padding">'+
+                            '<input class="form-control validate[required,custom[onlyNumberSp]]" placeholder="层" type="text"'+
+                        ' name="spaceLayer" value="">'+
+                            '</div>'+
+                            '<label class="control-label ">层 </label>'+
+                            '</div> </div> </div> </div> </div>';
+
+        $(':radio[name=type]').change(function () {
+            var value = $(this).val();
+            switch (value){
+                case '1':
+                    addAnother.html(addAnotherDiv);
+                    break;
+                case '2':
+                    addAnother.html(addRow);
+                    break;
+                case '3':
+                    addAnother.html(addCol);
+                    break;
+
+            }
+        })
 
     })
 

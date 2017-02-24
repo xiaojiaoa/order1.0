@@ -532,7 +532,17 @@ router.get('/region/create/:ftyId/:whseId', Middleware.AuthCheck, FactoryControl
 // 新增仓库区域
 router.post('/region/doCreate', Middleware.AuthCheck, FactoryController.doRegionCreate);
 
+// 修改区域详情页面
+router.get('/region/modify/:whseId/:regionId', Middleware.AuthCheck, FactoryController.modifyRegionPage);
 
+// 修改区域信息
+router.post('/region/doModify', Middleware.AuthCheck, FactoryController.doModifyRegion);
+
+// 关闭 区域
+router.delete('/region/doClose/:regionId', Middleware.AuthCheck, FactoryController.doCloseRegion);
+
+// 解锁 区域
+router.put('/region/doOpen/:regionId', Middleware.AuthCheck, FactoryController.doOpenRegion);
 
 /*
  * 页面范围: 货位管理
@@ -541,36 +551,54 @@ router.post('/region/doCreate', Middleware.AuthCheck, FactoryController.doRegion
 
 var CargospaceController = require('./Controller/CargospaceController');
 
+// 获取货位列表-菜单栏直接进入
+router.get('/cargospaceList', Middleware.AuthCheck, Middleware.FilterEmptyField, CargospaceController.unlistPage);
+
+// 取工厂下仓库列表
+router.put('/getWarehouseList/:ftyId', Middleware.AuthCheck, CargospaceController.getWarehouse);
+
+// 取仓库下区域列表
+router.put('/getRegionList/:whseId', Middleware.AuthCheck, CargospaceController.getRegion);
+
+
 // 获取货位列表
 router.get('/cargospace', Middleware.AuthCheck, Middleware.FilterEmptyField, CargospaceController.listPage);
 
 // 货位详情页面
-router.get('/cargospace/detail/:ftyId', Middleware.AuthCheck, CargospaceController.detailPage);
+router.get('/cargospace/detail/:spaceId', Middleware.AuthCheck, CargospaceController.detailPage);
 
 // 新增货位页面
 router.get('/cargospace/create', Middleware.AuthCheck, CargospaceController.createPage);
 
+// 新增货位页面-第一步传值
+router.post('/cargospace/doNext', Middleware.AuthCheck, CargospaceController.doNext);
+
 // 新增货位页面-下一步
-router.get('/cargospace/createNext', Middleware.AuthCheck, CargospaceController.createNextPage);
+router.get('/cargospace/createNext/:ftyId/:whseId/:regionId', Middleware.AuthCheck, CargospaceController.createNextPage);
 
 // 新增货位
 router.post('/cargospace/doCreate', Middleware.AuthCheck, CargospaceController.doCreate);
 
 // 修改货位详情页面
-router.get('/cargospace/modify/:ftyId', Middleware.AuthCheck, CargospaceController.modifyPage);
+router.get('/cargospace/modify/:spaceId', Middleware.AuthCheck, CargospaceController.modifyPage);
 
 // 修改货位信息
 router.post('/cargospace/doModify', Middleware.AuthCheck, CargospaceController.doModify);
 
-// 关闭/解锁 货位
-router.put('/cargospace/setStatus/:ftyId/:type', Middleware.AuthCheck, CargospaceController.setStatus);
+// 关闭 货位
+router.delete('/cargospace/doClose/:spaceId', Middleware.AuthCheck, CargospaceController.doClose);
 
+// 解锁 货位
+router.put('/cargospace/doOpen/:spaceId', Middleware.AuthCheck, CargospaceController.doOpen);
 
 /*
  * 页面范围: 任务序列相关
  * 控制器:   TaskseqController
  * */
 var TaskseqController = require('./Controller/TaskseqController');
+
+// 获取登记流水记录
+router.get('/taskseqs', Middleware.AuthCheck, Middleware.FilterEmptyField, TaskseqController.listPage);
 
 // 流水详情
 router.get('/taskseq/index/:lid', Middleware.AuthCheck, TaskseqController.indexPage);

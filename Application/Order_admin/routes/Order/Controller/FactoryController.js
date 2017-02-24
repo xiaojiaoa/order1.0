@@ -86,21 +86,6 @@ var FactoryController = {
         });
     },
 
-    ifHaved: function (req, res) {
-        var mobile =  req.params.mobile;
-        request(Base.mergeRequestOptions({
-            method: 'get',
-            url: '/api/employees?mobile='+mobile,
-        }, req, res), function (error, response, body) {
-            if (!error && response.statusCode == 200) {
-                if(body){
-                    var $data = JSON.parse(body);
-                    // res.redirect("/customer/detail/"+custInfo.cid);
-                    res.send($data);
-                }
-            }
-        })
-    },
     modifyPage: function (req, res) {
         var ftyId =  req.params.ftyId;
         Base.multiDataRequest(req, res, [
@@ -300,6 +285,7 @@ console.log('555',JSON.stringify(req.body))
             var returnData = Base.mergeData(helper.mergeObject({
                 title: '',
                 ftyId:ftyId,
+                whseId:whseId,
                 pagination: boostrapPaginator.render()
             }, resultList));
 
@@ -309,18 +295,90 @@ console.log('555',JSON.stringify(req.body))
 
     },
     createRegionPage: function (req, res) {
-        res.render('order/factory/region_create');
-        // Base.multiDataRequest(req, res, [
-        //     {url: '/api/organizations/factory', method: 'GET', resConfig: {keyName: 'organizationsList', is_must: true}},
-        //     {url: '/api/assist/warehouse/types', method: 'GET', resConfig: {keyName: 'warehouseTypes', is_must: true}},
-        // ], function (req, res, resultList) {
-        //     var returnData = Base.mergeData(helper.mergeObject({
-        //         title: ' ',
-        //     }, resultList));
-        //     res.render('order/factory/warehouse_create', returnData);
-        // });
+        var ftyId = req.params.ftyId;
+        var whseId = req.params.whseId;
+        Base.multiDataRequest(req, res, [
+            {url: '/api/whse/factory/list', method: 'GET', resConfig: {keyName: 'factoryList', is_must: true}},
+            {url: '/api/whse/warehouse/list/'+ftyId, method: 'GET', resConfig: {keyName: 'warehouseList', is_must: true}},
+        ], function (req, res, resultList) {
+            var returnData = Base.mergeData(helper.mergeObject({
+                title: ' ',
+                ftyId: ftyId,
+                whseId:whseId,
+            }, resultList));
+            res.render('order/factory/region_create', returnData);
+        });
     },
     doRegionCreate: function (req, res) {
+        var ftyId = req.body.ftyId;
+        var whseId = req.body.whseId;
+        request(Base.mergeRequestOptions({
+            method: 'post',
+            url: '/api/whse/region',
+            form:req.body,
+        }, req, res), function (error, response, body) {
+            if (!error && response.statusCode == 201) {
+                res.redirect("/region/"+ftyId+'/'+whseId);
+            } else {
+                Base.handlerError(res, req, error, response, body);
+            }
+        })
+    },
+    modifyRegionPage: function (req, res) {
+        var regionId =  req.params.regionId;
+        Base.multiDataRequest(req, res, [
+            {url: '/api/whse/region/'+regionId, method: 'GET', resConfig: {keyName: 'regionInfo', is_must: true}},
+        ], function (req, res, resultList) {
+
+            var returnData = Base.mergeData(helper.mergeObject({
+                title: ' ',
+            }, resultList));
+            res.render('order/factory/region_modify', returnData);
+        });
+    },
+    doModifyRegion: function (req, res) {
+        var ftyId = req.body.ftyId;
+        var whseId = req.body.whseId;
+        request(Base.mergeRequestOptions({
+            method: 'put',
+            url: '/api/whse/region/update?'+queryString.stringify(req.body),
+        }, req, res), function (error, response, body) {
+            if (!error && response.statusCode == 201) {
+                res.redirect("/region/"+ftyId+'/'+whseId);
+
+            } else {
+                Base.handlerError(res, req, error, response, body);
+            }
+        })
+
+    },
+
+    doCloseRegion: function (req, res) {
+        var regionId = req.params.regionId;
+        request(Base.mergeRequestOptions({
+            method: 'delete',
+            url: '/api/whse/region/'+regionId,
+        }, req, res), function (error, response, body) {
+            if (!error && response.statusCode == 204) {
+                res.sendStatus(200);
+            } else {
+                Base.handlerError(res, req, error, response, body);
+            }
+        })
+
+    },
+    doOpenRegion: function (req, res) {
+        var regionId = req.params.regionId;
+        request(Base.mergeRequestOptions({
+            method: 'put',
+            url: '/api/whse/region/enable/'+regionId,
+        }, req, res), function (error, response, body) {
+            if (!error && response.statusCode == 201) {
+                res.sendStatus(200);
+            } else {
+                Base.handlerError(res, req, error, response, body);
+            }
+        })
 
     },
 };
