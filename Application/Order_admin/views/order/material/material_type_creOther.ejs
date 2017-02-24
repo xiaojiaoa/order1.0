@@ -105,20 +105,18 @@
                                 </div>
                             </div>
 
-                            <input name="id" value='<%= id %>' type="hidden" id="id ">
-                            <% switch (DWY_Helper.judgeMateType(<%= id %>){
+                            <% switch (DWY_Helper.judgeMateType(id)){
                             case "一级": %>
-                            <input name="parentId" value='<%= id %>.slice(0,2)' type="hidden" >
-
+                            <input name="parentId" value='<%= id.substring(0,2) %>' type="hidden" >
                             <%        break;
                             case "二级": %>
-
-                            <input name="parentId" value='' type="hidden" >
+                            <input name="parentId" value='<%= id.substring(0,4) %>' type="hidden" >
                             <%         break;
                             default: %>
-
-                            <input name="parentId" value='' type="hidden" >
+                                break;
                             <%  } %>
+
+
 
                             <div class="col-xs-8">
                                 <hr class="simple">
