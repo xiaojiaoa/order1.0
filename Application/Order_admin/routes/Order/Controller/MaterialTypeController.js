@@ -100,7 +100,7 @@ var MaterialTypeController = {
         console.log('ajx'+ JSON.stringify(req.params));
         request(Base.mergeRequestOptions({
             method: 'put',
-            url: '/api/attributes/stcode/'+id+'?stcode='+type,
+            url: '/api/categories/stcode/'+id+'?stcode='+type,
         }, req, res), function (error, response, body) {
             if (!error && response.statusCode == 201) {
                 res.sendStatus(200);
@@ -124,11 +124,11 @@ var MaterialTypeController = {
            // res.render('order/material/material_type_modify');
     },
     materialTypeDoModify: function (req, res) {
-        //console.log('修改分类'+ JSON.stringify(req.body));
+        console.log('修改分类'+ JSON.stringify(req.body));
         var id=req.body.id;
         request(Base.mergeRequestOptions({
             method: 'put',
-            url: '/api/attributes/'+id+'?'+queryString.stringify(req.body),
+            url: '/api/categories/'+id+'?'+queryString.stringify(req.body),
         }, req, res), function (error, response, body) {
             if (!error && response.statusCode == 201) {
                 res.redirect("/materialManage/materialType");

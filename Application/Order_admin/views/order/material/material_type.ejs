@@ -117,7 +117,7 @@
                             <%
                             if(mateTypeList.totalItems != 0  ){
                             mateTypeList.result.forEach(function (element, index) { %>
-                            <tr>
+                            <tr class="<%= ( element.stcode == 2 )? 'close-info':'' %>">
                                   <!--判断物料分类级别-->
                                 <% switch (DWY_Helper.judgeMateType(element.id)){
                                 case "一级": %>
