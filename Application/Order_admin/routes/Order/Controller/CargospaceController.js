@@ -103,40 +103,35 @@ var CargospaceController = {
     },
 
     createNextPage: function (req, res) {
+        var ftyId = req.params.ftyId;
+        var whseId = req.params.whseId;
+        var regionId = req.params.regionId;
         Base.multiDataRequest(req, res, [
-            {url: '/api/organizations/factory', method: 'GET', resConfig: {keyName: 'factoryList', is_must: true}},
+            {url: '/api/whse/region/'+regionId, method: 'GET', resConfig: {keyName: 'regionInfo', is_must: true}},
         ], function (req, res, resultList) {
             var returnData = Base.mergeData(helper.mergeObject({
                 title: ' ',
+                ftyId: ftyId,
+                whseId: whseId,
+                regionId: regionId,
             }, resultList));
             res.render('order/cargospace/create-next', returnData);
         });
     },
 
     doCreate: function (req, res) {
-        // var type = req.body.type;
-        // var bid = req.body.bid;
-        // var roles = req.body.roles;
-        // var role ="";
-        // if(roles&&(typeof roles == 'object')){
-        //     for (var i=0;i<roles.length;i++)
-        //     {
-        //         role += roles[i] +","
-        //     }
-        //     role = role.substring(0,role.length-1);
-        //     req.body.roles = role;
-        // }
-        var name = req.body.name;
-        req.body.name = [{name:'a' , value:666},{name:'b' , value:666}]
-        console.log('employees999'+ JSON.stringify(req.body))
+        var ftyId = req.body.ftyId;
+        var whseId = req.body.whseId;
+        var regionId = req.body.regionId;
+        console.log('/api/whse/warehouse'+ JSON.stringify(req.body))
         request(Base.mergeRequestOptions({
             method: 'post',
-            url: '/api/employees',
+            url: '/api/whse/cargospace',
             form:req.body,
         }, req, res), function (error, response, body) {
             if (!error && response.statusCode == 201) {
                 // var lid = JSON.parse(body).lid;
-                res.redirect("/"+type+"/employees?bid="+bid);
+                res.redirect("/cargospace?isAll=1&ftyId="+ftyId+"&whseId="+whseId+"&regionId="+regionId);
 
             } else {
                 Base.handlerError(res, req, error, response, body);
@@ -158,40 +153,27 @@ var CargospaceController = {
 
 
     modifyPage: function (req, res) {
-        var ftyId =  req.params.ftyId;
+        var spaceId =  req.params.spaceId;
         Base.multiDataRequest(req, res, [
-            {url: '/api/whse/factory/'+ftyId, method: 'GET', resConfig: {keyName: 'factoryInfo', is_must: true}},
-            {url: '/api/organizations/factory', method: 'GET', resConfig: {keyName: 'factoryList', is_must: true}},
+            {url: '/api/whse/cargospace/'+spaceId, method: 'GET', resConfig: {keyName: 'cargospaceInfo', is_must: true}},
         ], function (req, res, resultList) {
 
             var returnData = Base.mergeData(helper.mergeObject({
                 title: ' ',
-                ftyId:ftyId,
             }, resultList));
-            res.render('order/factory/factory_modify', returnData);
+            res.render('order/cargospace/modify', returnData);
         });
     },
     doModify: function (req, res) {
-        var cid = req.body.cid;
-        var roles = req.body.roles;
-        var role ="";
-        if(roles&&(typeof roles == 'object')){
-            for (var i=0;i<roles.length;i++)
-            {
-                role += roles[i] +","
-            }
-            role = role.substring(0,role.length-1);
-            req.body.roles = role;
-        }
-
+        var spaceId =  req.body.spaceId;
         request(Base.mergeRequestOptions({
             method: 'put',
-            url: '/api/employees/'+cid+"?"+queryString.stringify(req.body),
+            url: '/api/whse/cargospace/update?'+queryString.stringify(req.body),
             // form:req.body,
         }, req, res), function (error, response, body) {
             if (!error && response.statusCode == 201) {
                 // var lid = JSON.parse(body).lid;
-                res.redirect("/employees/detail/"+cid);
+                res.redirect("/cargospace/detail/"+spaceId);
 
             } else {
                 Base.handlerError(res, req, error, response, body);
@@ -200,14 +182,26 @@ var CargospaceController = {
 
     },
 
-    setStatus: function (req, res) {
-        var ftyId = req.params.ftyId;
-        var type = req.params.type;
-        var apiUrl = (bidtype == 'stores')? '/api/stores/employees/stcode/' : '/api/employees/stcode/' ;
-        // console.log('cid'+cid+'--type'+type)
+
+    doClose: function (req, res) {
+        var spaceId = req.params.spaceId;
+        request(Base.mergeRequestOptions({
+            method: 'delete',
+            url: '/api/whse/cargospace/'+spaceId,
+        }, req, res), function (error, response, body) {
+            if (!error && response.statusCode == 204) {
+                res.sendStatus(200);
+            } else {
+                Base.handlerError(res, req, error, response, body);
+            }
+        })
+
+    },
+    doOpen: function (req, res) {
+        var spaceId = req.params.spaceId;
         request(Base.mergeRequestOptions({
             method: 'put',
-            url: apiUrl+cid+'?stcode='+type,
+            url: '/api/whse/cargospace/enable/'+spaceId,
         }, req, res), function (error, response, body) {
             if (!error && response.statusCode == 201) {
                 res.sendStatus(200);

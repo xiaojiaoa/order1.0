@@ -13,7 +13,7 @@
         <!-- breadcrumb -->
         <ol class="breadcrumb">
             <li>后台管理</li>
-            <li>新建仓库区域</li>
+            <li>修改货位信息</li>
         </ol>
         <!-- end breadcrumb -->
     </div>
@@ -28,109 +28,71 @@
             <div class="row">
                 <!-- col -->
                 <div class="col-xs-12">
-                    <legend>新建仓库区域</legend>
+                    <legend>修改货位信息</legend>
 
                     <!-- row -->
                     <div class="row">
-                        <form class="form-horizontal" method="post" action="/region/doCreate" id="create-store">
+                        <form class="form-horizontal" method="post" action="/cargospace/doModify" id="create-store">
                             <div class="col-xs-12">
 
                                 <div class="col-xs-4">
                                     <div class="form-group">
-                                        <label class="col-xs-4 control-label "><span class="requird"></span> 所属工厂:
-                                        </label>
+                                        <label class="col-xs-4 control-label ">工厂:</label>
                                         <div class="col-xs-8">
-                                            <input class="form-control " value="<%= DWY_Helper.getAssistValFtyId(ftyId, factoryList) %>" readonly>
+                                            <label class="control-label "><strong><%= cargospaceInfo.ftyName %></strong></label>
 
-                                            <input name="ftyId" value="<%= ftyId %>" type="hidden">
                                         </div>
-
                                     </div>
                                 </div>
 
                                 <div class="col-xs-4">
                                     <div class="form-group">
-                                        <label class="col-xs-4 control-label "><span class="requird"></span> 所属仓库:</label>
+                                        <label class="col-xs-4 control-label ">仓库:</label>
                                         <div class="col-xs-8">
-                                            <input class="form-control " value="<%= DWY_Helper.getAssistValWhseId(whseId, warehouseList) %>" readonly>
+                                            <label class="control-label "><strong><%= cargospaceInfo.whseName %></strong></label>
 
-                                            <input name="whseId" value="<%= whseId %>" type="hidden">
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div class="col-xs-12">
+                                <div class="col-xs-4">
+                                    <div class="form-group">
+                                        <label class="col-xs-4 control-label ">仓库区域:</label>
+                                        <div class="col-xs-8">
+                                            <label class="control-label "><strong><%= cargospaceInfo.regionName %></strong></label>
 
                                         </div>
                                     </div>
                                 </div>
                             </div>
+
+                            <input type="hidden" name="spaceId" value="<%= cargospaceInfo.spaceId %>">
+
 
                             <div class="col-xs-12">
                                 <div class="col-xs-8">
                                     <div class="form-group">
-                                        <label class="col-xs-2 control-label"><span class="requird"></span>
-                                            区域名称:</label>
-                                        <div class="col-xs-10">
-                                            <input class="form-control validate[required]"
-                                                   value="<%= DWY_last_request_param.name %>"
-                                                   name="name">
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-
-
-                            <div class="col-xs-12">
-
-                                <!--输入字段-->
-                                <div class="col-xs-4">
-                                    <div class="form-group">
-                                        <label class="col-xs-4 control-label"><span class="requird"></span> 编号:</label>
-                                        <div class="col-xs-8">
-                                            <div class="input-group">
-                                                <span class="input-group-addon"><%= whseId %></span>
-                                                <input class="form-control validate[required,custom[onlyNumberSp],min[10],max[99]]"
-                                                       value="<%= DWY_last_request_param.regionId %>"
-                                                       placeholder="请输入2位区域编码"
-                                                       name="regionId">
-                                            </div>
-
-                                        </div>
-                                    </div>
-                                </div>
-
-                            </div>
-
-                            <div class="col-xs-12">
-                                <div class="col-xs-8">
-                                    <div class="form-group">
-                                        <label class="col-xs-2 control-label"><span class="requird"></span> 新建行/列/层:</label>
+                                        <label class="col-xs-2 control-label"><span class="requird"></span> 第几行/列/层:</label>
                                         <div class="col-xs-10">
                                             <div class="col-xs-4 no-padding">
-                                                <div class="col-xs-8 no-padding">
-                                                    <input class="form-control validate[required, custom[onlyNumberSp]]" placeholder="行" type="text"
-                                                           name="spaceRow" value="<%= DWY_last_request_param.spaceRow %>">
-                                                </div>
-                                                <label class="control-label ">行 </label>
+
+                                                <label class="control-label "><strong><%= cargospaceInfo.spaceRow %></strong>行 </label>
                                             </div>
                                             <div class="col-xs-4 no-padding">
-                                                <div class="col-xs-8 no-padding">
-                                                    <input class="form-control validate[required,custom[onlyNumberSp]]" placeholder="列" type="text"
-                                                           name="spaceColumn" value="<%= DWY_last_request_param.spaceColumn %>">
-                                                </div>
-                                                <label class="control-label ">列 </label>
+
+                                                <label class="control-label "><strong><%= cargospaceInfo.spaceColumn %></strong>列 </label>
                                             </div>
                                             <div class="col-xs-4 no-padding">
-                                                <div class="col-xs-8 no-padding">
-                                                    <input class="form-control validate[required,custom[onlyNumberSp]]" placeholder="层" type="text"
-                                                           name="spaceLayer" value="<%= DWY_last_request_param.spaceLayer %>">
-                                                </div>
-                                                <label class="control-label ">层 </label>
+
+                                                <label class="control-label "><strong><%= cargospaceInfo.spaceLayer %></strong>层 </label>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-
-
-
                             <div class="col-xs-12">
                                 <div class="col-xs-8">
                                     <div class="form-group">
@@ -139,21 +101,21 @@
                                             <div class="col-xs-4 no-padding">
                                                 <div class="col-xs-8 no-padding">
                                                     <input class="form-control validate[required, custom[onlyNumberSp]]" placeholder="长" type="text"
-                                                           name="sizeLength" value="<%= DWY_last_request_param.sizeLength %>">
+                                                           name="sizeLength" value="<%= cargospaceInfo.sizeLength %>">
                                                 </div>
                                                 <label class="control-label ">长(cm) </label>
                                             </div>
                                             <div class="col-xs-4 no-padding">
                                                 <div class="col-xs-8 no-padding">
                                                     <input class="form-control validate[required,custom[onlyNumberSp]]" placeholder="宽" type="text"
-                                                           name="sizeWidth" value="<%= DWY_last_request_param.sizeWidth %>">
+                                                           name="sizeWidth" value="<%= cargospaceInfo.sizeWidth %>">
                                                 </div>
                                                 <label class="control-label ">宽(cm) </label>
                                             </div>
                                             <div class="col-xs-4 no-padding">
                                                 <div class="col-xs-8 no-padding">
                                                     <input class="form-control validate[required,custom[onlyNumberSp]]" placeholder="高" type="text"
-                                                           name="sizeHeight" value="<%= DWY_last_request_param.sizeHeight %>">
+                                                           name="sizeHeight" value="<%= cargospaceInfo.sizeHeight %>">
                                                 </div>
                                                 <label class="control-label ">高(cm) </label>
                                             </div>
@@ -161,13 +123,14 @@
                                     </div>
                                 </div>
                             </div>
+
                             <div class="col-xs-12">
                                 <div class="col-xs-4">
                                     <div class="form-group">
                                         <label class="col-xs-4 control-label"><span class="requird"></span> 最大承重:</label>
                                         <div class="col-xs-8">
                                             <input class="form-control validate[required]"
-                                                   value="<%= DWY_last_request_param.maxWeight %>"
+                                                   value="<%= cargospaceInfo.maxWeight %>"
                                                    name="maxWeight" placeholder="0为不限">
                                             <span code-data="千克" class="unit"></span>
                                         </div>
@@ -178,21 +141,9 @@
                                         <label class="col-xs-4 control-label"><span class="requird"></span> 最大存货数量:</label>
                                         <div class="col-xs-8">
                                             <input class="form-control validate[required]"
-                                                   value="<%= DWY_last_request_param.maxAmount %>"
+                                                   value="<%= cargospaceInfo.maxAmount %>"
                                                    name="maxAmount" placeholder="0为不限">
                                             <span code-data="件" class="unit"></span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="col-xs-12">
-                                <div class="col-xs-8">
-                                    <div class="form-group">
-                                        <label class="col-xs-2 control-label">备注:</label>
-                                        <div class="col-xs-10">
-                                            <textarea name="remark" class="form-control"
-                                                      cols="30" rows="5"></textarea>
                                         </div>
                                     </div>
                                 </div>
@@ -204,7 +155,7 @@
 
                                     <button class="btn btn-primary " type="submit">
                                         <i class="fa fa-save"></i>
-                                        确认添加
+                                        确认修改
                                     </button>
                                 </div>
                             </div>
@@ -238,6 +189,8 @@
 //        pageSetUp();
 
         $("#create-store").validationEngine();
+
+
 
     })
 

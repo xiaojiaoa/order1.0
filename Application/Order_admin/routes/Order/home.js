@@ -586,14 +586,16 @@ router.get('/cargospace/createNext/:ftyId/:whseId/:regionId', Middleware.AuthChe
 router.post('/cargospace/doCreate', Middleware.AuthCheck, CargospaceController.doCreate);
 
 // 修改货位详情页面
-router.get('/cargospace/modify/:ftyId', Middleware.AuthCheck, CargospaceController.modifyPage);
+router.get('/cargospace/modify/:spaceId', Middleware.AuthCheck, CargospaceController.modifyPage);
 
 // 修改货位信息
 router.post('/cargospace/doModify', Middleware.AuthCheck, CargospaceController.doModify);
 
-// 关闭/解锁 货位
-router.put('/cargospace/setStatus/:ftyId/:type', Middleware.AuthCheck, CargospaceController.setStatus);
+// 关闭 货位
+router.delete('/cargospace/doClose/:spaceId', Middleware.AuthCheck, CargospaceController.doClose);
 
+// 解锁 货位
+router.put('/cargospace/doOpen/:spaceId', Middleware.AuthCheck, CargospaceController.doOpen);
 
 /*
  * 页面范围: 任务序列相关

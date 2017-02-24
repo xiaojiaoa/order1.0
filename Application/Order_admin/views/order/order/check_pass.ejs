@@ -4,25 +4,22 @@
         <div class="form-group">
             <label class="col-xs-2 control-label"><span class="requird"></span>审核总价:</label>
             <div class="col-xs-6">
-                <input class="form-control validate[required]"  value="" name="money" data-prompt-position="bottomLeft:20,5">
+                <input class="form-control validate[required]"  value="" name="money" id="money" data-prompt-position="bottomLeft:20,5">
             </div>
             <div class="col-xs-4 tight-left">
-                <a class="btn-primary btn-sm btn">&nbsp;计算&nbsp;</a>
+                <a class="btn-primary btn-sm btn" id="calculate">&nbsp;计算&nbsp;</a>
             </div>
         </div>
     </div>
     <input value="<%= tid %>" name="tid" type="hidden">
-    <div class="col-xs-12">
-
-        <div class="form-group">
-            <label class="col-xs-2 control-label">零售总价:</label>
-            <div class="col-xs-6">
-                <input class="form-control"  value="" name="" readonly>
-            </div>
-
-        </div>
-
-    </div>
+    <!--<div class="col-xs-12">-->
+        <!--<div class="form-group">-->
+            <!--<label class="col-xs-2 control-label">零售总价:</label>-->
+            <!--<div class="col-xs-6">-->
+                <!--<input class="form-control"  value="" name="" readonly>-->
+            <!--</div>-->
+        <!--</div>-->
+    <!--</div>-->
     <div class="col-xs-12">
         <div class="form-group">
             <label class="col-xs-2 control-label">最终计价:</label>
@@ -31,20 +28,18 @@
                     <thead>
                     <tr>
                         <th>价格类型</th>
-                        <th>总价</th>
+                        <!--<th>总价</th>-->
                         <th>审核总价</th>
                     </tr>
                     </thead>
                     <tbody>
                     <tr>
                         <td>结算价</td>
-                        <td></td>
-                        <td></td>
+                        <td id="revFrncAccount"></td>
                     </tr>
                     <tr>
                         <td>出厂价</td>
-                        <td></td>
-                        <td></td>
+                        <td id="factoryAccount"></td>
                     </tr>
                     </tbody>
                 </table>
@@ -84,6 +79,12 @@
     $(document).ready(function () {
 
         $("#check_pass").validationEngine();
+        
+        $('#calculate').click(function () {
+            var money = $('#money').val();
+            $('#revFrncAccount').text(<%= cofficientInfo.revFrncPriceCoefficient %>*money)
+            $('#factoryAccount').text(<%= cofficientInfo.factoryPriceCoefficient %>*money)
+        })
 
         //弹出类
         $('#check-pass-modal').on({

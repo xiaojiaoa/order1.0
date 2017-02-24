@@ -40,9 +40,9 @@
                                         <label class="col-xs-4 control-label "><span class="requird"></span> 所属工厂:
                                         </label>
                                         <div class="col-xs-8">
-                                            <input class="form-control " value="" readonly>
+                                            <input class="form-control " value="<%= regionInfo.ftyName %>" readonly>
 
-                                            <input name="ftyId" value="" type="hidden">
+                                            <input name="ftyId" value="<%= regionInfo.ftyId %>" type="hidden">
                                         </div>
 
                                     </div>
@@ -52,7 +52,7 @@
                                     <div class="form-group">
                                         <label class="col-xs-4 control-label "><span class="requird"></span> 所属仓库:</label>
                                         <div class="col-xs-8">
-                                            <input class="form-control " value="" readonly>
+                                            <input class="form-control " value="<%= regionInfo.whseName %>" readonly>
 
                                             <input name="whseId" value="<%= regionInfo.whseId %>" type="hidden">
 

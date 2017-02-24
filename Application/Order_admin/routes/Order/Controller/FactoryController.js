@@ -338,6 +338,7 @@ console.log('555',JSON.stringify(req.body))
     },
     doModifyRegion: function (req, res) {
         var ftyId = req.body.ftyId;
+        var whseId = req.body.whseId;
         request(Base.mergeRequestOptions({
             method: 'put',
             url: '/api/whse/region/update?'+queryString.stringify(req.body),

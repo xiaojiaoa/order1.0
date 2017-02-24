@@ -96,9 +96,14 @@
                                     <div class="form-group">
                                         <label class="col-xs-4 control-label"><span class="requird"></span> 编号:</label>
                                         <div class="col-xs-8">
-                                            <input class="form-control validate[required]"
-                                                   value="<%= DWY_last_request_param.whseId %>"
-                                                   name="whseId">
+                                            <div class="input-group">
+                                                <span class="input-group-addon"><%= ftyId %></span>
+                                                <input class="form-control validate[required,custom[onlyNumberSp],min[10],max[99]]"
+                                                       value="<%= DWY_last_request_param.whseId %>"
+                                                       placeholder="请输入2位仓库编码"
+                                                       name="whseId">
+                                            </div>
+
                                         </div>
                                     </div>
                                 </div>
