@@ -572,6 +572,9 @@ router.put('/cargospace/setStatus/:ftyId/:type', Middleware.AuthCheck, Cargospac
  * */
 var TaskseqController = require('./Controller/TaskseqController');
 
+// 获取登记流水记录
+router.get('/taskseqs', Middleware.AuthCheck, Middleware.FilterEmptyField, TaskseqController.listPage);
+
 // 流水详情
 router.get('/taskseq/index/:lid', Middleware.AuthCheck, TaskseqController.indexPage);
 
