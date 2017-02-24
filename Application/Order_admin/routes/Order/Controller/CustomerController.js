@@ -47,7 +47,7 @@ var CustomerController = {
     detailPage: function (req, res) {
         var cid =  req.params.cid;
         Base.multiDataRequest(req, res, [
-                {url: '/api/customers/'+ cid, method: 'GET', resConfig: {keyName: 'customersInfo', is_must: true}},
+                {url: '/api/customers/'+ cid, method: 'GET', resConfig: {keyName: 'customerInfo', is_must: true}},
                 {url: '/api/assist/taskseq/status', method: 'GET', resConfig: {keyName: 'statusInfo', is_must: false}}
             ],
             function (req, res, resultList) {
