@@ -113,7 +113,7 @@ var MaterialTypeController = {
     materialTypeModify: function (req, res) {
         var id =  req.params.id;
         Base.multiDataRequest(req, res, [
-            {url: '/api/categories/attributes/'+ id, method: 'GET', resConfig: {keyName: 'mateCategory', is_must: true}},
+            {url: '/api/categories/attributes/'+ id+'?showAttr=true', method: 'GET', resConfig: {keyName: 'mateCategory', is_must: true}},
         ], function (req, res, resultList) {
             var returnData = Base.mergeData(helper.mergeObject({
                 title: ' ',

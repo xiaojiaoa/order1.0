@@ -70,7 +70,7 @@
                                         <i class="fa fa-search"></i>
                                         查询
                                     </button>
-                                    <a class="btn btn-primary margin-right-5" href="/materialManage/materialType/creOne">
+                                    <a class="btn btn-primary margin-left-10" href="/materialManage/materialType/creOne">
                                         <i class="fa fa-save"></i>
                                         新建分类
                                     </a>
@@ -105,12 +105,12 @@
                                 <th>一级分类</th>
                                 <th>二级分类</th>
                                 <th>三级分类</th>
-                                <th>上级编码</th>
+                                <th style="display:none">上级编码</th>
+                                <th style="">物料编码</th>
                                 <th>添加时间</th>
                                 <th>备注</th>
                                 <th>操作</th>
-                                <th style="">显示id</th>
-                                <th>显示级别</th>
+                               <!-- <th>显示级别</th>-->
                             </tr>
                             </thead>
                             <tbody>
@@ -137,7 +137,8 @@
                                 <%  } %>
                                 <!--END 判断物料分类级别-->
 
-                                <td><%= element.parentId %></td>
+                                <td style="display:none"><%= element.parentId %></td>
+                                <td ><%= element.id %></td>
                                 <td><%= DWY_Helper.getLocalDate(element.addTime) %></td>
                                 <td><%= element.remark %></td>
 
@@ -181,8 +182,8 @@
                                 <%  } %>
                                 <!--END 根据物料级别不同执行不同操作-->
 
-                                <td style=""><%= element.id %></td>
-                                <td><%= DWY_Helper.judgeMateType(element.id) %></td>
+
+                             <!--   <td><%= DWY_Helper.judgeMateType(element.id) %></td>-->
                             </tr>
                             <% })
 
@@ -221,7 +222,7 @@
         //启用、禁用物料分类属性
         $(".closeStore").on({
             click: function () {
-                var id= $(this).parent().parent().children().eq(7).text();
+                var id= $(this).parent().parent().children().eq(4).text();
                 console.log(id);
                 layer.confirm('确定禁用该属性？',{icon: 3, title:'提示'},
                     function(index){
@@ -238,7 +239,7 @@
         });
         $(".openStore").on({
             click: function () {
-                var id= $(this).parent().parent().children().eq(7).text();
+                var id= $(this).parent().parent().children().eq(4).text();
                 console.log(id);
                 layer.confirm('确定启用该属性？',{icon: 3, title:'提示'},
                     function(index){
