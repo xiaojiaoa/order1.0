@@ -33,7 +33,7 @@
                                     <div class="form-group">
                                         <label class="col-xs-4 control-label">采购单号:</label>
                                         <div class="col-xs-8">
-                                            <input class="form-control" placeholder="请输入订单号" type="text" value="<%= DWYRequest.query.id %>" name="id">
+                                            <input class="form-control" placeholder="请输入订单号" type="text" value="<%= DWYRequest.query.purcNo %>" name="purcNo">
                                         </div>
                                     </div>
                                 </div>
@@ -41,10 +41,10 @@
                                     <div class="form-group">
                                         <label class="col-xs-4 control-label">采购状态:</label>
                                         <div class="col-xs-8">
-                                            <select class="form-control" name="brandId">
-                                                <option value="">- 请选择 -</option>
-
-                                            </select>
+                                            <input class="form-control" placeholder="请输入采购状态" type="text" value="<%= DWYRequest.query.stcode %>" name="stcode">
+                                            <!--<select class="form-control" name="brandId">-->
+                                                <!--<option value="">- 请选择 -</option>-->
+                                            <!--</select>-->
                                         </div>
                                     </div>
                                 </div>
@@ -163,7 +163,7 @@
     <script type="text/javascript">
         $(document).ready(function () {
             pageSetUp();
-            $(".fg-date-picker").flatpickr(data_time_picker.data_picker); // jQuery
+            $(".fg-date-time-picker").flatpickr(data_time_picker.data_time_picker); // jQuery
             //合并采购单
             var checkedValue = $('#checkedValue');
             $("#checkAll").change(function () {
