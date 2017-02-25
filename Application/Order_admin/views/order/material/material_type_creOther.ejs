@@ -40,7 +40,8 @@
 
 
                                 <!--输入字段-->
-                                <% if( mateCategory.stairCategory &&  mateCategory.secondaryCategory){ %>
+                                <% if( mateCategory.stairCategory &&  mateCategory.secondaryCategory && mateCategory.thirdlyCategory){ %>
+                                <!--新建二级子类-->
                                 <div class="col-xs-12">
                                 <div class="col-xs-6">
                                     <div class="form-group">
@@ -63,7 +64,8 @@
                                     </div>
                                 </div>
                                 </div>
-                                <% }else{ %>
+                                <% }%>else  <% if( mateCategory.stairCategory &&  mateCategory.secondaryCategory){ %>
+                            <!--新建三级子类-->
                                 <div class="col-xs-12">
                                 <div class="col-xs-6">
                                     <div class="form-group">
@@ -105,6 +107,7 @@
                                 </div>
                             </div>
 
+                            <input name="id" value='<%= id %>' type="hidden" >
                             <% switch (DWY_Helper.judgeMateType(id)){
                             case "一级": %>
                             <input name="parentId" value='<%= id.substring(0,2) %>' type="hidden" >

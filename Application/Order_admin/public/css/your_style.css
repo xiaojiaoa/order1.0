@@ -377,3 +377,8 @@ tr > td > .separation:last-child {
 #purchaseTable:first-of-type{
     display:table;
 }
+.my-div-style01 .form-group{
+    width: 50%;
+    box-sizing: border-box;
+    float: left;
+}

@@ -1,0 +1,83 @@
+<script type="text/javascript">
+    //物料分类三级联动菜单
+    $(document).ready(function () {
+        var stairSelect = $('#stairCategory');
+        var secondarySelect = $('#secondaryCategory');
+        var thirdlySelect = $('#thirdlyCategory');
+
+        stairSelect.change(function () {
+            var stairCategory = $(this).val();
+            if(!stairCategory){
+                secondarySelect.html('<option value="">- 请选择 -</option>');
+                thirdlySelect.html('<option value="">- 请选择 -</option>');
+                return
+            }
+            $.ajax({
+                url: '/materialManage/material/selectMateCate/'+stairCategory,
+                method: 'put',
+                success: function (data) {
+                    console.log(data);
+                    var arry = eval(data);
+                    secondarySelect.empty();
+                    thirdlySelect.html('<option value="">- 请选择 -</option>');
+                    var html = '<option value="">- 请选择 -</option>';
+                    if(arry.length == 0){
+                        html = '<option value="">请选择有二级分类的物料</option>'
+                    }else{
+                        for(var i=0;i<arry.length;i++){
+                            html +='<option value="'+arry[i].id+'">'+arry[i].name+'</option>'
+                        }
+                    }
+
+                    secondarySelect.html(html);
+                    console.log(arry)
+                    console.log(arry.length)
+                },
+                error: function (response) {
+                    $.smallBox({
+                        title: "请求失败，请重试",
+//                        content: data.msg,
+                        color: "#C46A69",
+                        iconSmall: "fa fa-times fa-2x fadeInRight animated",
+                        timeout: 3000
+                    });
+                }
+            });
+        })
+        secondarySelect.change(function () {
+            var secondaryCategory = $(this).val();
+            if(!secondaryCategory){
+                thirdlySelect.html('<option value="">- 请选择 -</option>');
+                return
+            }
+            $.ajax({
+                url: '/materialManage/material/selectMateCate/'+secondaryCategory,
+                method: 'put',
+                success: function (data) {
+                    var arry = eval(data);
+                    thirdlySelect.empty();
+                    var html = '<option value="">- 请选择 -</option>';
+                    if(arry.length == 0){
+                        html = '<option value="">请选择有三级分类的物料</option>'
+                    }else{
+                        for(var i=0;i<arry.length;i++){
+                            html +='<option value="'+arry[i].id+'">'+arry[i].name+'</option>'
+                        }
+                    }
+
+                    thirdlySelect.html(html);
+                },
+                error: function (response) {
+                    $.smallBox({
+                        title: "请求失败，请重试",
+//                        content: data.msg,
+                        color: "#C46A69",
+                        iconSmall: "fa fa-times fa-2x fadeInRight animated",
+                        timeout: 3000
+                    });
+                }
+            });
+        })
+    })
+
+</script>

@@ -282,8 +282,17 @@ router.get('/materialManage/detail/:mid', Middleware.AuthCheck, MaterialControll
 // 物料出入库总计页面
 router.get('/materialManage/summary', Middleware.AuthCheck, MaterialController.summaryPage);
 
-//物料新建页面
-router.get('/materialManage/material/create', Middleware.AuthCheck, MaterialController.materialCreatePage);
+//物料新建页面一
+router.get('/materialManage/material/creStepO', Middleware.AuthCheck, MaterialController.materialCreateOnePage);
+
+// 物料新建页面一-第一步传值
+router.post('/materialCreate/doNext', Middleware.AuthCheck, MaterialController.doNext);
+
+//物料新建页面二
+router.get('/materialManage/material/creStepS/:id', Middleware.AuthCheck, MaterialController.materialCreateSecPage);
+
+//物料分类三级联动菜单接口
+router.put('/materialManage/material/selectMateCate/:pid', Middleware.AuthCheck, MaterialController.selectMateCate);
 
 // 新建物料
 router.post('/materialManage/material/doCreate', Middleware.AuthCheck, MaterialController.doCreate);
