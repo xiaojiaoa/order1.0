@@ -667,8 +667,16 @@ router.get('/supplier/sort', Middleware.AuthCheck,SupplierController.supplierSor
 router.get('/supplier/create', Middleware.AuthCheck,SupplierController.supplierCreatPage);
 //供应商修改
 router.get('/supplier/modify', Middleware.AuthCheck,SupplierController.supplierModifyPage);
-//供应商分类添加
-router.get('/supplier/sort_create', Middleware.AuthCheck,SupplierController.supplierSortCreatPage);
+
+
+//供应商一级分类添加
+router.post('/supplier/doCreat', Middleware.AuthCheck,SupplierController.doCreate);
+//供应商分类禁用
+router.post('/supplier/doDelete/:tid/:type', Middleware.AuthCheck, SupplierController.doDelete);
+//供应商分类修改
+router.post('/supplier/doModify', Middleware.AuthCheck, SupplierController.doModify);
+
+
 //供应商分类修改
 router.get('/supplier/sort_modify', Middleware.AuthCheck,SupplierController.supplierSortModifyPage);
 //供应商可供商品
