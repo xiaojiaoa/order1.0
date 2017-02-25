@@ -40,16 +40,14 @@
                         <table class="table table-bordered table-striped table-information">
                             <tbody>
                             <tr>
-                                <td>主材颜色</td>
-                                <td><%= orderInfo.decoColor %></td>
-                                <td>订单类型</td>
-                                <td>普通订单</td>
+                                <td width="20%">主材颜色</td>
+                                <td width="30%"><%= orderInfo.decoColor %></td>
+                                <td width="20%">订单类型</td>
+                                <td width="30%">普通订单</td>
                             </tr>
                             <tr>
-                                <td>型号</td>
-                                <td>(静态数据)</td>
                                 <td>风格</td>
-                                <td><%= DWY_Helper.getAssistVal(orderInfo.decoStyleId, styleInfo) %></td>
+                                <td colspan="3"><%= DWY_Helper.getAssistVal(orderInfo.decoStyleId, styleInfo) %></td>
                             </tr>
                             <tr>
                                 <td>专卖店</td>
@@ -129,15 +127,13 @@
                             </tr>
                             <tr>
                                 <td>建单人</td>
-                                <td><%= orderInfo.channelName %> 13568749894(静态数据)</td>
+                                <td><%= orderInfo.channelName %></td>
                                 <td>设计师</td>
                                 <td><%= orderInfo.designer %></td>
                             </tr>
                             <tr>
                                 <td>建单时间</td>
-                                <td><%= DWY_Helper.getLocalDate(orderInfo.addTime) %></td>
-                                <td>提交时间</td>
-                                <td>(静态数据)</td>
+                                <td colspan="3"><%= DWY_Helper.getLocalDate(orderInfo.addTime) %></td>
                             </tr>
                             <tr>
                                 <td>备注</td>
@@ -162,19 +158,19 @@
                                         </thead>
                                         <tbody>
                                         <tr>
-                                            <td>(静态数据)132465</td>
-                                            <td>(静态数据)asddas-46566</td>
-                                            <td>(静态数据)衣柜asdsad</td>
-                                            <td>(静态数据)760*480*220</td>
-                                            <td>(静态数据)</td>
-                                            <td>(静态数据)个</td>
-                                            <td>(静态数据)1</td>
-                                            <td>(静态数据)</td>
-                                            <td>(静态数据)</td>
+                                            <td>暂无数据</td>
+                                            <td>暂无数据</td>
+                                            <td>暂无数据</td>
+                                            <td>暂无数据</td>
+                                            <td>暂无数据</td>
+                                            <td>暂无数据</td>
+                                            <td>暂无数据</td>
+                                            <td>暂无数据</td>
+                                            <td>暂无数据</td>
                                         </tr>
                                         <tr>
                                             <td colspan="6" class="text-align-right">合计</td>
-                                            <td colspan="3">(静态数据)12</td>
+                                            <td colspan="3">暂无数据</td>
                                         </tr>
                                         </tbody>
                                     </table>
@@ -190,6 +186,10 @@
                                     <a class="order-number" href="/order/detail/<%= orderElement %>"><%= orderElement %></a>
                                     <% }) %>
                                 </td>
+                            </tr>
+                            <tr>
+                                <td>同客户流水</td>
+                                <td colspan="3"></td>
                             </tr>
                             <tr>
                                 <td>相关订单</td>
@@ -510,8 +510,7 @@
                             <tr>
                                 <td>流程记录</td>
                                 <td colspan="3">
-                                    <!--发浙联物流，自提 <a class="margin-left-20" href="/order/process">添加/查看更多-->
-                                    </a>
+                                    <!--发浙联物流，自提 <a class="margin-left-20" href="/order/process">添加/查看更多</a>-->
                                 </td>
                             </tr>
 

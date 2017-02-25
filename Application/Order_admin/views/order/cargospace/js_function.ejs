@@ -1,0 +1,82 @@
+<script type="text/javascript">
+
+    $(document).ready(function () {
+        var ftySelect = $('#ftyId');
+        var whseSelect = $('#whseId');
+        var regionSelect = $('#regionId');
+
+        ftySelect.change(function () {
+            var ftyId = $(this).val();
+            if(!ftyId){
+                whseSelect.html('<option value="">- 请选择 -</option>');
+                regionSelect.html('<option value="">- 请选择 -</option>');
+                return
+            }
+            $.ajax({
+                url: '/getWarehouseList/'+ftyId,
+                method: 'put',
+                success: function (data) {
+                    var arry = eval(data);
+                    whseSelect.empty();
+                    regionSelect.html('<option value="">- 请选择 -</option>');
+                    var html = '<option value="">- 请选择 -</option>';
+                    if(arry.length == 0){
+                        html = '<option value="">该工厂下暂无仓库</option>'
+                    }else{
+                        for(var i=0;i<arry.length;i++){
+                            html +='<option value="'+arry[i].whseId+'">'+arry[i].name+'</option>'
+                        }
+                    }
+
+                    whseSelect.html(html);
+                    console.log(arry)
+                    console.log(arry.length)
+                },
+                error: function (response) {
+                    $.smallBox({
+                        title: "请求失败，请重试",
+//                        content: data.msg,
+                        color: "#C46A69",
+                        iconSmall: "fa fa-times fa-2x fadeInRight animated",
+                        timeout: 3000
+                    });
+                }
+            });
+        })
+        whseSelect.change(function () {
+            var whseId = $(this).val();
+            if(!whseId){
+                regionSelect.html('<option value="">- 请选择 -</option>');
+                return
+            }
+            $.ajax({
+                url: '/getRegionList/'+whseId,
+                method: 'put',
+                success: function (data) {
+                    var arry = eval(data);
+                    regionSelect.empty();
+                    var html = '<option value="">- 请选择 -</option>';
+                    if(arry.length == 0){
+                        html = '<option value="">该仓库下暂无仓库区域</option>'
+                    }else{
+                        for(var i=0;i<arry.length;i++){
+                            html +='<option value="'+arry[i].regionId+'">'+arry[i].name+'</option>'
+                        }
+                    }
+
+                    regionSelect.html(html);
+                },
+                error: function (response) {
+                    $.smallBox({
+                        title: "请求失败，请重试",
+//                        content: data.msg,
+                        color: "#C46A69",
+                        iconSmall: "fa fa-times fa-2x fadeInRight animated",
+                        timeout: 3000
+                    });
+                }
+            });
+        })
+    })
+
+</script>

@@ -70,7 +70,7 @@
                                         <i class="fa fa-search"></i>
                                         查询
                                     </button>
-                                    <a class="btn btn-primary margin-right-5" href="/materialManage/materialType/creOne">
+                                    <a class="btn btn-primary margin-left-10" href="/materialManage/materialType/creOne">
                                         <i class="fa fa-save"></i>
                                         新建分类
                                     </a>
@@ -101,26 +101,23 @@
                         <table class="table table-bordered table-striped">
                             <thead>
                             <tr>
-                             <!--   <th>显示id</th>
-                                <th>显示级别</th>-->
+
                                 <th>一级分类</th>
                                 <th>二级分类</th>
                                 <th>三级分类</th>
-                                <th>上级编码</th>
+                                <th style="display:none">上级编码</th>
+                                <th style="">物料编码</th>
                                 <th>添加时间</th>
                                 <th>备注</th>
                                 <th>操作</th>
-                                <th></th>
+                               <!-- <th>显示级别</th>-->
                             </tr>
                             </thead>
                             <tbody>
                             <%
                             if(mateTypeList.totalItems != 0  ){
                             mateTypeList.result.forEach(function (element, index) { %>
-                            <tr>
-                             <!--   <td><%= element.id %></td>
-                                <td><%= DWY_Helper.judgeMateType(element.id) %></td>-->
-
+                            <tr class="<%= ( element.stcode == 2 )? 'close-info':'' %>">
                                   <!--判断物料分类级别-->
                                 <% switch (DWY_Helper.judgeMateType(element.id)){
                                 case "一级": %>
@@ -140,7 +137,8 @@
                                 <%  } %>
                                 <!--END 判断物料分类级别-->
 
-                                <td><%= element.parentId %></td>
+                                <td style="display:none"><%= element.parentId %></td>
+                                <td ><%= element.id %></td>
                                 <td><%= DWY_Helper.getLocalDate(element.addTime) %></td>
                                 <td><%= element.remark %></td>
 
@@ -148,28 +146,44 @@
                                 <% switch (DWY_Helper.judgeMateType(element.id)){
                                 case "一级": %>
                                 <td>
-                                    <a href="/materialManage/materialType/creTwo/<%= element.parentId %>">新建子类</a>
-                                    <a href="/materialManage/materialType/chagOne/<%= element.id %>" class="margin-left-20">修改</a>
+                                    <% if( element.stcode == 2 ){ %>
+                                    <a href="javascript:void(0)"  class="openStore">启用</a>
+                                    <% }else{ %>
+                                    <a href="/materialManage/materialType/creOther/<%= element.id %>">新建子类</a>
+                                    <a href="/materialManage/materialType/modify/<%= element.id %>" class="margin-left-20">修改</a>
                                     <a href="javascript:void(0)" class="margin-left-20 closeStore" >禁用</a>
                                     <a href="/materialManage/material/create" class="margin-left-20">新建物料</a>
+                                    <% } %>
                                 </td>
                                 <%        break;
                                 case "二级": %>
                                 <td>
-                                    <a href="/materialManage/materialType/creThree/<%= element.parentId %>">新建子类</a>
-                                    <a href="/materialManage/materialType/chagTwo/<%= element.id %>"  class="margin-left-20">修改</a>
+                                    <% if( element.stcode == 2 ){ %>
+                                    <a href="javascript:void(0)" class="openStore">启用</a>
+                                    <% }else{ %>
+                                    <a href="/materialManage/materialType/creOther/<%= element.id %>">新建子类</a>
+                                    <a href="/materialManage/materialType/modify/<%= element.id %>"  class="margin-left-20">修改</a>
                                     <a href="javascript:void(0)" class="margin-left-20 closeStore">禁用</a>
                                     <a href="/materialManage/material/create" class="margin-left-20">新建物料</a>
+                                    <% } %>
+
                                 </td>
                                 <%         break;
                                 default: %>
                                 <td>
-                                    <a href="/materialManage/materialType/chagThree/<%= element.id %>" class="margin-left-78">修改</a>
+                                    <% if( element.stcode == 2){ %>
+                                    <a href="javascript:void(0)" class="openStore">启用</a>
+                                    <% }else{ %>
+                                    <a href="/materialManage/materialType/modify/<%= element.id %>" class="margin-left-78">修改</a>
                                     <a href="javascript:void(0)" class="margin-left-20 closeStore" >禁用</a>
                                     <a href="/materialManage/material/create"  class="margin-left-20">新建物料</a>
+                                    <% } %>
                                 </td>
                                 <%  } %>
                                 <!--END 根据物料级别不同执行不同操作-->
+
+
+                             <!--   <td><%= DWY_Helper.judgeMateType(element.id) %></td>-->
                             </tr>
                             <% })
 
@@ -205,6 +219,42 @@
         pageSetUp();
 
         $(".fg-date-time-picker").flatpickr(data_time_picker.data_picker); // jQuery
+        //启用、禁用物料分类属性
+        $(".closeStore").on({
+            click: function () {
+                var id= $(this).parent().parent().children().eq(4).text();
+                console.log(id);
+                layer.confirm('确定禁用该属性？',{icon: 3, title:'提示'},
+                    function(index){
+                        $.ajax({
+                            url: '/materialType/setStatus/'+id+'/2',
+                            method: 'put',
+                            success: function (data) {
+                                window.location.reload();
+                            }
+                        });
+                    },
+                    function(index){layer.close(index)})
+            }
+        });
+        $(".openStore").on({
+            click: function () {
+                var id= $(this).parent().parent().children().eq(4).text();
+                console.log(id);
+                layer.confirm('确定启用该属性？',{icon: 3, title:'提示'},
+                    function(index){
+                        $.ajax({
+                            url: '/materialType/setStatus/'+id+'/1',
+                            method: 'put',
+                            success: function (data) {
+                                window.location.reload();
+                            }
+                        });
+                    },
+                    function(index){layer.close(index)})
+            }
+        })
+
     })
 
 </script>

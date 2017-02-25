@@ -2162,22 +2162,22 @@
 
 
 		<script type="text/javascript">
-		
+
 		// DO NOT REMOVE : GLOBAL FUNCTIONS!
-		
+
 		$(document).ready(function() {
-			
+
 			pageSetUp();
-			
+
 			 // PAGE RELATED SCRIPTS
-		
+
 			 // Spinners
 			$("#spinner").spinner();
 			$("#spinner-decimal").spinner({
 			    step: 0.01,
 			    numberFormat: "n"
 			});
-		
+
 			$("#spinner-currency").spinner({
 			    min: 5,
 			    max: 2500,
@@ -2185,15 +2185,15 @@
 			    start: 1000,
 			    numberFormat: "C"
 			});
-		
+
 			 //Maxlength
-			
+
 		    $('input[maxlength]').maxlength({
 		        warningClass: "label label-success",
 		        limitReachedClass: "label label-important",
 		    });
-		
-			
+
+
 			 // START AND FINISH DATE
 			$('#startdate').datepicker({
 			    dateFormat: 'dd.mm.yy',
@@ -2211,7 +2211,7 @@
 			        $('#startdate').datepicker('option', 'maxDate', selectedDate);
 			    }
 			});
-		
+
 			 // Date Range Picker
 			$("#from").datepicker({
 			    defaultDate: "+1w",
@@ -2222,7 +2222,7 @@
 			    onClose: function (selectedDate) {
 			        $("#to").datepicker("option", "maxDate", selectedDate);
 			    }
-		
+
 			});
 			$("#to").datepicker({
 			    defaultDate: "+1w",
@@ -2234,33 +2234,33 @@
 			        $("#from").datepicker("option", "minDate", selectedDate);
 			    }
 			});
-		
+
 			/*
 			 * TIMEPICKER
 			 */
-		
+
 			$('#timepicker').timepicker();
 
 			/*
 			 * CLOCKPICKER
 			 */
-			
+
 			$('#clockpicker').clockpicker({
 				placement: 'top',
 			    donetext: 'Done'
 			});
-			
+
 			/*
 			 * JS SLIDER
 			 */
-		
+
 		    $("#nouislider-1").noUiSlider({
 		        range: [2, 100],
 		        start: 55,
 		        handles: 1,
 		        connect: true,
 		    });
-		
+
 		    $("#nouislider-2").noUiSlider({
 		        range: [0, 300],
 		        start: [55, 130],
@@ -2268,7 +2268,7 @@
 		        handles: 2,
 		        connect: true
 		    });
-		
+
 		    $("#nouislider-3").noUiSlider({
 		        range: [0, 1000],
 		        start: [264, 776],
@@ -2279,19 +2279,19 @@
 		            $(".nouislider-value").text(values[0] + " - " + values[1]);
 		        }
 		    });
-		
+
 		    $("#nouislider-4").noUiSlider({
 		        range: [0, 100],
 		        start: 50,
 		        handles: 1
 		    }).attr("disabled", "disabled");
-		
-		
-		
+
+
+
 			/*
 			 * ION SLIDER
 			 */
-		
+
 		    $("#range-slider-1").ionRangeSlider({
 		        min: 0,
 		        max: 5000,
@@ -2303,9 +2303,9 @@
 		        prettify: false,
 		        hasGrid: true
 		    });
-		
+
 		    $("#range-slider-2").ionRangeSlider();
-		
+
 		    $("#range-slider-3").ionRangeSlider({
 		        min: 0,
 		        from: 2.3,
@@ -2316,7 +2316,7 @@
 		        prettify: false,
 		        hasGrid: true
 		    });
-		
+
 		    $("#range-slider-4").ionRangeSlider({
 		        min: -50,
 		        max: 50,
@@ -2328,7 +2328,7 @@
 		        prettify: false,
 		        hasGrid: true
 		    });
-		
+
 		    $("#range-slider-5").ionRangeSlider({
 		        min: 0,
 		        from: 0,
@@ -2339,12 +2339,12 @@
 		        prettify: false,
 		        hasGrid: true
 		    });
-		
-		
+
+
 			/*
 			 * BOOTSTRAP DUALLIST BOX
 			 */
-					
+
 			var initializeDuallistbox = $('#initializeDuallistbox').bootstrapDualListbox({
 	          nonSelectedListLabel: 'Non-selected',
 	          selectedListLabel: 'Selected',
@@ -2352,21 +2352,21 @@
 	          moveOnSelect: false,
 	          nonSelectedFilter: 'ion ([7-9]|[1][0-2])'
 	        });
-			
-		
+
+
 			/*
 			 * COLOR PICKER
 			 */
-		
+
 		    $('#colorpicker-1').colorpicker()
 		    $('#colorpicker-2').colorpicker()
-		
-		
-		
+
+
+
 			/*
 			 * KNOB
 			 */
-		
+
 		    $('.knob').knob({
 		        change: function (value) {
 		            //console.log("change : " + value);
@@ -2379,13 +2379,13 @@
 		            //console.log("cancel : ", this);
 		        }
 		    });
-		
-		
+
+
 			/*
 			 * X-Ediable
 			 */
 
-		
+
 		    (function (e) {
 		        "use strict";
 		        var t = function (e) {
@@ -2447,17 +2447,17 @@
 		        });
 		        e.fn.editabletypes.address = t
 		    })(window.jQuery);
-		
+
 		    //ajax mocks
 		    $.mockjaxSettings.responseTime = 500;
-		
+
 		    $.mockjax({
 		        url: '/post',
 		        response: function (settings) {
 		            log(settings, this);
 		        }
 		    });
-		
+
 		    $.mockjax({
 		        url: '/error',
 		        status: 400,
@@ -2467,7 +2467,7 @@
 		            log(settings, this);
 		        }
 		    });
-		
+
 		    $.mockjax({
 		        url: '/status',
 		        status: 500,
@@ -2476,7 +2476,7 @@
 		            log(settings, this);
 		        }
 		    });
-		
+
 		    $.mockjax({
 		        url: '/groups',
 		        response: function (settings) {
@@ -2502,7 +2502,7 @@
 		            log(settings, this);
 		        }
 		    });
-		
+
 		    //TODO: add this div to page
 		    function log(settings, response) {
 		        var s = [],
@@ -2521,7 +2521,7 @@
 		            s.push(a + ' = ' + str);
 		        }
 		        s.push('RESPONSE: status = ' + response.status);
-		
+
 		        if (response.responseText) {
 		            if ($.isArray(response.responseText)) {
 		                s.push('[');
@@ -2536,11 +2536,11 @@
 		        s.push('--------------------------------------\n');
 		        $('#console').val(s.join('\n') + $('#console').val());
 		    }
-		
+
 		    /*
 		     * X-EDITABLES
 		     */
-		
+
 		    $('#inline').on('change', function (e) {
 		        if ($(this).prop('checked')) {
 		            window.location.href = '?mode=inline#ajax/plugins.html';
@@ -2548,7 +2548,7 @@
 		            window.location.href = '?#ajax/plugins.html';
 		        }
 		    });
-		
+
 		    if (window.location.href.indexOf("?mode=inline") > -1) {
 		        $('#inline').prop('checked', true);
 		        $.fn.editable.defaults.mode = 'inline';
@@ -2556,16 +2556,16 @@
 		        $('#inline').prop('checked', false);
 		        $.fn.editable.defaults.mode = 'popup';
 		    }
-		
+
 		    //defaults
 		    $.fn.editable.defaults.url = '/post';
 		    //$.fn.editable.defaults.mode = 'inline'; use this to edit inline
-		
+
 		    //enable / disable
 		    $('#enable').click(function () {
 		        $('#user .editable').editable('toggleDisabled');
 		    });
-		
+
 		    //editables
 		    $('#username').editable({
 		        url: '/post',
@@ -2574,14 +2574,14 @@
 		        name: 'username',
 		        title: 'Enter username'
 		    });
-		
+
 		    $('#firstname').editable({
 		        validate: function (value) {
 		            if ($.trim(value) == '')
 		                return 'This field is required';
 		        }
 		    });
-		
+
 		    $('#sex').editable({
 		        prepend: "not selected",
 		        source: [{
@@ -2599,7 +2599,7 @@
 		            }, elem = $.grep(sourceData, function (o) {
 		                    return o.value == value;
 		                });
-		
+
 		            if (elem.length) {
 		                $(this).text(elem[0].text).css("color", colors[value]);
 		            } else {
@@ -2607,28 +2607,28 @@
 		            }
 		        }
 		    });
-		
+
 		    $('#status').editable();
-		
+
 		    $('#group').editable({
 		        showbuttons: false
 		    });
-		
+
 		    $('#vacation').editable({
 		        datepicker: {
 		            todayBtn: 'linked'
 		        }
 		    });
-		
+
 		    $('#dob').editable();
-		
+
 		    $('#event').editable({
 		        placement: 'right',
 		        combodate: {
 		            firstItem: 'name'
 		        }
 		    });
-		
+
 		    $('#meeting_start').editable({
 		        format: 'yyyy-mm-dd hh:ii',
 		        viewformat: 'dd/mm/yyyy hh:ii',
@@ -2641,18 +2641,18 @@
 		            weekStart: 1
 		        }
 		    });
-		
+
 		    $('#comments').editable({
 		        showbuttons: 'bottom'
 		    });
-		
+
 		    $('#note').editable();
 		    $('#pencil').click(function (e) {
 		        e.stopPropagation();
 		        e.preventDefault();
 		        $('#note').editable('toggle');
 		    });
-		
+
 		    $('#state').editable({
 		        source: ["Alabama", "Alaska", "Arizona", "Arkansas", "California", "Colorado", "Connecticut",
 		            "Delaware", "Florida", "Georgia", "Hawaii", "Idaho", "Illinois", "Indiana", "Iowa", "Kansas",
@@ -2663,7 +2663,7 @@
 		            "Utah", "Vermont", "Virginia", "Washington", "West Virginia", "Wisconsin", "Wyoming"
 		        ]
 		    });
-		
+
 		    $('#state2').editable({
 		        value: 'California',
 		        typeahead: {
@@ -2679,7 +2679,7 @@
 		            ]
 		        }
 		    });
-		
+
 		    $('#fruits').editable({
 		        pk: 1,
 		        limit: 3,
@@ -2700,7 +2700,7 @@
 		            text: 'orange'
 		        }]
 		    });
-		
+
 		    $('#tags').editable({
 		        inputclass: 'input-large',
 		        select2: {
@@ -2708,7 +2708,7 @@
 		            tokenSeparators: [",", " "]
 		        }
 		    });
-		
+
 		    var countries = [];
 		    $.each({
 		        "BD": "Bangladesh",
@@ -2969,14 +2969,14 @@
 		            text: v
 		        });
 		    });
-		
+
 		    $('#country').editable({
 		        source: countries,
 		        select2: {
 		            width: 200
 		        }
 		    });
-		
+
 		    $('#address').editable({
 		        url: '/post',
 		        value: {
@@ -2998,7 +2998,7 @@
 		            $(this).html(html);
 		        }
 		    });
-		
+
 		    $('#user .editable').on('hidden', function (e, reason) {
 		        if (reason === 'save' || reason === 'nochange') {
 		            var $next = $(this).closest('tr').next().find('.editable');
@@ -3010,8 +3010,8 @@
 		                $next.focus();
 		            }
 		        }
-		    });			
-	
+		    });
+
 		})
 
 		</script>
@@ -3021,7 +3021,7 @@
 			var _gaq = _gaq || [];
 				_gaq.push(['_setAccount', 'UA-XXXXXXXX-X']);
 				_gaq.push(['_trackPageview']);
-			
+
 			(function() {
 				var ga = document.createElement('script');
 				ga.type = 'text/javascript';
