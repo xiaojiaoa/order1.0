@@ -1,0 +1,222 @@
+//新建供应商分类
+<form class="form-horizontal  layer-template" method="post" action="/supplier/doCreat" id="create-supplier">
+        <div class="col-xs-12">
+            <div class="col-xs-8">
+                <div class="form-group">
+                    <label class="col-xs-4 control-label"><span class="requird"></span> 上级分类:</label>
+                    <div class="col-xs-8">
+                        <select class="form-control" name="parentId" readonly="readonly">
+                            <option value="0">- 一级分类 -</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-12">
+            <!--输入字段-->
+            <div class="col-xs-8">
+                <div class="form-group">
+                    <label class="col-xs-4 control-label "><span class="requird"></span> 分类名称:
+                    </label>
+                    <div class="col-xs-8">
+                        <input class="form-control validate[required]"
+                               value="<%= DWY_last_request_param.name %>"
+                               name="name">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-12">
+            <div class="col-xs-8">
+                <div class="form-group">
+                    <label class="col-xs-4 control-label"><span class="requird"></span> 标识:</label>
+                    <div class="col-xs-8">
+                        <select class="form-control validate[required]" name="type">
+                            <option value="">- 请选择 -</option>
+                            <option value="1" <%= (DWY_last_request_param.type == 1) ? 'selected' : '' %> >
+                                外部
+                            </option>
+                            <option value="2" <%= (DWY_last_request_param.type == 2) ? 'selected' : '' %> >
+                                内部
+                            </option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-12">
+            <!--输入字段-->
+            <div class="col-xs-8">
+                <div class="form-group">
+                    <label class="col-xs-4 control-label">备注:</label>
+                    <div class="col-xs-8">
+                        <textarea name="remark" class="form-control"  cols="20" rows="5"></textarea>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-12">
+            <hr class="simple">
+            <div class="col-xs-8 text-center">
+                <button class="btn btn-primary" type="submit">
+                    <i class="fa fa-save"></i>
+                    确认添加
+                </button>
+            </div>
+        </div>
+        <div class="dwy-clear"></div>
+</form>
+
+//新建子级分类
+<form class="form-horizontal  layer-template" method="post" id="creatSupplierChild" action="/supplier/doCreat" >
+    <div class="col-xs-12">
+        <div class="form-group">
+            <label class="col-xs-2 control-label">分类名称:</label>
+            <div class="col-xs-6">
+                <label class="control-label text-align-left" id="SupplierChildName"></label>
+                <input name="parentId" value="" type="hidden" id="SupplierChildId">
+            </div>
+        </div>
+    </div>
+    <div class="col-xs-12">
+        <div class="form-group">
+            <label class="col-xs-2 control-label"><span class="requird"></span>子级名称:</label>
+            <div class="col-xs-6">
+                <input class="form-control validate[required]" type="text"  value="" name="name" data-prompt-position="bottomLeft:20,5">
+            </div>
+        </div>
+    </div>
+    <div class="col-xs-12">
+        <hr class="simple">
+        <div class="col-xs-12 text-center">
+            <button class="btn btn-primary" type="submit">
+                <i class="fa fa-save"></i>
+                新建
+            </button>
+        </div>
+    </div>
+    <div class="dwy-clear"></div>
+</form>
+//修改分类
+<form class="form-horizontal  layer-template" method="post" id="modify-supplier" action="/supplier/doModify" >
+    <div class="col-xs-12">
+        <!--输入字段-->
+        <div class="col-xs-8">
+            <div class="form-group">
+                <label class="col-xs-4 control-label "><span class="requird"></span> 分类名称:
+                </label>
+                <div class="col-xs-8">
+                    <input class="form-control validate[required]" type="text" id="modifyName"  value="" name="name" data-prompt-position="bottomLeft:20,5">
+                    <input name="tid" value="" type="hidden" id="modifyId">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-xs-12">
+        <hr class="simple">
+        <div class="col-xs-8 text-center">
+            <button class="btn btn-primary" type="submit">
+                <i class="fa fa-save"></i>
+                确定修改
+            </button>
+        </div>
+    </div>
+    <div class="dwy-clear"></div>
+</form>
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+        $("#creatSupplierChild").validationEngine({scroll: false});
+        $("#create-supplier").validationEngine({scroll: false});
+        $("#modify-supplier").validationEngine({scroll: false});
+        //新建一级分类
+        $("#supplierParentCreat").on({
+            click: function (e) {
+                layer.open({
+                    title: false,
+                    type: 1,
+                    area: '700px',
+                    content: $('#create-supplier'),
+                    cancel: function () {
+                        //右上角关闭回调
+                    },
+
+                });
+            }
+        })
+        //新建子级
+        $('.supplierChild-modal').on({
+            click: function (e) {
+                var parentSupplier = $(this).attr('parent');
+                var parentSupplierId = $(this).attr('parentId');
+                $('#SupplierChildName').text(parentSupplier);
+                $('#SupplierChildId').val(parentSupplierId);
+                layer.open({
+                    title: false,
+                    type: 1,
+                    area: '500px',
+                    content: $('#creatSupplierChild'),
+                    cancel: function () {
+                    },
+                });
+            }
+        })
+        //禁用分类
+        $(".delete-supplier").on({
+            click: function () {
+                var tid = $(this).attr('selfId');
+                var type= $("#urlType").val();
+                layer.confirm('确定禁用?',{icon: 3, title:'提示'},
+                    function(index){
+                        $.ajax({
+                            url: '/supplier/doDelete/'+tid+'/'+type,
+                            method: 'post',
+                            success: function (data) {
+                                window.location.reload();
+                            }
+                        });
+                    },
+                    function(index){layer.close(index)})
+            }
+        })
+        //启用分类
+        $(".openSupplierSort").on({
+            click: function () {
+                var tid = $(this).attr('selfId');
+                var type= $("#urlType2").val();
+                layer.confirm('确定启用?',{icon: 3, title:'提示'},
+                    function(index){
+                        $.ajax({
+                            url: '/supplier/doDelete/'+tid+'/'+type,
+                            method: 'post',
+                            success: function (data) {
+                                window.location.reload();
+                            }
+                        });
+                    },
+                    function(index){layer.close(index)})
+            }
+        })
+        //修改分类
+        $('.supplierModify-modal').on({
+            click: function (e) {
+                var supplierName = $(this).attr('name');
+                var supplierId = $(this).attr('selfId');
+                $('#modifyName').val(supplierName);
+                $('#modifyId').val(supplierId);
+                layer.open({
+                    title: false,
+                    type: 1,
+                    area: '500px',
+                    content: $('#modify-supplier'),
+                    cancel: function () {
+                    },
+
+                });
+            }
+        })
+
+    })
+
+</script>

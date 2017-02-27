@@ -394,7 +394,13 @@ tr > td > .separation:last-child {
     margin-right: 20px;
     color: #333;
 }
-.title-url.active,.title-url:hover{
+
+.title-url.active,.title-url:hover {
     color: #61aae8;
     border-bottom: 5px solid #61aae8;
+}
+.my-div-style01 .form-group{
+    width: 50%;
+    box-sizing: border-box;
+    float: left;
 }

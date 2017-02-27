@@ -9,7 +9,6 @@
 
     <!-- RIBBON -->
     <div id="ribbon">
-
         <!-- breadcrumb -->
         <ol class="breadcrumb">
             <li>后台管理</li>
@@ -118,8 +117,10 @@
                     <legend>
                         供应商分类
                         <!--<a class="label label-primary" href="">修改</a>-->
-                        <a class="label label-primary" href="/supplier/sort_create">添加分类</a>
-                        <a class="label label-danger" id="closeStore">禁用</a>
+                        <a class="label label-primary" id="supplierParentCreat">添加供应商一级分类</a>
+                        <!--<a class="label label-danger" id="closeStore">禁用</a>-->
+                        <input value="1" id="urlType" type="hidden">
+                        <input value="2" id="urlType2" type="hidden">
                     </legend>
                     <div class="table-responsive">
                         <table class="table table-bordered table-striped table-expand">
@@ -130,26 +131,37 @@
                             </tr>
                             </thead>
                             <tbody>
-                            <tr class="level-0">
-                                <td>供应商1</td>
-                                <td>
-                                    <a class="departmentChild-modal" parent="" parentId="" href="/supplier/sort_create">新建子级</a>
-                                    <!--<a class="supplierModify-modal" name="供应商1" selfId="111">修改</a>-->
-                                    <a class="supplierModify-modal" href="sort_modify">修改</a>
-                                    <a class="delete-department" selfId="1113">删除</a>
-                                </td>
-                            </tr>
-                            <tr class="level-1">
-                                <td class="level-1-title">子级</td>
-                                <td>
-                                    <!--<a class="supplierModify-modal" name="子级"  selfId="222">修改</a>-->
-                                    <a class="supplierModify-modal" href="sort_modify">修改</a>
-                                    <a class="delete-department"  selfId="222">删除</a>
-                                </td>
-                            </tr>
+                            <% suppliersCategoriesList.result.forEach(function (element, index) {%>
+                            <% if(element.parentId == 0){%>
+                                <tr class="level-0 <%= ( element.isDeleted == 1 )? 'close-info':'' %>">
+                                    <td><%= element.name %></td>
+                                    <td>
+                                        <% if(element.isDeleted == 2) {%>
+                                        <a class="supplierChild-modal"  parent="<%= element.name %>" parentId="<%= element.id %>">新建子级</a>
+                                        <a class="supplierModify-modal" name="<%= element.name %>" selfId="<%= element.id %>">修改</a>
+                                        <button class="label label-danger delete-supplier" selfId="<%= element.id %>" id="closeStore">禁用</button>
+                                        <% }else{%>
+                                        <button class="label label-primary openSupplierSort" id="openStore" selfId="<%= element.id %>">启用</button>
+                                        <% } %>
+                                    </td>
+                                </tr>
+                            <%}else{%>
+                                <tr class="level-1 <%= ( element.isDeleted == 1 )? 'close-info':'' %>">
+                                    <td class="level-1-title"><%= element.name %></td>
+                                    <td>
+                                        <% if(element.isDeleted == 2) {%>
+                                        <a class="supplierModify-modal" name="<%= element.name %>" selfId="<%= element.id %>">修改</a>
+                                        <button class="label label-danger delete-supplier" selfId="<%= element.id %>" id="closeStore">禁用</button>
+                                        <% }else{%>
+                                        <button class="label label-primary openSupplierSort" id="openStore" selfId="<%= element.id %>">启用</button>
+                                        <% } %>
+                                    </td>
+                                </tr>
+                            <%
+                            }})%>
                             </tbody>
                         </table>
-
+                        <%- pagination %>
                     </div>
                 </div>
             </div>
@@ -171,4 +183,5 @@
     })
 </script>
 <%- include('../layouts/foot'); %>
+<%- include('./supplier_modal'); %>
 
