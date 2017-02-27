@@ -18,7 +18,7 @@ var Permissions = require('../config/permission');
 
 var MaterialController = {
     indexPage: function (req, res) {
-  /*      var paramObject = helper.genPaginationQuery(req);
+        var paramObject = helper.genPaginationQuery(req);
         Base.multiDataRequest(req, res, [
             {url: '/api/materials?'+ queryString.stringify(req.query), method: 'GET', resConfig: {keyName: 'mateList', is_must: true}}
         ], function (req, res, resultList) {
@@ -37,8 +37,8 @@ var MaterialController = {
                 pagination: boostrapPaginator.render()
             },resultList));
             res.render('order/material/material_index',returnData);
-        });*/
-        res.render('order/material/material_index');
+        });
+        //res.render('order/material/material_index');
     },
     detailPage: function (req, res) {
         var mid =  req.params.mid;
@@ -90,7 +90,19 @@ var MaterialController = {
        // res.render('order/material/material_create_second');
     },
     materialModifyPage: function (req, res) {
-        res.render('order/material/material_modify');
+        var id = req.params.mid;
+        console.log(id);
+        Base.multiDataRequest(req, res, [
+            {url: '/api/materials/attributes/'+id, method: 'GET', resConfig: {keyName: 'materialInfo', is_must: true}},
+            {url: '/api/assist/material/units', method: 'GET', resConfig: {keyName: 'units', is_must: true}},
+        ], function (req, res, resultList) {
+            var returnData = Base.mergeData(helper.mergeObject({
+                title: ' ',
+                id:id,
+            },resultList));
+            res.render('order/material/material_modify',returnData);
+        });
+        //res.render('order/material/material_modify');
     },
     doCreate: function (req, res) {
         console.log('物料创建'+ JSON.stringify(req.body));
