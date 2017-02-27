@@ -574,7 +574,7 @@ router.put('/getRegionList/:whseId', Middleware.AuthCheck, CargospaceController.
 router.get('/cargospace', Middleware.AuthCheck, Middleware.FilterEmptyField, CargospaceController.listPage);
 
 // 货位详情页面
-router.get('/cargospace/detail/:spaceId', Middleware.AuthCheck, CargospaceController.detailPage);
+router.get('/:type/cargospace/detail/:spaceId', Middleware.AuthCheck, CargospaceController.detailPage);
 
 // 新增货位页面
 router.get('/cargospace/create', Middleware.AuthCheck, CargospaceController.createPage);
@@ -621,11 +621,21 @@ router.put('/enterMaterial/notPass/:id', Middleware.AuthCheck, EnterController.n
 // 原料入库详情页面
 router.get('/enterMaterial/detail/:id', Middleware.AuthCheck, EnterController.enterMaterialDetailPage);
 
+// 原料入库-采购完成单 页面
+router.get('/enterMaterial/stockOver', Middleware.AuthCheck, EnterController.stockOverPage);
+
 // 成品入库页面
-router.get('/enterProduct', Middleware.AuthCheck, Middleware.FilterEmptyField, EnterController.enterProductPage);
+router.get('/enterProduct', Middleware.AuthCheck, EnterController.enterProductPage);
 
 // 成品入库详情页面
 router.get('/enterProduct/detail/:id', Middleware.AuthCheck, EnterController.enterProductDetailPage);
+
+// 成品扫描入库页面
+router.get('/enterProduct/scanning', Middleware.AuthCheck, EnterController.enterScanningPage);
+
+// 成品扫描入库-入库
+router.put('/enterProduct/scanning/doEnter/:id', Middleware.AuthCheck, EnterController.doEnterProduct);
+
 
 
 

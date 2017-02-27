@@ -89,11 +89,31 @@ var EnterController = {
         })
 
     },
+    stockOverPage: function (req, res){
+        res.render('order/enter/enter_material_stock');
+    },
     enterProductPage: function (req, res){
         res.render('order/enter/enter_product');
     },
     enterProductDetailPage: function (req, res){
         res.render('order/enter/enter_product_detail');
+    },
+    enterScanningPage: function (req, res){
+        res.render('order/enter/enter_product_scanning');
+    },
+    doEnterProduct: function (req, res) {
+        var id = req.params.id;
+        request(Base.mergeRequestOptions({
+            method: 'put',
+            url: '/api/orders/review/getTask/'+id,
+        }, req, res), function (error, response, body) {
+            if (!error && response.statusCode == 201) {
+                res.sendStatus(200);
+            } else {
+                Base.handlerError(res, req, error, response, body);
+            }
+        })
+
     },
 };
 

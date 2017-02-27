@@ -47,13 +47,14 @@
                                     <div class="form-group">
                                         <label class="col-xs-2 control-label "><span class="requird"></span> 文件类型: </label>
                                         <div class="col-xs-10">
-                                            <select class="form-control validate[required]" name="type">
+                                            <select class="form-control validate[required]" name="type" id="fileType" >
                                                 <option value="">- 文件类型 -</option>
                                                 <% fileTypeInfo.forEach(function (element) { %>
-                                                <option value="<%= element.code %>"><%= element.name %></option>
+                                                <option value="<%= element.code %>" data-id="<%= element.id %>"><%= element.name %></option>
                                                 <%  }) %>
 
                                             </select>
+                                            <input type="hidden" name="fileTypeId" id="fileTypeId" value="">
                                         </div>
                                     </div>
                                 </div>
@@ -66,9 +67,9 @@
                                 <!--输入字段-->
                                 <div class="col-xs-8">
                                     <div class="form-group">
-                                        <label class="col-xs-2 control-label"><span class="requird"></span> 备注:</label>
+                                        <label class="col-xs-2 control-label">备注:</label>
                                         <div class="col-xs-10">
-                                            <input class="form-control validate[required]" name="remark">
+                                            <input class="form-control" name="remark">
                                         </div>
                                     </div>
                                 </div>
@@ -204,6 +205,12 @@
         $("#file-order").validationEngine();
 
         pageSetUp();
+        $('#fileType').change(function () {
+            var id = $(this).find('option:selected').attr('data-id');
+//            alert(id)
+            $('#fileTypeId').val(id);
+            
+        })
 
         $('#dwy_file_upload').on({
             change: function (e) {

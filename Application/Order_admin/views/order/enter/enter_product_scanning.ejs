@@ -1,0 +1,194 @@
+<%- include('../layouts/head_top'); %>
+<%- include('../layouts/head_bottom'); %>
+<%- include('../layouts/header'); %>
+<%- include('../layouts/nav'); %>
+
+
+<!-- MAIN PANEL -->
+<div id="main" role="main">
+
+    <!-- RIBBON -->
+    <div id="ribbon">
+
+        <!-- breadcrumb -->
+        <ol class="breadcrumb">
+            <li>后台管理</li>
+            <li><a class="back-url" href="/enterProduct"><i class="fa fa-chevron-left"></i> 成品入库</a></li>
+            <li>成品扫描入库</li>
+        </ol>
+
+
+    </div>
+    <!-- END RIBBON -->
+
+
+    <!-- MAIN CONTENT -->
+    <div id="content">
+        <!-- well -->
+        <div class="well">
+            <!-- row -->
+            <div class="row">
+                <!-- col -->
+                <div class="col-xs-12">
+                    <!--<legend>客户搜索</legend>-->
+                    <!-- row -->
+                    <div class="row search-form">
+                        <form class="form-horizontal" method="get" id="search-customer">
+
+                            <div class="col-xs-12">
+
+                                <!--输入字段-->
+                                <div class="col-xs-3">
+                                    <div class="form-group">
+                                        <label class="col-xs-4 control-label">包装号:</label>
+                                        <div class="col-xs-8">
+                                            <label class="control-label">564789564</label>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-xs-3">
+                                    <div class="form-group">
+                                        <label class="col-xs-4 control-label">包数</label>
+                                        <div class="col-xs-8">
+                                            <label class="control-label">1</label>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div class="col-xs-12">
+                                <div class="col-xs-3">
+                                    <div class="form-group">
+                                        <label class="col-xs-4 control-label">货位号:</label>
+                                        <div class="col-xs-8">
+                                            <input class="form-control" value="<%= DWYRequest.query.cid %>" type="text"
+                                                   name="cid">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xs-3">
+                                    <div class="form-group">
+                                        <label class="col-xs-4 control-label">显示方式:</label>
+                                        <div class="col-xs-8">
+                                            <select class="form-control" name="ctype">
+                                                <option value="1">不显示已排满</option>
+                                                <option value="2">显示所有</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-xs-12">
+                                <hr class="simple">
+                                <div class="col-xs-12 text-center">
+                                    <button class="btn btn-primary " type="submit">
+                                        <i class="fa fa-search"></i>
+                                        查询
+                                    </button>
+                                </div>
+                            </div>
+
+                        </form>
+                    </div>
+                    <!-- end row -->
+                </div>
+                <!-- end col -->
+            </div>
+            <!-- end row -->
+        </div>
+        <!-- end well -->
+
+        <div class="well">
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-striped table-hover table-expand">
+                            <thead>
+                            <tr>
+                                <th>序号</th>
+                                <th>货位号</th>
+                                <th>所在行/列/层</th>
+                                <th>最大承重</th>
+                                <th>最大存货数量</th>
+                                <th>货架长宽高</th>
+                                <th>货位状态</th>
+                                <th>可用承重</th>
+                                <th>操作</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td>1</td>
+                                <td>01</td>
+                                <td>25行25列35层</td>
+                                <td>7500KG</td>
+                                <td>1334件</td>
+                                <td>750*1334*666</td>
+                                <td>空</td>
+                                <td>3500KG</td>
+                                <td><a class="enterThis" data-id="37">入库</a></td>
+                            </tr>
+
+                            <tr>
+                                <td colspan="9" class="text-align-center">暂无数据</td>
+                            </tr>
+                            </tbody>
+                        </table>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- END MAIN CONTENT -->
+
+</div>
+<!-- END MAIN PANEL -->
+
+<%- include('../layouts/footer'); %>
+<%- include('../layouts/footer_common_script'); %>
+
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+
+        $("#search-customer").validationEngine();
+
+        pageSetUp();
+
+
+        $(".enterThis").click(function () {
+            var id = $(this).attr('data-id');
+
+            layer.confirm('确定放入该货位中吗?', {icon: 3, title: '提示'}, function (index) {
+                $.ajax({
+                    url: '/enterProduct/scanning/doEnter/'+id,
+                    method: 'put',
+                    success: function (data) {
+//                        window.location.reload();
+                        location.href='/enterProduct';
+                    },
+                    error: function (response) {
+                        layer.close(index)
+                        var data = JSON.parse(response.responseText);
+                        $.smallBox({
+                            title: "操作失败",
+                            content: data.msg,
+                            color: "#C46A69",
+                            iconSmall: "fa fa-times fa-2x fadeInRight animated",
+                            timeout: 3000
+                        });
+                    }
+                });
+            }, function (index) { layer.close(index) })
+        })
+    })
+
+</script>
+
+
+<%- include('../layouts/foot'); %>
