@@ -40,7 +40,7 @@
 
 
                                 <!--输入字段-->
-                                <% if( mateCategory.stairCategory &&  mateCategory.secondaryCategory && mateCategory.thirdlyCategory){ %>
+                                <% if( mateCategory.stairCategory &&  mateCategory.secondaryCategory){ %>
                                 <!--新建二级子类-->
                                 <div class="col-xs-12">
                                 <div class="col-xs-6">
@@ -64,7 +64,7 @@
                                     </div>
                                 </div>
                                 </div>
-                                <% }%>else  <% if( mateCategory.stairCategory &&  mateCategory.secondaryCategory){ %>
+                                <% }else{ %>
                             <!--新建三级子类-->
                                 <div class="col-xs-12">
                                 <div class="col-xs-6">

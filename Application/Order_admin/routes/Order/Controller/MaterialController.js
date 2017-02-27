@@ -94,6 +94,17 @@ var MaterialController = {
     },
     doCreate: function (req, res) {
         console.log('物料创建'+ JSON.stringify(req.body));
+        request(Base.mergeRequestOptions({
+            method: 'post',
+            url: '/api/materials',
+            form:req.body,
+        }, req, res), function (error, response, body) {
+            if (!error && response.statusCode == 201) {
+                res.sendStatus(200);
+            } else {
+                Base.handlerError(res, req, error, response, body);
+            }
+        })
     },
     setMaterialStatus: function (req, res) {
         var mid = req.params.mid;
