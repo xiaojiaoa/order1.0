@@ -74,8 +74,21 @@ nav ul span.menu-item-parent {
     background: #fdcc9c !important;
 }
 
+/*日历选择器*/
 .flatpickr-input[readonly] {
     background-color: #fff;
+    float:left;
+    width: 90%;
+}
+
+/*日历清除*/
+.close-picker{
+    float:left;
+    width:10%;
+    line-height:32px;
+    font-size: 14px;
+    text-align:center;
+    cursor:pointer;
 }
 
 .table-information tr td:nth-of-type(2n+1) {

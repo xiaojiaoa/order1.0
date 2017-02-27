@@ -7,7 +7,7 @@
 var path = require('path');
 
 require('dotenv').config({path: path.join(__dirname, '../.env')});
-console.log('Welcome to ' + process.env.APP_NAME);
+console.log('Welcome to ' + process.env.APP_NAME + "at port:" + process.env.APP_PORT);
 /**
  * Module dependencies.
  */
