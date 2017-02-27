@@ -20,7 +20,8 @@ var MaterialController = {
     indexPage: function (req, res) {
         var paramObject = helper.genPaginationQuery(req);
         Base.multiDataRequest(req, res, [
-            {url: '/api/materials?'+ queryString.stringify(req.query), method: 'GET', resConfig: {keyName: 'mateList', is_must: true}}
+            {url: '/api/materials?'+ queryString.stringify(req.query), method: 'GET', resConfig: {keyName: 'mateList', is_must: true}},
+            {url: '/api/categories/list?parentId=0', method: 'GET', resConfig: {keyName: 'stairCategory', is_must: true}}
         ], function (req, res, resultList) {
 
             var paginationInfo =  resultList.mateList;
@@ -68,13 +69,25 @@ var MaterialController = {
          });
         //res.render('order/material/material_create_one');
     },
+    selectMateCate:function(req,res){
+        var pid=req.params.pid;
+        request(Base.mergeRequestOptions({
+            method: 'get',
+            url: '/api/categories/list?parentId='+pid,
+        }, req, res), function (error, response, body) {
+            if (!error && response.statusCode == 200) {
+                res.status(200).json(body);
+            } else {
+                Base.handlerError(res, req, error, response, body);
+            }
+        })
+    },
     doNext: function (req, res) {
         var id = req.body.thirdlyCategory;
         console.log(id);
         res.redirect("/materialManage/material/creStepS/"+id);
     },
-
-     materialCreateSecPage: function (req, res) {
+    materialCreateSecPage: function (req, res) {
          var id = req.params.id;
          console.log(id);
          Base.multiDataRequest(req, res, [
@@ -89,21 +102,6 @@ var MaterialController = {
          });
        // res.render('order/material/material_create_second');
     },
-    materialModifyPage: function (req, res) {
-        var id = req.params.mid;
-        console.log(id);
-        Base.multiDataRequest(req, res, [
-            {url: '/api/materials/attributes/'+id, method: 'GET', resConfig: {keyName: 'materialInfo', is_must: true}},
-            {url: '/api/assist/material/units', method: 'GET', resConfig: {keyName: 'units', is_must: true}},
-        ], function (req, res, resultList) {
-            var returnData = Base.mergeData(helper.mergeObject({
-                title: ' ',
-                id:id,
-            },resultList));
-            res.render('order/material/material_modify',returnData);
-        });
-        //res.render('order/material/material_modify');
-    },
     doCreate: function (req, res) {
         console.log('物料创建'+ JSON.stringify(req.body));
         request(Base.mergeRequestOptions({
@@ -117,6 +115,19 @@ var MaterialController = {
                 Base.handlerError(res, req, error, response, body);
             }
         })
+    },
+    materialModifyPage: function (req, res) {
+        var id = req.params.mid;
+        console.log(id);
+        Base.multiDataRequest(req, res, [
+            {url: '/api/materials/'+id, method: 'GET', resConfig: {keyName: 'mateInfo', is_must: true}},
+        ], function (req, res, resultList) {
+            var returnData = Base.mergeData(helper.mergeObject({
+                title: ' ',
+                id:id,
+            },resultList));
+            res.render('order/material/material_modify',returnData);
+        });
     },
     setMaterialStatus: function (req, res) {
         var mid = req.params.mid;
@@ -133,19 +144,6 @@ var MaterialController = {
             }
         })
 
-    },
-    selectMateCate:function(req,res){
-        var pid=req.params.pid;
-        request(Base.mergeRequestOptions({
-            method: 'get',
-            url: '/api/categories/list?parentId='+pid,
-        }, req, res), function (error, response, body) {
-            if (!error && response.statusCode == 200) {
-                res.status(200).json(body);
-            } else {
-                Base.handlerError(res, req, error, response, body);
-            }
-        })
     },
 };
 
