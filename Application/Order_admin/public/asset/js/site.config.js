@@ -114,6 +114,23 @@ var data_time_picker = {
         dateFormat: 'Y-m-d H:i:S',
         locale: "zh",
         enableTime: true,
+        onChange:function(selectedDates, dateStr, instance){
+
+            var $ele = $(instance.element);
+            if(dateStr != '' )
+            {   
+                if($ele.next().length == 0){
+                    $ele.parent().append("<i class = 'close-picker fa fa-times'></i>");
+
+                    $ele.next().on("click",function(){
+                        instance.clear();
+                    })
+                }
+               
+            }else{
+               $ele.next().remove(); 
+            }
+        }
     },
     time_picker: {
         dateFormat: 'H:i:S',
