@@ -377,3 +377,24 @@ tr > td > .separation:last-child {
 #purchaseTable:first-of-type{
     display:table;
 }
+
+#ribbon .breadcrumb a.back-url {
+    color: #468847 !important;
+    font-weight: 700;
+}
+.row-url{
+    margin-bottom: 20px;
+    text-align: center;
+}
+.title-url{
+    display: inline-block;
+    font-size: 25px;
+    text-align: center;
+    padding: 10px;
+    margin-right: 20px;
+    color: #333;
+}
+.title-url.active,.title-url:hover{
+    color: #61aae8;
+    border-bottom: 5px solid #61aae8;
+}

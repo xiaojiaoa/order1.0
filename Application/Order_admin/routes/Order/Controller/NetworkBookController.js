@@ -43,13 +43,26 @@ var NetworkBookController = {
 
         });
     },
+    measurePage: function (req, res) {
+        var mobile = req.params.mobile;
+        request(Base.mergeRequestOptions({
+            method: 'GET',
+            url: '/api/customers/mobile?mobile='+mobile,
+        }, req, res), function (error, response, body) {
+            if (!error && response.statusCode == 200) {
+                res.status(200).json(body)
+            } else {
+                Base.handlerError(res, req, error, response, body);
+            }
+        })
+    },
     doMeasure: function (req, res) {
         request(Base.mergeRequestOptions({
             method: 'post',
             url: '/api/ebis/measure',
             form:req.body,
         }, req, res), function (error, response, body) {
-            if (!error && response.statusCode == 200) {
+            if (!error && response.statusCode == 201) {
                 // var lid = JSON.parse(body).lid;
                 console.log('success!!!')
                 res.redirect("/networkBook");
@@ -58,7 +71,21 @@ var NetworkBookController = {
                 Base.handlerError(res, req, error, response, body);
             }
         })
-    }
+    },
+    doClose: function (req, res) {
+        var measureId = req.params.measureId;
+        request(Base.mergeRequestOptions({
+            method: 'put',
+            url: '/api/ebis/measure/'+measureId,
+        }, req, res), function (error, response, body) {
+            if (!error && response.statusCode == 201) {
+                res.sendStatus(200);
+            } else {
+                Base.handlerError(res, req, error, response, body);
+            }
+        })
+
+    },
 
 };
 

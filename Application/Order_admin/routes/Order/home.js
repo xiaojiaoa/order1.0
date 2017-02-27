@@ -591,6 +591,35 @@ router.delete('/cargospace/doClose/:spaceId', Middleware.AuthCheck, CargospaceCo
 // 解锁 货位
 router.put('/cargospace/doOpen/:spaceId', Middleware.AuthCheck, CargospaceController.doOpen);
 
+
+
+/*
+ * 页面范围: 入库管理相关
+ * 控制器:   EnterController
+ * */
+
+var EnterController = require('./Controller/EnterController');
+
+// 原料入库页面
+router.get('/enterMaterial', Middleware.AuthCheck, Middleware.FilterEmptyField, EnterController.enterMaterialPage);
+
+// 原料入库-审核
+router.put('/enterMaterial/doPass/:id', Middleware.AuthCheck, EnterController.doPassMaterial);
+
+// 原料入库-撤审
+router.put('/enterMaterial/notPass/:id', Middleware.AuthCheck, EnterController.notPassMaterial);
+
+// 原料入库详情页面
+router.get('/enterMaterial/detail/:id', Middleware.AuthCheck, EnterController.enterMaterialDetailPage);
+
+// 成品入库页面
+router.get('/enterProduct', Middleware.AuthCheck, Middleware.FilterEmptyField, EnterController.enterProductPage);
+
+// 成品入库详情页面
+router.get('/enterProduct/detail/:id', Middleware.AuthCheck, EnterController.enterProductDetailPage);
+
+
+
 /*
  * 页面范围: 任务序列相关
  * 控制器:   TaskseqController
@@ -734,12 +763,17 @@ router.post('/purchases/submit/:tid', Middleware.AuthCheck,PurchaseController.pu
  * */
 var NetworkBookController = require('./Controller/NetworkBookController');
 
-// 流水详情
+// 网络预约
 router.get('/networkBook', Middleware.AuthCheck, NetworkBookController.indexPage);
+
+// 客户信息
+router.put('/measure/:mobile', Middleware.AuthCheck, NetworkBookController.measurePage);
 
 // 分配门店创建量尺任务
 router.post('/networkBook/doMeasure', Middleware.AuthCheck, NetworkBookController.doMeasure);
 
+// 置为无效
+router.put('/networkBook/doClose/:measureId', Middleware.AuthCheck, NetworkBookController.doClose);
 
 
 module.exports = router;
