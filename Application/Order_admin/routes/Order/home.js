@@ -624,6 +624,12 @@ router.get('/enterMaterial/detail/:id', Middleware.AuthCheck, EnterController.en
 // 原料入库-采购完成单 页面
 router.get('/enterMaterial/stockOver', Middleware.AuthCheck, EnterController.stockOverPage);
 
+// 原料入库-采购完成单-入库 页面
+router.get('/enterMaterial/stockOver/toEnter', Middleware.AuthCheck, EnterController.stockEnterPage);
+
+// 原料入库-采购完成单-入库-入库
+router.put('/enterMaterial/stockOver/toEnter/doEnter', Middleware.AuthCheck, EnterController.doEnter);
+
 // 成品入库页面
 router.get('/enterProduct', Middleware.AuthCheck, EnterController.enterProductPage);
 
@@ -635,6 +641,45 @@ router.get('/enterProduct/scanning', Middleware.AuthCheck, EnterController.enter
 
 // 成品扫描入库-入库
 router.put('/enterProduct/scanning/doEnter/:id', Middleware.AuthCheck, EnterController.doEnterProduct);
+
+
+
+/*
+ * 页面范围: 出库管理相关
+ * 控制器:   OutWarehouseController
+ * */
+
+var OutWarehouseController = require('./Controller/OutWarehouseController');
+
+// 待发货流水页面
+router.get('/waitSend', Middleware.AuthCheck, Middleware.FilterEmptyField, OutWarehouseController.waitSendPage);
+
+// 发货通知单页面
+router.get('/deliveryNote', Middleware.AuthCheck, OutWarehouseController.deliveryNotePage);
+
+// 发货通知单-详情 页面
+router.get('/deliveryNote/deatil/:id', Middleware.AuthCheck, OutWarehouseController.deliveryNoteDeatil);
+
+// 原料出库页面
+router.get('/outMaterial', Middleware.AuthCheck, OutWarehouseController.outMaterialPage);
+
+// 原料出库详情页面
+router.get('/outMaterial/deatil/:id', Middleware.AuthCheck, OutWarehouseController.outMaterialDeatil);
+
+// 可发货订单 页面
+router.get('/canSend', Middleware.AuthCheck, OutWarehouseController.canSendPage);
+
+// 成品出库页面
+router.get('/outProduct', Middleware.AuthCheck, OutWarehouseController.outProductPage);
+
+// 原料出库详情页面
+router.get('/outProduct/deatil/:id', Middleware.AuthCheck, OutWarehouseController.outProductDeatil);
+
+// 大板领料单页面
+router.get('/outBred', Middleware.AuthCheck, OutWarehouseController.outBredPage);
+
+// 大板领料详情单页面
+router.get('/outBred/deatil/:id', Middleware.AuthCheck, OutWarehouseController.outBredDeatil);
 
 
 

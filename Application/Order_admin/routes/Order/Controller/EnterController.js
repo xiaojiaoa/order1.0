@@ -92,6 +92,25 @@ var EnterController = {
     stockOverPage: function (req, res){
         res.render('order/enter/enter_material_stock');
     },
+    stockEnterPage: function (req, res){
+        res.render('order/enter/stock_enter');
+    },
+    doEnter: function (req, res) {
+        var num = req.body.num0;
+        console.log('num0',num)
+        // var id = req.params.id;
+        // request(Base.mergeRequestOptions({
+        //     method: 'put',
+        //     url: '/api/orders/review/getTask/'+id,
+        // }, req, res), function (error, response, body) {
+        //     if (!error && response.statusCode == 201) {
+        //         res.sendStatus(200);
+        //     } else {
+        //         Base.handlerError(res, req, error, response, body);
+        //     }
+        // })
+
+    },
     enterProductPage: function (req, res){
         res.render('order/enter/enter_product');
     },

@@ -404,3 +404,12 @@ tr > td > .separation:last-child {
     box-sizing: border-box;
     float: left;
 }
+.table-editinput>tbody>tr>td{
+    line-height: 32px;
+}
+.table-editinput .long{
+   width: 200px;
+}
+.table-editinput .short{
+    width: 100px;
+}
