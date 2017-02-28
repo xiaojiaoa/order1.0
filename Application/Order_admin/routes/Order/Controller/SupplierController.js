@@ -22,7 +22,7 @@ var SupplierController = {
     supplierPage: function (req, res) {
         var paramObject = helper.genPaginationQuery(req);
         Base.multiDataRequest(req, res, [
-            {url: '/api/suppliers', method: 'GET', resConfig: {keyName: 'suppliersList', is_must: true}},
+            {url: '/api/suppliers?'+(queryString.stringify(req.query)), method: 'GET', resConfig: {keyName: 'suppliersList', is_must: true}},
         ], function (req, res, resultList) {
             var paginationInfo =  resultList.suppliersList;
             var boostrapPaginator = new Pagination.TemplatePaginator(helper.genPageInfo({
@@ -73,7 +73,7 @@ var SupplierController = {
             form:req.body,
         }, req, res), function (error, response, body) {
             if (!error && response.statusCode == 201) {
-                res.redirect("/supplier/offer_product");
+                res.redirect("/supplier");
             } else {
                 Base.handlerError(res, req, error, response, body);
             }
@@ -123,22 +123,48 @@ var SupplierController = {
     //供应商物料关联
     supplierOfferProductPage: function (req, res) {
         // var stairCatId=req.params.stairCatId;
+        // var tid=req.params.tid;
+        // Base.multiDataRequest(req, res, [
+        //     {url: '/api/categories/list?parentId=0'+(queryString.stringify(req.query)), method: 'GET', resConfig: {keyName: 'suppliersMaterialList', is_must: true}},
+        //     {url: '/api/materials', method: 'GET', resConfig: {keyName: 'supMaterialList', is_must: true}},
+        //     {url: '/api/suppliers/'+tid, method: 'GET', resConfig: {keyName: 'suppliersDetail', is_must: true}},
+        // ], function (req, res, resultList) {
+        //     var returnData = Base.mergeData(helper.mergeObject({
+        //         title: ' ',
+        //         tid:tid,
+        //     },resultList));
+        //     res.render('order/supplier/offer_product', returnData);
+        // });
+        var paramObject = helper.genPaginationQuery(req);
+        var tid=req.params.tid;
         Base.multiDataRequest(req, res, [
             {url: '/api/categories/list?parentId=0'+(queryString.stringify(req.query)), method: 'GET', resConfig: {keyName: 'suppliersMaterialList', is_must: true}},
             {url: '/api/materials', method: 'GET', resConfig: {keyName: 'supMaterialList', is_must: true}},
-            {url: '/api/suppliers', method: 'GET', resConfig: {keyName: 'suppliersList', is_must: true}},
+            {url: '/api/suppliers/'+tid, method: 'GET', resConfig: {keyName: 'suppliersDetail', is_must: true}},
         ], function (req, res, resultList) {
+            var paginationInfo =  resultList.supMaterialList;
+            var boostrapPaginator = new Pagination.TemplatePaginator(helper.genPageInfo({
+                prelink: paramObject.withoutPageNo,
+                current: paginationInfo.page,
+                rowsPerPage: paginationInfo.pageSize,
+                totalResult: paginationInfo.totalItems
+            }));
             var returnData = Base.mergeData(helper.mergeObject({
                 title: ' ',
+                pagination: boostrapPaginator.render(),
+                Permission :Permissions,
             },resultList));
             res.render('order/supplier/offer_product', returnData);
         });
     },
     //新增供应商物料关联
     createMaterialSupplier: function (req, res) {
+        var tid=req.params.tid;
+        var bid=req.params.bid;
+        var date=req.params.date;
         request(Base.mergeRequestOptions({
             method: 'post',
-            url: '/api/suppliers/materials',
+            url: '/api/suppliers/materials?'+(queryString.stringify(req.query)),
         }, req, res), function (error, response, body) {
             if (!error && response.statusCode == 201) {
                 res.sendStatus(200)
@@ -230,8 +256,8 @@ var SupplierController = {
         })
     },
 
-    supplierSortModifyPage: function (req, res) {
-        res.render('order/supplier/sort_modify');
-    },
+    // supplierSortModifyPage: function (req, res) {
+    //     res.render('order/supplier/sort_modify');
+    // },
 };
 module.exports = SupplierController;

@@ -779,7 +779,7 @@ router.get('/supplier/detail/:tid', Middleware.AuthCheck,SupplierController.supp
 //供应商新增页面
 router.get('/supplier/createPage', Middleware.AuthCheck,SupplierController.supplierCreatPage);
 //供应商新增 子类
-router.get('/supplier/createPage', Middleware.AuthCheck,SupplierController.supplierCreatPage);
+// router.get('/supplier/createPage', Middleware.AuthCheck,SupplierController.supplierCreatPage);
 //供应商新增获取一级分类
 router.get('/supplier/create/:tid', Middleware.AuthCheck,SupplierController.supSortParentId);
 //供应商信息新增
@@ -789,17 +789,12 @@ router.get('/supplier/modify/:tid', Middleware.AuthCheck,SupplierController.supp
 //供应商信息修改
 router.post('/supplier/doModify', Middleware.AuthCheck,SupplierController.supplierDoModify);
 //新增供应商物料关联
-router.post('/supplier/createMaterialSupplier', Middleware.AuthCheck,SupplierController.createMaterialSupplier);
+router.post('/supplier/createMaterialSupplier/:tid/:bid/:date', Middleware.AuthCheck,SupplierController.createMaterialSupplier);
+//供应商可供物料
+router.get('/supplier/offer_product/:tid', Middleware.AuthCheck,SupplierController.supplierOfferProductPage);
 
-
-
-//供应商可供商品
-router.get('/supplier/offer_product', Middleware.AuthCheck,SupplierController.supplierOfferProductPage);
 //供应商禁用+启用
 router.post('/supplier/supDoDelete/:tid/:type', Middleware.AuthCheck, SupplierController.supplierdoDelete);
-
-
-
 
 //供应商分类
 router.get('/supplier/sort', Middleware.AuthCheck,SupplierController.supplierSortPage);
@@ -808,9 +803,10 @@ router.post('/supplier/doCreat', Middleware.AuthCheck,SupplierController.doCreat
 //供应商分类禁用
 router.post('/supplier/doDelete/:tid/:type', Middleware.AuthCheck, SupplierController.doDelete);
 //供应商分类修改
-router.post('/supplier/doModify', Middleware.AuthCheck, SupplierController.doModify);
+router.post('/supplier/sortDoModify', Middleware.AuthCheck, SupplierController.doModify);
+
 //供应商分类修改
-router.get('/supplier/sort_modify', Middleware.AuthCheck,SupplierController.supplierSortModifyPage);
+// router.get('/supplier/sort_modify', Middleware.AuthCheck,SupplierController.supplierSortModifyPage);
 
 
 

@@ -28,6 +28,7 @@
                     <hr class="simple">
                 </div>
             </div>
+
             <!-- row -->
             <div class="row">
                 <div class="col-xs-12">
@@ -39,7 +40,7 @@
                                     <div class="form-group">
                                         <label class="col-xs-4 control-label">物料名称:</label>
                                         <div class="col-xs-8">
-                                            <input class="form-control" placeholder="请输入物料名称" type="text" value="" name="tid">
+                                            <input class="form-control" placeholder="请输入物料名称" type="text" value="<%= DWYRequest.query.name %>" name="tid">
                                         </div>
                                     </div>
                                 </div>
@@ -74,10 +75,14 @@
                                     <div class="well">
                                         <div class="row">
                                             <div class="col-xs-12">
+                                                <legend>
+                                                    新建物料供应商关联
+                                                </legend>
+                                            </div>
+                                            <div class="col-xs-12">
                                                 <div class="">
                                                     <a class="btn btn-primary" id="editBatchNum">确认</a>
                                                 </div>
-                                                <hr class="simple">
                                             </div>
                                         </div>
                                         <div class="orderItemLayerTit">
@@ -119,11 +124,12 @@
                                                     <td><%= element.name %></td>
                                                     <td><%= element.catName %></td>
                                                 </tr>
-                                                <input type="hidden" class="" id="checkedValue">
                                                 <%  })%>
                                                 </tbody>
                                             </table>
-                                             <input type="hidden"  id="gid" value="<%= suppliersList.id %>">
+                                            <%- pagination %>
+                                            <input type="hidden" class="" id="checkedValue">
+                                            <input type="hidden"  id="gid" value="<%= suppliersDetail.id %>">
                                         </div>
                                     </div>
 
@@ -173,19 +179,27 @@
             }
         });
 
+        $("#editBatchNum").on({
+            click:function(){
+                layer.open({
+                    title: false,
+                    type: 1,
+                    area: '500px',
+                    content: $('#create-offer-pro'),
+                    cancel: function () {
 
-
-
-        $("#editBatchNum").click(function(){
-            var cid=$("#gid").val();
+                    },
+                })
+        }})
+        $("#btnCreateDate").click(function(){
+            var tid=$("#gid").val();
             var bid = checkedValue.attr('class').replace(/[ ]/g,"");
             bid = bid.substring(0,bid.length-1);
-            alert(cid)
-            alert(bid);
-            return false;
+            var date=$("#create-offer-pro input").val();
+            if(date==""||date==null) return false;
             layer.confirm("确认关联？", {title:'提示'},function(index){
                     $.ajax({
-                        url: '/supplier/createMaterialSupplier'+cid+'/'+bid+'/'+date,
+                        url: '/supplier/createMaterialSupplier/'+tid+'/'+bid+'/'+date,
                         method: 'post',
                         success: function (data) {
                             window.location.reload();
@@ -193,7 +207,7 @@
                         error: function (response) {
                             layer.close(index)
                             var data = JSON.parse(response.responseText);
-//                        var data = (response.responseText);
+                            //                        var data = (response.responseText);
                             $.smallBox({
                                 title: "操作失败",
                                 content: data.msg,
@@ -206,19 +220,13 @@
                             },7000)
                         }
                     });
-//                layer.close(index)
+                    //                layer.close(index)
                 },function(index){
                     layer.close(index)}
             )
         })
-
-
-
-
-
-
-
     })
 </script>
 <%- include('../layouts/foot'); %>
+<%- include('./supplier_modal'); %>
 

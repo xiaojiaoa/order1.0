@@ -31,51 +31,12 @@
                         <form class="form-horizontal" method="get">
                             <div class="col-xs-12">
                                 <!--输入字段-->
-                                <div class="col-xs-3">
-                                    <div class="form-group">
-                                        <label class="col-xs-4 control-label">供应商编号:</label>
-                                        <div class="col-xs-8">
-                                            <input class="form-control" placeholder="请输入订单号" type="text" value="<%= DWYRequest.query.id %>" name="id">
-                                        </div>
-                                    </div>
-                                </div>
+
                                 <div class="col-xs-3">
                                     <div class="form-group">
                                         <label class="col-xs-4 control-label">客户手机:</label>
                                         <div class="col-xs-8">
                                             <input class="form-control" placeholder="请输入客户手机" type="text" value="<%= DWYRequest.query.contactMobile %>" name="contactMobile">
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-xs-12">
-
-                                <div class="col-xs-3">
-                                    <div class="form-group">
-                                        <label class="col-xs-4 control-label">订单品牌:</label>
-                                        <div class="col-xs-8">
-                                            <select class="form-control" name="brandId">
-                                                <option value="">- 请选择 -</option>
-
-                                            </select>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-xs-3"></div>
-                                <div class="col-xs-6">
-                                    <div class="form-group">
-                                        <label class="col-xs-2 control-label">订单状态:</label>
-                                        <div class="col-xs-4">
-                                            <select class="form-control" name="startCode">
-                                                <option value="">- 起始 请选择 -</option>
-                                            </select>
-                                        </div>
-                                        <label class="from-to control-label "> 至 </label>
-                                        <div class="col-xs-4 ">
-                                            <select class="form-control" name="endCode">
-                                                <option value="">- 截止 请选择 -</option>
-
-                                            </select>
                                         </div>
                                     </div>
                                 </div>
@@ -141,7 +102,7 @@
                                 <td><%= element.grade %></td>
                                 <td><%= element.contact %></td>
                                 <td><%= element.contactMobile %></td>
-                                <td><%= element.provinceStr %>,<%= element.cityStr %>,<%= element.distStr %>,<%= element.address %></td>
+                                <td><%= element.address %></td>
                                 <td><%= element.remark %></td>
                                 <td>
                                     <%
