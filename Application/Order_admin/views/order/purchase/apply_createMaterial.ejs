@@ -18,14 +18,66 @@
     <!-- END RIBBON -->
     <!-- MAIN CONTENT -->
     <div id="content">
+        <form class="form-horizontal" method="post" id="creat-supplier" action="/purchase/applyMaterialCreate" >
+            <div class="col-xs-12">
+                <legend>
+                    新建请购单
+                    <!--<a class="label label-danger" id="closeStore">禁用</a>-->
+                </legend>
+            </div>
+            <div class="col-xs-12">
+                <div class="orderItemLayerTit">
+                </div>
+                <div class="orderItemLayerTable">
+                    <table class="table table-bordered">
+                        <thead>
+                        <tr>
+                            <th>物料编号</th>
+                            <th>物料名称</th>
+                            <th>分类名称</th>
+                            <th>请购数量</th>
+                            <th>预计交期</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <%
+                        if(suppliersMaterialLists){
+                        suppliersMaterialLists.forEach(function (element, index) { %>
+                        <tr>
+                            <td><%= element.id %></td>
+                            <td><%= element.name %></td>
+                            <td><%= element.catName %></td>
+                            <td>
+                                <input type="text" name="amount" value="" id="amountApply" />
+                            </td>
+                            <td>
+                                <input class="form-control fg-date-time-picker" type="text" value=""
+                                       name="deliveryDate" id="deliveryDate" />
+                            </td>
+                        </tr>
+                        <input type="hidden" name="tid" value="<%= element.id %>">
+                        <%  }) }%>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="col-xs-12">
+                    <hr class="simple">
+                    <div class="col-xs-12 text-center">
+                        <button class="btn btn-primary" type="submit" >
+                            提交
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </form>
     </div>
 </div>
 <script>
     $(document).ready(function () {
-
         pageSetUp();
+        $(".fg-date-time-picker").flatpickr(data_time_picker.data_time_picker);
 
-        )}
+    })
 </script>
 <%- include('../layouts/footer'); %>
 <%- include('../layouts/footer_common_script'); %>

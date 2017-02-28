@@ -894,7 +894,9 @@ router.get('/purchase/applyCreat', Middleware.AuthCheck,PurchaseController.purch
 //新建请购单 选择物料信息列表
 router.post('/purchase/applyOrderMaterial/:tid', Middleware.AuthCheck,PurchaseController.purchaseApplyMaterialCreat);
 //新建请购单 物料信息修改
-router.get('/purchase/apply_createMaterial', Middleware.AuthCheck,PurchaseController.applyMaterialCreatePage);
+router.get('/purchase/apply_createMaterial/:tid', Middleware.AuthCheck,PurchaseController.applyMaterialCreatePage);
+//新建请购单 添加物料数量+预计交期
+router.post('/purchase/applyMaterialCreate', Middleware.AuthCheck,PurchaseController.applyMaterialCreate);
 
 
 // 请购单详情
