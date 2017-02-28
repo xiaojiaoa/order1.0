@@ -14,6 +14,7 @@
         <ol class="breadcrumb">
             <li>后台管理</li>
             <li><a href="/materialManage">物料管理</a></li>
+            <li><a href="/materialManage/factory">物料管理工厂端</a></li>
         </ol>
         <!-- end breadcrumb -->
 
@@ -74,7 +75,7 @@
 
                                     </div>
                                 </div>
-                              </div>
+                            </div>
 
                             <div class="col-xs-12" style="display:none;">
 
@@ -104,8 +105,8 @@
                                 </div>
                                 <div class="col-xs-3">
 
-                                    </div>
                                 </div>
+                            </div>
 
                             <div class="col-xs-12 ">
                                 <hr class="simple">
@@ -136,8 +137,8 @@
                 </div>
                 <!-- end col -->
 
-            <!-- end row -->
-        </div>
+                <!-- end row -->
+            </div>
         </div>
         <!-- end well -->
         <!--well-->
@@ -146,11 +147,11 @@
             <!-- row -->
             <div class="row">
                 <div class="col-xs-12">
-                    <h6>物料列表  <a class="label label-primary" href="/materialManage/material/creStepO">新建物料</a></h6>
+                    <h6>物料列表</h6>
                     <hr class="simple">
                 </div>
             </div>
-<!--end roll-->
+            <!--end roll-->
             <!-- row -->
             <div class="row">
                 <div class="col-xs-12">
@@ -179,9 +180,10 @@
                             mateList.result.forEach(function (element, index) { %>
                             <tr>
                                 <td><%= index+1 %></td>
-                                <td><a href="/materialManage/detail/<%= element.id %>" class=" "><%= element.id %></a></td>
+                                <td><a href="/materialManage/factory/detail/<%= element.id %>" class=" "><%= element.id %></a></td>
                                 <td><%= element.name %></td>
                                 <td><%= element.catName%></td>
+                                <td><%= element.unit%></td>
                                 <td><%= element.stock %></td>
                                 <td><%= element.warning %></td>
                                 <td><%= element.usable %></td>
@@ -189,7 +191,7 @@
                                 <td></td>
                                 <td></td>
                                 <td>
-                                 <% if(element.stcode==1){%>
+                                    <% if(element.stcode==1){%>
                                     是
                                     <%}else {%>
                                     否
@@ -213,19 +215,9 @@
             </div>
         </div>
         <!--end well-->
-        <!-- well-->
-        <div class="well">
 
-            <!-- row -->
-            <div class="row">
-                <div class="col-xs-12">
-                    <h6><a class="btn btn-primary" href="/materialManage/factory">物料管理工厂端的页面点击这里查看</a></h6>
-                    <hr class="simple">
-                </div>
-            </div>
-        </div>
-      </div>
-      <!-- end well-->
+
+    </div>
 
 
 
@@ -242,7 +234,7 @@
 
     $(document).ready(function () {
         pageSetUp();
-      //日期组件
+        //日期组件
         $(".fg-date-time-picker").flatpickr(data_time_picker.data_time_picker);
     })
 

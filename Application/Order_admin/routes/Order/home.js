@@ -310,6 +310,12 @@ router.get('/materialManage', Middleware.AuthCheck, MaterialController.indexPage
 // 物料详情页面
 router.get('/materialManage/detail/:mid', Middleware.AuthCheck, MaterialController.detailPage);
 
+// 物料详情页面--选择工厂物料
+router.post('/materialManage/choiceFactory', Middleware.AuthCheck, MaterialController.choiceFactory);
+
+// 根据工厂选择物料详情页面
+router.get('/materialManage/detail/factory/:fid/:mid', Middleware.AuthCheck, MaterialController.detailFacPage);
+
 // 物料出入库总计页面
 router.get('/materialManage/summary', Middleware.AuthCheck, MaterialController.summaryPage);
 
@@ -325,14 +331,29 @@ router.get('/materialManage/material/creStepS/:id', Middleware.AuthCheck, Materi
 //物料分类三级联动菜单接口
 router.put('/materialManage/material/selectMateCate/:pid', Middleware.AuthCheck, MaterialController.selectMateCate);
 
-// 新建物料
+// 新建物料-提交数据接口
 router.post('/materialManage/material/doCreate', Middleware.AuthCheck, MaterialController.doCreate);
 
 //修改物料
 router.get('/materialManage/material/modify/:mid', Middleware.AuthCheck, MaterialController.materialModifyPage);
 
+//修改物料-提交数据接口
+router.post('/materialManage/material/doModify', Middleware.AuthCheck, MaterialController.doModify);
+
 // 禁用/解锁 物料详情
 router.put('/material/setStatus/:mid/:type', Middleware.AuthCheck, MaterialController.setMaterialStatus);
+
+// 物料管理工厂首页
+router.get('/materialManage/factory', Middleware.AuthCheck, MaterialController.indexFactoryPage);
+
+// 物料管理工厂--物料详情
+router.get('/materialManage/factory/detail/:mid', Middleware.AuthCheck, MaterialController.detailFactoryPage);
+
+// 物料管理工厂--物料详情-完善物料
+router.get('/materialManage/factory/add/:mid', Middleware.AuthCheck, MaterialController.mateFacAddPage);
+
+// 物料管理工厂--物料详情-完善物料--提交数据接口
+router.post('/materialManage/factory/doAdd', Middleware.AuthCheck, MaterialController.doAdd);
 
 
 /*

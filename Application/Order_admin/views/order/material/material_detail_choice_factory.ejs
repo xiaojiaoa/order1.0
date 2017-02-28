@@ -13,7 +13,8 @@
         <ol class="breadcrumb">
             <li>后台管理</li>
             <li><a href="/materialManage">物料管理</a></li>
-            <li>物料信息</li>
+            <li><a href="/materialManage/detail/<%= mid%>">物料信息</a></li>
+            <li>工厂物料信息</li>
         </ol>
         <!-- end breadcrumb -->
 
@@ -32,23 +33,10 @@
             <div class="row">
                 <!-- col -->
                 <div class="col-xs-12 dwy-show-content">
-                    <legend>物料信息
-
-                        <% if( mateInfo.stcode == 2){ %>
-                        <a class="label label-primary" id="openStore">启用</a>
-                        <% }else{ %>
-                        <a class="label label-primary" href="/materialManage/material/modify/<%= mateInfo.id%>">修改</a>
-                        <a class="label label-danger" id="closeStore">禁用</a>
-                        <a class="btn btn-primary margin-left-10"  href="javascript:void(0)" id="choiceFac">
-                            <i class="fa fa-save"></i>
-                            选择工厂
-                        </a>
-                        <% } %>
-
-                    </legend>
+                    <legend>物料信息</legend>
 
                     <!-- row -->
-                    <div class="table-responsive <%= ( mateInfo.stcode == 2 )? 'close-info':'' %>">
+                    <div class="table-responsive">
                         <table class="table table-bordered table-striped table-information ">
                             <tbody>
                             <tr>
@@ -142,16 +130,91 @@
             <!-- end row -->
         </div>
         <!--end well-->
-
         <!--well-->
-        <div class="col-xs-12 " style="display: none;">
-            <hr class="simple">
-            <div class="col-xs-12 text-center">
-                <a class="btn btn-primary margin-left-10"  href="javascript:void(0)">
-                    <i class="fa fa-save"></i>
-                   选择工厂
-                </a>
+        <div class="well">
+            <!-- row -->
+            <div class="row">
+                <!-- col -->
+                <div class="col-xs-12 dwy-show-content">
+                    <legend>库存状况
+
+                        <span class="spanStyle01">剩余3160000支</span>
+                        <a href="/materialManage/summary">出入仓明细</a>
+
+                    </legend>
+
+                    <!-- row -->
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-striped">
+                            <thead>
+                            <tr>
+                                <th>预计日期</th>
+                                <th>预购事项</th>
+                                <th>预计发生数量</th>
+                                <th>虚拟库存</th>
+                                <th>备注</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+
+                            <tr>
+                                <td>2016-10-10</td>
+                                <td>材料订购</td>
+                                <td>1000000支</td>
+                                <td>1000000支</td>
+                                <td></td>
+                            </tr>
+
+                            </tbody>
+                        </table>
+
+
+                    </div>
+                    <!-- end row -->
+                </div>
+                <!-- end col -->
             </div>
+            <!-- end row -->
+        </div>
+        <!--end well-->
+        <!--well-->
+        <div class="well">
+            <!-- row -->
+            <div class="row">
+                <!-- col -->
+                <div class="col-xs-12 dwy-show-content">
+                    <legend>订购情况
+
+                                        </legend>
+
+                    <!-- row -->
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-striped">
+                            <thead>
+                            <tr>
+                                <th>订购日期</th>
+                                <th>订购数量</th>
+                                <th>备注</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+
+                            <tr>
+                                <td>2016-10-10</td>
+                                <td>1000000支</td>
+                                <td></td>
+                            </tr>
+
+                            </tbody>
+                        </table>
+
+
+                    </div>
+                    <!-- end row -->
+                </div>
+                <!-- end col -->
+            </div>
+            <!-- end row -->
         </div>
         <!--end well-->
 
@@ -163,35 +226,7 @@
 
 <%- include('../layouts/footer'); %>
 <%- include('../layouts/footer_common_script'); %>
-<!--选择工厂-->
-<form class="form-horizontal  layer-template" method="post" action="/materialManage/choiceFactory"  id="choiceFac-form"  style="display: none;" >
-    <div class="col-xs-12">
-        <div class="form-group">
-            <label class="col-xs-2 control-label"><span class="requird"></span>工厂:</label>
-            <div class="col-xs-6">
-                <select  class="form-control validate[required]" name="factory">
-                    <option value="">- 请选择 -</option>
-                    <% factoryList.forEach(function (element,index) {%>
-                    <option value="<%= element.id%>"><%= element.name%></option>
-                    <%})%>
-                </select>
-            </div>
-        </div>
-    </div>
 
-    <input type="hidden" name="mateId" value="<%= mid %>">
-    <div class="col-xs-12">
-        <hr class="simple">
-        <div class="col-xs-12 text-center">
-            <button class="btn btn-primary " type="submit">
-                <i class="fa fa-save"></i>
-                确认
-            </button>
-        </div>
-    </div>
-    <div class="dwy-clear"></div>
-</form>
-<!-- END 选择工厂-->
 
 <script type="text/javascript">
 
@@ -232,25 +267,6 @@
                         });
                     },
                     function(index){layer.close(index)})
-            }
-        })
-
-        //初始化表单
-        $("#choiceFac-form").validationEngine();
-
-        //弹出选择工厂框
-        $('#choiceFac').on({
-            click: function (e) {
-                layer.open({
-                    title: false,
-                    type: 1,
-                    area: '800px',
-                    content: $('#choiceFac-form'),
-                    cancel: function () {
-                        //右上角关闭回调
-                    },
-
-                });
             }
         })
     })
