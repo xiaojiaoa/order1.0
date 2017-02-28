@@ -288,13 +288,13 @@
                             <td>合同登记时间</td>
                             <td><%= contractInfo.contNo %></td>
                             <td>合同总金额</td>
-                            <td><%= contractInfo.amount %></td>
+                            <td><%= contractInfo.amount %> 元</td>
                             <td>合同剩余金额</td>
-                            <td><%= contractInfo.residualAmount %></td>
+                            <td><%= contractInfo.residualAmount %> 元</td>
                         </tr>
                         <tr>
                             <td>预付款</td>
-                            <td><%= contractInfo.deposit %></td>
+                            <td><%= contractInfo.deposit %> 元</td>
                             <td>订单交付日期</td>
                             <td colspan="3"> <%= DWY_Helper.getLocalDate(contractInfo.addTime) %></td>
                         </tr>
@@ -335,22 +335,13 @@
                                 <th>零售价（元）</th>
                                 <th>约定交付日期</th>
                                 <th>订单状态</th>
+                                <th>操作</th>
                             </tr>
                             </thead>
                             <tbody>
                             <%
                             seqSpaceInfo.forEach(function (element) {
                                 var num = 1;
-                            if(element.orders.length ==0) { %>
-                            <tr>
-                                <td><%=element.spaceName %></td>
-                                <td colspan="10"><a class="label label-primary" href="/order/create/<%= lid %>/<%=element.spaceId%>/<%=element.spaceType%>/<%=element.spaceName%>">
-                                        新增订单
-                                    </a></td>
-                            </tr>
-
-                            <% }else{
-
                             element.orders.forEach(function (orderelement) { %>
                             <tr>
                                 <% if (DWY_Helper.hasPermission(Permission.order.create.id, permission) && taskseqInfo.stcode >= 350 && taskseqInfo.stcode <540 && num == 1){ %>
@@ -372,20 +363,11 @@
                                 <td><%=DWY_Helper.getAssistVal(orderelement.stcode,stcodeInfo)%></td>
                                 <td><a href="/file/order/create/<%= lid %>/<%= taskseqInfo.stcode %>/<%= orderelement.tid %>/1">上传</a></td>
                             </tr>
-                            <% num++ }) %>
-                            <% if (DWY_Helper.hasPermission(Permission.order.create.id, permission) && taskseqInfo.stcode >= 350 && taskseqInfo.stcode <540){ %>
-                            <tr>
-                                <td colspan="10"><a class="label label-primary" href="/order/create/<%= lid %>/<%=element.spaceId%>/<%=element.spaceType%>/<%=element.spaceName%>">
-                                        新增订单
-                                    </a></td>
-                            </tr>
-                            <% }} %>
-
-                            <% }) %>
+                            <% num++ })
+                            }) %>
 
                             <tr>
-                                <td></td>
-                                <td colspan="9" class="text-align-right">零售价合计：</td>
+                                <td colspan="10" class="text-align-right">零售价合计：</td>
                                 <td>18000.00</td>
                             </tr>
 

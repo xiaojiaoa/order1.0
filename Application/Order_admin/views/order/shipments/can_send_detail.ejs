@@ -12,8 +12,8 @@
         <!-- breadcrumb -->
         <ol class="breadcrumb">
             <li>后台管理</li>
-            <li><a class="back-url" href="/outBred"><i class="fa fa-chevron-left"></i> 大板领料单</a></li>
-            <li>大板领料详情</li>
+            <li><a class="back-url" href="/outMaterial/canSend"><i class="fa fa-chevron-left"></i> 可发货订单</a></li>
+            <li>可发货订单信息</li>
         </ol>
         <!-- end breadcrumb -->
 
@@ -30,32 +30,51 @@
             <div class="row">
                 <!-- col -->
                 <div class="col-xs-12 dwy-show-content">
-                    <legend>
-                        大板领料信息</legend>
+                    <legend>可发货订单信息</legend>
 
                     <!-- row -->
                     <div class="table-responsive">
                         <table class="table table-bordered table-striped table-information">
                             <tbody>
                             <tr>
-                                <td width="12%">领用单号</td>
+                                <td width="12%">订单号</td>
                                 <td>23456123</td>
-                                <td width="12%">领用人</td>
+                                <td width="12%">客户姓名</td>
                                 <td>张三</td>
-                                <td width="12%">领用日期</td>
+                                <td width="12%">经销商</td>
                                 <td></td>
                             </tr>
                             <tr>
-                                <td>部门</td>
-                                <td><a href="/order/detail/123456">123456</a></td>
+                                <td>客户电话</td>
+                                <td>板材仓库</td>
+                                <td>流水号</td>
+                                <td><a href="/taskseq/index/123456">123456</a></td>
+                                <td>收货地址</td>
+                                <td></td>
+                            </tr>
+                            <tr>
                                 <td>状态</td>
-                                <td colspan="3"></td>
+                                <td></td>
+                                <td>预计发货</td>
+                                <td></td>
+                                <td>产品信息</td>
+                                <td></td>
+                            </tr>
+
+                            <tr>
+                                <td>类别</td>
+                                <td></td>
+                                <td>司机姓名</td>
+                                <td></td>
+                                <td>物流车牌号</td>
+                                <td></td>
                             </tr>
 
                             <tr>
                                 <td>备注</td>
                                 <td colspan="5"></td>
                             </tr>
+
                             </tbody>
                         </table>
 
@@ -73,9 +92,8 @@
             <div class="row">
                 <div class="col-xs-12">
                     <h6>
-                        领料清单
-                        <a class="label label-primary" id="checkThis">审核</a>
-                        <a class="label label-danger" id="backThis">撤审</a>
+                        发货清单(成品无发货)
+                        <a class="label label-primary" id="sendThis">发货</a>
                     </h6>
 
                     <hr class="simple">
@@ -90,20 +108,26 @@
                             <thead>
                             <tr>
                                 <th>序号</th>
-                                <th>编号</th>
-                                <th>名称</th>
+                                <th>货位号</th>
+                                <th>批号</th>
+                                <th>物料编号</th>
+                                <th>物料名称</th>
+                                <th>颜色</th>
                                 <th>规格</th>
-                                <th>领用数量</th>
-                                <th>备注</th>
                                 <th>单价</th>
+                                <th>数量</th>
+                                <th>金额</th>
                             </tr>
                             </thead>
                             <tbody>
                             <tr>
                                 <td>1</td>
-                                <td>12345</td>
+                                <td><a href="/order/detail/12345">12345</a></td>
+                                <td>56456789456</td>
+                                <td><a href="/order/detail/12345">12345</a></td>
                                 <td>56456789456</td>
                                 <td>银白下框</td>
+                                <td></td>
                                 <td></td>
                                 <td></td>
                                 <td></td>
@@ -132,16 +156,16 @@
     $(document).ready(function () {
 
         var ftyId = 10000;
-        $("#checkThis").click(function () {
+        $("#sendThis").click(function () {
             var id = $(this).attr('data-id');
 
-            layer.confirm('确定提交审核?', {icon: 3, title: '提示'}, function (index) {
+            layer.confirm('确定发货吗?', {icon: 3, title: '提示'}, function (index) {
                 $.ajax({
-                    url: '/outBred/doCheck/'+id,
+                    url: '/canSend/doSend/'+id,
                     method: 'put',
                     success: function (data) {
 //                        window.location.reload();
-                        location.href='/canSend';
+                        location.href='/outMaterial';
                     },
                     error: function (response) {
                         layer.close(index)
@@ -158,31 +182,6 @@
                 });
             }, function (index) { layer.close(index) })
         })
-        $("#backThis").click(function () {
-            var id = $(this).attr('data-id');
-
-            layer.confirm('确定撤回重新审核吗?', {icon: 3, title: '提示'}, function (index) {
-                $.ajax({
-                    url: '/outBred/doUnCheck/'+id,
-                    method: 'put',
-                    success: function (data) {
-                        window.location.reload();
-                    },
-                    error: function (response) {
-                        layer.close(index)
-                        var data = JSON.parse(response.responseText);
-                        $.smallBox({
-                            title: "操作失败",
-                            content: data.msg,
-                            color: "#C46A69",
-                            iconSmall: "fa fa-times fa-2x fadeInRight animated",
-                            timeout: 3000
-                        });
-                    }
-                });
-            }, function (index) { layer.close(index) })
-        })
-
 
     })
 

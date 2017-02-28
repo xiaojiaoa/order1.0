@@ -435,3 +435,6 @@ tr > td > .separation:last-child {
 .table-editinput .short{
     width: 100px;
 }
+.initdisplay-none{
+    display: none;
+}
