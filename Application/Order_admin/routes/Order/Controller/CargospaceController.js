@@ -140,12 +140,14 @@ var CargospaceController = {
     },
     detailPage: function (req, res) {
         var spaceId =  req.params.spaceId;
+        var type =  req.params.type;
         Base.multiDataRequest(req, res, [
             {url: '/api/whse/cargospace/'+spaceId, method: 'GET', resConfig: {keyName: 'cargospaceInfo', is_must: true}},
         ], function (req, res, resultList) {
 
             var returnData = Base.mergeData(helper.mergeObject({
                 title: ' ',
+                type: type,
             }, resultList));
             res.render('order/cargospace/detail', returnData);
         });

@@ -1,0 +1,170 @@
+<%- include('../layouts/head_top'); %>
+<%- include('../layouts/head_bottom'); %>
+<%- include('../layouts/header'); %>
+<%- include('../layouts/nav'); %>
+
+<!-- MAIN PANEL -->
+<div id="main" role="main">
+
+    <!-- RIBBON -->
+    <div id="ribbon">
+
+        <!-- breadcrumb -->
+        <ol class="breadcrumb">
+            <li>后台管理</li>
+            <li><a class="back-url" href="/enterProduct"><i class="fa fa-chevron-left"></i>成品入库</a></li>
+            <li>成品入库信息</li>
+        </ol>
+        <!-- end breadcrumb -->
+
+
+    </div>
+    <!-- END RIBBON -->
+
+
+    <!-- MAIN CONTENT -->
+    <div id="content">
+        <!-- well -->
+        <div class="well">
+            <!-- row -->
+            <div class="row">
+                <!-- col -->
+                <div class="col-xs-12 dwy-show-content">
+                    <legend>成品入库信息</legend>
+
+                    <!-- row -->
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-striped table-information">
+                            <tbody>
+                            <tr>
+                                <td width="12%">入库单号</td>
+                                <td>23456123</td>
+                                <td width="12%">入库人</td>
+                                <td>张三</td>
+                                <td width="12%">入库日期</td>
+                                <td>2016-10-10</td>
+                            </tr>
+                            <tr>
+                                <td>仓库</td>
+                                <td>板材仓库</td>
+                                <td>订单号</td>
+                                <td>123456</td>
+                                <td>生产订单号</td>
+                                <td>123456</td>
+                            </tr>
+                            <tr>
+                                <td>客户名称</td>
+                                <td>浙江省杭州市湖滨银泰店</td>
+                                <td>交货日期</td>
+                                <td>类别</td>
+                                <td>类别</td>
+                                <td>张三</td>
+                            </tr>
+                            <tr>
+                                <td>出厂价</td>
+                                <td colspan="5">原材料</td>
+                            </tr>
+                            <tr>
+                                <td>备注</td>
+                                <td colspan="5"></td>
+                            </tr>
+
+                            </tbody>
+                        </table>
+
+                    </div>
+                    <!-- end row -->
+                </div>
+                <!-- end col -->
+            </div>
+            <!-- end row -->
+        </div>
+        <!-- end well -->
+        <div class="well">
+
+            <!-- row -->
+            <div class="row">
+                <div class="col-xs-12">
+                    <h6>入库清单</h6>
+
+                    <hr class="simple">
+                </div>
+            </div>
+
+            <!-- row -->
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-striped">
+                            <thead>
+                            <tr>
+                                <th>序号</th>
+                                <th>入库单号</th>
+                                <th>包装产品</th>
+                                <th>货位号</th>
+                                <th>包装序号</th>
+                                <th>包装名称</th>
+                                <th>包装编号</th>
+                                <th>包装类型</th>
+                                <th>包重</th>
+                                <th>包装产品材料</th>
+                                <th>入库数量</th>
+                                <th>状态</th>
+                                <th>入库时间</th>
+                                <th>发货时间</th>
+                                <th>扫描人</th>
+                                <th>备注</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td>1</td>
+                                <td>56456789</td>
+                                <td>银白下框</td>
+                                <td><a href="/enterProduct/cargospace/detail/12345">12345</a></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td colspan="16" class="text-align-center">暂无数据</td>
+                            </tr>
+                            </tbody>
+                        </table>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+    <!-- END MAIN CONTENT -->
+
+</div>
+<!-- END MAIN PANEL -->
+
+<%- include('../layouts/footer'); %>
+<%- include('../layouts/footer_common_script'); %>
+
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+
+
+
+    })
+
+</script>
+
+<%- include('../layouts/foot'); %>

@@ -12,8 +12,8 @@
         <!-- breadcrumb -->
         <ol class="breadcrumb">
             <li>后台管理</li>
-            <li>物料管理</li>
-            <li>查看物料分类</li>
+            <li><a href="/materialManage">物料管理</a></li>
+            <li><a href="/materialManage/materialType">查看物料分类</a></li>
         </ol>
         <!-- end breadcrumb -->
 
@@ -35,7 +35,7 @@
                     <!--<legend>物料搜索</legend>-->
                     <!-- row -->
                     <div class="row search-form">
-                        <form class="form-horizontal" method="get">
+                        <form class="form-horizontal">
 
                             <div class="col-xs-12">
 
@@ -43,7 +43,7 @@
                                     <div class="form-group">
                                         <label class="col-xs-4 control-label">分类编码:</label>
                                         <div class="col-xs-8">
-                                            <input class="form-control" placeholder="请输入分类编码" value="" type="text" name="">
+                                            <input class="form-control" placeholder="请输入分类编码" value="" type="text" name="id">
                                         </div>
                                     </div>
                                 </div>
@@ -52,7 +52,7 @@
                                     <div class="form-group">
                                         <label class="col-xs-4 control-label">名称:</label>
                                         <div class="col-xs-8">
-                                            <input class="form-control" placeholder="请输入名称" value="" type="text" name="">
+                                            <input class="form-control" placeholder="请输入名称" value="" type="text" name="name">
                                         </div>
                                     </div>
                                 </div>
@@ -105,8 +105,8 @@
                                 <th>一级分类</th>
                                 <th>二级分类</th>
                                 <th>三级分类</th>
-                                <th style="display:none">上级编码</th>
-                                <th style="">物料编码</th>
+                                <th style="">上级编码</th>
+                                <th style="display:none">物料编码</th>
                                 <th>添加时间</th>
                                 <th>备注</th>
                                 <th>操作</th>
@@ -137,8 +137,8 @@
                                 <%  } %>
                                 <!--END 判断物料分类级别-->
 
-                                <td style="display:none"><%= element.parentId %></td>
-                                <td ><%= element.id %></td>
+                                <td ><%= element.parentId %></td>
+                                <td style="display:none"><%= element.id %></td>
                                 <td><%= DWY_Helper.getLocalDate(element.addTime) %></td>
                                 <td><%= element.remark %></td>
 
@@ -152,7 +152,7 @@
                                     <a href="/materialManage/materialType/creOther/<%= element.id %>">新建子类</a>
                                     <a href="/materialManage/materialType/modify/<%= element.id %>" class="margin-left-20">修改</a>
                                     <a href="javascript:void(0)" class="margin-left-20 closeStore" >禁用</a>
-                                    <a href="/materialManage/material/create" class="margin-left-20">新建物料</a>
+                                    <a href="/materialManage/material/creStepO" class="margin-left-20">新建物料</a>
                                     <% } %>
                                 </td>
                                 <%        break;
@@ -164,7 +164,7 @@
                                     <a href="/materialManage/materialType/creOther/<%= element.id %>">新建子类</a>
                                     <a href="/materialManage/materialType/modify/<%= element.id %>"  class="margin-left-20">修改</a>
                                     <a href="javascript:void(0)" class="margin-left-20 closeStore">禁用</a>
-                                    <a href="/materialManage/material/create" class="margin-left-20">新建物料</a>
+                                    <a href="/materialManage/material/creStepO" class="margin-left-20">新建物料</a>
                                     <% } %>
 
                                 </td>
@@ -176,7 +176,7 @@
                                     <% }else{ %>
                                     <a href="/materialManage/materialType/modify/<%= element.id %>" class="margin-left-78">修改</a>
                                     <a href="javascript:void(0)" class="margin-left-20 closeStore" >禁用</a>
-                                    <a href="/materialManage/material/create"  class="margin-left-20">新建物料</a>
+                                    <a href="/materialManage/material/creStepO"  class="margin-left-20">新建物料</a>
                                     <% } %>
                                 </td>
                                 <%  } %>

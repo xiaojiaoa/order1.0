@@ -297,7 +297,7 @@ router.put('/materialManage/material/selectMateCate/:pid', Middleware.AuthCheck,
 // 新建物料
 router.post('/materialManage/material/doCreate', Middleware.AuthCheck, MaterialController.doCreate);
 
-//物料修改页面
+//修改物料
 router.get('/materialManage/material/modify/:mid', Middleware.AuthCheck, MaterialController.materialModifyPage);
 
 // 禁用/解锁 物料详情
@@ -574,7 +574,7 @@ router.put('/getRegionList/:whseId', Middleware.AuthCheck, CargospaceController.
 router.get('/cargospace', Middleware.AuthCheck, Middleware.FilterEmptyField, CargospaceController.listPage);
 
 // 货位详情页面
-router.get('/cargospace/detail/:spaceId', Middleware.AuthCheck, CargospaceController.detailPage);
+router.get('/:type/cargospace/detail/:spaceId', Middleware.AuthCheck, CargospaceController.detailPage);
 
 // 新增货位页面
 router.get('/cargospace/create', Middleware.AuthCheck, CargospaceController.createPage);
@@ -599,6 +599,90 @@ router.delete('/cargospace/doClose/:spaceId', Middleware.AuthCheck, CargospaceCo
 
 // 解锁 货位
 router.put('/cargospace/doOpen/:spaceId', Middleware.AuthCheck, CargospaceController.doOpen);
+
+
+
+/*
+ * 页面范围: 入库管理相关
+ * 控制器:   EnterController
+ * */
+
+var EnterController = require('./Controller/EnterController');
+
+// 原料入库页面
+router.get('/enterMaterial', Middleware.AuthCheck, Middleware.FilterEmptyField, EnterController.enterMaterialPage);
+
+// 原料入库-审核
+router.put('/enterMaterial/doPass/:id', Middleware.AuthCheck, EnterController.doPassMaterial);
+
+// 原料入库-撤审
+router.put('/enterMaterial/notPass/:id', Middleware.AuthCheck, EnterController.notPassMaterial);
+
+// 原料入库详情页面
+router.get('/enterMaterial/detail/:id', Middleware.AuthCheck, EnterController.enterMaterialDetailPage);
+
+// 原料入库-采购完成单 页面
+router.get('/enterMaterial/stockOver', Middleware.AuthCheck, EnterController.stockOverPage);
+
+// 原料入库-采购完成单-入库 页面
+router.get('/enterMaterial/stockOver/toEnter', Middleware.AuthCheck, EnterController.stockEnterPage);
+
+// 原料入库-采购完成单-入库-入库
+router.put('/enterMaterial/stockOver/toEnter/doEnter', Middleware.AuthCheck, EnterController.doEnter);
+
+// 成品入库页面
+router.get('/enterProduct', Middleware.AuthCheck, EnterController.enterProductPage);
+
+// 成品入库详情页面
+router.get('/enterProduct/detail/:id', Middleware.AuthCheck, EnterController.enterProductDetailPage);
+
+// 成品扫描入库页面
+router.get('/enterProduct/scanning', Middleware.AuthCheck, EnterController.enterScanningPage);
+
+// 成品扫描入库-入库
+router.put('/enterProduct/scanning/doEnter/:id', Middleware.AuthCheck, EnterController.doEnterProduct);
+
+
+
+/*
+ * 页面范围: 出库管理相关
+ * 控制器:   OutWarehouseController
+ * */
+
+var OutWarehouseController = require('./Controller/OutWarehouseController');
+
+// 待发货流水页面
+router.get('/waitSend', Middleware.AuthCheck, Middleware.FilterEmptyField, OutWarehouseController.waitSendPage);
+
+// 发货通知单页面
+router.get('/deliveryNote', Middleware.AuthCheck, OutWarehouseController.deliveryNotePage);
+
+// 发货通知单-详情 页面
+router.get('/deliveryNote/deatil/:id', Middleware.AuthCheck, OutWarehouseController.deliveryNoteDeatil);
+
+// 原料出库页面
+router.get('/outMaterial', Middleware.AuthCheck, OutWarehouseController.outMaterialPage);
+
+// 原料出库详情页面
+router.get('/outMaterial/deatil/:id', Middleware.AuthCheck, OutWarehouseController.outMaterialDeatil);
+
+// 可发货订单 页面
+router.get('/canSend', Middleware.AuthCheck, OutWarehouseController.canSendPage);
+
+// 成品出库页面
+router.get('/outProduct', Middleware.AuthCheck, OutWarehouseController.outProductPage);
+
+// 原料出库详情页面
+router.get('/outProduct/deatil/:id', Middleware.AuthCheck, OutWarehouseController.outProductDeatil);
+
+// 大板领料单页面
+router.get('/outBred', Middleware.AuthCheck, OutWarehouseController.outBredPage);
+
+// 大板领料详情单页面
+router.get('/outBred/deatil/:id', Middleware.AuthCheck, OutWarehouseController.outBredDeatil);
+
+
+
 
 /*
  * 页面范围: 任务序列相关
@@ -767,12 +851,17 @@ router.post('/purchases/submit/:tid', Middleware.AuthCheck,PurchaseController.pu
  * */
 var NetworkBookController = require('./Controller/NetworkBookController');
 
-// 流水详情
+// 网络预约
 router.get('/networkBook', Middleware.AuthCheck, NetworkBookController.indexPage);
+
+// 客户信息
+router.put('/measure/:mobile', Middleware.AuthCheck, NetworkBookController.measurePage);
 
 // 分配门店创建量尺任务
 router.post('/networkBook/doMeasure', Middleware.AuthCheck, NetworkBookController.doMeasure);
 
+// 置为无效
+router.put('/networkBook/doClose/:measureId', Middleware.AuthCheck, NetworkBookController.doClose);
 
 
 module.exports = router;

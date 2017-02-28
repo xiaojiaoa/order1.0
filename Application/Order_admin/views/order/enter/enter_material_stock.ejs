@@ -1,0 +1,153 @@
+<%- include('../layouts/head_top'); %>
+<%- include('../layouts/head_bottom'); %>
+<%- include('../layouts/header'); %>
+<%- include('../layouts/nav'); %>
+
+
+<!-- MAIN PANEL -->
+<div id="main" role="main">
+
+    <!-- RIBBON -->
+    <div id="ribbon">
+
+        <!-- breadcrumb -->
+        <ol class="breadcrumb">
+            <li>后台管理</li>
+            <li><a class="back-url" href="/enterMaterial"><i class="fa fa-chevron-left"></i> 原料入库</a></li>
+            <li>采购完成单</li>
+        </ol>
+
+
+    </div>
+    <!-- END RIBBON -->
+
+
+    <!-- MAIN CONTENT -->
+    <div id="content">
+        <!-- well -->
+        <div class="well">
+            <!-- row -->
+            <div class="row">
+                <!-- col -->
+                <div class="col-xs-12">
+                    <!--<legend>客户搜索</legend>-->
+                    <!-- row -->
+                    <div class="row search-form">
+                        <form class="form-horizontal" method="get" id="search-customer">
+                            <div class="col-xs-12">
+                                <div class="col-xs-3">
+                                    <div class="form-group">
+                                        <label class="col-xs-4 control-label">采购单号:</label>
+                                        <div class="col-xs-8">
+                                            <input class="form-control" value="<%= DWYRequest.query.cid %>" type="text"
+                                                   name="cid">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xs-3">
+                                    <div class="form-group">
+                                        <label class="col-xs-4 control-label">类别:</label>
+                                        <div class="col-xs-8">
+                                            <select class="form-control" name="ctype">
+                                                <option value="">- 请选择 -</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xs-3">
+                                    <div class="form-group">
+                                        <label class="col-xs-4 control-label">厂商:</label>
+                                        <div class="col-xs-8">
+                                            <select class="form-control" name="ctype">
+                                                <option value="">- 请选择 -</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-xs-12">
+                                <hr class="simple">
+                                <div class="col-xs-12 text-center">
+                                    <button class="btn btn-primary " type="submit">
+                                        <i class="fa fa-search"></i>
+                                        查询
+                                    </button>
+                                </div>
+                            </div>
+
+                        </form>
+                    </div>
+                    <!-- end row -->
+                </div>
+                <!-- end col -->
+            </div>
+            <!-- end row -->
+        </div>
+        <!-- end well -->
+
+        <div class="well">
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-striped table-hover table-expand">
+                            <thead>
+                            <tr>
+                                <th>序号</th>
+                                <th>类别</th>
+                                <th>采购单号</th>
+                                <th>采购部门</th>
+                                <th>采购人</th>
+                                <th>供应商</th>
+                                <th>日期</th>
+                                <th>交货日期</th>
+                                <th>操作</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td>1</td>
+                                <td></td>
+                                <td><a href="/purchase/orderDetail/123456">123456</a></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td><a class="enterThis" href="/enterMaterial/stockOver/toEnter">入库</a></td>
+                            </tr>
+
+                            <tr>
+                                <td colspan="9" class="text-align-center">暂无数据</td>
+                            </tr>
+                            </tbody>
+                        </table>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- END MAIN CONTENT -->
+
+</div>
+<!-- END MAIN PANEL -->
+
+<%- include('../layouts/footer'); %>
+<%- include('../layouts/footer_common_script'); %>
+
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+
+        $("#search-customer").validationEngine();
+
+        pageSetUp();
+
+    })
+
+</script>
+
+
+<%- include('../layouts/foot'); %>

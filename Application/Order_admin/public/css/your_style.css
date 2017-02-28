@@ -74,8 +74,21 @@ nav ul span.menu-item-parent {
     background: #fdcc9c !important;
 }
 
+/*日历选择器*/
 .flatpickr-input[readonly] {
     background-color: #fff;
+    float:left;
+    width: 90%;
+}
+
+/*日历清除*/
+.close-picker{
+    float:left;
+    width:10%;
+    line-height:32px;
+    font-size: 14px;
+    text-align:center;
+    cursor:pointer;
 }
 
 .table-information tr td:nth-of-type(2n+1) {
@@ -377,6 +390,28 @@ tr > td > .separation:last-child {
 #purchaseTable:first-of-type{
     display:table;
 }
+
+#ribbon .breadcrumb a.back-url {
+    color: #468847 !important;
+    font-weight: 700;
+}
+.row-url{
+    margin-bottom: 20px;
+    text-align: center;
+}
+.title-url{
+    display: inline-block;
+    font-size: 25px;
+    text-align: center;
+    padding: 10px;
+    margin-right: 20px;
+    color: #333;
+}
+
+.title-url.active,.title-url:hover {
+    color: #61aae8;
+    border-bottom: 5px solid #61aae8;
+}
 .my-div-style01 .form-group{
     width: 50%;
     box-sizing: border-box;
@@ -389,4 +424,14 @@ tr > td > .separation:last-child {
 }
 .close-info .level-1-title{
     color:#999
+}
+
+.table-editinput>tbody>tr>td{
+    line-height: 32px;
+}
+.table-editinput .long{
+   width: 200px;
+}
+.table-editinput .short{
+    width: 100px;
 }
