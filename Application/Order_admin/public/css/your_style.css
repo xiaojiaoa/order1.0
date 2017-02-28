@@ -438,3 +438,9 @@ tr > td > .separation:last-child {
 .initdisplay-none{
     display: none;
 }
+.width01{
+    width: 9%;
+}
+.border-0{
+    border:0px;
+}

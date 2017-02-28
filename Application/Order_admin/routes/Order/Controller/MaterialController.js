@@ -45,6 +45,7 @@ var MaterialController = {
         var mid =  req.params.mid;
         Base.multiDataRequest(req, res, [
             {url: '/api/materials/'+mid, method: 'GET', resConfig: {keyName: 'mateInfo', is_must: true}},
+            {url: '/api/organizations//factory', method: 'GET', resConfig: {keyName: 'factoryList', is_must: true}},
         ], function (req, res, resultList) {
             var returnData = Base.mergeData(helper.mergeObject({
                 title: ' ',
@@ -56,17 +57,19 @@ var MaterialController = {
     },
     choiceFactory: function (req, res) {
         var fac=req.body.factory;
-        var mid=req.body.mid;
+        var mid=req.body.mateId;
        res.redirect("/materialManage/detail/factory/"+fac+"/"+mid);
     },
     detailFacPage: function (req, res) {
         var mid =  req.params.mid;
+        var bid =  req.params.bid;
         Base.multiDataRequest(req, res, [
             {url: '/api/materials/'+mid, method: 'GET', resConfig: {keyName: 'mateInfo', is_must: true}},
         ], function (req, res, resultList) {
             var returnData = Base.mergeData(helper.mergeObject({
                 title: ' ',
                 mid:mid,
+                bid:bid,
             },resultList));
             res.render('order/material/material_detail_choice_factory',returnData);
         });
@@ -147,6 +150,21 @@ var MaterialController = {
             res.render('order/material/material_modify',returnData);
         });
     },
+    doModify: function (req, res) {
+        console.log('物料修改'+ JSON.stringify(req.body));
+        var mid = req.body.id;
+        request(Base.mergeRequestOptions({
+            method: 'put',
+            url: '/api/materials/'+mid+"?"+queryString.stringify(req.body),
+            form:req.body,
+        }, req, res), function (error, response, body) {
+            if (!error && response.statusCode == 201) {
+                res.redirect("/materialManage");
+            } else {
+                Base.handlerError(res, req, error, response, body);
+            }
+        })
+    },
     setMaterialStatus: function (req, res) {
         var mid = req.params.mid;
         var type = req.params.type;
@@ -215,9 +233,9 @@ var MaterialController = {
     },
     doAdd: function (req, res) {
     console.log('工厂物料完善物料'+ JSON.stringify(req.body));
-   /* request(Base.mergeRequestOptions({
+    request(Base.mergeRequestOptions({
         method: 'post',
-        url: '/api/materials',
+        url: '/api/materials/stock',
         form:req.body,
     }, req, res), function (error, response, body) {
         if (!error && response.statusCode == 201) {
@@ -225,7 +243,7 @@ var MaterialController = {
         } else {
             Base.handlerError(res, req, error, response, body);
         }
-    })*/
+    })
 },
 };
 module.exports = MaterialController;
