@@ -20,144 +20,43 @@
     <!-- END RIBBON -->
     <!-- MAIN CONTENT -->
     <div id="content">
-        <!-- start well -->
-        <div class="well">
-            <!-- row -->
-            <div class="row">
-                <!-- col -->
-                <div class="col-xs-12">
-                    <!--<legend>客户搜索</legend>-->
-                    <div class="row search-form">
-                        <form class="form-horizontal" method="get">
-                            <div class="col-xs-12">
-                                <!--输入字段-->
-                                <div class="col-xs-3">
-                                    <div class="form-group">
-                                        <label class="col-xs-4 control-label">订单号:</label>
-                                        <div class="col-xs-8">
-                                            <input class="form-control" placeholder="请输入订单号" type="text" value="<%= DWYRequest.query.tid %>" name="tid">
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-xs-3">
-                                    <div class="form-group">
-                                        <label class="col-xs-4 control-label">客户手机:</label>
-                                        <div class="col-xs-8">
-                                            <input class="form-control" placeholder="请输入客户手机" type="text" value="<%= DWYRequest.query.mobile %>" name="mobile">
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-xs-12">
-                                <hr class="simple">
-                                <div class="col-xs-12 text-center">
-                                    <button class="btn btn-primary " type="submit">
-                                        <i class="fa fa-search"></i>
-                                        搜索
-                                    </button>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-                    <!-- end row -->
-                </div>
-                <!-- end col -->
-            </div>
-            <!-- end row -->
-        </div>
-        <!-- end well -->
-        <form class="form-horizontal" method="post" id="creat-supplier" action="" >
+        <form class="form-horizontal" method="post" id="modify-supplier" action="/supplier/doModify" >
             <div class="col-xs-12">
                 <legend>
                     修改供应商信息
-                    <a class="label label-danger" id="closeStore">禁用</a>
                 </legend>
             </div>
             <div class="col-xs-12">
                 <div class="form-group">
                     <div class="well">
                         <div class="row">
+                            <div class="col-xs-12">
                                 <div class="col-xs-12">
+                                    <h6>基本信息</h6>
+                                    <hr class="simple">
+                                </div>
+                                <div class="row">
                                     <div class="col-xs-12">
-                                        <h6>基本信息</h6>
-                                        <hr class="simple">
-                                    </div>
-                                    <div class="row">
-                                            <div class="col-xs-12">
-                                                <div class="col-xs-3">
-                                                    <div class="form-group">
-                                                        <label class="col-xs-4 control-label "><span class="requird"></span> 供应商名称:
-                                                        </label>
-                                                        <div class="col-xs-8">
-                                                            <input class="form-control validate[required]" value="" name="">
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-xs-3">
-                                                    <div class="form-group">
-                                                        <label class="col-xs-4 control-label "><span class="requird"></span>联系人:
-                                                        </label>
-                                                        <div class="col-xs-8">
-                                                            <input class="form-control validate[required]" value="" name="">
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-xs-3">
-                                                    <div class="form-group">
-                                                        <label class="col-xs-4 control-label "><span class="requird"></span> 联系人电话:
-                                                        </label>
-                                                        <div class="col-xs-8">
-                                                            <input class="form-control validate[required,funcCall[custom_validate_fn.isMobile]]" value="" name="">
-                                                        </div>
-                                                    </div>
+                                        <div class="col-xs-3">
+                                            <div class="form-group">
+                                                <label class="col-xs-4 control-label "><span class="requird"></span>联系人:
+                                                </label>
+                                                <div class="col-xs-8">
+                                                    <input class="form-control validate[required]" value="<%= supplierModify.contact %>" name="contact">
                                                 </div>
                                             </div>
+                                        </div>
+                                        <div class="col-xs-3">
+                                            <div class="form-group">
+                                                <label class="col-xs-4 control-label "><span class="requird"></span> 联系人电话:
+                                                </label>
+                                                <div class="col-xs-8">
+                                                    <input class="form-control validate[required,funcCall[custom_validate_fn.isMobile]]" value="<%= supplierModify.contactMobile %>" name="contactMobile">
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <div class="well">
-                        <div class="row">
-                                <div class="col-xs-12">
-                                    <div class="col-xs-12">
-                                        <h6>详细信息</h6>
-                                        <hr class="simple">
-                                    </div>
-                                    <div class="row">
-                                            <div class="col-xs-12">
-                                                <div class="col-xs-3">
-                                                    <div class="form-group">
-                                                        <label class="col-xs-4 control-label "><span class="requird"></span> 区域:
-                                                        </label>
-                                                        <div class="col-xs-8">
-                                                            <input class="form-control validate[required]" value="" name="">
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-xs-3">
-                                                    <div class="form-group">
-                                                        <label class="col-xs-4 control-label "><span class="requird"></span>供应商等级:
-                                                        </label>
-                                                        <div class="col-xs-8">
-                                                            <select class="form-control validate[required]" name="brandId">
-                                                                <option value="">- 请选择 -</option>
-                                                            </select>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-xs-3">
-                                                    <div class="form-group">
-                                                        <label class="col-xs-4 control-label "><span class="requird"></span> 详细地点:
-                                                        </label>
-                                                        <div class="col-xs-8">
-                                                            <input class="form-control validate[required]" value="" name="">
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                    </div>
                             </div>
                         </div>
                     </div>
@@ -165,50 +64,133 @@
                 <div class="form-group">
                     <div class="well">
                         <div class="row">
+                            <div class="col-xs-12">
                                 <div class="col-xs-12">
+                                    <h6>详细信息</h6>
+                                    <hr class="simple">
+                                </div>
+                                <div class="row">
                                     <div class="col-xs-12">
-                                        <h6>财务负责人</h6>
+                                        <div class="col-xs-6">
+                                            <div class="form-group dwy-area">
+                                                <label class="col-xs-2 control-label"><span class="requird"></span>
+                                                    供应商所在地:</label>
+                                                <div class="col-xs-10 no-padding">
+                                                    <div class="col-xs-3">
+                                                        <select class="form-control dwy-province validate[required]"
+                                                                name="province">
+                                                            <option value="">-省-</option>
+                                                        </select>
+                                                    </div>
+                                                    <div class="col-xs-3">
+                                                        <select class="form-control dwy-city validate[required]" name="city">
+                                                            <option value="">-市-</option>
+                                                        </select>
+                                                    </div>
+                                                    <div class="col-xs-3">
+                                                        <select class="form-control dwy-district validate[required]"
+                                                                name="dist">
+                                                            <option value="">-区-</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-12">
+                                        <div class="col-xs-6">
+                                            <div class="form-group">
+                                                <label class="col-xs-2 control-label "><span class="requird"></span> 详细地点:
+                                                </label>
+                                                <div class="col-xs-8">
+                                                    <input class="form-control validate[required]" value="<%= supplierModify.address %>" name="address">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="well">
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <div class="col-xs-12">
+                                    <h6>财务负责人</h6>
+                                    <hr class="simple">
+                                </div>
+                                <div class="row">
+                                    <div class="col-xs-12">
+                                        <div class="col-xs-3">
+                                            <div class="form-group">
+                                                <label class="col-xs-4 control-label "><span class="requird"></span>财务联系人:
+                                                </label>
+                                                <div class="col-xs-8">
+                                                    <input class="form-control validate[required]" value="<%= supplierModify.financeContact %>" name="financeContact">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-3">
+                                            <div class="form-group">
+                                                <label class="col-xs-4 control-label "><span class="requird"></span>财务联系电话:
+                                                </label>
+                                                <div class="col-xs-8">
+                                                    <input class="form-control validate[required,funcCall[custom_validate_fn.isMobile]]" value="<%= supplierModify.financeContactMobile %>" name="financeContactMobile">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-3">
+                                            <div class="form-group">
+                                                <label class="col-xs-4 control-label "><span class="requird"></span>开户行及银行:
+                                                </label>
+                                                <div class="col-xs-8">
+                                                    <input class="form-control validate[required]" value="<%= supplierModify.depositBank %>" name="depositBank">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-12">
+                                        <div class="col-xs-3">
+                                            <div class="form-group">
+                                                <label class="col-xs-4 control-label "><span class="requird"></span>开户卡号:
+                                                </label>
+                                                <div class="col-xs-8">
+                                                    <input class="form-control validate[required]" value="<%= supplierModify.depositNo %>" name="depositNo">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-3">
+                                            <div class="form-group">
+                                                <label class="col-xs-4 control-label "><span class="requird"></span>开票信息:
+                                                </label>
+                                                <div class="col-xs-8">
+                                                    <input class="form-control validate[required]" value="<%= supplierModify.invoiceInfo %>" name="invoiceInfo">
+                                                    <input type="hidden" value="<%= supplierModify.id %>" name="id">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-12">
+                                        <div class="col-xs-6">
+                                            <div class="form-group">
+                                                <label class="col-xs-2 control-label">备注:</label>
+                                                <div class="col-xs-10">
+                                                    <textarea name="remark" class="form-control" cols="30" rows="5"> <%= supplierModify.remark %></textarea>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-12">
                                         <hr class="simple">
+                                        <div class="col-xs-10 text-center">
+                                            <button class="btn btn-primary " type="submit">
+                                               修改
+                                            </button>
+                                        </div>
                                     </div>
-                                    <div class="row">
-                                            <div class="col-xs-12">
-                                                <div class="col-xs-3">
-                                                    <div class="form-group">
-                                                        <label class="col-xs-4 control-label "><span class="requird"></span> 联系电话:
-                                                        </label>
-                                                        <div class="col-xs-8">
-                                                            <input class="form-control validate[required,funcCall[custom_validate_fn.isMobile]]" value="" name="">
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-xs-3">
-                                                    <div class="form-group">
-                                                        <label class="col-xs-4 control-label "><span class="requird"></span>开户行及银行:
-                                                        </label>
-                                                        <div class="col-xs-8">
-                                                            <input class="form-control validate[required]" value="" name="">
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-xs-3">
-                                                    <div class="form-group">
-                                                        <label class="col-xs-4 control-label "><span class="requird"></span>开票信息:
-                                                        </label>
-                                                        <div class="col-xs-8">
-                                                            <input class="form-control validate[required]" value="" name="">
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-xs-12">
-                                                <hr class="simple">
-                                                <div class="col-xs-10 text-center">
-                                                    <button class="btn btn-primary " type="submit">
-                                                        修改
-                                                    </button>
-                                                </div>
-                                            </div>
-                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -224,8 +206,33 @@
 <script type="text/javascript">
     $(document).ready(function () {
         pageSetUp();
-        $("#creat-supplier").validationEngine();
+        $("#modify-supplier").validationEngine();
         $(".fg-date-picker").flatpickr(data_time_picker.data_picker); // jQuery
+
+        DWY_area.init({
+            defaultValue:[
+                {
+                    name:'province',
+                    value: '<%= supplierModify.province %>',
+                    key:'province',
+                    linkcity:'city',
+                    linkdis:'dist',
+                    cityId: '<%= supplierModify.city %>'
+                },
+                {name:'city', value: '<%= supplierModify.birthCity %>', key:'city',linkdis:'dist',disId: '<%= supplierModify.dist %>'},
+                {name:'dist', value: '<%= supplierModify.dist %>', key:'district'},
+                {
+                    name:'province',
+                    value: '<%= supplierModify.province %>',
+                    key:'province',
+                    linkcity:'city',
+                    linkdis:'dist',
+                    cityId: '<%= supplierModify.city %>'
+                },
+                {name:'city', value: '<%= supplierModify.city %>', key:'city',linkdis:'dist',disId: '<%= supplierModify.dist %>'},
+                {name:'dist', value: '<%= supplierModify.dist %>', key:'district'},
+            ]
+        });
     })
 </script>
 <%- include('../layouts/foot'); %>

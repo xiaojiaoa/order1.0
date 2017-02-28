@@ -13,7 +13,7 @@
         <!-- breadcrumb -->
         <ol class="breadcrumb">
             <li>后台管理</li>
-            <li>待发货流水</li>
+            <li>大板领料单</li>
         </ol>
 
 
@@ -25,10 +25,10 @@
     <div id="content">
 
         <div class="row-url">
-            <a class="title-url active" href="/waitSend">待发货流水</a>
+            <a class="title-url" href="/waitSend">待发货流水</a>
             <a class="title-url" href="/outMaterial">原料出库</a>
             <a class="title-url" href="/outProduct">成品出库</a>
-            <a class="title-url" href="/outBred">大板领料单</a>
+            <a class="title-url active" href="/outBred">大板领料单</a>
         </div>
         <!-- well -->
         <div class="well">
@@ -64,16 +64,6 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-xs-3">
-                                    <div class="form-group">
-                                        <label class="col-xs-4 control-label">区域:</label>
-                                        <div class="col-xs-8">
-                                            <select class="form-control" name="ctype">
-                                                <option value="">- 请选择 -</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                </div>
                                 <div class="col-xs-6">
                                     <div class="form-group">
                                         <label class="col-xs-2 control-label">日期:</label>
@@ -90,6 +80,7 @@
                                         </div>
                                     </div>
                                 </div>
+
                             </div>
 
 
@@ -101,8 +92,8 @@
                                         <i class="fa fa-search"></i>
                                         查询
                                     </button>
-                                    <a class="btn btn-primary " href="/enterMaterial/stockOver">
-                                        发货通知单
+                                    <a class="btn btn-primary" >
+                                        领料单导入
                                     </a>
                                 </div>
                             </div>
@@ -125,15 +116,11 @@
                             <thead>
                             <tr>
                                 <th>序号</th>
-                                <th>类别</th>
-                                <th>入库单号</th>
+                                <th>领用单号</th>
                                 <th>日期</th>
-                                <th>仓库</th>
-                                <th>区域</th>
-                                <th>采购单号</th>
-                                <th>入库人</th>
+                                <th>领用人</th>
+                                <th>部门</th>
                                 <th>状态</th>
-                                <th>财务审核</th>
                                 <th>审核人</th>
                                 <th>操作</th>
                             </tr>
@@ -141,34 +128,26 @@
                             <tbody>
                             <tr>
                                 <td>1</td>
-                                <td>配件</td>
-                                <td><a href="/enterMaterial/detail/123456">123456</a></td>
+                                <td><a href="/outBred/deatil/123456">123456</a></td>
                                 <td>2016-10-10</td>
                                 <td>仓库1</td>
                                 <td>区域1</td>
-                                <td><a href="/purchase/orderDetail/123456">123456</a></td>
                                 <td>张三</td>
                                 <td>待审核</td>
-                                <td></td>
-                                <td></td>
                                 <td><a class="label label-primary checkThis" data-id="37">审核</a></td>
                             </tr>
                             <tr>
                                 <td>2</td>
-                                <td>配件</td>
                                 <td><a href="/enterMaterial/detail/123456">123456</a></td>
                                 <td>2016-10-10</td>
                                 <td>仓库1</td>
                                 <td>区域1</td>
-                                <td><a href="/purchase/orderDetail/123456">123456</a></td>
                                 <td>张三</td>
                                 <td>待审核</td>
-                                <td></td>
-                                <td></td>
                                 <td><a class="label label-danger backThis" data-id="37">撤审</a></td>
                             </tr>
                             <tr>
-                                <td colspan="12" class="text-align-center">暂无数据</td>
+                                <td colspan="8" class="text-align-center">暂无数据</td>
                             </tr>
                             </tbody>
                         </table>
@@ -202,7 +181,7 @@
 
             layer.confirm('确定提交审核?', {icon: 3, title: '提示'}, function (index) {
                 $.ajax({
-                    url: '/enterMaterial/doPass/'+id,
+                    url: '/outBred/doCheck/'+id,
                     method: 'put',
                     success: function (data) {
                         window.location.reload();
@@ -228,7 +207,7 @@
 
             layer.confirm('确定撤回重新审核吗?', {icon: 3, title: '提示'}, function (index) {
                 $.ajax({
-                    url: '/enterMaterial/notPass/'+id,
+                    url: '/outBred/doUnCheck/'+id,
                     method: 'put',
                     success: function (data) {
                         window.location.reload();

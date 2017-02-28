@@ -123,6 +123,7 @@ var CargospaceController = {
         var ftyId = req.body.ftyId;
         var whseId = req.body.whseId;
         var regionId = req.body.regionId;
+        var createType = req.body.create;
         console.log('/api/whse/warehouse'+ JSON.stringify(req.body))
         request(Base.mergeRequestOptions({
             method: 'post',
@@ -131,7 +132,11 @@ var CargospaceController = {
         }, req, res), function (error, response, body) {
             if (!error && response.statusCode == 201) {
                 // var lid = JSON.parse(body).lid;
-                res.redirect("/cargospace?isAll=1&ftyId="+ftyId+"&whseId="+whseId+"&regionId="+regionId);
+                if(createType == 1){
+                    res.redirect("/cargospace?isAll=1&ftyId="+ftyId+"&whseId="+whseId+"&regionId="+regionId);
+                }else{
+                    res.redirect("/cargospace/createNext/"+ftyId+"/"+whseId+"/"+regionId);
+                }
 
             } else {
                 Base.handlerError(res, req, error, response, body);

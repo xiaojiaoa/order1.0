@@ -118,6 +118,7 @@
                                     </label>
                                 </th>
                                 <th>采购单编号</th>
+                                <th>供应商编号</th>
                                 <th>供应商名称</th>
                                 <th>预计交付时间</th>
                                 <th>创建时间</th>
@@ -137,10 +138,11 @@
                                     </label>
                                 </td>
                                 <td><a href="/purchase/orderDetail/<%= element.id %>"><%= element.id %></a></td>
+                                <td><a href="/purchase/orderDetail/<%= element.id %>"><%= element.suppId %></a></td>
                                 <td><%= element.suppName %></td>
                                 <td><%= DWY_Helper.getLocalDate(element.deliveryDate) %></td>
                                 <td><%= DWY_Helper.getLocalDate(element.addTime) %></td>
-                                <td><%= element.stcode %></td>
+                                <td><%= element.stcodeName %></td>
                                 <!--<td>-->
                                     <!--<a class="label label-primary" href="/purchase/order_detail/<%= element.id %>">详情</a>-->
                                 <!--</td>-->
@@ -185,9 +187,10 @@
                 }
             });
             $("#purchaseMerge").click(function(){
+                if(checkedValue.attr('class')==null||checkedValue.attr('class')=='') return false;
                 var tid = checkedValue.attr('class').replace(/[ ]/g,"");
                 tid = tid.substring(0,tid.length-1);
-                layer.confirm('确认标记?',{icon: 3, title:'提示'},
+                layer.confirm('确认合并?',{icon: 3, title:'提示'},
                     function(index){
                         $.ajax({
                             url: '/purchases/merge/'+tid,
@@ -235,6 +238,7 @@
                 }
             });
             $("#purchaseReview").click(function(){
+                if(purchaseReviewBtn.attr('class')==null||purchaseReviewBtn.attr('class')=='') return false;
                 var tid = purchaseReviewBtn.attr('class').replace(/[ ]/g,"");
                 tid = tid.substring(0,tid.length-1);
                 layer.confirm('确认审核?',{icon: 3, title:'提示'},
@@ -284,9 +288,10 @@
                 }
             });
             $("#purchaseSubmit").click(function(){
+                if(purchaseSubmitBtn.attr('class')==null||purchaseSubmitBtn.attr('class')=='') return false;
                 var tid = purchaseSubmitBtn.attr('class').replace(/[ ]/g,"");
                 tid = tid.substring(0,tid.length-1);
-                layer.confirm('确认审核?',{icon: 3, title:'提示'},
+                layer.confirm('确认提交?',{icon: 3, title:'提示'},
                     function(index){
                         $.ajax({
                             url: '/purchases/submit/'+tid,

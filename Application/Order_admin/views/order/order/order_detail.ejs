@@ -196,7 +196,7 @@
                                 <td colspan="3">
                                     <%
                                     orderInfo.resupplys.forEach(function (element) { %>
-                                    <a class="order-number" href="/order/resupply/detail/<%= element.tid %>/<%= element.resId %>"><%= element.resId %></a>
+                                    <a class="order-number" href="/order/resupply/detail/<%= element.tid %>/<%= element.resId %>"><%= element.tid %><%= element.resId %></a>
                                     <% }) %>
                                 </td>
                             </tr>

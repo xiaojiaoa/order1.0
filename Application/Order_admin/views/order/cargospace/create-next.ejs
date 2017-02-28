@@ -191,10 +191,15 @@
                                 <hr class="simple">
                                 <div class="col-xs-12 text-center">
 
-                                    <button class="btn btn-primary " type="submit">
+                                    <button class="btn btn-primary" id="createOne">
                                         <i class="fa fa-save"></i>
                                         确认添加
                                     </button>
+                                    <button class="btn btn-primary "  id="createAgan">
+                                        <i class="fa fa-save"></i>
+                                        提交并继续新建
+                                    </button>
+                                    <input name="create" id="create" value="1" type="hidden">
                                 </div>
                             </div>
 
@@ -331,6 +336,14 @@
                     break;
 
             }
+        })
+
+        var createType = $('#create');
+        $('#createAgan').click(function () {
+            createType.val(2)
+        })
+        $('#createOne').click(function () {
+            createType.val(1)
         })
 
     })

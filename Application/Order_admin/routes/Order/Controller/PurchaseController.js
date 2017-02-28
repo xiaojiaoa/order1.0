@@ -43,17 +43,20 @@ var PurchaseController = {
     },
     //新建请购单页面
     purchaseApplyCreatPage: function (req, res) {
-        var cid =  req.params.cid;
         Base.multiDataRequest(req, res, [
-            {url: '/api/purchase/request/'+cid, method: 'GET', resConfig: {keyName: 'purchaseApplyCreat', is_must: true}},
-            {url: '/api/assist/organ/types', method: 'GET', resConfig: {keyName: 'organTypes', is_must: true}},
-        ], function (req, res, resultList) {
-            var returnData = Base.mergeData(helper.mergeObject({
-                title: ' ',
-            },resultList));
-            res.render('order/purchase/apply_creat', returnData);
-        });
+                {url: '/api/categories/list?parentId=0'+(queryString.stringify(req.query)), method: 'GET', resConfig: {keyName: 'suppliersMaterialList', is_must: true}},
+                {url: '/api/materials', method: 'GET', resConfig: {keyName: 'supMaterialList', is_must: true}},
+            ],
+            function (req, res, resultList) {
+                var returnData = Base.mergeData(helper.mergeObject({
+                    title: ' ',
+                    Permission :Permissions,
+                }, resultList));
+                res.render('order/purchase/apply_creat', returnData);
+            });
     },
+
+
     //请购单详情
     purchaseApplyDetailPage: function (req, res) {
         var tid = req.params.tid;

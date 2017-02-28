@@ -83,65 +83,47 @@
             <div class="col-xs-12">
                 <div class="orderItemLayerTit">
                     <ul class="orderItemMenu">
-                        <li>物料一级分类名称1</li>
-                        <li>物料一级分类名称2</li>
-                        <div class="dwy-clear "></div>
+                        <%
+                        suppliersMaterialList.forEach(function (element, index) { %>
+                        <li selfId="<%= element.id %>"><%= element.name %></li>
+                        <%  })%>
                     </ul>
                 </div>
                 <div class="orderItemLayerTable">
                     <table class="table table-bordered">
                         <thead>
                         <tr>
-                            <th>序号</th>
+                            <th>
+                                <label class="checkbox-inline">
+                                    <input type="checkbox" class="checkbox"
+                                           id="checkAll"  />
+                                    <span>序号</span>
+                                </label>
+                            </th>
                             <th>物料编号</th>
                             <th>物料名称</th>
-                            <th>库存</th>
-                            <th>出厂价格</th>
+                            <th>分类名称</th>
                         </tr>
                         </thead>
                         <tbody>
+                        <%
+                        supMaterialList.result.forEach(function (element, index) { %>
                         <tr>
                             <td>
                                 <label class="checkbox-inline">
                                     <input type="checkbox" class="checkbox"
-                                           name="roles" value="2">
-                                    <span>001</span>
+                                           name="roles" value="<%= element.id %>">
+                                    <span><%= index+1 %></span>
                                 </label>
                             </td>
-                            <td>1</td>
-                            <td></td>
-                            <td>1</td>
-                            <td>1</td>
+                            <td><%= element.id %></td>
+                            <td><%= element.name %></td>
+                            <td><%= element.catName %></td>
                         </tr>
+                        <%  })%>
                         </tbody>
-                    </table>
-                    <table class="table table-bordered" style="display:none">
-                        <thead>
-                        <tr>
-                            <th>物料编号2</th>
-                            <th>物料名称</th>
-                            <th>供应商</th>
-                            <th>单位</th>
-                            <th>最小数量</th>
-                            <th>预计交付时间</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <tr>
-                            <td>
-                                <label class="checkbox-inline">
-                                    <input type="checkbox" class="checkbox"
-                                           name="roles" value="2">
-                                    <span>002</span>
-                                </label>
-                            </td>
-                            <td>2</td>
-                            <td></td>
-                            <td>1</td>
-                            <td>1</td>
-                            <td>1</td>
-                        </tr>
-                        </tbody>
+                        <input type="hidden" class="" id="checkedValue">
+                        <input type="hidden"  id="gid" value="">
                     </table>
                 </div>
             </div>
