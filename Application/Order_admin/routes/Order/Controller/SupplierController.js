@@ -54,6 +54,117 @@ var SupplierController = {
                 res.render('order/supplier/detail', returnData);
             });
     },
+    //供应商新增页面
+    supplierCreatPage: function (req, res) {
+        Base.multiDataRequest(req, res, [
+            {url: '/api/suppliers/categories/list?parentId=0', method: 'GET', resConfig: {keyName: 'supplierParentSort', is_must: true}},
+        ], function (req, res, resultList) {
+            var returnData = Base.mergeData(helper.mergeObject({
+                title: ' ',
+            },resultList));
+            res.render('order/supplier/creat', returnData);
+        });
+    },
+    //供应商新增
+    supplierDoCreate: function (req, res) {
+        request(Base.mergeRequestOptions({
+            method: 'post',
+            url: '/api/suppliers',
+            form:req.body,
+        }, req, res), function (error, response, body) {
+            if (!error && response.statusCode == 201) {
+                res.redirect("/supplier/offer_product");
+            } else {
+                Base.handlerError(res, req, error, response, body);
+            }
+        })
+    },
+    //供应商修改页面
+    supplierModifyPage: function (req, res) {
+        var tid = req.params.tid;
+        Base.multiDataRequest(req, res, [
+            {url: '/api/suppliers/'+tid, method: 'GET', resConfig: {keyName: 'supplierModify', is_must: true}},
+        ], function (req, res, resultList) {
+            var returnData = Base.mergeData(helper.mergeObject({
+                title: ' ',
+            },resultList));
+            res.render('order/supplier/modify', returnData);
+        });
+    },
+    //供应商修改
+    supplierDoModify: function (req, res) {
+        var tid = req.body.tid;
+        request(Base.mergeRequestOptions({
+            method: 'put',
+            url: '/api/suppliers/'+tid+'?'+queryString.stringify(req.body)
+        }, req, res), function (error, response, body) {
+            if (!error && response.statusCode == 201) {
+                res.redirect("/supplier");
+            } else {
+                Base.handlerError(res, req, error, response, body);
+            }
+        })
+    },
+    //供应商启用+禁用
+    supplierdoDelete: function (req, res) {
+        var tid = req.params.tid;
+        var type = req.params.type;
+        request(Base.mergeRequestOptions({
+            method: 'put',
+            url: '/api/suppliers/isDeleted/'+tid+'?isDeleted='+type,
+        }, req, res), function (error, response, body) {
+            if (!error && response.statusCode == 201) {
+                res.redirect("/supplier/sort");
+            } else {
+                Base.handlerError(res, req, error, response, body);
+            }
+        })
+    },
+    //供应商物料关联
+    supplierOfferProductPage: function (req, res) {
+        // var stairCatId=req.params.stairCatId;
+        Base.multiDataRequest(req, res, [
+            {url: '/api/categories/list?parentId=0'+(queryString.stringify(req.query)), method: 'GET', resConfig: {keyName: 'suppliersMaterialList', is_must: true}},
+            {url: '/api/materials', method: 'GET', resConfig: {keyName: 'supMaterialList', is_must: true}},
+            {url: '/api/suppliers', method: 'GET', resConfig: {keyName: 'suppliersList', is_must: true}},
+        ], function (req, res, resultList) {
+            var returnData = Base.mergeData(helper.mergeObject({
+                title: ' ',
+            },resultList));
+            res.render('order/supplier/offer_product', returnData);
+        });
+    },
+    //新增供应商物料关联
+    createMaterialSupplier: function (req, res) {
+        request(Base.mergeRequestOptions({
+            method: 'post',
+            url: '/api/suppliers/materials',
+        }, req, res), function (error, response, body) {
+            if (!error && response.statusCode == 201) {
+                res.sendStatus(200)
+            }else{
+                Base.handlerError(res, req, error, response, body);
+            }
+        })
+    },
+
+
+    //根据父类id获取供应商分类
+    supSortParentId: function (req, res) {
+        var tid=req.params.tid;
+        request(Base.mergeRequestOptions({
+            method: 'GET',
+            url: '/api/suppliers/categories/list?parentId='+tid,
+        }, req, res), function (error, response, body) {
+            if (!error && response.statusCode == 200) {
+                res.status(200).json(body)
+            } else {
+                Base.handlerError(res, req, error, response, body);
+            }
+        })
+    },
+
+
     //供应商分类列表
     supplierSortPage: function (req, res) {
         var paramObject = helper.genPaginationQuery(req);
@@ -118,16 +229,7 @@ var SupplierController = {
             }
         })
     },
-    supplierCreatPage: function (req, res) {
 
-        res.render('order/supplier/creat');
-    },
-    supplierModifyPage: function (req, res) {
-        res.render('order/supplier/modify');
-    },
-    supplierOfferProductPage: function (req, res) {
-        res.render('order/supplier/offer_product');
-    },
     supplierSortModifyPage: function (req, res) {
         res.render('order/supplier/sort_modify');
     },

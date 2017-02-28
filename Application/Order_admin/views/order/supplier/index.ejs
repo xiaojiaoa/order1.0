@@ -105,7 +105,7 @@
                     <legend>
                         供应商列表
                         <a class="label label-primary" href="/supplier/sort">供应商分类</a>
-                        <a class="label label-primary" href="/supplier/create">添加供应商</a>
+                        <a class="label label-primary" href="/supplier/createPage">添加供应商</a>
                         <!--<a class="label label-primary" href="/supplier/modify">修改供应商信息</a>-->
                     </legend>
                 </div>
@@ -117,6 +117,7 @@
                         <table class="table table-bordered table-striped">
                             <thead>
                             <tr>
+                                <th>序号</th>
                                 <th>供应商编号</th>
                                 <th>供应商分类编号</th>
                                 <th>供应商分类名称</th>
@@ -132,21 +133,33 @@
                             <%
                             if(suppliersList.totalItems != 0  ){
                                 suppliersList.result.forEach(function (element, index) { %>
-                            <tr>
+                            <tr class="<%= ( element.isDeleted == 1 )? 'close-info':'' %>">
+                                <td><%= index+1 %></td>
                                 <td><a href="supplier/detail/<%= element.id %>"><%= element.id %></a></td>
                                 <td><%= element.cateId %></td>
                                 <td><%= element.name %></td>
                                 <td><%= element.grade %></td>
                                 <td><%= element.contact %></td>
                                 <td><%= element.contactMobile %></td>
-                                <td><%= element.address %></td>
+                                <td><%= element.provinceStr %>,<%= element.cityStr %>,<%= element.distStr %>,<%= element.address %></td>
                                 <td><%= element.remark %></td>
-                                <td><a class="label label-primary">启用</a><a class="label label-danger">禁用</a></td>
+                                <td>
+                                    <%
+                                    if(element.isDeleted==1){%>
+                                        <button class="label label-primary delete-supplier" selfId="<%= element.id %>">启用</button>
+                                    <% }else{%>
+                                        <a class="label label-primary" href="/supplier/modify/<%= element.id %>">修改</a>
+                                        <button class="label label-danger openSupplierSort" selfId="<%= element.id %>">禁用</button>
+                                    <%  }%>
+                                    <input value="1" id="urlType" type="hidden">
+                                    <input value="2" id="urlType2" type="hidden">
+                                </td>
                                 <% }
                                 )} %>
                             </tr>
                             </tbody>
                         </table>
+                        <%- pagination %>
                     </div>
                 </div>
             </div>
@@ -162,5 +175,6 @@
         $(".fg-date-time-picker").flatpickr(data_time_picker.data_picker); // jQuery
     })
 </script>
+<%- include('./js_function'); %>
 <%- include('../layouts/foot'); %>
 
