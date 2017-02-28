@@ -870,6 +870,11 @@ router.get('/purchase', Middleware.AuthCheck,PurchaseController.purchasePage);
 
 // 新建请购单页面
 router.get('/purchase/applyCreat', Middleware.AuthCheck,PurchaseController.purchaseApplyCreatPage);
+//新建请购单 选择物料信息列表
+router.post('/purchase/applyOrderMaterial/:tid', Middleware.AuthCheck,PurchaseController.purchaseApplyMaterialCreat);
+//新建请购单 物料信息修改
+router.get('/purchase/apply_createMaterial', Middleware.AuthCheck,PurchaseController.applyMaterialCreatePage);
+
 
 // 请购单详情
 router.get('/purchase/applyDetail/:tid', Middleware.AuthCheck,PurchaseController.purchaseApplyDetailPage);
