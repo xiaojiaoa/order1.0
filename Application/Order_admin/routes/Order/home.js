@@ -328,7 +328,7 @@ router.put('/materialManage/material/selectMateCate/:pid', Middleware.AuthCheck,
 // 新建物料
 router.post('/materialManage/material/doCreate', Middleware.AuthCheck, MaterialController.doCreate);
 
-//物料修改页面
+//修改物料
 router.get('/materialManage/material/modify/:mid', Middleware.AuthCheck, MaterialController.materialModifyPage);
 
 // 禁用/解锁 物料详情
