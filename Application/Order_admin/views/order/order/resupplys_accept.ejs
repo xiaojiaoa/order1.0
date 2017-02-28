@@ -45,19 +45,26 @@
                             </tr>
                             </thead>
                             <tbody>
+                            <%
+                            if(acceptingList.result && acceptingList.result.length>0 ){
+                            acceptingList.result.forEach(function (element, index) { %>
                             <tr>
-                                <td>1</td>
-                                <td><a href="/order/resupply/detail/11222">11222</a></td>
-                                <td>二级</td>
-                                <td>浙江省杭州市湖滨银泰店</td>
-                                <td><%= user.name %></td>
-                                <td><%= user.name %></td>
-                                <td>2016-10-10</td>
+                                <td><%= index+1 %></td>
+                                <td><a href="/order/resupply/detail/<%= element.tid %>/<%= element.resupplyId %>"><%= element.resupplyId %></a></td>
+                                <td><%= element.difficultyStr %></td>
+                                <td><%= element.storeName %></td>
+                                <td><%= element.customerName %></td>
+                                <td><%= element.createOperator %></td>
+                                <td><%= element.addTime %></td>
+
                             </tr>
-
-
+                            <% })
+                            }else{ %>
+                            <td colspan="7" class="text-align-center">暂无数据</td>
+                            <% }%>
                             </tbody>
                         </table>
+                        <%- paginationOne %>
                     </div>
                 </div>
             </div>
@@ -88,8 +95,8 @@
                                             <div class="form-group">
                                                 <label class="col-xs-4 control-label">补单号:</label>
                                                 <div class="col-xs-8">
-                                                    <input class="form-control"  value="" type="text"
-                                                           name="">
+                                                    <input class="form-control"  value="<%= DWYRequest.query.resupplyId %>"
+                                                           name="resupplyId">
                                                 </div>
                                             </div>
                                         </div>
@@ -97,8 +104,13 @@
                                             <div class="form-group">
                                                 <label class="col-xs-4 control-label">难度等级:</label>
                                                 <div class="col-xs-8">
-                                                    <select class="form-control" name="">
+                                                    <select class="form-control" name="difficulty">
                                                         <option value="">- 请选择 -</option>
+                                                        <% difficultyList.forEach(function (element) {  %>
+                                                        <option value="<%= element.id %>" <%= (DWYRequest.query.difficulty == element.id)?"selected":"" %>>
+                                                            <%= element.name %>
+                                                        </option>
+                                                        <% }) %>
                                                     </select>
                                                 </div>
                                             </div>
@@ -134,19 +146,26 @@
                         </tr>
                         </thead>
                         <tbody>
+                        <%
+                        if(acceptList.result && acceptList.result.length>0 ){
+                        acceptList.result.forEach(function (element, index) { %>
                         <tr>
-                            <td>1</td>
-                            <td><a href="/order/resupply/detail/11222">11222</a></td>
-                            <td>二级</td>
-                            <td>浙江省杭州市湖滨银泰店</td>
-                            <td><%= user.name %></td>
-                            <td><%= user.name %></td>
-                            <td>2016-10-10</td>
+                            <td><%= index+1 %></td>
+                            <td><a href="/order/resupply/detail/<%= element.tid %>/<%= element.resupplyId %>"><%= element.resupplyId %></a></td>
+                            <td><%= element.difficultyStr %></td>
+                            <td><%= element.storeName %></td>
+                            <td><%= element.customerName %></td>
+                            <td><%= element.createOperator %></td>
+                            <td><%= element.addTime %></td>
                         </tr>
-
+                        <% })
+                        }else{ %>
+                        <td colspan="7" class="text-align-center">暂无数据</td>
+                        <% }%>
 
                         </tbody>
                     </table>
+                    <%- paginationTwo %>
                 </div>
             </div>
             <!-- end row -->
@@ -170,13 +189,7 @@
 <script type="text/javascript">
 
     $(document).ready(function () {
-
-
-
         pageSetUp();
-        $(".fg-date-picker").flatpickr(data_time_picker.data_picker); // jQuery
-
-
     })
 
 </script>

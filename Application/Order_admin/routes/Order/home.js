@@ -162,12 +162,43 @@ router.get('/orders/resupplys', Middleware.AuthCheck, Middleware.FilterEmptyFiel
 // 补单受理页面
 router.get('/orders/resupplys/accept', Middleware.AuthCheck, Middleware.FilterEmptyField, OrderController.acceptPage);
 
+// 标记为审核中
+router.put('/resupplys/getTask/:tid/:resId', Middleware.AuthCheck, OrderController.getTaskResupplys);
+// 解锁补单
+router.put('/resupplys/unlock/:tid/:resId', Middleware.AuthCheck, OrderController.doUnlockResupplys);
+
+// 审核未通过（退单）
+router.post('/resupplys/notPass', Middleware.AuthCheck, OrderController.notPassResupplys);
+// 审核通过
+router.post('/resupplys/doPass', Middleware.AuthCheck, OrderController.doPassResupplys);
+
 // 补单拆单页面
 router.get('/orders/resupplys/apart', Middleware.AuthCheck, Middleware.FilterEmptyField, OrderController.apartPage);
 
+// 标记为审核中 (待拆单)
+router.put('/resupplys/apart/getTask/:tid/:resId', Middleware.AuthCheck, OrderController.getTaskReApart);
 
-// 补单详情页面   补单信息（已完成）
-router.get('/order/resupply/detail/:tid', Middleware.AuthCheck, OrderController.resupplyDetailPage);
+// 解锁订单
+router.post('/resupplys/apart/unlock/:tid/:resId', Middleware.AuthCheck, OrderController.doUnlockReApart);
+
+// 审核未通过（退单）
+router.post('/resupplys/apart/notPass', Middleware.AuthCheck, OrderController.notPassReApart);
+
+// 审核通过
+router.post('/resupplys/apart/doPass/:tid/:resId', Middleware.AuthCheck, OrderController.doPassReApart);
+
+// 标记为审核中 (待拆单审核)
+router.post('/resupplys/apartCheck/getTask/:tid/:resId', Middleware.AuthCheck, OrderController.getTaskCheckReApart);
+// 解锁订单
+router.post('/resupplys/apartCheck/unlock/:tid/:resId', Middleware.AuthCheck, OrderController.doUnlockCheckReApart);
+
+// 审核未通过（退单）
+router.post('/resupplys/apartCheck/notPass', Middleware.AuthCheck, OrderController.notPassCheckReApart);
+// 审核通过
+router.post('/resupplys/apartCheck/doPass/:tid/:resId', Middleware.AuthCheck, OrderController.doPassCheckReApart);
+
+// 补单详情页面
+router.get('/order/resupply/detail/:tid/:resId', Middleware.AuthCheck, OrderController.resupplyDetailPage);
 
 
 //  订单审核页面
@@ -655,7 +686,13 @@ var OutWarehouseController = require('./Controller/OutWarehouseController');
 router.get('/waitSend', Middleware.AuthCheck, Middleware.FilterEmptyField, OutWarehouseController.waitSendPage);
 
 // 发货通知单页面
+router.post('/doDelivery', Middleware.AuthCheck, OutWarehouseController.doDelivery);
+
+// 发货通知单页面
 router.get('/deliveryNote', Middleware.AuthCheck, OutWarehouseController.deliveryNotePage);
+
+// 发货通知单-审核
+router.put('/deliveryNote/doChecked/:id', Middleware.AuthCheck, OutWarehouseController.doDeliveryChecked);
 
 // 发货通知单-详情 页面
 router.get('/deliveryNote/deatil/:id', Middleware.AuthCheck, OutWarehouseController.deliveryNoteDeatil);
@@ -663,16 +700,25 @@ router.get('/deliveryNote/deatil/:id', Middleware.AuthCheck, OutWarehouseControl
 // 原料出库页面
 router.get('/outMaterial', Middleware.AuthCheck, OutWarehouseController.outMaterialPage);
 
+// 原料出库-审核
+router.get('/outMaterial/doChecked/:id', Middleware.AuthCheck, OutWarehouseController.outMaterialChecked);
+
 // 原料出库详情页面
 router.get('/outMaterial/deatil/:id', Middleware.AuthCheck, OutWarehouseController.outMaterialDeatil);
 
 // 可发货订单 页面
-router.get('/canSend', Middleware.AuthCheck, OutWarehouseController.canSendPage);
+router.get('/:type/canSend', Middleware.AuthCheck, OutWarehouseController.canSendPage);
+
+// 可发货订单-发货
+router.put('/canSend/doSend/:id', Middleware.AuthCheck, OutWarehouseController.doSend);
+
+// 可发货订单详情  页面
+router.get('/canSend/deatil/:id', Middleware.AuthCheck, OutWarehouseController.canSendDeatil);
 
 // 成品出库页面
 router.get('/outProduct', Middleware.AuthCheck, OutWarehouseController.outProductPage);
 
-// 原料出库详情页面
+// 成品出库详情页面
 router.get('/outProduct/deatil/:id', Middleware.AuthCheck, OutWarehouseController.outProductDeatil);
 
 // 大板领料单页面
@@ -681,8 +727,11 @@ router.get('/outBred', Middleware.AuthCheck, OutWarehouseController.outBredPage)
 // 大板领料详情单页面
 router.get('/outBred/deatil/:id', Middleware.AuthCheck, OutWarehouseController.outBredDeatil);
 
+// 可发货订单-审核
+router.put('/outBred/doCheck/:id', Middleware.AuthCheck, OutWarehouseController.doCheckBred);
 
-
+// 可发货订单-审核
+router.put('/outBred/doUnCheck/:id', Middleware.AuthCheck, OutWarehouseController.doUnCheckBred);
 
 /*
  * 页面范围: 任务序列相关
