@@ -13,7 +13,7 @@
         <ol class="breadcrumb">
             <li>后台管理</li>
             <li><a href="/materialManage">物料管理</a></li>
-            <li>新建物料</li>
+            <li>修改物料</li>
         </ol>
         <!-- end breadcrumb -->
 
@@ -30,16 +30,12 @@
             <div class="row">
                 <!-- col -->
                 <div class="col-xs-12">
-                    <legend>新建物料</legend>
+                    <legend>修改物料</legend>
 
                     <!-- row -->
                     <div class="row">
-                        <form class="form-horizontal"  id="create-material_step2">
-
-
-
+                        <form class="form-horizontal"  id="material_detail_factory_add" method="post" action="">
                             <div class="col-xs-12 ">
-
                                 <div class="col-xs-6">
                                     <div class="form-group">
                                         <label class="col-xs-4 control-label "><span class="requird"></span> 分类:
@@ -54,64 +50,49 @@
 
 
                             </div>
-                            <div class="col-xs-12">
+                            <div class="col-xs-12 ">
 
-                                <!--输入字段-->
                                 <div class="col-xs-6">
+                                    <div class="form-group">
+                                        <label class="col-xs-4 control-label "><span class="requird"></span> 物料编号:
+                                        </label>
+                                        <div class="col-xs-8 control-label strongStyle01 text-left" id="typeContent">
+                                            <strong><%= mateInfo.id %></strong>
+                                        </div>
+
+                                    </div>
+                                </div>
 
 
+
+                            </div>
+
+
+                            <!--输入字段-->
+                            <div class="col-xs-12 ">
+                                <div class="col-xs-1 "></div>
+                                <div class="col-xs-6 my-div-style01">
+                                    <% mateInfo.attrs.forEach(function(element,index){%>
                                     <div class="form-group">
                                         <label class="col-xs-4 control-label"><span class="requird"></span>
-                                            材料:</label>
-                                        <input name="length" value="4" type="hidden">
-                                        <div class="col-xs-8">
-                                            <select class="form-control validate[required] attrVal" name="attrVal" id="form-validation-field-0">
-                                                <option value="">- 请选择 -</option>
-
-                                                <option value="6100">金属</option>
-
-                                                <option value="3300">金属</option>
-
-                                                <option value="6200">金属</option>
-
-                                                <option value="6300">金属</option>
-
-                                                <option value="6400">金属</option>
-
-                                                <option value="5800">金属</option>
-
-                                                <option value="5900">贵金属</option>
-
-                                                <option value="6000">金属</option>
-
-                                                <option value="6500">金属</option>
-
-
-                                            </select>
+                                            <%= element.attrName%>:
+                                        </label>
+                                        <div class="col-xs-5 ">
+                                            <strong class="form-control "><%= element.attrValue %></strong>
                                         </div>
                                     </div>
-
-
+                                    <%})%>
                                 </div>
-
                             </div>
-                            <div class="col-xs-12" id="addNumber" style="display: block;">
-                                <div class="col-xs-6">
-                                    <div class="form-group">
-                                        <label class="col-xs-4 control-label"><span class="requird"></span>
-                                            添加的流水号:</label>
-                                        <div class="col-xs-8 padding-left-0">
-                                            <div class='col-xs-2 '><input class='form-control validate[required,maxSize[1]' value='' name='number' type='text'></div>
-                                    </div>
-                                </div>
 
-                            </div>
+
+
                             <div class="col-xs-12">
                                 <div class="col-xs-6">
                                     <div class="form-group">
                                         <label class="col-xs-4 control-label"><span class="requird"></span>物料名称:</label>
                                         <div class="col-xs-8">
-                                            <input class="form-control validate[required]" placeholder="请输入物料名称" value="" type="text" name="name">
+                                            <strong class="form-control "><%= mateInfo.name %></strong>
                                         </div>
                                     </div>
                                 </div>
@@ -121,7 +102,7 @@
                                     <div class="form-group">
                                         <label class="col-xs-4 control-label"><span class="requird"></span>单位物料重量:</label>
                                         <div class="col-xs-8">
-                                            <input class="form-control validate[required]" placeholder="请输入单位物料重量" value="" type="text" name="unitWeight">
+                                            <strong class="form-control "></strong>
                                         </div>
                                     </div>
                                 </div>
@@ -131,11 +112,7 @@
                                     <div class="form-group">
                                         <label class="col-xs-4 control-label">单位：</label>
                                         <div class="col-xs-8">
-                                            <select class="form-control validate[required]" name="unit">
-                                                <option value="">- 请选择 -</option>
-                                            </select>
-
-                                            </select>
+                                            <strong class="form-control "></strong>
                                         </div>
                                     </div>
                                 </div>
@@ -145,7 +122,7 @@
                                     <div class="form-group">
                                         <label class="col-xs-4 control-label"><span class="requird"></span>价格:</label>
                                         <div class="col-xs-8">
-                                            <input class="form-control validate[required]" placeholder="请输入价格" value="" type="text" name="price">
+                                            <strong class="form-control "></strong>
                                         </div>
                                     </div>
                                 </div>
@@ -155,60 +132,70 @@
                                     <div class="form-group">
                                         <label class="col-xs-4 control-label"><span class="requird"></span>物料类型:</label>
                                         <div class="col-xs-8">
-                                            <input class="form-control validate[required]" placeholder="请输入物料类型" value="1" type="text" name="type">
+                                            <strong class="form-control "></strong>
                                         </div>
                                     </div>
-                                </div>
-                            </div>
-                            <div class="col-xs-12 margin-bottom-10">
-                                <label class="col-xs-2 control-label">上传物料图片:</label>
-                                <div class="col-xs-6">
-                                    <div class="col-xs-2 no-padding">
-                                        <label for="dwy_file_upload" class="btn-primary btn-sm btn" id="label-upload-file">
-                                            上传照片<i class="fa fa-upload"></i>
-                                        </label>
-                                        <input type="file" name="file_name" id="dwy_file_upload" style="display: none">
-                                    </div>
-                                    <div class="pull-left padding-right-10">
-                                        <p id="idPhotoOneName">
-                                            <input class="upimg-input" placeholder="请上传图片1"
-                                                   data-errormessage-value-missing="请上传图片1" readonly >
-                                        </p>
-                                        <!--  <p id="idPhotoTwoName">
-                                              <input class="upimg-input validate[required]" placeholder="请上传图片2"
-                                                     data-errormessage-value-missing="请上传图片2" readonly>
-                                          </p>-->
-                                        <input type="hidden" name="image" id="idPhotoOne" value="">
-                                        <!--    <input type="hidden" name="image" id="idPhotoTwo" value="">-->
-                                    </div>
-
                                 </div>
                             </div>
                             <div class="col-xs-12">
                                 <div class="col-xs-6">
                                     <div class="form-group">
-                                        <label class="col-xs-4 control-label"><span class="requird"></span>备注:</label>
+                                        <label class="col-xs-4 control-label">物料图片:</label>
                                         <div class="col-xs-8">
-                                            <input class="form-control" placeholder="请输入备注" value="" type="text" name="remark">
+                                            <strong class="form-control "><%= mateInfo.image %></strong>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <input type="hidden" name="id" value="" id="materialId">
-                            <input type="hidden" name="catId" value="<%= id %>" id="mateTypeId">
-
-
+                            <div class="col-xs-12">
+                                <div class="col-xs-6">
+                                    <div class="form-group">
+                                        <label class="col-xs-4 control-label">备注:</label>
+                                        <div class="col-xs-8">
+                                            <strong class="form-control "></strong>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xs-12">
+                                <div class="col-xs-6">
+                                    <div class="form-group">
+                                        <label class="col-xs-4 control-label"><span class="requird"></span>库存数量:</label>
+                                        <div class="col-xs-8">
+                                            <input class="form-control validate[required]" placeholder="请输入库存数量" value="" type="text" name="stock">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xs-12">
+                                <div class="col-xs-6">
+                                    <div class="form-group">
+                                        <label class="col-xs-4 control-label"><span class="requird"></span>预警数量:</label>
+                                        <div class="col-xs-8">
+                                            <input class="form-control validate[required]" placeholder="请输入预警数量" value="" type="text" name="warning">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xs-12">
+                                <div class="col-xs-6">
+                                    <div class="form-group">
+                                        <label class="col-xs-4 control-label"><span class="requird"></span>可用数量:</label>
+                                        <div class="col-xs-8">
+                                            <input class="form-control validate[required]" placeholder="请输入可用数量" value="" type="text" name="usable">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                             <div class="col-xs-8">
                                 <hr class="simple">
                                 <div class="col-xs-12 text-center">
-                                    <a class="btn btn-primary"  id="new">
+                                    <button class="btn btn-primary"  >
                                         <i class="fa fa-save"></i>
                                         提交
-                                    </a>
-                                    <a class="btn btn-primary margin-left-10"  id="newAgain">
-                                        <i class="fa fa-save"></i>
-                                        提交并继续新建
-                                    </a>
+                                    </button>
+
+
                                 </div>
                             </div>
 

@@ -1,0 +1,251 @@
+<%- include('../layouts/head_top'); %>
+<%- include('../layouts/head_bottom'); %>
+<%- include('../layouts/header'); %>
+<%- include('../layouts/nav'); %>
+
+<!-- MAIN PANEL -->
+<div id="main" role="main">
+
+    <!-- RIBBON -->
+    <div id="ribbon">
+
+        <!-- breadcrumb -->
+        <ol class="breadcrumb">
+            <li>后台管理</li>
+            <li><a href="/materialManage">物料管理</a></li>
+            <li><a href="/materialManage/factory">物料管理工厂端</a></li>
+            <li><a href="/materialManage/factory/detail/<%= id%>">物料信息</a></li>
+            <li>完善物料信息</li>
+        </ol>
+        <!-- end breadcrumb -->
+
+
+    </div>
+    <!-- END RIBBON -->
+
+
+    <!-- MAIN CONTENT -->
+    <div id="content">
+        <!--well-->
+        <div class="well">
+            <!-- row -->
+            <div class="row">
+                <!-- col -->
+                <div class="col-xs-12">
+                    <legend>完善物料信息</legend>
+
+                    <!-- row -->
+                    <div class="row">
+                        <form class="form-horizontal"  id="material_detail_factory_add" method="post" action="/materialManage/factory/doAdd">
+
+
+
+                            <div class="col-xs-12 ">
+
+                                <div class="col-xs-6">
+                                    <div class="form-group">
+                                        <label class="col-xs-4 control-label "><span class="requird"></span> 分类:
+                                        </label>
+                                        <div class="col-xs-8 control-label strongStyle01 text-left" id="typeContent">
+                                            <strong><%= mateInfo.catName %></strong>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+
+
+                            </div>
+                            <div class="col-xs-12 ">
+
+                                <div class="col-xs-6">
+                                    <div class="form-group">
+                                        <label class="col-xs-4 control-label "><span class="requird"></span> 物料编号:
+                                        </label>
+                                        <div class="col-xs-8 control-label strongStyle01 text-left" id="typeContent">
+                                            <strong><%= mateInfo.id %></strong>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+
+
+                            </div>
+
+
+                                <!--输入字段-->
+                                <div class="col-xs-12 ">
+                                    <div class="col-xs-1 "></div>
+                                    <div class="col-xs-6 my-div-style01">
+                                        <% mateInfo.attrs.forEach(function(element,index){%>
+                                        <div class="form-group">
+                                            <label class="col-xs-4 control-label"><span class="requird"></span>
+                                                <%= element.attrName%>:
+                                            </label>
+                                            <div class="col-xs-5 ">
+                                                <strong class="form-control "><%= element.attrValue %></strong>
+                                            </div>
+                                        </div>
+                                        <%})%>
+                                    </div>
+                                </div>
+
+
+
+                                <div class="col-xs-12">
+                                    <div class="col-xs-6">
+                                        <div class="form-group">
+                                            <label class="col-xs-4 control-label"><span class="requird"></span>物料名称:</label>
+                                            <div class="col-xs-8">
+                                                <strong class="form-control "><%= mateInfo.name %></strong>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xs-12">
+                                    <div class="col-xs-6">
+                                        <div class="form-group">
+                                            <label class="col-xs-4 control-label"><span class="requird"></span>单位物料重量:</label>
+                                            <div class="col-xs-8">
+                                                <strong class="form-control "></strong>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xs-12">
+                                    <div class="col-xs-6">
+                                        <div class="form-group">
+                                            <label class="col-xs-4 control-label">单位：</label>
+                                            <div class="col-xs-8">
+                                                <strong class="form-control "></strong>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xs-12">
+                                    <div class="col-xs-6">
+                                        <div class="form-group">
+                                            <label class="col-xs-4 control-label"><span class="requird"></span>价格:</label>
+                                            <div class="col-xs-8">
+                                                <strong class="form-control "></strong>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xs-12">
+                                    <div class="col-xs-6">
+                                        <div class="form-group">
+                                            <label class="col-xs-4 control-label"><span class="requird"></span>物料类型:</label>
+                                            <div class="col-xs-8">
+                                                <strong class="form-control "></strong>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            <div class="col-xs-12">
+                                <div class="col-xs-6">
+                                    <div class="form-group">
+                                        <label class="col-xs-4 control-label">物料图片:</label>
+                                        <div class="col-xs-8">
+                                            <strong class="form-control "><%= mateInfo.image %></strong>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                                <div class="col-xs-12">
+                                    <div class="col-xs-6">
+                                        <div class="form-group">
+                                            <label class="col-xs-4 control-label">备注:</label>
+                                            <div class="col-xs-8">
+                                                <strong class="form-control "></strong>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            <div class="col-xs-12">
+                                <div class="col-xs-6">
+                                    <div class="form-group">
+                                        <label class="col-xs-4 control-label"><span class="requird"></span>库存数量:</label>
+                                        <div class="col-xs-8">
+                                            <input class="form-control validate[required]" placeholder="请输入库存数量" value="" type="text" name="stock">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xs-12">
+                                <div class="col-xs-6">
+                                    <div class="form-group">
+                                        <label class="col-xs-4 control-label"><span class="requird"></span>预警数量:</label>
+                                        <div class="col-xs-8">
+                                            <input class="form-control validate[required]" placeholder="请输入预警数量" value="" type="text" name="warning">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xs-12">
+                                <div class="col-xs-6">
+                                    <div class="form-group">
+                                        <label class="col-xs-4 control-label"><span class="requird"></span>可用数量:</label>
+                                        <div class="col-xs-8">
+                                            <input class="form-control validate[required]" placeholder="请输入可用数量" value="" type="text" name="usable">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                                <div class="col-xs-8">
+                                    <hr class="simple">
+                                    <div class="col-xs-12 text-center">
+                                        <button class="btn btn-primary"  >
+                                            <i class="fa fa-save"></i>
+                                            提交
+                                        </button>
+
+
+                                    </div>
+                                </div>
+
+
+                        </form>
+                    </div>
+                    <!-- end row -->
+
+                </div>
+                <!-- end col -->
+            </div>
+            <!-- end row -->
+        </div>
+        <!--end well-->
+    </div>
+    <!-- END MAIN CONTENT -->
+
+</div>
+<!-- END MAIN PANEL -->
+
+<%- include('../layouts/footer'); %>
+<%- include('../layouts/footer_common_script'); %>
+
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+
+        pageSetUp();
+
+        $(".fg-date-time-picker").flatpickr(data_time_picker.data_picker); // jQuery
+
+
+        //初始化表单
+        $("#material_detail_factory_add").validationEngine();
+
+
+
+
+
+
+    })
+
+</script>
+
+
+<%- include('../layouts/foot'); %>

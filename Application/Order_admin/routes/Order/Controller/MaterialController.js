@@ -54,6 +54,24 @@ var MaterialController = {
         });
     //res.render('order/material/material_detail');
     },
+    choiceFactory: function (req, res) {
+        var fac=req.body.factory;
+        var mid=req.body.mid;
+       res.redirect("/materialManage/detail/factory/"+fac+"/"+mid);
+    },
+    detailFacPage: function (req, res) {
+        var mid =  req.params.mid;
+        Base.multiDataRequest(req, res, [
+            {url: '/api/materials/'+mid, method: 'GET', resConfig: {keyName: 'mateInfo', is_must: true}},
+        ], function (req, res, resultList) {
+            var returnData = Base.mergeData(helper.mergeObject({
+                title: ' ',
+                mid:mid,
+            },resultList));
+            res.render('order/material/material_detail_choice_factory',returnData);
+        });
+        //res.render('order/material/material_detail_choice_factory');
+    },
     summaryPage: function (req, res) {
         res.render('order/material/material_summary');
     },
@@ -145,7 +163,70 @@ var MaterialController = {
         })
 
     },
-};
+    indexFactoryPage: function (req, res) {
+        var paramObject = helper.genPaginationQuery(req);
+        Base.multiDataRequest(req, res, [
+            {url: '/api/materials?'+ queryString.stringify(req.query), method: 'GET', resConfig: {keyName: 'mateList', is_must: true}},
+            {url: '/api/categories/list?parentId=0', method: 'GET', resConfig: {keyName: 'stairCategory', is_must: true}}
+        ], function (req, res, resultList) {
 
+            var paginationInfo =  resultList.mateList;
+
+            var boostrapPaginator = new Pagination.TemplatePaginator(helper.genPageInfo({
+                prelink: paramObject.withoutPageNo,
+                current: paginationInfo.page,
+                rowsPerPage: paginationInfo.pageSize,
+                totalResult: paginationInfo.totalItems
+            }));
+
+            var returnData = Base.mergeData(helper.mergeObject({
+                title: ' ',
+                pagination: boostrapPaginator.render()
+            },resultList));
+            res.render('order/material/material_index_factory',returnData);
+        });
+        //res.render('order/material/material_index_factory');
+    },
+    detailFactoryPage: function (req, res) {
+        var mid =  req.params.mid;
+        Base.multiDataRequest(req, res, [
+            {url: '/api/materials/'+mid, method: 'GET', resConfig: {keyName: 'mateInfo', is_must: true}},
+        ], function (req, res, resultList) {
+            var returnData = Base.mergeData(helper.mergeObject({
+                title: ' ',
+                mid:mid,
+            },resultList));
+            res.render('order/material/material_detail_factory',returnData);
+        });
+        //res.render('order/material/material_detail_factory');
+    },
+    mateFacAddPage: function (req, res) {
+        var id = req.params.mid;
+        console.log(id);
+        Base.multiDataRequest(req, res, [
+            {url: '/api/materials/'+id, method: 'GET', resConfig: {keyName: 'mateInfo', is_must: true}},
+        ], function (req, res, resultList) {
+            var returnData = Base.mergeData(helper.mergeObject({
+                title: ' ',
+                id:id,
+            },resultList));
+            res.render('order/material/material_detail_factory_add',returnData);
+        });
+    },
+    doAdd: function (req, res) {
+    console.log('工厂物料完善物料'+ JSON.stringify(req.body));
+   /* request(Base.mergeRequestOptions({
+        method: 'post',
+        url: '/api/materials',
+        form:req.body,
+    }, req, res), function (error, response, body) {
+        if (!error && response.statusCode == 201) {
+            res.sendStatus(200);
+        } else {
+            Base.handlerError(res, req, error, response, body);
+        }
+    })*/
+},
+};
 module.exports = MaterialController;
 
