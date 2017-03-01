@@ -20,60 +20,6 @@
     <!-- END RIBBON -->
     <!-- MAIN CONTENT -->
     <div id="content">
-        <!-- start well -->
-        <div class="well">
-            <!-- row -->
-            <div class="row">
-                <!-- col -->
-                <div class="col-xs-12">
-                    <!--<legend>客户搜索</legend>-->
-                        <div class="table-responsive">
-                            <table class="table table-bordered table-striped">
-                                <thead>
-                                <tr>
-                                    <th>物料编号1</th>
-                                    <th>物料名称</th>
-                                    <th>物料库名</th>
-                                    <th>折算系数</th>
-                                    <th>规格</th>
-                                    <th>颜色</th>
-                                    <th>厚度</th>
-                                    <th>密度</th>
-                                    <th>单位</th>
-                                    <th>移动平均单价</th>
-                                    <th>分类</th>
-                                    <th>其他</th>
-                                    <th>最小库存</th>
-                                    <th>说明</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                <tr>
-                                    <td>001</td>
-                                    <td>1</td>
-                                    <td></td>
-                                    <td>上轨</td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    <!-- end row -->
-                </div>
-                <!-- end col -->
-            </div>
-            <!-- end row -->
-        </div>
-        <!-- end well -->
         <div class="well">
             <!-- row -->
             <div class="row">
@@ -82,6 +28,7 @@
                     <hr class="simple">
                 </div>
             </div>
+
             <!-- row -->
             <div class="row">
                 <div class="col-xs-12">
@@ -93,7 +40,7 @@
                                     <div class="form-group">
                                         <label class="col-xs-4 control-label">物料名称:</label>
                                         <div class="col-xs-8">
-                                            <input class="form-control" placeholder="请输入物料名称" type="text" value="" name="tid">
+                                            <input class="form-control" placeholder="请输入物料名称" type="text" value="<%= DWYRequest.query.name %>" name="name">
                                         </div>
                                     </div>
                                 </div>
@@ -101,8 +48,14 @@
                                     <div class="form-group">
                                         <label class="col-xs-4 control-label">物料分类:</label>
                                         <div class="col-xs-8">
-                                            <select class="form-control" name="brandId">
+                                            <select class="form-control" name="stairCatId">
                                                 <option value="">- 请选择 -</option>
+                                                <%
+                                                suppliersMaterialList.forEach(function (element, index) { %>
+                                                <option value="<%= element.id %>" <%= (DWYRequest.query.id == element.id)?"selected":"" %>>
+                                                    <%= element.name %>
+                                                </option>
+                                                <%  })%>
                                             </select>
                                         </div>
                                     </div>
@@ -128,198 +81,56 @@
                                     <div class="well">
                                         <div class="row">
                                             <div class="col-xs-12">
-                                                <div class="">
-                                                    <button class="btn btn-primary" id="editBatchNum">确认</button>
-                                                </div>
-                                                <hr class="simple">
+                                                <legend>
+                                                    新建物料供应商关联
+                                                </legend>
                                             </div>
-                                        </div>
-                                        <div class="orderItemLayerTit">
-                                            <ul class="orderItemMenu">
-                                                <li>物料一级分类名称1</li>
-                                                <li>物料一级分类名称2</li>
-                                                <li>物料一级分类名称3</li>
-                                                <li>物料一级分类名称4</li>
-                                                <div class="dwy-clear "></div>
-                                            </ul>
+                                            <div class="col-xs-12">
+                                                <div class="">
+                                                    <a class="btn btn-primary margin-bottom-10" id="editBatchNum">确认</a>
+                                                </div>
+                                            </div>
                                         </div>
                                         <div class="orderItemLayerTable">
                                             <table class="table table-bordered">
                                                 <thead>
                                                 <tr>
-                                                    <th>物料编号1</th>
+                                                    <th>
+                                                        <label class="checkbox-inline">
+                                                            <input type="checkbox" class="checkbox"
+                                                                   id="checkAll"  />
+                                                            <span>序号</span>
+                                                        </label>
+                                                    </th>
+                                                    <th>物料编号</th>
                                                     <th>物料名称</th>
-                                                    <th>物料库名</th>
-                                                    <th>折算系数</th>
-                                                    <th>规格</th>
-                                                    <th>颜色</th>
-                                                    <th>厚度</th>
-                                                    <th>密度</th>
-                                                    <th>单位</th>
-                                                    <th>移动平均单价</th>
-                                                    <th>分类</th>
-                                                    <th>其他</th>
-                                                    <th>最小库存</th>
-                                                    <th>说明</th>
+                                                    <th>分类名称</th>
                                                 </tr>
                                                 </thead>
                                                 <tbody>
+                                                <%
+                                                    if(supMaterialList.result){
+                                                    supMaterialList.result.forEach(function (element, index) { %>
                                                 <tr>
                                                     <td>
                                                         <label class="checkbox-inline">
                                                             <input type="checkbox" class="checkbox"
-                                                                   name="roles" value="2">
-                                                            <span>001</span>
+                                                                   name="roles" value="<%= element.id %>">
+                                                            <span><%= index+1 %></span>
                                                         </label>
                                                     </td>
-                                                    <td>1</td>
-                                                    <td></td>
-                                                    <td>上轨</td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
+                                                    <td><%= element.id %></td>
+                                                    <td><%= element.name %></td>
+                                                    <td><%= element.catName %></td>
                                                 </tr>
+                                                <%  })
+                                                    }%>
+
                                                 </tbody>
                                             </table>
-                                            <table class="table table-bordered" style="display:none">
-                                                <thead>
-                                                <tr>
-                                                    <th>物料编号2</th>
-                                                    <th>物料名称</th>
-                                                    <th>物料库名</th>
-                                                    <th>折算系数</th>
-                                                    <th>规格</th>
-                                                    <th>颜色</th>
-                                                    <th>厚度</th>
-                                                    <th>密度</th>
-                                                    <th>单位</th>
-                                                    <th>移动平均单价</th>
-                                                    <th>分类</th>
-                                                    <th>其他</th>
-                                                    <th>最小库存</th>
-                                                    <th>说明</th>
-                                                </tr>
-                                                </thead>
-                                                <tbody>
-                                                <tr>
-                                                    <td>
-                                                        <label class="checkbox-inline">
-                                                            <input type="checkbox" class="checkbox"
-                                                                   name="roles" value="2">
-                                                            <span>002</span>
-                                                        </label>
-                                                    </td>
-                                                    <td>2</td>
-                                                    <td></td>
-                                                    <td>上轨</td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                </tr>
-                                                </tbody>
-                                            </table>
-                                            <table class="table table-bordered" style="display:none">
-                                                <thead>
-                                                <tr>
-                                                    <th>物料编号3</th>
-                                                    <th>物料名称</th>
-                                                    <th>物料库名</th>
-                                                    <th>折算系数</th>
-                                                    <th>规格</th>
-                                                    <th>颜色</th>
-                                                    <th>厚度</th>
-                                                    <th>密度</th>
-                                                    <th>单位</th>
-                                                    <th>移动平均单价</th>
-                                                    <th>分类</th>
-                                                    <th>其他</th>
-                                                    <th>最小库存</th>
-                                                    <th>说明</th>
-                                                </tr>
-                                                </thead>
-                                                <tbody>
-                                                <tr>
-                                                    <td>
-                                                        <label class="checkbox-inline">
-                                                            <input type="checkbox" class="checkbox"
-                                                                   name="roles" value="2">
-                                                            <span>003</span>
-                                                        </label>
-                                                    </td>
-                                                    <td>3</td>
-                                                    <td></td>
-                                                    <td>上轨</td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                </tr>
-                                                </tbody>
-                                            </table>
-                                            <table class="table table-bordered" style="display:none">
-                                                <thead>
-                                                <tr>
-                                                    <th>物料编号4</th>
-                                                    <th>物料名称</th>
-                                                    <th>物料库名</th>
-                                                    <th>折算系数</th>
-                                                    <th>规格</th>
-                                                    <th>颜色</th>
-                                                    <th>厚度</th>
-                                                    <th>密度</th>
-                                                    <th>单位</th>
-                                                    <th>移动平均单价</th>
-                                                    <th>分类</th>
-                                                    <th>其他</th>
-                                                    <th>最小库存</th>
-                                                    <th>说明</th>
-                                                </tr>
-                                                </thead>
-                                                <tbody>
-                                                <tr>
-                                                    <td>
-                                                        <label class="checkbox-inline">
-                                                            <input type="checkbox" class="checkbox"
-                                                                   name="roles" value="2">
-                                                            <span>004</span>
-                                                        </label>
-                                                    </td>
-                                                    <td>4</td>
-                                                    <td></td>
-                                                    <td>上轨</td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                </tr>
-                                                </tbody>
-                                            </table>
+                                            <%- pagination %>
+                                            <input type="hidden" class="" id="checkedValue">
+                                            <input type="hidden"  id="gid" value="<%= suppliersDetail.id %>">
                                         </div>
                                     </div>
 
@@ -347,7 +158,76 @@
             $(this).addClass("selected").siblings().removeClass("selected");
             $(".orderItemLayerTable table").eq($(this).index()).show().siblings().hide();
         })
+//       var stairCatId= $(".orderItemMenu li:first-of-type").attr("selfId");
+
+        var checkedValue = $('#checkedValue');
+        $("#checkAll").change(function () {
+            if($(this).is(":checked")){
+                $("input[name='roles']").prop('checked',true);
+                $("input[name='roles']:checked").each(function (i) {
+                    checkedValue.addClass(this.value+',')
+                });
+            }else{
+                $(":checkbox").prop('checked',false);
+                checkedValue.removeClass()
+            }
+        })
+        $("input[name='roles']").change(function () {
+            if($(this).is(':checked')){
+                checkedValue.addClass(this.value+',')
+            }else{
+                checkedValue.removeClass(this.value+',')
+            }
+        });
+
+        $("#editBatchNum").on({
+            click:function(){
+                layer.open({
+                    title: false,
+                    type: 1,
+                    area: '500px',
+                    content: $('#create-offer-pro'),
+                    cancel: function () {
+
+                    },
+                })
+        }})
+        $("#btnCreateDate").click(function(){
+            var tid=$("#gid").val();
+            var bid = checkedValue.attr('class').replace(/[ ]/g,"");
+            bid = bid.substring(0,bid.length-1);
+            var date=$("#create-offer-pro input").val();
+            if(date==""||date==null) return false;
+            layer.confirm("确认关联？", {title:'提示'},function(index){
+                    $.ajax({
+                        url: '/supplier/createMaterialSupplier/'+tid+'/'+bid+'/'+date,
+                        method: 'post',
+                        success: function (data) {
+                            window.location.reload();
+                        },
+                        error: function (response) {
+                            layer.close(index)
+                            var data = JSON.parse(response.responseText);
+                            //                        var data = (response.responseText);
+                            $.smallBox({
+                                title: "操作失败",
+                                content: data.msg,
+                                color: "#C46A69",
+                                iconSmall: "fa fa-times fa-2x fadeInRight animated",
+                                timeout: 3000
+                            });
+                            setTimeout(function(){
+                                window.location.reload();
+                            },7000)
+                        }
+                    });
+                    //                layer.close(index)
+                },function(index){
+                    layer.close(index)}
+            )
+        })
     })
 </script>
 <%- include('../layouts/foot'); %>
+<%- include('./supplier_modal'); %>
 

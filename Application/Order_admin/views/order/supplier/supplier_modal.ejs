@@ -98,7 +98,7 @@
     <div class="dwy-clear"></div>
 </form>
 //修改分类
-<form class="form-horizontal  layer-template" method="post" id="modify-supplier" action="/supplier/doModify" >
+<form class="form-horizontal  layer-template" method="post" id="modify-supplier" action="/supplier/sortDoModify" >
     <div class="col-xs-12">
         <!--输入字段-->
         <div class="col-xs-8">
@@ -123,13 +123,28 @@
     </div>
     <div class="dwy-clear"></div>
 </form>
-
+<form id="create-offer-pro" class="col-xs-12 layer-template">
+    <div class="col-xs-12 margin-top-10"></div>
+    <div class="col-xs-12 margin-top-10"></div>
+    <div class="col-xs-12">
+        <div class="col-xs-3 margin-top-10">
+            <label>截止日期</label>
+        </div>
+        <div class="col-xs-8">
+            <input class='form-control fg-date-picker' type='text' value='' name='expiryDate'>
+        </div>
+    </div>
+    <div class="col-xs-12 text-center margin-top-10">
+        <a class="btn btn-primary" id="btnCreateDate">确认</a>
+    </div>
+</form>
 <script type="text/javascript">
 
     $(document).ready(function () {
         $("#creatSupplierChild").validationEngine({scroll: false});
         $("#create-supplier").validationEngine({scroll: false});
         $("#modify-supplier").validationEngine({scroll: false});
+        $("#create-offer-pro").validationEngine({scroll: false});
         //新建一级分类
         $("#supplierParentCreat").on({
             click: function (e) {

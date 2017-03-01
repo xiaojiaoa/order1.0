@@ -42,8 +42,8 @@
                         <table class="table table-bordered table-striped">
                             <thead>
                             <tr>
-                                <th>请购人</th>
                                 <th>请购单号</th>
+                                <th>请购人</th>
                                 <th>请购人部门</th>
                                 <th>请购时间</th>
                                 <th>审核人</th>
@@ -56,12 +56,12 @@
                             </thead>
                             <tbody>
                             <tr>
-                                <td><%= purchaseRequestDetail.addEmp %></td>
                                 <td><%= purchaseRequestDetail.id %></td>
-                                <td><%= purchaseRequestDetail.addDept %></td>
+                                <td><%= purchaseRequestDetail.addEmpName %></td>
+                                <td><%= purchaseRequestDetail.addDeptName %></td>
                                 <td><%= DWY_Helper.getLocalDate(purchaseRequestDetail.addTime) %></td>
                                 <td><%= purchaseRequestDetail.reviewEmp %></td>
-                                <td><%= purchaseRequestDetail.reviewDept %></td>
+                                <td><%= purchaseRequestDetail.reviewDeptName %></td>
                                 <td><%= DWY_Helper.getLocalDate(purchaseRequestDetail.reviewTime) %></td>
                                 <td><%= DWY_Helper.getLocalDate(purchaseRequestDetail.buildTime) %></td>
                                 <td>

@@ -312,6 +312,12 @@ router.get('/materialManage', Middleware.AuthCheck, MaterialController.indexPage
 // 物料详情页面
 router.get('/materialManage/detail/:mid', Middleware.AuthCheck, MaterialController.detailPage);
 
+// 物料详情页面--选择工厂物料
+router.post('/materialManage/choiceFactory', Middleware.AuthCheck, MaterialController.choiceFactory);
+
+// 根据工厂选择物料详情页面
+router.get('/materialManage/detail/factory/:fid/:mid', Middleware.AuthCheck, MaterialController.detailFacPage);
+
 // 物料出入库总计页面
 router.get('/materialManage/summary', Middleware.AuthCheck, MaterialController.summaryPage);
 
@@ -327,14 +333,29 @@ router.get('/materialManage/material/creStepS/:id', Middleware.AuthCheck, Materi
 //物料分类三级联动菜单接口
 router.put('/materialManage/material/selectMateCate/:pid', Middleware.AuthCheck, MaterialController.selectMateCate);
 
-// 新建物料
+// 新建物料-提交数据接口
 router.post('/materialManage/material/doCreate', Middleware.AuthCheck, MaterialController.doCreate);
 
 //修改物料
 router.get('/materialManage/material/modify/:mid', Middleware.AuthCheck, MaterialController.materialModifyPage);
 
+//修改物料-提交数据接口
+router.post('/materialManage/material/doModify', Middleware.AuthCheck, MaterialController.doModify);
+
 // 禁用/解锁 物料详情
 router.put('/material/setStatus/:mid/:type', Middleware.AuthCheck, MaterialController.setMaterialStatus);
+
+// 物料管理工厂首页
+router.get('/materialManage/factory', Middleware.AuthCheck, MaterialController.indexFactoryPage);
+
+// 物料管理工厂--物料详情
+router.get('/materialManage/factory/detail/:mid', Middleware.AuthCheck, MaterialController.detailFactoryPage);
+
+// 物料管理工厂--物料详情-完善物料
+router.get('/materialManage/factory/add/:mid', Middleware.AuthCheck, MaterialController.mateFacAddPage);
+
+// 物料管理工厂--物料详情-完善物料--提交数据接口
+router.post('/materialManage/factory/doAdd', Middleware.AuthCheck, MaterialController.doAdd);
 
 
 /*
@@ -827,26 +848,38 @@ var SupplierController = require('./Controller/SupplierController');
 router.get('/supplier', Middleware.AuthCheck,SupplierController.supplierPage);
 //供应商详情
 router.get('/supplier/detail/:tid', Middleware.AuthCheck,SupplierController.supplierDetailPage);
+//供应商新增页面
+router.get('/supplier/createPage', Middleware.AuthCheck,SupplierController.supplierCreatPage);
+//供应商新增 子类
+// router.get('/supplier/createPage', Middleware.AuthCheck,SupplierController.supplierCreatPage);
+//供应商新增获取一级分类
+router.get('/supplier/create/:tid', Middleware.AuthCheck,SupplierController.supSortParentId);
+//供应商信息新增
+router.post('/supplier/doCreate', Middleware.AuthCheck,SupplierController.supplierDoCreate);
+//供应商信息修改页面
+router.get('/supplier/modify/:tid', Middleware.AuthCheck,SupplierController.supplierModifyPage);
+//供应商信息修改
+router.post('/supplier/doModify', Middleware.AuthCheck,SupplierController.supplierDoModify);
+//新增供应商物料关联
+router.post('/supplier/createMaterialSupplier/:tid/:bid/:date', Middleware.AuthCheck,SupplierController.createMaterialSupplier);
+//供应商可供物料
+router.get('/supplier/offer_product/:tid', Middleware.AuthCheck,SupplierController.supplierOfferProductPage);
+
+//供应商禁用+启用
+router.post('/supplier/supDoDelete/:tid/:type', Middleware.AuthCheck, SupplierController.supplierdoDelete);
+
 //供应商分类
 router.get('/supplier/sort', Middleware.AuthCheck,SupplierController.supplierSortPage);
-//供应商添加
-router.get('/supplier/create', Middleware.AuthCheck,SupplierController.supplierCreatPage);
-//供应商修改
-router.get('/supplier/modify', Middleware.AuthCheck,SupplierController.supplierModifyPage);
-
-
 //供应商一级分类添加
 router.post('/supplier/doCreat', Middleware.AuthCheck,SupplierController.doCreate);
 //供应商分类禁用
 router.post('/supplier/doDelete/:tid/:type', Middleware.AuthCheck, SupplierController.doDelete);
 //供应商分类修改
-router.post('/supplier/doModify', Middleware.AuthCheck, SupplierController.doModify);
-
+router.post('/supplier/sortDoModify', Middleware.AuthCheck, SupplierController.doModify);
 
 //供应商分类修改
-router.get('/supplier/sort_modify', Middleware.AuthCheck,SupplierController.supplierSortModifyPage);
-//供应商可供商品
-router.get('/supplier/offer_product', Middleware.AuthCheck,SupplierController.supplierOfferProductPage);
+// router.get('/supplier/sort_modify', Middleware.AuthCheck,SupplierController.supplierSortModifyPage);
+
 
 
 /*
@@ -860,6 +893,13 @@ router.get('/purchase', Middleware.AuthCheck,PurchaseController.purchasePage);
 
 // 新建请购单页面
 router.get('/purchase/applyCreat', Middleware.AuthCheck,PurchaseController.purchaseApplyCreatPage);
+//新建请购单 选择物料信息列表
+router.post('/purchase/applyOrderMaterial/:tid', Middleware.AuthCheck,PurchaseController.purchaseApplyMaterialCreat);
+//新建请购单 物料信息修改
+router.get('/purchase/apply_createMaterial/:tid', Middleware.AuthCheck,PurchaseController.applyMaterialCreatePage);
+//新建请购单 添加物料数量+预计交期
+router.post('/purchase/applyMaterialCreate', Middleware.AuthCheck,PurchaseController.applyMaterialCreate);
+
 
 // 请购单详情
 router.get('/purchase/applyDetail/:tid', Middleware.AuthCheck,PurchaseController.purchaseApplyDetailPage);

@@ -417,6 +417,15 @@ tr > td > .separation:last-child {
     box-sizing: border-box;
     float: left;
 }
+.close-info a {
+    pointer-events:none;
+    color:#999;
+    cursor:default
+}
+.close-info .level-1-title{
+    color:#999
+}
+
 .table-editinput>tbody>tr>td{
     line-height: 32px;
 }
@@ -428,4 +437,10 @@ tr > td > .separation:last-child {
 }
 .initdisplay-none{
     display: none;
+}
+.width01{
+    width: 9%;
+}
+.border-0{
+    border:0px;
 }
