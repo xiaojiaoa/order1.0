@@ -111,9 +111,7 @@
                 console.log(myArray);
                     $.ajax({
                         url: '/purchase/applyMaterialCreate/',
-                        data:{
-                            reqMaterialList:myArray
-                        },
+                        data:JSON.stringify(myArray),
                         method: 'post',
                         dataType: 'json',
                         success: function (data) {
