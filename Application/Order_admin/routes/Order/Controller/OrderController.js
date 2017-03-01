@@ -296,12 +296,14 @@ var OrderController = {
 
     },
     doPassReApart: function (req, res) {
+        var tid = req.params.tid;
+        var resId = req.params.resId;
         request(Base.mergeRequestOptions({
             method: 'put',
             url: '/api/orders/resupply/apart/pass?tid='+tid+'&resId='+resId,
         }, req, res), function (error, response, body) {
             if (!error && response.statusCode == 201) {
-                res.redirect("/order/check/waitOrder");
+                res.sendStatus(200);
             } else {
                 Base.handlerError(res, req, error, response, body);
             }
@@ -408,6 +410,7 @@ var OrderController = {
                 {url: '/api/orders/resupply/detail?tid='+tid+'&resId='+resId, method: 'GET', resConfig: {keyName: 'resupplyInfo', is_must: true}},
                 {url: '/api/assist/resupply/stcodes', method: 'GET', resConfig: {keyName: 'stcodeInfo', is_must: true}},
                 {url: '/api/assist/review/reson', method: 'GET', resConfig: {keyName: 'resonList', is_must: true}},
+                {url: '/api/assist/resupply/reason', method: 'GET', resConfig: {keyName: 'resupplyReason', is_must: true}},
             ],
             function (req, res, resultList) {
                 var returnData = Base.mergeData(helper.mergeObject({

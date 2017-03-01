@@ -167,11 +167,11 @@
                 <!-- col -->
                 <div class="col-xs-12 dwy-show-content">
                     <legend>相关文件
-                        <% if( (resupplyInfo.stcode == 250) || (resupplyInfo.stcode == 450) || (resupplyInfo.stcode == 475) ){ %>
+                        <% if( (resupplyInfo.status == 250) || (resupplyInfo.status == 450) || (resupplyInfo.status == 475) ){ %>
                         <a class="label label-primary"
-                           href="/file/order/create/<%= resupplyInfo.lid %>/<%= resupplyInfo.stcode %>/2/<%= tid %>">文件管理</a>
+                           href="/file/order/create/<%= resupplyInfo.lid %>/<%= resupplyInfo.status %>/2/<%= tid %>">文件管理</a>
                         <% } %>
-                        <% if( resupplyInfo.stcode == 450 || resupplyInfo.stcode == 475){ %>
+                        <% if( resupplyInfo.status == 450 || resupplyInfo.status == 475){ %>
                         <button class="label label-primary" id="orderItem">订单物料</button>
                         <% } %>
                     </legend>
@@ -245,7 +245,7 @@
                                 case 250: %>
                                 <td width="30%">
                                     受理中
-                                    <a class="label label-primary doPass" data-stcode="<%= resupplyInfo.status %>">确认受理</a>
+                                    <a class="label label-primary" id="check-pass-modal" data-stcode="<%= resupplyInfo.status %>">确认受理</a>
                                     <a class="label label-primary margin-left-20 reject-modal">补单受理退回</a>
                                 </td>
                                 <% break;
@@ -285,7 +285,7 @@
                                     <a class="label label-primary margin-left-20 reject-modal">拆单退回</a>
                                 </td>
                                 <% break;
-                                case 290: %>
+                                case 296: %>
                                 <td>
                                     待拆单
                                     <a class="label label-primary doGetTask" data-stcode="<%= resupplyInfo.status %>">标记为拆单中</a>
@@ -429,7 +429,7 @@
                     locationUrl = '/orders/resupplys/accept';
                     text = '确认标记为受理中?';
                     break;
-                case '290':
+                case '296':
                     ajaxUrl = '/resupplys/apart/getTask/<%= tid %>/<%= resId %>';
                     locationUrl = '/orders/resupplys/apart';
                     text = '确认标记为拆单中?';
@@ -517,14 +517,13 @@
             layer.confirm(text, {icon: 3, title: '提示'}, function (index) {
                 $.ajax({
                     url: ajaxUrl,
-                    method: 'post',
+                    method: 'put',
                     success: function (data) {
                         location.href = locationUrl
                     },
                     error: function (response) {
                         layer.close(index)
                         var data = JSON.parse(response.responseText);
-//                        var data = (response.responseText);
                         $.smallBox({
                             title: "操作失败",
                             content: data.msg,
