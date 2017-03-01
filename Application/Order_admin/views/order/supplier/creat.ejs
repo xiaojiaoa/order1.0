@@ -35,11 +35,13 @@
                                 <div class="form-group col-xs-8">
                                     <select class="form-control validate[required]"  id="supSortId">
                                         <option value="">- 请选择 -</option>
-                                        <% supplierParentSort.forEach(function (element) { %>
+                                        <%
+                                        if(supplierParentSort){
+                                        supplierParentSort.forEach(function (element) { %>
                                         <option value="<%= element.id %>"  >
                                             <%= element.name %>
                                         </option>
-                                        <% }) %>
+                                        <% })} %>
                                     </select>
                                 </div>
                             </div>

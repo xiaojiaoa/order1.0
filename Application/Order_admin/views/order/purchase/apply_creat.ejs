@@ -54,11 +54,12 @@
                                             <select class="form-control" name="stairCatId">
                                                 <option value="">- 请选择 -</option>
                                                 <%
+                                                if(suppliersMaterialList){
                                                 suppliersMaterialList.forEach(function (element, index) { %>
-                                                <option value="<%= element.id %>" <%= (DWYRequest.query.id == element.id)?"selected":"" %>>
+                                                <option value="<%= element.id %>" <%= (DWYRequest.query.stairCatId == element.id)?"selected":"" %>>
                                                     <%= element.name %>
                                                 </option>
-                                                <%  })%>
+                                                <%  })}%>
                                             </select>
                                         </div>
                                     </div>
@@ -117,7 +118,7 @@
                         <tbody>
 
                         <%
-                        if(supMaterialList.result){
+                        if(supMaterialList.totalItems != 0  ){
                         supMaterialList.result.forEach(function (element, index) { %>
                         <tr>
                             <td>
@@ -127,7 +128,7 @@
                                     <span><%= index+1 %></span>
                                 </label>
                             </td>
-                            <td><%= element.id %></td>
+                            <td><a href="/materialManage/detail/<%= element.id %>"><%= element.id %></a></td>
                             <td><%= element.name %></td>
                             <td><%= element.catName %></td>
                         </tr>

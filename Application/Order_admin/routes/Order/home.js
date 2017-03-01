@@ -187,15 +187,18 @@ router.post('/resupplys/apart/notPass', Middleware.AuthCheck, OrderController.no
 // 审核通过
 router.put('/resupplys/apart/doPass/:tid/:resId', Middleware.AuthCheck, OrderController.doPassReApart);
 
+// 补单拆单审核页面
+router.get('/orders/resupplys/apartCheck', Middleware.AuthCheck, Middleware.FilterEmptyField, OrderController.apartCheckPage);
+
 // 标记为审核中 (待拆单审核)
-router.post('/resupplys/apartCheck/getTask/:tid/:resId', Middleware.AuthCheck, OrderController.getTaskCheckReApart);
+router.put('/resupplys/apartCheck/getTask/:tid/:resId', Middleware.AuthCheck, OrderController.getTaskCheckReApart);
 // 解锁订单
-router.post('/resupplys/apartCheck/unlock/:tid/:resId', Middleware.AuthCheck, OrderController.doUnlockCheckReApart);
+router.put('/resupplys/apartCheck/unlock/:tid/:resId', Middleware.AuthCheck, OrderController.doUnlockCheckReApart);
 
 // 审核未通过（退单）
 router.post('/resupplys/apartCheck/notPass', Middleware.AuthCheck, OrderController.notPassCheckReApart);
 // 审核通过
-router.post('/resupplys/apartCheck/doPass/:tid/:resId', Middleware.AuthCheck, OrderController.doPassCheckReApart);
+router.put('/resupplys/apartCheck/doPass/:tid/:resId', Middleware.AuthCheck, OrderController.doPassCheckReApart);
 
 // 补单详情页面
 router.get('/order/resupply/detail/:tid/:resId', Middleware.AuthCheck, OrderController.resupplyDetailPage);
@@ -784,6 +787,9 @@ router.get('/file/create/:lid/:type', Middleware.AuthCheck, FileController.creat
 // 新增文件上传地址
 // router.get('/file/order/create/:lid/:type/:tid', Middleware.AuthCheck, FileController.createOrderFilePage);
 router.get('/file/order/create/:lid/:stcode/:type/:tid', Middleware.AuthCheck, FileController.createOrderFilePage);
+
+router.get('/file/resupply/create/:lid/:stcode/:tid/:pid/:type', Middleware.AuthCheck, FileController.createResupplyFilePage);
+
 
 // 新增文件上传地址(拆单)
 // router.get('/file/order/apart/:lid/:type/:tid', Middleware.AuthCheck, FileController.createApartFilePage);

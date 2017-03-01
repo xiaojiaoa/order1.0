@@ -4,7 +4,7 @@
         <div class="form-group">
             <label class="col-xs-2 control-label"><span class="requird"></span>审核总价:</label>
             <div class="col-xs-6">
-                <input class="form-control validate[required]"  value="" name="money" id="money" data-prompt-position="bottomLeft:20,5">
+                <input class="form-control validate[required,custom[number],min[0]"  value="" name="money" id="money" data-prompt-position="bottomLeft:20,5">
             </div>
             <div class="col-xs-4 tight-left">
                 <a class="btn-primary btn-sm btn" id="calculate">&nbsp;计算&nbsp;</a>

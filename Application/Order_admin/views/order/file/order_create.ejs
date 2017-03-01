@@ -13,6 +13,11 @@
         <!-- breadcrumb -->
         <ol class="breadcrumb">
             <li>后台管理</li>
+            <% if(pid){ %>
+            <li><a class="back-url" href="/order/resupply/detail/<%= tid %>/<%= pid %>"><i class="fa fa-chevron-left"></i> 补单详情</a></li>
+            <%  }else{ %>
+            <li><a class="back-url" href="/order/detail/<%= tid %>"><i class="fa fa-chevron-left"></i> 订单详情</a></li>
+            <% } %>
             <li>文件上传</li>
         </ol>
         <!-- end breadcrumb -->
@@ -109,6 +114,7 @@
                                 <input type="hidden" name="fileExt" value="">
                                 <input type="hidden" name="lid" value="<%= lid %>">
                                 <input type="hidden" name="tid" value="<%= tid %>">
+                                <input type="hidden" name="resId" value="<%= pid %>">
                                 <input type="hidden" name="ordType" value="<%= ordType %>">
                                 <input type="hidden" name="stcode" value="<%= stcode %>">
 

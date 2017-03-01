@@ -93,6 +93,7 @@
                             </thead>
                             <tbody>
                             <%
+                            if(suppliersDetail){
                             suppliersDetail.materialsList.forEach(function(element,index){%>
                             <tr>
                                 <td><%= index+1 %></td>
@@ -100,7 +101,7 @@
                                 <td><%= element.catId %></td>
                                 <td><%= element.name %></td>
                             </tr>
-                            <%  })%>
+                            <%  })}%>
                             </tbody>
                         </table>
                     </div>

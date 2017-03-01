@@ -40,6 +40,10 @@
                         <table class="table table-bordered table-striped table-information">
                             <tbody>
                             <tr>
+                                <td>订单号</td>
+                                <td colspan="3"><%= tid %></td>
+                            </tr>
+                            <tr>
                                 <td width="20%">主材颜色</td>
                                 <td width="30%"><%= orderInfo.decoColor %></td>
                                 <td width="20%">订单类型</td>
@@ -118,6 +122,12 @@
                                 </td>
                                 <td>零售价</td>
                                 <td><%= orderInfo.retailPrice %>元</td>
+                            </tr>
+                            <tr>
+                                <td>结算价</td>
+                                <td>元</td>
+                                <td>出厂价</td>
+                                <td>元</td>
                             </tr>
                             <tr>
                                 <td>所在空间</td>
@@ -269,6 +279,36 @@
                 </div>
                 <!-- end col -->
             </div>
+
+            <div class="row">
+                <!-- col -->
+                <div class="col-xs-12 dwy-show-content">
+                    <legend>补单退回原因(没有退回原因则不显示该栏目)</legend>
+
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-striped">
+                            <thead>
+                            <tr>
+                                <th width="100">序号</th>
+                                <th>退回原因</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td>1</td>
+                                <td>退回原因</td>
+                            </tr>
+                            </tbody>
+                        </table>
+
+                    </div>
+
+
+                    <!-- end row -->
+                </div>
+                <!-- end col -->
+            </div>
+
 
             <div class="row">
                 <!-- col -->
