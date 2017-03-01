@@ -230,8 +230,6 @@ router.post('/schedule/notPass', Middleware.AuthCheck, OrderController.notPassSc
 // 审核通过
 router.post('/schedule/doPass/:tid', Middleware.AuthCheck, OrderController.doPassSchedule);
 
-
-
 // 订单包装页面
 router.get('/orders/package', Middleware.AuthCheck, OrderController.packagePage);
 

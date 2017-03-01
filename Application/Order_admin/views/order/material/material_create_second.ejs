@@ -249,8 +249,8 @@
             });
         });
 
-        //直接提交
-        $("#new").click(function () {
+        //用于获取code和addCode
+        function getCode(){
             var code=[];
             var addCode=[];
             $("select[name='attrVal']").each(function(){
@@ -261,6 +261,10 @@
             });
             $("#materialId").val(($("#mateTypeId").val()+code+addCode).replace(/,/g,''));
 
+        }
+        //直接提交
+        $("#new").click(function () {
+            getCode();
 
              if ($("#create-material_step2").validationEngine('validate')) {
                   //序列化表单中的每一个值，并且存储在对象中
@@ -284,16 +288,7 @@
 
         //提交之后再重新创建
         $("#newAgain").click(function () {
-            var code=[];
-            var addCode=[];
-            $("select[name='attrVal']").each(function(){
-                code.push($(this).val());
-            });
-            $("input[name='number']").each(function(){
-                addCode.push($(this).val());
-            });
-            $("#materialId").val(($("#mateTypeId").val()+code+addCode).replace(/,/g,''));
-
+            getCode();
             if ($("#create-material_step2").validationEngine('validate')) {
                 //序列化表单中的每一个值，并且存储在对象中
                 var craMateList = {};
