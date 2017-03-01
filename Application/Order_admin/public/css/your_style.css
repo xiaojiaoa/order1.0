@@ -3,6 +3,47 @@
     background: #fff;
 }
 
+.smart-style-2 aside {
+    background: #2d3741;
+}
+
+.smart-style-2 #header {
+    background: #2d3741;
+}
+.smart-style-2 #left-panel {
+
+    padding: 64px 0 15px 0;
+}
+.fixed-navigation nav{
+    overflow-x: hidden;
+}
+.smart-style-2 nav ul li a {
+    color: #fff !important;
+}
+
+.smart-style-2 nav ul li a:hover {
+    color: #fff !important;
+}
+
+.smart-style-2 nav ul .active > a {
+    color: #fff !important;
+}
+
+.smart-style-2 nav ul li:hover {
+    background: #4990e2;
+    border-left:5px #8ac5ff solid;
+}
+.smart-style-2 nav ul .active {
+    background: #4990e2;
+    border-left:5px #8ac5ff solid;
+}
+
+.smart-style-2 .btn-header>:first-child>a.user-info{
+    font-size: 14px !important;
+    font-weight:normal !important;
+    margin-top: 7px;
+    margin-right: 20px;
+}
 .smart-style-2 nav > ul > li > a {
     padding-top: 16px;
     padding-bottom: 16px;

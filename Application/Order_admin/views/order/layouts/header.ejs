@@ -42,7 +42,21 @@
                             class="fa fa-sign-out"> <span style="font-size: 14px;">退出登录</span></i> &nbsp;</a> </span>
         </div>
         <!-- end logout button -->
+        <div class="btn-header transparent pull-right">
+            <span>
+					<a href="/" class="user-info">
+                        欢迎您!
+                        <span  id="show-shortcut">
+							<%= user.name %> (
+                            <% user.role.forEach(function (element) { %>
+                            <%= element.name %>
+                            <% }) %>
+                            )
+						</span>
+                    </a>
 
+				</span>
+        </div>
 
     </div>
     <!-- end pulled right: nav area -->
