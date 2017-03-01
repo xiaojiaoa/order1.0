@@ -104,12 +104,12 @@
                                                      <%
                                                      if(attributeList.totalItems != 0  ){
                                                      attributeList.result.forEach(function (element, index) { %>
-                                                      <tr class="<%= ( element.stcode == 2 )? 'close-info':'' %>">
+                                                      <tr class="<%= ( element.stcode == 2 )? 'close-info01':'' %>">
                                                           <td><%= index+1 %></td>
                                                           <td><%= element.id %></td>
                                                           <td>
                                                               <% if( element.stcode == 2 ){ %>
-                                                              <a href="javascript:void(0)" class="close-info"><%= element.name %></a>
+                                                              <a href="javascript:void(0)" class="close-info01"><%= element.name %></a>
                                                               <% }else{ %>
                                                               <a href="/materialManage/mateAttr/detail/<%= element.id %>" class=" "><%= element.name %></a>
                                                               <% } %>

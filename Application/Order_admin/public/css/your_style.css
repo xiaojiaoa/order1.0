@@ -291,7 +291,7 @@ nav ul span.menu-item-parent {
     z-index: 999;
 }
 
-.close-info {
+.close-info,.close-info01{
     background-color: rgba(244, 244, 244, 1);
     color: #999999;
 }
