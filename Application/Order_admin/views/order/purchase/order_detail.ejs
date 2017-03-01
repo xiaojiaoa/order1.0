@@ -69,6 +69,7 @@
                             </thead>
                             <tbody>
                             <%
+                            if(purchaseOrderList.totalItems != 0  ){
                             purchaseOrderList.reqMaters.forEach(function (element, index) { %>
                             <tr>
                                 <td>
@@ -82,7 +83,7 @@
                                 <td><%= element.minAmount %></td>
                                 <td><%= element.mateName %></td>
                             </tr>
-                            <% }) %>
+                            <% }) }%>
                             </tbody>
                         </table>
                     </div>

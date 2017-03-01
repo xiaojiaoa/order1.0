@@ -51,11 +51,12 @@
                                             <select class="form-control" name="stairCatId">
                                                 <option value="">- 请选择 -</option>
                                                 <%
+                                                if(suppliersMaterialList.totalItems != 0  ){
                                                 suppliersMaterialList.forEach(function (element, index) { %>
-                                                <option value="<%= element.id %>" <%= (DWYRequest.query.id == element.id)?"selected":"" %>>
+                                                <option value="<%= element.id %>" <%= (DWYRequest.query.stairCatId == element.id)?"selected":"" %>>
                                                     <%= element.name %>
                                                 </option>
-                                                <%  })%>
+                                                <%  })}%>
                                             </select>
                                         </div>
                                     </div>

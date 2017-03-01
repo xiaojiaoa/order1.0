@@ -46,7 +46,7 @@
         $(".delete-supplier").on({
             click: function () {
                 var tid = $(this).attr('selfId');
-                var type= $("#urlType2").val();
+                var type= $("#urlType").val();
                 layer.confirm('确定启用?',{icon: 3, title:'提示'},
                     function(index){
                         $.ajax({
@@ -64,7 +64,7 @@
         $(".openSupplierSort").on({
             click: function () {
                 var tid = $(this).attr('selfId');
-                var type= $("#urlType").val();
+                var type= $("#urlType2").val();
                 layer.confirm('确定禁用?',{icon: 3, title:'提示'},
                     function(index){
                         $.ajax({

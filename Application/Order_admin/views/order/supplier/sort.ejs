@@ -77,7 +77,9 @@
                             </tr>
                             </thead>
                             <tbody>
-                            <% suppliersCategoriesList.result.forEach(function (element, index) {%>
+                            <%
+                            if(suppliersCategoriesList.totalItems != 0  ){
+                            suppliersCategoriesList.result.forEach(function (element, index) {%>
                             <% if(element.parentId == 0){%>
                                 <tr class="level-0 <%= ( element.isDeleted == 2 )? 'close-info':'' %>">
                                     <td><%= element.name %></td>
@@ -106,7 +108,7 @@
                                     </td>
                                 </tr>
                             <%
-                            }})%>
+                            }})}%>
                             </tbody>
                         </table>
                         <%- pagination %>

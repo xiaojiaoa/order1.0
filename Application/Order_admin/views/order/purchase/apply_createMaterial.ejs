@@ -42,11 +42,12 @@
                                         <th>分类名称</th>
                                         <th>请购数量</th>
                                         <th>预计交期</th>
+                                        <th>供应商</th>
                                     </tr>
                                     </thead>
                                     <tbody>
                                     <%
-                                    if(suppliersMaterialLists){
+                                    if(suppliersMaterialLists.totalItems != 0  ){
                                     suppliersMaterialLists.forEach(function (element, index) { %>
                                     <tr>
                                         <td class="materialId<%= index %>"><%= element.id %></td>
@@ -59,6 +60,7 @@
                                             <input class="form-control fg-date-picker deliveryDate" type="text" value=""
                                                    name="deliveryDate<%= index %>"  />
                                         </td>
+                                        <td><%= element.suppName %></td>
                                     </tr>
                                     <input type="hidden" name="tid" value="<%= element.id %>">
                                     <%  }) }%>
@@ -92,26 +94,28 @@
                 alert('日期不能为空')
                 return false;
             }
-            var arr=[];
+            var myArray=new Array()
+
             var length=$("input[name=tid]").length;
             for(var i=0;i<length;i++){
+                var a = new Object();
                 var materialId=$(".materialId"+i).text();
                 var amount=$("input[name=amount"+i+"]").val();
                 var deliveryDate=$("input[name=deliveryDate"+i+"]").val();
-                arr.push({
-                    materialId:materialId,
-                    amount:amount,
-                    deliveryDate:deliveryDate
-                });
+                a.materialId=materialId;
+                a.amount = amount;
+                a.deliveryDate = deliveryDate;
+                myArray.push(a);
             }
             layer.confirm("确认提交？", {title:'提示'},function(index){
-                console.log(arr);
+                console.log(myArray);
                     $.ajax({
                         url: '/purchase/applyMaterialCreate/',
                         data:{
-                            supMaterialData:arr
+                            reqMaterialList:myArray
                         },
                         method: 'post',
+                        dataType: 'json',
                         success: function (data) {
                             location.href="/purchase";
                         },
