@@ -44,8 +44,8 @@ var PurchaseController = {
     //新建请购单页面
     purchaseApplyCreatPage: function (req, res) {
         Base.multiDataRequest(req, res, [
-                {url: '/api/categories/list?parentId=0'+(queryString.stringify(req.query)), method: 'GET', resConfig: {keyName: 'suppliersMaterialList', is_must: true}},
-                {url: '/api/materials', method: 'GET', resConfig: {keyName: 'supMaterialList', is_must: true}},
+                {url: '/api/categories/list?parentId=0', method: 'GET', resConfig: {keyName: 'suppliersMaterialList', is_must: true}},
+                {url: '/api/materials?'+(queryString.stringify(req.query)), method: 'GET', resConfig: {keyName: 'supMaterialList', is_must: true}},
             ],
             function (req, res, resultList) {
                 var returnData = Base.mergeData(helper.mergeObject({
@@ -54,6 +54,49 @@ var PurchaseController = {
                 }, resultList));
                 res.render('order/purchase/apply_creat', returnData);
             });
+    },
+    //新建请购单第一步
+    purchaseApplyMaterialCreat: function (req, res) {
+        var tid = req.params.tid;
+        request(Base.mergeRequestOptions({
+            method: 'get',
+            url: '/api/materials/list?ids='+tid,
+        }, req, res), function (error, response, body) {
+            console.log(response.body)
+            if (!error && response.statusCode == 200) {
+                res.sendStatus(200)
+            }else{
+                Base.handlerError(res, req, error, response, body);
+            }
+        })
+    },
+    //新建请购单第二步--物料信息的添加--数量和日期
+    applyMaterialCreatePage: function (req, res) {
+        var tid=req.params.tid;
+        Base.multiDataRequest(req, res, [
+                {url: '/api/materials/list?ids='+tid, method: 'GET', resConfig: {keyName: 'suppliersMaterialLists', is_must: true}},
+            ],
+            function (req, res, resultList) {
+                var returnData = Base.mergeData(helper.mergeObject({
+                    title: ' ',
+                    Permission :Permissions,
+                }, resultList));
+                res.render('order/purchase/apply_createMaterial', returnData);
+            });
+    },
+    //新建请购单 添加物料数量+预计交期
+    applyMaterialCreate: function (req, res) {
+        request(Base.mergeRequestOptions({
+            method: 'post',
+            url: '/api/purchase/request',
+            form:req.body,
+        }, req, res), function (error, response, body) {
+            if (!error && response.statusCode == 201) {
+                res.redirect("/purchase");
+            } else {
+                Base.handlerError(res, req, error, response, body);
+            }
+        })
     },
 
 

@@ -67,7 +67,7 @@
                                             <select class="form-control" name="type">
                                                 <option value="">- 请选择 -</option>
                                                 <% warehouseTypes.forEach(function (element) {  %>
-                                                <option value="<%= element.id %>" <%= (DWYRequest.query.type == 1 )?"selected":"" %> >
+                                                <option value="<%= element.id %>" <%= (DWYRequest.query.type == element.id )?"selected":"" %> >
                                                     <%= element.name %>
                                                 </option>
                                                 <% }) %>

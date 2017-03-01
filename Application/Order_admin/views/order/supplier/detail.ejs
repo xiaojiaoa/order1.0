@@ -80,10 +80,36 @@
                 </div>
                 <!-- end col -->
                 <div class="col-xs-12">
+                    <legend>供应商关联物料信息</legend>
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-striped">
+                            <thead>
+                            <tr>
+                                <th>序号</th>
+                                <th>物料编号</th>
+                                <th>物料分类编号</th>
+                                <th>物料名称</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <%
+                            suppliersDetail.materialsList.forEach(function(element,index){%>
+                            <tr>
+                                <td><%= index+1 %></td>
+                                <td><%= element.id %></td>
+                                <td><%= element.catId %></td>
+                                <td><%= element.name %></td>
+                            </tr>
+                            <%  })%>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="col-xs-12">
                     <hr class="simple">
                     <div class="col-xs-12 text-center">
                         <a class="btn btn-primary " type="submit" href="/supplier/offer_product/<%= suppliersDetail.id  %>">
-                           可提供物料
+                           添加可提供物料
                         </a>
                     </div>
                 </div>

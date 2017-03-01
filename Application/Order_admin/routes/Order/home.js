@@ -179,13 +179,13 @@ router.get('/orders/resupplys/apart', Middleware.AuthCheck, Middleware.FilterEmp
 router.put('/resupplys/apart/getTask/:tid/:resId', Middleware.AuthCheck, OrderController.getTaskReApart);
 
 // 解锁订单
-router.post('/resupplys/apart/unlock/:tid/:resId', Middleware.AuthCheck, OrderController.doUnlockReApart);
+router.put('/resupplys/apart/unlock/:tid/:resId', Middleware.AuthCheck, OrderController.doUnlockReApart);
 
 // 审核未通过（退单）
 router.post('/resupplys/apart/notPass', Middleware.AuthCheck, OrderController.notPassReApart);
 
 // 审核通过
-router.post('/resupplys/apart/doPass/:tid/:resId', Middleware.AuthCheck, OrderController.doPassReApart);
+router.put('/resupplys/apart/doPass/:tid/:resId', Middleware.AuthCheck, OrderController.doPassReApart);
 
 // 标记为审核中 (待拆单审核)
 router.post('/resupplys/apartCheck/getTask/:tid/:resId', Middleware.AuthCheck, OrderController.getTaskCheckReApart);
@@ -199,6 +199,8 @@ router.post('/resupplys/apartCheck/doPass/:tid/:resId', Middleware.AuthCheck, Or
 
 // 补单详情页面
 router.get('/order/resupply/detail/:tid/:resId', Middleware.AuthCheck, OrderController.resupplyDetailPage);
+
+
 
 
 //  订单审核页面
@@ -894,6 +896,13 @@ router.get('/purchase', Middleware.AuthCheck,PurchaseController.purchasePage);
 
 // 新建请购单页面
 router.get('/purchase/applyCreat', Middleware.AuthCheck,PurchaseController.purchaseApplyCreatPage);
+//新建请购单 选择物料信息列表
+router.post('/purchase/applyOrderMaterial/:tid', Middleware.AuthCheck,PurchaseController.purchaseApplyMaterialCreat);
+//新建请购单 物料信息修改
+router.get('/purchase/apply_createMaterial/:tid', Middleware.AuthCheck,PurchaseController.applyMaterialCreatePage);
+//新建请购单 添加物料数量+预计交期
+router.post('/purchase/applyMaterialCreate', Middleware.AuthCheck,PurchaseController.applyMaterialCreate);
+
 
 // 请购单详情
 router.get('/purchase/applyDetail/:tid', Middleware.AuthCheck,PurchaseController.purchaseApplyDetailPage);

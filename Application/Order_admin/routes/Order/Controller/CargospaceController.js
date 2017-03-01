@@ -77,6 +77,7 @@ var CargospaceController = {
                 title: '',
                 ftyId:ftyId,
                 whseId:whseId,
+                regionId:regionId,
                 pagination: boostrapPaginator.render()
             }, resultList));
 
@@ -132,10 +133,11 @@ var CargospaceController = {
         }, req, res), function (error, response, body) {
             if (!error && response.statusCode == 201) {
                 // var lid = JSON.parse(body).lid;
-                if(createType == 1){
-                    res.redirect("/cargospace?isAll=1&ftyId="+ftyId+"&whseId="+whseId+"&regionId="+regionId);
-                }else{
+                if(createType == 2){
                     res.redirect("/cargospace/createNext/"+ftyId+"/"+whseId+"/"+regionId);
+
+                }else{
+                    res.redirect("/cargospace?isAll=1&ftyId="+ftyId+"&whseId="+whseId+"&regionId="+regionId);
                 }
 
             } else {
