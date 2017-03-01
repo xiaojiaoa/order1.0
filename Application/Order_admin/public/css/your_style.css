@@ -10,12 +10,23 @@
 .smart-style-2 #header {
     background: #2d3741;
 }
+
+#header>:first-child, aside{
+    width: 190px;
+}
 .smart-style-2 #left-panel {
 
     padding: 64px 0 15px 0;
 }
+.hidden-menu #left-panel{
+    left: -176px;
+}
 .fixed-navigation nav{
     overflow-x: hidden;
+}
+.fixed-navigation nav>ul{
+    padding-right: 0;
+    width: 100%;
 }
 .smart-style-2 nav ul li a {
     color: #fff !important;
@@ -28,7 +39,9 @@
 .smart-style-2 nav ul .active > a {
     color: #fff !important;
 }
-
+.smart-style-2 nav ul li{
+    padding-left: 10px;
+}
 .smart-style-2 nav ul li:hover {
     background: #4990e2;
     border-left:5px #8ac5ff solid;
@@ -37,7 +50,10 @@
     background: #4990e2;
     border-left:5px #8ac5ff solid;
 }
-
+nav ul li.active>a:before{
+    right: 0;
+    width: 10px;
+}
 .smart-style-2 .btn-header>:first-child>a.user-info{
     font-size: 14px !important;
     font-weight:normal !important;
