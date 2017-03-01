@@ -125,9 +125,9 @@
                             </tr>
                             <tr>
                                 <td>结算价</td>
-                                <td>元</td>
+                                <td><%= orderInfo.revFranchisePrice %>元</td>
                                 <td>出厂价</td>
-                                <td>元</td>
+                                <td><%= orderInfo.factoryPrice %>元</td>
                             </tr>
                             <tr>
                                 <td>所在空间</td>
@@ -199,7 +199,13 @@
                             </tr>
                             <tr>
                                 <td>同客户流水</td>
-                                <td colspan="3"></td>
+                                <td colspan="3">
+                                    <%
+                                    var orderList = "";
+                                    orderInfo.sequences.forEach(function (sequenceElement) { %>
+                                    <a class="order-number"  href="/taskseq/index/<%= sequenceElement %>"><%= sequenceElement %></a>
+                                    <% }) %>
+                                </td>
                             </tr>
                             <tr>
                                 <td>相关订单</td>
