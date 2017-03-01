@@ -61,8 +61,8 @@ var TaskseqController = {
         {url: '/api/ebis/measure/page?'+ queryString.stringify(req.query), method: 'GET', resConfig: {keyName: 'taskseqList', is_must: true}},
         {url: '/api/assist/taskseq/status', method: 'GET', resConfig: {keyName: 'statusInfo', is_must: false}}
     ], function (req, res, resultList) {
-        console.log('communicate','/api/tasks/measure?'+ queryString.stringify(req.query))
-        console.log('communicate',JSON.stringify(resultList))
+        // console.log('communicate','/api/tasks/measure?'+ queryString.stringify(req.query))
+        // console.log('communicate',JSON.stringify(resultList))
 
         var paginationInfo =  resultList.taskseqList;
 

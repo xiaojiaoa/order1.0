@@ -310,6 +310,43 @@ var OrderController = {
         })
 
     },
+    apartCheckPage: function (req, res) {
+        var paramObject = helper.genPaginationQuery(req);
+        Base.multiDataRequest(req, res, [
+            {url: '/api/orders/resupply/apartReview/gid', method: 'GET', resConfig: {keyName: 'apartReviewingList', is_must: true}},
+            {url: '/api/orders/resupply/apartReview?'+ (queryString.stringify(req.query)), method: 'GET', resConfig: {keyName: 'apartReviewList', is_must: true}},
+            {url: '/api/assist/brandinfo' , method: 'GET', resConfig: {keyName: 'brandInfo', is_must: true}},
+            {url: '/api/assist/space/prod?spaceId=10', method: 'GET', resConfig: {keyName: 'prodList', is_must: true}},
+            {url: '/api/assist/order/difficulty', method: 'GET', resConfig: {keyName: 'difficultyList', is_must: true}},
+            {url: '/api/assist/deco/color', method: 'GET', resConfig: {keyName: 'colorList', is_must: true}},
+        ], function (req, res, resultList) {
+
+            var paginationInfoOne =  resultList.apartReviewingList;
+            var paginationInfTwo =  resultList.apartReviewList;
+
+            var boostrapPaginatorOne = new Pagination.TemplatePaginator(helper.genPageInfo({
+                prelink: paramObject.withoutPageNo,
+                current: paginationInfoOne.page,
+                rowsPerPage: paginationInfoOne.pageSize,
+                totalResult: paginationInfoOne.totalItems
+            }));
+            var boostrapPaginatorTwo = new Pagination.TemplatePaginator(helper.genPageInfo({
+                prelink: paramObject.withoutPageNo,
+                current: paginationInfTwo.page,
+                rowsPerPage: paginationInfTwo.pageSize,
+                totalResult: paginationInfTwo.totalItems
+            }));
+
+
+            var returnData = Base.mergeData(helper.mergeObject({
+                title: '补单拆单审核 ',
+                paginationOne: boostrapPaginatorOne.render(),
+                paginationTwo: boostrapPaginatorTwo.render(),
+                Permission :Permissions,
+            },resultList));
+            res.render('order/order/resupplys_apart_check', returnData);
+        });
+    },
     getTaskCheckReApart: function (req, res) {
         var tid = req.params.tid;
         var resId = req.params.resId;
@@ -346,7 +383,7 @@ var OrderController = {
             url: '/api/orders/resupply/apartReview/notPass?'+queryString.stringify(req.body),
         }, req, res), function (error, response, body) {
             if (!error && response.statusCode == 201) {
-                res.redirect("/orders/resupplys/accept");
+                res.redirect("/orders/resupplys/apartCheck");
             } else {
                 Base.handlerError(res, req, error, response, body);
             }
@@ -354,6 +391,8 @@ var OrderController = {
 
     },
     doPassCheckReApart: function (req, res) {
+        var tid = req.params.tid;
+        var resId = req.params.resId;
         request(Base.mergeRequestOptions({
             method: 'put',
             url: '/api/orders/resupply/apartReview/pass?tid='+tid+'&resId='+resId,

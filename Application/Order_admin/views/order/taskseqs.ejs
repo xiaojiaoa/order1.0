@@ -138,7 +138,7 @@
             <!-- row -->
             <div class="row">
                 <div class="col-xs-12">
-                    <h6>登记列表</h6>
+                    <h6>流水列表</h6>
                     <hr class="simple">
                 </div>
             </div>
@@ -151,7 +151,7 @@
                             <thead>
                             <tr>
                                 <th>序号</th>
-                                <th>门店号</th>
+                                <th>门店名称</th>
                                 <th>客户号</th>
                                 <th>客户名称</th>
                                 <th>客户电话</th>
@@ -172,7 +172,7 @@
                             taskseqList.result.forEach(function (element) { %>
                             <tr>
                                 <td><%= num %></td>
-                                <td><%= element.channelId %></td>
+                                <td></td>
                                 <td><a href="/customer/detail/<%= element.cid %>"><%= element.cid %></a></td>
                                 <td><%= element.custName %></td>
                                 <td><%= element.custMobile %></td>

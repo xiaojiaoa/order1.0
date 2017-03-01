@@ -1,0 +1,254 @@
+<%- include('../layouts/head_top'); %>
+<%- include('../layouts/head_bottom'); %>
+<%- include('../layouts/header'); %>
+<%- include('../layouts/nav'); %>
+
+
+<!-- MAIN PANEL -->
+<div id="main" role="main">
+
+    <!-- RIBBON -->
+    <div id="ribbon">
+
+        <!-- breadcrumb -->
+        <ol class="breadcrumb">
+            <li>后台管理</li>
+            <li>补单拆单审核管理页</li>
+        </ol>
+        <!-- end breadcrumb -->
+
+    </div>
+    <!-- END RIBBON -->
+
+
+    <!-- MAIN CONTENT -->
+    <div id="content">
+
+        <div class="well">
+
+            <!-- row -->
+            <div class="row">
+                <div class="col-xs-12">
+                    <h6>拆单审核中</h6>
+                    <hr class="simple">
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-striped">
+                            <thead>
+                            <tr>
+                                <th>序号</th>
+                                <th>品牌</th>
+                                <th>颜色</th>
+                                <th>类别</th>
+                                <th>难度</th>
+                                <th>补单号</th>
+                                <th>专卖店</th>
+                                <th>客户名称</th>
+                                <th>产品信息</th>
+                                <th>审核人</th>
+                                <th>收款确认日期</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <%
+                            if(apartReviewingList.result && apartReviewingList.result.length>0 ){
+                            apartReviewingList.result.forEach(function (element, index) { %>
+                            <tr>
+                                <td><%= index+1 %></td>
+                                <td><%= element.difficultyStr %></td>
+                                <td><%= element.colorStr %></td>
+                                <td><%= element.productTypeStr %></td>
+                                <td><%= element.difficultyStr %></td>
+                                <td><a href="/order/resupply/detail/<%= element.tid %>/<%= element.resupplyId %>"><%= element.tid %><%= element.resupplyId %></a></td>
+                                <td><%= element.storeName %></td>
+                                <td><%= element.customerName %></td>
+                                <td><%= element.productInfo %></td>
+                                <td><%= element.auditor %></td>
+                                <td><%= element.taskTime %></td>
+
+                            </tr>
+                            <% })
+                            }else{ %>
+                            <td colspan="11" class="text-align-center">暂无数据</td>
+                            <% }%>
+
+                            </tbody>
+                        </table>
+                        <%- paginationOne %>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+
+
+
+
+        <div class="well">
+
+            <!-- row -->
+            <div class="row">
+                <!-- col -->
+                <div class="col-xs-12">
+                    <h6>待拆单审核</h6>
+                    <hr class="simple">
+                    <!--<legend>客户搜索</legend>-->
+                    <div class="row search-form">
+                        <form class="form-horizontal" method="get">
+
+                            <div class="col-xs-12">
+
+                                <div class="col-xs-7">
+                                    <div class="form-group">
+                                        <div class="col-xs-3">
+                                            <select class="form-control" name="brandId">
+                                                <option value="">- 品牌 -</option>
+                                                <% brandInfo.forEach(function (element) {  %>
+                                                <option value="<%= element.id %>" <%= (DWYRequest.query.brandId == element.id)?"selected":"" %> >
+                                                    <%= element.name %>
+                                                </option>
+                                                <% }) %>
+                                            </select>
+                                        </div>
+                                        <div class="col-xs-3">
+                                            <select class="form-control" name="color">
+                                                <option value="">- 颜色 -</option>
+                                                <% colorList.forEach(function (element) {  %>
+                                                <option value="<%= element.id %>" <%= (DWYRequest.query.color == element.id)?"selected":"" %>>
+                                                    <%= element.name %>
+                                                </option>
+                                                <% }) %>
+                                            </select>
+                                        </div>
+                                        <div class="col-xs-3">
+                                            <select class="form-control" name="productType">
+                                                <option value="">- 类型 -</option>
+                                                <% prodList.forEach(function (element) {  %>
+                                                <option value="<%= element.id %>" <%= (DWYRequest.query.productType == element.id)?"selected":"" %> >
+                                                    <%= element.name %>
+                                                </option>
+                                                <% }) %>
+                                            </select>
+                                        </div>
+
+                                        <div class="col-xs-3">
+                                            <select class="form-control" name="difficulty">
+                                                <option value="">- 难度 -</option>
+                                                <% difficultyList.forEach(function (element) {  %>
+                                                <option value="<%= element.id %>" <%= (DWYRequest.query.difficulty == element.id)?"selected":"" %>>
+                                                    <%= element.name %>
+                                                </option>
+                                                <% }) %>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-xs-4">
+                                    <div class="form-group">
+                                        <label class="pull-left control-label">&nbsp;收款日期</label>
+                                        <div class="col-xs-4">
+                                            <input class="form-control fg-date-picker" type="text"
+                                                   value="<%= DWYRequest.query.startTime %>" name="startTime">
+                                        </div>
+                                        <label class="control-label " style="float: left"> 至 </label>
+                                        <div class="col-xs-4">
+                                            <input class="form-control fg-date-picker" type="text"
+                                                   value="<%= DWYRequest.query.endTime %>" name="endTime">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xs-1">
+                                    <button class="btn btn-primary " type="submit">
+                                        <i class="fa fa-search"></i>
+                                        查询
+                                    </button>
+                                </div>
+
+
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <!-- end col -->
+            </div>
+
+            <div class="row margin-top-10">
+                <div class="table-responsive">
+                    <table class="table table-bordered table-striped">
+                        <thead>
+                        <tr>
+                            <th>序号</th>
+                            <th>品牌</th>
+                            <th>颜色</th>
+                            <th>类别</th>
+                            <th>难度</th>
+                            <th>补单号</th>
+                            <th>专卖店</th>
+                            <th>客户名称</th>
+                            <th>产品信息</th>
+                            <th>受理人</th>
+                            <th>收款确认日期</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <%
+                        if(apartReviewList.result && apartReviewList.result.length>0 ){
+                        apartReviewList.result.forEach(function (element, index) { %>
+                        <tr>
+                            <td><%= index+1 %></td>
+                            <td><%= element.difficultyStr %></td>
+                            <td><%= element.colorStr %></td>
+                            <td><%= element.productTypeStr %></td>
+                            <td><%= element.difficultyStr %></td>
+                            <td><a href="/order/resupply/detail/<%= element.tid %>/<%= element.resupplyId %>"><%= element.tid %><%= element.resupplyId %></a></td>
+                            <td><%= element.storeName %></td>
+                            <td><%= element.customerName %></td>
+                            <td><%= element.productInfo %></td>
+                            <td><%= element.auditor %></td>
+                            <td><%= element.taskTime %></td>
+                        </tr>
+                        <% })
+                        }else{ %>
+                        <td colspan="11" class="text-align-center">暂无数据</td>
+                        <% }%>
+
+                        </tbody>
+                    </table>
+                    <%- paginationTwo %>
+                </div>
+            </div>
+            <!-- end row -->
+        </div>
+
+
+    </div>
+    <!-- end well -->
+
+
+</div>
+<!-- END MAIN CONTENT -->
+
+</div>
+<!-- END MAIN PANEL -->
+
+<%- include('../layouts/footer'); %>
+<%- include('../layouts/footer_common_script'); %>
+
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+
+
+
+        pageSetUp();
+        $(".fg-date-picker").flatpickr(data_time_picker.data_picker); // jQuery
+
+
+    })
+
+</script>
+
+
+<%- include('../layouts/foot'); %>
