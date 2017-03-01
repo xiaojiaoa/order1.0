@@ -88,7 +88,7 @@ var PurchaseController = {
     applyMaterialCreate: function (req, res) {
         request(Base.mergeRequestOptions({
             method: 'post',
-            url: '/api/purchase/request',
+            url: '/api/purchase/request/',
             form:req.body,
         }, req, res), function (error, response, body) {
             if (!error && response.statusCode == 201) {
