@@ -79,13 +79,14 @@ var MaterialController = {
         res.render('order/material/material_summary');
     },
     materialCreateOnePage: function (req, res) {
-
+        var tid=req.params.tid;
          Base.multiDataRequest(req, res, [
-         {url: '/api/categories/list?parentId=0', method: 'GET', resConfig: {keyName: 'stairCategory', is_must: true}}
+             {url: '/api/categories/list?parentId=0', method: 'GET', resConfig: {keyName: 'stairCategory', is_must: true}},
          ], function (req, res, resultList) {
          var returnData = Base.mergeData(helper.mergeObject({
-         title: ' ',
-               },resultList));
+              title: ' ',
+             tid:tid,
+         },resultList));
          res.render('order/material/material_create_one',returnData);
          });
         //res.render('order/material/material_create_one');
@@ -245,6 +246,19 @@ var MaterialController = {
         }
     })
 },
+    materialTypeCreateOnePage: function (req, res) {
+        var tid=req.params.tid;
+        Base.multiDataRequest(req, res, [
+            {url: '/api/categories/attributes/'+ tid, method: 'GET', resConfig: {keyName: 'mateCategory', is_must: true}},
+        ], function (req, res, resultList) {
+            var returnData = Base.mergeData(helper.mergeObject({
+                title: ' ',
+                tid:tid,
+            },resultList));
+            res.render('order/material/material_create_one',returnData);
+        });
+        //res.render('order/material/material_create_one');
+    },
 };
 module.exports = MaterialController;
 

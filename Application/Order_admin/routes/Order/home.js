@@ -319,6 +319,9 @@ router.get('/materialManage/detail/factory/:fid/:mid', Middleware.AuthCheck, Mat
 // 物料出入库总计页面
 router.get('/materialManage/summary', Middleware.AuthCheck, MaterialController.summaryPage);
 
+//物料分类一物料新建
+router.get('/materialManage/material/:tid/creStepO', Middleware.AuthCheck, MaterialController.materialTypeCreateOnePage);
+
 //物料新建页面一
 router.get('/materialManage/material/creStepO', Middleware.AuthCheck, MaterialController.materialCreateOnePage);
 

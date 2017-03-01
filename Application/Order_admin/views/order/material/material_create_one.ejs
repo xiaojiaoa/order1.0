@@ -35,57 +35,97 @@
                     <!-- row -->
                     <div class="row">
                         <form class="form-horizontal"  id="create-material_step1" method="post" action="/materialCreate/doNext">
+                            <% if(tid){%>
+                            <div class="selectList01">
+                                <div class="col-xs-12">
+                                    <div class="col-xs-6">
+                                        <div class="form-group">
+                                            <label class="col-xs-4 control-label">
+                                            </label>
+                                            <div class="col-xs-8">
+                                                <select  class="form-control validate[required] " name="stairCategory" id="stairCategory">
+                                                    <option value="<%= mateCategory.stairCategoryId%>"><%= mateCategory.stairCategory%></option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xs-12">
+                                    <div class="col-xs-6">
+                                        <div class="form-group">
+                                            <label class="col-xs-4 control-label">
+                                            </label>
+                                            <div class="col-xs-8">
+                                                <select  class="form-control validate[required] " name="secondaryCategory" id="secondaryCategory">
+                                                    <option value="<%= mateCategory.secondaryCategoryId%>"><%= mateCategory.secondaryCategory%></option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xs-12">
+                                    <div class="col-xs-6">
+                                        <div class="form-group">
+                                            <label class="col-xs-4 control-label">
+                                            </label>
+                                            <div class="col-xs-8">
+                                                <select  class="form-control validate[required] " name="thirdlyCategory" id="thirdlyCategory">
+                                                    <option value="<%= mateCategory.thirdlyCategoryId%>"><%= mateCategory.thirdlyCategory%></option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <%} else{%>
                             <div class="selectList">
-                             <div class="col-xs-12">
+                                <div class="col-xs-12">
+                                    <div class="col-xs-6">
+                                        <div class="form-group">
+                                            <label class="col-xs-4 control-label"><span class="requird"></span>
+                                                物料分类:</label>
+                                            <div class="col-xs-8">
+                                                <select  class="form-control validate[required]" name="stairCategory" id="stairCategory">
+                                                    <option value="">- 请选择 -</option>
+                                                    <% stairCategory.forEach(function(element,index){%>
+                                                    <option value="<%= element.id %>"><%= element.name%></option>
+                                                    <%})%>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xs-12">
+                                    <div class="col-xs-6">
+                                        <div class="form-group">
+                                            <label class="col-xs-4 control-label">
+                                            </label>
+                                            <div class="col-xs-8">
+                                                <select  class="form-control validate[required] " name="secondaryCategory" id="secondaryCategory">
+                                                    <option value="">- 请选择 -</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xs-12">
+                                    <div class="col-xs-6">
+                                        <div class="form-group">
+                                            <label class="col-xs-4 control-label">
+                                            </label>
+                                            <div class="col-xs-8">
+                                                <select  class="form-control validate[required] " name="thirdlyCategory" id="thirdlyCategory">
+                                                    <option value="">- 请选择 -</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
 
 
-                                 <div class="col-xs-6">
-                                     <div class="form-group">
-                                         <label class="col-xs-4 control-label"><span class="requird"></span>
-                                             物料分类:</label>
-                                         <div class="col-xs-8">
-                                             <select  class="form-control validate[required]" name="stairCategory" id="stairCategory">
-                                                 <option value="">- 请选择 -</option>
-                                                 <% stairCategory.forEach(function(element,index){%>
-                                                 <option value="<%= element.id %>"><%= element.name%></option>
-                                                 <%})%>
-                                             </select>
-                                         </div>
-                                     </div>
-                                 </div>
-                             </div>
-                             <div class="col-xs-12">
-                                 <div class="col-xs-6">
-                                     <div class="form-group">
-                                         <label class="col-xs-4 control-label">
-                                         </label>
-                                         <div class="col-xs-8">
-                                             <select  class="form-control validate[required] " name="secondaryCategory" id="secondaryCategory">
-                                                 <option value="">- 请选择 -</option>
-                                             </select>
-                                         </div>
-                                     </div>
-                                 </div>
-                             </div>
-                             <div class="col-xs-12">
+                                </div>
+                            </div>
+                            <%}%>
 
-
-
-                                 <div class="col-xs-6">
-                                     <div class="form-group">
-                                         <label class="col-xs-4 control-label">
-                                           </label>
-                                         <div class="col-xs-8">
-                                             <select  class="form-control validate[required] " name="thirdlyCategory" id="thirdlyCategory">
-                                                 <option value="">- 请选择 -</option>
-                                             </select>
-                                         </div>
-                                     </div>
-                                 </div>
-
-
-                             </div>
-                             </div>
                              <div class="col-xs-8">
                                  <hr class="simple">
                                  <div class="col-xs-12 text-center">
