@@ -78,7 +78,7 @@
                             </thead>
                             <tbody>
                             <%
-                            if(suppliersCategoriesList.totalItems != 0  ){
+                            if(suppliersCategoriesList.result){
                             suppliersCategoriesList.result.forEach(function (element, index) {%>
                             <% if(element.parentId == 0){%>
                                 <tr class="level-0 <%= ( element.isDeleted == 2 )? 'close-info':'' %>">
