@@ -77,8 +77,6 @@
                     <div class="table-responsive">
                         <table class="table table-bordered table-striped">
                             <thead>
-                            <tr>
-                                <th>随便</th>
                                 <th>序号</th>
                                 <th>供应商编号</th>
                                 <th>供应商分类编号</th>
@@ -96,7 +94,6 @@
                             if(suppliersList.totalItems != 0  ){
                                 suppliersList.result.forEach(function (element, index) { %>
                             <tr class="<%= ( element.isDeleted == 2 )? 'close-info':'' %>">
-                                <td><%= element.isDeleted %></td>
                                 <td><%= index+1 %></td>
                                 <td><a href="supplier/detail/<%= element.id %>"><%= element.id %></a></td>
                                 <td><%= element.cateId %></td>
