@@ -15,6 +15,7 @@
             <li>后台管理</li>
             <li><a href="/materialManage">物料管理</a></li>
             <li><a href="/materialManage/materialAttribute">查看物料属性</a></li>
+            <li>查看物料属性详情值</li>
         </ol>
         <!-- end breadcrumb -->
 
@@ -99,7 +100,8 @@
                             </tr>
                             </thead>
                             <tbody>
-                            <% attributeDetail.attributeValueList.forEach(function (element, index) { %>
+                            <%  if(attributeDetail.attributeValueList.length!=0){
+                            attributeDetail.attributeValueList.forEach(function (element, index) { %>
                             <tr>
                                 <% if(index==0){%>
                                 <td id="attrName"><%= attributeDetail.name %></td>
@@ -116,9 +118,12 @@
                                     <a href="javascript:void(0)" class="margin-left-20 closeStore" id="closeStore">禁用</a>
                                     <% } %>
                                 </td>
+                                <% })
+                                }else{ %>
+                            <tr>
+                                <td colspan="5" align="center">暂无结果</td>
                             </tr>
-                            <% }) %>
-                            </tbody>
+                            <% } %>
                         </table>
 
                     </div>

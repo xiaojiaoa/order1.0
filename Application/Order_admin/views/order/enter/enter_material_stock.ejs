@@ -39,8 +39,8 @@
                                     <div class="form-group">
                                         <label class="col-xs-4 control-label">采购单号:</label>
                                         <div class="col-xs-8">
-                                            <input class="form-control" value="<%= DWYRequest.query.cid %>" type="text"
-                                                   name="cid">
+                                            <input class="form-control" value="<%= DWYRequest.query.purcId %>" type="text"
+                                                   name="purcId">
                                         </div>
                                     </div>
                                 </div>
@@ -48,7 +48,7 @@
                                     <div class="form-group">
                                         <label class="col-xs-4 control-label">类别:</label>
                                         <div class="col-xs-8">
-                                            <select class="form-control" name="ctype">
+                                            <select class="form-control" name="type">
                                                 <option value="">- 请选择 -</option>
                                             </select>
                                         </div>
@@ -58,7 +58,7 @@
                                     <div class="form-group">
                                         <label class="col-xs-4 control-label">厂商:</label>
                                         <div class="col-xs-8">
-                                            <select class="form-control" name="ctype">
+                                            <select class="form-control" name="suppId">
                                                 <option value="">- 请选择 -</option>
                                             </select>
                                         </div>
@@ -94,32 +94,35 @@
                             <thead>
                             <tr>
                                 <th>序号</th>
-                                <th>类别</th>
+                                <th>类型 </th>
                                 <th>采购单号</th>
-                                <th>采购部门</th>
                                 <th>采购人</th>
                                 <th>供应商</th>
                                 <th>日期</th>
+                                <th>预计交货日期</th>
                                 <th>交货日期</th>
                                 <th>操作</th>
                             </tr>
                             </thead>
                             <tbody>
-                            <tr>
-                                <td>1</td>
-                                <td></td>
-                                <td><a href="/purchase/orderDetail/123456">123456</a></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td><a class="enterThis" href="/enterMaterial/stockOver/toEnter">入库</a></td>
-                            </tr>
-
-                            <tr>
-                                <td colspan="9" class="text-align-center">暂无数据</td>
-                            </tr>
+                            <% if(result.length>0){%>
+                            <% result.forEach(function(element,index){%>
+                                <tr>
+                                    <td><%=++index%></td>
+                                    <td><%=element.type%></td>
+                                    <td><a href="/purchase/orderDetail/<%=element.orderId%>"><%=element.orderId%></a></td>
+                                    <td><%=element.empName%></td>
+                                    <td><%=element.suppId%></td>
+                                    <td><%=element.suppName%></td>
+                                    <td><%=element.deliveryDate%></td>
+                                    <td><%=element.addTime%></td>
+                                    <td><a class="enterThis" href="/enterMaterial/stockOver/toEnter">入库</a></td>
+                                </tr>
+                            <%})}else{%>
+                                <tr>
+                                    <td colspan="9" class="text-align-center">暂无数据</td>
+                                </tr>
+                            <%}%>
                             </tbody>
                         </table>
 

@@ -139,8 +139,8 @@
                                 <!--<td>
                                     <label class="checkbox-inline">
                                         <input type="checkbox" class="checkbox"
-                                               name="roles" value="<%= element.tid %>">
-                                        <span><%= index+1 %></span>
+                                               name="roles" value="<%- element.tid %>">
+                                        <span><%- index+1 %></span>
                                     </label>
                                 </td>-->
                                 <td><%= index+1 %></td>
@@ -184,7 +184,7 @@
 
 <%- include('../layouts/footer'); %>
 <%- include('../layouts/footer_common_script'); %>
-<%- include('./packingList'); %>
+<%- include('./packedList'); %>
 <script type="text/javascript">
 
     $(document).ready(function () {

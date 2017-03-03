@@ -710,7 +710,7 @@ var OrderController = {
         });
         //res.render('order/order/package');
     },
-    packingListPage:function(req,res){
+    packedListPage:function(req,res){
         var tid=req.params.tid;
         request(Base.mergeRequestOptions({
             method: 'get',
@@ -723,7 +723,7 @@ var OrderController = {
             }
         })
     },
-    packingListDetailPage:function(req,res){
+    packedListDetailPage:function(req,res){
         var pid=req.params.pid;
         request(Base.mergeRequestOptions({
             method: 'get',
@@ -731,6 +731,19 @@ var OrderController = {
         }, req, res), function (error, response, body) {
             if (!error && response.statusCode == 200) {
                 res.status(200).json(body);
+            } else {
+                Base.handlerError(res, req, error, response, body);
+            }
+        })
+    },
+    unpacket:function(req,res){
+        var tid=req.params.titleid;
+        request(Base.mergeRequestOptions({
+            method: 'put',
+            url: '/api/orders/package/unpacket/'+tid,
+        }, req, res), function (error, response, body) {
+            if (!error && response.statusCode == 200) {
+                res.sendStatus(200);
             } else {
                 Base.handlerError(res, req, error, response, body);
             }
