@@ -8,6 +8,7 @@ var request = require('request');
 var PassportController = {
     //显示登录页面
     loginPage: function (req, res, next) {
+
         res.render('passport/login', Base.mergeData(helper.mergeObject({title: '订单登录系统'}, {})));
     },
 
@@ -22,8 +23,6 @@ var PassportController = {
             if (!error && response.statusCode == 200) {
                 // Show the HTML for the Google homepage.
                 let $data = JSON.parse(body);
-                console.log(JSON.stringify($data));
-
                 //TOKEN 存入session
                 var user_session = req.session;
                 user_session.auth = {
@@ -40,6 +39,12 @@ var PassportController = {
                 }, req, res), function (error, response, body) {
                     if (!error && response.statusCode == 200) {
                         user_session.user = JSON.parse(body);
+                        if(req.session.preventPath){
+                             $data.preventPath = req.session.preventPath;
+                        }else{
+                            $data.preventPath = "/";
+                        }
+                       
                         res.send($data);
                     } else {
                         Base.handlerError(res, req, error, response, body);
@@ -59,7 +64,6 @@ var PassportController = {
             if (!error && response.statusCode == 200) {
                 // Show the HTML for the Google homepage.
                 var $data = JSON.parse(body);
-                console.log(JSON.stringify($data));
                 res.send($data);
             } else {
                 Base.handlerError(res, req, error, response, body);
