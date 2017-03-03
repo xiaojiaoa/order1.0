@@ -137,7 +137,7 @@
                                                 <label class="col-xs-4 control-label "><span class="requird"></span>开户卡号:
                                                 </label>
                                                 <div class="col-xs-8">
-                                                    <input class="form-control validate[required]" value="<%= supplierModify.depositNo %>" name="depositNo">
+                                                    <input class="form-control validate[required] validate[custom[integer]] validate[min[16]]" value="<%= supplierModify.depositNo %>" name="depositNo">
                                                 </div>
                                             </div>
                                         </div>
