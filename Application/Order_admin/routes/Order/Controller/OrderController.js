@@ -690,8 +690,51 @@ var OrderController = {
             }
         })
     },
-    packagePage: function (req, res) {
-        res.render('order/order/package');
+    packagePage:function (req, res) {
+        var paramObject = helper.genPaginationQuery(req);
+        Base.multiDataRequest(req, res, [
+            {url: '/api/orders/package/list?'+(queryString.stringify(req.query)), method: 'GET', resConfig: {keyName: 'toBePackedList', is_must: true}},
+        ], function (req, res, resultList) {
+            var paginationInfo =  resultList.toBePackedList;
+            var boostrapPaginator = new Pagination.TemplatePaginator(helper.genPageInfo({
+                prelink: paramObject.withoutPageNo,
+                current: paginationInfo.page,
+                rowsPerPage: paginationInfo.pageSize,
+                totalResult: paginationInfo.totalItems
+            }));
+            var returnData = Base.mergeData(helper.mergeObject({
+                title: ' ',
+                pagination: boostrapPaginator.render(),
+            },resultList));
+            res.render('order/order/package', returnData);
+        });
+        //res.render('order/order/package');
+    },
+    packingListPage:function(req,res){
+        var tid=req.params.tid;
+        request(Base.mergeRequestOptions({
+            method: 'get',
+            url: '/api/orders/package/packet/'+tid,
+        }, req, res), function (error, response, body) {
+            if (!error && response.statusCode == 200) {
+                res.status(200).json(body);
+            } else {
+                Base.handlerError(res, req, error, response, body);
+            }
+        })
+    },
+    packingListDetailPage:function(req,res){
+        var pid=req.params.pid;
+        request(Base.mergeRequestOptions({
+            method: 'get',
+            url: '/api/orders/package/pcaketlist/'+pid,
+        }, req, res), function (error, response, body) {
+            if (!error && response.statusCode == 200) {
+                res.status(200).json(body);
+            } else {
+                Base.handlerError(res, req, error, response, body);
+            }
+        })
     },
 };
 

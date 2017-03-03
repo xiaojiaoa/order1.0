@@ -234,9 +234,13 @@ router.post('/schedule/notPass', Middleware.AuthCheck, OrderController.notPassSc
 router.post('/schedule/doPass/:tid', Middleware.AuthCheck, OrderController.doPassSchedule);
 
 // 订单包装页面
-router.get('/orders/package', Middleware.AuthCheck, OrderController.packagePage);
+router.get('/orders/package', Middleware.AuthCheck,Middleware.FilterEmptyField,OrderController.packagePage);
 
+//查询订单生成包装后的包装列表
+router.put('/orders/package/:tid', Middleware.AuthCheck,Middleware.FilterEmptyField,OrderController.packingListPage);
 
+//获取包装清单数据、
+router.put('/orders/package/pcaketlist/:pid', Middleware.AuthCheck,Middleware.FilterEmptyField,OrderController.packingListDetailPage);
 /*
  * 页面范围: 拆单
  * 控制器:   TearController
