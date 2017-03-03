@@ -76,7 +76,7 @@
     $(document).ready(function () {
 
         //弹出订单生成包装后的包装列表
-             var tid;//订单流水号
+            var tid;//订单流水号
             $(".toBePackedForm>tbody>tr").css("cursor","pointer");
             $(".toBePackedForm>tbody>tr").on({
                 click: function (e) {
@@ -135,6 +135,7 @@
         $(document).on("click",".packedList>tr",function(){
             var pid= $(this).children().eq(3).text();//获取包装流水号
             var type=$(this).children().eq(1).text();//获取包装类型1001-工件，1002-配件
+            $(this).addClass("color01").siblings("tr").removeClass("color01");
             console.log(type);
             $.ajax({
                 url: '/orders/package/pcaketlist/'+pid,
