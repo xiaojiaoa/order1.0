@@ -502,3 +502,6 @@ tr > td > .separation:last-child {
 .border-0{
     border:0px;
 }
+.packedList tr{
+    cursor: pointer;
+}

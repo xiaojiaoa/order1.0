@@ -237,10 +237,14 @@ router.post('/schedule/doPass/:tid', Middleware.AuthCheck, OrderController.doPas
 router.get('/orders/package', Middleware.AuthCheck,Middleware.FilterEmptyField,OrderController.packagePage);
 
 //查询订单生成包装后的包装列表
-router.put('/orders/package/:tid', Middleware.AuthCheck,Middleware.FilterEmptyField,OrderController.packingListPage);
+router.put('/orders/package/:tid', Middleware.AuthCheck,OrderController.packedListPage);
 
-//获取包装清单数据、
-router.put('/orders/package/pcaketlist/:pid', Middleware.AuthCheck,Middleware.FilterEmptyField,OrderController.packingListDetailPage);
+//获取包装清单数据
+router.put('/orders/package/pcaketlist/:pid', Middleware.AuthCheck,OrderController.packedListDetailPage);
+
+//撤销包装
+router.put('/orders/package/unpacket/:tid', Middleware.AuthCheck,OrderController.unpacket);
+
 /*
  * 页面范围: 拆单
  * 控制器:   TearController
