@@ -406,6 +406,19 @@ app.locals.DWY_Helper = {
         }
         return a;
     },
+    //合计，表格对象，对哪一列进行合计--使用方法 calcTotal(document.getElementById('table'),2,2);
+    calcTotal:function(table,column,start){
+        var trs=table.getElementsByTagName('tr');
+        var start=start//确定从第几行开始求和
+        end=trs.length-1;//忽略最后合计的一行
+        var total=0;
+        for(var i=start;i<end;i++){
+            var td=trs[i].getElementsByTagName('td')[column];
+            var t=parseFloat(td.innerHTML);
+            if(t)total+=t;
+        }
+        trs[end].getElementsByTagName('td')[column].innerHTML=total;
+    },
 }
 
 

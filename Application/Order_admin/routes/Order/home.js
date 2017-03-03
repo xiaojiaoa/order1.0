@@ -239,10 +239,14 @@ router.post('/schedule/doPass/:tid', Middleware.AuthCheck, OrderController.doPas
 router.get('/orders/package', Middleware.AuthCheck,Middleware.FilterEmptyField,OrderController.packagePage);
 
 //查询订单生成包装后的包装列表
-router.put('/orders/package/:tid', Middleware.AuthCheck,Middleware.FilterEmptyField,OrderController.packingListPage);
+router.put('/orders/package/:tid', Middleware.AuthCheck,OrderController.packedListPage);
 
-//获取包装清单数据、
-router.put('/orders/package/pcaketlist/:pid', Middleware.AuthCheck,Middleware.FilterEmptyField,OrderController.packingListDetailPage);
+//获取包装清单数据
+router.put('/orders/package/pcaketlist/:pid', Middleware.AuthCheck,OrderController.packedListDetailPage);
+
+//撤销包装
+router.put('/orders/package/unpacket/:tid', Middleware.AuthCheck,OrderController.unpacket);
+
 /*
  * 页面范围: 拆单
  * 控制器:   TearController
@@ -314,7 +318,7 @@ router.put('/storesManage/setStatus/:cid/:type', Middleware.AuthCheck, StoresCon
 var  MaterialController = require('./Controller/MaterialController');
 
 // 物料管理首页
-router.get('/materialManage', Middleware.AuthCheck, MaterialController.indexPage);
+router.get('/materialManage', Middleware.AuthCheck,Middleware.FilterEmptyField,MaterialController.indexPage);
 
 // 物料详情页面
 router.get('/materialManage/detail/:mid', Middleware.AuthCheck, MaterialController.detailPage);
@@ -356,7 +360,7 @@ router.post('/materialManage/material/doModify', Middleware.AuthCheck, MaterialC
 router.put('/material/setStatus/:mid/:type', Middleware.AuthCheck, MaterialController.setMaterialStatus);
 
 // 物料管理工厂首页
-router.get('/materialManage/factory', Middleware.AuthCheck, MaterialController.indexFactoryPage);
+router.get('/materialManage/factory', Middleware.AuthCheck, Middleware.FilterEmptyField,MaterialController.indexFactoryPage);
 
 // 物料管理工厂--物料详情
 router.get('/materialManage/factory/detail/:mid', Middleware.AuthCheck, MaterialController.detailFactoryPage);
@@ -374,7 +378,7 @@ router.post('/materialManage/factory/doAdd', Middleware.AuthCheck, MaterialContr
  * */
 var MaterialAttrController = require('./Controller/MaterialAttrController');
 //物料属性页面
-router.get('/materialManage/materialAttribute', Middleware.AuthCheck, MaterialAttrController.materialAttributePage);
+router.get('/materialManage/materialAttribute', Middleware.AuthCheck,Middleware.FilterEmptyField, MaterialAttrController.materialAttributePage);
 
 //新建物料属性接口
 router.post('/material/attrCreate', Middleware.AuthCheck, MaterialAttrController.attrCreate);
@@ -405,7 +409,7 @@ router.put('/mateAttrVal/setStatus/:code/:type/:aid', Middleware.AuthCheck, Mate
 var MaterialTypeController = require('./Controller/MaterialTypeController');
 
 //物料分类页面
-router.get('/materialManage/materialType', Middleware.AuthCheck, MaterialTypeController.materialTypePage);
+router.get('/materialManage/materialType', Middleware.AuthCheck,Middleware.FilterEmptyField,MaterialTypeController.materialTypePage);
 
 //物料分类-新建一级分类页面
 router.get('/materialManage/materialType/creOne', Middleware.AuthCheck, MaterialTypeController.materialTypeCreOnePage);
@@ -954,5 +958,11 @@ router.post('/networkBook/doMeasure', Middleware.AuthCheck, NetworkBookControlle
 // 置为无效
 router.put('/networkBook/doClose/:measureId', Middleware.AuthCheck, NetworkBookController.doClose);
 
-
+/*
+ * 页面范围: 安装服务
+ * 控制器:   InstallServiceController
+ * */
+var InstallserviceController = require('./Controller/InstallserviceController');
+// 待安装列表
+router.get('/installService', Middleware.AuthCheck,InstallserviceController.installServicePage);
 module.exports = router;

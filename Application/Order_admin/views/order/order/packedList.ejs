@@ -1,7 +1,5 @@
 <!--生成包装列表-->
-<form class="form-horizontal  layer-template" method="" id="packingListForm" action=""
-      style="display: none;">
-
+<form class="form-horizontal  layer-template" method="" id="packedListForm" action="" style="display: none;">
     <div class="row">
         <div class="col-xs-5">
             <div class="table-responsive">
@@ -20,7 +18,7 @@
                         <th>重量</th>
                     </tr>
                     </thead>
-                    <tbody class="packingList">
+                    <tbody class="packedList">
                     </tbody>
                 </table>
 
@@ -29,62 +27,9 @@
         </div>
         <div class="col-xs-7">
             <div class="table-responsive">
-                <table class="table table-bordered table-striped">
-                    <thead>
-                    <tr>
-                        <td colspan="9" class="top-title">包装工件</td>
-                    </tr>
-                    <tr>
-                        <th></th>
-                        <th>层数</th>
-                        <th>材料</th>
-                        <th>名称</th>
-                        <th>规格尺寸</th>
-                        <th>标签号</th>
-                        <th>数量</th>
-                        <th>重量</th>
-                        <th>封边</th>
-                    </tr>
-                    </thead>
-                    <tbody class="packingListDetail">
-
-                    <tr >
-                        <td></td>
-                        <td>8</td>
-                        <td>D008</td>
-                        <td>工件</td>
-                        <td></td>
-                        <td>主卧抽屉01</td>
-                        <td>象牙白实木</td>
-                        <td>3.256</td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td>8</td>
-                        <td>D008</td>
-                        <td>工件</td>
-                        <td></td>
-                        <td>主卧抽屉02</td>
-                        <td>象牙白实木</td>
-                        <td>3.256</td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td>8</td>
-                        <td>D008</td>
-                        <td>工件</td>
-                        <td></td>
-                        <td>主卧抽屉03</td>
-                        <td>象牙白实木</td>
-                        <td>3.256</td>
-                        <td></td>
-                    </tr>
-                    </tbody>
+                <table class="table table-bordered table-striped packedListDetail">
+                    <tbody><tr><td colspan="8" align="center">暂无结果</td></tr></tbody>
                 </table>
-
-
             </div>
         </div>
     </div>
@@ -94,7 +39,7 @@
         <hr class="simple">
         <div class="col-xs-12 text-center">
             <a class="btn btn-primary undoPackingBtn" onclick="">撤销包装</a>
-            <a class="btn btn-primary margin-left-10  packingListBtn" onclick="">包装清单</a>
+            <a class="btn btn-primary margin-left-10  packedListBtn" onclick="">包装清单</a>
         </div>
     </div>
     <div class="dwy-clear"></div>
@@ -131,11 +76,12 @@
     $(document).ready(function () {
 
         //弹出订单生成包装后的包装列表
+            var tid;//订单流水号
             $(".toBePackedForm>tbody>tr").css("cursor","pointer");
             $(".toBePackedForm>tbody>tr").on({
                 click: function (e) {
                     if(e.target.nodeName.toLowerCase() != 'a'){
-                        var tid= $(this).children().eq(1).text();
+                         tid= $(this).children().eq(1).text();
                         $.ajax({
                             url: '/orders/package/'+tid,
                             method: 'put',
@@ -147,7 +93,7 @@
                                 console.log(arry.length);
 
                                 if(arry.length==0){
-                                    $(".packingList").html("<tr><td colspan='8' align='center'>暂无结果</td></tr>");
+                                    $(".packedList").html("<tr><td colspan='8' align='center'>暂无结果</td></tr>");
                                 }
                                 else{
                                     var frag=document.createDocumentFragment();
@@ -156,13 +102,13 @@
                                        tr.innerHTML="<td>"+(i+1)+"</td><td style='display:none;'>"+arry[i].packageType+"</td><td style='display:none;'>"+arry[i].pacakgeNo+"</td><td style='display:none;'>"+arry[i].packageLid+"</td><td>"+arry[i].packageName+"</td><td>"+arry[i].packageTypeStr+"</td><td>"+arry[i].pacakgeCategoryStr+"</td><td>"+arry[i].packageProductStr+"</td><td>"+arry[i].packageProductMaterialStr+"</td><td>"+arry[i].weightStr+"</td>";
                                        frag.append(tr);
                                    }
-                                    $(".packingList").html(frag);
+                                    $(".packedList").html(frag);
                                 }
                                 layer.open({
                                     type: 1,
                                     title: '包装单',
                                     area: '1500px',
-                                    content: $('#packingListForm'),
+                                    content: $('#packedListForm'),
                                     cancel: function () {
                                         //右上角关闭回调
                                     },
@@ -186,33 +132,37 @@
             });
 
         //获取包装清单数据
-        $(document).on("click",".packingList>tr",function(){
-            var pid= $(this).children().eq(3).text();
-            //var type=$(this).children().eq(1).text();
-            var type=1001;
-            console.log(pid);
+        $(document).on("click",".packedList>tr",function(){
+            var pid= $(this).children().eq(3).text();//获取包装流水号
+            var type=$(this).children().eq(1).text();//获取包装类型1001-工件，1002-配件
+            $(this).addClass("color01").siblings("tr").removeClass("color01");
+            console.log(type);
             $.ajax({
                 url: '/orders/package/pcaketlist/'+pid,
                 method: 'put',
                 success: function (data) {
-                    console.log(data);
                     var arry= JSON.parse(data);
                     console.log(arry);
-                    console.log(arry.length);
-
                     if(arry.length==0){
-                        $(".packingListDetail").html("<tr><td colspan='8' align='center'>暂无结果</td></tr>");
+                        $(".packedListDetail").html("<tr><td colspan='8' align='center'>暂无结果</td></tr>");
                     }
                     else if(type==1001){
-                        var frag=document.createDocumentFragment();
-                        frag.innerHTML="<thead><tr><td colspan='9'>包装工件</td></tr><tr><th></th><th>层数</th><th>材料</th><th>名称</th><th>规格尺寸</th><th>标签号</th> <th>数量</th> <th>重量</th><th>封边</th></tr></thead>";
+                        var tHead="<thead><tr><td colspan='8'>包装工件</td></tr><tr><th></th><th>层数</th><th>材料</th><th>名称</th><th>规格尺寸</th><th>数量</th> <th>重量</th><th>封边</th></tr></thead>";
+                        var frag="";
                         for(var i=0;i<arry.length;i++){
-                            frag.innerHTML+="<td>"+arry[i].pacakgeNo+"</td><td>"+arry[i].packageLid+"</td><td>"+arry[i].packageName+"</td><td>"+arry[i].packageTypeStr+"</td><td>"+arry[i].pacakgeCategoryStr+"</td><td>"+arry[i].packageProductStr+"</td><td>"+arry[i].packageProductMaterialStr+"</td><td>"+arry[i].weightStr+"</td>";
+                            frag+="<tr><td></td><td>"+arry[i].layer+"</td><td>"+arry[i].material+"</td><td>"+arry[i].name+"</td><td>"+arry[i].standard+"</td><td>"+arry[i].amount+"</td><td>"+arry[i].weigth+"</td><td></td></td>";
                         }
-                        $(".packingListDetail").html(frag);
+                        frag+="<tr><td>总计</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>";
+                        $(".packedListDetail").html(tHead+frag);
                     }
                     else{
-
+                        var tHead="<thead><tr><td colspan='8'>包装配件</td></tr><tr><th></th><th>单位</th><th>编号</th><th>名称</th><th>规格尺寸</th><th>数量</th> <th>重量</th><th>封边</th></tr></thead>";
+                        var frag="";
+                        for(var i=0;i<arry.length;i++){
+                            frag+="<tr><td></td><td>"+arry[i].unitStr+"</td><td>"+arry[i].code+"</td><td>"+arry[i].name+"</td><td>"+arry[i].standard+"</td><td>"+arry[i].amount+"</td><td>"+arry[i].weigth+"</td><td></td></td>";
+                        }
+                        frag+="<tr><td>总计</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>";
+                        $(".packedListDetail").html(tHead+frag);
                     }
 
                 },
@@ -231,10 +181,22 @@
         });
         //撤销包装按钮
         $(document).on("click",".undoPackingBtn",function(){
-            layer.confirm('确定撤销包装吗？',{icon: 3, title:'提示'},function(index){window.location.reload()},function(index){layer.close(index)})
+            layer.confirm('确定撤销包装吗？',{icon: 3, title:'提示'},
+                function(index){
+                    $.ajax({
+                        url: '/orders/package/unpacket/'+tid,
+                        method: 'put',
+                        success: function (data) {
+                            var arry= JSON.parse(data);
+                            console.log(arry);
+                            window.location.reload();
+                        }
+                    });
+            },
+                function(index){layer.close(index)})
         });
         //包装清单按钮
-        $(document).on("click",".packingListBtn",function(){
+        $(document).on("click",".packedListBtn",function(){
             layer.open({title:'包装清单',type:1,area:['400px','250px'],content:$('#layer-form-package-confirm')});
         });
 

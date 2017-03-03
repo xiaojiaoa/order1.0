@@ -410,9 +410,6 @@ tr > td > .separation:last-child {
     display: inline-block;
     margin: 0px 40px;
 }
-#step2{
-    display:none;
-}
 .strongStyle01 strong{
     display: inline-block;
     margin-left:15px;
@@ -502,4 +499,13 @@ tr > td > .separation:last-child {
 }
 .border-0{
     border:0px;
+}
+.packedList tr{
+    cursor: pointer;
+}
+.color01{
+    background-color:#6fccfd!important;
+}
+.display-none{
+    display: none;
 }
