@@ -37,17 +37,17 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-xs-3">
-                                    <div class="form-group">
-                                        <label class="col-xs-4 control-label">采购状态:</label>
-                                        <div class="col-xs-8">
-                                            <input class="form-control" placeholder="请输入采购状态" type="text" value="<%= DWYRequest.query.stcode %>" name="stcode">
-                                            <!--<select class="form-control" name="brandId">-->
-                                                <!--<option value="">- 请选择 -</option>-->
-                                            <!--</select>-->
-                                        </div>
-                                    </div>
-                                </div>
+                                <!--<div class="col-xs-3">-->
+                                    <!--<div class="form-group">-->
+                                        <!--<label class="col-xs-4 control-label">采购状态:</label>-->
+                                        <!--<div class="col-xs-8">-->
+                                            <!--<input class="form-control" placeholder="请输入采购状态" type="text" value="<%= DWYRequest.query.stcode %>" name="stcode">-->
+                                            <!--&lt;!&ndash;<select class="form-control" name="brandId">&ndash;&gt;-->
+                                                <!--&lt;!&ndash;<option value="">- 请选择 -</option>&ndash;&gt;-->
+                                            <!--&lt;!&ndash;</select>&ndash;&gt;-->
+                                        <!--</div>-->
+                                    <!--</div>-->
+                                <!--</div>-->
                                 <div class="col-xs-6">
                                     <div class="form-group">
                                         <label class="col-xs-2 control-label">建单日期:</label>
@@ -128,7 +128,7 @@
                             </thead>
                             <tbody>
                             <%
-                            if(purchasesLists.totalItems != 0  ){
+                            if(purchasesLists.result){
                                 purchasesLists.result.forEach(function (element, index) { %>
                             <tr class="">
                                 <td>
@@ -187,7 +187,10 @@
                 }
             });
             $("#purchaseMerge").click(function(){
-                if(checkedValue.attr('class')==null||checkedValue.attr('class')=='') return false;
+                if(checkedValue.attr('class')==null||checkedValue.attr('class')=='') {
+                    layer.alert('请选择！', {icon: 3})
+                    return false;
+                }
                 var tid = checkedValue.attr('class').replace(/[ ]/g,"");
                 tid = tid.substring(0,tid.length-1);
                 layer.confirm('确认合并?',{icon: 3, title:'提示'},
@@ -238,7 +241,10 @@
                 }
             });
             $("#purchaseReview").click(function(){
-                if(purchaseReviewBtn.attr('class')==null||purchaseReviewBtn.attr('class')=='') return false;
+                if(purchaseReviewBtn.attr('class')==null||purchaseReviewBtn.attr('class')=='') {
+                    layer.alert('请选择！', {icon: 3})
+                    return false;
+                }
                 var tid = purchaseReviewBtn.attr('class').replace(/[ ]/g,"");
                 tid = tid.substring(0,tid.length-1);
                 layer.confirm('确认审核?',{icon: 3, title:'提示'},
@@ -288,7 +294,10 @@
                 }
             });
             $("#purchaseSubmit").click(function(){
-                if(purchaseSubmitBtn.attr('class')==null||purchaseSubmitBtn.attr('class')=='') return false;
+                if(purchaseSubmitBtn.attr('class')==null||purchaseSubmitBtn.attr('class')=='') {
+                    layer.alert('请选择！', {icon: 3})
+                    return false;
+                }
                 var tid = purchaseSubmitBtn.attr('class').replace(/[ ]/g,"");
                 tid = tid.substring(0,tid.length-1);
                 layer.confirm('确认提交?',{icon: 3, title:'提示'},
