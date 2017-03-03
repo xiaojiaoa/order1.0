@@ -20,20 +20,28 @@ var Permissions = require('../config/permission');
 var EnterController = {
 
     enterMaterialPage: function (req, res) {
-        request(Base.mergeRequestOptions({
-            method: 'GET',
-            url: '/api/whse/cargoin/mate/page?'+queryString.stringify(req.query),
-        }, req, res), function (error, response, body) {
-            var returnData = JSON.parse(body);
-            console.log(response)
-            if (!error && response.statusCode == 200) {
+        var paramObject = helper.genPaginationQuery(req);
+        Base.multiDataRequest(req, res, [
+                {url: '/api/whse/cargoin/mate/page?'+queryString.stringify(req.query), method: 'GET', resConfig: {keyName: 'mateList', is_must: false}},
+                {url: '/api/whse/factory/list', method: 'GET', resConfig: {keyName: 'factoryList', is_must: true}},
+            ],
+            function (req, res, resultList) {
+                var paginationInfo =  resultList.mateList;
 
-                res.render('order/enter/enter_material',returnData);
-            } else {
-                Base.handlerError(res, req, error, response, body);
-            }
-        })
-       
+                var boostrapPaginator = new Pagination.TemplatePaginator(helper.genPageInfo({
+                    prelink: paramObject.withoutPageNo,
+                    current: paginationInfo.page,
+                    rowsPerPage: paginationInfo.pageSize,
+                    totalResult: paginationInfo.totalItems
+                }));
+
+                var returnData = Base.mergeData(helper.mergeObject({
+                    title: ' ',
+                    pagination: boostrapPaginator.render(),
+                }, resultList));
+                res.render('order/enter/enter_material', returnData);
+            });
+
     },
     enterMaterialDetailPage: function (req, res) {
         res.render('order/enter/enter_material_detail');
@@ -53,10 +61,11 @@ var EnterController = {
         //     });
     },
     doPassMaterial: function (req, res) {
-        var id = req.params.id;
+        var inId = req.params.inId;
+        var purId = req.params.purId;
         request(Base.mergeRequestOptions({
             method: 'put',
-            url: '/api/orders/review/getTask/'+id
+            url: '/api/whse/cargoin/mate/review?inId='+inId+'&purId='+purId
         }, req, res), function (error, response, body) {
             if (!error && response.statusCode == 201) {
                 res.sendStatus(200);
@@ -96,37 +105,107 @@ var EnterController = {
         });
     },
     stockEnterPage: function (req, res){
-        request(Base.mergeRequestOptions({
-            method: 'GET',
-            url: '/api/purchase/reqmaterial/purchase/cargoin?'+queryString.stringify(req.query)
-        }, req, res), function (error, response, body) {
-            var returnData = JSON.parse(body);
-            console.log(response)
-            if (!error && response.statusCode == 200) {
+        var paramObject = helper.genPaginationQuery(req);
+        Base.multiDataRequest(req, res, [
+                {url: '/api/purchase/reqmaterial/purchase/cargoin?'+queryString.stringify(req.query), method: 'GET', resConfig: {keyName: 'cargoinList', is_must: false}},
+                {url: '/api/whse/factory/list', method: 'GET', resConfig: {keyName: 'factoryList', is_must: true}},
+            ],
+            function (req, res, resultList) {
+                var paginationInfo =  resultList.cargoinList;
 
-                res.render('order/enter/stock_enter',returnData);
+                var boostrapPaginator = new Pagination.TemplatePaginator(helper.genPageInfo({
+                    prelink: paramObject.withoutPageNo,
+                    current: paginationInfo.page,
+                    rowsPerPage: paginationInfo.pageSize,
+                    totalResult: paginationInfo.totalItems
+                }));
+
+                var returnData = Base.mergeData(helper.mergeObject({
+                    title: ' ',
+                    pagination: boostrapPaginator.render(),
+                }, resultList));
+                res.render('order/enter/stock_enter', returnData);
+            });
+
+    },
+    ifCanEnter: function (req, res) {
+        // var num = req.body.num0;
+        console.log('doEnter',JSON.stringify(req.body))
+
+        // var id = req.params.id;
+        request(Base.mergeRequestOptions({
+            method: 'get',
+            url: '/api/whse/cargoin/mate/usable?'+queryString.stringify(req.body),
+        }, req, res), function (error, response, body) {
+            if (!error && response.statusCode == 200) {
+                res.sendStatus(200);
+            } else {
+                // res.status(500).json(body)
+                Base.handlerError(res, req, error, response, body);
+            }
+        })
+
+    },
+    doEnter: function (req, res) {
+        // var num = req.body.num0;
+        console.log('doEnter',JSON.stringify(req.body))
+
+
+        var length = req.body.howmuch;
+        var list = req.body.list;
+        list = [];
+        for(var i=0;i<length;i++){
+            if(!req.body['spaceRow'+i]){break;}
+            list.push({
+                spaceRow:req.body['spaceRow'+i],
+                spaceColumn:req.body['spaceColumn'+i],
+                spaceLayer:req.body['spaceLayer'+i],
+                amount:req.body['amount'+i],
+                cargoId:req.body['cargoId'+i],
+                purId:req.body['purId'+i],
+                unitPrice:req.body['unitPrice'+i],
+            })
+
+        }
+        req.body.list = list;
+        console.log('doEnterdata666666',JSON.stringify(req.body))
+
+        request(Base.mergeRequestOptions({
+            method: 'post',
+            url: '/api/whse/cargoin/mate',
+            // traditional: true,
+            form: req.body
+        }, req, res), function (error, response, body) {
+            if (!error && response.statusCode == 201) {
+                res.redirect('/enterMaterial')
             } else {
                 Base.handlerError(res, req, error, response, body);
             }
-        });
-    },
-    doEnter: function (req, res) {
-        var num = req.body.num0;
-        // var id = req.params.id;
-        // request(Base.mergeRequestOptions({
-        //     method: 'put',
-        //     url: '/api/orders/review/getTask/'+id,
-        // }, req, res), function (error, response, body) {
-        //     if (!error && response.statusCode == 201) {
-        //         res.sendStatus(200);
-        //     } else {
-        //         Base.handlerError(res, req, error, response, body);
-        //     }
-        // })
+        })
 
     },
     enterProductPage: function (req, res){
-        res.render('order/enter/enter_product');
+        var paramObject = helper.genPaginationQuery(req);
+        Base.multiDataRequest(req, res, [
+                {url: '/api/whse/cargoin/prod/page?'+queryString.stringify(req.query), method: 'GET', resConfig: {keyName: 'prodList', is_must: false}},
+                {url: '/api/whse/factory/list', method: 'GET', resConfig: {keyName: 'factoryList', is_must: true}},
+            ],
+            function (req, res, resultList) {
+                var paginationInfo =  resultList.prodList;
+
+                var boostrapPaginator = new Pagination.TemplatePaginator(helper.genPageInfo({
+                    prelink: paramObject.withoutPageNo,
+                    current: paginationInfo.page,
+                    rowsPerPage: paginationInfo.pageSize,
+                    totalResult: paginationInfo.totalItems
+                }));
+
+                var returnData = Base.mergeData(helper.mergeObject({
+                    title: ' ',
+                    pagination: boostrapPaginator.render(),
+                }, resultList));
+                res.render('order/enter/enter_product', returnData);
+            });
     },
     enterProductDetailPage: function (req, res){
         res.render('order/enter/enter_product_detail');

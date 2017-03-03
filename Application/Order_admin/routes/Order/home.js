@@ -677,7 +677,7 @@ var EnterController = require('./Controller/EnterController');
 router.get('/enterMaterial', Middleware.AuthCheck, Middleware.FilterEmptyField, EnterController.enterMaterialPage);
 
 // 原料入库-审核
-router.put('/enterMaterial/doPass/:id', Middleware.AuthCheck, EnterController.doPassMaterial);
+router.put('/enterMaterial/doPass/:inId/:purId', Middleware.AuthCheck, EnterController.doPassMaterial);
 
 // 原料入库-撤审
 router.put('/enterMaterial/notPass/:id', Middleware.AuthCheck, EnterController.notPassMaterial);
@@ -692,7 +692,10 @@ router.get('/enterMaterial/stockOver', Middleware.AuthCheck, EnterController.sto
 router.get('/enterMaterial/stockOver/toEnter', Middleware.AuthCheck, EnterController.stockEnterPage);
 
 // 原料入库-采购完成单-入库-入库
-router.put('/enterMaterial/stockOver/toEnter/doEnter', Middleware.AuthCheck, EnterController.doEnter);
+router.post('/enterMaterial/stockOver/toEnter/doEnter', Middleware.AuthCheck, EnterController.doEnter);
+
+// 原料入库-采购完成单-入库-判断仓库是否可以放入
+router.post('/enterMaterial/stockOver/toEnter/ifCanEnter', Middleware.AuthCheck, EnterController.ifCanEnter);
 
 // 成品入库页面
 router.get('/enterProduct', Middleware.AuthCheck, EnterController.enterProductPage);

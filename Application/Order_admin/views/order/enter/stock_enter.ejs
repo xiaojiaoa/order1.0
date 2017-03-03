@@ -26,62 +26,52 @@
     <!-- MAIN CONTENT -->
     <div id="content">
         <!-- well -->
+
+
         <div class="well">
-            <!-- row -->
+
             <div class="row">
-                <!-- col -->
-                <div class="col-xs-12">
-                    <!--<legend>客户搜索</legend>-->
-                    <!-- row -->
-                    <div class="row search-form">
-                        <form class="form-horizontal" method="get" id="search-customer">
-                            <div class="col-xs-12">
+                <form class="form-horizontal" method="post" id="search-customer" action="/enterMaterial/stockOver/toEnter/doEnter">
 
-                                <div class="col-xs-3">
-                                    <div class="form-group">
-                                        <label class="col-xs-4 control-label">仓库:</label>
-                                        <div class="col-xs-8">
-                                            <select class="form-control" name="whseId">
-                                                <option value="">- 请选择 -</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-xs-3">
-                                    <div class="form-group">
-                                        <label class="col-xs-4 control-label">区域:</label>
-                                        <div class="col-xs-8">
-                                            <select class="form-control" name="regionId">
-                                                <option value="">- 请选择 -</option>
-                                            </select>
-                                        </div>
-                                    </div>
+                    <div class="col-xs-12 search-form">
+                        <div class="col-xs-3">
+                            <div class="form-group">
+                                <label class="col-xs-4 control-label">工厂:</label>
+                                <div class="col-xs-8">
+                                    <select class="form-control" name="ftyId" id="ftyId">
+                                        <option value="">- 请选择 -</option>
+                                        <% factoryList.forEach(function (element) { %>
+                                        <option value="<%= element.ftyId %>"  >
+                                            <%= element.name %>
+                                        </option>
+                                        <% }) %>
+                                    </select>
                                 </div>
                             </div>
+                        </div>
+                        <div class="col-xs-3">
+                            <div class="form-group">
+                                <label class="col-xs-4 control-label">仓库:</label>
+                                <div class="col-xs-8">
+                                    <select class="form-control" name="whseId" id="whseId">
+                                        <option value="">- 请选择 -</option>
 
-                            <div class="col-xs-12">
-                                <hr class="simple">
-                                <div class="col-xs-12 text-center">
-                                    <button class="btn btn-primary " type="submit">
-                                        <i class="fa fa-search"></i>
-                                        查询
-                                    </button>
+                                    </select>
                                 </div>
                             </div>
-
-                        </form>
+                        </div>
+                        <div class="col-xs-3">
+                            <div class="form-group">
+                                <label class="col-xs-4 control-label">区域:</label>
+                                <div class="col-xs-8">
+                                    <select class="form-control" name="regionId" id="regionId">
+                                        <option value="">- 请选择 -</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <!-- end row -->
-                </div>
-                <!-- end col -->
-            </div>
-            <!-- end row -->
-        </div>
-        <!-- end well -->
 
-        <div class="well">
-            <div class="row">
-                <form class="form-horizontal" method="post" id="check_pass" action="/enterMaterial/stockOver/toEnter/doEnter">
                     <div class="col-xs-12">
                         <div class="table-responsive">
                             <table class="table table-bordered table-striped table-hover table-editinput">
@@ -95,33 +85,52 @@
                                     <th>单价</th>
                                     <th>采购数量</th>
                                     <th>采购金额</th>
-                                    <th width="200">货位号</th>
+                                    <th width="200">货位号(行列层)</th>
                                     <th width="100">入库数量</th>
+                                    <th width="150">仓库是否可用</th>
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <% if(result.length>0){%>
-                                    <% result.forEach(function(element,index){%>
-                                        <tr>
-                                            <td><%=++index%></td>
-                                            <td><%=element.reqId%></td>
-                                            <td><a href="/purchase/orderDetail/<%=element.orderId%>"><%=element.orderId%></a></td>
-                                            <td><%=element.mateId%></td>
+                                <input name="howmuch" value="<%= cargoinList.result.length %>" type="hidden">
+                                <input name="list" value="" type="hidden">
+                                <% if(cargoinList.result.length>0){%>
+                                    <% cargoinList.result.forEach(function(element,index){%>
+                                        <tr id="cargoinDo<%= index %>">
+                                            <td><%= index+1 %></td>
+                                            <td><a href="/purchase/applyDetail/<%= element.reqId %>"><%= element.reqId %></a></td>
+                                            <td><a href="/purchase/orderDetail/<%= element.orderId %>"><%= element.orderId %></a></td>
+                                            <td><a href="/materialManage/detail/<%= element.mateId %>"><%= element.mateId %></a></td>
                                             <td><%=element.mateName%></td>
                                             <td><%=element.price%></td>
                                             <td><%=element.amount%></td>
                                             <td><%=element.totalAmount%></td>
-                                            <td><input class="form-control long" value="" name="huowei0"></td>
-                                            <td><input class="form-control short" value="8" name="num0"></td>
+                                            <td>
+                                                <input class="form-control small validate[condRequired[custom[number],min[1],max[99],spaceColumn<%= index %>,spaceLayer<%= index %>]]"
+                                                       name="spaceRow<%= index %>" placeholder="行" id="spaceRow<%= index %>" data-index="<%= index %>">
+                                                <input class="form-control small validate[condRequired[custom[number],min[1],max[99],spaceRow<%= index %>,spaceLayer<%= index %>]]"
+                                                       name="spaceColumn<%= index %>" placeholder="列" id="spaceColumn<%= index %>" data-index="<%= index %>">
+                                                <input class="form-control small validate[condRequired[custom[number],min[1],max[99],spaceRow<%= index %>,spaceColumn<%= index %>]]"
+                                                       name="spaceLayer<%= index %>" placeholder="层" id="spaceLayer<%= index %>" data-index="<%= index %>">
+
+                                                <input name="cargoId<%= index %>" value="<%= element.mateId %>" type="hidden">
+                                                <input name="purId<%= index %>" value="<%= element.orderId %>" type="hidden">
+                                                <input name="unitPrice<%= index %>" value="<%=element.price%>" type="hidden">
+                                            </td>
+                                            <td>
+                                                <input class="form-control short validate[condRequired[spaceRow<%= index %>,spaceColumn<%= index %>,spaceLayer<%= index %>]]"
+                                                       value="<%=element.amount%>" name="amount<%= index %>" id="amount<%= index %>" data-index="<%= index %>">
+                                            </td>
+                                            <td id="status<%= index %>"></td>
                                         </tr>
-                                <%})}else{%>
+                                <%
+                                    })}else{%>
                                     <tr>
-                                        <td colspan="9" class="text-align-center">暂无数据</td>
+                                        <td colspan="10" class="text-align-center">暂无数据</td>
                                     </tr>
                                 <%}%>
                                 </tbody>
                             </table>
-
+                            <%- pagination %>
                         </div>
                     </div>
                     <div class="col-xs-12">
@@ -131,7 +140,7 @@
                                 <i class="fa fa-plus"></i>
                                 添加入库物料
                             </a>
-                            <button class="btn btn-primary " type="submit">确认入库</button>
+                            <button class="btn btn-primary" id="toEnter">确认入库</button>
                         </div>
                     </div>
                 </form>
@@ -155,10 +164,52 @@
 
         pageSetUp();
 
+        $(':text').on('input propertychange', function() {
+            var index = $(this).attr('data-index');
+            var status = $('#status'+index);
+            status.empty();
+            console.log('data-index',index);
+            if(validateRow(index)){
+                console.log(index+':success');
+                $.ajax({
+                    url: '/enterMaterial/stockOver/toEnter/ifCanEnter',
+                    method:'post',
+                    data: {
+                        regionId: $("#regionId").val() ,//所属区域编号
+                        spaceRow:$("#spaceRow"+index).val()  ,//货位行
+                        spaceColumn:$("#spaceColumn"+index).val()  ,//货位列
+                        spaceLayer: $("#spaceLayer"+index).val() ,//货位层
+                        amount: $("#amount"+index).val() ,//入库数量
+                    },
+                    success: function (data) {
+                        console.log('data',data)
+                        if(data){
+                            status.html('<i class="fa fa-check text-success font-lg"></i>');
+                        }else{
+                            status.html('<i class="fa fa-times text-danger font-lg"></i>');
+                        }
+                    },
+                    error: function (response) {
+                        console.log('response',response)
+                        var data = JSON.parse(response.responseText);
+                        console.log(data.msg)
+                        status.html('<span class="text-danger"><i class="fa fa-times font-lg"></i>'+data.msg+'</span>');
+                    }
+                });
+            }
+        });
+        
+        function validateRow(index) {
+            return $("#spaceRow"+index).validationEngine('validate') && $("#spaceColumn"+index).validationEngine('validate') && $("#spaceLayer"+index).validationEngine('validate')
+                && $("#amount"+index).validationEngine('validate')
+
+        }
+
     })
 
 </script>
 
+<%- include('../cargospace/js_function'); %>
 
 <%- include('./add_materials'); %>
 <%- include('../layouts/foot'); %>
