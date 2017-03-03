@@ -78,7 +78,7 @@
                             </thead>
                             <tbody>
                             <%
-                            if(suppliersCategoriesList.result){
+                            if(suppliersCategoriesList.totalItems != 0  ){
                             suppliersCategoriesList.result.forEach(function (element, index) {%>
                             <% if(element.parentId == 0){%>
                                 <tr class="level-0 <%= ( element.isDeleted == 2 )? 'close-info':'' %>">
@@ -108,7 +108,9 @@
                                     </td>
                                 </tr>
                             <%
-                            }})}%>
+                            }})}else{%>
+                            <td colspan="7" class="text-align-center">暂无结果</td>
+                            <%}%>
                             </tbody>
                         </table>
                         <%- pagination %>

@@ -132,9 +132,8 @@
                             <td><%= element.name %></td>
                             <td><%= element.catName %></td>
                         </tr>
-                        <input type="hidden" class="" id="checkedValue">
                         <%  }) }%>
-
+                        <input type="hidden" class="" id="checkedValue">
                         </tbody>
 
                       </table>
@@ -172,6 +171,11 @@
             }
         });
         $("#createApplyOrder").click(function(){
+            if(checkedValue.attr('class')==null||checkedValue.attr('class')=='')
+            {
+                layer.alert('请选择！', {icon: 3})
+                return false;
+            }
             var tid = checkedValue.attr('class').replace(/[ ]/g,"");
             tid = tid.substring(0,tid.length-1);
             layer.confirm("确认选择物料？", {title:'提示'},function(index){

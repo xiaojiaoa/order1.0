@@ -32,20 +32,13 @@
                             <div class="col-xs-12">
                                 <div class="col-xs-3">
                                     <div class="form-group">
-                                        <label class="col-xs-4 control-label">供应商名称:</label>
-                                        <div class="col-xs-8">
-                                            <input class="form-control" placeholder="请输入供应商名称" type="text" value="<%= DWYRequest.query.contact %>" name="contact">
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-xs-3">
-                                    <div class="form-group">
                                         <label class="col-xs-4 control-label">联系人手机:</label>
                                         <div class="col-xs-8">
                                             <input class="form-control" placeholder="请输入客户手机" type="text" value="<%= DWYRequest.query.contactMobile %>" name="contactMobile">
                                         </div>
                                     </div>
                                 </div>
+
                             </div>
                             <div class="col-xs-12">
                                 <hr class="simple">
@@ -97,7 +90,7 @@
                             </thead>
                             <tbody>
                             <%
-                            if(suppliersList.result){
+                            if(suppliersList.result&&suppliersList.result.length>0){
                                 suppliersList.result.forEach(function (element, index) { %>
                             <tr class="<%= ( element.isDeleted == 2 )? 'close-info':'' %>">
                                 <td><%= index+1 %></td>
@@ -120,8 +113,10 @@
                                     <input value="1" id="urlType" type="hidden">
                                     <input value="2" id="urlType2" type="hidden">
                                 </td>
-                                <% }
-                                )} %>
+                                <%
+                                })}else{%>
+                                <td colspan="7" class="text-align-center">暂无结果</td>
+                                <% }%>
                             </tr>
                             </tbody>
                         </table>
