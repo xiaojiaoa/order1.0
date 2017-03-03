@@ -1,0 +1,245 @@
+<!--生成包装列表-->
+<form class="form-horizontal  layer-template" method="" id="packingListForm" action=""
+      style="display: none;">
+
+    <div class="row">
+        <div class="col-xs-5">
+            <div class="table-responsive">
+                <table class="table table-bordered table-striped ">
+                    <thead>
+                    <tr>
+                        <th>包装序号</th>
+                        <th style="display: none;">包装类型值</th>
+                        <th style="display: none;">包装id</th>
+                        <th style="display: none;">包装流水号</th>
+                        <th>包装名称</th>
+                        <th>包装类型</th>
+                        <th>包装分类</th>
+                        <th>包装产品</th>
+                        <th>包装产品材料</th>
+                        <th>重量</th>
+                    </tr>
+                    </thead>
+                    <tbody class="packingList">
+                    </tbody>
+                </table>
+
+
+            </div>
+        </div>
+        <div class="col-xs-7">
+            <div class="table-responsive">
+                <table class="table table-bordered table-striped">
+                    <thead>
+                    <tr>
+                        <td colspan="9" class="top-title">包装工件</td>
+                    </tr>
+                    <tr>
+                        <th></th>
+                        <th>层数</th>
+                        <th>材料</th>
+                        <th>名称</th>
+                        <th>规格尺寸</th>
+                        <th>标签号</th>
+                        <th>数量</th>
+                        <th>重量</th>
+                        <th>封边</th>
+                    </tr>
+                    </thead>
+                    <tbody class="packingListDetail">
+
+                    <tr >
+                        <td></td>
+                        <td>8</td>
+                        <td>D008</td>
+                        <td>工件</td>
+                        <td></td>
+                        <td>主卧抽屉01</td>
+                        <td>象牙白实木</td>
+                        <td>3.256</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>8</td>
+                        <td>D008</td>
+                        <td>工件</td>
+                        <td></td>
+                        <td>主卧抽屉02</td>
+                        <td>象牙白实木</td>
+                        <td>3.256</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>8</td>
+                        <td>D008</td>
+                        <td>工件</td>
+                        <td></td>
+                        <td>主卧抽屉03</td>
+                        <td>象牙白实木</td>
+                        <td>3.256</td>
+                        <td></td>
+                    </tr>
+                    </tbody>
+                </table>
+
+
+            </div>
+        </div>
+    </div>
+
+
+    <div class="col-xs-12">
+        <hr class="simple">
+        <div class="col-xs-12 text-center">
+            <a class="btn btn-primary undoPackingBtn" onclick="">撤销包装</a>
+            <a class="btn btn-primary margin-left-10  packingListBtn" onclick="">包装清单</a>
+        </div>
+    </div>
+    <div class="dwy-clear"></div>
+</form>
+<!--END 生成包装列表-->
+<!--生成包装清单-->
+<div id="layer-form-package-confirm" style="display:none">
+    <div class="row" >
+        <div class="col-xs-12">
+            <div class="table-responsive">
+                <table class="table table-bordered table-striped text-center">
+
+                    <tbody>
+                    <tr><td><a href="#">工件包装清单(Y)</a></td></tr>
+                    <tr><td><a href="#">工件包装清单(X)</a></td></tr>
+                    <tr><td><a href="#">工件包装清单(W)</a></td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="col-xs-12">
+        <hr class="simple">
+        <div class="col-xs-12 text-center">
+            <a class="btn btn-primary" href="#">打印</a>
+            <a class="btn btn-primary" href="#">预览</a>
+        </div>
+    </div>
+</div>
+<!--END 生成包装清单-->
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+
+        //弹出订单生成包装后的包装列表
+            $(".toBePackedForm>tbody>tr").css("cursor","pointer");
+            $(".toBePackedForm>tbody>tr").on({
+                click: function (e) {
+                    if(e.target.nodeName.toLowerCase() != 'a'){
+                        var tid= $(this).children().eq(1).text();
+                        $.ajax({
+                            url: '/orders/package/'+tid,
+                            method: 'put',
+                            success: function (data) {
+                                console.log(data);
+                               //var arry =eval("("+data+")");
+                               var arry= JSON.parse(data);
+                                console.log(arry);
+                                console.log(arry.length);
+
+                                if(arry.length==0){
+                                    $(".packingList").html("<tr><td colspan='8' align='center'>暂无结果</td></tr>");
+                                }
+                                else{
+                                    var frag=document.createDocumentFragment();
+                                   for(var i=0;i<arry.length;i++){
+                                       var tr=document.createElement("tr");
+                                       tr.innerHTML="<td>"+(i+1)+"</td><td style='display:none;'>"+arry[i].packageType+"</td><td style='display:none;'>"+arry[i].pacakgeNo+"</td><td style='display:none;'>"+arry[i].packageLid+"</td><td>"+arry[i].packageName+"</td><td>"+arry[i].packageTypeStr+"</td><td>"+arry[i].pacakgeCategoryStr+"</td><td>"+arry[i].packageProductStr+"</td><td>"+arry[i].packageProductMaterialStr+"</td><td>"+arry[i].weightStr+"</td>";
+                                       frag.append(tr);
+                                   }
+                                    $(".packingList").html(frag);
+                                }
+                                layer.open({
+                                    type: 1,
+                                    title: '包装单',
+                                    area: '1500px',
+                                    content: $('#packingListForm'),
+                                    cancel: function () {
+                                        //右上角关闭回调
+                                    },
+                                });
+                            },
+                            error: function (response) {
+                                layer.close(index);
+                                var data = JSON.parse(response.responseText);
+                                $.smallBox({
+                                    title: "操作失败",
+                                    content: data.msg,
+                                    color: "#C46A69",
+                                    iconSmall: "fa fa-times fa-2x fadeInRight animated",
+                                    timeout: 3000
+                                });
+                            }
+                        });
+                    }
+
+                }
+            });
+
+        //获取包装清单数据
+        $(document).on("click",".packingList>tr",function(){
+            var pid= $(this).children().eq(3).text();
+            //var type=$(this).children().eq(1).text();
+            var type=1001;
+            console.log(pid);
+            $.ajax({
+                url: '/orders/package/pcaketlist/'+pid,
+                method: 'put',
+                success: function (data) {
+                    console.log(data);
+                    var arry= JSON.parse(data);
+                    console.log(arry);
+                    console.log(arry.length);
+
+                    if(arry.length==0){
+                        $(".packingListDetail").html("<tr><td colspan='8' align='center'>暂无结果</td></tr>");
+                    }
+                    else if(type==1001){
+                        var frag=document.createDocumentFragment();
+                        frag.innerHTML="<thead><tr><td colspan='9'>包装工件</td></tr><tr><th></th><th>层数</th><th>材料</th><th>名称</th><th>规格尺寸</th><th>标签号</th> <th>数量</th> <th>重量</th><th>封边</th></tr></thead>";
+                        for(var i=0;i<arry.length;i++){
+                            frag.innerHTML+="<td>"+arry[i].pacakgeNo+"</td><td>"+arry[i].packageLid+"</td><td>"+arry[i].packageName+"</td><td>"+arry[i].packageTypeStr+"</td><td>"+arry[i].pacakgeCategoryStr+"</td><td>"+arry[i].packageProductStr+"</td><td>"+arry[i].packageProductMaterialStr+"</td><td>"+arry[i].weightStr+"</td>";
+                        }
+                        $(".packingListDetail").html(frag);
+                    }
+                    else{
+
+                    }
+
+                },
+                error: function (response) {
+                    layer.close(index);
+                    var data = JSON.parse(response.responseText);
+                    $.smallBox({
+                        title: "操作失败",
+                        content: data.msg,
+                        color: "#C46A69",
+                        iconSmall: "fa fa-times fa-2x fadeInRight animated",
+                        timeout: 3000
+                    });
+                }
+            });
+        });
+        //撤销包装按钮
+        $(document).on("click",".undoPackingBtn",function(){
+            layer.confirm('确定撤销包装吗？',{icon: 3, title:'提示'},function(index){window.location.reload()},function(index){layer.close(index)})
+        });
+        //包装清单按钮
+        $(document).on("click",".packingListBtn",function(){
+            layer.open({title:'包装清单',type:1,area:['400px','250px'],content:$('#layer-form-package-confirm')});
+        });
+
+
+    })
+
+</script>
+
