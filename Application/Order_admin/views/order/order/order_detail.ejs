@@ -29,7 +29,7 @@
             <!-- row -->
             <div class="row">
                 <!-- col -->
-                <div class="col-xs-12 dwy-show-content">
+                <div class="col-xs-12">
                     <legend>基本信息
                         <% if( orderInfo.stcode == 250 ){ %>
                         <a class="label label-primary" id="modifyInfo-modal">修改</a>
@@ -231,7 +231,7 @@
 
             <div class="row">
                 <!-- col -->
-                <div class="col-xs-12 dwy-show-content">
+                <div class="col-xs-12">
                     <legend>相关文件
                         <!--<a class="label label-primary" href="/file/create/<%= orderInfo.lid %>/<%= orderInfo.stcode %>">文件管理</a>-->
 
@@ -288,7 +288,7 @@
 
             <div class="row">
                 <!-- col -->
-                <div class="col-xs-12 dwy-show-content">
+                <div class="col-xs-12">
                     <legend>补单退回原因(没有退回原因则不显示该栏目)</legend>
 
                     <div class="table-responsive">
@@ -318,7 +318,7 @@
 
             <div class="row">
                 <!-- col -->
-                <div class="col-xs-12 dwy-show-content">
+                <div class="col-xs-12">
                     <legend>状态信息 (调试订单状态:<%= orderInfo.stcode %><%= DWY_Helper.getAssistVal(orderInfo.stcode, stcodeInfo) %> )
                         <% if( (orderInfo.stcode == 250) || (orderInfo.stcode == 450) || (orderInfo.stcode == 475) || (orderInfo.stcode == 635) ){ %>
                         <a class="label label-primary" id="doUnlock" data-stcode="<%= orderInfo.stcode %>">&nbsp; 解锁 &nbsp;</a>

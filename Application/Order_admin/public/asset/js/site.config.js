@@ -103,6 +103,8 @@ var custom_validate_fn = {
         return isIdCardNo(value) ? true : "请正确输入您的身份证号码";
     },
 
+
+
 };
 
 var data_time_picker = {

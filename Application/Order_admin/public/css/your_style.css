@@ -484,8 +484,9 @@ tr > td > .separation:last-child {
 .table-editinput>tbody>tr>td{
     line-height: 32px;
 }
-.table-editinput .long{
-   width: 200px;
+.table-editinput .small{
+   width: 50px;
+    display: inline;
 }
 .table-editinput .short{
     width: 100px;
