@@ -131,8 +131,10 @@
                             <td><a href="/materialManage/detail/<%= element.id %>"><%= element.id %></a></td>
                             <td><%= element.name %></td>
                             <td><%= element.catName %></td>
+                        <%  }) }else{%>
+                        <td colspan="4" class="text-align-center">暂无结果</td>
+                        <%}%>
                         </tr>
-                        <%  }) }%>
                         <input type="hidden" class="" id="checkedValue">
                         </tbody>
 
