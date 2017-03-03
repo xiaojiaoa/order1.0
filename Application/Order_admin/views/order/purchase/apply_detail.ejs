@@ -90,7 +90,7 @@
                     <div class="orderItemLayerTit">
                         <ul class="orderItemMenu">
                             <%
-                            if(purchaseRequestDetail){
+                            if(purchaseRequestDetail.reqMaters){
                             purchaseRequestDetail.reqMaters.forEach(function (element, index) { %>
                             <li><%= element.mateName %></li>
                             <%
@@ -101,7 +101,7 @@
                     </div>
                     <div class="orderItemLayerTable">
                         <%
-                        if(purchaseRequestDetail){
+                        if(purchaseRequestDetail.reqMaters){
                         purchaseRequestDetail.reqMaters.forEach(function (element, index) { %>
                         <table class="table table-bordered table-striped table-information" id="purchaseTable">
                             <tbody>

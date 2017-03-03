@@ -106,7 +106,7 @@
                             </thead>
                             <tbody>
                             <%
-                            if(purchasesList.totalItems != 0  ){
+                            if(purchasesList.result){
                             purchasesList.result.forEach(function (element, index) { %>
                             <tr>
                                 <td><%= index+1 %></td>
@@ -122,7 +122,7 @@
                             </tr>
                             <%  })
                             }else{ %>
-                            <td colspan="6" class="text-align-center">暂无结果</td>
+                            <td colspan="10" class="text-align-center">暂无结果</td>
                             <%  }%>
                             </tbody>
                         </table>

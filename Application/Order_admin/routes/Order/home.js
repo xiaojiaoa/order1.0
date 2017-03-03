@@ -903,7 +903,7 @@ var PurchaseController = require('./Controller/PurchaseController');
 router.get('/purchase', Middleware.AuthCheck,PurchaseController.purchasePage);
 
 // 新建请购单页面
-router.get('/purchase/applyCreat', Middleware.AuthCheck,PurchaseController.purchaseApplyCreatPage);
+router.get('/purchase/applyCreat', Middleware.AuthCheck,Middleware.FilterEmptyField,PurchaseController.purchaseApplyCreatPage);
 //新建请购单 选择物料信息列表
 router.post('/purchase/applyOrderMaterial/:tid', Middleware.AuthCheck,PurchaseController.purchaseApplyMaterialCreat);
 //新建请购单 物料信息修改

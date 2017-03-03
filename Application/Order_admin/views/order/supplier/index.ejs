@@ -30,16 +30,15 @@
                     <div class="row search-form">
                         <form class="form-horizontal" method="get">
                             <div class="col-xs-12">
-                                <!--输入字段-->
-
                                 <div class="col-xs-3">
                                     <div class="form-group">
-                                        <label class="col-xs-4 control-label">客户手机:</label>
+                                        <label class="col-xs-4 control-label">联系人手机:</label>
                                         <div class="col-xs-8">
                                             <input class="form-control" placeholder="请输入客户手机" type="text" value="<%= DWYRequest.query.contactMobile %>" name="contactMobile">
                                         </div>
                                     </div>
                                 </div>
+
                             </div>
                             <div class="col-xs-12">
                                 <hr class="simple">
@@ -77,14 +76,12 @@
                     <div class="table-responsive">
                         <table class="table table-bordered table-striped">
                             <thead>
-                            <tr>
-                                <th>随便</th>
                                 <th>序号</th>
                                 <th>供应商编号</th>
+                                <th>供应商名称</th>
                                 <th>供应商分类编号</th>
                                 <th>供应商分类名称</th>
-                                <th>经销商等级</th>
-                                <th>联系人</th>
+                                <th>供应商等级</th>
                                 <th>联系人手机</th>
                                 <th>工厂详细地址</th>
                                 <th>备注</th>
@@ -93,16 +90,15 @@
                             </thead>
                             <tbody>
                             <%
-                            if(suppliersList.totalItems != 0  ){
+                            if(suppliersList.result&&suppliersList.result.length>0){
                                 suppliersList.result.forEach(function (element, index) { %>
                             <tr class="<%= ( element.isDeleted == 2 )? 'close-info':'' %>">
-                                <td><%= element.isDeleted %></td>
                                 <td><%= index+1 %></td>
                                 <td><a href="supplier/detail/<%= element.id %>"><%= element.id %></a></td>
+                                <td><%= element.contact %></td>
                                 <td><%= element.cateId %></td>
                                 <td><%= element.name %></td>
                                 <td><%= element.grade %></td>
-                                <td><%= element.contact %></td>
                                 <td><%= element.contactMobile %></td>
                                 <td><%= element.address %></td>
                                 <td><%= element.remark %></td>
@@ -117,8 +113,10 @@
                                     <input value="1" id="urlType" type="hidden">
                                     <input value="2" id="urlType2" type="hidden">
                                 </td>
-                                <% }
-                                )} %>
+                                <%
+                                })}else{%>
+                                <td colspan="7" class="text-align-center">暂无结果</td>
+                                <% }%>
                             </tr>
                             </tbody>
                         </table>

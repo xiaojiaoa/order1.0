@@ -51,7 +51,7 @@
                                             <select class="form-control" name="stairCatId">
                                                 <option value="">- 请选择 -</option>
                                                 <%
-                                                if(suppliersMaterialList.totalItems != 0  ){
+                                                if(suppliersMaterialList){
                                                 suppliersMaterialList.forEach(function (element, index) { %>
                                                 <option value="<%= element.id %>" <%= (DWYRequest.query.stairCatId == element.id)?"selected":"" %>>
                                                     <%= element.name %>
@@ -110,7 +110,7 @@
                                                 </thead>
                                                 <tbody>
                                                 <%
-                                                    if(supMaterialList){
+                                                    if(supMaterialList.result){
                                                     supMaterialList.result.forEach(function (element, index) { %>
                                                 <tr>
                                                     <td>
@@ -159,7 +159,6 @@
             $(this).addClass("selected").siblings().removeClass("selected");
             $(".orderItemLayerTable table").eq($(this).index()).show().siblings().hide();
         })
-//       var stairCatId= $(".orderItemMenu li:first-of-type").attr("selfId");
 
         var checkedValue = $('#checkedValue');
         $("#checkAll").change(function () {
@@ -183,6 +182,10 @@
 
         $("#editBatchNum").on({
             click:function(){
+                if(checkedValue.attr('class')==null||checkedValue.attr('class')==''){
+                    layer.alert('请选择！', {icon: 3})
+                    return false;
+                }
                 layer.open({
                     title: false,
                     type: 1,

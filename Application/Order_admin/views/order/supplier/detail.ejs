@@ -89,17 +89,19 @@
                                 <th>物料编号</th>
                                 <th>物料分类编号</th>
                                 <th>物料名称</th>
+                                <th>截至有效日期</th>
                             </tr>
                             </thead>
                             <tbody>
                             <%
-                            if(suppliersDetail){
+                            if(suppliersDetail.materialsList){
                             suppliersDetail.materialsList.forEach(function(element,index){%>
                             <tr>
                                 <td><%= index+1 %></td>
                                 <td><%= element.id %></td>
                                 <td><%= element.catId %></td>
                                 <td><%= element.name %></td>
+                                <td><%= DWY_Helper.getLocalDateYMD(element.expiryDate) %></td>
                             </tr>
                             <%  })}%>
                             </tbody>
