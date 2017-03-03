@@ -47,7 +47,7 @@
                                         <label class="col-xs-4 control-label">入库单号:</label>
                                         <div class="col-xs-8">
                                             <input class="form-control" value="<%= DWYRequest.query.cid %>" type="text"
-                                                   name="cid">
+                                                   name="inId">
                                         </div>
                                     </div>
                                 </div>
@@ -56,7 +56,7 @@
                                     <div class="form-group">
                                         <label class="col-xs-4 control-label">仓库:</label>
                                         <div class="col-xs-8">
-                                            <select class="form-control" name="ctype">
+                                            <select class="form-control" name="whseId">
                                                 <option value="">- 请选择 -</option>
                                             </select>
                                         </div>
@@ -66,7 +66,7 @@
                                     <div class="form-group">
                                         <label class="col-xs-4 control-label">区域:</label>
                                         <div class="col-xs-8">
-                                            <select class="form-control" name="ctype">
+                                            <select class="form-control" name="regionId">
                                                 <option value="">- 请选择 -</option>
                                             </select>
                                         </div>
@@ -79,7 +79,7 @@
                                     <div class="form-group">
                                         <label class="col-xs-4 control-label">状态:</label>
                                         <div class="col-xs-8">
-                                            <select class="form-control" name="ctype">
+                                            <select class="form-control" name="stcode">
                                                 <option value="">- 请选择 -</option>
                                                 <option value="10" <%= (DWYRequest.query.ctype == 10) ? "selected" : "" %> >
                                                     个人客户
@@ -93,7 +93,7 @@
                                     <div class="form-group">
                                         <label class="col-xs-4 control-label">类别:</label>
                                         <div class="col-xs-8">
-                                            <select class="form-control" name="ctype">
+                                            <select class="form-control" name="inType">
                                                 <option value="">- 请选择 -</option>
                                             </select>
 
@@ -105,14 +105,14 @@
                                         <label class="col-xs-2 control-label">日期:</label>
                                         <div class="col-xs-4">
                                             <input class="form-control fg-date-time-picker"
-                                                   value="<%= DWYRequest.query.startDate %>"
-                                                   name="startDate">
+                                                   value="<%= DWYRequest.query.startTime %>"
+                                                   name="startTime">
                                         </div>
                                         <label class="control-label " style="float: left"> 至 </label>
                                         <div class="col-xs-4">
                                             <input class="form-control fg-date-time-picker"
-                                                   value="<%= DWYRequest.query.endDate %>"
-                                                   name="endDate">
+                                                   value="<%= DWYRequest.query.endTime %>"
+                                                   name="endTime">
                                         </div>
                                     </div>
                                 </div>
@@ -150,51 +150,47 @@
                             <thead>
                             <tr>
                                 <th>序号</th>
-                                <th>类别</th>
+                                <th>入库类型</th>
                                 <th>入库单号</th>
-                                <th>日期</th>
+                                <th>区域</th>
                                 <th>仓库</th>
                                 <th>区域</th>
+                                <th>工厂</th>
                                 <th>采购单号</th>
                                 <th>入库人</th>
                                 <th>状态</th>
-                                <th>财务审核</th>
                                 <th>审核人</th>
-                                <th>操作</th>
+                                <th>审核时间</th>
                             </tr>
                             </thead>
                             <tbody>
-                            <tr>
-                                <td>1</td>
-                                <td>配件</td>
-                                <td><a href="/enterMaterial/detail/123456">123456</a></td>
-                                <td>2016-10-10</td>
-                                <td>仓库1</td>
-                                <td>区域1</td>
-                                <td><a href="/purchase/orderDetail/123456">123456</a></td>
-                                <td>张三</td>
-                                <td>待审核</td>
-                                <td></td>
-                                <td></td>
-                                <td><a class="label label-primary checkThis" data-id="37">审核</a></td>
-                            </tr>
-                            <tr>
-                                <td>2</td>
-                                <td>配件</td>
-                                <td><a href="/enterMaterial/detail/123456">123456</a></td>
-                                <td>2016-10-10</td>
-                                <td>仓库1</td>
-                                <td>区域1</td>
-                                <td><a href="/purchase/orderDetail/123456">123456</a></td>
-                                <td>张三</td>
-                                <td>待审核</td>
-                                <td></td>
-                                <td></td>
-                                <td><a class="label label-danger backThis" data-id="37">撤审</a></td>
-                            </tr>
-                            <tr>
-                                <td colspan="12" class="text-align-center">暂无数据</td>
-                            </tr>
+                            <% if(result.length>0){%>
+                                <% result.forEach(function (element, index) {%>
+                                    <tr>
+                                        <td><%= ++index%></td>
+                                        <td><%=DWY_Helper.getEnterType(element.inType)%></td>
+                                        <td><a href="/enterMaterial/detail/<%=element.inId %>"><%=element.inId%></a></td>
+                                        <td><a href="/purchase/orderDetail/<%=element.regionId%>"><%=element.regionId%></a></td>
+                                        <td><%=element.whseId%></td>
+                                        <td><%=element.ftyId%></td>
+                                        <td><%=element.purId%></td>
+                                        <td><%=element.inEmp%></td>
+                                        <td><%=element.inName%></td>
+                                        <% if(element.stcode == 2){%>
+                                            <td><a class="label label-primary checkThis" data-id="37">待审核</a></td>
+                                        <% }%>
+                                        <% if(element.stcode == 4){%>
+                                            <td><a class="label label-primary checkThis" data-id="37">已审核</a></td>
+                                        <% }%>
+                                        <td><%=element.reviewName%></td>
+                                        <td><%= DWY_Helper.getLocalDate(element.reviewTime)%></td>
+                                    </tr>
+                                <%})%>
+                            <% } else {%>
+                                <tr>
+                                    <td colspan="12" class="text-align-center">暂无数据</td>
+                                </tr>
+                            <% }%>
                             </tbody>
                         </table>
 

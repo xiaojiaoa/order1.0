@@ -125,7 +125,8 @@
                         if (data.code) {
                             getValidateInfo();
                         } else {
-                            location.href = '/';
+                            
+                            location.href = data.preventPath;
                         }
                     },
                     error: function (response) {

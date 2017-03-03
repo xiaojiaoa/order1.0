@@ -218,6 +218,17 @@ app.locals.DWY_Helper = {
         return code;
     },
 
+     //字典翻译-入库类型
+    getEnterType: function (code) {
+        switch (code){
+            case 1:
+                return "物料";
+                break;
+            default:
+                return "成品";
+        }
+        return code;
+    },
     //字典翻译-工厂类型
     getFactoryType: function (code) {
         switch (code){
