@@ -39,17 +39,29 @@
                         <form class="form-horizontal" method="post" action="/materialManage/materialType/creOneDo" id="material_type_creOne">
 
                             <div class="col-xs-12">
-                                    <!--输入字段-->
-                                    <div class="col-xs-6">
-                                        <div class="form-group">
-                                            <label class="col-xs-4 control-label"><span class="requird"></span>
-                                                名称:</label>
-                                            <div class="col-xs-8">
-                                                <input class="form-control validate[required]" value="" name="name" type="">
-                                            </div>
+                                <!--输入字段-->
+                                <div class="col-xs-6">
+                                    <div class="form-group">
+                                        <label class="col-xs-4 control-label"><span class="requird"></span>
+                                            名称:</label>
+                                        <div class="col-xs-8">
+                                            <input class="form-control validate[required]" placeholder="请输入名称" value="" name="name" type="">
                                         </div>
                                     </div>
                                 </div>
+                            </div>
+                            <div class="col-xs-12">
+                                <!--输入字段-->
+                                <div class="col-xs-6">
+                                    <div class="form-group">
+                                        <label class="col-xs-4 control-label"><span class="requird"></span>
+                                            物料分类编码:</label>
+                                        <div class="col-xs-8">
+                                            <input class="form-control validate[required,custom[onlyNumberSp],maxSize[2],minSize[2]]" placeholder="请输入两位编码" value="" name="id" type="">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                             <div class="col-xs-12">
                                 <!--输入字段-->
                                 <div class="col-xs-6">
@@ -57,10 +69,6 @@
                                         <label class="col-xs-4 control-label"><span class="requird"></span>
                                             属性:</label>
                                         <div class="col-xs-8" id="my-label">
-                                           <!-- <label class="checkbox-inline">
-                                                <input type="checkbox" class="checkbox" name="attributes" value="1">
-                                                <span>1</span>
-                                            </label>-->
                                             <%
                                             usableAttrList.forEach(function (element, index) { %>
                                             <label class="checkbox-inline">
@@ -177,7 +185,7 @@
                 txt.innerHTML=attrName.join(',');
                 attributes.value=attrId.join(',');
                 sum=eval(attrLength.join('+'));
-                if(sum>8){
+               /* if(sum>8){
                     layer.alert('物料属性的长度之和超过8位，请重新选择！',{icon: 3, title:'提示'},
                      function(index){
                          sum=0;
@@ -185,9 +193,7 @@
                          layer.close(index);
                      }
                    )
-
-
-                }
+                }*/
             }
         }
     })

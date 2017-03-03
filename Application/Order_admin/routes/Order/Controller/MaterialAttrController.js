@@ -20,7 +20,8 @@ var MaterialAttrController = {
     materialAttributePage:function (req, res) {
         var paramObject = helper.genPaginationQuery(req);
         Base.multiDataRequest(req, res, [
-            {url: '/api/attributes?'+ queryString.stringify(req.query), method: 'GET', resConfig: {keyName: 'attributeList', is_must: true}}
+            {url: '/api/attributes?'+ queryString.stringify(req.query), method: 'GET', resConfig: {keyName: 'attributeList', is_must: true}},
+            {url: '/api/assist/attribute/types', method: 'GET', resConfig: {keyName: 'getAttributeTypes', is_must: true}},
         ], function (req, res, resultList) {
 
             var paginationInfo =  resultList.attributeList;

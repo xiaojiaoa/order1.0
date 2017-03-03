@@ -401,7 +401,6 @@ router.get('/materialManage/mateAttr/detail/:mid', Middleware.AuthCheck, Materia
 // 禁用/解锁 物料属性值状态
 router.put('/mateAttrVal/setStatus/:code/:type/:aid', Middleware.AuthCheck, MaterialAttrController.setAttrValStatus);
 
-
 /*
  * 页面范围: 物料分类相关
  * 控制器:  MaterialTypeController

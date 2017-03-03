@@ -148,7 +148,49 @@
 
 </div>
 <!-- END MAIN PANEL -->
-
+<!--新建属性-->
+<form class="form-horizontal  layer-template" method="post" id="attrCreate-form" action="/material/attrCreate" >
+    <div class="col-xs-12">
+        <div class="form-group">
+            <label class="col-xs-4 control-label"><span class="requird"></span>名称:</label>
+            <div class="col-xs-6">
+                <input class="form-control validate[required]" type="text"  value="" name="name" data-prompt-position="bottomLeft:20,5">
+            </div>
+        </div>
+    </div>
+    <div class="col-xs-12 display-none">
+        <div class="form-group">
+            <label class="col-xs-4 control-label"><span class="requird"></span>长度:</label>
+            <div class="col-xs-6">
+                <input class="form-control validate[required,custom[onlyNumberSp]]" type="text"  value="" name="length" data-prompt-position="bottomLeft:20,5">
+            </div>
+        </div>
+    </div>
+    <div class="col-xs-12">
+        <div class="form-group">
+            <label class="col-xs-4 control-label"><span class="requird"></span>物料属性类型:</label>
+            <div class="col-xs-6">
+                <select class="form-control validate[required]" name="type">
+                    <option value="">- 请选择 -</option>
+                    <% getAttributeTypes.forEach(function(element,index){%>
+                    <option value="<%= element.id %>"><%= element.name%></option>
+                    <%})%>
+                </select>
+            </div>
+        </div>
+    </div>
+    <div class="col-xs-12">
+        <hr class="simple">
+        <div class="col-xs-12 text-center">
+            <button class="btn btn-primary " type="submit">
+                <i class="fa fa-save"></i>
+                新建
+            </button>
+        </div>
+    </div>
+    <div class="dwy-clear"></div>
+</form>
+<!--END 新建属性-->
 <%- include('../layouts/footer'); %>
 <%- include('../layouts/footer_common_script'); %>
 <script type="text/javascript">

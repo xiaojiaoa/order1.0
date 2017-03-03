@@ -65,7 +65,7 @@ var MaterialTypeController = {
         //res.render('order/material/material_type_creOther');
     },
     materialTypeCreOneDo: function (req, res) {
-       // console.log('新建物料一级分类'+ JSON.stringify(req.body));
+       console.log('新建物料一级分类'+ JSON.stringify(req.body));
         request(Base.mergeRequestOptions({
             method: 'post',
             url: '/api/categories',
