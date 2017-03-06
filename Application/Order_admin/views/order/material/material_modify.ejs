@@ -97,7 +97,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-xs-12">
+                            <div class="col-xs-12 display-none">
                                 <div class="col-xs-6">
                                     <div class="form-group">
                                         <label class="col-xs-4 control-label"><span class="requird"></span>单位物料重量:</label>
@@ -112,7 +112,33 @@
                                     <div class="form-group">
                                         <label class="col-xs-4 control-label">单位：</label>
                                         <div class="col-xs-8">
-                                            <input class="form-control validate[required]" placeholder="请输入单位" value="" type="text" name="unitId">
+                                            <select class="form-control validate[required]" name="unit">
+                                                <option value="">- 请选择 -</option>
+                                                <% units.forEach(function(element,index){%>
+                                                <option value="<%= element.id %>"><%= element.name%></option>
+                                                <%})%>
+
+                                            </select>
+
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xs-12">
+                                <div class="col-xs-6">
+                                    <div class="form-group">
+                                        <label class="col-xs-4 control-label">包装类型：</label>
+                                        <div class="col-xs-8">
+                                            <select class="form-control validate[required]" name="unit">
+                                                <option value="">- 请选择 -</option>
+                                                <% getPackageTypes.forEach(function(element,index){%>
+                                                <option value="<%= element.id %>"><%= element.name%></option>
+                                                <%})%>
+
+                                            </select>
+
+                                            </select>
                                         </div>
                                     </div>
                                 </div>
@@ -122,12 +148,12 @@
                                     <div class="form-group">
                                         <label class="col-xs-4 control-label"><span class="requird"></span>价格:</label>
                                         <div class="col-xs-8">
-                                            <input class="form-control validate[required]" placeholder="请输入价格" value="" type="text" name="price ">
+                                            <input class="form-control validate[required]" placeholder="请输入价格" value="" type="text" name="price">
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-xs-12">
+                            <div class="col-xs-12 display-none">
                                 <div class="col-xs-6">
                                     <div class="form-group">
                                         <label class="col-xs-4 control-label"><span class="requird"></span>物料类型:</label>
@@ -155,7 +181,7 @@
                                               <input class="upimg-input validate[required]" placeholder="请上传图片2"
                                                      data-errormessage-value-missing="请上传图片2" readonly>
                                           </p>-->
-                                        <input type="hidden" name="image" id="idPhotoOne" value="<%= mateInfo.image %>">
+                                        <input type="hidden" name="image" id="idPhotoOne" value="">
                                         <!--    <input type="hidden" name="image" id="idPhotoTwo" value="">-->
                                     </div>
 

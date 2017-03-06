@@ -144,6 +144,8 @@ var MaterialController = {
         console.log(id);
         Base.multiDataRequest(req, res, [
             {url: '/api/materials/'+id, method: 'GET', resConfig: {keyName: 'mateInfo', is_must: true}},
+            {url: '/api/assist/material/units', method: 'GET', resConfig: {keyName: 'units', is_must: true}},
+            {url: '/api/assist/package/types', method: 'GET', resConfig: {keyName: 'getPackageTypes', is_must: true}},
         ], function (req, res, resultList) {
             var returnData = Base.mergeData(helper.mergeObject({
                 title: ' ',

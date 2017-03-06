@@ -78,7 +78,7 @@
                                     </div>
 
                                 </div>
-                            <div class="col-xs-12" id="addNumber" style="display: none;">
+                            <div class="col-xs-12 display-none" id="addNumber">
                                 <div class="col-xs-6">
                                     <div class="form-group">
                                         <label class="col-xs-4 control-label"><span class="requird"></span>
@@ -277,6 +277,7 @@
             $("input[name='number']").each(function(){
                 addCode.push($(this).val());
             });
+           /* $("#materialId").val(($("#mateTypeId").val()+code+addCode).replace(/,/g,''));*/
             $("#materialId").val(code.join(','));
 
         }
