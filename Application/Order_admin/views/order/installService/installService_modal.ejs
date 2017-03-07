@@ -1,43 +1,47 @@
 <form id="assignInstallGroup" class="col-xs-12 layer-template" action="">
     <div class="col-xs-12">
-        <div class="table-responsive">
-            <table class="table table-bordered table-striped">
-                <thead>
-                <tr>
-                    <th>订单号</th>
-                    <th>名称</th>
-                    <th>地址</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr>
-                    <td>123456789</td>
-                    <td>床</td>
-                    <td>浙江省杭州市滨江区</td>
-                </tr>
-                </tbody>
-            </table>
-        </div>
-    </div>
-    <div class="col-xs-12">
-        <div class="col-xs-3 margin-top-10 text-center">
+        <div class="col-xs-2 margin-top-10 text-center">
             安装组名称:
         </div>
-        <div class="col-xs-8">
+        <div class="col-xs-6">
             <select class="form-control validate[required]" name="" id="">
                 <option value="">--请选择--</option>
-                <option value="1">安装一组</option>
-                <option value="2">安装二组</option>
-                <option value="3">安装三组</option>
+                <%
+                if(installGroup){
+                installGroup.forEach(function (element,index) {%>
+                <option value="<%= element.did %>" class="selectInstallGroup"><%= element.bname %>—<%= element.dname %></option>
+                <%})}%>
             </select>
         </div>
     </div>
     <div class="col-xs-12 text-center margin-top-10">
-        <button class="btn btn-primary margin-top-10" id="btnCreateDate">确认指定</button>
+        <a class="btn btn-primary margin-top-10" id="btnCreateDate">确认指定</a>
     </div>
 </form>
+
 <script type="text/javascript">
     $(document).ready(function () {
+        pageSetUp();
+        $(".fg-date-picker").flatpickr(data_time_picker.data_picker); // jQuery
         $("#assignInstallGroup").validationEngine({scroll: false});
+
+        $("#btnCreateDate").on({
+            click:function(){
+                var tid=$("input[name=oid]").val();
+                var did=$(".selectInstallGroup").val();
+                layer.confirm('确认指定?',{icon: 3, title:'提示'},
+                    function(index){
+                        $.ajax({
+                            url: '/installServiceTask/'+tid+'/'+did,
+                            method: 'post',
+                            success: function (data) {
+                                location.href="/installService"
+                            }
+                        });
+                    },
+                    function(index){layer.close(index)}
+                )
+            }
+        })
     })
 </script>
