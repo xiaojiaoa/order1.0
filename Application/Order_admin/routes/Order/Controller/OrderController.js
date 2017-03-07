@@ -737,10 +737,23 @@ var OrderController = {
         })
     },
     unpacket:function(req,res){
-        var tid=req.params.titleid;
+        var tid=req.params.tid;
         request(Base.mergeRequestOptions({
             method: 'put',
             url: '/api/orders/package/unpacket/'+tid,
+        }, req, res), function (error, response, body) {
+            if (!error && response.statusCode == 200) {
+                res.sendStatus(200);
+            } else {
+                Base.handlerError(res, req, error, response, body);
+            }
+        })
+    },
+    doPacket:function(req,res){
+        var tid=req.params.tid;
+        request(Base.mergeRequestOptions({
+            method: 'put',
+            url: '/api/orders/package/packet/'+tid,
         }, req, res), function (error, response, body) {
             if (!error && response.statusCode == 200) {
                 res.sendStatus(200);

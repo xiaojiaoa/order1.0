@@ -1,0 +1,347 @@
+<%- include('../layouts/head_top'); %>
+<%- include('../layouts/head_bottom'); %>
+<%- include('../layouts/header'); %>
+<%- include('../layouts/nav'); %>
+
+
+<!-- MAIN PANEL -->
+<div id="main" role="main">
+
+    <!-- RIBBON -->
+    <div id="ribbon">
+
+        <!-- breadcrumb -->
+        <ol class="breadcrumb">
+            <li>个人中心</li>
+            <li>公告信息</li>
+        </ol>
+
+
+    </div>
+    <!-- END RIBBON -->
+
+
+    <!-- MAIN CONTENT -->
+    <div id="content">
+
+        <div class="row-url">
+            <a class="title-url active" href="/noticeInfo">公告信息</a>
+            <a class="title-url" href="/fileInfo">资料信息</a>
+        </div>
+        <!-- well -->
+        <div class="well">
+            <!-- row -->
+            <div class="row">
+                <!-- col -->
+                <div class="col-xs-12">
+                    <!--<legend>客户搜索</legend>-->
+                    <!-- row -->
+                    <div class="row search-form">
+                        <form class="form-horizontal" method="get" id="">
+
+                            <div class="col-xs-12">
+
+                                <!--输入字段-->
+                                <div class="col-xs-5">
+
+                                </div>
+
+                                <div class="col-xs-4">
+                                    <div class="form-group">
+                                        <label class="col-xs-4 control-label">公告类型:</label>
+                                        <div class="col-xs-8">
+                                            <select class="form-control" name="">
+                                                <option value="">- 请选择 -</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xs-3">
+
+                                    <button class="btn btn-primary " type="submit">
+                                        <i class="fa fa-search"></i>
+                                        查询
+                                    </button>
+
+                                    <a class="btn btn-primary margin-left-10 create-noticeInfo" >
+                                        新建公告
+                                    </a>
+                                </div>
+
+
+                            </div>
+                        </form>
+                    </div>
+                    <!-- end row -->
+                </div>
+                <!-- end col -->
+            </div>
+            <!-- end row -->
+        </div>
+        <!-- end well -->
+
+        <div class="well">
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="col-xs-2"></div>
+                    <div class="col-xs-8">
+
+                        <dl class="dl-style01">
+                            <dt>标题标题
+                                <a class="margin-left-78  modify-noticeInfo" name="" selfId="">修改</a>
+                                <a class="margin-left-20 txt-color-red delete-noticeInfo" selfId="">删除</a>
+                            </dt>
+                            <dd class="dl-title">
+                                <span>发表人&nbsp;&nbsp;&nbsp;&nbsp;张三</span>
+                                <span>日期&nbsp;&nbsp;&nbsp;&nbsp;2016-10-10</span>
+                                <span>公告类型&nbsp;&nbsp;&nbsp;&nbsp;类型1</span></dd>
+                            <dd class="dl-content">
+                                内容内容
+                            </dd>
+                        </dl>
+                        <dl class="dl-style01">
+                            <dt>标题标题
+                                <a class="margin-left-78  modify-noticeInfo" name="" selfId="">修改</a>
+                                <a class="margin-left-20 txt-color-red delete-noticeInfo" selfId="">删除</a>
+                            </dt>
+                            <dd class="dl-title">
+                                <span>发表人&nbsp;&nbsp;&nbsp;&nbsp;张三</span>
+                                <span>日期&nbsp;&nbsp;&nbsp;&nbsp;2016-10-10</span>
+                                <span>公告类型&nbsp;&nbsp;&nbsp;&nbsp;类型1</span></dd>
+                            <dd class="dl-content">
+                                内容内容
+                            </dd>
+                        </dl>
+
+                    </div>
+                    <div class="col-xs-2"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- END MAIN CONTENT -->
+
+</div>
+<!-- END MAIN PANEL -->
+
+<%- include('../layouts/footer'); %>
+<%- include('../layouts/footer_common_script'); %>
+<!--新建公告信息-->
+<form class="form-horizontal  layer-template" method="post" id="create-noticeInfo-form" action="/noticeInfo/doCreate">
+
+    <div class="row" style="padding: 30px 40px 0 0;">
+
+
+
+        <div class="col-xs-12">
+            <div class="col-xs-6">
+                <div class="form-group">
+                    <label class="col-xs-4 control-label" id="whiceName"><span class="requird"></span> 标题:</label>
+                    <div class="col-xs-8">
+                        <input class="form-control validate[required]"
+                               value="" name="" id="">
+                    </div>
+                </div>
+            </div>
+                <div class="col-xs-6">
+                    <div class="form-group">
+                        <label class="col-xs-4 control-label"><span class="requird"></span>公告类型:</label>
+                        <div class="col-xs-8">
+                            <select class="form-control validate[required]" name="">
+                                <option value="">- 请选择-</option>
+                            </select>
+                        </div>
+                    </div>
+            </div>
+
+        </div>
+        <div class="col-xs-12">
+            <div class="col-xs-6">
+                <div class="form-group">
+                    <label class="col-xs-4 control-label"><span class="requird"></span> 发布范围:</label>
+                    <div class="col-xs-8">
+                        <select class="form-control validate[required]" name="">
+                            <option value="">- 请选择-</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-6">
+                <div class="form-group">
+                    <div class="col-xs-8">
+                        <select class="form-control validate[required]" name="">
+                            <option value="">- 请选择-</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-xs-12">
+            <div class="col-xs-12">
+                <div class="form-group">
+                    <label class="col-xs-2 control-label"><span class="requird"></span> 内容:</label>
+                    <div class="col-xs-10">
+                        <textarea rows="10" cols="30" class="form-control validate[required]" name="">
+                        这里是文本域中的文本 ... ... ... ...
+                        </textarea>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="row">
+        <div class="col-xs-12">
+            <hr class="simple">
+            <div class="col-xs-12 text-center">
+                <button class="btn btn-primary  margin-right-5" type="submit">
+                    <i class="fa fa-save"></i>
+                    提交
+                </button>
+            </div>
+        </div>
+    </div>
+    <div class="dwy-clear"></div>
+</form>
+<!--END 新建公告信息-->
+
+<!--修改公告信息-->
+<form class="form-horizontal  layer-template" method="post" id="modify-noticeInfo-form" action="/noticeInfo/doModify">
+
+    <div class="row" style="padding: 30px 40px 0 0;">
+        <div class="col-xs-12">
+            <div class="col-xs-6">
+                <div class="form-group">
+                    <label class="col-xs-4 control-label" id="whiceName"><span class="requird"></span> 标题:</label>
+                    <div class="col-xs-8">
+                        <input class="form-control validate[required]"
+                               value="" name="" id="">
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-6">
+                <div class="form-group">
+                    <label class="col-xs-4 control-label"><span class="requird"></span>公告类型:</label>
+                    <div class="col-xs-8">
+                        <select class="form-control validate[required]" name="">
+                            <option value="">- 请选择-</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div class="col-xs-12">
+            <div class="col-xs-6">
+                <div class="form-group">
+                    <label class="col-xs-4 control-label"><span class="requird"></span> 发布范围:</label>
+                    <div class="col-xs-8">
+                        <select class="form-control validate[required]" name="">
+                            <option value="">- 请选择-</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-6">
+                <div class="form-group">
+                    <div class="col-xs-8">
+                        <select class="form-control validate[required]" name="">
+                            <option value="">- 请选择-</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-xs-12">
+            <div class="col-xs-12">
+                <div class="form-group">
+                    <label class="col-xs-2 control-label"><span class="requird"></span> 内容:</label>
+                    <div class="col-xs-10">
+                        <textarea rows="10" cols="30" class="form-control validate[required]" name="">
+                        这里是文本域中的文本 ... ... ... ...
+                        </textarea>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+     <input type="hidden" name="" id="noticeId" value=""/>
+     <div class="row">
+        <div class="col-xs-12">
+            <hr class="simple">
+            <div class="col-xs-12 text-center">
+                <button class="btn btn-primary  margin-right-5" type="submit">
+                    <i class="fa fa-save"></i>
+                    提交
+                </button>
+            </div>
+        </div>
+    </div>
+    <div class="dwy-clear"></div>
+</form>
+<!--END 修改公告信息-->
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+        pageSetUp();
+        var pageFunction = function () {
+        }
+        pageFunction();
+        //新建公告信息
+        $(".create-noticeInfo").on({
+            click: function () {
+                layer.open({
+                    title:"",
+                    type: 1,
+                    area: '800px',
+                    content: $('#create-noticeInfo-form'),
+                    cancel: function () {
+                        //右上角关闭回调
+                    },
+                });
+            }
+        })
+        //修改公告信息
+        $(".modify-noticeInfo ").on({
+            click: function () {
+                var noticeId = $(this).attr('selfId');
+                $('#noticeId').val(noticeId);
+                layer.open({
+                    title:"",
+                    type: 1,
+                    area: '800px',
+                    content: $('#modify-noticeInfo-form'),
+                    cancel: function () {
+                        //右上角关闭回调
+                    },
+                });
+            }
+        })
+        //删除公告信息
+        $(".delete-noticeInfo").on({
+            click: function () {
+                var id = $(this).attr('selfId');
+                layer.confirm('确认删除?',{icon: 3, title:'提示'},
+                    function(index){
+                        $.ajax({
+                            url: '/noticeInfo/doDelete/'+id,
+                            method: 'delete',
+                            success: function (data) {
+                                window.location.reload();
+                            }
+                        });
+                    },
+                    function(index){layer.close(index)})
+            }
+        })
+    })
+
+</script>
+
+
+<%- include('../layouts/foot'); %>

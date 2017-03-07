@@ -247,6 +247,9 @@ router.put('/orders/package/pcaketlist/:pid', Middleware.AuthCheck,OrderControll
 //撤销包装
 router.put('/orders/package/unpacket/:tid', Middleware.AuthCheck,OrderController.unpacket);
 
+//生成分包
+router.put('/orders/package/packet/:tid',Middleware.AuthCheck,OrderController.doPacket);
+
 /*
  * 页面范围: 拆单
  * 控制器:   TearController
@@ -956,6 +959,32 @@ router.post('/networkBook/doMeasure', Middleware.AuthCheck, NetworkBookControlle
 
 // 置为无效
 router.put('/networkBook/doClose/:measureId', Middleware.AuthCheck, NetworkBookController.doClose);
+
+/*
+ * 页面范围: 与公告、资料相关
+ * 控制器:   InformationController
+ * */
+var InformationController = require('./Controller/InformationController');
+
+//公告信息详情页面
+router.get('/noticeInfo', Middleware.AuthCheck, InformationController.noticeInfoPage);
+
+//公告信息-新建
+router.post('/noticeInfo/doCreate', Middleware.AuthCheck, InformationController.noticeDoCreate);
+
+//公告信息-修改
+router.post('/noticeInfo/doModify', Middleware.AuthCheck, InformationController.noticeDoModify);
+
+//公告信息-删除
+router.delete('/noticeInfo/doDelete/:nid', Middleware.AuthCheck, InformationController.noticeDoDelete);
+
+//资料信息详情页面
+router.get('/fileInfo', Middleware.AuthCheck, InformationController.fileInfoPage);
+
+
+
+
+
 
 /*
  * 页面范围: 安装服务
