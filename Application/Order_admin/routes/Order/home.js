@@ -37,7 +37,9 @@ var request = require('request');
 var Middleware = {
     //检测SESSION 是否存在TOKEN (NODE),TODO 区分AJAX请求,以JSON格式返回
     AuthCheck: function (req, res, next) {
-        req.session.preventPath = req.path;
+        if(req.method.toLowerCase() == 'get'){
+            req.session.preventPath = req.path;
+        }
         // console.log(req.path)
         if (!req.session.auth) {
             console.log('SESSION HAS NO AUTH');
