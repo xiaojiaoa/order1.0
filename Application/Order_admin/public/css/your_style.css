@@ -1,7 +1,7 @@
 #main {
     min-width: 1420px;
     background: #fff;
-    margin-left: 190px;
+    margin-left: 160px;
 }
 
 .smart-style-2 aside {
@@ -13,7 +13,7 @@
 }
 
 #header>:first-child, aside{
-    width: 190px;
+    width: 160px;
 }
 .smart-style-2 #left-panel {
 
@@ -26,8 +26,8 @@
     overflow-x: hidden;
 }
 .fixed-navigation nav>ul{
-    padding-right: 0;
-    width: 100%;
+    padding-right: 5px;
+    /*width: 100%;*/
 }
 .smart-style-2 nav ul li a {
     color: #fff !important;
