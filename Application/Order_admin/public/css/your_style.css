@@ -519,7 +519,7 @@ tr > td > .separation:last-child {
     cursor: pointer;
 }
 .dl-style01 dt{
-    padding-bottom: 5px;
+    padding-bottom: 10px;
     border-bottom:1px solid black;
 }
 .dl-style01 dd{
@@ -528,6 +528,10 @@ tr > td > .separation:last-child {
 .dl-title span{
     display: inline-block;
     width:22%;
+}
+.dl-title i{
+    display: inline-block;
+    width:10%;
 }
 .dl-content{
     margin-top:20px!important;

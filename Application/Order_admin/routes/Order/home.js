@@ -967,21 +967,19 @@ router.put('/networkBook/doClose/:measureId', Middleware.AuthCheck, NetworkBookC
 var InformationController = require('./Controller/InformationController');
 
 //公告信息详情页面
-router.get('/noticeInfo', Middleware.AuthCheck, InformationController.noticeInfoPage);
+router.get('/noticeInfo', Middleware.AuthCheck,Middleware.FilterEmptyField,InformationController.noticeInfoPage);
 
 //公告信息-新建
-router.post('/noticeInfo/doCreate', Middleware.AuthCheck, InformationController.noticeDoCreate);
+router.post('/noticeInfo/doCreate', Middleware.AuthCheck,Middleware.FilterEmptyField,InformationController.noticeDoCreate);
 
 //公告信息-修改
 router.post('/noticeInfo/doModify', Middleware.AuthCheck, InformationController.noticeDoModify);
 
 //公告信息-删除
-router.delete('/noticeInfo/doDelete/:nid', Middleware.AuthCheck, InformationController.noticeDoDelete);
+router.put('/noticeInfo/doDelete/:nid', Middleware.AuthCheck, InformationController.noticeDoDelete);
 
 //资料信息详情页面
 router.get('/fileInfo', Middleware.AuthCheck, InformationController.fileInfoPage);
-
-
 
 
 

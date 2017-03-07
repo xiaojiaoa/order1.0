@@ -19,42 +19,41 @@ var Permissions = require('../config/permission');
 
 var InformationController = {
     noticeInfoPage: function (req, res) {
-        /* Base.multiDataRequest(req, res, [
-         {url: '/api/materials/attributes/'+id, method: 'GET', resConfig: {keyName: 'materialInfo', is_must: true}},
-         {url: '/api/assist/material/units', method: 'GET', resConfig: {keyName: 'units', is_must: true}},
-         {url: '/api/assist/package/types', method: 'GET', resConfig: {keyName: 'getPackageTypes', is_must: true}},
+         Base.multiDataRequest(req, res, [
+             {url: '/api/notices/page', method: 'GET', resConfig: {keyName: 'noticeInfoList', is_must: true}},
+             {url: '/api/assist/notice/types', method: 'GET', resConfig: {keyName: 'noticeType', is_must: true}},
+             {url: '/api/assist/store/types', method: 'GET', resConfig: {keyName: 'storeType', is_must: true}},
+             {url: '/api/assist/store/addrTypes', method: 'GET', resConfig: {keyName: 'storeAttrType', is_must: true}},
          ], function (req, res, resultList) {
          var returnData = Base.mergeData(helper.mergeObject({
          title: ' ',
          },resultList));
-         res.render('order/material/material_create_second',returnData);
-         });*/
-        res.render('order/information/notice_info');
+         res.render('order/information/notice_info',returnData);
+         });
+        //res.render('order/information/notice_info');
     },
     noticeDoCreate: function (req, res) {
         console.log('公告信息创建'+ JSON.stringify(req.body));
         request(Base.mergeRequestOptions({
             method: 'post',
-            url: '/api/materials',
+            url: '/api/notices',
             form:req.body,
         }, req, res), function (error, response, body) {
             if (!error && response.statusCode == 201) {
-                res.sendStatus(200);
+                res.redirect("/noticeInfo");
             } else {
                 Base.handlerError(res, req, error, response, body);
             }
         })
     },
     noticeDoModify: function (req, res) {
-        console.log('物料修改'+ JSON.stringify(req.body));
-        var mid = req.body.id;
+        console.log('公告信息修改'+ JSON.stringify(req.body));
         request(Base.mergeRequestOptions({
             method: 'put',
-            url: '/api/materials/'+mid+"?"+queryString.stringify(req.body),
-            form:req.body,
+            url: '/api/notices?'+queryString.stringify(req.body),
         }, req, res), function (error, response, body) {
             if (!error && response.statusCode == 201) {
-                res.redirect("/materialManage");
+                res.redirect("/noticeInfo");
             } else {
                 Base.handlerError(res, req, error, response, body);
             }
@@ -62,11 +61,12 @@ var InformationController = {
     },
     noticeDoDelete: function (req, res) {
         var id = req.params.nid;
+        console.log(req.params);
         request(Base.mergeRequestOptions({
-            method: 'delete',
-            url: '/api/'+type+'/departments/'+id,
+            method: 'put',
+            url: '/api/notices/'+id,
         }, req, res), function (error, response, body) {
-            if (!error && response.statusCode == 204) {
+            if (!error && response.statusCode == 201) {
                 res.sendStatus(200)
             } else {
                 Base.handlerError(res, req, error, response, body);
