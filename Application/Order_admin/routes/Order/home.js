@@ -964,4 +964,7 @@ router.put('/networkBook/doClose/:measureId', Middleware.AuthCheck, NetworkBookC
 var InstallserviceController = require('./Controller/InstallserviceController');
 // 待安装列表
 router.get('/installService', Middleware.AuthCheck,InstallserviceController.installServicePage);
+//指定安装组
+router.post('/installServiceTask/:tid/:did', Middleware.AuthCheck,InstallserviceController.getTask);
+
 module.exports = router;
