@@ -124,6 +124,17 @@ Date.prototype.format = function (fmt) {
 
 app.locals.DWY_Helper = {
 
+    // 判断是否可以循环,即判断是否是数组
+    isCanLoop:function(value){
+
+        if(typeof value == 'object' && value instanceof Array ){
+            return true;
+        }else{
+            return false;
+        }
+
+    },
+    
     //增加时间格式化工具
     getLocalDate: function (timestamp) {
         if (timestamp) {
