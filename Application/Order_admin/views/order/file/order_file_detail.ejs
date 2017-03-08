@@ -43,7 +43,6 @@
                                 <th>订单号:</th>
                                 <th>文件名:</th>
                                 <th>文件类型:</th>
-                                <th>增单/补单号:</th>
                                 <th>上传时间:</th>
                                 <th>上传柜员:</th>
                                 <th>备注:</th>
@@ -57,12 +56,11 @@
                                 <td><%= element.lid %></td>
                                 <td><%= element.tid  %></td>
                                 <td><%= element.fileName %></td>
-                                <td><%= DWY_Helper.getFileType(element.ordType) %></td>
-                                <td><%= element.resId  %></td>
-                                <td><%= DWY_Helper.getLocalDate(element.addTime) %></td>
-                                <td><%= element.gid %></td>
+                                <td><%= element.fileTypeDesc %></td>
+                                <td><%= element.addTime %></td>
+                                <td><%= element.uploadName %></td>
                                 <td><%= element.remark %></td>
-                                <td><a onclick="deleteFile(<%= element.id %>)">删除</a> <a href="<%= DWY_GLOBAL.Static %>/download?url=<%= element.savePath %>">下载</a></td>
+                                <td><a onclick="deleteFile(<%= element.id %>)">删除</a> <a href="<%= DWY_GLOBAL.Static %>/download?url=<%= element.filePath %>">下载</a></td>
                             </tr>
                             <% }) %>
 

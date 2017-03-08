@@ -266,12 +266,11 @@
                             <tr>
                                 <td><%= index + 1 %></td>
                                 <td>
-                                    <a href="<%= DWY_GLOBAL.Static %>/download?url=<%= element.savePath %>"><%= element.fileName %></a>
+                                    <a href="<%= DWY_GLOBAL.Static %>/download?url=<%= element.filePath %>"><%= element.fileName %></a>
                                 </td>
-                                <td><%= DWY_Helper.getAssistValByCode(element.type, allFileTypeInfo) %></td>
-
-                                <td><%= element.gid %></td>
-                                <td><%= DWY_Helper.getLocalDate(element.addTime) %></td>
+                                <td><%= element.fileTypeDesc %></td>
+                                <td><%= element.uploadName %></td>
+                                <td><%= element.addTime %></td>
                                 <td><%= element.remark %></td>
                             </tr>
                             <% }) %>
