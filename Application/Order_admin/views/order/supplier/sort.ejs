@@ -78,39 +78,38 @@
                             </thead>
                             <tbody>
                             <%
-                            if(suppliersCategoriesList.result && DWY_Helper.isCanLoop(suppliersCategoriesList.result)){
+                            if(DWY_Helper.isCanLoop(suppliersCategoriesList.result)){
                             suppliersCategoriesList.result.forEach(function (element, index) {%>
-                            <% if(element.parentId == 0){%>
-                                <tr class="level-0 <%= ( element.isDeleted == 2 )? 'close-info':'' %>">
-                                    <td><%= element.name %></td>
-                                    <td>
-                                        <% if(element.isDeleted == 2) {%>
-                                        <button class="label label-primary openSupplierSort" selfId="<%= element.id %>">启用</button>
+                                    <% if(element.parentId == 0){%>
+                                        <tr class="level-0 <%= ( element.isDeleted == 2 )? 'close-info':'' %>">
+                                            <td><%= element.name %></td>
+                                            <td>
+                                                <% if(element.isDeleted == 2) {%>
+                                                <button class="label label-primary openSupplierSort" selfId="<%= element.id %>">启用</button>
+                                                <% }else{%>
+                                                <a class="supplierChild-modal"  parent="<%= element.name %>" parentId="<%= element.id %>">新建子级</a>
+                                                <a class="supplierModify-modal" name="<%= element.name %>" selfId="<%= element.id %>">修改</a>
+                                                <button class="label label-danger delete-supplier" selfId="<%= element.id %>" id="closeStore">禁用</button>
+                                                <% } %>
+                                            </td>
+                                        </tr>
+                                    <%}else{%>
+                                        <tr class="level-1 <%= ( element.isDeleted == 2 )? 'close-info':'' %>">
+                                            <td class="level-1-title"><%= element.name %></td>
+                                            <td>
+                                                <% if(element.isDeleted == 2) {%>
+                                                <button class="label label-primary openSupplierSort" id="openStore" selfId="<%= element.id %>">启用</button>
 
-                                        <% }else{%>
-                                        <a class="supplierChild-modal"  parent="<%= element.name %>" parentId="<%= element.id %>">新建子级</a>
-                                        <a class="supplierModify-modal" name="<%= element.name %>" selfId="<%= element.id %>">修改</a>
-                                        <button class="label label-danger delete-supplier" selfId="<%= element.id %>" id="closeStore">禁用</button>
-                                        <% } %>
-                                    </td>
-                                </tr>
-                            <%}else{%>
-                                <tr class="level-1 <%= ( element.isDeleted == 2 )? 'close-info':'' %>">
-                                    <td class="level-1-title"><%= element.name %></td>
-                                    <td>
-                                        <% if(element.isDeleted == 2) {%>
-                                        <button class="label label-primary openSupplierSort" id="openStore" selfId="<%= element.id %>">启用</button>
-
-                                        <% }else{%>
-                                        <a class="supplierModify-modal" name="<%= element.name %>" selfId="<%= element.id %>">修改</a>
-                                        <button class="label label-danger delete-supplier" selfId="<%= element.id %>" id="closeStore">禁用</button>
-                                        <% } %>
-                                    </td>
-                                </tr>
-                            <%
-                            }})}else{%>
-                            <td colspan="7" class="text-align-center">暂无结果</td>
-                            <%}%>
+                                                <% }else{%>
+                                                <a class="supplierModify-modal" name="<%= element.name %>" selfId="<%= element.id %>">修改</a>
+                                                <button class="label label-danger delete-supplier" selfId="<%= element.id %>" id="closeStore">禁用</button>
+                                                <% } %>
+                                            </td>
+                                        </tr>
+                                    <%}
+                            })}else{%>
+                            <td colspan="2" class="text-align-center">暂无结果</td>
+                            <% }%>
                             </tbody>
                         </table>
                         <%- pagination %>

@@ -91,7 +91,7 @@
                     <div class="orderItemLayerTit">
                         <ul class="orderItemMenu">
                             <%
-                            if(purchaseRequestDetail.reqMaters && DWY_Helper.isCanLoop(purchaseRequestDetail.reqMaters)){
+                            if(DWY_Helper.isCanLoop(purchaseRequestDetail.reqMaters)){
                             purchaseRequestDetail.reqMaters.forEach(function (element, index) { %>
                             <li><%= element.mateName %></li>
                             <%
@@ -102,7 +102,7 @@
                     </div>
                     <div class="orderItemLayerTable">
                         <%
-                        if(purchaseRequestDetail.reqMaters && DWY_Helper.isCanLoop(purchaseRequestDetail.reqMaters)){
+                        if(DWY_Helper.isCanLoop(purchaseRequestDetail.reqMaters)){
                         purchaseRequestDetail.reqMaters.forEach(function (element, index) { %>
                         <table class="table table-bordered table-striped table-information" id="purchaseTable">
                             <tbody>
