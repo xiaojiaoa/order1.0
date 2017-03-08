@@ -47,7 +47,7 @@
                                     </thead>
                                     <tbody>
                                     <%
-                                    if(suppliersMaterialLists && DWY_Helper.isCanLoop(suppliersMaterialLists)){
+                                    if(DWY_Helper.isCanLoop(suppliersMaterialLists)){
                                     suppliersMaterialLists.forEach(function (element, index) { %>
                                     <tr>
                                         <td class="materialId<%= index %>"><%= element.id %></td>

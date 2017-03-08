@@ -48,9 +48,9 @@
                                         <div class="col-xs-8">
                                             <select class="form-control" name="typeId" >
                                                 <option value="">- 请选择 -</option>
-                                                <% noticeType.forEach(function(element,index){%>
+                                                <%  if(DWY_Helper.isCanLoop(noticeType)){noticeType.forEach(function(element,index){%>
                                                 <option value="<%= element.id　%>" <%= (DWYRequest.query.typeId == element.id)?"selected":"" %>> <%= element.name%></option>
-                                                <%})%>
+                                                <%})}%>
                                             </select>
                                         </div>
                                     </div>
@@ -91,7 +91,7 @@
                 <div class="col-xs-12">
                     <div class="col-xs-2"></div>
                     <div class="col-xs-8">
-                        <% if(noticeInfoList.totalItems!=0){
+                        <% if(DWY_Helper.isCanLoop(noticeInfoList.totalItems)){
                         noticeInfoList.result.forEach(function(element,index){%>
                         <dl class="dl-style01">
                             <dt>

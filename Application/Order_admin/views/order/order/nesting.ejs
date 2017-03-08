@@ -63,7 +63,7 @@
                             </thead>
                             <tbody>
                             <%
-                            if(scheduleList.result&& DWY_Helper.isCanLoop(scheduleList.result)){
+                            if(DWY_Helper.isCanLoop(scheduleList.result)){
                             scheduleList.result.forEach(function (element, index) { %>
                             <tr>
                                 <td>
@@ -142,17 +142,21 @@
                                         <div class="col-xs-3">
                                             <select class="form-control" name="productType">
                                                 <option value="">- 产品类型 -</option>
-                                                <% prodList.forEach(function (element) { %>
+                                                <%
+                                                if(DWY_Helper.isCanLoop(prodList)){
+                                                prodList.forEach(function (element) { %>
                                                 <option value="<%= element.id %>" <%= (DWYRequest.query.productType == element.id )?"selected":"" %> ><%= element.name %></option>
-                                                <% }) %>
+                                                <% }) }%>
                                             </select>
                                         </div>
                                         <div class="col-xs-3">
                                             <select class="form-control" name="color">
                                                 <option value="">- 颜色 -</option>
-                                                <% colorList.forEach(function (element) { %>
+                                                <%
+                                                if(DWY_Helper.isCanLoop(colorList)){
+                                                colorList.forEach(function (element) { %>
                                                 <option value="<%= element.id %>" <%= (DWYRequest.query.color == element.id )?"selected":"" %> ><%= element.name %></option>
-                                                <% }) %>
+                                                <% })} %>
                                             </select>
                                         </div>
                                     </div>
@@ -246,7 +250,7 @@
                         </thead>
                         <tbody>
                         <%
-                        if(scheduleAllList.result && DWY_Helper.isCanLoop(scheduleAllList.result)){
+                        if(DWY_Helper.isCanLoop(scheduleAllList.result)){
                         scheduleAllList.result.forEach(function (element, index) { %>
                         <tr>
                             <td>

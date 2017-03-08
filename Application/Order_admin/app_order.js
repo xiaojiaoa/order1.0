@@ -128,7 +128,7 @@ app.locals.DWY_Helper = {
     isCanLoop:function(value){
 
         if(typeof value == 'object' && value instanceof Array ){
-            return true;
+            return value.length>0 ? true : false;
         }else{
             return false;
         }
