@@ -42,10 +42,6 @@
                             <div class="col-xs-12">
 
                                 <!--输入字段-->
-                                <div class="col-xs-5">
-
-                                </div>
-
                                 <div class="col-xs-4">
                                     <div class="form-group">
                                         <label class="col-xs-4 control-label">公告类型:</label>
@@ -59,6 +55,11 @@
                                         </div>
                                     </div>
                                 </div>
+
+                            </div>
+                            <div class="col-xs-12">
+                                <hr class="simple">
+                                <div class="col-xs-5"></div>
                                 <div class="col-xs-1">
 
                                     <button class="btn btn-primary margin-left-10" type="submit">
@@ -74,8 +75,6 @@
                                         新建公告
                                     </a>
                                 </div>
-
-
                             </div>
                         </form>
                     </div>
@@ -111,6 +110,7 @@
                         <%})} else{%>
                         <dl class="text-align-center">暂无数据</dl>
                         <%}%>
+                        <%- pagination %>
                     </div>
                     <div class="col-xs-2"></div>
                 </div>
@@ -172,7 +172,7 @@
             <div class="col-xs-6">
                 <div class="form-group">
                     <div class="col-xs-8">
-                        <select class="form-control validate[required]" name="addrType" >
+                        <select class="form-control validate[required]  " name="addrType" >
                             <option value="-1">- 全部 -</option>
                             <% storeAttrType.forEach(function(element,index){%>
                             <option value="<%= element.id　%>"> <%= element.name%></option>

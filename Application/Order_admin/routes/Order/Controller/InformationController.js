@@ -19,18 +19,30 @@ var Permissions = require('../config/permission');
 
 var InformationController = {
     noticeInfoPage: function (req, res) {
-         Base.multiDataRequest(req, res, [
-             {url: '/api/notices/page', method: 'GET', resConfig: {keyName: 'noticeInfoList', is_must: true}},
-             {url: '/api/assist/notice/types', method: 'GET', resConfig: {keyName: 'noticeType', is_must: true}},
-             {url: '/api/assist/store/types', method: 'GET', resConfig: {keyName: 'storeType', is_must: true}},
-             {url: '/api/assist/store/addrTypes', method: 'GET', resConfig: {keyName: 'storeAttrType', is_must: true}},
-         ], function (req, res, resultList) {
-         var returnData = Base.mergeData(helper.mergeObject({
-         title: ' ',
-         },resultList));
-         res.render('order/information/notice_info',returnData);
-         });
-        //res.render('order/information/notice_info');
+        var paramObject = helper.genPaginationQuery(req);
+        Base.multiDataRequest(req, res, [
+            {url: '/api/notices/page', method: 'GET', resConfig: {keyName: 'noticeInfoList', is_must: true}},
+            {url: '/api/assist/notice/types', method: 'GET', resConfig: {keyName: 'noticeType', is_must: true}},
+            {url: '/api/assist/store/types', method: 'GET', resConfig: {keyName: 'storeType', is_must: true}},
+            {url: '/api/assist/store/addrTypes', method: 'GET', resConfig: {keyName: 'storeAttrType', is_must: true}},
+        ], function (req, res, resultList) {
+
+            var paginationInfo =  resultList.noticeInfoList;
+
+            var boostrapPaginator = new Pagination.TemplatePaginator(helper.genPageInfo({
+                prelink: paramObject.withoutPageNo,
+                current: paginationInfo.page,
+                rowsPerPage: paginationInfo.pageSize,
+                totalResult: paginationInfo.totalItems
+            }));
+
+            var returnData = Base.mergeData(helper.mergeObject({
+                title: ' ',
+                pagination: boostrapPaginator.render()
+            },resultList));
+            res.render('order/information/notice_info',returnData);
+        });
+        // res.render('order/information/notice_info');
     },
     noticeDoCreate: function (req, res) {
         console.log('公告信息创建'+ JSON.stringify(req.body));
@@ -75,20 +87,42 @@ var InformationController = {
     },
 
     fileInfoPage: function (req, res) {
-        /* var id = req.params.id;
-         console.log(id);
-         Base.multiDataRequest(req, res, [
-         {url: '/api/materials/attributes/'+id, method: 'GET', resConfig: {keyName: 'materialInfo', is_must: true}},
-         {url: '/api/assist/material/units', method: 'GET', resConfig: {keyName: 'units', is_must: true}},
-         {url: '/api/assist/package/types', method: 'GET', resConfig: {keyName: 'getPackageTypes', is_must: true}},
-         ], function (req, res, resultList) {
-         var returnData = Base.mergeData(helper.mergeObject({
-         title: ' ',
-         id:id,
-         },resultList));
-         res.render('order/material/material_create_second',returnData);
-         });*/
-        res.render('order/information/file_info');
+
+        var paramObject = helper.genPaginationQuery(req);
+        Base.multiDataRequest(req, res, [
+            {url: '/api/share/page', method: 'GET', resConfig: {keyName: 'fileInfoList', is_must: true}},
+        ], function (req, res, resultList) {
+
+            var paginationInfo =  resultList.fileInfoList;
+
+            var boostrapPaginator = new Pagination.TemplatePaginator(helper.genPageInfo({
+                prelink: paramObject.withoutPageNo,
+                current: paginationInfo.page,
+                rowsPerPage: paginationInfo.pageSize,
+                totalResult: paginationInfo.totalItems
+            }));
+
+            var returnData = Base.mergeData(helper.mergeObject({
+                title: ' ',
+                pagination: boostrapPaginator.render()
+            },resultList));
+            res.render('order/information/file_info',returnData);
+        });
+        // res.render('order/information/file_info');
+    },
+    fileDoCreate: function (req, res) {
+        console.log(req.body);
+        request(Base.mergeRequestOptions({
+            method: 'post',
+            url: '/api/share',
+            form:req.body,
+        }, req, res), function (error, response, body) {
+            if (!error && response.statusCode == 201) {
+                res.sendStatus(200);
+            } else {
+                Base.handlerError(res, req, error, response, body);
+            }
+        })
     },
 };
 

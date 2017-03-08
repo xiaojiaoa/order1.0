@@ -983,6 +983,8 @@ router.put('/noticeInfo/doDelete/:nid', Middleware.AuthCheck, InformationControl
 //资料信息详情页面
 router.get('/fileInfo', Middleware.AuthCheck, InformationController.fileInfoPage);
 
+//资料上传接口
+router.post('/api/notices', Middleware.AuthCheck, InformationController.fileDoCreate);
 
 
 

@@ -346,6 +346,7 @@
                 success: function (data) {
                     label.attr('disabled', false);
                     if (data.code == 200) {
+
                         var fileName = $('[name=fileName]').val(data.data.name);
                         var fileSize = $('[name=fileSize]').val(data.data.size);
                         var savePath = $('[name=savePath]').val(data.data.url);
