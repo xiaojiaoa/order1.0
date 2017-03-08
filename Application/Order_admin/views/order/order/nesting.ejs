@@ -63,7 +63,7 @@
                             </thead>
                             <tbody>
                             <%
-                            if(scheduleList.totalItems != 0  ){
+                            if(scheduleList.result&& DWY_Helper.isCanLoop(scheduleList.result)){
                             scheduleList.result.forEach(function (element, index) { %>
                             <tr>
                                 <td>
@@ -246,7 +246,7 @@
                         </thead>
                         <tbody>
                         <%
-                        if(scheduleAllList.totalItems != 0  ){
+                        if(scheduleAllList.result && DWY_Helper.isCanLoop(scheduleAllList.result)){
                         scheduleAllList.result.forEach(function (element, index) { %>
                         <tr>
                             <td>
