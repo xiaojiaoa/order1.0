@@ -13,6 +13,10 @@ router.get('/login', PassportController.loginPage);
 // 登录系统
 router.post('/login', PassportController.doLogin);
 
+// 退出登陆
+router.get('/logout', PassportController.doLogout);
+
+
 // 获取登录验证信息
 router.get('/validateInfo', PassportController.getLoginValidate);
 

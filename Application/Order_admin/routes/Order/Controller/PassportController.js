@@ -69,6 +69,12 @@ var PassportController = {
                 Base.handlerError(res, req, error, response, body);
             }
         });
+    },
+
+    // 退出登陆
+    doLogout:function(req,res,next){
+        req.session.auth = null;
+        res.redirect('/')
     }
 };
 

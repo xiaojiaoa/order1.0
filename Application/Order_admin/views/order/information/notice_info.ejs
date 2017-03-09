@@ -1,0 +1,381 @@
+<%- include('../layouts/head_top'); %>
+<%- include('../layouts/head_bottom'); %>
+<%- include('../layouts/header'); %>
+<%- include('../layouts/nav'); %>
+
+
+<!-- MAIN PANEL -->
+<div id="main" role="main">
+
+    <!-- RIBBON -->
+    <div id="ribbon">
+
+        <!-- breadcrumb -->
+        <ol class="breadcrumb">
+            <li>个人中心</li>
+            <li>公告信息</li>
+        </ol>
+
+
+    </div>
+    <!-- END RIBBON -->
+
+
+    <!-- MAIN CONTENT -->
+    <div id="content">
+
+        <div class="row-url">
+            <a class="title-url active" href="/noticeInfo">公告信息</a>
+            <a class="title-url" href="/fileInfo">资料信息</a>
+        </div>
+        <!-- well -->
+        <div class="well">
+            <!-- row -->
+            <div class="row">
+                <!-- col -->
+                <div class="col-xs-12">
+                    <!--<legend>客户搜索</legend>-->
+                    <!-- row -->
+                    <div class="row search-form">
+                        <form class="form-horizontal" method="get" id="">
+
+                            <div class="col-xs-12">
+
+                                <!--输入字段-->
+                                <div class="col-xs-4">
+                                    <div class="form-group">
+                                        <label class="col-xs-4 control-label">公告类型:</label>
+                                        <div class="col-xs-8">
+                                            <select class="form-control" name="typeId" >
+                                                <option value="">- 请选择 -</option>
+                                                <%  if(DWY_Helper.isCanLoop(noticeType)){noticeType.forEach(function(element,index){%>
+                                                <option value="<%= element.id　%>" <%= (DWYRequest.query.typeId == element.id)?"selected":"" %>> <%= element.name%></option>
+                                                <%})}%>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="col-xs-12">
+                                <hr class="simple">
+                                <div class="col-xs-5"></div>
+                                <div class="col-xs-1">
+                                    <input type="hidden" name="pageSize" value="5"/>
+                                    <button class="btn btn-primary margin-left-10" type="submit">
+                                        <i class="fa fa-search"></i>
+                                        查询
+                                    </button>
+
+
+                                </div>
+                                <div class="col-xs-2">
+
+                                    <a class="btn btn-primary margin-left-10 create-noticeInfo" >
+                                        新建公告
+                                    </a>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <!-- end row -->
+                </div>
+                <!-- end col -->
+            </div>
+            <!-- end row -->
+        </div>
+        <!-- end well -->
+        <!--well-->
+        <div class="well">
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="col-xs-2"></div>
+                    <div class="col-xs-8">
+                        <% if(DWY_Helper.isCanLoop(noticeInfoList.totalItems)){
+                        noticeInfoList.result.forEach(function(element,index){%>
+                        <dl class="dl-style01">
+                            <dt>
+                                <%= element.title%>
+                                <a class="margin-left-78  modify-noticeInfo" selfId="<%= element.id%>" title="<%= element.title%>" typeId="<%= element.typeId%>" storeType="<%= element.storeType%>" addrType="<%= element.addrType%>" content="<%= element.content%>">修改</a>
+                                <a class="margin-left-20 txt-color-red delete-noticeInfo" selfId="<%= element.id%>">删除</a>
+                            </dt>
+                            <dd class="dl-title">
+                                <span>发表人<i></i><%= element.empName%></span>
+                                <span>日期<i></i><%= DWY_Helper.getLocalDateYMD(element.addTime)%></span>
+                                <span>公告类型<i></i><%= element.typeName%></span></dd>
+                            <dd class="dl-content">
+                                <%= element.content%>
+                            </dd>
+                        </dl>
+                        <%})} else{%>
+                        <dl class="text-align-center">暂无数据</dl>
+                        <%}%>
+                        <%- pagination %>
+                    </div>
+                    <div class="col-xs-2"></div>
+                </div>
+            </div>
+        </div>
+        <!--end well-->
+    </div>
+    <!-- END MAIN CONTENT -->
+
+</div>
+<!-- END MAIN PANEL -->
+
+<%- include('../layouts/footer'); %>
+<%- include('../layouts/footer_common_script'); %>
+<!--新建公告信息-->
+<form class="form-horizontal  layer-template" method="post" id="create-noticeInfo-form" action="/noticeInfo/doCreate">
+
+    <div class="row" style="padding: 30px 40px 0 0;">
+
+        <div class="col-xs-12">
+            <div class="col-xs-6">
+                <div class="form-group">
+                    <label class="col-xs-4 control-label" id="whiceName"><span class="requird"></span> 标题:</label>
+                    <div class="col-xs-8">
+                        <input class="form-control validate[required]"
+                               value="" name="title" id="">
+                    </div>
+                </div>
+            </div>
+                <div class="col-xs-6">
+                    <div class="form-group">
+                        <label class="col-xs-4 control-label"><span class="requird"></span>公告类型:</label>
+                        <div class="col-xs-8">
+                            <select class="form-control validate[required]" name="typeId" >
+                                <option value="">- 请选择 -</option>
+                                <% noticeType.forEach(function(element,index){%>
+                                <option value="<%= element.id%>"> <%= element.name%></option>
+                                <%})%>
+                            </select>
+                        </div>
+                    </div>
+            </div>
+
+        </div>
+        <div class="col-xs-12">
+            <div class="col-xs-6">
+                <div class="form-group">
+                    <label class="col-xs-4 control-label"><span class="requird"></span> 发布范围:</label>
+                    <div class="col-xs-8">
+                        <select class="form-control validate[required]" name="storeType" >
+                            <option value="-1">- 全部 -</option>
+                            <% storeType.forEach(function(element,index){%>
+                            <option value="<%= element.id　%>"> <%= element.name%></option>
+                            <%})%>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-6">
+                <div class="form-group">
+                    <div class="col-xs-8">
+                        <select class="form-control validate[required]  " name="addrType" >
+                            <option value="-1">- 全部 -</option>
+                            <% storeAttrType.forEach(function(element,index){%>
+                            <option value="<%= element.id　%>"> <%= element.name%></option>
+                            <%})%>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-xs-12">
+            <div class="col-xs-12">
+                <div class="form-group">
+                    <label class="col-xs-2 control-label"><span class="requird"></span> 内容:</label>
+                    <div class="col-xs-10">
+                        <textarea rows="10" cols="30" class="form-control validate[required]" name="content"></textarea>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="row">
+        <div class="col-xs-12">
+            <hr class="simple">
+            <div class="col-xs-12 text-center">
+                <button class="btn btn-primary  margin-right-5" type="submit">
+                    <i class="fa fa-save"></i>
+                    提交
+                </button>
+            </div>
+        </div>
+    </div>
+    <div class="dwy-clear"></div>
+</form>
+<!--END 新建公告信息-->
+
+<!--修改公告信息-->
+<form class="form-horizontal  layer-template" method="post" id="modify-noticeInfo-form" action="/noticeInfo/doModify">
+
+    <div class="row" style="padding: 30px 40px 0 0;">
+
+        <div class="col-xs-12">
+            <div class="col-xs-6">
+                <div class="form-group">
+                    <label class="col-xs-4 control-label" id="whiceName"><span class="requird"></span> 标题:</label>
+                    <div class="col-xs-8">
+                        <input class="form-control validate[required]"
+                               value="" name="title" id="title">
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-6">
+                <div class="form-group">
+                    <label class="col-xs-4 control-label"><span class="requird"></span>公告类型:</label>
+                    <div class="col-xs-8">
+                        <select class="form-control validate[required]" name="typeId" id="typeId">
+                            <option value="">- 请选择 -</option>
+                            <% noticeType.forEach(function(element,index){%>
+                            <option value="<%= element.id%>"> <%= element.name%></option>
+                            <%})%>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div class="col-xs-12">
+            <div class="col-xs-6">
+                <div class="form-group">
+                    <label class="col-xs-4 control-label"><span class="requird"></span> 发布范围:</label>
+                    <div class="col-xs-8">
+                        <select class="form-control validate[required]" name="storeType"  id="storeType">
+                            <option value="-1">- 全部 -</option>
+                            <% storeType.forEach(function(element,index){%>
+                            <option value="<%= element.id　%>"> <%= element.name%></option>
+                            <%})%>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-6">
+                <div class="form-group">
+                    <div class="col-xs-8">
+                        <select class="form-control validate[required]" name="addrType" id="addrType">
+                            <option value="-1">- 全部 -</option>
+                            <% storeAttrType.forEach(function(element,index){%>
+                            <option value="<%= element.id　%>"> <%= element.name%></option>
+                            <%})%>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-xs-12">
+            <div class="col-xs-12">
+                <div class="form-group">
+                    <label class="col-xs-2 control-label"><span class="requird"></span> 内容:</label>
+                    <div class="col-xs-10">
+                        <textarea rows="10" cols="30" class="form-control validate[required]" name="content" id="noticeContent"></textarea>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+     <input type="hidden" name="id" id="id" value=""/>
+     <div class="row">
+        <div class="col-xs-12">
+            <hr class="simple">
+            <div class="col-xs-12 text-center">
+                <button class="btn btn-primary  margin-right-5" type="submit">
+                    <i class="fa fa-save"></i>
+                    提交
+                </button>
+            </div>
+        </div>
+    </div>
+    <div class="dwy-clear"></div>
+</form>
+<!--END 修改公告信息-->
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+        pageSetUp();
+        var pageFunction = function () {
+        }
+        pageFunction();
+
+        //表单初始验证
+        $("#create-noticeInfo-form").validationEngine();
+        $("#modify-noticeInfo-form").validationEngine();
+
+
+        //新建公告信息
+        $(".create-noticeInfo").on({
+            click: function () {
+                layer.open({
+                    title:"",
+                    type: 1,
+                    area: '800px',
+                    content: $('#create-noticeInfo-form'),
+                    cancel: function () {
+                        //右上角关闭回调
+                    },
+                });
+            }
+        })
+        //修改公告信息提交数据接口
+        $(".modify-noticeInfo ").on({
+            click: function () {
+
+                //获取当前点击公告的信息
+                var noticeId = $(this).attr('selfId');
+                var title = $(this).attr('title');
+                var typeId = $(this).attr('typeId');
+                var storeType = $(this).attr('storeType');
+                var addrType = $(this).attr('addrType');
+                var content = $(this).attr('content');
+
+                //将获取的信息写入表格中
+                $('#id').val(noticeId);
+                $("#title").val(title);
+                $("#typeId").val(typeId);
+                $("#storeType").val(storeType);
+                $("#addrType").val(addrType);
+                $("#noticeContent").val(content);
+
+                layer.open({
+                    title:"",
+                    type: 1,
+                    area: '800px',
+                    content: $('#modify-noticeInfo-form'),
+                    cancel: function () {
+                        //右上角关闭回调
+                    },
+                });
+            }
+        })
+        //删除公告信息
+        $(".delete-noticeInfo").on({
+            click: function () {
+                var id = $(this).attr('selfId');
+                console.log(id);
+                layer.confirm('确认删除?',{icon: 3, title:'提示'},
+                    function(index){
+                        $.ajax({
+                            url: '/noticeInfo/doDelete/'+id,
+                            method: 'put',
+                            success: function (data) {
+                                window.location.reload();
+                            }
+                        });
+                    },
+                    function(index){layer.close(index)})
+            }
+        })
+    })
+
+</script>
+
+
+<%- include('../layouts/foot'); %>

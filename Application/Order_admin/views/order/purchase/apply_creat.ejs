@@ -54,7 +54,7 @@
                                             <select class="form-control" name="stairCatId">
                                                 <option value="">- 请选择 -</option>
                                                 <%
-                                                if(suppliersMaterialList){
+                                                if(DWY_Helper.isCanLoop(suppliersMaterialList)){
                                                 suppliersMaterialList.forEach(function (element, index) { %>
                                                 <option value="<%= element.id %>" <%= (DWYRequest.query.stairCatId == element.id)?"selected":"" %>>
                                                     <%= element.name %>
@@ -118,7 +118,7 @@
                         <tbody>
 
                         <%
-                        if(supMaterialList.result){
+                        if(DWY_Helper.isCanLoop(supMaterialList.result)){
                         supMaterialList.result.forEach(function (element, index) { %>
                         <tr>
                             <td>

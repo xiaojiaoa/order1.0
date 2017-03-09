@@ -36,7 +36,7 @@
                                     <select class="form-control validate[required]"  id="supSortId">
                                         <option value="">- 请选择 -</option>
                                         <%
-                                        if(supplierParentSort){
+                                        if(supplierParentSort && DWY_Helper.isCanLoop(supplierParentSort)){
                                         supplierParentSort.forEach(function (element) { %>
                                         <option value="<%= element.id %>"  >
                                             <%= element.name %>

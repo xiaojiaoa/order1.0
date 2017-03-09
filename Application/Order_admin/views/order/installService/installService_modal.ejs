@@ -15,7 +15,7 @@
         </div>
     </div>
     <div class="col-xs-12 text-center margin-top-10">
-        <a class="btn btn-primary margin-top-10" id="btnCreateDate">确认指定</a>
+        <a class="btn btn-primary margin-top-10" id="confirmAssign">确认指定</a>
     </div>
 </form>
 
@@ -25,7 +25,7 @@
         $(".fg-date-picker").flatpickr(data_time_picker.data_picker); // jQuery
         $("#assignInstallGroup").validationEngine({scroll: false});
 
-        $("#btnCreateDate").on({
+        $("#confirmAssign").on({
             click:function(){
                 var tid=$("input[name=oid]").val();
                 var did=$(".selectInstallGroup").val();

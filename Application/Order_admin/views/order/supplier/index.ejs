@@ -97,7 +97,7 @@
                             </thead>
                             <tbody>
                             <%
-                            if(suppliersList.result&&suppliersList.result.length>0){
+                            if(DWY_Helper.isCanLoop(suppliersList.result)){
                                 suppliersList.result.forEach(function (element, index) { %>
                             <tr class="<%= ( element.isDeleted == 2 )? 'close-info':'' %>">
                                 <td><%= index+1 %></td>
@@ -122,7 +122,7 @@
                                 </td>
                                 <%
                                 })}else{%>
-                                <td colspan="7" class="text-align-center">暂无结果</td>
+                                <td colspan="10" class="text-align-center">暂无结果</td>
                                 <% }%>
                             </tr>
                             </tbody>

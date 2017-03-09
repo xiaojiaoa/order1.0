@@ -42,10 +42,7 @@ var FileController = {
         var stcode = req.params.stcode;
         Base.multiDataRequest(req, res, [
                 {url: '/api/assist/orderfile/type?type='+stcode, method: 'GET', resConfig: {keyName: 'fileTypeInfo', is_must: true}},
-                // {url: '/api/assist/order/spaceinfo?pid=0', method: 'GET', resConfig: {keyName: 'spaceInfo', is_must: true}},
-                {url: '/api/order/file/'+ lid+"?ordType="+ordType+"&tid="+tid, method: 'GET', resConfig: {keyName: 'fileInfo', is_must: false}},
-                // {url: '/api/assist/order/spaceinfo', method: 'GET', resConfig: {keyName: 'allSpaceInfo', is_must: true}},
-                {url: '/api/assist/orderfile/type', method: 'GET', resConfig: {keyName: 'allFileTypeInfo', is_must: true}}
+                {url: '/api/order/file/'+ lid+"?ordType="+ordType+"&tid="+tid, method: 'GET', resConfig: {keyName: 'fileInfo', is_must: false}}
             ],
             function (req, res, resultList) {
                 var returnData = Base.mergeData(helper.mergeObject({

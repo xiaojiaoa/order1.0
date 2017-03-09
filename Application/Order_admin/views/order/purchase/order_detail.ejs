@@ -70,7 +70,7 @@
                             </thead>
                             <tbody>
                             <%
-                            if(purchaseOrderList.reqMaters){
+                            if(DWY_Helper.isCanLoop(purchaseOrderList.reqMaters)){
                             purchaseOrderList.reqMaters.forEach(function (element, index) { %>
                             <tr>
                                 <td>

@@ -53,7 +53,6 @@ var OrderController = {
                 {url: '/api/orders/statusInfo/'+tid, method: 'GET', resConfig: {keyName: 'orderStatusInfo', is_must: false}},
                 {url: '/api/assist/order/stcodes', method: 'GET', resConfig: {keyName: 'stcodeInfo', is_must: false}},
                 {url: '/api/assist/deco/style' , method: 'GET', resConfig: {keyName: 'styleInfo', is_must: true}},
-                {url: '/api/assist/orderfile/type', method: 'GET', resConfig: {keyName: 'allFileTypeInfo', is_must: true}},
                 {url: '/api/assist/review/reson', method: 'GET', resConfig: {keyName: 'resonList', is_must: true}},
                 {url: '/api/assist/order/difficulty', method: 'GET', resConfig: {keyName: 'difficultyList', is_must: true}},
                 {url: '/api/cofficient', method: 'GET', resConfig: {keyName: 'cofficientInfo', is_must: true}},
@@ -749,10 +748,23 @@ console.log('resupplyReason222',JSON.stringify(resupplyLeveTwo))
         })
     },
     unpacket:function(req,res){
-        var tid=req.params.titleid;
+        var tid=req.params.tid;
         request(Base.mergeRequestOptions({
             method: 'put',
             url: '/api/orders/package/unpacket/'+tid,
+        }, req, res), function (error, response, body) {
+            if (!error && response.statusCode == 200) {
+                res.sendStatus(200);
+            } else {
+                Base.handlerError(res, req, error, response, body);
+            }
+        })
+    },
+    doPacket:function(req,res){
+        var tid=req.params.tid;
+        request(Base.mergeRequestOptions({
+            method: 'put',
+            url: '/api/orders/package/packet/'+tid,
         }, req, res), function (error, response, body) {
             if (!error && response.statusCode == 200) {
                 res.sendStatus(200);
