@@ -37,189 +37,79 @@
 
                             <div class="col-xs-12">
 
-                                <div class="col-xs-3">
+                                <div class="col-xs-4">
                                     <div class="form-group">
-                                        <label class="col-xs-4 control-label">许可状态:</label>
+                                        <label class="col-xs-3 control-label">专卖店名称:</label>
                                         <div class="col-xs-8">
-                                            <select class="form-control" name="">
-                                                <option value="1">审核未加急</option>
-                                                <option value="2">审核加急</option>
-                                                <option value="3">拆单未许可</option>
-                                                <option value="4">拆单许可</option>
-                                                <option value="5">拆单加急</option>
-                                                <option value="6">排产未定</option>
-                                                <option value="7">排产暂缓</option>
-                                                <option value="8">排产许可</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="col-xs-3">
-                                    <div class="form-group">
-                                        <label class="col-xs-4 control-label">客户名:</label>
-                                        <div class="col-xs-8">
-                                            <input class="form-control"  value="" type="text"
-                                                   name="mobile">
+                                            <input class="form-control"  value="<%= DWYRequest.query.storeName %>"
+                                                   name="storeName">
                                         </div>
                                     </div>
                                 </div>
 
                                 <div class="col-xs-6">
                                     <div class="form-group">
-                                        <label class="col-xs-1">&nbsp;</label>
-                                        <div class="col-xs-4">
-                                            <select class="form-control" name="">
-                                                <option value="1">收款确认日期</option>
-                                                <option value="2">约定交付日期</option>
-                                            </select>
-                                        </div>
                                         <div class="col-xs-3">
-                                            <input class="form-control fg-date-picker" type="text"
-                                                   value="" name="startDate" readonly="readonly">
-                                        </div>
-                                        <label class="control-label " style="float: left"> 至 </label>
-                                        <div class="col-xs-3">
-                                            <input class="form-control fg-date-picker" type="text"
-                                                   value="" name="endDate" readonly="readonly">
-                                        </div>
-                                    </div>
-                                </div>
-
-
-                            </div>
-
-                            <div class="col-xs-12">
-
-                                <div class="col-xs-3">
-                                    <div class="form-group">
-                                        <label class="col-xs-4 control-label">客户号:</label>
-                                        <div class="col-xs-8">
-                                            <input class="form-control" value="" type="text"
-                                                   name="">
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="col-xs-3">
-                                    <div class="form-group">
-                                        <label class="col-xs-4 control-label">订单号:</label>
-                                        <div class="col-xs-8">
-                                            <input class="form-control"  value="" type="text"
-                                                   name="mobile">
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="col-xs-6">
-                                    <div class="form-group">
-                                        <label class="col-xs-1">&nbsp;</label>
-                                        <div class="col-xs-3">
-                                            <select class="form-control" name="">
+                                            <select class="form-control" name="brandId">
                                                 <option value="">- 品牌 -</option>
+                                                <% brandinfoList.forEach(function (element) {  %>
+                                                <option value="<%= element.id %>" <%= (DWYRequest.query.brandId == element.id)?"selected":"" %>>
+                                                    <%= element.name %>
+                                                </option>
+                                                <% }) %>
                                             </select>
                                         </div>
                                         <div class="col-xs-3">
-                                            <select class="form-control" name="">
-                                                <option value="">- 厂区 -</option>
-                                            </select>
-                                        </div>
-                                        <div class="col-xs-3">
-                                            <select class="form-control" name="">
-                                                <option value="">- 颜色 -</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="col-xs-12">
-                                <div class="col-xs-3">
-                                    <div class="form-group">
-                                        <label class="col-xs-4 control-label">产品信息:</label>
-                                        <div class="col-xs-8">
-                                            <input class="form-control"  value="" type="text"
-                                                   name="mobile">
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="col-xs-3">
-                                    <div class="form-group">
-                                        <label class="col-xs-4 control-label">店名:</label>
-                                        <div class="col-xs-8">
-                                            <input class="form-control"  value="" type="text"
-                                                   name="mobile">
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="col-xs-6">
-                                    <div class="form-group">
-                                        <label class="col-xs-1">&nbsp;</label>
-                                        <div class="col-xs-3">
-                                            <select class="form-control" name="">
-                                                <option value="">- 类型 -</option>
-                                            </select>
-                                        </div>
-                                        <div class="col-xs-3">
-                                            <select class="form-control" name="">
+                                            <select class="form-control" name="difficulty">
                                                 <option value="">- 难度 -</option>
+                                                <% difficultyList.forEach(function (element) {  %>
+                                                <option value="<%= element.id %>" <%= (DWYRequest.query.difficulty == element.id)?"selected":"" %>>
+                                                    <%= element.name %>
+                                                </option>
+                                                <% }) %>
                                             </select>
                                         </div>
                                         <div class="col-xs-3">
-                                            <select class="form-control" name="">
-                                                <option value="">- 是否下单完毕 -</option>
+                                            <select class="form-control" name="productType">
+                                                <option value="">- 类型 -</option>
+                                                <% prodList.forEach(function (element) {  %>
+                                                <option value="<%= element.id %>" <%= (DWYRequest.query.productType == element.id)?"selected":"" %>>
+                                                    <%= element.name %>
+                                                </option>
+                                                <% }) %>
                                             </select>
                                         </div>
                                     </div>
                                 </div>
-
-
                             </div>
 
                             <div class="col-xs-12">
-                                <div class="col-xs-3">
-                                    <div class="form-group">
-                                        <label class="col-xs-4 control-label">交付类型:</label>
-                                        <div class="col-xs-8">
-                                            <select class="form-control" name="">
-                                                <option value="">- 交付类型 -</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                </div>
 
                                 <div class="col-xs-6">
+
                                     <div class="form-group">
-                                        <label class="col-xs-2 control-label">最慢订单状态:</label>
+                                        <label class="col-xs-3 control-label">&nbsp;提交日期:</label>
                                         <div class="col-xs-4">
-                                            <select class="form-control" name="">
-                                                <option value="">- 请选择 -</option>
-                                            </select>
+                                            <input class="form-control fg-date-picker" type="text"
+                                                   value="<%= DWYRequest.query.startTime %>" name="startTime">
                                         </div>
                                         <label class="control-label " style="float: left"> 至 </label>
                                         <div class="col-xs-4">
-                                            <select class="form-control" name="">
-                                                <option value="">- 请选择 -</option>
-                                            </select>
+                                            <input class="form-control fg-date-picker" type="text"
+                                                   value="<%= DWYRequest.query.endTime %>" name="endTime">
                                         </div>
                                     </div>
                                 </div>
 
                             </div>
-
-
-
-
 
 
                             <div class="col-xs-12">
                                 <hr class="simple">
                                 <div class="col-xs-12 text-center">
                                     <button class="btn btn-primary " type="submit">
-                                        <i class="fa fa-save"></i>
-                                        确认
+                                        <i class="fa fa-search"></i>
+                                        查询
                                     </button>
                                 </div>
                             </div>
@@ -320,7 +210,7 @@
             <div class="col-xs-8 form-horizontal">
                 <label class="col-xs-2 control-label "> 将选中订单难度设置为: </label>
                 <div class="col-xs-3">
-                    <select class="form-control" name="difficulty">
+                    <select class="form-control" name="difficulty" id="difficultyCode" >
                         <option value="">- 请选择 -</option>
                         <% difficultyList.forEach(function (element) {  %>
                         <option value="<%= element.id %>"><%= element.name %></option>
@@ -375,7 +265,10 @@
         $('#submitDifficulty').click(function () {
             var tids = checkedValue.attr('class');
             tids = tids.substring(0,tids.length-1);
-            var difficulty = $('select[name=difficulty]').val();
+            tids = tids.replace(/\s/g,"");
+            var difficulty = $('#difficultyCode').val();
+            console.log(difficulty);
+            console.log(tids);
             if(!tids){
                 layer.msg('请先选择订单', {icon: 2, time: 2000});
                 return;
