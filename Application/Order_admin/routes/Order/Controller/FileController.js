@@ -136,7 +136,7 @@ var FileController = {
                 if(pid){
                     res.redirect("/file/resupply/create/"+lid+"/"+stcode+"/"+tid+"/"+pid+"/"+ordType);
                 }else{
-                    res.redirect("/file/order/create/"+lid+"/"+stcode+"/"+tid+"/"+ordType);
+                    res.redirect("/file/order/create/"+lid+"/"+stcode+"/"+ordType+"/"+tid);
                 }
             } else {
                 Base.handlerError(res, req, error, response, body);

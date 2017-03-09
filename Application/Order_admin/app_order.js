@@ -315,6 +315,21 @@ app.locals.DWY_Helper = {
         return code;
     },
 
+    //柜员状态
+    getEmployeeStatus: function (code) {
+        if(code == 0){ return "锁定"}
+        if (code) {
+
+            if (code == "1") {
+                return "开启"
+            }
+            if (code == "2") {
+                return "关闭"
+            }
+        }
+        return code;
+    },
+
     //checkbox 状态判断  code为[{},{}]
     checkboxStatus: function (code, option) {
         if (option && code) {

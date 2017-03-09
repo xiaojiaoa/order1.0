@@ -249,38 +249,38 @@ var OrderController = {
         })
 
     },
-    getTaskReApart: function (req, res) {
-        var tid = req.params.tid;
-        request(Base.mergeRequestOptions({
-            method: 'put',
-            url: '/api/orders/resupply/apart/getTask?tid='+tid,
-        }, req, res), function (error, response, body) {
-            if (!error && response.statusCode == 201) {
-                res.sendStatus(200);
-            } else {
-                Base.handlerError(res, req, error, response, body);
-            }
-        })
-
-    },
-    doUnlockReApart: function (req, res) {
-        var tid = req.params.tid;
-        request(Base.mergeRequestOptions({
-            method: 'put',
-            url: '/api/orders/resupply/apart/unlock?tid='+tid,
-        }, req, res), function (error, response, body) {
-            if (!error && response.statusCode == 201) {
-                res.sendStatus(200);
-            } else {
-                Base.handlerError(res, req, error, response, body);
-            }
-        })
-
-    },
+    // getTaskReApart: function (req, res) {
+    //     var tid = req.params.tid;
+    //     request(Base.mergeRequestOptions({
+    //         method: 'put',
+    //         url: '/api/orders/apart/getTask/'+tid,
+    //     }, req, res), function (error, response, body) {
+    //         if (!error && response.statusCode == 201) {
+    //             res.sendStatus(200);
+    //         } else {
+    //             Base.handlerError(res, req, error, response, body);
+    //         }
+    //     })
+    //
+    // },
+    // doUnlockReApart: function (req, res) {
+    //     var tid = req.params.tid;
+    //     request(Base.mergeRequestOptions({
+    //         method: 'put',
+    //         url: '/api/orders/resupply/apart/unlock?tid='+tid,
+    //     }, req, res), function (error, response, body) {
+    //         if (!error && response.statusCode == 201) {
+    //             res.sendStatus(200);
+    //         } else {
+    //             Base.handlerError(res, req, error, response, body);
+    //         }
+    //     })
+    //
+    // },
     notPassReApart: function (req, res) {
         request(Base.mergeRequestOptions({
             method: 'put',
-            url: '/api/orders/resupply/apart/notPass?'+queryString.stringify(req.body),
+            url: '/api/orders/apart/notPass?'+queryString.stringify(req.body),
         }, req, res), function (error, response, body) {
             if (!error && response.statusCode == 201) {
                 res.redirect("/orders/resupplys/accept");
@@ -290,25 +290,25 @@ var OrderController = {
         })
 
     },
-    doPassReApart: function (req, res) {
-        var tid = req.params.tid;
-        request(Base.mergeRequestOptions({
-            method: 'put',
-            url: '/api/orders/resupply/apart/pass?tid='+tid,
-        }, req, res), function (error, response, body) {
-            if (!error && response.statusCode == 201) {
-                res.sendStatus(200);
-            } else {
-                Base.handlerError(res, req, error, response, body);
-            }
-        })
-
-    },
+    // doPassReApart: function (req, res) {
+    //     var tid = req.params.tid;
+    //     request(Base.mergeRequestOptions({
+    //         method: 'put',
+    //         url: '/api/orders/resupply/apart/pass?tid='+tid,
+    //     }, req, res), function (error, response, body) {
+    //         if (!error && response.statusCode == 201) {
+    //             res.sendStatus(200);
+    //         } else {
+    //             Base.handlerError(res, req, error, response, body);
+    //         }
+    //     })
+    //
+    // },
     apartCheckPage: function (req, res) {
         var paramObject = helper.genPaginationQuery(req);
         Base.multiDataRequest(req, res, [
-            {url: '/api/orders/resupply/apartReview/gid', method: 'GET', resConfig: {keyName: 'apartReviewingList', is_must: true}},
-            {url: '/api/orders/resupply/apartReview?'+ (queryString.stringify(req.query)), method: 'GET', resConfig: {keyName: 'apartReviewList', is_must: true}},
+            {url: '/api/orders/apartReview/gid?orderType=20', method: 'GET', resConfig: {keyName: 'apartReviewingList', is_must: true}},
+            {url: '/api/orders/apartReview?orderType=20&'+ (queryString.stringify(req.query)), method: 'GET', resConfig: {keyName: 'apartReviewList', is_must: true}},
             {url: '/api/assist/brandinfo' , method: 'GET', resConfig: {keyName: 'brandInfo', is_must: true}},
             {url: '/api/assist/space/prod?spaceId=10', method: 'GET', resConfig: {keyName: 'prodList', is_must: true}},
             {url: '/api/assist/order/difficulty', method: 'GET', resConfig: {keyName: 'difficultyList', is_must: true}},
@@ -341,38 +341,38 @@ var OrderController = {
             res.render('order/order/resupplys_apart_check', returnData);
         });
     },
-    getTaskCheckReApart: function (req, res) {
-        var tid = req.params.tid;
-        request(Base.mergeRequestOptions({
-            method: 'put',
-            url: '/api/orders/resupply/apartReview/getTask?tid='+tid,
-        }, req, res), function (error, response, body) {
-            if (!error && response.statusCode == 201) {
-                res.sendStatus(200);
-            } else {
-                Base.handlerError(res, req, error, response, body);
-            }
-        })
-
-    },
-    doUnlockCheckReApart: function (req, res) {
-        var tid = req.params.tid;
-        request(Base.mergeRequestOptions({
-            method: 'put',
-            url: '/api/orders/resupply/apartReview/unlock?tid='+tid,
-        }, req, res), function (error, response, body) {
-            if (!error && response.statusCode == 201) {
-                res.sendStatus(200);
-            } else {
-                Base.handlerError(res, req, error, response, body);
-            }
-        })
-
-    },
+    // getTaskCheckReApart: function (req, res) {
+    //     var tid = req.params.tid;
+    //     request(Base.mergeRequestOptions({
+    //         method: 'put',
+    //         url: '/api/orders/resupply/apartReview/getTask?tid='+tid,
+    //     }, req, res), function (error, response, body) {
+    //         if (!error && response.statusCode == 201) {
+    //             res.sendStatus(200);
+    //         } else {
+    //             Base.handlerError(res, req, error, response, body);
+    //         }
+    //     })
+    //
+    // },
+    // doUnlockCheckReApart: function (req, res) {
+    //     var tid = req.params.tid;
+    //     request(Base.mergeRequestOptions({
+    //         method: 'put',
+    //         url: '/api/orders/resupply/apartReview/unlock?tid='+tid,
+    //     }, req, res), function (error, response, body) {
+    //         if (!error && response.statusCode == 201) {
+    //             res.sendStatus(200);
+    //         } else {
+    //             Base.handlerError(res, req, error, response, body);
+    //         }
+    //     })
+    //
+    // },
     notPassCheckReApart: function (req, res) {
         request(Base.mergeRequestOptions({
             method: 'put',
-            url: '/api/orders/resupply/apartReview/notPass?'+queryString.stringify(req.body),
+            url: '/api/orders/apartReview/notPass?'+queryString.stringify(req.body),
         }, req, res), function (error, response, body) {
             if (!error && response.statusCode == 201) {
                 res.redirect("/orders/resupplys/apartCheck");
@@ -380,27 +380,26 @@ var OrderController = {
                 Base.handlerError(res, req, error, response, body);
             }
         })
-
     },
-    doPassCheckReApart: function (req, res) {
-        var tid = req.params.tid;
-        request(Base.mergeRequestOptions({
-            method: 'put',
-            url: '/api/orders/resupply/apartReview/pass?tid='+tid,
-        }, req, res), function (error, response, body) {
-            if (!error && response.statusCode == 201) {
-                res.redirect("/order/check/waitOrder");
-            } else {
-                Base.handlerError(res, req, error, response, body);
-            }
-        })
-
-    },
+    // doPassCheckReApart: function (req, res) {
+    //     var tid = req.params.tid;
+    //     request(Base.mergeRequestOptions({
+    //         method: 'put',
+    //         url: '/api/orders/resupply/apartReview/pass?tid='+tid,
+    //     }, req, res), function (error, response, body) {
+    //         if (!error && response.statusCode == 201) {
+    //             res.redirect("/order/check/waitOrder");
+    //         } else {
+    //             Base.handlerError(res, req, error, response, body);
+    //         }
+    //     })
+    //
+    // },
     apartPage: function (req, res) {
         var paramObject = helper.genPaginationQuery(req);
         Base.multiDataRequest(req, res, [
-            {url: '/api/orders/resupply/apart/gid', method: 'GET', resConfig: {keyName: 'apartingList', is_must: true}},
-            {url: '/api/orders/resupply/apart?'+ (queryString.stringify(req.query)), method: 'GET', resConfig: {keyName: 'apartList', is_must: true}},
+            {url: '/api/orders/apart/gid?orderType=20', method: 'GET', resConfig: {keyName: 'apartingList', is_must: true}},
+            {url: '/api/orders/resupply/apart?orderType=20&'+ (queryString.stringify(req.query)), method: 'GET', resConfig: {keyName: 'apartList', is_must: true}},
             {url: '/api/assist/brandinfo' , method: 'GET', resConfig: {keyName: 'brandInfo', is_must: true}},
             {url: '/api/assist/space/prod?spaceId=10', method: 'GET', resConfig: {keyName: 'prodList', is_must: true}},
             {url: '/api/assist/order/difficulty', method: 'GET', resConfig: {keyName: 'difficultyList', is_must: true}},
@@ -425,7 +424,7 @@ var OrderController = {
 
 
             var returnData = Base.mergeData(helper.mergeObject({
-                title: '补单受理 ',
+                title: '补单拆单 ',
                 paginationOne: boostrapPaginatorOne.render(),
                 paginationTwo: boostrapPaginatorTwo.render(),
                 Permission :Permissions,
@@ -437,6 +436,7 @@ var OrderController = {
         var tid = req.params.tid;
         Base.multiDataRequest(req, res, [
                 {url: '/api/orders/resupply/detail?tid='+tid, method: 'GET', resConfig: {keyName: 'resupplyInfo', is_must: true}},
+                {url: '/api/orders/statusInfo/'+tid, method: 'GET', resConfig: {keyName: 'orderStatusInfo', is_must: false}},
                 {url: '/api/assist/resupply/stcodes', method: 'GET', resConfig: {keyName: 'stcodeInfo', is_must: true}},
                 {url: '/api/assist/review/reson', method: 'GET', resConfig: {keyName: 'resonList', is_must: true}},
                 {url: '/api/assist/resupply/reason', method: 'GET', resConfig: {keyName: 'resupplyReason', is_must: true}},

@@ -169,7 +169,7 @@
                         <% if( (resupplyInfo.status == 250) || (resupplyInfo.status == 450) || (resupplyInfo.status == 475) ){ %>
 
                         <a class="label label-primary"
-                           href="/file/order/create/<%= resupplyInfo.orgLid %>/<%= resupplyInfo.status %>/<%= tid %>/<%= resupplyInfo.orderType == 'B'? 2:3 %>">
+                           href="/file/order/create/<%= resupplyInfo.orgLid %>/<%= resupplyInfo.status %>/<%= resupplyInfo.orderType == 'B'? 2:3 %>/<%= tid %>">
                             文件管理
                         </a>
                         <% } %>
@@ -257,12 +257,17 @@
                                     <a class="label label-primary doGetTask" data-stcode="<%= resupplyInfo.status %>">标记为受理中</a>
                                 </td>
                                 <% break;
+                                case 290: %>
+                                <td>
+                                    待加盟商确认
+                                </td>
+                                <% break;
                                     default: %>
-                                <td></td>
+                                <td><%= DWY_Helper.getLocalDate(orderStatusInfo.acceptTime) %></td>
                                 <% } %>
 
                                 <td width="20%">受理人</td>
-                                <td width="30%"></td>
+                                <td width="30%"><%= orderStatusInfo.acceptName %></td>
                             </tr>
 
                             <tr>
@@ -294,11 +299,11 @@
                                 </td>
                                 <% break;
                                     default: %>
-                                <td></td>
+                                <td><%= DWY_Helper.getLocalDate(orderStatusInfo.apartTime) %></td>
                                 <% } %>
 
                                 <td>拆单人</td>
-                                <td></td>
+                                <td><%= orderStatusInfo.apartName %></td>
                             </tr>
                             <tr>
                                 <td>拆单审核</td>
@@ -317,18 +322,18 @@
                                 </td>
                                 <%         break;
                                 default: %>
-                                <td></td>
+                                <td><%= DWY_Helper.getLocalDate(orderStatusInfo.apartReviewTime) %></td>
                                 <%  } %>
 
                                 <td>审核人</td>
-                                <td></td>
+                                <td><%= orderStatusInfo.apartReviewName %></td>
                             </tr>
 
                             <tr>
-                                <td>特排时间</td>
-                                <td></td>
-                                <td>特排人</td>
-                                <td></td>
+                                <td>排料时间</td>
+                                <td><%= DWY_Helper.getLocalDate(orderStatusInfo.scheduleTime) %></td>
+                                <td>排料人</td>
+                                <td><%= orderStatusInfo.scheduleName %></td>
                             </tr>
                             <tr>
                                 <td>排产时间</td>
@@ -455,12 +460,12 @@
                     text = '确认标记为受理中?';
                     break;
                 case '296':
-                    ajaxUrl = '/resupplys/apart/getTask/<%= tid %>';
+                    ajaxUrl = '/apart/getTask/<%= tid %>';
                     locationUrl = '/orders/resupplys/apart';
                     text = '确认标记为拆单中?';
                     break;
                 case '472':
-                    ajaxUrl = '/resupplys/apartCheck/getTask/<%= tid %>';
+                    ajaxUrl = '/apartCheck/getTask/<%= tid %>';
                     locationUrl = '/orders/resupplys/apartCheck';
                     text = '确认标记为拆单审核中?';
                     break;
@@ -500,11 +505,11 @@
                     locationUrl = '/orders/resupplys/accept';
                     break;
                 case '450':
-                    ajaxUrl = '/resupplys/apart/unlock/<%= tid %>';
+                    ajaxUrl = '/apart/unlock/<%= tid %>';
                     locationUrl = '/orders/resupplys/apart';
                     break;
                 case '475':
-                    ajaxUrl = '/resupplys/apartCheck/unlock/<%= tid %>';
+                    ajaxUrl = '/apartCheck/unlock/<%= tid %>';
                     locationUrl = '/orders/resupplys/apartCheck';
                     break;
             }
@@ -539,12 +544,12 @@
             var text = '';
             switch (orderStcode) {
                 case '450':
-                    ajaxUrl = '/resupplys/apart/doPass/<%= tid %>';
-                    locationUrl = '/orders/resupplys/apart';
+                    ajaxUrl = '/apart/doPass/<%= tid %>';
+                    locationUrl = '/orders/resupplys/apartCheck';
                     text = '确定拆单完毕吗?';
                     break;
                 case '475':
-                    ajaxUrl = '/resupplys/apartCheck/doPass/<%= tid %>';
+                    ajaxUrl = '/apartCheck/doPass/<%= tid %>';
                     locationUrl = '/orders/resupplys/apartCheck';
                     text = '确认拆单审核完毕吗?';
                     break;
