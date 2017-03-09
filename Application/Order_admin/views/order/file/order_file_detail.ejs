@@ -64,7 +64,12 @@
                                 <td><a onclick="deleteFile(<%= element.id %>)">删除</a> <a href="<%= DWY_GLOBAL.Static %>/download?url=<%= element.filePath %>">下载</a></td>
                             </tr>
                             <% })
-                                } %>
+                                }else{ %>
+                            <tr>
+                                <td colspan="8" class="text-align-center">暂无数据</td>
+                            </tr>
+
+                            <% } %>
 
 
                             </tbody>

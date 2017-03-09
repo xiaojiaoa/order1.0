@@ -19,24 +19,24 @@ var Permissions = require('../config/permission');
 
 var NetworkBookController = {
     indexPage: function (req, res) {
-        // var paramObject = helper.genPaginationQuery(req);
+        var paramObject = helper.genPaginationQuery(req);
         Base.multiDataRequest(req, res, [
             {url: '/api/ebis/measure', method: 'GET', resConfig: {keyName: 'measureList', is_must: true}},
             {url: '/api/stores/list', method: 'GET', resConfig: {keyName: 'storesList', is_must: true}},
         ], function (req, res, resultList) {
 
-            // var paginationInfo = resultList.measureList;
-            //
-            // var boostrapPaginator = new Pagination.TemplatePaginator(helper.genPageInfo({
-            //     prelink: paramObject.withoutPageNo,
-            //     current: paginationInfo.page,
-            //     rowsPerPage: paginationInfo.pageSize,
-            //     totalResult: paginationInfo.totalItems
-            // }));
+            var paginationInfo = resultList.measureList;
+
+            var boostrapPaginator = new Pagination.TemplatePaginator(helper.genPageInfo({
+                prelink: paramObject.withoutPageNo,
+                current: paginationInfo.page,
+                rowsPerPage: paginationInfo.pageSize,
+                totalResult: paginationInfo.totalItems
+            }));
 
             var returnData = Base.mergeData(helper.mergeObject({
                 title: '预约列表',
-                // pagination: boostrapPaginator.render()
+                pagination: boostrapPaginator.render()
             }, resultList));
 
             res.render('order/networkBook/index', returnData);
