@@ -749,12 +749,13 @@ console.log('resupplyReason222',JSON.stringify(resupplyLeveTwo))
     },
     unpacket:function(req,res){
         var tid=req.params.tid;
+        console.log("撤销包装"+tid);
         request(Base.mergeRequestOptions({
             method: 'put',
             url: '/api/orders/package/unpacket/'+tid,
         }, req, res), function (error, response, body) {
-            if (!error && response.statusCode == 200) {
-                res.redirect("/orders/package");
+            if (!error && response.statusCode == 201) {
+                res.sendStatus(200);
             } else {
                 Base.handlerError(res, req, error, response, body);
             }
@@ -762,12 +763,13 @@ console.log('resupplyReason222',JSON.stringify(resupplyLeveTwo))
     },
     doPacket:function(req,res){
         var tid=req.params.tid;
+        console.log("生成包装"+tid);
         request(Base.mergeRequestOptions({
             method: 'put',
             url: '/api/orders/package/packet/'+tid,
         }, req, res), function (error, response, body) {
-            if (!error && response.statusCode == 200) {
-                res.redirect("/orders/package");
+            if (!error && response.statusCode == 201) {
+                res.sendStatus(200);
             } else {
                 Base.handlerError(res, req, error, response, body);
             }
