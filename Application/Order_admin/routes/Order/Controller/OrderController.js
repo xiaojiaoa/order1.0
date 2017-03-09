@@ -240,10 +240,10 @@ var OrderController = {
     doPassResupplys: function (req, res) {
         request(Base.mergeRequestOptions({
             method: 'put',
-            url: '/api/orders/review/pass?'+queryString.stringify(req.body),
+            url: '/api/orders/resupply/accept/pass?'+queryString.stringify(req.body),
         }, req, res), function (error, response, body) {
             if (!error && response.statusCode == 201) {
-                res.redirect("/order/check/waitOrder");
+                res.redirect("/orders/resupplys/apart");
             } else {
                 Base.handlerError(res, req, error, response, body);
             }
@@ -444,6 +444,27 @@ var OrderController = {
                 {url: '/api/assist/orderfile/type', method: 'GET', resConfig: {keyName: 'allFileTypeInfo', is_must: true}},
             ],
             function (req, res, resultList) {
+
+                var resupplyReason = [];
+                var resupplyLeveTwo = [];
+                resultList.resupplyReason.forEach(function(element,index){
+                    if(element.levelType == 1){
+                        resupplyReason[element.id] = element;
+                        resupplyReason[element.id].data = [];
+                    }else if(element.levelType == 2){
+                        resupplyReason[element.parentId].data.push(element);
+                        resupplyLeveTwo[element.id] = element;
+                        resupplyLeveTwo[element.id].dataChild = [];
+                    }else{
+                        resupplyLeveTwo[element.parentId].dataChild.push(element);
+                    }
+                });
+
+                resultList.resupplyReason = resupplyReason;
+
+console.log('resupplyReason',JSON.stringify(resupplyReason))
+console.log('resupplyReason222',JSON.stringify(resupplyLeveTwo))
+
                 var returnData = Base.mergeData(helper.mergeObject({
                     title: ' ',
                     tid:tid,
