@@ -52,7 +52,8 @@
                             </tr>
                             </thead>
                             <tbody>
-                            <% measureList.forEach(function (element, index) { %>
+                            <% if(DWY_Helper.isCanLoop(measureList.result)){
+                            measureList.result.forEach(function (element, index) { %>
                             <tr>
                                 <td><%= index + 1 %></td>
                                 <td><%= element.custName %></td>
@@ -68,10 +69,18 @@
                                     <a class="label label-danger closeThis" data-id="<%= element.id %>">置为无效</a>
                                 </td>
                             </tr>
-                            <% }) %>
+                            <% })
+                            }else{ %>
+                            <tr>
+                                <td colspan="5" class="text-align-center">暂无数据</td>
+                            </tr>
+                            <% } %>
+
 
                             </tbody>
                         </table>
+                        <%- pagination %>
+
 
 
                     </div>

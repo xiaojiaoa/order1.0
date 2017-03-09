@@ -677,7 +677,7 @@
             layer.confirm(text, {icon: 3, title: '提示'}, function (index) {
                 $.ajax({
                     url: ajaxUrl,
-                    method: 'post',
+                    method: 'put',
                     success: function (data) {
                         location.href = locationUrl
                     },
@@ -722,7 +722,7 @@
             layer.confirm('确认解锁该订单?', {icon: 3, title: '提示'}, function (index) {
                 $.ajax({
                     url: ajaxUrl,
-                    method: 'post',
+                    method: 'put',
                     success: function (data) {
                         location.href = locationUrl
                     },
@@ -767,7 +767,7 @@
             layer.confirm(text, {icon: 3, title: '提示'}, function (index) {
                 $.ajax({
                     url: ajaxUrl,
-                    method: 'post',
+                    method: 'put',
                     success: function (data) {
                         location.href = locationUrl
                     },

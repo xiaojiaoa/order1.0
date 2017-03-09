@@ -147,9 +147,9 @@ router.get('/orders', Middleware.AuthCheck, Middleware.FilterEmptyField, OrderCo
 router.get('/order/detail/:tid', Middleware.AuthCheck, OrderController.detailPage);
 
 // 标记为审核中
-router.post('/orders/getTask/:tid', Middleware.AuthCheck, OrderController.getTask);
+router.put('/orders/getTask/:tid', Middleware.AuthCheck, OrderController.getTask);
 // 解锁订单
-router.post('/orders/unlock/:tid', Middleware.AuthCheck, OrderController.doUnlock);
+router.put('/orders/unlock/:tid', Middleware.AuthCheck, OrderController.doUnlock);
 
 // 审核未通过（退单）
 router.post('/orders/notPass', Middleware.AuthCheck, OrderController.notPass);
@@ -180,29 +180,29 @@ router.post('/resupplys/doPass', Middleware.AuthCheck, OrderController.doPassRes
 router.get('/orders/resupplys/apart', Middleware.AuthCheck, Middleware.FilterEmptyField, OrderController.apartPage);
 
 // 标记为审核中 (待拆单)
-router.put('/resupplys/apart/getTask/:tid', Middleware.AuthCheck, OrderController.getTaskReApart);
+// router.put('/resupplys/apart/getTask/:tid', Middleware.AuthCheck, OrderController.getTaskReApart);
 
 // 解锁订单
-router.put('/resupplys/apart/unlock/:tid', Middleware.AuthCheck, OrderController.doUnlockReApart);
+// router.put('/resupplys/apart/unlock/:tid', Middleware.AuthCheck, OrderController.doUnlockReApart);
 
 // 审核未通过（退单）
 router.post('/resupplys/apart/notPass', Middleware.AuthCheck, OrderController.notPassReApart);
 
 // 审核通过
-router.put('/resupplys/apart/doPass/:tid', Middleware.AuthCheck, OrderController.doPassReApart);
+// router.put('/resupplys/apart/doPass/:tid', Middleware.AuthCheck, OrderController.doPassReApart);
 
 // 补单拆单审核页面
 router.get('/orders/resupplys/apartCheck', Middleware.AuthCheck, Middleware.FilterEmptyField, OrderController.apartCheckPage);
 
 // 标记为审核中 (待拆单审核)
-router.put('/resupplys/apartCheck/getTask/:tid', Middleware.AuthCheck, OrderController.getTaskCheckReApart);
+// router.put('/resupplys/apartCheck/getTask/:tid', Middleware.AuthCheck, OrderController.getTaskCheckReApart);
 // 解锁订单
-router.put('/resupplys/apartCheck/unlock/:tid', Middleware.AuthCheck, OrderController.doUnlockCheckReApart);
+// router.put('/resupplys/apartCheck/unlock/:tid', Middleware.AuthCheck, OrderController.doUnlockCheckReApart);
 
 // 审核未通过（退单）
 router.post('/resupplys/apartCheck/notPass', Middleware.AuthCheck, OrderController.notPassCheckReApart);
 // 审核通过
-router.put('/resupplys/apartCheck/doPass/:tid', Middleware.AuthCheck, OrderController.doPassCheckReApart);
+// router.put('/resupplys/apartCheck/doPass/:tid', Middleware.AuthCheck, OrderController.doPassCheckReApart);
 
 // 补单详情页面
 router.get('/order/resupply/detail/:tid', Middleware.AuthCheck, OrderController.resupplyDetailPage);
@@ -226,16 +226,16 @@ router.post('/orders/getNestingTask/:cid', Middleware.AuthCheck, OrderController
 //修改批次页面
 router.post('/order/editBatchNum/:cid/:bid', Middleware.AuthCheck, OrderController.editBatchNum);
 // 标记为审核中 (待排料)
-router.post('/schedule/getTask/:tid', Middleware.AuthCheck, OrderController.getTaskSchedule);
+router.put('/schedule/getTask/:tid', Middleware.AuthCheck, OrderController.getTaskSchedule);
 
 // 解锁订单
-router.post('/schedule/unlock/:tid', Middleware.AuthCheck, OrderController.doUnlockSchedule);
+router.put('/schedule/unlock/:tid', Middleware.AuthCheck, OrderController.doUnlockSchedule);
 
 // 审核未通过（退单）
 router.post('/schedule/notPass', Middleware.AuthCheck, OrderController.notPassSchedule);
 
 // 审核通过
-router.post('/schedule/doPass/:tid', Middleware.AuthCheck, OrderController.doPassSchedule);
+router.put('/schedule/doPass/:tid', Middleware.AuthCheck, OrderController.doPassSchedule);
 
 // 订单包装页面
 router.get('/orders/package', Middleware.AuthCheck,Middleware.FilterEmptyField,OrderController.packagePage);
@@ -265,26 +265,26 @@ router.get('/apart', Middleware.AuthCheck, Middleware.FilterEmptyField, ApartCon
 router.get('/apart/check', Middleware.AuthCheck, Middleware.FilterEmptyField, ApartController.checkPage);
 
 // 标记为审核中 (待拆单)
-router.post('/apart/getTask/:tid', Middleware.AuthCheck, ApartController.getTask);
+router.put('/apart/getTask/:tid', Middleware.AuthCheck, ApartController.getTask);
 
 // 解锁订单
-router.post('/apart/unlock/:tid', Middleware.AuthCheck, ApartController.doUnlock);
+router.put('/apart/unlock/:tid', Middleware.AuthCheck, ApartController.doUnlock);
 
 // 审核未通过（退单）
 router.post('/apart/notPass', Middleware.AuthCheck, ApartController.notPass);
 
 // 审核通过
-router.post('/apart/doPass/:tid', Middleware.AuthCheck, ApartController.doPass);
+router.put('/apart/doPass/:tid', Middleware.AuthCheck, ApartController.doPass);
 
 // 标记为审核中 (待拆单审核)
-router.post('/apartCheck/getTask/:tid', Middleware.AuthCheck, ApartController.getTaskCheck);
+router.put('/apartCheck/getTask/:tid', Middleware.AuthCheck, ApartController.getTaskCheck);
 // 解锁订单
-router.post('/apartCheck/unlock/:tid', Middleware.AuthCheck, ApartController.doUnlockCheck);
+router.put('/apartCheck/unlock/:tid', Middleware.AuthCheck, ApartController.doUnlockCheck);
 
 // 审核未通过（退单）
 router.post('/apartCheck/notPass', Middleware.AuthCheck, ApartController.notPassCheck);
 // 审核通过
-router.post('/apartCheck/doPass/:tid', Middleware.AuthCheck, ApartController.doPassCheck);
+router.put('/apartCheck/doPass/:tid', Middleware.AuthCheck, ApartController.doPassCheck);
 
 
 
