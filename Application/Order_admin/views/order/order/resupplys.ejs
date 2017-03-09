@@ -201,7 +201,7 @@
                             <tr>
                                 <th>序号</th>
                                 <th>品牌</th>
-                                <th>类型</th>
+                                <th>产品类型</th>
                                 <th>补单订单号</th>
                                 <th>原订单号</th>
                                 <th>产品信息</th>
@@ -221,8 +221,8 @@
                                 <td><%= index+1 %></td>
                                 <td><%= element.brandStr %></td>
                                 <td><%= element.productTypeStr %></td>
-                                <td><a href="/order/resupply/detail/<%= element.tid %>/<%= element.resupplyId %>"><%= element.tid %><%= element.resupplyId %></a></td>
-                                <td><a href="/order/detail/<%= element.tid %>"><%= element.tid %></a></td>
+                                <td><a href="/order/resupply/detail/<%= element.tid %>"><%= element.tid %></a></td>
+                                <td><a href="/order/detail/<%= element.orgTid %>"><%= element.orgTid %></a></td>
                                 <td><%= element.productInfo %></td>
                                 <td><%= element.createOperator %></td>
                                 <td><%= element.addTime %></td>

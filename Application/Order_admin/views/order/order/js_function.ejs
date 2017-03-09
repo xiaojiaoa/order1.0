@@ -1,0 +1,62 @@
+<script type="text/javascript">
+
+    $(document).ready(function () {
+        var levelOne = $('#levelOne');
+        var levelTwo = $('#levelTwo');
+        var levelThr = $('#levelThr');
+        var selectJson =<%- JSON.stringify(resupplyReason) %>
+
+        levelOne.change(function () {
+            var one = $(this).val();
+            if(!one){
+                levelTwo.html('<option value="">- 请选择 -</option>');
+                levelThr.html('<option value="">- 请选择 -</option>');
+                return
+            }
+            var arry = selectJson[one].data;
+            levelTwo.empty();
+            levelThr.html('<option value="">- 请选择 -</option>');
+            var html = '<option value="">- 请选择 -</option>';
+            if(arry.length == 0){
+                html = '<option value="">请更换选项</option>'
+            }else{
+                for(var i=0;i<arry.length;i++){
+                    html +='<option value="'+arry[i].id+'" >'+arry[i].name+'</option>'
+                }
+            }
+
+            levelTwo.html(html);
+
+        })
+        levelTwo.change(function () {
+            var one = levelOne.val();
+            var two = $(this).val();
+            console.log('two:',two)
+//            var parentId = $(this).find('option:selected').attr('parentId');
+            if(!two){
+                levelThr.html('<option value="">- 请选择 -</option>');
+                return
+            }
+            levelThr.empty();
+            var arry = selectJson[one].data;
+            var html = '<option value="">- 请选择 -</option>';
+            for(var i=0;i<arry.length;i++){
+                if(arry[i].id == two){
+                    var dataChild = arry[i].dataChild;
+                    if(dataChild.length == 0){
+                        html = '<option value="">请更换选项</option>'
+                    }else{
+                        for(var j=0;j<dataChild.length;j++){
+                            html +='<option value="'+dataChild[j].id+'">'+dataChild[j].name+'</option>'
+                        }
+                    }
+                    break;
+                }
+            }
+
+
+            levelThr.html(html);
+        })
+    })
+
+</script>

@@ -2,27 +2,24 @@
 
     <div class="col-xs-12">
         <div class="form-group">
-            <label class="col-xs-2 control-label"><span class="requird"></span> 补单原因:</label>
+            <label class="col-xs-3 control-label"><span class="requird"></span> 补单原因:</label>
             <div class="col-xs-6">
-                <select class="form-control validate[required]" name="cause" data-prompt-position="bottomLeft:20,5">
-                    <option value="">- 请选择 -</option>
+                <select class="form-control margin-bottom-10 validate[required]" id="levelOne" data-prompt-position="bottomLeft:20,5">
                     <% resupplyReason.forEach(function (element) {  %>
                     <option value="<%= element.id %>" >
                         <%= element.name %>
                     </option>
                     <% }) %>
                 </select>
-                <select class="form-control validate[required]" name="cause" data-prompt-position="bottomLeft:20,5">
-                    <option value="">- 请选择 -</option>
-                    <% resupplyReason.forEach(function (element) {  %>
+                <select class="form-control margin-bottom-10 validate[required]" id="levelTwo" data-prompt-position="bottomLeft:20,5">
+                    <% resupplyReason[1].data.forEach(function (element) {  %>
                     <option value="<%= element.id %>" >
                         <%= element.name %>
                     </option>
                     <% }) %>
                 </select>
-                <select class="form-control validate[required]" name="cause" data-prompt-position="bottomLeft:20,5">
-                    <option value="">- 请选择 -</option>
-                    <% resupplyReason.forEach(function (element) {  %>
+                <select class="form-control validate[required]" name="cause"  id="levelThr" data-prompt-position="bottomLeft:20,5">
+                    <% resupplyReason[1].data[0].dataChild.forEach(function (element) {  %>
                     <option value="<%= element.id %>" >
                         <%= element.name %>
                     </option>
@@ -31,10 +28,10 @@
             </div>
         </div>
     </div>
-    <% if(resupplyInfo.orderType == 'Z'){ %>
+    <% if(resupplyInfo.orderTypeStr == '增单'){ %>
     <div class="col-xs-12">
         <div class="form-group">
-            <label class="col-xs-2 control-label"><span class="requird"></span> 加盟价:</label>
+            <label class="col-xs-3 control-label"><span class="requird"></span> 加盟价:</label>
             <div class="col-xs-6">
                 <input class="form-control validate[required]"  value=""
                        name="joined">
@@ -44,11 +41,10 @@
     <% } %>
 
     <input value="<%= tid %>" name="tid" type="hidden">
-    <input value="<%= resId %>" name="resId" type="hidden">
     <div class="col-xs-12">
 
         <div class="form-group">
-            <label class="col-xs-2 control-label">受理意见:</label>
+            <label class="col-xs-3 control-label">受理意见:</label>
             <div class="col-xs-6">
                 <textarea name="remark" class="form-control"
                           placeholder="请填写受理意见"  cols="30"
@@ -61,10 +57,7 @@
     <div class="col-xs-12">
         <hr class="simple">
         <div class="col-xs-12 text-center">
-            <button class="btn btn-primary " type="submit">
-                <i class="fa fa-save"></i>
-                确认受理
-            </button>
+            <button class="btn btn-primary">确认受理</button>
         </div>
     </div>
     <div class="dwy-clear"></div>
@@ -102,7 +95,6 @@
 
     </div>
     <input value="<%= tid %>" name="tid" type="hidden">
-    <input value="<%= resId %>" name="resId" type="hidden">
     <div class="col-xs-12">
 
         <div class="form-group">
@@ -170,3 +162,8 @@
     })
 
 </script>
+
+<% if(resupplyInfo.status == 250){  %>
+<%- include('./js_function'); %>
+<% } %>
+

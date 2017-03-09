@@ -290,6 +290,17 @@
                         success:function (data) {
                             console.log(data);
                             location.href="/materialManage";
+                        },
+                        error: function (response) {
+                            layer.close(index)
+                            var data = JSON.parse(response.responseText);
+                            $.smallBox({
+                                title: "操作失败",
+                                content: data.msg,
+                                color: "#C46A69",
+                                iconSmall: "fa fa-times fa-2x fadeInRight animated",
+                                timeout: 3000
+                            });
                         }
                     })
             }
@@ -313,6 +324,17 @@
                     success:function (data) {
                         location.href="/materialManage/material/creStepS/"+"<%= id %>";
                     },
+                    error: function (response) {
+                    layer.close(index)
+                    var data = JSON.parse(response.responseText);
+                    $.smallBox({
+                        title: "操作失败",
+                        content: data.msg,
+                        color: "#C46A69",
+                        iconSmall: "fa fa-times fa-2x fadeInRight animated",
+                        timeout: 3000
+                    });
+                }
 
                 })
             }

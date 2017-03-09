@@ -78,33 +78,32 @@
                                 <td><%= resupplyInfo.submitTime %></td>
                             </tr>
                             <tr>
-                                <td>问题反馈</td>
-                                <td colspan="3"><%= resupplyInfo.describe %></td>
-                            </tr>
-                            <tr>
-                                <td>增单规格/数量</td>
-                                <td colspan="3"><%= resupplyInfo.addQuantityStr %></td>
-                            </tr>
-                            <tr>
-                                <td>补单规格/数量</td>
-                                <td colspan="3"><%= resupplyInfo.resupplyQuantityStr %></td>
-                            </tr>
-                            <tr>
                                 <td>增补类型</td>
                                 <td><%= resupplyInfo.orderTypeStr %></td>
                                 <td>难度等级</td>
                                 <td><%= resupplyInfo.difficultyStr %></td>
-                            </tr>
-                            <tr>
 
-                                <td>零售价</td>
-                                <td><%= resupplyInfo.retailPrice %> 元</td>
-                                <td></td>
-                                <td></td>
                             </tr>
                             <tr>
                                 <td>补单原因</td>
                                 <td><%= resupplyInfo.causeStr %></td>
+                                <td>补单规格/数量</td>
+                                <td><%= resupplyInfo.resupplyQuantityStr %></td>
+
+                            </tr>
+                            <tr>
+                                <td>零售价</td>
+                                <td><%= resupplyInfo.retailPrice %> 元</td>
+                                <td>增单规格/数量</td>
+                                <td><%= resupplyInfo.addQuantityStr %></td>
+                            </tr>
+                            <tr>
+                                <td>问题反馈</td>
+                                <td colspan="3"><%= resupplyInfo.describe %></td>
+                            </tr>
+
+                            <tr>
+
                                 <td>信用评级</td>
                                 <td><%= resupplyInfo.creditRatingStr %>分（该店平均 分）</td>
                             </tr>
@@ -170,7 +169,7 @@
                         <% if( (resupplyInfo.status == 250) || (resupplyInfo.status == 450) || (resupplyInfo.status == 475) ){ %>
 
                         <a class="label label-primary"
-                           href="/file/resupply/create/<%= resupplyInfo.orgLid %>/<%= resupplyInfo.status %>/<%= tid %>/<%= resId %>/<%= resupplyInfo.orderType == 'B'? 2:3 %>">
+                           href="/file/order/create/<%= resupplyInfo.orgLid %>/<%= resupplyInfo.status %>/<%= tid %>/<%= resupplyInfo.orderType == 'B'? 2:3 %>">
                             文件管理
                         </a>
                         <% } %>
@@ -451,17 +450,17 @@
             var text = '';
             switch (orderStcode) {
                 case '220':
-                    ajaxUrl = '/resupplys/getTask/<%= tid %>/<%= resId %>';
+                    ajaxUrl = '/resupplys/getTask/<%= tid %>';
                     locationUrl = '/orders/resupplys/accept';
                     text = '确认标记为受理中?';
                     break;
                 case '296':
-                    ajaxUrl = '/resupplys/apart/getTask/<%= tid %>/<%= resId %>';
+                    ajaxUrl = '/resupplys/apart/getTask/<%= tid %>';
                     locationUrl = '/orders/resupplys/apart';
                     text = '确认标记为拆单中?';
                     break;
                 case '472':
-                    ajaxUrl = '/resupplys/apartCheck/getTask/<%= tid %>/<%= resId %>';
+                    ajaxUrl = '/resupplys/apartCheck/getTask/<%= tid %>';
                     locationUrl = '/orders/resupplys/apartCheck';
                     text = '确认标记为拆单审核中?';
                     break;
@@ -497,15 +496,15 @@
             var locationUrl = '';
             switch (orderStcode) {
                 case '250':
-                    ajaxUrl = '/resupplys/unlock/<%= tid %>/<%= resId %>';
+                    ajaxUrl = '/resupplys/unlock/<%= tid %>';
                     locationUrl = '/orders/resupplys/accept';
                     break;
                 case '450':
-                    ajaxUrl = '/resupplys/apart/unlock/<%= tid %>/<%= resId %>';
+                    ajaxUrl = '/resupplys/apart/unlock/<%= tid %>';
                     locationUrl = '/orders/resupplys/apart';
                     break;
                 case '475':
-                    ajaxUrl = '/resupplys/apartCheck/unlock/<%= tid %>/<%= resId %>';
+                    ajaxUrl = '/resupplys/apartCheck/unlock/<%= tid %>';
                     locationUrl = '/orders/resupplys/apartCheck';
                     break;
             }
@@ -515,6 +514,17 @@
                     method: 'put',
                     success: function (data) {
                         location.href = locationUrl
+                    },
+                    error: function (response) {
+                        layer.close(index)
+                        var data = JSON.parse(response.responseText);
+                        $.smallBox({
+                            title: "操作失败",
+                            content: data.msg,
+                            color: "#C46A69",
+                            iconSmall: "fa fa-times fa-2x fadeInRight animated",
+                            timeout: 3000
+                        });
                     }
                 });
             }, function (index) {
@@ -529,12 +539,12 @@
             var text = '';
             switch (orderStcode) {
                 case '450':
-                    ajaxUrl = '/resupplys/apart/doPass/<%= tid %>/<%= resId %>';
+                    ajaxUrl = '/resupplys/apart/doPass/<%= tid %>';
                     locationUrl = '/orders/resupplys/apart';
                     text = '确定拆单完毕吗?';
                     break;
                 case '475':
-                    ajaxUrl = '/resupplys/apartCheck/doPass/<%= tid %>/<%= resId %>';
+                    ajaxUrl = '/resupplys/apartCheck/doPass/<%= tid %>';
                     locationUrl = '/orders/resupplys/apartCheck';
                     text = '确认拆单审核完毕吗?';
                     break;
