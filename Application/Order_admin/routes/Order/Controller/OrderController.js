@@ -56,6 +56,7 @@ var OrderController = {
                 {url: '/api/assist/review/reson', method: 'GET', resConfig: {keyName: 'resonList', is_must: true}},
                 {url: '/api/assist/order/difficulty', method: 'GET', resConfig: {keyName: 'difficultyList', is_must: true}},
                 {url: '/api/cofficient', method: 'GET', resConfig: {keyName: 'cofficientInfo', is_must: true}},
+                {url: '/api/orders/chgback/'+tid, method: 'GET', resConfig: {keyName: 'chgbackInfo', is_must: true}},
             ],
             function (req, res, resultList) {
                 var returnData = Base.mergeData(helper.mergeObject({
@@ -132,6 +133,31 @@ var OrderController = {
                 Base.handlerError(res, req, error, response, body);
             }
         })
+
+    },
+    chgbackeAllPage: function (req, res) {
+        var tid = req.params.tid;
+        var paramObject = helper.genPaginationQuery(req);
+        Base.multiDataRequest(req, res, [
+            {url: '/api/orders/chgback?tid='+tid, method: 'GET', resConfig: {keyName: 'chgbackList', is_must: true}},
+        ], function (req, res, resultList) {
+
+            var paginationInfo = resultList.chgbackList;
+
+            var boostrapPaginator = new Pagination.TemplatePaginator(helper.genPageInfo({
+                prelink: paramObject.withoutPageNo,
+                current: paginationInfo.page,
+                rowsPerPage: paginationInfo.pageSize,
+                totalResult: paginationInfo.totalItems
+            }));
+
+            var returnData = Base.mergeData(helper.mergeObject({
+                title: ' ',
+                tid: tid,
+                pagination: boostrapPaginator.render()
+            }, resultList));
+            res.render('order/order/back', returnData);
+        });
 
     },
     resupplyPage: function (req, res) {
@@ -574,11 +600,13 @@ console.log('resupplyReason222',JSON.stringify(resupplyLeveTwo))
 
         var paramObject = helper.genPaginationQuery(req);
         Base.multiDataRequest(req, res, [
+            {url: '/api/orders/assess?'+queryString.stringify(req.query), method: 'GET', resConfig: {keyName: 'assessList', is_must: true}},
+            {url: '/api/assist/brandinfo', method: 'GET', resConfig: {keyName: 'brandinfoList', is_must: true}},
             {url: '/api/assist/order/difficulty', method: 'GET', resConfig: {keyName: 'difficultyList', is_must: true}},
-            {url: '/api/orders/review/gid', method: 'GET', resConfig: {keyName: 'selfList', is_must: true}},
+            {url: '/api/assist/space/prod', method: 'GET', resConfig: {keyName: 'prodList', is_must: true}},
         ], function (req, res, resultList) {
 
-            var paginationInfo =  resultList.selfList;
+            var paginationInfo =  resultList.assessList;
 
             var boostrapPaginator = new Pagination.TemplatePaginator(helper.genPageInfo({
                 prelink: paramObject.withoutPageNo,

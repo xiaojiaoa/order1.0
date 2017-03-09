@@ -335,7 +335,6 @@
                                 <th>零售价（元）</th>
                                 <th>约定交付日期</th>
                                 <th>订单状态</th>
-                                <th>操作</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -361,13 +360,12 @@
                                 <td><%=orderelement.retailPrice%></td>
                                 <td><%=DWY_Helper.getLocalDate(orderelement.deliveryDate)%></td>
                                 <td><%=DWY_Helper.getAssistVal(orderelement.stcode,stcodeInfo)%></td>
-                                <td><a href="/file/order/create/<%= lid %>/<%= taskseqInfo.stcode %>/<%= orderelement.tid %>/1">上传</a></td>
                             </tr>
                             <% num++ })
                             }) %>
 
                             <tr>
-                                <td colspan="10" class="text-align-right">零售价合计：</td>
+                                <td colspan="9" class="text-align-right">零售价合计：</td>
                                 <td>18000.00</td>
                             </tr>
 

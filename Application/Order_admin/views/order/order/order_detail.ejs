@@ -40,8 +40,10 @@
                         <table class="table table-bordered table-striped table-information">
                             <tbody>
                             <tr>
+                                <td>订单状态</td>
+                                <td><%= DWY_Helper.getAssistVal(orderInfo.stcode, stcodeInfo) %></td>
                                 <td>订单号</td>
-                                <td colspan="3"><%= tid %></td>
+                                <td><%= tid %></td>
                             </tr>
                             <tr>
                                 <td width="20%">主材颜色</td>
@@ -116,9 +118,9 @@
                                             <button class="btn btn-primary ">确定</button>
                                         </div>
                                     </form>
-                                    <% }else{
-                                        DWY_Helper.getAssistVal(orderInfo.difficulty,difficultyList)
-                                    } %>
+                                    <% }else{  %>
+                                        <%= DWY_Helper.getAssistVal(orderInfo.difficulty,difficultyList) %>
+                                    <% } %>
                                 </td>
                                 <td>零售价</td>
                                 <td><%= orderInfo.retailPrice %>元</td>
@@ -285,10 +287,15 @@
                 <!-- end col -->
             </div>
 
+            <% if(chgbackInfo.length>0){  %>
             <div class="row">
                 <!-- col -->
-                <div class="col-xs-12">
-                    <legend>补单退回原因(没有退回原因则不显示该栏目)</legend>
+                <div class="col-xs-12 ">
+                    <legend>退回信息
+                        <a class="label label-primary" href="/order/chgback/<%= tid %>">
+                            查看所有退回信息
+                        </a>
+                    </legend>
 
                     <div class="table-responsive">
                         <table class="table table-bordered table-striped">
@@ -296,13 +303,20 @@
                             <tr>
                                 <th width="100">序号</th>
                                 <th>退回原因</th>
+                                <th>备注</th>
+                                <th>操作柜员</th>
                             </tr>
                             </thead>
                             <tbody>
+                            <%  chgbackInfo.forEach(function (element, index) {  %>
                             <tr>
-                                <td>1</td>
-                                <td>退回原因</td>
+                                <td><%= index+1 %></td>
+                                <td><%= element.causeName %></td>
+                                <td><%= element.remark %></td>
+                                <td><%= element.gid %></td>
                             </tr>
+                            <%  })%>
+
                             </tbody>
                         </table>
 
@@ -313,6 +327,8 @@
                 </div>
                 <!-- end col -->
             </div>
+
+            <% } %>
 
 
             <div class="row">
@@ -331,36 +347,36 @@
                                 <td>许可状态</td>
                                 <td colspan="3">
                                     <% if(orderInfo.stcode == 110){ %>
-                                    <form class="form-horizontal" method="post" action="">
-                                        <div class="col-xs-3">
-                                            <select class="form-control" name="type">
-                                                <option value="">- 审核是否加急 -</option>
-                                                <option value="1">审核未加急</option>
-                                                <option value="2">审核加急</option>
-                                            </select>
-                                        </div>
-                                        <div class="col-xs-3">
-                                            <select class="form-control" name="type">
-                                                <option value="">- 拆单是否许可 -</option>
-                                                <option value="1">拆单未许可</option>
-                                                <option value="2">拆单许可</option>
-                                                <option value="3">拆单加急</option>
-                                            </select>
-                                        </div>
-                                        <div class="col-xs-3">
-                                            <select class="form-control" name="type">
-                                                <option value="">- 排产是否许可 -</option>
-                                                <option value="1">排产未定</option>
-                                                <option value="2">排产暂缓</option>
-                                                <option value="3">排产许可</option>
-                                            </select>
-                                        </div>
-                                        <div class="col-xs-2">
-                                            <a class="btn btn-primary " id="">标记待审核</a>
-                                        </div>
-                                    </form>
+                                    <!--<form class="form-horizontal" method="post" action="">-->
+                                        <!--<div class="col-xs-3">-->
+                                            <!--<select class="form-control" name="type">-->
+                                                <!--<option value="">- 审核是否加急 -</option>-->
+                                                <!--<option value="1">审核未加急</option>-->
+                                                <!--<option value="2">审核加急</option>-->
+                                            <!--</select>-->
+                                        <!--</div>-->
+                                        <!--<div class="col-xs-3">-->
+                                            <!--<select class="form-control" name="type">-->
+                                                <!--<option value="">- 拆单是否许可 -</option>-->
+                                                <!--<option value="1">拆单未许可</option>-->
+                                                <!--<option value="2">拆单许可</option>-->
+                                                <!--<option value="3">拆单加急</option>-->
+                                            <!--</select>-->
+                                        <!--</div>-->
+                                        <!--<div class="col-xs-3">-->
+                                            <!--<select class="form-control" name="type">-->
+                                                <!--<option value="">- 排产是否许可 -</option>-->
+                                                <!--<option value="1">排产未定</option>-->
+                                                <!--<option value="2">排产暂缓</option>-->
+                                                <!--<option value="3">排产许可</option>-->
+                                            <!--</select>-->
+                                        <!--</div>-->
+                                        <!--<div class="col-xs-2">-->
+                                            <!--<a class="btn btn-primary " id="">标记待审核</a>-->
+                                        <!--</div>-->
+                                    <!--</form>-->
                                     <% }else{
-                                        '审核未加急 拆单不许可 排产未定'
+                                        ''
                                     } %>
 
                                 </td>
