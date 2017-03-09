@@ -257,68 +257,46 @@
                                         <span>&nbsp;</span>
                                     </label>序号</th>
                                 <th>订单号</th>
-                                <th>审核加急</th>
-                                <th>拆单许可</th>
-                                <th>排产许可</th>
-                                <th>颜色</th>
-                                <th>类型</th>
                                 <th>难度</th>
+                                <th>类别</th>
                                 <th>专卖店</th>
-                                <th>客户号</th>
                                 <th>客户名称</th>
                                 <th>产品信息</th>
-                                <th>收款确认日期</th>
-                                <th>订单状态</th>
+                                <th>建单人</th>
+                                <th>提交日期</th>
                             </tr>
                             </thead>
                             <tbody>
+                            <% if(DWY_Helper.isCanLoop(assessList.result)){
+                            assessList.result.forEach(function (element, index) {  %>
                             <tr>
                                 <td>
                                     <label class="checkbox-inline">
                                         <input type="checkbox" class="checkbox"
-                                               name="roles" value="1">
-                                        <span>1</span>
+                                               name="tids" value="<%= element.tid %>">
+                                        <span><%= index+1 %></span>
                                     </label>
                                 </td>
-                                <td><a href="/order/detail/555">12345</a></td>
-                                <td>未加急</td>
-                                <td>未许可</td>
-                                <td>未定</td>
-                                <td>其他</td>
-                                <td>新橱柜18</td>
-                                <td>未定</td>
-                                <td>杭州市湖滨银泰店</td>
-                                <td><a href="/customer/detail">12345</a></td>
-                                <td><%= user.name %></td>
-                                <td>橱柜柜体</td>
-                                <td>2016-10-10</td>
-                                <td>建单中</td>
+                                <td><a href="/order/detail/<%= element.tid %>"><%= element.tid %></a></td>
+                                <td><%= element.difficultyStr %></td>
+                                <td><%= element.productTypeStr %></td>
+                                <td><%= element.storeName %></td>
+                                <td><%= element.customerName %></td>
+                                <td><%= element.productInfo %></td>
+                                <td><%= element.createOperator%></td>
+                                <td><%= element.taskTime%></td>
                             </tr>
-                            <tr>
-                                <td>
-                                    <label class="checkbox-inline">
-                                        <input type="checkbox" class="checkbox"
-                                               name="roles" value="2">
-                                        <span>1</span>
-                                    </label>
-                                </td>
-                                <td><a href="/order/detail/555">12345</a></td>
-                                <td>未加急</td>
-                                <td>未许可</td>
-                                <td>未定</td>
-                                <td>其他</td>
-                                <td>新橱柜18</td>
-                                <td>未定</td>
-                                <td>杭州市湖滨银泰店</td>
-                                <td><a href="/customer/detail">12345</a></td>
-                                <td><%= user.name %></td>
-                                <td>橱柜柜体</td>
-                                <td>2016-10-10</td>
-                                <td>建单中</td>
-                            </tr>
+                            <%    })
+
+                            }else{ %>
+                            <td colspan="9" class="text-align-center">暂无数据</td>
+                            <%  } %>
+
+
 
                             </tbody>
                         </table>
+                        <%- pagination %>
                     </div>
                 </div>
             </div>
@@ -378,7 +356,7 @@
         $("#checkAll").change(function () {
             if($(this).is(":checked")){
                 $(":checkbox").prop('checked',true);
-                $("input[name='roles']:checked").each(function (i) {
+                $("input[name='tids']:checked").each(function (i) {
                     checkedValue.addClass(this.value+',')
                 });
             }else{
@@ -386,7 +364,7 @@
                 checkedValue.removeClass()
             }
         })
-        $("input[name='roles']").change(function () {
+        $("input[name='tids']").change(function () {
             if($(this).is(':checked')){
                 checkedValue.addClass(this.value+',')
             }else{
@@ -407,6 +385,27 @@
                 return;
             }
             console.log(tids);
+            $.ajax({
+                url: '/orders/updateDifficultyLevel',
+                method: 'post',
+                data: {
+                    tids:tids,
+                    difficulty:difficulty
+                },
+                success: function (data) {
+                    window.location.reload();
+                },
+                error: function (response) {
+                    var data = JSON.parse(response.responseText);
+                    $.smallBox({
+                        title: "操作失败",
+                        content: data.msg,
+                        color: "#C46A69",
+                        iconSmall: "fa fa-times fa-2x fadeInRight animated",
+                        timeout: 3000
+                    });
+                }
+            });
         })
 
 

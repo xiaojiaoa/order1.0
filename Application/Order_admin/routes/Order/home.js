@@ -158,7 +158,8 @@ router.post('/orders/doPass', Middleware.AuthCheck, OrderController.doPass);
 // 设置难度等级
 router.post('/orders/updateDifficultyLevel', Middleware.AuthCheck, OrderController.updateDifficultyLevel);
 
-
+// 所有退回信息页面
+router.get('/order/chgback/:tid', Middleware.AuthCheck, OrderController.chgbackeAllPage);
 
 // 补单页面
 router.get('/orders/resupplys', Middleware.AuthCheck, Middleware.FilterEmptyField, OrderController.resupplyPage);

@@ -361,7 +361,7 @@
                                 <td><%=orderelement.retailPrice%></td>
                                 <td><%=DWY_Helper.getLocalDate(orderelement.deliveryDate)%></td>
                                 <td><%=DWY_Helper.getAssistVal(orderelement.stcode,stcodeInfo)%></td>
-                                <td><a href="/file/order/create/<%= lid %>/<%= taskseqInfo.stcode %>/<%= orderelement.tid %>/1">上传</a></td>
+                                <td><a href="/file/order/create/<%= lid %>/<%= orderelement.stcode %>/1/<%= orderelement.tid %>">上传</a></td>
                             </tr>
                             <% num++ })
                             }) %>
