@@ -18,6 +18,11 @@ var Permissions = require('../config/permission');
 
 var MaterialAttrController = {
     materialAttributePage:function (req, res) {
+
+        if(req.query.stcode == null){
+           req.query.stcode = 1;
+        }
+        
         var paramObject = helper.genPaginationQuery(req);
         Base.multiDataRequest(req, res, [
             {url: '/api/attributes?'+ queryString.stringify(req.query), method: 'GET', resConfig: {keyName: 'attributeList', is_must: true}},
