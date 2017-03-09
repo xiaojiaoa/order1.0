@@ -754,7 +754,7 @@ console.log('resupplyReason222',JSON.stringify(resupplyLeveTwo))
             url: '/api/orders/package/unpacket/'+tid,
         }, req, res), function (error, response, body) {
             if (!error && response.statusCode == 200) {
-                res.sendStatus(200);
+                res.redirect("/orders/package");
             } else {
                 Base.handlerError(res, req, error, response, body);
             }
@@ -767,7 +767,7 @@ console.log('resupplyReason222',JSON.stringify(resupplyLeveTwo))
             url: '/api/orders/package/packet/'+tid,
         }, req, res), function (error, response, body) {
             if (!error && response.statusCode == 200) {
-                res.sendStatus(200);
+                res.redirect("/orders/package");
             } else {
                 Base.handlerError(res, req, error, response, body);
             }

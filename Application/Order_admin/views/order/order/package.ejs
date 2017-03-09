@@ -136,15 +136,8 @@
                             if( toBePackedList.result ){
                             toBePackedList.result.forEach(function (element, index) { %>
                             <tr>
-                                <!--<td>
-                                    <label class="checkbox-inline">
-                                        <input type="checkbox" class="checkbox"
-                                               name="roles" value="<%- element.tid %>">
-                                        <span><%- index+1 %></span>
-                                    </label>
-                                </td>-->
                                 <td><%= index+1 %></td>
-                                <td><a href="/order/detail/330100101703030033"><%= element.tid %></a></td>
+                                <td><a href="/order/detail/<%= element.tid %>"><%= element.tid %></a></td>
                                 <td><%= element.batchNumber %></td>
                                 <td></td>
                                 <td><%= element.cName %></td>
@@ -157,7 +150,13 @@
                                 <td><%= element.custAdress %></td>
                                 <td><%= element.remark %></td>
                                 <td><%= element.packageStatusStr %></td>
-                                <td><a class="btn btn-primary crePackage">生成包装</a></td>
+                                <td>
+                                    <% if(element.packageStatus==0){%>
+                                    <a class="btn btn-primary crePackage">生成包装</a>
+                                    <%}else{%>
+                                    无
+                                    <%}%>
+                                </td>
                             </tr>
                             <%  })
                             }else{ %>
