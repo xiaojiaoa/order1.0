@@ -154,7 +154,7 @@
                                     <% if(element.packageStatus==0){%>
                                     <a class="btn btn-primary crePackage">生成包装</a>
                                     <%}else{%>
-                                    <a class="btn btn-primary packageDetail">查看包装详情</a>
+                                    <a class="btn btn-primary packageDetail" href="/orders/package/<%= element.tid %>">查看包装详情</a>
                                     <%}%>
                                 </td>
                             </tr>
@@ -183,7 +183,6 @@
 
 <%- include('../layouts/footer'); %>
 <%- include('../layouts/footer_common_script'); %>
-<%- include('./packedList'); %>
 <script type="text/javascript">
 
     $(document).ready(function () {
@@ -194,6 +193,35 @@
 
         //对表单进行初始化验证
         $("#toBePackedForm").validationEngine();
+
+        $(".crePackage").on({
+            click: function (e) {
+                tid= $(this).parent().parent().children().eq(1).text();
+                layer.confirm('确定生成包装吗？',{icon: 3, title:'提示'},
+                    function(index){
+                        $.ajax({
+                            url: '/orders/package/packet/'+tid,
+                            method: 'put',
+                            success: function (data) {
+                                window.location.reload();
+                            },
+                            error: function (response) {
+                                layer.close(index)
+                                var data = JSON.parse(response.responseText);
+                                $.smallBox({
+                                    title: "操作失败",
+                                    content: data.msg,
+                                    color: "#C46A69",
+                                    iconSmall: "fa fa-times fa-2x fadeInRight animated",
+                                    timeout: 3000
+                                });
+                            }
+                        });
+                    },
+                    function(index){layer.close(index)});
+
+            }
+        });
     })
 
 </script>

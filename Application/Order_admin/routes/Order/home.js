@@ -241,10 +241,10 @@ router.put('/schedule/doPass/:tid', Middleware.AuthCheck, OrderController.doPass
 router.get('/orders/package', Middleware.AuthCheck,Middleware.FilterEmptyField,OrderController.packagePage);
 
 //查询订单生成包装后的包装列表
-router.put('/orders/package/:tid', Middleware.AuthCheck,OrderController.packedListPage);
+router.get('/orders/package/:tid', Middleware.AuthCheck,OrderController.packedListPage);
 
 //获取包装清单数据
-router.put('/orders/package/pcaketlist/:pid', Middleware.AuthCheck,OrderController.packedListDetailPage);
+router.get('/orders/package/pcaketlist/:tid/:pid', Middleware.AuthCheck,OrderController.packedListDetailPage);
 
 //撤销包装
 router.put('/orders/package/unpacket/:tid', Middleware.AuthCheck,OrderController.unpacket);
