@@ -103,7 +103,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-xs-12">
+                                <div class="col-xs-12 display-none">
                                     <div class="col-xs-6">
                                         <div class="form-group">
                                             <label class="col-xs-4 control-label"><span class="requird"></span>单位物料重量:</label>
@@ -118,27 +118,7 @@
                                         <div class="form-group">
                                             <label class="col-xs-4 control-label">单位：</label>
                                             <div class="col-xs-8">
-                                                <strong class="form-control border-0"></strong>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-xs-12">
-                                    <div class="col-xs-6">
-                                        <div class="form-group">
-                                            <label class="col-xs-4 control-label"><span class="requird"></span>价格:</label>
-                                            <div class="col-xs-8">
-                                                <strong class="form-control border-0"></strong>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-xs-12">
-                                    <div class="col-xs-6">
-                                        <div class="form-group">
-                                            <label class="col-xs-4 control-label"><span class="requird"></span>物料类型:</label>
-                                            <div class="col-xs-8">
-                                                <strong class="form-control border-0"></strong>
+                                                <strong class="form-control border-0"><%= mateInfo.unit %></strong>
                                             </div>
                                         </div>
                                     </div>
@@ -146,9 +126,32 @@
                             <div class="col-xs-12">
                                 <div class="col-xs-6">
                                     <div class="form-group">
+                                        <label class="col-xs-4 control-label"><span class="requird"></span>包装类型:</label>
+                                        <div class="col-xs-8">
+                                            <strong class="form-control border-0"><%= mateInfo.type %></strong>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                                <div class="col-xs-12">
+                                    <div class="col-xs-6">
+                                        <div class="form-group">
+                                            <label class="col-xs-4 control-label"><span class="requird"></span>价格:</label>
+                                            <div class="col-xs-8">
+                                                <strong class="form-control border-0"><%= mateInfo.price %></strong>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            <div class="col-xs-12">
+                                <div class="col-xs-6">
+                                    <div class="form-group">
                                         <label class="col-xs-4 control-label">物料图片:</label>
                                         <div class="col-xs-8">
-                                            <strong class="form-control border-0"><%= mateInfo.image %></strong>
+                                            <strong class="form-control border-0">
+                                                <a class="fancybox dwy_image" href="<%= DWY_GLOBAL.Static %>/download?url=<%= mateInfo.image %>" data-fancybox-group="gallery" title="<%= mateInfo.image %>"><%= mateInfo.image %></a>
+                                            </strong>
                                         </div>
                                     </div>
                                 </div>
@@ -237,6 +240,8 @@
         $("#material_detail_factory_add").validationEngine();
 
 
+        //图片浏览
+        $('.fancybox').fancybox();
 
 
 

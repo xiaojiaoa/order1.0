@@ -112,7 +112,7 @@
                                     <div class="form-group">
                                         <label class="col-xs-4 control-label">单位：</label>
                                         <div class="col-xs-8">
-                                            <select class="form-control validate[required]" name="unit">
+                                            <select class="form-control validate[required]" name="unit" id="unitVal">
                                                 <option value="">- 请选择 -</option>
                                                 <% units.forEach(function(element,index){%>
                                                 <option value="<%= element.id %>"><%= element.name%></option>
@@ -130,7 +130,7 @@
                                     <div class="form-group">
                                         <label class="col-xs-4 control-label">包装类型：</label>
                                         <div class="col-xs-8">
-                                            <select class="form-control validate[required]" name="unit">
+                                            <select class="form-control validate[required]" name="type" id="typeVal">
                                                 <option value="">- 请选择 -</option>
                                                 <% getPackageTypes.forEach(function(element,index){%>
                                                 <option value="<%= element.id %>"><%= element.name%></option>
@@ -148,17 +148,7 @@
                                     <div class="form-group">
                                         <label class="col-xs-4 control-label"><span class="requird"></span>价格:</label>
                                         <div class="col-xs-8">
-                                            <input class="form-control validate[required]" placeholder="请输入价格" value="" type="text" name="price">
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-xs-12 display-none">
-                                <div class="col-xs-6">
-                                    <div class="form-group">
-                                        <label class="col-xs-4 control-label"><span class="requird"></span>物料类型:</label>
-                                        <div class="col-xs-8">
-                                            <input class="form-control validate[required]" placeholder="请输入物料类型" value="1" type="text" name="type">
+                                            <input class="form-control validate[required]" placeholder="请输入价格" value="<%= mateInfo.price %>" type="text" name="price">
                                         </div>
                                     </div>
                                 </div>
@@ -174,8 +164,9 @@
                                     </div>
                                     <div class="pull-left padding-right-10">
                                         <p id="idPhotoOneName">
-                                            <input class="upimg-input" placeholder="请上传图片1"
+                                            <input class="upimg-input display-none" placeholder="请上传图片1"
                                                    data-errormessage-value-missing="请上传图片1" readonly >
+                                            <a class="fancybox dwy_image" href="<%= DWY_GLOBAL.Static %>/download?url=<%= mateInfo.image %>" data-fancybox-group="gallery" title="<%= mateInfo.image %>"><%= mateInfo.image %></a>
                                         </p>
                                         <!--  <p id="idPhotoTwoName">
                                               <input class="upimg-input validate[required]" placeholder="请上传图片2"
@@ -192,7 +183,7 @@
                                     <div class="form-group">
                                         <label class="col-xs-4 control-label">备注:</label>
                                         <div class="col-xs-8">
-                                            <input class="form-control" placeholder="请输入备注" value="" type="text" name="remark ">
+                                            <input class="form-control" placeholder="请输入备注" value="<%= mateInfo.remark %>" type="text" name="remark ">
                                         </div>
                                     </div>
                                 </div>
@@ -205,8 +196,6 @@
                                         <i class="fa fa-save"></i>
                                         提交
                                     </button>
-
-
                                 </div>
                             </div>
 
@@ -239,7 +228,8 @@
 
         $(".fg-date-time-picker").flatpickr(data_time_picker.data_picker); // jQuery
 
-
+        $("#unitVal").val('<%= mateInfo.unitId %>');
+        $("#typeVal").val('<%= mateInfo.type %>');
         //初始化表单
         $("#material_modify_form").validationEngine();
 

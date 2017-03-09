@@ -124,14 +124,17 @@
         }
 
 
-        //弹出订单生成包装后的包装列表
+        //弹出生成包装后的包装列表
             var tid;//订单流水号
            // $(".toBePackedForm>tbody>tr").css("cursor","pointer");
             $(".toBePackedForm>tbody>tr>td").on({
                 click: function (e) {
                     tid= $(this).parent().children().eq(1).text();
-                    if($(this).children("a").length==0){
-                        getPackList( '/orders/package/'+tid);
+                    var pacStatus=$(this).parent().children().eq(13).text();
+                    if(pacStatus=="已包装"){
+                        if($(this).children("a").length==0){
+                            getPackList( '/orders/package/'+tid);
+                        }
                     }
 
                 }
@@ -143,8 +146,13 @@
                 tid= $(this).parent().parent().children().eq(1).text();
                 layer.confirm('确定生成包装吗？',{icon: 3, title:'提示'},
                     function(index){
-                        getPackList( '/orders/package/'+tid);
+                     /*  setTimeout(function(){
+                           getPackList( '/orders/package/'+tid)
+                           layer.close(index)
+                       },1000);*/
+                        getPackList( '/orders/package/packet/'+tid)
                         layer.close(index)
+
                     },
                     function(index){layer.close(index)});
 
@@ -203,12 +211,11 @@
         $(document).on("click",".undoPackingBtn",function(){
             layer.confirm('确定撤销包装吗？',{icon: 3, title:'提示'},
                 function(index){
+                   console.log(tid);
                     $.ajax({
                         url: '/orders/package/unpacket/'+tid,
                         method: 'put',
                         success: function (data) {
-                            var arry= JSON.parse(data);
-                            console.log(arry);
                             window.location.reload();
                         }
                     });

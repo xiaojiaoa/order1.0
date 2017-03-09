@@ -132,7 +132,7 @@
                                     <div class="form-group">
                                         <label class="col-xs-4 control-label">包装类型：</label>
                                         <div class="col-xs-8">
-                                            <select class="form-control validate[required]" name="unit">
+                                            <select class="form-control validate[required]" name="type">
                                                 <option value="">- 请选择 -</option>
                                                 <% getPackageTypes.forEach(function(element,index){%>
                                                 <option value="<%= element.id %>"><%= element.name%></option>
@@ -151,16 +151,6 @@
                                         <label class="col-xs-4 control-label"><span class="requird"></span>价格:</label>
                                         <div class="col-xs-8">
                                             <input class="form-control validate[required]" placeholder="请输入价格" value="" type="text" name="price">
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-xs-12" style="display: none;">
-                                <div class="col-xs-6">
-                                    <div class="form-group">
-                                        <label class="col-xs-4 control-label"><span class="requird"></span>物料类型:</label>
-                                        <div class="col-xs-8">
-                                            <input class="form-control validate[required]" placeholder="请输入物料类型" value="1" type="text" name="type">
                                         </div>
                                     </div>
                                 </div>
