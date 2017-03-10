@@ -243,8 +243,8 @@
                         <% } %>
 
                         <% if( orderInfo.stcode == 450 || orderInfo.stcode == 475
-                                || orderInfo.stcode == 550 || orderInfo.stcode == 650 || orderInfo.stcode == 635  ){ %>
-                        <button class="label label-primary" id="orderItem">订单物料</button>
+                                || orderInfo.stcode == 550 || orderInfo.stcode == 650 || orderInfo.stcode == 635){ %>
+                        <a class="label label-primary" href="/order/workpiece/<%= tid %>">订单物料</a>
                         <% } %>
 
                     </legend>
@@ -857,7 +857,6 @@
 <%- include('../layouts/foot'); %>
 <%- include('./check_pass'); %>
 <%- include('./order_reject'); %>
-<%- include('./materiel_modal'); %>
 <% if( orderInfo.stcode == 250 ){ %>
     <%- include('./check_modifyInfo'); %>
 <% } %>

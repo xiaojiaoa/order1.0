@@ -842,6 +842,55 @@ var OrderController = {
             }
         })
     },
+    //订单详情--订单物料--工件
+    workpiecePage:function (req, res) {
+        var paramObject = helper.genPaginationQuery(req);
+        var tid=req.params.tid;
+        Base.multiDataRequest(req, res, [
+            {url: '/api/orders/package/workpiece/list/'+tid+'?'+queryString.stringify(req.query), method: 'GET', resConfig: {keyName: 'workpieceList', is_must: true}},
+            {url: '/api/orders/'+tid, method: 'GET', resConfig: {keyName: 'orderDetail', is_must: true}},
+            {url: '/api/assist/order/stcodes', method: 'GET', resConfig: {keyName: 'stcodeInfo', is_must: false}},
+        ], function (req, res, resultList) {
+            var paginationInfo =  resultList.workpieceList;
+            var boostrapPaginator = new Pagination.TemplatePaginator(helper.genPageInfo({
+                prelink: paramObject.withoutPageNo,
+                current: paginationInfo.page,
+                rowsPerPage: paginationInfo.pageSize,
+                totalResult: paginationInfo.totalItems
+            }));
+            var returnData = Base.mergeData(helper.mergeObject({
+                title: ' ',
+                pagination: boostrapPaginator.render(),
+                tid:tid
+            },resultList));
+            res.render('order/order/workpiece', returnData);
+        });
+    },
+
+    //订单详情--订单物料--配件
+    partsPage:function (req, res) {
+        var paramObject = helper.genPaginationQuery(req);
+        var tid=req.params.tid;
+        Base.multiDataRequest(req, res, [
+            {url: '/api/orders/package/accessory/list/'+tid+'?'+queryString.stringify(req.query), method: 'GET', resConfig: {keyName: 'partsList', is_must: true}},
+            {url: '/api/orders/'+tid, method: 'GET', resConfig: {keyName: 'orderDetail', is_must: true}},
+            {url: '/api/assist/order/stcodes', method: 'GET', resConfig: {keyName: 'stcodeInfo', is_must: false}},
+        ], function (req, res, resultList) {
+            var paginationInfo =  resultList.partsList;
+            var boostrapPaginator = new Pagination.TemplatePaginator(helper.genPageInfo({
+                prelink: paramObject.withoutPageNo,
+                current: paginationInfo.page,
+                rowsPerPage: paginationInfo.pageSize,
+                totalResult: paginationInfo.totalItems
+            }));
+            var returnData = Base.mergeData(helper.mergeObject({
+                title: ' ',
+                pagination: boostrapPaginator.render(),
+                tid:tid
+            },resultList));
+            res.render('order/order/materiel_modal', returnData);
+        });
+     },
     movePacket:function(req,res){
         request(Base.mergeRequestOptions({
             method: 'put',
