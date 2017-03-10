@@ -57,6 +57,7 @@ var OrderController = {
                 {url: '/api/assist/order/difficulty', method: 'GET', resConfig: {keyName: 'difficultyList', is_must: true}},
                 {url: '/api/cofficient', method: 'GET', resConfig: {keyName: 'cofficientInfo', is_must: true}},
                 {url: '/api/orders/chgback/'+tid, method: 'GET', resConfig: {keyName: 'chgbackInfo', is_must: true}},
+                {url: '/api/orders/progress/'+tid, method: 'GET', resConfig: {keyName: 'progressInfo', is_must: true}},
             ],
             function (req, res, resultList) {
                 var returnData = Base.mergeData(helper.mergeObject({
@@ -157,6 +158,54 @@ var OrderController = {
                 pagination: boostrapPaginator.render()
             }, resultList));
             res.render('order/order/back', returnData);
+        });
+
+    },
+    communicatePage: function (req, res) {
+        var tid = req.params.tid;
+        var returnData = {
+            title: ' ',
+            tid: tid,
+        }
+        res.render('order/order/communicate_create', returnData);
+    },
+    doCreateCommunicate: function (req, res) {
+        var tid = req.body.tid;
+        request(Base.mergeRequestOptions({
+            method: 'post',
+            url: '/api/orders/progress',
+            form: req.body,
+        }, req, res), function (error, response, body) {
+            if (!error && response.statusCode == 201) {
+
+                res.redirect("/order/detail/" + tid);
+            } else {
+                Base.handlerError(res, req, error, response, body);
+            }
+        })
+    },
+    communicateAllPage: function (req, res) {
+        var tid = req.params.tid;
+        var paramObject = helper.genPaginationQuery(req);
+        Base.multiDataRequest(req, res, [
+            {url: '/api/orders/progress?tid='+tid, method: 'GET', resConfig: {keyName: 'progressList', is_must: true}},
+        ], function (req, res, resultList) {
+
+            var paginationInfo = resultList.progressList;
+
+            var boostrapPaginator = new Pagination.TemplatePaginator(helper.genPageInfo({
+                prelink: paramObject.withoutPageNo,
+                current: paginationInfo.page,
+                rowsPerPage: paginationInfo.pageSize,
+                totalResult: paginationInfo.totalItems
+            }));
+
+            var returnData = Base.mergeData(helper.mergeObject({
+                title: ' ',
+                tid: tid,
+                pagination: boostrapPaginator.render()
+            }, resultList));
+            res.render('order/order/communicate', returnData);
         });
 
     },
@@ -487,8 +536,8 @@ var OrderController = {
 
                 resultList.resupplyReason = resupplyReason;
 
-console.log('resupplyReason',JSON.stringify(resupplyReason))
-console.log('resupplyReason222',JSON.stringify(resupplyLeveTwo))
+// console.log('resupplyReason',JSON.stringify(resupplyReason))
+// console.log('resupplyReason222',JSON.stringify(resupplyLeveTwo))
 
                 var returnData = Base.mergeData(helper.mergeObject({
                     title: ' ',
@@ -751,29 +800,34 @@ console.log('resupplyReason222',JSON.stringify(resupplyLeveTwo))
     },
     packedListPage:function(req,res){
         var tid=req.params.tid;
-        request(Base.mergeRequestOptions({
-            method: 'get',
-            url: '/api/orders/package/packet/'+tid,
-        }, req, res), function (error, response, body) {
-            if (!error && response.statusCode == 200) {
-                res.status(200).json(body);
-            } else {
-                Base.handlerError(res, req, error, response, body);
-            }
-        })
+        Base.multiDataRequest(req, res, [
+            {url: '/api/orders/package/packet/'+tid, method: 'GET', resConfig: {keyName: 'packedList', is_must: true}},
+        ], function (req, res, resultList) {
+            var returnData = Base.mergeData(helper.mergeObject({
+                title: ' ',
+                tid:tid
+            },resultList));
+            res.render('order/order/packedList', returnData);
+        });
+       // res.render('order/order/packedList');
     },
     packedListDetailPage:function(req,res){
+        var tid=req.params.tid;
         var pid=req.params.pid;
-        request(Base.mergeRequestOptions({
-            method: 'get',
-            url: '/api/orders/package/pcaketlist/'+pid,
-        }, req, res), function (error, response, body) {
-            if (!error && response.statusCode == 200) {
-                res.status(200).json(body);
-            } else {
-                Base.handlerError(res, req, error, response, body);
-            }
-        })
+        var type=req.params.type;
+        Base.multiDataRequest(req, res, [
+            {url: '/api/orders/package/packet/'+tid, method: 'GET', resConfig: {keyName: 'packedList', is_must: true}},
+            {url: '/api/orders/package/pcaketlist/'+pid, method: 'GET', resConfig: {keyName: 'packedListDetail', is_must: true}},
+        ], function (req, res, resultList) {
+            var returnData = Base.mergeData(helper.mergeObject({
+                title: ' ',
+                tid:tid,
+                pid:pid,
+                type:type
+            },resultList));
+            res.render('order/order/packedListDetail', returnData);
+        });
+        //res.render('order/order/packedListDetail');
     },
     unpacket:function(req,res){
         var tid=req.params.tid;
@@ -852,6 +906,18 @@ console.log('resupplyReason222',JSON.stringify(resupplyLeveTwo))
             res.render('order/order/materiel_modal', returnData);
         });
      },
+    movePacket:function(req,res){
+        request(Base.mergeRequestOptions({
+            method: 'put',
+            url: '/api/orders/package/packet/move?'+queryString.stringify(req.body),
+        }, req, res), function (error, response, body) {
+            if (!error && response.statusCode == 201) {
+                res.sendStatus(200);
+            } else {
+                Base.handlerError(res, req, error, response, body);
+            }
+        })
+    },
 };
 
 module.exports = OrderController;

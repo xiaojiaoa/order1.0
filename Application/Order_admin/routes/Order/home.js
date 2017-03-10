@@ -160,6 +160,14 @@ router.post('/orders/updateDifficultyLevel', Middleware.AuthCheck, OrderControll
 
 // 所有退回信息页面
 router.get('/order/chgback/:tid', Middleware.AuthCheck, OrderController.chgbackeAllPage);
+// 新增交流信息页面
+router.get('/order/communicate/create/:tid', Middleware.AuthCheck, OrderController.communicatePage);
+
+// 所有交流信息页面
+router.get('/order/communicateAll/:tid', Middleware.AuthCheck, OrderController.communicateAllPage);
+
+// 新增交流信息
+router.post('/order/communicate/doCreate', Middleware.AuthCheck, OrderController.doCreateCommunicate);
 
 // 补单页面
 router.get('/orders/resupplys', Middleware.AuthCheck, Middleware.FilterEmptyField, OrderController.resupplyPage);
@@ -242,10 +250,10 @@ router.put('/schedule/doPass/:tid', Middleware.AuthCheck, OrderController.doPass
 router.get('/orders/package', Middleware.AuthCheck,Middleware.FilterEmptyField,OrderController.packagePage);
 
 //查询订单生成包装后的包装列表
-router.put('/orders/package/:tid', Middleware.AuthCheck,OrderController.packedListPage);
+router.get('/orders/package/:tid', Middleware.AuthCheck,OrderController.packedListPage);
 
 //获取包装清单数据
-router.put('/orders/package/pcaketlist/:pid', Middleware.AuthCheck,OrderController.packedListDetailPage);
+router.get('/orders/package/pcaketlist/:tid/:pid/:type', Middleware.AuthCheck,OrderController.packedListDetailPage);
 
 //撤销包装
 router.put('/orders/package/unpacket/:tid', Middleware.AuthCheck,OrderController.unpacket);
@@ -253,11 +261,14 @@ router.put('/orders/package/unpacket/:tid', Middleware.AuthCheck,OrderController
 //生成分包
 router.put('/orders/package/packet/:tid',Middleware.AuthCheck,OrderController.doPacket);
 
+
 //订单详情--订单物料--非标件
 router.get('/order/workpiece/:tid',Middleware.AuthCheck,OrderController.workpiecePage);
 //订单详情--订单物料--配件
  router.get('/order/materiel_modal/:tid',Middleware.AuthCheck,OrderController.partsPage);
 
+//移动包装操作
+router.put('/orders/package/packet/move',Middleware.AuthCheck,OrderController.movePacket);
 
 /*
  * 页面范围: 拆单
