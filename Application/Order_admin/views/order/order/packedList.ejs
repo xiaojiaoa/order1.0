@@ -63,7 +63,7 @@
                                     <%
                                     if( packedListDetail.length!=0){
                                     packedListDetail.orderPackages.forEach(function (element, index) { %>
-                                    <tr class="">
+                                    <tr class="<%= ( pid == element.packageLid )? 'color01':'' %>">
                                         <td> <%= index+1 %></td>
                                         <td class="display-none"><%= element.packageType %></td>
                                         <td class="display-none"><%= element.pacakgeNo %></td>
@@ -117,10 +117,10 @@
                                         <td><%= element.weigth %></td>
                                         <td></td>
                                         <td>
-                                            <select class="form-control validate[required]" name="" id="">
+                                            <select class="form-control validate[required]" name="destinationPackageLid" class="destinationPackageLid">
                                                 <option value="">- 请选择 -</option>
                                                 <% packedListDetail.selectlist.forEach(function(element,index){%>
-                                                <option value="<%= element.id%>"> <%= element.name%></option>
+                                                <option value="<%= element.packageLid%>"> <%= element.name%></option>
                                                 <%})%>
                                             </select>
                                         </td>
@@ -162,10 +162,10 @@
                                         <td><%= element.weigth %></td>
                                         <td></td>
                                         <td>
-                                            <select class="form-control validate[required]" name="" id="">
+                                            <select class="form-control validate[required]" name="destinationPackageLid" class="destinationPackageLid">
                                                 <option value="">- 请选择 -</option>
                                                 <% packedListDetail.selectlist.forEach(function(element,index){%>
-                                                <option value="<%= element.id%>"> <%= element.name%></option>
+                                                <option value="<%= element.packageLid%>"> <%= element.name%></option>
                                                 <%})%>
                                             </select>
                                         </td>
@@ -238,7 +238,6 @@
                 window.location.href = $(this).find("a").attr("href");
             }
         });
-        console.log("<% pid%>")
         //撤销包装按钮
         $(document).on("click",".undoPackingBtn",function(){
             layer.confirm('确定撤销包装吗？',{icon: 3, title:'提示'},
