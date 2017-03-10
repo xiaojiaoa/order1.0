@@ -22,6 +22,48 @@
     <div id="content">
         <!-- start well -->
         <div class="well">
+                <!-- row -->
+                <div class="row">
+                    <div class="col-xs-12">
+                        <h6>已选中物料</h6>
+                        <hr class="simple">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-12">
+                        <div class="table-responsive">
+                            <table class="table table-bordered table-striped">
+                                <thead>
+                                <tr>
+                                    <th>
+                                        <label class="checkbox-inline">
+                                            <input type="checkbox" class="checkbox"
+                                                   id="checkAll2"  />
+                                            <span>序号</span>
+                                        </label>
+                                    </th>
+                                    <th>物料编号</th>
+                                    <th>物料名称</th>
+                                    <th>库存</th>
+                                    <th>分类</th>
+                                </tr>
+                                </thead>
+                                <tbody class="purApplyTr">
+
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="col-xs-12">
+                            <hr class="simple">
+                            <div class="col-xs-1 text-center">
+                                <button class="btn btn-primary" id="editBatchNumSub">编辑批次号</button>
+                                <input  id="editBatchNum" class=""  type="hidden" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+        </div>
+        <div class="well">
             <!-- row -->
             <div class="row">
                 <!-- col -->
@@ -81,12 +123,10 @@
                 <!-- end col -->
             </div>
             <!-- end row -->
-        </div>
         <!-- end well -->
         <form class="form-horizontal" method="post" id="creat-supplier" action="/purchase/applyCreat" >
             <div class="col-xs-12">
                 <legend>
-                    新建请购单
                 </legend>
             </div>
             <div class="row">
@@ -112,6 +152,7 @@
                             </th>
                             <th>物料编号</th>
                             <th>物料名称</th>
+                            <th>库存</th>
                             <th>分类名称</th>
                         </tr>
                         </thead>
@@ -130,6 +171,7 @@
                             </td>
                             <td><a href="/materialManage/detail/<%= element.id %>"><%= element.id %></a></td>
                             <td><%= element.name %></td>
+                            <td>这里显示库存</td>
                             <td><%= element.catName %></td>
                         <%  }) }else{%>
                         <td colspan="4" class="text-align-center">暂无结果</td>
@@ -143,6 +185,7 @@
             </div>
             <div class="dwy-clear"></div>
         </form>
+    </div>
     </div>
 </div>
 
@@ -166,6 +209,10 @@
             }
         })
         $("input[name='roles']").change(function () {
+
+            var html=$(this).parents('tr').html();
+            $(".purApplyTr").html(html);
+
             if($(this).is(':checked')){
                 checkedValue.addClass(this.value+',')
             }else{
