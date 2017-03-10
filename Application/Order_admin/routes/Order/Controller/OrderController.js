@@ -800,31 +800,19 @@ var OrderController = {
     },
     packedListPage:function(req,res){
         var tid=req.params.tid;
+        var pid=queryString.stringify(req.query.packageLid);
+        console.log("555"+pid);
         Base.multiDataRequest(req, res, [
-            {url: '/api/orders/package/packet/'+tid, method: 'GET', resConfig: {keyName: 'packedList', is_must: true}},
+            {url: '/api/orders/package/pcaketview/'+tid+"?"+(queryString.stringify(req.query)), method: 'GET', resConfig: {keyName: 'packedListDetail', is_must: true}},
         ], function (req, res, resultList) {
             var returnData = Base.mergeData(helper.mergeObject({
                 title: ' ',
-                tid:tid
+                tid:tid,
+                pid:pid,
             },resultList));
             res.render('order/order/packedList', returnData);
         });
        // res.render('order/order/packedList');
-    },
-    packedListDetailPage:function(req,res){
-        var tid=req.params.tid;
-        var pid=req.params.pid;
-        Base.multiDataRequest(req, res, [
-            {url: '/api/orders/package/packet/'+tid, method: 'GET', resConfig: {keyName: 'packedList', is_must: true}},
-            {url: '/api/orders/package/pcaketlist/'+pid, method: 'GET', resConfig: {keyName: 'packedListDetail', is_must: true}},
-        ], function (req, res, resultList) {
-            var returnData = Base.mergeData(helper.mergeObject({
-                title: ' ',
-                tid:tid
-            },resultList));
-            res.render('order/order/packedListDetail', returnData);
-        });
-        //res.render('order/order/packedListDetail');
     },
     unpacket:function(req,res){
         var tid=req.params.tid;
@@ -846,6 +834,67 @@ var OrderController = {
         request(Base.mergeRequestOptions({
             method: 'put',
             url: '/api/orders/package/packet/'+tid,
+        }, req, res), function (error, response, body) {
+            if (!error && response.statusCode == 201) {
+                res.sendStatus(200);
+            } else {
+                Base.handlerError(res, req, error, response, body);
+            }
+        })
+    },
+    //订单详情--订单物料--工件
+    workpiecePage:function (req, res) {
+        var paramObject = helper.genPaginationQuery(req);
+        var tid=req.params.tid;
+        Base.multiDataRequest(req, res, [
+            {url: '/api/orders/package/workpiece/list/'+tid+'?'+queryString.stringify(req.query), method: 'GET', resConfig: {keyName: 'workpieceList', is_must: true}},
+            {url: '/api/orders/'+tid, method: 'GET', resConfig: {keyName: 'orderDetail', is_must: true}},
+            {url: '/api/assist/order/stcodes', method: 'GET', resConfig: {keyName: 'stcodeInfo', is_must: false}},
+        ], function (req, res, resultList) {
+            var paginationInfo =  resultList.workpieceList;
+            var boostrapPaginator = new Pagination.TemplatePaginator(helper.genPageInfo({
+                prelink: paramObject.withoutPageNo,
+                current: paginationInfo.page,
+                rowsPerPage: paginationInfo.pageSize,
+                totalResult: paginationInfo.totalItems
+            }));
+            var returnData = Base.mergeData(helper.mergeObject({
+                title: ' ',
+                pagination: boostrapPaginator.render(),
+                tid:tid
+            },resultList));
+            res.render('order/order/workpiece', returnData);
+        });
+    },
+
+    //订单详情--订单物料--配件
+    partsPage:function (req, res) {
+        var paramObject = helper.genPaginationQuery(req);
+        var tid=req.params.tid;
+        Base.multiDataRequest(req, res, [
+            {url: '/api/orders/package/accessory/list/'+tid+'?'+queryString.stringify(req.query), method: 'GET', resConfig: {keyName: 'partsList', is_must: true}},
+            {url: '/api/orders/'+tid, method: 'GET', resConfig: {keyName: 'orderDetail', is_must: true}},
+            {url: '/api/assist/order/stcodes', method: 'GET', resConfig: {keyName: 'stcodeInfo', is_must: false}},
+        ], function (req, res, resultList) {
+            var paginationInfo =  resultList.partsList;
+            var boostrapPaginator = new Pagination.TemplatePaginator(helper.genPageInfo({
+                prelink: paramObject.withoutPageNo,
+                current: paginationInfo.page,
+                rowsPerPage: paginationInfo.pageSize,
+                totalResult: paginationInfo.totalItems
+            }));
+            var returnData = Base.mergeData(helper.mergeObject({
+                title: ' ',
+                pagination: boostrapPaginator.render(),
+                tid:tid
+            },resultList));
+            res.render('order/order/materiel_modal', returnData);
+        });
+     },
+    movePacket:function(req,res){
+        request(Base.mergeRequestOptions({
+            method: 'put',
+            url: '/api/orders/package/packet/move?'+queryString.stringify(req.body),
         }, req, res), function (error, response, body) {
             if (!error && response.statusCode == 201) {
                 res.sendStatus(200);

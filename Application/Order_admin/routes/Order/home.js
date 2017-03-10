@@ -252,14 +252,20 @@ router.get('/orders/package', Middleware.AuthCheck,Middleware.FilterEmptyField,O
 //查询订单生成包装后的包装列表
 router.get('/orders/package/:tid', Middleware.AuthCheck,OrderController.packedListPage);
 
-//获取包装清单数据
-router.get('/orders/package/pcaketlist/:tid/:pid', Middleware.AuthCheck,OrderController.packedListDetailPage);
-
 //撤销包装
 router.put('/orders/package/unpacket/:tid', Middleware.AuthCheck,OrderController.unpacket);
 
 //生成分包
 router.put('/orders/package/packet/:tid',Middleware.AuthCheck,OrderController.doPacket);
+
+
+//订单详情--订单物料--非标件
+router.get('/order/workpiece/:tid',Middleware.AuthCheck,OrderController.workpiecePage);
+//订单详情--订单物料--配件
+ router.get('/order/materiel_modal/:tid',Middleware.AuthCheck,OrderController.partsPage);
+
+//移动包装操作
+router.put('/orders/package/packet/move',Middleware.AuthCheck,OrderController.movePacket);
 
 /*
  * 页面范围: 拆单
