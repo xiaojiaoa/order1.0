@@ -24,10 +24,7 @@
     <!-- MAIN CONTENT -->
     <div id="content">
 
-        <div class="row-url">
-            <a class="title-url active" href="/noticeInfo">公告信息</a>
-            <a class="title-url" href="/fileInfo">资料信息</a>
-        </div>
+
         <!-- well -->
         <div class="well">
             <!-- row -->
@@ -91,7 +88,7 @@
                 <div class="col-xs-12">
                     <div class="col-xs-2"></div>
                     <div class="col-xs-8">
-                        <% if(DWY_Helper.isCanLoop(noticeInfoList.totalItems)){
+                        <% if(DWY_Helper.isCanLoop(noticeInfoList.result)){
                         noticeInfoList.result.forEach(function(element,index){%>
                         <dl class="dl-style01">
                             <dt>

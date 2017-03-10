@@ -17,96 +17,181 @@
         </ol>
         <!-- end breadcrumb -->
 
-        <!-- You can also add more buttons to the
-        ribbon for further usability
-
-        Example below:
-
-        <span class="ribbon-button-alignment pull-right">
-        <span id="search" class="btn btn-ribbon hidden-xs" data-title="search"><i class="fa-grid"></i> Change Grid</span>
-        <span id="add" class="btn btn-ribbon hidden-xs" data-title="add"><i class="fa-plus"></i> Add</span>
-        <span id="search" class="btn btn-ribbon" data-title="search"><i class="fa-search"></i> <span class="hidden-mobile">Search</span></span>
-        </span> -->
 
     </div>
     <!-- END RIBBON -->
-
 
     <!-- MAIN CONTENT -->
     <div id="content">
 
 
-        <!--
-            The ID "widget-grid" will start to initialize all widgets below
-            You do not need to use widgets if you dont want to. Simply remove
-            the <section></section> and you can use wells or panels instead
-            -->
-
-
         <!-- well -->
-        <div class="well">
+        <div class="well no-border no-box-shadow">
             <!-- row -->
             <div class="row">
                 <!-- col -->
-                <div class="col-xs-12">
+                <div class="col-xs-7 well height01">
                     <legend>个人信息</legend>
                     <!-- row -->
-                    <div class="row search-form">
-                        <div class="form-horizontal" method="get">
+                    <div class="col-xs-12">
+                        <div class="table-responsive">
+                            <table class="table table-bordered table-striped table-information">
+                                <tbody>
+                                <tr>
+                                    <td width="">机构编号:</td>
+                                    <td><%= user.bid %></td>
+                                    <td width="">柜员姓名:</td>
+                                    <td><%= user.name %></td>
+                                </tr>
+                                <tr>
+                                    <td>柜员编号:</td>
+                                    <td><%= user.id %></td>
+                                    <td>柜员手机:</td>
+                                    <td><%= user.mobile %></td>
+                                </tr>
+                                <tr>
+                                    <td>柜员角色:</td>
+                                    <td> <%
+                                        if(user.role){
+                                        user.role.forEach(function (element) { %>
+                                        <%= element.name %>
+                                        <% })
+                                        } %>
 
-                            <div class="col-xs-6">
-                                <!--输入字段-->
-                                <div class="col-xs-6">
-                                    <label class="text-right col-xs-6">门店编号:</label>
-                                    <p class="text-left col-xs-6"><%= user.bid %></p>
-                                </div>
-                                <!--输入字段-->
-                                <div class="col-xs-6">
-                                    <label class="text-right col-xs-6">柜员姓名:</label>
-                                    <p class="text-left col-xs-6"><%= user.name %></p>
-                                </div>
+                                    </td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
 
-                                <!--输入字段-->
-                                <div class="col-xs-6">
-                                    <label class="text-right col-xs-6">柜员编号:</label>
-                                    <p class="text-left col-xs-6"><%= user.id %></p>
-                                </div>
-
-                                <!--输入字段-->
-                                <div class="col-xs-6">
-                                    <label class="text-right col-xs-6">柜员手机:</label>
-                                    <p class="text-left col-xs-6"><%= user.mobile %></p>
-                                </div>
-
-
-                            </div>
-
-                            <div style="clear: both;"></div>
-
-                            <div class="col-xs-6">
-                                <hr class="simple">
-                                <div class="col-xs-12 text-center">
-                                    <a class="btn btn-primary" href="/customer/create">
-                                        <i class="fa fa-save"></i>
-                                        新建客户
-                                    </a>
-                                    <span style="width: 20px;display: inline-block;"></span>
-                                    <a class="btn btn-primary" href="/customer/create/company">
-                                        <i class="fa fa-save"></i>
-                                        新建企业客户
-                                    </a>
-                                </div>
-                            </div>
+                                </tbody>
+                            </table>
 
                         </div>
+
+
                     </div>
                     <!-- end row -->
                 </div>
+
                 <!-- end col -->
+                <!--col-->
+                <div class="col-xs-4 well height01" style="margin-left:10px;">
+                    <legend>公告信息 <a href="/noticeInfo" class="label label-primary">查看所有</a></legend>
+                    <!-- row -->
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <div class="table-responsive">
+                                <table class="table table-bordered table-striped">
+                                    <tbody>
+                                    <%
+                                        if(DWY_Helper.isCanLoop(noticeInfo.result)){
+                                        noticeInfo.result.forEach(function(element,index){%>
+                                    <tr>
+                                        <td >
+                                            <a href="/noticeInfo#<%= element.id%>" ><%= element.title %></a>
+                                        </td>
+
+                                        <td ><%= DWY_Helper.getLocalDateYMD(element.addTime) %></td>
+                                    </tr>
+                                    <%})
+                                        }%>
+
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+
+                    </div>
+                    <!-- end row -->
+                </div>
+                <!--end col-->
             </div>
             <!-- end row -->
         </div>
         <!-- end well -->
+        <!-- well -->
+        <div class="well no-border no-box-shadow">
+            <!-- row -->
+            <div class="row">
+                <!-- col -->
+                <div class="col-xs-7 well height01">
+                    <legend>流水信息     <a href="/taskseqs" class="label label-primary">查看所有</a></legend>
+                    <!-- row -->
+                    <div class="row">
+                        <div class="col-xs-12">
+
+                            <div class="table-responsive">
+                                <table class="table table-bordered table-striped">
+                                    <thead>
+                                    <tr>
+                                        <th>序号</th>
+                                        <th>客户号</th>
+                                        <th>客户名称</th>
+                                        <th>流水号</th>
+                                        <th>流水状态</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <% if(DWY_Helper.isCanLoop(taskMeasureInfo.result)){
+                                    taskMeasureInfo.result.forEach(function(element,index){%>
+                                    <tr>
+                                        <td><%= index+1%></td>
+                                        <td><a href="/customer/detail/<%= element.cid%>"><%= element.cid%></a></td>
+                                        <td><%= element.custName%></td>
+                                        <td><a href="/taskseq/index/<%= element.lid%>"><%= element.lid%></a></td>
+                                        <td><%= DWY_Helper.getAssistVal(element.stcode,statusInfo) %></td>
+                                    </tr>
+                                    <%})}%>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                    </div>
+                    <!-- end row -->
+                </div>
+                <!-- end col -->
+                <!--col-->
+                <div class="col-xs-4 well height01" style="margin-left:10px;">
+                    <legend>资料信息     <a href="/fileInfo" class="label label-primary">查看所有</a></legend>
+                    <!-- row -->
+                    <div class="row">
+                        <div class="col-xs-12">
+
+                            <div class="table-responsive">
+                                <table class="table table-bordered table-striped">
+
+                                    <tbody>
+
+                                    <%
+                                    if(DWY_Helper.isCanLoop(fileInfo.result)){
+                                    fileInfo.result.forEach(function(element,index){%>
+                                    <tr>
+                                        <td><a href="<%= DWY_GLOBAL.Static %>/download?url=<%= element.path %>"><%= element.name%></a></td>
+                                        <td><%= DWY_Helper.getLocalDateYMD(element.addTime) %></td>
+                                    </tr>
+                                    <%})
+                                    } %>
+
+
+
+
+
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                    </div>
+                    <!-- end row -->
+                </div>
+                <!--end col-->
+            </div>
+            <!-- end row -->
+        </div>
+        <!-- end well -->
+
 
 
     </div>
@@ -122,63 +207,7 @@
 <script type="text/javascript">
 
     $(document).ready(function () {
-
-        /* DO NOT REMOVE : GLOBAL FUNCTIONS!
-         *
-         * pageSetUp(); WILL CALL THE FOLLOWING FUNCTIONS
-         *
-         * // activate tooltips
-         * $("[rel=tooltip]").tooltip();
-         *
-         * // activate popovers
-         * $("[rel=popover]").popover();
-         *
-         * // activate popovers with hover states
-         * $("[rel=popover-hover]").popover({ trigger: "hover" });
-         *
-         * // activate inline charts
-         * runAllCharts();
-         *
-         * // setup widgets
-         * setup_widgets_desktop();
-         *
-         * // run form elements
-         * runAllForms();
-         *
-         ********************************
-         *
-         * pageSetUp() is needed whenever you load a page.
-         * It initializes and checks for all basic elements of the page
-         * and makes rendering easier.
-         *
-         */
-
         pageSetUp();
-
-        /*
-         * ALL PAGE RELATED SCRIPTS CAN GO BELOW HERE
-         * eg alert("my home function");
-         *
-         * var pagefunction = function() {
-         *   ...
-         * }
-         * loadScript("js/plugin/_PLUGIN_NAME_.js", pagefunction);
-         *
-         * TO LOAD A SCRIPT:
-         * var pagefunction = function (){
-         *  loadScript(".../plugin.js", run_after_loaded);
-         * }
-         *
-         * OR
-         *
-         * loadScript(".../plugin.js", run_after_loaded);
-         */
-
-        var pageFunction = function () {
-
-        }
-
-        pageFunction();
 
     })
 
