@@ -245,13 +245,16 @@ router.get('/orders/package', Middleware.AuthCheck,Middleware.FilterEmptyField,O
 router.get('/orders/package/:tid', Middleware.AuthCheck,OrderController.packedListPage);
 
 //获取包装清单数据
-router.get('/orders/package/pcaketlist/:tid/:pid', Middleware.AuthCheck,OrderController.packedListDetailPage);
+router.get('/orders/package/pcaketlist/:tid/:pid/:type', Middleware.AuthCheck,OrderController.packedListDetailPage);
 
 //撤销包装
 router.put('/orders/package/unpacket/:tid', Middleware.AuthCheck,OrderController.unpacket);
 
 //生成分包
 router.put('/orders/package/packet/:tid',Middleware.AuthCheck,OrderController.doPacket);
+
+//移动包装操作
+router.put('/orders/package/packet/move',Middleware.AuthCheck,OrderController.movePacket);
 
 /*
  * 页面范围: 拆单

@@ -765,13 +765,16 @@ console.log('resupplyReason222',JSON.stringify(resupplyLeveTwo))
     packedListDetailPage:function(req,res){
         var tid=req.params.tid;
         var pid=req.params.pid;
+        var type=req.params.type;
         Base.multiDataRequest(req, res, [
             {url: '/api/orders/package/packet/'+tid, method: 'GET', resConfig: {keyName: 'packedList', is_must: true}},
             {url: '/api/orders/package/pcaketlist/'+pid, method: 'GET', resConfig: {keyName: 'packedListDetail', is_must: true}},
         ], function (req, res, resultList) {
             var returnData = Base.mergeData(helper.mergeObject({
                 title: ' ',
-                tid:tid
+                tid:tid,
+                pid:pid,
+                type:type
             },resultList));
             res.render('order/order/packedListDetail', returnData);
         });
@@ -797,6 +800,18 @@ console.log('resupplyReason222',JSON.stringify(resupplyLeveTwo))
         request(Base.mergeRequestOptions({
             method: 'put',
             url: '/api/orders/package/packet/'+tid,
+        }, req, res), function (error, response, body) {
+            if (!error && response.statusCode == 201) {
+                res.sendStatus(200);
+            } else {
+                Base.handlerError(res, req, error, response, body);
+            }
+        })
+    },
+    movePacket:function(req,res){
+        request(Base.mergeRequestOptions({
+            method: 'put',
+            url: '/api/orders/package/packet/move?'+queryString.stringify(req.body),
         }, req, res), function (error, response, body) {
             if (!error && response.statusCode == 201) {
                 res.sendStatus(200);
