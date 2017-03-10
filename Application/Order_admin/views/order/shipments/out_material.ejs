@@ -152,21 +152,25 @@
                             </tr>
                             </thead>
                             <tbody>
+                            <%  if(DWY_Helper.isCanLoop(matesList.result) ){
+                                matesList.result.forEach(function (element, index) { %>
                             <tr>
-                                <td>1</td>
-                                <td><a href="/outMaterial/deatil/123456">123456</a></td>
-                                <td><a href="/order/detail/123456">123456</a></td>
-                                <td>2016-10-10</td>
-                                <td>仓库1</td>
-                                <td>张三</td>
-                                <td>待审核</td>
-                                <td></td>
-                                <td><a class="cursor-pointer checkThis" data-id="37">审核</a></td>
+                                <td><%= ++index %></td>
+                                <td><a href="/outMaterial/deatil/<%= element.outId %>"><%= element.outId %></a></td>
+                                <td><a href="/order/detail/<%= element.tid %>"><%= element.tid %></a></td>
+                                <td><%= element.outTime %></td>
+                                <td><%= element.whseId %></td>
+                                <td><%= element.outEmp %></td>
+                                <td><%= element.stcode==2?'待审核':'已审核' %></td>
+                                <td><%= element.reviewEmp %></td>
+                                <td><a class="cursor-pointer checkThis" data-id="<%= element.tid %>">审核</a></td>
                             </tr>
-
+                            <% })
+                            }else{ %>
                             <tr>
                                 <td colspan="9" class="text-align-center">暂无数据</td>
                             </tr>
+                            <% }  %>
                             </tbody>
                         </table>
 

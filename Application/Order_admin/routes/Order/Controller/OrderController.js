@@ -487,8 +487,8 @@ var OrderController = {
 
                 resultList.resupplyReason = resupplyReason;
 
-console.log('resupplyReason',JSON.stringify(resupplyReason))
-console.log('resupplyReason222',JSON.stringify(resupplyLeveTwo))
+// console.log('resupplyReason',JSON.stringify(resupplyReason))
+// console.log('resupplyReason222',JSON.stringify(resupplyLeveTwo))
 
                 var returnData = Base.mergeData(helper.mergeObject({
                     title: ' ',
