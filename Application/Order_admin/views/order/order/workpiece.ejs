@@ -53,8 +53,8 @@
                                 </div>
                                 <div class="orderItemLayerTit">
                                     <ul class="orderItemMenu">
-                                        <a href="/order/workpiece/<%= tid %>"><li class="workpiece padding-10">非标件</li></a>
-                                        <a href="/order/materiel_modal/<%= tid %>"><li class="parts materielBak padding-10">配件</li></a>
+                                        <a href="/order/workpiece/<%= tid %>"><li class="workpiece materielBak padding-10">非标件</li></a>
+                                        <a href="/order/materiel_modal/<%= tid %>"><li class="parts padding-10">配件</li></a>
                                     </ul>
                                 </div>
                                 <div class="orderItemLayerTable">
@@ -68,22 +68,23 @@
                                                     <span>序号</span>
                                                 </label>
                                             </th>
-                                            <th>订单号</th>
-                                            <th>配件名称</th>
+                                            <th>订单编号</th>
+                                            <th>材料</th>
+                                            <th>名称</th>
                                             <th>代号</th>
-                                            <th>类型编码</th>
-                                            <th>类型</th>
-                                            <th>规格</th>
+                                            <th>长度</th>
+                                            <th>宽度</th>
                                             <th>数量</th>
-                                            <th>单位编码</th>
-                                            <th>单位</th>
+                                            <th>纹理方向</th>
+                                            <th>封边信息</th>
+                                            <th>排孔信息</th>
                                             <th>备注</th>
                                         </tr>
                                         </thead>
                                         <tbody>
                                         <%
-                                        if(DWY_Helper.isCanLoop(partsList.result)){
-                                        partsList.result.forEach(function(element,index){%>
+                                        if(DWY_Helper.isCanLoop(workpieceList.result)){
+                                        workpieceList.result.forEach(function(element,index){%>
                                         <tr>
                                             <td>
                                                 <label class="checkbox-inline">
@@ -92,18 +93,19 @@
                                                 </label>
                                             </td>
                                             <td><%= element.tid %></td>
+                                            <td><%= element.materialName %></td>
                                             <td><%= element.name %></td>
                                             <td><%= element.code %></td>
-                                            <td><%= element.type %></td>
-                                            <td><%= element.typeStr %></td>
-                                            <td><%= element.standard %></td>
+                                            <td><%= element.length %></td>
+                                            <td><%= element.width %></td>
                                             <td><%= element.amount %></td>
-                                            <td><%= element.unit %></td>
-                                            <td><%= element.unitStr %></td>
+                                            <td><%= element.textureOrientation %></td>
+                                            <td><%= element.edgeInformation %></td>
+                                            <td><%= element.holeInformation %></td>
                                             <td><%= element.remark %></td>
                                         </tr>
                                         <%})}else{%>
-                                        <td colspan="11" class="text-align-center">暂无结果</td>
+                                        <td colspan="12" class="text-align-center">暂无结果</td>
                                         <%}%>
                                         <input type="hidden" value="<%= tid %>" class="tid">
                                         <input type="hidden" class="" id="workpieceBtn" />
@@ -131,7 +133,6 @@
 <%- include('../layouts/footer'); %>
 <%- include('../layouts/footer_common_script'); %>
 <script type="text/javascript">
-
     var workpieceBtn = $('#workpieceBtn');
     $("#checkAll").change(function () {
         if($(this).is(":checked")){
