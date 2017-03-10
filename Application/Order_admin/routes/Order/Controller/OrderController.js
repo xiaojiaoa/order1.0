@@ -801,7 +801,6 @@ var OrderController = {
     packedListPage:function(req,res){
         var tid=req.params.tid;
         var pid=req.query.packageLid;
-        console.log("555_"+pid);
         Base.multiDataRequest(req, res, [
             {url: '/api/orders/package/pcaketview/'+tid+"?"+(queryString.stringify(req.query)), method: 'GET', resConfig: {keyName: 'packedListDetail', is_must: true}},
         ], function (req, res, resultList) {
@@ -841,6 +840,33 @@ var OrderController = {
                 Base.handlerError(res, req, error, response, body);
             }
         })
+    },
+    movePacket:function(req,res){
+        request(Base.mergeRequestOptions({
+            method: 'put',
+            url: '/api/orders/package/packet/move?'+queryString.stringify(req.body),
+        }, req, res), function (error, response, body) {
+            if (!error && response.statusCode == 201) {
+                res.sendStatus(200);
+            } else {
+                Base.handlerError(res, req, error, response, body);
+            }
+        })
+    },
+    deletePacket:function(req,res){
+        var mid = req.params.pid;
+        var type = req.params.type;
+        console.log('删除包装'+ JSON.stringify(req.params));
+      /*  request(Base.mergeRequestOptions({
+         method: 'put',
+         url: '/api/orders/package/packet/delete/'+mid+'?packageType='+type,
+         }, req, res), function (error, response, body) {
+         if (!error && response.statusCode == 201) {
+         res.sendStatus(200);
+         } else {
+         Base.handlerError(res, req, error, response, body);
+         }
+         })*/
     },
     //订单详情--订单物料--工件
     workpiecePage:function (req, res) {
@@ -891,18 +917,6 @@ var OrderController = {
             res.render('order/order/materiel_modal', returnData);
         });
      },
-    movePacket:function(req,res){
-        request(Base.mergeRequestOptions({
-            method: 'put',
-            url: '/api/orders/package/packet/move?'+queryString.stringify(req.body),
-        }, req, res), function (error, response, body) {
-            if (!error && response.statusCode == 201) {
-                res.sendStatus(200);
-            } else {
-                Base.handlerError(res, req, error, response, body);
-            }
-        })
-    },
 };
 
 module.exports = OrderController;
