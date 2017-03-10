@@ -13,7 +13,13 @@
         <!-- breadcrumb -->
         <ol class="breadcrumb">
             <li>后台管理</li>
-            <li><a class="back-url" href="/waitSend"><i class="fa fa-chevron-left"></i> 待发货流水</a></li>
+            <% if(type=='outMaterial'){ %>
+            <li><a class="back-url" href="/outMaterial"><i class="fa fa-chevron-left"></i>  原料出库</a></li>
+            <% }%>
+            <% if(type=='outProduct'){ %>
+            <li><a class="back-url" href="/outProduct"><i class="fa fa-chevron-left"></i> 成品出库</a></li>
+            <% }%>
+
             <li>可发货订单</li>
         </ol>
 
@@ -39,8 +45,8 @@
                                     <div class="form-group">
                                         <label class="col-xs-4 control-label">订单号:</label>
                                         <div class="col-xs-8">
-                                            <input class="form-control" value="<%= DWYRequest.query.cid %>" type="text"
-                                                   name="cid">
+                                            <input class="form-control" value="<%= DWYRequest.query.tid %>" type="text"
+                                                   name="tid">
                                         </div>
                                     </div>
                                 </div>
@@ -48,8 +54,8 @@
                                     <div class="form-group">
                                         <label class="col-xs-4 control-label">流水号:</label>
                                         <div class="col-xs-8">
-                                            <input class="form-control" value="<%= DWYRequest.query.cid %>" type="text"
-                                                   name="cid">
+                                            <input class="form-control" value="<%= DWYRequest.query.lid %>" type="text"
+                                                   name="lid">
                                         </div>
                                     </div>
                                 </div>
@@ -62,7 +68,7 @@
                                     <div class="form-group">
                                         <label class="col-xs-4 control-label">状态:</label>
                                         <div class="col-xs-8">
-                                            <select class="form-control" name="ctype">
+                                            <select class="form-control" name="stcode">
                                                 <option value="">- 请选择 -</option>
                                             </select>
                                         </div>
@@ -130,6 +136,29 @@
                             </tr>
                             </thead>
                             <tbody>
+                            <%  if(DWY_Helper.isCanLoop(cargoutList.result) ){
+                            cargoutList.result.forEach(function (element, index) { %>
+                            <tr>
+                                <td><%= ++index %></td>
+                                <td><a href="/customer/detail/<%= element.cid %>"><%= element.cid %></a></td>
+                                <td><%= element.name %></td>
+                                <td><a href="/taskseq/index/<%= element.lid %>"><%= element.lid %></a></td>
+                                <td><a href="/canSend/deatil/<%= element.tid %>"><%= element.tid %></a></td>
+                                <td><%= element.brandId %></td>
+                                <td><%= element.prodType %></td>
+                                <td><%= element.prodInfo %></td>
+                                <td><%= element.gid %></td>
+                                <td><%= element.deliveryDate %></td>
+                                <td><%= element.stcode %></td>
+                                <td><a href="/cargospace/cargospace/detail/<%= element.cargoSpaceId %>"><%= element.cargoSpaceId %></a></td>
+                                <td><a href="/<%= type %>/canSend/sendPage" >发货</a></td>
+                            </tr>
+                            <% })
+                            }else{ %>
+                            <tr>
+                                <td colspan="14" class="text-align-center">暂无数据</td>
+                            </tr>
+                            <% }  %>
                             <tr>
                                 <td>1</td>
                                 <td><a href="/customer/detail/123456">123456</a></td>
@@ -145,12 +174,11 @@
                                 <td></td>
                                 <td></td>
 
-                                <td><a class="cursor-pointer checkThis" data-id="111">发货(成品无发货)</a></td>
+                                <!--<td><a class="cursor-pointer checkThis" data-id="111">发货(成品无发货)</a></td>-->
+                                <td><a  href="/<%= type %>/canSend/sendPage">发货(成品无发货)</a></td>
                             </tr>
 
-                            <tr>
-                                <td colspan="14" class="text-align-center">暂无数据</td>
-                            </tr>
+
                             </tbody>
                         </table>
 
@@ -182,7 +210,13 @@
             layer.confirm('确定发货吗?', {icon: 3, title: '提示'}, function (index) {
                 $.ajax({
                     url: '/canSend/doSend/'+id,
-                    method: 'put',
+                    method: 'post',
+                    data:{
+                        tid:tid,
+                        regionId:regionId,
+                        whseId:whseId,
+                        ftyId:ftyId,
+                    },
                     success: function (data) {
                         location.href='/outMaterial';
                     },

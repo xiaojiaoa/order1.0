@@ -20,11 +20,27 @@ var Permissions = require('../config/permission');
 var EnterController = {
 
     enterMaterialPage: function (req, res) {
-        var paramObject = helper.genPaginationQuery(req);
-        Base.multiDataRequest(req, res, [
+        // console.log('user_session9999',user_session)
+        var ftyId = req.query.ftyId ? req.query.ftyId: req.session.user.ftyId;
+        var whseId = req.query.whseId;
+        var regionId = req.query.regionId;
+        console.log('ftyId:'+ftyId+'whseId:'+whseId+'regionId:'+regionId);
+        var multiDataRequest= [
+            {url: '/api/whse/cargoin/mate/page?'+queryString.stringify(req.query), method: 'GET', resConfig: {keyName: 'mateList', is_must: false}},
+            {url: '/api/whse/factory/list', method: 'GET', resConfig: {keyName: 'factoryList', is_must: true}},
+            {url: '/api/whse/warehouse/list/'+ftyId, method: 'GET', resConfig: {keyName: 'warehouseList', is_must: true}},
+        ];
+        if(whseId){
+            console.log('有whseId');
+            multiDataRequest= [
                 {url: '/api/whse/cargoin/mate/page?'+queryString.stringify(req.query), method: 'GET', resConfig: {keyName: 'mateList', is_must: false}},
                 {url: '/api/whse/factory/list', method: 'GET', resConfig: {keyName: 'factoryList', is_must: true}},
-            ],
+                {url: '/api/whse/warehouse/list/'+ftyId, method: 'GET', resConfig: {keyName: 'warehouseList', is_must: true}},
+                {url: '/api/whse/region/list/'+whseId, method: 'GET', resConfig: {keyName: 'regionList', is_must: true}},
+            ];
+        }
+        var paramObject = helper.genPaginationQuery(req);
+        Base.multiDataRequest(req, res, multiDataRequest,
             function (req, res, resultList) {
                 var paginationInfo =  resultList.mateList;
 
@@ -34,9 +50,13 @@ var EnterController = {
                     rowsPerPage: paginationInfo.pageSize,
                     totalResult: paginationInfo.totalItems
                 }));
+                if(!whseId){
+                    resultList.regionList = [];
+                }
 
                 var returnData = Base.mergeData(helper.mergeObject({
                     title: ' ',
+                    userFtyId: ftyId,
                     pagination: boostrapPaginator.render(),
                 }, resultList));
                 res.render('order/enter/enter_material', returnData);
@@ -130,7 +150,7 @@ var EnterController = {
     },
     ifCanEnter: function (req, res) {
         // var num = req.body.num0;
-        console.log('doEnter',JSON.stringify(req.body))
+        console.log('/api/whse/cargoin/mate/usable?'+queryString.stringify(req.body))
 
         // var id = req.params.id;
         request(Base.mergeRequestOptions({
@@ -185,11 +205,25 @@ var EnterController = {
 
     },
     enterProductPage: function (req, res){
-        var paramObject = helper.genPaginationQuery(req);
-        Base.multiDataRequest(req, res, [
+        var ftyId = req.query.ftyId ? req.query.ftyId: req.session.user.ftyId;
+        var whseId = req.query.whseId;
+        var multiDataRequest= [
+            {url: '/api/whse/cargoin/prod/page?'+queryString.stringify(req.query), method: 'GET', resConfig: {keyName: 'prodList', is_must: false}},
+            {url: '/api/whse/factory/list', method: 'GET', resConfig: {keyName: 'factoryList', is_must: true}},
+            {url: '/api/whse/warehouse/list/'+ftyId, method: 'GET', resConfig: {keyName: 'warehouseList', is_must: true}},
+        ];
+        if(whseId){
+            console.log('有whseId');
+            multiDataRequest= [
                 {url: '/api/whse/cargoin/prod/page?'+queryString.stringify(req.query), method: 'GET', resConfig: {keyName: 'prodList', is_must: false}},
                 {url: '/api/whse/factory/list', method: 'GET', resConfig: {keyName: 'factoryList', is_must: true}},
-            ],
+                {url: '/api/whse/warehouse/list/'+ftyId, method: 'GET', resConfig: {keyName: 'warehouseList', is_must: true}},
+                {url: '/api/whse/region/list/'+whseId, method: 'GET', resConfig: {keyName: 'regionList', is_must: true}},
+            ];
+        }
+
+        var paramObject = helper.genPaginationQuery(req);
+        Base.multiDataRequest(req, res, multiDataRequest,
             function (req, res, resultList) {
                 var paginationInfo =  resultList.prodList;
 
@@ -199,9 +233,12 @@ var EnterController = {
                     rowsPerPage: paginationInfo.pageSize,
                     totalResult: paginationInfo.totalItems
                 }));
-
+                if(!whseId){
+                    resultList.regionList = [];
+                }
                 var returnData = Base.mergeData(helper.mergeObject({
                     title: ' ',
+                    userFtyId: ftyId,
                     pagination: boostrapPaginator.render(),
                 }, resultList));
                 res.render('order/enter/enter_product', returnData);

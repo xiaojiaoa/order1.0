@@ -140,6 +140,7 @@ router.get('/customer/detail/:cid', Middleware.AuthCheck, CustomerController.det
  * */
 var OrderController = require('./Controller/OrderController');
 
+
 // 订单页面
 router.get('/orders', Middleware.AuthCheck, Middleware.FilterEmptyField, OrderController.listPage);
 
@@ -773,14 +774,20 @@ router.get('/outMaterial/deatil/:id', Middleware.AuthCheck, OutWarehouseControll
 // 可发货订单 页面
 router.get('/:type/canSend', Middleware.AuthCheck, OutWarehouseController.canSendPage);
 
+// 可发货订单-发货 页面
+router.get('/:type/canSend/sendPage', Middleware.AuthCheck, OutWarehouseController.sendPage);
+
 // 可发货订单-发货
-router.put('/canSend/doSend/:id', Middleware.AuthCheck, OutWarehouseController.doSend);
+router.post('/canSend/doSend/:id', Middleware.AuthCheck, OutWarehouseController.doSend);
 
 // 可发货订单详情  页面
 router.get('/canSend/deatil/:id', Middleware.AuthCheck, OutWarehouseController.canSendDeatil);
 
 // 成品出库页面
 router.get('/outProduct', Middleware.AuthCheck, OutWarehouseController.outProductPage);
+
+// 成品出库-审核
+router.get('/outProduct/doChecked/:id', Middleware.AuthCheck, OutWarehouseController.outProductChecked);
 
 // 成品出库详情页面
 router.get('/outProduct/deatil/:id', Middleware.AuthCheck, OutWarehouseController.outProductDeatil);
@@ -875,6 +882,9 @@ router.post('/template/upload/custom', upload.fields([{name: 'file_name', maxCou
 
 //任意文件组上传
 router.post('/template/upload/any', upload.any(), TemplateController.doAnyUpload);
+
+//分页请求
+router.get('/template/pagination',TemplateController.pagination);
 
 //级联请求统一处理 /cascade/api/areas
 router.get('/cascade/*', TemplateController.getData);

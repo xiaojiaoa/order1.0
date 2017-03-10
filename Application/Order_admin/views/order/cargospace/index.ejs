@@ -202,7 +202,6 @@
                                 <th>最大存货数量</th>
                                 <th>货架长宽高</th>
                                 <th>货位状态</th>
-                                <th>新建时间</th>
                                 <th width="150">操作</th>
                             </tr>
                             </thead>
@@ -218,7 +217,6 @@
                                 <td><%= element.maxAmount %>件</td>
                                 <td><%= element.sizeLength %>*<%= element.sizeWidth %>*<%= element.sizeHeight %></td>
                                 <td><%= element.usable ==1 ? '可用':'禁用' %></td>
-                                <td><%= DWY_Helper.getLocalDate(element.addTime) %></td>
                                 <td>
                                     <% if( element.usable == 2 ){ %>
                                     <a class="label label-primary openStore" data-id="<%= element.spaceId %>">启用</a>
@@ -231,7 +229,7 @@
                             <%  })
                             }else{ %>
                             <tr>
-                                <td colspan="13" align="center">暂无结果</td>
+                                <td colspan="8" align="center">暂无结果</td>
                             </tr>
                             <% } %>
 

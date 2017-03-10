@@ -282,7 +282,36 @@ var TemplateController = {
                 Base.handlerError(res, req, error, response, body);
             }
         });
-    }
+    },
+
+
+    //前端ajax分页处理 
+
+    pagination:function(req,res){
+            // 添加模板文件
+            var path = req.app.get('views') + '/order/template/template_page_list.ejs'; 
+            var template = require(path);
+
+            request(Base.mergeRequestOptions({
+                url: '/api/materials?' + queryString.stringify(req.query),
+                method: 'get',
+                timeout: 5000
+            }, req, res), function (error, response, body) {
+                if (!error && response.statusCode == 200) {
+                    // 编译模板
+                    var data = JSON.parse(body);
+                    var listHtml = template(data);
+                    res.send({
+                        totalPages:data.totalPages,
+                        listHtml:listHtml
+                    });
+                } else {
+                    Base.handlerError(res, req, error, response, body);
+                }
+            });
+
+          
+    },
 
 };
 
