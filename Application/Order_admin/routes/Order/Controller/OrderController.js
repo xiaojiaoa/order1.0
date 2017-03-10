@@ -751,29 +751,31 @@ var OrderController = {
     },
     packedListPage:function(req,res){
         var tid=req.params.tid;
-        request(Base.mergeRequestOptions({
-            method: 'get',
-            url: '/api/orders/package/packet/'+tid,
-        }, req, res), function (error, response, body) {
-            if (!error && response.statusCode == 200) {
-                res.status(200).json(body);
-            } else {
-                Base.handlerError(res, req, error, response, body);
-            }
-        })
+        Base.multiDataRequest(req, res, [
+            {url: '/api/orders/package/packet/'+tid, method: 'GET', resConfig: {keyName: 'packedList', is_must: true}},
+        ], function (req, res, resultList) {
+            var returnData = Base.mergeData(helper.mergeObject({
+                title: ' ',
+                tid:tid
+            },resultList));
+            res.render('order/order/packedList', returnData);
+        });
+       // res.render('order/order/packedList');
     },
     packedListDetailPage:function(req,res){
+        var tid=req.params.tid;
         var pid=req.params.pid;
-        request(Base.mergeRequestOptions({
-            method: 'get',
-            url: '/api/orders/package/pcaketlist/'+pid,
-        }, req, res), function (error, response, body) {
-            if (!error && response.statusCode == 200) {
-                res.status(200).json(body);
-            } else {
-                Base.handlerError(res, req, error, response, body);
-            }
-        })
+        Base.multiDataRequest(req, res, [
+            {url: '/api/orders/package/packet/'+tid, method: 'GET', resConfig: {keyName: 'packedList', is_must: true}},
+            {url: '/api/orders/package/pcaketlist/'+pid, method: 'GET', resConfig: {keyName: 'packedListDetail', is_must: true}},
+        ], function (req, res, resultList) {
+            var returnData = Base.mergeData(helper.mergeObject({
+                title: ' ',
+                tid:tid
+            },resultList));
+            res.render('order/order/packedListDetail', returnData);
+        });
+        //res.render('order/order/packedListDetail');
     },
     unpacket:function(req,res){
         var tid=req.params.tid;
