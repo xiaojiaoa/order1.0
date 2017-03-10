@@ -800,8 +800,8 @@ var OrderController = {
     },
     packedListPage:function(req,res){
         var tid=req.params.tid;
-        var pid=queryString.stringify(req.query.packageLid);
-        console.log("555"+pid);
+        var pid=req.query.packageLid;
+        console.log("555_"+pid);
         Base.multiDataRequest(req, res, [
             {url: '/api/orders/package/pcaketview/'+tid+"?"+(queryString.stringify(req.query)), method: 'GET', resConfig: {keyName: 'packedListDetail', is_must: true}},
         ], function (req, res, resultList) {
