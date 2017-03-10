@@ -53,7 +53,7 @@
                             </thead>
                             <tbody>
                             <%
-                            if(apartingList.result && apartingList.result.length>0 ){
+                            if(DWY_Helper.isCanLoop(apartingList.result) ){
                             apartingList.result.forEach(function (element, index) { %>
                             <tr>
                                 <td><%= index+1 %></td>
@@ -153,7 +153,7 @@
                             </thead>
                             <tbody>
                             <%
-                            if(waitReviewList.result && waitReviewList.result.length>0 ){
+                            if(DWY_Helper.isCanLoop(waitReviewList.result) ){
                             waitReviewList.result.forEach(function (element, index) { %>
                             <tr>
                                 <td><%= index+1 %></td>

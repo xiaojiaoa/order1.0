@@ -20,16 +20,20 @@ var Permissions = require('../config/permission');
 var UserController = {
     indexPage: function (req, res) {
 
-        var returnData = Base.mergeData(helper.mergeObject(
-            {
-                title: '个人中心',
-                Permission :Permissions,
-            },
-            //Customize Data
-            {}
-        ));
+        Base.multiDataRequest(req, res, [
+                {url: '/api/notices/page?pageSize=6', method: 'GET', resConfig: {keyName: 'noticeInfo', is_must: true}},
+                {url: '/api/share/page?pageSize=6', method: 'GET', resConfig: {keyName: 'fileInfo', is_must: true}},
+                {url: '/api/ebis/measure/page?pageSize=5&stcodeStart=110&stcodeEnd=520', method: 'GET', resConfig: {keyName: 'taskMeasureInfo', is_must: true}},
+                {url: '/api/assist/taskseq/status', method: 'GET', resConfig: {keyName: 'statusInfo', is_must: false}},
+            ],
+            function (req, res, resultList) {
+                var returnData = Base.mergeData(helper.mergeObject({
+                    title: '个人中心',
+                    Permission :Permissions,
+                }, resultList));
 
-        res.render('order/user/index', returnData);
+                res.render('order/user/index', returnData);
+            });
 
     },
     passwordPage: function (req, res) {
