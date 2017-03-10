@@ -800,34 +800,19 @@ var OrderController = {
     },
     packedListPage:function(req,res){
         var tid=req.params.tid;
+        var pid=queryString.stringify(req.query.packageLid);
+        console.log("555"+pid);
         Base.multiDataRequest(req, res, [
-            {url: '/api/orders/package/packet/'+tid, method: 'GET', resConfig: {keyName: 'packedList', is_must: true}},
-        ], function (req, res, resultList) {
-            var returnData = Base.mergeData(helper.mergeObject({
-                title: ' ',
-                tid:tid
-            },resultList));
-            res.render('order/order/packedList', returnData);
-        });
-       // res.render('order/order/packedList');
-    },
-    packedListDetailPage:function(req,res){
-        var tid=req.params.tid;
-        var pid=req.params.pid;
-        var type=req.params.type;
-        Base.multiDataRequest(req, res, [
-            {url: '/api/orders/package/packet/'+tid, method: 'GET', resConfig: {keyName: 'packedList', is_must: true}},
-            {url: '/api/orders/package/pcaketlist/'+pid, method: 'GET', resConfig: {keyName: 'packedListDetail', is_must: true}},
+            {url: '/api/orders/package/pcaketview/'+tid+"?"+(queryString.stringify(req.query)), method: 'GET', resConfig: {keyName: 'packedListDetail', is_must: true}},
         ], function (req, res, resultList) {
             var returnData = Base.mergeData(helper.mergeObject({
                 title: ' ',
                 tid:tid,
                 pid:pid,
-                type:type
             },resultList));
-            res.render('order/order/packedListDetail', returnData);
+            res.render('order/order/packedList', returnData);
         });
-        //res.render('order/order/packedListDetail');
+       // res.render('order/order/packedList');
     },
     unpacket:function(req,res){
         var tid=req.params.tid;

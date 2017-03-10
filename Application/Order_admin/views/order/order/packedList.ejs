@@ -29,67 +29,161 @@
             <!-- row -->
             <div class="row">
                 <div class="col-xs-12">
-                    <h6>订单包装详情</h6>
+                    <h6>订单包装详情
+                        <a class="label label-primary margin-left-10 undoPackingBtn" onclick="">撤销包装</a>
+                        <a class="label label-primary margin-left-10  packedListBtn" onclick="">包装清单</a>
+                    </h6>
                     <hr class="simple">
                 </div>
             </div>
             <!--end roll-->
             <!-- row -->
             <div class="row">
-                <div class="row">
-                    <div class="col-xs-5">
-                        <div class="table-responsive">
-                            <table class="table table-bordered table-striped packedList">
-                                <thead>
-                                <tr>
-                                    <th>包装序号</th>
-                                    <th class="display-none">包装类型值</th>
-                                    <th class="display-none">包装id</th>
-                                    <th class="display-none">包装流水号</th>
-                                    <th>包装名称</th>
-                                    <th>包装类型</th>
-                                    <th>包装分类</th>
-                                    <th>包装产品</th>
-                                    <th>包装产品材料</th>
-                                    <th>重量</th>
-                                    <th class="display-none"></th>
-                                </tr>
-                                </thead>
-                                <tbody class="">
-                                <%
-                                if( packedList.length!=0){
-                                packedList.forEach(function (element, index) { %>
+                <form class="form-horizontal" method="" action="" id="packedListForm">
+                    <div class="row">
+                        <div class="col-xs-5">
+                            <div class="table-responsive">
+                                <table class="table table-bordered table-striped packedList">
+                                    <thead>
+                                    <tr>
+                                        <th>包装序号</th>
+                                        <th class="display-none">包装类型值</th>
+                                        <th class="display-none">包装id</th>
+                                        <th class="display-none">包装流水号</th>
+                                        <th>包装名称</th>
+                                        <th>包装类型</th>
+                                        <th>包装分类</th>
+                                        <th>包装产品</th>
+                                        <th>包装产品材料</th>
+                                        <th>重量</th>
+                                        <th class="display-none"></th>
+                                    </tr>
+                                    </thead>
+                                    <tbody class="">
+                                    <%
+                                    if( packedListDetail.length!=0){
+                                    packedListDetail.orderPackages.forEach(function (element, index) { %>
+                                    <tr class="">
+                                        <td> <%= index+1 %></td>
+                                        <td class="display-none"><%= element.packageType %></td>
+                                        <td class="display-none"><%= element.pacakgeNo %></td>
+                                        <td class="display-none"><%= element.packageLid %></td>
+                                        <td><%= element.packageName %></td>
+                                        <td><%= element.packageTypeStr %></td>
+                                        <td><%= element.pacakgeCategoryStr %></td>
+                                        <td><%= element.packageProductStr %></td>
+                                        <td><%= element.packageProductMaterialStr%></td>
+                                        <td><%= element.weightStr %></td>
+                                        <td class="display-none"><a href="/orders/package/<%= tid%>?packageLid=<%= element.packageLid %>" packageType="<%= element.packageType %>"></a></td>
+                                    </tr>
 
-                                <tr>
-                                   <td> <%= index+1 %></td>
-                                    <td class="display-none"><%= element.packageType %></td>
-                                    <td class="display-none"><%= element.pacakgeNo %></td>
-                                    <td class="display-none"><%= element.packageLid %></td>
-                                    <td><%= element.packageName %></td>
-                                    <td><%= element.packageTypeStr %></td>
-                                    <td><%= element.pacakgeCategoryStr %></td>
-                                    <td><%= element.packageProductStr %></td>
-                                    <td><%= element.packageProductMaterialStr%></td>
-                                    <td><%= element.weightStr %></td>
-                                    <td class="display-none"><a href="/orders/package/pcaketlist/<%= tid%>/<%= element.packageLid %>/<%= element.packageType %>"></a></td>
-                                </tr>
+                                    <%  })
+                                    }else{ %>
+                                    <tr><td colspan="11" class="text-align-center">暂无数据</td></tr>
+                                    <%  }%>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="col-xs-7">
+                            <div class="table-responsive">
+                                <% if(packedListDetail.packageType==1002){%>
+                                <table class="table table-bordered table-striped packedListDetail-artifacts">
+                                    <thead>
+                                    <tr><td colspan='9'>包装工件</td></tr>
+                                    <tr>
+                                        <th></th>
+                                        <th>层数</th>
+                                        <th>材料</th>
+                                        <th>名称</th>
+                                        <th>规格尺寸</th>
+                                        <th>数量</th>
+                                        <th>重量</th>
+                                        <th>封边</th>
+                                        <th>移包操作</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody class="">
+                                    <%
+                                    if( packedListDetail.length!=0){
+                                    packedListDetail.orderPackageDetails.forEach(function (element, index) { %>
+                                    <tr>
+                                        <td></td>
+                                        <td><%= element.layer %></td>
+                                        <td><%= element.material %></td>
+                                        <td><%= element.name %></td>
+                                        <td><%= element.standard %></td>
+                                        <td><%= element.amount %></td>
+                                        <td><%= element.weigth %></td>
+                                        <td></td>
+                                        <td>
+                                            <select class="form-control validate[required]" name="" id="">
+                                                <option value="">- 请选择 -</option>
+                                                <% packedListDetail.selectlist.forEach(function(element,index){%>
+                                                <option value="<%= element.id%>"> <%= element.name%></option>
+                                                <%})%>
+                                            </select>
+                                        </td>
+                                    </tr>
+                                    <%  })%>
+                                    <tr><td>总计</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+                                    <%}else{%>
+                                    <tr><td colspan="9" class="text-align-center">暂无数据</td></tr>
+                                    <%}%>
+                                    </tbody>
+                                </table>
+                                <%} else{%>
+                                <table class="table table-bordered table-striped packedListDetail-accessories">
+                                    <thead>
+                                    <tr><td colspan='9'>包装配件</td></tr>
+                                    <tr>
+                                        <th></th>
+                                        <th>单位</th>
+                                        <th>编号</th>
+                                        <th>名称</th>
+                                        <th>规格尺寸</th>
+                                        <th>数量</th>
+                                        <th>重量</th>
+                                        <th>封边</th>
+                                        <th>移包操作</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody class="">
+                                    <%
+                                    if( packedListDetail.length!=0){
+                                    packedListDetail.orderPackageDetails.forEach(function (element, index) { %>
+                                    <tr>
+                                        <td></td>
+                                        <td><%= element.unitStr %></td>
+                                        <td><%= element.code %></td>
+                                        <td><%= element.name %></td>
+                                        <td><%= element.standard %></td>
+                                        <td><%= element.amount %></td>
+                                        <td><%= element.weigth %></td>
+                                        <td></td>
+                                        <td>
+                                            <select class="form-control validate[required]" name="" id="">
+                                                <option value="">- 请选择 -</option>
+                                                <% packedListDetail.selectlist.forEach(function(element,index){%>
+                                                <option value="<%= element.id%>"> <%= element.name%></option>
+                                                <%})%>
+                                            </select>
+                                        </td>
+                                    </tr>
+                                    <%  })%>
+                                    <tr><td>总计</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+                                    <%}else{%>
+                                    <tr><td colspan="9" class="text-align-center">暂无数据</td></tr>
+                                    <%}%>
+                                    </tbody>
+                                </table>
+                                <%}%>
 
-                                <%  })
-                                }else{ %>
-                                <tr><td colspan="11" class="text-align-center">暂无数据</td></tr>
-                                <%  }%>
-                                </tbody>
-                            </table>
+
+                            </div>
                         </div>
                     </div>
-                    <div class="col-xs-7">
-                        <div class="table-responsive">
-                            <table class="table table-bordered table-striped packedListDetail">
-                                <tbody><tr><td colspan="8" align="center">点击左侧进行查看包装详情</td></tr></tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
+                </form>
             </div>
             <!--end  row-->
         </div>
@@ -103,7 +197,31 @@
 
 </div>
 <!-- END MAIN PANEL -->
+<!--生成包装清单-->
+<div id="layer-form-package-confirm" style="display:none">
+    <div class="row" >
+        <div class="col-xs-12">
+            <div class="table-responsive">
+                <table class="table table-bordered table-striped text-center">
 
+                    <tbody>
+                    <tr><td><a href="#">工件包装清单(Y)</a></td></tr>
+                    <tr><td><a href="#">工件包装清单(X)</a></td></tr>
+                    <tr><td><a href="#">工件包装清单(W)</a></td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="col-xs-12">
+        <hr class="simple">
+        <div class="col-xs-12 text-center">
+            <a class="btn btn-primary" href="#">打印</a>
+            <a class="btn btn-primary" href="#">预览</a>
+        </div>
+    </div>
+</div>
+<!--END 生成包装清单-->
 <%- include('../layouts/footer'); %>
 <%- include('../layouts/footer_common_script'); %>
 <script type="text/javascript">
@@ -114,12 +232,44 @@
         //日期组件
         $(".fg-date-time-picker").flatpickr(data_time_picker.data_time_picker);
 
-        //对表单进行初始化验证
-        $("#toBePackedForm").validationEngine();
-
-        $(".packedList > tbody > tr").click(function () {
-           window.location.href = $(this).find("a").attr("href");
+        //给tr添加链接
+        $(".packedList > tbody > tr").on({
+            click: function (e) {
+                window.location.href = $(this).find("a").attr("href");
+            }
         });
+        console.log("<% pid%>")
+        //撤销包装按钮
+        $(document).on("click",".undoPackingBtn",function(){
+            layer.confirm('确定撤销包装吗？',{icon: 3, title:'提示'},
+                function(index){
+                    var tid="<%= tid%>";
+                    $.ajax({
+                        url: '/orders/package/unpacket/'+tid,
+                        method: 'put',
+                        success: function (data) {
+                            window.location.href="/orders/package";
+                        },
+                        error: function (response) {
+                            layer.close(index)
+                            var data = JSON.parse(response.responseText);
+                            $.smallBox({
+                                title: "操作失败",
+                                content: data.msg,
+                                color: "#C46A69",
+                                iconSmall: "fa fa-times fa-2x fadeInRight animated",
+                                timeout: 3000
+                            });
+                        }
+                    });
+                },
+                function(index){layer.close(index)})
+        });
+        //包装清单按钮
+        $(document).on("click",".packedListBtn",function(){
+            layer.open({title:'包装清单',type:1,area:['400px','250px'],content:$('#layer-form-package-confirm')});
+        });
+
     })
 
 </script>
