@@ -18,7 +18,6 @@ var Permissions = require('../config/permission');
 
 
 var OrderController = {
-
     listPage: function (req, res) {
 
         var paramObject = helper.genPaginationQuery(req);

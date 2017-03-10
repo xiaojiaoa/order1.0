@@ -140,6 +140,7 @@ router.get('/customer/detail/:cid', Middleware.AuthCheck, CustomerController.det
  * */
 var OrderController = require('./Controller/OrderController');
 
+
 // 订单页面
 router.get('/orders', Middleware.AuthCheck, Middleware.FilterEmptyField, OrderController.listPage);
 
@@ -876,6 +877,9 @@ router.post('/template/upload/custom', upload.fields([{name: 'file_name', maxCou
 
 //任意文件组上传
 router.post('/template/upload/any', upload.any(), TemplateController.doAnyUpload);
+
+//分页请求
+router.get('/template/pagination',TemplateController.pagination);
 
 //级联请求统一处理 /cascade/api/areas
 router.get('/cascade/*', TemplateController.getData);
