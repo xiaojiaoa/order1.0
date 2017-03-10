@@ -762,14 +762,20 @@ router.get('/outMaterial/deatil/:id', Middleware.AuthCheck, OutWarehouseControll
 // 可发货订单 页面
 router.get('/:type/canSend', Middleware.AuthCheck, OutWarehouseController.canSendPage);
 
+// 可发货订单-发货 页面
+router.get('/:type/canSend/sendPage', Middleware.AuthCheck, OutWarehouseController.sendPage);
+
 // 可发货订单-发货
-router.put('/canSend/doSend/:id', Middleware.AuthCheck, OutWarehouseController.doSend);
+router.post('/canSend/doSend/:id', Middleware.AuthCheck, OutWarehouseController.doSend);
 
 // 可发货订单详情  页面
 router.get('/canSend/deatil/:id', Middleware.AuthCheck, OutWarehouseController.canSendDeatil);
 
 // 成品出库页面
 router.get('/outProduct', Middleware.AuthCheck, OutWarehouseController.outProductPage);
+
+// 成品出库-审核
+router.get('/outProduct/doChecked/:id', Middleware.AuthCheck, OutWarehouseController.outProductChecked);
 
 // 成品出库详情页面
 router.get('/outProduct/deatil/:id', Middleware.AuthCheck, OutWarehouseController.outProductDeatil);

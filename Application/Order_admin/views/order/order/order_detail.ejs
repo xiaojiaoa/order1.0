@@ -353,7 +353,7 @@
                             </tr>
                             </thead>
                             <tbody>
-                            <% if(progressInfo){
+                            <% if(DWY_Helper.isCanLoop(progressInfo)){
                             progressInfo.forEach(function (element, index) {  %>
                             <tr>
                                 <td><%= index+1 %></td>

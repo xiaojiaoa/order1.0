@@ -240,6 +240,18 @@ app.locals.DWY_Helper = {
         }
         return code;
     },
+    geOutStatus: function (code) {
+        switch (code){
+            case 2:
+                return "待审核";
+                break;
+            case 4:
+                return "已审核";
+                break;
+
+        }
+        return code;
+    },
     //字典翻译-工厂类型
     getFactoryType: function (code) {
         switch (code){

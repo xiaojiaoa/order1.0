@@ -29,7 +29,7 @@
             <!-- row -->
             <div class="row">
                 <!-- col -->
-                <div class="col-xs-12 dwy-show-content">
+                <div class="col-xs-12">
                     <legend>原料出库信息</legend>
 
                     <!-- row -->
@@ -38,31 +38,31 @@
                             <tbody>
                             <tr>
                                 <td width="12%">出库单号</td>
-                                <td>23456123</td>
+                                <td><%= matesInfo.id %></td>
                                 <td width="12%">出库人</td>
-                                <td>张三</td>
+                                <td><%= matesInfo.outEmp %></td>
                                 <td width="12%">出库日期</td>
-                                <td></td>
+                                <td><%= matesInfo.outTime %></td>
                             </tr>
                             <tr>
                                 <td>订单号</td>
-                                <td><a href="/order/detail/123456">123456</a></td>
+                                <td><a href="/order/detail/<%= matesInfo.tid %>"><%= matesInfo.tid %></a></td>
                                 <td>出库类型</td>
-                                <td></td>
+                                <td><%= matesInfo.outType %></td>
                                 <td>仓库</td>
-                                <td></td>
+                                <td><%= matesInfo.whse %></td>
                             </tr>
                             <tr>
                                 <td>状态</td>
-                                <td></td>
+                                <td><%= DWY_Helper.geOutStatus(matesInfo.stcode) %></td>
                                 <td>审核人</td>
-                                <td></td>
+                                <td><%= matesInfo.reviewEmp %></td>
                                 <td>审核时间</td>
-                                <td></td>
+                                <td><%= matesInfo.reviewTime %></td>
                             </tr>
                             <tr>
                                 <td>备注</td>
-                                <td colspan="5"></td>
+                                <td colspan="5"><%= matesInfo.remark %></td>
                             </tr>
                             </tbody>
                         </table>
@@ -109,18 +109,27 @@
                             </tr>
                             </thead>
                             <tbody>
+                            <% if(DWY_Helper.isCanLoop(matesInfo.mateItems)){
+                                matesInfo.mateItems.forEach(function (element, index) {  %>
                             <tr>
-                                <td>1</td>
-                                <td><a href="">12345</a></td>
-                                <td>56456789456</td>
-                                <td><a href="">12345</a></td>
-                                <td>银白下框</td>
+                                <td><%= ++index %></td>
+                                <td><a href="/cargospace/cargospace/detail/<%= element.spaceId %>"><%= element.spaceId %></a></td>
+                                <td><%= element.batchId %></td>
+                                <td><a href="/materialManage/detail/<%= element.cargoId %>"><%= element.cargoId %></a></td>
                                 <td></td>
                                 <td></td>
                                 <td></td>
+                                <td><%= element.unitPrice %></td>
                                 <td></td>
-                                <td></td>
+                                <td><%= element.totalPrice %></td>
                             </tr>
+                            <%   })
+                            }else{  %>
+                            <tr>
+                                <td colspan="10" class="text-align-center">暂无数据</td>
+                            </tr>
+                            <% } %>
+
                             </tbody>
                         </table>
 
@@ -144,22 +153,18 @@
 
     $(document).ready(function () {
 
-        var ftyId = 10000;
         $("#checkThis").click(function () {
-            var id = $(this).attr('data-id');
-
             layer.confirm('确定提交审核?', {icon: 3, title: '提示'}, function (index) {
                 $.ajax({
-                    url: '/outMaterial/doChecked/'+id,
+                    url: '/outMaterial/doChecked/<%= outId %>',
                     method: 'put',
                     success: function (data) {
 //                        window.location.reload();
-                        location.href='/canSend';
+                        location.href='/outMaterial/canSend';
                     },
                     error: function (response) {
                         layer.close(index)
                         var data = JSON.parse(response.responseText);
-//                        var data = (response.responseText);
                         $.smallBox({
                             title: "操作失败",
                             content: data.msg,

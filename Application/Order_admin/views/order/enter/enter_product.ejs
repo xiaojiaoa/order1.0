@@ -55,13 +55,17 @@
                                     <div class="form-group">
                                         <label class="col-xs-4 control-label">工厂:</label>
                                         <div class="col-xs-8">
-                                            <select class="form-control" name="ftyId" id="ftyId">
+                                            <select class="form-control" name="ftyId" id="ftyId" <%= userFtyId ? 'disabled':'' %> >
                                                 <option value="">- 请选择 -</option>
-                                                <% factoryList.forEach(function (element) { %>
-                                                <option value="<%= element.ftyId %>"  >
+
+                                                <%
+                                                if(DWY_Helper.isCanLoop(factoryList)){
+                                                factoryList.forEach(function (element) { %>
+                                                <option value="<%= element.ftyId %>" <%= userFtyId == element.ftyId? 'selected':'' %> >
                                                     <%= element.name %>
                                                 </option>
-                                                <% }) %>
+                                                <% })
+                                                } %>
                                             </select>
                                         </div>
                                     </div>
@@ -72,6 +76,14 @@
                                         <div class="col-xs-8">
                                             <select class="form-control" name="whseId" id="whseId">
                                                 <option value="">- 请选择 -</option>
+                                                <%
+                                                if(DWY_Helper.isCanLoop(warehouseList)){
+                                                warehouseList.forEach(function (element) { %>
+                                                <option value="<%= element.whseId %>" <%= (DWYRequest.query.whseId == element.whseId )?"selected":"" %> >
+                                                    <%= element.name %>
+                                                </option>
+                                                <% })
+                                                } %>
                                             </select>
                                         </div>
                                     </div>
@@ -82,6 +94,11 @@
                                         <div class="col-xs-8">
                                             <select class="form-control" name="regionId" id="regionId">
                                                 <option value="">- 请选择 -</option>
+                                                <% regionList.forEach(function (element) { %>
+                                                <option value="<%= element.regionId %>" <%= (DWYRequest.query.regionId == element.regionId )?"selected":"" %> >
+                                                    <%= element.name %>
+                                                </option>
+                                                <% }) %>
                                             </select>
                                         </div>
                                     </div>

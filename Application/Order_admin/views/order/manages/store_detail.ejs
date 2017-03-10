@@ -43,18 +43,18 @@
                         <table class="table table-bordered table-striped table-information <%= ( storeInfo.stcode == 40 )? 'close-info':'' %>">
                             <tbody>
                             <tr>
-                                <td>门店编号</td>
-                                <td><%= storeInfo.bid %></td>
-                                <td>店长姓名</td>
-                                <td><%= storeInfo.storeGid %></td>
-                                <td>店长电话</td>
+                                <td width="12%">门店编号</td>
+                                <td width="16%"><%= storeInfo.bid %></td>
+                                <td width="12%">店长姓名</td>
+                                <td width="16%"><%= storeInfo.storeGid %></td>
+                                <td width="12%">店长电话</td>
                                 <td><%= storeInfo.mobile %></td>
                             </tr>
                             <tr>
                                 <td>新建日期</td>
                                 <td><%= DWY_Helper.getLocalDate(storeInfo.addTime) %></td>
                                 <td>新建人</td>
-                                <td>李四(静态数据)</td>
+                                <td></td>
                                 <td>门店类型</td>
                                 <td><%= DWY_Helper.getAssistVal(storeInfo.addrType, addrTypesList) %></td>
                             </tr>
