@@ -19,8 +19,12 @@ var permissions = {
     },
     information:{
        query:{
-           id:"",
+           id:"892040",
            name:"查询资料信息"
+       },
+       upload:{
+           id:"892010",
+           name:"资料上传"
        }
     },
     customer:{

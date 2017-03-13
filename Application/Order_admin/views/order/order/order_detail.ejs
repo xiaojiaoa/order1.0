@@ -101,7 +101,7 @@
                             <tr>
                                 <td>难度等级</td>
                                 <td>
-                                    <% if(orderInfo.stcode == 110){ %>
+                                    <% if(orderInfo.stcode == 220){ %>
                                     <form class="form-horizontal" method="post" action="/orders/updateDifficultyLevel">
                                         <div class="col-xs-4">
                                             <select class="form-control" name="difficulty">
@@ -115,7 +115,9 @@
                                             <input value="<%= tid %>" name="tids" type="hidden">
                                         </div>
                                         <div class="col-xs-2">
+                                            <% if (DWY_Helper.hasPermission(Permission.orderAssess.assess.id, permission) ){ %>
                                             <button class="btn btn-primary ">确定</button>
+                                            <% } %>
                                         </div>
                                     </form>
                                     <% }else{  %>
@@ -444,7 +446,7 @@
                                 <%        break;
                                     case 220: %>
                                 <td>待审核
-                                    <% if (DWY_Helper.hasPermission(Permission.orderReview.takeOrder.id, permission) ){ %>
+                                    <% if (DWY_Helper.hasPermission(Permission.orderReview.takeOrder.id, permission) && orderInfo.difficulty ){ %>
                                     <a class="label label-primary doGetTask" id="submitOrder" data-stcode="<%= orderInfo.stcode %>">标记为审核中</a>
                                     <% } %>
                                 </td>
@@ -572,15 +574,19 @@
 
                             <tr>
                                 <td>包装时间</td>
+                                <% if (orderInfo.stcode >=675 && orderInfo.stcode <729){%>
                                 <td>
-                                    <% if(orderInfo.packeted==0){%>
-                                    未包装
-                                    <a class="btn btn-primary margin-left-20 crePackage" tid="<%= tid %>">生成包装</a>
-                                    <%}else{%>
-                                    已包装
-                                    <a class="btn btn-primary margin-left-20 packageDetail" href="/orders/package/<%= tid %>">查看包装详情</a>
-                                    <%}%>
+                                <% if(orderInfo.packeted==0){%>
+                                未包装
+                                <a class="label label-primary margin-left-20 crePackage" tid="<%= tid %>">生成包装</a>
+                                <%}else{%>
+                                已包装
+                                <a class="label label-primary margin-left-20 packageDetail" href="/orders/package/<%= tid %>">查看包装详情</a>
+                                <%}%>
                                 </td>
+                                <%  } else{ %>
+                                <td></td>
+                                <%}%>
                                 <td>包装人</td>
                                 <td></td>
                             </tr>

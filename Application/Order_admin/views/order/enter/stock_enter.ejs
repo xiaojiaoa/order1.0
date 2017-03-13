@@ -31,7 +31,7 @@
         <div class="well">
 
             <div class="row">
-                <form class="form-horizontal" method="post" id="search-customer" action="/enterMaterial/stockOver/toEnter/doEnter">
+                <form class="form-horizontal" id="search-customer">
 
                     <div class="col-xs-12 search-form">
                         <div class="col-xs-3">
@@ -95,7 +95,7 @@
                                     <th width="150">仓库是否可用</th>
                                 </tr>
                                 </thead>
-                                <tbody>
+                                <tbody id="moreAddTR">
                                 <input name="howmuch" value="<%= cargoinList.result.length %>" type="hidden">
                                 <input name="list" value="" type="hidden">
                                 <% if(cargoinList.result.length>0){%>
@@ -145,7 +145,7 @@
                                 <i class="fa fa-plus"></i>
                                 添加入库物料
                             </a>
-                            <button class="btn btn-primary" id="toEnter">确认入库</button>
+                            <a class="btn btn-primary" id="toEnter">确认入库</a>
                         </div>
                     </div>
                 </form>
@@ -162,12 +162,16 @@
 
 
 <script type="text/javascript">
+    var cargoinList_result = parseInt(<%= cargoinList.result.length %>);
+    var regionSelect = $("#regionId");
 
     $(document).ready(function () {
 
         $("#search-customer").validationEngine();
 
-        var regionSelect = $("#regionId");
+
+
+
         $('#search-customer :text').attr('disabled',true)
 
         $('#ftyId,#whseId').change(function () {
@@ -232,6 +236,72 @@
                 && $("#amount"+index).validationEngine('validate')
 
         }
+        
+        $('#toEnter').click(function () {
+            var ftyId=$("#ftyId").val();
+            var whseId=$("#whseId").val();
+            var regionId=$("#regionId").val();
+
+            var myArray=new Array();
+            var length=$(".status").length;
+            console.log('length',length)
+            for(var i=0;i<length;i++){
+                var a = new Object();
+                var spaceRow=$("input[name=spaceRow"+i+"]").val();
+                var spaceColumn=$("input[name=spaceColumn"+i+"]").val();
+                var spaceLayer=$("input[name=spaceLayer"+i+"]").val();
+                var cargoId=$("input[name=cargoId"+i+"]").val();
+                var purId=$("input[name=purId"+i+"]").val();
+                var unitPrice=$("input[name=unitPrice"+i+"]").val();
+                var amount=$("input[name=amount"+i+"]").val();
+                a = {
+                    spaceRow:spaceRow,
+                    spaceColumn:spaceColumn,
+                    spaceLayer:spaceLayer,
+                    cargoId:cargoId,
+                    purId:purId,
+                    unitPrice:unitPrice,
+                    amount:amount,
+                }
+
+                myArray.push(a);
+            }
+            var date={
+                ftyId:ftyId,
+                whseId:whseId,
+                regionId:regionId,
+                list:myArray
+            };
+            layer.confirm("确认提交？", {title:'提示'},function(index){
+                    console.log(myArray);
+                    $.ajax({
+                        url: '/enterMaterial/stockOver/toEnter/doEnter',
+                        data:JSON.stringify(date),
+                        method: 'post',
+                        dataType: 'json',
+                        contentType:"application/json",
+                        success: function (data) {
+                            location.href="/enterMaterial";
+                        },
+                        error: function (response) {
+//                            layer.close(index)
+//                            var data = JSON.parse(response.responseText);
+//                            $.smallBox({
+//                                title: "操作失败",
+//                                content: data.msg,
+//                                color: "#C46A69",
+//                                iconSmall: "fa fa-times fa-2x fadeInRight animated",
+//                                timeout: 3000
+//                            });
+//                            setTimeout(function(){
+//                                window.location.reload();
+//                            },1000000)
+                        }
+                    });
+                },function(index){
+                    layer.close(index)}
+            )
+        })
 
     })
 

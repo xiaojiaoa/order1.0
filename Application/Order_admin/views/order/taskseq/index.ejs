@@ -343,7 +343,7 @@
                                 var num = 1;
                             element.orders.forEach(function (orderelement) { %>
                             <tr>
-                                <% if (DWY_Helper.hasPermission(Permission.order.create.id, permission) && taskseqInfo.stcode >= 350 && taskseqInfo.stcode <540 && num == 1){ %>
+                                <% if (taskseqInfo.stcode >= 350 && taskseqInfo.stcode <540 && num == 1){ %>
                                 <td rowspan="<%= element.orders.length +1  %>"><%=element.spaceName %></td>
                                 <% } else{ %>
                                 <% if (num == 1){ %>
