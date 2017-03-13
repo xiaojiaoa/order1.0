@@ -1052,7 +1052,7 @@ router.get('/app/cargoout/order', Middleware.AuthCheck,AppServiceController.carg
 router.get('/app/cargoin/package', Middleware.AuthCheck,AppServiceController.cargoinPackage);
 
 //出库-入库扫描完成后的显示界面
-router.get('/app/cargoin/order', Middleware.AuthCheck,AppServiceController.cargoinOrder);
+router.get('/app/cargoin/order/:tid', Middleware.AuthCheck,AppServiceController.cargoinOrder);
 
 //入库-入库接口
 router.post('/app/doCargoin', Middleware.AuthCheck,AppServiceController.doCargoin);

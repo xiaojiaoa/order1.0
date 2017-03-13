@@ -101,7 +101,7 @@
                             <tr>
                                 <td>难度等级</td>
                                 <td>
-                                    <% if(orderInfo.stcode == 110){ %>
+                                    <% if(orderInfo.stcode == 220){ %>
                                     <form class="form-horizontal" method="post" action="/orders/updateDifficultyLevel">
                                         <div class="col-xs-4">
                                             <select class="form-control" name="difficulty">
@@ -115,7 +115,9 @@
                                             <input value="<%= tid %>" name="tids" type="hidden">
                                         </div>
                                         <div class="col-xs-2">
+                                            <% if (DWY_Helper.hasPermission(Permission.orderAssess.assess.id, permission) ){ %>
                                             <button class="btn btn-primary ">确定</button>
+                                            <% } %>
                                         </div>
                                     </form>
                                     <% }else{  %>
@@ -444,7 +446,7 @@
                                 <%        break;
                                     case 220: %>
                                 <td>待审核
-                                    <% if (DWY_Helper.hasPermission(Permission.orderReview.takeOrder.id, permission) ){ %>
+                                    <% if (DWY_Helper.hasPermission(Permission.orderReview.takeOrder.id, permission) && orderInfo.difficulty ){ %>
                                     <a class="label label-primary doGetTask" id="submitOrder" data-stcode="<%= orderInfo.stcode %>">标记为审核中</a>
                                     <% } %>
                                 </td>

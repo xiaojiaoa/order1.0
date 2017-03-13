@@ -550,3 +550,29 @@ tr > td > .separation:last-child {
     background: #eae8e8;
     color:#000;
 }
+.pagination-inmodal{
+    margin: 18px 1px;
+    border-radius: 2px;
+}
+.pagination-inmodal>a {
+    display: inline;
+}
+.pagination-inmodal>a, .pagination-inmodal>span {
+    padding: 6px 12px;
+    line-height: 1.42857143;
+    text-decoration: none;
+    color: #3276b1;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    margin-left: -1px;
+}
+
+.pagination-inmodal>a:focus, .pagination-inmodal>a:hover, .pagination-inmodal>span:focus, .pagination-inmodal>span:hover {
+    color: #214e75;
+    background-color: #eee;
+    border-color: #ddd;
+}
+.pagination-inmodal>span.active{
+    background-color: #3b9ff3;
+    color: #fff;
+}
