@@ -46,7 +46,7 @@
     </div>
     <div class="col-xs-12">
         <div class="table-responsive">
-            <table class="table table-bordered table-striped">
+            <table class="table table-bordered table-striped" >
                 <thead>
                 <tr>
                     <th>
@@ -66,7 +66,7 @@
                     <th>采购金额</th>
                 </tr>
                 </thead>
-                <tbody>
+                <tbody id='layer-form-wrapper'>
                 <tr>
                     <td>
                         <label class="checkbox-inline">
@@ -104,6 +104,7 @@
 
                 </tbody>
             </table>
+            <p class="" id="pagination"></p>
         </div>
     </div>
     <div class="col-xs-12">
@@ -133,6 +134,16 @@
                     cancel: function () {
                         //右上角关闭回调
                     },
+                    success:function(){
+                        DWY_Utils.pagination({
+                            dataContainer:'#layer-form-wrapper',
+                            pagination :'#pagination',
+                            method:'GET',
+                            url:'/template/pagination',
+                            pageSize:3
+
+                        })
+                    }
 
                 });
             }

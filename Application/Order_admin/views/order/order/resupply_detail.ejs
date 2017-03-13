@@ -263,6 +263,14 @@
                                     <% } %>
                                 </td>
                                 <% break;
+                                case 280: %>
+                                <td>
+                                    受理退回
+                                    <% if (DWY_Helper.hasPermission(Permission.resupplyOrderReview.takeOrder.id, permission) ){ %>
+                                    <a class="label label-primary doGetTask" data-stcode="<%= resupplyInfo.status %>">重新提交</a>
+                                    <% } %>
+                                </td>
+                                <% break;
                                 case 290: %>
                                 <td>
                                     待加盟商确认
@@ -336,6 +344,14 @@
                                     待拆单审核
                                     <% if (DWY_Helper.hasPermission(Permission.resupplyOrderReviewApart.takeOrder.id, permission) ){ %>
                                     <a class="label label-primary doGetTask" data-stcode="<%= resupplyInfo.status %>">标记为拆单审核中</a>
+                                    <% } %>
+                                </td>
+                                <%         break;
+                                case 478: %>
+                                <td>
+                                    拆审退回
+                                    <% if (DWY_Helper.hasPermission(Permission.resupplyOrderReviewApart.takeOrder.id, permission) ){ %>
+                                    <a class="label label-primary doGetTask" data-stcode="<%= resupplyInfo.status %>">重新提交</a>
                                     <% } %>
                                 </td>
                                 <%         break;
@@ -477,6 +493,11 @@
                     locationUrl = '/orders/resupplys/accept';
                     text = '确认标记为受理中?';
                     break;
+                case '280':
+                    ajaxUrl = '/resupplys/getTaskAgain/<%= tid %>';
+                    locationUrl = '/orders/resupplys/accept';
+                    text = '确认重新提交?';
+                    break;
                 case '296':
                     ajaxUrl = '/apart/getTask/<%= tid %>';
                     locationUrl = '/orders/resupplys/apart';
@@ -484,6 +505,11 @@
                     break;
                 case '472':
                     ajaxUrl = '/apartCheck/getTask/<%= tid %>';
+                    locationUrl = '/orders/resupplys/apartCheck';
+                    text = '确认标记为拆单审核中?';
+                    break;
+                case '478':
+                    ajaxUrl = '/apartCheck/getTaskAgain/<%= tid %>';
                     locationUrl = '/orders/resupplys/apartCheck';
                     text = '确认标记为拆单审核中?';
                     break;

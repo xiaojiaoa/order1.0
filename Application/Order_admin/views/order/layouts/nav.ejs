@@ -132,12 +132,15 @@
             </li>-->
 
             <%
+            if(DWY_Helper.isCanLoop(menu)){
             menu.forEach(function (element) { %>
             <li >
                 <a href="/<%= element.href %>" title="<%= element.name %>"><i class="fa fa-lg fa-fw  fa-angle-right"></i> <span
                             class="menu-item-parent"><%= element.name %></span></a>
             </li>
-            <% }) %>
+            <% })
+            }%>
+
 
 
         </ul>

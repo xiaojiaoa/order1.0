@@ -14,8 +14,9 @@ var EmployeeController = {
     listPage: function (req, res) {
         var paramObject = helper.genPaginationQuery(req);
         var type = req.params.type;
-        var bid = req.query.bid;
+        var bid = req.query.bid? req.query.bid: req.session.user.bid;
         var did = req.query.did;
+        // /organizations/employees?bid=<%= user.bid %>
         var employeesUrl = (type == 'stores')? '/api/stores/employees?' : '/api/employees?' ;
         Base.multiDataRequest(req, res, [
             {url: employeesUrl + (queryString.stringify(req.query)), method: 'GET', resConfig: {keyName: 'employeesList', is_must: true}},
