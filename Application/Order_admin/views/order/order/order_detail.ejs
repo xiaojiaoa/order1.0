@@ -572,22 +572,15 @@
 
                             <tr>
                                 <td>包装时间</td>
-                                <% switch (orderInfo.stcode){
-                                case 775: %>
                                 <td>
-                                    包装中
-                                    <a class="label label-primary doPass"  data-stcode="<%= orderInfo.stcode %>">生成包装</a>
+                                    <% if(orderInfo.packeted==0){%>
+                                    未包装
+                                    <a class="btn btn-primary margin-left-20 crePackage" tid="<%= tid %>">生成包装</a>
+                                    <%}else{%>
+                                    已包装
+                                    <a class="btn btn-primary margin-left-20 packageDetail" href="/orders/package/<%= tid %>">查看包装详情</a>
+                                    <%}%>
                                 </td>
-                                <%        break;
-                                case 772: %>
-                                <td>
-                                    待包装
-                                    <a class="label label-primary doGetTask" data-stcode="<%= orderInfo.stcode %>">标记为待包装中</a>
-                                </td>
-                                <%         break;
-                                    default: %>
-                                <td></td>
-                                <%  } %>
                                 <td>包装人</td>
                                 <td></td>
                             </tr>
@@ -903,6 +896,7 @@
     })
 
 </script>
+<%- include('./crePackage_modal');%>
 <%- include('../layouts/foot'); %>
 <%- include('./check_pass'); %>
 <%- include('./order_reject'); %>
