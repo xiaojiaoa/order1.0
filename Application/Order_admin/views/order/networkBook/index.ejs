@@ -60,13 +60,17 @@
                                 <td><%= element.custMobile %></td>
                                 <td><%= element.realAddress %></td>
                                 <td>
+                                    <% if (DWY_Helper.hasPermission(Permission.network.distribute.id, permission) ){ %>
                                     <a class="label label-primary choiceShop"
                                        data-id="<%= element.id %>"
                                        data-realAddress="<%= element.realAddress %>"
                                        data-custMobile="<%= element.custMobile %>"
                                        data-custName="<%= element.custName %>"
                                     >分配店铺</a>
+                                    <% } %>
+                                    <% if (DWY_Helper.hasPermission(Permission.network.delete.id, permission) ){ %>
                                     <a class="label label-danger closeThis" data-id="<%= element.id %>">置为无效</a>
+                                    <% } %>
                                 </td>
                             </tr>
                             <% })

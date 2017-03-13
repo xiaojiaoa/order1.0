@@ -93,9 +93,8 @@ var PurchaseController = {
             url: '/api/purchase/request/',
             headers : headers,
             form:req.body,
-            multipart: false,
-            followRedirects: false
         }, req, res), function (error, response, body) {
+            console.log(response)
             if (!error && response.statusCode == 201) {
                 res.redirect("/purchase");
             } else {
