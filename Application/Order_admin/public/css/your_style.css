@@ -536,6 +536,16 @@ tr > td > .separation:last-child {
 .dl-content{
     margin-top:20px!important;
 }
+.no-box-shadow{
+    box-shadow: none!important;
+    -webkit-box-shadow: none!important;
+    -moz-box-shadow:none!important;
+}
+.height01{
+    min-height: 310px;
+    overflow: hidden;
+}
+/*E 与公告资料相关*/
 .materielBak{
     background: #eae8e8;
     color:#000;

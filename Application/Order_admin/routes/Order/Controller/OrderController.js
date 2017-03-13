@@ -841,6 +841,7 @@ var OrderController = {
         })
     },
     movePacket:function(req,res){
+        console.log('移动包装'+ JSON.stringify(req.body));
         request(Base.mergeRequestOptions({
             method: 'put',
             url: '/api/orders/package/packet/move?'+queryString.stringify(req.body),
@@ -856,7 +857,7 @@ var OrderController = {
         var mid = req.params.pid;
         var type = req.params.type;
         console.log('删除包装'+ JSON.stringify(req.params));
-      /*  request(Base.mergeRequestOptions({
+        request(Base.mergeRequestOptions({
          method: 'put',
          url: '/api/orders/package/packet/delete/'+mid+'?packageType='+type,
          }, req, res), function (error, response, body) {
@@ -865,7 +866,7 @@ var OrderController = {
          } else {
          Base.handlerError(res, req, error, response, body);
          }
-         })*/
+         })
     },
     //订单详情--订单物料--工件
     workpiecePage:function (req, res) {

@@ -13,7 +13,7 @@
         <!-- breadcrumb -->
         <ol class="breadcrumb">
             <li>后台管理</li>
-            <li><a href="/orders/package">订单包装</a></li>
+            <li><a class="back-url" href="/orders/package"><i class="fa fa-chevron-left"></i>订单包装</a></li>
             <li>订单包装详情</li>
         </ol>
         <!-- end breadcrumb -->
@@ -322,19 +322,20 @@
         });
         //删包操作
         $(".deletePacket").on("click",function(e){
+                var pid=$(this).attr("packagelid");
+                var type=$(this).attr("packagetype");
             layer.confirm('确定删除该包装吗？',{icon: 3, title:'提示'},
                 function(index){
-                    var pid=$(this).attr("packagelid");
-                    var type=$(this).attr("packagetype");
-                  /*  var pid=170310000000000019;
-                    var type=1001;*/
-                    console.log(pid);
-                    console.log(type);
                     $.ajax({
                         url: '/orders/package/packet/delete/'+pid+"/"+type,
                         method: 'put',
                         success: function (data) {
-                            window.location.href="/orders/package";
+                            if('<%= pid%>'){
+                                window.location.href="/orders/package/<%= tid%>?packageLid=<%= pid%>";
+                            }
+                            else{
+                                window.location.href="/orders/package/<%= tid%>";
+                            }
                         },
                         error: function (response) {
                             layer.close(index)
