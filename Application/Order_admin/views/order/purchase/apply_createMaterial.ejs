@@ -99,19 +99,20 @@
             var length=$("input[name=tid]").length;
             for(var i=0;i<length;i++){
                 var a = new Object();
-                var materialId=$(".materialId"+i).text();
+                var mateId=$(".materialId"+i).text();
                 var amount=$("input[name=amount"+i+"]").val();
                 var deliveryDate=$("input[name=deliveryDate"+i+"]").val();
-                a.materialId=materialId;
+                a.mateId=mateId;
                 a.amount = amount;
                 a.deliveryDate = deliveryDate;
                 myArray.push(a);
             }
+            var date={reqMaterialList:myArray};
             layer.confirm("确认提交？", {title:'提示'},function(index){
                 console.log(myArray);
                     $.ajax({
                         url: '/purchase/applyMaterialCreate/',
-                        data:JSON.stringify(myArray),
+                        data:JSON.stringify(date),
                         method: 'post',
                         dataType: 'json',
                         contentType:"application/json",
