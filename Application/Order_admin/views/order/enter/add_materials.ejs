@@ -9,7 +9,7 @@
                         <div class="form-group">
                             <label class="col-xs-4 control-label">物料编号:</label>
                             <div class="col-xs-8">
-                                <input class="form-control" value="" name="cid">
+                                <input class="form-control" value="" name="materNo" id="materNo">
                             </div>
                         </div>
                     </div>
@@ -17,21 +17,14 @@
                         <div class="form-group">
                             <label class="col-xs-4 control-label">名称:</label>
                             <div class="col-xs-8">
-                                <input class="form-control" value="" name="cid">
+                                <input class="form-control" value="" name="name" id="name">
                             </div>
                         </div>
                     </div>
+
                     <div class="col-xs-3">
                         <div class="form-group">
-                            <label class="col-xs-4 control-label">请购单号:</label>
-                            <div class="col-xs-8">
-                                <input class="form-control" value="" name="cid">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xs-3">
-                        <div class="form-group">
-                            <button class="btn btn-primary " type="submit">
+                            <button class="btn btn-primary" id="searchMater">
                                 <i class="fa fa-search"></i>
                                 查询
                             </button>
@@ -56,55 +49,19 @@
                             <span>&nbsp;</span>
                         </label>序号
                     </th>
-                    <th>请购单号</th>
-                    <th>订单号</th>
                     <th>物料编号</th>
                     <th>物料名称</th>
-                    <th>规格</th>
-                    <th>单价</th>
-                    <th>采购数量</th>
-                    <th>采购金额</th>
+                    <th>分类名称</th>
+                    <th>单位</th>
+                    <th>真实库存</th>
+                    <th>预警数量</th>
                 </tr>
                 </thead>
                 <tbody id='layer-form-wrapper'>
-                <tr>
-                    <td>
-                        <label class="checkbox-inline">
-                            <input type="checkbox" class="checkbox"
-                                   name="roles" value="1">
-                            <span>1</span>
-                        </label>
-                    </td>
-                    <td><a href="555">12345</a></td>
-                    <td>12345</td>
-                    <td><a href="555">12345</a></td>
-                    <td>未定</td>
-                    <td>其他</td>
-                    <td>新橱柜18</td>
-                    <td>未定</td>
-                    <td>未定</td>
-                </tr>
-                <tr>
-                    <td>
-                        <label class="checkbox-inline">
-                            <input type="checkbox" class="checkbox"
-                                   name="roles" value="2">
-                            <span>1</span>
-                        </label>
-                    </td>
-                    <td><a href="555">12345</a></td>
-                    <td>12345</td>
-                    <td><a href="555">12345</a></td>
-                    <td>未定</td>
-                    <td>其他</td>
-                    <td>新橱柜18</td>
-                    <td>未定</td>
-                    <td>未定</td>
-                </tr>
 
                 </tbody>
             </table>
-            <p class="" id="pagination"></p>
+            <p class="pagination-inmodal" id="pagination"></p>
         </div>
     </div>
     <div class="col-xs-12">
@@ -130,6 +87,7 @@
                     title: '添加物料',
                     type: 1,
                     area: '1400px',
+                    offset: '200px',
                     content: $('#enter_pass'),
                     cancel: function () {
                         //右上角关闭回调
@@ -140,7 +98,7 @@
                             pagination :'#pagination',
                             method:'GET',
                             url:'/template/pagination',
-                            pageSize:3
+                            pageSize:10
 
                         })
                     }
@@ -148,12 +106,25 @@
                 });
             }
         })
+        $("#searchMater").click(function () {
+            var materNo = $('#materNo').val();
+            var name = $('#name').val();
+            DWY_Utils.pagination({
+                dataContainer:'#layer-form-wrapper',
+                pagination :'#pagination',
+                method:'GET',
+                url:'/template/pagination?materNo='+materNo+'&name='+name,
+                pageSize:10
+
+            })
+
+        })
 
         var checkedValue = $('#checkedValue');
         $("#checkAll").change(function () {
             if ($(this).is(":checked")) {
                 $(":checkbox").prop('checked', true);
-                $("input[name='roles']:checked").each(function (i) {
+                $("input[name='checkbox']:checked").each(function (i) {
                     checkedValue.addClass(this.value + ',')
                 });
             } else {
@@ -161,17 +132,22 @@
                 checkedValue.removeClass()
             }
         })
-        $("input[name='roles']").change(function () {
+        $('#layer-form-wrapper').on('change',"input[name='checkbox']",function () {
+            console.log($(this).parents('tr').index())
+            console.log($(this).parents('tr').html())
+
+
             if ($(this).is(':checked')) {
                 checkedValue.addClass(this.value + ',')
             } else {
                 checkedValue.removeClass(this.value + ',')
             }
-        });
+        })
+
 
         $('#confirm').click(function () {
             var tids = checkedValue.attr('class');
-            tids = tids.substring(0, tids.length - 1);
+            tids = tids.substring(0, tids.length - 1).replace(/\s/g,"");
             if (!tids) {
                 layer.msg('请先选择物料', {icon: 2, time: 2000});
                 return;

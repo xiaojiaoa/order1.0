@@ -34,10 +34,14 @@ var AppServiceController = {
             url: '/api/whse/app/cargoout/order/list',
         }, req, res), function (error, response, body) {
             if (!error && response.statusCode == 200) {
+                console.log(66666)
                 if(body){
                     var $data = JSON.parse(body);
                     res.send($data);
                 }
+            }else {
+                console.log(7777)
+                // Base.handlerError(res, req, error, response, body);
             }
         })
     },
@@ -55,9 +59,10 @@ var AppServiceController = {
         })
     },
     cargoinOrder: function (req, res) {
+        var tid = req.params.tid;
         request(Base.mergeRequestOptions({
             method: 'get',
-            url: '/api/whse/app/cargoin/order/package/list',
+            url: '/api/whse/app/cargoin/order/package/list?packageList='+tid,
         }, req, res), function (error, response, body) {
             if (!error && response.statusCode == 200) {
                 if(body){

@@ -1,26 +1,26 @@
-<ul>
-	<% result.forEach(function(element,index){%>
-
+	<%
+	if(result&&result.length>0){
+	result.forEach(function(element,index){%>
 	<tr>
 		<td>
 			<label class="checkbox-inline">
 				<input type="checkbox" class="checkbox"
-					   name="checkbox" value="1">
+					   name="checkbox" value="<%= index %>">
 				<span><%= ++index %></span>
 			</label>
 		</td>
 		<td><a href="/materialManage/detail/<%= element.id%>"><%= element.id%></a></td>
-		<td><%= element.name%></td>
-		<td><a href="name">12345</a></td>
-		<td>未定</td>
-		<td>其他</td>
-		<td>新橱柜18</td>
-		<td>未定</td>
-		<td>未定</td>
+		<td class="name<%= index %>"><%= element.name%></td>
+		<td><%= element.catName%></td>
+		<td><%= element.unit%></td>
+		<td><%= element.stock%></td>
+		<td><%= element.warning%></td>
 	</tr>
 
-	<li>
-		<p><%= element.name%></p>
-	</li>
-	<%})%>
-</ul>
+    <%})
+	}else{ %>
+	<tr>
+		<td colspan="7" class="text-align-center">暂无结果</td>
+	</tr>
+    <%} %>
+
