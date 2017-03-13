@@ -256,8 +256,14 @@ router.get('/orders/package/:tid', Middleware.AuthCheck,OrderController.packedLi
 //撤销包装
 router.put('/orders/package/unpacket/:tid', Middleware.AuthCheck,OrderController.unpacket);
 
-//生成分包
+//生成包装操作
 router.put('/orders/package/packet/:tid',Middleware.AuthCheck,OrderController.doPacket);
+
+//移动包装操作
+router.post('/orders/package/packet/move',Middleware.AuthCheck,OrderController.movePacket);
+
+//删除包装
+router.put('/orders/package/packet/delete/:pid/:type',Middleware.AuthCheck,OrderController.deletePacket);
 
 
 //订单详情--订单物料--非标件
@@ -265,8 +271,7 @@ router.get('/order/workpiece/:tid',Middleware.AuthCheck,OrderController.workpiec
 //订单详情--订单物料--配件
  router.get('/order/materiel_modal/:tid',Middleware.AuthCheck,OrderController.partsPage);
 
-//移动包装操作
-router.put('/orders/package/packet/move',Middleware.AuthCheck,OrderController.movePacket);
+
 
 /*
  * 页面范围: 拆单

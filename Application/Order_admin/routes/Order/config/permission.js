@@ -1,16 +1,46 @@
 var permissions = {
-    customer:{
+    notice:{
         create:{
-            id:"101010",
-            name:"新增个人客户信息"
+            id:"891010",
+            name:"新增公告"
         },
         query :{
-            id:"101043",
-            name:"查询门店下自己负责客户信息"
+            id:"891040",
+            name:"查询所有公告"
         },
         update :{
-            id:"101030",
-            name:"修改客户基本信息"
+            id:"891030",
+            name:"更新公告"
+        },
+        delete :{
+            id:"891020",
+            name:"删除公告"
+        }
+    },
+    information:{
+       query:{
+           id:"",
+           name:"查询资料信息"
+       }
+    },
+    customer:{
+        query:{
+          id:"101043",
+          name:"查询门店下自己负责客户信息"
+        }
+    },
+    network:{
+        query:{
+            id:"530540",
+            name:"查询所有网络预约"
+        },
+        distribute:{
+            id:"530511",
+            name:"预约分配店铺"
+        },
+        delete:{
+            id:"530520",
+            name:"删除预约信息"
         }
     },
     measure:{
@@ -45,16 +75,6 @@ var permissions = {
             name :"文件下载"
         }
     },
-    wardround :{
-        create:{
-            id:"505010",
-            name:"新增查房信息"
-        },
-        query :{
-            id:"505041",
-            name:"查房信息查看"
-        }
-    },
     followup:{
         create:{
             id:"504010",
@@ -76,35 +96,179 @@ var permissions = {
         }
     },
     order:{
-        create:{
-            id:"531510",
-            name:"新增订单"
-        },
         query :{
-            id:"531512",
-            name:"提交订单审核"
+            id:"531051",
+            name:"订单查询"
+        }
+    },
+    orderAssess:{
+      query:{
+          id:"531940",
+          name:"查询个人订单评估"
+      },
+      assess:{
+            id:"531911",
+            name:"进行订单评估"
+        }
+    },
+    orderReview:{
+        query:{
+            id:"532054",
+            name:"查询个人订单待审列表"
         },
-        update :{
-            id:"101030",
-            name:"修改客户基本信息"
+        takeOrder:{
+            id:"532011",
+            name:"审单订单锁定"
         },
-        delete :{
-            id:"531520",
-            name:"删除订单"
+        passOrder:{
+            id:"532012",
+            name:"审单订单提交"
+        },
+        cancelOrder:{
+            id:"532032",
+            name:"取消待审订单，解锁"
+        },
+        sendBackOrder:{
+            id:"532021",
+            name:"退回订单"
+        }
+    },
+    orderApart:{
+        query:{
+            id:"534054",
+            name:"查询个人订单待拆列表"
+        },
+        takeOrder:{
+            id:"534011",
+            name:"拆单获取订单"
+        },
+        passOrder:{
+            id:"534012",
+            name:"拆单提交"
+        },
+        cancelOrder:{
+            id:"534032",
+            name:"取消拆单订单，解锁"
+        },
+        sendBackOrder:{
+            id:"534021",
+            name:"退回拆单订单"
+        }
+    },
+    orderReviewApart:{
+        query:{
+            id:"535054",
+            name:"查询个人订单拆审列表"
+        },
+        takeOrder:{
+            id:"535011",
+            name:"拆审获取订单"
+        },
+        passOrder:{
+            id:"535012",
+            name:"拆审提交"
+        },
+        cancelOrder:{
+            id:"535032",
+            name:"取消拆审订单，解锁"
+        },
+        sendBackOrder:{
+            id:"535021",
+            name:"退回拆审订单"
+        }
+    },
+    orderSchedule :{
+        query:{
+            id:"536054",
+            name:"查询个人订单排料列表"
+        },
+        takeOrder:{
+            id:"536011",
+            name:"排料获取订单"
+        },
+        passOrder:{
+            id:"536012",
+            name:"排料提交"
+        },
+        cancelOrder:{
+            id:"536032",
+            name:"取消排料订单，解锁"
+        },
+        sendBackOrder:{
+            id:"536021",
+            name:"退回排料订单"
         }
     },
     resupply:{
-        create:{
-            id:"531510",
-            name:"新增补单"
+        query:{
+            id:"541554",
+            name:"补单查询"
+        }
+    },
+    resupplyOrderReview:{
+        query:{
+            id:"542054",
+            name:"查询个人补单待审列表"
         },
-        submit:{
-            id:"541512",
-            name:"提交补单"
+        takeOrder:{
+            id:"542011",
+            name:"审单补单锁定"
         },
-        delete :{
-            id :"541520",
-            name :"删除补单"
+        passOrder:{
+            id:"542012",
+            name:"审单补单提交"
+        },
+        cancelOrder:{
+            id:"542032",
+            name:"取消待审补单，解锁"
+        },
+        sendBackOrder:{
+            id:"542021",
+            name:"退回补单"
+        }
+    },
+    resupplyOrderApart:{
+        query:{
+            id:"544054",
+            name:"查询个人订单待拆列表"
+        },
+        takeOrder:{
+            id:"544011",
+            name:"拆单获取订单"
+        },
+        passOrder:{
+            id:"544012",
+            name:"拆单提交"
+        },
+        cancelOrder:{
+            id:"544032",
+            name:"取消拆单订单，解锁"
+        },
+        sendBackOrder:{
+            id:"544021",
+            name:"退回拆单订单"
+        }
+    },
+    resupplyOrderReviewApart:{
+        query:{
+            id:"545054",
+            name:"查询个人订单拆审列表"
+        },
+        takeOrder:{
+            id:"545011",
+            name:"拆审获取订单"
+        },
+        passOrder:{
+            id:"545012",
+            name:"拆审提交"
+        },
+        cancelOrder:{
+            id:"545032",
+            name:"取消拆审订单，解锁"
+        },
+        sendBackOrder:{
+            id:"545021",
+            name:"退回拆审订单"
         }
     },
     taskseq:{

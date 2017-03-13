@@ -93,7 +93,8 @@ var PurchaseController = {
         request(Base.mergeRequestOptions({
             method: 'post',
             url: '/api/purchase/request/',
-            form:req.body,
+            headers:{'Content-type':'application/json'},
+            body:JSON.stringify(req.body),
         }, req, res), function (error, response, body) {
             if (!error && response.statusCode == 201) {
                 res.redirect("/purchase");

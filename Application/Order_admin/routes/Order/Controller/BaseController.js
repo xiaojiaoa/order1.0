@@ -28,16 +28,18 @@ var BaseController = {
         }
 
 
+        if(!options.headers) options.headers={}
+
         //添加请求token验证信息
         if (req.session.auth) {
 
             //TODO 打印TOKEN
+            // console.log(req.session.auth.access_token);
 
-            options.headers = {
-                'access_token': req.session.auth.access_token
-            };
+            options.headers['access_token'] = req.session.auth.access_token;
         }
 
+        console.log(options.headers)
         return helper.mergeObject({
             method: 'GET',
             timeout: 2000

@@ -23,6 +23,8 @@ var PassportController = {
             if (!error && response.statusCode == 200) {
                 // Show the HTML for the Google homepage.
                 let $data = JSON.parse(body);
+                console.log(JSON.stringify($data));
+
                 //TOKEN 存入session
                 var user_session = req.session;
                 user_session.auth = {
@@ -31,24 +33,20 @@ var PassportController = {
                     time: new Date().getTime(),
                 };
 
-                //获取并刷新扥估用户信息到session
-
-                request(Base.mergeRequestOptions({
-                    method: 'GET',
-                    url: '/api/employees/current',
-                }, req, res), function (error, response, body) {
-                    if (!error && response.statusCode == 200) {
-                        user_session.user = JSON.parse(body);
-                        if(req.session.preventPath){
-                             $data.preventPath = req.session.preventPath;
-                        }else{
-                            $data.preventPath = "/";
-                        }
-                       
-                        res.send($data);
-                    } else {
-                        Base.handlerError(res, req, error, response, body);
+                Base.multiDataRequest(req, res, [
+                    {url: '/api/employees/current', method: 'GET', resConfig: {keyName: 'user', is_must: false}},
+                    {url: '/api/permissions/menus/currentuser', method: 'GET', resConfig: {keyName: 'menu', is_must: true}},
+                    {url: '/api/permissions/currentuser', method: 'GET', resConfig: {keyName: 'permission', is_must: false}}
+                ], function (req, res, resultList) {
+                    user_session.user = resultList['user'];
+                    user_session.menu = resultList['menu'];
+                    user_session.permission = resultList['permission'];
+                    if(req.session.preventPath){
+                        $data.preventPath = req.session.preventPath;
+                    }else{
+                        $data.preventPath = "/";
                     }
+                    res.send($data);
                 });
             } else {
                 Base.handlerError(res, req, error, response, body);
