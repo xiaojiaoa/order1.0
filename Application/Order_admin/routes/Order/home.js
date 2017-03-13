@@ -1046,7 +1046,7 @@ var AppServiceController = require('./Controller/AppserviceController');
 router.get('/app/cargoout/:tid', Middleware.AuthCheck,AppServiceController.cargooutPage);
 
 //出库-获取所有可出库的订单列表
-router.get('/app/cargoout/order', Middleware.AuthCheck,AppServiceController.cargooutOrder);
+router.get('/app/cargooutOrder', Middleware.AuthCheck,AppServiceController.cargooutOrder);
 
 //出库-已入库包装
 router.get('/app/cargoin/package', Middleware.AuthCheck,AppServiceController.cargoinPackage);

@@ -133,6 +133,10 @@
             }
         })
         $('#layer-form-wrapper').on('change',"input[name='checkbox']",function () {
+            console.log($(this).parents('tr').index())
+            console.log($(this).parents('tr').html())
+
+
             if ($(this).is(':checked')) {
                 checkedValue.addClass(this.value + ',')
             } else {
