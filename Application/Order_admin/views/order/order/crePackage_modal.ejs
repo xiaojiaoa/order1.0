@@ -1,0 +1,36 @@
+<script type="text/javascript">
+
+    $(document).ready(function () {
+
+        //生成包装操作
+        $(".crePackage").on({
+            click: function (e) {
+                var  tid= $(this).attr("tid");
+                layer.confirm('确定生成包装吗？',{icon: 3, title:'提示'},
+                    function(index){
+                        $.ajax({
+                            url: '/orders/package/packet/'+tid,
+                            method: 'put',
+                            success: function (data) {
+                                window.location.reload();
+                            },
+                            error: function (response) {
+                                layer.close(index)
+                                var data = JSON.parse(response.responseText);
+                                $.smallBox({
+                                    title: "操作失败",
+                                    content: data.msg,
+                                    color: "#C46A69",
+                                    iconSmall: "fa fa-times fa-2x fadeInRight animated",
+                                    timeout: 3000
+                                });
+                            }
+                        });
+                    },
+                    function(index){layer.close(index)});
+
+            }
+        });
+    })
+
+</script>

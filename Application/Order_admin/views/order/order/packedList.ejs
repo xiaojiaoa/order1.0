@@ -246,6 +246,12 @@
             }
         });
 
+        //从查看包装详情刚点进去的页面需要添加样式
+        if(!'<%= pid%>'){
+            $(".packedList > tbody > tr").eq(0).addClass("color01");
+        }
+
+
         //撤销包装按钮
         $(document).on("click",".undoPackingBtn",function(){
             layer.confirm('确定撤销该包装吗？',{icon: 3, title:'提示'},
