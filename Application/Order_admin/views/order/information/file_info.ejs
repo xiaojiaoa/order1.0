@@ -62,12 +62,12 @@
                                         <!--添加文件-->
                                         <!--</button>-->
                                         <!---->
+                                        <% if (DWY_Helper.hasPermission(Permission.information.upload.id, permission) ){ %>
                                         <label for="dwy_file_upload" class="btn btn-primary" id="label-upload-file">
 
                                             点击上传 <i class="fa fa-upload"></i> </label>
                                         <input type="file" name="file_name" id="dwy_file_upload" style="display: none;">
-
-
+                                        <% } %>
                                     </div>
                                 </div>
                             </div>

@@ -105,7 +105,8 @@ var InformationController = {
 
             var returnData = Base.mergeData(helper.mergeObject({
                 title: ' ',
-                pagination: boostrapPaginator.render()
+                pagination: boostrapPaginator.render(),
+                Permission :Permissions,
             },resultList));
             res.render('order/information/file_info',returnData);
         });
