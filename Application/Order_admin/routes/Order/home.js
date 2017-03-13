@@ -149,6 +149,8 @@ router.get('/order/detail/:tid', Middleware.AuthCheck, OrderController.detailPag
 
 // 标记为审核中
 router.put('/orders/getTask/:tid', Middleware.AuthCheck, OrderController.getTask);
+// 审核-退单重新提交
+router.put('/orders/getTaskAgain/:tid', Middleware.AuthCheck, OrderController.getTaskAgain);
 // 解锁订单
 router.put('/orders/unlock/:tid', Middleware.AuthCheck, OrderController.doUnlock);
 
@@ -178,6 +180,8 @@ router.get('/orders/resupplys/accept', Middleware.AuthCheck, Middleware.FilterEm
 
 // 标记为审核中
 router.put('/resupplys/getTask/:tid', Middleware.AuthCheck, OrderController.getTaskResupplys);
+//重新提交
+router.put('/resupplys/getTaskAgain/:tid', Middleware.AuthCheck, OrderController.getTaskResupplysAgain);
 // 解锁补单
 router.put('/resupplys/unlock/:tid', Middleware.AuthCheck, OrderController.doUnlockResupplys);
 
@@ -299,6 +303,10 @@ router.put('/apart/doPass/:tid', Middleware.AuthCheck, ApartController.doPass);
 
 // 标记为审核中 (待拆单审核)
 router.put('/apartCheck/getTask/:tid', Middleware.AuthCheck, ApartController.getTaskCheck);
+
+// 重新提交 (拆单审核退回)
+router.put('/apartCheck/getTaskAgain/:tid', Middleware.AuthCheck, ApartController.getTaskCheckAgain);
+
 // 解锁订单
 router.put('/apartCheck/unlock/:tid', Middleware.AuthCheck, ApartController.doUnlockCheck);
 
@@ -1027,5 +1035,29 @@ var InstallserviceController = require('./Controller/InstallserviceController');
 router.get('/installService', Middleware.AuthCheck,InstallserviceController.installServicePage);
 //指定安装组
 router.post('/installServiceTask/:tid/:did', Middleware.AuthCheck,InstallserviceController.getTask);
+
+
+/*
+ * 页面范围: app接口
+ * 控制器:   AppServiceController
+ * */
+var AppServiceController = require('./Controller/AppserviceController');
+// 出库-按照订单号查出包装
+router.get('/app/cargoout/:tid', Middleware.AuthCheck,AppServiceController.cargooutPage);
+
+//出库-获取所有可出库的订单列表
+router.get('/app/cargoout/order', Middleware.AuthCheck,AppServiceController.cargooutOrder);
+
+//出库-已入库包装
+router.get('/app/cargoin/package', Middleware.AuthCheck,AppServiceController.cargoinPackage);
+
+//出库-入库扫描完成后的显示界面
+router.get('/app/cargoin/order', Middleware.AuthCheck,AppServiceController.cargoinOrder);
+
+//入库-入库接口
+router.post('/app/doCargoin', Middleware.AuthCheck,AppServiceController.doCargoin);
+
+//入库-出库接口
+router.post('/app/doCargoout', Middleware.AuthCheck,AppServiceController.doCargoout);
 
 module.exports = router;
