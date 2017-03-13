@@ -32,14 +32,14 @@
                 <div class="row">
                     <div class="col-xs-12">
                         <div class="table-responsive">
-                            <table class="table table-bordered table-striped">
+                            <table class="table table-bordered table-striped localstorage">
                                 <thead>
-                                <tr>
+                                <tr class="len">
                                     <th>
                                         <label class="checkbox-inline">
                                             <input type="checkbox" class="checkbox"
                                                    id="checkAll2"  />
-                                            <span>序号</span>
+                                            <span class="0">序号</span>
                                         </label>
                                     </th>
                                     <th>物料编号</th>
@@ -49,7 +49,19 @@
                                 </tr>
                                 </thead>
                                 <tbody class="purApplyTr">
-
+                                    <tr class="len none">
+                                        <td>
+                                            <label class="checkbox-inline">
+                                                <input type="checkbox" class="checkbox"
+                                                       name="roles" value="">
+                                                <span class="index"></span>
+                                            </label>
+                                        </td>
+                                        <td><a href="" class="id"></a></td>
+                                        <td class="name"></td>
+                                        <td class="kc"></td>
+                                        <td class="catName"></td>
+                                    </tr>
                                 </tbody>
                             </table>
                         </div>
@@ -161,7 +173,7 @@
                         <%
                         if(DWY_Helper.isCanLoop(supMaterialList.result)){
                         supMaterialList.result.forEach(function (element, index) { %>
-                        <tr>
+                        <tr class="len">
                             <td>
                                 <label class="checkbox-inline">
                                     <input type="checkbox" class="checkbox"
@@ -194,8 +206,24 @@
 <script type="text/javascript">
     $(document).ready(function () {
         pageSetUp();
+        var num =0;
         $("#creat-supplier").validationEngine();
-
+        if (!localStorage.data){
+            $(".none").css("display","none")
+        }else{
+            var data2=JSON.parse(localStorage.getItem("data"))
+            var id2=data2.id;
+            var index2=data2.index;
+            var name2=data2.name;
+            var kc2=data2.kc;
+            var catName2=data2.catName;
+            $(".localstorage .len .id").attr('href',"/materialManage/detail/"+id2);
+            $(".localstorage .len .index").text(index2);
+            $(".localstorage .len .id").text(id2);
+            $(".localstorage .len .name").text(name2);
+            $(".localstorage .len .kc").text(kc2);
+            $(".localstorage .len .catName").text(catName2);
+        }
         var checkedValue = $('#checkedValue');
         $("#checkAll").change(function () {
             if($(this).is(":checked")){
@@ -209,9 +237,39 @@
             }
         })
         $("input[name='roles']").change(function () {
+            var len=$(".len").length;
+            var html=$(this).parents('tr').clone();
+            num++;
+            html.find('label span').html(num)
 
-            var html=$(this).parents('tr').html();
-            $(".purApplyTr").html(html);
+            html.find("td:first-of-type label span").addClass('index')
+            html.find("td:nth-of-type(2) a").addClass('id')
+            html.find("td:nth-of-type(3)").addClass('name')
+            html.find("td:nth-of-type(4)").addClass('kc')
+            html.find("td:last-of-type").addClass('catName')
+            $(".purApplyTr").append(html);
+//            var val=$(".len td label input").val();
+            if(!window.localStorage){
+                alert("浏览器支持localstorage");
+            }else{
+                var storage=window.localStorage;
+                var data={
+                    index:$('.index').text(),
+                    id:$('.id').text(),
+                    name:$('.name').text(),
+                    kc:$('.kc').text(),
+                    catName:$('.catName').text()
+                };
+                
+                var obj=data;
+                $.each(obj, function(key, val) {
+                    console.log(key);//可以输出姓名
+                });
+
+
+                var d=JSON.stringify(data);
+                storage.setItem("data",d);
+            }
 
             if($(this).is(':checked')){
                 checkedValue.addClass(this.value+',')

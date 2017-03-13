@@ -118,7 +118,17 @@
                                 <td><%= element.reviewDeptName %></td>
                                 <td><%= DWY_Helper.getLocalDate(element.reviewTime) %></td>
                                 <td><%= DWY_Helper.getLocalDate(element.buildTime) %></td>
-                                <td><%= element.stcodeName %></td>
+                                <td>
+                                    <% if(element.stcode == 30 ){ %>
+                                    <button class="label label-primary PurchaseOrder" data-purchase-id="<%= element.id %>">生成采购单</button>
+                                    <% } %>
+                                    <% if(element.stcode == 10 ){ %>
+                                    <button class="label label-primary purchaseReview" data-purchase-id="<%= element.id %>">审核</button>
+                                    <% } %>
+                                    <% if(element.stcode == 50 ){ %>
+                                    <button class="label label-success">已生成</button>
+                                    <% } %>
+                                </td>
                             </tr>
                             <%  })
                             }else{ %>
@@ -140,6 +150,66 @@
     $(document).ready(function () {
         pageSetUp();
         $(".fg-date-time-picker").flatpickr(data_time_picker.data_time_picker); // jQuery
+
+        $(".PurchaseOrder").click(function(){
+            var tid=$(this).data('purchaseId');
+            layer.confirm('确认生成采购单?',{icon: 3, title:'提示'},
+                function(index){
+                    $.ajax({
+                        url: '/purchases/Order/'+tid,
+                        method: 'post',
+                        success: function (data) {
+                            location.href="/purchase/detail";
+                        },
+                        error: function (response) {
+                            layer.close(index)
+                            var data = JSON.parse(response.responseText);
+                            $.smallBox({
+                                title: "操作失败",
+                                content: data.msg,
+                                color: "#C46A69",
+                                iconSmall: "fa fa-times fa-2x fadeInRight animated",
+                                timeout: 3000
+                            });
+                            setTimeout(function(){
+                                window.location.reload();
+                            },5000)
+                        }
+                    });
+                },
+                function(index){layer.close(index)})
+        })
+        //请购单审核
+        $(".purchaseReview").click(function(){
+            var tid=$(this).data('purchaseId');
+            layer.confirm('确认审核?',{icon: 3, title:'提示'},
+                function(index){
+                    $.ajax({
+                        url: '/purchase/applyReview/'+tid,
+                        method: 'post',
+                        success: function (data) {
+                            window.location.reload();
+                        },
+                        error: function (response) {
+                            layer.close(index)
+                            var data = JSON.parse(response.responseText);
+                            $.smallBox({
+                                title: "操作失败",
+                                content: data.msg,
+                                color: "#C46A69",
+                                iconSmall: "fa fa-times fa-2x fadeInRight animated",
+                                timeout: 3000
+                            });
+                            setTimeout(function(){
+                                window.location.reload();
+                            },5000)
+                        }
+                    });
+                },
+                function(index){layer.close(index)})
+        })
+
+
     })
 </script>
 <%- include('../layouts/foot'); %>
