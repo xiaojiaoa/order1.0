@@ -86,10 +86,15 @@ var PurchaseController = {
     },
     //新建请购单 添加物料数量+预计交期
     applyMaterialCreate: function (req, res) {
+        var headers = {};
+        headers['Content-Type'] = 'application/json';
         request(Base.mergeRequestOptions({
             method: 'post',
             url: '/api/purchase/request/',
+            headers : headers,
             form:req.body,
+            multipart: false,
+            followRedirects: false
         }, req, res), function (error, response, body) {
             if (!error && response.statusCode == 201) {
                 res.redirect("/purchase");

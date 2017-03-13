@@ -36,7 +36,8 @@ var NetworkBookController = {
 
             var returnData = Base.mergeData(helper.mergeObject({
                 title: '预约列表',
-                pagination: boostrapPaginator.render()
+                pagination: boostrapPaginator.render(),
+                Permission:Permissions,
             }, resultList));
 
             res.render('order/networkBook/index', returnData);

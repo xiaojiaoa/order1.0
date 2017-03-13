@@ -218,7 +218,9 @@
                     </select>
                 </div>
                 <div class="col-xs-3">
+                    <% if (DWY_Helper.hasPermission(Permission.orderAssess.assess.id, permission) ){ %>
                     <button class="btn btn-primary" id="submitDifficulty">确定</button>
+                    <% } %>
                     <input type="hidden" class="" id="checkedValue">
                 </div>
             </div>

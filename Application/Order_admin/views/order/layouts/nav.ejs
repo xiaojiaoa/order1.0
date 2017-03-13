@@ -14,7 +14,7 @@
             <!--<a href="/storeCenter" title="门店中心"><i class="fa fa-lg fa-fw fa-home"></i> <span-->
             <!--class="menu-item-parent">门店中心</span></a>-->
             <!--</li>-->
-            <li>
+           <!-- <li>
                 <a href="/userCenter" title="个人中心"><i class="fa fa-lg fa-fw fa-angle-right"></i> <span
                             class="menu-item-parent">个人中心</span></a>
             </li>
@@ -118,7 +118,7 @@
                             class="menu-item-parent">安装服务</span></a>
             </li>
             <li>
-                <a href="/organizations/employees?bid=<%= user.bid %>" title="柜员管理"><i
+                <a href="/organizations/employees?bid=" title="柜员管理"><i
                             class="fa fa-lg fa-fw  fa-angle-right"></i> <span
                             class="menu-item-parent">柜员管理</span></a>
             </li>
@@ -129,7 +129,15 @@
             <li>
                 <a href="/agency" title="机构管理"><i class="fa fa-lg fa-fw  fa-angle-right"></i> <span
                             class="menu-item-parent">机构管理</span></a>
+            </li>-->
+
+            <%
+            menu.forEach(function (element) { %>
+            <li >
+                <a href="/<%= element.href %>" title="<%= element.name %>"><i class="fa fa-lg fa-fw  fa-angle-right"></i> <span
+                            class="menu-item-parent"><%= element.name %></span></a>
             </li>
+            <% }) %>
 
 
         </ul>

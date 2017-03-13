@@ -434,13 +434,19 @@
                                     case 250:  %>
                                 <td width="30%">
                                     审核中
+                                    <% if (DWY_Helper.hasPermission(Permission.orderReview.passOrder.id, permission) ){ %>
                                     <a class="label label-primary" id="check-pass-modal">提交审核</a>
+                                    <% } %>
+                                    <% if (DWY_Helper.hasPermission(Permission.orderReview.sendBackOrder.id, permission) ){ %>
                                     <a class="label label-primary margin-left-20 reject-modal" id="check-reject-modal">审核退回</a>
+                                    <% } %>
                                 </td>
                                 <%        break;
                                     case 220: %>
                                 <td>待审核
+                                    <% if (DWY_Helper.hasPermission(Permission.orderReview.takeOrder.id, permission) ){ %>
                                     <a class="label label-primary doGetTask" id="submitOrder" data-stcode="<%= orderInfo.stcode %>">标记为审核中</a>
+                                    <% } %>
                                 </td>
                                 <%         break;
                                     default: %>
@@ -464,15 +470,21 @@
                                     case 450: %>
                                 <td>
                                     拆单中
+                                    <% if (DWY_Helper.hasPermission(Permission.orderApart.passOrder.id, permission) ){ %>
                                     <a class="label label-primary doPass" data-stcode="<%= orderInfo.stcode %>">确定拆单</a>
+                                    <% } %>
+                                    <% if (DWY_Helper.hasPermission(Permission.orderApart.sendBackOrder.id, permission) ){ %>
                                     <a class="label label-primary margin-left-20 reject-modal"
                                        data-stcode="<%= orderInfo.stcode %>">拆单退回</a>
+                                    <% } %>
                                 </td>
                                 <%         break;
                                 case 290: %>
                                 <td>
                                     待拆单
+                                    <% if (DWY_Helper.hasPermission(Permission.orderApart.takeOrder.id, permission) ){ %>
                                     <a class="label label-primary doGetTask" data-stcode="<%= orderInfo.stcode %>">标记为拆单中</a>
+                                    <% } %>
                                 </td>
                                 <%         break;
 
@@ -490,14 +502,20 @@
                                 case 475: %>
                                 <td>
                                     拆单审核中
+                                    <% if (DWY_Helper.hasPermission(Permission.orderReviewApart.passOrder.id, permission) ){ %>
                                     <a class="label label-primary doPass"  data-stcode="<%= orderInfo.stcode %>">确定审核</a>
+                                    <% } %>
+                                    <% if (DWY_Helper.hasPermission(Permission.orderReviewApart.sendBackOrder.id, permission) ){ %>
                                     <a class="label label-primary margin-left-20 reject-modal">拆单审核退回</a>
+                                    <% } %>
                                 </td>
                                 <%        break;
                                 case 472: %>
                                 <td>
                                     待拆单审核
+                                    <% if (DWY_Helper.hasPermission(Permission.orderReviewApart.takeOrder.id, permission) ){ %>
                                     <a class="label label-primary doGetTask" data-stcode="<%= orderInfo.stcode %>">标记为拆单审核中</a>
+                                    <% } %>
                                 </td>
                                 <%         break;
                                     default: %>
@@ -514,14 +532,20 @@
                                 case 635: %>
                                 <td>
                                     排料中
+                                    <% if (DWY_Helper.hasPermission(Permission.orderSchedule.passOrder.id, permission) ){ %>
                                     <a class="label label-primary doPass"  data-stcode="<%= orderInfo.stcode %>">确认排料</a>
+                                    <% } %>
+                                    <% if (DWY_Helper.hasPermission(Permission.orderSchedule.sendBackOrder.id, permission) ){ %>
                                     <a class="label label-primary margin-left-20 reject-modal">排料退回</a>
+                                    <% } %>
                                 </td>
                                 <%        break;
                                 case 632: %>
                                 <td>
                                     待排料
+                                    <% if (DWY_Helper.hasPermission(Permission.orderSchedule.takeOrder.id, permission) ){ %>
                                     <a class="label label-primary doGetTask" data-stcode="<%= orderInfo.stcode %>">标记为排料中</a>
+                                    <% } %>
                                 </td>
                                 <%         break;
                                     default: %>
