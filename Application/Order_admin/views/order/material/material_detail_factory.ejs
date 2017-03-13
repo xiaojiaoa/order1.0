@@ -58,19 +58,19 @@
                             </tr>
                             <tr>
                                 <td>出厂价格</td>
-                                <td></td>
-                                <td>价格单位</td>
-                                <td></td>
-                                <td>工厂</td>
-                                <td></td>
-                            </tr>
-                            <tr>
+                                <td><%= mateInfo.price %></td>
                                 <td>单位</td>
                                 <td><%= mateInfo.unit%></td>
+                                <td>工厂</td>
+                                <td><%= mateInfo.factoryName %></td>
+                            </tr>
+                            <tr>
                                 <td>物料图片</td>
                                 <td>
-                                    <a href="<%= mateInfo.image%>">图片地址</a>
+                                    <a class="fancybox dwy_image" href="<%= DWY_GLOBAL.Static %>/download?url=<%= mateInfo.image %>" data-fancybox-group="gallery" title="<%= mateInfo.image %>"><%= mateInfo.image %></a>
                                 </td>
+                                <td></td>
+                                <td></td>
                                 <td></td>
                                 <td></td>
                             </tr>
@@ -151,6 +151,8 @@
         pageSetUp();
 
         $(".fg-date-time-picker").flatpickr(data_time_picker.data_picker); // jQuery
+        //图片浏览
+        $('.fancybox').fancybox();
            })
 
 </script>

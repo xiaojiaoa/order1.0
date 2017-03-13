@@ -237,13 +237,14 @@ var MaterialController = {
     },
     doAdd: function (req, res) {
     console.log('工厂物料完善物料'+ JSON.stringify(req.body));
+    var mid=req.body.mateId;
     request(Base.mergeRequestOptions({
         method: 'post',
         url: '/api/materials/stock',
         form:req.body,
     }, req, res), function (error, response, body) {
         if (!error && response.statusCode == 201) {
-            res.sendStatus(200);
+            res.redirect("/materialManage/factory/detail/"+mid);
         } else {
             Base.handlerError(res, req, error, response, body);
         }
