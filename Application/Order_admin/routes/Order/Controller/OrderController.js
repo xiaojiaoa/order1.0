@@ -946,6 +946,38 @@ var OrderController = {
             res.render('order/order/materiel_modal', returnData);
         });
      },
+    //订单详情--订单物料--工件导出
+    exportWorkpiece: function (req, res) {
+        var id = req.params.tid;
+        request(Base.mergeRequestOptions({
+            method: 'post',
+            url: '/api/orders/package/workpiece/export/'+id,
+
+        }, req, res), function (error, response, body) {
+            if (!error && response.statusCode == 201) {
+                res.sendStatus(200)
+            }else{
+                Base.handlerError(res, req, error, response, body);
+            }
+        })
+    },
+
+    //订单详情--订单物料--配件导出
+    exportParts: function (req, res) {
+        var id = req.params.tid;
+        request(Base.mergeRequestOptions({
+            method: 'post',
+            url: '/api/orders/package/accessory/export/'+id,
+        }, req, res), function (error, response, body) {
+            if (!error && response.statusCode == 201) {
+                res.sendStatus(200)
+            }else{
+                Base.handlerError(res, req, error, response, body);
+            }
+        })
+    },
+
+
 };
 
 module.exports = OrderController;

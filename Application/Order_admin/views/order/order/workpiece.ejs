@@ -116,9 +116,9 @@
                                 <div class="col-xs-12">
                                     <hr class="simple">
                                     <div class="col-xs-12 orderItemButton text-center">
-                                            <button class="btn btn-primary">
+                                            <a href="/order/exportWorkpiece/<%= tid %>" class="btn btn-primary" id="exportWorkpiece">
                                                 导出
-                                            </button>
+                                            </a>
                                     </div>
                                 </div>
                             </div>
@@ -152,5 +152,15 @@
             workpieceBtn.removeClass(this.value+',')
         }
     });
+    $("#exportWorkpiece").on({
+        click:function(){
+            if(workpieceBtn.attr('class')==null||workpieceBtn.attr('class')=='') {
+                layer.alert('请选择！', {icon: 3})
+                return false;
+            }
+        }
+    })
+
+
 </script>
 <%- include('../layouts/foot'); %>

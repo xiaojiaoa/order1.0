@@ -275,6 +275,11 @@ router.get('/order/workpiece/:tid',Middleware.AuthCheck,OrderController.workpiec
 //订单详情--订单物料--配件
  router.get('/order/materiel_modal/:tid',Middleware.AuthCheck,OrderController.partsPage);
 
+//订单详情--订单物料--非标件导出
+router.get('/order/exportWorkpiece/:tid',Middleware.AuthCheck,OrderController.exportWorkpiece);
+//订单详情--订单物料--配件导出
+router.get('/order/exportParts/:tid',Middleware.AuthCheck,OrderController.exportParts);
+
 
 
 /*
