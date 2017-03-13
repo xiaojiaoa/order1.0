@@ -20,7 +20,7 @@ var Permissions = require('../config/permission');
 var EnterController = {
 
     enterMaterialPage: function (req, res) {
-        // console.log('user_session9999',user_session)
+        console.log('user_session9999',req.session.user.ftyId)
         var ftyId = req.query.ftyId ? req.query.ftyId: req.session.user.ftyId;
         var whseId = req.query.whseId;
         var regionId = req.query.regionId;

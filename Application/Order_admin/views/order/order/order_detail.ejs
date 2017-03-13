@@ -449,6 +449,13 @@
                                     <% } %>
                                 </td>
                                 <%         break;
+                                case 280: %>
+                                <td>审核退回
+                                    <% if (DWY_Helper.hasPermission(Permission.orderReview.takeOrder.id, permission) ){ %>
+                                    <a class="label label-primary doGetTask" data-stcode="<%= orderInfo.stcode %>">重新提交</a>
+                                    <% } %>
+                                </td>
+                                <%         break;
                                     default: %>
                                         <td><%= DWY_Helper.getLocalDate(orderStatusInfo.reviewTime) %></td>
                                 <%  } %>
@@ -515,6 +522,14 @@
                                     待拆单审核
                                     <% if (DWY_Helper.hasPermission(Permission.orderReviewApart.takeOrder.id, permission) ){ %>
                                     <a class="label label-primary doGetTask" data-stcode="<%= orderInfo.stcode %>">标记为拆单审核中</a>
+                                    <% } %>
+                                </td>
+                                <%         break;
+                                case 478: %>
+                                <td>
+                                    拆审退回
+                                    <% if (DWY_Helper.hasPermission(Permission.orderReviewApart.takeOrder.id, permission) ){ %>
+                                    <a class="label label-primary doGetTask" data-stcode="<%= orderInfo.stcode %>">重新提交</a>
                                     <% } %>
                                 </td>
                                 <%         break;
@@ -742,6 +757,11 @@
                     locationUrl = '/order/check/getOrder';
                     text = '确认标记为审核中?';
                     break;
+                case '280':
+                    ajaxUrl = '/orders/getTaskAgain/<%= tid %>';
+                    locationUrl = '/order/check/getOrder';
+                    text = '确认重新提交审核?';
+                    break;
                 case '290':
                     ajaxUrl = '/apart/getTask/<%= tid %>';
                     locationUrl = '/apart';
@@ -751,6 +771,11 @@
                     ajaxUrl = '/apartCheck/getTask/<%= tid %>';
                     locationUrl = '/apart/check';
                     text = '确认标记为拆单审核中?';
+                    break;
+                case '478':
+                    ajaxUrl = '/apartCheck/getTaskAgain/<%= tid %>';
+                    locationUrl = '/apart/check';
+                    text = '确认重新提交?';
                     break;
                 case '632':
                     ajaxUrl = '/schedule/getTask/<%= tid %>';

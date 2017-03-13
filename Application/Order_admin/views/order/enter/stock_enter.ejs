@@ -164,12 +164,19 @@
 <script type="text/javascript">
 
     $(document).ready(function () {
-        $(':text').attr('disabled',true)
+
         $("#search-customer").validationEngine();
+
         var regionSelect = $("#regionId");
+        $('#search-customer :text').attr('disabled',true)
 
-
-        $('#ftyId,#whseId,#regionId').change(function () {
+        $('#ftyId,#whseId').change(function () {
+            $(':text').not('.short').val('');
+            $('#search-customer :text').attr('disabled',true)
+            $('.status').html('');
+            $('#waningArea').show();
+        })
+        $('#regionId').change(function () {
             var regionId = regionSelect.val();
             $(':text').not('.short').val('');
             $('.status').html('');
@@ -177,7 +184,7 @@
                 $(':text').attr('disabled',false);
                 $('#waningArea').hide();
             }else{
-                $(':text').attr('disabled',true)
+                $('#search-customer :text').attr('disabled',true)
                 $('#waningArea').show();
             }
 

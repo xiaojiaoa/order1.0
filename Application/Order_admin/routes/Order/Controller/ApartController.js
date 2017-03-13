@@ -173,6 +173,21 @@ var ApartController = {
         })
 
     },
+    getTaskCheckAgain: function (req, res) {
+        var tid = req.params.tid;
+        request(Base.mergeRequestOptions({
+            method: 'put',
+            url: '/api/orders/apartReview/reSubmit/'+tid,
+        }, req, res), function (error, response, body) {
+            if (!error && response.statusCode == 201) {
+                res.sendStatus(200);
+                // res.redirect("/order/check/getOrder");
+            } else {
+                Base.handlerError(res, req, error, response, body);
+            }
+        })
+
+    },
     doUnlockCheck: function (req, res) {
         var tid = req.params.tid;
         request(Base.mergeRequestOptions({

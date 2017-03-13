@@ -82,6 +82,21 @@ var OrderController = {
         })
 
     },
+    getTaskAgain: function (req, res) {
+        var tid = req.params.tid;
+        request(Base.mergeRequestOptions({
+            method: 'put',
+            url: '/api/orders/review/reSubmit/'+tid,
+        }, req, res), function (error, response, body) {
+            if (!error && response.statusCode == 201) {
+                res.sendStatus(200);
+                // res.redirect("/order/check/getOrder");
+            } else {
+                Base.handlerError(res, req, error, response, body);
+            }
+        })
+
+    },
     doUnlock: function (req, res) {
         var tid = req.params.tid;
         request(Base.mergeRequestOptions({
@@ -274,6 +289,20 @@ var OrderController = {
         request(Base.mergeRequestOptions({
             method: 'put',
             url: '/api/orders/resupply/accept/getTask?tid='+tid,
+        }, req, res), function (error, response, body) {
+            if (!error && response.statusCode == 201) {
+                res.sendStatus(200);
+            } else {
+                Base.handlerError(res, req, error, response, body);
+            }
+        })
+
+    },
+    getTaskResupplysAgain: function (req, res) {
+        var tid = req.params.tid;
+        request(Base.mergeRequestOptions({
+            method: 'put',
+            url: '/api/orders/resupply/accept/reSubmit?tid='+tid,
         }, req, res), function (error, response, body) {
             if (!error && response.statusCode == 201) {
                 res.sendStatus(200);

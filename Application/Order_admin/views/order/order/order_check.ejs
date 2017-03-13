@@ -54,7 +54,7 @@
                             <% if(DWY_Helper.isCanLoop(selfList.result)){
                                 selfList.result.forEach(function (element, index) {  %>
                             <tr class="<%= (element.sign == 1) ? "mark-row":"" %>">
-                                <td><%= index+1 %>/<%= element.sign %></td>
+                                <td><%= index+1 %></td>
                                 <td><a href="/order/detail/<%= element.tid %>"><%= element.tid %></a></td>
                                 <td><%= element.difficultyStr %></td>
                                 <td><%= element.productTypeStr %></td>
