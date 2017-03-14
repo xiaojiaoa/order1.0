@@ -75,7 +75,7 @@
                                 </td>
                                 <td><%= element.urgent %></td>
                                 <td><%= element.tryInstall %></td>
-                                <td><%= element.received %></td>
+                                <td><%= element.receivedStr %></td>
                                 <td><%= element.orderTypeStr %></td>
                                 <td><%= element.productTypeStr %></td>
                                 <td><%= element.colorStr %></td>
@@ -245,14 +245,22 @@
                         <tr>
                             <td>
                                 <label class="checkbox-inline">
-                                    <input type="checkbox" class="checkbox"
+                                    <%
+                                    if(element.received==1){%>
+                                        <input type="checkbox" class="checkbox"
                                            name="roles" value="<%= element.tid %>">
+                                    <%}%>
+                                    <%
+                                    if(element.received==0){%>
+                                        <input type="checkbox" class="checkbox"
+                                       name="roles" value="<%= element.tid %>" disabled="disabled">
+                                    <% } %>
                                     <span><%= index+1 %></span>
                                 </label>
                             </td>
                             <td><%= element.urgent %></td>
                             <td><%= element.tryInstall %></td>
-                            <td><%= element.received %></td>
+                            <td><%= element.receivedStr %></td>
                             <td><%= element.orderTypeStr %></td>
                             <td><%= element.productTypeStr %></td>
                             <td><%= element.colorStr %></td>
@@ -331,8 +339,10 @@
             layer.confirm("<div>批次号&nbsp<input id='batchInput' value=''  /></div>",
                     {title:'提示'},function(index){
                     cid= $("#batchInput").val();
-                    if(cid.length>12) return false;
-                    $.ajax({
+                    var reg = /^(\d{1,12})$/;
+                    var r = cid.match(reg);
+                    if(r==null) return false;
+                        $.ajax({
                         url: '/order/editBatchNum/'+cid+'/'+bid,
                         method: 'post',
                         success: function (data) {
@@ -354,7 +364,6 @@
                             },7000)
                         }
                     });
-//                layer.close(index)
             },function(index){
                 layer.close(index)}
                 )
@@ -386,6 +395,10 @@
             }
         });
         $("#getNestingTask").click(function(){
+            if(checkedValue.attr('class')==null||checkedValue.attr('class')=='') {
+                layer.alert('请选择！', {icon: 3})
+                return false;
+            }
             var cid = checkedValue.attr('class').replace(/[ ]/g,"");
             cid = cid.substring(0,cid.length-1);
             layer.confirm('确认标记?',{icon: 3, title:'提示'},

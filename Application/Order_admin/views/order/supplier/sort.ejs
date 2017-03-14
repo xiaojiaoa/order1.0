@@ -86,8 +86,8 @@
                                                 <button class="label label-primary openSupplierSort" selfId="<%= element.id %>">启用</button>
                                                 <% }else{%>
                                                 <button class="label label-primary supplierChild-modal"  parent="<%= element.name %>" parentId="<%= element.id %>">新建子级</button>
-                                                <button class="label label-primary supplierModify-modal" name="<%= element.name %>" selfId="<%= element.id %>">修改</button>
-                                                <button class="label label-danger delete-supplier" selfId="<%= element.id %>" id="closeStore">禁用</button>
+                                                <button class="label label-primary supplierModify-modal" name="<%= element.name %>" selfId="<%= element.id %>" selfType="<%= element.type %>">修改</button>
+                                                <button class="label label-danger delete-supplier" selfId="<%= element.id %>" >禁用</button>
                                                 <% } %>
                                             </td>
                                         </tr>
@@ -97,10 +97,9 @@
                                             <td>
                                                 <% if(element.isDeleted == 2) {%>
                                                 <button class="label label-primary openSupplierSort" id="openStore" selfId="<%= element.id %>">启用</button>
-
                                                 <% }else{%>
-                                                <button class="label label-primary supplierModify-modal" name="<%= element.name %>" selfId="<%= element.id %>">修改</button>
-                                                <button class="label label-danger delete-supplier" selfId="<%= element.id %>" id="closeStore">禁用</button>
+                                                <button class="label label-primary supplierModify-modal" name="<%= element.name %>" selfId="<%= element.id %>" selfType="<%= element.type %>">修改</button>
+                                                <button class="label label-danger delete-supplier" selfId="<%= element.id %>">禁用</button>
                                                 <% } %>
                                             </td>
                                         </tr>

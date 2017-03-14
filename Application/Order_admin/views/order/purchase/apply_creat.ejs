@@ -199,7 +199,7 @@
         pageSetUp();
 
 
-       
+
 
 
 
@@ -261,7 +261,7 @@
         $(".orderItemLayerTable input[name='roles']").on("change",function () {
 
             var $tds = $(this).parent().parent().parent().children("td");
-            
+
             // 获取整个条目数据
             var item = {
                 id : $(this).val(),
@@ -307,9 +307,11 @@
 
         })
 
-
-
         var checkedValue=$("#checkedValue");
+        $(".purApplyTr input[name='roles']:checked").each(function(){
+            var val=$(this).val();
+            checkedValue.addClass(val+',')
+        });
         $("input[name='roles']").change(function () {
             if($(this).is(':checked')){
                 checkedValue.addClass(this.value+',')
