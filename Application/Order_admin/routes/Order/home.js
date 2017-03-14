@@ -214,15 +214,15 @@ router.post('/orders/doPass', Middleware.AuthCheck, OrderController.doPass);
 router.post('/orders/updateDifficultyLevel', Middleware.AuthCheck, OrderController.updateDifficultyLevel);
 
 // 所有退回信息页面
-router.get('/order/chgback/:tid', Middleware.AuthCheck, OrderController.chgbackeAllPage);
+router.get('/:type/chgback/:tid', Middleware.AuthCheck, OrderController.chgbackeAllPage);
 // 新增交流信息页面
-router.get('/order/communicate/create/:tid', Middleware.AuthCheck, OrderController.communicatePage);
+router.get('/:type/communicate/create/:tid', Middleware.AuthCheck, OrderController.communicatePage);
 
 // 所有交流信息页面
-router.get('/order/communicateAll/:tid', Middleware.AuthCheck, OrderController.communicateAllPage);
+router.get('/:type/communicateAll/:tid', Middleware.AuthCheck, OrderController.communicateAllPage);
 
 // 新增交流信息
-router.post('/order/communicate/doCreate', Middleware.AuthCheck, OrderController.doCreateCommunicate);
+router.post('/:type/communicate/doCreate', Middleware.AuthCheck, OrderController.doCreateCommunicate);
 
 // 补单页面
 router.get('/orders/resupplys', Middleware.AuthCheck, Middleware.FilterEmptyField, OrderController.resupplyPage);

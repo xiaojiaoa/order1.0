@@ -13,7 +13,11 @@
         <!-- breadcrumb -->
         <ol class="breadcrumb">
             <li>后台管理</li>
+            <% if(type == 'order'){ %>
             <li><a class="back-url" href="/order/detail/<%= tid %>"><i class="fa fa-chevron-left"></i> 订单详情</a></li>
+            <% }else{ %>
+            <li><a class="back-url" href="/order/resupply/detail/<%= tid %>"><i class="fa fa-chevron-left"></i> 补单详情</a></li>
+            <%} %>
             <li>交流信息添加</li>
         </ol>
 
@@ -35,7 +39,7 @@
 
                     <!-- row -->
                     <div class="row search-form">
-                        <form class="form-horizontal" method="post" action="/order/communicate/doCreate" id="create-customer">
+                        <form class="form-horizontal" method="post" action="/<%= type %>/communicate/doCreate" id="create-customer">
 
                             <div class="col-xs-12">
 

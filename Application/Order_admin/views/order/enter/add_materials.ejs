@@ -52,7 +52,7 @@
                     <th>物料编号</th>
                     <th>物料名称</th>
                     <th>分类名称</th>
-                    <th>单位</th>
+                    <th>单价</th>
                     <th>真实库存</th>
                     <th>预警数量</th>
                 </tr>
@@ -161,6 +161,7 @@
                 var num = cargoinList_result+1
                 var idMater = $('.idMater').eq(index).text();
                 var nameMater = $('.nameMater').eq(index).text();
+                var priceMater = $('.priceMater').eq(index).text();
 
                 html += '<tr id="cargoinDo'+cargoinList_result+'">'+
                     '<td>'+num +'</td>'+
@@ -168,23 +169,19 @@
                     '<td></td>'+
                     '<td><a href="/materialManage/detail/'+idMater+'">'+idMater+'</a></td>'+
                     '<td>'+nameMater+'</td>'+
-                    '<td></td>'+
+                    '<td>'+priceMater+'</td>'+
                     '<td></td>'+
                     '<td></td>'+
                     '<td>'+
-                    '<input class="form-control small validate[condRequired[custom[number],min[1],max[99],spaceColumn'+cargoinList_result+',spaceLayer'+cargoinList_result+']]" '+
-                    'name="spaceRow'+cargoinList_result+'" placeholder="行" id="spaceRow'+cargoinList_result+'" data-index="'+cargoinList_result+'"> '+
-                    '<input class="form-control small validate[condRequired[custom[number],min[1],max[99],spaceRow'+cargoinList_result+',spaceLayer'+cargoinList_result+']]" '+
-                    'name="spaceColumn'+cargoinList_result+'" placeholder="列" id="spaceColumn'+cargoinList_result+'" data-index="'+cargoinList_result+'"> '+
-                    '<input class="form-control small validate[condRequired[custom[number],min[1],max[99],spaceRow'+cargoinList_result+',spaceColumn'+cargoinList_result+']]" '+
-                    'name="spaceLayer'+cargoinList_result+'" placeholder="层" id="spaceLayer'+cargoinList_result+'" data-index="'+cargoinList_result+'"> '+
-
+                    '<input class="form-control validate[condRequired[custom[number],maxSize[6],maxSize[6]]]" '+
+                    ' name="spaceId'+cargoinList_result+'" placeholder="行列层，6位数字" id="spaceId'+cargoinList_result+'" data-index="'+cargoinList_result+'"> '+
                     '<input name="cargoId'+cargoinList_result+'" value="'+idMater+'" type="hidden">'+
                     '<input name="purId'+cargoinList_result+'" value="" type="hidden">'+
-                    '<input name="unitPrice'+cargoinList_result+'" value="" type="hidden">'+
+                    '<input name="unitPrice'+cargoinList_result+'" value="'+priceMater+'" type="hidden">'+
+                    '<input name="statusThis'+cargoinList_result+'" value="0" type="hidden">'+
                     '</td>'+
                     '<td>'+
-                    '<input class="form-control short validate[condRequired[spaceRow'+cargoinList_result+',spaceColumn'+cargoinList_result+',spaceLayer'+cargoinList_result+']]" '+
+                    '<input class="form-control short validate[condRequired[spaceId'+cargoinList_result+']]" '+
                     ' value="" name="amount'+cargoinList_result+'" id="amount'+cargoinList_result+'" data-index="'+cargoinList_result+'">'+
                     '</td>'+
                     '<td id="status'+cargoinList_result+'" class="status"></td>'+
