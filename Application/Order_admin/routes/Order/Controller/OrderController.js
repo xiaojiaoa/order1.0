@@ -52,7 +52,12 @@ var OrderController = {
                 {url: '/api/orders/statusInfo/'+tid, method: 'GET', resConfig: {keyName: 'orderStatusInfo', is_must: false}},
                 {url: '/api/assist/order/stcodes', method: 'GET', resConfig: {keyName: 'stcodeInfo', is_must: false}},
                 {url: '/api/assist/deco/style' , method: 'GET', resConfig: {keyName: 'styleInfo', is_must: true}},
-                {url: '/api/assist/review/reson', method: 'GET', resConfig: {keyName: 'resonList', is_must: true}},
+                // {url: '/api/assist/review/reson', method: 'GET', resConfig: {keyName: 'resonList', is_must: true}},
+                {url: '/api/assist/review/reviewReason', method: 'GET', resConfig: {keyName: 'reviewReason', is_must: true}},
+                {url: '/api/assist/review/apartReason', method: 'GET', resConfig: {keyName: 'apartReason', is_must: true}},
+                {url: '/api/assist/review/apartReviewReason', method: 'GET', resConfig: {keyName: 'apartReviewReason', is_must: true}},
+                {url: '/api/assist/review/scheduleReason', method: 'GET', resConfig: {keyName: 'scheduleReason', is_must: true}},
+
                 {url: '/api/assist/order/difficulty', method: 'GET', resConfig: {keyName: 'difficultyList', is_must: true}},
                 {url: '/api/cofficient', method: 'GET', resConfig: {keyName: 'cofficientInfo', is_must: true}},
                 {url: '/api/orders/chgback/'+tid, method: 'GET', resConfig: {keyName: 'chgbackInfo', is_must: true}},
@@ -541,8 +546,11 @@ var OrderController = {
                 {url: '/api/orders/resupply/detail?tid='+tid, method: 'GET', resConfig: {keyName: 'resupplyInfo', is_must: true}},
                 {url: '/api/orders/statusInfo/'+tid, method: 'GET', resConfig: {keyName: 'orderStatusInfo', is_must: false}},
                 {url: '/api/assist/resupply/stcodes', method: 'GET', resConfig: {keyName: 'stcodeInfo', is_must: true}},
-                {url: '/api/assist/review/reson', method: 'GET', resConfig: {keyName: 'resonList', is_must: true}},
+                // {url: '/api/assist/review/reson', method: 'GET', resConfig: {keyName: 'resonList', is_must: true}},
                 {url: '/api/assist/resupply/reason', method: 'GET', resConfig: {keyName: 'resupplyReason', is_must: true}},
+                {url: '/api/assist/review/acceptReason', method: 'GET', resConfig: {keyName: 'acceptReason', is_must: true}},
+                {url: '/api/assist/review/apartReason', method: 'GET', resConfig: {keyName: 'apartReason', is_must: true}},
+                {url: '/api/assist/review/apartReviewReason', method: 'GET', resConfig: {keyName: 'apartReviewReason', is_must: true}},
                 {url: '/api/assist/orderfile/type', method: 'GET', resConfig: {keyName: 'allFileTypeInfo', is_must: true}},
             ],
             function (req, res, resultList) {
@@ -821,6 +829,7 @@ var OrderController = {
             var returnData = Base.mergeData(helper.mergeObject({
                 title: ' ',
                 pagination: boostrapPaginator.render(),
+                Permission :Permissions,
             },resultList));
             res.render('order/order/package', returnData);
         });
@@ -836,6 +845,7 @@ var OrderController = {
                 title: ' ',
                 tid:tid,
                 pid:pid,
+                Permission :Permissions,
             },resultList));
             res.render('order/order/packedList', returnData);
         });

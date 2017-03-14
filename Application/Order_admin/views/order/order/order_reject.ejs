@@ -23,9 +23,31 @@
             <div class="col-xs-8">
                 <select class="form-control validate[required]" name="cause" data-prompt-position="bottomLeft:20,5">
                     <option value="">- 请选择 -</option>
-                    <% resonList.forEach(function (element) { %>
-                        <option value="<%= element.id %>"><%= element.name %></option>
-                    <%  }) %>
+                    <%
+                    switch (orderInfo.stcode){
+                    case 250:
+                    reviewReason.forEach(function (element) { %>
+                    <option value="<%= element.id %>"><%= element.name %></option>
+                    <%  })
+                        break;
+                    case 450:
+                    apartReason.forEach(function (element) { %>
+                    <option value="<%= element.id %>"><%= element.name %></option>
+                    <%  })
+                        break;
+                    case 475:
+                    apartReviewReason.forEach(function (element) { %>
+                    <option value="<%= element.id %>"><%= element.name %></option>
+                    <%  })
+                        break;
+                    case 635:
+                    scheduleReason.forEach(function (element) { %>
+                    <option value="<%= element.id %>"><%= element.name %></option>
+                    <%  })
+                        break;
+                    }  %>
+
+
                 </select>
             </div>
 

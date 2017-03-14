@@ -97,6 +97,58 @@ var Middleware = {
 };
 
 /*
+ * 移动端中间件
+ * */
+var MobileMiddleware = {
+    //检测SESSION 是否存在TOKEN (NODE),TODO 区分AJAX请求,以JSON格式返回
+    AuthCheck: function (req, res, next) {
+
+        // console.log(req.path)
+        if (!req.session.auth) {
+            console.log('SESSION HAS NO AUTH');
+            res.status(200).send(JSON.stringify({
+                msg:"session不存在",
+                code:1015
+            }));
+        } else {
+            //增加token失效验证. token存在但过期时,自动发送refresh_token并保存新的token到用户session
+            var user_auth = req.session.auth;
+
+            if ((new Date().getTime() - user_auth.time) > 1600000) {
+
+                //refresh_token request
+                request(Base.mergeRequestOptions({
+                    method: 'POST',
+                    url: '/api/refresh',
+                    form: {refreshToken: user_auth.refresh_token}
+                }, req, res), function (error, response, body) {
+                    if (!error && response.statusCode == 201) {
+                        // Show the HTML for the Google homepage.
+                        let $data = JSON.parse(body);
+                        console.log("body",response);
+
+                        //TOKEN 存入session
+                        var user_session = req.session;
+                        user_session.auth = {
+                            access_token: $data.userTokenString,
+                            refresh_token: $data.refreshTokenString,
+                            time: new Date().getTime(),
+                        };
+
+                        next();
+                    } else {
+                        res.status(200).send(JSON.stringify(response));
+                    }
+                })
+            } else {
+
+                next();
+            }
+        }
+    }
+};
+
+/*
  * 页面范围: 首页相关
  * 控制器:   IndexController
  * */
@@ -1053,21 +1105,21 @@ router.post('/registerDeliver/:tid', Middleware.AuthCheck,InstallserviceControll
  * */
 var AppServiceController = require('./Controller/AppserviceController');
 // 出库-按照订单号查出包装
-router.get('/app/cargoout/:tid', Middleware.AuthCheck,AppServiceController.cargooutPage);
+router.get('/app/cargoout/:tid', MobileMiddleware.AuthCheck,AppServiceController.cargooutPage);
 
 //出库-获取所有可出库的订单列表
-router.get('/app/cargooutOrder', Middleware.AuthCheck,AppServiceController.cargooutOrder);
+router.get('/app/cargooutOrder', MobileMiddleware.AuthCheck,AppServiceController.cargooutOrder);
 
 //出库-已入库包装
-router.get('/app/cargoin/package', Middleware.AuthCheck,AppServiceController.cargoinPackage);
+router.get('/app/cargoin/package', MobileMiddleware.AuthCheck,AppServiceController.cargoinPackage);
 
 //出库-入库扫描完成后的显示界面
-router.get('/app/cargoin/order/:tid', Middleware.AuthCheck,AppServiceController.cargoinOrder);
+router.get('/app/cargoin/order/:tid', MobileMiddleware.AuthCheck,AppServiceController.cargoinOrder);
 
 //入库-入库接口
-router.post('/app/doCargoin', Middleware.AuthCheck,AppServiceController.doCargoin);
+router.post('/app/doCargoin', MobileMiddleware.AuthCheck,AppServiceController.doCargoin);
 
 //入库-出库接口
-router.post('/app/doCargoout', Middleware.AuthCheck,AppServiceController.doCargoout);
+router.post('/app/doCargoout', MobileMiddleware.AuthCheck,AppServiceController.doCargoout);
 
 module.exports = router;
