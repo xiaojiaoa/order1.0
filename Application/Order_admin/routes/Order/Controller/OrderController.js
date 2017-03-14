@@ -160,6 +160,7 @@ var OrderController = {
     },
     chgbackeAllPage: function (req, res) {
         var tid = req.params.tid;
+        var type = req.params.type;
         var paramObject = helper.genPaginationQuery(req);
         Base.multiDataRequest(req, res, [
             {url: '/api/orders/chgback?tid='+tid, method: 'GET', resConfig: {keyName: 'chgbackList', is_must: true}},
@@ -177,6 +178,7 @@ var OrderController = {
             var returnData = Base.mergeData(helper.mergeObject({
                 title: ' ',
                 tid: tid,
+                type: type,
                 pagination: boostrapPaginator.render()
             }, resultList));
             res.render('order/order/back', returnData);
@@ -185,22 +187,29 @@ var OrderController = {
     },
     communicatePage: function (req, res) {
         var tid = req.params.tid;
+        var type = req.params.type;
         var returnData = {
             title: ' ',
             tid: tid,
+            type: type,
         }
         res.render('order/order/communicate_create', returnData);
     },
     doCreateCommunicate: function (req, res) {
         var tid = req.body.tid;
+        var type = req.params.type;
         request(Base.mergeRequestOptions({
             method: 'post',
             url: '/api/orders/progress',
             form: req.body,
         }, req, res), function (error, response, body) {
             if (!error && response.statusCode == 201) {
+                if(type == 'order'){
+                    res.redirect("/order/detail/" + tid);
+                }else{
+                    res.redirect("/order/resupply/detail/" + tid);
+                }
 
-                res.redirect("/order/detail/" + tid);
             } else {
                 Base.handlerError(res, req, error, response, body);
             }
@@ -208,6 +217,7 @@ var OrderController = {
     },
     communicateAllPage: function (req, res) {
         var tid = req.params.tid;
+        var type = req.params.type;
         var paramObject = helper.genPaginationQuery(req);
         Base.multiDataRequest(req, res, [
             {url: '/api/orders/progress?tid='+tid, method: 'GET', resConfig: {keyName: 'progressList', is_must: true}},
@@ -225,6 +235,7 @@ var OrderController = {
             var returnData = Base.mergeData(helper.mergeObject({
                 title: ' ',
                 tid: tid,
+                type: type,
                 pagination: boostrapPaginator.render()
             }, resultList));
             res.render('order/order/communicate', returnData);
@@ -554,7 +565,9 @@ var OrderController = {
                 {url: '/api/assist/review/acceptReason', method: 'GET', resConfig: {keyName: 'acceptReason', is_must: true}},
                 {url: '/api/assist/review/apartReason', method: 'GET', resConfig: {keyName: 'apartReason', is_must: true}},
                 {url: '/api/assist/review/apartReviewReason', method: 'GET', resConfig: {keyName: 'apartReviewReason', is_must: true}},
-                {url: '/api/assist/orderfile/type', method: 'GET', resConfig: {keyName: 'allFileTypeInfo', is_must: true}},
+                // {url: '/api/assist/orderfile/type', method: 'GET', resConfig: {keyName: 'allFileTypeInfo', is_must: true}},
+                {url: '/api/orders/chgback/'+tid, method: 'GET', resConfig: {keyName: 'chgbackInfo', is_must: true}},
+                {url: '/api/orders/progress/'+tid, method: 'GET', resConfig: {keyName: 'progressInfo', is_must: true}},
             ],
             function (req, res, resultList) {
 

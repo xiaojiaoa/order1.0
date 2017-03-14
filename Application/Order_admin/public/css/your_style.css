@@ -320,7 +320,7 @@ nav ul span.menu-item-parent {
 .disabletr{
     background: #eee;
 }
-.table-expand .level-1-title {
+.table-expand .level-1-title, .level-1-title{
     padding-left: 40px;
     color: #5a5a5a;
 }
@@ -512,18 +512,18 @@ tr > td > .separation:last-child {
 .display-none{
     display: none;
 }
+/*S 与公告资料相关*/
 .dl-style01{
     background-color: #f3f3f3;
-    padding:20px 10px ;
+    padding: 10px;
 }
 .dl-style01 a{
-    font-size:15px;
     font-weight:normal;
     cursor: pointer;
+    float: right;
 }
 .dl-style01 dt{
-    padding-bottom: 10px;
-    border-bottom:1px solid black;
+
 }
 .dl-style01 dd{
     margin:10px;
@@ -578,4 +578,10 @@ tr > td > .separation:last-child {
 .pagination-inmodal>span.active{
     background-color: #3b9ff3;
     color: #fff;
+}
+.margin-left-85{
+    margin-left:85px;
+}
+.none-padding {
+    padding: 0 !important;
 }

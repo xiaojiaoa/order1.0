@@ -14,7 +14,7 @@
         <ol class="breadcrumb">
             <li>后台管理</li>
             <li><a class="back-url" href="/materialManage"><i class="fa fa-chevron-left"></i>物料管理</a></li>
-            <li><a>查看物料属性</a></li>
+            <li>查看物料属性</li>
         </ol>
         <!-- end breadcrumb -->
 
@@ -32,7 +32,7 @@
             <div class="row">
                 <!-- col -->
                 <div class="col-xs-12">
-                    <!--<legend>物料搜索</legend>-->
+                    <!--<legend>物料属性搜索</legend>-->
                     <!-- row -->
                     <div class="row search-form">
                         <form class="form-horizontal" method="get">
@@ -107,7 +107,7 @@
                                 <th>序号</th>
                                 <th>属性ID</th>
                                 <th>名称</th>
-                                <th>长度</th>
+                                <th class="display-none">长度</th>
                                 <th>操作</th>
                             </tr>
                             </thead>
@@ -126,14 +126,14 @@
                                                               <a href="/materialManage/mateAttr/detail/<%= element.id %>" class=" "><%= element.name %></a>
                                                               <% } %>
                                                           </td>
-                                                          <td><%= element.length %></td>
+                                                          <td class="display-none"><%= element.length %></td>
                                                           <td>
                                                               <% if( element.stcode == 2 ){ %>
-                                                              <a href="javascript:void(0)" id="openStore" class="openStore">启用</a>
+                                                              <a href="javascript:void(0)" id="openStore" class="label label-primary openStore ">启用</a>
                                                               <% }else{ %>
-                                                              <a href="javascript:void(0)" class="attrChange">修改</a>
-                                                              <a href="javascript:void(0)" class="margin-left-20 closeStore" id="closeStore">禁用</a>
-                                                              <a href="javascript:void(0)" class="margin-left-20 creAttrVal attrValCreate">新建值</a>
+                                                              <a href="javascript:void(0)" class="label label-primary attrChange ">修改</a>
+                                                              <a href="javascript:void(0)" class=" label label-danger closeStore" id="closeStore">禁用</a>
+                                                              <a href="javascript:void(0)" class="label label-primary creAttrVal attrValCreate">新建值</a>
                                                               <% } %>
                                                           </td>
                                                       </tr>
@@ -180,10 +180,10 @@
     </div>
     <div class="col-xs-12">
         <div class="form-group">
-            <label class="col-xs-4 control-label"><span class="requird"></span>物料属性类型:</label>
+            <label class="col-xs-4 control-label">物料属性类型:</label>
             <div class="col-xs-6">
-                <select class="form-control validate[required]" name="type">
-                    <option value="">- 请选择 -</option>
+                <select class="form-control" name="type">
+                    <option value="">- 无 -</option>
                     <% getAttributeTypes.forEach(function(element,index){%>
                     <option value="<%= element.id %>"><%= element.name%></option>
                     <%})%>

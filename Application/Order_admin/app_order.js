@@ -252,6 +252,24 @@ app.locals.DWY_Helper = {
         }
         return code;
     },
+    geDeliveryStatus: function (code) {
+        switch (code){
+            case '2':
+                return "未审核";
+                break;
+            case '4':
+                return "已审核";
+                break;
+            case '6':
+                return "已备货";
+                break;
+            case '8':
+                return "已发货";
+                break;
+
+        }
+        return code;
+    },
     //字典翻译-工厂类型
     getFactoryType: function (code) {
         switch (code){

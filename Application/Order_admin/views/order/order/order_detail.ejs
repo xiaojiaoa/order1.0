@@ -305,6 +305,7 @@
                             <tr>
                                 <th width="100">序号</th>
                                 <th>退回原因</th>
+                                <th>退回类型</th>
                                 <th>备注</th>
                                 <th>操作柜员</th>
                             </tr>
@@ -314,8 +315,9 @@
                             <tr>
                                 <td><%= index+1 %></td>
                                 <td><%= element.causeName %></td>
+                                <td><%= element.reviewReasonTypeStr %></td>
                                 <td><%= element.remark %></td>
-                                <td><%= element.gid %></td>
+                                <td><%= element.gname %></td>
                             </tr>
                             <%  })%>
 
@@ -581,7 +583,7 @@
                                 <a class="label label-primary margin-left-20 crePackage" tid="<%= tid %>">生成包装</a>
                                 <%}else{%>
                                 已包装
-                                <a class="label label-primary margin-left-20 packageDetail" href="/orders/package/<%= tid %>">查看包装详情</a>
+                                <a class="label label-success margin-left-20 packageDetail" href="/orders/package/<%= tid %>">包装详情</a>
                                 <%}%>
                                 </td>
                                 <%  } else{ %>
@@ -857,7 +859,7 @@
             switch (orderStcode){
                 case '450':
                     ajaxUrl = '/apart/doPass/<%= tid %>';
-                    locationUrl = '/apart/check';
+                    locationUrl = '/apart';
                     text = '确定拆单完毕吗?';
                     break;
                 case '475':

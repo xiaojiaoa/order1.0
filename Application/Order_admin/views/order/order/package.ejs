@@ -152,10 +152,10 @@
                                 <td><%= element.packageStatusStr %></td>
                                 <td>
                                     <% if(element.packageStatus==0 && DWY_Helper.hasPermission(Permission.orderPackage.create.id, permission) ){%>
-                                    <a class="btn btn-primary crePackage" tid="<%= element.tid %>">生成包装</a>
+                                    <a class="label label-primary crePackage" tid="<%= element.tid %>">生成包装</a>
                                     <%}%>
                                     <% if(element.packageStatus!=0 && DWY_Helper.hasPermission(Permission.orderPackage.queryDetail.id, permission) ){%>
-                                    <a class="btn btn-primary packageDetail" href="/orders/package/<%= element.tid %>">查看包装详情</a>
+                                    <a class="label label-success packageDetail" href="/orders/package/<%= element.tid %>">包装详情</a>
                                     <%}%>
                                 </td>
                             </tr>

@@ -20,38 +20,116 @@ var Permissions = require('../config/permission');
 var OutWarehouseController = {
 
     waitSendPage: function (req, res) {
-        res.render('order/shipments/wait_send');
+        var paramObject = helper.genPaginationQuery(req);
+        Base.multiDataRequest(req, res, [
+                {url: '/api/whse/cargout/delivery/page?'+queryString.stringify(req.query), method: 'GET', resConfig: {keyName: 'deliveryList', is_must: false}},
+                {url: '/api/assist/taskseq/status', method: 'GET', resConfig: {keyName: 'statusInfo', is_must: false}},
+            ],
+            function (req, res, resultList) {
+                var paginationInfo =  resultList.deliveryList;
+
+                var boostrapPaginator = new Pagination.TemplatePaginator(helper.genPageInfo({
+                    prelink: paramObject.withoutPageNo,
+                    current: paginationInfo.page,
+                    rowsPerPage: paginationInfo.pageSize,
+                    totalResult: paginationInfo.totalItems
+                }));
+
+                var returnData = Base.mergeData(helper.mergeObject({
+                    title: ' ',
+                    pagination: boostrapPaginator.render(),
+                }, resultList));
+                res.render('order/shipments/wait_send', returnData);
+            });
+
+    },
+    deliveryTidList:function(req,res){
+        var lid = req.params.lid;
+        // 添加模板文件
+        var path = req.app.get('views') + '/order/shipments/deliver_tid.ejs';
+        var template = require(path);
+
+
+        request(Base.mergeRequestOptions({
+            url: '/api/whse/cargout/delivery/list/' + lid,
+            method: 'get',
+            timeout: 5000
+        }, req, res), function (error, response, body) {
+            if (!error && response.statusCode == 200) {
+                // 编译模板
+                var data = JSON.parse(body);
+                data = {result:data};
+                console.log('listHtml',data)
+                var listHtml = template(data);
+                res.send({
+                    listHtml:listHtml
+                });
+            } else {
+                Base.handlerError(res, req, error, response, body);
+            }
+        });
+
 
     },
     doDelivery: function (req, res) {
-        var tids = req.body.tids;
-        tids = tids.substring(0, tids.length - 1);
-        req.body.tids = tids;
-
+        var totalNum = req.body.totalNum;
+        var tids = req.body.list;
+        var tyoeof = typeof tids;
+        console.log('tyoeof',tyoeof);
+        if(tyoeof == 'string'){
+            req.body.list =  [tids];
+            req.body.noInNum = totalNum-1
+        }else{
+            var length = tids.length;
+            req.body.noInNum = totalNum-length
+        }
+        console.log('stringify',JSON.stringify(req.body));
         request(Base.mergeRequestOptions({
             method: 'post',
-            url: '/api/orders/review/pass?'+queryString.stringify(req.body),
-            form:req.body,
+            url: '/api/whse/cargout/delivery',
+            headers:{'Content-type':'application/json'},
+            body:JSON.stringify(req.body),
         }, req, res), function (error, response, body) {
             if (!error && response.statusCode == 201) {
+                console.log(66666666)
                 res.redirect("/deliveryNote");
             } else {
+                console.log(99999999)
                 Base.handlerError(res, req, error, response, body);
             }
         })
 
     },
     deliveryNotePage: function (req, res) {
-        res.render('order/shipments/deliver_note');
+        var paramObject = helper.genPaginationQuery(req);
+        Base.multiDataRequest(req, res, [
+                {url: '/api/whse/cargout/delivery/notice/page?'+queryString.stringify(req.query), method: 'GET', resConfig: {keyName: 'deliveryNotice', is_must: false}},
+            ],
+            function (req, res, resultList) {
+                var paginationInfo =  resultList.deliveryNotice;
+
+                var boostrapPaginator = new Pagination.TemplatePaginator(helper.genPageInfo({
+                    prelink: paramObject.withoutPageNo,
+                    current: paginationInfo.page,
+                    rowsPerPage: paginationInfo.pageSize,
+                    totalResult: paginationInfo.totalItems
+                }));
+
+                var returnData = Base.mergeData(helper.mergeObject({
+                    title: ' ',
+                    pagination: boostrapPaginator.render(),
+                }, resultList));
+                res.render('order/shipments/deliver_note', returnData);
+            });
 
     },
     doDeliveryChecked: function (req, res) {
         var id = req.params.id;
         request(Base.mergeRequestOptions({
-            method: 'put',
-            url: '/api/orders/schedule/getTask?tids='+id,
+            method: 'post',
+            url: '/api/whse/cargout/delivery/notice/review/'+id,
         }, req, res), function (error, response, body) {
-            if (!error && response.statusCode == 201) {
+            if (!error && response.statusCode == 200) {
                 res.sendStatus(200);
             } else {
                 Base.handlerError(res, req, error, response, body);
@@ -59,7 +137,18 @@ var OutWarehouseController = {
         })
     },
     deliveryNoteDeatil: function (req, res) {
-        res.render('order/shipments/deliver_detail');
+        var id = req.params.id;
+        Base.multiDataRequest(req, res, [
+                {url: '/api/whse/cargout/delivery/notice/page?diId='+id, method: 'GET', resConfig: {keyName: 'deliveryInfo', is_must: false}},
+                {url: '/api/whse/cargout/delivery/notice/list/'+id, method: 'GET', resConfig: {keyName: 'deliveryInfoList', is_must: false}},
+            ],
+            function (req, res, resultList) {
+                resultList.deliveryInfo = resultList.deliveryInfo.result[0];
+                var returnData = Base.mergeData(helper.mergeObject({
+                    title: ' ',
+                }, resultList));
+                res.render('order/shipments/deliver_detail', returnData);
+            });
 
     },
     outMaterialPage: function (req, res) {
@@ -118,16 +207,11 @@ var OutWarehouseController = {
     },
     canSendPage: function (req, res) {
         var type = req.params.type;
-        var multiDataRequest = [];
-        if(type == 'outMaterial'){
-            multiDataRequest = [
-                {url: '/api/whse/cargout/order?'+ queryString.stringify(req.query), method: 'GET', resConfig: {keyName: 'cargoutList', is_must: true}},
-            ]
-        }else{
 
-        }
         var paramObject = helper.genPaginationQuery(req);
-        Base.multiDataRequest(req, res, multiDataRequest, function (req, res, resultList) {
+        Base.multiDataRequest(req, res, [
+            {url: '/api/whse/cargout/order?'+ queryString.stringify(req.query), method: 'GET', resConfig: {keyName: 'cargoutList', is_must: true}},
+        ], function (req, res, resultList) {
 
             var paginationInfo =  resultList.cargoutList;
 
@@ -222,7 +306,7 @@ var OutWarehouseController = {
         var id = req.params.id;
         request(Base.mergeRequestOptions({
             method: 'put',
-            url: '/api/whse/cargout/mates?id='+id,
+            url: '/api/whse/cargout/prods?id='+id,
         }, req, res), function (error, response, body) {
             if (!error && response.statusCode == 201) {
                 res.sendStatus(200);

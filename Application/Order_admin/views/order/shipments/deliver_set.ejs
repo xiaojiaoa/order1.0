@@ -9,7 +9,7 @@
                     <div class="form-group">
                         <label class="col-xs-4 control-label">流水号:</label>
                         <div class="col-xs-8">
-                            <label class="control-label"><strong>56456789456</strong></label>
+                            <label class="control-label"><strong id="lay-id"></strong></label>
                         </div>
                     </div>
                 </div>
@@ -17,7 +17,7 @@
                     <div class="form-group">
                         <label class="col-xs-4 control-label">合同号:</label>
                         <div class="col-xs-8">
-                            <label class="control-label"><strong>56456789456</strong></label>
+                            <label class="control-label"><strong id="lay-contNo"></strong></label>
                         </div>
                     </div>
                 </div>
@@ -28,7 +28,7 @@
                     <div class="form-group">
                         <label class="col-xs-4 control-label">客户姓名:</label>
                         <div class="col-xs-8">
-                            <label class="control-label"><strong>56456789456</strong></label>
+                            <label class="control-label"><strong id="lay-cName"></strong></label>
                         </div>
                     </div>
                 </div>
@@ -36,7 +36,7 @@
                     <div class="form-group">
                         <label class="col-xs-4 control-label">客户电话:</label>
                         <div class="col-xs-8">
-                            <label class="control-label"><strong>56456789456</strong></label>
+                            <label class="control-label"><strong id="lay-mobile"></strong></label>
                         </div>
                     </div>
                 </div>
@@ -47,7 +47,7 @@
                     <div class="form-group">
                         <label class="col-xs-2 control-label">收货地址:</label>
                         <div class="col-xs-8">
-                            <label class="control-label"><strong>56456789456</strong></label>
+                            <label class="control-label"><strong id="lay-address"></strong></label>
                         </div>
                     </div>
                 </div>
@@ -59,7 +59,7 @@
                     <div class="form-group">
                         <label class="col-xs-2 control-label">经销商:</label>
                         <div class="col-xs-8">
-                            <label class="control-label"><strong>56456789456</strong></label>
+                            <label class="control-label"><strong></strong></label>
                         </div>
                     </div>
                 </div>
@@ -87,33 +87,9 @@
                                 <th>状态</th>
                             </tr>
                             </thead>
-                            <tbody>
-                            <tr>
-                                <td>
-                                    <label class="checkbox-inline">
-                                        <input type="checkbox" class="checkbox validate[minCheckbox[1]]"
-                                               name="roles" value="1">
-                                        <span>1</span>
-                                    </label>
-                                </td>
-                                <td></td>
-                                <td></td>
-                                <td>未定</td>
-                                <td>未定</td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <label class="checkbox-inline">
-                                        <input type="checkbox" class="checkbox validate[minCheckbox[1]]"
-                                               name="roles" value="2">
-                                        <span>1</span>
-                                    </label>
-                                </td>
-                                <td></td>
-                                <td></td>
-                                <td>未定</td>
-                                <td>未定</td>
-                            </tr>
+                            <tbody id="layer-form-wrapper">
+
+
 
                             </tbody>
                         </table>
@@ -125,7 +101,7 @@
                         <div class="form-group">
                             <label class="col-xs-4 control-label">司机姓名:</label>
                             <div class="col-xs-8">
-                                <input class="form-control" value="" name="cid">
+                                <input class="form-control" value="" name="driverName">
                             </div>
                         </div>
                     </div>
@@ -133,17 +109,21 @@
                         <div class="form-group">
                             <label class="col-xs-4 control-label">物流车牌号:</label>
                             <div class="col-xs-8">
-                                <input class="form-control" value="" name="cid">
+                                <input class="form-control" value="" name="licensePlate">
                             </div>
                         </div>
                     </div>
+                    <input name="contNo" value="" id="input-contNo"  type="hidden">
+                    <input name="deliveryTime" value="" id="input-deliveryTime"  type="hidden">
+                    <input name="custName" value="" id="input-cName"  type="hidden">
+                    <input name="mobile" value="" id="input-mobile"  type="hidden">
+                    <input name="address" value="" id="input-address"  type="hidden">
                 </div>
 
                 <div class="col-xs-12">
                     <hr class="simple">
                     <div class="col-xs-12 text-center">
                         <button class="btn btn-primary margin-bottom-10" id="confirm">提交</button>
-                        <input type="hidden" class="" id="checkedValue">
                     </div>
                 </div>
                 <div class="dwy-clear"></div>
@@ -154,7 +134,7 @@
     </div>
 </div>
 
-
+<script src="/js/layout-open-initValue.js"></script>
 <script type="text/javascript">
 
     $(document).ready(function () {
@@ -162,46 +142,53 @@
         //弹出类
         $('.deliverThis').on({
             click: function (e) {
-                var id = $(this).attr('data-id');
+                var id = $(this).attr('data-lid');
+                var contNo = $(this).attr('data-contNo');
+                var deliveryTime = $(this).attr('data-deliveryTime');
+                var cName = $(this).attr('data-cName');
+                var mobile = $(this).attr('data-mobile');
+                var address = $(this).attr('data-address');
+
+                $('#lay-id').text(id);
+                $('#lay-contNo').text(contNo);
+                $('#lay-cName').text(cName);
+                $('#lay-mobile').text(mobile);
+                $('#lay-address').text(address);
+
+                $('#input-contNo').val(contNo);
+                $('#input-deliveryTime').val(deliveryTime);
+                $('#input-cName').val(cName);
+                $('#input-mobile').val(mobile);
+                $('#input-address').val(address);
 
                 layer.open({
                     title: '发货单',
                     type: 1,
-                    area: '1000px',
+                    area: ['1000px', '80%'],
                     content: $('#enter_pass'),
                     cancel: function () {
                         //右上角关闭回调
                     },
+                    success:function(){
+                        DWY_Layout_initValue.initValue({
+                            dataContainer:'#layer-form-wrapper',
+                            method:'GET',
+                            url:'/delivery/tidList/'+id,
+                        })
+                    }
 
                 });
             }
         })
 
-        var checkedValue = $('#checkedValue');
         $("#checkAll").change(function () {
             if ($(this).is(":checked")) {
                 $(":checkbox").prop('checked', true);
-                $("input[name='roles']:checked").each(function (i) {
-                    checkedValue.addClass(this.value + ',')
-                });
             } else {
                 $(":checkbox").prop('checked', false);
-                checkedValue.removeClass()
             }
         })
-        $("input[name='roles']").change(function () {
-            if ($(this).is(':checked')) {
-                checkedValue.addClass(this.value + ',')
-            } else {
-                checkedValue.removeClass(this.value + ',')
-            }
-        });
 
-        $('#confirm').click(function () {
-            var tids = checkedValue.attr('class');
-            tids = tids.substring(0, tids.length - 1);
-            console.log(tids);
-        })
 
 
     })
