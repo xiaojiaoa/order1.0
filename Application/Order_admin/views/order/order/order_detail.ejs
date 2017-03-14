@@ -765,17 +765,17 @@
                     break;
                 case '290':
                     ajaxUrl = '/apart/getTask/<%= tid %>';
-                    locationUrl = '/apart';
+                    locationUrl = '/apartPage/getOrder';
                     text = '确认标记为拆单中?';
                     break;
                 case '472':
                     ajaxUrl = '/apartCheck/getTask/<%= tid %>';
-                    locationUrl = '/apart/check';
+                    locationUrl = '/apartCheckPage/getOrder';
                     text = '确认标记为拆单审核中?';
                     break;
                 case '478':
                     ajaxUrl = '/apartCheck/getTaskAgain/<%= tid %>';
-                    locationUrl = '/apart/check';
+                    locationUrl = '/apartCheckPage/getOrder';
                     text = '确认重新提交?';
                     break;
                 case '632':
@@ -818,11 +818,11 @@
                     break;
                 case '450':
                     ajaxUrl = '/apart/unlock/<%= tid %>';
-                    locationUrl = '/apart';
+                    locationUrl = '/apartPage/getOrder';
                     break;
                 case '475':
                     ajaxUrl = '/apartCheck/unlock/<%= tid %>';
-                    locationUrl = '/apart/check';
+                    locationUrl = '/apartCheckPage/getOrder';
                     break;
                 case '635':
                     ajaxUrl = '/schedule/unlock/<%= tid %>';
@@ -859,12 +859,12 @@
             switch (orderStcode){
                 case '450':
                     ajaxUrl = '/apart/doPass/<%= tid %>';
-                    locationUrl = '/apart';
+                    locationUrl = '/apartPage/getOrder';
                     text = '确定拆单完毕吗?';
                     break;
                 case '475':
                     ajaxUrl = '/apartCheck/doPass/<%= tid %>';
-                    locationUrl = '/apart/check';
+                    locationUrl = '/apartCheckPage/getOrder';
                     text = '确认拆单审核完毕吗?';
                     break;
                 case '635':

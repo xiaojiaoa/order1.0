@@ -20,6 +20,7 @@ var Permissions = require('../config/permission');
 var ApartController = {
 
     listPage: function (req, res) {
+        var type = req.params.type;
         var paramObject = helper.genPaginationQuery(req);
         Base.multiDataRequest(req, res, [
             {url: '/api/orders/apart/gid', method: 'GET', resConfig: {keyName: 'apartingList', is_must: true}},
@@ -56,6 +57,7 @@ var ApartController = {
 
             var returnData = Base.mergeData(helper.mergeObject({
                 title: '订单拆单 ',
+                type :type,
                 paginationOne: boostrapPaginatorOne.render(),
                 paginationTwo: boostrapPaginatorTwo.render(),
                 paginationThr: boostrapPaginatorThr.render(),
@@ -100,7 +102,7 @@ var ApartController = {
             url: '/api/orders/apart/notPass?'+queryString.stringify(req.body),
         }, req, res), function (error, response, body) {
             if (!error && response.statusCode == 201) {
-                res.redirect("/apart");
+                res.redirect("/apartPage/getOrder");
             } else {
                 Base.handlerError(res, req, error, response, body);
             }
@@ -122,6 +124,7 @@ var ApartController = {
 
     },
     checkPage: function (req, res) {
+        var type = req.params.type;
         var paramObject = helper.genPaginationQuery(req);
         Base.multiDataRequest(req, res, [
             {url: '/api/orders/apartReview/gid', method: 'GET', resConfig: {keyName: 'doingList', is_must: true}},
@@ -151,6 +154,7 @@ var ApartController = {
 
             var returnData = Base.mergeData(helper.mergeObject({
                 title: '拆单审核 ',
+                type :type,
                 paginationOne: boostrapPaginatorOne.render(),
                 paginationTwo: boostrapPaginatorTwo.render(),
                 Permission :Permissions,
@@ -208,7 +212,7 @@ var ApartController = {
             url: '/api/orders/apartReview/notPass?'+queryString.stringify(req.body),
         }, req, res), function (error, response, body) {
             if (!error && response.statusCode == 201) {
-                res.redirect("/apart/check");
+                res.redirect("/apartCheckPage/getOrder");
             } else {
                 Base.handlerError(res, req, error, response, body);
             }

@@ -341,10 +341,10 @@ router.get('/order/exportParts/:tid',Middleware.AuthCheck,OrderController.export
 var ApartController = require('./Controller/ApartController');
 
 // 拆单页面
-router.get('/apart', Middleware.AuthCheck, Middleware.FilterEmptyField, ApartController.listPage);
+router.get('/apartPage/:type', Middleware.AuthCheck, Middleware.FilterEmptyField, ApartController.listPage);
 
 // 拆单审核页面
-router.get('/apart/check', Middleware.AuthCheck, Middleware.FilterEmptyField, ApartController.checkPage);
+router.get('/apartCheckPage/:type', Middleware.AuthCheck, Middleware.FilterEmptyField, ApartController.checkPage);
 
 // 标记为审核中 (待拆单)
 router.put('/apart/getTask/:tid', Middleware.AuthCheck, ApartController.getTask);
