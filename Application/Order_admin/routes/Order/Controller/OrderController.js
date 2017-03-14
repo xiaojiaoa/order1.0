@@ -821,6 +821,7 @@ var OrderController = {
             var returnData = Base.mergeData(helper.mergeObject({
                 title: ' ',
                 pagination: boostrapPaginator.render(),
+                Permission :Permissions,
             },resultList));
             res.render('order/order/package', returnData);
         });
@@ -836,6 +837,7 @@ var OrderController = {
                 title: ' ',
                 tid:tid,
                 pid:pid,
+                Permission :Permissions,
             },resultList));
             res.render('order/order/packedList', returnData);
         });

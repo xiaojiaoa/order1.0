@@ -203,6 +203,36 @@ var permissions = {
             name:"退回排料订单"
         }
     },
+    orderPackage :{
+        create:{
+            id:"537011",
+            name:"生成包装"
+        },
+        query:{
+            id:"537040",
+            name:"查询个人包装列表"
+        },
+        queryDetail:{
+            id:"537041",
+            name:"查看包装详情"
+        },
+        packageList:{
+            id:"537042",
+            name:"查看包装清单"
+        },
+        cancelPackage:{
+            id:"537021",
+            name:"撤销包装"
+        },
+        deletePackage:{
+            id:"537020",
+            name:"删除包装"
+        },
+        removePackage:{
+            id:"537031",
+            name:"移动包装"
+        }
+    },
     resupply:{
         query:{
             id:"541554",
