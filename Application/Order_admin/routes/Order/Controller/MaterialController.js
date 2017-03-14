@@ -18,10 +18,12 @@ var Permissions = require('../config/permission');
 
 var MaterialController = {
     indexPage: function (req, res) {
+        var bid = req.query.bid? req.query.bid: req.session.user.bid;
         var paramObject = helper.genPaginationQuery(req);
         Base.multiDataRequest(req, res, [
             {url: '/api/materials?'+ queryString.stringify(req.query), method: 'GET', resConfig: {keyName: 'mateList', is_must: true}},
-            {url: '/api/categories/list?parentId=0', method: 'GET', resConfig: {keyName: 'stairCategory', is_must: true}}
+            {url: '/api/categories/list?parentId=0', method: 'GET', resConfig: {keyName: 'stairCategory', is_must: true}},
+            {url: '/api/organizations//factory', method: 'GET', resConfig: {keyName: 'factoryList', is_must: true}},
         ], function (req, res, resultList) {
 
             var paginationInfo =  resultList.mateList;
@@ -35,6 +37,7 @@ var MaterialController = {
 
             var returnData = Base.mergeData(helper.mergeObject({
                 title: ' ',
+                bid:bid,
                 pagination: boostrapPaginator.render()
             },resultList));
             res.render('order/material/material_index',returnData);

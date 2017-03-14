@@ -57,25 +57,19 @@
                                 </div>
 
 
-                                <div class="col-xs-4" style="display:none;">
-                                    <div class="form-group">
-                                        <label class="col-xs-3 control-label">分类：</label>
-                                        <div class="col-xs-5">
-
-                                        </div>
-                                        <div class="col-xs-4">
-                                            <select class="form-control" name="">
-                                                <option value="">- 请选择 -</option>
-                                                <option value="启用">启用</option>
-                                                <option value="停用">停用</option>
-                                                <option value="不限">不限</option>
-                                            </select>
-                                        </div>
+                                <div class="col-xs-3" style="">
+                                    <label class="col-xs-4 control-label">选择工厂:</label>
+                                    <div class="col-xs-8">
+                                        <select  class="form-control validate[required]" name="factory" value="<%= DWYRequest.query.factory %>">
+                                            <option value="">- 请选择 -</option>
+                                            <% factoryList.forEach(function (element,index) {%>
+                                            <option value="<%= element.id%>"><%= element.name%></option>
+                                            <%})%>
+                                        </select>
+                                    </div>
 
                                     </div>
-                                </div>
                               </div>
-
                             <div class="col-xs-12" style="display:none;">
 
                                 <div class="col-xs-3">
@@ -110,6 +104,7 @@
                             <div class="col-xs-12 ">
                                 <hr class="simple">
                                 <div class="col-xs-12 text-center">
+                                    <input type="hidden" name="bid" value="<%= bid%>"/>
                                     <button class="btn btn-primary " type="submit">
                                         <i class="fa fa-search"></i>
                                         查询
@@ -162,31 +157,27 @@
                                 <th>分类</th>
                                 <th>单位</th>
                                 <th>库存</th>
-                                <th>预警数量</th>
-                                <th>可用</th>
                                 <th>预警</th>
+                                <th>可用</th>
                                 <th>出厂价格</th>
-                                <th>价格单位</th>
                                 <th>启用</th>
-                                <th>条码</th>
+                                <th>操作</th>
                             </tr>
                             </thead>
                             <tbody>
                             <%
                             if(mateList.totalItems != 0  ){
                             mateList.result.forEach(function (element, index) { %>
-                            <tr>
+                            <tr class="<%= ( element.stock<element.warning )? 'mark-row':'' %>">
                                 <td><%= index+1 %></td>
                                 <td><a href="/materialManage/detail/<%= element.id %>" class=" "><%= element.id %></a></td>
                                 <td><%= element.name %></td>
                                 <td><%= element.catName%></td>
+                                <td><%= element.unit%></td>
                                 <td><%= element.stock %></td>
                                 <td><%= element.warning %></td>
                                 <td><%= element.usable %></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
+                                <td><%= element.price%></td>
                                 <td>
                                  <% if(element.stcode==1){%>
                                     是
@@ -194,13 +185,13 @@
                                     否
                                     <%}%>
                                 </td>
-                                <td><a href="javascript:void(0)">打印</a></td>
+                                <td>  <a class="" href="/materialManage/factory/add/<%= element.id %>">完善物料库存</a></td>
                             </tr>
                             <% })
 
                             }else{ %>
                             <tr>
-                                <td colspan="13" align="center">暂无结果</td>
+                                <td colspan="11" align="center">暂无结果</td>
                             </tr>
                             <% } %>
                             </tbody>
@@ -244,6 +235,7 @@
       //日期组件
         $(".fg-date-time-picker").flatpickr(data_time_picker.data_time_picker);
     })
+
 
 </script>
 

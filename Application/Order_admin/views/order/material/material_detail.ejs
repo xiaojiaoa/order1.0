@@ -39,12 +39,13 @@
                         <% }else{ %>
                         <a class="label label-primary" href="/materialManage/material/modify/<%= mateInfo.id%>">修改</a>
                         <a class="label label-danger" id="closeStore">禁用</a>
-                        <a class="btn btn-primary margin-left-10"  href="javascript:void(0)" id="choiceFac">
+                        <a class="label label-primary margin-left-10"  href="javascript:void(0)" id="choiceFac">
                             <i class="fa fa-save"></i>
                             选择工厂
                         </a>
                         <% } %>
 
+                        <a class="label label-primary" href="/materialManage/factory/add/<%= mid %>">完善物料库存</a>
                     </legend>
 
                     <!-- row -->
