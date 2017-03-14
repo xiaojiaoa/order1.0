@@ -30,10 +30,10 @@
             <div class="row">
                 <div class="col-xs-12">
                     <h6>订单包装详情
-                        <% if(element.packageStatus==0 && DWY_Helper.hasPermission(Permission.cancelPackage.cancelPackage.id, permission) ){%>
+                        <% if( DWY_Helper.hasPermission(Permission.orderPackage.cancelPackage.id, permission) ){%>
                         <a class="label label-primary margin-left-10 undoPackingBtn" onclick="">撤销包装</a>
                         <%}%>
-                        <% if(element.packageStatus==0 && DWY_Helper.hasPermission(Permission.orderPackage.packageList.id, permission) ){%>
+                        <% if(DWY_Helper.hasPermission(Permission.orderPackage.packageList.id, permission) ){%>
                         <a class="label label-primary margin-left-10  packedListBtn" onclick="">包装清单</a>
                         <%}%>
                     </h6>
@@ -74,7 +74,7 @@
                                         <td><%= element.packageProductMaterialStr%></td>
                                         <td><%= element.weightStr %></td>
                                         <td>
-                                            <% if(element.packageStatus==0 && DWY_Helper.hasPermission(Permission.orderPackage.deletePackage.id, permission) ){%>
+                                            <% if(DWY_Helper.hasPermission(Permission.orderPackage.deletePackage.id, permission) ){%>
                                             <a class="label label-primary deletePacket"
                                                packageLid="<%= element.packageLid %>"
                                                packageType="<%= element.packageType %>">删包</a>
