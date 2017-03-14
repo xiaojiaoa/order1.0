@@ -151,7 +151,7 @@
                                 <td><%= element.deliveryDate %></td>
                                 <td><%= element.stcode %></td>
                                 <td><a href="/cargospace/cargospace/detail/<%= element.cargoSpaceId %>"><%= element.cargoSpaceId %></a></td>
-                                <td><a href="/<%= type %>/canSend/sendPage" >发货</a></td>
+                                <td><a href="/canSend/sendPage" >发货</a></td>
                             </tr>
                             <% })
                             }else{ %>
@@ -159,6 +159,7 @@
                                 <td colspan="14" class="text-align-center">暂无数据</td>
                             </tr>
                             <% }  %>
+
                             <tr>
                                 <td>1</td>
                                 <td><a href="/customer/detail/123456">123456</a></td>
@@ -178,9 +179,9 @@
                                 <td><a  href="/<%= type %>/canSend/sendPage">发货(成品无发货)</a></td>
                             </tr>
 
-
                             </tbody>
                         </table>
+                        <%- pagination %>
 
                     </div>
                 </div>
@@ -201,7 +202,7 @@
     $(document).ready(function () {
 
         $("#search-customer").validationEngine();
-
+        $(".fg-date-time-picker").flatpickr(data_time_picker.data_picker); // jQuery
         pageSetUp();
 
         $(".checkThis").click(function () {

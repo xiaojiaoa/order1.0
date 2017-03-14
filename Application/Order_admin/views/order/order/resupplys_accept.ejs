@@ -37,6 +37,7 @@
                             <tr>
                                 <th>序号</th>
                                 <th>补单号</th>
+                                <th>原订单号</th>
                                 <th>难度</th>
                                 <th>专卖店</th>
                                 <th>客户名称</th>
@@ -51,6 +52,7 @@
                             <tr>
                                 <td><%= index+1 %></td>
                                 <td><a href="/order/resupply/detail/<%= element.tid %>"><%= element.tid %></a></td>
+                                <td><a href="/order/detail/<%= element.orgTid %>"><%= element.orgTid %></a></td>
                                 <td><%= element.difficultyStr %></td>
                                 <td><%= element.storeName %></td>
                                 <td><%= element.customerName %></td>
@@ -89,9 +91,17 @@
 
                             <div class="col-xs-12">
 
-                                <div class="col-xs-8">
                                     <div class="form-group">
-                                        <div class="col-xs-4">
+                                        <div class="col-xs-3">
+                                            <div class="form-group">
+                                                <label class="col-xs-4 control-label">原订单号:</label>
+                                                <div class="col-xs-8">
+                                                    <input class="form-control"  value="<%= DWYRequest.query.orgTid %>"
+                                                           name="orgTid">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-3">
                                             <div class="form-group">
                                                 <label class="col-xs-4 control-label">补单号:</label>
                                                 <div class="col-xs-8">
@@ -100,7 +110,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="col-xs-4">
+                                        <div class="col-xs-3">
                                             <div class="form-group">
                                                 <label class="col-xs-4 control-label">难度等级:</label>
                                                 <div class="col-xs-8">
@@ -123,7 +133,6 @@
                                         </div>
 
                                     </div>
-                                </div>
                             </div>
                         </form>
                     </div>
@@ -138,6 +147,7 @@
                         <tr>
                             <th>序号</th>
                             <th>补单号</th>
+                            <th>原订单号</th>
                             <th>难度</th>
                             <th>专卖店</th>
                             <th>客户名称</th>
@@ -152,6 +162,7 @@
                         <tr>
                             <td><%= index+1 %></td>
                             <td><a href="/order/resupply/detail/<%= element.tid %>"><%= element.tid %></a></td>
+                            <td><a href="/order/detail/<%= element.orgTid %>"><%= element.orgTid %></a></td>
                             <td><%= element.difficultyStr %></td>
                             <td><%= element.storeName %></td>
                             <td><%= element.customerName %></td>
