@@ -13,7 +13,7 @@
         <ol class="breadcrumb">
             <li>后台管理</li>
             <li><a class="back-url" href="/materialManage"><i class="fa fa-chevron-left"></i>物料管理</a></li>
-            <li><a class="back-url" href="/materialManage/detail/<%= id%>"><i class="fa fa-chevron-left"></i>物料信息</a></li>
+            <li><a class="back-url" href="/materialManage/detail/<%= bid%>/<%= mid%>"><i class="fa fa-chevron-left"></i>物料信息</a></li>
             <li>完善物料信息</li>
         </ol>
         <!-- end breadcrumb -->
@@ -35,7 +35,7 @@
 
                     <!-- row -->
                     <div class="row">
-                        <form class="form-horizontal"  id="material_detail_factory_add" method="post" action="/materialManage/factory/doAdd">
+                        <form class="form-horizontal"  id="material_detail_factory_add" method="post" action="/materialManage/doAdd">
 
 
 
@@ -170,7 +170,7 @@
                                     <div class="form-group">
                                         <label class="col-xs-4 control-label"><span class="requird"></span>库存数量:</label>
                                         <div class="col-xs-8">
-                                            <input class="form-control validate[required]" placeholder="请输入库存数量" value="" type="text" name="stock">
+                                            <input class="form-control validate[required]" placeholder="请输入库存数量" value="<%= mateInfo.stock %>" type="text" name="stock">
                                         </div>
                                     </div>
                                 </div>
@@ -180,7 +180,7 @@
                                     <div class="form-group">
                                         <label class="col-xs-4 control-label"><span class="requird"></span>预警数量:</label>
                                         <div class="col-xs-8">
-                                            <input class="form-control validate[required]" placeholder="请输入预警数量" value="" type="text" name="warning">
+                                            <input class="form-control validate[required]" placeholder="请输入预警数量" value="<%= mateInfo.warning  %>" type="text" name="warning">
                                         </div>
                                     </div>
                                 </div>
@@ -190,7 +190,7 @@
                                     <div class="form-group">
                                         <label class="col-xs-4 control-label"><span class="requird"></span>可用数量:</label>
                                         <div class="col-xs-8">
-                                            <input class="form-control validate[required]" placeholder="请输入可用数量" value="" type="text" name="usable">
+                                            <input class="form-control validate[required]" placeholder="请输入可用数量" value="<%= mateInfo.usable  %>" type="text" name="usable">
                                         </div>
                                     </div>
                                 </div>
@@ -205,7 +205,8 @@
                                     </div>
                                 </div>
 
-                         <input type="hidden" name="mateId" value="<%= id%>"/>
+                            <input type="hidden" name="mateId" value="<%= mid%>"/>
+                            <input type="hidden" name="bid" value="<%= bid%>"/>
                         </form>
                     </div>
                     <!-- end row -->

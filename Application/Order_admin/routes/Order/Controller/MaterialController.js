@@ -46,13 +46,15 @@ var MaterialController = {
     },
     detailPage: function (req, res) {
         var mid =  req.params.mid;
+        var bid=req.params.bid;
         Base.multiDataRequest(req, res, [
-            {url: '/api/materials/'+mid, method: 'GET', resConfig: {keyName: 'mateInfo', is_must: true}},
+            {url: '/api/materials/'+mid+"?bid="+bid, method: 'GET', resConfig: {keyName: 'mateInfo', is_must: true}},
             {url: '/api/organizations//factory', method: 'GET', resConfig: {keyName: 'factoryList', is_must: true}},
         ], function (req, res, resultList) {
             var returnData = Base.mergeData(helper.mergeObject({
                 title: ' ',
                 mid:mid,
+                bid:bid,
             },resultList));
             res.render('order/material/material_detail',returnData);
         });
@@ -61,7 +63,7 @@ var MaterialController = {
     choiceFactory: function (req, res) {
         var fac=req.body.factory;
         var mid=req.body.mateId;
-       res.redirect("/materialManage/detail/factory/"+fac+"/"+mid);
+       res.redirect("/materialManage/detail/"+fac+"/"+mid);
     },
     detailFacPage: function (req, res) {
         var mid =  req.params.mid;
@@ -188,66 +190,31 @@ var MaterialController = {
         })
 
     },
-    indexFactoryPage: function (req, res) {
-        var paramObject = helper.genPaginationQuery(req);
+    mateFacAddPage: function (req, res) {
+        var mid = req.params.mid;
+        var bid=req.params.bid;
         Base.multiDataRequest(req, res, [
-            {url: '/api/materials?'+ queryString.stringify(req.query), method: 'GET', resConfig: {keyName: 'mateList', is_must: true}},
-            {url: '/api/categories/list?parentId=0', method: 'GET', resConfig: {keyName: 'stairCategory', is_must: true}}
-        ], function (req, res, resultList) {
-
-            var paginationInfo =  resultList.mateList;
-
-            var boostrapPaginator = new Pagination.TemplatePaginator(helper.genPageInfo({
-                prelink: paramObject.withoutPageNo,
-                current: paginationInfo.page,
-                rowsPerPage: paginationInfo.pageSize,
-                totalResult: paginationInfo.totalItems
-            }));
-
-            var returnData = Base.mergeData(helper.mergeObject({
-                title: ' ',
-                pagination: boostrapPaginator.render()
-            },resultList));
-            res.render('order/material/material_index_factory',returnData);
-        });
-        //res.render('order/material/material_index_factory');
-    },
-    detailFactoryPage: function (req, res) {
-        var mid =  req.params.mid;
-        Base.multiDataRequest(req, res, [
-            {url: '/api/materials/'+mid, method: 'GET', resConfig: {keyName: 'mateInfo', is_must: true}},
+            {url: '/api/materials/'+mid+"?bid="+bid, method: 'GET', resConfig: {keyName: 'mateInfo', is_must: true}},
         ], function (req, res, resultList) {
             var returnData = Base.mergeData(helper.mergeObject({
                 title: ' ',
                 mid:mid,
+                bid:bid,
             },resultList));
-            res.render('order/material/material_detail_factory',returnData);
-        });
-        //res.render('order/material/material_detail_factory');
-    },
-    mateFacAddPage: function (req, res) {
-        var id = req.params.mid;
-        console.log(id);
-        Base.multiDataRequest(req, res, [
-            {url: '/api/materials/'+id, method: 'GET', resConfig: {keyName: 'mateInfo', is_must: true}},
-        ], function (req, res, resultList) {
-            var returnData = Base.mergeData(helper.mergeObject({
-                title: ' ',
-                id:id,
-            },resultList));
-            res.render('order/material/material_detail_factory_add',returnData);
+            res.render('order/material/material_detail_add',returnData);
         });
     },
     doAdd: function (req, res) {
     console.log('工厂物料完善物料'+ JSON.stringify(req.body));
     var mid=req.body.mateId;
+    var bid=req.body.bid;
     request(Base.mergeRequestOptions({
         method: 'post',
         url: '/api/materials/stock',
         form:req.body,
     }, req, res), function (error, response, body) {
         if (!error && response.statusCode == 201) {
-            res.redirect("/materialManage/factory/detail/"+mid);
+            res.redirect("/materialManage/detail/"+bid+"/"+mid);
         } else {
             Base.handlerError(res, req, error, response, body);
         }
