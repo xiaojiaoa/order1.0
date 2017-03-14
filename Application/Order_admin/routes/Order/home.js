@@ -1093,6 +1093,11 @@ router.get('/installService', Middleware.AuthCheck,InstallserviceController.inst
 //指定安装组
 router.post('/installServiceTask/:tid/:did', Middleware.AuthCheck,InstallserviceController.getTask);
 
+//登记已收货
+router.post('/registerDeliver/:tid', Middleware.AuthCheck,InstallserviceController.registerDeliver);
+
+
+
 
 /*
  * 页面范围: app接口

@@ -40,7 +40,7 @@
                                 <td colspan=""><%= suppliersDetail.name  %></td>
                             </tr>
                             <tr>
-                                <td>联系人姓名</td>
+                                <td>供应商名称</td>
                                 <td><%= suppliersDetail.contact  %></td>
                                 <td>联系人手机</td>
                                 <td><%= suppliersDetail.contactMobile  %></td>
@@ -71,7 +71,7 @@
                             </tr>
                             <tr>
                                 <td>详细地址</td>
-                                <td colspan="3"><%= suppliersDetail.address  %></td>
+                                <td colspan="3"><%= suppliersDetail.provinceStr %>,<%= suppliersDetail.cityStr  %>,<%= suppliersDetail.distStr  %>,<%= suppliersDetail.address  %></td>
                             </tr>
                             <tr>
                                 <td>备注</td>
@@ -83,14 +83,20 @@
                 </div>
                 <!-- end col -->
                 <div class="col-xs-12">
-                    <legend>供应商关联物料信息</legend>
+                    <legend>
+                        供货信息
+                        <a class="label label-primary " type="submit" href="/supplier/offer_product/<%= suppliersDetail.id  %>">
+                            添加可提供物料
+                        </a>
+                    </legend>
+
                     <div class="table-responsive">
                         <table class="table table-bordered table-striped">
                             <thead>
                             <tr>
                                 <th>序号</th>
                                 <th>物料编号</th>
-                                <th>物料分类编号</th>
+                                <th>物料分类名称</th>
                                 <th>物料名称</th>
                                 <th>截至有效日期</th>
                             </tr>
@@ -101,8 +107,8 @@
                             suppliersDetail.materialsList.forEach(function(element,index){%>
                             <tr>
                                 <td><%= index+1 %></td>
-                                <td><%= element.id %></td>
-                                <td><%= element.catId %></td>
+                                <td><a href="/materialManage/detail/<%= element.id %>"><%= element.id %></a></td>
+                                <td><%= element.catName %></td>
                                 <td><%= element.name %></td>
                                 <td><%= DWY_Helper.getLocalDateYMD(element.expiryDate) %></td>
                             </tr>
@@ -111,14 +117,7 @@
                         </table>
                     </div>
                 </div>
-                <div class="col-xs-12">
-                    <hr class="simple">
-                    <div class="col-xs-12 text-center">
-                        <a class="btn btn-primary " type="submit" href="/supplier/offer_product/<%= suppliersDetail.id  %>">
-                           添加可提供物料
-                        </a>
-                    </div>
-                </div>
+
             </div>
             <!-- end row -->
         </div>

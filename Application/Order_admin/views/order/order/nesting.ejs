@@ -331,6 +331,7 @@
             layer.confirm("<div>批次号&nbsp<input id='batchInput' value=''  /></div>",
                     {title:'提示'},function(index){
                     cid= $("#batchInput").val();
+                    if(cid.length>12) return false;
                     $.ajax({
                         url: '/order/editBatchNum/'+cid+'/'+bid,
                         method: 'post',

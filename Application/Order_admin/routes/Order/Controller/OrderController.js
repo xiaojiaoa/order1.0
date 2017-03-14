@@ -971,13 +971,14 @@ var OrderController = {
      },
     //订单详情--订单物料--工件导出
     exportWorkpiece: function (req, res) {
-        var id = req.params.tid;
+        var tid = req.params.tid;
         request(Base.mergeRequestOptions({
             method: 'post',
-            url: '/api/orders/package/workpiece/export/'+id,
+            url: '/api/orders/package/workpiece/export/'+tid,
 
         }, req, res), function (error, response, body) {
-            if (!error && response.statusCode == 201) {
+            console.log(response)
+            if (!error && response.statusCode == 200) {
                 res.sendStatus(200)
             }else{
                 Base.handlerError(res, req, error, response, body);
@@ -987,10 +988,10 @@ var OrderController = {
 
     //订单详情--订单物料--配件导出
     exportParts: function (req, res) {
-        var id = req.params.tid;
+        var tid = req.params.tid;
         request(Base.mergeRequestOptions({
             method: 'post',
-            url: '/api/orders/package/accessory/export/'+id,
+            url: '/api/orders/package/accessory/export/'+tid,
         }, req, res), function (error, response, body) {
             if (!error && response.statusCode == 201) {
                 res.sendStatus(200)

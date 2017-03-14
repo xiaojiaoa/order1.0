@@ -197,114 +197,115 @@
 <script type="text/javascript">
     $(document).ready(function () {
         pageSetUp();
-          //从localStorage里获取列表数据
-            function getListArr(key){
-                return JSON.parse(localStorage.getItem(key));
-            }
-            //设置localStorage中的数据
-            function setList(key,list){
-                return localStorage.setItem(key,JSON.stringify(list));
-            }
 
-            //添加一个项目
-            function addItem(item,prop,key){
 
-                var listArr = getListArr(key) || [];
+       
 
+
+
+        //刷新选中列表 这个函数根据每个页面不同需自己填写
+        function updateCheckedList(isInit) {
+            var parentEle = '.purApplyTr';
+            var storageKey = 'LIST_DATA';
+
+            var listArr = DWY_Utils.StorageUtils.getListArr(storageKey);
+
+            var htmlStr = '';
+            if (listArr instanceof Array && listArr.length != 0) {
                 var len = listArr.length;
+                for (var i = 0; i < len; i++) {
+                    var itemHtml = ''
+                        + '<tr class="topTr">'
+                        + '<td>'
+                        + '<label class="checkbox-inline">'
+                        + '<input type="checkbox" class="checkbox" name="roles" value="' + listArr[i].id + '" checked>'
+                        + '<span>' + (i+1) + '</span>'
+                        + '</label>'
+                        + '</td>'
+                        + '<td><a href="/materialManage/detail/' + listArr[i].id + '">' + listArr[i].id + '</a></td>'
+                        + '<td>' + listArr[i].name + '</td>'
+                        + '<td>' + listArr[i].class_name + '</td>'
+                        + '<td>' + listArr[i].real_stock + '</td>'
+                        + '<td>' + listArr[i].warning_num + '</td>'
+                        + '<td>' + listArr[i].usable_stock + '</td>'
+                        + '<td>' + listArr[i].price + '</td>'
+                        + '</tr>';
+                    htmlStr += itemHtml;
 
-
-                if(len != 0){
-                    for (var i =0 ;i<len;i++){
-                        if(item[prop] == listArr[i][prop]){
-                            return ;
-                        }
+                    // 判断是否是初始化 是的话保持下面列表状态同步
+                    if(isInit){
+                        var $ipts = $(".orderItemLayerTable input[name='roles']");
+                        var id = listArr[i].id;
+                        var iptslen = $ipts.length;
+                        for (var j = 0; j < iptslen; j++) {
+                            if(id == $ipts.eq(j).val()){
+                                $ipts.eq(j).attr('checked',true);
+                            }
+                        } 
                     }
                 }
+                $(parentEle).html(htmlStr);
 
-                listArr.push(item);
 
-                setList(key,listArr);
-                updateCheckedList('.purApplyTr','LIST_DATA');
+            }else{
+                $(parentEle).html("");
+            }
+        }
+      
+        // 页面一加载先刷新一次读取localstorage
+        updateCheckedList(true);
+
+
+
+
+        $(".orderItemLayerTable input[name='roles']").on("change",function () {
+
+            var $tds = $(this).parent().parent().parent().children("td");
+            
+            // 获取整个条目数据
+            var item = {
+                id : $(this).val(),
+                name : $tds.eq(2).html(),
+                class_name : $tds.eq(3).html(),
+                real_stock : $tds.eq(4).html(),
+                warning_num : $tds.eq(5).html(),
+                usable_stock : $tds.eq(6).html(),
+                price : $tds.eq(7).html(),
+
             }
 
-            //删除一个项目
-            function deletItem(item,prop,key){
-                var listArr = getListArr(key);
-                var len = listArr.length;
-                if(len != 0){
-                    for (var i =0 ;i<len;i++){
-                        if(item[prop] == listArr[i][prop]){
-                           listArr.splice(i,1);
-                           setList(key,listArr);
-                           updateCheckedList('.purApplyTr','LIST_DATA');
-                           return;
-                        }
+            // 选中添加  取消选中则删除
+            if($(this).is(':checked')){
+                DWY_Utils.StorageUtils.addItem(item,'id','LIST_DATA',updateCheckedList)
+            }else{
+                DWY_Utils.StorageUtils.deletItem({
+                    id:$(this).val()
+                },'id','LIST_DATA',updateCheckedList)
+            }
+        })
+
+        $(".purApplyTr").on("change","input",function () {
+            var id = $(this).val();
+
+            // 点中删除
+            DWY_Utils.StorageUtils.deletItem({
+                id:id
+            }, 'id','LIST_DATA',function(){
+
+                // 与下面列表的选中状态保持一致
+                 var $ipts = $(".orderItemLayerTable input[name='roles']");
+
+                 var len = $ipts.length;
+                 for (var i = 0; i < len; i++) {
+                    if(id == $ipts.eq(i).val()){
+                        $ipts.eq(i).attr('checked',false);
+                        updateCheckedList();
+                        return;
                     }
-                }
-            }
-
-            //刷新选中列表
-            function updateCheckedList(parentEle,key) {
-
-                var listArr = getListArr(key);
-
-                var htmlStr = '';
-                if (listArr instanceof Array && listArr.length != 0) {
-                    var len = listArr.length;
-                    for (var i = 0; i < len; i++) {
-                        var itemHtml = ''
-                            + '<tr class="topTr">'
-                            + '<td>'
-                            + '<label class="checkbox-inline">'
-                            + '<input type="checkbox" class="checkbox" name="roles" value="' + listArr[i].id + '" checked>'
-                            + '<span>' + (i+1) + '</span>'
-                            + '</label>'
-                            + '</td>'
-                            + '<td><a href="/materialManage/detail/' + listArr[i].id + '">' + listArr[i].id + '</a></td>'
-                            + '<td>' + listArr[i].id + '</td>'
-                            + '<td>' + listArr[i].id + '</td>'
-                            + '<td>' + listArr[i].id + '</td>'
-                            + '<td>' + listArr[i].id + '</td>'
-                            + '<td>' + listArr[i].id + '</td>'
-                            + '<td>' + listArr[i].id + '</td>'
-                            + '</tr>';
-                        htmlStr += itemHtml;
-                    }
-                    $(parentEle).html(htmlStr);
-                }
-            }
-             //删除所有项目
-            function deleteAll(key){
-                setList(key,"[]");
-            }
-
-            updateCheckedList('.purApplyTr','LIST_DATA');
-
-
-
-
-            $(".orderItemLayerTable input[name='roles']").on("change",function () {
-                if($(this).is(':checked')){
-                    addItem({
-                       id:$(this).val()
-                    },'id','LIST_DATA')
-                }else{
-                    deletItem({
-                        id:$(this).val()
-                    },'id','LIST_DATA')
-                }
+                 }
             })
 
-            $(".purApplyTr").on("change","input",function () {
-                var id = $(this).val();
-                deletItem({
-                    id:id,
-                }, 'id','LIST_DATA')
-
-
-
-            })
+        })
 
 
 
