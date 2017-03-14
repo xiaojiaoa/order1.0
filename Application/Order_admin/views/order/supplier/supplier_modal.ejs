@@ -110,6 +110,16 @@
                     <input name="tid" value="" type="hidden" id="modifyId">
                 </div>
             </div>
+            <div class="form-group">
+                <label class="col-xs-4 control-label "><span class="requird"></span> 供应商类型:
+                </label>
+                <div class="col-xs-8">
+                    <select class="form-control supType" name="type" >
+                        <option value="1">外部</option>
+                        <option value="2">内部</option>
+                    </select>
+                </div>
+            </div>
         </div>
     </div>
     <div class="col-xs-12">
@@ -240,8 +250,10 @@
             click: function (e) {
                 var supplierName = $(this).attr('name');
                 var supplierId = $(this).attr('selfId');
+                var supplierType = $(this).attr('selfType');
                 $('#modifyName').val(supplierName);
                 $('#modifyId').val(supplierId);
+                $('.supType').val(supplierType);
                 layer.open({
                     title: false,
                     type: 1,

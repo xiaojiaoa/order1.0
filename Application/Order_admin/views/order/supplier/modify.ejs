@@ -33,7 +33,7 @@
                             <div class="col-xs-12">
                                 <div class="row">
                                     <div class="col-xs-12">
-                                        <div class="col-xs-3">
+                                        <div class="col-xs-4">
                                             <div class="form-group">
                                                 <label class="col-xs-4 control-label "><span class="requird"></span>供应商名称:
                                                 </label>
@@ -42,7 +42,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="col-xs-3">
+                                        <div class="col-xs-4">
                                             <div class="form-group">
                                                 <label class="col-xs-4 control-label "><span class="requird"></span> 联系人电话:
                                                 </label>
@@ -59,7 +59,70 @@
                             <div class="col-xs-12">
                                 <div class="row">
                                     <div class="col-xs-12">
-                                        <div class="col-xs-6">
+                                        <div class="col-xs-4">
+                                            <div class="form-group">
+                                                <label class="col-xs-4 control-label "><span class="requird"></span>供应商类型:
+                                                </label>
+                                                <div class="col-xs-8">
+                                                    <select class="form-control" name="type" id="">
+                                                        <option value="">-请选择-</option>
+                                                        <option value="1" <%= (supplierModify.type == 1) ? 'selected' : '' %> >
+                                                            外部
+                                                        </option>
+                                                        <option value="2" <%= (supplierModify.type == 2) ? 'selected' : '' %> >
+                                                            内部
+                                                        </option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-4">
+                                            <div class="form-group">
+                                                <label class="col-xs-4 control-label "><span class="requird"></span> 供应商等级:
+                                                </label>
+                                                <div class="col-xs-8">
+                                                    <select class="form-control" name="grade" id="">
+                                                        <option value="">-请选择-</option>
+                                                        <option value="1" <%= (supplierModify.grade == 1) ? 'selected' : '' %> >
+                                                            1
+                                                        </option>
+                                                        <option value="2" <%= (supplierModify.grade == 2) ? 'selected' : '' %> >
+                                                            2
+                                                        </option>
+                                                        <option value="3" <%= (supplierModify.grade == 3) ? 'selected' : '' %> >
+                                                            3
+                                                        </option>
+                                                        <option value="4" <%= (supplierModify.grade == 4) ? 'selected' : '' %> >
+                                                            4
+                                                        </option>
+                                                        <option value="5" <%= (supplierModify.grade == 5) ? 'selected' : '' %> >
+                                                            5
+                                                        </option>
+                                                        <option value="6" <%= (supplierModify.grade == 6) ? 'selected' : '' %> >
+                                                            6
+                                                        </option>
+                                                        <option value="7" <%= (supplierModify.grade == 7) ? 'selected' : '' %> >
+                                                            7
+                                                        </option>
+                                                        <option value="8" <%= (supplierModify.grade == 8) ? 'selected' : '' %> >
+                                                            8
+                                                        </option>
+                                                        <option value="9" <%= (supplierModify.grade == 9) ? 'selected' : '' %> >
+                                                            9
+                                                        </option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <div class="row">
+                                    <div class="col-xs-12">
+                                        <div class="col-xs-8">
                                             <div class="form-group dwy-area">
                                                 <label class="col-xs-2 control-label"><span class="requird"></span>
                                                     供应商所在地:</label>
@@ -86,11 +149,11 @@
                                         </div>
                                     </div>
                                     <div class="col-xs-12">
-                                        <div class="col-xs-6">
+                                        <div class="col-xs-8">
                                             <div class="form-group">
                                                 <label class="col-xs-2 control-label "><span class="requird"></span> 详细地点:
                                                 </label>
-                                                <div class="col-xs-8">
+                                                <div class="col-xs-10">
                                                     <input class="form-control validate[required]" value="<%= supplierModify.address %>" name="address">
                                                 </div>
                                             </div>
@@ -103,7 +166,7 @@
                             <div class="col-xs-12">
                                 <div class="row">
                                     <div class="col-xs-12">
-                                        <div class="col-xs-3">
+                                        <div class="col-xs-4">
                                             <div class="form-group">
                                                 <label class="col-xs-4 control-label "><span class="requird"></span>财务联系人:
                                                 </label>
@@ -112,7 +175,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="col-xs-3">
+                                        <div class="col-xs-4">
                                             <div class="form-group">
                                                 <label class="col-xs-4 control-label "><span class="requird"></span>财务联系电话:
                                                 </label>
@@ -121,7 +184,9 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="col-xs-3">
+                                    </div>
+                                    <div class="col-xs-12">
+                                        <div class="col-xs-4">
                                             <div class="form-group">
                                                 <label class="col-xs-4 control-label "><span class="requird"></span>开户行及银行:
                                                 </label>
@@ -130,9 +195,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="col-xs-12">
-                                        <div class="col-xs-3">
+                                        <div class="col-xs-4">
                                             <div class="form-group">
                                                 <label class="col-xs-4 control-label "><span class="requird"></span>开户卡号:
                                                 </label>
@@ -141,7 +204,9 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="col-xs-3">
+                                    </div>
+                                    <div class="col-xs-12">
+                                        <div class="col-xs-4">
                                             <div class="form-group">
                                                 <label class="col-xs-4 control-label "><span class="requird"></span>开票信息:
                                                 </label>
@@ -153,7 +218,7 @@
                                         </div>
                                     </div>
                                     <div class="col-xs-12">
-                                        <div class="col-xs-6">
+                                        <div class="col-xs-8">
                                             <div class="form-group">
                                                 <label class="col-xs-2 control-label">备注:</label>
                                                 <div class="col-xs-10">
@@ -192,16 +257,6 @@
 
         DWY_area.init({
             defaultValue:[
-                {
-                    name:'province',
-                    value: '<%= supplierModify.province %>',
-                    key:'province',
-                    linkcity:'city',
-                    linkdis:'dist',
-                    cityId: '<%= supplierModify.city %>'
-                },
-                {name:'city', value: '<%= supplierModify.birthCity %>', key:'city',linkdis:'dist',disId: '<%= supplierModify.dist %>'},
-                {name:'dist', value: '<%= supplierModify.dist %>', key:'district'},
                 {
                     name:'province',
                     value: '<%= supplierModify.province %>',

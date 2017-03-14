@@ -56,7 +56,7 @@ var InstallserviceController = {
         var tid = req.params.tid;
         request(Base.mergeRequestOptions({
             method: 'put',
-            url: '/api/tasks/install/registerDeliver'+tid,
+            url: '/api/tasks/install/registerDeliver/'+tid,
         }, req, res), function (error, response, body) {
             if (!error && response.statusCode == 201) {
                 res.sendStatus(200);

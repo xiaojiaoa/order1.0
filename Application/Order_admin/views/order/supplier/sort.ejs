@@ -70,7 +70,10 @@
                         <table class="table table-bordered table-striped ">
                             <thead>
                             <tr>
-                                <th width="300">供应商分类名称</th>
+                                <th>供应商分类名称</th>
+                                <th>柜员名称</th>
+                                <th>创建部门</th>
+                                <th>创建时间</th>
                                 <th>操作</th>
                             </tr>
                             </thead>
@@ -81,26 +84,31 @@
                                     <% if(element.parentId == 0){%>
                                         <tr class="level-0 <%= ( element.isDeleted == 2 )? 'close-info':'' %>">
                                             <td><%= element.name %></td>
+                                            <td><%= element.gname %></td>
+                                            <td><%= element.deptName %></td>
+                                            <td><%= DWY_Helper.getLocalDate(element.addTime) %></td>
                                             <td>
                                                 <% if(element.isDeleted == 2) {%>
                                                 <button class="label label-primary openSupplierSort" selfId="<%= element.id %>">启用</button>
                                                 <% }else{%>
                                                 <button class="label label-primary supplierChild-modal"  parent="<%= element.name %>" parentId="<%= element.id %>">新建子级</button>
-                                                <button class="label label-primary supplierModify-modal" name="<%= element.name %>" selfId="<%= element.id %>">修改</button>
-                                                <button class="label label-danger delete-supplier" selfId="<%= element.id %>" id="closeStore">禁用</button>
+                                                <button class="label label-primary supplierModify-modal" name="<%= element.name %>" selfId="<%= element.id %>" selfType="<%= element.type %>">修改</button>
+                                                <button class="label label-danger delete-supplier" selfId="<%= element.id %>" >禁用</button>
                                                 <% } %>
                                             </td>
                                         </tr>
                                     <%}else{%>
                                         <tr class="level-1 <%= ( element.isDeleted == 2 )? 'close-info':'' %>">
                                             <td class="level-1-title"><%= element.name %></td>
+                                            <td><%= element.gname %></td>
+                                            <td><%= element.deptName %></td>
+                                            <td><%= DWY_Helper.getLocalDate(element.addTime) %></td>
                                             <td>
                                                 <% if(element.isDeleted == 2) {%>
                                                 <button class="label label-primary openSupplierSort" id="openStore" selfId="<%= element.id %>">启用</button>
-
                                                 <% }else{%>
-                                                <button class="label label-primary supplierModify-modal" name="<%= element.name %>" selfId="<%= element.id %>">修改</button>
-                                                <button class="label label-danger delete-supplier" selfId="<%= element.id %>" id="closeStore">禁用</button>
+                                                <button class="label label-primary supplierModify-modal" name="<%= element.name %>" selfId="<%= element.id %>" selfType="<%= element.type %>">修改</button>
+                                                <button class="label label-danger delete-supplier" selfId="<%= element.id %>">禁用</button>
                                                 <% } %>
                                             </td>
                                         </tr>
