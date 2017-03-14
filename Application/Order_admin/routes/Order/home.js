@@ -214,15 +214,15 @@ router.post('/orders/doPass', Middleware.AuthCheck, OrderController.doPass);
 router.post('/orders/updateDifficultyLevel', Middleware.AuthCheck, OrderController.updateDifficultyLevel);
 
 // 所有退回信息页面
-router.get('/order/chgback/:tid', Middleware.AuthCheck, OrderController.chgbackeAllPage);
+router.get('/:type/chgback/:tid', Middleware.AuthCheck, OrderController.chgbackeAllPage);
 // 新增交流信息页面
-router.get('/order/communicate/create/:tid', Middleware.AuthCheck, OrderController.communicatePage);
+router.get('/:type/communicate/create/:tid', Middleware.AuthCheck, OrderController.communicatePage);
 
 // 所有交流信息页面
-router.get('/order/communicateAll/:tid', Middleware.AuthCheck, OrderController.communicateAllPage);
+router.get('/:type/communicateAll/:tid', Middleware.AuthCheck, OrderController.communicateAllPage);
 
 // 新增交流信息
-router.post('/order/communicate/doCreate', Middleware.AuthCheck, OrderController.doCreateCommunicate);
+router.post('/:type/communicate/doCreate', Middleware.AuthCheck, OrderController.doCreateCommunicate);
 
 // 补单页面
 router.get('/orders/resupplys', Middleware.AuthCheck, Middleware.FilterEmptyField, OrderController.resupplyPage);
@@ -809,6 +809,9 @@ var OutWarehouseController = require('./Controller/OutWarehouseController');
 // 待发货流水页面
 router.get('/waitSend', Middleware.AuthCheck, Middleware.FilterEmptyField, OutWarehouseController.waitSendPage);
 
+//填写发货通知单-list
+router.get('/delivery/tidList/:lid',OutWarehouseController.deliveryTidList);
+
 // 发货通知单页面
 router.post('/doDelivery', Middleware.AuthCheck, OutWarehouseController.doDelivery);
 
@@ -846,7 +849,7 @@ router.get('/canSend/deatil/:id', Middleware.AuthCheck, OutWarehouseController.c
 router.get('/outProduct', Middleware.AuthCheck, OutWarehouseController.outProductPage);
 
 // 成品出库-审核
-router.get('/outProduct/doChecked/:id', Middleware.AuthCheck, OutWarehouseController.outProductChecked);
+router.put('/outProduct/doChecked/:id', Middleware.AuthCheck, OutWarehouseController.outProductChecked);
 
 // 成品出库详情页面
 router.get('/outProduct/deatil/:id', Middleware.AuthCheck, OutWarehouseController.outProductDeatil);

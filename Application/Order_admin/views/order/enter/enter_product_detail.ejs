@@ -38,35 +38,35 @@
                             <tbody>
                             <tr>
                                 <td width="12%">入库单号</td>
-                                <td>23456123</td>
+                                <td><%= inlistPageInfo.inId %></td>
                                 <td width="12%">入库人</td>
-                                <td>张三</td>
+                                <td><%= inlistPageInfo.inName %></td>
                                 <td width="12%">入库日期</td>
-                                <td>2016-10-10</td>
+                                <td><%= inlistPageInfo.inTime %></td>
                             </tr>
                             <tr>
                                 <td>仓库</td>
-                                <td>板材仓库</td>
+                                <td><%= inlistPageInfo.whseName %></td>
                                 <td>订单号</td>
-                                <td>123456</td>
+                                <td><a href="/order/detail/<%= inlistPageInfo.tid %>"><%= inlistPageInfo.tid %></a></td>
                                 <td>生产订单号</td>
-                                <td>123456</td>
+                                <td><%= inlistPageInfo.ptid %></td>
                             </tr>
                             <tr>
                                 <td>客户名称</td>
-                                <td>浙江省杭州市湖滨银泰店</td>
+                                <td><%= inlistPageInfo.custName %></td>
                                 <td>交货日期</td>
+                                <td><%= inlistPageInfo.deliveryDate %></td>
                                 <td>类别</td>
-                                <td>类别</td>
-                                <td>张三</td>
+                                <td><%= inlistPageInfo.type %></td>
                             </tr>
                             <tr>
                                 <td>出厂价</td>
-                                <td colspan="5">原材料</td>
+                                <td colspan="5"><%= inlistPageInfo.price %></td>
                             </tr>
                             <tr>
                                 <td>备注</td>
-                                <td colspan="5"></td>
+                                <td colspan="5"><%= inlistPageInfo.remark %></td>
                             </tr>
 
                             </tbody>
@@ -111,33 +111,39 @@
                                 <th>入库数量</th>
                                 <th>状态</th>
                                 <th>入库时间</th>
-                                <th>发货时间</th>
+                                <th>预计交货时间</th>
                                 <th>扫描人</th>
                                 <th>备注</th>
                             </tr>
                             </thead>
                             <tbody>
+                            <% if(DWY_Helper.isCanLoop(inlistInfo.result)){
+                            inlistInfo.result.forEach(function (element, index) {  %>
                             <tr>
-                                <td>1</td>
-                                <td>56456789</td>
-                                <td>银白下框</td>
-                                <td><a href="/enterProduct/cargospace/detail/12345">12345</a></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
+                                <td><%= index+1 %></td>
+                                <td><%= element.inId %></td>
+                                <td><%= element.packageProduct %></td>
+                                <td><a href="/cargospace/cargospace/detail/<%= element.spaceId %>"><%= element.spaceId %></a></td>
+                                <td><%= element.pakgNo %></td>
+                                <td><%= element.pakgName %></td>
+                                <td><%= element.packageLid %></td>
+                                <td><%= element.pakgType %></td>
+                                <td><%= element.weight %></td>
+                                <td><%= element.packageProductMaterial %></td>
+                                <td><%= element.num %></td>
+                                <td><%= element.inTime %></td>
+                                <td><%= element.deliveryDate %></td>
+                                <td><%= element.inEmpName %></td>
+                                <td><%= element.remark %></td>
                             </tr>
+                            <%  })
+                            }else{ %>
                             <tr>
                                 <td colspan="16" class="text-align-center">暂无数据</td>
                             </tr>
+                            <% } %>
+
+
                             </tbody>
                         </table>
 

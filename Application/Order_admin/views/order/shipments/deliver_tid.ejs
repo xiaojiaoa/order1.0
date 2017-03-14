@@ -1,0 +1,26 @@
+<%
+if(result&&result.length>0){
+result.forEach(function(element,index){%>
+<tr>
+    <td>
+        <label class="checkbox-inline">
+            <input type="checkbox" class="checkbox validate[minCheckbox[1]]"
+                   name="list" value="<%= element.tid %>">
+            <span><%= ++index %></span>
+        </label>
+    </td>
+    <td><%= element.tid%></td>
+    <td><%= element.packageProduct%></td>
+    <td><%= element.gName%></td>
+    <td><%= element.stcodeName%></td>
+</tr>
+
+<% }) %>
+<input type="hidden" value="<%= result.length %>" name="totalNum">
+<input type="hidden" value="" name="noInNum">
+<% }else{ %>
+<tr>
+    <td colspan="7" class="text-align-center">暂无结果</td>
+</tr>
+<%} %>
+

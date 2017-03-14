@@ -38,32 +38,31 @@
                             <tbody>
                             <tr>
                                 <td width="12%">入库单号</td>
-                                <td>23456123</td>
+                                <td><%= mateInfo.inId %></td>
                                 <td width="12%">入库人</td>
-                                <td>张三</td>
+                                <td><%= mateInfo.inName %></td>
                                 <td width="12%">入库日期</td>
-                                <td>2016-10-10</td>
+                                <td><%= mateInfo.inTime %></td>
                             </tr>
                             <tr>
                                 <td>仓库</td>
-                                <td>板材仓库</td>
+                                <td><%= mateInfo.ftyName %></td>
                                 <td>采购单号</td>
-                                <td><a href="/purchase/orderDetail/123456">123456</a></td>
+                                <td><a href="/purchase/orderDetail/<%= mateInfo.purId %>"><%= mateInfo.purId %></a></td>
                                 <td>供应商编号</td>
-                                <td><a href="/supplier/detail/123456">123456</a></td>
+                                <td><a href="/supplier/detail/<%= mateInfo.suppId %>"><%= mateInfo.suppId %></a></td>
                             </tr>
                             <tr>
                                 <td>供应商</td>
-                                <td>浙江省杭州市湖滨银泰店</td>
+                                <td><%= mateInfo.suppName %></td>
                                 <td>状态</td>
-                                <td>已审核</td>
+                                <td><%= DWY_Helper.geOutStatus(mateInfo.stcode) %></td>
                                 <td>审核人</td>
-                                <td>
-                                    张三</td>
+                                <td><%= mateInfo.reviewName %></td>
                             </tr>
                             <tr>
                                 <td>类别</td>
-                                <td colspan="5">原材料</td>
+                                <td colspan="5"></td>
                             </tr>
                             <tr>
                                 <td>备注</td>
@@ -89,7 +88,6 @@
                     <h6>
                         入库清单
                         <a class="label label-primary" id="checkThis">审核</a>
-                        <a class="label label-danger" id="backThis">撤审</a>
                     </h6>
 
                     <hr class="simple">
@@ -116,18 +114,23 @@
                             </tr>
                             </thead>
                             <tbody>
+                            <% if(DWY_Helper.isCanLoop(inlistInfo.result)){
+                            inlistInfo.result.forEach(function (element, index) {  %>
                             <tr>
-                                <td>1</td>
-                                <td><a href="/cargospace/detail/12345">12345</a></td>
-                                <td>56456789456</td>
-                                <td><a href="12345">12345</a></td>
-                                <td>银白下框</td>
-                                <td></td>
-                                <td>750*1334*640</td>
-                                <td>20000.00</td>
-                                <td>8</td>
-                                <td>20000.00</td>
+                                <td><%= index+1 %></td>
+                                <td><a href="/cargospace/detail/<%= element.spaceId %>"><%= element.spaceId %></a></td>
+                                <td><%= element.batchId %></td>
+                                <td><a href="/materialManage/detail/<%= element.mateId %>"><%= element.mateId %></a></td>
+                                <td><%= element.mateName %></td>
+                                <td><%= element.colorName %></td>
+                                <td><%= element.size %></td>
+                                <td><%= element.price %></td>
+                                <td><%= element.amount %></td>
+                                <td><%= element.totalPrice %></td>
                             </tr>
+                            <%  })
+                            } %>
+
                             </tbody>
                         </table>
 

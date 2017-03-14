@@ -64,21 +64,19 @@ var EnterController = {
 
     },
     enterMaterialDetailPage: function (req, res) {
-        res.render('order/enter/enter_material_detail');
-        // var cid =  req.params.cid;
-        // Base.multiDataRequest(req, res, [
-        //         {url: '/api/customers/'+ cid, method: 'GET', resConfig: {keyName: 'customerInfo', is_must: true}},
-        //         {url: '/api/assist/taskseq/status', method: 'GET', resConfig: {keyName: 'statusInfo', is_must: false}}
-        //     ],
-        //     function (req, res, resultList) {
-        //         var returnData = Base.mergeData(helper.mergeObject({
-        //             title: ' ',
-        //             cid:cid,
-        //             Permission :Permissions,
-        //         }, resultList));
-        //         res.render('order/customer/detail', returnData);
-        //
-        //     });
+        var id =  req.params.id;
+        Base.multiDataRequest(req, res, [
+                {url: '/api/whse/cargoin/mate/'+ id, method: 'GET', resConfig: {keyName: 'mateInfo', is_must: true}},
+                {url: '/api/whse/cargoin/mate/inlist/'+ id, method: 'GET', resConfig: {keyName: 'inlistInfo', is_must: true}},
+            ],
+            function (req, res, resultList) {
+                var returnData = Base.mergeData(helper.mergeObject({
+                    title: ' ',
+                    id:id,
+                }, resultList));
+                res.render('order/enter/enter_material_detail', returnData);
+
+            });
     },
     doPassMaterial: function (req, res) {
         var inId = req.params.inId;
@@ -226,7 +224,19 @@ var EnterController = {
             });
     },
     enterProductDetailPage: function (req, res){
-        res.render('order/enter/enter_product_detail');
+        var id =  req.params.id;
+        Base.multiDataRequest(req, res, [
+                {url: '/api/whse/cargoin/prod/inlist/page?inId='+ id, method: 'GET', resConfig: {keyName: 'inlistPageInfo', is_must: true}},
+                {url: '/api/whse/cargoin/prod/inlist?inId='+ id, method: 'GET', resConfig: {keyName: 'inlistInfo', is_must: true}},
+            ],
+            function (req, res, resultList) {
+                var returnData = Base.mergeData(helper.mergeObject({
+                    title: ' ',
+                    id:id,
+                }, resultList));
+                res.render('order/enter/enter_product_detail', returnData);
+
+            });
     },
     enterScanningPage: function (req, res){
         res.render('order/enter/enter_product_scanning');

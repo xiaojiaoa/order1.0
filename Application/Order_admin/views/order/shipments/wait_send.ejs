@@ -24,12 +24,7 @@
     <!-- MAIN CONTENT -->
     <div id="content">
 
-        <div class="row-url">
-            <a class="title-url active" href="/waitSend">待发货流水</a>
-            <a class="title-url" href="/outMaterial">原料出库</a>
-            <a class="title-url" href="/outProduct">成品出库</a>
-            <a class="title-url" href="/outBred">大板领料单</a>
-        </div>
+
         <!-- well -->
         <div class="well">
             <!-- row -->
@@ -48,8 +43,8 @@
                                     <div class="form-group">
                                         <label class="col-xs-4 control-label">流水号:</label>
                                         <div class="col-xs-8">
-                                            <input class="form-control" value="<%= DWYRequest.query.cid %>" type="text"
-                                                   name="cid">
+                                            <input class="form-control" value="<%= DWYRequest.query.lid %>" type="text"
+                                                   name="lid">
                                         </div>
                                     </div>
                                 </div>
@@ -58,8 +53,8 @@
                                     <div class="form-group">
                                         <label class="col-xs-4 control-label">合同号:</label>
                                         <div class="col-xs-8">
-                                            <input class="form-control" value="<%= DWYRequest.query.cid %>" type="text"
-                                                   name="cid">
+                                            <input class="form-control" value="<%= DWYRequest.query.contNo %>" type="text"
+                                                   name="contNo">
                                         </div>
                                     </div>
                                 </div>
@@ -67,8 +62,8 @@
                                     <div class="form-group">
                                         <label class="col-xs-4 control-label">客户姓名:</label>
                                         <div class="col-xs-8">
-                                            <input class="form-control" value="<%= DWYRequest.query.cid %>" type="text"
-                                                   name="cid">
+                                            <input class="form-control" value="<%= DWYRequest.query.cName %>" type="text"
+                                                   name="cName">
                                         </div>
                                     </div>
                                 </div>
@@ -81,8 +76,8 @@
                                     <div class="form-group">
                                         <label class="col-xs-4 control-label">客户电话:</label>
                                         <div class="col-xs-8">
-                                            <input class="form-control" value="<%= DWYRequest.query.cid %>" type="text"
-                                                   name="cid">
+                                            <input class="form-control" value="<%= DWYRequest.query.mobile %>" type="text"
+                                                   name="mobile">
                                         </div>
                                     </div>
                                 </div>
@@ -91,8 +86,13 @@
                                     <div class="form-group">
                                         <label class="col-xs-4 control-label">流水状态:</label>
                                         <div class="col-xs-8">
-                                            <select class="form-control" name="ctype">
+                                            <select class="form-control" name="stcode">
                                                 <option value="">- 请选择 -</option>
+                                                <% statusInfo.forEach(function (element) { %>
+                                                <option value="<%= element.id %>" <%= (DWYRequest.query.stcode == element.id )?"selected":"" %> >
+                                                    <%= element.name %>
+                                                </option>
+                                                <% }) %>
                                             </select>
                                         </div>
                                     </div>
@@ -103,14 +103,14 @@
                                         <label class="col-xs-2 control-label">日期:</label>
                                         <div class="col-xs-4">
                                             <input class="form-control fg-date-time-picker"
-                                                   value="<%= DWYRequest.query.startDate %>"
-                                                   name="startDate">
+                                                   value="<%= DWYRequest.query.startTime %>"
+                                                   name="startTime">
                                         </div>
                                         <label class="control-label " style="float: left"> 至 </label>
                                         <div class="col-xs-4">
                                             <input class="form-control fg-date-time-picker"
-                                                   value="<%= DWYRequest.query.endDate %>"
-                                                   name="endDate">
+                                                   value="<%= DWYRequest.query.endTime %>"
+                                                   name="endTime">
                                         </div>
                                     </div>
                                 </div>
@@ -159,24 +159,31 @@
                             </tr>
                             </thead>
                             <tbody>
+                            <% if(DWY_Helper.isCanLoop(deliveryList.result)){%>
+                            <% deliveryList.result.forEach(function (element, index) {%>
                             <tr>
-                                <td>1</td>
-                                <td><a href="/taskseq/index/123456">123456</a></td>
-                                <td></td>
-                                <td>仓库1</td>
-                                <td>区域1</td>
-                                <td></td>
-                                <td>张三</td>
-                                <td>待发货</td>
-                                <td><a class="cursor-pointer deliverThis label label-primary" data-id="37">填写发货通知单</a></td>
+                                <td><%= index+1 %></td>
+                                <td><a href="/taskseq/index/<%=element.lid %>"><%=element.lid %></a></td>
+                                <td><%=element.contNo %></td>
+                                <td><%=element.cName %></td>
+                                <td><%=element.mobile %></td>
+                                <td><%=element.address %></td>
+                                <td><%=element.deliveryTime %></td>
+                                <td><%=DWY_Helper.getAssistVal(element.stcode, statusInfo)%></td>
+                                <td><a class="cursor-pointer deliverThis" data-lid="<%=element.lid %>"
+                                       data-contNo="<%=element.contNo %>" data-deliveryTime="<%=element.deliveryTime %>" data-cName="<%=element.cName %>"
+                                       data-mobile="<%=element.mobile %>" data-address="<%=element.address %>"
+                                    >填写发货通知单</a></td>
                             </tr>
-
+                            <%})%>
+                            <% } else {%>
                             <tr>
                                 <td colspan="9" class="text-align-center">暂无数据</td>
                             </tr>
+                            <% }%>
                             </tbody>
                         </table>
-
+                        <%- pagination %>
                     </div>
                 </div>
             </div>
