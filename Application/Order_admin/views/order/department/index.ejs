@@ -47,7 +47,7 @@
             <div class="row">
                 <div class="col-xs-12">
                     <div class="table-responsive">
-                        <table class="table table-bordered table-striped table-expand">
+                        <table class="table table-bordered table-striped">
                             <thead>
                             <tr>
                                 <th width="300">部门</th>
@@ -59,10 +59,10 @@
                             <tr class="level-0">
                                 <td><%= element.name %></td>
                                 <td>
-                                    <a class="departmentChild-modal" parent="<%= element.name %>" parentId="<%= element.id %>">新建子级</a>
+                                    <a class="departmentChild-modal label label-primary" parent="<%= element.name %>" parentId="<%= element.id %>">新建子级</a>
 
-                                    <a class="departmentModify-modal" name="<%= element.name %>" selfId="<%= element.id %>">修改</a>
-                                    <a class="delete-department" selfId="<%= element.id %>">删除</a>
+                                    <a class="departmentModify-modal label label-primary" name="<%= element.name %>" selfId="<%= element.id %>">修改</a>
+                                    <a class="delete-department label label-danger" selfId="<%= element.id %>">删除</a>
                                 </td>
                             </tr>
                             <% if(element.subDeparts){
@@ -71,15 +71,15 @@
                                 <td class="level-1-title"><%= element.name %></td>
                                 <td>
                                     <% if(type == 'stores') {  %>
-                                    <a href="/stores/employees?bid=<%= bid %>&did=<%= element.id %>">查看柜员</a>
+                                    <a href="/stores/employees?bid=<%= bid %>&did=<%= element.id %>" class="label label-primary">查看柜员</a>
                                     <% }else{
                                         if(bid ==  user.bid){ %>
-                                        <a href="/organizations/employees?bid=<%= bid %>&did=<%= element.id %>">查看柜员</a>
+                                        <a href="/organizations/employees?bid=<%= bid %>&did=<%= element.id %>" class="label label-primary">查看柜员</a>
                                         <% }
                                      } %>
 
-                                    <a class="departmentModify-modal" name="<%= element.name %>"  selfId="<%= element.id %>">修改</a>
-                                    <a class="delete-department"  selfId="<%= element.id %>">删除</a>
+                                    <a class="departmentModify-modal label label-primary" name="<%= element.name %>"  selfId="<%= element.id %>">修改</a>
+                                    <a class="delete-department label label-danger"  selfId="<%= element.id %>">删除</a>
                                 </td>
                             </tr>
                             <%   })

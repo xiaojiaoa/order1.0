@@ -93,13 +93,15 @@
                         noticeInfoList.result.forEach(function(element,index){%>
                         <dl class="dl-style01">
                             <dt>
-                                <%= element.title%>
-                                <% if (DWY_Helper.hasPermission(Permission.notice.update.id, permission) ){ %>
-                                <a class="margin-left-78  modify-noticeInfo" selfId="<%= element.id%>" title="<%= element.title%>" typeId="<%= element.typeId%>" storeType="<%= element.storeType%>" addrType="<%= element.addrType%>" content="<%= element.content%>">修改</a>
-                                <% } %>
-                                <% if (DWY_Helper.hasPermission(Permission.notice.create.id, permission) ){ %>
-                                <a class="margin-left-20 txt-color-red delete-noticeInfo" selfId="<%= element.id%>">删除</a>
-                                <% } %>
+                                <legend>
+                                    <%= element.title%>
+                                    <% if (DWY_Helper.hasPermission(Permission.notice.create.id, permission) ){ %>
+                                    <a class="label label-danger delete-noticeInfo" selfId="<%= element.id%>">删除</a>
+                                    <% } %>
+                                    <% if (DWY_Helper.hasPermission(Permission.notice.update.id, permission) ){ %>
+                                    <a class=" label label-primary modify-noticeInfo " selfId="<%= element.id%>" title="<%= element.title%>" typeId="<%= element.typeId%>" storeType="<%= element.storeType%>" addrType="<%= element.addrType%>" content="<%= element.content%>">修改</a>
+                                    <% } %>
+                                </legend>
                             </dt>
                             <dd class="dl-title">
                                 <span>发表人<i></i><%= element.empName%></span>
