@@ -96,9 +96,18 @@
                                 <td><%= element.gname %></td>
                                 <td><%= element.lid %></td>
                                 <td>
+                                    <%
+                                    if(element.stcode==749){
+                                    %>
                                     <a class="label label-primary" id="installGroup">指定安装组</a>
+                                    <% } %>
+                                    <%
+                                    if(element.stcode==769){
+                                    %>
+                                    <a class="label label-primary" id="registerDeliver">登记收货</a>
+                                    <% } %>
                                 </td>
-                                <input type="hidden" value="<%= element.tid %>" name="oid">
+                                <input type="hidden" value="<%= element.tid %>" class="tid">
                             </tr>
                             <%})}else{%>
                                <td colspan="12" class="text-align-center">暂无结果</td>
@@ -136,6 +145,43 @@
                 }
             }
         )
+        $("#registerDeliver").on(
+            {
+                click:function(){
+                    layer.confirm("确认登记？",{title:'提示'},function(index){
+                            var tid= $(".tid").val();
+                            alert(tid); return false;
+                            $.ajax({
+                                url: '/registerDeliver/'+tid,
+                                method: 'post',
+                                success: function (data) {
+                                    window.location.reload();
+                                },
+                                error: function (response) {
+                                    layer.close(index)
+                                    var data = JSON.parse(response.responseText);
+                                    $.smallBox({
+                                        title: "操作失败",
+                                        content: data.msg,
+                                        color: "#C46A69",
+                                        iconSmall: "fa fa-times fa-2x fadeInRight animated",
+                                        timeout: 3000
+                                    });
+                                    setTimeout(function(){
+                                        window.location.reload();
+                                    },7000)
+                                }
+                            });
+                        },function(index){
+                            layer.close(index)}
+                    )
+                }
+            }
+        )
+
+
+
+
     })
 </script>
 <%- include('../layouts/foot'); %>
