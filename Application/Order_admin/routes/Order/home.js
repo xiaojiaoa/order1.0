@@ -412,7 +412,7 @@ var  MaterialController = require('./Controller/MaterialController');
 router.get('/materialManage', Middleware.AuthCheck,Middleware.FilterEmptyField,MaterialController.indexPage);
 
 // 物料详情页面
-router.get('/materialManage/detail/:mid', Middleware.AuthCheck, MaterialController.detailPage);
+router.get('/materialManage/detail/:bid/:mid', Middleware.AuthCheck, MaterialController.detailPage);
 
 // 物料详情页面--选择工厂物料
 router.post('/materialManage/choiceFactory', Middleware.AuthCheck, MaterialController.choiceFactory);
@@ -450,17 +450,11 @@ router.post('/materialManage/material/doModify', Middleware.AuthCheck, MaterialC
 // 禁用/解锁 物料详情
 router.put('/material/setStatus/:mid/:type', Middleware.AuthCheck, MaterialController.setMaterialStatus);
 
-// 物料管理工厂首页
-router.get('/materialManage/factory', Middleware.AuthCheck, Middleware.FilterEmptyField,MaterialController.indexFactoryPage);
+// 物料管理--物料详情-完善物料
+router.get('/materialManage/add/:bid/:mid', Middleware.AuthCheck, MaterialController.mateFacAddPage);
 
-// 物料管理工厂--物料详情
-router.get('/materialManage/factory/detail/:mid', Middleware.AuthCheck, MaterialController.detailFactoryPage);
-
-// 物料管理工厂--物料详情-完善物料
-router.get('/materialManage/factory/add/:mid', Middleware.AuthCheck, MaterialController.mateFacAddPage);
-
-// 物料管理工厂--物料详情-完善物料--提交数据接口
-router.post('/materialManage/factory/doAdd', Middleware.AuthCheck, MaterialController.doAdd);
+// 物料管理--物料详情-完善物料--提交数据接口
+router.post('/materialManage/doAdd', Middleware.AuthCheck, MaterialController.doAdd);
 
 
 /*
