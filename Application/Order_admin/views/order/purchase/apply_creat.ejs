@@ -31,34 +31,37 @@
                 </div>
                 <div class="row">
                     <div class="col-xs-12">
+                        <div class="col-xs-3">
+                            <a class="btn btn-primary margin-bottom-10" id="createApplyOrder">选择物料</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-12">
                         <div class="table-responsive">
-                            <table class="table table-bordered table-striped">
+                            <table class="table table-bordered table-striped localstorage">
                                 <thead>
-                                <tr>
+                                <tr class="len">
                                     <th>
                                         <label class="checkbox-inline">
-                                            <input type="checkbox" class="checkbox"
-                                                   id="checkAll2"  />
-                                            <span>序号</span>
+                                            <!--<input type="checkbox" class="checkbox"-->
+                                                   <!--id="checkAll2"  />-->
+                                            <span class="0">序号</span>
                                         </label>
                                     </th>
                                     <th>物料编号</th>
                                     <th>物料名称</th>
-                                    <th>库存</th>
-                                    <th>分类</th>
+                                    <th>分类名称</th>
+                                    <th>真实库存</th>
+                                    <th>预警数量</th>
+                                    <th>可用库存</th>
+                                    <th>单价</th>
                                 </tr>
                                 </thead>
                                 <tbody class="purApplyTr">
 
                                 </tbody>
                             </table>
-                        </div>
-                        <div class="col-xs-12">
-                            <hr class="simple">
-                            <div class="col-xs-1 text-center">
-                                <button class="btn btn-primary" id="editBatchNumSub">编辑批次号</button>
-                                <input  id="editBatchNum" class=""  type="hidden" />
-                            </div>
                         </div>
                     </div>
                 </div>
@@ -129,13 +132,7 @@
                 <legend>
                 </legend>
             </div>
-            <div class="row">
-                <div class="col-xs-12">
-                    <div class="col-xs-3">
-                        <a class="btn btn-primary margin-bottom-10" id="createApplyOrder">选择物料</a>
-                    </div>
-                </div>
-            </div>
+
             <div class="col-xs-12">
                 <div class="orderItemLayerTit">
                 </div>
@@ -152,8 +149,11 @@
                             </th>
                             <th>物料编号</th>
                             <th>物料名称</th>
-                            <th>库存</th>
                             <th>分类名称</th>
+                            <th>真实库存</th>
+                            <th>预警数量</th>
+                            <th>可用库存</th>
+                            <th>单价</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -161,7 +161,7 @@
                         <%
                         if(DWY_Helper.isCanLoop(supMaterialList.result)){
                         supMaterialList.result.forEach(function (element, index) { %>
-                        <tr>
+                        <tr class="len">
                             <td>
                                 <label class="checkbox-inline">
                                     <input type="checkbox" class="checkbox"
@@ -171,10 +171,13 @@
                             </td>
                             <td><a href="/materialManage/detail/<%= element.id %>"><%= element.id %></a></td>
                             <td><%= element.name %></td>
-                            <td>这里显示库存</td>
                             <td><%= element.catName %></td>
+                            <td><%= element.stock %></td>
+                            <td><%= element.warning %></td>
+                            <td><%= element.usable %></td>
+                            <td><%= element.price %></td>
                         <%  }) }else{%>
-                        <td colspan="4" class="text-align-center">暂无结果</td>
+                        <td colspan="8" class="text-align-center">暂无结果</td>
                         <%}%>
                         </tr>
                         <input type="hidden" class="" id="checkedValue">
@@ -194,25 +197,119 @@
 <script type="text/javascript">
     $(document).ready(function () {
         pageSetUp();
-        $("#creat-supplier").validationEngine();
-
-        var checkedValue = $('#checkedValue');
-        $("#checkAll").change(function () {
-            if($(this).is(":checked")){
-                $("input[name='roles']").prop('checked',true);
-                $("input[name='roles']:checked").each(function (i) {
-                    checkedValue.addClass(this.value+',')
-                });
-            }else{
-                $(":checkbox").prop('checked',false);
-                checkedValue.removeClass()
+          //从localStorage里获取列表数据
+            function getListArr(key){
+                return JSON.parse(localStorage.getItem(key));
             }
-        })
+            //设置localStorage中的数据
+            function setList(key,list){
+                return localStorage.setItem(key,JSON.stringify(list));
+            }
+
+            //添加一个项目
+            function addItem(item,prop,key){
+
+                var listArr = getListArr(key) || [];
+
+                var len = listArr.length;
+
+
+                if(len != 0){
+                    for (var i =0 ;i<len;i++){
+                        if(item[prop] == listArr[i][prop]){
+                            return ;
+                        }
+                    }
+                }
+
+                listArr.push(item);
+
+                setList(key,listArr);
+                updateCheckedList('.purApplyTr','LIST_DATA');
+            }
+
+            //删除一个项目
+            function deletItem(item,prop,key){
+                var listArr = getListArr(key);
+                var len = listArr.length;
+                if(len != 0){
+                    for (var i =0 ;i<len;i++){
+                        if(item[prop] == listArr[i][prop]){
+                           listArr.splice(i,1);
+                           setList(key,listArr);
+                           updateCheckedList('.purApplyTr','LIST_DATA');
+                           return;
+                        }
+                    }
+                }
+            }
+
+            //刷新选中列表
+            function updateCheckedList(parentEle,key) {
+
+                var listArr = getListArr(key);
+
+                var htmlStr = '';
+                if (listArr instanceof Array && listArr.length != 0) {
+                    var len = listArr.length;
+                    for (var i = 0; i < len; i++) {
+                        var itemHtml = ''
+                            + '<tr class="topTr">'
+                            + '<td>'
+                            + '<label class="checkbox-inline">'
+                            + '<input type="checkbox" class="checkbox" name="roles" value="' + listArr[i].id + '" checked>'
+                            + '<span>' + (i+1) + '</span>'
+                            + '</label>'
+                            + '</td>'
+                            + '<td><a href="/materialManage/detail/' + listArr[i].id + '">' + listArr[i].id + '</a></td>'
+                            + '<td>' + listArr[i].id + '</td>'
+                            + '<td>' + listArr[i].id + '</td>'
+                            + '<td>' + listArr[i].id + '</td>'
+                            + '<td>' + listArr[i].id + '</td>'
+                            + '<td>' + listArr[i].id + '</td>'
+                            + '<td>' + listArr[i].id + '</td>'
+                            + '</tr>';
+                        htmlStr += itemHtml;
+                    }
+                    $(parentEle).html(htmlStr);
+                }
+            }
+             //删除所有项目
+            function deleteAll(key){
+                setList(key,"[]");
+            }
+
+            updateCheckedList('.purApplyTr','LIST_DATA');
+
+
+
+
+            $(".orderItemLayerTable input[name='roles']").on("change",function () {
+                if($(this).is(':checked')){
+                    addItem({
+                       id:$(this).val()
+                    },'id','LIST_DATA')
+                }else{
+                    deletItem({
+                        id:$(this).val()
+                    },'id','LIST_DATA')
+                }
+            })
+
+            $(".purApplyTr").on("change","input",function () {
+                var id = $(this).val();
+                deletItem({
+                    id:id,
+                }, 'id','LIST_DATA')
+
+
+
+            })
+
+
+
+        var checkedValue=$("#checkedValue");
         $("input[name='roles']").change(function () {
-
-            var html=$(this).parents('tr').html();
-            $(".purApplyTr").html(html);
-
             if($(this).is(':checked')){
                 checkedValue.addClass(this.value+',')
             }else{
@@ -220,11 +317,6 @@
             }
         });
         $("#createApplyOrder").click(function(){
-            if(checkedValue.attr('class')==null||checkedValue.attr('class')=='')
-            {
-                layer.alert('请选择！', {icon: 3})
-                return false;
-            }
             var tid = checkedValue.attr('class').replace(/[ ]/g,"");
             tid = tid.substring(0,tid.length-1);
             layer.confirm("确认选择物料？", {title:'提示'},function(index){
@@ -253,7 +345,10 @@
                     layer.close(index)}
             )
         })
-        $(".fg-date-picker").flatpickr(data_time_picker.data_picker); // jQuery
+
+
+
+
     })
 </script>
 <%- include('../layouts/foot'); %>

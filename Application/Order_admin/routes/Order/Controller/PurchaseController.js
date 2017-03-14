@@ -21,6 +21,7 @@ var PurchaseController = {
     //已请购列表
     purchasePage: function (req, res) {
         var paramObject = helper.genPaginationQuery(req);
+        var tid=req.params.tid;
         Base.multiDataRequest(req, res, [
             {url: '/api/purchase/request?'+(queryString.stringify(req.query)), method: 'GET', resConfig: {keyName: 'purchasesList', is_must: true}},
             {url: '/api/assist/order/stcodes', method: 'GET', resConfig: {keyName: 'stcodeInfo', is_must: false}},
@@ -36,6 +37,7 @@ var PurchaseController = {
                 title: ' ',
                 pagination: boostrapPaginator.render(),
                 Permission :Permissions,
+                tid:tid,
             },resultList));
             res.render('order/purchase/index', returnData);
 
@@ -43,14 +45,16 @@ var PurchaseController = {
     },
     //新建请购单页面
     purchaseApplyCreatPage: function (req, res) {
+        var tid = req.params.tid;
         Base.multiDataRequest(req, res, [
                 {url: '/api/categories/list?parentId=0', method: 'GET', resConfig: {keyName: 'suppliersMaterialList', is_must: true}},
-                {url: '/api/materials?'+(queryString.stringify(req.query)), method: 'GET', resConfig: {keyName: 'supMaterialList', is_must: true}},
+                {url: '/api/purchase/request/mates?'+(queryString.stringify(req.query)), method: 'GET', resConfig: {keyName: 'supMaterialList', is_must: true}},
             ],
             function (req, res, resultList) {
                 var returnData = Base.mergeData(helper.mergeObject({
                     title: ' ',
                     Permission :Permissions,
+                    tid:tid,
                 }, resultList));
                 res.render('order/purchase/apply_creat', returnData);
             });

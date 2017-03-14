@@ -169,39 +169,20 @@ var EnterController = {
     doEnter: function (req, res) {
         // var num = req.body.num0;
         console.log('doEnter',JSON.stringify(req.body))
-
-
-        var length = req.body.howmuch;
-        var list = req.body.list;
-        list = [];
-        for(var i=0;i<length;i++){
-            if(!req.body['spaceRow'+i]){break;}
-            list.push({
-                spaceRow:req.body['spaceRow'+i],
-                spaceColumn:req.body['spaceColumn'+i],
-                spaceLayer:req.body['spaceLayer'+i],
-                amount:req.body['amount'+i],
-                cargoId:req.body['cargoId'+i],
-                purId:req.body['purId'+i],
-                unitPrice:req.body['unitPrice'+i],
-            })
-
-        }
-        req.body.list = list;
-        console.log('doEnterdata666666',JSON.stringify(req.body))
-
         request(Base.mergeRequestOptions({
             method: 'post',
             url: '/api/whse/cargoin/mate',
-            // traditional: true,
-            form: req.body
+            headers:{'Content-type':'application/json'},
+            body:JSON.stringify(req.body),
         }, req, res), function (error, response, body) {
             if (!error && response.statusCode == 201) {
-                res.redirect('/enterMaterial')
+                // res.redirect('/enterMaterial')
+                res.sendStatus(200);
             } else {
                 Base.handlerError(res, req, error, response, body);
             }
         })
+
 
     },
     enterProductPage: function (req, res){

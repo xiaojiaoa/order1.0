@@ -354,6 +354,9 @@ tr > td > .separation:last-child {
 .margin-left-10 {
     margin-left: 10px;
 }
+.margin-left-5 {
+    margin-left: 5px;
+}
 
 .smart-style-2 .btn-warning, .btn-warning {
     color: #fff;

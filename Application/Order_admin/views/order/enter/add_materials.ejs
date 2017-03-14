@@ -77,13 +77,13 @@
 <script type="text/javascript">
 
     $(document).ready(function () {
-
+        var indexLayer;
         //弹出类
         $('#addMater').on({
             click: function (e) {
                 var id = $(this).attr('data-id');
 
-                layer.open({
+                indexLayer = layer.open({
                     title: '添加物料',
                     type: 1,
                     area: '1400px',
@@ -133,8 +133,7 @@
             }
         })
         $('#layer-form-wrapper').on('change',"input[name='checkbox']",function () {
-            console.log($(this).parents('tr').index())
-            console.log($(this).parents('tr').html())
+
 
 
             if ($(this).is(':checked')) {
@@ -146,13 +145,67 @@
 
 
         $('#confirm').click(function () {
-            var tids = checkedValue.attr('class');
-            tids = tids.substring(0, tids.length - 1).replace(/\s/g,"");
-            if (!tids) {
+            $(this).html('添加中 <i class="fa fa-circle-o-notch fa-spin"></i>');
+            var val = regionSelect.val();
+
+//            var tids = checkedValue.attr('class');
+//            tids = tids.substring(0, tids.length - 1).replace(/\s/g,"");
+
+            var hasSelect = false;
+            var html = ''
+            $("input[name='checkbox']:checked").each(function (i) {
+                hasSelect = true;
+                var index = $(this).val();
+                console.log(index)
+                console.log($('.idMater').eq(index).text())
+                var num = cargoinList_result+1
+                var idMater = $('.idMater').eq(index).text();
+                var nameMater = $('.nameMater').eq(index).text();
+
+                html += '<tr id="cargoinDo'+cargoinList_result+'">'+
+                    '<td>'+num +'</td>'+
+                    '<td></td>'+
+                    '<td></td>'+
+                    '<td><a href="/materialManage/detail/'+idMater+'">'+idMater+'</a></td>'+
+                    '<td>'+nameMater+'</td>'+
+                    '<td></td>'+
+                    '<td></td>'+
+                    '<td></td>'+
+                    '<td>'+
+                    '<input class="form-control small validate[condRequired[custom[number],min[1],max[99],spaceColumn'+cargoinList_result+',spaceLayer'+cargoinList_result+']]" '+
+                    'name="spaceRow'+cargoinList_result+'" placeholder="行" id="spaceRow'+cargoinList_result+'" data-index="'+cargoinList_result+'"> '+
+                    '<input class="form-control small validate[condRequired[custom[number],min[1],max[99],spaceRow'+cargoinList_result+',spaceLayer'+cargoinList_result+']]" '+
+                    'name="spaceColumn'+cargoinList_result+'" placeholder="列" id="spaceColumn'+cargoinList_result+'" data-index="'+cargoinList_result+'"> '+
+                    '<input class="form-control small validate[condRequired[custom[number],min[1],max[99],spaceRow'+cargoinList_result+',spaceColumn'+cargoinList_result+']]" '+
+                    'name="spaceLayer'+cargoinList_result+'" placeholder="层" id="spaceLayer'+cargoinList_result+'" data-index="'+cargoinList_result+'"> '+
+
+                    '<input name="cargoId'+cargoinList_result+'" value="'+idMater+'" type="hidden">'+
+                    '<input name="purId'+cargoinList_result+'" value="" type="hidden">'+
+                    '<input name="unitPrice'+cargoinList_result+'" value="" type="hidden">'+
+                    '</td>'+
+                    '<td>'+
+                    '<input class="form-control short validate[condRequired[spaceRow'+cargoinList_result+',spaceColumn'+cargoinList_result+',spaceLayer'+cargoinList_result+']]" '+
+                    ' value="" name="amount'+cargoinList_result+'" id="amount'+cargoinList_result+'" data-index="'+cargoinList_result+'">'+
+                    '</td>'+
+                    '<td id="status'+cargoinList_result+'" class="status"></td>'+
+                    '</tr>'
+                cargoinList_result ++;
+//                checkedValue.addClass(this.value + ',')
+            });
+
+            if (!hasSelect) {
                 layer.msg('请先选择物料', {icon: 2, time: 2000});
+                $(this).html('确认添加')
                 return;
             }
-            console.log(tids);
+            $('#moreAddTR').append(html)
+            var val = regionSelect.val();
+            if(!val){
+                $('#search-customer :text').attr('disabled',true)
+            }
+            layer.close(indexLayer)
+            $(this).html('确认添加')
+//            console.log(tids);
         })
 
 
