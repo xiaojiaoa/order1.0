@@ -118,7 +118,7 @@
             <div class="row">
                 <div class="col-xs-12">
                     <div class="table-responsive">
-                        <table class="table table-bordered table-hover table-expand">
+                        <table class="table table-bordered table-hover">
                             <thead>
                             <tr>
                                 <th>序号</th>
@@ -146,12 +146,12 @@
                                 <td><%= element.remark %></td>
                                 <td>
                                     <% if(element.stcode == 1){ %>
-                                    <a href="/region/create/<%= element.ftyId %>/<%= element.whseId %>">新建仓库区域</a>
-                                    <a href="/region/<%= element.ftyId %>/<%= element.whseId %>">查看所有区域</a>
-                                    <a href="/warehouse/modify/<%= element.whseId %>">修改</a>
-                                    <a class="txt-color-red todoClose" data-id="<%= element.whseId %>">禁用</a>
+                                    <a href="/region/create/<%= element.ftyId %>/<%= element.whseId %>" class="label label-primary">新建仓库区域</a>
+                                    <a href="/region/<%= element.ftyId %>/<%= element.whseId %>" class="label label-primary">查看所有区域</a>
+                                    <a href="/warehouse/modify/<%= element.whseId %>" class="label label-primary">修改</a>
+                                    <a class="todoClose label label-danger" data-id="<%= element.whseId %>">禁用</a>
                                     <%  }else{ %>
-                                    <a class="todoOpen" data-id="<%= element.whseId %>">启用</a>
+                                    <a class="todoOpen label label-primary" data-id="<%= element.whseId %>">启用</a>
                                     <%  }%>
                                 </td>
                             </tr>

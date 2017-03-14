@@ -147,33 +147,33 @@
                                 case "一级": %>
                                 <td>
                                     <% if( element.stcode == 2 ){ %>
-                                    <a href="javascript:void(0)"  class="openStore">启用</a>
+                                    <a href="javascript:void(0)"  class="openStore label label-primary">启用</a>
                                     <% }else{ %>
-                                    <a href="/materialManage/materialType/creOther/<%= element.id %>">新建子类</a>
-                                    <a href="/materialManage/materialType/modify/<%= element.id %>" class="margin-left-20">修改</a>
-                                    <a href="javascript:void(0)" class="margin-left-20 closeStore" >禁用</a>
+                                    <a href="/materialManage/materialType/creOther/<%= element.id %>" class="label label-primary">新建子类</a>
+                                    <a href="/materialManage/materialType/modify/<%= element.id %>" class="label label-primary">修改</a>
+                                    <a href="javascript:void(0)" class="closeStore label label-danger" >禁用</a>
                                     <% } %>
                                 </td>
                                 <%        break;
                                 case "二级": %>
                                 <td>
                                     <% if( element.stcode == 2 ){ %>
-                                    <a href="javascript:void(0)" class="openStore">启用</a>
+                                    <a href="javascript:void(0)" class="openStore label label-primary">启用</a>
                                     <% }else{ %>
-                                    <a href="/materialManage/materialType/creOther/<%= element.id %>">新建子类</a>
-                                    <a href="/materialManage/materialType/modify/<%= element.id %>"  class="margin-left-20">修改</a>
-                                    <a href="javascript:void(0)" class="margin-left-20 closeStore">禁用</a>
+                                    <a href="/materialManage/materialType/creOther/<%= element.id %>" class="label label-primary">新建子类</a>
+                                    <a href="/materialManage/materialType/modify/<%= element.id %>"  class="label label-primary">修改</a>
+                                    <a href="javascript:void(0)" class="closeStore label label-danger">禁用</a>
                                     <% } %>
                                 </td>
                                 <%         break;
                                 default: %>
                                 <td>
                                     <% if( element.stcode == 2){ %>
-                                    <a href="javascript:void(0)" class="openStore">启用</a>
+                                    <a href="javascript:void(0)" class="openStore label label-primary">启用</a>
                                     <% }else{ %>
-                                    <a href="/materialManage/materialType/modify/<%= element.id %>" class="margin-left-78">修改</a>
-                                    <a href="javascript:void(0)" class="margin-left-20 closeStore" >禁用</a>
-                                    <a href="/materialManage/material/<%= element.id %>/creStepO"  class="margin-left-20">新建物料</a>
+                                    <a href="/materialManage/materialType/modify/<%= element.id %>" class="label label-danger margin-left-85">修改</a>
+                                    <a href="javascript:void(0)" class="closeStore label label-danger" >禁用</a>
+                                    <a href="/materialManage/material/<%= element.id %>/creStepO"  class="label label-primary">新建物料</a>
                                     <% } %>
                                 </td>
                                 <%  } %>
