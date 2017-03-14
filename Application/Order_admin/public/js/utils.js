@@ -59,6 +59,69 @@ var DWY_Utils = DWY_Utils || {
 				})
 			}
 		}) 
+	},
+
+	StorageUtils:{
+		     //从localStorage里获取列表数据
+            getListArr:function (storageKey){
+            	
+                console.log(this)
+                return JSON.parse(localStorage.getItem(storageKey));
+            },
+            //设置localStorage中的数据
+            setList:function (storageKey,list){
+                return localStorage.setItem(storageKey,JSON.stringify(list));
+            },
+
+            //添加一个项目
+            addItem:function (item,prop,storageKey,callBack){
+
+                var listArr = this.getListArr(storageKey) || [];
+
+                var len = listArr.length;
+
+
+                if(len != 0){
+                    for (var i =0 ;i<len;i++){
+                        if(item[prop] == listArr[i][prop]){
+                            return ;
+                        }
+                    }
+                }
+
+                listArr.push(item);
+
+                this.setList(storageKey,listArr);
+                if(typeof callBack == 'function'){
+                    callBack();
+                }
+            },
+
+            //删除一个项目
+            deletItem:function (item,prop,storageKey,callBack){
+                var listArr = this.getListArr(storageKey);
+                var len = listArr.length;
+                if(len != 0){
+                    for (var i =0 ;i<len;i++){
+                        if(item[prop] == listArr[i][prop]){
+                           listArr.splice(i,1);
+                           this.setList(storageKey,listArr);
+                           if(typeof callBack == 'function'){
+                                callBack();
+                           }
+                           return;
+                        }
+                    }
+                }
+            },  
+
+            //删除所有项目
+            deleteAll:function (storageKey,callBack){
+                this.setList(storageKey,"[]");
+                if(typeof callBack == 'function'){
+                    callBack();
+               }
+            }
 	}
 }
 
