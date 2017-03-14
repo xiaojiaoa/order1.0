@@ -49,7 +49,7 @@
                                         } %>
 
                                         <div class="col-xs-8">
-                                            <input class="form-control" value="<%=  bid %>" name="bid" readonly>
+                                            <input class="form-control" value="<%=  bid %>" name="bid" <%= bid!= 9999 ?"readonly":""%> >
                                         </div>
                                     </div>
                                 </div>
@@ -214,6 +214,7 @@
                                 <th>员工名称</th>
                                 <th>手机号</th>
                                 <th>员工属性</th>
+                                <th>角色信息</th>
                                 <th>所属部门</th>
                             </tr>
                             </thead>
@@ -227,6 +228,7 @@
                                 <td><%= element.name %></td>
                                 <td><%= element.mobile %></td>
                                 <% if(element.empType == 10){ %> <td>企业</td> <% }else{ %> <td>加盟店</td> <%} %>
+                                <td><%= element.deptNme %></td>
                                 <td><%= element.deptNme %></td>
                             </tr>
                             <% })
