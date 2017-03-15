@@ -388,6 +388,15 @@ router.get('/storesManage', Middleware.AuthCheck, Middleware.FilterEmptyField, S
 // 门店详情页面
 router.get('/storesManage/detail/:cid', Middleware.AuthCheck, StoresController.detailPage);
 
+// 门店详情页面-充值
+router.post('/storesManage/doRecharge', Middleware.AuthCheck, StoresController.doRecharge);
+
+// 门店详情页面-收款页面
+router.get('/storesManage/receiptMoney/:cid', Middleware.AuthCheck, StoresController.receiptMoneyPage);
+
+// 门店详情页面-充值
+router.put('/storesManage/receiptCheck/:tid/:bid/:type', Middleware.AuthCheck, StoresController.receiptCheck);
+
 // 新建门店页面
 router.get('/storesManage/create', Middleware.AuthCheck, StoresController.createPage);
 
@@ -569,6 +578,8 @@ router.post('/department/doModify', Middleware.AuthCheck, DepartmentController.d
 // 删除部门
 router.delete('/department/doDelete/:type/:id', Middleware.AuthCheck, DepartmentController.doDelete);
 
+// 删除部门
+router.put('/department/doOpen/:type/:id', Middleware.AuthCheck, DepartmentController.doOpen);
 
 
 
@@ -858,6 +869,9 @@ router.get('/outProduct/deatil/:id', Middleware.AuthCheck, OutWarehouseControlle
 
 // 大板领料单页面
 router.get('/outBred', Middleware.AuthCheck, OutWarehouseController.outBredPage);
+
+// 大板领料单-导入
+router.post('/outBred/upload', Middleware.AuthCheck, OutWarehouseController.outBredUpload);
 
 // 大板领料详情单页面
 router.get('/outBred/deatil/:id', Middleware.AuthCheck, OutWarehouseController.outBredDeatil);

@@ -59,8 +59,9 @@
                             <tr class="level-0">
                                 <td><%= element.name %></td>
                                 <td>
+                                    <% if(element.stcode ==1){ %>
                                     <% if(!element.subDeparts || element.subDeparts.length==0){
-                                      if(type == 'stores') {  %>
+                                    if(type == 'stores') {  %>
                                     <a href="/stores/employees?bid=<%= bid %>&did=<%= element.id %>" class="label label-primary">查看柜员</a>
                                     <% }else{
                                     %>
@@ -71,6 +72,10 @@
 
                                     <a class="departmentModify-modal label label-primary" name="<%= element.name %>" selfId="<%= element.id %>">修改</a>
                                     <a class="delete-department label label-danger" selfId="<%= element.id %>">禁用</a>
+                                    <% }else{ %>
+                                    <a class="open-department label label-success" selfId="<%= element.id %>">启用</a>
+                                    <% } %>
+
                                 </td>
                             </tr>
                             <% if(element.subDeparts){
@@ -78,15 +83,20 @@
                             <tr class="level-1">
                                 <td class="level-1-title"><%= element.name %></td>
                                 <td>
+                                    <% if(element.stcode ==1){ %>
                                     <% if(type == 'stores') {  %>
                                     <a href="/stores/employees?bid=<%= bid %>&did=<%= element.id %>" class="label label-primary">查看柜员</a>
                                     <% }else{
                                     %>
-                                        <a href="/organizations/employees?bid=<%= bid %>&did=<%= element.id %>" class="label label-primary">查看柜员</a>
+                                    <a href="/organizations/employees?bid=<%= bid %>&did=<%= element.id %>" class="label label-primary">查看柜员</a>
                                     <%} %>
 
                                     <a class="departmentModify-modal label label-primary" name="<%= element.name %>"  selfId="<%= element.id %>">修改</a>
                                     <a class="delete-department label label-danger"  selfId="<%= element.id %>">禁用</a>
+                                    <%  }else{ %>
+                                    <a class="open-department label label-success" selfId="<%= element.id %>">启用</a>
+                                    <%  } %>
+
                                 </td>
                             </tr>
                             <%   })

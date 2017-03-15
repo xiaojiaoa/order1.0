@@ -149,7 +149,7 @@
             click: function () {
                 var id = $(this).attr('selfId');
                 var type = $("#urlType").val();
-                layer.confirm('确认删除?',{icon: 3, title:'提示'},
+                layer.confirm('确认禁用?',{icon: 3, title:'提示'},
                     function(index){
                         $.ajax({
                             url: '/department/doDelete/'+type+'/'+id,
@@ -170,6 +170,35 @@
                             }
                         });
                 },
+                    function(index){layer.close(index)})
+            }
+        })
+
+        $(".open-department").on({
+            click: function () {
+                var id = $(this).attr('selfId');
+                var type = $("#urlType").val();
+                layer.confirm('确认启用?',{icon: 3, title:'提示'},
+                    function(index){
+                        $.ajax({
+                            url: '/department/doOpen/'+type+'/'+id,
+                            method: 'put',
+                            success: function (data) {
+                                window.location.reload();
+                            },
+                            error: function (response) {
+                                layer.close(index)
+                                var data = JSON.parse(response.responseText);
+                                $.smallBox({
+                                    title: "操作失败",
+                                    content: data.msg,
+                                    color: "#C46A69",
+                                    iconSmall: "fa fa-times fa-2x fadeInRight animated",
+                                    timeout: 3000
+                                });
+                            }
+                        });
+                    },
                     function(index){layer.close(index)})
             }
         })

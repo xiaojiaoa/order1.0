@@ -86,7 +86,26 @@ var DWY_GLOBAL = require('./routes/Order/config/global');
 app.locals.DWY_GLOBAL = {
     Static: DWY_GLOBAL.server.Static.remote_server()
 }
-
+//格式化金额
+outputdollars= function (number) {
+    if (number.length <= 3)
+        return (number == '' ? '0' : number);
+    else {
+        var mod = number.length % 3;
+        var output = (mod == 0 ? '' : (number.substring(0, mod)));
+        for (i = 0; i < Math.floor(number.length / 3); i++) {
+            if ((mod == 0) && (i == 0))
+                output += number.substring(mod + 3 * i, mod + 3 * i + 3);
+            else
+                output += ',' + number.substring(mod + 3 * i, mod + 3 * i + 3);
+        }
+        return (output);
+    }
+};
+outputcents=function (amount) {
+    amount = Math.round(((amount) - Math.floor(amount)) * 100);
+    return (amount < 10 ? '.0' + amount : '.' + amount);
+};
 //添加时间格式化函数
 Date.prototype.format = function (fmt) {
     var o = {
@@ -225,6 +244,22 @@ app.locals.DWY_Helper = {
                 break;
             default:
                 return "否";
+        }
+        return code;
+    },
+
+    getMoneyTYpe: function (code) {
+        switch (code){
+            case 0:
+                return "付款";
+                break;
+            case 1:
+                return "代收的款项";
+                break;
+            case 2:
+                return "已收的款项";
+                break;
+
         }
         return code;
     },
@@ -439,7 +474,15 @@ app.locals.DWY_Helper = {
         size = size.toFixed(2);//保留的小数位数
         return size + unitArr[index];
     },
-
+    outputmoney: function (number) {
+        number = number.replace(/,/g, "");
+        if (isNaN(number) || number == "")return "";
+        number = Math.round(number * 100) / 100;
+        if (number < 0)
+            return '-' + outputdollars(Math.floor(Math.abs(number) - 0) + '') + outputcents(Math.abs(number) - 0);
+        else
+            return outputdollars(Math.floor(number - 0) + '') + outputcents(number - 0);
+    },
     //判断是否有权限
     hasPermission: function (code, permission) {
         if (permission && code) {

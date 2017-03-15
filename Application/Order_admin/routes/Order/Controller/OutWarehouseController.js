@@ -59,7 +59,6 @@ var OutWarehouseController = {
                 // 编译模板
                 var data = JSON.parse(body);
                 data = {result:data};
-                console.log('listHtml',data)
                 var listHtml = template(data);
                 res.send({
                     listHtml:listHtml
@@ -75,7 +74,6 @@ var OutWarehouseController = {
         var totalNum = req.body.totalNum;
         var tids = req.body.list;
         var tyoeof = typeof tids;
-        console.log('tyoeof',tyoeof);
         if(tyoeof == 'string'){
             req.body.list =  [tids];
             req.body.noInNum = totalNum-1
@@ -83,7 +81,7 @@ var OutWarehouseController = {
             var length = tids.length;
             req.body.noInNum = totalNum-length
         }
-        console.log('stringify',JSON.stringify(req.body));
+        // console.log('stringify',JSON.stringify(req.body));
         request(Base.mergeRequestOptions({
             method: 'post',
             url: '/api/whse/cargout/delivery',
@@ -91,10 +89,8 @@ var OutWarehouseController = {
             body:JSON.stringify(req.body),
         }, req, res), function (error, response, body) {
             if (!error && response.statusCode == 201) {
-                console.log(66666666)
                 res.redirect("/deliveryNote");
             } else {
-                console.log(99999999)
                 Base.handlerError(res, req, error, response, body);
             }
         })
@@ -349,6 +345,26 @@ var OutWarehouseController = {
             },resultList));
             res.render('order/shipments/out_bred', returnData);
         });
+
+    },
+    outBredUpload: function (req, res) {
+        request(Base.mergeRequestOptions({
+            method: 'post',
+            url: '/api/whse/cargout/plate/file',
+            form:req.body,
+        }, req, res), function (error, response, body) {
+            if (!error && response.statusCode == 200) {
+                var $data = JSON.parse(body);
+                var returnData = Base.mergeData(helper.mergeObject({
+                    title: '',
+                }, {plateList: $data}));
+                res.render('order/shipments/out_bred_doOut', returnData);
+            } else {
+                console.log('handlerError')
+                Base.handlerError(res, req, error, response, body);
+            }
+        })
+
 
     },
     outBredDeatil: function (req, res) {

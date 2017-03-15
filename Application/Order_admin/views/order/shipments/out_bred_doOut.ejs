@@ -1,0 +1,264 @@
+<%- include('../layouts/head_top'); %>
+<%- include('../layouts/head_bottom'); %>
+<%- include('../layouts/header'); %>
+<%- include('../layouts/nav'); %>
+
+
+<!-- MAIN PANEL -->
+<div id="main" role="main">
+
+    <!-- RIBBON -->
+    <div id="ribbon">
+
+        <!-- breadcrumb -->
+        <ol class="breadcrumb">
+            <li>后台管理</li>
+            <li><a class="back-url" href="/outBred"><i class="fa fa-chevron-left"></i> 大板领料单</a></li>
+            <li>大板出库</li>
+        </ol>
+
+
+    </div>
+    <!-- END RIBBON -->
+
+
+    <!-- MAIN CONTENT -->
+    <div id="content">
+
+
+        <div class="well">
+            <div class="row form-horizontal" id="search-customer">
+                <div class="col-xs-12 search-form">
+                    <div class="col-xs-3">
+                        <div class="form-group">
+                            <label class="col-xs-3 control-label"><span class="requird"></span> 领料人:</label>
+                            <div class="col-xs-9">
+                                <input class="form-control validate[required]" value="" name="mateEmp">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-3">
+                        <div class="form-group">
+                            <label class="col-xs-3 control-label"><span class="requird"></span> 出库人:</label>
+                            <div class="col-xs-9">
+                                <input class="form-control validate[required]" value="" name="outEmp">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-3">
+                        <div class="form-group">
+                            <label class="col-xs-3 control-label"><span class="requird"></span>出库时间:</label>
+                            <div class="col-xs-9">
+                                <input class="form-control fg-date-time-picker validate[required]"  value=""
+                                       name="outTime">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-3">
+                        <div class="form-group">
+                            <label class="col-xs-3 control-label">批次号:</label>
+                            <div class="col-xs-9">
+                                <input class="form-control" value="" name="batchId">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-12">
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-striped table-hover table-editinput">
+                            <thead>
+                            <tr>
+                                <th>序号</th>
+                                <th>物料编号</th>
+                                <th>物料名称</th>
+                                <th>物料厚度</th>
+                                <th>规格</th>
+                                <th>单位</th>
+                                <th>数量</th>
+                                <th>备注</th>
+                                <th width="200">货位号(行列层)</th>
+                                <th width="100">出库数量</th>
+                                <th width="150">是否有货</th>
+                            </tr>
+                            </thead>
+                            <tbody id="moreAddTR">
+                            <input name="plateList" value="" type="hidden">
+
+                            <% if(DWY_Helper.isCanLoop(plateList)){%>
+                            <% plateList.forEach(function(element,index){%>
+                            <tr id="cargoinDo<%= index %>">
+                                <td><%= index+1 %></td>
+                                <td><%= element.mateId %></td>
+                                <td><%=element.mateName %></td>
+                                <td><%=element.thick %></td>
+                                <td><%=element.size %></td>
+                                <td><%=element.unit %></td>
+                                <td><%=element.amount %></td>
+                                <td><%=element.remark %></td>
+                                <td>
+                                    <input class="form-control validate[condRequired[custom[number],minSize[6],maxSize[6]]]"
+                                           name="spaceId<%= index %>" placeholder="行列层，6位数字" id="spaceId<%= index %>" data-index="<%= index %>">
+                                    <input name="cargoId<%= index %>" value="<%= element.mateId %>" type="hidden">
+                                    <input name="remark<%= index %>" value="<%=element.price%>" type="hidden">
+                                    <input name="statusThis<%= index %>" value="0" type="hidden">
+                                </td>
+                                <td>
+                                    <input class="form-control short validate[condRequired[spaceId<%= index %>]]"
+                                           value="<%=element.amount%>" name="amount<%= index %>" id="amount<%= index %>" data-index="<%= index %>">
+                                </td>
+                                <td id="status<%= index %>" class="status"></td>
+                            </tr>
+                            <%
+                            })}else{%>
+                            <tr>
+                                <td colspan="10" class="text-align-center">暂无数据</td>
+                            </tr>
+                            <%}%>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="col-xs-12">
+                    <hr class="simple">
+                    <div class="col-xs-12 text-center">
+                        <a class="btn btn-primary" id="toEnter">确认出库</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- END MAIN CONTENT -->
+
+</div>
+<!-- END MAIN PANEL -->
+
+<%- include('../layouts/footer'); %>
+<%- include('../layouts/footer_common_script'); %>
+
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+
+        $("#search-customer").validationEngine();
+
+        pageSetUp();
+
+        $(".fg-date-time-picker").flatpickr(data_time_picker.data_picker); // jQuery
+
+        $(':text').on('input propertychange', function() {
+            var index = $(this).attr('data-index');
+            var status = $('#status'+index);
+            status.empty();
+            console.log('data-index',index);
+            if(validateRow(index)){
+                console.log(index+':success');
+                $.ajax({
+                    url: '/enterMaterial/stockOver/toEnter/ifCanEnter',
+                    method:'post',
+                    data: {
+                        regionId: regionSelect.val() ,//所属区域编号
+                        spaceId:$("#spaceId"+index).val()  ,//货位号
+                        amount: $("#amount"+index).val() ,//入库数量
+                    },
+                    success: function (data) {
+                        console.log('data',data)
+                        if(data){
+                            $("input[name=statusThis"+index+"]").val(1);
+                            status.html('<i class="fa fa-check text-success font-lg"></i>');
+                        }else{
+                            $("input[name=statusThis"+index+"]").val(0);
+                            status.html('<i class="fa fa-times text-danger font-lg"></i>');
+                        }
+                    },
+                    error: function (response) {
+                        console.log('response',response)
+                        var data = JSON.parse(response.responseText);
+                        console.log(data.msg)
+                        status.html('<span class="text-danger"><i class="fa fa-times font-lg"></i>'+data.msg+'</span>');
+                    }
+                });
+            }
+        });
+
+        function validateRow(index) {
+            return $("#spaceId"+index).validationEngine('validate') && $("#spaceId"+index).val() && $("#amount"+index).validationEngine('validate')
+
+        }
+
+        $('#toEnter').click(function () {
+            var ftyId=$("#ftyId").val();
+            var whseId=$("#whseId").val();
+            var regionId=$("#regionId").val();
+
+            var myArray=new Array();
+            var length=$(".status").length;
+            console.log('length',length);
+            var ifSubmit = false;
+            for(var i=0;i<length;i++){
+                var spaceId=$("input[name=spaceId"+i+"]").val();
+                var statusThis=$("input[name=statusThis"+i+"]").val();
+                var amount=$("input[name=amount"+i+"]").val();
+                if(!spaceId ||!amount || statusThis == 0){console.log('continue');continue;}
+                var cargoId=$("input[name=cargoId"+i+"]").val();
+                var purId=$("input[name=purId"+i+"]").val();
+                var unitPrice=$("input[name=unitPrice"+i+"]").val();
+
+                var a = new Object();
+                a = {
+                    spaceId:spaceId,
+                    cargoId:cargoId,
+                    purId:purId,
+                    unitPrice:unitPrice,
+                    amount:amount,
+                }
+
+                myArray.push(a);
+                ifSubmit = true;
+            }
+            var date={
+                ftyId:ftyId,
+                whseId:whseId,
+                regionId:regionId,
+                list:myArray
+            };
+            if(!ifSubmit){layer.msg('请先填写正确入库信息', {icon: 2, time: 2000});return ;}
+
+            layer.confirm("确认提交？", {title:'提示'},function(index){
+                    console.log(myArray);
+                    $.ajax({
+                        url: '/enterMaterial/stockOver/toEnter/doEnter',
+                        data:JSON.stringify(date),
+                        method: 'post',
+                        dataType: 'json',
+                        contentType:"application/json",
+                        success: function (data) {
+                            location.href="/enterMaterial";
+                        },
+                        error: function (response) {
+                            layer.close(index)
+                            var data = JSON.parse(response.responseText);
+                            $.smallBox({
+                                title: "操作失败",
+                                content: data.msg,
+                                color: "#C46A69",
+                                iconSmall: "fa fa-times fa-2x fadeInRight animated",
+                                timeout: 3000
+                            });
+                            setTimeout(function(){
+                                window.location.reload();
+                            },1000000)
+                        }
+                    });
+                },function(index){
+                    layer.close(index)}
+            )
+        })
+
+
+    })
+
+</script>
+
+<%- include('./bred_upload'); %>
+<%- include('../layouts/foot'); %>
