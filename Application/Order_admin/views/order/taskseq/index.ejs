@@ -35,6 +35,12 @@
                     <div class="table-responsive">
                         <table class="table table-bordered table-striped table-information">
                             <tbody>
+                            <tr >
+                                <td>流水号</td>
+                                <td><%= DWY_Helper.getAssistVal(taskseqInfo.stcode,statusInfo) %></td>
+                                <td>流水状态</td>
+                                <td colspan="3"><%= lid %></td>
+                            </tr>
                             <tr class="table-tr01">
                                 <td>客户编号</td>
                                 <td><a href="/customer/detail/<%= taskseqInfo.cid %>"><%= taskseqInfo.cid %></a></td>
@@ -90,7 +96,9 @@
             <div class="row">
                 <!-- col -->
                 <div class="col-xs-12">
-                    <legend>量尺信息 <a class="label label-primary">云端量尺照片</a></legend>
+                    <legend>量尺信息
+                        <!--<a class="label label-primary">云端量尺照片</a>-->
+                    </legend>
                     <!-- row -->
 
                     <table class="table table-bordered table-striped table-information">
@@ -363,12 +371,6 @@
                             </tr>
                             <% num++ })
                             }) %>
-
-                            <tr>
-                                <td colspan="6" class="text-align-right">零售价合计：</td>
-                                <td colspan="3" class="text-align-left"></td>
-                            </tr>
-
                             </tbody>
                         </table>
 

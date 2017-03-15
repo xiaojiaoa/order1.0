@@ -28,7 +28,7 @@ var OrderController = {
             {url: '/api/orders?'+ queryString.stringify(req.query), method: 'GET', resConfig: {keyName: 'orderList', is_must: true}},
             {url: '/api/assist/order/stcodes', method: 'GET', resConfig: {keyName: 'stcodeInfo', is_must: false}},
             {url: '/api/assist/brandinfo', method: 'GET', resConfig: {keyName: 'brandInfo', is_must: false}},
-            {url: '/api/assist/space/prod', method: 'GET', resConfig: {keyName: 'prodInfo', is_must: false}},
+            // {url: '/api/assist/space/prod', method: 'GET', resConfig: {keyName: 'prodInfo', is_must: false}},
             {url: '/api/organizations/list', method: 'GET', resConfig: {keyName: 'organizationsList', is_must: false}},
             {url: '/api/stores/list', method: 'GET', resConfig: {keyName: 'storesList', is_must: false}}
         ], function (req, res, resultList) {
