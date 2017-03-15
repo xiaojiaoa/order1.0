@@ -199,6 +199,8 @@ router.get('/orders', Middleware.AuthCheck, Middleware.FilterEmptyField, OrderCo
 // 订单详情页面   订单信息（认领订单）
 router.get('/order/detail/:tid', Middleware.AuthCheck, OrderController.detailPage);
 
+router.post('/order/detail/doModify', Middleware.AuthCheck, OrderController.detailDoModify);
+
 // 标记为审核中
 router.put('/orders/getTask/:tid', Middleware.AuthCheck, OrderController.getTask);
 // 审核-退单重新提交

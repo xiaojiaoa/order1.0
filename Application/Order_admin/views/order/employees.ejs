@@ -49,7 +49,7 @@
                                         } %>
 
                                         <div class="col-xs-8">
-                                            <input class="form-control" value="<%=  bid %>" name="bid" <%= bid!= 9999 ?"readonly":""%> >
+                                            <input class="form-control" value="<%=  bid %>" name="bid" readonly >
                                         </div>
                                     </div>
                                 </div>
@@ -138,6 +138,26 @@
 
                             </div>
 
+                            <div class="col-xs-12">
+                                <div class="col-xs-3">
+                                    <div class="form-group">
+                                        <label class="col-xs-4 control-label">角色:</label>
+                                        <div class="col-xs-8">
+                                            <select class="form-control" name="roleId">
+                                                <option value="">- 请选择 -</option>
+                                                <%
+                                                roleList.forEach(function (element) { %>
+                                                <option value="<%= element.id %>" <%= (DWYRequest.query.roleId == element.id)?"selected":"" %>><%= element.name %></option>
+                                                <%  }) %>
+                                            </select>
+
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+
+
 
                             <div class="col-xs-12">
                                 <hr class="simple">
@@ -213,7 +233,6 @@
                                 <th>员工编号</th>
                                 <th>员工名称</th>
                                 <th>手机号</th>
-                                <th>员工属性</th>
                                 <th>角色信息</th>
                                 <th>所属部门</th>
                             </tr>
@@ -227,9 +246,15 @@
                                 <td><a href="/<%=  type %>/employees/detail/<%=  bid %>/<%= element.id %>"><%= element.id %></a></td>
                                 <td><%= element.name %></td>
                                 <td><%= element.mobile %></td>
-                                <% if(element.empType == 10){ %> <td>企业</td> <% }else{ %> <td>加盟店</td> <%} %>
-                                <td><%= element.deptNme %></td>
-                                <td><%= element.deptNme %></td>
+                                <td>
+                                    <% if(element.roleList){
+                                    element.roleList.forEach(function (element) { %>
+                                    <span class="separation"><%= element.name %></span>
+                                    <%  })
+
+                                    } %>
+                                </td>
+                                <td><%= element.deptName %></td>
                             </tr>
                             <% })
                                 }else{ %>
