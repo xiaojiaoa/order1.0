@@ -1030,13 +1030,7 @@ var OrderController = {
         request(Base.mergeRequestOptions({
             method: 'post',
             url: '/api/orders/package/accessory/export/'+tid,
-        }, req, res), function (error, response, body) {
-            if (!error && response.statusCode == 201) {
-                res.sendStatus(200)
-            }else{
-                Base.handlerError(res, req, error, response, body);
-            }
-        })
+        }, req, res)).pipe(res)
     },
 
 

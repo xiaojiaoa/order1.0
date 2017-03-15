@@ -42,7 +42,22 @@
                                     <div class="form-group">
                                         <label class="col-xs-4 control-label">供应商名称:</label>
                                         <div class="col-xs-8">
-                                            <input class="form-control" placeholder="请输入供应商名称" type="text" value="<%= DWYRequest.query.contact %>" name="contact">
+                                            <input class="form-control" placeholder="请输入供应商名称" type="text" value="<%= DWYRequest.query.name %>" name="name">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xs-3">
+                                    <div class="form-group">
+                                        <label class="col-xs-4 control-label">机构:</label>
+                                        <div class="col-xs-8">
+                                            <select name="bid" id="" class="form-control">
+                                                <option value="">- 请选择 -</option>
+                                                <%
+                                                if(DWY_Helper.isCanLoop(organizationsList)){
+                                                organizationsList.forEach(function (element, index) { %>
+                                                <option value="<%= element.id %>"><%= element.name %></option>
+                                                <%})}%>
+                                            </select>
                                         </div>
                                     </div>
                                 </div>
@@ -87,7 +102,7 @@
                                 <th>供应商编号</th>
                                 <th>供应商名称</th>
                                 <th>供应商分类编号</th>
-                                <th>联系人姓名（本来是分类名称）</th>
+                                <th>联系人姓名</th>
                                 <th>供应商等级</th>
                                 <th>供应商类型</th>
                                 <th>联系人手机</th>
@@ -95,7 +110,6 @@
                                 <th>柜员名称</th>
                                 <th>创建部门</th>
                                 <th>创建时间</th>
-                                <th>备注</th>
                                 <th>操作</th>
                             </tr>
                             </thead>
@@ -106,9 +120,9 @@
                             <tr class="<%= ( element.isDeleted == 2 )? 'close-info':'' %>">
                                 <td><%= index+1 %></td>
                                 <td><a href="supplier/detail/<%= element.id %>"><%= element.id %></a></td>
-                                <td><%= element.contact %></td>
-                                <td><%= element.cateId %></td>
                                 <td><%= element.name %></td>
+                                <td><%= element.cateId %></td>
+                                <td><%= element.contact %></td>
                                 <td><%= element.grade %></td>
                                 <td>
                                     <%
@@ -125,7 +139,6 @@
                                 <td><%= element.gname %></td>
                                 <td><%= element.deptName %></td>
                                 <td><%= DWY_Helper.getLocalDate(element.addTime) %></td>
-                                <td><%= element.remark %></td>
                                 <td>
                                     <%
                                     if(element.isDeleted==2){%>

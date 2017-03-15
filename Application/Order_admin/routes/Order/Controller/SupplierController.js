@@ -23,6 +23,7 @@ var SupplierController = {
         var paramObject = helper.genPaginationQuery(req);
         Base.multiDataRequest(req, res, [
             {url: '/api/suppliers?'+(queryString.stringify(req.query)), method: 'GET', resConfig: {keyName: 'suppliersList', is_must: true}},
+            {url: '/api/organizations//list?'+(queryString.stringify(req.query)), method: 'GET', resConfig: {keyName: 'organizationsList', is_must: true}},
         ], function (req, res, resultList) {
             var paginationInfo =  resultList.suppliersList;
             var boostrapPaginator = new Pagination.TemplatePaginator(helper.genPageInfo({
