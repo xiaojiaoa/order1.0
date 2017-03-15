@@ -850,10 +850,10 @@ router.get('/outMaterial/deatil/:id', Middleware.AuthCheck, OutWarehouseControll
 router.get('/:type/canSend', Middleware.AuthCheck, OutWarehouseController.canSendPage);
 
 // 可发货订单-发货 页面
-router.get('/:type/canSend/sendPage', Middleware.AuthCheck, OutWarehouseController.sendPage);
+router.get('/:type/canSend/sendPage/:id', Middleware.AuthCheck, OutWarehouseController.sendPage);
 
 // 可发货订单-发货
-router.post('/canSend/doSend/:id', Middleware.AuthCheck, OutWarehouseController.doSend);
+router.post('/canSend/doSend', Middleware.AuthCheck, OutWarehouseController.doSend);
 
 // 可发货订单详情  页面
 router.get('/canSend/deatil/:id', Middleware.AuthCheck, OutWarehouseController.canSendDeatil);
