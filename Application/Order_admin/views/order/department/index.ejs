@@ -1,0 +1,124 @@
+<%- include('../layouts/head_top'); %>
+<%- include('../layouts/head_bottom'); %>
+<%- include('../layouts/header'); %>
+<%- include('../layouts/nav'); %>
+
+
+<!-- MAIN PANEL -->
+<div id="main" role="main">
+
+    <!-- RIBBON -->
+    <div id="ribbon">
+
+        <!-- breadcrumb -->
+        <ol class="breadcrumb">
+            <li>后台管理</li>
+            <% if(type == 'stores') { %>
+            <li><a class="back-url" href="/storesManage"><i class="fa fa-chevron-left"></i> 门店管理</a></li>
+            <% }else{ %>
+            <li><a class="back-url" href="/agency"><i class="fa fa-chevron-left"></i> 机构管理</a></li>
+            <% } %>
+
+            <li>部门信息</li>
+        </ol>
+        <!-- end breadcrumb -->
+
+    </div>
+    <!-- END RIBBON -->
+
+
+    <!-- MAIN CONTENT -->
+    <div id="content">
+
+        <div class="well">
+
+            <!-- row -->
+            <div class="row">
+                <div class="col-xs-12">
+                    <h6>部门列表
+                        <a class="label label-primary" id="department-modal" >新建部门</a>
+                    </h6>
+                    <hr class="simple">
+                </div>
+            </div>
+            <input value="<%= type %>" id="urlType" type="hidden">
+
+            <!-- row -->
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-striped">
+                            <thead>
+                            <tr>
+                                <th width="300">部门</th>
+                                <th>操作</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <% departmentsInfo.forEach(function (element, index) {%>
+                            <tr class="level-0">
+                                <td><%= element.name %></td>
+                                <td>
+                                    <a class="departmentChild-modal label label-primary" parent="<%= element.name %>" parentId="<%= element.id %>">新建子级</a>
+                                    <a class="departmentModify-modal label label-primary" name="<%= element.name %>" selfId="<%= element.id %>">修改</a>
+                                    <a class="delete-department label label-danger" selfId="<%= element.id %>">禁用</a>
+
+                                    <% if(!element.subDeparts || element.subDeparts.length==0){
+                                    if(type == 'stores') {  %>
+                                    <a href="/stores/employees?bid=<%= bid %>&did=<%= element.id %>" class="label label-primary">查看柜员</a>
+                                    <% }else{
+                                    %>
+                                    <a href="/organizations/employees?bid=<%= bid %>&did=<%= element.id %>" class="label label-primary">查看柜员</a>
+                                    <%}
+                                    }%>
+                                </td>
+                            </tr>
+                            <% if(element.subDeparts){
+                                element.subDeparts.forEach(function (element) { %>
+                            <tr class="level-1">
+                                <td class="level-1-title"><%= element.name %></td>
+                                <td>
+                                    <a class="departmentModify-modal label label-primary margin-left-85" name="<%= element.name %>"  selfId="<%= element.id %>">修改</a>
+                                    <a class="delete-department label label-danger"  selfId="<%= element.id %>">禁用</a>
+
+                                    <% if(type == 'stores') {  %>
+                                    <a href="/stores/employees?bid=<%= bid %>&did=<%= element.id %>" class="label label-primary">查看柜员</a>
+                                    <% }else{
+                                    %>
+                                    <a href="/organizations/employees?bid=<%= bid %>&did=<%= element.id %>" class="label label-primary">查看柜员</a>
+                                    <%} %>
+                                </td>
+                            </tr>
+                            <%   })
+                              }
+                            }) %>
+                            </tbody>
+                        </table>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <!-- end well -->
+
+
+</div>
+<!-- END MAIN CONTENT -->
+
+</div>
+<!-- END MAIN PANEL -->
+
+<%- include('../layouts/footer'); %>
+<%- include('../layouts/footer_common_script'); %>
+
+
+<script type="text/javascript">
+    $(function () {
+    })
+</script>
+
+
+<%- include('../layouts/foot'); %>
+<%- include('./department_modal'); %>
