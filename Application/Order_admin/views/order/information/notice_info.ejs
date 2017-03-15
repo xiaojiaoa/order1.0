@@ -56,19 +56,16 @@
                             </div>
                             <div class="col-xs-12">
                                 <hr class="simple">
-                                <div class="col-xs-5"></div>
-                                <div class="col-xs-1">
+                                <div class="col-xs-12 text-center">
                                     <input type="hidden" name="pageSize" value="5"/>
-                                    <button class="btn btn-primary margin-left-10" type="submit">
+                                    <button class="btn btn-primary" type="submit">
                                         <i class="fa fa-search"></i>
                                         查询
                                     </button>
 
+                                    <% if (DWY_Helper.hasPermission(Permission.notice.create.id, permission) ){ %>
 
-                                </div>
-                                <% if (DWY_Helper.hasPermission(Permission.notice.create.id, permission) ){ %>
-                                <div class="col-xs-2">
-                                    <a class="btn btn-primary margin-left-10 create-noticeInfo" >
+                                    <a class="btn btn-primary create-noticeInfo" >
                                         新建公告
                                     </a>
                                 </div>

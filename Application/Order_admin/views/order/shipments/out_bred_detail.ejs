@@ -39,22 +39,17 @@
                             <tbody>
                             <tr>
                                 <td width="12%">领用单号</td>
-                                <td>23456123</td>
+                                <td><%= cargoutInfo.outId %></td>
+                                <td width="12%">领料日期</td>
+                                <td><%= cargoutInfo.outDate %></td>
                                 <td width="12%">领用人</td>
-                                <td>张三</td>
-                                <td width="12%">领用日期</td>
-                                <td></td>
+                                <td><%= cargoutInfo.outEmpName %></td>
                             </tr>
                             <tr>
-                                <td>部门</td>
-                                <td><a href="/order/detail/123456">123456</a></td>
-                                <td>状态</td>
-                                <td colspan="3"></td>
-                            </tr>
-
-                            <tr>
-                                <td>备注</td>
-                                <td colspan="5"></td>
+                                <td>部门编号</td>
+                                <td><%= cargoutInfo.did %></td>
+                                <td>审核人</td>
+                                <td colspan="3"><%= cargoutInfo.reviewName %></td>
                             </tr>
                             </tbody>
                         </table>
@@ -74,8 +69,9 @@
                 <div class="col-xs-12">
                     <h6>
                         领料清单
+                        <% if(cargoutInfo.stcode == 2){ %>
                         <a class="label label-primary" id="checkThis">审核</a>
-                        <a class="label label-danger" id="backThis">撤审</a>
+                        <% }%>
                     </h6>
 
                     <hr class="simple">
@@ -99,15 +95,20 @@
                             </tr>
                             </thead>
                             <tbody>
+                            <% if(DWY_Helper.isCanLoop(plateInfo)){
+                            plateInfo.forEach(function (element, index) { %>
                             <tr>
-                                <td>1</td>
-                                <td>12345</td>
-                                <td>56456789456</td>
-                                <td>银白下框</td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
+                                <td><%= index+1 %></td>
+                                <td><a href="/materialManage/detail/<%= element.mateId %>"><%= element.mateId %></a></td>
+                                <td><%= element.mateName %></td>
+                                <td><%= element.size %></td>
+                                <td><%= element.amount %></td>
+                                <td><%= element.remark %></td>
+                                <td><%= element.price %></td>
                             </tr>
+                            <% })
+                            } %>
+
                             </tbody>
                         </table>
 
