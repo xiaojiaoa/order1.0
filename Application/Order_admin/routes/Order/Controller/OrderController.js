@@ -1018,21 +1018,10 @@ var OrderController = {
     //订单详情--订单物料--工件导出
     exportWorkpiece: function (req, res) {
         var tid = req.params.tid;
-        var reqRemote = request(Base.mergeRequestOptions({
+        request(Base.mergeRequestOptions({
             method: 'post',
             url: '/api/orders/package/workpiece/export/'+tid,
-
-        }, req, res), function (error, response, body) {
-
-            if (!error && response.statusCode == 200) {
-
-
-            }else{
-                Base.handlerError(res, req, error, response, body);
-            }
-        })
-
-        reqRemote.pipe(res)
+        }, req, res)).pipe(res)
     },
 
     //订单详情--订单物料--配件导出
