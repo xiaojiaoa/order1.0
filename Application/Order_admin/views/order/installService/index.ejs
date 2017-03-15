@@ -114,7 +114,7 @@
                                     <%
                                     if(element.stcode==769){
                                     %>
-                                    <button class="label label-primary" id="installGroup">指定安装组</button>
+                                    <button class="label label-primary installGroup" tid="<%= element.tid %>">指定安装组</button>
                                     <% } %>
                                     <%
                                     if(element.stcode==749){
@@ -122,6 +122,7 @@
                                     <button class="label label-primary registerDeliver" tid="<%= element.tid %>">登记收货</button>
                                     <% } %>
                                 </td>
+                                <input type="hidden" value="<%= element.tid %>" name="tid">
                             </tr>
                             <%})}else{%>
                                <td colspan="12" class="text-align-center">暂无结果</td>
@@ -143,9 +144,11 @@
     $(document).ready(function () {
         pageSetUp();
         $(".fg-date-picker").flatpickr(data_time_picker.data_picker); // jQuery
-        $("#installGroup").on(
+        $(".installGroup").on(
             {
                 click:function(){
+                    var tid=$(this).attr("tid");
+                    $("input[name='tid']").val(tid);
                     layer.open({
                         title: false,
                         type: 1,
