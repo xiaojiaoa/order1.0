@@ -70,16 +70,16 @@
                             <tr class="level-1">
                                 <td class="level-1-title"><%= element.name %></td>
                                 <td>
+                                    <a class="departmentModify-modal label label-primary margin-left-85" name="<%= element.name %>"  selfId="<%= element.id %>">修改</a>
+                                    <a class="delete-department label label-danger"  selfId="<%= element.id %>">删除</a>
+
                                     <% if(type == 'stores') {  %>
                                     <a href="/stores/employees?bid=<%= bid %>&did=<%= element.id %>" class="label label-primary">查看柜员</a>
                                     <% }else{
-                                        if(bid ==  user.bid){ %>
-                                        <a href="/organizations/employees?bid=<%= bid %>&did=<%= element.id %>" class="label label-primary">查看柜员</a>
-                                        <% }
-                                     } %>
-
-                                    <a class="departmentModify-modal label label-primary" name="<%= element.name %>"  selfId="<%= element.id %>">修改</a>
-                                    <a class="delete-department label label-danger"  selfId="<%= element.id %>">删除</a>
+                                    if(bid ==  user.bid){ %>
+                                    <a href="/organizations/employees?bid=<%= bid %>&did=<%= element.id %>" class="label label-primary">查看柜员</a>
+                                    <% }
+                                    } %>
                                 </td>
                             </tr>
                             <%   })
