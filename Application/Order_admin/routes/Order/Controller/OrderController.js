@@ -16,6 +16,9 @@ var request = require('request');
 //引入权限
 var Permissions = require('../config/permission');
 
+//引入文件处理系统
+var fs = require("fs");
+
 
 var OrderController = {
     listPage: function (req, res) {
@@ -62,8 +65,37 @@ var OrderController = {
                 {url: '/api/cofficient', method: 'GET', resConfig: {keyName: 'cofficientInfo', is_must: true}},
                 {url: '/api/orders/chgback/'+tid, method: 'GET', resConfig: {keyName: 'chgbackInfo', is_must: true}},
                 {url: '/api/orders/progress/'+tid, method: 'GET', resConfig: {keyName: 'progressInfo', is_must: true}},
+                {url: '/api/assist/deco/color', method: 'GET', resConfig: {keyName: 'colorList', is_must: true}},
+                {url: '/api/assist/deco/color', method: 'GET', resConfig: {keyName: 'colorList', is_must: true}},
+                {url: '/api/assist/space/prod', method: 'GET', resConfig: {keyName: 'spaceInfo', is_must: true}},
             ],
             function (req, res, resultList) {
+
+                var spaceInfo = [];
+                resultList.spaceInfo.forEach(function(element,index){
+                    console.log('ppppp',spaceInfo[element.spaceId])
+                    if( spaceInfo[element.spaceId] == undefined){
+
+                        spaceInfo[element.spaceId] = {};
+                        spaceInfo[element.spaceId].data = [];
+                        console.log('undefined')
+                        console.log('undefined:',spaceInfo[element.spaceId])
+                    }
+                    console.log('ppppp66666',element)
+                    spaceInfo[element.spaceId].data.push(element);
+
+                    // if(element.parentId == 0){
+                    //     spaceInfo[element.id] = element;
+                    //     spaceInfo[element.id].data = [];
+                    // }else{
+                    //     spaceInfo[element.parentId].data.push(element);
+                    // }
+                });
+
+                resultList.spaceInfo = spaceInfo;
+                // console.log('stringify',resultList.spaceInfo)
+                console.log('stringify',JSON.stringify(resultList.spaceInfo))
+
                 var returnData = Base.mergeData(helper.mergeObject({
                     title: ' ',
                     tid:tid,
@@ -71,6 +103,20 @@ var OrderController = {
                 }, resultList));
                 res.render('order/order/order_detail', returnData);
             });
+    },
+    detailDoModify: function (req, res) {
+        var id = req.body.tid
+        request(Base.mergeRequestOptions({
+            method: 'put',
+            url: '/api/orders/'+id+'?'+queryString.stringify(req.body),
+        }, req, res), function (error, response, body) {
+            if (!error && response.statusCode == 201) {
+                res.redirect("/order/check/waitOrder");
+            } else {
+                Base.handlerError(res, req, error, response, body);
+            }
+        })
+
     },
     getTask: function (req, res) {
         var tid = req.params.tid;
@@ -975,15 +1021,7 @@ var OrderController = {
         request(Base.mergeRequestOptions({
             method: 'post',
             url: '/api/orders/package/workpiece/export/'+tid,
-
-        }, req, res), function (error, response, body) {
-            console.log(response)
-            if (!error && response.statusCode == 200) {
-                res.sendStatus(200)
-            }else{
-                Base.handlerError(res, req, error, response, body);
-            }
-        })
+        }, req, res)).pipe(res)
     },
 
     //订单详情--订单物料--配件导出
@@ -992,13 +1030,7 @@ var OrderController = {
         request(Base.mergeRequestOptions({
             method: 'post',
             url: '/api/orders/package/accessory/export/'+tid,
-        }, req, res), function (error, response, body) {
-            if (!error && response.statusCode == 201) {
-                res.sendStatus(200)
-            }else{
-                Base.handlerError(res, req, error, response, body);
-            }
-        })
+        }, req, res)).pipe(res)
     },
 
 

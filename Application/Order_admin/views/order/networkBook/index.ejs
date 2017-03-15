@@ -52,9 +52,10 @@
                                     <div class="form-group">
                                         <label class="col-xs-4 control-label">状态:</label>
                                         <div class="col-xs-8">
-                                            <select class="form-control"  name="type"  >
-                                                <option value="1" <%= DWYRequest.query.type == 1? 'selected':'' %>>未分配</option>
-                                                <option value="2" <%= DWYRequest.query.type == 2? 'selected':'' %>>已分配</option>
+                                            <select class="form-control"  name="stcode"  >
+                                                <option value="0" <%= DWYRequest.query.stcode == 0? 'selected':'' %>>已删除</option>
+                                                <option value="1" <%= DWYRequest.query.stcode? (DWYRequest.query.stcode == 1? 'selected':''):'selected' %>>未分配</option>
+                                                <option value="2" <%= DWYRequest.query.stcode == 2? 'selected':'' %>>已分配</option>
 
                                             </select>
                                         </div>
@@ -101,6 +102,7 @@
                                 <th>客户姓名</th>
                                 <th>客户手机号</th>
                                 <th>所在地址(行政区域编码)</th>
+                                <th>状态</th>
                                 <th width="200">操作</th>
                             </tr>
                             </thead>
@@ -112,8 +114,9 @@
                                 <td><%= element.custName %></td>
                                 <td><%= element.custMobile %></td>
                                 <td><%= element.realAddress %></td>
+                                <td><%= DWY_Helper.getMeasureType(element.stcode) %></td>
                                 <td>
-                                    <% if (DWY_Helper.hasPermission(Permission.network.distribute.id, permission) ){ %>
+                                    <% if (DWY_Helper.hasPermission(Permission.network.distribute.id, permission) && element.stcode==1 ){ %>
                                     <a class="label label-primary choiceShop"
                                        data-id="<%= element.id %>"
                                        data-realAddress="<%= element.realAddress %>"
@@ -121,7 +124,7 @@
                                        data-custName="<%= element.custName %>"
                                     >分配店铺</a>
                                     <% } %>
-                                    <% if (DWY_Helper.hasPermission(Permission.network.delete.id, permission) ){ %>
+                                    <% if (DWY_Helper.hasPermission(Permission.network.delete.id, permission)&& element.stcode==1 ){ %>
                                     <a class="label label-danger closeThis" data-id="<%= element.id %>">置为无效</a>
                                     <% } %>
                                 </td>

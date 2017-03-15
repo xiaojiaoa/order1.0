@@ -344,7 +344,21 @@ app.locals.DWY_Helper = {
         }
         return code;
     },
+    getMeasureType: function (code) {
+        switch (code){
+            case 0:
+                return "已删除";
+                break;
+            case 1:
+                return "未分配";
+                break;
+            case 2:
+                return "已分配";
+                break;
 
+        }
+        return code;
+    },
     //柜员状态
     getEmployeeStatus: function (code) {
         if(code == 0){ return "锁定"}

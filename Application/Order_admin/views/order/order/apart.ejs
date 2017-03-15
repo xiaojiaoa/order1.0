@@ -187,8 +187,9 @@
 
             <div class="row">
                 <div class="col-xs-12">
-                    <h6>已收款、未拆单
-                        <a class="label label-primary "  href="javascript:void(0)">
+                    <h6>未拆单
+                        <a class="label label-primary"  href="/apartPage/getOrder">
+
                             获取订单
                         </a>
                     </h6>
@@ -354,7 +355,7 @@
                         </thead>
                         <tbody>
                         <%
-                        if(apartList.result && apartList.result.length>0 ){
+                        if((type == 'getOrder')&&(DWY_Helper.isCanLoop(apartList.result)) ){
                         apartList.result.forEach(function (element, index) { %>
                         <tr>
                             <td><%= index+1 %></td>

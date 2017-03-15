@@ -33,7 +33,22 @@
                                         </div>
                                     </div>
                                 </div>
-
+                                <div class="col-xs-8">
+                                    <div class="form-group">
+                                        <label class="pull-left control-label col-xs-4">&nbsp;订单状态:</label>
+                                        <div class="col-xs-3">
+                                            <select class="form-control" name="startCode">
+                                                <option value="749">已发货</option>
+                                            </select>
+                                        </div>
+                                        <label class="control-label" style="float: left"> 至 </label>
+                                        <div class="col-xs-3">
+                                            <select class="form-control" name="endCode">
+                                                <option value="769">已安装</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                             <div class="col-xs-12">
                                 <hr class="simple">
@@ -97,17 +112,16 @@
                                 <td><%= element.lid %></td>
                                 <td>
                                     <%
-                                    if(element.stcode==749){
-                                    %>
-                                    <a class="label label-primary" id="installGroup">指定安装组</a>
-                                    <% } %>
-                                    <%
                                     if(element.stcode==769){
                                     %>
-                                    <a class="label label-primary" id="registerDeliver">登记收货</a>
+                                    <button class="label label-primary" id="installGroup">指定安装组</button>
+                                    <% } %>
+                                    <%
+                                    if(element.stcode==749){
+                                    %>
+                                    <button class="label label-primary registerDeliver" tid="<%= element.tid %>">登记收货</button>
                                     <% } %>
                                 </td>
-                                <input type="hidden" value="<%= element.tid %>" class="tid">
                             </tr>
                             <%})}else{%>
                                <td colspan="12" class="text-align-center">暂无结果</td>
@@ -145,12 +159,11 @@
                 }
             }
         )
-        $("#registerDeliver").on(
+        $(".registerDeliver").on(
             {
                 click:function(){
+                    var tid=$(this).attr('tid');
                     layer.confirm("确认登记？",{title:'提示'},function(index){
-                            var tid= $(".tid").val();
-                            alert(tid); return false;
                             $.ajax({
                                 url: '/registerDeliver/'+tid,
                                 method: 'post',

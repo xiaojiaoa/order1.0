@@ -329,19 +329,49 @@ var OutWarehouseController = {
         });
     },
     outBredPage: function (req, res) {
-        res.render('order/shipments/out_bred');
+        var paramObject = helper.genPaginationQuery(req);
+        Base.multiDataRequest(req, res, [
+            {url: '/api/whse/cargout/plate/page?'+ queryString.stringify(req.query), method: 'GET', resConfig: {keyName: 'plateList', is_must: true}},
+        ], function (req, res, resultList) {
+
+            var paginationInfo =  resultList.plateList;
+
+            var boostrapPaginator = new Pagination.TemplatePaginator(helper.genPageInfo({
+                prelink: paramObject.withoutPageNo,
+                current: paginationInfo.page,
+                rowsPerPage: paginationInfo.pageSize,
+                totalResult: paginationInfo.totalItems
+            }));
+
+            var returnData = Base.mergeData(helper.mergeObject({
+                title: ' ',
+                pagination: boostrapPaginator.render()
+            },resultList));
+            res.render('order/shipments/out_bred', returnData);
+        });
 
     },
     outBredDeatil: function (req, res) {
-        res.render('order/shipments/out_bred_detail');
+        var id = req.params.id;
+        Base.multiDataRequest(req, res, [
+            {url: '/api/whse/cargout/plate/list/'+ id, method: 'GET', resConfig: {keyName: 'plateInfo', is_must: true}},
+            {url: '/api/whse/cargout/plate/page?outId='+id, method: 'GET', resConfig: {keyName: 'cargoutInfo', is_must: false}},
 
+        ], function (req, res, resultList) {
+            resultList.cargoutInfo = resultList.cargoutInfo.result[0];
+            var returnData = Base.mergeData(helper.mergeObject({
+                title: ' ',
+                outId: id,
+            },resultList));
+            res.render('order/shipments/out_bred_detail', returnData);
+        });
     },
 
     doCheckBred: function (req, res) {
         var id = req.params.id;
         request(Base.mergeRequestOptions({
-            method: 'put',
-            url: '/api/orders/schedule/getTask?tids='+id,
+            method: 'post',
+            url: '/api/whse/cargout/plate/review/'+id,
         }, req, res), function (error, response, body) {
             if (!error && response.statusCode == 201) {
                 res.sendStatus(200);

@@ -199,6 +199,8 @@ router.get('/orders', Middleware.AuthCheck, Middleware.FilterEmptyField, OrderCo
 // 订单详情页面   订单信息（认领订单）
 router.get('/order/detail/:tid', Middleware.AuthCheck, OrderController.detailPage);
 
+router.post('/order/detail/doModify', Middleware.AuthCheck, OrderController.detailDoModify);
+
 // 标记为审核中
 router.put('/orders/getTask/:tid', Middleware.AuthCheck, OrderController.getTask);
 // 审核-退单重新提交
@@ -341,10 +343,10 @@ router.get('/order/exportParts/:tid',Middleware.AuthCheck,OrderController.export
 var ApartController = require('./Controller/ApartController');
 
 // 拆单页面
-router.get('/apart', Middleware.AuthCheck, Middleware.FilterEmptyField, ApartController.listPage);
+router.get('/apartPage/:type', Middleware.AuthCheck, Middleware.FilterEmptyField, ApartController.listPage);
 
 // 拆单审核页面
-router.get('/apart/check', Middleware.AuthCheck, Middleware.FilterEmptyField, ApartController.checkPage);
+router.get('/apartCheckPage/:type', Middleware.AuthCheck, Middleware.FilterEmptyField, ApartController.checkPage);
 
 // 标记为审核中 (待拆单)
 router.put('/apart/getTask/:tid', Middleware.AuthCheck, ApartController.getTask);

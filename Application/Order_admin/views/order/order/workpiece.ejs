@@ -63,8 +63,6 @@
                                         <tr>
                                             <th>
                                                 <label class="checkbox-inline">
-                                                    <input type="checkbox" class="checkbox"
-                                                           id="checkAll"  />
                                                     <span>序号</span>
                                                 </label>
                                             </th>
@@ -88,7 +86,7 @@
                                         <tr>
                                             <td>
                                                 <label class="checkbox-inline">
-                                                    <input type="checkbox" class="checkbox" name="roles" value="<%= element.tid %>">
+
                                                     <span><%= index+1 %></span>
                                                 </label>
                                             </td>
@@ -116,7 +114,7 @@
                                 <div class="col-xs-12">
                                     <hr class="simple">
                                     <div class="col-xs-12 orderItemButton text-center">
-                                            <a href="/order/exportWorkpiece/<%= tid %>" class="btn btn-primary" id="exportWorkpiece">
+                                            <a href="/order/exportWorkpiece/<%= tid %>" class="btn btn-primary" >
                                                 导出
                                             </a>
                                     </div>
@@ -133,34 +131,6 @@
 <%- include('../layouts/footer'); %>
 <%- include('../layouts/footer_common_script'); %>
 <script type="text/javascript">
-    var workpieceBtn = $('#workpieceBtn');
-    $("#checkAll").change(function () {
-        if($(this).is(":checked")){
-            $(":checkbox").prop('checked',true);
-            $("input[name='roles']:checked").each(function (i) {
-                workpieceBtn.addClass(this.value+',')
-            });
-        }else{
-            $(":checkbox").prop('checked',false);
-            workpieceBtn.removeClass()
-        }
-    })
-    $("input[name='roles']").change(function () {
-        if($(this).is(':checked')){
-            workpieceBtn.addClass(this.value+',')
-        }else{
-            workpieceBtn.removeClass(this.value+',')
-        }
-    });
-    $("#exportWorkpiece").on({
-        click:function(){
-            if(workpieceBtn.attr('class')==null||workpieceBtn.attr('class')=='') {
-                layer.alert('请选择！', {icon: 3})
-                return false;
-            }
-        }
-    })
-
 
 </script>
 <%- include('../layouts/foot'); %>

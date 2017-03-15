@@ -344,7 +344,7 @@
                             element.orders.forEach(function (orderelement) { %>
                             <tr>
                                 <% if (taskseqInfo.stcode >= 350 && taskseqInfo.stcode <540 && num == 1){ %>
-                                <td rowspan="<%= element.orders.length +1  %>"><%=element.spaceName %></td>
+                                <td rowspan="<%= element.orders.length  %>"><%=element.spaceName %></td>
                                 <% } else{ %>
                                 <% if (num == 1){ %>
                                 <td rowspan="<%= element.orders.length  %>"><%=element.spaceName %></td>

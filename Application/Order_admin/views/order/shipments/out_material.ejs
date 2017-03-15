@@ -82,7 +82,7 @@
                                     <div class="form-group">
                                         <label class="col-xs-4 control-label">工厂:</label>
                                         <div class="col-xs-8">
-                                            <select class="form-control"  name="ftyId" id="ftyId" <%= userFtyId ? 'disabled':'' %> >
+                                            <select class="form-control"  name="ftyId" id="ftyId" >
                                                 <option value="">- 请选择 -</option>
                                                 <% factoryList.forEach(function (element) { %>
                                                 <option value="<%= element.ftyId %>" <%= userFtyId == element.ftyId? 'selected':'' %> >

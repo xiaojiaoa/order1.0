@@ -151,7 +151,7 @@
                                 <th>是否自带仓库</th>
                                 <th>新建日期</th>
                                 <!--<th>最低保证金</th>-->
-                                <th>查看</th>
+                                <th width="300px">查看</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -171,6 +171,7 @@
                                 <td>
                                     <a href="/department/organizations/<%= element.id %>" class="label label-primary">部门信息</a>
                                     <a href="/roles/<%= element.id %>/2" class="label label-primary">角色信息</a>
+                                    <a href="/organizations/employees?bid=<%= element.id %>" class="label label-primary">查看柜员</a>
                                 </td>
                             </tr>
                             <%  })
