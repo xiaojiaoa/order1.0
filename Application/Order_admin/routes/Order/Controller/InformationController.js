@@ -21,7 +21,7 @@ var InformationController = {
     noticeInfoPage: function (req, res) {
         var paramObject = helper.genPaginationQuery(req);
         Base.multiDataRequest(req, res, [
-            {url: '/api/notices/page?'+(queryString.stringify(req.query)), method: 'GET', resConfig: {keyName: 'noticeInfoList', is_must: true}},
+            {url: '/api/notices/page?pageSize=5&'+(queryString.stringify(req.query)), method: 'GET', resConfig: {keyName: 'noticeInfoList', is_must: true}},
             {url: '/api/assist/notice/types', method: 'GET', resConfig: {keyName: 'noticeType', is_must: true}},
             {url: '/api/assist/store/types', method: 'GET', resConfig: {keyName: 'storeType', is_must: true}},
             {url: '/api/assist/store/addrTypes', method: 'GET', resConfig: {keyName: 'storeAttrType', is_must: true}},

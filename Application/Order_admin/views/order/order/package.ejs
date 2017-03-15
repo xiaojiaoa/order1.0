@@ -104,7 +104,7 @@
             <div class="row">
                 <div class="col-xs-12">
                     <div class="table-responsive">
-                        <table class="table table-bordered table-striped toBePackedForm">
+                        <table class="table table-bordered table-striped table-hover">
                             <thead>
                             <tr>
                                <!-- <th>
@@ -119,9 +119,7 @@
                                 <th>批次号</th>
                                 <th>专卖店</th>
                                 <th>客户名称</th>
-                                <th>楼栋</th>
-                                <th>楼层</th>
-                                <th>房间</th>
+                                <th>楼盘名称</th>
                                 <th>下单日期</th>
                                 <th>受理日期</th>
                                 <th>交货日期</th>
@@ -139,11 +137,9 @@
                                 <td><%= index+1 %></td>
                                 <td><a href="/order/detail/<%= element.tid %>"><%= element.tid %></a></td>
                                 <td><%= element.batchNumber %></td>
-                                <td></td>
+                                <td><%= element.storeAddress %></td>
                                 <td><%= element.cName %></td>
-                                <td></td>
-                                <td></td>
-                                <td><%= element.room %></td>
+                                <td><%= element.realEstate %></td>
                                 <td><%= element.orderTimeStr %></td>
                                 <td><%= element.acceptTimeStr %></td>
                                 <td><%= element.deliveryTimeStr%></td>

@@ -25,11 +25,42 @@
             <!-- row -->
             <div class="row">
                 <div class="col-xs-12">
-                    <h6 class="col-xs-4">可供应物料信息</h6>
+                    <h6>已选中物料</h6>
                     <hr class="simple">
                 </div>
             </div>
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="col-xs-3">
+                        <a class="btn btn-primary margin-bottom-10" id="editBatchNum">关联物料</a>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-striped localstorage">
+                            <thead>
+                            <tr class="len">
+                                <th>
+                                    <label class="checkbox-inline">
+                                        <span class="0">序号</span>
+                                    </label>
+                                </th>
+                                <th>物料编号</th>
+                                <th>物料名称</th>
+                                <th>分类名称</th>
+                            </tr>
+                            </thead>
+                            <tbody class="supProTr">
 
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="well">
             <!-- row -->
             <div class="row">
                 <div class="col-xs-12">
@@ -80,27 +111,19 @@
                         <div class="col-xs-12">
                             <div class="form-group">
                                 <div class="col-xs-12">
-                                    <div class="well">
                                         <div class="row">
                                             <div class="col-xs-12">
                                                 <legend>
-                                                    新建物料供应商关联
+                                                    供应商物料关联
                                                 </legend>
-                                            </div>
-                                            <div class="col-xs-12">
-                                                <div class="">
-                                                    <a class="btn btn-primary margin-bottom-10" id="editBatchNum">关联物料</a>
-                                                </div>
                                             </div>
                                         </div>
                                         <div class="orderItemLayerTable">
-                                            <table class="table table-bordered">
+                                            <table class="table table-bordered table-hover">
                                                 <thead>
                                                 <tr>
                                                     <th>
                                                         <label class="checkbox-inline">
-                                                            <input type="checkbox" class="checkbox"
-                                                                   id="checkAll"  />
                                                             <span>序号</span>
                                                         </label>
                                                     </th>
@@ -134,7 +157,6 @@
                                             <input type="hidden" class="" id="checkedValue">
                                             <input type="hidden"  id="gid" value="<%= suppliersDetail.id %>">
                                         </div>
-                                    </div>
 
                                 </div>
 
@@ -155,24 +177,116 @@
     $(document).ready(function () {
         pageSetUp();
         $(".fg-date-picker").flatpickr(data_time_picker.data_picker); // jQuery
+        //刷新选中列表 这个函数根据每个页面不同需自己填写
+        function updateCheckedList(isInit) {
+            var parentEle = '.supProTr';
+            var storageKey = 'LIST_DATA';
 
-        $(".orderItemMenu li").click(function(){
-            $(this).addClass("selected").siblings().removeClass("selected");
-            $(".orderItemLayerTable table").eq($(this).index()).show().siblings().hide();
-        })
+            var listArr = DWY_Utils.StorageUtils.getListArr(storageKey);
 
-        var checkedValue = $('#checkedValue');
-        $("#checkAll").change(function () {
-            if($(this).is(":checked")){
-                $("input[name='roles']").prop('checked',true);
-                $("input[name='roles']:checked").each(function (i) {
-                    checkedValue.addClass(this.value+',')
-                });
+            var htmlStr = '';
+            if (listArr instanceof Array && listArr.length != 0) {
+                var len = listArr.length;
+                for (var i = 0; i < len; i++) {
+                    var itemHtml = ''
+                        + '<tr class="topTr">'
+                        + '<td>'
+                        + '<label class="checkbox-inline">'
+                        + '<input type="checkbox" class="checkbox" name="roles" value="' + listArr[i].id + '" checked>'
+                        + '<span>' + (i+1) + '</span>'
+                        + '</label>'
+                        + '</td>'
+                        + '<td><a href="/materialManage/detail/' + listArr[i].id + '">' + listArr[i].id + '</a></td>'
+                        + '<td>' + listArr[i].name + '</td>'
+                        + '<td>' + listArr[i].class_name + '</td>'
+                        + '</tr>';
+                    htmlStr += itemHtml;
+
+                    // 判断是否是初始化 是的话保持下面列表状态同步
+                    if(isInit){
+                        var $ipts = $(".orderItemLayerTable input[name='roles']");
+                        var id = listArr[i].id;
+                        var iptslen = $ipts.length;
+                        for (var j = 0; j < iptslen; j++) {
+                            if(id == $ipts.eq(j).val()){
+                                $ipts.eq(j).attr('checked',true);
+                            }
+                        }
+                    }
+                }
+                $(parentEle).html(htmlStr);
+
+
             }else{
-                $(":checkbox").prop('checked',false);
-                checkedValue.removeClass()
+                $(parentEle).html("");
+            }
+        }
+
+        // 页面一加载先刷新一次读取localstorage
+        updateCheckedList(true);
+
+
+
+
+        $(".orderItemLayerTable input[name='roles']").on("change",function () {
+
+            var $tds = $(this).parent().parent().parent().children("td");
+
+            // 获取整个条目数据
+            var item = {
+                id : $(this).val(),
+                name : $tds.eq(2).html(),
+                class_name : $tds.eq(3).html(),
+                real_stock : $tds.eq(4).html(),
+                warning_num : $tds.eq(5).html(),
+                usable_stock : $tds.eq(6).html(),
+                price : $tds.eq(7).html(),
+
+            }
+
+            // 选中添加  取消选中则删除
+            if($(this).is(':checked')){
+                DWY_Utils.StorageUtils.addItem(item,'id','LIST_DATA',updateCheckedList)
+            }else{
+                DWY_Utils.StorageUtils.deletItem({
+                    id:$(this).val()
+                },'id','LIST_DATA',updateCheckedList)
             }
         })
+
+        $(".supProTr").on("change","input",function () {
+            var id = $(this).val();
+
+            // 点中删除
+            DWY_Utils.StorageUtils.deletItem({
+                id:id
+            }, 'id','LIST_DATA',function(){
+
+                // 与下面列表的选中状态保持一致
+                var $ipts = $(".orderItemLayerTable input[name='roles']");
+
+                var len = $ipts.length;
+                for (var i = 0; i < len; i++) {
+                    if(id == $ipts.eq(i).val()){
+                        $ipts.eq(i).attr('checked',false);
+                        updateCheckedList();
+                        return;
+                    }
+                }
+            })
+
+        })
+
+
+
+
+
+
+        var checkedValue = $('#checkedValue');
+        $(".supProTr input[name='roles']:checked").each(function(){
+            var val=$(this).val();
+            checkedValue.addClass(val+',')
+        });
         $("input[name='roles']").change(function () {
             if($(this).is(':checked')){
                 checkedValue.addClass(this.value+',')
@@ -208,12 +322,12 @@
                         url: '/supplier/createMaterialSupplier/'+tid+'/'+bid+'/'+date,
                         method: 'post',
                         success: function (data) {
-                            window.location.reload();
+                            location.href='/supplier/detail/'+tid;
+                            localStorage.clear();
                         },
                         error: function (response) {
                             layer.close(index)
                             var data = JSON.parse(response.responseText);
-                            //                        var data = (response.responseText);
                             $.smallBox({
                                 title: "操作失败",
                                 content: data.msg,

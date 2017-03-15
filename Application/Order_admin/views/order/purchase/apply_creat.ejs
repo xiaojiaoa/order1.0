@@ -39,19 +39,18 @@
                 <div class="row">
                     <div class="col-xs-12">
                         <div class="table-responsive">
-                            <table class="table table-bordered table-striped localstorage">
+                            <table class="table table-bordered table-striped localstorage table-hover">
                                 <thead>
                                 <tr class="len">
                                     <th>
                                         <label class="checkbox-inline">
-                                            <!--<input type="checkbox" class="checkbox"-->
-                                                   <!--id="checkAll2"  />-->
                                             <span class="0">序号</span>
                                         </label>
                                     </th>
                                     <th>物料编号</th>
                                     <th>物料名称</th>
                                     <th>分类名称</th>
+                                    <th>供应商名称</th>
                                     <th>真实库存</th>
                                     <th>预警数量</th>
                                     <th>可用库存</th>
@@ -137,23 +136,23 @@
                 <div class="orderItemLayerTit">
                 </div>
                 <div class="orderItemLayerTable">
-                    <table class="table table-bordered">
+                    <table class="table table-bordered table-hover">
                         <thead>
                         <tr>
                             <th>
                                 <label class="checkbox-inline">
-                                    <input type="checkbox" class="checkbox"
-                                           id="checkAll"  />
                                     <span>序号</span>
                                 </label>
                             </th>
                             <th>物料编号</th>
                             <th>物料名称</th>
                             <th>分类名称</th>
+                            <th>供应商名称</th>
                             <th>真实库存</th>
                             <th>预警数量</th>
                             <th>可用库存</th>
                             <th>单价</th>
+
                         </tr>
                         </thead>
                         <tbody>
@@ -172,6 +171,7 @@
                             <td><a href="/materialManage/detail/<%= element.id %>"><%= element.id %></a></td>
                             <td><%= element.name %></td>
                             <td><%= element.catName %></td>
+                            <td><%= element.suppName %></td>
                             <td><%= element.stock %></td>
                             <td><%= element.warning %></td>
                             <td><%= element.usable %></td>
@@ -225,6 +225,7 @@
                         + '<td><a href="/materialManage/detail/' + listArr[i].id + '">' + listArr[i].id + '</a></td>'
                         + '<td>' + listArr[i].name + '</td>'
                         + '<td>' + listArr[i].class_name + '</td>'
+                        + '<td>' + listArr[i].suppName + '</td>'
                         + '<td>' + listArr[i].real_stock + '</td>'
                         + '<td>' + listArr[i].warning_num + '</td>'
                         + '<td>' + listArr[i].usable_stock + '</td>'
@@ -267,11 +268,11 @@
                 id : $(this).val(),
                 name : $tds.eq(2).html(),
                 class_name : $tds.eq(3).html(),
-                real_stock : $tds.eq(4).html(),
-                warning_num : $tds.eq(5).html(),
-                usable_stock : $tds.eq(6).html(),
-                price : $tds.eq(7).html(),
-
+                suppName: $tds.eq(4).html(),
+                real_stock: $tds.eq(5).html(),
+                warning_num : $tds.eq(6).html(),
+                usable_stock : $tds.eq(7).html(),
+                price : $tds.eq(8).html(),
             }
 
             // 选中添加  取消选中则删除
@@ -320,6 +321,10 @@
             }
         });
         $("#createApplyOrder").click(function(){
+            if(checkedValue.attr('class')==null||checkedValue.attr('class')==''){
+                layer.alert('请选择！', {icon: 3})
+                return false;
+            }
             var tid = checkedValue.attr('class').replace(/[ ]/g,"");
             tid = tid.substring(0,tid.length-1);
             layer.confirm("确认选择物料？", {title:'提示'},function(index){
@@ -328,6 +333,7 @@
                         method: 'post',
                         success: function (data) {
                            location.href="/purchase/apply_createMaterial/"+tid;
+                           localStorage.clear();
                         },
                         error: function (response) {
                             layer.close(index)

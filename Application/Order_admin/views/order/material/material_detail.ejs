@@ -31,7 +31,7 @@
             <!-- row -->
             <div class="row">
                 <!-- col -->
-                <div class="col-xs-12 dwy-show-content">
+                <div class="col-xs-12">
                     <legend>物料信息
 
                         <% if( mateInfo.stcode == 2){ %>
@@ -40,7 +40,6 @@
                         <a class="label label-primary" href="/materialManage/material/modify/<%= mateInfo.id%>">修改</a>
                         <a class="label label-danger" id="closeStore">禁用</a>
                         <a class="label label-primary margin-left-10"  href="javascript:void(0)" id="choiceFac">
-                            <i class="fa fa-save"></i>
                             选择工厂
                         </a>
                         <% } %>
@@ -52,7 +51,7 @@
                     <div class="table-responsive <%= ( mateInfo.stcode == 2 )? 'close-info01':'' %>">
                         <table class="table table-bordered table-striped table-information ">
                             <tbody>
-                            <tr>
+                            <tr class="table-tr01">
                                 <td>物料编号</td>
                                 <td><%= mateInfo.id %></td>
                                 <td>物料名称</td>
@@ -148,7 +147,7 @@
             <!-- row -->
             <div class="row">
                 <!-- col -->
-                <div class="col-xs-12 dwy-show-content">
+                <div class="col-xs-12">
                     <legend>库存状况
 
                         <span class="spanStyle01">剩余3160000支</span>
@@ -195,7 +194,7 @@
             <!-- row -->
             <div class="row">
                 <!-- col -->
-                <div class="col-xs-12 dwy-show-content">
+                <div class="col-xs-12">
                     <legend>订购情况
 
                     </legend>

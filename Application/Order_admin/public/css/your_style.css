@@ -585,3 +585,9 @@ tr > td > .separation:last-child {
 .none-padding {
     padding: 0 !important;
 }
+.table-tr01 td:nth-of-type(odd){
+  width:252px;
+}
+.table-tr01 td:nth-of-type(even){
+    width:308px;
+}

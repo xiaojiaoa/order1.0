@@ -35,7 +35,7 @@
                     <div class="table-responsive">
                         <table class="table table-bordered table-striped table-information">
                             <tbody>
-                            <tr>
+                            <tr class="table-tr01">
                                 <td>客户编号</td>
                                 <td><a href="/customer/detail/<%= taskseqInfo.cid %>"><%= taskseqInfo.cid %></a></td>
                                 <td>客户姓名</td>
@@ -95,13 +95,13 @@
 
                     <table class="table table-bordered table-striped table-information">
                         <tbody>
-                        <tr>
+                        <tr class="table-tr01">
                             <td>量尺时间</td>
                             <td colspan="3"><%= DWY_Helper.getLocalDate(measureInfo.finishTime) %></td>
                             <td>计划首次沟通时间</td>
                             <td><%= DWY_Helper.getLocalDate(measureInfo.firstCommTime) %></td>
                         </tr>
-                        <tr>
+                        <tr >
                             <td>客户性质</td>
                             <td>无字段</td>
                             <td>装修阶段</td>
@@ -284,7 +284,7 @@
 
                     <table class="table table-bordered table-striped table-information">
                         <tbody>
-                        <tr>
+                        <tr class="table-tr01">
                             <td>合同登记时间</td>
                             <td><%= contractInfo.contNo %></td>
                             <td>合同总金额</td>
@@ -363,6 +363,12 @@
                             </tr>
                             <% num++ })
                             }) %>
+
+                            <tr>
+                                <td colspan="6" class="text-align-right">零售价合计：</td>
+                                <td colspan="3" class="text-align-left"></td>
+                            </tr>
+
                             </tbody>
                         </table>
 

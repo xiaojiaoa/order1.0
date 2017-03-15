@@ -88,6 +88,13 @@
 //    console.log('window', window.location.pathname)
         $('ul.menu-list li:has(a[href="' + type + '"])').addClass('active');
 
+        //超过屏幕的li展示在页面中间
+ /*       if($(".menu-list li.active")){
+            $('ul.menu-list').animate({
+                scrollTop:$(".active").offset().top-400
+            }, 500);
+        }*/
+
 
     })
 </script>
