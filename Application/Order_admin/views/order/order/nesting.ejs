@@ -43,6 +43,7 @@
                                 <th>加急</th>
                                 <th>试装</th>
                                 <th>是否收款</th>
+                                <th>是否完毕</th>
                                 <th>订单类型</th>
                                 <th>产品类型</th>
                                 <th>主材颜色</th>
@@ -76,6 +77,7 @@
                                 <td><%= element.urgent %></td>
                                 <td><%= element.tryInstall %></td>
                                 <td><%= element.receivedStr %></td>
+                                <td><%= element.orderFinishStr %></td>
                                 <td><%= element.orderTypeStr %></td>
                                 <td><%= element.productTypeStr %></td>
                                 <td><%= element.colorStr %></td>
@@ -127,9 +129,9 @@
                     <div class="row search-form">
                         <form class="form-horizontal" method="get">
                             <div class="col-xs-12">
-                                <div class="col-xs-6">
+                                <div class="col-xs-4">
                                     <div class="form-group">
-                                        <div class="col-xs-4">
+                                        <div class="col-xs-6">
                                             <select class="form-control" name="productType">
                                                 <option value="">- 产品类型 -</option>
                                                 <%
@@ -139,7 +141,7 @@
                                                 <% }) }%>
                                             </select>
                                         </div>
-                                        <div class="col-xs-4">
+                                        <div class="col-xs-6">
                                             <select class="form-control" name="color">
                                                 <option value="">- 颜色 -</option>
                                                 <%
@@ -151,12 +153,24 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-xs-6">
+                                <div class="col-xs-4">
                                     <div class="form-group">
                                         <label class="col-xs-4 control-label">专卖店名:</label>
                                         <div class="col-xs-8">
                                             <input class="form-control"  value="<%= DWYRequest.query.storeName %>" type="text"
                                                    name="storeName">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xs-4">
+                                    <div class="form-group">
+                                        <label class="col-xs-4 control-label">专卖店名:</label>
+                                        <div class="col-xs-8">
+                                            <select class="form-control" name="orderFinish">
+                                                <option value="">-  请选择 -</option>
+                                                <option value="0">未完毕</option>
+                                                <option value="1">已完毕</option>
+                                            </select>
                                         </div>
                                     </div>
                                 </div>
@@ -220,6 +234,7 @@
                             <th>加急</th>
                             <th>试装</th>
                             <th>是否收款</th>
+                            <th>是否完毕</th>
                             <th>订单类型</th>
                             <th>产品类型</th>
                             <th>主材颜色</th>
@@ -261,6 +276,7 @@
                             <td><%= element.urgent %></td>
                             <td><%= element.tryInstall %></td>
                             <td><%= element.receivedStr %></td>
+                            <td><%= element.orderFinishStr %></td>
                             <td><%= element.orderTypeStr %></td>
                             <td><%= element.productTypeStr %></td>
                             <td><%= element.colorStr %></td>
