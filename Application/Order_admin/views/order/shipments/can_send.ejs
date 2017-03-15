@@ -70,6 +70,10 @@
                                         <div class="col-xs-8">
                                             <select class="form-control" name="stcode">
                                                 <option value="">- 请选择 -</option>
+                                                <%
+                                                stcodeInfo.forEach(function (element) { %>
+                                                <option value="<%= element.id %>" <%= (DWYRequest.query.stcode == element.id)?"selected":"" %>><%= element.name %></option>
+                                                <%  }) %>
                                             </select>
                                         </div>
                                     </div>
@@ -128,7 +132,7 @@
                                 <th>类型</th>
                                 <th>空间类型</th>
                                 <th>产品信息</th>
-                                <th>订单当前所属柜员（门店号/部门号）</th>
+                                <th>订单当前所属柜员</th>
                                 <th>预计发货</th>
                                 <th>订单状态</th>
                                 <th>货位号</th>
@@ -145,11 +149,11 @@
                                 <td><a href="/taskseq/index/<%= element.lid %>"><%= element.lid %></a></td>
                                 <td><a href="/canSend/deatil/<%= element.tid %>"><%= element.tid %></a></td>
                                 <td><%= element.brandId %></td>
-                                <td><%= element.prodType %></td>
+                                <td><%= element.prodName %></td>
                                 <td><%= element.spaceName %></td>
                                 <td><%= element.prodInfo %></td>
                                 <td><%= element.gid %></td>
-                                <td><%= element.deliveryDate %></td>
+                                <td><%= DWY_Helper.getLocalDateYMD(element.deliveryDate) %></td>
                                 <td><%= element.stcode %></td>
                                 <td><a href="/cargospace/cargospace/detail/<%= element.cargoSpaceId %>"><%= element.cargoSpaceId %></a></td>
                                 <td><a href="/<%= type %>/canSend/sendPage/<%= element.tid %>" >发货</a></td>
