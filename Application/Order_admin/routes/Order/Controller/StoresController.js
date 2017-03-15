@@ -41,14 +41,25 @@ var StoresController = {
     },
     detailPage: function (req, res) {
         var cid =  req.params.cid;
+        var paramObject = helper.genPaginationQuery(req);
         Base.multiDataRequest(req, res, [
             {url: '/api/stores/'+cid, method: 'GET', resConfig: {keyName: 'storeInfo', is_must: true}},
             {url: '/api/assist/store/types', method: 'GET', resConfig: {keyName: 'storeTypes', is_must: true}},
             {url: '/api/assist/store/addrTypes', method: 'GET', resConfig: {keyName: 'addrTypesList', is_must: true}},
+            {url: '/api/stores/money/page/'+cid, method: 'GET', resConfig: {keyName: 'moneyList', is_must: true}},
+            {url: '/api/stores/money/'+cid, method: 'GET', resConfig: {keyName: 'moneyInfo', is_must: true}},
         ], function (req, res, resultList) {
+            var paginationInfo =  resultList.moneyList;
 
+            var boostrapPaginator = new Pagination.TemplatePaginator(helper.genPageInfo({
+                prelink: paramObject.withoutPageNo,
+                current: paginationInfo.page,
+                rowsPerPage: paginationInfo.pageSize,
+                totalResult: paginationInfo.totalItems
+            }));
             var returnData = Base.mergeData(helper.mergeObject({
                 title: ' ',
+                pagination: boostrapPaginator.render(),
             },resultList));
             res.render('order/manages/store_detail', returnData);
         });
@@ -111,8 +122,66 @@ var StoresController = {
         })
 
     },
+    doRecharge: function (req, res) {
+        var cid = req.body.bid
+        request(Base.mergeRequestOptions({
+            method: 'post',
+            url: '/api/stores/money',
+            form: req.body,
+        }, req, res), function (error, response, body) {
+            if (!error && response.statusCode == 201) {
+                res.redirect("/storesManage/detail/"+cid);
+            } else {
+                Base.handlerError(res, req, error, response, body);
+            }
+        })
 
 
+    },
+    receiptMoneyPage: function (req, res) {
+        var cid =  req.params.cid;
+        var paramObject = helper.genPaginationQuery(req);
+        Base.multiDataRequest(req, res, [
+            {url: '/api/stores/money/review/'+cid, method: 'GET', resConfig: {keyName: 'moneyList', is_must: true}},
+        ], function (req, res, resultList) {
+            var paginationInfo =  resultList.moneyList;
+
+            var boostrapPaginator = new Pagination.TemplatePaginator(helper.genPageInfo({
+                prelink: paramObject.withoutPageNo,
+                current: paginationInfo.page,
+                rowsPerPage: paginationInfo.pageSize,
+                totalResult: paginationInfo.totalItems
+            }));
+            var returnData = Base.mergeData(helper.mergeObject({
+                title: ' ',
+                cid:cid,
+                pagination: boostrapPaginator.render(),
+            },resultList));
+            res.render('order/manages/store_money_receipt', returnData);
+        });
+    },
+    receiptCheck: function (req, res) {
+        var tid = req.params.tid;
+        var bid = req.params.bid;
+        var type = req.params.type;
+        request(Base.mergeRequestOptions({
+            method: 'post',
+            url: '/api/stores/money/review',
+            form: {
+                tid:tid,
+                bid:bid,
+                status:type,
+            },
+        }, req, res), function (error, response, body) {
+            if (!error && response.statusCode == 201) {
+                res.sendStatus(200)
+            } else {
+                Base.handlerError(res, req, error, response, body);
+            }
+        })
+
+
+    },
 
     setStatus: function (req, res) {
         var cid = req.params.cid;

@@ -13,9 +13,12 @@
         <!-- breadcrumb -->
         <ol class="breadcrumb">
             <li>后台管理</li>
-            <% if(type=='outMaterial'){  %>
-            <li><a class="back-url" href="/outMaterial/canSend"><i class="fa fa-chevron-left"></i>  原料可发货订单</a></li>
-            <% } %>
+            <% if(type=='outMaterial'){ %>
+            <li><a class="back-url" href="/outMaterial/canSend"><i class="fa fa-chevron-left"></i>  可发货订单</a></li>
+            <% }%>
+            <% if(type=='outProduct'){ %>
+            <li><a class="back-url" href="/outProduct/canSend"><i class="fa fa-chevron-left"></i> 可发货订单</a></li>
+            <% }%>
 
             <li>发货</li>
         </ol>
@@ -73,6 +76,8 @@
                             </div>
                         </div>
                     </div>
+                    <input name="tid" value="<%= tid %>" type="hidden">
+                    <input name="mateDeliveryItems" value="" type="hidden">
 
                     <div class="col-xs-12">
                         <div class="table-responsive">
@@ -80,69 +85,41 @@
                                 <thead>
                                 <tr>
                                     <th>序号</th>
-                                    <th>请购单号</th>
-                                    <th>采购单号</th>
                                     <th>物料编号</th>
-                                    <th>物料名称</th>
-                                    <th>单价</th>
-                                    <th>采购数量</th>
-                                    <th>采购金额</th>
                                     <th width="200">货位号(行列层)</th>
-                                    <th width="100">入库数量</th>
-                                    <th width="150">仓库是否可用</th>
+                                    <th width="100">出库数量</th>
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <input name="howmuch" value="<%= cargoinList.result.length %>" type="hidden">
-                                <input name="list" value="" type="hidden">
-                                <% if(cargoinList.result.length>0){%>
-                                    <% cargoinList.result.forEach(function(element,index){%>
-                                        <tr id="cargoinDo<%= index %>">
+                                <% if(DWY_Helper.isCanLoop(matesList)){%>
+                                    <% matesList.forEach(function(element,index){%>
+                                        <tr class="cargoinDo">
                                             <td><%= index+1 %></td>
-                                            <td><a href="/purchase/applyDetail/<%= element.reqId %>"><%= element.reqId %></a></td>
-                                            <td><a href="/purchase/orderDetail/<%= element.orderId %>"><%= element.orderId %></a></td>
-                                            <td><a href="/materialManage/detail/<%= element.mateId %>"><%= element.mateId %></a></td>
-                                            <td><%=element.mateName%></td>
-                                            <td><%=element.price%></td>
-                                            <td><%=element.amount%></td>
-                                            <td><%=element.totalAmount%></td>
+                                            <td><a href="/materialManage/detail/<%= element.mid %>"><%= element.mid %></a></td>
                                             <td>
-                                                <input class="form-control small validate[condRequired[custom[number],min[1],max[99],spaceColumn<%= index %>,spaceLayer<%= index %>]]"
-                                                       name="spaceRow<%= index %>" placeholder="行" id="spaceRow<%= index %>" data-index="<%= index %>">
-                                                <input class="form-control small validate[condRequired[custom[number],min[1],max[99],spaceRow<%= index %>,spaceLayer<%= index %>]]"
-                                                       name="spaceColumn<%= index %>" placeholder="列" id="spaceColumn<%= index %>" data-index="<%= index %>">
-                                                <input class="form-control small validate[condRequired[custom[number],min[1],max[99],spaceRow<%= index %>,spaceColumn<%= index %>]]"
-                                                       name="spaceLayer<%= index %>" placeholder="层" id="spaceLayer<%= index %>" data-index="<%= index %>">
-
-                                                <input name="cargoId<%= index %>" value="<%= element.mateId %>" type="hidden">
-                                                <input name="purId<%= index %>" value="<%= element.orderId %>" type="hidden">
-                                                <input name="unitPrice<%= index %>" value="<%=element.price%>" type="hidden">
+                                                <input class="form-control validate[condRequired[custom[number],minSize[6],maxSize[6]]]"
+                                                       name="spaceId<%= index %>" placeholder="行列层，6位数字" id="spaceId<%= index %>" data-index="<%= index %>">
+                                                <input name="cargoId<%= index %>" value="<%= element.mid %>" type="hidden">
                                             </td>
                                             <td>
-                                                <input class="form-control short validate[condRequired[spaceRow<%= index %>,spaceColumn<%= index %>,spaceLayer<%= index %>]]"
+                                                <input class="form-control short validate[condRequired[spaceId<%= index %>]]"
                                                        value="<%=element.amount%>" name="amount<%= index %>" id="amount<%= index %>" data-index="<%= index %>">
                                             </td>
-                                            <td id="status<%= index %>"></td>
                                         </tr>
                                 <%
                                     })}else{%>
                                     <tr>
-                                        <td colspan="10" class="text-align-center">暂无数据</td>
+                                        <td colspan="4" class="text-align-center">暂无数据</td>
                                     </tr>
                                 <%}%>
                                 </tbody>
                             </table>
-                            <%- pagination %>
                         </div>
                     </div>
                     <div class="col-xs-12">
                         <hr class="simple">
                         <div class="col-xs-12 text-center">
-                            <a class="btn btn-primary" id="addMater">
-                                <i class="fa fa-plus"></i>
-                                添加入库物料
-                            </a>
-                            <button class="btn btn-primary" id="toEnter">确认入库</button>
+                            <button class="btn btn-primary" id="toEnter">确认出库</button>
                         </div>
                     </div>
                 </form>
@@ -166,46 +143,72 @@
 
         pageSetUp();
 
-        $(':text').on('input propertychange', function() {
-            var index = $(this).attr('data-index');
-            var status = $('#status'+index);
-            status.empty();
-            console.log('data-index',index);
-            if(validateRow(index)){
-                console.log(index+':success');
-                $.ajax({
-                    url: '/enterMaterial/stockOver/toEnter/ifCanEnter',
-                    method:'post',
-                    data: {
-                        regionId: $("#regionId").val() ,//所属区域编号
-                        spaceRow:$("#spaceRow"+index).val()  ,//货位行
-                        spaceColumn:$("#spaceColumn"+index).val()  ,//货位列
-                        spaceLayer: $("#spaceLayer"+index).val() ,//货位层
-                        amount: $("#amount"+index).val() ,//入库数量
-                    },
-                    success: function (data) {
-                        console.log('data',data)
-                        if(data){
-                            status.html('<i class="fa fa-check text-success font-lg"></i>');
-                        }else{
-                            status.html('<i class="fa fa-times text-danger font-lg"></i>');
-                        }
-                    },
-                    error: function (response) {
-                        console.log('response',response)
-                        var data = JSON.parse(response.responseText);
-                        console.log(data.msg)
-                        status.html('<span class="text-danger"><i class="fa fa-times font-lg"></i>'+data.msg+'</span>');
-                    }
-                });
-            }
-        });
-        
-        function validateRow(index) {
-            return $("#spaceRow"+index).validationEngine('validate') && $("#spaceColumn"+index).validationEngine('validate') && $("#spaceLayer"+index).validationEngine('validate')
-                && $("#amount"+index).validationEngine('validate')
+        $('#toEnter').click(function () {
+            var ftyId=$("#ftyId").val();
+            var whseId=$("#whseId").val();
+            var regionId=$("#regionId").val();
 
-        }
+            var myArray=new Array();
+            var length=$(".cargoinDo").length;
+            console.log('length',length);
+            var ifSubmit = false;
+            for(var i=0;i<length;i++){
+                var spaceId=$("input[name=spaceId"+i+"]").val();
+                var amount=$("input[name=amount"+i+"]").val();
+                if(!spaceId ||!amount){console.log('continue');continue;}
+                var cargoId=$("input[name=cargoId"+i+"]").val();
+
+                var a = new Object();
+                a = {
+                    spaceId:spaceId,
+                    cargoId:cargoId,
+                    amount:amount,
+                }
+
+                myArray.push(a);
+                ifSubmit = true;
+            }
+            var date={
+                tid:<%= tid %>,
+                ftyId:ftyId,
+                whseId:whseId,
+                regionId:regionId,
+                list:myArray
+            };
+            if(!ifSubmit){layer.msg('请先填写正确入库信息', {icon: 2, time: 2000});return ;}
+
+            layer.confirm("确认提交？", {title:'提示'},function(index){
+                    console.log(myArray);
+                    $.ajax({
+                        url: '/canSend/doSend',
+                        data:JSON.stringify(date),
+                        method: 'post',
+                        dataType: 'json',
+                        contentType:"application/json",
+                        success: function (data) {
+                            location.href="/<%= type %>/canSend";
+                        },
+                        error: function (response) {
+                            layer.close(index)
+                            var data = JSON.parse(response.responseText);
+                            $.smallBox({
+                                title: "操作失败",
+                                content: data.msg,
+                                color: "#C46A69",
+                                iconSmall: "fa fa-times fa-2x fadeInRight animated",
+                                timeout: 3000
+                            });
+                            setTimeout(function(){
+                                window.location.reload();
+                            },1000000)
+                        }
+                    });
+                },function(index){
+                    layer.close(index)}
+            )
+        })
+
+
 
     })
 

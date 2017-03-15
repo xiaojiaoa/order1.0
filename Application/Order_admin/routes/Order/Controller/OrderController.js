@@ -28,7 +28,9 @@ var OrderController = {
             {url: '/api/orders?'+ queryString.stringify(req.query), method: 'GET', resConfig: {keyName: 'orderList', is_must: true}},
             {url: '/api/assist/order/stcodes', method: 'GET', resConfig: {keyName: 'stcodeInfo', is_must: false}},
             {url: '/api/assist/brandinfo', method: 'GET', resConfig: {keyName: 'brandInfo', is_must: false}},
-            {url: '/api/assist/space/prod', method: 'GET', resConfig: {keyName: 'prodInfo', is_must: false}}
+            {url: '/api/assist/space/prod', method: 'GET', resConfig: {keyName: 'prodInfo', is_must: false}},
+            {url: '/api/organizations/list', method: 'GET', resConfig: {keyName: 'organizationsList', is_must: false}},
+            {url: '/api/stores/list', method: 'GET', resConfig: {keyName: 'storesList', is_must: false}}
         ], function (req, res, resultList) {
 
             var paginationInfo =  resultList.orderList;
@@ -874,9 +876,23 @@ var OrderController = {
         })
     },
     packagePage:function (req, res) {
+        if(!req.query.packageStatusaaa){
+            req.query.packageStatus=0;
+            req.query.packageStatusaaa=0;
+        }
+        if(req.query.packageStatusaaa==2){
+            req.query.packageStatus="";
+        }
+        if(req.query.packageStatusaaa==1){
+            req.query.packageStatus=1;
+        }
+        if(req.query.packageStatusaaa==0){
+            req.query.packageStatus=0;
+        }
         var paramObject = helper.genPaginationQuery(req);
         Base.multiDataRequest(req, res, [
             {url: '/api/orders/package/list?'+(queryString.stringify(req.query)), method: 'GET', resConfig: {keyName: 'toBePackedList', is_must: true}},
+            {url: '/api/stores/list', method: 'GET', resConfig: {keyName: 'storesList', is_must: true}},
         ], function (req, res, resultList) {
             var paginationInfo =  resultList.toBePackedList;
             var boostrapPaginator = new Pagination.TemplatePaginator(helper.genPageInfo({

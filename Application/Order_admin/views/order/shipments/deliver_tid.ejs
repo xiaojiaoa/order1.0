@@ -10,7 +10,7 @@ result.forEach(function(element,index){%>
         </label>
     </td>
     <td><%= element.tid%></td>
-    <td><%= element.packageProduct%></td>
+    <td><%= element.prodInfo %></td>
     <td><%= element.gName%></td>
     <td><%= element.stcodeName%></td>
 </tr>
@@ -20,7 +20,7 @@ result.forEach(function(element,index){%>
 <input type="hidden" value="" name="noInNum">
 <% }else{ %>
 <tr>
-    <td colspan="7" class="text-align-center">暂无结果</td>
+    <td colspan="5" class="text-align-center">暂无结果</td>
 </tr>
 <%} %>
 

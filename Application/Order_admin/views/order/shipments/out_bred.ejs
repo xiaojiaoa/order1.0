@@ -88,7 +88,7 @@
                                         <i class="fa fa-search"></i>
                                         查询
                                     </button>
-                                    <a class="btn btn-primary" >
+                                    <a class="btn btn-primary" id="import">
                                         领料单导入
                                     </a>
                                 </div>
@@ -211,7 +211,6 @@
                     error: function (response) {
                         layer.close(index)
                         var data = JSON.parse(response.responseText);
-//                        var data = (response.responseText);
                         $.smallBox({
                             title: "操作失败",
                             content: data.msg,
@@ -231,5 +230,5 @@
 
 </script>
 
-
+<%- include('./bred_upload'); %>
 <%- include('../layouts/foot'); %>

@@ -1,12 +1,13 @@
-<form class="form-horizontal  layer-template" method="post" id="rechargeArea" action="" >
+<form class="form-horizontal  layer-template" method="post" id="rechargeArea" action="/storesManage/doRecharge" >
 
     <div class="col-xs-12">
 
         <div class="form-group">
             <label class="col-xs-2 control-label"><span class="requird"></span> 充值金额:</label>
             <div class="col-xs-8">
+                <input type="hidden" name="bid" value="<%= storeInfo.bid %>">
                 <input class="form-control validate[required]" data-prompt-position="bottomLeft:20,5"
-                       value="" name="">
+                       value="" name="account">
                 <span code-data="元" class="unit"></span>
             </div>
 
@@ -16,9 +17,23 @@
     <div class="col-xs-12">
 
         <div class="form-group">
-            <label class="col-xs-2 control-label"> 备注:</label>
+            <label class="col-xs-2 control-label"><span class="requird"></span> 资金类型:</label>
             <div class="col-xs-8">
-                <textarea name="reason" class="form-control" cols="30" rows="5"></textarea>
+                <select class="form-control validate[required]" name="type">
+                    <option value="1">待收款类型资金</option>
+                    <option value="2">已收款类型资金</option>
+                </select>
+            </div>
+
+        </div>
+
+    </div>
+    <div class="col-xs-12">
+
+        <div class="form-group">
+            <label class="col-xs-2 control-label"> 操作说明:</label>
+            <div class="col-xs-8">
+                <textarea name="describe" class="form-control" cols="30" rows="5"></textarea>
             </div>
 
         </div>
@@ -34,48 +49,12 @@
     <div class="dwy-clear"></div>
 </form>
 
-<form class="form-horizontal  layer-template" method="post" id="receiptArea" action="" >
-
-    <div class="col-xs-12">
-
-        <div class="form-group">
-            <label class="col-xs-2 control-label"><span class="requird"></span> 收款金额:</label>
-            <div class="col-xs-8">
-                <input class="form-control validate[required]" data-prompt-position="bottomLeft:20,5"
-                       value="" name="">
-                <span code-data="元" class="unit"></span>
-            </div>
-
-        </div>
-
-    </div>
-    <div class="col-xs-12">
-
-        <div class="form-group">
-            <label class="col-xs-2 control-label"> 备注:</label>
-            <div class="col-xs-8">
-                <textarea name="reason" class="form-control" cols="30" rows="5"></textarea>
-            </div>
-
-        </div>
-    </div>
-    <div class="col-xs-12">
-        <hr class="simple">
-        <div class="col-xs-12 text-center">
-            <button class="btn btn-primary " type="submit" id="submit">
-                确认收款
-            </button>
-        </div>
-    </div>
-    <div class="dwy-clear"></div>
-</form>
 
 <script type="text/javascript">
 
     $(document).ready(function () {
 
         $("#rechargeArea").validationEngine();
-        $("#receiptArea").validationEngine();
 
         //弹出类
         $('#recharge').on({
@@ -93,20 +72,6 @@
             }
         })
 
-        $('#receipt').on({
-            click: function (e) {
-                layer.open({
-                    title: false,
-                    type: 1,
-                    area: '700px',
-                    content: $('#receiptArea'),
-                    cancel: function () {
-                        //右上角关闭回调
-                    },
-
-                });
-            }
-        })
 
 
     })

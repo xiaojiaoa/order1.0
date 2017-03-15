@@ -59,13 +59,15 @@ var OutWarehouseController = {
                 // 编译模板
                 var data = JSON.parse(body);
                 data = {result:data};
-                console.log('listHtml',data)
                 var listHtml = template(data);
                 res.send({
                     listHtml:listHtml
                 });
             } else {
-                Base.handlerError(res, req, error, response, body);
+                res.send({
+                    listHtml:'<tr> <td colspan="5" class="text-align-center">请求数据失败，请重试</td> </tr>'
+                });
+                // Base.handlerError(res, req, error, response, body);
             }
         });
 
@@ -75,7 +77,6 @@ var OutWarehouseController = {
         var totalNum = req.body.totalNum;
         var tids = req.body.list;
         var tyoeof = typeof tids;
-        console.log('tyoeof',tyoeof);
         if(tyoeof == 'string'){
             req.body.list =  [tids];
             req.body.noInNum = totalNum-1
@@ -83,7 +84,7 @@ var OutWarehouseController = {
             var length = tids.length;
             req.body.noInNum = totalNum-length
         }
-        console.log('stringify',JSON.stringify(req.body));
+        // console.log('stringify',JSON.stringify(req.body));
         request(Base.mergeRequestOptions({
             method: 'post',
             url: '/api/whse/cargout/delivery',
@@ -91,10 +92,8 @@ var OutWarehouseController = {
             body:JSON.stringify(req.body),
         }, req, res), function (error, response, body) {
             if (!error && response.statusCode == 201) {
-                console.log(66666666)
                 res.redirect("/deliveryNote");
             } else {
-                console.log(99999999)
                 Base.handlerError(res, req, error, response, body);
             }
         })
@@ -232,47 +231,54 @@ var OutWarehouseController = {
 
     },
     sendPage: function (req, res){
+        var id = req.params.id;
         var type = req.params.type;
-        var paramObject = helper.genPaginationQuery(req);
         Base.multiDataRequest(req, res, [
-                {url: '/api/purchase/reqmaterial/purchase/cargoin?'+queryString.stringify(req.query), method: 'GET', resConfig: {keyName: 'cargoinList', is_must: false}},
+                {url: '/api/whse/cargout/order/mates?tid='+id, method: 'GET', resConfig: {keyName: 'matesList', is_must: false}},
                 {url: '/api/whse/factory/list', method: 'GET', resConfig: {keyName: 'factoryList', is_must: true}},
             ],
             function (req, res, resultList) {
-                var paginationInfo =  resultList.cargoinList;
 
-                var boostrapPaginator = new Pagination.TemplatePaginator(helper.genPageInfo({
-                    prelink: paramObject.withoutPageNo,
-                    current: paginationInfo.page,
-                    rowsPerPage: paginationInfo.pageSize,
-                    totalResult: paginationInfo.totalItems
-                }));
 
                 var returnData = Base.mergeData(helper.mergeObject({
                     title: ' ',
                     type: type,
-                    pagination: boostrapPaginator.render(),
+                    tid: id,
                 }, resultList));
                 res.render('order/shipments/can_send_page', returnData);
             });
 
     },
     doSend: function (req, res) {
-        var id = req.params.id;
+        // var num = req.body.num0;
+        console.log('doEnter',JSON.stringify(req.body))
         request(Base.mergeRequestOptions({
             method: 'post',
             url: '/api/whse/cargout/mates',
-            form: req.body
+            headers:{'Content-type':'application/json'},
+            body:JSON.stringify(req.body),
         }, req, res), function (error, response, body) {
             if (!error && response.statusCode == 201) {
+                // res.redirect('/enterMaterial')
                 res.sendStatus(200);
             } else {
                 Base.handlerError(res, req, error, response, body);
             }
         })
+
+
     },
     canSendDeatil: function (req, res) {
-        res.render('order/shipments/can_send_detail');
+        var id = req.params.id;
+        Base.multiDataRequest(req, res, [
+            {url: '/api/whse/cargout/order/'+ id, method: 'GET', resConfig: {keyName: 'cargoutInfo', is_must: true}},
+        ], function (req, res, resultList) {
+
+            var returnData = Base.mergeData(helper.mergeObject({
+                title: ' ',
+            },resultList));
+            res.render('order/shipments/can_send_detail', returnData);
+        });
 
     },
     outProductPage: function (req, res) {
@@ -349,6 +355,26 @@ var OutWarehouseController = {
             },resultList));
             res.render('order/shipments/out_bred', returnData);
         });
+
+    },
+    outBredUpload: function (req, res) {
+        request(Base.mergeRequestOptions({
+            method: 'post',
+            url: '/api/whse/cargout/plate/file',
+            form:req.body,
+        }, req, res), function (error, response, body) {
+            if (!error && response.statusCode == 200) {
+                var $data = JSON.parse(body);
+                var returnData = Base.mergeData(helper.mergeObject({
+                    title: '',
+                }, {plateList: $data}));
+                res.render('order/shipments/out_bred_doOut', returnData);
+            } else {
+                console.log('handlerError')
+                Base.handlerError(res, req, error, response, body);
+            }
+        })
+
 
     },
     outBredDeatil: function (req, res) {

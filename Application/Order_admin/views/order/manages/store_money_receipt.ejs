@@ -1,0 +1,125 @@
+<%- include('../layouts/head_top'); %>
+<%- include('../layouts/head_bottom'); %>
+<%- include('../layouts/header'); %>
+<%- include('../layouts/nav'); %>
+
+<!-- MAIN PANEL -->
+<div id="main" role="main">
+
+    <!-- RIBBON -->
+    <div id="ribbon">
+
+        <!-- breadcrumb -->
+        <ol class="breadcrumb">
+            <li>后台管理</li>
+            <li><a class="back-url" href="/storesManage/detail/<%= cid %>"><i class="fa fa-chevron-left"></i> 门店信息</a></li>
+            <li>门店资金待审核</li>
+        </ol>
+        <!-- end breadcrumb -->
+
+
+    </div>
+    <!-- END RIBBON -->
+
+
+    <!-- MAIN CONTENT -->
+    <div id="content">
+        <div class="well">
+            <!-- row -->
+            <div class="row">
+                <div class="col-xs-12">
+                    <h6>待审核</h6>
+                    <hr class="simple">
+                </div>
+            </div>
+
+            <!-- row -->
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-striped">
+                            <thead>
+                            <tr>
+                                <th>序号</th>
+                                <th>订单号</th>
+                                <th>金额</th>
+                                <th>门店</th>
+                                <th>增加时间</th>
+                                <th width="200px">操作</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <%
+                            if(DWY_Helper.isCanLoop(moneyList.result)){
+                            moneyList.result.forEach(function (element, index) { %>
+                            <tr>
+                                <td><%= index+1 %></td>
+                                <td><%= element.tid %></td>
+                                <td><%= element.money %></td>
+                                <td><%= element.storeName %></td>
+                                <td><%= DWY_Helper.getLocalDate(element.addTime) %></td>
+                                <td>
+                                    <a class="label label-primary checkThis" data-tid="<%=element.tid %>" data-bid="<%=element.bid %>"  data-type="1">收款</a>
+                                    <a class="label label-danger checkThis" data-tid="<%=element.tid %>" data-bid="<%=element.bid %>" data-type="2">退回</a>
+                                </td>
+                            </tr>
+                            <% })
+                            } %>
+
+                            </tbody>
+                        </table>
+                        <%- pagination %>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <!-- END MAIN CONTENT -->
+
+</div>
+<!-- END MAIN PANEL -->
+
+<%- include('../layouts/footer'); %>
+<%- include('../layouts/footer_common_script'); %>
+
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+        $(".checkThis").click(function () {
+            var tid = $(this).attr('data-tid');
+            var bid = $(this).attr('data-bid');
+            var type = $(this).attr('data-type');
+            var text = type == 1?"确定收款?":"确定退回?";
+
+            layer.confirm(text, {icon: 3, title: '提示'}, function (index) {
+                $.ajax({
+                    url: '/storesManage/receiptCheck/'+tid+'/'+bid+'/'+type,
+                    method: 'put',
+                    success: function (data) {
+                        window.location.reload();
+                    },
+                    error: function (response) {
+                        layer.close(index)
+                        var data = JSON.parse(response.responseText);
+                        $.smallBox({
+                            title: "操作失败",
+                            content: data.msg,
+                            color: "#C46A69",
+                            iconSmall: "fa fa-times fa-2x fadeInRight animated",
+                            timeout: 3000
+                        });
+                    }
+                });
+            }, function (index) { layer.close(index) })
+        })
+
+
+
+
+    })
+
+</script>
+
+<%- include('../layouts/foot'); %>
