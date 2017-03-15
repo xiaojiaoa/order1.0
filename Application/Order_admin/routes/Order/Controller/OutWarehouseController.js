@@ -64,7 +64,10 @@ var OutWarehouseController = {
                     listHtml:listHtml
                 });
             } else {
-                Base.handlerError(res, req, error, response, body);
+                res.send({
+                    listHtml:'<tr> <td colspan="5" class="text-align-center">请求数据失败，请重试</td> </tr>'
+                });
+                // Base.handlerError(res, req, error, response, body);
             }
         });
 
