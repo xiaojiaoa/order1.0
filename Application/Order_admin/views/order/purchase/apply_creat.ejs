@@ -146,17 +146,15 @@
                             </th>
                             <th>物料编号</th>
                             <th>物料名称</th>
-                            <th>分类名称</th>
                             <th>供应商名称</th>
+                            <th>分类名称</th>
                             <th>真实库存</th>
                             <th>预警数量</th>
                             <th>可用库存</th>
                             <th>单价</th>
-
                         </tr>
                         </thead>
                         <tbody>
-
                         <%
                         if(DWY_Helper.isCanLoop(supMaterialList.result)){
                         supMaterialList.result.forEach(function (element, index) { %>
@@ -164,14 +162,14 @@
                             <td>
                                 <label class="checkbox-inline">
                                     <input type="checkbox" class="checkbox"
-                                           name="roles" value="<%= element.id %>">
+                                           name="roles" value="<%= element.id %>" uniqueId="<%= element.uniqueCode %>">
                                     <span><%= index+1 %></span>
                                 </label>
                             </td>
                             <td><a href="/materialManage/detail/<%= element.id %>"><%= element.id %></a></td>
                             <td><%= element.name %></td>
-                            <td><%= element.catName %></td>
                             <td><%= element.suppName %></td>
+                            <td><%= element.catName %></td>
                             <td><%= element.stock %></td>
                             <td><%= element.warning %></td>
                             <td><%= element.usable %></td>
@@ -182,7 +180,6 @@
                         </tr>
                         <input type="hidden" class="" id="checkedValue">
                         </tbody>
-
                       </table>
                 </div>
             </div>
@@ -197,8 +194,6 @@
 <script type="text/javascript">
     $(document).ready(function () {
         pageSetUp();
-
-
 
 
 
@@ -218,7 +213,7 @@
                         + '<tr class="topTr">'
                         + '<td>'
                         + '<label class="checkbox-inline">'
-                        + '<input type="checkbox" class="checkbox" name="roles" value="' + listArr[i].id + '" checked>'
+                        + '<input type="checkbox" class="checkbox" name="roles" value="' + listArr[i].id + '" uniqueId="" checked>'
                         + '<span>' + (i+1) + '</span>'
                         + '</label>'
                         + '</td>'
@@ -232,7 +227,6 @@
                         + '<td>' + listArr[i].price + '</td>'
                         + '</tr>';
                     htmlStr += itemHtml;
-
                     // 判断是否是初始化 是的话保持下面列表状态同步
                     if(isInit){
                         var $ipts = $(".orderItemLayerTable input[name='roles']");
@@ -262,7 +256,8 @@
         $(".orderItemLayerTable input[name='roles']").on("change",function () {
 
             var $tds = $(this).parent().parent().parent().children("td");
-
+            var $unique=$(this).attr("uniqueId");
+            alert()
             // 获取整个条目数据
             var item = {
                 id : $(this).val(),

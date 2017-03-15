@@ -56,7 +56,14 @@
                         </table>
                     </div>
 
-
+                    <div class="row">
+                        <!-- col -->
+                        <div class="col-xs-12">
+                            <legend>
+                                采购清单
+                            </legend>
+                        </div>
+                    </div>
                     <div class="table-responsive">
                         <table class="table table-bordered table-striped table-hover">
                             <thead>
@@ -75,8 +82,7 @@
                             <tr>
                                 <td>
                                     <label class="checkbox-inline">
-                                        <!--<input type="checkbox" class="checkbox" name="roles" value="2">-->
-                                        <span><%= index+1 %>1</span>
+                                        <span><%= index+1 %></span>
                                     </label>
                                 </td>
                                 <td><a href="/purchase/applyDetail/<%= element.reqId %>"><%= element.reqId %></a></td>

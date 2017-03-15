@@ -37,16 +37,14 @@ var InstallserviceController = {
             });
         },
     getTask: function (req, res) {
-        var tid = req.params.tid;
-        var did = req.params.did;
-        req.body.tid=tid;
-        req.body.did=did;
+        var tid = req.body.tid;
+        var did = req.body.did;
         request(Base.mergeRequestOptions({
             method: 'put',
             url: '/api/tasks/install/getTask?'+queryString.stringify(req.body),
         }, req, res), function (error, response, body) {
             if (!error && response.statusCode == 201) {
-                res.sendStatus(200);
+                res.redirect("/installServiceTask");
             } else {
                 Base.handlerError(res, req, error, response, body);
             }
