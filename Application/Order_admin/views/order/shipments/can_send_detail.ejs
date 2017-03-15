@@ -38,41 +38,41 @@
                             <tbody>
                             <tr>
                                 <td width="12%">订单号</td>
-                                <td>23456123</td>
+                                <td><%= cargoutInfo.tid %></td>
                                 <td width="12%">客户姓名</td>
-                                <td>张三</td>
+                                <td><%= cargoutInfo.custName %></td>
                                 <td width="12%">经销商</td>
-                                <td></td>
+                                <td><%= cargoutInfo.stoName %></td>
                             </tr>
                             <tr>
                                 <td>客户电话</td>
-                                <td>板材仓库</td>
+                                <td><%= cargoutInfo.mobile %></td>
                                 <td>流水号</td>
-                                <td><a href="/taskseq/index/123456">123456</a></td>
+                                <td><a href="/taskseq/index/<%= cargoutInfo.lid %>"><%= cargoutInfo.lid %></a></td>
                                 <td>收货地址</td>
-                                <td></td>
+                                <td><%= cargoutInfo.address %></td>
                             </tr>
                             <tr>
                                 <td>状态</td>
-                                <td></td>
+                                <td><%= cargoutInfo.stcode %></td>
                                 <td>预计发货</td>
-                                <td></td>
+                                <td><%= cargoutInfo.deliveryDate %></td>
                                 <td>产品信息</td>
-                                <td></td>
+                                <td><%= cargoutInfo.prodInfo %></td>
                             </tr>
 
                             <tr>
                                 <td>类别</td>
-                                <td></td>
+                                <td><%= cargoutInfo.cateName %></td>
                                 <td>司机姓名</td>
-                                <td></td>
+                                <td><%= cargoutInfo.driverName %></td>
                                 <td>物流车牌号</td>
-                                <td></td>
+                                <td><%= cargoutInfo.licensePlate %></td>
                             </tr>
 
                             <tr>
                                 <td>备注</td>
-                                <td colspan="5"></td>
+                                <td colspan="5"><%= cargoutInfo.remark %></td>
                             </tr>
 
                             </tbody>
@@ -92,7 +92,7 @@
             <div class="row">
                 <div class="col-xs-12">
                     <h6>
-                        发货清单(成品无发货)
+                        发货清单
                         <a class="label label-primary" id="sendThis">发货</a>
                     </h6>
 

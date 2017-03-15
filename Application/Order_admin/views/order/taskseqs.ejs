@@ -110,6 +110,20 @@
                                         </div>
                                     </div>
                                 </div>
+                                <div class="col-xs-4">
+                                    <div class="form-group">
+                                        <label class="col-xs-4 control-label">门店:</label>
+                                        <div class="col-xs-8">
+                                            <select class="form-control" name="bid">
+                                                <option value="">- 请选择 -</option>
+                                                <%
+                                                storesList.forEach(function (element) { %>
+                                                <option value="<%= element.id %>" <%= (DWYRequest.query.bid == element.id)?"selected":"" %>><%= element.storeName %></option>
+                                                <%  }) %>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
 
                             </div>
 

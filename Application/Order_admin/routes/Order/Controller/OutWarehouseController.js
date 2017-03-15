@@ -231,47 +231,54 @@ var OutWarehouseController = {
 
     },
     sendPage: function (req, res){
+        var id = req.params.id;
         var type = req.params.type;
-        var paramObject = helper.genPaginationQuery(req);
         Base.multiDataRequest(req, res, [
-                {url: '/api/purchase/reqmaterial/purchase/cargoin?'+queryString.stringify(req.query), method: 'GET', resConfig: {keyName: 'cargoinList', is_must: false}},
+                {url: '/api/whse/cargout/order/mates?tid='+id, method: 'GET', resConfig: {keyName: 'matesList', is_must: false}},
                 {url: '/api/whse/factory/list', method: 'GET', resConfig: {keyName: 'factoryList', is_must: true}},
             ],
             function (req, res, resultList) {
-                var paginationInfo =  resultList.cargoinList;
 
-                var boostrapPaginator = new Pagination.TemplatePaginator(helper.genPageInfo({
-                    prelink: paramObject.withoutPageNo,
-                    current: paginationInfo.page,
-                    rowsPerPage: paginationInfo.pageSize,
-                    totalResult: paginationInfo.totalItems
-                }));
 
                 var returnData = Base.mergeData(helper.mergeObject({
                     title: ' ',
                     type: type,
-                    pagination: boostrapPaginator.render(),
+                    tid: id,
                 }, resultList));
                 res.render('order/shipments/can_send_page', returnData);
             });
 
     },
     doSend: function (req, res) {
-        var id = req.params.id;
+        // var num = req.body.num0;
+        console.log('doEnter',JSON.stringify(req.body))
         request(Base.mergeRequestOptions({
             method: 'post',
             url: '/api/whse/cargout/mates',
-            form: req.body
+            headers:{'Content-type':'application/json'},
+            body:JSON.stringify(req.body),
         }, req, res), function (error, response, body) {
             if (!error && response.statusCode == 201) {
+                // res.redirect('/enterMaterial')
                 res.sendStatus(200);
             } else {
                 Base.handlerError(res, req, error, response, body);
             }
         })
+
+
     },
     canSendDeatil: function (req, res) {
-        res.render('order/shipments/can_send_detail');
+        var id = req.params.id;
+        Base.multiDataRequest(req, res, [
+            {url: '/api/whse/cargout/order/'+ id, method: 'GET', resConfig: {keyName: 'cargoutInfo', is_must: true}},
+        ], function (req, res, resultList) {
+
+            var returnData = Base.mergeData(helper.mergeObject({
+                title: ' ',
+            },resultList));
+            res.render('order/shipments/can_send_detail', returnData);
+        });
 
     },
     outProductPage: function (req, res) {
