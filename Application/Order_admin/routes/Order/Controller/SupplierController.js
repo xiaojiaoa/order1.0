@@ -43,6 +43,7 @@ var SupplierController = {
     //供应商详情
     supplierDetailPage: function (req, res) {
         var tid = req.params.tid;
+        var bid = req.query.bid? req.query.bid: req.session.user.bid;
         Base.multiDataRequest(req, res, [
                 {url: '/api/suppliers/'+tid, method: 'GET', resConfig: {keyName: 'suppliersDetail', is_must: true}},
             ],
@@ -51,6 +52,7 @@ var SupplierController = {
                     title: ' ',
                     tid:tid,
                     Permission :Permissions,
+                    bid:bid,
                 }, resultList));
                 res.render('order/supplier/detail', returnData);
             });

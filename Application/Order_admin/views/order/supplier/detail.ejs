@@ -107,7 +107,7 @@
                             suppliersDetail.materialsList.forEach(function(element,index){%>
                             <tr>
                                 <td><%= index+1 %></td>
-                                <td><a href="/materialManage/detail/<%= element.id %>"><%= element.id %></a></td>
+                                <td><a href="/materialManage/detail/<%= bid %>/<%= element.id %>"><%= element.id %></a></td>
                                 <td><%= element.catName %></td>
                                 <td><%= element.name %></td>
                                 <td><%= DWY_Helper.getLocalDateYMD(element.expiryDate) %></td>

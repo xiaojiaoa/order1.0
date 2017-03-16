@@ -1026,7 +1026,7 @@ router.get('/purchase', Middleware.AuthCheck,PurchaseController.purchasePage);
 // 新建请购单页面
 router.get('/purchase/applyCreat', Middleware.AuthCheck,Middleware.FilterEmptyField,PurchaseController.purchaseApplyCreatPage);
 //新建请购单 选择物料信息列表
-router.post('/purchase/applyOrderMaterial/:tid', Middleware.AuthCheck,PurchaseController.purchaseApplyMaterialCreat);
+router.get('/purchase/applyOrderMaterial', Middleware.AuthCheck,PurchaseController.purchaseApplyMaterialCreat);
 //新建请购单 物料信息修改
 router.get('/purchase/apply_createMaterial/:tid', Middleware.AuthCheck,PurchaseController.applyMaterialCreatePage);
 //新建请购单 添加物料数量+预计交期
