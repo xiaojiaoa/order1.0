@@ -148,13 +148,13 @@
                                 <td><%= element.name %></td>
                                 <td><a href="/taskseq/index/<%= element.lid %>"><%= element.lid %></a></td>
                                 <td><a href="/canSend/deatil/<%= element.tid %>"><%= element.tid %></a></td>
-                                <td><%= element.brandId %></td>
+                                <td><%= element.brandName %></td>
                                 <td><%= element.prodName %></td>
                                 <td><%= element.spaceName %></td>
                                 <td><%= element.prodInfo %></td>
                                 <td><%= element.gid %></td>
                                 <td><%= DWY_Helper.getLocalDateYMD(element.deliveryDate) %></td>
-                                <td><%= element.stcode %></td>
+                                <td><%= element.stcodeName %></td>
                                 <td><a href="/cargospace/cargospace/detail/<%= element.cargoSpaceId %>"><%= element.cargoSpaceId %></a></td>
                                 <td><a class="label label-primary" href="/<%= type %>/canSend/sendPage/<%= element.tid %>" >发货</a></td>
                             </tr>
