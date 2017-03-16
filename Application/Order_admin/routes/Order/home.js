@@ -952,6 +952,12 @@ router.post('/supplier/createMaterialSupplier/:tid/:bid/:date', Middleware.AuthC
 //供应商可供物料
 router.get('/supplier/offer_product/:tid', Middleware.AuthCheck,SupplierController.supplierOfferProductPage);
 
+//修改供应商物料关联有效期
+router.post('/supplier/updateDate', Middleware.AuthCheck,SupplierController.updateDate);
+
+//删除供应商物料关联
+router.post('/supplier/deleteRelate/:sid/:mid', Middleware.AuthCheck,SupplierController.deleteRelate);
+
 //供应商禁用+启用
 router.post('/supplier/supDoDelete/:tid/:type', Middleware.AuthCheck, SupplierController.supplierdoDelete);
 

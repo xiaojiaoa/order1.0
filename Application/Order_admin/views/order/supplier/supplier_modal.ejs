@@ -1,4 +1,4 @@
-//新建供应商分类
+<!--新建供应商分类-->
 <form class="form-horizontal  layer-template" method="post" action="/supplier/doCreat" id="create-supplier">
         <div class="col-xs-12">
             <div class="col-xs-8">
@@ -146,6 +146,8 @@
         <a class="btn btn-primary" id="btnCreateDate">确认</a>
     </div>
 </form>
+
+
 <script type="text/javascript">
 
     $(document).ready(function () {
@@ -153,6 +155,7 @@
         $("#create-supplier").validationEngine({scroll: false});
         $("#modify-supplier").validationEngine({scroll: false});
         $("#create-offer-pro").validationEngine({scroll: false});
+        $("#updateDate").validationEngine({scroll: false});
         //新建一级分类
         $("#supplierParentCreat").on({
             click: function (e) {
