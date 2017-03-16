@@ -146,24 +146,6 @@
         <a class="btn btn-primary" id="btnCreateDate">确认</a>
     </div>
 </form>
-<!--修改供应商物料关联日期-->
-<form id="updateDate" class="col-xs-12 layer-template" action="/supplier/updateDate">
-    <div class="col-xs-12 margin-top-10"></div>
-    <div class="col-xs-12 margin-top-10"></div>
-    <div class="col-xs-12">
-        <div class="col-xs-3 margin-top-10">
-            <label>截止日期</label>
-        </div>
-        <div class="col-xs-8">
-            <input class='form-control fg-date-picker' type='text' value='' name='expiryDate'>
-        </div>
-        <input type="hidden" name="suppId" value="<%= tid %>">
-        <input type="hidden" name="mateId" value="">
-    </div>
-    <div class="col-xs-12 text-center margin-top-10">
-        <button type="submit" class="btn btn-primary">确认</button>
-    </div>
-</form>
 
 
 <script type="text/javascript">
@@ -174,7 +156,6 @@
         $("#modify-supplier").validationEngine({scroll: false});
         $("#create-offer-pro").validationEngine({scroll: false});
         $("#updateDate").validationEngine({scroll: false});
-//        $("input[name='mateId']").val(mid);
         //新建一级分类
         $("#supplierParentCreat").on({
             click: function (e) {
