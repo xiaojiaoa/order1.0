@@ -312,7 +312,7 @@ router.get('/orders/package', Middleware.AuthCheck,Middleware.FilterEmptyField,O
 router.get('/orders/package/:tid', Middleware.AuthCheck,OrderController.packedListPage);
 
 //撤销包装
-router.put('/orders/package/unpacket/:tid', Middleware.AuthCheck,OrderController.unpacket);
+router.put('/orders/package/unpacket/:tid', Middleware.AuthCheck,OrderController.unPacket);
 
 //生成包装操作
 router.put('/orders/package/packet/:tid',Middleware.AuthCheck,OrderController.doPacket);
@@ -322,6 +322,12 @@ router.post('/orders/package/packet/move',Middleware.AuthCheck,OrderController.m
 
 //删除包装
 router.put('/orders/package/packet/delete/:pid/:type',Middleware.AuthCheck,OrderController.deletePacket);
+
+//导出包装清单
+router.get('/orders/package/export/:tid',Middleware.AuthCheck,OrderController.exportPacket);
+
+//增加包装
+router.post('/orders/package/packet/add',Middleware.AuthCheck,OrderController.addPacket);
 
 
 //订单详情--订单物料--非标件

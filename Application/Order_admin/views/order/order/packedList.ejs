@@ -31,11 +31,12 @@
                 <div class="col-xs-12">
                     <h6>订单包装详情
                         <% if( DWY_Helper.hasPermission(Permission.orderPackage.cancelPackage.id, permission) ){%>
-                        <a class="label label-primary margin-left-10 undoPackingBtn" onclick="">撤销包装</a>
+                        <a class="label label-primary margin-left-10 undoPackingBtn" >撤销包装</a>
                         <%}%>
                         <% if(DWY_Helper.hasPermission(Permission.orderPackage.packageList.id, permission) ){%>
-                        <a class="label label-primary margin-left-10  packedListBtn" onclick="">包装清单</a>
+                        <a class="label label-primary margin-left-10  packedListBtn" href="/orders/package/export/<%= tid %>">导出包装清单</a>
                         <%}%>
+                        <a class="label label-primary margin-left-10  addPackedBtn">增包</a>
                     </h6>
                     <hr class="simple">
                 </div>
@@ -66,7 +67,7 @@
                                     if( packedListDetail.length!=0){
                                     packedListDetail.orderPackages.forEach(function (element, index) { %>
                                     <tr class="<%= ( pid == element.packageLid )? 'color01':'' %>">
-                                        <td> <%= index+1 %></td>
+                                        <td> <%= element.pacakgeNo %></td>
                                         <td><%= element.packageName %></td>
                                         <td><%= element.packageTypeStr %></td>
                                         <td><%= element.pacakgeCategoryStr %></td>
@@ -75,9 +76,9 @@
                                         <td><%= element.weightStr %></td>
                                         <td>
                                             <% if(DWY_Helper.hasPermission(Permission.orderPackage.deletePackage.id, permission) ){%>
-                                            <a class="label label-primary deletePacket"
+                                            <a class="label label-primary deletePacket display-none"
                                                packageLid="<%= element.packageLid %>"
-                                               packageType="<%= element.packageType %>">删包</a>
+                                               packageType="<%= element.packageType %>">删除空包</a>
                                             <%}%>
                                         </td>
                                         <td class="display-none">
@@ -100,7 +101,14 @@
                                 <% if(packedListDetail.packageType==1002){%>
                                 <table class="table table-bordered table-striped packedListDetail-artifacts">
                                     <thead>
-                                    <tr><td>包装工件</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+                                    <tr>
+                                        <td>包装工件</td>
+                                        <td><a href="javascript:void(0)" class="display-none saveValue"
+                                               packageType="<%= packedListDetail.packageType%>"
+                                               packageLid="<%= (pid)?pid:170315000000000035;%>"
+                                            ></a></td>
+                                        <td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+                                    </tr>
                                     <tr>
                                         <th></th>
                                         <th>层数</th>
@@ -113,7 +121,7 @@
                                         <th>移包操作</th>
                                     </tr>
                                     </thead>
-                                    <tbody class="">
+                                    <tbody>
                                     <%if( packedListDetail.orderPackageDetails.length!=0){
                                     packedListDetail.orderPackageDetails.forEach(function (element, index) { %>
                                     <tr>
@@ -126,7 +134,12 @@
                                         <td><%= element.weigth %></td>
                                         <td></td>
                                         <td>
-                                            <select class="form-control" name="destinationPackageLid" class="destinationPackageLid" thingId="<%= element.id %>" packageType="<%= packedListDetail.packageType %>" sourcePackageLid="<%= pid%>">
+                                            <select class="form-control"
+                                                    name="destinationPackageLid"
+                                                    class="destinationPackageLid"
+                                                    thingId="<%= element.id %>"
+                                                    packageType="<%= packedListDetail.packageType %>"
+                                                    sourcePackageLid="<%= element.packageLid%>">
                                                 <option value="">- 请选择 -</option>
                                                 <% packedListDetail.selectlist.forEach(function(element,index){%>
                                                 <option value="<%= element.packageLid%>"> <%= element.name%></option>
@@ -144,7 +157,14 @@
                                 <%} else{%>
                                 <table class="table table-bordered table-striped packedListDetail-accessories">
                                     <thead>
-                                    <tr><td>包装配件</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+                                    <tr>
+                                        <td>包装配件</td>
+                                        <td><a href="javascript:void(0)" class="display-none saveValue"
+                                               packageType="<%= packedListDetail.packageType%>"
+                                               packageLid="<%= (pid)?pid:170315000000000035;%>"
+                                            ></a></td>
+                                        <td></td><td></td><td></td><td></td><td></td><td></td>
+                                    </tr>
                                     <tr>
                                         <th></th>
                                         <th>编号</th>
@@ -158,7 +178,7 @@
                                     </thead>
                                     <tbody class="">
                                     <%
-                                    if( packedListDetail.length!=0){
+                                    if(packedListDetail.orderPackageDetails.length!=0){
                                     packedListDetail.orderPackageDetails.forEach(function (element, index) { %>
                                     <tr>
                                         <td></td>
@@ -169,10 +189,12 @@
                                         <td><%= element.unitStr %></td>
                                         <td></td>
                                         <td>
-                                            <select class="form-control" name="destinationPackageLid" class="destinationPackageLid"
+                                            <select class="form-control"
+                                                    name="destinationPackageLid"
+                                                    class="destinationPackageLid"
                                                     thingId="<%= element.id %>"
                                                     packageType="<%= packedListDetail.packageType %>"
-                                                    sourcePackageLid="<%= element.packageLid %>">
+                                                    sourcePackageLid="<%= element.packageLid%>">
                                                 <option value="">- 请选择 -</option>
                                                 <% packedListDetail.selectlist.forEach(function(element,index){%>
                                                 <option value="<%= element.packageLid%>"> <%= element.name%></option>
@@ -207,33 +229,85 @@
 
 </div>
 <!-- END MAIN PANEL -->
-<!--生成包装清单-->
-<div id="layer-form-package-confirm" style="display:none">
-    <div class="row" >
-        <div class="col-xs-12">
-            <div class="table-responsive">
-                <table class="table table-bordered table-striped text-center">
+<%- include('../layouts/footer'); %>
+<%- include('../layouts/footer_common_script'); %>
+<!--增加包装-->
+<form class="form-horizontal  layer-template layui-layer-wrap" method="post" id="addPacked-form" action="/orders/package/packet/add">
 
-                    <tbody>
-                    <tr><td><a href="#">工件包装清单(Y)</a></td></tr>
-                    <tr><td><a href="#">工件包装清单(X)</a></td></tr>
-                    <tr><td><a href="#">工件包装清单(W)</a></td></tr>
-                    </tbody>
-                </table>
+    <div class="row" style="padding: 30px 40px 0 0;">
+
+        <div class="col-xs-12">
+            <div class="col-xs-6">
+                <div class="form-group">
+                    <label class="col-xs-4 control-label"><span class="requird"></span>包装类型:</label>
+                    <div class="col-xs-8">
+                        <select class="form-control validate[required]" name="packageType">
+                            <option value="">- 请选择 -</option>
+
+                            <option value="1001">配件</option>
+
+                            <option value="1002">工件</option>
+
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-6">
+                <div class="form-group">
+                    <label class="col-xs-4 control-label"><span class="requird"></span>包装名称:</label>
+                    <div class="col-xs-8">
+                        <div class="input-group">
+                            <span class="input-group-addon packagePreName"></span>
+                            <input
+                                    class="form-control validate[required,custom[onlyNumberSp],maxSize[3],minSize[3]]"
+                                    placeholder="请输入三位编码"
+                                    value=""
+                                    name="packageName01"
+                                    type="">
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-6">
+                <div class="form-group">
+                    <label class="col-xs-4 control-label"><span class="requird"></span>包装序号:</label>
+                    <div class="col-xs-8">
+                            <input
+                                    class="form-control validate[required,custom[onlyNumberSp],maxSize[2]]"
+                                    placeholder="请输入二位编码"
+                                    value=""
+                                    name="packageNo"
+                                    type="">
+
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+
+
+    <div class="row">
+        <div class="col-xs-12">
+            <hr class="simple">
+            <div class="col-xs-12 text-center">
+
+                <input type="hidden" name="tid" value="<%= tid%>"/>
+                <input type="hidden" name="pid" value="<%= pid%>"/>
+                <input type="hidden" name="packageName" value=""/>
+
+                <button class="btn btn-primary  margin-right-5" type="submit">
+                    <i class="fa fa-save"></i>
+                    提交
+                </button>
             </div>
         </div>
     </div>
-    <div class="col-xs-12">
-        <hr class="simple">
-        <div class="col-xs-12 text-center">
-            <a class="btn btn-primary" href="#">打印</a>
-            <a class="btn btn-primary" href="#">预览</a>
-        </div>
-    </div>
-</div>
-<!--END 生成包装清单-->
-<%- include('../layouts/footer'); %>
-<%- include('../layouts/footer_common_script'); %>
+    <div class="dwy-clear"></div>
+</form>
+<!--END 增加包装-->
 <script type="text/javascript">
 
     $(document).ready(function () {
@@ -257,6 +331,40 @@
             $(".packedList > tbody > tr").eq(0).addClass("color01");
         }
 
+        //表单初始验证
+        $("#addPacked-form").validationEngine();
+
+      //根据包装类型设置包装名称的前缀
+        $("select[name=packageType]").on('change',function(e){
+            if($(this).val()==1001){
+                $(".packagePreName").text("A");
+            }else if($(this).val()==1002){
+                $(".packagePreName").text("W");
+            }
+            else{
+                $(".packagePreName").text("");
+            }
+        })
+
+        //合并包装名称
+        $("input[name=packageName01]").on('change',function(e){
+           $("input[name=packageName]").val($(".packagePreName").text()+$(this).val());
+        })
+
+        //增加包装
+        $(".addPackedBtn").on({
+            click: function () {
+                layer.open({
+                    title:"",
+                    type: 1,
+                    area: '800px',
+                    content: $('#addPacked-form'),
+                    cancel: function () {
+                        //右上角关闭回调
+                    },
+                });
+            }
+        })
 
         //撤销包装按钮
         $(document).on("click",".undoPackingBtn",function(){
@@ -283,11 +391,6 @@
                     });
                 },
                 function(index){layer.close(index)})
-        });
-
-        //包装清单按钮
-        $(document).on("click",".packedListBtn",function(){
-            layer.open({title:'包装清单',type:1,area:['400px','250px'],content:$('#layer-form-package-confirm')});
         });
 
         //移包操作
@@ -332,10 +435,38 @@
                 },
                 function(index){layer.close(index)})
         });
+
+        //移包操作--目的包不显示
+        $("select[name=destinationPackageLid] option").each(function(){
+            if($(this).val()==$("select[name=destinationPackageLid]").attr("sourcePackageLid")){
+                $(this).addClass("display-none");
+            }
+        })
+
+        //跳出--删除空包按钮
+        var packageType=$(".saveValue").attr("packageType");
+        var sourcePackageLid=$(".saveValue").attr("packageLid");
+         if($("select[name=destinationPackageLid]").length==0){
+             console.log("type"+packageType);
+             console.log("plid"+sourcePackageLid);
+             $(".deletePacket").each(function(){
+                 if($(this).attr("packageType")==packageType && $(this).attr("packageLid")==sourcePackageLid) {
+                     console.log("sucess");
+                     console.log($(this).attr("packageType"));
+                     console.log($(this).attr("packageLid"));
+                     console.log($(this).attr("class"))
+                     $(this).removeClass("display-none");
+                 }
+             });
+             };
+
+
         //删包操作
         $(".deletePacket").on("click",function(e){
-                var pid=$(this).attr("packagelid");
-                var type=$(this).attr("packagetype");
+                var pid=$(this).attr("packageLid");
+                var type=$(this).attr("packageType");
+                console.log("删包pid:"+pid);
+                console.log("删包type:"+type);
             layer.confirm('确定删除该包装吗？',{icon: 3, title:'提示'},
                 function(index){
                     $.ajax({
@@ -364,6 +495,7 @@
                 },
                 function(index){layer.close(index)})
         })
+
     })
 </script>
 

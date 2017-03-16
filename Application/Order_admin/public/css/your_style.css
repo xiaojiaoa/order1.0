@@ -507,7 +507,7 @@ tr > td > .separation:last-child {
     cursor: pointer;
 }
 .color01{
-    background-color:#6fccfd!important;
+    background-color:#ecf3f8!important;
 }
 .display-none{
     display: none;
@@ -590,4 +590,7 @@ tr > td > .separation:last-child {
 }
 .table-tr01 td:nth-of-type(even){
     width:308px;
+}
+.display-block{
+    display:block!important;
 }
