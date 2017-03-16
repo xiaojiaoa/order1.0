@@ -202,9 +202,10 @@
                                 <th>流水号</th>
                                 <th>订单号</th>
                                 <th>品牌</th>
+                                <th>产品信息</th>
                                 <th>产品类型</th>
                                 <th>空间类型</th>
-                                <th>订单当前所属柜员（门店名/柜员姓名）</th>
+                                <th>下单柜员</th>
                                 <th>预计发货</th>
                                 <th>订单状态</th>
                                 <th width="150px">货位号</th>
@@ -223,7 +224,8 @@
                                 <td><a href="/taskseq/index/<%= element.lid %>"><%= element.lid %></a></td>
                                 <td><a href="/order/detail/<%= element.tid %>"><%= element.tid %></a></td>
                                 <td><%= DWY_Helper.getAssistVal(element.brandId,brandInfo) %></td>
-                                <td><%= DWY_Helper.getAssistVal(element.prodType,prodInfo) %></td>
+                                <td><%= element.prodInfo %></td>
+                                <td><%= element.prodName %></td>
                                 <td><%= element.parentSpaceinfoName %>/<%= element.spaceName %></td>
                                 <td><%= element.bname %>/<%= element.gname %></td>
                                 <td><%= DWY_Helper.getLocalDate(element.deliveryDate) %></td>

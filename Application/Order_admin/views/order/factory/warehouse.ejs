@@ -12,7 +12,7 @@
         <!-- breadcrumb -->
         <ol class="breadcrumb">
             <li>后台管理</li>
-            <li><a href="/factory">工厂列表</a></li>
+            <li><a class="back-url" href="/factory"><i class="fa fa-chevron-left"></i> 工厂列表</a></li>
             <li>仓库列表</li>
         </ol>
         <!-- end breadcrumb -->
@@ -33,10 +33,24 @@
                     <!--<legend>订单搜索</legend>-->
                     <!-- row -->
                     <div class="row search-form">
-                        <form class="form-horizontal" method="get">
+                        <form class="form-horizontal" method="get" id="searchArea">
 
                             <div class="col-xs-12">
-
+                                <div class="col-xs-3">
+                                    <div class="form-group">
+                                        <label class="col-xs-4 control-label"><span class="requird"></span> 工厂:</label>
+                                        <div class="col-xs-8">
+                                            <select class="form-control validate[required]" name="ftyId" id="ftyId">
+                                                <option value="">- 请选择 -</option>
+                                                <% factoryList.forEach(function (element) { %>
+                                                <option value="<%= element.ftyId %>" <%= ftyId == element.ftyId?'selected':'' %> >
+                                                    <%= element.name %>
+                                                </option>
+                                                <% }) %>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
                                 <!--输入字段-->
                                 <div class="col-xs-3">
                                     <div class="form-group">
@@ -123,9 +137,9 @@
                             <tr>
                                 <th>序号</th>
                                 <th>仓库编号</th>
-                                <th>所属工厂</th>
                                 <th>仓库名称</th>
                                 <th>仓库类型</th>
+                                <th>所属工厂</th>
                                 <th>新建时间</th>
                                 <th>备注</th>
                                 <th width="350">操作</th>
@@ -139,15 +153,15 @@
                             <tr class="<%= element.stcode == 1 ? '' : 'disabletr' %>">
                                 <td><%= index+1 %></td>
                                 <td><%= element.whseId %></td>
-                                <td><a href="/factory/detail/<%= element.ftyId %>"><%= element.ftyName %></a></td>
                                 <td><%= element.name %></td>
                                 <td><%= DWY_Helper.getAssistVal(element.type, warehouseTypes) %></td>
+                                <td><a href="/factory/detail/<%= element.ftyId %>"><%= element.ftyName %></a></td>
                                 <td><%= DWY_Helper.getLocalDateYMD(element.addTime) %></td>
                                 <td><%= element.remark %></td>
                                 <td>
                                     <% if(element.stcode == 1){ %>
                                     <a href="/region/create/<%= element.ftyId %>/<%= element.whseId %>" class="label label-primary">新建仓库区域</a>
-                                    <a href="/region/<%= element.ftyId %>/<%= element.whseId %>" class="label label-primary">查看所有区域</a>
+                                    <a href="/region?ftyId=<%= element.ftyId %>&whseId=<%= element.whseId %>" class="label label-primary">查看所有区域</a>
                                     <a href="/warehouse/modify/<%= element.whseId %>" class="label label-primary">修改</a>
                                     <a class="todoClose label label-danger" data-id="<%= element.whseId %>">禁用</a>
                                     <%  }else{ %>
@@ -185,7 +199,7 @@
 
     $(document).ready(function () {
 
-
+        $("#searchArea").validationEngine();
         pageSetUp();
 
 

@@ -101,9 +101,6 @@
                         </div>
                     </div>
                     <div class="orderItemLayerTable">
-                        <%
-                        if(DWY_Helper.isCanLoop(purchaseRequestDetail.reqMaters)){
-                        purchaseRequestDetail.reqMaters.forEach(function (element, index) { %>
                         <table class="table table-bordered table-striped table-hover" id="purchaseTable">
                             <thead>
                             <tr>
@@ -119,6 +116,9 @@
                             </tr>
                             </thead>
                             <tbody>
+                            <%
+                            if(DWY_Helper.isCanLoop(purchaseRequestDetail.reqMaters)){
+                            purchaseRequestDetail.reqMaters.forEach(function (element, index) { %>
                             <tr>
                                 <td><%= element.mateId %></td>
                                 <td><%= element.mateName %></td>
@@ -129,13 +129,13 @@
                                 <td><%= DWY_Helper.getLocalDate(element.deliveryDate) %></td>
                                 <td><%= element.orderId %></td>
                                 <td><%= element.suppName %></td>
-                                <input type="hidden" value="<%= purchaseRequestDetail.id %>" id="purchaseId">
                             </tr>
+                            <%
+                            }
+                            )}%>
                             </tbody>
                         </table>
-                        <%
-                        }
-                        )}%>
+
                     </div>
                 </div>
             </div>

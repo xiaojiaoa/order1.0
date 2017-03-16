@@ -100,7 +100,34 @@ var AppServiceController = {
             }
         })
     },
-
+    getWhse: function (req, res) {
+        var ftyId = req.params.ftyId;
+        request(Base.mergeRequestOptions({
+            method: 'get',
+            url: '/api/whse/app/'+ftyId,
+        }, req, res), function (error, response, body) {
+            if (!error && response.statusCode == 200) {
+                if(body){
+                    var $data = JSON.parse(body);
+                    res.send($data);
+                }
+            }
+        })
+    },
+    isFull: function (req, res) {
+        request(Base.mergeRequestOptions({
+            method: 'post',
+            url: '/api/whse/app/usable',
+            form: req.body
+        }, req, res), function (error, response, body) {
+            if (!error && response.statusCode == 201) {
+                // res.redirect('/enterMaterial')
+                res.sendStatus(200);
+            } else {
+                Base.handlerError(res, req, error, response, body);
+            }
+        })
+    },
 };
 module.exports = AppServiceController;
 

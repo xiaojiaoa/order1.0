@@ -184,7 +184,6 @@ router.get('/customers', Middleware.AuthCheck, Middleware.FilterEmptyField, Cust
 
 // 获取客户详情页面
 router.get('/customer/detail/:cid', Middleware.AuthCheck, CustomerController.detailPage);
-// router.get('/customer/detail/:cid', Middleware.AuthCheck, CustomerController.detailPage);
 
 /*
  * 页面范围: 订单相关
@@ -680,7 +679,7 @@ router.put('/factory/doOpen/:ftyId', Middleware.AuthCheck, FactoryController.doO
 
 
 // 获取仓库列表
-router.get('/warehouse/:ftyId', Middleware.AuthCheck, Middleware.FilterEmptyField, FactoryController.listWarehousePage);
+router.get('/warehouse', Middleware.AuthCheck, Middleware.FilterEmptyField, FactoryController.listWarehousePage);
 
 // 新增仓库页面
 router.get('/warehouse/create/:ftyId', Middleware.AuthCheck, FactoryController.createWarehousePage);
@@ -704,7 +703,7 @@ router.put('/warehouse/doOpen/:whseId', Middleware.AuthCheck, FactoryController.
 
 
 // 获取仓库区域列表
-router.get('/region/:ftyId/:whseId', Middleware.AuthCheck, Middleware.FilterEmptyField, FactoryController.listRegionPage);
+router.get('/region', Middleware.AuthCheck, Middleware.FilterEmptyField, FactoryController.listRegionPage);
 
 // 新增仓库区域页面
 router.get('/region/create/:ftyId/:whseId', Middleware.AuthCheck, FactoryController.createRegionPage);
@@ -1032,7 +1031,7 @@ router.get('/purchase', Middleware.AuthCheck,PurchaseController.purchasePage);
 // 新建请购单页面
 router.get('/purchase/applyCreat', Middleware.AuthCheck,Middleware.FilterEmptyField,PurchaseController.purchaseApplyCreatPage);
 //新建请购单 选择物料信息列表
-router.post('/purchase/applyOrderMaterial/:tid', Middleware.AuthCheck,PurchaseController.purchaseApplyMaterialCreat);
+router.get('/purchase/applyOrderMaterial', Middleware.AuthCheck,PurchaseController.purchaseApplyMaterialCreat);
 //新建请购单 物料信息修改
 router.get('/purchase/apply_createMaterial/:tid', Middleware.AuthCheck,PurchaseController.applyMaterialCreatePage);
 //新建请购单 添加物料数量+预计交期
@@ -1110,7 +1109,7 @@ var InstallserviceController = require('./Controller/InstallserviceController');
 // 待安装列表
 router.get('/installService', Middleware.AuthCheck,InstallserviceController.installServicePage);
 //指定安装组
-router.post('/installServiceTask/:tid/:did', Middleware.AuthCheck,InstallserviceController.getTask);
+router.post('/installServiceTask', Middleware.AuthCheck,InstallserviceController.getTask);
 
 //登记已收货
 router.post('/registerDeliver/:tid', Middleware.AuthCheck,InstallserviceController.registerDeliver);
@@ -1140,5 +1139,11 @@ router.post('/app/doCargoin', MobileMiddleware.AuthCheck,AppServiceController.do
 
 //入库-出库接口
 router.post('/app/doCargoout', MobileMiddleware.AuthCheck,AppServiceController.doCargoout);
+
+//某工厂下的仓储区域
+router.get('/app/getWhse/:ftyId', MobileMiddleware.AuthCheck,AppServiceController.getWhse);
+
+//仓库是否已满
+router.post('/app/isFull', MobileMiddleware.AuthCheck,AppServiceController.isFull);
 
 module.exports = router;

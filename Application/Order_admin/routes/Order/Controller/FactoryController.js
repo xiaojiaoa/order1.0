@@ -149,12 +149,13 @@ console.log('555',JSON.stringify(req.body))
     },
 
     listWarehousePage: function (req, res) {
-        var ftyId = req.params.ftyId;
+        var ftyId = req.query.ftyId;
 // console.log('warehouse','/api/whse/warehouse?ftyId='+ftyId+'&'+ queryString.stringify(req.query))
         var paramObject = helper.genPaginationQuery(req);
         Base.multiDataRequest(req, res, [
             {url: '/api/whse/warehouse?ftyId='+ftyId+'&'+ queryString.stringify(req.query), method: 'GET', resConfig: {keyName: 'warehouseList', is_must: true}},
             {url: '/api/assist/warehouse/types', method: 'GET', resConfig: {keyName: 'warehouseTypes', is_must: true}},
+            {url: '/api/whse/factory/list', method: 'GET', resConfig: {keyName: 'factoryList', is_must: true}},
         ], function (req, res, resultList) {
 
             var paginationInfo = resultList.warehouseList;
@@ -198,7 +199,7 @@ console.log('555',JSON.stringify(req.body))
             form:req.body,
         }, req, res), function (error, response, body) {
             if (!error && response.statusCode == 201) {
-                res.redirect("/warehouse/"+ftyId);
+                res.redirect("/warehouse?ftyId="+ftyId);
             } else {
                 Base.handlerError(res, req, error, response, body);
             }
@@ -226,7 +227,7 @@ console.log('555',JSON.stringify(req.body))
             url: '/api/whse/warehouse/update?'+queryString.stringify(req.body),
         }, req, res), function (error, response, body) {
             if (!error && response.statusCode == 201) {
-                res.redirect("/warehouse/"+ftyId);
+                res.redirect("/warehouse?ftyId="+ftyId);
 
             } else {
                 Base.handlerError(res, req, error, response, body);
@@ -265,12 +266,14 @@ console.log('555',JSON.stringify(req.body))
     },
 
     listRegionPage: function (req, res) {
-        var ftyId = req.params.ftyId;
-        var whseId = req.params.whseId;
+        var ftyId = req.query.ftyId;
+        var whseId = req.query.whseId;
         var paramObject = helper.genPaginationQuery(req);
         Base.multiDataRequest(req, res, [
             {url: '/api/whse/region?whseId='+whseId+'&'+ queryString.stringify(req.query), method: 'GET', resConfig: {keyName: 'regionList', is_must: true}},
             {url: '/api/assist/warehouse/types', method: 'GET', resConfig: {keyName: 'warehouseTypes', is_must: true}},
+            {url: '/api/whse/factory/list', method: 'GET', resConfig: {keyName: 'factoryList', is_must: true}},
+            {url: '/api/whse/warehouse/list/'+ftyId, method: 'GET', resConfig: {keyName: 'warehouseList', is_must: true}},
         ], function (req, res, resultList) {
 
             var paginationInfo = resultList.regionList;

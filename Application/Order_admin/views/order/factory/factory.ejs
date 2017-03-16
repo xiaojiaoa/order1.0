@@ -72,7 +72,6 @@
                                         </div>
                                     </div>
                                 </div>
-
                             </div>
 
                             <div class="col-xs-12">
@@ -121,6 +120,7 @@
                                 <th>工厂编号</th>
                                 <th>工厂名称</th>
                                 <th>工厂类型</th>
+                                <th>所属机构</th>
                                 <th>所在省市区</th>
                                 <th>物流约束标识</th>
                                 <th>新建时间</th>
@@ -136,12 +136,13 @@
                                 <td><%= element.ftyId %></td>
                                 <td><a href="/factory/detail/<%= element.ftyId %>"><%= element.name %></a></td>
                                 <td><%= DWY_Helper.getFactoryType(element.type) %></td>
+                                <td></td>
                                 <td><%= element.provinceName %> <%= element.cityName %> <%= element.distName %></td>
                                 <td><%= DWY_Helper.getWhether(element.areaFlag) %></td>
                                 <td><%= DWY_Helper.getLocalDateYMD(element.addTime) %></td>
                                 <td>
                                     <a href="/warehouse/create/<%= element.ftyId %>" class="label label-primary">新建仓库</a>
-                                    <a href="/warehouse/<%= element.ftyId %>" class="label label-primary">查看所有仓库</a>
+                                    <a href="/warehouse?ftyId=<%= element.ftyId %>" class="label label-primary">查看所有仓库</a>
                                 </td>
                             </tr>
                             <%  })

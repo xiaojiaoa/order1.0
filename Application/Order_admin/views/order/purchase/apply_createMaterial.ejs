@@ -23,11 +23,10 @@
             <div class="row">
                 <!-- col -->
                 <div class="col-xs-12">
-                    <form class="form-horizontal" method="post" id="creat-supplier" action="/purchase/applyMaterialCreate" >
+                    <form class="form-horizontal" method="post" id="creat-supplier" >
                         <div class="col-xs-12">
                             <legend>
                                 新建请购单
-                                <!--<a class="label label-danger" id="closeStore">禁用</a>-->
                             </legend>
                         </div>
                         <div class="col-xs-12">
@@ -39,38 +38,22 @@
                                     <tr>
                                         <th>物料编号</th>
                                         <th>物料名称</th>
+                                        <th>供应商名称</th>
                                         <th>分类名称</th>
                                         <th>请购数量</th>
                                         <th>预计交期</th>
-                                        <th>供应商</th>
+                                        <th>最小数量</th>
                                     </tr>
                                     </thead>
-                                    <tbody>
-                                    <%
-                                    if(DWY_Helper.isCanLoop(suppliersMaterialLists)){
-                                    suppliersMaterialLists.forEach(function (element, index) { %>
-                                    <tr>
-                                        <td class="materialId<%= index %>"><%= element.id %></td>
-                                        <td><%= element.name %></td>
-                                        <td><%= element.catName %></td>
-                                        <td>
-                                            <input type="text" name="amount<%= index %>" value="" class="amountApply" />
-                                        </td>
-                                        <td>
-                                            <input class="form-control fg-date-picker deliveryDate" type="text" value=""
-                                                   name="deliveryDate<%= index %>"  />
-                                        </td>
-                                        <td><%= element.suppName %></td>
-                                    </tr>
-                                    <input type="hidden" name="tid" value="<%= element.id %>">
-                                    <%  }) }%>
+                                    <tbody class="purApplyTr">
+
                                     </tbody>
                                 </table>
                             </div>
                             <div class="col-xs-12">
                                 <hr class="simple">
                                 <div class="col-xs-12 text-center">
-                                    <a class="btn btn-primary" type="submit" id="sub">
+                                    <a class="btn btn-primary"  id="sub">
                                         <i class="fa fa-save"></i>
                                         确认提交
                                     </a>
@@ -88,36 +71,73 @@
 <script type="text/javascript">
     $(document).ready(function () {
         pageSetUp();
-        $(".fg-date-picker").flatpickr(data_time_picker.data_picker); // jQuery
+
+
+        var parentEle = '.purApplyTr';
+        var storageKey = 'LIST_DATA';
+        var listArr = DWY_Utils.StorageUtils.getListArr(storageKey);
+        var htmlStr = '';
+        if (listArr instanceof Array && listArr.length != 0) {
+            var len = listArr.length;
+            for (var i = 0; i < len; i++) {
+                var itemHtml = ''
+                    + '<tr class="topTr">'
+                    + '<td class="materialId'+i+'"><a href="/materialManage/detail/' + listArr[i].id + '">' + listArr[i].id + '</a></td>'
+                    + '<td>' + listArr[i].name + '</td>'
+                    + '<td>' + listArr[i].class_name + '</td>'
+                    + '<td>' + listArr[i].suppName + '</td>'
+                    + '<td><input type="text" name="amount'+i+'" value="" class="amountApply" /> </td>'
+                    + '<td><input class="form-control fg-date-picker deliveryDate" type="text" value="" name="deliveryDate'+i+'" /> </td>'
+                    + '<td><input name="minAmount'+i+'" /></td>'
+                    + '</tr>';
+                htmlStr += itemHtml;
+                // 判断是否是初始化 是的话保持下面列表状态同步
+            }
+            $(parentEle).html(htmlStr);
+            $(".fg-date-picker").flatpickr(data_time_picker.data_picker); // jQuery
+            $("#creat-supplier").validationEngine({scroll: false});
+        }else{
+            $(parentEle).html("");
+        }
+
+
+
+
+
         $("#sub").click(function(){
-            if (isNaN(parseFloat($(".amountApply").val())) || parseFloat($(".amountApply").val()) <= 0)  alert('请输入正整数');
+            if (isNaN(parseFloat($(".amountApply").val())) || parseFloat($(".amountApply").val()) <= 0) {
+                layer.alert('请输入有效数字！', {icon: 3})
+                return false;
+            }
             if (isNaN(parseFloat($(".deliveryDate").val())) )  {
-                alert('日期不能为空')
+                layer.alert('日期不能为空！', {icon: 3})
                 return false;
             }
             var myArray=new Array()
-            var length=$("input[name=tid]").length;
-            for(var i=0;i<length;i++){
+            for(var i=0;i<len;i++){
                 var a = new Object();
                 var mateId=$(".materialId"+i).text();
                 var amount=$("input[name=amount"+i+"]").val();
+                var minAmount=$("input[name=minAmount"+i+"]").val();
                 var deliveryDate=$("input[name=deliveryDate"+i+"]").val();
                 a.mateId=mateId;
                 a.amount = amount;
+                a.minAmount = minAmount;
                 a.deliveryDate = deliveryDate;
                 myArray.push(a);
             }
             var date={reqMaterialList:myArray};
             layer.confirm("确认提交？", {title:'提示'},function(index){
-                console.log(myArray);
+//                    console.log(myArray);return false;
                     $.ajax({
-                        url: '/purchase/applyMaterialCreate/',
+                        url: '/purchase/applyMaterialCreate',
                         data:JSON.stringify(date),
                         method: 'post',
                         dataType: 'json',
                         contentType:"application/json",
                         success: function (data) {
                             location.href="/purchase";
+                            localStorage.clear();
                         },
                         error: function (response) {
                             layer.close(index)
@@ -137,7 +157,6 @@
                 },function(index){
                     layer.close(index)}
             )
-
 
 
         })
