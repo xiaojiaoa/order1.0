@@ -1127,27 +1127,27 @@ var AppServiceController = require('./Controller/AppserviceController');
 router.post('/app/login',AppServiceController.doLogin);
 
 // 出库-按照订单号查出包装
-router.get('/app/cargoout/:tid', MobileMiddleware.AuthCheck,AppServiceController.cargooutPage);
+router.get('/app/cargoout/:tid',AppServiceController.cargooutPage);
 
 //出库-获取所有可出库的订单列表
-router.get('/app/cargooutOrder', MobileMiddleware.AuthCheck,AppServiceController.cargooutOrder);
+router.get('/app/cargooutOrder',AppServiceController.cargooutOrder);
 
 //出库-已入库包装
-router.get('/app/cargoin/package', MobileMiddleware.AuthCheck,AppServiceController.cargoinPackage);
+router.get('/app/cargoin/package',AppServiceController.cargoinPackage);
 
 //出库-入库扫描完成后的显示界面
-router.get('/app/cargoin/order/:tid', MobileMiddleware.AuthCheck,AppServiceController.cargoinOrder);
+router.get('/app/cargoin/order/:tid',AppServiceController.cargoinOrder);
 
 //入库-入库接口
-router.post('/app/doCargoin', MobileMiddleware.AuthCheck,AppServiceController.doCargoin);
+router.post('/app/doCargoin',AppServiceController.doCargoin);
 
 //入库-出库接口
-router.post('/app/doCargoout', MobileMiddleware.AuthCheck,AppServiceController.doCargoout);
+router.post('/app/doCargoout', AppServiceController.doCargoout);
 
 //某工厂下的仓储区域
-router.get('/app/getWhse/:ftyId', MobileMiddleware.AuthCheck,AppServiceController.getWhse);
+router.get('/app/getWhse/:ftyId', AppServiceController.getWhse);
 
 //仓库是否已满
-router.post('/app/isFull', MobileMiddleware.AuthCheck,AppServiceController.isFull);
+router.post('/app/isFull',AppServiceController.isFull);
 
 module.exports = router;
