@@ -252,7 +252,7 @@
                 a = {
                     spaceId:spaceId,
                     cargoId:cargoId,
-                    purcId:purId,
+                    purId:purId,
                     unitPrice:unitPrice,
                     amount:amount,
                 }
@@ -264,6 +264,7 @@
                 ftyId:ftyId,
                 whseId:whseId,
                 regionId:regionId,
+                purId:'<%= pid %>',
                 list:myArray
             };
             if(!ifSubmit){layer.msg('请先填写正确入库信息', {icon: 2, time: 2000});return ;}
@@ -286,17 +287,8 @@
                                 location.href="/enterMaterial";
                                 return;
                             }
-                            var data = JSON.parse(response.responseText);
-                            $.smallBox({
-                                title: "操作失败",
-                                content: data.msg,
-                                color: "#C46A69",
-                                iconSmall: "fa fa-times fa-2x fadeInRight animated",
-                                timeout: 3000
-                            });
-                            setTimeout(function(){
-                                window.location.reload();
-                            },1000000)
+                            errorLayout.normal(response);
+
                         }
                     });
                 },function(index){
