@@ -139,7 +139,7 @@
                                 <td><%= element.money %></td>
                                 <td><%= DWY_Helper.getLocalDate(element.addTime) %></td>
                                 <td><%= element.describe %></td>
-                                <td><%= element.tid %></td>
+                                <td><a href="/order/detail/<%= element.tid %>"><%= element.tid %></a></td>
                             </tr>
                             <% })
                             } %>

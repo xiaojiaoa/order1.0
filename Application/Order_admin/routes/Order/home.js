@@ -1134,4 +1134,10 @@ router.post('/app/doCargoin', MobileMiddleware.AuthCheck,AppServiceController.do
 //入库-出库接口
 router.post('/app/doCargoout', MobileMiddleware.AuthCheck,AppServiceController.doCargoout);
 
+//某工厂下的仓储区域
+router.get('/app/getWhse/:ftyId', MobileMiddleware.AuthCheck,AppServiceController.getWhse);
+
+//仓库是否已满
+router.post('/app/isFull', MobileMiddleware.AuthCheck,AppServiceController.isFull);
+
 module.exports = router;
