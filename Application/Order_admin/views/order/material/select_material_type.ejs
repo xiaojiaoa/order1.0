@@ -34,13 +34,8 @@
                     console.log(arry.length)
                 },
                 error: function (response) {
-                    $.smallBox({
-                        title: "请求失败，请重试",
-//                        content: data.msg,
-                        color: "#C46A69",
-                        iconSmall: "fa fa-times fa-2x fadeInRight animated",
-                        timeout: 3000
-                    });
+                    layer.close(index)
+                    errorLayout.normal(response);
                 }
             });
         })
@@ -68,13 +63,8 @@
                     thirdlySelect.html(html);
                 },
                 error: function (response) {
-                    $.smallBox({
-                        title: "请求失败，请重试",
-//                        content: data.msg,
-                        color: "#C46A69",
-                        iconSmall: "fa fa-times fa-2x fadeInRight animated",
-                        timeout: 3000
-                    });
+                    layer.close(index)
+                    errorLayout.normal(response);
                 }
             });
         })
