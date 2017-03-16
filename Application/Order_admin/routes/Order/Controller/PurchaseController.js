@@ -68,6 +68,7 @@ var PurchaseController = {
     //新建请购单第二步--物料信息的添加--数量和日期
     applyMaterialCreatePage: function (req, res) {
         var tid=req.params.tid;
+        var bid = req.query.bid? req.query.bid: req.session.user.bid;
         Base.multiDataRequest(req, res, [
                 {url: '/api/materials/list?ids='+tid, method: 'GET', resConfig: {keyName: 'suppliersMaterialLists', is_must: true}},
             ],
@@ -75,6 +76,7 @@ var PurchaseController = {
                 var returnData = Base.mergeData(helper.mergeObject({
                     title: ' ',
                     Permission :Permissions,
+                    bid:bid,
                 }, resultList));
                 res.render('order/purchase/apply_createMaterial', returnData);
             });

@@ -169,17 +169,6 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <!--<div class="col-xs-3">-->
-                                                <!--<div class="form-group">-->
-                                                <!--<label class="col-xs-4 control-label "><span class="requird"></span>供应商等级:-->
-                                                <!--</label>-->
-                                                <!--<div class="col-xs-8">-->
-                                                <!--<select class="form-control validate[required]" name="brandId">-->
-                                                <!--<option value="">- 请选择 -</option>-->
-                                                <!--</select>-->
-                                                <!--</div>-->
-                                                <!--</div>-->
-                                                <!--</div>-->
                                             </div>
                                             <div class="col-xs-12">
                                                 <div class="col-xs-8">
@@ -288,7 +277,6 @@
     $(document).ready(function () {
         pageSetUp();
         $("#creat-supplier").validationEngine();
-//        $(".fg-date-picker").flatpickr(data_time_picker.data_picker); // jQuery
         var areaFor = $('#area');
         var codes = []
         $(".dwy-area").on("change",".cityCode,.provinceCode",function(){
@@ -299,8 +287,6 @@
                 return item != '';
             })
             areaFor.val(areaArry)
-            console.log(index)
-            console.log('codes',areaFor.val())
         });
 
         $(".dwy-area").on("click",".deleteInco",function(){
@@ -311,9 +297,6 @@
             var areaArry = codes.filter(function (item, index) {
                 return item != '';
             })
-
-//            console.log('codes',areaArry)
-//            console.log('codesOld',codes)
 
             areaFor.val(areaArry);
             addNum = addNum-1;

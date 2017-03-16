@@ -126,11 +126,12 @@ var SupplierController = {
     //供应商物料关联
     supplierOfferProductPage: function (req, res) {
         var paramObject = helper.genPaginationQuery(req);
+        var bid = req.query.bid? req.query.bid: req.session.user.bid;
         var tid=req.params.tid;
         req.body.suppId=tid;
         Base.multiDataRequest(req, res, [
             {url: '/api/categories/list?parentId=0', method: 'GET', resConfig: {keyName: 'suppliersMaterialList', is_must: true}},
-            {url: '/api/materials/suppliers?'+(queryString.stringify(req.body)), method: 'GET', resConfig: {keyName: 'supMaterialList', is_must: true}},
+            {url: '/api/materials/suppliers?'+(queryString.stringify(req.query)), method: 'GET', resConfig: {keyName: 'supMaterialList', is_must: true}},
             {url: '/api/suppliers/'+tid, method: 'GET', resConfig: {keyName: 'suppliersDetail', is_must: true}},
         ], function (req, res, resultList) {
             var paginationInfo =  resultList.supMaterialList;
@@ -144,6 +145,7 @@ var SupplierController = {
                 title: ' ',
                 pagination: boostrapPaginator.render(),
                 Permission :Permissions,
+                bid:bid,
             },resultList));
             res.render('order/supplier/offer_product', returnData);
         });
