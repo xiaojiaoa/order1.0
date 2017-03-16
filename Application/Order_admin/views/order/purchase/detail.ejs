@@ -55,10 +55,13 @@
                                     <div class="form-group">
                                         <label class="col-xs-4 control-label">工厂:</label>
                                         <div class="col-xs-8">
-                                            <select class="form-control" name="stairCatId">
+                                            <select class="form-control" name="ftyId">
                                                 <option value="">- 请选择 -</option>
-                                                <option value="">
-                                                </option>
+                                                <%
+                                                if(DWY_Helper.isCanLoop(factoryLists)){
+                                                factoryLists.forEach(function (element, index) { %>
+                                                <option value="<%= element.ftyId %>" <%= (DWYRequest.query.ftyId == element.ftyId)?"selected":"" %>><%= element.name %></option>
+                                                <%})}%>
                                             </select>
                                         </div>
                                     </div>

@@ -146,6 +146,7 @@ var PurchaseController = {
         var paramObject = helper.genPaginationQuery(req);
         Base.multiDataRequest(req, res, [
             {url: '/api/purchases?'+(queryString.stringify(req.query)), method: 'GET', resConfig: {keyName: 'purchasesLists', is_must: true}},
+            {url: '/api/whse/factory/list', method: 'GET', resConfig: {keyName: 'factoryLists', is_must: true}},
         ], function (req, res, resultList) {
             var paginationInfo =  resultList.purchasesLists;
             var boostrapPaginator = new Pagination.TemplatePaginator(helper.genPageInfo({
