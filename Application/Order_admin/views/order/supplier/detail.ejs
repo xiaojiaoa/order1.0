@@ -91,7 +91,6 @@
                             添加可提供物料
                         </a>
                     </legend>
-
                     <div class="table-responsive">
                         <table class="table table-bordered table-striped table-hover">
                             <thead>
@@ -101,6 +100,7 @@
                                 <th>物料分类名称</th>
                                 <th>物料名称</th>
                                 <th>截止有效日期</th>
+                                <th>操作</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -113,19 +113,20 @@
                                 <td><%= element.catName %></td>
                                 <td><%= element.name %></td>
                                 <td><%= DWY_Helper.getLocalDateYMD(element.expiryDate) %></td>
+                                <td>
+                                    <button class="label label-primary deleteRelate" sid="<%= tid %>" mid="<%= element.id %>">解除关联</button>
+                                    <button class="label label-primary updateDate" mid="<%= element.id %>">修改日期</button>
+                                </td>
                             </tr>
                             <%  })}%>
                             </tbody>
                         </table>
                     </div>
                 </div>
-
             </div>
             <!-- end row -->
         </div>
         <!-- end well -->
-
-
     </div>
     <!-- END MAIN CONTENT -->
 
@@ -139,11 +140,44 @@
 <script type="text/javascript">
 
     $(document).ready(function () {
+        $(".deleteRelate").click(function(){
+            var sid=$(this).attr('sid');
+            var mid=$(this).attr('mid');
+            layer.confirm("解除关联？", {title:'提示'},function(index){
+                $.ajax({
+                    url: '/supplier/deleteRelate/'+sid+'/'+mid,
+                    method: 'post',
+                    success: function (data) {
+                        window.location.reload();
+                    },
+                    error: function (response) {
+                        layer.close(index)
+                        errorLayout.normal(response);
+                    }
+                });
+            },function(index){
+                layer.close(index)
+            })
+        })
+        $(".updateDate").on({
+            click:function(){
+                mid = $(this).attr('mid');
+                layer.open({
+                    title: false,
+                    type: 1,
+                    area: '700px',
+                    content: $('#updateDate'),
+                    cancel: function () {
+                        //右上角关闭回调
+                    },
 
-
+                });
+            }
+        })
     })
 
 </script>
 
 
 <%- include('../layouts/foot'); %>
+<%- include('./supplier_modal'); %>
