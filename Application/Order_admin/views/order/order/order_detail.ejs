@@ -46,14 +46,22 @@
                                 <td><%= tid %></td>
                             </tr>
                             <tr>
-                                <td width="20%">主材颜色</td>
-                                <td width="30%"><%= orderInfo.decoColor %></td>
+                                <td width="20%">产品信息</td>
+                                <td width="30%"><%= orderInfo.prodInfo %></td>
                                 <td width="20%">订单类型</td>
                                 <td width="30%">普通订单</td>
                             </tr>
                             <tr>
+                                <td>所在空间</td>
+                                <td><%= orderInfo.spaceName %> &nbsp;(<%= orderInfo.parentSpaceinfoName %>)</td>
+                                <td>产品</td>
+                                <td><%= orderInfo.prodTypeName %></td>
+                            </tr>
+                            <tr>
+                                <td>主材颜色</td>
+                                <td><%= orderInfo.decoColor %></td>
                                 <td>风格</td>
-                                <td colspan="3"><%= DWY_Helper.getAssistVal(orderInfo.decoStyleId, styleInfo) %></td>
+                                <td><%= DWY_Helper.getAssistVal(orderInfo.decoStyleId, styleInfo) %></td>
                             </tr>
                             <tr>
                                 <td>专卖店</td>
@@ -93,10 +101,8 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td>产品信息</td>
-                                <td><%= orderInfo.prodInfo %></td>
                                 <td>包装信息</td>
-                                <td></td>
+                                <td colspan="3"></td>
                             </tr>
                             <tr>
                                 <td>难度等级</td>
@@ -133,12 +139,7 @@
                                 <td>出厂价</td>
                                 <td><%= orderInfo.factoryPrice %>元</td>
                             </tr>
-                            <tr>
-                                <td>所在空间</td>
-                                <td><%= orderInfo.spaceName %> &nbsp;(<%= orderInfo.parentSpaceinfoName %>)</td>
-                                <td>产品</td>
-                                <td><%= orderInfo.prodTypeName %></td>
-                            </tr>
+
                             <tr>
                                 <td>建单人</td>
                                 <td><%= orderInfo.channelName %></td>

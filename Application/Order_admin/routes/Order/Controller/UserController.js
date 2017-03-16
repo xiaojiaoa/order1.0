@@ -23,8 +23,8 @@ var UserController = {
         Base.multiDataRequest(req, res, [
                 {url: '/api/notices/page?pageSize=6', method: 'GET', resConfig: {keyName: 'noticeInfo', is_must: true}},
                 {url: '/api/share/page?pageSize=6', method: 'GET', resConfig: {keyName: 'fileInfo', is_must: true}},
-                {url: '/api/ebis/measure/page?pageSize=5&stcodeStart=110&stcodeEnd=520', method: 'GET', resConfig: {keyName: 'taskMeasureInfo', is_must: true}},
-                {url: '/api/assist/taskseq/status', method: 'GET', resConfig: {keyName: 'statusInfo', is_must: false}},
+                {url: '/api/orders/list', method: 'GET', resConfig: {keyName: 'taskMeasureInfo', is_must: true}},
+                {url: '/api/assist/order/stcodes', method: 'GET', resConfig: {keyName: 'statusInfo', is_must: false}},
             ],
             function (req, res, resultList) {
                 var returnData = Base.mergeData(helper.mergeObject({

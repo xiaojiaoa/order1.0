@@ -184,7 +184,6 @@ router.get('/customers', Middleware.AuthCheck, Middleware.FilterEmptyField, Cust
 
 // 获取客户详情页面
 router.get('/customer/detail/:cid', Middleware.AuthCheck, CustomerController.detailPage);
-// router.get('/customer/detail/:cid', Middleware.AuthCheck, CustomerController.detailPage);
 
 /*
  * 页面范围: 订单相关
@@ -674,7 +673,7 @@ router.put('/factory/doOpen/:ftyId', Middleware.AuthCheck, FactoryController.doO
 
 
 // 获取仓库列表
-router.get('/warehouse/:ftyId', Middleware.AuthCheck, Middleware.FilterEmptyField, FactoryController.listWarehousePage);
+router.get('/warehouse', Middleware.AuthCheck, Middleware.FilterEmptyField, FactoryController.listWarehousePage);
 
 // 新增仓库页面
 router.get('/warehouse/create/:ftyId', Middleware.AuthCheck, FactoryController.createWarehousePage);
@@ -698,7 +697,7 @@ router.put('/warehouse/doOpen/:whseId', Middleware.AuthCheck, FactoryController.
 
 
 // 获取仓库区域列表
-router.get('/region/:ftyId/:whseId', Middleware.AuthCheck, Middleware.FilterEmptyField, FactoryController.listRegionPage);
+router.get('/region', Middleware.AuthCheck, Middleware.FilterEmptyField, FactoryController.listRegionPage);
 
 // 新增仓库区域页面
 router.get('/region/create/:ftyId/:whseId', Middleware.AuthCheck, FactoryController.createRegionPage);
@@ -1134,5 +1133,11 @@ router.post('/app/doCargoin', MobileMiddleware.AuthCheck,AppServiceController.do
 
 //入库-出库接口
 router.post('/app/doCargoout', MobileMiddleware.AuthCheck,AppServiceController.doCargoout);
+
+//某工厂下的仓储区域
+router.get('/app/getWhse/:ftyId', MobileMiddleware.AuthCheck,AppServiceController.getWhse);
+
+//仓库是否已满
+router.post('/app/isFull', MobileMiddleware.AuthCheck,AppServiceController.isFull);
 
 module.exports = router;

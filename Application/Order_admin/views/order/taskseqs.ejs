@@ -114,11 +114,11 @@
                                     <div class="form-group">
                                         <label class="col-xs-4 control-label">门店:</label>
                                         <div class="col-xs-8">
-                                            <select class="form-control" name="bid">
+                                            <select class="form-control" name="storeId">
                                                 <option value="">- 请选择 -</option>
                                                 <%
                                                 storesList.forEach(function (element) { %>
-                                                <option value="<%= element.id %>" <%= (DWYRequest.query.bid == element.id)?"selected":"" %>><%= element.storeName %></option>
+                                                <option value="<%= element.id %>" <%= (DWYRequest.query.storeId == element.id)?"selected":"" %>><%= element.storeName %></option>
                                                 <%  }) %>
                                             </select>
                                         </div>
@@ -166,7 +166,6 @@
                             <tr>
                                 <th>序号</th>
                                 <th>门店名称</th>
-                                <th>客户号</th>
                                 <th>客户名称</th>
                                 <th>客户电话</th>
                                 <th>楼盘名称</th>
@@ -186,9 +185,8 @@
                             taskseqList.result.forEach(function (element) { %>
                             <tr>
                                 <td><%= num %></td>
-                                <td><%= element.channelId %></td>
-                                <td><a href="/customer/detail/<%= element.cid %>"><%= element.cid %></a></td>
-                                <td><%= element.custName %></td>
+                                <td><%= element.storeName %></td>
+                                <td><a href="/customer/detail/<%= element.cid %>"><%= element.custName %></a></td>
                                 <td><%= element.custMobile %></td>
                                 <td><%= element.realEstate %></td>
                                 <td><a href="/taskseq/index/<%= element.lid %>"><%= element.lid %></a></td>

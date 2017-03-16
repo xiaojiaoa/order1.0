@@ -37,6 +37,12 @@
                         <table class="table table-bordered table-striped table-information">
                             <tbody>
                             <tr>
+                                <td>补单状态</td>
+                                <td><%= DWY_Helper.getAssistVal(resupplyInfo.status, stcodeInfo) %></td>
+                                <td>补单号</td>
+                                <td><%= tid %></td>
+                            </tr>
+                            <tr>
                                 <td width="20%">主材颜色</td>
                                 <td width="30%"><%= resupplyInfo.colorStr %></td>
                                 <td width="20%">产品类型</td>
