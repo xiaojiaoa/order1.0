@@ -96,57 +96,7 @@ var Middleware = {
     }
 };
 
-/*
- * 移动端中间件
- * */
-var MobileMiddleware = {
-    //检测SESSION 是否存在TOKEN (NODE),TODO 区分AJAX请求,以JSON格式返回
-    AuthCheck: function (req, res, next) {
 
-        // console.log(req.path)
-        if (!req.session.auth) {
-            console.log('SESSION HAS NO AUTH');
-            res.status(200).send(JSON.stringify({
-                msg:"session不存在",
-                code:1015
-            }));
-        } else {
-            //增加token失效验证. token存在但过期时,自动发送refresh_token并保存新的token到用户session
-            var user_auth = req.session.auth;
-
-            if ((new Date().getTime() - user_auth.time) > 1600000) {
-
-                //refresh_token request
-                request(Base.mergeRequestOptions({
-                    method: 'POST',
-                    url: '/api/refresh',
-                    form: {refreshToken: user_auth.refresh_token}
-                }, req, res), function (error, response, body) {
-                    if (!error && response.statusCode == 201) {
-                        // Show the HTML for the Google homepage.
-                        let $data = JSON.parse(body);
-                        console.log("body",response);
-
-                        //TOKEN 存入session
-                        var user_session = req.session;
-                        user_session.auth = {
-                            access_token: $data.userTokenString,
-                            refresh_token: $data.refreshTokenString,
-                            time: new Date().getTime(),
-                        };
-
-                        next();
-                    } else {
-                        res.status(200).send(JSON.stringify(response));
-                    }
-                })
-            } else {
-
-                next();
-            }
-        }
-    }
-};
 
 /*
  * 页面范围: 首页相关
@@ -311,7 +261,7 @@ router.get('/orders/package', Middleware.AuthCheck,Middleware.FilterEmptyField,O
 router.get('/orders/package/:tid', Middleware.AuthCheck,OrderController.packedListPage);
 
 //撤销包装
-router.put('/orders/package/unpacket/:tid', Middleware.AuthCheck,OrderController.unpacket);
+router.put('/orders/package/unpacket/:tid', Middleware.AuthCheck,OrderController.unPacket);
 
 //生成包装操作
 router.put('/orders/package/packet/:tid',Middleware.AuthCheck,OrderController.doPacket);
@@ -321,6 +271,12 @@ router.post('/orders/package/packet/move',Middleware.AuthCheck,OrderController.m
 
 //删除包装
 router.put('/orders/package/packet/delete/:pid/:type',Middleware.AuthCheck,OrderController.deletePacket);
+
+//导出包装清单
+router.get('/orders/package/export/:tid',Middleware.AuthCheck,OrderController.exportPacket);
+
+//增加包装
+router.post('/orders/package/packet/add',Middleware.AuthCheck,OrderController.addPacket);
 
 
 //订单详情--订单物料--非标件
@@ -1025,7 +981,7 @@ router.get('/purchase', Middleware.AuthCheck,PurchaseController.purchasePage);
 // 新建请购单页面
 router.get('/purchase/applyCreat', Middleware.AuthCheck,Middleware.FilterEmptyField,PurchaseController.purchaseApplyCreatPage);
 //新建请购单 选择物料信息列表
-router.post('/purchase/applyOrderMaterial/:tid', Middleware.AuthCheck,PurchaseController.purchaseApplyMaterialCreat);
+router.get('/purchase/applyOrderMaterial', Middleware.AuthCheck,PurchaseController.purchaseApplyMaterialCreat);
 //新建请购单 物料信息修改
 router.get('/purchase/apply_createMaterial/:tid', Middleware.AuthCheck,PurchaseController.applyMaterialCreatePage);
 //新建请购单 添加物料数量+预计交期
@@ -1123,28 +1079,35 @@ router.get('/system', Middleware.AuthCheck,SystemController.indexPage);
  * 控制器:   AppServiceController
  * */
 var AppServiceController = require('./Controller/AppserviceController');
+
+// 移动端登陆
+router.post('/app/login',AppServiceController.doLogin);
+
+//刷新token
+router.post('/app/refresh',AppServiceController.refreshToken);
+
 // 出库-按照订单号查出包装
-router.get('/app/cargoout/:tid', MobileMiddleware.AuthCheck,AppServiceController.cargooutPage);
+router.get('/app/cargoout/:tid',AppServiceController.cargooutPage);
 
 //出库-获取所有可出库的订单列表
-router.get('/app/cargooutOrder', MobileMiddleware.AuthCheck,AppServiceController.cargooutOrder);
+router.get('/app/cargooutOrder',AppServiceController.cargooutOrder);
 
 //出库-已入库包装
-router.get('/app/cargoin/package', MobileMiddleware.AuthCheck,AppServiceController.cargoinPackage);
+router.get('/app/cargoin/package',AppServiceController.cargoinPackage);
 
 //出库-入库扫描完成后的显示界面
-router.get('/app/cargoin/order/:tid', MobileMiddleware.AuthCheck,AppServiceController.cargoinOrder);
+router.get('/app/cargoin/order/:tid',AppServiceController.cargoinOrder);
 
 //入库-入库接口
-router.post('/app/doCargoin', MobileMiddleware.AuthCheck,AppServiceController.doCargoin);
+router.post('/app/doCargoin',AppServiceController.doCargoin);
 
 //入库-出库接口
-router.post('/app/doCargoout', MobileMiddleware.AuthCheck,AppServiceController.doCargoout);
+router.post('/app/doCargoout', AppServiceController.doCargoout);
 
 //某工厂下的仓储区域
-router.get('/app/getWhse/:ftyId', MobileMiddleware.AuthCheck,AppServiceController.getWhse);
+router.get('/app/getWhse/:ftyId', AppServiceController.getWhse);
 
 //仓库是否已满
-router.post('/app/isFull', MobileMiddleware.AuthCheck,AppServiceController.isFull);
+router.post('/app/isFull',AppServiceController.isFull);
 
 module.exports = router;

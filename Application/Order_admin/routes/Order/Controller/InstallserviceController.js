@@ -44,7 +44,7 @@ var InstallserviceController = {
             url: '/api/tasks/install/getTask?'+queryString.stringify(req.body),
         }, req, res), function (error, response, body) {
             if (!error && response.statusCode == 201) {
-                res.redirect("/installServiceTask");
+                res.redirect("/installService");
             } else {
                 Base.handlerError(res, req, error, response, body);
             }

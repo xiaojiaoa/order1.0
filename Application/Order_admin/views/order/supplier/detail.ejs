@@ -36,18 +36,20 @@
                             <tr>
                                 <td>供应商分类编号</td>
                                 <td colspan=""><%= suppliersDetail.cateId  %></td>
+                                <td>供应商分类名称</td>
+                                <td colspan=""><%= suppliersDetail.cateName  %></td>
+                            </tr>
+                            <tr>
                                 <td>供应商名称</td>
                                 <td colspan=""><%= suppliersDetail.name  %></td>
-                            </tr>
-                            <tr>
                                 <td>联系人姓名</td>
                                 <td><%= suppliersDetail.contact  %></td>
-                                <td>联系人手机</td>
-                                <td><%= suppliersDetail.contactMobile  %></td>
                             </tr>
                             <tr>
+                                <td>联系人手机</td>
+                                <td><%= suppliersDetail.contactMobile  %></td>
                                 <td>供应商所在地区</td>
-                                <td colspan="3">
+                                <td colspan="">
                                     <span class="margin-right-5-10"><%= suppliersDetail.provinceStr %>-</span>
                                     <span class="margin-right-5-10"><%= suppliersDetail.cityStr  %>-</span>
                                     <span class="margin-right-5-10"><%= suppliersDetail.distStr  %></span>
@@ -107,7 +109,7 @@
                             suppliersDetail.materialsList.forEach(function(element,index){%>
                             <tr>
                                 <td><%= index+1 %></td>
-                                <td><a href="/materialManage/detail/<%= element.id %>"><%= element.id %></a></td>
+                                <td><a href="/materialManage/detail/<%= bid %>/<%= element.id %>"><%= element.id %></a></td>
                                 <td><%= element.catName %></td>
                                 <td><%= element.name %></td>
                                 <td><%= DWY_Helper.getLocalDateYMD(element.expiryDate) %></td>

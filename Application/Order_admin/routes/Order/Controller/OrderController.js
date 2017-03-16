@@ -926,7 +926,7 @@ var OrderController = {
         });
        // res.render('order/order/packedList');
     },
-    unpacket:function(req,res){
+    unPacket:function(req,res){
         var tid=req.params.tid;
         console.log("撤销包装"+tid);
         request(Base.mergeRequestOptions({
@@ -968,12 +968,12 @@ var OrderController = {
         })
     },
     deletePacket:function(req,res){
-        var mid = req.params.pid;
+        var pid = req.params.pid;
         var type = req.params.type;
         console.log('删除包装'+ JSON.stringify(req.params));
         request(Base.mergeRequestOptions({
          method: 'put',
-         url: '/api/orders/package/packet/delete/'+mid+'?packageType='+type,
+         url: '/api/orders/package/packet/delete/'+pid+'?packageType='+type,
          }, req, res), function (error, response, body) {
          if (!error && response.statusCode == 201) {
          res.sendStatus(200);
@@ -981,6 +981,35 @@ var OrderController = {
          Base.handlerError(res, req, error, response, body);
          }
          })
+    },
+    exportPacket: function (req, res) {
+        var tid = req.params.tid;
+        console.log("包装导出"+tid);
+        request(Base.mergeRequestOptions({
+            method: 'post',
+            url: '/api/orders/package/export/'+tid,
+        }, req, res)).pipe(res)
+    },
+    addPacket: function (req, res) {
+        var tid = req.body.tid;
+        var pid=req.body.pid
+        console.log("增加包装"+queryString.stringify(req.body));
+        request(Base.mergeRequestOptions({
+            method: 'post',
+            url: '/api/orders/package/packet/add/'+tid,
+            form:req.body
+        }, req, res), function (error, response, body) {
+            if (!error && response.statusCode == 201) {
+                if(pid){
+                   res.redirect("/orders/package/"+tid+"?packageLid="+pid);
+                }
+                else{
+                    res.redirect("/orders/package/"+tid);
+                }
+            } else {
+                Base.handlerError(res, req, error, response, body);
+            }
+        })
     },
     //订单详情--订单物料--工件
     workpiecePage:function (req, res) {
@@ -1006,7 +1035,6 @@ var OrderController = {
             res.render('order/order/workpiece', returnData);
         });
     },
-
     //订单详情--订单物料--配件
     partsPage:function (req, res) {
         var paramObject = helper.genPaginationQuery(req);

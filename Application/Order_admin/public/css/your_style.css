@@ -507,7 +507,7 @@ tr > td > .separation:last-child {
     cursor: pointer;
 }
 .color01{
-    background-color:#6fccfd!important;
+    background-color:#ecf3f8!important;
 }
 .display-none{
     display: none;
@@ -619,4 +619,7 @@ tr > td > .separation:last-child {
 .table-linkage tr:nth-of-type(1) span.open-all,
 .table-linkage tr:nth-of-type(1) span.open-this{
     display: none;
+}
+.display-block{
+    display:block!important;
 }

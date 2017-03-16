@@ -46,6 +46,7 @@ var PurchaseController = {
     //新建请购单页面
     purchaseApplyCreatPage: function (req, res) {
         var tid = req.params.tid;
+        var bid = req.query.bid? req.query.bid: req.session.user.bid;
         Base.multiDataRequest(req, res, [
                 {url: '/api/categories/list?parentId=0', method: 'GET', resConfig: {keyName: 'suppliersMaterialList', is_must: true}},
                 {url: '/api/purchase/request/mates?'+(queryString.stringify(req.query)), method: 'GET', resConfig: {keyName: 'supMaterialList', is_must: true}},
@@ -55,24 +56,14 @@ var PurchaseController = {
                     title: ' ',
                     Permission :Permissions,
                     tid:tid,
+                    bid:bid,
                 }, resultList));
                 res.render('order/purchase/apply_creat', returnData);
             });
     },
     //新建请购单第一步
     purchaseApplyMaterialCreat: function (req, res) {
-        var tid = req.params.tid;
-        request(Base.mergeRequestOptions({
-            method: 'get',
-            url: '/api/materials/list?ids='+tid,
-        }, req, res), function (error, response, body) {
-            console.log(response.body)
-            if (!error && response.statusCode == 200) {
-                res.sendStatus(200)
-            }else{
-                Base.handlerError(res, req, error, response, body);
-            }
-        })
+        res.render('order/purchase/apply_createMaterial');
     },
     //新建请购单第二步--物料信息的添加--数量和日期
     applyMaterialCreatePage: function (req, res) {
@@ -97,7 +88,7 @@ var PurchaseController = {
             body:JSON.stringify(req.body),
         }, req, res), function (error, response, body) {
             if (!error && response.statusCode == 201) {
-                res.redirect("/purchase");
+                res.sendStatus(200);
             } else {
                 Base.handlerError(res, req, error, response, body);
             }
