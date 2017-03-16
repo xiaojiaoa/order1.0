@@ -33,6 +33,22 @@ var AppServiceController = {
             }
         })
     },
+
+    refreshToken:function(req,res){
+        var refreshToken = req.body.refresh_token;
+        request(Base.mergeRequestOptions({
+            method: 'POST',
+            url: '/api/refresh',
+            form: {refreshToken: refreshToken}
+        }, req, res), function (error, response, body) {
+            if (!error) {
+                res.send(JSON.parse(body));
+            } else {
+                res.send(AppServiceController.error);
+            }
+        })
+
+    },
     cargooutPage: function (req, res) {
         var tid = req.params.tid;
         request(Base.mergeRequestOptions({

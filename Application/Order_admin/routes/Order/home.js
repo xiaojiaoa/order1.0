@@ -96,57 +96,7 @@ var Middleware = {
     }
 };
 
-/*
- * 移动端中间件
- * */
-var MobileMiddleware = {
-    //检测SESSION 是否存在TOKEN (NODE),TODO 区分AJAX请求,以JSON格式返回
-    AuthCheck: function (req, res, next) {
 
-        // console.log(req.path)
-        if (!req.session.auth) {
-            console.log('SESSION HAS NO AUTH');
-            res.status(200).send(JSON.stringify({
-                msg:"session不存在",
-                code:1015
-            }));
-        } else {
-            //增加token失效验证. token存在但过期时,自动发送refresh_token并保存新的token到用户session
-            var user_auth = req.session.auth;
-
-            if ((new Date().getTime() - user_auth.time) > 1600000) {
-
-                //refresh_token request
-                request(Base.mergeRequestOptions({
-                    method: 'POST',
-                    url: '/api/refresh',
-                    form: {refreshToken: user_auth.refresh_token}
-                }, req, res), function (error, response, body) {
-                    if (!error && response.statusCode == 201) {
-                        // Show the HTML for the Google homepage.
-                        let $data = JSON.parse(body);
-                        console.log("body",response);
-
-                        //TOKEN 存入session
-                        var user_session = req.session;
-                        user_session.auth = {
-                            access_token: $data.userTokenString,
-                            refresh_token: $data.refreshTokenString,
-                            time: new Date().getTime(),
-                        };
-
-                        next();
-                    } else {
-                        res.status(200).send(JSON.stringify(response));
-                    }
-                })
-            } else {
-
-                next();
-            }
-        }
-    }
-};
 
 /*
  * 页面范围: 首页相关
@@ -1125,6 +1075,9 @@ var AppServiceController = require('./Controller/AppserviceController');
 
 // 移动端登陆
 router.post('/app/login',AppServiceController.doLogin);
+
+//刷新token
+router.post('/app/refresh',AppServiceController.refreshToken);
 
 // 出库-按照订单号查出包装
 router.get('/app/cargoout/:tid',AppServiceController.cargooutPage);
