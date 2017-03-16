@@ -36,7 +36,7 @@
         <div class="well">
 
             <div class="row">
-                <form class="form-horizontal" method="post" id="search-customer" action="/enterMaterial/stockOver/toEnter/doEnter">
+                <form class="form-horizontal" method="post" id="search-customer" >
 
                     <div class="col-xs-12 search-form">
                         <div class="col-xs-3">
@@ -99,7 +99,7 @@
                                     <% matesList.forEach(function(element,index){%>
                                         <tr class="cargoinDo">
                                             <td><%= index+1 %></td>
-                                            <td><a href="/materialManage/detail/<%= element.mid %>"><%= element.mid %></a></td>
+                                            <td><a href="/materialManage/detail/<%= user.bid %>/<%= element.mid %>"><%= element.mid %></a></td>
                                             <td><%= element.name %></td>
                                             <td><%= element.code %></td>
                                             <td><%= element.standard %></td>
@@ -117,7 +117,7 @@
                                 <%
                                     })}else{%>
                                     <tr>
-                                        <td colspan="4" class="text-align-center">暂无数据</td>
+                                        <td colspan="8" class="text-align-center">暂无数据</td>
                                     </tr>
                                 <%}%>
                                 </tbody>
@@ -127,7 +127,7 @@
                     <div class="col-xs-12">
                         <hr class="simple">
                         <div class="col-xs-12 text-center">
-                            <button class="btn btn-primary" id="toEnter">确认出库</button>
+                            <a class="btn btn-primary" id="toEnter">确认出库</a>
                         </div>
                     </div>
                 </form>
@@ -177,11 +177,11 @@
                 ifSubmit = true;
             }
             var date={
-                tid:<%= tid %>,
+                tid:'<%= tid %>',
                 ftyId:ftyId,
                 whseId:whseId,
                 regionId:regionId,
-                list:myArray
+                mateDeliveryItems:myArray
             };
             if(!ifSubmit){layer.msg('请先填写正确入库信息', {icon: 2, time: 2000});return ;}
 
@@ -194,10 +194,14 @@
                         dataType: 'json',
                         contentType:"application/json",
                         success: function (data) {
-                            location.href="/<%= type %>/canSend";
                         },
                         error: function (response) {
                             layer.close(index)
+                            var status = response.status;
+                            if(status == 200){
+                                location.href="/<%= type %>/canSend";
+                                return;
+                            }
                             var data = JSON.parse(response.responseText);
                             $.smallBox({
                                 title: "操作失败",

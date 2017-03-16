@@ -175,8 +175,11 @@ var EnterController = {
         }, req, res), function (error, response, body) {
             if (!error && response.statusCode == 201) {
                 // res.redirect('/enterMaterial')
+                console.log('doEnter66666')
                 res.sendStatus(200);
             } else {
+                console.log('doEnter44444')
+                console.log(body)
                 Base.handlerError(res, req, error, response, body);
             }
         })

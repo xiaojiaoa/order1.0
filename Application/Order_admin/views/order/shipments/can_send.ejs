@@ -136,7 +136,7 @@
                                 <th>预计发货</th>
                                 <th>订单状态</th>
                                 <th>货位号</th>
-                                <th>操作</th>
+                                <th width="100px">操作</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -156,7 +156,7 @@
                                 <td><%= DWY_Helper.getLocalDateYMD(element.deliveryDate) %></td>
                                 <td><%= element.stcode %></td>
                                 <td><a href="/cargospace/cargospace/detail/<%= element.cargoSpaceId %>"><%= element.cargoSpaceId %></a></td>
-                                <td><a href="/<%= type %>/canSend/sendPage/<%= element.tid %>" >发货</a></td>
+                                <td><a class="label label-primary" href="/<%= type %>/canSend/sendPage/<%= element.tid %>" >发货</a></td>
                             </tr>
                             <% })
                             }else{ %>

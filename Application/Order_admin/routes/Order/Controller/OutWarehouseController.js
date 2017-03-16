@@ -251,8 +251,7 @@ var OutWarehouseController = {
 
     },
     doSend: function (req, res) {
-        // var num = req.body.num0;
-        console.log('doEnter',JSON.stringify(req.body))
+        // console.log('doEnter',JSON.stringify(req.body))
         request(Base.mergeRequestOptions({
             method: 'post',
             url: '/api/whse/cargout/mates',
@@ -260,7 +259,6 @@ var OutWarehouseController = {
             body:JSON.stringify(req.body),
         }, req, res), function (error, response, body) {
             if (!error && response.statusCode == 201) {
-                // res.redirect('/enterMaterial')
                 res.sendStatus(200);
             } else {
                 Base.handlerError(res, req, error, response, body);

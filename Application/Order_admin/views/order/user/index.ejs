@@ -38,20 +38,20 @@
                             <table class="table table-bordered table-striped table-information">
                                 <tbody>
                                 <tr>
-                                    <td width="">机构编号:</td>
+                                    <td width="">机构编号</td>
                                     <td><%= user.bid %></td>
-                                    <td width="">柜员姓名:</td>
+                                    <td width="">柜员姓名</td>
                                     <td><%= user.name %></td>
                                 </tr>
                                 <tr>
-                                    <td>柜员编号:</td>
+                                    <td>柜员编号</td>
                                     <td><%= user.id %></td>
-                                    <td>柜员手机:</td>
+                                    <td>柜员手机</td>
                                     <td><%= user.mobile %></td>
                                 </tr>
                                 <tr>
-                                    <td>柜员角色:</td>
-                                    <td> <%
+                                    <td>柜员角色</td>
+                                    <td colspan="3"> <%
                                         if(user.role){
                                         user.role.forEach(function (element) { %>
                                         <%= element.name %>
@@ -59,8 +59,6 @@
                                         } %>
 
                                     </td>
-                                    <td></td>
-                                    <td></td>
                                 </tr>
 
                                 </tbody>
@@ -161,9 +159,7 @@
 
                             <div class="table-responsive">
                                 <table class="table table-bordered table-striped">
-
                                     <tbody>
-
                                     <%
                                     if(DWY_Helper.isCanLoop(fileInfo.result)){
                                     fileInfo.result.forEach(function(element,index){%>
@@ -173,11 +169,6 @@
                                     </tr>
                                     <%})
                                     } %>
-
-
-
-
-
                                     </tbody>
                                 </table>
                             </div>

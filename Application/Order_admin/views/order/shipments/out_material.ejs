@@ -165,7 +165,7 @@
                                 <th>出库人</th>
                                 <th>状态</th>
                                 <th>审核人</th>
-                                <th>操作</th>
+                                <th width="100px">操作</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -180,7 +180,7 @@
                                 <td><%= element.outEmp %></td>
                                 <td><%= DWY_Helper.geOutStatus(element.stcode) %></td>
                                 <td><%= element.reviewEmp %></td>
-                                <td><a class="cursor-pointer checkThis" data-id="<%= element.outId %>">审核</a></td>
+                                <td><a class="label label-primary checkThis" data-id="<%= element.outId %>">审核</a></td>
                             </tr>
                             <% })
                             }else{ %>

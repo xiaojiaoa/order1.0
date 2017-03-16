@@ -1108,6 +1108,13 @@ router.post('/installServiceTask', Middleware.AuthCheck,InstallserviceController
 //登记已收货
 router.post('/registerDeliver/:tid', Middleware.AuthCheck,InstallserviceController.registerDeliver);
 
+/*
+ * 页面范围: 基础数据
+ * 控制器:   SystemController
+ * */
+var SystemController = require('./Controller/SystemController');
+// 待安装列表
+router.get('/system', Middleware.AuthCheck,SystemController.indexPage);
 
 
 

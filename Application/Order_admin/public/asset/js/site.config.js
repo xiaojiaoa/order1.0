@@ -325,6 +325,20 @@ var DWY_area = {
 
 }
 
+var errorLayout = {
+    normal : function (data) {
+        var data = JSON.parse(data.responseText);
+        $.smallBox({
+            title: "操作失败",
+            content: data.msg,
+            color: "#C46A69",
+            iconSmall: "fa fa-times fa-2x fadeInRight animated",
+            timeout: 3000
+        });
+
+    },
+}
+
 
 $(document).ready(function () {
     var dwy_msg_type = $('input[name=dwy-message-type]');

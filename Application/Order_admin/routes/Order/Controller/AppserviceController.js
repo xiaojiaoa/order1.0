@@ -31,7 +31,7 @@ var AppServiceController = {
     cargooutOrder: function (req, res) {
         request(Base.mergeRequestOptions({
             method: 'get',
-            url: '/api/whse/app/cargoout/order/list',
+            url: '/api/whse/app/cargoout/order/list?'+queryString.stringify(req.query),
         }, req, res), function (error, response, body) {
             if (!error && response.statusCode == 200) {
                 console.log(66666)
