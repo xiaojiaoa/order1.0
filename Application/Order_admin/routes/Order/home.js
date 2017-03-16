@@ -1122,6 +1122,10 @@ router.post('/registerDeliver/:tid', Middleware.AuthCheck,InstallserviceControll
  * 控制器:   AppServiceController
  * */
 var AppServiceController = require('./Controller/AppserviceController');
+
+// 移动端登陆
+router.post('/app/login',AppServiceController.doLogin);
+
 // 出库-按照订单号查出包装
 router.get('/app/cargoout/:tid', MobileMiddleware.AuthCheck,AppServiceController.cargooutPage);
 

@@ -39,7 +39,6 @@ var BaseController = {
             options.headers['access_token'] = req.session.auth.access_token;
         }
 
-        console.log(options.headers)
         return helper.mergeObject({
             method: 'GET',
             timeout: 2000

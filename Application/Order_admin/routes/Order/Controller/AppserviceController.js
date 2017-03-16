@@ -14,34 +14,48 @@ var request = require('request');
 
 var AppServiceController = {
 
+    error:{
+        msg:"服务器异常",
+        code:500
+    },
+
+    doLogin: function (req, res) {
+        
+        request(Base.mergeRequestOptions({
+            method: 'POST',
+            url: '/api/token',
+            form: req.body
+        }, req, res), function (error, response, body) {
+            if (!error) {
+                res.send(JSON.parse(body));
+            } else {
+                res.send(AppServiceController.error);
+            }
+        })
+    },
     cargooutPage: function (req, res) {
         var tid = req.params.tid;
         request(Base.mergeRequestOptions({
             method: 'get',
             url: '/api/whse/app/cargoout/package/list/'+tid,
         }, req, res), function (error, response, body) {
-            if (!error && response.statusCode == 200) {
-                if(body){
-                    var $data = JSON.parse(body);
-                    res.send($data);
-                }
+            if (!error) {
+                res.send(JSON.parse(body));
+            } else {
+                res.send(AppServiceController.error);
             }
+              
         })
-        },
+    },
     cargooutOrder: function (req, res) {
         request(Base.mergeRequestOptions({
             method: 'get',
             url: '/api/whse/app/cargoout/order/list',
         }, req, res), function (error, response, body) {
-            if (!error && response.statusCode == 200) {
-                console.log(66666)
-                if(body){
-                    var $data = JSON.parse(body);
-                    res.send($data);
-                }
-            }else {
-                console.log(7777)
-                // Base.handlerError(res, req, error, response, body);
+            if (!error) {
+                res.send(JSON.parse(body));
+            } else {
+                res.send(AppServiceController.error);
             }
         })
     },
@@ -50,11 +64,10 @@ var AppServiceController = {
             method: 'get',
             url: '/api/whse/app/cargoin/package/list',
         }, req, res), function (error, response, body) {
-            if (!error && response.statusCode == 200) {
-                if(body){
-                    var $data = JSON.parse(body);
-                    res.send($data);
-                }
+            if (!error) {
+                res.send(JSON.parse(body));
+            } else {
+                res.send(AppServiceController.error);
             }
         })
     },
@@ -64,11 +77,10 @@ var AppServiceController = {
             method: 'get',
             url: '/api/whse/app/cargoin/order/package/list?packageList='+tid,
         }, req, res), function (error, response, body) {
-            if (!error && response.statusCode == 200) {
-                if(body){
-                    var $data = JSON.parse(body);
-                    res.send($data);
-                }
+            if (!error) {
+                res.send(JSON.parse(body));
+            } else {
+               res.send(AppServiceController.error);
             }
         })
     },
@@ -78,11 +90,10 @@ var AppServiceController = {
             url: '/api/whse/app/cargoin/package',
             form: req.body
         }, req, res), function (error, response, body) {
-            if (!error && response.statusCode == 201) {
-                // res.redirect('/enterMaterial')
-                res.sendStatus(200);
+            if (!error) {
+                res.send(JSON.parse(body));
             } else {
-                Base.handlerError(res, req, error, response, body);
+                res.send(AppServiceController.error);
             }
         })
     },
@@ -92,11 +103,10 @@ var AppServiceController = {
             method: 'post',
             url: '/api/whse/app/cargoout/prod?pakgId='+pakgId,
         }, req, res), function (error, response, body) {
-            if (!error && response.statusCode == 201) {
-                // res.redirect('/enterMaterial')
-                res.sendStatus(200);
+            if (!error) {
+                res.send(JSON.parse(body));
             } else {
-                Base.handlerError(res, req, error, response, body);
+                res.send(AppServiceController.error);
             }
         })
     },
