@@ -118,7 +118,7 @@
                                                 <option value="">- 请选择 -</option>
                                                 <%
                                                 storesList.forEach(function (element) { %>
-                                                <option value="<%= element.id %>" <%= (DWYRequest.query.bid == element.id)?"selected":"" %>><%= element.storeName %></option>
+                                                <option value="<%= element.id %>" <%= (DWYRequest.query.storeId == element.id)?"selected":"" %>><%= element.storeName %></option>
                                                 <%  }) %>
                                             </select>
                                         </div>

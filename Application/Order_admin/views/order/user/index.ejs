@@ -133,8 +133,8 @@
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    <% if(DWY_Helper.isCanLoop(taskMeasureInfo.result)){
-                                    taskMeasureInfo.result.forEach(function(element,index){%>
+                                    <% if(DWY_Helper.isCanLoop(taskMeasureInfo)){
+                                    taskMeasureInfo.forEach(function(element,index){%>
                                     <tr>
                                         <td><%= index+1%></td>
                                         <td><%= element.name %></td>
