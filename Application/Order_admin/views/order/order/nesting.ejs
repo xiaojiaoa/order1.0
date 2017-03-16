@@ -302,17 +302,6 @@
 
         //修改批次号
         var editBatchNum = $('#editBatchNum');
-//        $("#checkAll2").change(function () {
-//            if($(this).is(":checked")){
-//                $("input[name='role']").prop('checked',true);
-//                $("input[name='role']:checked").each(function (i) {
-//                    editBatchNum.addClass(this.value+',')
-//                });
-//            }else{
-//                $(":checkbox").prop('checked',false);
-//                editBatchNum.removeClass()
-//            }
-//        })
         $("input[name='role']").change(function () {
             if($(this).is(':checked')){
                 editBatchNum.addClass(this.value+',')
@@ -329,7 +318,10 @@
                     cid= $("#batchInput").val();
                     var reg = /^(\d{1,12})$/;
                     var r = cid.match(reg);
-                    if(r==null) return false;
+                    if(r==null){
+                        layer.alert('请输入0-9且长度不大于12！', {icon: 3})
+                        return false;
+                    }
                         $.ajax({
                         url: '/order/editBatchNum/'+cid+'/'+bid,
                         method: 'post',
@@ -338,18 +330,7 @@
                         },
                         error: function (response) {
                             layer.close(index)
-                            var data = JSON.parse(response.responseText);
-//                        var data = (response.responseText);
-                            $.smallBox({
-                                title: "操作失败",
-                                content: data.msg,
-                                color: "#C46A69",
-                                iconSmall: "fa fa-times fa-2x fadeInRight animated",
-                                timeout: 3000
-                            });
-                            setTimeout(function(){
-                                window.location.reload();
-                            },7000)
+                            errorLayout.normal(response);
                         }
                     });
             },function(index){
@@ -364,17 +345,6 @@
         })
         //标记为排料中
         var checkedValue = $('#checkedValue');
-//        $("#checkAll").change(function () {
-//            if($(this).is(":checked")){
-//                $("input[name='roles']").prop('checked',true);
-//                $("input[name='roles']:checked").each(function (i) {
-//                    checkedValue.addClass(this.value+',')
-//                });
-//            }else{
-//                $(":checkbox").prop('checked',false);
-//                checkedValue.removeClass()
-//            }
-//        })
         $("input[name='roles']").change(function () {
             if($(this).is(':checked')){
                 checkedValue.addClass(this.value+',')
@@ -399,17 +369,7 @@
                         },
                         error: function (response) {
                             layer.close(index)
-                            var data = JSON.parse(response.responseText);
-                            $.smallBox({
-                                title: "操作失败",
-                                content: data.msg,
-                                color: "#C46A69",
-                                iconSmall: "fa fa-times fa-2x fadeInRight animated",
-                                timeout: 3000
-                            });
-                            setTimeout(function(){
-                                window.location.reload();
-                            },2000)
+                            errorLayout.normal(response);
                         }
                     });
                 },

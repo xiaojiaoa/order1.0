@@ -130,11 +130,13 @@
                                                     <th>物料编号</th>
                                                     <th>物料名称</th>
                                                     <th>分类名称</th>
+                                                    <th>真实库存</th>
+                                                    <th>预警数量</th>
                                                 </tr>
                                                 </thead>
                                                 <tbody>
                                                 <%
-                                                    if(supMaterialList.result && DWY_Helper.isCanLoop(supMaterialList.result)){
+                                                    if(DWY_Helper.isCanLoop(supMaterialList.result)){
                                                     supMaterialList.result.forEach(function (element, index) { %>
                                                 <tr>
                                                     <td>
@@ -147,6 +149,8 @@
                                                     <td><a href="/materialManage/detail/<%= element.id %>"><%= element.id %></a></td>
                                                     <td><%= element.name %></td>
                                                     <td><%= element.catName %></td>
+                                                    <td><%= element.stock %></td>
+                                                    <td><%= element.warning %></td>
                                                     <%  })}else{%>
                                                     <td colspan="4" class="text-align-center">暂无结果</td>
                                                    <% }%>
@@ -327,17 +331,7 @@
                         },
                         error: function (response) {
                             layer.close(index)
-                            var data = JSON.parse(response.responseText);
-                            $.smallBox({
-                                title: "操作失败",
-                                content: data.msg,
-                                color: "#C46A69",
-                                iconSmall: "fa fa-times fa-2x fadeInRight animated",
-                                timeout: 3000
-                            });
-                            setTimeout(function(){
-                                window.location.reload();
-                            },7000)
+                            errorLayout.normal(response);
                         }
                     });
                     //                layer.close(index)

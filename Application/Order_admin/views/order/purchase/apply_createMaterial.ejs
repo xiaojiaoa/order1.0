@@ -101,9 +101,6 @@
         }
 
 
-
-
-
         $("#sub").click(function(){
             if (isNaN(parseFloat($(".amountApply").val())) || parseFloat($(".amountApply").val()) <= 0) {
                 layer.alert('请输入有效数字！', {icon: 3})
@@ -145,17 +142,7 @@
                                 localStorage.clear();
                             }else {
                                 layer.close(index)
-                                var data = JSON.parse(response.responseText);
-                                $.smallBox({
-                                    title: "操作失败",
-                                    content: data.msg,
-                                    color: "#C46A69",
-                                    iconSmall: "fa fa-times fa-2x fadeInRight animated",
-                                    timeout: 3000
-                                });
-                                setTimeout(function () {
-                                    window.location.reload();
-                                }, 1000000)
+                                errorLayout.normal(response);
                             }
                         }
                     });
