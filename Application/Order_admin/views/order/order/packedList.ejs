@@ -105,8 +105,8 @@
                                         <td>包装工件</td>
                                         <td><a href="javascript:void(0)" class="display-none saveValue"
                                                packageType="<%= packedListDetail.packageType%>"
-                                               packageLid="<%= (pid)?pid:170315000000000035;%>"
-                                            ></a></td>
+                                               packageLid="<%= (pid)?pid:packedListDetail.orderPackageDetails[0].packageLid;%>"
+                                            ></a></td> <!-- packageLid="170315000000000035"-->
                                         <td></td><td></td><td></td><td></td><td></td><td></td><td></td>
                                     </tr>
                                     <tr>
@@ -161,8 +161,8 @@
                                         <td>包装配件</td>
                                         <td><a href="javascript:void(0)" class="display-none saveValue"
                                                packageType="<%= packedListDetail.packageType%>"
-                                               packageLid="<%= (pid)?pid:170315000000000035;%>"
-                                            ></a></td>
+                                               packageLid="<%= (pid)?pid:packedListDetail.orderPackageDetails[0].packageLid;%>"
+                                            ></a></td> <!-- packageLid="170315000000000035"-->
                                         <td></td><td></td><td></td><td></td><td></td><td></td>
                                     </tr>
                                     <tr>
@@ -442,24 +442,21 @@
                 $(this).addClass("display-none");
             }
         })
-
         //跳出--删除空包按钮
         var packageType=$(".saveValue").attr("packageType");
         var sourcePackageLid=$(".saveValue").attr("packageLid");
-         if($("select[name=destinationPackageLid]").length==0){
-             console.log("type"+packageType);
-             console.log("plid"+sourcePackageLid);
-             $(".deletePacket").each(function(){
-                 if($(this).attr("packageType")==packageType && $(this).attr("packageLid")==sourcePackageLid) {
-                     console.log("sucess");
-                     console.log($(this).attr("packageType"));
-                     console.log($(this).attr("packageLid"));
-                     console.log($(this).attr("class"))
-                     $(this).removeClass("display-none");
-                 }
-             });
-             };
-
+        if($("select[name=destinationPackageLid]").length==0){
+            console.log("type"+packageType);
+            console.log("plid"+sourcePackageLid);
+            $(".deletePacket").each(function(){
+                if($(this).attr("packageType")==packageType && $(this).attr("packageLid")==sourcePackageLid) {
+                    console.log($(this).attr("packageType"));
+                    console.log($(this).attr("packageLid"));
+                    console.log($(this).attr("class"))
+                    $(this).removeClass("display-none");
+                }
+            });
+        };
 
         //删包操作
         $(".deletePacket").on("click",function(e){
@@ -473,12 +470,7 @@
                         url: '/orders/package/packet/delete/'+pid+"/"+type,
                         method: 'put',
                         success: function (data) {
-                            if('<%= pid%>'){
-                                window.location.href="/orders/package/<%= tid%>?packageLid=<%= pid%>";
-                            }
-                            else{
                                 window.location.href="/orders/package/<%= tid%>";
-                            }
                         },
                         error: function (response) {
                             layer.close(index)
