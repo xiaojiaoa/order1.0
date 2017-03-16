@@ -1075,8 +1075,12 @@ router.post('/registerDeliver/:tid', Middleware.AuthCheck,InstallserviceControll
  * 控制器:   SystemController
  * */
 var SystemController = require('./Controller/SystemController');
-// 待安装列表
+// 首页
 router.get('/system', Middleware.AuthCheck,SystemController.indexPage);
+
+// 预警时间设置
+router.get('/system/timeSet', Middleware.AuthCheck,SystemController.timeSetPage);
+router.get('/system/timeSet/doSet', Middleware.AuthCheck,SystemController.doSetTime);
 
 
 
