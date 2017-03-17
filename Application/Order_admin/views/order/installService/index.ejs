@@ -44,7 +44,7 @@
                                         <label class="control-label" style="float: left"> 至 </label>
                                         <div class="col-xs-3">
                                             <select class="form-control" name="endCode">
-                                                <option value="769">已安装</option>
+                                                <option value="769">已登记安装</option>
                                             </select>
                                         </div>
                                     </div>
@@ -92,6 +92,7 @@
                                 <th>建单柜员编号</th>
                                 <th>建单柜员名称</th>
                                 <th>流水编号</th>
+                                <th>订单状态</th>
                                 <th>操作</th>
                             </tr>
                             </thead>
@@ -110,6 +111,16 @@
                                 <td><%= element.gid %></td>
                                 <td><%= element.gname %></td>
                                 <td><%= element.lid %></td>
+                                <%
+                                if(element.stcode==749){ %>
+                                <td>已发货</td>
+                                <% } %>
+                                <%
+                                if(element.stcode==769){ %>
+                                    <td>已登记发货</td>
+                                <% } %>
+
+
                                 <td>
                                     <%
                                     if(element.stcode==769){
