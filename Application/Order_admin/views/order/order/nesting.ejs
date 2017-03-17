@@ -27,16 +27,12 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-xs-12">
-
                     <div class="table-responsive">
                         <table class="table table-bordered table-striped table-hover">
                             <thead>
                             <tr>
                                 <th>
                                     <label class="checkbox-inline">
-                                        <!--<input type="checkbox" class="checkbox"-->
-                                               <!--id="checkAll2"  />-->
                                         <span>序号</span>
                                     </label>
                                 </th>
@@ -76,7 +72,9 @@
                                 <td><a href="/order/detail/<%= element.tid %>"><%= element.tid %></a></td>
                                 <td><%= element.batchNumber %></td>
                                 <td><%= element.storeName %></td>
-                                <td><%= element.cName %></td>
+                                <td>
+                                    <a href="/customer/detail/"><%= element.cName %></a>
+                                </td>
                                 <td><%= DWY_Helper.getLocalDate(element.orderTime) %></td>
                                 <td><%= element.retailPrice %></td>
                                 <td><%= DWY_Helper.getLocalDate(element.deliveryTime) %></td>
@@ -97,7 +95,6 @@
                             <input  id="editBatchNum" class=""  type="hidden" />
                         </div>
                     </div>
-                </div>
             </div>
         </div>
         <div class="well">
@@ -212,8 +209,6 @@
                         <tr>
                             <th>
                                 <label class="checkbox-inline">
-                                    <!--<input type="checkbox" class="checkbox"-->
-                                           <!--id="checkAll"  />-->
                                     <span>序号</span>
                                 </label>
                             </th>
@@ -240,15 +235,11 @@
                             <td>
                                 <label class="checkbox-inline">
                                     <%
-                                    if(element.received==1){%>
-                                        <input type="checkbox" class="checkbox"
-                                           name="roles" value="<%= element.tid %>">
-                                    <%}%>
-                                    <%
                                     if(element.received==0){%>
-                                        <input type="checkbox" class="checkbox"
-                                       name="roles" value="<%= element.tid %>" disabled="disabled">
-                                    <% } %>
+                                        <input type="checkbox" class="checkbox" name="roles" value="<%= element.tid %>" disabled="disabled">
+                                    <% }else{%>
+                                        <input type="checkbox" class="checkbox" name="roles" value="<%= element.tid %>">
+                                    <%} %>
                                     <span><%= index+1 %></span>
                                 </label>
                             </td>
@@ -261,7 +252,9 @@
                             <td><a href="/order/detail/<%= element.tid %>"><%= element.tid %></a></td>
                             <td><%= element.batchNumber %></td>
                             <td><%= element.storeName %></td>
-                            <td><%= element.cName %></td>
+                            <td>
+                                <a href="/customer/detail/"><%= element.cName %></a>
+                            </td>
                             <td><%= DWY_Helper.getLocalDate(element.orderTime) %></td>
                             <td><%= element.retailPrice %></td>
                             <td><%= DWY_Helper.getLocalDate(element.deliveryTime) %></td>
@@ -276,7 +269,7 @@
                 </div>
                 <div class="col-xs-12">
                     <hr class="simple">
-                    <div class="col-xs-2 text-center">
+                    <div class="col-xs-1 text-center">
                         <button class="btn btn-primary" id="getNestingTask">标记为排料中</button>
                         <input type="hidden" class="" id="checkedValue">
                     </div>
