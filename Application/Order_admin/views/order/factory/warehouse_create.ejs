@@ -13,6 +13,8 @@
         <!-- breadcrumb -->
         <ol class="breadcrumb">
             <li>后台管理</li>
+            <li><a class="back-url" href="/factory"><i class="fa fa-chevron-left"></i> 工厂列表</a></li>
+            <li><a class="back-url" href="/warehouse?ftyId=<%= ftyId %>"><i class="fa fa-chevron-left"></i> 仓库列表</a></li>
             <li>新建仓库</li>
         </ol>
         <!-- end breadcrumb -->
@@ -80,7 +82,9 @@
                                             <select class="form-control validate[required]" name="type">
                                                 <option value="">- 请选择 -</option>
                                                 <% warehouseTypes.forEach(function (element) {  %>
-                                                <option value="<%= element.id %>"><%= element.name %></option>
+                                                <option value="<%= element.id %>" <%= DWY_last_request_param.type == element.id ?"selected":"" %> >
+                                                    <%= element.name %>
+                                                </option>
                                                 <% }) %>
                                             </select>
                                         </div>
@@ -117,7 +121,7 @@
                                         <label class="col-xs-2 control-label">备注:</label>
                                         <div class="col-xs-10">
                                             <textarea name="remark" class="form-control"
-                                                      cols="30" rows="5"></textarea>
+                                                      cols="30" rows="5"><%= DWY_last_request_param.remark %></textarea>
                                         </div>
                                     </div>
                                 </div>

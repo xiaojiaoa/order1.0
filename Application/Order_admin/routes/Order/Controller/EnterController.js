@@ -123,6 +123,7 @@ var EnterController = {
         });
     },
     stockEnterPage: function (req, res){
+        var id=req.query.purcId;
         var paramObject = helper.genPaginationQuery(req);
         Base.multiDataRequest(req, res, [
                 {url: '/api/purchase/reqmaterial/purchase/cargoin?'+queryString.stringify(req.query), method: 'GET', resConfig: {keyName: 'cargoinList', is_must: false}},
@@ -140,6 +141,7 @@ var EnterController = {
 
                 var returnData = Base.mergeData(helper.mergeObject({
                     title: ' ',
+                    pid:id,
                     pagination: boostrapPaginator.render(),
                 }, resultList));
                 res.render('order/enter/stock_enter', returnData);

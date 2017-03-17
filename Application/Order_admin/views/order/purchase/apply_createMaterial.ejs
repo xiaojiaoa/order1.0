@@ -82,13 +82,13 @@
             for (var i = 0; i < len; i++) {
                 var itemHtml = ''
                     + '<tr class="topTr">'
-                    + '<td class="materialId'+i+'"><a href="/materialManage/detail/' + listArr[i].id + '">' + listArr[i].id + '</a></td>'
+                    + '<td class="materialId'+i+'">' + listArr[i].id + '</td>'
                     + '<td>' + listArr[i].name + '</td>'
-                    + '<td>' + listArr[i].class_name + '</td>'
                     + '<td>' + listArr[i].suppName + '</td>'
+                    + '<td>' + listArr[i].class_name + '</td>'
                     + '<td><input type="text" name="amount'+i+'" value="" class="amountApply" /> </td>'
                     + '<td><input class="form-control fg-date-picker deliveryDate" type="text" value="" name="deliveryDate'+i+'" /> </td>'
-                    + '<td><input name="minAmount'+i+'" /></td>'
+                    + '<td><input name="minAmount'+i+'" class="minAmount" value="" /></td>'
                     + '</tr>';
                 htmlStr += itemHtml;
                 // 判断是否是初始化 是的话保持下面列表状态同步
@@ -101,9 +101,6 @@
         }
 
 
-
-
-
         $("#sub").click(function(){
             if (isNaN(parseFloat($(".amountApply").val())) || parseFloat($(".amountApply").val()) <= 0) {
                 layer.alert('请输入有效数字！', {icon: 3})
@@ -111,6 +108,12 @@
             }
             if (isNaN(parseFloat($(".deliveryDate").val())) )  {
                 layer.alert('日期不能为空！', {icon: 3})
+                return false;
+            }
+            var num=$('.amountApply').val();
+            var minNum=$('.minAmount').val();
+            if(num<minNum){
+                layer.alert('请购数量不能低于最小数量！', {icon: 3})
                 return false;
             }
             var myArray=new Array()
@@ -145,17 +148,7 @@
                                 localStorage.clear();
                             }else {
                                 layer.close(index)
-                                var data = JSON.parse(response.responseText);
-                                $.smallBox({
-                                    title: "操作失败",
-                                    content: data.msg,
-                                    color: "#C46A69",
-                                    iconSmall: "fa fa-times fa-2x fadeInRight animated",
-                                    timeout: 3000
-                                });
-                                setTimeout(function () {
-                                    window.location.reload();
-                                }, 1000000)
+                                errorLayout.normal(response);
                             }
                         }
                     });

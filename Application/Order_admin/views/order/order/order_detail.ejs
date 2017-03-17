@@ -794,15 +794,7 @@
                     },
                     error: function (response) {
                         layer.close(index)
-                        var data = JSON.parse(response.responseText);
-//                        var data = (response.responseText);
-                        $.smallBox({
-                            title: "操作失败",
-                            content: data.msg,
-                            color: "#C46A69",
-                            iconSmall: "fa fa-times fa-2x fadeInRight animated",
-                            timeout: 3000
-                        });
+                        errorLayout.normal(response);
                     }
                 });
             }, function (index) { layer.close(index) })
@@ -839,14 +831,7 @@
                     },
                     error: function (response) {
                         layer.close(index)
-                        var data = JSON.parse(response.responseText);
-                        $.smallBox({
-                            title: "操作失败",
-                            content: data.msg,
-                            color: "#C46A69",
-                            iconSmall: "fa fa-times fa-2x fadeInRight animated",
-                            timeout: 3000
-                        });
+                        errorLayout.normal(response);
                     }
                 });
             }, function (index) { layer.close(index) })
@@ -884,15 +869,7 @@
                     },
                     error: function (response) {
                         layer.close(index)
-                        var data = JSON.parse(response.responseText);
-//                        var data = (response.responseText);
-                        $.smallBox({
-                            title: "操作失败",
-                            content: data.msg,
-                            color: "#C46A69",
-                            iconSmall: "fa fa-times fa-2x fadeInRight animated",
-                            timeout: 3000
-                        });
+                        errorLayout.normal(response);
                     }
                 });
             }, function (index) { layer.close(index) })

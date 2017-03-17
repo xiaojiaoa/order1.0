@@ -618,4 +618,59 @@ tr > td > .separation:last-child {
 .status02,.status03{
     display:none;
 }
+.display-block{
+    display:block!important;
+}
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.float-none{
+    float: none;
+    margin: 0 auto;
+}
+.time-value::before{
+    content: attr(data-time)' 天';
+    position: absolute;
+
+}
+.time-edit td{
+    height:50px;
+    line-height: 35px !important;
+}
+.time-edit input{
+    position: relative;
+}
+>>>>>>> d2f9b64067039eb2a90866319c482095f8744236

@@ -7,8 +7,8 @@
             <select class="form-control validate[required]" name="did">
                 <option value="">--请选择--</option>
                 <%
-                if(installGroup){
-                installGroup.forEach(function (element,index) {%>
+                if(DWY_Helper.isCanLoop(installGroup)){
+                installGroup.forEach(function (element, index) { %>
                 <option value="<%= element.did %>" class="selectInstallGroup"><%= element.bname %>—<%= element.dname %></option>
                 <%})}%>
             </select>

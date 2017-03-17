@@ -1,0 +1,129 @@
+<%- include('../layouts/head_top'); %>
+<%- include('../layouts/head_bottom'); %>
+<%- include('../layouts/header'); %>
+<%- include('../layouts/nav'); %>
+
+
+<!-- MAIN PANEL -->
+<div id="main" role="main">
+
+    <!-- RIBBON -->
+    <div id="ribbon">
+
+        <!-- breadcrumb -->
+        <ol class="breadcrumb">
+            <li>后台管理</li>
+            <li>预警时间设置</li>
+        </ol>
+        <!-- end breadcrumb -->
+
+
+    </div>
+    <!-- END RIBBON -->
+
+    <!-- MAIN CONTENT -->
+    <div id="content">
+
+
+        <!-- well -->
+        <div class="well">
+            <!-- row -->
+            <div class="row">
+                <!-- col -->
+                <div class="col-xs-6 float-none">
+                    <table class="table table-bordered time-edit">
+                        <thead>
+                        <tr>
+                            <th width="50%">类别</th>
+                            <th width="50%">值</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+
+                        <tr>
+                            <td>黄色预警</td>
+                            <td class="time-value insert" data-time="15"></td>
+                        </tr>
+                        <tr>
+                            <td>红色预警</td>
+                            <td class="time-value insert" data-time="15"></td>
+                        </tr>
+                        <tr>
+                            <td>红色预警</td>
+                            <td class="time-value insert" data-time="15"></td>
+                        </tr>
+
+                        <!--<tr>-->
+                            <!--<td>红色预警</td>-->
+                            <!--<td class="time-value" data-time="15">-->
+                                <!--<input class="form-control validate[custom[number]]" name="time" value="15" >-->
+                            <!--</td>-->
+                        <!--</tr>-->
+                        </tbody>
+                    </table>
+
+                </div>
+
+            </div>
+            <!-- end row -->
+        </div>
+        <!-- end well -->
+        <!-- well -->
+
+
+    </div>
+    <!-- END MAIN CONTENT -->
+
+</div>
+<!-- END MAIN PANEL -->
+
+<%- include('../layouts/footer'); %>
+<%- include('../layouts/footer_common_script'); %>
+
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+        var timeEdit = $(".time-edit");
+
+        timeEdit.validationEngine();
+
+        timeEdit.on('click','.insert',function () {
+            $('td').removeClass('insert');
+            var value = $(this).attr('data-time');
+            $(this).html('<input class="form-control validate[custom[number]]"  value="'+value+'" >');
+            $(':input').focus();
+        })
+
+
+
+        timeEdit.on( 'blur',':input',function () {
+            var _self = $(this);
+            layer.confirm('确定保存吗?', {icon: 3, title: '提示'}, function (index) {
+                $.ajax({
+//                    url: '/enterMaterial/doPass/',
+                    method: 'put',
+                    success: function (data) {
+                        window.location.reload();
+                    },
+                    error: function (response) {
+                        layer.close(index);
+                        _self.parent().html('');
+                        $('.time-value').addClass('insert');
+                        errorLayout.normal(response);
+
+                    }
+                });
+            }, function (index) {
+                layer.close(index);
+                _self.parent().html('');
+                $('.time-value').addClass('insert');
+            })
+        })
+
+    })
+
+</script>
+
+
+<%- include('../layouts/foot'); %>

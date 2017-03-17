@@ -38,13 +38,15 @@
                                         <label class="pull-left control-label col-xs-4">&nbsp;订单状态:</label>
                                         <div class="col-xs-3">
                                             <select class="form-control" name="startCode">
+                                                <option value=""> - 请选择 -</option>
                                                 <option value="749">已发货</option>
                                             </select>
                                         </div>
                                         <label class="control-label" style="float: left"> 至 </label>
                                         <div class="col-xs-3">
                                             <select class="form-control" name="endCode">
-                                                <option value="769">已安装</option>
+                                                <option value=""> - 请选择 -</option>
+                                                <option value="769">已登记安装</option>
                                             </select>
                                         </div>
                                     </div>
@@ -92,13 +94,14 @@
                                 <th>建单柜员编号</th>
                                 <th>建单柜员名称</th>
                                 <th>流水编号</th>
+                                <th>订单状态</th>
                                 <th>操作</th>
                             </tr>
                             </thead>
                             <tbody>
                             <%
-                            if(installServiceList.result){
-                                installServiceList.result.forEach(function (element, index) { %>
+                            if(DWY_Helper.isCanLoop(installServiceList.result)){
+                            installServiceList.result.forEach(function (element, index) { %>
                             <tr>
                                 <td><%= index+1 %></td>
                                 <td><a href="/order/detail/<%= element.tid %>"><%= element.tid %></a></td>
@@ -110,6 +113,16 @@
                                 <td><%= element.gid %></td>
                                 <td><%= element.gname %></td>
                                 <td><%= element.lid %></td>
+                                <%
+                                if(element.stcode==749){ %>
+                                <td>已发货</td>
+                                <% } %>
+                                <%
+                                if(element.stcode==769){ %>
+                                    <td>已登记发货</td>
+                                <% } %>
+
+
                                 <td>
                                     <%
                                     if(element.stcode==769){
@@ -175,17 +188,7 @@
                                 },
                                 error: function (response) {
                                     layer.close(index)
-                                    var data = JSON.parse(response.responseText);
-                                    $.smallBox({
-                                        title: "操作失败",
-                                        content: data.msg,
-                                        color: "#C46A69",
-                                        iconSmall: "fa fa-times fa-2x fadeInRight animated",
-                                        timeout: 3000
-                                    });
-                                    setTimeout(function(){
-                                        window.location.reload();
-                                    },7000)
+                                    errorLayout.normal(response);
                                 }
                             });
                         },function(index){
