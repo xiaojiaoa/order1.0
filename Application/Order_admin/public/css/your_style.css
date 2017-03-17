@@ -594,32 +594,28 @@ tr > td > .separation:last-child {
 
 .table-linkage{
    text-align: center;
-}
-.table-linkage tr:nth-of-type(2){
-    background: #f2f98b;
-}
-.table-linkage tr.actived{
-    background: #95c8fd;
-}
-.table-linkage tr.disable{
-    background: #bfbcbc;
-}
-.table-linkage tr:nth-of-type(1) span{
-    padding: 10px;
-    color: #527df5;
     cursor: pointer;
 }
-
-.table-linkage tr:nth-of-type(1) span.delete{
-    color: #f53323;
+.table-linkage tr:nth-of-type(2){
+    font-size: 15px;
+    margin: 10px 0;
+    font-weight: 700;
+    line-height: normal;
 }
-.table-linkage tr.disable,
-.table-linkage tr:nth-of-type(1) span.revoke,
-.table-linkage tr:nth-of-type(1) span.save,
-.table-linkage tr:nth-of-type(1) span.open-all,
-.table-linkage tr:nth-of-type(1) span.open-this{
+.table-linkage tr.active{
+    background-color: #ecf3f8!important;
+}
+.table-linkage tr.disable{
+    background-color: rgba(244, 244, 244, 4);
+    color: #999999;
+}
+.table-linkage tr.disable{
     display: none;
 }
-.display-block{
-    display:block!important;
+.status01{
+    display:inline-block;
 }
+.status02,.status03{
+    display:none;
+}
+

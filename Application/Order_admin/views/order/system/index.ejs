@@ -26,7 +26,7 @@
 
 
         <!-- well -->
-        <div class="well no-border no-box-shadow">
+        <div class="well no-border no-box-shadow basicDataSet">
             <!-- row -->
             <div class="row">
                 <!-- col -->
@@ -39,7 +39,7 @@
                         <tr>
                             <td>类别</td>
                         </tr>
-                        <tr class="actived">
+                        <tr class="active">
                             <td>量尺空间</td>
                         </tr>
                         <tr>
@@ -74,24 +74,24 @@
                         <tbody class="level-1">
                         <tr>
                             <td data-level="level-1">
-                                <span class="create">新建</span>
-                                <span class="modify">修改</span>
-                                <span class="delete">删除</span>
-                                <span class="see-all">查看所有</span>
-                                <span class="open-this">启用</span>
-                                <span class="open-all">启用所有</span>
-                                <span class="revoke">撤销</span>
-                                <span class="save">保存</span>
+                                <a class="label label-primary create status01">新建</a>
+                                <a class="label label-primary modify status01">修改</a>
+                                <a class="label label-primary open-this status03">启用</a>
+                                <a class="label label-danger delete status01">删除</a>
+                                <a class="label label-primary see-all status01">查看所有</a>
+                                <a class="label label-primary open-all status03">启用所有</a>
+                                <a class="label label-primary revoke status02">撤销</a>
+                                <a class="label label-primary save status02">保存</a>
                             </td>
                         </tr>
                         <tr>
                             <td>类别1</td>
                         </tr>
-                        <tr class="actived">
+                        <tr class="active">
                             <td>机构编号2222</td>
                         </tr>
                         <tr class="disable">
-                            <td>机构编号</td>
+                            <td>我是被禁用的花花</td>
                         </tr>
                         <tr>
                             <td>机构编号</td>
@@ -102,8 +102,8 @@
                         <tr>
                             <td>机构编号</td>
                         </tr>
-                        <tr>
-                            <td>机构编号</td>
+                        <tr class="disable">
+                            <td>我是被禁用的大白菜</td>
                         </tr>
                         <tr>
                             <td>机构编号</td>
@@ -122,11 +122,11 @@
                         <tbody class="level-2">
                         <tr>
                             <td data-level="level-2">
-                                <span>新建</span>
-                                <span>修改</span>
-                                <span class="delete">删除</span>
-                                <span class="revoke">撤销</span>
-                                <span class="save">保存</span>
+                                <a class="label label-primary create status01">新建</a>
+                                <a class="label label-primary modify status01">修改</a>
+                                <a class="label label-danger delete status01">删除</a>
+                                <a class="label label-primary revoke status02">撤销</a>
+                                <a class="label label-primary save status02">保存</a>
                             </td>
                         </tr>
                         <tr>
@@ -170,14 +170,6 @@
         <!-- end well -->
         <!-- well -->
         <!-- end well -->
-        <span class="create">新建</span>
-        <span class="modify">修改</span>
-        <span class="delete">删除</span>
-        <span class="see-all">查看所有</span>
-        <span class="open-this">启用</span>
-        <span class="open-all">启用所有</span>
-        <span class="revoke">撤销</span>
-        <span class="save">保存</span>
 
 
     </div>
@@ -194,22 +186,154 @@
 
     $(document).ready(function () {
 
-        //查看所有
-        $('.see-all').click(function () {
+         var seaAllStat=false;//标记"查看所有"点击状态
+         var openAllStat=false;//标记"启用所有"点击状态
+         var index;//点击的tr的位置
+
+        //点击"新建"，"修改"
+        $(".create,.modify").on("click",function(e){
+
             var level = $(this).parent().attr('data-level');
-            $('.'+level).find('.disable').show();
+            var classDom=$('.'+level);
+            classDom.find('.status01,.status03').hide();
+            classDom.find('.status02').show();
+
+            //禁用所有的点击事件
+            $(".basicDataSet *").css("pointer-events","none");
+
+            //点击"新建"
+            if (e.target == $('.'+level+" .create")[0]) {
+
+                classDom.append("<tr class='add-input'><td><input class='border-0 text-align-center' type='text' value='' name=''/></td></tr>");
+                //给input添加focus事件
+                classDom.find("input").focus();
+
+                //启用'保存''撤销''输入框'的点击事件
+                classDom.find(".save,.revoke,.add-input").css("pointer-events","auto");
+
+                //保存
+                $(".save").on("click",function(){
+                    status02(classDom);
+
+                    //启用所有的点击事件
+                    $(".basicDataSet *").css("pointer-events","auto");
+                });
+
+                 //撤销
+                $(".revoke").on("click",function(){
+                    classDom.find(".add-input").remove();
+                    status02(classDom);
+
+                    //启用所有的点击事件
+                    $(".basicDataSet *").css("pointer-events","auto");
+                });
+            }
+
+            //点击"修改"
+            if (e.target == $('.'+level+" .modify")[0]) {
+
+                var text;
+
+                //根据有无点击tr执行修改操作
+                if(index){
+                    text=$.trim(classDom.find("tr").eq(index).text());
+                    classDom.find("tr").eq(index).removeAttr('class').addClass("add-input").html("<td><input class='border-0 text-align-center' type='text' value='' name=''/></td>");
+                }
+                else{
+                    text=$.trim(classDom.find("tr").eq(2).text());
+                    classDom.find("tr").eq(2).removeAttr('class').addClass("add-input").html("<td><input class='border-0 text-align-center' type='text' value='' name=''/></td>");
+                }
+               //给input添加focus事件
+                classDom.find("input").val(text).focus();
+
+                //启用'保存''撤销''输入框'的点击事件
+                classDom.find(".save,.revoke,.add-input").css("pointer-events","auto");
+
+                //保存
+                $(".save").on("click",function(){
+
+                    status02(classDom);
+
+                    //启用所有的点击事件
+                    $(".basicDataSet *").css("pointer-events","auto");
+                });
+
+                //撤销
+                $(".revoke").on("click",function(){
+                    if(index){
+                        classDom.find("tr").eq(index).removeAttr('class').html("<td>"+text+"</td>");
+                    }
+                    else{
+                        classDom.find("tr").eq(2).removeAttr('class').html("<td>"+text+"</td>");
+                    }
+
+                    status02(classDom);
+                    //启用所有的点击事件
+                    $(".basicDataSet *").css("pointer-events","auto");
+                });
+            }
+        });
+
+        /*
+        * status02--用于点击"撤销"、"保存"之后返回的三个状态
+        * */
+        function status02(dom){
+
+            dom.find('.status01').show();
+            dom.find('.status02').hide();
+
+            //根据"查看所有"点击状态显示"启用所有"
+            if(seaAllStat){
+                dom.find('.see-all').hide();
+                dom.find('.open-all').show();
+            }
+
+            //根据"启用所有"点击状态显示"启用所有"
+            if(openAllStat){
+                dom.find('.open-all').hide();
+            }
+        }
+
+        //点击"删除"
+          $(".delete").click(function () {
+         layer.confirm('确定删除该项?', {icon: 3, title: '提示'}, function (index) {
+         $.ajax({
+         url: '/enterMaterial/doPass/',
+         method: 'put',
+         success: function (data) {
+         window.location.reload();
+         },
+         error: function (response) {
+         layer.close(index)
+         errorLayout.normal(response);
+         }
+         });
+         }, function (index) { layer.close(index) })
+         })
+
+        //点击"查看所有"
+        $('.see-all').click(function () {
+
+            var level = $(this).parent().attr('data-level');
+            var classDom=$('.'+level);
+
             $(this).hide();
-            $(this).hide();
-            $(this).parent().find('.open-all').show();
+            classDom.find('.open-all').show();
+
+            classDom.find('.disable').show();
+
+            seaAllStat=true;
         })
 
+        //点击"启用所有"
+        $('.open-all').click(function () {
 
-
-
-
-        //确认弹窗
-        $(".open-all").click(function () {
             var level = $(this).parent().attr('data-level');
+            var classDom=$('.'+level);
+
+            $(this).hide();
+            classDom.find('.disable').removeAttr('class');
+            openAllStat=true;
 
             layer.confirm('确定启用所有?', {icon: 3, title: '提示'}, function (index) {
                 $.ajax({
@@ -221,34 +345,56 @@
                     error: function (response) {
                         layer.close(index)
                         errorLayout.normal(response);
-//                        var data = JSON.parse(response.responseText);
-//                        $.smallBox({
-//                            title: "操作失败",
-//                            content: data.msg,
-//                            color: "#C46A69",
-//                            iconSmall: "fa fa-times fa-2x fadeInRight animated",
-//                            timeout: 3000
-//                        });
                     }
                 });
             }, function (index) { layer.close(index) })
         })
 
+        //点击"启用"
+        $('.open-this').click(function(){
 
-        var errorLayout = function (data) {
+            var level = $(this).parent().attr('data-level');
+            var classDom=$('.'+level);
 
-            var data = JSON.parse(data.responseText);
-            $.smallBox({
-                title: "操作失败",
-                content: data.msg,
-                color: "#C46A69",
-                iconSmall: "fa fa-times fa-2x fadeInRight animated",
-                timeout: 3000
-            });
+            classDom.find("tr").eq(index).removeAttr("class");
 
-        }
+            classDom.find('.modify').show();
+            $(this).hide();
 
+            layer.confirm('确定启用该项吗?', {icon: 3, title: '提示'}, function (index) {
+                $.ajax({
+                    url: '/enterMaterial/doPass/',
+                    method: 'put',
+                    success: function (data) {
+                        window.location.reload();
+                    },
+                    error: function (response) {
+                        layer.close(index)
+                        errorLayout.normal(response);
+                    }
+                });
+            }, function (index) { layer.close(index) })
+        });
 
+        //点击tr
+        $("table>tbody>tr").click(function(){
+            //排除第一行
+            if($(this).index()!=0){
+                if(!$(this).hasClass('add-input')){
+                    $(this).addClass("active").siblings("tr").removeClass("active");
+                }
+
+                index=$(this).index();
+            }
+
+            //点击的是"disable"
+            if($(this).hasClass('disable')){
+                var classDom = $(this).parent();
+                classDom.find('.modify').hide();
+                classDom.find('.open-this').show();
+            }
+
+        });
     })
 
 </script>
