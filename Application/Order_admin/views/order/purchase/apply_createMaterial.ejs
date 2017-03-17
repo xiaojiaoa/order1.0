@@ -88,7 +88,7 @@
                     + '<td>' + listArr[i].suppName + '</td>'
                     + '<td><input type="text" name="amount'+i+'" value="" class="amountApply" /> </td>'
                     + '<td><input class="form-control fg-date-picker deliveryDate" type="text" value="" name="deliveryDate'+i+'" /> </td>'
-                    + '<td><input name="minAmount'+i+'" /></td>'
+                    + '<td><input name="minAmount'+i+'" class="minAmount" value="" /></td>'
                     + '</tr>';
                 htmlStr += itemHtml;
                 // 判断是否是初始化 是的话保持下面列表状态同步
@@ -108,6 +108,12 @@
             }
             if (isNaN(parseFloat($(".deliveryDate").val())) )  {
                 layer.alert('日期不能为空！', {icon: 3})
+                return false;
+            }
+            var num=$('.amountApply').val();
+            var minNum=$('.minAmount').val();
+            if(num<minNum){
+                layer.alert('请购数量不能低于最小数量！', {icon: 3})
                 return false;
             }
             var myArray=new Array()
