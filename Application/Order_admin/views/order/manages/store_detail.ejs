@@ -121,7 +121,6 @@
                         <table class="table table-bordered table-striped <%= ( storeInfo.stcode == 40 )? 'close-info':'' %>">
                             <thead>
                             <tr>
-                                <th>交易类型</th>
                                 <th>资金类型</th>
                                 <th>交易金额</th>
                                 <th>交易时间</th>
@@ -134,9 +133,8 @@
                             if(DWY_Helper.isCanLoop(moneyList.result)){
                             moneyList.result.forEach(function (element) { %>
                             <tr>
-                                <td><%= element.direction ==1?'+':'-' %></td>
                                 <td><%= DWY_Helper.getMoneyTYpe(element.type) %></td>
-                                <td><%= element.money %></td>
+                                <td><%= element.direction ==1?'+':'-' %><%= element.money %></td>
                                 <td><%= DWY_Helper.getLocalDate(element.addTime) %></td>
                                 <td><%= element.describe %></td>
                                 <td><a href="/order/detail/<%= element.tid %>"><%= element.tid %></a></td>

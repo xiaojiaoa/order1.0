@@ -249,6 +249,7 @@
                                 <th>手机号</th>
                                 <th>角色信息</th>
                                 <th>所属部门</th>
+                                <th>账号状态</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -269,10 +270,15 @@
                                     } %>
                                 </td>
                                 <td><%= element.deptName %></td>
+                                <td>
+                                <% if(element.stcode == 1){%>开启 <%} %>
+                                <% if(element.stcode == 2){%> 关闭<%} %>
+                                <% if(element.stcode == 0){%>锁定 <%} %>
+                                </td>
                             </tr>
                             <% })
                                 }else{ %>
-                            <td colspan="6" class="text-align-center">暂无结果</td>
+                            <td colspan="7" class="text-align-center">暂无结果</td>
                             <%  }%>
 
 

@@ -796,7 +796,7 @@ router.get('/deliveryNote/deatil/:id', Middleware.AuthCheck, OutWarehouseControl
 router.get('/outMaterial', Middleware.AuthCheck, OutWarehouseController.outMaterialPage);
 
 // 原料出库-审核
-router.get('/outMaterial/doChecked/:id', Middleware.AuthCheck, OutWarehouseController.outMaterialChecked);
+router.put('/outMaterial/doChecked/:id', Middleware.AuthCheck, OutWarehouseController.outMaterialChecked);
 
 // 原料出库详情页面
 router.get('/outMaterial/deatil/:id', Middleware.AuthCheck, OutWarehouseController.outMaterialDeatil);
