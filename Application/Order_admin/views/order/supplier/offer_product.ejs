@@ -31,31 +31,29 @@
             </div>
             <div class="row">
                 <div class="col-xs-12">
-                    <div class="col-xs-3">
-                        <a class="btn btn-primary margin-bottom-10" id="editBatchNum">关联物料</a>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-xs-12">
                     <div class="table-responsive">
                         <table class="table table-bordered table-striped localstorage">
                             <thead>
                             <tr class="len">
-                                <th>
-                                    <label class="checkbox-inline">
-                                        <span class="0">序号</span>
-                                    </label>
-                                </th>
+                                <th>序号</th>
                                 <th>物料编号</th>
                                 <th>物料名称</th>
                                 <th>分类名称</th>
+                                <th>截止合同日期</th>
+                                <th>物料编码</th>
                             </tr>
                             </thead>
                             <tbody class="supProTr">
 
                             </tbody>
                         </table>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="col-xs-3">
+                        <a class="btn btn-primary margin-bottom-10" id="relateMaterial">关联物料</a>
                     </div>
                 </div>
             </div>
@@ -111,56 +109,52 @@
                         <div class="col-xs-12">
                             <div class="form-group">
                                 <div class="col-xs-12">
-                                        <div class="row">
-                                            <div class="col-xs-12">
-                                                <legend>
-                                                    供应商物料关联
-                                                </legend>
-                                            </div>
+                                    <div class="row">
+                                        <div class="col-xs-12">
+                                            <legend>
+                                                供应商物料关联
+                                            </legend>
                                         </div>
-                                        <div class="orderItemLayerTable">
-                                            <table class="table table-bordered table-hover">
-                                                <thead>
-                                                <tr>
-                                                    <th>
-                                                        <label class="checkbox-inline">
-                                                            <span>序号</span>
-                                                        </label>
-                                                    </th>
-                                                    <th>物料编号</th>
-                                                    <th>物料名称</th>
-                                                    <th>分类名称</th>
-                                                    <th>真实库存</th>
-                                                    <th>预警数量</th>
-                                                </tr>
-                                                </thead>
-                                                <tbody>
-                                                <%
-                                                    if(DWY_Helper.isCanLoop(supMaterialList.result)){
-                                                    supMaterialList.result.forEach(function (element, index) { %>
-                                                <tr>
-                                                    <td>
-                                                        <label class="checkbox-inline">
-                                                            <input type="checkbox" class="checkbox"
-                                                                   name="roles" value="<%= element.id %>">
-                                                            <span><%= index+1 %></span>
-                                                        </label>
-                                                    </td>
-                                                    <td><a href="/materialManage/detail/<%= bid %>/<%= element.id %>"><%= element.id %></a></td>
-                                                    <td><%= element.name %></td>
-                                                    <td><%= element.catName %></td>
-                                                    <td><%= element.stock %></td>
-                                                    <td><%= element.warning %></td>
-                                                    <%  })}else{%>
-                                                    <td colspan="6" class="text-align-center">暂无结果</td>
-                                                   <% }%>
-                                                </tr>
-                                                </tbody>
-                                            </table>
-                                            <%- pagination %>
-                                            <input type="hidden" class="" id="checkedValue">
-                                            <input type="hidden"  id="gid" value="<%= suppliersDetail.id %>">
-                                        </div>
+                                    </div>
+                                    <div class="orderItemLayerTable">
+                                        <table class="table table-bordered table-hover">
+                                            <thead>
+                                            <tr>
+                                                <th>序号</th>
+                                                <th>物料编号</th>
+                                                <th>物料名称</th>
+                                                <th>分类名称</th>
+                                                <th>真实库存</th>
+                                                <th>预警数量</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            <%
+                                            if(DWY_Helper.isCanLoop(supMaterialList.result)){
+                                            supMaterialList.result.forEach(function (element, index) { %>
+                                            <tr>
+                                                <td>
+                                                    <label class="checkbox-inline">
+                                                        <input type="checkbox" class="checkbox"
+                                                               name="roles" value="<%= element.id %>">
+                                                        <span><%= index+1 %></span>
+                                                    </label>
+                                                </td>
+                                                <td><a href="/materialManage/detail/<%= bid %>/<%= element.id %>"><%= element.id %></a></td>
+                                                <td><%= element.name %></td>
+                                                <td><%= element.catName %></td>
+                                                <td><%= element.stock %></td>
+                                                <td><%= element.warning %></td>
+                                                <%  })}else{%>
+                                                <td colspan="6" class="text-align-center">暂无结果</td>
+                                                <% }%>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                        <%- pagination %>
+                                        <input type="hidden" class="" id="checkedValue">
+                                        <input type="hidden"  id="gid" value="<%= suppliersDetail.id %>">
+                                    </div>
 
                                 </div>
 
@@ -180,7 +174,7 @@
 <script type="text/javascript">
     $(document).ready(function () {
         pageSetUp();
-        $(".fg-date-picker").flatpickr(data_time_picker.data_picker); // jQuery
+        $(".supProTr").validationEngine({scroll: false});
         //刷新选中列表 这个函数根据每个页面不同需自己填写
         function updateCheckedList(isInit) {
             var parentEle = '.supProTr';
@@ -196,13 +190,15 @@
                         + '<tr class="topTr">'
                         + '<td>'
                         + '<label class="checkbox-inline">'
-                        + '<input type="checkbox" class="checkbox" name="roles" value="' + listArr[i].id + '" checked>'
+                        + '<input type="checkbox" class="checkbox materialId'+i+'" name="roles"  value="' + listArr[i].id + '" checked>'
                         + '<span>' + (i+1) + '</span>'
                         + '</label>'
                         + '</td>'
                         + '<td><a href="/materialManage/detail/' + listArr[i].id + '">' + listArr[i].id + '</a></td>'
                         + '<td>' + listArr[i].name + '</td>'
                         + '<td>' + listArr[i].class_name + '</td>'
+                        + '<td><input class="form-control fg-date-picker validate[required] date" type="text" value="" name="date'+i+'"  /></td>'
+                        + '<td><input  class="form-control validate[required] code" value="" name="code'+i+'" /></td>'
                         + '</tr>';
                     htmlStr += itemHtml;
 
@@ -219,8 +215,7 @@
                     }
                 }
                 $(parentEle).html(htmlStr);
-
-
+                $(".fg-date-picker").flatpickr(data_time_picker.data_picker); // jQuery
             }else{
                 $(parentEle).html("");
             }
@@ -299,46 +294,69 @@
             }
         });
 
-        $("#editBatchNum").on({
+        $("#relateMaterial").on({
             click:function(){
                 if(checkedValue.attr('class')==null||checkedValue.attr('class')==''){
                     layer.alert('请选择！', {icon: 3})
                     return false;
                 }
-                layer.open({
-                    title: false,
-                    type: 1,
-                    area: '500px',
-                    content: $('#create-offer-pro'),
-                    cancel: function () {
+                var dateVal = $(".date").val();
+                var codeVal = $(".code").val();
+                if(dateVal==null||dateVal==''){
+                    layer.alert('请填写合同日期！', {icon: 3})
+                    return false;
+                }
+                if(codeVal==null||codeVal==''){
+                    layer.alert('请填写物料编码！', {icon: 3})
+                    return false;
+                }
 
-                    },
-                })
-        }})
-        $("#btnCreateDate").click(function(){
-            var tid=$("#gid").val();
-            var bid = checkedValue.attr('class').replace(/[ ]/g,"");
-            bid = bid.substring(0,bid.length-1);
-            var date=$("#create-offer-pro input").val();
-            if(date==""||date==null) return false;
-            layer.confirm("确认关联？", {title:'提示'},function(index){
-                    $.ajax({
-                        url: '/supplier/createMaterialSupplier/'+tid+'/'+bid+'/'+date,
-                        method: 'post',
-                        success: function (data) {
-                            location.href='/supplier/detail/'+tid;
-                            localStorage.clear();
-                        },
-                        error: function (response) {
-                            layer.close(index)
-                            errorLayout.normal(response);
-                        }
-                    });
-                    //                layer.close(index)
-                },function(index){
-                    layer.close(index)}
-            )
-        })
+                var len= $('.topTr').length;
+                var arr=new Array();
+                for(var i=0;i<len;i++){
+                    var suppId=$("#gid").val();
+                    var mateId=$(".materialId"+i+"").val();
+                    var expiryDate=$("input[name=date"+i+"]").val();
+                    var outerCode=$("input[name=code"+i+"]").val();
+                    var obj=new Object();
+                    obj.suppId=suppId;
+                    obj.mateId=mateId;
+                    obj.expiryDate=expiryDate;
+                    obj.outerCode=outerCode;
+                    arr.push(obj);
+                }
+                var list={list:arr};
+                console.log(list)
+                layer.confirm("确认关联？", {title:'提示'},function(index){
+                        $.ajax({
+                            url: '/supplier/createMaterialSupplier',
+                            data:JSON.stringify(list),
+                            method: 'post',
+                            dataType: 'json',
+                            contentType:"application/json",
+                            success: function (data) {
+                                location.href='/supplier/detail/'+suppId;
+                                localStorage.clear();
+                            },
+                            error: function (response) {
+                                if(response.status==200){
+                                    location.href='/supplier/detail/'+suppId;
+                                    localStorage.clear();
+                                }else {
+                                    layer.close(index)
+                                    errorLayout.normal(response);
+                                }
+
+                                layer.close(index)
+                                errorLayout.normal(response);
+                            }
+                        });
+                        //                layer.close(index)
+                    },function(index){
+                        layer.close(index)}
+                )
+
+            }})
     })
 </script>
 <%- include('../layouts/foot'); %>

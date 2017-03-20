@@ -948,7 +948,7 @@ router.get('/supplier/modify/:tid', Middleware.AuthCheck,SupplierController.supp
 //供应商信息修改
 router.post('/supplier/doModify', Middleware.AuthCheck,SupplierController.supplierDoModify);
 //新增供应商物料关联
-router.post('/supplier/createMaterialSupplier/:tid/:bid/:date', Middleware.AuthCheck,SupplierController.createMaterialSupplier);
+router.post('/supplier/createMaterialSupplier', Middleware.AuthCheck,SupplierController.createMaterialSupplier);
 //供应商可供物料
 router.get('/supplier/offer_product/:tid', Middleware.AuthCheck,Middleware.FilterEmptyField,SupplierController.supplierOfferProductPage);
 

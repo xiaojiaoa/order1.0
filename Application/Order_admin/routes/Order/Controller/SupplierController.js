@@ -152,17 +152,11 @@ var SupplierController = {
     },
     //新增供应商物料关联
     createMaterialSupplier: function (req, res) {
-        var tid=req.params.tid;
-        var bid=req.params.bid;
-        var date=req.params.date;
         request(Base.mergeRequestOptions({
             method: 'post',
             url: '/api/suppliers/materials',
-            form: {
-                suppId:tid,
-                mateId:bid,
-                expiryDate:date,
-            },
+            headers:{'Content-type':'application/json'},
+            body:JSON.stringify(req.body),
         }, req, res), function (error, response, body) {
             if (!error && response.statusCode == 201) {
                 res.sendStatus(200)

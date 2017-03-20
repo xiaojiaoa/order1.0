@@ -205,7 +205,10 @@
                             url: '/purchases/merge/'+tid,
                             method: 'post',
                             success: function (data) {
-                                window.location.reload();
+                                layer.alert('操作成功！');
+                                setTimeout(function(){
+                                    window.location.reload();
+                                },2000);
                             },
                             error: function (response) {
                                 layer.close(index)
@@ -248,7 +251,10 @@
                             url: '/purchases/review/'+tid,
                             method: 'post',
                             success: function (data) {
-                                window.location.reload();
+                                layer.alert('操作成功！');
+                                setTimeout(function(){
+                                    window.location.reload();
+                                },2000);
                             },
                             error: function (response) {
                                 layer.close(index)
@@ -298,7 +304,10 @@
                             url: '/purchases/submit/'+tid,
                             method: 'post',
                             success: function (data) {
-                                window.location.reload();
+                                layer.alert('操作成功！');
+                                setTimeout(function(){
+                                    window.location.reload();
+                                },2000);
                             },
                             error: function (response) {
                                 layer.close(index)
