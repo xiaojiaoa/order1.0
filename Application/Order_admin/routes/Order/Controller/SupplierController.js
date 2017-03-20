@@ -131,7 +131,7 @@ var SupplierController = {
         req.body.suppId=tid;
         Base.multiDataRequest(req, res, [
             {url: '/api/categories/list?parentId=0', method: 'GET', resConfig: {keyName: 'suppliersMaterialList', is_must: true}},
-            {url: '/api/materials/suppliers?'+(queryString.stringify(req.query)), method: 'GET', resConfig: {keyName: 'supMaterialList', is_must: true}},
+            {url: '/api/materials/suppliers?'+(queryString.stringify(req.body)), method: 'GET', resConfig: {keyName: 'supMaterialList', is_must: true}},
             {url: '/api/suppliers/'+tid, method: 'GET', resConfig: {keyName: 'suppliersDetail', is_must: true}},
         ], function (req, res, resultList) {
             var paginationInfo =  resultList.supMaterialList;
