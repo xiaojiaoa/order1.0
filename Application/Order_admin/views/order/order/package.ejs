@@ -5,7 +5,7 @@
 
 
 <!-- MAIN PANEL -->
-<div id="main" role="main">
+<div id="main" role="main" class="mainFlex">
 
     <!-- RIBBON -->
     <div id="ribbon">
@@ -22,7 +22,7 @@
 
 
     <!-- MAIN CONTENT -->
-    <div id="content">
+    <div id="content" class="dis-flex">
         <!--well-->
         <div class="well">
             <!-- row -->
@@ -125,7 +125,7 @@
         </div>
         <!--end well-->
         <!--well-->
-        <div class="well">
+        <div class="well dis-flex">
             <!-- row -->
             <div class="row">
                 <div class="col-xs-12">
@@ -135,10 +135,10 @@
             </div>
             <!--end roll-->
             <!-- row -->
-            <div class="row">
-                <div class="col-xs-12">
-                    <div class="table-responsive">
-                        <table class="table table-bordered table-striped table-hover">
+            <div class="row dis-flex">
+                <div class="col-xs-12 dis-flex">
+                    <div class="table-responsive dis-flex">
+                        <table class="table table-bordered table-striped table-hover table-scroll dis-flex">
                             <thead>
                             <tr>
                                <!-- <th>
@@ -148,37 +148,37 @@
                                         <span>序号</span>
                                     </label>
                                 </th>-->
-                                <th>序号</th>
-                                <th>订单号</th>
-                                <th>批次号</th>
-                                <th>专卖店</th>
-                                <th>客户名称</th>
-                                <th>客户地址</th>
-                                <th>楼盘名称</th>
-                                <th>下单日期</th>
-                                <th>交货日期</th>
-                                <th>备注</th>
-                                <th>包装状态</th>
-                                <th>操作</th>
+                                <th width="3%">序号</th>
+                                <th width="8%">订单号</th>
+                                <th width="5%">批次号</th>
+                                <th width="5%">专卖店</th>
+                                <th width="5%">客户名称</th>
+                                <th width="15%">客户地址</th>
+                                <th width="6%">楼盘名称</th>
+                                <th width="5%">下单日期</th>
+                                <th width="5%">交货日期</th>
+                                <th width="10%">备注</th>
+                                <th width="4%">包装状态</th>
+                                <th width="80">操作</th>
                             </tr>
                             </thead>
                             <tbody>
                             <%
-                            if(1){
+                            if(DWY_Helper.isCanLoop(toBePackedList.result)){
                             toBePackedList.result.forEach(function (element, index) { %>
                             <tr>
-                                <td><%= index+1 %></td>
-                                <td><a href="/order/detail/<%= element.tid %>"><%= element.tid %></a></td>
-                                <td><%= element.batchNumber %></td>
-                                <td><%= element.storeName %></td>
-                                <td><%= element.cName %></td>
-                                <td><%= element.custAdress %></td>
-                                <td><%= element.realEstate %></td>
-                                <td><%= element.orderTimeStr %></td>
-                                <td><%= element.deliveryTimeStr%></td>
-                                <td><%= element.remark %></td>
-                                <td><%= element.packageStatusStr %></td>
-                                <td>
+                                <td width="3%"><%= index+1 %></td>
+                                <td width="8%"><a href="/order/detail/<%= element.tid %>"><%= element.tid %></a></td>
+                                <td width="5%"><%= element.batchNumber %></td>
+                                <td width="5%"><%= element.storeName %></td>
+                                <td width="5%"><%= element.cName %></td>
+                                <td width="15%"><%= element.custAdress %></td>
+                                <td width="6%"><%= element.realEstate %></td>
+                                <td width="5%"><%= element.orderTimeStr %></td>
+                                <td width="5%"><%= element.deliveryTimeStr%></td>
+                                <td width="10%"><%= element.remark %></td>
+                                <td width="4%"><%= element.packageStatusStr %></td>
+                                <td width="80">
                                     <% if(element.packageStatus==0 && DWY_Helper.hasPermission(Permission.orderPackage.create.id, permission) ){%>
                                     <a class="label label-primary crePackage" tid="<%= element.tid %>">生成包装</a>
                                     <%}%>
@@ -193,8 +193,8 @@
                             <%  }%>
                             </tbody>
                         </table>
-                        <%- pagination %>
                     </div>
+                    <%- pagination %>
                 </div>
             </div>
             <!--end  row-->

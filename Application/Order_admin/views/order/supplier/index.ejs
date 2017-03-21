@@ -5,7 +5,7 @@
 
 
 <!-- MAIN PANEL -->
-<div id="main" role="main">
+<div id="main" role="main" class="mainFlex">
 
     <!-- RIBBON -->
     <div id="ribbon">
@@ -19,7 +19,7 @@
     </div>
     <!-- END RIBBON -->
     <!-- MAIN CONTENT -->
-    <div id="content">
+    <div id="content" class="dis-flex">
         <!-- start well -->
         <div class="well">
             <!-- row -->
@@ -80,7 +80,7 @@
             <!-- end row -->
         </div>
         <!-- end well -->
-        <div class="well">
+        <div class="well dis-flex">
             <!-- row -->
             <div class="row">
                 <div class="col-xs-12">
@@ -93,24 +93,24 @@
                 </div>
             </div>
             <!-- row -->
-            <div class="row">
-                <div class="col-xs-12">
-                    <div class="table-responsive">
-                        <table class="table table-bordered table-striped">
+            <div class="row dis-flex">
+                <div class="col-xs-12 dis-flex">
+                    <div class="table-responsive dis-flex">
+                        <table class="table table-bordered table-striped table-hover table-scroll dis-flex" id="mytable">
                             <thead>
-                                <th>序号</th>
-                                <th>供应商编号</th>
-                                <th>供应商名称</th>
-                                <th>供应商分类名称</th>
-                                <th>联系人姓名</th>
-                                <th>供应商等级</th>
-                                <th>供应商类型</th>
-                                <th>联系人手机</th>
-                                <th>工厂详细地址</th>
-                                <th>柜员名称</th>
-                                <th>创建部门</th>
-                                <th>创建时间</th>
-                                <th>操作</th>
+                                <th width="3%">序号</th>
+                                <th width="8%">供应商编号</th>
+                                <th width="15%">供应商名称</th>
+                                <th width="15%">供应商分类名称</th>
+                                <th width="8%">联系人</th>
+                                <th width="8%">联系电话</th>
+                                <th width="6%">供应商等级</th>
+                                <th width="6%">供应商类型</th>
+                                <th width="8%">柜员名称</th>
+                                <th width="8%">创建部门</th>
+                                <th width="10%">创建时间</th>
+                                <th width="10%">详细地址</th>
+                                <th width="120">操作</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -118,13 +118,14 @@
                             if(DWY_Helper.isCanLoop(suppliersList.result)){
                                 suppliersList.result.forEach(function (element, index) { %>
                             <tr class="<%= ( element.isDeleted == 2 )? 'close-info':'' %>">
-                                <td><%= index+1 %></td>
-                                <td><a href="supplier/detail/<%= element.id %>"><%= element.id %></a></td>
-                                <td><%= element.name %></td>
-                                <td><%= element.cateName %></td>
-                                <td><%= element.contact %></td>
-                                <td><%= element.grade %></td>
-                                <td>
+                                <td width="3%"><%= index+1 %></td>
+                                <td width="8%"><a href="supplier/detail/<%= element.id %>"><%= element.id %></a></td>
+                                <td width="15%"><%= element.name %></td>
+                                <td width="15%"><%= element.cateName %></td>
+                                <td width="8%"><%= element.contact %></td>
+                                <td width="8%"><%= element.contactMobile %></td>
+                                <td width="6%"><%= element.grade %></td>
+                                <td width="6%">
                                     <%
                                     if(element.type==1){%>
                                     外部
@@ -134,12 +135,11 @@
                                         内部
                                     <%}%>
                                 </td>
-                                <td><%= element.contactMobile %></td>
-                                <td><%= element.address %></td>
-                                <td><%= element.gname %></td>
-                                <td><%= element.deptName %></td>
-                                <td><%= DWY_Helper.getLocalDate(element.addTime) %></td>
-                                <td>
+                                <td width="8%"><%= element.gname %></td>
+                                <td width="8%"><%= element.deptName %></td>
+                                <td width="10%"><%= DWY_Helper.getLocalDate(element.addTime) %></td>
+                                <td width="10%"><%= element.address %></td>
+                                <td width="120">
                                     <%
                                     if(element.isDeleted==2){%>
                                         <button class="label label-primary delete-supplier" selfId="<%= element.id %>">启用</button>
@@ -157,8 +157,8 @@
                             </tr>
                             </tbody>
                         </table>
-                        <%- pagination %>
                     </div>
+                    <%- pagination %>
                 </div>
             </div>
         </div>
@@ -169,6 +169,7 @@
 <%- include('../layouts/footer_common_script'); %>
 <script type="text/javascript">
     $(document).ready(function () {
+//        $("#mytable").freezeHeader({ 'height': '100%' });
         pageSetUp();
         $(".fg-date-time-picker").flatpickr(data_time_picker.data_picker); // jQuery
     })

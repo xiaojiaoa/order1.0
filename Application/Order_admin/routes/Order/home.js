@@ -796,7 +796,7 @@ router.get('/deliveryNote/deatil/:id', Middleware.AuthCheck, OutWarehouseControl
 router.get('/outMaterial', Middleware.AuthCheck, OutWarehouseController.outMaterialPage);
 
 // 原料出库-审核
-router.get('/outMaterial/doChecked/:id', Middleware.AuthCheck, OutWarehouseController.outMaterialChecked);
+router.put('/outMaterial/doChecked/:id', Middleware.AuthCheck, OutWarehouseController.outMaterialChecked);
 
 // 原料出库详情页面
 router.get('/outMaterial/deatil/:id', Middleware.AuthCheck, OutWarehouseController.outMaterialDeatil);
@@ -836,6 +836,9 @@ router.put('/outBred/doCheck/:id', Middleware.AuthCheck, OutWarehouseController.
 
 // 可发货订单-审核
 router.put('/outBred/doUnCheck/:id', Middleware.AuthCheck, OutWarehouseController.doUnCheckBred);
+
+router.post('/outBred/plateOut', Middleware.AuthCheck, OutWarehouseController.plateOut);
+router.post('/outBred/accessoryOut', Middleware.AuthCheck, OutWarehouseController.accessoryOut);
 
 /*
  * 页面范围: 任务序列相关
@@ -948,7 +951,7 @@ router.get('/supplier/modify/:tid', Middleware.AuthCheck,SupplierController.supp
 //供应商信息修改
 router.post('/supplier/doModify', Middleware.AuthCheck,SupplierController.supplierDoModify);
 //新增供应商物料关联
-router.post('/supplier/createMaterialSupplier/:tid/:bid/:date', Middleware.AuthCheck,SupplierController.createMaterialSupplier);
+router.post('/supplier/createMaterialSupplier', Middleware.AuthCheck,SupplierController.createMaterialSupplier);
 //供应商可供物料
 router.get('/supplier/offer_product/:tid', Middleware.AuthCheck,Middleware.FilterEmptyField,SupplierController.supplierOfferProductPage);
 
@@ -1065,7 +1068,7 @@ var InstallserviceController = require('./Controller/InstallserviceController');
 // 待安装列表
 router.get('/installService', Middleware.AuthCheck,InstallserviceController.installServicePage);
 //指定安装组
-router.post('/installServiceTask', Middleware.AuthCheck,InstallserviceController.getTask);
+router.post('/installServiceTask/:tid/:did', Middleware.AuthCheck,InstallserviceController.getTask);
 
 //登记已收货
 router.post('/registerDeliver/:tid', Middleware.AuthCheck,InstallserviceController.registerDeliver);
@@ -1089,7 +1092,7 @@ router.post('/system/doModify', Middleware.AuthCheck, SystemController.doModify)
 
 // 预警时间设置
 router.get('/system/timeSet', Middleware.AuthCheck,SystemController.timeSetPage);
-router.get('/system/timeSet/doSet', Middleware.AuthCheck,SystemController.doSetTime);
+router.put('/system/timeSet/doSet', Middleware.AuthCheck,SystemController.doSetTime);
 
 
 

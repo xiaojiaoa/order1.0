@@ -10,6 +10,20 @@
             <input name="type" value="<%= type %>" type="hidden">
         </div>
     </div>
+    <% if(type == 'stores'){ %>
+    <div class="col-xs-12">
+        <div class="form-group">
+            <label class="col-xs-2 control-label"><span class="requird"></span>部门类型:</label>
+            <div class="col-xs-6">
+                <select class="form-control validate[required]" name="deptType">
+                    <option value="1">普通部门</option>
+                    <option value="2">安装部门</option>
+                </select>
+            </div>
+        </div>
+    </div>
+    <%  } %>
+
 
     <div class="col-xs-12">
         <hr class="simple">

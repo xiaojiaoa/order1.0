@@ -5,7 +5,7 @@
 
 
 <!-- MAIN PANEL -->
-<div id="main" role="main">
+<div id="main" role="main" class="mainFlex">
 
     <!-- RIBBON -->
     <div id="ribbon">
@@ -22,7 +22,7 @@
 
 
     <!-- MAIN CONTENT -->
-    <div id="content">
+    <div id="content" class="dis-flex">
 
 
         <!-- well -->
@@ -114,7 +114,7 @@
         </div>
         <!-- end well -->
 
-        <div class="well">
+        <div class="well dis-flex">
 
             <!-- row -->
             <div class="row">
@@ -125,10 +125,10 @@
             </div>
 
             <!-- row -->
-            <div class="row">
-                <div class="col-xs-12">
-                    <div class="table-responsive">
-                        <table class="table table-bordered table-striped table-hover">
+            <div class="row dis-flex">
+                <div class="col-xs-12 dis-flex">
+                    <div class="table-responsive dis-flex">
+                        <table class="table table-bordered table-striped table-hover table-scroll dis-flex">
                             <thead>
                             <tr>
                                 <th>序号</th>
@@ -186,7 +186,6 @@
 <script type="text/javascript">
 
     $(document).ready(function () {
-
         $("#search-customer").validationEngine();
 
         pageSetUp();

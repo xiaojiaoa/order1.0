@@ -292,13 +292,13 @@
         var checkedValue=$("#checkedValue");
         $(".purApplyTr input[name='roles']:checked").each(function(){
             var val=$(this).val();
-            checkedValue.addClass(val+',')
+            checkedValue.addClass(val+',');
         });
         $("input[name='roles']").change(function () {
             if($(this).is(':checked')){
-                checkedValue.addClass(this.value+',')
+                checkedValue.addClass(this.value+',');
             }else{
-                checkedValue.removeClass(this.value+',')
+                checkedValue.removeClass(this.value+',');
             }
         });
 

@@ -60,24 +60,60 @@
                                         <label class="col-xs-2 control-label "><span class="requird"></span> 权限:
                                         </label>
                                         <div class="col-xs-8">
+                                            <div class="table-responsive">
+                                                <table class="table table-bordered table-striped">
+                                                    <thead>
+                                                    <tr>
+                                                        <th>
+                                                            <label>
+                                                                <input type="checkbox" class="checkbox"
+                                                                       id="checkAll" data-prompt-position="bottomLeft:20,5">
+                                                                <span>全选</span>
+                                                            </label>
+                                                        </th>
+                                                    </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                    <%
+                                                    var permissionStr = '';
+                                                    rolesInfo.permissionList.forEach(function (element) {
+                                                        permissionStr += element.id+','
+                                                    })
+                                                    permissionStr = permissionStr.substring(0,permissionStr.length-1);
 
-                                            <%
-                                            var permissionStr = '';
-                                            rolesInfo.permissionList.forEach(function (element) {
-                                                permissionStr += element.id+','
-                                            })
-                                            permissionStr = permissionStr.substring(0,permissionStr.length-1);
+                                                    permissionsAllList.forEach(function (element, index) {%>
+                                                    <tr class="level-0">
+                                                        <td>
+                                                            <label>
+                                                                <input type="checkbox" class="checkbox validate[minCheckbox[1]]"
+                                                                       name="permission" value="<%= element.id%>"
+                                                                        <%= DWY_Helper.checkboxStatusStr(permissionStr, element.id) %>
+                                                                >
+                                                                <span><%= element.name%></span>
+                                                            </label>
+                                                        </td>
+                                                    </tr>
+                                                    <% if(element.subPermission){
+                                                        var parentId = element.id;
+                                                    element.subPermission.forEach(function (element) { %>
+                                                    <tr class="level-1">
+                                                        <td class="level-1-title">
+                                                            <label>
+                                                                <input type="checkbox" class="checkbox validate[minCheckbox[1]]"
+                                                                       name="permission" value="<%= element.id%>" parentId="<%= parentId %>"
+                                                                        <%= DWY_Helper.checkboxStatusStr(permissionStr, element.id) %>
+                                                                >
+                                                                <span><%= element.name%></span>
+                                                            </label>
+                                                        </td>
+                                                    </tr>
+                                                    <%   })
+                                                    }
+                                                    }) %>
+                                                    </tbody>
+                                                </table>
+                                            </div>
 
-                                            permissionsAllList.forEach(function (element) { %>
-                                            <label class="checkbox-inline to-block no-margin">
-                                                <input type="checkbox" class="checkbox validate[minCheckbox[1]]"
-                                                       name="permission" value="<%= element.id %>"
-                                                        <%= DWY_Helper.checkboxStatusStr(permissionStr, element.id) %>
-                                                >
-                                                <span><%= element.name %></span>
-
-                                            </label>
-                                            <%  }) %>
 
                                         </div>
 
@@ -127,6 +163,30 @@
 
         $("#create-store").validationEngine();
 
+      $("#checkAll").change(function () {
+        if($(this).is(":checked")){
+          $(":checkbox").prop('checked',true);
+
+        }else{
+          $(":checkbox").prop('checked',false);
+        }
+      })
+
+      $(':checkbox').change(function () {
+        var parentId = $(this).attr('parentId');
+        if(parentId){
+          $("input[value="+parentId+"]").prop('checked',true);
+        }else{
+          var value = $(this).val();
+          if($(this).is(":checked")){
+            $("input[parentId="+value+"]").prop('checked',true);
+
+          }else{
+            $("input[parentId="+value+"]").prop('checked',false);
+          }
+        }
+
+      })
 
     })
 

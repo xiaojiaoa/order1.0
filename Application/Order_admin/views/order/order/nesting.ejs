@@ -27,23 +27,15 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-xs-12">
-
                     <div class="table-responsive">
                         <table class="table table-bordered table-striped table-hover">
                             <thead>
                             <tr>
-                                <th>
-                                    <label class="checkbox-inline">
-                                        <!--<input type="checkbox" class="checkbox"-->
-                                               <!--id="checkAll2"  />-->
-                                        <span>序号</span>
-                                    </label>
-                                </th>
+                                <th>序号</th>
                                 <th>加急</th>
                                 <th>试装</th>
-                                <th>是否收款</th>
-                                <th>是否完毕</th>
+                                <th>收款</th>
+                                <th>下单完毕</th>
                                 <th>产品类型</th>
                                 <th>主材颜色</th>
                                 <th>订单号</th>
@@ -74,9 +66,16 @@
                                 <td><%= element.productTypeStr %></td>
                                 <td><%= element.colorStr %></td>
                                 <td><a href="/order/detail/<%= element.tid %>"><%= element.tid %></a></td>
-                                <td><%= element.batchNumber %></td>
+                                <%
+                                    if(element.batchNumber == '0'){%>
+                                    <td></td>
+                                   <% }else{%>
+                                    <td><%= element.batchNumber %></td>
+                                <%}%>
                                 <td><%= element.storeName %></td>
-                                <td><%= element.cName %></td>
+                                <td>
+                                    <a href="/customer/detail/<%= element.cid %>"><%= element.cName %></a>
+                                </td>
                                 <td><%= DWY_Helper.getLocalDate(element.orderTime) %></td>
                                 <td><%= element.retailPrice %></td>
                                 <td><%= DWY_Helper.getLocalDate(element.deliveryTime) %></td>
@@ -97,7 +96,6 @@
                             <input  id="editBatchNum" class=""  type="hidden" />
                         </div>
                     </div>
-                </div>
             </div>
         </div>
         <div class="well">
@@ -210,17 +208,11 @@
                     <table class="table table-bordered table-striped">
                         <thead>
                         <tr>
-                            <th>
-                                <label class="checkbox-inline">
-                                    <!--<input type="checkbox" class="checkbox"-->
-                                           <!--id="checkAll"  />-->
-                                    <span>序号</span>
-                                </label>
-                            </th>
+                            <th>序号</th>
                             <th>加急</th>
                             <th>试装</th>
-                            <th>是否收款</th>
-                            <th>是否完毕</th>
+                            <th>收款</th>
+                            <th>下单完毕</th>
                             <th>产品类型</th>
                             <th>主材颜色</th>
                             <th>订单号</th>
@@ -240,15 +232,11 @@
                             <td>
                                 <label class="checkbox-inline">
                                     <%
-                                    if(element.received==1){%>
-                                        <input type="checkbox" class="checkbox"
-                                           name="roles" value="<%= element.tid %>">
-                                    <%}%>
-                                    <%
                                     if(element.received==0){%>
-                                        <input type="checkbox" class="checkbox"
-                                       name="roles" value="<%= element.tid %>" disabled="disabled">
-                                    <% } %>
+                                        <input type="checkbox" class="checkbox" name="roles" value="<%= element.tid %>" disabled="disabled">
+                                    <% }else{%>
+                                        <input type="checkbox" class="checkbox" name="roles" value="<%= element.tid %>">
+                                    <%} %>
                                     <span><%= index+1 %></span>
                                 </label>
                             </td>
@@ -259,9 +247,16 @@
                             <td><%= element.productTypeStr %></td>
                             <td><%= element.colorStr %></td>
                             <td><a href="/order/detail/<%= element.tid %>"><%= element.tid %></a></td>
+                            <%
+                            if(element.batchNumber == '0'){%>
+                            <td></td>
+                            <% }else{%>
                             <td><%= element.batchNumber %></td>
+                            <%}%>
                             <td><%= element.storeName %></td>
-                            <td><%= element.cName %></td>
+                            <td>
+                                <a href="/customer/detail/<%= element.cid %>"><%= element.cName %></a>
+                            </td>
                             <td><%= DWY_Helper.getLocalDate(element.orderTime) %></td>
                             <td><%= element.retailPrice %></td>
                             <td><%= DWY_Helper.getLocalDate(element.deliveryTime) %></td>
@@ -276,7 +271,7 @@
                 </div>
                 <div class="col-xs-12">
                     <hr class="simple">
-                    <div class="col-xs-2 text-center">
+                    <div class="col-xs-1 text-center">
                         <button class="btn btn-primary" id="getNestingTask">标记为排料中</button>
                         <input type="hidden" class="" id="checkedValue">
                     </div>
@@ -326,10 +321,13 @@
                         url: '/order/editBatchNum/'+cid+'/'+bid,
                         method: 'post',
                         success: function (data) {
-                            window.location.reload();
+                            layer.msg('操作成功', {icon: 1, time: 2000})
+                            setTimeout(function(){
+                                window.location.reload();
+                            },2000);
                         },
                         error: function (response) {
-                            layer.close(index)
+                            layer.close(index);
                             errorLayout.normal(response);
                         }
                     });
@@ -347,9 +345,9 @@
         var checkedValue = $('#checkedValue');
         $("input[name='roles']").change(function () {
             if($(this).is(':checked')){
-                checkedValue.addClass(this.value+',')
+                checkedValue.addClass(this.value+',');
             }else{
-                checkedValue.removeClass(this.value+',')
+                checkedValue.removeClass(this.value+',');
             }
         });
         $("#getNestingTask").click(function(){
@@ -365,7 +363,10 @@
                         url: '/orders/getNestingTask/'+cid,
                         method: 'post',
                         success: function (data) {
-                            window.location.reload();
+                            layer.msg('操作成功', {icon: 1, time: 2000})
+                            setTimeout(function(){
+                                window.location.reload();
+                            },2000);
                         },
                         error: function (response) {
                             layer.close(index)

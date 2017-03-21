@@ -37,9 +37,9 @@
                             <tbody>
                             <tr >
                                 <td>流水号</td>
-                                <td><%= DWY_Helper.getAssistVal(taskseqInfo.stcode,statusInfo) %></td>
+                                <td><%= lid %></td>
                                 <td>流水状态</td>
-                                <td colspan="3"><%= lid %></td>
+                                <td colspan="3"><%= DWY_Helper.getAssistVal(taskseqInfo.stcode,statusInfo) %></td>
                             </tr>
                             <tr class="table-tr01">
                                 <td>客户编号</td>
@@ -292,9 +292,13 @@
 
                     <table class="table table-bordered table-striped table-information">
                         <tbody>
+                        <tr>
+                            <td>合同编号</td>
+                            <td colspan="5"><%= contractInfo.contNo %></td>
+                        </tr>
                         <tr class="table-tr01">
                             <td>合同登记时间</td>
-                            <td><%= contractInfo.contNo %></td>
+                            <td><%= DWY_Helper.getLocalDate(contractInfo.addTime) %></td>
                             <td>合同总金额</td>
                             <td><%= contractInfo.amount %> 元</td>
                             <td>合同剩余金额</td>
@@ -304,7 +308,7 @@
                             <td>预付款</td>
                             <td><%= contractInfo.deposit %> 元</td>
                             <td>订单交付日期</td>
-                            <td colspan="3"> <%= DWY_Helper.getLocalDate(contractInfo.addTime) %></td>
+                            <td colspan="3"> <%= DWY_Helper.getLocalDate(contractInfo.deliveryDate) %></td>
                         </tr>
                         <tr>
                             <td>最晚下单日期</td>

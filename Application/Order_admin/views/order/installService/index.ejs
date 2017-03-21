@@ -5,7 +5,7 @@
 
 
 <!-- MAIN PANEL -->
-<div id="main" role="main">
+<div id="main" role="main" class="mainFlex">
     <!-- RIBBON -->
     <div id="ribbon">
         <!-- breadcrumb -->
@@ -17,7 +17,7 @@
     </div>
     <!-- END RIBBON -->
     <!-- MAIN CONTENT -->
-    <div id="content">
+    <div id="content" class="dis-flex">
         <div class="well">
             <div class="row">
                 <div class="col-xs-12">
@@ -68,7 +68,7 @@
             </div>
         </div>
         <!--S well-->
-        <div class="well">
+        <div class="well dis-flex">
             <!-- row -->
             <div class="row">
                 <div class="col-xs-12">
@@ -78,10 +78,10 @@
                 </div>
             </div>
             <!-- row -->
-            <div class="row">
-                <div class="col-xs-12">
-                    <div class="table-responsive">
-                        <table class="table table-bordered table-striped">
+            <div class="row dis-flex">
+                <div class="col-xs-12 dis-flex">
+                    <div class="table-responsive dis-flex">
+                        <table class="table table-bordered table-striped table-hover table-scroll dis-flex" id="mytable">
                             <thead>
                             <tr>
                                 <th>序号</th>
@@ -95,7 +95,6 @@
                                 <th>建单柜员名称</th>
                                 <th>流水编号</th>
                                 <th>订单状态</th>
-                                <th>操作</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -103,7 +102,12 @@
                             if(DWY_Helper.isCanLoop(installServiceList.result)){
                             installServiceList.result.forEach(function (element, index) { %>
                             <tr>
-                                <td><%= index+1 %></td>
+                                <td>
+                                    <label  class="checkbox-inline">
+                                        <input type="checkbox" class="checkbox" value="<%= element.tid %>" stcode="<%= element.stcode %>" name="roles" />
+                                        <span><%= index+1 %></span>
+                                    </label>
+                                </td>
                                 <td><a href="/order/detail/<%= element.tid %>"><%= element.tid %></a></td>
                                 <td><%= element.cid %></td>
                                 <td><%= element.name %></td>
@@ -121,28 +125,22 @@
                                 if(element.stcode==769){ %>
                                     <td>已登记发货</td>
                                 <% } %>
-
-
-                                <td>
-                                    <%
-                                    if(element.stcode==769){
-                                    %>
-                                    <button class="label label-primary installGroup" tid="<%= element.tid %>">指定安装组</button>
-                                    <% } %>
-                                    <%
-                                    if(element.stcode==749){
-                                    %>
-                                    <button class="label label-primary registerDeliver" tid="<%= element.tid %>">登记收货</button>
-                                    <% } %>
-                                </td>
-                                <input type="hidden" value="<%= element.tid %>" name="tid">
                             </tr>
                             <%})}else{%>
                                <td colspan="12" class="text-align-center">暂无结果</td>
                            <% }%>
                             </tbody>
                         </table>
-                        <%- pagination %>
+                    </div>
+                    <%- pagination %>
+                    <div class="col-xs-12">
+                        <hr class="simple">
+                        <div class="col-xs-3">
+                            <button class="btn btn-primary installGroup" >指定安装组</button>
+                            <button class="btn btn-primary registerDeliver" >登记收货</button>
+                            <input type="hidden" class="" name="vals">
+                            <input type="hidden" name="stcode" class="" />
+                        </div>
                     </div>
                 </div>
             </div>
@@ -157,11 +155,34 @@
     $(document).ready(function () {
         pageSetUp();
         $(".fg-date-picker").flatpickr(data_time_picker.data_picker); // jQuery
+
+        $("input[name='roles']").change(function(){
+            var stcode = $(this).attr('stcode')
+            if($(this).is(':checked')){
+                $("input[name='stcode']").addClass(stcode+'');
+            }else{
+                $("input[name='stcode']").removeClass(stcode+'');
+            }
+            if($(this).is(':checked')){
+                $("input[name='vals']").addClass(this.value+',');
+            }else{
+                $("input[name='vals']").removeClass(this.value+',');
+            }
+        })
         $(".installGroup").on(
             {
                 click:function(){
-                    var tid=$(this).attr("tid");
-                    $("input[name='tid']").val(tid);
+                    var stcodeStr=$("input[name='stcode']").attr('class');
+                    var tid=$("input[name='vals']").attr('class');
+                    $("input[name='tidVal']").val(tid);
+                    if(tid==null||tid=='') {
+                        layer.alert('请选择！', {icon: 3})
+                        return false;
+                    }
+                    if(stcodeStr.indexOf('749')>-1){
+                        layer.alert('请先登记收货！', {icon: 3});
+                        return false;
+                    }
                     layer.open({
                         title: false,
                         type: 1,
@@ -178,13 +199,25 @@
         $(".registerDeliver").on(
             {
                 click:function(){
-                    var tid=$(this).attr('tid');
+                    var stcodeStr=$("input[name='stcode']").attr('class');
+                    var tids=$("input[name='vals']").attr('class');
+                    if(tids==null||tids=='') {
+                        layer.alert('请选择！', {icon: 3})
+                        return false;
+                    }
+                    if(stcodeStr.indexOf('769')>-1){
+                        layer.alert('已登记收货！', {icon: 3});
+                        return false;
+                    }
                     layer.confirm("确认登记？",{title:'提示'},function(index){
                             $.ajax({
-                                url: '/registerDeliver/'+tid,
+                                url: '/registerDeliver/'+tids,
                                 method: 'post',
                                 success: function (data) {
-                                    window.location.reload();
+                                    layer.msg('操作成功', {icon: 1, time: 2000})
+                                    setTimeout(function(){
+                                        window.location.reload();
+                                    },2000);
                                 },
                                 error: function (response) {
                                     layer.close(index)
@@ -197,10 +230,6 @@
                 }
             }
         )
-
-
-
-
     })
 </script>
 <%- include('../layouts/foot'); %>

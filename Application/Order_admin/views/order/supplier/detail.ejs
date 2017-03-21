@@ -46,7 +46,7 @@
                                 <td><%= suppliersDetail.contact  %></td>
                             </tr>
                             <tr>
-                                <td>联系人手机</td>
+                                <td>联系电话</td>
                                 <td><%= suppliersDetail.contactMobile  %></td>
                                 <td>供应商所在地区</td>
                                 <td colspan="">
@@ -73,7 +73,7 @@
                             </tr>
                             <tr>
                                 <td>详细地址</td>
-                                <td colspan="3"><%= suppliersDetail.provinceStr %>,<%= suppliersDetail.cityStr  %>,<%= suppliersDetail.distStr  %>,<%= suppliersDetail.address  %></td>
+                                <td colspan="3"><%= suppliersDetail.provinceStr %>--<%= suppliersDetail.cityStr  %>--<%= suppliersDetail.distStr  %>--<%= suppliersDetail.address  %></td>
                             </tr>
                             <tr>
                                 <td>备注</td>
@@ -100,6 +100,7 @@
                                 <th>物料分类名称</th>
                                 <th>物料名称</th>
                                 <th>截止有效日期</th>
+                                <th>物料编码</th>
                                 <th>操作</th>
                             </tr>
                             </thead>
@@ -113,6 +114,7 @@
                                 <td><%= element.catName %></td>
                                 <td><%= element.name %></td>
                                 <td><%= DWY_Helper.getLocalDateYMD(element.expiryDate) %></td>
+                                <td><%= element.outerCode %></td>
                                 <td class="supMatTd">
                                     <button class="label label-primary deleteRelate" sid="<%= tid %>" mid="<%= element.id %>">解除关联</button>
                                     <button class="label label-primary updateDate" mid="<%= element.id %>">修改日期</button>
@@ -148,15 +150,18 @@
                     url: '/supplier/deleteRelate/' + sid + '/' + mid,
                     method: 'post',
                     success: function (data) {
-                        window.location.reload();
+                        layer.msg('操作成功', {icon: 1, time: 2000})
+                        setTimeout(function(){
+                            window.location.reload();
+                        },2000);
                     },
                     error: function (response) {
-                        layer.close(index)
+                        layer.close(index);
                         errorLayout.normal(response);
                     }
                 });
             }, function (index) {
-                layer.close(index)
+                layer.close(index);
             })
         })
         $(".supMatTd").on("click", ".updateDate", function () {
