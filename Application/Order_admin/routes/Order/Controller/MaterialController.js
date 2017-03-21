@@ -45,11 +45,13 @@ var MaterialController = {
         //res.render('order/material/material_index');
     },
     detailPage: function (req, res) {
-        var mid =  req.params.mid;
+        var mid =req.params.mid;
         var bid=req.params.bid;
+        console.log( '/api/purchases/mate?bid='+bid+"&mateId="+mid);
         Base.multiDataRequest(req, res, [
             {url: '/api/materials/'+mid+"?bid="+bid, method: 'GET', resConfig: {keyName: 'mateInfo', is_must: true}},
             {url: '/api/organizations//factory', method: 'GET', resConfig: {keyName: 'factoryList', is_must: true}},
+            {url: '/api/purchases/mate?bid='+bid+"&mateId="+mid, method: 'GET', resConfig: {keyName: 'purchasesMateList', is_must: true}},
         ], function (req, res, resultList) {
             var returnData = Base.mergeData(helper.mergeObject({
                 title: ' ',

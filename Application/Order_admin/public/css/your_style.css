@@ -616,14 +616,23 @@ tr > td > .separation:last-child {
    text-align: center;
     cursor: pointer;
 }
-.table-linkage tr:nth-of-type(2){
+.basicDataTit{
     font-size: 15px;
     margin: 10px 0;
     font-weight: 700;
     line-height: normal;
 }
-.table-linkage tr.active{
+.basicDataTit01{
+    border: 1px solid #ddd;
+    height: 35px;
+    line-height: 35px;
+    border-bottom: 0px;
+    margin-top:0px;
+    margin-bottom:0px;
+}
+.table-linkage tr.active,.table-linkage tr.active input{
     background-color: #ecf3f8!important;
+    cursor: pointer;
 }
 .table-linkage tr.disable{
     background-color: rgba(244, 244, 244, 4);
@@ -641,7 +650,10 @@ tr > td > .separation:last-child {
 .display-block{
     display:block!important;
 }
-
+.scroll{
+    height:600px;
+    overflow-y: scroll;
+}
 
 .float-none{
     float: none;

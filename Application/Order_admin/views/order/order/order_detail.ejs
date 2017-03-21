@@ -246,7 +246,7 @@
                         <% } %>
 
                         <% if( orderInfo.stcode == 450 || orderInfo.stcode == 475
-                                || orderInfo.stcode == 550 || orderInfo.stcode == 650 || orderInfo.stcode == 635){ %>
+                                || orderInfo.stcode == 550 || orderInfo.stcode == 650 || orderInfo.stcode == 635 || (orderInfo.stcode>=675 && orderInfo.stcode<729 && orderInfo.packeted==1)){ %>
                         <a class="label label-primary" href="/order/workpiece/<%= tid %>">订单物料</a>
                         <% } %>
 

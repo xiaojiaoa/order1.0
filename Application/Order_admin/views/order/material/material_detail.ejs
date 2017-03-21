@@ -201,7 +201,7 @@
 
                     <!-- row -->
                     <div class="table-responsive">
-                        <table class="table table-bordered table-striped">
+                       <!-- <table class="table table-bordered table-striped">
                             <thead>
                             <tr>
                                 <th>订购日期</th>
@@ -218,9 +218,36 @@
                             </tr>
 
                             </tbody>
+                        </table>-->
+
+                        <table class="table table-bordered table-striped table-hover table-scroll dis-flex">
+                            <thead>
+                            <tr>
+                                <th width="3%">序号</th>
+                                <th width="8%">订购日期</th>
+                                <th width="5%">订购数量</th>
+                                <th width="10%">备注</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <%
+                            if(DWY_Helper.isCanLoop(purchasesMateList.result) ){
+                            purchasesMateList.result.forEach(function (element, index) { %>
+                            <tr>
+                                <td width="3%"><%= index+1 %></td>
+                                <td width="8%"><%= DWY_Helper.getLocalDateYMD(element.addTime)%></td>
+                                <td width="5%"><%= element.amount %></td>
+                                <td width="10%"><%= element.remark%></td>
+                            </tr>
+                            <% })
+
+                            }else{ %>
+                            <tr>
+                                <td colspan="4" align="center">暂无结果</td>
+                            </tr>
+                            <% } %>
+                            </tbody>
                         </table>
-
-
                     </div>
                     <!-- end row -->
                 </div>
