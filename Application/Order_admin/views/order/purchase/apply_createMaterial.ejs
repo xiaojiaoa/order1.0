@@ -105,17 +105,17 @@
 
         $("#sub").click(function(){
             if (isNaN(parseFloat($(".amountApply").val())) || parseFloat($(".amountApply").val()) <= 0) {
-                layer.alert('请输入有效数字！', {icon: 3})
+                layer.alert('请输入有效数字！', {icon: 3});
                 return false;
             }
             if (isNaN(parseFloat($(".deliveryDate").val())) )  {
-                layer.alert('日期不能为空！', {icon: 3})
+                layer.alert('日期不能为空！', {icon: 3});
                 return false;
             }
             var num=$('.amountApply').val();
             var minNum=$('.minAmount').val();
             if(num<minNum){
-                layer.alert('请购数量不能低于最小数量！', {icon: 3})
+                layer.alert('请购数量不能低于最小数量！', {icon: 3});
                 return false;
             }
             var myArray=new Array()
@@ -148,8 +148,11 @@
                         },
                         error: function (response) {
                             if(response.status==200){
-                                location.href="/purchase";
-                                localStorage.clear();
+                                layer.msg('操作成功', {icon: 1, time: 2000})
+                                setTimeout(function(){
+                                    location.href="/purchase";
+                                    localStorage.clear();
+                                },2000);
                             }else {
                                 layer.close(index)
                                 errorLayout.normal(response);

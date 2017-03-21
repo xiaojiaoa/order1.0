@@ -83,7 +83,7 @@
                                                 </div>
                                                 <div class="col-xs-4">
                                                     <div class="form-group">
-                                                        <label class="col-xs-4 control-label "><span class="requird"></span>联系人名称:
+                                                        <label class="col-xs-4 control-label "><span class="requird"></span>联系人姓名:
                                                         </label>
                                                         <div class="col-xs-8">
                                                             <input class="form-control validate[required]" value="" name="contact">
@@ -288,6 +288,14 @@
         pageSetUp();
         $("#creat-supplier").validationEngine();
 //        $(".fg-date-picker").flatpickr(data_time_picker.data_picker); // jQuery
+        $("input[name=contact]").blur(function(){
+            var contact=$("input[name=contact]").val();
+            var reg=/^([\u4e00-\u9fa5]){2,7}$/;
+            if(!reg.test(contact)){
+                layer.alert('请输入正确姓名');
+            }
+        })
+
         var areaFor = $('#area');
         var codes = []
         $(".dwy-area").on("change",".cityCode,.provinceCode",function(){
@@ -298,8 +306,8 @@
                 return item != '';
             })
             areaFor.val(areaArry)
-            console.log(index)
-            console.log('codes',areaFor.val())
+            console.log(index);
+            console.log('codes',areaFor.val());
         });
 
         $(".dwy-area").on("click",".deleteInco",function(){

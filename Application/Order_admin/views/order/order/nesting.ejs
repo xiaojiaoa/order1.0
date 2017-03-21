@@ -321,10 +321,13 @@
                         url: '/order/editBatchNum/'+cid+'/'+bid,
                         method: 'post',
                         success: function (data) {
-                            window.location.reload();
+                            layer.msg('操作成功', {icon: 1, time: 2000})
+                            setTimeout(function(){
+                                window.location.reload();
+                            },2000);
                         },
                         error: function (response) {
-                            layer.close(index)
+                            layer.close(index);
                             errorLayout.normal(response);
                         }
                     });
@@ -342,9 +345,9 @@
         var checkedValue = $('#checkedValue');
         $("input[name='roles']").change(function () {
             if($(this).is(':checked')){
-                checkedValue.addClass(this.value+',')
+                checkedValue.addClass(this.value+',');
             }else{
-                checkedValue.removeClass(this.value+',')
+                checkedValue.removeClass(this.value+',');
             }
         });
         $("#getNestingTask").click(function(){
@@ -360,7 +363,10 @@
                         url: '/orders/getNestingTask/'+cid,
                         method: 'post',
                         success: function (data) {
-                            window.location.reload();
+                            layer.msg('操作成功', {icon: 1, time: 2000})
+                            setTimeout(function(){
+                                window.location.reload();
+                            },2000);
                         },
                         error: function (response) {
                             layer.close(index)

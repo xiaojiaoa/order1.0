@@ -64,8 +64,8 @@
 
 <!-- FastClick: For mobile devices -->
 <script src="/js/plugin/fastclick/fastclick.min.js"></script>
-<script src="/js/plugin/jquery.nicescroll.js"></script>
-<script type="text/javascript" src="/js/freezeheader.js"></script>
+<!--<script src="/js/plugin/jquery.nicescroll.js"></script>-->
+<!--<script type="text/javascript" src="/js/freezeheader.js"></script>-->
 
 <!--[if IE 8]>
 
@@ -80,8 +80,11 @@
 
 <script src="/asset/js/site.config.js"></script>
 <script>
+  window.onresize = function(){
+//    $('.mainFlex').css('height',window.innerHeight-80);
+  }
     $(function () {
-      $('.mainFlex').css('height',window.innerHeight-80)
+//      $('.mainFlex').css('height',window.innerHeight-80);
 
 //        $(".aaaaaaa").niceScroll();
 //        $(".menu-list").niceScroll({styler:"fb",cursorcolor:"#65cea7", cursorwidth: '3', cursorborderradius: '0px',background: '#424f63', spacebarenabled:false, cursorborder: '1px solid #fff'});

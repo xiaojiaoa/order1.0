@@ -37,8 +37,10 @@ var InstallserviceController = {
             });
         },
     getTask: function (req, res) {
-        var tid = req.body.tid;
-        var did = req.body.did;
+        var tid = req.params.tid;
+        var did = req.params.did;
+        req.body.tid =tid;
+        req.body.did =did;
         request(Base.mergeRequestOptions({
             method: 'put',
             url: '/api/tasks/install/getTask?'+queryString.stringify(req.body),

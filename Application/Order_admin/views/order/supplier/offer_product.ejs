@@ -339,21 +339,22 @@
                             method: 'post',
                             dataType: 'json',
                             contentType:"application/json",
+
                             success: function (data) {
-                                location.href='/supplier/detail/'+suppId;
-                                localStorage.clear();
+                                layer.msg('操作成功', {icon: 1, time: 2000})
+                                setTimeout(function(){
+                                    location.href='/supplier/detail/'+suppId;
+                                    localStorage.clear();
+                                },2000);
                             },
                             error: function (response) {
                                 if(response.status==200){
                                     location.href='/supplier/detail/'+suppId;
                                     localStorage.clear();
                                 }else {
-                                    layer.close(index)
+                                    layer.close(index);
                                     errorLayout.normal(response);
                                 }
-
-                                layer.close(index)
-                                errorLayout.normal(response);
                             }
                         });
                         //                layer.close(index)
