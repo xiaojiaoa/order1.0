@@ -89,17 +89,17 @@
             <div class="row dis-flex">
                 <div class="col-xs-12 dis-flex">
                     <div class="table-responsive dis-flex">
-                        <table class="table table-bordered table-striped table-hover table-scroll " id="mytable">
+                        <table class="table table-bordered table-striped table-hover table-scroll dis-flex" id="mytable">
                             <thead>
                             <tr>
-                                <th>序号</th>
+                                <th width="5%">序号</th>
                                 <!--<th>客户号</th>-->
-                                <th>客户姓名</th>
-                                <th>客户手机号</th>
-                                <th>所在地址(行政区域编码)</th>
-                                <th>创建时间</th>
-                                <th>分配时间</th>
-                                <th>状态</th>
+                                <th width="15%">客户姓名</th>
+                                <th width="10%">客户手机号</th>
+                                <th width="20%">所在地址(行政区域编码)</th>
+                                <th width="15%">创建时间</th>
+                                <th width="15%">分配时间</th>
+                                <th >状态</th>
                                 <th width="200px">操作</th>
                             </tr>
                             </thead>
@@ -107,13 +107,13 @@
                             <% if(DWY_Helper.isCanLoop(measureList.result)){
                             measureList.result.forEach(function (element, index) { %>
                             <tr>
-                                <td><%= index + 1 %></td>
-                                <td><%= element.custName %></td>
-                                <td><%= element.custMobile %></td>
-                                <td><%= element.realAddress %></td>
-                                <td><%= DWY_Helper.getLocalDate(element.createdTime) %></td>
-                                <td><%= DWY_Helper.getLocalDate(element.affirmedTime) %></td>
-                                <td><%= DWY_Helper.getMeasureType(element.stcode) %></td>
+                                <td width="5%"><%= index + 1 %></td>
+                                <td width="15%"><%= element.custName %></td>
+                                <td width="10%"><%= element.custMobile %></td>
+                                <td width="20%"><%= element.realAddress %></td>
+                                <td width="15%"><%= DWY_Helper.getLocalDate(element.createdTime) %></td>
+                                <td width="15%"><%= DWY_Helper.getLocalDate(element.affirmedTime) %></td>
+                                <td width=""><%= DWY_Helper.getMeasureType(element.stcode) %></td>
                                 <td width="200px">
                                     <% if (DWY_Helper.hasPermission(Permission.network.distribute.id, permission) && element.stcode==1 ){ %>
                                     <a class="label label-primary choiceShop"
@@ -356,7 +356,7 @@
 <script type="text/javascript">
 
     $(document).ready(function () {
-      $("#mytable").freezeHeader({ 'height': '100%' });
+//      $("#mytable").freezeHeader({ 'height': '100%' });
         $("#layer-form").validationEngine();
         $(".fg-date-picker").flatpickr(data_time_picker.data_time_picker);
         pageSetUp();
