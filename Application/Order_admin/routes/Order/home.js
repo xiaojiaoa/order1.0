@@ -611,7 +611,7 @@ router.get('/factory/detail/:ftyId', Middleware.AuthCheck, FactoryController.det
 
 // 新增工厂页面
 router.get('/factory/create', Middleware.AuthCheck, FactoryController.createPage);
-
+router.get('/getFactoryByID/:id', Middleware.AuthCheck, FactoryController.ifHaved);
 // 新增工厂
 router.post('/factory/doCreate', Middleware.AuthCheck, FactoryController.doCreate);
 
@@ -749,6 +749,7 @@ router.get('/enterMaterial/stockOver/toEnter', Middleware.AuthCheck, EnterContro
 
 // 原料入库-采购完成单-入库-入库
 router.post('/enterMaterial/stockOver/toEnter/doEnter', Middleware.AuthCheck, EnterController.doEnter);
+router.post('/enterMaterial/reqmaterialModify', Middleware.AuthCheck, EnterController.reqmaterialModify);
 
 // 原料入库-采购完成单-入库-判断仓库是否可以放入
 router.post('/enterMaterial/stockOver/toEnter/ifCanEnter', Middleware.AuthCheck, EnterController.ifCanEnter);

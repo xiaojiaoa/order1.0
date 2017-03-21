@@ -87,8 +87,8 @@
                                     <th>采购单号</th>
                                     <th>物料编号</th>
                                     <th>物料名称</th>
-                                    <th>单价</th>
-                                    <th>采购金额</th>
+                                    <th width="100">单价</th>
+                                    <th width="100">采购金额</th>
                                     <th>采购数量</th>
                                     <th width="200">货位号(行列层)</th>
                                     <th width="100">入库数量</th>
@@ -102,18 +102,17 @@
                                     <% cargoinList.result.forEach(function(element,index){%>
                                         <tr id="cargoinDo<%= index %>">
                                             <td><%= index+1 %></td>
-                                            <td><a href="/purchase/applyDetail/<%= element.reqId %>"><%= element.reqId %></a></td>
+                                            <td>
+                                                <a href="/purchase/applyDetail/<%= element.reqId %>"><%= element.reqId %></a>
+                                                <input type="hidden" id="reqId" value="<%= element.reqId %>">
+                                            </td>
                                             <td><a href="/purchase/orderDetail/<%= element.orderId %>"><%= element.orderId %></a></td>
                                             <td><a href="/materialManage/detail/<%= user.bid %>/<%= element.mateId %>"><%= element.mateId %></a></td>
                                             <td><%=element.mateName%></td>
-                                            <td>
-                                                <input class="form-control short validate[required]"
-                                                       value="<%=element.price%>" name="price<%= index %>" id="price<%= index %>" data-index="<%= index %>">
+                                            <td id="modigyprice">
                                                 <%=element.price%>
                                             </td>
-                                            <td>
-                                                <input class="form-control short validate[required]"
-                                                       value="<%=element.totalAmount%>" name="total<%= index %>" id="total<%= index %>" data-index="<%= index %>">
+                                            <td id="modigytotal">
                                                 <%=element.totalAmount%>
                                             </td>
                                             <td><%=element.amount%></td>
@@ -151,6 +150,7 @@
                                 <!--添加入库物料-->
                             <!--</a>-->
                             <a class="btn btn-primary" id="toModify">修改物料信息</a>
+                            <a class="btn btn-primary" id="toModifySave" style="display: none;">确认修改物料信息</a>
                             <a class="btn btn-primary" id="toEnter">确认入库</a>
                         </div>
                     </div>
@@ -307,8 +307,69 @@
         })
       
       $('#toModify').click(function () {
-        
+          var price = $.trim($('#modigyprice').text()) ;
+          $('#modigyprice').html('<input class="form-control short validate[required]" value="'+price+'" name="price" id="price">')
+          var total = $.trim($('#modigytotal').text()) ;
+          $('#modigytotal').html('<input class="form-control short validate[required]" value="'+total+'" name="total" id="total">')
+
+          $('#toModify').hide();
+          $('#toEnter').hide();
+          $('#toModifySave').show();
       })
+        $('#toModifySave').click(function () {
+            var _self = $(this);
+            var price = $('#price').val() ;
+            var total = $('#total').val() ;
+            var reqId = $('#reqId').val() ;
+            var mateId = $('input[name=cargoId0]').val() ;
+            var date={
+                reqMaterialList:[
+                    {
+                        price:price,
+                        total:total,
+                        reqId:reqId,
+                        mateId:mateId,
+                    }
+                ]
+            };
+            if(!price || !total){layer.msg('请先填写正确物料信息', {icon: 2, time: 2000}); _self.html('确认修改物料信息');return ;}
+
+
+            layer.confirm("确认提交？", {title:'提示'},function(index){
+                _self.html('保存中 <i class="fa fa-circle-o-notch fa-spin">');
+
+                $.ajax({
+                        url: '/enterMaterial/reqmaterialModify',
+                        data:JSON.stringify(date),
+                        method: 'post',
+                        dataType: 'json',
+                        contentType:"application/json",
+                        success: function (data) {
+                            layer.msg('操作成功', {icon: 1, time: 2000});
+                            setTimeout(function () {
+                                window.location.reload();
+                            }, 2000)
+                        },
+                        error: function (response) {
+                            layer.close(index)
+                            var status = response.status;
+                            if(status == 200){
+                                _self.html('确认修改物料信息');
+                                layer.msg('操作成功', {icon: 1, time: 2000});
+                                setTimeout(function () {
+                                    window.location.reload();
+                                }, 1000)
+                                return;
+                            }
+                            _self.html('确认修改物料信息');
+                            errorLayout.normal(response);
+
+                        }
+                    });
+                },function(index){
+                    layer.close(index)}
+            )
+        })
 
     })
 
