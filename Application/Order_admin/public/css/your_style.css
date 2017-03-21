@@ -2,8 +2,17 @@
     min-width: 1420px;
     background: #fff;
     margin-left: 160px;
+    /*padding-bottom: 0;*/
 }
-
+/*.mainFlex{*/
+    /*display: -webkit-box;      !* OLD - iOS 6-, Safari 3.1-6 *!*/
+    /*display: -moz-box;         !* OLD - Firefox 19- (buggy but mostly works) *!*/
+    /*display: -ms-flexbox;      !* TWEENER - IE 10 *!*/
+    /*display: -webkit-flex;     !* NEW - Chrome *!*/
+    /*display: flex;*/
+    /*flex-direction: column;*/
+    /*!*overflow-y: hidden;*!*/
+/*}*/
 .smart-style-2 aside {
     background: #2d3741;
 }
@@ -106,7 +115,10 @@ nav ul span.menu-item-parent {
 
 #content {
     min-height: 800px;
+    /*padding: 10px;*/
+
 }
+
 
 /*展示型内容*/
 .dwy-show-well {
@@ -623,40 +635,6 @@ tr > td > .separation:last-child {
 }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 .float-none{
     float: none;
     margin: 0 auto;
@@ -666,11 +644,108 @@ tr > td > .separation:last-child {
     position: absolute;
 
 }
-.time-edit td{
-    height:50px;
-    line-height: 35px !important;
+.time-edit,.time-edit th{
+    text-align: center;
 }
+/*.time-edit td{*/
+    /*height:50px;*/
+    /*line-height: 35px !important;*/
+/*}*/
 .time-edit input{
+    text-align: center;
     position: relative;
+    border: none;
+    width: 100%;
+    padding: 0 10px;
 }
->>>>>>> d2f9b64067039eb2a90866319c482095f8744236
+.tab-title{
+    /*border-bottom: 1px solid #ddd;*/
+}
+.tab-title .tab-title-url{
+    display: inline-block;
+    font-size: 15px;
+    text-align: center;
+    padding: 10px;
+    margin-right: 20px;
+    color: #333;
+}
+.tab-title .tab-title-url.active{
+    color: #61aae8;
+    background: #fbfbfb;
+    border-left: 1px solid #ddd;
+    border-right: 1px solid #ddd;
+    border-top: 2px solid #61aae8;
+    position: absolute;
+    z-index: 1;
+
+}
+.tab-title .tab-title-url:hover{
+    background: #fbfbfb;
+}
+
+
+.smart-form .checkbox input:checked:hover+i:after{
+    content: '\f00c';
+}
+
+
+/*.pagination{*/
+    /*margin: 0;*/
+/*}*/
+
+/*.dis-flex{*/
+    /*-webkit-flex: 1;          !* Chrome *!*/
+    /*-ms-flex: 1;              !* IE 10 *!*/
+    /*flex: 1;*/
+    /*display: -webkit-box;      !* OLD - iOS 6-, Safari 3.1-6 *!*/
+    /*display: -moz-box;         !* OLD - Firefox 19- (buggy but mostly works) *!*/
+    /*display: -ms-flexbox;      !* TWEENER - IE 10 *!*/
+    /*display: -webkit-flex;     !* NEW - Chrome *!*/
+    /*display: flex;*/
+    /*flex-direction: column;*/
+/*}*/
+/*.dis-flex-row{*/
+    /*-webkit-flex: 1;          !* Chrome *!*/
+    /*-ms-flex: 1;              !* IE 10 *!*/
+    /*flex: 1;*/
+    /*display: -webkit-box;      !* OLD - iOS 6-, Safari 3.1-6 *!*/
+    /*display: -moz-box;         !* OLD - Firefox 19- (buggy but mostly works) *!*/
+    /*display: -ms-flexbox;      !* TWEENER - IE 10 *!*/
+    /*display: -webkit-flex;     !* NEW - Chrome *!*/
+    /*display: flex;*/
+    /*flex-direction: row;*/
+/*}*/
+
+/*table.dis-flex thead>tr{*/
+    /*display: flex;*/
+    /*flex-direction: row;*/
+/*}*/
+/*table.dis-flex thead>tr>th{*/
+/*flex: 1;*/
+/*}*/
+
+.table-scroll{
+
+}
+.table-scroll tbody {
+    display:block;
+    /*height:195px;*/
+    overflow-y:scroll;
+}
+.table-scroll thead, .table-scroll tbody tr {
+    display:table;
+    width:100%;
+    table-layout:fixed;
+}
+.table-scroll thead tr {
+    display: table;
+    width: 100%;
+    table-layout: fixed;
+}
+.table-scroll thead {
+    width: -webkit-calc(100% - 17px);
+    width: -moz-calc(100% - 17px);
+    width: calc( 100% - 17px );
+
+    /*width: calc( 100% - 1em )*/
+}

@@ -28,7 +28,47 @@
 
         <div class="well">
             <div class="row form-horizontal" id="search-customer">
-                <div class="col-xs-12 search-form">
+                <div class="search-form">
+                    <div class="col-xs-3">
+                        <div class="form-group">
+                            <label class="col-xs-3 control-label"><span class="requird"></span> 工厂:</label>
+                            <div class="col-xs-9">
+                                <select class="form-control validate[required]" name="ftyId" id="ftyId">
+                                    <option value="">- 请选择 -</option>
+                                    <% factoryList.forEach(function (element) { %>
+                                    <option value="<%= element.ftyId %>"  >
+                                        <%= element.name %>
+                                    </option>
+                                    <% }) %>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-3">
+                        <div class="form-group">
+                            <label class="col-xs-3 control-label"><span class="requird"></span> 仓库:</label>
+                            <div class="col-xs-9">
+                                <select class="form-control validate[required]" name="whseId" id="whseId">
+                                    <option value="">- 请选择 -</option>
+
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-3">
+                        <div class="form-group">
+                            <label class="col-xs-3 control-label"><span class="requird"></span> 区域:</label>
+                            <div class="col-xs-9">
+                                <select class="form-control validate[required]" name="regionId" id="regionId">
+                                    <option value="">- 请选择 -</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="dwy-clear"></div>
+                </div>
+
+                <div class="search-form">
                     <div class="col-xs-3">
                         <div class="form-group">
                             <label class="col-xs-3 control-label"><span class="requird"></span> 领料人:</label>
@@ -62,6 +102,7 @@
                             </div>
                         </div>
                     </div>
+                    <div class="dwy-clear"></div>
                 </div>
                 <div class="col-xs-12">
                     <div class="table-responsive">
@@ -78,7 +119,6 @@
                                 <th>备注</th>
                                 <th width="200">货位号(行列层)</th>
                                 <th width="100">出库数量</th>
-                                <th width="150">是否有货</th>
                             </tr>
                             </thead>
                             <tbody id="moreAddTR">
@@ -86,7 +126,7 @@
 
                             <% if(DWY_Helper.isCanLoop(plateList)){%>
                             <% plateList.forEach(function(element,index){%>
-                            <tr id="cargoinDo<%= index %>">
+                            <tr class="cargoinDo">
                                 <td><%= index+1 %></td>
                                 <td><%= element.mateId %></td>
                                 <td><%=element.mateName %></td>
@@ -100,13 +140,11 @@
                                            name="spaceId<%= index %>" placeholder="行列层，6位数字" id="spaceId<%= index %>" data-index="<%= index %>">
                                     <input name="cargoId<%= index %>" value="<%= element.mateId %>" type="hidden">
                                     <input name="remark<%= index %>" value="<%=element.price%>" type="hidden">
-                                    <input name="statusThis<%= index %>" value="0" type="hidden">
                                 </td>
                                 <td>
                                     <input class="form-control short validate[condRequired[spaceId<%= index %>]]"
                                            value="<%=element.amount%>" name="amount<%= index %>" id="amount<%= index %>" data-index="<%= index %>">
                                 </td>
-                                <td id="status<%= index %>" class="status"></td>
                             </tr>
                             <%
                             })}else{%>
@@ -134,7 +172,7 @@
 
 <%- include('../layouts/footer'); %>
 <%- include('../layouts/footer_common_script'); %>
-
+<%- include('../cargospace/js_function'); %>
 
 <script type="text/javascript">
 
@@ -146,45 +184,8 @@
 
         $(".fg-date-time-picker").flatpickr(data_time_picker.data_picker); // jQuery
 
-        $(':text').on('input propertychange', function() {
-            var index = $(this).attr('data-index');
-            var status = $('#status'+index);
-            status.empty();
-            console.log('data-index',index);
-            if(validateRow(index)){
-                console.log(index+':success');
-                $.ajax({
-                    url: '/enterMaterial/stockOver/toEnter/ifCanEnter',
-                    method:'post',
-                    data: {
-                        regionId: regionSelect.val() ,//所属区域编号
-                        spaceId:$("#spaceId"+index).val()  ,//货位号
-                        amount: $("#amount"+index).val() ,//入库数量
-                    },
-                    success: function (data) {
-                        console.log('data',data)
-                        if(data){
-                            $("input[name=statusThis"+index+"]").val(1);
-                            status.html('<i class="fa fa-check text-success font-lg"></i>');
-                        }else{
-                            $("input[name=statusThis"+index+"]").val(0);
-                            status.html('<i class="fa fa-times text-danger font-lg"></i>');
-                        }
-                    },
-                    error: function (response) {
-                        console.log('response',response)
-                        var data = JSON.parse(response.responseText);
-                        console.log(data.msg)
-                        status.html('<span class="text-danger"><i class="fa fa-times font-lg"></i>'+data.msg+'</span>');
-                    }
-                });
-            }
-        });
 
-        function validateRow(index) {
-            return $("#spaceId"+index).validationEngine('validate') && $("#spaceId"+index).val() && $("#amount"+index).validationEngine('validate')
 
-        }
 
         $('#toEnter').click(function () {
             var ftyId=$("#ftyId").val();
@@ -192,14 +193,13 @@
             var regionId=$("#regionId").val();
 
             var myArray=new Array();
-            var length=$(".status").length;
+            var length=$(".cargoinDo").length;
             console.log('length',length);
             var ifSubmit = false;
             for(var i=0;i<length;i++){
                 var spaceId=$("input[name=spaceId"+i+"]").val();
-                var statusThis=$("input[name=statusThis"+i+"]").val();
                 var amount=$("input[name=amount"+i+"]").val();
-                if(!spaceId ||!amount || statusThis == 0){console.log('continue');continue;}
+                if(!spaceId ||!amount){console.log('continue');continue;}
                 var cargoId=$("input[name=cargoId"+i+"]").val();
                 var purId=$("input[name=purId"+i+"]").val();
                 var unitPrice=$("input[name=unitPrice"+i+"]").val();

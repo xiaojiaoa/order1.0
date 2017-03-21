@@ -26,6 +26,10 @@
 
 
         <!-- well -->
+        <div class="tab-title">
+            <a class="tab-title-url" href="/system">基础数据设置</a>
+            <a class="tab-title-url active" href="/system/timeSet">预警时间设置</a>
+        </div>
         <div class="well">
             <!-- row -->
             <div class="row">
@@ -91,8 +95,8 @@
         timeEdit.on('click','.insert',function () {
             $('td').removeClass('insert');
             var value = $(this).attr('data-time');
-            $(this).html('<input class="form-control validate[custom[number]]"  value="'+value+'" >');
-            $(':input').focus();
+            $(this).html('<input class="validate[custom[number]]"  value="" >');
+            $(':input').val(value).focus();
         })
 
 

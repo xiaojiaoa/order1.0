@@ -1080,7 +1080,7 @@ router.get('/system', Middleware.AuthCheck,SystemController.indexPage);
 
 // 预警时间设置
 router.get('/system/timeSet', Middleware.AuthCheck,SystemController.timeSetPage);
-router.get('/system/timeSet/doSet', Middleware.AuthCheck,SystemController.doSetTime);
+router.put('/system/timeSet/doSet', Middleware.AuthCheck,SystemController.doSetTime);
 
 
 

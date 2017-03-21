@@ -5,7 +5,7 @@
 
 
 <!-- MAIN PANEL -->
-<div id="main" role="main">
+<div id="main" role="main" class="mainFlex">
 
     <!-- RIBBON -->
     <div id="ribbon">
@@ -95,7 +95,7 @@
             <div class="row">
                 <div class="col-xs-12">
                     <div class="table-responsive">
-                        <table class="table table-bordered table-striped table-hover">
+                        <table class="table table-bordered table-striped table-hover table-scroll">
                             <thead>
                             <tr>
                                 <th>序号</th>
@@ -103,8 +103,10 @@
                                 <th>客户姓名</th>
                                 <th>客户手机号</th>
                                 <th>所在地址(行政区域编码)</th>
+                                <th>创建时间</th>
+                                <th>分配时间</th>
                                 <th>状态</th>
-                                <th width="200">操作</th>
+                                <th width="200px">操作</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -115,8 +117,10 @@
                                 <td><%= element.custName %></td>
                                 <td><%= element.custMobile %></td>
                                 <td><%= element.realAddress %></td>
+                                <td><%= DWY_Helper.getLocalDate(element.createdTime) %></td>
+                                <td><%= DWY_Helper.getLocalDate(element.affirmedTime) %></td>
                                 <td><%= DWY_Helper.getMeasureType(element.stcode) %></td>
-                                <td>
+                                <td width="200px">
                                     <% if (DWY_Helper.hasPermission(Permission.network.distribute.id, permission) && element.stcode==1 ){ %>
                                     <a class="label label-primary choiceShop"
                                        data-id="<%= element.id %>"
@@ -140,11 +144,8 @@
 
                             </tbody>
                         </table>
-                        <%- pagination %>
-
-
-
                     </div>
+                    <%- pagination %>
                 </div>
             </div>
         </div>
@@ -361,7 +362,6 @@
 <script type="text/javascript">
 
     $(document).ready(function () {
-
         $("#layer-form").validationEngine();
         $(".fg-date-picker").flatpickr(data_time_picker.data_time_picker);
         pageSetUp();

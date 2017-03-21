@@ -357,22 +357,38 @@ var OutWarehouseController = {
 
     },
     outBredUpload: function (req, res) {
-        request(Base.mergeRequestOptions({
-            method: 'post',
-            url: '/api/whse/cargout/plate/file',
-            form:req.body,
-        }, req, res), function (error, response, body) {
-            if (!error && response.statusCode == 200) {
-                var $data = JSON.parse(body);
-                var returnData = Base.mergeData(helper.mergeObject({
-                    title: '',
-                }, {plateList: $data}));
-                res.render('order/shipments/out_bred_doOut', returnData);
-            } else {
-                console.log('handlerError')
-                Base.handlerError(res, req, error, response, body);
-            }
-        })
+      Base.multiDataRequest(req, res, [
+          {url: '/api/whse/cargout/plate/file', method: 'post', form:req.body,resConfig: {keyName: 'plateList', is_must: false}},
+          {url: '/api/whse/factory/list', method: 'GET', resConfig: {keyName: 'factoryList', is_must: true}},
+        ],
+        function (req, res, resultList) {
+          var returnData = Base.mergeData(helper.mergeObject({
+            title: ' ',
+          }, resultList));
+          res.render('order/shipments/out_bred_doOut', returnData);
+        });
+
+        // request(Base.mergeRequestOptions({
+        //     method: 'post',
+        //     url: '/api/whse/cargout/plate/file',
+        //     form:req.body,
+        // }, req, res), function (error, response, body) {
+        //     if (!error && response.statusCode == 200) {
+        //         var $data = JSON.parse(body);
+        //         var factoryList = {};
+        //
+        //       console.log('factoryList222',factoryList)
+        //
+        //         var returnData = Base.mergeData(helper.mergeObject({
+        //             title: '',
+        //         }, {plateList: $data,factoryList:factoryList}));
+        //       console.log('factoryList',factoryList)
+        //         res.render('order/shipments/out_bred_doOut', returnData);
+        //     } else {
+        //         console.log('handlerError')
+        //         Base.handlerError(res, req, error, response, body);
+        //     }
+        // })
 
 
     },

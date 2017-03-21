@@ -106,7 +106,7 @@
                                 <th>供应商</th>
                                 <th>预计交货日期</th>
                                 <th>交货日期</th>
-                                <th>操作</th>
+                                <th width="100px">操作</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -120,7 +120,7 @@
                                     <td><%=element.suppName%></td>
                                     <td><%= DWY_Helper.getLocalDate(element.deliveryDate) %></td>
                                     <td><%= DWY_Helper.getLocalDate(element.addTime) %></td>
-                                    <td><a class="enterThis" href="/enterMaterial/stockOver/toEnter?purcId=<%=element.orderId %>">入库</a></td>
+                                    <td><a class="label label-primary enterThis" href="/enterMaterial/stockOver/toEnter?purcId=<%=element.orderId %>">入库</a></td>
                                 </tr>
                             <%})}else{%>
                                 <tr>
