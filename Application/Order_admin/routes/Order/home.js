@@ -1078,6 +1078,15 @@ var SystemController = require('./Controller/SystemController');
 // 首页
 router.get('/system', Middleware.AuthCheck,SystemController.indexPage);
 
+//获取第二栏的内容
+router.put('/system/:key', Middleware.AuthCheck, SystemController.keyFirstPage);
+
+//新增值
+router.post('/system/doCreate', Middleware.AuthCheck, SystemController.doCreate);
+
+//修改，删除，启用
+router.post('/system/doModify', Middleware.AuthCheck, SystemController.doModify);
+
 // 预警时间设置
 router.get('/system/timeSet', Middleware.AuthCheck,SystemController.timeSetPage);
 router.get('/system/timeSet/doSet', Middleware.AuthCheck,SystemController.doSetTime);

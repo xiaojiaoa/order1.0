@@ -1,0 +1,281 @@
+<script type="text/javascript">
+
+    $(document).ready(function () {
+
+        var seaAllStat=false;//标记"查看所有"点击状态
+        var openAllStat=false;//标记"启用所有"点击状态
+        var index;//点击的tr的位置
+
+        //点击"新建"，"修改"
+        $(".create,.modify").on("click",function(e){
+
+            var level = $(this).parent().attr('data-level');
+            var classDom=$('.'+level);
+            classDom.find('.status01,.status03').hide();
+            classDom.find('.status02').show();
+
+            //获取key值
+            var key=$("input[name=key]").val();
+
+            //禁用所有的点击事件
+            $(".desktop-detected *").css("pointer-events","none");
+
+            //点击"新建"
+            if (e.target == $('.'+level+" .create")[0]) {
+
+                classDom.find("tbody").prepend(creFrag(key));
+                //给input添加focus事件
+                classDom.find("input").focus();
+
+                //启用'保存''撤销''输入框'的点击事件
+                classDom.find(".save,.revoke,.add-input").css("pointer-events","auto");
+
+                //保存
+                $(".save").on("click",function(){
+                    var data={};
+                    classDom.find("input").each(function(){
+                        if(!$(this).attr("readonly")){
+                            data[$(this).attr("name")]=$(this).val();
+                        }
+
+                    });
+                    console.log("这个是data"+JSON.stringify(data));
+                    $.ajax({
+                        url: '/system/doCreate',
+                        data:data,
+                        method: 'post',
+                        success: function (data) {
+                            window.location.reload();
+                        },
+                      error: function (response) {
+                       layer.close(index)
+                       errorLayout.normal(response);
+                  }
+                    });
+                    status02(classDom);
+                    //启用所有的点击事件
+                    $(".desktop-detected *").css("pointer-events","auto");
+                });
+
+                //撤销
+                $(".revoke").on("click",function(){
+                    classDom.find(".add-input").remove();
+                    status02(classDom);
+
+                    //启用所有的点击事件
+                    $(".desktop-detected *").css("pointer-events","auto");
+                });
+            }
+
+            //点击"修改"
+            if (e.target == $('.'+level+" .modify")[0]) {
+
+
+                //根据有无点击tr执行取消readonly属性
+                if(index){
+                    classDom.find("tr").eq(index).addClass("add-input").find("input").removeAttr('readonly').focus();
+                }
+                else{
+                    classDom.find("tr").eq(0).addClass("add-input").find("input").removeAttr('readonly').focus();
+                }
+
+                //启用'保存''撤销''输入框'的点击事件
+                classDom.find(".save,.revoke,.add-input *").css("pointer-events","auto");
+
+                //保存
+                $(".save").on("click",function(){
+
+                    var data={};
+                    classDom.find("input").each(function(){
+                        if(!$(this).attr("readonly")){
+                            data[$(this).attr("name")]=$(this).val();
+                        }
+                    });
+                    console.log("这个是修改等操作"+JSON.stringify(data));
+                    $.ajax({
+                        url: '/system/doModify',
+                        data:data,
+                        method: 'post',
+                        success: function (data) {
+                            window.location.reload();
+                        },
+                        error: function (response) {
+                            layer.close(index)
+                            errorLayout.normal(response);
+                        }
+                    });
+
+                    status02(classDom);
+
+                    //启用所有的点击事件
+                    $(".desktop-detected *").css("pointer-events","auto");
+                });
+
+                //撤销
+                $(".revoke").on("click",function(){
+                    status02(classDom);
+
+                    //启用所有的点击事件
+                    $(".desktop-detected *").css("pointer-events","auto");
+                });
+            }
+        });
+
+        /*
+         * status02--用于点击"撤销"、"保存"之后返回的三个状态
+         * */
+        function status02(dom){
+
+            dom.find('.status01').show();
+            dom.find('.status02').hide();
+
+            //根据"查看所有"点击状态显示"启用所有"
+            if(seaAllStat){
+                dom.find('.see-all').hide();
+                dom.find('.open-all').show();
+            }
+
+            //根据"启用所有"点击状态显示"启用所有"
+            if(openAllStat){
+                dom.find('.open-all').hide();
+            }
+        }
+
+        //点击"删除"
+        $(".delete").click(function () {
+            layer.confirm('确定删除该项?', {icon: 3, title: '提示'}, function (index) {
+                $.ajax({
+                    url: '/enterMaterial/doPass/',
+                    method: 'put',
+                    success: function (data) {
+                        window.location.reload();
+                    },
+                    error: function (response) {
+                        layer.close(index)
+                        errorLayout.normal(response);
+                    }
+                });
+            }, function (index) { layer.close(index) })
+        })
+
+        //点击"查看所有"
+        $('.see-all').click(function () {
+
+            var level = $(this).parent().attr('data-level');
+            var classDom=$('.'+level);
+
+            $(this).hide();
+            classDom.find('.open-all').show();
+
+            classDom.find('.disable').show();
+
+            seaAllStat=true;
+        })
+
+        //点击"启用所有"
+        $('.open-all').click(function () {
+
+            var level = $(this).parent().attr('data-level');
+            var classDom=$('.'+level);
+
+            $(this).hide();
+            classDom.find('.disable').removeAttr('class');
+            openAllStat=true;
+
+            layer.confirm('确定启用所有?', {icon: 3, title: '提示'}, function (index) {
+                $.ajax({
+                    url: '/enterMaterial/doPass/',
+                    method: 'put',
+                    success: function (data) {
+                        window.location.reload();
+                    },
+                    error: function (response) {
+                        layer.close(index)
+                        errorLayout.normal(response);
+                    }
+                });
+            }, function (index) { layer.close(index) })
+        })
+
+        //点击"启用"
+        $('.open-this').click(function(){
+            var level = $(this).parent().attr('data-level');
+            var classDom=$('.'+level);
+
+            classDom.find("tr").eq(index).removeAttr("class");
+
+            classDom.find('.modify').show();
+            $(this).hide();
+
+            layer.confirm('确定启用该项吗?', {icon: 3, title: '提示'}, function (index) {
+                $.ajax({
+                    url: '/enterMaterial/doPass/',
+                    method: 'put',
+                    success: function (data) {
+                        window.location.reload();
+                    },
+                    error: function (response) {
+                        layer.close(index)
+                        errorLayout.normal(response);
+                    }
+                });
+            }, function (index) { layer.close(index) })
+        });
+
+        //点击tr
+        $(document).on("click","table>tbody>tr",function(){
+
+            if(!$(this).hasClass('add-input')){
+                $(this).addClass("active").siblings("tr").removeClass("active");
+                index=$(this).index();
+            }
+
+            //点击的是"disable"
+            if($(this).hasClass('disable')){
+                var classDom = $(this).parent().parent().parent();
+                classDom.find('.modify').hide();
+                classDom.find('.open-this').show();
+            }
+        });
+
+       /*
+       * creFrag--新建的时候根据不同显示页面
+       * */
+        function creFrag(key){
+            var string;
+            if(key=="assistantConfig"){
+                string="<tr class='add-input'><td><input class='border-0 text-align-center' type='text' value='' name='code'/></td><td><input class='border-0 text-align-center' type='text' value='' name='value'/></td><td><input class='border-0 text-align-center' type='text' value='' name='remark'/></td></tr>"
+        }
+            else  if(key=="assistantBrandInfo"){
+                string="<tr class='add-input'><td><input class='border-0 text-align-center' type='text' value='' name='type'/></td><td><input class='border-0 text-align-center' type='text' value='' name='name'/></td></tr>"
+            }
+            else  if(key=="assistantOrderSpaceinfo"){
+                string="<tr class='add-input'><td><input class='border-0 text-align-center' type='text' value='' name='parentId'/></td><td><input class='border-0 text-align-center' type='text' value='' name='name'/></td></tr>"
+            }
+            else  if(key=="assistantSpaceProd"){
+                string="<tr class='add-input'><td><input class='border-0 text-align-center' type='text' value='' name='name'/></td><td><input class='border-0 text-align-center' type='text' value='' name='spaceId'/></td></tr>"
+            }
+            else  if(key=="assistantResupplyReason"){
+                string="<tr class='add-input'><td><input class='border-0 text-align-center' type='text' value='' name='name'/></td><td><input class='border-0 text-align-center' type='text' value='' name='parentId'/></td><td><input class='border-0 text-align-center' type='text' value='' name='levelType'/></td></tr>"
+            }
+            else  if(key=="assistantReviewReson"){
+                string="<tr class='add-input'><td><input class='border-0 text-align-center' type='text' value='' name='name'/></td><td><input class='border-0 text-align-center' type='text' value='' name='reasonType'/></td></tr>"
+            }
+            else  if(key=="assistantTaskseqFileType"){
+                string="<tr class='add-input'><td><input class='border-0 text-align-center' type='text' value='' name='type'/></td><td><input class='border-0 text-align-center' type='text' value='' name='fileExt'/></td><td><input class='border-0 text-align-center' type='text' value='' name='name'/></td></tr>"
+            }
+            else  if(key=="assistantStatusStcode" ||key=="assistantEcType"|| key=="assistantCargoType" || key=="assistantRequestStcode" ||key=="assistantPurchaseStcode"
+                || key=="assistantResCodeinfo"|| key=="assistantContractStcode"|| key=="assistantAddrType" ||key=="assistantRemindDate" ||key=="assistantOrderStcode"
+            ){
+                string="<tr class='add-input'><td><input class='border-0 text-align-center' type='text' value='' name='id'/></td><td><input class='border-0 text-align-center' type='text' value='' name='name'/></td></tr>"
+            }
+            else{
+                string="<tr class='add-input'><td><input class='border-0 text-align-center' type='text' value='' name='name'/></td></tr>"
+            }
+            console.log(string);
+            return string;
+        }
+
+    })
+
+</script>
