@@ -7,23 +7,17 @@
 <!-- MAIN PANEL -->
 <div id="main" role="main" class="mainFlex">
 
-    <!-- RIBBON -->
     <div id="ribbon">
-
-        <!-- breadcrumb -->
         <ol class="breadcrumb">
             <li>后台管理</li>
             <li>网络预约</li>
         </ol>
-        <!-- end breadcrumb -->
-
-
     </div>
     <!-- END RIBBON -->
 
 
     <!-- MAIN CONTENT -->
-    <div id="content">
+    <div id="content" class="dis-flex">
 
         <div class="well">
             <!-- row -->
@@ -82,7 +76,7 @@
             <!-- end row -->
         </div>
         <!-- well -->
-        <div class="well">
+        <div class="well dis-flex">
 
             <!-- row -->
             <div class="row">
@@ -92,10 +86,10 @@
                 </div>
             </div>
             <!-- row -->
-            <div class="row">
-                <div class="col-xs-12">
-                    <div class="table-responsive">
-                        <table class="table table-bordered table-striped table-hover table-scroll">
+            <div class="row dis-flex">
+                <div class="col-xs-12 dis-flex">
+                    <div class="table-responsive dis-flex">
+                        <table class="table table-bordered table-striped table-hover table-scroll " id="mytable">
                             <thead>
                             <tr>
                                 <th>序号</th>
@@ -109,7 +103,7 @@
                                 <th width="200px">操作</th>
                             </tr>
                             </thead>
-                            <tbody>
+                            <tbody >
                             <% if(DWY_Helper.isCanLoop(measureList.result)){
                             measureList.result.forEach(function (element, index) { %>
                             <tr>
@@ -362,6 +356,7 @@
 <script type="text/javascript">
 
     $(document).ready(function () {
+      $("#mytable").freezeHeader({ 'height': '100%' });
         $("#layer-form").validationEngine();
         $(".fg-date-picker").flatpickr(data_time_picker.data_time_picker);
         pageSetUp();

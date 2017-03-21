@@ -4,15 +4,15 @@
     margin-left: 160px;
     /*padding-bottom: 0;*/
 }
-/*.mainFlex{*/
-    /*display: -webkit-box;      !* OLD - iOS 6-, Safari 3.1-6 *!*/
-    /*display: -moz-box;         !* OLD - Firefox 19- (buggy but mostly works) *!*/
-    /*display: -ms-flexbox;      !* TWEENER - IE 10 *!*/
-    /*display: -webkit-flex;     !* NEW - Chrome *!*/
-    /*display: flex;*/
-    /*flex-direction: column;*/
-    /*!*overflow-y: hidden;*!*/
-/*}*/
+.mainFlex{
+    display: -webkit-box;      /* OLD - iOS 6-, Safari 3.1-6 */
+    display: -moz-box;         /* OLD - Firefox 19- (buggy but mostly works) */
+    display: -ms-flexbox;      /* TWEENER - IE 10 */
+    display: -webkit-flex;     /* NEW - Chrome */
+    display: flex;
+    flex-direction: column;
+    /*overflow-y: hidden;*/
+}
 .smart-style-2 aside {
     background: #2d3741;
 }
@@ -689,40 +689,35 @@ tr > td > .separation:last-child {
 }
 
 
-/*.pagination{*/
-    /*margin: 0;*/
-/*}*/
+.pagination{
+    margin: 10px 0 0 0 ;
+}
 
-/*.dis-flex{*/
-    /*-webkit-flex: 1;          !* Chrome *!*/
-    /*-ms-flex: 1;              !* IE 10 *!*/
-    /*flex: 1;*/
-    /*display: -webkit-box;      !* OLD - iOS 6-, Safari 3.1-6 *!*/
-    /*display: -moz-box;         !* OLD - Firefox 19- (buggy but mostly works) *!*/
-    /*display: -ms-flexbox;      !* TWEENER - IE 10 *!*/
-    /*display: -webkit-flex;     !* NEW - Chrome *!*/
-    /*display: flex;*/
-    /*flex-direction: column;*/
-/*}*/
-/*.dis-flex-row{*/
-    /*-webkit-flex: 1;          !* Chrome *!*/
-    /*-ms-flex: 1;              !* IE 10 *!*/
-    /*flex: 1;*/
-    /*display: -webkit-box;      !* OLD - iOS 6-, Safari 3.1-6 *!*/
-    /*display: -moz-box;         !* OLD - Firefox 19- (buggy but mostly works) *!*/
-    /*display: -ms-flexbox;      !* TWEENER - IE 10 *!*/
-    /*display: -webkit-flex;     !* NEW - Chrome *!*/
-    /*display: flex;*/
-    /*flex-direction: row;*/
-/*}*/
+.dis-flex{
+    -webkit-flex: 1;          /* Chrome */
+    -ms-flex: 1;              /* IE 10 */
+    flex: 1;
+    display: -webkit-box;      /* OLD - iOS 6-, Safari 3.1-6 */
+    display: -moz-box;         /* OLD - Firefox 19- (buggy but mostly works) */
+    display: -ms-flexbox;      /* TWEENER - IE 10 */
+    display: -webkit-flex;     /* NEW - Chrome */
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    min-height: 0;
+}
+.dis-flex-row{
+    -webkit-flex: 1;          /* Chrome */
+    -ms-flex: 1;              /* IE 10 */
+    flex: 1;
+    display: -webkit-box;      /* OLD - iOS 6-, Safari 3.1-6 */
+    display: -moz-box;         /* OLD - Firefox 19- (buggy but mostly works) */
+    display: -ms-flexbox;      /* TWEENER - IE 10 */
+    display: -webkit-flex;     /* NEW - Chrome */
+    display: flex;
+    flex-direction: row;
+}
 
-/*table.dis-flex thead>tr{*/
-    /*display: flex;*/
-    /*flex-direction: row;*/
-/*}*/
-/*table.dis-flex thead>tr>th{*/
-/*flex: 1;*/
-/*}*/
 
 .table-scroll{
 
@@ -730,7 +725,7 @@ tr > td > .separation:last-child {
 .table-scroll tbody {
     display:block;
     /*height:195px;*/
-    overflow-y:scroll;
+    /*overflow-y:scroll;*/
 }
 .table-scroll thead, .table-scroll tbody tr {
     display:table;
@@ -743,9 +738,9 @@ tr > td > .separation:last-child {
     table-layout: fixed;
 }
 .table-scroll thead {
-    width: -webkit-calc(100% - 17px);
-    width: -moz-calc(100% - 17px);
-    width: calc( 100% - 17px );
+    /*width: -webkit-calc(100% - 17px);*/
+    /*width: -moz-calc(100% - 17px);*/
+    /*width: calc( 100% - 17px );*/
 
     /*width: calc( 100% - 1em )*/
 }
