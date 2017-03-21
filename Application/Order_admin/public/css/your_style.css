@@ -725,7 +725,7 @@ tr > td > .separation:last-child {
 .table-scroll tbody {
     display:block;
     /*height:195px;*/
-    /*overflow-y:scroll;*/
+    overflow-y:scroll;
 }
 .table-scroll thead, .table-scroll tbody tr {
     display:table;
@@ -738,9 +738,9 @@ tr > td > .separation:last-child {
     table-layout: fixed;
 }
 .table-scroll thead {
-    /*width: -webkit-calc(100% - 17px);*/
-    /*width: -moz-calc(100% - 17px);*/
-    /*width: calc( 100% - 17px );*/
+    width: -webkit-calc(100% - 17px);
+    width: -moz-calc(100% - 17px);
+    width: calc( 100% - 17px );
 
     /*width: calc( 100% - 1em )*/
 }
