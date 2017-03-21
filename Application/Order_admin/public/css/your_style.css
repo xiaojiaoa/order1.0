@@ -752,7 +752,9 @@ tr > td > .separation:last-child {
     width: 100%;
     table-layout: fixed;
 }
-
+.table-bordered>thead>tr>td:first-child, .table-bordered>thead>tr>th:first-child {
+    border-left: 0;
+}
 .table-scroll thead {
     width: -webkit-calc(100% - 17px);
     width: -moz-calc(100% - 17px);
