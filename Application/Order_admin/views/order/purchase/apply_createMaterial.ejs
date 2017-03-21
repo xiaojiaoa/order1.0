@@ -87,7 +87,7 @@
                     + '<td>' + listArr[i].name + '</td>'
                     + '<td>' + listArr[i].suppName + '</td>'
                     + '<td>' + listArr[i].class_name + '</td>'
-                    + '<td>' + listArr[i].price + '</td>'
+                    + '<td class="price'+i+'">' + listArr[i].price + '</td>'
                     + '<td><input type="text" name="amount'+i+'" value="" class="form-control amountApply" /> </td>'
                     + '<td><input class="form-control fg-date-picker deliveryDate" type="text" value="" name="deliveryDate'+i+'" /> </td>'
                     + '<td><input name="minAmount'+i+'" class="form-control minAmount" value="" /></td>'
@@ -122,10 +122,12 @@
             for(var i=0;i<len;i++){
                 var a = new Object();
                 var mateId=$(".materialId"+i).text();
+                var price=$(".price"+i).text();
                 var amount=$("input[name=amount"+i+"]").val();
                 var minAmount=$("input[name=minAmount"+i+"]").val();
                 var deliveryDate=$("input[name=deliveryDate"+i+"]").val();
                 a.mateId=mateId;
+                a.price=price;
                 a.amount = amount;
                 a.minAmount = minAmount;
                 a.deliveryDate = deliveryDate;

@@ -255,7 +255,6 @@
 
         $(".supProTr").on("change","input",function () {
             var id = $(this).val();
-
             // 点中删除
             DWY_Utils.StorageUtils.deletItem({
                 id:id
@@ -302,12 +301,18 @@
                 }
                 var dateVal = $(".date").val();
                 var codeVal = $(".code").val();
+                var reg = /^(\d{1,32})$/;
+                var r = codeVal.match(reg);
                 if(dateVal==null||dateVal==''){
                     layer.alert('请填写合同日期！', {icon: 3})
                     return false;
                 }
                 if(codeVal==null||codeVal==''){
                     layer.alert('请填写物料编码！', {icon: 3})
+                    return false;
+                }
+                if(r==null){
+                    layer.alert('请输入0-9且长度不大于32！', {icon: 3})
                     return false;
                 }
 
