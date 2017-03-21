@@ -40,6 +40,7 @@
                                         <th>物料名称</th>
                                         <th>供应商名称</th>
                                         <th>分类名称</th>
+                                        <th>单价</th>
                                         <th>请购数量</th>
                                         <th>预计交期</th>
                                         <th>最小数量</th>
@@ -86,9 +87,10 @@
                     + '<td>' + listArr[i].name + '</td>'
                     + '<td>' + listArr[i].suppName + '</td>'
                     + '<td>' + listArr[i].class_name + '</td>'
-                    + '<td><input type="text" name="amount'+i+'" value="" class="amountApply" /> </td>'
+                    + '<td class="price'+i+'">' + listArr[i].price + '</td>'
+                    + '<td><input type="text" name="amount'+i+'" value="" class="form-control amountApply" /> </td>'
                     + '<td><input class="form-control fg-date-picker deliveryDate" type="text" value="" name="deliveryDate'+i+'" /> </td>'
-                    + '<td><input name="minAmount'+i+'" class="minAmount" value="" /></td>'
+                    + '<td><input name="minAmount'+i+'" class="form-control minAmount" value="" /></td>'
                     + '</tr>';
                 htmlStr += itemHtml;
                 // 判断是否是初始化 是的话保持下面列表状态同步
@@ -120,10 +122,12 @@
             for(var i=0;i<len;i++){
                 var a = new Object();
                 var mateId=$(".materialId"+i).text();
+                var price=$(".price"+i).text();
                 var amount=$("input[name=amount"+i+"]").val();
                 var minAmount=$("input[name=minAmount"+i+"]").val();
                 var deliveryDate=$("input[name=deliveryDate"+i+"]").val();
                 a.mateId=mateId;
+                a.price=price;
                 a.amount = amount;
                 a.minAmount = minAmount;
                 a.deliveryDate = deliveryDate;

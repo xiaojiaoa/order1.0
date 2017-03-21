@@ -120,7 +120,7 @@
                             if(DWY_Helper.isCanLoop(purchaseRequestDetail.reqMaters)){
                             purchaseRequestDetail.reqMaters.forEach(function (element, index) { %>
                             <tr>
-                                <td><%= element.mateId %></td>
+                                <td><a href="/materialManage/detail/<%= bid %>/<%= element.mateId %>"><%= element.mateId %></a></td>
                                 <td><%= element.mateName %></td>
                                 <td><%= element.suppId %></td>
                                 <td><%= element.amount %></td>

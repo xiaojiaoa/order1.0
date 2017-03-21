@@ -105,9 +105,7 @@
                         <button class="btn btn-primary" id="purchaseMerge">合并</button>
                         <input type="hidden" class="" id="checkedValue" />
                         <button class="btn btn-primary" id="purchaseReview">审核</button>
-                        <input type="hidden" class="" id="purchaseReviewBtn" />
                         <button class="btn btn-primary" id="purchaseSubmit">提交</button>
-                        <input type="hidden" class="" id="purchaseSubmitBtn" />
                         <button class="btn btn-primary">打印</button>
                     </div>
                 </div>
@@ -128,6 +126,7 @@
                                 <th>采购单编号</th>
                                 <th>供应商编号</th>
                                 <th>供应商名称</th>
+                                <th>金额</th>
                                 <th>预计交付时间</th>
                                 <th>创建时间</th>
                                 <th>采购状态</th>
@@ -148,6 +147,7 @@
                                 <td><a href="/purchase/orderDetail/<%= element.id %>"><%= element.id %></a></td>
                                 <td><a href="/supplier/detail/<%= element.suppId %>"><%= element.suppId %></a></td>
                                 <td><%= element.suppName %></td>
+                                <td><%= element.price %></td>
                                 <td><%= DWY_Helper.getLocalDate(element.deliveryDate) %></td>
                                 <td><%= DWY_Helper.getLocalDate(element.addTime) %></td>
                                 <td><%= element.stcodeName %></td>
@@ -205,7 +205,10 @@
                             url: '/purchases/merge/'+tid,
                             method: 'post',
                             success: function (data) {
-                                window.location.reload();
+                                layer.alert('操作成功！');
+                                setTimeout(function(){
+                                    window.location.reload();
+                                },2000);
                             },
                             error: function (response) {
                                 layer.close(index)
@@ -216,31 +219,30 @@
                     function(index){layer.close(index)})
             })
             //审核采购单
-            var purchaseReviewBtn = $('#purchaseReviewBtn');
             $("#checkAll").change(function () {
                 if($(this).is(":checked")){
                     $(":checkbox").prop('checked',true);
                     $("input[name='roles']:checked").each(function (i) {
-                        purchaseReviewBtn.addClass(this.value+',')
+                        checkedValue.addClass(this.value+',')
                     });
                 }else{
                     $(":checkbox").prop('checked',false);
-                    purchaseReviewBtn.removeClass()
+                    checkedValue.removeClass()
                 }
             })
             $("input[name='roles']").change(function () {
                 if($(this).is(':checked')){
-                    purchaseReviewBtn.addClass(this.value+',')
+                    checkedValue.addClass(this.value+',')
                 }else{
-                    purchaseReviewBtn.removeClass(this.value+',')
+                    checkedValue.removeClass(this.value+',')
                 }
             });
             $("#purchaseReview").click(function(){
-                if(purchaseReviewBtn.attr('class')==null||purchaseReviewBtn.attr('class')=='') {
+                if(checkedValue.attr('class')==null||checkedValue.attr('class')=='') {
                     layer.alert('请选择！', {icon: 3})
                     return false;
                 }
-                var tid = purchaseReviewBtn.attr('class').replace(/[ ]/g,"");
+                var tid = checkedValue.attr('class').replace(/[ ]/g,"");
                 tid = tid.substring(0,tid.length-1);
                 layer.confirm('确认审核?',{icon: 3, title:'提示'},
                     function(index){
@@ -248,7 +250,10 @@
                             url: '/purchases/review/'+tid,
                             method: 'post',
                             success: function (data) {
-                                window.location.reload();
+                                layer.alert('操作成功！');
+                                setTimeout(function(){
+                                    window.location.reload();
+                                },2000);
                             },
                             error: function (response) {
                                 layer.close(index)
@@ -259,16 +264,15 @@
                     function(index){layer.close(index)})
             })
             //提交采购单
-            var purchaseSubmitBtn = $('#purchaseSubmitBtn');
             $("#checkAll").change(function () {
                 if($(this).is(":checked")){
                     $(":checkbox").prop('checked',true);
                     $("input[name='roles']:checked").each(function (i) {
-                        purchaseSubmitBtn.addClass(this.value+',')
+                        checkedValue.addClass(this.value+',')
                     });
                 }else{
                     $(":checkbox").prop('checked',false);
-                    purchaseSubmitBtn.removeClass()
+                    checkedValue.removeClass()
                 }
             })
             $("input[name='roles']").change(function () {
@@ -276,13 +280,13 @@
                 $("input[name='stcode']").addClass(stcode+'');
                 stcodeStr=$("input[name='stcode']").attr('class')
                 if($(this).is(':checked')){
-                    purchaseSubmitBtn.addClass(this.value+',')
+                    checkedValue.addClass(this.value+',')
                 }else{
-                    purchaseSubmitBtn.removeClass(this.value+',')
+                    checkedValue.removeClass(this.value+',')
                 }
             });
             $("#purchaseSubmit").click(function(){
-                if(purchaseSubmitBtn.attr('class')==null||purchaseSubmitBtn.attr('class')=='') {
+                if(checkedValue.attr('class')==null||checkedValue.attr('class')=='') {
                     layer.alert('请选择！', {icon: 3})
                     return false;
                 }
@@ -290,7 +294,7 @@
                     layer.alert('请先审核！', {icon: 3})
                     return false;
                 }
-                var tid = purchaseSubmitBtn.attr('class').replace(/[ ]/g,"");
+                var tid = checkedValue.attr('class').replace(/[ ]/g,"");
                 tid = tid.substring(0,tid.length-1);
                 layer.confirm('确认提交?',{icon: 3, title:'提示'},
                     function(index){
@@ -298,7 +302,10 @@
                             url: '/purchases/submit/'+tid,
                             method: 'post',
                             success: function (data) {
-                                window.location.reload();
+                                layer.alert('操作成功！');
+                                setTimeout(function(){
+                                    window.location.reload();
+                                },2000);
                             },
                             error: function (response) {
                                 layer.close(index)

@@ -103,7 +103,12 @@
                             if(DWY_Helper.isCanLoop(installServiceList.result)){
                             installServiceList.result.forEach(function (element, index) { %>
                             <tr>
-                                <td><%= index+1 %></td>
+                                <td>
+                                    <label  class="checkbox-inline">
+                                        <input type="checkbox" class="checkbox" value="<%= element.tid %>" name="roles" />
+                                        <span><%= index+1 %></span>
+                                    </label>
+                                </td>
                                 <td><a href="/order/detail/<%= element.tid %>"><%= element.tid %></a></td>
                                 <td><%= element.cid %></td>
                                 <td><%= element.name %></td>
@@ -121,8 +126,6 @@
                                 if(element.stcode==769){ %>
                                     <td>已登记发货</td>
                                 <% } %>
-
-
                                 <td>
                                     <%
                                     if(element.stcode==769){
@@ -141,6 +144,7 @@
                                <td colspan="12" class="text-align-center">暂无结果</td>
                            <% }%>
                             </tbody>
+                            <input type="hidden" class="" name="vals">
                         </table>
                         <%- pagination %>
                     </div>
@@ -197,10 +201,13 @@
                 }
             }
         )
-
-
-
-
+        $("input[name='roles']").change(function(){
+            if($(this).is(':checked')){
+                $("input[name='vals']").addClass(this.value+',')
+            }else{
+                $("input[name='vals']").removeClass(this.value+',')
+            }
+        })
     })
 </script>
 <%- include('../layouts/foot'); %>

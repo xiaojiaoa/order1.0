@@ -101,6 +101,7 @@ var PurchaseController = {
     //请购单详情
     purchaseApplyDetailPage: function (req, res) {
         var tid = req.params.tid;
+        var bid = req.query.bid? req.query.bid: req.session.user.bid;
         Base.multiDataRequest(req, res, [
                 {url: '/api/purchase/request/'+tid, method: 'GET', resConfig: {keyName: 'purchaseRequestDetail', is_must: true}},
             ],
@@ -108,6 +109,7 @@ var PurchaseController = {
                 var returnData = Base.mergeData(helper.mergeObject({
                     title: ' ',
                     tid:tid,
+                    bid:bid,
                     Permission :Permissions,
                 }, resultList));
                 res.render('order/purchase/apply_detail', returnData);

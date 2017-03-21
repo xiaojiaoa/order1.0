@@ -131,7 +131,7 @@ var SupplierController = {
         req.body.suppId=tid;
         Base.multiDataRequest(req, res, [
             {url: '/api/categories/list?parentId=0', method: 'GET', resConfig: {keyName: 'suppliersMaterialList', is_must: true}},
-            {url: '/api/materials/suppliers?'+(queryString.stringify(req.query)), method: 'GET', resConfig: {keyName: 'supMaterialList', is_must: true}},
+            {url: '/api/materials/suppliers?'+(queryString.stringify(req.body)), method: 'GET', resConfig: {keyName: 'supMaterialList', is_must: true}},
             {url: '/api/suppliers/'+tid, method: 'GET', resConfig: {keyName: 'suppliersDetail', is_must: true}},
         ], function (req, res, resultList) {
             var paginationInfo =  resultList.supMaterialList;
@@ -152,17 +152,11 @@ var SupplierController = {
     },
     //新增供应商物料关联
     createMaterialSupplier: function (req, res) {
-        var tid=req.params.tid;
-        var bid=req.params.bid;
-        var date=req.params.date;
         request(Base.mergeRequestOptions({
             method: 'post',
             url: '/api/suppliers/materials',
-            form: {
-                suppId:tid,
-                mateId:bid,
-                expiryDate:date,
-            },
+            headers:{'Content-type':'application/json'},
+            body:JSON.stringify(req.body),
         }, req, res), function (error, response, body) {
             if (!error && response.statusCode == 201) {
                 res.sendStatus(200)
