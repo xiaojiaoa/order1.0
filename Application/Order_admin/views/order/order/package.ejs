@@ -164,7 +164,7 @@
                             </thead>
                             <tbody>
                             <%
-                            if(1){
+                            if(DWY_Helper.isCanLoop(toBePackedList.result)){
                             toBePackedList.result.forEach(function (element, index) { %>
                             <tr>
                                 <td width="3%"><%= index+1 %></td>
