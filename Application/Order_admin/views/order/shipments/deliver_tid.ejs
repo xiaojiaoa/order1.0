@@ -5,7 +5,7 @@ result.forEach(function(element,index){%>
     <td>
         <label class="checkbox-inline">
             <input type="checkbox" class="checkbox validate[minCheckbox[1]]"
-                   name="list" value="<%= element.tid %>">
+                   name="list" value="<%= element.tid %>" <%= element.stcode == 739? '':'disabled' %>>
             <span><%= ++index %></span>
         </label>
     </td>

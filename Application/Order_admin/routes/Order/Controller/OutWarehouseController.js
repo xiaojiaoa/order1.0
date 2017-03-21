@@ -336,7 +336,7 @@ var OutWarehouseController = {
     outBredPage: function (req, res) {
         var paramObject = helper.genPaginationQuery(req);
         Base.multiDataRequest(req, res, [
-            {url: '/api/whse/cargout/plate/page?'+ queryString.stringify(req.query), method: 'GET', resConfig: {keyName: 'plateList', is_must: true}},
+            {url: '/api/whse/cargout/mate/page?'+ queryString.stringify(req.query), method: 'GET', resConfig: {keyName: 'plateList', is_must: true}},
         ], function (req, res, resultList) {
 
             var paginationInfo =  resultList.plateList;
@@ -357,13 +357,15 @@ var OutWarehouseController = {
 
     },
     outBredUpload: function (req, res) {
+        var type = req.body.type;
       Base.multiDataRequest(req, res, [
-          {url: '/api/whse/cargout/plate/file', method: 'post', form:req.body,resConfig: {keyName: 'plateList', is_must: false}},
+          {url: '/api/whse/cargout/mate/file', method: 'post', form:req.body,resConfig: {keyName: 'plateList', is_must: false}},
           {url: '/api/whse/factory/list', method: 'GET', resConfig: {keyName: 'factoryList', is_must: true}},
         ],
         function (req, res, resultList) {
           var returnData = Base.mergeData(helper.mergeObject({
             title: ' ',
+            type:type,
           }, resultList));
           res.render('order/shipments/out_bred_doOut', returnData);
         });
@@ -395,8 +397,8 @@ var OutWarehouseController = {
     outBredDeatil: function (req, res) {
         var id = req.params.id;
         Base.multiDataRequest(req, res, [
-            {url: '/api/whse/cargout/plate/list/'+ id, method: 'GET', resConfig: {keyName: 'plateInfo', is_must: true}},
-            {url: '/api/whse/cargout/plate/page?outId='+id, method: 'GET', resConfig: {keyName: 'cargoutInfo', is_must: false}},
+            {url: '/api/whse/cargout/mate/list/'+ id, method: 'GET', resConfig: {keyName: 'plateInfo', is_must: true}},
+            {url: '/api/whse/cargout/mate/page?outId='+id, method: 'GET', resConfig: {keyName: 'cargoutInfo', is_must: false}},
 
         ], function (req, res, resultList) {
             resultList.cargoutInfo = resultList.cargoutInfo.result[0];
@@ -412,7 +414,7 @@ var OutWarehouseController = {
         var id = req.params.id;
         request(Base.mergeRequestOptions({
             method: 'post',
-            url: '/api/whse/cargout/plate/review/'+id,
+            url: '/api/whse/cargout/mate/review/'+id,
         }, req, res), function (error, response, body) {
             if (!error && response.statusCode == 201) {
                 res.sendStatus(200);
@@ -434,6 +436,50 @@ var OutWarehouseController = {
             }
         })
     },
+  plateOut: function (req, res) {
+    // var num = req.body.num0;
+    console.log('doEnter',JSON.stringify(req.body))
+    request(Base.mergeRequestOptions({
+      method: 'post',
+      url: '/api/whse/cargoin/mate',
+      headers:{'Content-type':'application/json'},
+      body:JSON.stringify(req.body),
+    }, req, res), function (error, response, body) {
+      if (!error && response.statusCode == 201) {
+        // res.redirect('/enterMaterial')
+        console.log('doEnter66666')
+        res.sendStatus(200);
+      } else {
+        console.log('doEnter44444')
+        console.log(body)
+        Base.handlerError(res, req, error, response, body);
+      }
+    })
+
+
+  },
+  accessoryOut: function (req, res) {
+    // var num = req.body.num0;
+    console.log('doEnter',JSON.stringify(req.body))
+    request(Base.mergeRequestOptions({
+      method: 'post',
+      url: '/api/whse/cargoin/mate',
+      headers:{'Content-type':'application/json'},
+      body:JSON.stringify(req.body),
+    }, req, res), function (error, response, body) {
+      if (!error && response.statusCode == 201) {
+        // res.redirect('/enterMaterial')
+        console.log('doEnter66666')
+        res.sendStatus(200);
+      } else {
+        console.log('doEnter44444')
+        console.log(body)
+        Base.handlerError(res, req, error, response, body);
+      }
+    })
+
+
+  },
 };
 
 module.exports = OutWarehouseController;

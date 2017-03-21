@@ -88,8 +88,8 @@
                                     <th>物料编号</th>
                                     <th>物料名称</th>
                                     <th>单价</th>
-                                    <th>采购数量</th>
                                     <th>采购金额</th>
+                                    <th>采购数量</th>
                                     <th width="200">货位号(行列层)</th>
                                     <th width="100">入库数量</th>
                                     <th width="150">仓库是否可用</th>
@@ -106,9 +106,18 @@
                                             <td><a href="/purchase/orderDetail/<%= element.orderId %>"><%= element.orderId %></a></td>
                                             <td><a href="/materialManage/detail/<%= user.bid %>/<%= element.mateId %>"><%= element.mateId %></a></td>
                                             <td><%=element.mateName%></td>
-                                            <td><%=element.price%></td>
+                                            <td>
+                                                <input class="form-control short validate[required]"
+                                                       value="<%=element.price%>" name="price<%= index %>" id="price<%= index %>" data-index="<%= index %>">
+                                                <%=element.price%>
+                                            </td>
+                                            <td>
+                                                <input class="form-control short validate[required]"
+                                                       value="<%=element.totalAmount%>" name="total<%= index %>" id="total<%= index %>" data-index="<%= index %>">
+                                                <%=element.totalAmount%>
+                                            </td>
                                             <td><%=element.amount%></td>
-                                            <td><%=element.totalAmount%></td>
+
                                             <td>
                                                 <input class="form-control validate[condRequired[custom[number],minSize[6],maxSize[6]]]"
                                                        name="spaceId<%= index %>" placeholder="行列层，6位数字" id="spaceId<%= index %>" data-index="<%= index %>">
@@ -141,6 +150,7 @@
                                 <!--<i class="fa fa-plus"></i>-->
                                 <!--添加入库物料-->
                             <!--</a>-->
+                            <a class="btn btn-primary" id="toModify">修改物料信息</a>
                             <a class="btn btn-primary" id="toEnter">确认入库</a>
                         </div>
                     </div>
@@ -295,6 +305,10 @@
                     layer.close(index)}
             )
         })
+      
+      $('#toModify').click(function () {
+        
+      })
 
     })
 

@@ -837,6 +837,9 @@ router.put('/outBred/doCheck/:id', Middleware.AuthCheck, OutWarehouseController.
 // 可发货订单-审核
 router.put('/outBred/doUnCheck/:id', Middleware.AuthCheck, OutWarehouseController.doUnCheckBred);
 
+router.post('/outBred/plateOut', Middleware.AuthCheck, OutWarehouseController.plateOut);
+router.post('/outBred/accessoryOut', Middleware.AuthCheck, OutWarehouseController.accessoryOut);
+
 /*
  * 页面范围: 任务序列相关
  * 控制器:   TaskseqController

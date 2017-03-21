@@ -65,26 +65,48 @@
 
                     <div class="col-xs-4">
                         <div class="form-group">
-                            <label class="col-xs-4 control-label">司机姓名:</label>
+                            <label class="col-xs-4 control-label"><span class="requird"></span> 司机姓名:</label>
                             <div class="col-xs-8">
-                                <input class="form-control" value="" name="driverName">
+                                <input class="form-control validate[required]" value="" name="driverName">
                             </div>
                         </div>
                     </div>
                     <div class="col-xs-4">
                         <div class="form-group">
-                            <label class="col-xs-4 control-label">物流车牌号:</label>
+                            <label class="col-xs-4 control-label"><span class="requird"></span> 预计安装时间:</label>
                             <div class="col-xs-8">
-                                <input class="form-control" value="" name="licensePlate">
+                                <input class="form-control fg-date-time-picker validate[required]"  value=""
+                                       name="planInstallTime">
                             </div>
                         </div>
                     </div>
+
                     <input name="lid" value="" id="input-lid"  type="hidden">
                     <input name="contNo" value="" id="input-contNo"  type="hidden">
                     <input name="deliveryTime" value="" id="input-deliveryTime"  type="hidden">
                     <input name="custName" value="" id="input-cName"  type="hidden">
                     <input name="mobile" value="" id="input-mobile"  type="hidden">
                     <input name="address" value="" id="input-address"  type="hidden">
+                </div>
+                <div class="col-xs-12">
+                    <div class="col-xs-4">
+                        <div class="form-group">
+                            <label class="col-xs-4 control-label"><span class="requird"></span> 物流车牌号:</label>
+                            <div class="col-xs-8">
+                                <input class="form-control validate[required]" value="" name="licensePlate">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-4">
+                        <div class="form-group">
+                            <label class="col-xs-4 control-label"><span class="requird"></span> 预计到货时间:</label>
+                            <div class="col-xs-8">
+                                <input class="form-control fg-date-time-picker validate[required]"  value=""
+                                       name="planArrivalTime">
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
 
                 <div class="col-xs-12">
@@ -109,6 +131,8 @@
 
     $(document).ready(function () {
         $("#check_pass").validationEngine();
+      $(".fg-date-time-picker").flatpickr(data_time_picker.data_picker); // jQuery
+
         //弹出类
         $('.deliverThis').on({
             click: function (e) {
