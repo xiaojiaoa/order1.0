@@ -3,6 +3,9 @@ html,body{
     padding: 0;
     margin: 0;
 }
+#divSmallBoxes{
+    z-index: 99999999;
+}
 #main {
     min-width: 1420px;
     background: #fff;

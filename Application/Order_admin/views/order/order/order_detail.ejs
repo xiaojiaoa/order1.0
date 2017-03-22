@@ -790,10 +790,8 @@
                     url: ajaxUrl,
                     method: 'put',
                     success: function (data) {
-                        layer.msg('操作成功', {icon: 1, time: DWY_GLOBAL_CONSTANT.TimeOut});
-                        setTimeout(function () {
-                            location.href = locationUrl
-                        },DWY_GLOBAL_CONSTANT.TimeOut)
+                        successLayout.hrefTo(locationUrl);
+
                     },
                     error: function (response) {
                         layer.close(index)
@@ -830,11 +828,7 @@
                     url: ajaxUrl,
                     method: 'put',
                     success: function (data) {
-                        layer.msg('操作成功', {icon: 1, time: DWY_GLOBAL_CONSTANT.TimeOut});
-                        setTimeout(function () {
-                            location.href = locationUrl
-                        },DWY_GLOBAL_CONSTANT.TimeOut)
-
+                        successLayout.hrefTo(locationUrl);
                     },
                     error: function (response) {
                         layer.close(index)
@@ -872,10 +866,7 @@
                     url: ajaxUrl,
                     method: 'put',
                     success: function (data) {
-                        layer.msg('操作成功', {icon: 1, time: DWY_GLOBAL_CONSTANT.TimeOut});
-                        setTimeout(function () {
-                            location.href = locationUrl
-                        },DWY_GLOBAL_CONSTANT.TimeOut)
+                        successLayout.hrefTo(locationUrl);
                     },
                     error: function (response) {
                         layer.close(index)

@@ -169,7 +169,7 @@
                             url: '/department/doDelete/'+type+'/'+id,
                             method: 'delete',
                             success: function (data) {
-                                window.location.reload();
+                                successLayout.reload();
                             },
                             error: function (response) {
                                 layer.close(index)
@@ -192,7 +192,7 @@
                             url: '/department/doOpen/'+type+'/'+id,
                             method: 'put',
                             success: function (data) {
-                                window.location.reload();
+                                successLayout.reload();
                             },
                             error: function (response) {
                                 layer.close(index)

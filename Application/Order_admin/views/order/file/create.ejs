@@ -268,14 +268,7 @@
                     },
                     error: function (response) {
                         layer.close(index)
-                        var data = JSON.parse(response.responseText);
-                        $.smallBox({
-                            title: "操作失败",
-                            content: data.msg,
-                            color: "#C46A69",
-                            iconSmall: "fa fa-times fa-2x fadeInRight animated",
-                            timeout: 3000
-                        });
+                        errorLayout.normal(response);
                     }
                 })
             }
@@ -324,21 +317,11 @@
                 url: '/file/doDelete/'+id,
                 method: 'delete',
                 success: function (data) {
-                    layer.msg('操作成功', {icon: 1, time: DWY_GLOBAL_CONSTANT.TimeOut});
-                    setTimeout(function () {
-                        window.location.reload();
-                    }, DWY_GLOBAL_CONSTANT.TimeOut)
+                    successLayout.reload();
                 },
                 error: function (response) {
                     layer.close(index)
-                    var data = JSON.parse(response.responseText);
-                    $.smallBox({
-                        title: "操作失败",
-                        content: data.msg,
-                        color: "#C46A69",
-                        iconSmall: "fa fa-times fa-2x fadeInRight animated",
-                        timeout: 3000
-                    });
+                    errorLayout.normal(response);
                 }
             });
         },function(index){

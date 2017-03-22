@@ -287,7 +287,8 @@
                     success: function (data) {
 //                        console.log('employees3333',data)
                         if(data.result.length !=0){
-                            location.href = "/employees/detail/" + data.result[0].id;
+                            var href = "/employees/detail/" + data.result[0].id;
+                            successLayout.hrefTo(href);
                         }
                     },
                     error: function (response) {

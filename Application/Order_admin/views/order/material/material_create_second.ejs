@@ -289,7 +289,7 @@
                         data:craMateList,
                         success:function (data) {
                             console.log(data);
-                            location.href="/materialManage";
+                            successLayout.hrefTo("/materialManage");
                         },
                         error: function (response) {
                             layer.close(index)
@@ -315,7 +315,8 @@
                     method: 'post',
                     data:craMateList,
                     success:function (data) {
-                        location.href="/materialManage/material/creStepS/"+"<%= id %>";
+                        var href="/materialManage/material/creStepS/"+"<%= id %>";
+                        successLayout.hrefTo(href);
                     },
                     error: function (response) {
                          layer.close(index);

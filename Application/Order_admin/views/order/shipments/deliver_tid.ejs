@@ -1,11 +1,12 @@
 <%
+    var hasTid = false;
 if(result&&result.length>0){
 result.forEach(function(element,index){%>
 <tr>
     <td>
         <label class="checkbox-inline">
             <input type="checkbox" class="checkbox validate[minCheckbox[1]]"
-                   name="list" value="<%= element.tid %>" <%= element.stcode == 729? '':'disabled' %>>
+                   name="list" value="<%= element.tid %>" <%= element.stcode == 729? hasTid = true:'disabled' %>>
             <span><%= ++index %></span>
         </label>
     </td>
@@ -23,4 +24,5 @@ result.forEach(function(element,index){%>
     <td colspan="5" class="text-align-center">暂无结果</td>
 </tr>
 <%} %>
+<input type="hidden" id="ifhas" value="<%= hasTid %>">
 

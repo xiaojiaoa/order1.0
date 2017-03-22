@@ -375,7 +375,7 @@
                         url: '/orders/package/unpacket/'+tid,
                         method: 'put',
                         success: function (data) {
-                            window.location.href="/orders/package";
+                            successLayout.hrefTo("/orders/package");
 
                         },
                         error: function (response) {
@@ -408,11 +408,12 @@
                         success: function (data) {
 
                             if('<%= pid%>'){
-                                window.location.href="/orders/package/<%= tid%>?packageLid=<%= pid%>";
-
+                                var href="/orders/package/<%= tid%>?packageLid=<%= pid%>";
+                                successLayout.hrefTo(href);
                             }
                             else{
-                                window.location.href="/orders/package/<%= tid%>";
+                                var href="/orders/package/<%= tid%>";
+                                successLayout.hrefTo(href);
                             }
 
                         },
@@ -459,10 +460,8 @@
                         url: '/orders/package/packet/delete/'+pid+"/"+type,
                         method: 'put',
                         success: function (data) {
-                            layer.msg('操作成功', {icon: 1, time: DWY_GLOBAL_CONSTANT.TimeOut});
-                            setTimeout(function () {
-                                window.location.href="/orders/package/<%= tid%>";
-                            }, DWY_GLOBAL_CONSTANT.TimeOut)
+                            var href="/orders/package/<%= tid%>";
+                            successLayout.hrefTo(href);
 
                         },
                         error: function (response) {

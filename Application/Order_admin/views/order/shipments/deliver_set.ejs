@@ -113,10 +113,17 @@
                 <div class="col-xs-12">
                     <hr class="simple">
                     <div class="col-xs-12 text-center">
+                        <% if(hasTid){  %>
                         <button class="btn btn-primary margin-bottom-10" id="confirm">
                             <i class="fa fa-save"></i>
                             提交
                         </button>
+                        <% }else{ %>
+                        <button class="btn btn-primary margin-bottom-10" disabled>
+                            暂无可发货订单
+                        </button>
+                        <% } %>
+
                     </div>
                 </div>
                 <div class="dwy-clear"></div>
@@ -180,7 +187,7 @@
 
         $("#checkAll").change(function () {
             if ($(this).is(":checked")) {
-                $(":checkbox").prop('checked', true);
+                $(":checkbox:not(:disabled)").prop('checked', true);
             } else {
                 $(":checkbox").prop('checked', false);
             }

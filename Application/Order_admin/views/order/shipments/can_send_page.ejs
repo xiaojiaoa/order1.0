@@ -199,11 +199,9 @@
                             layer.close(index)
                             var status = response.status;
                             if(status == 200){
-                                layer.msg('操作成功', {icon: 1, time: DWY_GLOBAL_CONSTANT.TimeOut});
-                                setTimeout(function () {
-                                    location.href="/<%= type %>/canSend";
-                                    return;
-                                }, DWY_GLOBAL_CONSTANT.TimeOut)
+                                successLayout.hrefTo("/<%= type %>/canSend");
+                                return;
+
 
                             }
                             errorLayout.normal(response);

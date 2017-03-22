@@ -288,7 +288,7 @@
                         dataType: 'json',
                         contentType:"application/json",
                         success: function (data) {
-                            location.href="/enterMaterial";
+                            successLayout.hrefTo("/enterMaterial");
 
                         },
                         error: function (response) {
@@ -346,7 +346,7 @@
                         dataType: 'json',
                         contentType:"application/json",
                         success: function (data) {
-                            window.location.reload();
+                            successLayout.reload();
                         },
                         error: function (response) {
                             layer.close(index)
