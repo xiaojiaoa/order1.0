@@ -614,7 +614,7 @@
                     url: ajaxUrl,
                     method: 'put',
                     success: function (data) {
-                        location.href = locationUrl
+                        successLayout.hrefTo(locationUrl);
 
                     },
                     error: function (response) {
@@ -650,7 +650,7 @@
                     url: ajaxUrl,
                     method: 'put',
                     success: function (data) {
-                        location.href = locationUrl
+                        successLayout.hrefTo(locationUrl);
                     },
                     error: function (response) {
                         layer.close(index)
@@ -685,7 +685,7 @@
                     url: ajaxUrl,
                     method: 'put',
                     success: function (data) {
-                        location.href = locationUrl
+                        successLayout.hrefTo(locationUrl);
                     },
                     error: function (response) {
                         layer.close(index)

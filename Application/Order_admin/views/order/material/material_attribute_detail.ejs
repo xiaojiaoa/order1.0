@@ -163,7 +163,7 @@
                             url: '/mateAttrVal/setStatus/'+code+'/2/'+attrId,
                             method: 'put',
                             success: function (data) {
-                                window.location.reload();
+                                successLayout.reload();
                             },
                             error: function (response) {
                                 layer.close(index)
@@ -184,7 +184,7 @@
                             url: '/mateAttrVal/setStatus/'+code+'/1/'+attrId,
                             method: 'put',
                             success: function (data) {
-                                window.location.reload();
+                                successLayout.reload();
                             },
                             error: function (response) {
                                 layer.close(index)

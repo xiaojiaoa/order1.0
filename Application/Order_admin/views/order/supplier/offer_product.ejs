@@ -341,8 +341,9 @@
                             contentType:"application/json",
 
                             success: function (data) {
-                                location.href='/supplier/detail/'+suppId;
+                                var href='/supplier/detail/'+suppId;
                                 localStorage.clear();
+                                successLayout.hrefTo(href);
                             },
                             error: function (response) {
                                 if(response.status==200){

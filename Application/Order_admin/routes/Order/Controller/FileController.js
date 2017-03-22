@@ -133,6 +133,7 @@ var FileController = {
             form:req.body,
         }, req, res), function (error, response, body) {
             if (!error && response.statusCode == 201) {
+                Base.handlerSuccess(res, req);
                 if(pid){
                     res.redirect("/file/resupply/create/"+lid+"/"+stcode+"/"+tid+"/"+pid+"/"+ordType);
                 }else{

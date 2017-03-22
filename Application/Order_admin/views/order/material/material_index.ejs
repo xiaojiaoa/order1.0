@@ -89,17 +89,14 @@
                                                 <option value="">- 请选择 -</option>
                                                 <option value="预计缺货">预计缺货</option>
                                                 <option value="真是库存预警">真是库存预警</option>
-
-
                                             </select>
                                         </div>
 
                                     </div>
                                 </div>
-                                <div class="col-xs-3">
 
-                                    </div>
                                 </div>
+                            <input type="hidden" name="stairCatId" value="<%= DWYRequest.query.stairCatId %>">
 
                             <div class="col-xs-12 ">
                                 <hr class="simple">
@@ -117,17 +114,11 @@
                                     </a>
                                 </div>
                             </div>
-
-
-
-
-
                         </form>
                     </div>
                     <!-- end row -->
                 </div>
                 <!-- end col -->
-
             <!-- end row -->
         </div>
         </div>
@@ -142,6 +133,20 @@
                     <hr class="simple">
                 </div>
             </div>
+            <div class="orderItemLayerTit">
+                <ul class="orderItemMenu">
+                    <% if(DWY_Helper.isCanLoop(stairCategory)){
+                    stairCategory.forEach(function (element) { %>
+                    <a href="/materialManage?stairCatId=<%= element.id %>">
+                        <li class="padding-10 <%= DWYRequest.query.stairCatId == element.id ?'materielBak':'' %>">
+                            <%= element.name %>
+                        </li>
+                    </a>
+                    <% })
+                       } %>
+                </ul>
+
+            </div>
 <!--end roll-->
             <!-- row -->
             <div class="row dis-flex">
@@ -150,17 +155,22 @@
                         <table class="table table-bordered table-striped table-hover table-scroll dis-flex">
                             <thead>
                             <tr>
-                                <th width="3%">序号</th>
-                                <th width="4%">物料编号</th>
+                                <th width="50">序号</th>
+                                <th>物料编号</th>
                                 <th width="5%">物料名称</th>
                                 <th width="10%">分类</th>
-                                <th width="2%">单位</th>
-                                <th width="3%">库存</th>
-                                <th width="3%">预警</th>
-                                <th width="3%">可用</th>
-                                <th width="5%">出厂价格</th>
-                                <th width="3%">启用</th>
-                                <th width="8%">操作</th>
+                                <th>单位</th>
+                                <th>库存</th>
+                                <th>预警</th>
+                                <th>可用</th>
+                                <th>出厂价格</th>
+                                <th>启用</th>
+                                <% if(DWY_Helper.isCanLoop(theadList)){
+                                theadList.forEach(function (element) { %>
+                                <th><%= element.name %></th>
+                                <% })
+                                } %>
+                                <th width="220">操作</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -168,23 +178,24 @@
                             if(mateList.totalItems != 0  ){
                             mateList.result.forEach(function (element, index) { %>
                             <tr class="<%= ( element.stock<element.warning )? 'mark-row':'' %>">
-                                <td width="3%"><%= index+1 %></td>
-                                <td width="4%"><a href="/materialManage/detail/<%= bid%>/<%= element.id %>" class=" "><%= element.id %></a></td>
+                                <td width="50"><%= index+1 %></td>
+                                <td><a href="/materialManage/detail/<%= bid%>/<%= element.id %>" class=" "><%= element.id %></a></td>
                                 <td width="5%"><%= element.name %></td>
                                 <td width="10%"><%= element.catName%></td>
-                                <td width="2%"><%= element.unit%></td>
-                                <td width="3%"><%= element.stock %></td>
-                                <td width="3%"><%= element.warning %></td>
-                                <td width="3%"><%= element.usable %></td>
-                                <td width="5%"><%= element.price%></td>
-                                <td width="3%">
-                                 <% if(element.stcode==1){%>
-                                    是
-                                    <%}else {%>
-                                    否
-                                    <%}%>
-                                </td>
-                                <td width="8%">
+                                <td><%= element.unit%></td>
+                                <td><%= element.stock %></td>
+                                <td><%= element.warning %></td>
+                                <td><%= element.usable %></td>
+                                <td><%= element.price%></td>
+                                <td><%= element.stcode ==1 ? '是':'否'%></td>
+                                <% if(element.valueList && element.valueList.length>0){
+                                element.valueList.forEach(function (elementtab) { %>
+                                <td><%= elementtab.name %></td>
+                                <% })
+                                }else{ %>
+                                <td></td>
+                                <% } %>
+                                <td width="220">
                                     <a class="label label-primary" href="/materialManage/add/<%= bid %>/<%= element.id %>">完善物料库存</a>
                                      <%if(element.id.slice(0,2)==90){%>
                                     <a class="label label-primary" href="/materialManage/workpiece/<%= element.id %>">成品关联物料</a>

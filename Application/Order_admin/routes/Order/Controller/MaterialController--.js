@@ -20,36 +20,52 @@ var MaterialController = {
     indexPage: function (req, res) {
         var bid = req.query.bid? req.query.bid: req.session.user.bid;
         var stairCatId = req.query.stairCatId;
-        if(!stairCatId){stairCatId='';}
+        console.log('/api/materials?'+ queryString.stringify(req.query))
         var paramObject = helper.genPaginationQuery(req);
         Base.multiDataRequest(req, res, [
             {url: '/api/materials?'+ queryString.stringify(req.query), method: 'GET', resConfig: {keyName: 'mateList', is_must: true}},
             {url: '/api/categories/list?parentId=0', method: 'GET', resConfig: {keyName: 'stairCategory', is_must: true}},
-            {url: '/api/attributes/categories?categoryId='+stairCatId, method: 'GET', resConfig: {keyName: 'theadList', is_must: true}},
             {url: '/api/organizations/factory', method: 'GET', resConfig: {keyName: 'factoryList', is_must: true}},
         ], function (req, res, resultList) {
+
+
+            var InitResultList = resultList;
 
             //stairCatId 不存在，从菜单栏点击进入页面时
             if(!stairCatId){
                 var searchId = resultList.stairCategory[0].id;
-                // console.log('searchId',searchId)
-                res.redirect("/materialManage?stairCatId="+searchId);
+                console.log('searchId',searchId)
+                Base.multiDataRequest(req, res, [
+                    {url: '/api/materials?stairCatId='+ searchId, method: 'GET', resConfig: {keyName: 'mateListFirst', is_must: true}},
+                ], function (req, res, resultList) {
+
+                    InitResultList.mateList = resultList.mateListFirst;
+                    // console.log('mateList7777',JSON.stringify(resultList.mateListFirst))
+                    // console.log('mateList88888',JSON.stringify(mateList))
+
+                    // console.log('mateList11111',JSON.stringify(mateList))
+                    console.log('mateList2222',JSON.stringify(resultList.mateList))
+                    // console.log('mateList33333',JSON.stringify(resultList))
+
+                    var paginationInfo =  InitResultList.mateList;
+
+                    var boostrapPaginator = new Pagination.TemplatePaginator(helper.genPageInfo({
+                        prelink: paramObject.withoutPageNo,
+                        current: paginationInfo.page,
+                        rowsPerPage: paginationInfo.pageSize,
+                        totalResult: paginationInfo.totalItems
+                    }));
+
+                    var returnData = Base.mergeData(helper.mergeObject({
+                        title: ' ',
+                        bid:bid,
+                        pagination: boostrapPaginator.render()
+                    },InitResultList));
+                    res.render('order/material/material_index',returnData);
+
+                });
             }
-            var paginationInfo =  resultList.mateList;
 
-            var boostrapPaginator = new Pagination.TemplatePaginator(helper.genPageInfo({
-                prelink: paramObject.withoutPageNo,
-                current: paginationInfo.page,
-                rowsPerPage: paginationInfo.pageSize,
-                totalResult: paginationInfo.totalItems
-            }));
-
-            var returnData = Base.mergeData(helper.mergeObject({
-                title: ' ',
-                bid:bid,
-                pagination: boostrapPaginator.render()
-            },resultList));
-            res.render('order/material/material_index',returnData);
         });
         //res.render('order/material/material_index');
     },

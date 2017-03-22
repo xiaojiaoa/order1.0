@@ -924,6 +924,27 @@ var OrderController = {
             },resultList));
             res.render('order/order/packedList', returnData);
         });
+        // res.render('order/order/packedList');
+    },
+    allInfoPage:function(req,res){
+        var paramObject = helper.genPaginationQuery(req);
+        Base.multiDataRequest(req, res, [
+            {url: '/api/orders/package?'+queryString.stringify(req.query), method: 'GET', resConfig: {keyName: 'packageAll', is_must: true}},
+        ], function (req, res, resultList) {
+            var paginationInfo =  resultList.packageAll;
+            var boostrapPaginator = new Pagination.TemplatePaginator(helper.genPageInfo({
+                prelink: paramObject.withoutPageNo,
+                current: paginationInfo.page,
+                rowsPerPage: paginationInfo.pageSize,
+                totalResult: paginationInfo.totalItems
+            }));
+            var returnData = Base.mergeData(helper.mergeObject({
+                title: ' ',
+                pagination: boostrapPaginator.render(),
+                Permission :Permissions,
+            },resultList));
+            res.render('order/order/package_all', returnData);
+        });
        // res.render('order/order/packedList');
     },
     unPacket:function(req,res){

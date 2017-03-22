@@ -117,6 +117,7 @@
                             <i class="fa fa-save"></i>
                             提交
                         </button>
+
                     </div>
                 </div>
                 <div class="dwy-clear"></div>
@@ -134,6 +135,13 @@
         $("#check_pass").validationEngine();
       $(".fg-date-time-picker").flatpickr(data_time_picker.data_picker); // jQuery
 
+        $('#confirm').click(function (e) {
+            var checkTid = $('input[name=list]:checked').val();
+            if(!checkTid){
+                e.preventDefault();
+                layer.msg('请选择订单', {icon: 2, time: 2000});
+            }
+        })
         //弹出类
         $('.deliverThis').on({
             click: function (e) {
@@ -180,7 +188,7 @@
 
         $("#checkAll").change(function () {
             if ($(this).is(":checked")) {
-                $(":checkbox").prop('checked', true);
+                $(":checkbox:not(:disabled)").prop('checked', true);
             } else {
                 $(":checkbox").prop('checked', false);
             }

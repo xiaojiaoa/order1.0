@@ -194,12 +194,11 @@
                     url: '/deliveryNote/doChecked/'+id,
                     method: 'put',
                     success: function (data) {
-                        window.location.reload();
+                        successLayout.reload();
                     },
                     error: function (response) {
                         layer.close(index)
                         errorLayout.normal(response);
-
                     }
                 });
             }, function (index) { layer.close(index) })

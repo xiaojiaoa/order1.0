@@ -338,6 +338,32 @@ var errorLayout = {
 
     },
 }
+var successLayout = {
+    reload : function () {
+        $.smallBox({
+            title: "操作成功",
+            content:"刷新页面中...",
+            color: "#8ac38b",
+            iconSmall: "fa fa-times fa-2x fadeInRight animated",
+            timeout: DWY_GLOBAL_CONSTANT.TimeOut
+        });
+        setTimeout(function () {
+            window.location.reload();
+        },DWY_GLOBAL_CONSTANT.TimeOut)
+    },
+    hrefTo : function (url) {
+        $.smallBox({
+            title: "操作成功",
+            content:"跳转页面中...",
+            color: "#8ac38b",
+            iconSmall: "fa fa-times fa-2x fadeInRight animated",
+            timeout: DWY_GLOBAL_CONSTANT.TimeOut
+        });
+        setTimeout(function () {
+            location.href = url
+        },DWY_GLOBAL_CONSTANT.TimeOut)
+    },
+}
 
 
 $(document).ready(function () {
@@ -359,16 +385,17 @@ $(document).ready(function () {
         }
 
         if (dwy_msg_type.val() == 'info') {
-            layer.msg('操作成功', {icon: 1, time: DWY_GLOBAL_CONSTANT.TimeOut});
-            // $.smallBox({
-            //     title: "操作成功",
-            //     content: dwy_msg_info.val(),
-            //     color: "#8ac38b",
-            //     iconSmall: "fa fa-times fa-2x fadeInRight animated",
-            //     timeout: 3000
-            // });
+            $.smallBox({
+                title: "操作成功",
+                content: dwy_msg_info.val(),
+                color: "#8ac38b",
+                iconSmall: "fa fa-times fa-2x fadeInRight animated",
+                timeout: DWY_GLOBAL_CONSTANT.TimeOut
+            });
         }
 
         localStorage.setItem('dwy_msg_sign', dwy_msg_sign.val());
     }
+
+    
 });

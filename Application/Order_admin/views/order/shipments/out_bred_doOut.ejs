@@ -86,6 +86,7 @@
                             <input name="plateList" value="" type="hidden">
 
                             <% if(DWY_Helper.isCanLoop(plateList)){ %>
+
                             <% plateList.forEach(function(element, index){ %>
                             <tr class="cargoinDo">
                                 <td><%= index + 1 %></td>
@@ -197,10 +198,7 @@
                             dataType: 'json',
                             contentType: "application/json",
                             success: function (data) {
-                                layer.msg('操作成功', {icon: 1, time: DWY_GLOBAL_CONSTANT.TimeOut});
-                                setTimeout(function () {
-                                    location.href = "/outBred";
-                                }, DWY_GLOBAL_CONSTANT.TimeOut)
+                                successLayout.hrefTo("/outBred");
 
                             },
                             error: function (response) {

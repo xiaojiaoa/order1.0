@@ -150,7 +150,7 @@
                     url: '/supplier/deleteRelate/' + sid + '/' + mid,
                     method: 'post',
                     success: function (data) {
-                        window.location.reload();
+                        successLayout.reload();
                     },
                     error: function (response) {
                         layer.close(index);

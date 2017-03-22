@@ -99,7 +99,7 @@
                             plateInfo.forEach(function (element, index) { %>
                             <tr>
                                 <td><%= index+1 %></td>
-                                <td><a href="/materialManage/detail/<%= element.mateId %>"><%= element.mateId %></a></td>
+                                <td><a href="/materialManage/detail/<%= user.bid %>/<%= element.mateId %>"><%= element.mateId %></a></td>
                                 <td><%= element.mateName %></td>
                                 <td><%= element.size %></td>
                                 <td><%= element.amount %></td>
