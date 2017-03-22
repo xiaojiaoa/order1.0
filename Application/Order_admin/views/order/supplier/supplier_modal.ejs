@@ -183,7 +183,10 @@
                             url: '/supplier/doDelete/'+tid+'/'+type,
                             method: 'post',
                             success: function (data) {
+                                layer.msg('操作成功', {icon: 1, time: 500})
+                                setTimeout(function(){
                                     window.location.reload();
+                                },500);
                             },
                             error: function (response) {
                                 layer.close(index);
@@ -205,8 +208,12 @@
                             url: '/supplier/doDelete/'+tid+'/'+type,
                             method: 'post',
                             success: function (data) {
+                                layer.msg('操作成功', {icon: 1, time: 500})
+                                setTimeout(function(){
                                     window.location.reload();
+                                },500);
                             },
+
                             error: function (response) {
                                 layer.close(index);
                                 errorLayout.normal(response);

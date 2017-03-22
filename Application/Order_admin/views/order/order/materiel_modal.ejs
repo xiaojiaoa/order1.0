@@ -45,74 +45,68 @@
                 <div class="col-xs-12">
                 <!--订单详情---订单物料-->
                     <div class="col-xs-12">
-                        <div class="form-group">
-                            <div class="col-xs-12">
-                                <div class="col-xs-12">
-                                    <h3 class="text-align-center">订单物料</h3>
-                                    <hr class="simple">
-                                </div>
-                                <div class="orderItemLayerTit">
-                                    <ul class="orderItemMenu">
-                                        <a href="/order/workpiece/<%= tid %>"><li class="workpiece padding-10">非标件</li></a>
-                                        <a href="/order/materiel_modal/<%= tid %>"><li class="parts materielBak padding-10">配件</li></a>
-                                    </ul>
-                                </div>
-                                <div class="orderItemLayerTable">
-                                    <table class="table table-bordered">
-                                        <thead>
-                                        <tr>
-                                            <th>
-                                                <label class="checkbox-inline">
-                                                    <span>序号</span>
-                                                </label>
-                                            </th>
-                                            <th>订单号</th>
-                                            <th>配件名称</th>
-                                            <th>代号</th>
-                                            <th>类型</th>
-                                            <th>规格</th>
-                                            <th>数量</th>
-                                            <th>单位</th>
-                                            <th>备注</th>
-                                        </tr>
-                                        </thead>
-                                        <tbody>
-                                        <%
-                                        if(DWY_Helper.isCanLoop(partsList.result)){
-                                        partsList.result.forEach(function(element,index){%>
-                                        <tr>
-                                            <td>
-                                                <label class="checkbox-inline">
-                                                    <span><%= index+1 %></span>
-                                                </label>
-                                            </td>
-                                            <td><%= element.tid %></td>
-                                            <td><%= element.name %></td>
-                                            <td><%= element.code %></td>
-                                            <td><%= element.typeStr %></td>
-                                            <td><%= element.standard %></td>
-                                            <td><%= element.amount %></td>
-                                            <td><%= element.unitStr %></td>
-                                            <td><%= element.remark %></td>
-                                        </tr>
-                                        <%})}else{%>
-                                        <td colspan="11" class="text-align-center">暂无结果</td>
-                                        <%}%>
-                                        <input type="hidden" value="<%= tid %>" class="tid">
-                                        <input type="hidden" class="" id="workpieceBtn" />
-                                        </tbody>
-                                    </table>
-                                    <%- pagination %>
-                                </div>
-                                <div class="col-xs-12">
-                                    <hr class="simple">
-                                    <div class="col-xs-12 orderItemButton text-center">
-                                            <a href="/order/exportParts/<%= tid %>" class="btn btn-primary">
-                                                导出
-                                            </a>
-                                    </div>
-                                </div>
-                            </div>
+                        <h3 class="text-align-center">订单物料</h3>
+                        <hr class="simple">
+                    </div>
+                    <div class="orderItemLayerTit">
+                        <ul class="orderItemMenu">
+                            <a href="/order/workpiece/<%= tid %>"><li class="workpiece padding-10">非标件</li></a>
+                            <a href="/order/materiel_modal/<%= tid %>"><li class="parts materielBak padding-10">配件</li></a>
+                        </ul>
+                    </div>
+                    <div class="orderItemLayerTable">
+                        <table class="table table-bordered">
+                            <thead>
+                            <tr>
+                                <th>
+                                    <label class="checkbox-inline">
+                                        <span>序号</span>
+                                    </label>
+                                </th>
+                                <th>订单号</th>
+                                <th>配件名称</th>
+                                <th>代号</th>
+                                <th>类型</th>
+                                <th>规格</th>
+                                <th>数量</th>
+                                <th>单位</th>
+                                <th>备注</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <%
+                            if(DWY_Helper.isCanLoop(partsList.result)){
+                            partsList.result.forEach(function(element,index){%>
+                            <tr>
+                                <td>
+                                    <label class="checkbox-inline">
+                                        <span><%= index+1 %></span>
+                                    </label>
+                                </td>
+                                <td><%= element.tid %></td>
+                                <td><%= element.name %></td>
+                                <td><%= element.code %></td>
+                                <td><%= element.typeStr %></td>
+                                <td><%= element.standard %></td>
+                                <td><%= element.amount %></td>
+                                <td><%= element.unitStr %></td>
+                                <td><%= element.remark %></td>
+                            </tr>
+                            <%})}else{%>
+                            <td colspan="11" class="text-align-center">暂无结果</td>
+                            <%}%>
+                            <input type="hidden" value="<%= tid %>" class="tid">
+                            <input type="hidden" class="" id="workpieceBtn" />
+                            </tbody>
+                        </table>
+                        <%- pagination %>
+                    </div>
+                    <div class="col-xs-12">
+                        <hr class="simple">
+                        <div class="col-xs-12 orderItemButton text-center">
+                                <a href="/order/exportParts/<%= tid %>" class="btn btn-primary">
+                                    导出配件
+                                </a>
                         </div>
                     </div>
                 </div>
