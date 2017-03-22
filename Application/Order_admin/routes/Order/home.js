@@ -295,7 +295,7 @@ router.put('/schedule/doPass/:tid', Middleware.AuthCheck, OrderController.doPass
 
 // 订单包装页面
 router.get('/orders/package', Middleware.AuthCheck,Middleware.FilterEmptyField,OrderController.packagePage);
-
+router.get('/orders/package/allInfo', Middleware.AuthCheck,Middleware.FilterEmptyField,OrderController.allInfoPage);
 //查询订单生成包装后的包装列表
 router.get('/orders/package/:tid', Middleware.AuthCheck,OrderController.packedListPage);
 

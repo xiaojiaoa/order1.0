@@ -92,7 +92,7 @@ var OutWarehouseController = {
             body:JSON.stringify(req.body),
         }, req, res), function (error, response, body) {
             if (!error && response.statusCode == 201) {
-                // Base.handlerSuccess(res, req);
+                Base.handlerSuccess(res, req);
                 res.redirect("/deliveryNote");
             } else {
                 Base.handlerError(res, req, error, response, body);
