@@ -150,10 +150,7 @@
                     url: '/supplier/deleteRelate/' + sid + '/' + mid,
                     method: 'post',
                     success: function (data) {
-                        layer.msg('操作成功', {icon: 1, time: 2000})
-                        setTimeout(function(){
-                            window.location.reload();
-                        },2000);
+                        window.location.reload();
                     },
                     error: function (response) {
                         layer.close(index);

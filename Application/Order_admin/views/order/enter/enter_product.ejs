@@ -161,10 +161,9 @@
                             <thead>
                             <tr>
                                 <th width="4%">序号</th>
-                                <th>类别</th>
                                 <th>入库单号</th>
-                                <th>仓库</th>
                                 <th>工厂</th>
+                                <th>仓库</th>
                                 <th>区域</th>
                                 <th width="12%">订单号</th>
                                 <th>客户名称</th>
@@ -178,12 +177,11 @@
                             <% prodList.result.forEach(function (element, index) {%>
                             <tr>
                                 <td width="4%"><%= index+1 %></td>
-                                <td><%= element.type %></td>
                                 <td><a href="/enterProduct/detail/<%=element.inId %>"><%=element.inId %></a></td>
-                                <td><%=element.ftyId%></td>
-                                <td><%=element.whseId%></td>
-                                <td><%=element.regionId%></td>
-                                <td width="12%"><%=element.tid%></td>
+                                <td><%=element.ftyName%></td>
+                                <td><%=element.whseName%></td>
+                                <td><%=element.regionName%></td>
+                                <td width="12%"><a href="/order/detail/<%=element.tid %>"><%=element.tid %></a></td>
                                 <td><%=element. cName%></td>
                                 <td><%= DWY_Helper.getLocalDate(element.editTime) %></td>
                                 <td><%= DWY_Helper.getLocalDate(element.deliveryTime) %></td>
@@ -192,7 +190,7 @@
                             <%})%>
                             <% } else {%>
                             <tr>
-                                <td colspan="11" class="text-align-center">暂无数据</td>
+                                <td colspan="10" class="text-align-center">暂无数据</td>
                             </tr>
                             <% }%>
 

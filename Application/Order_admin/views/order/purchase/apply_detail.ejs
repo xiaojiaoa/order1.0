@@ -160,10 +160,7 @@
                         url: '/purchases/Order/'+tid,
                         method: 'post',
                         success: function (data) {
-                            layer.msg('操作成功', {icon: 1, time: 2000})
-                            setTimeout(function(){
-                                location.href="/purchase/detail";
-                            },2000);
+                            location.href="/purchase/detail";
                         },
                         error: function (response) {
                             layer.close(index)

@@ -124,12 +124,12 @@
                                 <th width="10%">发货通知单号</th>
                                 <th width="10%">合同号</th>
                                 <th>客户姓名</th>
-                                <th>客户电话</th>
-                                <th width="15%">收货地址</th>
+                                <th width="100">客户电话</th>
+                                <th width="18%">收货地址</th>
                                 <th>经销商</th>
                                 <th>状态</th>
                                 <th>审核人</th>
-                                <th>审核时间</th>
+                                <th width="150">审核时间</th>
                                 <th>司机姓名</th>
                                 <th>物流车牌号</th>
                                 <th width="70px">操作</th>
@@ -143,12 +143,12 @@
                                 <td width="10%"><a href="/deliveryNote/deatil/<%=element.diId %>"><%=element.diId %></a></td>
                                 <td width="10%"><%=element.contNo %></td>
                                 <td><%=element.cName %></td>
-                                <td><%=element.mobile %></td>
-                                <td width="15%"><%=element.address %></td>
+                                <td width="100"><%=element.mobile %></td>
+                                <td width="18%"><%=element.address %></td>
                                 <td><%=element.stoName %></td>
                                 <td><%=DWY_Helper.geDeliveryStatus(element.type)%></td>
                                 <td><%=element.reviewName %></td>
-                                <td><%= DWY_Helper.getLocalDate(element.reviewDate) %></td>
+                                <td width="150"><%= DWY_Helper.getLocalDate(element.reviewDate) %></td>
                                 <td><%=element.driverName %></td>
                                 <td><%=element.licensePlate %></td>
                                 <td width="70px"><% if(element.type == 2){ %>

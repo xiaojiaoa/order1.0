@@ -167,7 +167,7 @@
                                 <th>出厂价</th>
                                 <th>经销商</th>
                                 <th>状态</th>
-                                <th>操作</th>
+                                <th width="80">操作</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -185,7 +185,7 @@
                                 <td><%= element.ftyPrice %></td>
                                 <td><%= element.stoName %></td>
                                 <td><%= DWY_Helper.geOutStatus(element.stcode) %></td>
-                                <td>
+                                <td width="80">
                                     <% if(element.stcode == 2){ %>
                                     <a class="label label-primary checkThis" data-id="<%= element.outId %>">审核</a>
                                     <% }%>
@@ -234,6 +234,7 @@
                     method: 'put',
                     success: function (data) {
                         window.location.reload();
+
                     },
                     error: function (response) {
                         layer.close(index)

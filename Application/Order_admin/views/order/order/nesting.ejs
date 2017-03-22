@@ -328,10 +328,7 @@
                         url: '/order/editBatchNum/'+cid+'/'+bid,
                         method: 'post',
                         success: function (data) {
-                            layer.msg('操作成功', {icon: 1, time: 2000})
-                            setTimeout(function(){
-                                window.location.reload();
-                            },2000);
+                            window.location.reload();
                         },
                         error: function (response) {
                             layer.close(index);
@@ -370,10 +367,7 @@
                         url: '/orders/getNestingTask/'+cid,
                         method: 'post',
                         success: function (data) {
-                            layer.msg('操作成功', {icon: 1, time: 2000})
-                            setTimeout(function(){
-                                window.location.reload();
-                            },2000);
+                            window.location.reload();
                         },
                         error: function (response) {
                             layer.close(index)

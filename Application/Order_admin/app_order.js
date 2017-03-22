@@ -47,7 +47,8 @@ var DWY_GLOBAL = require('./routes/Order/config/global');
 
 //大王椰全局变量
 app.locals.DWY_GLOBAL = {
-    Static: DWY_GLOBAL.server.Static.remote_server()
+    Static: DWY_GLOBAL.server.Static.remote_server(),
+
 }
 //格式化金额
 outputdollars= function (number) {
@@ -481,19 +482,6 @@ app.locals.DWY_Helper = {
             a = "三级"
         }
         return a;
-    },
-    //合计，表格对象，对哪一列进行合计--使用方法 calcTotal(document.getElementById('table'),2,2);
-    calcTotal:function(table,column,start){
-        var trs=table.getElementsByTagName('tr');
-        var start=start//确定从第几行开始求和
-        end=trs.length-1;//忽略最后合计的一行
-        var total=0;
-        for(var i=start;i<end;i++){
-            var td=trs[i].getElementsByTagName('td')[column];
-            var t=parseFloat(td.innerHTML);
-            if(t)total+=t;
-        }
-        trs[end].getElementsByTagName('td')[column].innerHTML=total;
     },
 }
 

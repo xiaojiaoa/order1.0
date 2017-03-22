@@ -141,8 +141,8 @@
                     url: '/outBred/doCheck/'+id,
                     method: 'put',
                     success: function (data) {
-//                        window.location.reload();
                         location.href='/canSend';
+
                     },
                     error: function (response) {
                         layer.close(index)
@@ -161,6 +161,7 @@
                     method: 'put',
                     success: function (data) {
                         window.location.reload();
+
                     },
                     error: function (response) {
                         layer.close(index)

@@ -376,6 +376,7 @@
                         method: 'put',
                         success: function (data) {
                             window.location.href="/orders/package";
+
                         },
                         error: function (response) {
                             layer.close(index)
@@ -405,8 +406,10 @@
                         method: 'post',
                         data:data,
                         success: function (data) {
+
                             if('<%= pid%>'){
                                 window.location.href="/orders/package/<%= tid%>?packageLid=<%= pid%>";
+
                             }
                             else{
                                 window.location.href="/orders/package/<%= tid%>";
@@ -456,7 +459,11 @@
                         url: '/orders/package/packet/delete/'+pid+"/"+type,
                         method: 'put',
                         success: function (data) {
+                            layer.msg('操作成功', {icon: 1, time: DWY_GLOBAL_CONSTANT.TimeOut});
+                            setTimeout(function () {
                                 window.location.href="/orders/package/<%= tid%>";
+                            }, DWY_GLOBAL_CONSTANT.TimeOut)
+
                         },
                         error: function (response) {
                             layer.close(index)

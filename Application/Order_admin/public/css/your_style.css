@@ -332,7 +332,10 @@ nav ul span.menu-item-parent {
     background-color: rgba(244, 244, 244, 1);
     color: #999999;
 }
-
+.close-info01 strong, .close-info01 input{
+    background-color: rgba(244, 244, 244, 1)!important;
+    color: #999999;
+}
 .table-expand a {
     padding: 10px;
     cursor: pointer;
@@ -765,6 +768,9 @@ tr > td > .separation:last-child {
     display: table;
     width: 100%;
     table-layout: fixed;
+}
+.table-scroll tr td {
+    word-break: break-word;
 }
 
 .table-bordered>thead>tr>td:first-child, .table-bordered>thead>tr>th:first-child {

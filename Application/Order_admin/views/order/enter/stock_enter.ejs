@@ -289,6 +289,7 @@
                         contentType:"application/json",
                         success: function (data) {
                             location.href="/enterMaterial";
+
                         },
                         error: function (response) {
                             layer.close(index)
@@ -345,20 +346,17 @@
                         dataType: 'json',
                         contentType:"application/json",
                         success: function (data) {
-                            layer.msg('操作成功', {icon: 1, time: 2000});
-                            setTimeout(function () {
-                                window.location.reload();
-                            }, 2000)
+                            window.location.reload();
                         },
                         error: function (response) {
                             layer.close(index)
                             var status = response.status;
                             if(status == 200){
                                 _self.html('确认修改物料信息');
-                                layer.msg('操作成功', {icon: 1, time: 2000});
+                                layer.msg('操作成功', {icon: 1, time: DWY_GLOBAL_CONSTANT.TimeOut});
                                 setTimeout(function () {
                                     window.location.reload();
-                                }, 1000)
+                                }, DWY_GLOBAL_CONSTANT.TimeOut)
                                 return;
                             }
                             _self.html('确认修改物料信息');

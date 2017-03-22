@@ -776,7 +776,7 @@
                     break;
                 case '478':
                     ajaxUrl = '/apartCheck/getTaskAgain/<%= tid %>';
-                    locationUrl = '/apartCheckPage/getOrder';
+                    locationUrl = '/apartPage/getOrder';
                     text = '确认重新提交?';
                     break;
                 case '632':
@@ -790,7 +790,10 @@
                     url: ajaxUrl,
                     method: 'put',
                     success: function (data) {
-                        location.href = locationUrl
+                        layer.msg('操作成功', {icon: 1, time: DWY_GLOBAL_CONSTANT.TimeOut});
+                        setTimeout(function () {
+                            location.href = locationUrl
+                        },DWY_GLOBAL_CONSTANT.TimeOut)
                     },
                     error: function (response) {
                         layer.close(index)
@@ -827,7 +830,11 @@
                     url: ajaxUrl,
                     method: 'put',
                     success: function (data) {
-                        location.href = locationUrl
+                        layer.msg('操作成功', {icon: 1, time: DWY_GLOBAL_CONSTANT.TimeOut});
+                        setTimeout(function () {
+                            location.href = locationUrl
+                        },DWY_GLOBAL_CONSTANT.TimeOut)
+
                     },
                     error: function (response) {
                         layer.close(index)
@@ -865,7 +872,10 @@
                     url: ajaxUrl,
                     method: 'put',
                     success: function (data) {
-                        location.href = locationUrl
+                        layer.msg('操作成功', {icon: 1, time: DWY_GLOBAL_CONSTANT.TimeOut});
+                        setTimeout(function () {
+                            location.href = locationUrl
+                        },DWY_GLOBAL_CONSTANT.TimeOut)
                     },
                     error: function (response) {
                         layer.close(index)

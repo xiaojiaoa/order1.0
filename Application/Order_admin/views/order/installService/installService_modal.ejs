@@ -38,10 +38,7 @@
                             url: '/installServiceTask/'+tid+'/'+did,
                             method: 'post',
                             success: function (data) {
-                                layer.msg('操作成功', {icon: 1, time: 2000})
-                                setTimeout(function(){
-                                    location.href="/installService";
-                                },2000);
+                                location.href="/installService";
                             },
                             error: function (response) {
                                 layer.close(index)
