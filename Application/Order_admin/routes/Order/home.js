@@ -25,12 +25,51 @@ var _ = require('lodash');
 
 var router = express.Router();
 
+//把USER信息加入到全局
+router.use(function (req, res, next) {
+    //登录用户信息
+    res.locals.user = req.session.user;
+    //菜单信息
+    res.locals.menu = req.session.menu;
+    //权限信息
+    res.locals.permission = req.session.permission;
+    //请求本身
+    res.locals.DWYRequest = req;
+    next();
+});
+
+//错误或者正确信息处理
+router.use(function (req, res, next) {
+    if (req.session.DWY_message) {
+        res.locals.DWY_message = req.session.DWY_message;
+        req.session.DWY_message = '';
+    } else {
+        res.locals.DWY_message = '';
+    }
+    next();
+});
+
+//取回上一次错误提交时的请求参数
+router.use(function (req, res, next) {
+    console.log(req.session.DWY_last_request_param)
+    if (req.session.DWY_last_request_param) {
+        res.locals.DWY_last_request_param = req.session.DWY_last_request_param;
+        req.session.DWY_last_request_param = '';
+    } else {
+        res.locals.DWY_last_request_param = '';
+    }
+    next();
+});
+
 
 var Base = require('./Controller/BaseController');
 
 var helper = require('./config/helper');
 
 var request = require('request');
+
+
+
 /*
  * 中间件
  * */
@@ -418,6 +457,9 @@ router.put('/material/setStatus/:mid/:type', Middleware.AuthCheck, MaterialContr
 
 // 物料管理--物料详情-完善物料
 router.get('/materialManage/add/:bid/:mid', Middleware.AuthCheck, MaterialController.mateFacAddPage);
+
+// 禁用/解锁 物料详情-完善物料
+router.put('/material/add/setStatus/:bid/:mid/:type', Middleware.AuthCheck, MaterialController.setMaterialAppStatus);
 
 // 物料管理--物料详情-完善物料--提交数据接口
 router.post('/materialManage/doAdd', Middleware.AuthCheck, MaterialController.doAdd);
