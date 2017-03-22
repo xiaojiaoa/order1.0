@@ -375,10 +375,7 @@
                         url: '/orders/package/unpacket/'+tid,
                         method: 'put',
                         success: function (data) {
-                            layer.msg('操作成功', {icon: 1, time: DWY_GLOBAL_CONSTANT.TimeOut});
-                            setTimeout(function () {
-                                window.location.href="/orders/package";
-                            }, DWY_GLOBAL_CONSTANT.TimeOut)
+                            window.location.href="/orders/package";
 
                         },
                         error: function (response) {
@@ -409,18 +406,13 @@
                         method: 'post',
                         data:data,
                         success: function (data) {
-                            layer.msg('操作成功', {icon: 1, time: DWY_GLOBAL_CONSTANT.TimeOut});
 
                             if('<%= pid%>'){
-                                setTimeout(function () {
-                                    window.location.href="/orders/package/<%= tid%>?packageLid=<%= pid%>";
-                                }, DWY_GLOBAL_CONSTANT.TimeOut)
+                                window.location.href="/orders/package/<%= tid%>?packageLid=<%= pid%>";
 
                             }
                             else{
-                                setTimeout(function () {
-                                    window.location.href="/orders/package/<%= tid%>";
-                                }, DWY_GLOBAL_CONSTANT.TimeOut)
+                                window.location.href="/orders/package/<%= tid%>";
                             }
 
                         },
