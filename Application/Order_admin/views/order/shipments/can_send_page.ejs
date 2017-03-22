@@ -199,14 +199,18 @@
                             layer.close(index)
                             var status = response.status;
                             if(status == 200){
-                                location.href="/<%= type %>/canSend";
-                                return;
+                                layer.msg('操作成功', {icon: 1, time: DWY_GLOBAL_CONSTANT.TimeOut});
+                                setTimeout(function () {
+                                    location.href="/<%= type %>/canSend";
+                                    return;
+                                }, DWY_GLOBAL_CONSTANT.TimeOut)
+
                             }
                             errorLayout.normal(response);
 
                             setTimeout(function(){
                                 window.location.reload();
-                            },1000000)
+                            },DWY_GLOBAL_CONSTANT.TimeOut)
                         }
                     });
                 },function(index){

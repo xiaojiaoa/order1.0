@@ -341,11 +341,11 @@
                             contentType:"application/json",
 
                             success: function (data) {
-                                layer.msg('操作成功', {icon: 1, time: 2000})
+                                layer.msg('操作成功', {icon: 1, time: DWY_GLOBAL_CONSTANT.TimeOut})
                                 setTimeout(function(){
                                     location.href='/supplier/detail/'+suppId;
                                     localStorage.clear();
-                                },2000);
+                                },DWY_GLOBAL_CONSTANT.TimeOut);
                             },
                             error: function (response) {
                                 if(response.status==200){

@@ -137,7 +137,7 @@
                             if(DWY_Helper.isCanLoop(moneyList.result)){
                             moneyList.result.forEach(function (element) { %>
                             <tr>
-                                <td><%= DWY_Helper.getMoneyTYpe(element.type) %></td>
+                                <td><%= element.typeName %></td>
                                 <td><%= element.direction ==1?'+':'-' %><%= element.money %></td>
                                 <td><%= DWY_Helper.getLocalDate(element.addTime) %></td>
                                 <td><%= element.describe %></td>
@@ -177,7 +177,10 @@
                             url: '/storesManage/setStatus/'+storeId+'/40',
                             method: 'put',
                             success: function (data) {
-                                window.location.reload();
+                                layer.msg('操作成功', {icon: 1, time: DWY_GLOBAL_CONSTANT.TimeOut});
+                                setTimeout(function () {
+                                    window.location.reload();
+                                }, DWY_GLOBAL_CONSTANT.TimeOut)
                             },
                             error: function (response) {
                                 layer.close(index)
@@ -197,7 +200,10 @@
                             url: '/storesManage/setStatus/'+storeId+'/10',
                             method: 'put',
                             success: function (data) {
-                                window.location.reload();
+                                layer.msg('操作成功', {icon: 1, time: DWY_GLOBAL_CONSTANT.TimeOut});
+                                setTimeout(function () {
+                                    window.location.reload();
+                                }, DWY_GLOBAL_CONSTANT.TimeOut)
                             },
                             error: function (response) {
                                 layer.close(index)

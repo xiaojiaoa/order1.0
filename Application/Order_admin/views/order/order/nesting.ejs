@@ -328,10 +328,10 @@
                         url: '/order/editBatchNum/'+cid+'/'+bid,
                         method: 'post',
                         success: function (data) {
-                            layer.msg('操作成功', {icon: 1, time: 2000})
+                            layer.msg('操作成功', {icon: 1, time: DWY_GLOBAL_CONSTANT.TimeOut})
                             setTimeout(function(){
                                 window.location.reload();
-                            },2000);
+                            },DWY_GLOBAL_CONSTANT.TimeOut);
                         },
                         error: function (response) {
                             layer.close(index);
@@ -370,10 +370,10 @@
                         url: '/orders/getNestingTask/'+cid,
                         method: 'post',
                         success: function (data) {
-                            layer.msg('操作成功', {icon: 1, time: 2000})
+                            layer.msg('操作成功', {icon: 1, time: DWY_GLOBAL_CONSTANT.TimeOut})
                             setTimeout(function(){
                                 window.location.reload();
-                            },2000);
+                            },DWY_GLOBAL_CONSTANT.TimeOut);
                         },
                         error: function (response) {
                             layer.close(index)
