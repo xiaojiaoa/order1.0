@@ -160,7 +160,7 @@
                         url: '/purchases/Order/'+tid,
                         method: 'post',
                         success: function (data) {
-                            location.href="/purchase/detail";
+                            successLayout.hrefTo("/purchase/detail");
                         },
                         error: function (response) {
                             layer.close(index)
@@ -179,7 +179,8 @@
                         url: '/purchase/applyReview/'+tid,
                         method: 'post',
                         success: function (data) {
-                            window.location.reload();
+                            successLayout.reload();
+
                         },
                         error: function (response) {
                             layer.close(index)

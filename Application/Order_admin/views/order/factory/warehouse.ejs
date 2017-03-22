@@ -212,7 +212,7 @@
                             url: '/warehouse/doClose/'+id,
                             method: 'delete',
                             success: function (data) {
-                                window.location.reload();
+                                successLayout.reload();
                             },
                             error: function (response) {
                                 layer.close(index)
@@ -234,7 +234,7 @@
                             url: '/warehouse/doOpen/'+id,
                             method: 'put',
                             success: function (data) {
-                                window.location.reload();
+                                successLayout.reload();
                             },
                             error: function (response) {
                                 layer.close(index)

@@ -154,7 +154,7 @@
                             url: '/roles/setStatus/'+roleId,
                             method: 'put',
                             success: function (data) {
-                                window.location.reload();
+                                successLayout.reload();
                             },
                             error: function (response) {
                                 layer.close(index)

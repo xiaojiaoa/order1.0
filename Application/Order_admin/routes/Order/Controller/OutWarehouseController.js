@@ -92,7 +92,7 @@ var OutWarehouseController = {
             body:JSON.stringify(req.body),
         }, req, res), function (error, response, body) {
             if (!error && response.statusCode == 201) {
-                Base.handlerSuccess(res, req);
+                // Base.handlerSuccess(res, req);
                 res.redirect("/deliveryNote");
             } else {
                 Base.handlerError(res, req, error, response, body);
@@ -130,7 +130,7 @@ var OutWarehouseController = {
             url: '/api/whse/cargout/delivery/notice/review/'+id,
         }, req, res), function (error, response, body) {
             if (!error && response.statusCode == 200) {
-                Base.handlerSuccess(res, req);
+                // Base.handlerSuccess(res, req);
                 res.sendStatus(200);
             } else {
                 Base.handlerError(res, req, error, response, body);

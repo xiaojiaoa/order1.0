@@ -328,7 +328,7 @@
                         url: '/order/editBatchNum/'+cid+'/'+bid,
                         method: 'post',
                         success: function (data) {
-                            window.location.reload();
+                            successLayout.reload();
                         },
                         error: function (response) {
                             layer.close(index);
@@ -367,7 +367,7 @@
                         url: '/orders/getNestingTask/'+cid,
                         method: 'post',
                         success: function (data) {
-                            window.location.reload();
+                            successLayout.reload();
                         },
                         error: function (response) {
                             layer.close(index)

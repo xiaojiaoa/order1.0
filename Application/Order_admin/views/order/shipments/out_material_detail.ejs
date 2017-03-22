@@ -159,11 +159,8 @@
                     url: '/outMaterial/doChecked/<%= outId %>',
                     method: 'put',
                     success: function (data) {
-//                        window.location.reload();
-                        layer.msg('操作成功', {icon: 1, time: DWY_GLOBAL_CONSTANT.TimeOut});
-                        setTimeout(function () {
-                            location.href='/canSend';
-                        }, DWY_GLOBAL_CONSTANT.TimeOut)
+                        successLayout.hrefTo('/canSend');
+
 
                     },
                     error: function (response) {

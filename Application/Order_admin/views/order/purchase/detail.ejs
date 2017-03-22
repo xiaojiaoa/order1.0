@@ -203,7 +203,7 @@
                             url: '/purchases/merge/'+tid,
                             method: 'post',
                             success: function (data) {
-                                window.location.reload();
+                                successLayout.reload();
                             },
                             error: function (response) {
                                 layer.close(index)
@@ -245,7 +245,7 @@
                             url: '/purchases/review/'+tid,
                             method: 'post',
                             success: function (data) {
-                                window.location.reload();
+                                successLayout.reload();
                             },
                             error: function (response) {
                                 layer.close(index)
@@ -294,7 +294,7 @@
                             url: '/purchases/submit/'+tid,
                             method: 'post',
                             success: function (data) {
-                                window.location.reload();
+                                successLayout.reload();
                             },
                             error: function (response) {
                                 layer.close(index);

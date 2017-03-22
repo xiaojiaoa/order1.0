@@ -38,7 +38,7 @@
                             url: '/installServiceTask/'+tid+'/'+did,
                             method: 'post',
                             success: function (data) {
-                                location.href="/installService";
+                                successLayout.hrefTo("/installService");
                             },
                             error: function (response) {
                                 layer.close(index)

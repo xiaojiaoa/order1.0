@@ -197,10 +197,7 @@
                             dataType: 'json',
                             contentType: "application/json",
                             success: function (data) {
-                                layer.msg('操作成功', {icon: 1, time: DWY_GLOBAL_CONSTANT.TimeOut});
-                                setTimeout(function () {
-                                    location.href = "/outBred";
-                                }, DWY_GLOBAL_CONSTANT.TimeOut)
+                                successLayout.hrefTo("/outBred");
 
                             },
                             error: function (response) {
