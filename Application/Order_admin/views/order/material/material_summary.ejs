@@ -12,7 +12,7 @@
         <!-- breadcrumb -->
         <ol class="breadcrumb">
             <li>后台管理</li>
-            <li>机构管理</li>
+            <li>物料出入仓查询</li>
         </ol>
         <!-- end breadcrumb -->
 
@@ -28,16 +28,17 @@
         <!--well-->
         <div class="well">
             <!-- row -->
-            <div class="row">
+         <!--   <div class="row">
                 <div class="col-xs-12">
-                    <h3 class="text-align-center">材料出入仓查询</h3>
-                    <hr class="simple">
+                    <legend>物料出入仓查询
+                    </legend>
                 </div>
-            </div>
+            </div>-->
             <!--end row-->
             <!-- row -->
             <div class="row">
                 <!-- col -->
+
                 <div class="col-xs-12">
                     <!--<legend>客户搜索</legend>-->
                     <!-- row -->
@@ -50,96 +51,82 @@
                                     <div class="form-group">
                                         <label class="col-xs-4 control-label">物料编号:</label>
                                         <div class="col-xs-8">
-                                            <input class="form-control" placeholder="" value="" type="text" name="">
+                                            <input class="form-control" placeholder="请输入物料编号" value="<%= DWYRequest.query.mateId %>" type="text" name="mateId">
                                         </div>
                                     </div>
                                 </div>
 
                                 <div class="col-xs-3">
                                     <div class="form-group">
-                                        <label class="col-xs-4 control-label">材料名称:</label>
+                                        <label class="col-xs-4 control-label">物料名称:</label>
                                         <div class="col-xs-8">
-                                            <input class="form-control" placeholder="请输入材料名称" value="" type="text" name="materialName">
+                                            <input class="form-control" placeholder="请输入物料名称" value="<%= DWYRequest.query.mateName %>" type="text" name="mateName">
                                         </div>
                                     </div>
                                 </div>
 
 
-                                <div class="col-xs-3">
-                                    <div class="form-group">
-                                        <label class="col-xs-4 control-label">所属分类:</label>
-                                        <div class="col-xs-8">
-                                            <select class="form-control" name="">
-                                                <option value="板材">板材</option>
-                                                <option value="外加工板材">外加工板材</option>
-                                                <option value="素板">素板</option>
-                                                <option value="封边带">封边带</option>
-                                                <option value="玻璃">玻璃</option>
-                                                <option value="金属">金属</option>
-                                                <option value="……">……</option>
-
-                                            </select>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-xs-3">
-
-                                </div>
-
-
-                            </div>
-
-                            <div class="col-xs-12">
-                                <div class="col-xs-3">
-                                    <div class="form-group">
-                                        <label class="col-xs-4 control-label">事项类别:</label>
-                                        <div class="col-xs-8">
-                                            <select class="form-control" name="">
-                                                <option value="采购入仓">采购入仓</option>
-                                                <option value="车间领料">车间领料</option>
-                                                <option value="采购退回">采购退回</option>
-                                                <option value="车间退料">车间退料</option>
-                                                <option value="转出">转出</option>
-                                                <option value="转入">转入</option>
-
-
-                                            </select>
-                                        </div>
-                                    </div>
-                                </div>
                                 <div class="col-xs-6">
                                     <div class="form-group">
-                                        <label class="col-xs-2"></label>
+                                        <label class="col-xs-1"></label>
                                         <div class="col-xs-4">
                                             <select class="form-control" name="">
                                                 <option value="1">收款确认日期</option>
                                                 <option value="2">约定交付日期</option>
                                             </select>
                                         </div>
-                                        <div class="col-xs-2">
-                                            <input class="form-control fg-date-picker flatpickr-input fg-date-time-picker" type="text" value="" name="startDate" readonly="readonly">
+                                        <div class="col-xs-3">
+                                            <input class="form-control fg-date-picker flatpickr-input fg-date-time-picker" type="text" value="<%= DWYRequest.query.startDate %>" name="startDate" readonly="readonly">
                                         </div>
                                         <label class="control-label " style="float: left"> 至 </label>
-                                        <div class="col-xs-2">
-                                            <input class="form-control fg-date-picker flatpickr-input fg-date-time-picker" type="text" value="" name="endDate" readonly="readonly">
+                                        <div class="col-xs-3">
+                                            <input class="form-control fg-date-picker flatpickr-input fg-date-time-picker" type="text" value="<%= DWYRequest.query.endDate %>" name="endDate" readonly="readonly">
                                         </div>
                                     </div>
                                 </div>
+
+                            </div>
+
+                            <div class="col-xs-12">
+                                <div class="col-xs-3">
+                                    <div class="form-group">
+                                        <label class="col-xs-4 control-label">物料出入仓</label>
+                                        <div class="col-xs-8">
+                                            <select class="form-control" name="type">
+                                                <option value="0" <%= (DWYRequest.query.type == 0)?"selected":"" %>>出仓</option>
+                                                <option value="1" <%= (DWYRequest.query.type == 1)?"selected":"" %>>入仓</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <div class="col-xs-3 display-none">
+                                    <div class="form-group">
+                                        <label class="col-xs-4 control-label">物料分类:</label>
+                                        <div class="col-xs-8">
+                                            <select class="form-control" name="catId">
+
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xs-3">
+                                    <div class="form-group">
+                                        <label class="col-xs-4 control-label">经手人:</label>
+                                        <div class="col-xs-8">
+                                            <input class="form-control" placeholder="请输入经手人" value="<%= DWYRequest.query.empId %>" type="text" name="empId">
+                                        </div>
+                                    </div>
+                                </div>
+
 
 
                             </div>
 
 
-                            <div class="col-xs-12">
+                            <div class="col-xs-12 ">
 
-                                <div class="col-xs-3">
-                                    <div class="form-group">
-                                        <label class="col-xs-4 control-label">经手人:</label>
-                                        <div class="col-xs-8">
-                                            <input class="form-control" placeholder="请输入经手人" value="" type="text" name="">
-                                        </div>
-                                    </div>
-                                </div>
                                 <div class="col-xs-3">
                                     <div class="form-group">
                                         <label class="col-xs-4 control-label">领料部门:</label>
@@ -158,11 +145,12 @@
                                         </div>
                                     </div>
                                 </div>
+
                                 <div class="col-xs-3">
                                     <div class="form-group">
                                         <label class="col-xs-4 control-label">单号:</label>
                                         <div class="col-xs-8">
-                                            <input class="form-control" placeholder="请输入订单号" value="" type="text" name="">
+                                            <input class="form-control" placeholder="请输入订单号" value="<%= DWYRequest.query.id %>" type="text" name="id">
                                         </div>
                                     </div>
                                 </div>
@@ -205,49 +193,51 @@
             <!-- row -->
             <div class="row">
                 <div class="col-xs-12">
-                    <div class="table-responsive">
-
-                        <table class="table table-bordered table-striped">
+                    <h6>物料出入仓明细</h6>
+                    <hr class="simple">
+                </div>
+                <div class="col-xs-12 dis-flex">
+                    <div class="table-responsive dis-flex">
+                        <table class="table table-bordered table-striped table-hover table-scroll dis-flex">
                             <thead>
                             <tr>
-                                <th>序号</th>
-                                <th>材料编号</th>
-                                <th>材料分类</th>
-                                <th>材料名称</th>
-                                <th>领料部门</th>
-                                <th>供应商ID</th>
-                                <th>厚度</th>
-                                <th>密度</th>
-                                <th>发生日期</th>
-                                <th>数量</th>
-                                <th>事项</th>
-                                <th>经手</th>
-                                <th>单号</th>
-                                <th>备注</th>
+                                <th width="3%">序号</th>
+                                <th width="4%">物料编号</th>
+                                <th width="5%">物料名称</th>
+                                <th width="10%">物料分类名</th>
+                                <th width="2%">供应商名称</th>
+                                <th width="3%">经手人</th>
+                                <th width="3%">出入库时间</th>
+                                <th width="3%">出入库数量</th>
+                                <th width="5%">出入库单号</th>
                             </tr>
                             </thead>
                             <tbody>
-
+                            <%
+                            if(DWY_Helper.isCanLoop(mateInAndOutList.result)){
+                            mateInAndOutList.result.forEach(function (element, index) { %>
                             <tr>
-                                <td>1</td>
-                                <td>1213212</td>
-                                <td>素板</td>
-                                <td>8mmE0中纤板</td>
-                                <td>-</td>
-                                <td>0</td>
-                                <td>0</td>
-                                <td>0</td>
-                                <td>2016-10-10</td>
-                                <td>1.0000张</td>
-                                <td>车间领料</td>
-                                <td><%= user.name %></td>
-                                <td>LL1610101234</td>
-                                <td></td>
+                                <td width="3%"><%= index+1 %></td>
+                                <td width="4%"><%= element.mateId %></td>
+                                <td width="5%"><%= element.mateName %></td>
+                                <td width="10%"><%= element.catName%></td>
+                                <td width="2%"><%= element.suppName%></td>
+                                <td width="3%"><%= element.empName %></td>
+                                <td width="3%"><%= DWY_Helper.getLocalDateYMD(element.time )%></td>
+                                <td width="3%"><%= element.amount %></td>
+                                <td width="5%"><%= element.id%></td>
                             </tr>
+                            <% })
 
+                            }else{ %>
+                            <tr>
+                                <td colspan="11" align="center">暂无结果</td>
+                            </tr>
+                            <% } %>
                             </tbody>
                         </table>
                     </div>
+                    <%- pagination %>
                 </div>
             </div>
         </div>

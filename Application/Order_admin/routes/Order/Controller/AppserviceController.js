@@ -93,9 +93,10 @@ var AppServiceController = {
     cargoinOrder: function (req, res) {
         var tid = req.params.tid;
         request(Base.mergeRequestOptions({
-            method: 'get',
-            url: '/api/whse/app/cargoin/order/package/list?packageList='+tid,
+            method: 'post',
+            url: '/api/whse/app/cargoin/order/package/list',
             headers:req.headers,
+            body:req.body
         }, req, res), function (error, response, body) {
             if (!error) {
                 res.send(JSON.parse(body));

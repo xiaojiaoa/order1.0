@@ -375,7 +375,11 @@
                         url: '/orders/package/unpacket/'+tid,
                         method: 'put',
                         success: function (data) {
-                            window.location.href="/orders/package";
+                            layer.msg('操作成功', {icon: 1, time: DWY_GLOBAL_CONSTANT.TimeOut});
+                            setTimeout(function () {
+                                window.location.href="/orders/package";
+                            }, DWY_GLOBAL_CONSTANT.TimeOut)
+
                         },
                         error: function (response) {
                             layer.close(index)
@@ -405,11 +409,18 @@
                         method: 'post',
                         data:data,
                         success: function (data) {
+                            layer.msg('操作成功', {icon: 1, time: DWY_GLOBAL_CONSTANT.TimeOut});
+
                             if('<%= pid%>'){
-                                window.location.href="/orders/package/<%= tid%>?packageLid=<%= pid%>";
+                                setTimeout(function () {
+                                    window.location.href="/orders/package/<%= tid%>?packageLid=<%= pid%>";
+                                }, DWY_GLOBAL_CONSTANT.TimeOut)
+
                             }
                             else{
-                                window.location.href="/orders/package/<%= tid%>";
+                                setTimeout(function () {
+                                    window.location.href="/orders/package/<%= tid%>";
+                                }, DWY_GLOBAL_CONSTANT.TimeOut)
                             }
 
                         },
@@ -456,7 +467,11 @@
                         url: '/orders/package/packet/delete/'+pid+"/"+type,
                         method: 'put',
                         success: function (data) {
+                            layer.msg('操作成功', {icon: 1, time: DWY_GLOBAL_CONSTANT.TimeOut});
+                            setTimeout(function () {
                                 window.location.href="/orders/package/<%= tid%>";
+                            }, DWY_GLOBAL_CONSTANT.TimeOut)
+
                         },
                         error: function (response) {
                             layer.close(index)

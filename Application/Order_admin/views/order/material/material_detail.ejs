@@ -149,10 +149,8 @@
                 <!-- col -->
                 <div class="col-xs-12">
                     <legend>库存状况
-
+                        <a href="/materialManage/summary" class="label label-primary">出入仓明细</a>
                         <span class="spanStyle01">剩余3160000支</span>
-                        <a href="/materialManage/summary">出入仓明细</a>
-
                     </legend>
 
                     <!-- row -->
@@ -195,32 +193,14 @@
             <div class="row">
                 <!-- col -->
                 <div class="col-xs-12">
-                    <legend>订购情况
+                    <legend>采购情况
 
                     </legend>
 
                     <!-- row -->
                     <div class="table-responsive">
-                       <!-- <table class="table table-bordered table-striped">
-                            <thead>
-                            <tr>
-                                <th>订购日期</th>
-                                <th>订购数量</th>
-                                <th>备注</th>
-                            </tr>
-                            </thead>
-                            <tbody>
 
-                            <tr>
-                                <td>2016-10-10</td>
-                                <td>1000000支</td>
-                                <td></td>
-                            </tr>
-
-                            </tbody>
-                        </table>-->
-
-                        <table class="table table-bordered table-striped table-hover table-scroll dis-flex">
+                        <table class="table table-bordered table-striped table-hover table-scroll dis-flex" id="purchasesMateList">
                             <thead>
                             <tr>
                                 <th width="3%">序号</th>
@@ -239,9 +219,9 @@
                                 <td width="5%"><%= element.amount %></td>
                                 <td width="10%"><%= element.remark%></td>
                             </tr>
-                            <% })
-
-                            }else{ %>
+                            <% })%>
+                            <tr><td colspan="2" class="text-align-right" width="11%">总计</td><td colspan="2" class="text-align-left purchasesMateListAll" width="15%"></td></tr>
+                            <%}else{ %>
                             <tr>
                                 <td colspan="4" align="center">暂无结果</td>
                             </tr>
@@ -376,6 +356,9 @@
         })
         //图片浏览
         $('.fancybox').fancybox();
+
+        //采购物料总计
+        $(".purchasesMateListAll").text(DWY_Utils.CommonMethods.calcTotal(document.getElementById('purchasesMateList'),2,1));
     })
 
 </script>

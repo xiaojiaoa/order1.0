@@ -441,7 +441,7 @@ var OutWarehouseController = {
     console.log('doEnter',JSON.stringify(req.body))
     request(Base.mergeRequestOptions({
       method: 'post',
-      url: '/api/whse/cargoin/mate',
+      url: '/api/whse/cargout/plate/out',
       headers:{'Content-type':'application/json'},
       body:JSON.stringify(req.body),
     }, req, res), function (error, response, body) {
@@ -463,7 +463,7 @@ var OutWarehouseController = {
     console.log('doEnter',JSON.stringify(req.body))
     request(Base.mergeRequestOptions({
       method: 'post',
-      url: '/api/whse/cargoin/mate',
+      url: '/api/whse/cargout/accessory/out',
       headers:{'Content-type':'application/json'},
       body:JSON.stringify(req.body),
     }, req, res), function (error, response, body) {

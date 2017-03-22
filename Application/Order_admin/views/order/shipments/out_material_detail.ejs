@@ -160,7 +160,11 @@
                     method: 'put',
                     success: function (data) {
 //                        window.location.reload();
-                        location.href='/canSend';
+                        layer.msg('操作成功', {icon: 1, time: DWY_GLOBAL_CONSTANT.TimeOut});
+                        setTimeout(function () {
+                            location.href='/canSend';
+                        }, DWY_GLOBAL_CONSTANT.TimeOut)
+
                     },
                     error: function (response) {
                         layer.close(index)

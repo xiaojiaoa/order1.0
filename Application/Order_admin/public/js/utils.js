@@ -1,3 +1,7 @@
+var  DWY_GLOBAL_CONSTANT = {
+    TimeOut:500,
+};
+
 var DWY_Utils = DWY_Utils || {
 
 	pagination:function(options){
@@ -61,7 +65,7 @@ var DWY_Utils = DWY_Utils || {
 		}) 
 	},
 
-	StorageUtils:{
+	  StorageUtils:{
 		     //从localStorage里获取列表数据
             getListArr:function (storageKey){
             	
@@ -122,6 +126,21 @@ var DWY_Utils = DWY_Utils || {
                     callBack();
                }
             }
-	}
+	},
+        CommonMethods:{
+            //合计，表格对象，对哪一列进行合计--使用方法 calcTotal(document.getElementById('table'),2,2);
+            calcTotal:function(table,column,start){
+                var trs=table.getElementsByTagName('tr');
+                var start=start,//忽略第一行的表头
+                    end=trs.length-1;//忽略最后合计的一行
+                var total=0;
+                for(var i=start;i<end;i++){
+                    var td=trs[i].getElementsByTagName('td')[column];
+                    var t=parseFloat(td.innerHTML);
+                    if(t)total+=t;
+                }
+                return total;
+            },
+        }
 }
 

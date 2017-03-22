@@ -218,7 +218,10 @@
                             url: '/mateAttr/setStatus/'+attrId+'/2',
                             method: 'put',
                             success: function (data) {
-                                window.location.reload();
+                                layer.msg('操作成功', {icon: 1, time: DWY_GLOBAL_CONSTANT.TimeOut});
+                                setTimeout(function () {
+                                    window.location.reload();
+                                }, DWY_GLOBAL_CONSTANT.TimeOut)
                             },
                             error: function (response) {
                                 layer.close(index)
@@ -239,7 +242,10 @@
                             url: '/mateAttr/setStatus/'+attrId+'/1',
                             method: 'put',
                             success: function (data) {
-                                window.location.reload();
+                                layer.msg('操作成功', {icon: 1, time: DWY_GLOBAL_CONSTANT.TimeOut});
+                                setTimeout(function () {
+                                    window.location.reload();
+                                }, DWY_GLOBAL_CONSTANT.TimeOut)
                             },
                             error: function (response) {
                                 layer.close(index)

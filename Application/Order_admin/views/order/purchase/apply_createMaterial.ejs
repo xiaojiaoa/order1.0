@@ -143,16 +143,20 @@
                         dataType: 'json',
                         contentType:"application/json",
                         success: function (data) {
-                            location.href="/purchase";
-                            localStorage.clear();
+                            layer.msg('操作成功', {icon: 1, time: DWY_GLOBAL_CONSTANT.TimeOut});
+                            setTimeout(function () {
+                                location.href="/purchase";
+                                localStorage.clear();
+                            }, DWY_GLOBAL_CONSTANT.TimeOut)
+
                         },
                         error: function (response) {
                             if(response.status==200){
-                                layer.msg('操作成功', {icon: 1, time: 2000})
+                                layer.msg('操作成功', {icon: 1, time: DWY_GLOBAL_CONSTANT.TimeOut})
                                 setTimeout(function(){
                                     location.href="/purchase";
                                     localStorage.clear();
-                                },2000);
+                                },DWY_GLOBAL_CONSTANT.TimeOut);
                             }else {
                                 layer.close(index)
                                 errorLayout.normal(response);

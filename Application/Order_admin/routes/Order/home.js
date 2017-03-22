@@ -387,7 +387,7 @@ router.post('/materialManage/choiceFactory', Middleware.AuthCheck, MaterialContr
 router.get('/materialManage/detail/factory/:fid/:mid', Middleware.AuthCheck, MaterialController.detailFacPage);
 
 // 物料出入库总计页面
-router.get('/materialManage/summary', Middleware.AuthCheck, MaterialController.summaryPage);
+router.get('/materialManage/summary', Middleware.AuthCheck,Middleware.FilterEmptyField,MaterialController.summaryPage);
 
 //物料分类一物料新建
 router.get('/materialManage/material/:tid/creStepO', Middleware.AuthCheck, MaterialController.materialTypeCreateOnePage);
@@ -1128,7 +1128,7 @@ router.get('/app/cargooutOrder',AppServiceController.cargooutOrder);
 router.get('/app/cargoin/package',AppServiceController.cargoinPackage);
 
 //出库-入库扫描完成后的显示界面
-router.get('/app/cargoin/order/:tid',AppServiceController.cargoinOrder);
+router.post('/app/cargoin/order',AppServiceController.cargoinOrder);
 
 //入库-入库接口
 router.post('/app/doCargoin',AppServiceController.doCargoin);
