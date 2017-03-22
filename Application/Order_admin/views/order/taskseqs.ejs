@@ -8,7 +8,7 @@
 
 
 <!-- MAIN PANEL -->
-<div id="main" role="main">
+<div id="main" role="main" class="mainFlex">
 
     <!-- RIBBON -->
     <div id="ribbon">
@@ -22,7 +22,7 @@
 
     </div>
     <!-- END RIBBON -->
-    <div id="content">
+    <div id="content" class="dis-flex">
 
 
         <!-- well -->
@@ -147,7 +147,7 @@
         </div>
         <!-- end well -->
 
-        <div class="well">
+        <div class="well dis-flex">
 
             <!-- row -->
             <div class="row">
@@ -158,25 +158,25 @@
             </div>
 
             <!-- row -->
-            <div class="row">
-                <div class="col-xs-12">
-                    <div class="table-responsive">
-                        <table class="table table-bordered table-striped table-hover">
+            <div class="row dis-flex">
+                <div class="col-xs-12 dis-flex">
+                    <div class="table-responsive dis-flex">
+                        <table class="table table-bordered table-striped table-hover table-scroll dis-flex">
                             <thead>
                             <tr>
-                                <th>序号</th>
+                                <th width="4%">序号</th>
                                 <th>门店名称</th>
-                                <th>客户名称</th>
-                                <th>客户电话</th>
+                                <th width="7%">客户名称</th>
+                                <th width="7%">客户电话</th>
                                 <th>楼盘名称</th>
-                                <th>流水号</th>
+                                <th width="7%">流水号</th>
                                 <th>建流水柜员</th>
                                 <th>建流水时间</th>
                                 <th>预约量尺时间</th>
                                 <th>完成量尺时间</th>
                                 <th>预期交付时间</th>
                                 <th>设计师</th>
-                                <th>流水状态</th>
+                                <th width="7%">流水状态</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -184,19 +184,19 @@
                             var num = 1;
                             taskseqList.result.forEach(function (element) { %>
                             <tr>
-                                <td><%= num %></td>
+                                <td width="4%"><%= num %></td>
                                 <td><%= element.storeName %></td>
-                                <td><a href="/customer/detail/<%= element.cid %>"><%= element.custName %></a></td>
-                                <td><%= element.custMobile %></td>
+                                <td width="7%"><a href="/customer/detail/<%= element.cid %>"><%= element.custName %></a></td>
+                                <td width="7%"><%= element.custMobile %></td>
                                 <td><%= element.realEstate %></td>
-                                <td><a href="/taskseq/index/<%= element.lid %>"><%= element.lid %></a></td>
+                                <td width="7%"><a href="/taskseq/index/<%= element.lid %>"><%= element.lid %></a></td>
                                 <td><%= element.gname %></td>
                                 <td><%= DWY_Helper.getLocalDate(element.addTime) %></td>
                                 <td><%= DWY_Helper.getLocalDate(element.appointmentTime) %></td>
                                 <td><%= DWY_Helper.getLocalDate(element.finishTime) %></td>
                                 <td><%= DWY_Helper.getLocalDate(element.deliveryDate) %></td>
                                 <td><%= element.desName %></td>
-                                <td><%= DWY_Helper.getAssistVal(element.stcode,statusInfo)  %></td>
+                                <td width="7%"><%= DWY_Helper.getAssistVal(element.stcode,statusInfo)  %></td>
                             </tr>
                             <% num++ }) %>
 

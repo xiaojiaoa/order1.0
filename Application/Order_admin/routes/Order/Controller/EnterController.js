@@ -168,10 +168,29 @@ var EnterController = {
     },
     doEnter: function (req, res) {
         // var num = req.body.num0;
-        console.log('doEnter',JSON.stringify(req.body))
+        // console.log('doEnter',JSON.stringify(req.body))
         request(Base.mergeRequestOptions({
             method: 'post',
             url: '/api/whse/cargoin/mate',
+            headers:{'Content-type':'application/json'},
+            body:JSON.stringify(req.body),
+        }, req, res), function (error, response, body) {
+            if (!error && response.statusCode == 201) {
+                // res.redirect('/enterMaterial')
+                res.sendStatus(200);
+            } else {
+                Base.handlerError(res, req, error, response, body);
+            }
+        })
+
+
+    },
+    reqmaterialModify: function (req, res) {
+        // var num = req.body.num0;
+        console.log('doEnterreqmaterial',JSON.stringify(req.body))
+        request(Base.mergeRequestOptions({
+            method: 'post',
+            url: '/api/purchase/reqmaterial/money',
             headers:{'Content-type':'application/json'},
             body:JSON.stringify(req.body),
         }, req, res), function (error, response, body) {

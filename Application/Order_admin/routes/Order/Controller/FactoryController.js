@@ -45,7 +45,17 @@ var FactoryController = {
             res.render('order/factory/factory_create', returnData);
         });
     },
-
+    ifHaved: function (req, res) {
+        var id =  req.params.id;
+        request(Base.mergeRequestOptions({
+            method: 'get',
+            url: '/api/whse/factory/exist?ftyId='+id,
+        }, req, res), function (error, response, body) {
+            if (!error && response.statusCode == 200) {
+                res.status(200).json(body);
+            }
+        })
+    },
     doCreate: function (req, res) {
         var areaNum = req.body.areaNum;
         // var areafor = req.body.areafor;

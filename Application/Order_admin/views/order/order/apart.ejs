@@ -336,50 +336,48 @@
                 <!-- end col -->
             </div>
 
-            <div class="row margin-top-10">
-                <div class="table-responsive">
-                    <table class="table table-bordered table-striped">
-                        <thead>
-                        <tr>
-                            <th>序号</th>
-                            <th>颜色</th>
-                            <th>难度</th>
-                            <th>类别</th>
-                            <th>订单号</th>
-                            <th>专卖店</th>
-                            <th>客户名称</th>
-                            <th>产品信息</th>
-                            <th>模型文件</th>
-                            <th>收款确认日期</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <%
-                        if((type == 'getOrder')&&(DWY_Helper.isCanLoop(apartList.result)) ){
-                        apartList.result.forEach(function (element, index) { %>
-                        <tr>
-                            <td><%= index+1 %></td>
-                            <td><%= element.colorStr %></td>
-                            <td><%= element.difficultyStr %></td>
-                            <td><%= element.productTypeStr %></td>
-                            <td><a href="/order/detail/<%= element.tid %>"><%= element.tid %></a></td>
-                            <td><%= element.storeName %></td>
-                            <td><%= element.customerName %></td>
-                            <td><%= element.productInfo %></td>
-                            <td><%= element.modelFile %></td>
-                            <td><%= element.taskTime %></td>
-                        </tr>
-                        <% })
-                        }else{ %>
-                        <td colspan="11" class="text-align-center">暂无数据</td>
-                        <% }%>
+            <div class="table-responsive  margin-top-10">
+                <table class="table table-bordered table-striped">
+                    <thead>
+                    <tr>
+                        <th>序号</th>
+                        <th>颜色</th>
+                        <th>难度</th>
+                        <th>类别</th>
+                        <th>订单号</th>
+                        <th>专卖店</th>
+                        <th>客户名称</th>
+                        <th>产品信息</th>
+                        <th>模型文件</th>
+                        <th>收款确认日期</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <%
+                    if((type == 'getOrder')&&(DWY_Helper.isCanLoop(apartList.result)) ){
+                    apartList.result.forEach(function (element, index) { %>
+                    <tr>
+                        <td><%= index+1 %></td>
+                        <td><%= element.colorStr %></td>
+                        <td><%= element.difficultyStr %></td>
+                        <td><%= element.productTypeStr %></td>
+                        <td><a href="/order/detail/<%= element.tid %>"><%= element.tid %></a></td>
+                        <td><%= element.storeName %></td>
+                        <td><%= element.customerName %></td>
+                        <td><%= element.productInfo %></td>
+                        <td><%= element.modelFile %></td>
+                        <td><%= element.taskTime %></td>
+                    </tr>
+                    <% })
+                    }else{ %>
+                    <td colspan="11" class="text-align-center">暂无数据</td>
+                    <% }%>
 
-                        </tbody>
-                    </table>
-                    <%- paginationThr %>
-                </div>
+                    </tbody>
+                </table>
+                <%- paginationThr %>
             </div>
-            <!-- end row -->
+
         </div>
 
 

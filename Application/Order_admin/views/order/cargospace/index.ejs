@@ -4,7 +4,7 @@
 <%- include('../layouts/nav'); %>
 
 <!-- MAIN PANEL -->
-<div id="main" role="main">
+<div id="main" role="main" class="mainFlex">
 
     <!-- RIBBON -->
     <div id="ribbon">
@@ -22,7 +22,7 @@
 
 
     <!-- MAIN CONTENT -->
-    <div id="content">
+    <div id="content" class="dis-flex">
         <!-- well -->
         <div class="well">
             <!-- row -->
@@ -177,7 +177,7 @@
         </div>
         <!-- end well -->
 
-        <div class="well">
+        <div class="well dis-flex">
 
             <!-- row -->
             <div class="row">
@@ -189,13 +189,13 @@
             </div>
 
             <!-- row -->
-            <div class="row">
-                <div class="col-xs-12">
-                    <div class="table-responsive">
-                        <table class="table table-bordered table-striped table-hover">
+            <div class="row dis-flex">
+                <div class="col-xs-12 dis-flex">
+                    <div class="table-responsive dis-flex">
+                        <table class="table table-bordered table-striped table-hover table-scroll dis-flex">
                             <thead>
                             <tr>
-                                <th>序号</th>
+                                <th width="4%">序号</th>
                                 <th>货位号</th>
                                 <th>所在行/列/层</th>
                                 <th>最大承重</th>
@@ -210,14 +210,14 @@
                             if(cargospaceList.result && (cargospaceList.result.length > 0) ){
                             cargospaceList.result.forEach(function (element, index) { %>
                             <tr>
-                                <td><%= index+1 %></td>
+                                <td width="4%"><%= index+1 %></td>
                                 <td><a href="/cargospace/cargospace/detail/<%= element.spaceId %>"><%= element.spaceId %></a></td>
                                 <td><%= element.spaceRow %>行<%= element.spaceColumn %>列<%= element.spaceLayer %>层</td>
                                 <td><%= element.maxWeight %>KG</td>
                                 <td><%= element.maxAmount %>件</td>
                                 <td><%= element.sizeLength %>*<%= element.sizeWidth %>*<%= element.sizeHeight %></td>
                                 <td><%= element.usable ==1 ? '可用':'禁用' %></td>
-                                <td>
+                                <td  width="150">
                                     <% if( element.usable == 2 ){ %>
                                     <a class="label label-primary openStore" data-id="<%= element.spaceId %>">启用</a>
                                     <% }else{ %>

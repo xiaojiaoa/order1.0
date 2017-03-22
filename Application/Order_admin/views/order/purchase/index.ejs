@@ -103,10 +103,10 @@
             <div class="row dis-flex">
                 <div class="col-xs-12 dis-flex">
                     <div class="table-responsive dis-flex">
-                        <table class="table table-bordered table-striped table-hover table-scroll dis-flex" id="mytable">
+                        <table class="table table-bordered table-striped table-hover table-scroll dis-flex">
                             <thead>
                             <tr>
-                                <th>序号</th>
+                                <th width="50px">序号</th>
                                 <th>请购单号</th>
                                 <th>请购人</th>
                                 <th>请购人部门</th>
@@ -123,7 +123,7 @@
                             if(DWY_Helper.isCanLoop(purchasesList.result)){
                             purchasesList.result.forEach(function (element, index) { %>
                             <tr>
-                                <td><%= index+1 %></td>
+                                <td width="50px"><%= index+1 %></td>
                                 <td><a href="/purchase/applyDetail/<%= element.id %>"><%= element.id %></a></td>
                                 <td><%= element.addEmpName %></td>
                                 <td><%= element.addDeptName %></td>

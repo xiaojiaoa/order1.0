@@ -5,7 +5,7 @@
 
 
 <!-- MAIN PANEL -->
-<div id="main" role="main">
+<div id="main" role="main" class="mainFlex">
 
     <!-- RIBBON -->
     <div id="ribbon">
@@ -21,7 +21,7 @@
 
 
     <!-- MAIN CONTENT -->
-    <div id="content">
+    <div id="content" class="dis-flex">
 
 
         <!-- well -->
@@ -124,7 +124,7 @@
         </div>
         <!-- end well -->
 
-        <div class="well">
+        <div class="well dis-flex">
 
             <!-- row -->
             <div class="row">
@@ -135,13 +135,13 @@
             </div>
 
             <!-- row -->
-            <div class="row">
-                <div class="col-xs-12">
-                    <div class="table-responsive">
-                        <table class="table table-bordered table-striped table-hover">
+            <div class="row dis-flex">
+                <div class="col-xs-12 dis-flex">
+                    <div class="table-responsive dis-flex">
+                        <table class="table table-bordered table-striped table-hover table-scroll dis-flex">
                             <thead>
                             <tr>
-                                <th><label class="checkbox-inline">
+                                <th width="6%"><label class="checkbox-inline">
                                         <input type="checkbox" class="checkbox"
                                                id="checkAll">
                                         <span>&nbsp;</span>
@@ -160,7 +160,7 @@
                             <% if(DWY_Helper.isCanLoop(assessList.result)){
                             assessList.result.forEach(function (element, index) {  %>
                             <tr>
-                                <td>
+                                <td width="6%">
                                     <label class="checkbox-inline">
                                         <input type="checkbox" class="checkbox"
                                                name="tids" value="<%= element.tid %>">

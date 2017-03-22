@@ -131,7 +131,7 @@
                         <table class="table table-bordered table-striped table-hover table-scroll dis-flex">
                             <thead>
                             <tr>
-                                <th>序号</th>
+                                <th width="4%">序号</th>
                                 <th>客户号</th>
                                 <th>客户名</th>
                                 <th>客户电话</th>
@@ -145,7 +145,7 @@
                             if(customerList.result && (customerList.result instanceof Array) && customerList.result.length != 0  ){
                             customerList.result.forEach(function (element) { %>
                             <tr>
-                                <td><%= num %></td>
+                                <td width="4%"><%= num %></td>
                                 <td><a href="/customer/detail/<%= element.cid %>"><%= element.cid %></a></td>
                                 <td><%= element.name %></td>
                                 <td><%= element.mobile %></td>
