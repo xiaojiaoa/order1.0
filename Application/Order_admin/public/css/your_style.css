@@ -781,3 +781,6 @@ tr > td > .separation:last-child {
 .well:last-child{
     margin-bottom: 0;
 }
+table>tbody>tr>td a.label:first-child{
+    margin-left: 0;
+}

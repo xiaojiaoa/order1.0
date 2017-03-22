@@ -27,6 +27,7 @@
                 </div>
             </div>
             <div class="row">
+                <div class="col-xs-12">
                     <div class="table-responsive">
                         <table class="table table-bordered table-striped table-hover">
                             <thead>
@@ -67,10 +68,10 @@
                                 <td><%= element.colorStr %></td>
                                 <td><a href="/order/detail/<%= element.tid %>"><%= element.tid %></a></td>
                                 <%
-                                    if(element.batchNumber == '0'){%>
-                                    <td></td>
-                                   <% }else{%>
-                                    <td><%= element.batchNumber %></td>
+                                if(element.batchNumber == '0'){%>
+                                <td></td>
+                                <% }else{%>
+                                <td><%= element.batchNumber %></td>
                                 <%}%>
                                 <td><%= element.storeName %></td>
                                 <td>
@@ -89,14 +90,17 @@
                         </table>
                         <%- pagination %>
                     </div>
-                    <div class="col-xs-12">
-                        <hr class="simple">
-                        <div class="col-xs-1 text-center">
-                            <button class="btn btn-primary" id="editBatchNumSub">编辑批次号</button>
-                            <input  id="editBatchNum" class=""  type="hidden" />
-                        </div>
+
+                </div>
+                <div class="col-xs-12">
+                    <hr class="simple">
+                    <div class="col-xs-1 text-center">
+                        <button class="btn btn-primary" id="editBatchNumSub">编辑批次号</button>
+                        <input  id="editBatchNum" class=""  type="hidden" />
                     </div>
+                </div>
             </div>
+
         </div>
         <div class="well">
             <div class="row">
@@ -204,70 +208,73 @@
                 <!-- end col -->
             </div>
             <div class="row margin-top-10">
-                <div class="table-responsive">
-                    <table class="table table-bordered table-striped">
-                        <thead>
-                        <tr>
-                            <th>序号</th>
-                            <th>加急</th>
-                            <th>试装</th>
-                            <th>收款</th>
-                            <th>下单完毕</th>
-                            <th>产品类型</th>
-                            <th>主材颜色</th>
-                            <th>订单号</th>
-                            <th>批次号</th>
-                            <th>专卖店</th>
-                            <th>客户名称</th>
-                            <th>下单日期</th>
-                            <th>零售价</th>
-                            <th>交货日期</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <%
-                        if(DWY_Helper.isCanLoop(scheduleAllList.result)){
-                        scheduleAllList.result.forEach(function (element, index) { %>
-                        <tr>
-                            <td>
-                                <label class="checkbox-inline">
-                                    <%
-                                    if(element.received==0){%>
-                                        <input type="checkbox" class="checkbox" name="roles" value="<%= element.tid %>" disabled="disabled">
-                                    <% }else{%>
-                                        <input type="checkbox" class="checkbox" name="roles" value="<%= element.tid %>">
-                                    <%} %>
-                                    <span><%= index+1 %></span>
-                                </label>
-                            </td>
-                            <td><%= element.urgent %></td>
-                            <td><%= element.tryInstall %></td>
-                            <td><%= element.receivedStr %></td>
-                            <td><%= element.orderFinishStr %></td>
-                            <td><%= element.productTypeStr %></td>
-                            <td><%= element.colorStr %></td>
-                            <td><a href="/order/detail/<%= element.tid %>"><%= element.tid %></a></td>
+                <div class="col-xs-12">
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-striped">
+                            <thead>
+                            <tr>
+                                <th>序号</th>
+                                <th>加急</th>
+                                <th>试装</th>
+                                <th>收款</th>
+                                <th>下单完毕</th>
+                                <th>产品类型</th>
+                                <th>主材颜色</th>
+                                <th>订单号</th>
+                                <th>批次号</th>
+                                <th>专卖店</th>
+                                <th>客户名称</th>
+                                <th>下单日期</th>
+                                <th>零售价</th>
+                                <th>交货日期</th>
+                            </tr>
+                            </thead>
+                            <tbody>
                             <%
-                            if(element.batchNumber == '0'){%>
-                            <td></td>
-                            <% }else{%>
-                            <td><%= element.batchNumber %></td>
-                            <%}%>
-                            <td><%= element.storeName %></td>
-                            <td>
-                                <a href="/customer/detail/<%= element.cid %>"><%= element.cName %></a>
-                            </td>
-                            <td><%= DWY_Helper.getLocalDate(element.orderTime) %></td>
-                            <td><%= element.retailPrice %></td>
-                            <td><%= DWY_Helper.getLocalDate(element.deliveryTime) %></td>
-                        </tr>
-                        <%  })
-                        }else{ %>
-                        <td colspan="20" class="text-align-center">暂无结果</td>
-                        <%  }%>
-                        </tbody>
-                    </table>
-                    <%- pagination %>
+                            if(DWY_Helper.isCanLoop(scheduleAllList.result)){
+                            scheduleAllList.result.forEach(function (element, index) { %>
+                            <tr>
+                                <td>
+                                    <label class="checkbox-inline">
+                                        <%
+                                        if(element.received==0){%>
+                                        <input type="checkbox" class="checkbox" name="roles" value="<%= element.tid %>" disabled="disabled">
+                                        <% }else{%>
+                                        <input type="checkbox" class="checkbox" name="roles" value="<%= element.tid %>">
+                                        <%} %>
+                                        <span><%= index+1 %></span>
+                                    </label>
+                                </td>
+                                <td><%= element.urgent %></td>
+                                <td><%= element.tryInstall %></td>
+                                <td><%= element.receivedStr %></td>
+                                <td><%= element.orderFinishStr %></td>
+                                <td><%= element.productTypeStr %></td>
+                                <td><%= element.colorStr %></td>
+                                <td><a href="/order/detail/<%= element.tid %>"><%= element.tid %></a></td>
+                                <%
+                                if(element.batchNumber == '0'){%>
+                                <td></td>
+                                <% }else{%>
+                                <td><%= element.batchNumber %></td>
+                                <%}%>
+                                <td><%= element.storeName %></td>
+                                <td>
+                                    <a href="/customer/detail/<%= element.cid %>"><%= element.cName %></a>
+                                </td>
+                                <td><%= DWY_Helper.getLocalDate(element.orderTime) %></td>
+                                <td><%= element.retailPrice %></td>
+                                <td><%= DWY_Helper.getLocalDate(element.deliveryTime) %></td>
+                            </tr>
+                            <%  })
+                            }else{ %>
+                            <td colspan="20" class="text-align-center">暂无结果</td>
+                            <%  }%>
+                            </tbody>
+                        </table>
+                        <%- pagination %>
+                    </div>
+
                 </div>
                 <div class="col-xs-12">
                     <hr class="simple">
