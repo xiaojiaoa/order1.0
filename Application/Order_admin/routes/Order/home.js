@@ -419,6 +419,9 @@ router.put('/material/setStatus/:mid/:type', Middleware.AuthCheck, MaterialContr
 // 物料管理--物料详情-完善物料
 router.get('/materialManage/add/:bid/:mid', Middleware.AuthCheck, MaterialController.mateFacAddPage);
 
+// 禁用/解锁 物料详情-完善物料
+router.put('/material/add/setStatus/:bid/:mid/:type', Middleware.AuthCheck, MaterialController.setMaterialAppStatus);
+
 // 物料管理--物料详情-完善物料--提交数据接口
 router.post('/materialManage/doAdd', Middleware.AuthCheck, MaterialController.doAdd);
 
