@@ -38,10 +38,10 @@
                             url: '/installServiceTask/'+tid+'/'+did,
                             method: 'post',
                             success: function (data) {
-                                layer.msg('操作成功', {icon: 1, time: 2000})
+                                layer.msg('操作成功', {icon: 1, time: DWY_GLOBAL_CONSTANT.TimeOut})
                                 setTimeout(function(){
                                     location.href="/installService";
-                                },2000);
+                                },DWY_GLOBAL_CONSTANT.TimeOut);
                             },
                             error: function (response) {
                                 layer.close(index)

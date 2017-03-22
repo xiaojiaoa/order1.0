@@ -203,10 +203,11 @@
                             url: '/purchases/merge/'+tid,
                             method: 'post',
                             success: function (data) {
-                                layer.msg('操作成功', {icon: 1, time: 2000})
+                                layer.msg('操作成功', {icon: 1, time: DWY_GLOBAL_CONSTANT.TimeOut})
                                 setTimeout(function(){
                                     window.location.reload();
-                                },2000);
+                                },DWY_GLOBAL_CONSTANT.TimeOut
+                                );
                             },
                             error: function (response) {
                                 layer.close(index)
@@ -248,10 +249,10 @@
                             url: '/purchases/review/'+tid,
                             method: 'post',
                             success: function (data) {
-                                layer.msg('操作成功', {icon: 1, time: 2000})
+                                layer.msg('操作成功', {icon: 1, time: DWY_GLOBAL_CONSTANT.TimeOut})
                                 setTimeout(function(){
                                     window.location.reload();
-                                },2000);
+                                },DWY_GLOBAL_CONSTANT.TimeOut);
                             },
                             error: function (response) {
                                 layer.close(index)
@@ -300,10 +301,10 @@
                             url: '/purchases/submit/'+tid,
                             method: 'post',
                             success: function (data) {
-                                layer.msg('操作成功', {icon: 1, time: 2000})
+                                layer.msg('操作成功', {icon: 1, time: DWY_GLOBAL_CONSTANT.TimeOut})
                                 setTimeout(function(){
                                     window.location.reload();
-                                },2000);
+                                },DWY_GLOBAL_CONSTANT.TimeOut);
                             },
                             error: function (response) {
                                 layer.close(index);

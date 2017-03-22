@@ -1,3 +1,7 @@
+var  DWY_GLOBAL_CONSTANT = {
+    TimeOut:500,
+};
+
 var DWY_Utils = DWY_Utils || {
 
 	pagination:function(options){

@@ -766,6 +766,9 @@ tr > td > .separation:last-child {
     width: 100%;
     table-layout: fixed;
 }
+.table-scroll tr td {
+    word-break: break-word;
+}
 
 .table-bordered>thead>tr>td:first-child, .table-bordered>thead>tr>th:first-child {
     border-left: 0;

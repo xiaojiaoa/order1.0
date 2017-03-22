@@ -204,7 +204,11 @@
                         ftyId:ftyId,
                     },
                     success: function (data) {
-                        location.href='/outMaterial';
+                        layer.msg('操作成功', {icon: 1, time: DWY_GLOBAL_CONSTANT.TimeOut});
+                        setTimeout(function () {
+                            location.href='/outMaterial';
+                        }, DWY_GLOBAL_CONSTANT.TimeOut)
+
                     },
                     error: function (response) {
                         layer.close(index)
