@@ -151,7 +151,7 @@
                             <thead>
                             <tr>
                                 <th width="3%">序号</th>
-                                <th width="8%">物料编号</th>
+                                <th width="4%">物料编号</th>
                                 <th width="5%">物料名称</th>
                                 <th width="10%">分类</th>
                                 <th width="2%">单位</th>
@@ -160,7 +160,7 @@
                                 <th width="3%">可用</th>
                                 <th width="5%">出厂价格</th>
                                 <th width="3%">启用</th>
-                                <th width="5%">操作</th>
+                                <th width="8%">操作</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -169,7 +169,7 @@
                             mateList.result.forEach(function (element, index) { %>
                             <tr class="<%= ( element.stock<element.warning )? 'mark-row':'' %>">
                                 <td width="3%"><%= index+1 %></td>
-                                <td width="8%"><a href="/materialManage/detail/<%= bid%>/<%= element.id %>" class=" "><%= element.id %></a></td>
+                                <td width="4%"><a href="/materialManage/detail/<%= bid%>/<%= element.id %>" class=" "><%= element.id %></a></td>
                                 <td width="5%"><%= element.name %></td>
                                 <td width="10%"><%= element.catName%></td>
                                 <td width="2%"><%= element.unit%></td>
@@ -184,7 +184,12 @@
                                     否
                                     <%}%>
                                 </td>
-                                <td width="5%">  <a class="label label-primary" href="/materialManage/add/<%= bid %>/<%= element.id %>">完善物料库存</a></td>
+                                <td width="8%">
+                                    <a class="label label-primary" href="/materialManage/add/<%= bid %>/<%= element.id %>">完善物料库存</a>
+                                     <%if(element.id.slice(0,2)==90){%>
+                                    <a class="label label-primary" href="/materialManage/workpiece/<%= element.id %>">成品关联物料</a>
+                                      <%}%>
+                                </td>
                             </tr>
                             <% })
 

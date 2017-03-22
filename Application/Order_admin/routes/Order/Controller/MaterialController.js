@@ -235,6 +235,46 @@ var MaterialController = {
         });
         //res.render('order/material/material_create_one');
     },
+    workpiecePage: function (req, res) {
+        var mid =req.params.mid;
+        Base.multiDataRequest(req, res, [
+            {url: '/api/materials/workpiece/'+mid, method: 'GET', resConfig: {keyName: 'workpieceList', is_must: true}},
+        ], function (req, res, resultList) {
+            var returnData = Base.mergeData(helper.mergeObject({
+                title: ' ',
+                mid:mid,
+            },resultList));
+            res.render('order/material/material_workpiece',returnData);
+        });
+        //res.render('order/material/material_workpiece');
+    },
+    materiel_accessoryPage: function (req, res) {
+         var mid =req.params.mid;
+         Base.multiDataRequest(req, res, [
+         {url: '/api/materials/accessory/'+mid, method: 'GET', resConfig: {keyName: 'accessoryList', is_must: true}},
+         ], function (req, res, resultList) {
+         var returnData = Base.mergeData(helper.mergeObject({
+         title: ' ',
+         mid:mid,
+         },resultList));
+         res.render('order/material/materiel_accessory',returnData);
+         });
+       // res.render('order/material/materiel_modal');
+    },
+    fileDoCreate: function (req, res) {
+        console.log(req.body);
+        request(Base.mergeRequestOptions({
+            method: 'post',
+            url: '/api/materials/accessory/workpiece',
+            form:req.body,
+        }, req, res), function (error, response, body) {
+            if (!error && response.statusCode == 201) {
+                res.sendStatus(200);
+            } else {
+                Base.handlerError(res, req, error, response, body);
+            }
+        })
+    },
 };
 module.exports = MaterialController;
 

@@ -204,15 +204,15 @@
                         }
                         $(".basicDataSec").html(frag);
                     }
-                    else  if(key=="assistantStatusStcode" ||key=="assistantEcType"|| key=="assistantCargoType" || key=="assistantRequestStcode" ||key=="assistantPurchaseStcode"
-                       || key=="assistantResCodeinfo"|| key=="assistantContractStcode"|| key=="assistantAddrType" ||key=="assistantRemindDate" ||key=="assistantOrderStcode"
+                   /* else  if(key=="assistantEcType"|| key=="assistantCargoType" || key=="assistantRequestStcode" ||key=="assistantPurchaseStcode"
+                      || key=="assistantContractStcode"|| key=="assistantAddrType" ||key=="assistantRemindDate"
                     ){
                         var frag="";
                         for(var i=0;i<arry.length;i++){
-                            frag+="<tr id="+arry[i].id+" stcode="+arry[i].stcode+"><td><input class='border-0 text-align-center' type='text' value="+arry[i].id+" name='id' readonly/></td><td><input class='border-0 text-align-center' type='text' value="+arry[i].name+" name='name' readonly/></td></tr>"
+                            frag+="<tr id="+arry[i].id+" stcode="+arry[i].stcode+"><td>"+arry[i].id+"</td><td><input class='border-0 text-align-center' type='text' value="+arry[i].name+" name='name' readonly/></td></tr>"
                         }
                         $(".basicDataSec").html(frag);
-                    }
+                    }*/
                     else{
                         var frag="";
                         for(var i=0;i<arry.length;i++){

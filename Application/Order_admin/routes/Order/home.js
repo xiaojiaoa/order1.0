@@ -422,6 +422,15 @@ router.get('/materialManage/add/:bid/:mid', Middleware.AuthCheck, MaterialContro
 // 物料管理--物料详情-完善物料--提交数据接口
 router.post('/materialManage/doAdd', Middleware.AuthCheck, MaterialController.doAdd);
 
+//物料管理--成品关联物料--工件
+router.get('/materialManage/workpiece/:mid', Middleware.AuthCheck, MaterialController.workpiecePage);
+
+//物料管理--成品关联物料--配件
+router.get('/materialManage/accessory/:mid', Middleware.AuthCheck, MaterialController.materiel_accessoryPage);
+
+//物料管理--成品关联物料--上传工件、配件文件
+router.post('/api/materials/accessory/workpiece', Middleware.AuthCheck, MaterialController.fileDoCreate);
+
 
 /*
  * 页面范围: 物料属性相关
