@@ -778,3 +778,6 @@ tr > td > .separation:last-child {
     border-bottom: none;
     /*width: calc( 100% - 1em )*/
 }
+.well:last-child{
+    margin-bottom: 0;
+}

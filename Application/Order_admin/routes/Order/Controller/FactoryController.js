@@ -52,7 +52,7 @@ var FactoryController = {
             url: '/api/whse/factory/exist?ftyId='+id,
         }, req, res), function (error, response, body) {
             if (!error && response.statusCode == 200) {
-                res.sendStatus(200);
+                res.status(200).json(body);
             }
         })
     },

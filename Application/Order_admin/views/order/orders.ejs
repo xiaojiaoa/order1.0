@@ -5,7 +5,7 @@
 
 
 <!-- MAIN PANEL -->
-<div id="main" role="main">
+<div id="main" role="main" class="mainFlex">
 
     <!-- RIBBON -->
     <div id="ribbon">
@@ -21,7 +21,7 @@
 
 
     <!-- MAIN CONTENT -->
-    <div id="content">
+    <div id="content" class="dis-flex">
 
 
         <!-- well -->
@@ -180,7 +180,7 @@
         </div>
         <!-- end well -->
 
-        <div class="well">
+        <div class="well dis-flex">
 
             <!-- row -->
             <div class="row">
@@ -191,23 +191,23 @@
             </div>
 
             <!-- row -->
-            <div class="row">
-                <div class="col-xs-12">
-                    <div class="table-responsive">
-                        <table class="table table-bordered table-striped table-hover">
+            <div class="row dis-flex">
+                <div class="col-xs-12 dis-flex">
+                    <div class="table-responsive dis-flex">
+                        <table class="table table-bordered table-striped table-hover table-scroll dis-flex">
                             <thead>
                             <tr>
-                                <th>序号</th>
-                                <th>客户姓名</th>
-                                <th>流水号</th>
-                                <th>订单号</th>
-                                <th>品牌</th>
+                                <th width="4%">序号</th>
+                                <th width="7%">客户姓名</th>
+                                <th width="7%">流水号</th>
+                                <th width="13%">订单号</th>
+                                <th width="7%">品牌</th>
                                 <th>产品信息</th>
-                                <th>产品类型</th>
-                                <th>空间类型</th>
-                                <th>下单柜员</th>
-                                <th>预计发货</th>
-                                <th>订单状态</th>
+                                <th width="7%">产品类型</th>
+                                <th width="10%">空间类型</th>
+                                <th width="12%">下单柜员</th>
+                                <th width="7%">预计发货</th>
+                                <th width="7%">订单状态</th>
                                 <th width="150px">货位号</th>
                             </tr>
                             </thead>
@@ -219,18 +219,18 @@
                             <% }else{
                             orderList.result.forEach(function (element, index) { %>
                             <tr class=" <%= (element.stcode == 280) ? "mark-row":"" %>">
-                                <td><%= index+1 %></td>
-                                <td><a href="/customer/detail/<%= element.cid %>"><%= element.name %></a></td>
-                                <td><a href="/taskseq/index/<%= element.lid %>"><%= element.lid %></a></td>
-                                <td><a href="/order/detail/<%= element.tid %>"><%= element.tid %></a></td>
-                                <td><%= DWY_Helper.getAssistVal(element.brandId,brandInfo) %></td>
+                                <td width="4%"><%= index+1 %></td>
+                                <td width="7%"><a href="/customer/detail/<%= element.cid %>"><%= element.name %></a></td>
+                                <td width="7%"><a href="/taskseq/index/<%= element.lid %>"><%= element.lid %></a></td>
+                                <td width="13%"><a href="/order/detail/<%= element.tid %>"><%= element.tid %></a></td>
+                                <td width="7%"><%= DWY_Helper.getAssistVal(element.brandId,brandInfo) %></td>
                                 <td><%= element.prodInfo %></td>
-                                <td><%= element.prodName %></td>
-                                <td><%= element.parentSpaceinfoName %>/<%= element.spaceName %></td>
-                                <td><%= element.bname %>/<%= element.gname %></td>
-                                <td><%= DWY_Helper.getLocalDate(element.deliveryDate) %></td>
-                                <td><%= DWY_Helper.getAssistVal(element.stcode,stcodeInfo) %></td>
-                                <td><%= element.cargoSpaceIds %></td>
+                                <td width="7%"><%= element.prodName %></td>
+                                <td width="10%"><%= element.parentSpaceinfoName %>/<%= element.spaceName %></td>
+                                <td width="12%"><%= element.bname %>/<%= element.gname %></td>
+                                <td width="7%"><%= DWY_Helper.getLocalDateYMD(element.deliveryDate) %></td>
+                                <td width="7%"><%= DWY_Helper.getAssistVal(element.stcode,stcodeInfo) %></td>
+                                <td width="150px"><%= element.cargoSpaceIds %></td>
                             </tr>
                             <%  })
                             } %>

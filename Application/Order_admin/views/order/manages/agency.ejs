@@ -4,7 +4,7 @@
 <%- include('../layouts/nav'); %>
 
 <!-- MAIN PANEL -->
-<div id="main" role="main">
+<div id="main" role="main" class="mainFlex">
 
     <!-- RIBBON -->
     <div id="ribbon">
@@ -22,7 +22,7 @@
 
 
     <!-- MAIN CONTENT -->
-    <div id="content">
+    <div id="content" class="dis-flex">
         <!-- well -->
         <div class="well">
             <!-- row -->
@@ -124,7 +124,7 @@
         </div>
         <!-- end well -->
 
-        <div class="well">
+        <div class="well dis-flex">
 
             <!-- row -->
             <div class="row">
@@ -136,22 +136,22 @@
             </div>
 
             <!-- row -->
-            <div class="row">
-                <div class="col-xs-12">
-                    <div class="table-responsive">
-                        <table class="table table-bordered table-striped">
+            <div class="row dis-flex">
+                <div class="col-xs-12 dis-flex">
+                    <div class="table-responsive dis-flex">
+                        <table class="table table-bordered table-striped table-scroll dis-flex">
                             <thead>
                             <tr>
-                                <th>序号</th>
-                                <th>机构编号</th>
-                                <th>机构名称</th>
-                                <th>负责人号码</th>
+                                <th width="4%">序号</th>
+                                <th width="6%">机构编号</th>
+                                <th width="15%">机构名称</th>
+                                <th width="8%">负责人号码</th>
                                 <th>机构地址</th>
-                                <th>机构类型</th>
-                                <th>是否自带仓库</th>
-                                <th>新建日期</th>
+                                <th width="6%">机构类型</th>
+                                <th width="8%">是否自带仓库</th>
+                                <th  width="15%">新建日期</th>
                                 <!--<th>最低保证金</th>-->
-                                <th width="300px">查看</th>
+                                <th width="250px">查看</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -159,16 +159,16 @@
                             if(organizationsList.totalItems != 0  ){
                             organizationsList.result.forEach(function (element, index) { %>
                             <tr>
-                                <td><%= index+1 %></td>
-                                <td><a href="/agency/detail/<%= element.id %>"><%= element.id %></a></td>
-                                <td><%= element.name %></td>
-                                <td><%= element.mobile %></td>
+                                <td width="4%"><%= index+1 %></td>
+                                <td width="6%"><a href="/agency/detail/<%= element.id %>"><%= element.id %></a></td>
+                                <td width="15%"><%= element.name %></td>
+                                <td width="8%"><%= element.mobile %></td>
                                 <td><%= element.address %></td>
-                                <td><%= DWY_Helper.getAssistVal(element.orgType, organTypes) %></td>
-                                <td><%= DWY_Helper.getWhether(element.isWareh) %></td>
-                                <td><%= DWY_Helper.getLocalDate(element.addTime) %></td>
+                                <td width="6%"><%= DWY_Helper.getAssistVal(element.orgType, organTypes) %></td>
+                                <td width="8%"><%= DWY_Helper.getWhether(element.isWareh) %></td>
+                                <td width="15%"><%= DWY_Helper.getLocalDate(element.addTime) %></td>
                                 <!--<td>最低保证金</td>-->
-                                <td>
+                                <td width="250px">
                                     <a href="/department/organizations/<%= element.id %>" class="label label-primary">部门信息</a>
                                     <a href="/roles/<%= element.id %>/2" class="label label-primary">角色信息</a>
                                     <a href="/organizations/employees?bid=<%= element.id %>" class="label label-primary">查看柜员</a>

@@ -5,7 +5,7 @@
 
 
 <!-- MAIN PANEL -->
-<div id="main" role="main">
+<div id="main" role="main" class="mainFlex">
 
     <!-- RIBBON -->
     <div id="ribbon">
@@ -22,7 +22,7 @@
 
 
     <!-- MAIN CONTENT -->
-    <div id="content">
+    <div id="content" class="dis-flex">
 
         <!-- well -->
         <div class="well">
@@ -178,14 +178,14 @@
         </div>
         <!-- end well -->
 
-        <div class="well">
-            <div class="row">
-                <div class="col-xs-12">
-                    <div class="table-responsive">
-                        <table class="table table-bordered table-striped table-hover">
+        <div class="well dis-flex">
+            <div class="row dis-flex">
+                <div class="col-xs-12 dis-flex">
+                    <div class="table-responsive dis-flex">
+                        <table class="table table-bordered table-striped table-hover table-scroll dis-flex">
                             <thead>
                             <tr>
-                                <th>序号</th>
+                                <th width="4%">序号</th>
                                 <th>类型</th>
                                 <th>入库单号</th>
                                 <th>日期</th>
@@ -203,7 +203,7 @@
                             <% if(mateList.result.length>0){%>
                                 <% mateList.result.forEach(function (element, index) {%>
                                     <tr>
-                                        <td><%= index+1 %></td>
+                                        <td width="4%"><%= index+1 %></td>
                                         <td><%=DWY_Helper.getEnterType(element.inType)%></td>
                                         <td><a href="/enterMaterial/detail/<%=element.inId %>"><%=element.inId %></a></td>
                                         <td><%= DWY_Helper.getLocalDate(element.editTime) %></td>
