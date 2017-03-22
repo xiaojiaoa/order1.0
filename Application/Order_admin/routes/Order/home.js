@@ -387,7 +387,7 @@ router.post('/materialManage/choiceFactory', Middleware.AuthCheck, MaterialContr
 router.get('/materialManage/detail/factory/:fid/:mid', Middleware.AuthCheck, MaterialController.detailFacPage);
 
 // 物料出入库总计页面
-router.get('/materialManage/summary', Middleware.AuthCheck, MaterialController.summaryPage);
+router.get('/materialManage/summary', Middleware.AuthCheck,Middleware.FilterEmptyField,MaterialController.summaryPage);
 
 //物料分类一物料新建
 router.get('/materialManage/material/:tid/creStepO', Middleware.AuthCheck, MaterialController.materialTypeCreateOnePage);

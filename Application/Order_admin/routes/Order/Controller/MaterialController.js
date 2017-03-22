@@ -83,7 +83,30 @@ var MaterialController = {
         //res.render('order/material/material_detail_choice_factory');
     },
     summaryPage: function (req, res) {
-        res.render('order/material/material_summary');
+        if(!req.query.type){
+            req.query.type=1;
+        }
+        var paramObject = helper.genPaginationQuery(req);
+        Base.multiDataRequest(req, res, [
+            {url: '/api/materials/inandout/page?'+ queryString.stringify(req.query), method: 'GET', resConfig: {keyName: 'mateInAndOutList', is_must: true}},
+        ], function (req, res, resultList) {
+
+            var paginationInfo =  resultList.mateInAndOutList;
+
+            var boostrapPaginator = new Pagination.TemplatePaginator(helper.genPageInfo({
+                prelink: paramObject.withoutPageNo,
+                current: paginationInfo.page,
+                rowsPerPage: paginationInfo.pageSize,
+                totalResult: paginationInfo.totalItems
+            }));
+
+            var returnData = Base.mergeData(helper.mergeObject({
+                title: ' ',
+                pagination: boostrapPaginator.render()
+            },resultList));
+            res.render('order/material/material_summary',returnData);
+        });
+        //res.render('order/material/material_summary');
     },
     materialCreateOnePage: function (req, res) {
         var tid=req.params.tid;
