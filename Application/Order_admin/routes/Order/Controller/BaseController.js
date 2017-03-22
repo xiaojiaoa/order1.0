@@ -109,6 +109,18 @@ var BaseController = {
         }
     },
 
+    handlerSuccess: function (res, req) {
+        var user_session = req.session;
+
+        if (user_session) {
+            user_session.DWY_message = {
+                type: 'info',
+                msg: '操作成功',
+                sign: parseInt(Math.random() * 1000),
+            };
+        }
+    },
+
     //多请求处理
     multiDataRequest: function (req, res, urls, callBack) {
 

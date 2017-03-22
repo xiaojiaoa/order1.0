@@ -359,13 +359,14 @@ $(document).ready(function () {
         }
 
         if (dwy_msg_type.val() == 'info') {
-            $.smallBox({
-                title: "操作成功",
-                content: dwy_msg_info.val(),
-                color: "#8ac38b",
-                iconSmall: "fa fa-times fa-2x fadeInRight animated",
-                timeout: 3000
-            });
+            layer.msg('操作成功', {icon: 1, time: DWY_GLOBAL_CONSTANT.TimeOut});
+            // $.smallBox({
+            //     title: "操作成功",
+            //     content: dwy_msg_info.val(),
+            //     color: "#8ac38b",
+            //     iconSmall: "fa fa-times fa-2x fadeInRight animated",
+            //     timeout: 3000
+            // });
         }
 
         localStorage.setItem('dwy_msg_sign', dwy_msg_sign.val());

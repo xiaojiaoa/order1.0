@@ -141,11 +141,7 @@
                     url: '/outBred/doCheck/'+id,
                     method: 'put',
                     success: function (data) {
-//                        window.location.reload();
-                        layer.msg('操作成功', {icon: 1, time: DWY_GLOBAL_CONSTANT.TimeOut});
-                        setTimeout(function () {
-                            location.href='/canSend';
-                        }, DWY_GLOBAL_CONSTANT.TimeOut)
+                        location.href='/canSend';
 
                     },
                     error: function (response) {
@@ -164,10 +160,7 @@
                     url: '/outBred/doUnCheck/'+id,
                     method: 'put',
                     success: function (data) {
-                        layer.msg('操作成功', {icon: 1, time: DWY_GLOBAL_CONSTANT.TimeOut});
-                        setTimeout(function () {
-                            window.location.reload();
-                        }, DWY_GLOBAL_CONSTANT.TimeOut)
+                        window.location.reload();
 
                     },
                     error: function (response) {
