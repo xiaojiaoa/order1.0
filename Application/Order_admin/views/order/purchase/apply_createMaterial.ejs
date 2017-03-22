@@ -114,7 +114,7 @@
             }
             var num=$('.amountApply').val();
             var minNum=$('.minAmount').val();
-            if(num<minNum){
+            if(parseInt(num)<parseInt(minNum)){
                 layer.alert('请购数量不能低于最小数量！', {icon: 3});
                 return false;
             }

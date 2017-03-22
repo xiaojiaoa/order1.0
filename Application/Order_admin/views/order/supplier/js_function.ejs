@@ -48,7 +48,10 @@
                             url: '/supplier/supDoDelete/'+tid+'/'+type,
                             method: 'post',
                             success: function (data) {
-                                window.location.reload();
+                                layer.msg('操作成功', {icon: 1, time: DWY_GLOBAL_CONSTANT.TimeOut});
+                                setTimeout(function () {
+                                    window.location.reload();
+                                }, DWY_GLOBAL_CONSTANT.TimeOut)
                             },
                             error: function (response) {
                                 layer.close(index);
@@ -70,7 +73,10 @@
                             url: '/supplier/supDoDelete/'+tid+'/'+type,
                             method: 'post',
                             success: function (data) {
-                                window.location.reload();
+                                layer.msg('操作成功', {icon: 1, time: DWY_GLOBAL_CONSTANT.TimeOut});
+                                setTimeout(function () {
+                                    window.location.reload();
+                                }, DWY_GLOBAL_CONSTANT.TimeOut)
                             },
                             error: function (response) {
                                 layer.close(index);

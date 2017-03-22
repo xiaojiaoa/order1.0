@@ -39,9 +39,22 @@
                                         </div>
                                     </div>
                                 </div>
+                                <div class="col-xs-3">
+                                    <div class="form-group">
+                                        <label class="col-xs-4 control-label">请购状态:</label>
+                                        <div class="col-xs-8">
+                                            <select class="form-control" name="stcode">
+                                                <option value="">- 请选择 -</option>
+                                                <option value="10" <%= (DWYRequest.query.stcode == 10 )?"selected":"" %>>请购中</option>
+                                                <option value="30" <%= (DWYRequest.query.stcode == 30 )?"selected":"" %>>已审核</option>
+                                                <option value="50" <%= (DWYRequest.query.stcode == 50 )?"selected":"" %>>已生成</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
                                 <div class="col-xs-6">
                                     <div class="form-group">
-                                        <label class="col-xs-2 control-label">建单日期:</label>
+                                        <label class="col-xs-2 control-label">起止日期:</label>
                                         <div class="col-xs-4">
                                             <input class="form-control fg-date-time-picker" placeholder="" type="text" value="<%= DWYRequest.query.startDate%>"
                                                    name="startDate">
@@ -53,20 +66,23 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-xs-3">
-                                    <div class="form-group">
-                                        <label class="col-xs-4 control-label">请购状态:</label>
-                                        <div class="col-xs-8">
-                                            <select class="form-control" name="stcode">
-                                                <option value="">- 请选择 -</option>
-                                                <option value="10">请购中</option>
-                                                <option value="30">已审核</option>
-                                                <option value="50">已生成</option>
-                                            </select>
+                            </div>
+                            <div class="col-xs-12">
+                                    <div class="col-xs-3">
+                                        <div class="form-group">
+                                            <label class="col-xs-4 control-label">机构:</label>
+                                            <div class="col-xs-8">
+                                                <select class="form-control" name="ftyId">
+                                                    <option value="">- 请选择 -</option>
+                                                    <%
+                                                    if(DWY_Helper.isCanLoop(factoryLists)){
+                                                    factoryLists.forEach(function (element, index) { %>
+                                                    <option value="<%= element.ftyId %>" <%= (DWYRequest.query.ftyId == element.ftyId)?"selected":"" %>><%= element.name %></option>
+                                                    <%})}%>
+                                                </select>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-
                             </div>
                             <div class="col-xs-12">
                                 <hr class="simple">
@@ -174,10 +190,7 @@
                         url: '/purchases/Order/'+tid,
                         method: 'post',
                         success: function (data) {
-                            layer.msg('操作成功', {icon: 1, time: DWY_GLOBAL_CONSTANT.TimeOut})
-                            setTimeout(function(){
                                 location.href="/purchase/detail";
-                            },DWY_GLOBAL_CONSTANT.TimeOut);
                         },
                         error: function (response) {
                             layer.close(index);
@@ -196,10 +209,7 @@
                         url: '/purchase/applyReview/'+tid,
                         method: 'post',
                         success: function (data) {
-                            layer.msg('操作成功', {icon: 1, time: DWY_GLOBAL_CONSTANT.TimeOut});
-                            setTimeout(function () {
                                 window.location.reload();
-                            }, DWY_GLOBAL_CONSTANT.TimeOut)
                         },
                         error: function (response) {
                             layer.close(index)

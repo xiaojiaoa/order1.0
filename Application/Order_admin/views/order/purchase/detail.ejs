@@ -31,30 +31,45 @@
                                 <!--输入字段-->
                                 <div class="col-xs-3">
                                     <div class="form-group">
-                                        <label class="col-xs-4 control-label">采购单号:</label>
-                                        <div class="col-xs-8">
+                                        <label class="col-xs-3 control-label">采购单号:</label>
+                                        <div class="col-xs-9">
                                             <input class="form-control" placeholder="请输入订单号" type="text" value="<%= DWYRequest.query.purcNo %>" name="purcNo">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xs-3">
+                                    <div class="form-group">
+                                        <label class="col-xs-4 control-label">请购状态:</label>
+                                        <div class="col-xs-8">
+                                            <select class="form-control" name="stcode">
+                                                <option value="">- 请选择 -</option>
+                                                <option value="10" <%= (DWYRequest.query.stcode == 10 )?"selected":"" %> >未提交</option>
+                                                <option value="30" <%= (DWYRequest.query.stcode == 30 )?"selected":"" %> >已审核</option>
+                                                <option value="50" <%= (DWYRequest.query.stcode == 50 )?"selected":"" %> >已提交</option>
+                                            </select>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-xs-6">
                                     <div class="form-group">
-                                        <label class="col-xs-2 control-label">建单日期:</label>
+                                        <label class="col-xs-2 control-label">起止日期:</label>
                                         <div class="col-xs-4">
                                             <input class="form-control fg-date-time-picker" placeholder="" type="text" value="<%= DWYRequest.query.startDate%>"
                                                    name="startDate">
                                         </div>
-                                        <label class="from-to control-label "> 至 </label>
+                                        <label class="from-to  control-label "> 至 </label>
                                         <div class="col-xs-4">
                                             <input class="form-control fg-date-time-picker" placeholder="" type="text" value="<%= DWYRequest.query.endDate%>"
                                                    name="endDate">
                                         </div>
                                     </div>
                                 </div>
+                            </div>
+                            <div class="col-xs-12">
                                 <div class="col-xs-3">
                                     <div class="form-group">
-                                        <label class="col-xs-4 control-label">工厂:</label>
-                                        <div class="col-xs-8">
+                                        <label class="col-xs-3 control-label">机构:</label>
+                                        <div class="col-xs-9">
                                             <select class="form-control" name="ftyId">
                                                 <option value="">- 请选择 -</option>
                                                 <%
