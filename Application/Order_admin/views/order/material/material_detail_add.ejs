@@ -31,10 +31,16 @@
             <div class="row">
                 <!-- col -->
                 <div class="col-xs-12">
-                    <legend>完善物料信息</legend>
+                    <legend>完善物料信息
+                        <% if( mateInfo.stcode == 2){ %>
+                        <a class="label label-primary" id="openStore">启用</a>
+                        <% }else{ %>
+                        <a class="label label-danger" id="closeStore">禁用</a>
+                        <% } %>
+                    </legend>
 
                     <!-- row -->
-                    <div class="row">
+                    <div class="row <%= (mateInfo.stcode == 2 )? 'close-info01':'' %>">
                         <form class="form-horizontal"  id="material_detail_factory_add" method="post" action="/materialManage/doAdd">
 
 
@@ -170,7 +176,7 @@
                                     <div class="form-group">
                                         <label class="col-xs-4 control-label"><span class="requird"></span>库存数量:</label>
                                         <div class="col-xs-8">
-                                            <input class="form-control validate[required]" placeholder="请输入库存数量" value="<%= mateInfo.stock %>" type="text" name="stock">
+                                            <input class="form-control validate[required]" placeholder="请输入库存数量" value="<%= mateInfo.stock %>" type="text" name="stock" <%= (mateInfo.stcode == 2 )? 'readonly':'' %>>
                                         </div>
                                     </div>
                                 </div>
@@ -180,7 +186,7 @@
                                     <div class="form-group">
                                         <label class="col-xs-4 control-label"><span class="requird"></span>预警数量:</label>
                                         <div class="col-xs-8">
-                                            <input class="form-control validate[required]" placeholder="请输入预警数量" value="<%= mateInfo.warning  %>" type="text" name="warning">
+                                            <input class="form-control validate[required]" placeholder="请输入预警数量" value="<%= mateInfo.warning  %>" type="text" name="warning" <%= (mateInfo.stcode == 2 )? 'readonly':'' %>>
                                         </div>
                                     </div>
                                 </div>
@@ -190,7 +196,7 @@
                                     <div class="form-group">
                                         <label class="col-xs-4 control-label"><span class="requird"></span>可用数量:</label>
                                         <div class="col-xs-8">
-                                            <input class="form-control validate[required]" placeholder="请输入可用数量" value="<%= mateInfo.usable  %>" type="text" name="usable">
+                                            <input class="form-control validate[required]" placeholder="请输入可用数量" value="<%= mateInfo.usable  %>" type="text" name="usable" <%= (mateInfo.stcode == 2 )? 'readonly':'' %>>
                                         </div>
                                     </div>
                                 </div>
@@ -243,7 +249,48 @@
         //图片浏览
         $('.fancybox').fancybox();
 
+        //启用、禁用物料详情页状态
+        var mid='<%= mid %>';
+        var bid='<%= bid %>';
 
+        $("#closeStore").on({
+            click: function () {
+                layer.confirm('确定禁用该属性？',{icon: 3, title:'提示'},
+                    function(index){
+                        $.ajax({
+                            url: '/material/add/setStatus/'+bid+'/'+mid+'/2',
+                            method: 'put',
+                            success: function (data) {
+                                window.location.reload();
+                            },
+                            error: function (response) {
+                                layer.close(index)
+                                errorLayout.normal(response);
+                            }
+                        });
+                    },
+                    function(index){layer.close(index)})
+            }
+        });
+        $("#openStore").on({
+            click: function () {
+                layer.confirm('确定启用该属性？',{icon: 3, title:'提示'},
+                    function(index){
+                        $.ajax({
+                            url:'/material/add/setStatus/'+bid+'/'+mid+'/1',
+                            method: 'put',
+                            success: function (data) {
+                                window.location.reload();
+                            },
+                            error: function (response) {
+                                layer.close(index)
+                                errorLayout.normal(response);
+                            }
+                        });
+                    },
+                    function(index){layer.close(index)})
+            }
+        })
 
 
     })

@@ -298,6 +298,23 @@ var MaterialController = {
             }
         })
     },
+    setMaterialAppStatus: function (req, res) {
+        var mid = req.params.mid;
+        var bid= req.params.bid;
+        var type = req.params.type;
+        console.log('ajx'+ JSON.stringify(req.params));
+        request(Base.mergeRequestOptions({
+            method: 'put',
+            url: '/api/materials/stcode/'+bid+'/'+mid+'?stcode='+type,
+        }, req, res), function (error, response, body) {
+            if (!error && response.statusCode == 201) {
+                res.sendStatus(200);
+            } else {
+                Base.handlerError(res, req, error, response, body);
+            }
+        })
+
+    },
 };
 module.exports = MaterialController;
 

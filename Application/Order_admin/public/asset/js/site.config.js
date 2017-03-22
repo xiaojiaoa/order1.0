@@ -371,4 +371,7 @@ $(document).ready(function () {
 
         localStorage.setItem('dwy_msg_sign', dwy_msg_sign.val());
     }
+
+
+    AjaxBackHander
 });
