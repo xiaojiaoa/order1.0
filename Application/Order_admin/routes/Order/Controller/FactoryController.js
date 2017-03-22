@@ -331,7 +331,7 @@ console.log('555',JSON.stringify(req.body))
             form:req.body,
         }, req, res), function (error, response, body) {
             if (!error && response.statusCode == 201) {
-                res.redirect("/region?ftyId="+ftyId+"&whseId=1110"+whseId);
+                res.redirect("/region?ftyId="+ftyId+"&whseId="+whseId);
             } else {
                 Base.handlerError(res, req, error, response, body);
             }

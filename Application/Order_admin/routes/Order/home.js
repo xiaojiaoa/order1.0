@@ -1128,7 +1128,7 @@ router.get('/app/cargooutOrder',AppServiceController.cargooutOrder);
 router.get('/app/cargoin/package',AppServiceController.cargoinPackage);
 
 //出库-入库扫描完成后的显示界面
-router.get('/app/cargoin/order/:tid',AppServiceController.cargoinOrder);
+router.post('/app/cargoin/order',AppServiceController.cargoinOrder);
 
 //入库-入库接口
 router.post('/app/doCargoin',AppServiceController.doCargoin);
