@@ -1069,7 +1069,7 @@ router.put('/noticeInfo/doDelete/:nid', Middleware.AuthCheck, InformationControl
 router.get('/fileInfo', Middleware.AuthCheck, InformationController.fileInfoPage);
 
 //资料上传接口
-router.post('/api/notices', Middleware.AuthCheck, InformationController.fileDoCreate);
+router.post('/fileInfo/share', Middleware.AuthCheck,InformationController.fileDoCreate);
 
 
 
@@ -1101,7 +1101,7 @@ router.put('/system/:key', Middleware.AuthCheck, SystemController.keyFirstPage);
 router.post('/system/doCreate', Middleware.AuthCheck, SystemController.doCreate);
 
 //修改，删除，启用
-router.post('/system/doModify', Middleware.AuthCheck, SystemController.doModify);
+router.post('/system/doModify/:id', Middleware.AuthCheck, SystemController.doModify);
 
 // 预警时间设置
 router.get('/system/timeSet', Middleware.AuthCheck,SystemController.timeSetPage);

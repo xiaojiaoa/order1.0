@@ -56,12 +56,9 @@
                                         <i class="fa fa-search"></i>
                                         查询
                                     </button>
-                                    <% if (DWY_Helper.hasPermission(Permission.information.upload.id, permission) ){ %>
-                                    <label for="dwy_file_upload" class="btn btn-primary" id="label-upload-file">
-
-                                        点击上传 <i class="fa fa-upload"></i> </label>
-                                    <input type="file" name="file_name" id="dwy_file_upload" style="display: none;">
-                                    <% } %>
+                                    <a class="btn btn-primary create-fileInfo" >
+                                        新建文件
+                                    </a>
                                 </div>
                             </div>
 
@@ -120,7 +117,97 @@
 
 <%- include('../layouts/footer'); %>
 <%- include('../layouts/footer_common_script'); %>
+<!--新建资料信息-->
+<form class="form-horizontal  layer-template" method="post" id="create-fileInfo-form">
 
+    <div class="row" style="padding: 30px 40px 0 0;">
+
+        <div class="col-xs-12">
+            <div class="col-xs-12">
+                <div class="form-group">
+                    <label class="col-xs-2 control-label"><span class="requird"></span> 门店类型:</label>
+                    <div class="col-xs-8">
+                        <label class="checkbox-inline">
+                            <input type="checkbox" class="checkbox " id="checkAll01">
+                            <span>全部</span>
+                        </label>
+                        <%
+                        storeType.forEach(function (element, index) { %>
+                        <label class="checkbox-inline">
+                            <input type="checkbox" class="checkbox validate[minCheckbox[1]]" name="storeType" value="<%= element.id %>">
+                            <span><%= element.name%></span>
+                        </label>
+                        <% })%>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-xs-12">
+            <div class="col-xs-12">
+                <div class="form-group">
+                    <label class="col-xs-2 control-label"><span class="requird"></span> 位置类型:</label>
+                    <div class="col-xs-8">
+                        <label class="checkbox-inline">
+                            <input type="checkbox" class="checkbox" id="checkAll02">
+                            <span>全部</span>
+                        </label>
+                        <%
+                        storeAttrType.forEach(function (element, index) { %>
+                        <label class="checkbox-inline">
+                            <input type="checkbox" class="checkbox validate[minCheckbox[1]]" name="addrType" value="<%= element.id %>">
+                            <span><%= element.name%></span>
+                        </label>
+                        <% })%>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-xs-12">
+            <div class="col-xs-12">
+                <div class="form-group">
+                    <label class="col-xs-2 control-label"><span class="requird"></span> 机构类型:</label>
+                    <div class="col-xs-8">
+                        <label class="checkbox-inline">
+                            <input type="checkbox" class="checkbox validate[minCheckbox[1]]"  id="checkAll03" name="organizationType">
+                            <span>全部</span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-xs-12">
+            <div class="col-xs-12">
+                <div class="form-group">
+                    <% if (DWY_Helper.hasPermission(Permission.information.upload.id, permission) ){ %>
+                    <label for="dwy_file_upload" class="btn btn-primary" id="label-upload-file">
+
+                        点击上传 <i class="fa fa-upload"></i> </label>
+                    <input type="file" name="file_name" id="dwy_file_upload" style="display: none;">
+                    <input type="text" name="file_check" id="file_check" class="form-control validate[required]">
+                    <% } %>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="row">
+        <div class="col-xs-12">
+            <hr class="simple">
+            <div class="col-xs-12 text-center">
+                <a class="btn btn-primary  margin-right-5" type="submit" id="doCreate">
+                    <i class="fa fa-save"></i>
+                    提交
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="dwy-clear"></div>
+</form>
+<!--END 资料公告信息-->
 
 <script type="text/javascript">
 
@@ -131,8 +218,123 @@
         var pageFunction = function () {
 
         }
-
+        var mydata;
+        $("#create-fileInfo-form").validationEngine();
+        //新建文件信息
+        $(".create-fileInfo").on({
+            click: function () {
+                layer.open({
+                    title:"",
+                    type: 1,
+                    area: '800px',
+                    content: $('#create-fileInfo-form'),
+                    cancel: function () {
+                        //右上角关闭回调
+                    },
+                });
+            }
+        })
         pageFunction();
+
+        function checkFuc(a,b){
+            //点击全选/全不选影响复选框状态
+            $(a).click(function(){
+                $(b).prop("checked",this.checked);
+            });
+            //复选框是否选中影响全选/全不选框状态-复选框的总数是否与选中的复选框数量相等
+            $(b).click(function(){
+                var $tmp=$(b);
+                $(a).prop("checked",$tmp.length==$tmp.filter(":checked").length);
+            });
+        }
+        checkFuc("#checkAll01","input[name=storeType]:checkbox");
+        checkFuc("#checkAll02","input[name=addrType]:checkbox");
+        checkFuc("#checkAll03","input[name=organizationType]:checkbox");
+
+
+        $('#doCreate').click(function () {
+        if( $("#create-fileInfo-form").validationEngine('validate')){
+
+            function  getList(a,b) {
+                var myArray=new Array();
+                var sendType;
+                switch (a)
+                {
+                    case "#checkAll01":
+                        sendType=1;
+                        break;
+                    case "#checkAll02":
+                        sendType=2;
+                        break;
+                    case "#checkAll03":
+                        sendType=3;
+                        break;
+                }
+                if($(a).is(":checked")){
+                    var sendValue=-1;
+                    var a = new Object();
+                    a = {
+                        sendType:sendType,
+                        sendValue:sendValue,
+                    }
+                    myArray.push(a);
+                } else{
+                    $(b).each(function(){
+                        var sendValue=$(this).val();
+                        var a = new Object();
+                        a = {
+                            sendType:sendType,
+                            sendValue:sendValue,
+                        }
+
+                        myArray.push(a);
+                    });
+                }
+                return myArray;
+            }
+            var a=getList("#checkAll01","input[name=storeType]:checked");
+            var b=getList("#checkAll02","input[name=addrType]:checked");
+            var c=getList("#checkAll03","input[name=organizationType]:checked");
+
+            var myArray=a.concat(b,c);
+            console.log(myArray);
+
+            var date={
+                name:mydata.name,
+                path:mydata.path,
+            shareScopes:myArray
+            };
+
+            layer.confirm("确认提交？", {title:'提示'},function(index){
+                    console.log(date);
+                    $.ajax({
+                        url:'/fileInfo/share',
+                        data:JSON.stringify(date),
+                        method: 'post',
+                        dataType: 'json',
+                        contentType:"application/json",
+                        success: function (data) {
+                            location.href="/fileInfo";
+                        },
+                        error: function (response) {
+                            layer.close(index)
+                            var status = response.status;
+                            if(status == 200){
+                                location.href="/fileInfo";
+                                return;
+                            }
+                            errorLayout.normal(response);
+
+                        }
+                    });
+                },function(index){
+                    layer.close(index)}
+            )
+        }
+
+
+        })
+
         //资料上传
         $('#dwy_file_upload').on({
             change: function (e) {
@@ -162,32 +364,19 @@
                         if (data.code == 200) {
 
                             label.html('上传成功 <i class="fa fa-check">');
-
+                            $("#file_check").val(data.data.name);
 
                             //将获取到的文件信息传递给后台
                             var fileName =data.data.name;
                             var fileSize =data.data.size;
                             var savePath =data.data.url;
 
-                            var mydata={
+                            mydata={
                                 name:fileName,
                                 size:fileSize,
                                 path:savePath
                             }
-                            $.ajax({
-                                url: '/api/notices',
-                                data:mydata,
-                                type: 'post',
-                                success: function (data) {
-                                    if (data=="OK") {
-                                        window.location.reload();
-                                    }
-                                },
-                                error: function (response) {
-                                    layer.close(index)
-                                    errorLayout.normal(response);
-                                }
-                            });
+
 
                             // 图片预览
 //                        $('#test-image-upload').attr('src', '/uploads/' + data.tmp_path);

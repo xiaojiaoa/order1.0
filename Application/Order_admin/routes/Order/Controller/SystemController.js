@@ -60,10 +60,10 @@ var SystemController = {
         })
     },
     doModify: function (req, res) {
+        var id=req.params.id;
         request(Base.mergeRequestOptions({
             method: 'put',
-            url: '/api/assist',
-            form:req.body,
+            url: '/api/assist/'+id+"?"+queryString.stringify(req.body)
         }, req, res), function (error, response, body) {
             if (!error && response.statusCode == 201) {
                 res.redirect("/system");

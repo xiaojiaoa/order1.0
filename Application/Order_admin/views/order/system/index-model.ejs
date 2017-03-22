@@ -72,12 +72,9 @@
 
 
                 //根据有无点击tr执行取消readonly属性
-                if(index){
+
                     classDom.find("tr").eq(index).addClass("add-input").find("input").removeAttr('readonly').focus();
-                }
-                else{
-                    classDom.find("tr").eq(0).addClass("add-input").find("input").removeAttr('readonly').focus();
-                }
+
 
                 //启用'保存''撤销''输入框'的点击事件
                 classDom.find(".save,.revoke,.add-input *").css("pointer-events","auto");
@@ -91,9 +88,11 @@
                             data[$(this).attr("name")]=$(this).val();
                         }
                     });
+                    var id=classDom.find("tr").eq(index).attr("id");
+                    data.id=id;
                     console.log("这个是修改等操作"+JSON.stringify(data));
                     $.ajax({
-                        url: '/system/doModify',
+                        url: '/system/doModify/'+id,
                         data:data,
                         method: 'post',
                         success: function (data) {
@@ -143,10 +142,26 @@
 
         //点击"删除"
         $(".delete").click(function () {
+
+            var level = $(this).parent().attr('data-level');
+            var classDom=$('.'+level);
+
+            var data={};
+            classDom.find("input").each(function(){
+                if(!$(this).attr("readonly")){
+                    data[$(this).attr("name")]=$(this).val();
+                }
+            });
+            var id=classDom.find("tr").eq(index).attr("id");
+            var stcode=classDom.find("tr").eq(index).attr("stcode");
+            data.id=id;
+            data.stcode=stcode;
+            console.log("这个是删除等操作"+JSON.stringify(data));
             layer.confirm('确定删除该项?', {icon: 3, title: '提示'}, function (index) {
                 $.ajax({
-                    url: '/enterMaterial/doPass/',
-                    method: 'put',
+                    url: '/system/doModify/'+id,
+                    data:data,
+                    method: 'post',
                     success: function (data) {
                         window.location.reload();
                     },
