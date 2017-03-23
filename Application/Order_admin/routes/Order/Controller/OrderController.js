@@ -614,7 +614,7 @@ var OrderController = {
                 var resupplyReason = [];
                 var resupplyLeveTwo = [];
                 resultList.resupplyReason.forEach(function(element,index){
-                    console.log(element.id)
+                    // console.log(element.id)
                     if(element.levelType == 1){
                         resupplyReason[element.id] = element;
                         resupplyReason[element.id].data = [];

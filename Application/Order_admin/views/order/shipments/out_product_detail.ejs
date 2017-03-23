@@ -42,7 +42,7 @@
                                 <td width="12%">出库人</td>
                                 <td width="21%"><%= prodsInfo.outEmp %></td>
                                 <td width="12%">出库日期</td>
-                                <td><%= prodsInfo.outTime %></td>
+                                <td><%= DWY_Helper.getLocalDate(prodsInfo.deliveryTime) %></td>
                             </tr>
                             <tr>
                                 <td>订单号</td>
@@ -128,7 +128,7 @@
                                 <td><%= element.pakgMateName %></td>
                                 <td><%= element.amount %></td>
                                 <td><%= element.stcode %></td>
-                                <td><%= element.outTime %></td>
+                                <td><%= DWY_Helper.getLocalDate(element.outTime) %></td>
                                 <td><%= element.outEmp %></td>
                                 <td><%= element.remark %></td>
                             </tr>

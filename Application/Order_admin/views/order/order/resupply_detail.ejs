@@ -321,7 +321,7 @@
                 <!-- col -->
                 <div class="col-xs-12">
                     <legend>状态信息
-                        (调试订单状态:<%= resupplyInfo.status %><%= DWY_Helper.getAssistVal(resupplyInfo.status, stcodeInfo) %> )
+                        <!--(调试订单状态:<%= resupplyInfo.status %><%= DWY_Helper.getAssistVal(resupplyInfo.status, stcodeInfo) %> )-->
 
                         <% if( (resupplyInfo.status == 250) || (resupplyInfo.status == 450) || (resupplyInfo.status == 475) ){ %>
                         <a class="label label-primary" id="doUnlock" data-stcode="<%= resupplyInfo.status %>">&nbsp; 解锁
