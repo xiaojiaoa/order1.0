@@ -212,12 +212,8 @@
                                         <td><%=element.regionName %></td>
                                         <td><a href="/purchase/orderDetail/<%=element.purId %>"><%=element.purId %></a></td>
                                         <td><%=element.inName%></td>
-                                        <% if(element.stcode == 2){%>
-                                            <td>待审核</td>
-                                        <% }%>
-                                        <% if(element.stcode == 4){%>
-                                            <td>已审核</td>
-                                        <% }%>
+                                        <td><%= DWY_Helper.geOutStatus(element.stcode) %></td>
+
                                         <td><%=element.reviewName %></td>
                                         <td width="80">
                                             <% if(element.stcode == 2){%>

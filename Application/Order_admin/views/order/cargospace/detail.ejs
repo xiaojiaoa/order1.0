@@ -44,18 +44,18 @@
                         <table class="table table-bordered table-striped table-information <%= ( cargospaceInfo.usable == 2 )? 'close-info':'' %>">
                             <tbody>
                             <tr>
-                                <td>货位编号</td>
-                                <td><%= cargospaceInfo.spaceId %></td>
-                                <td>所在行/列/层</td>
-                                <td><%= cargospaceInfo.spaceRow %>行<%= cargospaceInfo.spaceColumn %>列<%= cargospaceInfo.spaceLayer %>层</td>
-                                <td>所属工厂</td>
-                                <td><%= cargospaceInfo.ftyId %></td>
+                                <td width="12%">货位编号</td>
+                                <td width="21%"><%= cargospaceInfo.spaceId %></td>
+                                <td width="12%">所在行/列/层</td>
+                                <td width="21%"><%= cargospaceInfo.spaceRow %>行<%= cargospaceInfo.spaceColumn %>列<%= cargospaceInfo.spaceLayer %>层</td>
+                                <td width="12%">所属工厂</td>
+                                <td ><%= cargospaceInfo.ftyName %></td>
                             </tr>
                             <tr>
                                 <td>所属仓库</td>
-                                <td><%= cargospaceInfo.whseId %></td>
+                                <td><%= cargospaceInfo.whseName %></td>
                                 <td>所属仓库区域</td>
-                                <td><%= cargospaceInfo.regionId %></td>
+                                <td><%= cargospaceInfo.regionName %></td>
                                 <td>已有行/列/层</td>
                                 <td></td>
                             </tr>
@@ -63,7 +63,7 @@
                                 <td>最大承重</td>
                                 <td><%= cargospaceInfo.maxWeight %>KG</td>
                                 <td>最大存货数量</td>
-                                <td><%= cargospaceInfo.maxAmount %></td>
+                                <td><%= cargospaceInfo.maxAmount %> 件</td>
                                 <td>货架长宽高</td>
                                 <td><%= cargospaceInfo.sizeLength %>*<%= cargospaceInfo.sizeWidth %>*<%= cargospaceInfo.sizeHeight %></td>
                             </tr>
@@ -82,6 +82,49 @@
             <!-- end row -->
         </div>
         <!-- end well -->
+        <div class="well">
+
+            <!-- row -->
+            <div class="row">
+                <div class="col-xs-12">
+                    <h6>货位存货详情</h6>
+
+                    <hr class="simple">
+                </div>
+            </div>
+
+            <!-- row -->
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-striped table-hover">
+                            <thead>
+                            <tr>
+                                <th>序号</th>
+                                <th>品牌</th>
+                                <th>专卖店</th>
+                                <th>订单号</th>
+                                <th>产品名称</th>
+                                <th>订单类型</th>
+                                <th>包号</th>
+                                <th>包名</th>
+                                <th>车间</th>
+                                <th>货位号</th>
+                                <th>非标准货位号</th>
+                                <th>状态</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+
+
+                            </tbody>
+                        </table>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
 
 
     </div>

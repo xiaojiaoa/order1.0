@@ -31,7 +31,7 @@
                     <!--<legend>订单搜索</legend>-->
                     <!-- row -->
                     <div class="row search-form">
-                        <form class="form-horizontal" method="get">
+                        <form class="form-horizontal" method="get" id="search-form">
 
                             <div class="col-xs-12">
 
@@ -52,9 +52,9 @@
                                 </div>
                                 <div class="col-xs-3">
                                     <div class="form-group">
-                                        <label class="col-xs-4 control-label">门店号:</label>
+                                        <label class="col-xs-4 control-label">门店编号:</label>
                                         <div class="col-xs-8">
-                                            <input class="form-control" value="" name="bid"  >
+                                            <input class="form-control validate[custom[number]]" value="<%= DWYRequest.query.bid %>" name="bid"  >
                                         </div>
                                     </div>
                                 </div>
@@ -64,10 +64,10 @@
                                         <label class="col-xs-4 control-label">资金类型:</label>
                                         <div class="col-xs-8">
                                             <select class="form-control" name="type">
-                                                <option value="">- 请选择 -</option>
-                                                <option value="0" <%= (DWYRequest.query.type == 0)?"selected":"" %>>付款</option>
-                                                <option value="1" <%= (DWYRequest.query.type == 1)?"selected":"" %>>代收的款项</option>
-                                                <option value="2" <%= (DWYRequest.query.type == 2)?"selected":"" %>>已收的款项</option>
+                                                <option value="">- 全部 -</option>
+                                                <option value="0" <%= (DWYRequest.query.type == '0')?"selected":"" %>>付款</option>
+                                                <option value="1" <%= (DWYRequest.query.type == '1')?"selected":"" %>>代收的款项</option>
+                                                <option value="2" <%= (DWYRequest.query.type == '2')?"selected":"" %>>已收的款项</option>
                                             </select>
 
                                         </div>
@@ -163,44 +163,30 @@
 <%- include('../layouts/footer'); %>
 <%- include('../layouts/footer_common_script'); %>
 
-<form class="form-horizontal  layer-template" method="post" id="order_reject"  action="/orders/notPass">
-
-
+<form class="form-horizontal  layer-template" method="post" id="order_reject"  action="/collection/receiptCheck">
     <div class="col-xs-12">
 
         <div class="form-group">
-            <label class="col-xs-2 control-label"><span class="requird"></span> 退回类型:</label>
+            <label class="col-xs-2 control-label"><span class="requird"></span> 类型:</label>
             <div class="col-xs-8">
-                <select class="form-control validate[required]" name="cause" data-prompt-position="bottomLeft:20,5">
-                    <option value="">- 请选择 -</option>
-                    <%
-                    apartReason.forEach(function (element) { %>
-                    <option value="<%= element.id %>"><%= element.name %></option>
-                    <%  })  %>
+                <select class="form-control" name="moneyType" >
+                    <option value="1">待收款项</option>
+                    <option value="2">已收款项</option>
                 </select>
             </div>
 
         </div>
 
     </div>
-    <input value="<%= tid %>" name="tid" type="hidden">
-    <div class="col-xs-12">
+    <input value="" name="tid" id="tid" type="hidden">
+    <input value="" name="bid" id="bid" type="hidden">
+    <input value="1" name="type" type="hidden">
 
-        <div class="form-group">
-            <label class="col-xs-2 control-label">退回原因:</label>
-            <div class="col-xs-8">
-                <textarea name="remark" class="form-control"
-                          placeholder="请填写退回原因"  cols="30"
-                          rows="5"></textarea>
-            </div>
-
-        </div>
-    </div>
     <div class="col-xs-12">
         <hr class="simple">
         <div class="col-xs-12 text-center">
             <button class="btn btn-primary " type="submit">
-                退回
+                确定
             </button>
         </div>
     </div>
@@ -211,49 +197,23 @@
 <script type="text/javascript">
 
     $(document).ready(function () {
-
-        $("#order_reject").validationEngine();
-
-        //弹出类
-        $('.checkThis').on({
-            click: function (e) {
-                layer.open({
-                    title: false,
-                    type: 1,
-                    area: '700px',
-                    content: $('#order_reject'),
-                    cancel: function () {
-                        //右上角关闭回调
-                    },
-
-                });
-            }
-        })
-
-
-    })
-
-</script>
-<script type="text/javascript">
-
-    $(document).ready(function () {
+        $('#search-form').validationEngine();
         $(".checkThis").click(function () {
             var tid = $(this).attr('data-tid');
             var bid = $(this).attr('data-bid');
-            layer.confirm("确定收款?", {icon: 3, title: '提示'}, function (index) {
-                $.ajax({
-                    url: '/collection/receiptCheck/'+tid+'/'+bid+'/1',
-                    method: 'put',
-                    success: function (data) {
-                        successLayout.reload();
-                    },
-                    error: function (response) {
-                        layer.close(index)
-                        errorLayout.normal(response);
+            $('#tid').val(tid);
+            $('#bid').val(bid);
+            layer.open({
+                title: false,
+                type: 1,
+                area: '500px',
+                content: $('#order_reject'),
+                cancel: function () {
+                    //右上角关闭回调
+                },
 
-                    }
-                });
-            }, function (index) { layer.close(index) })
+            });
+
         })
 
 

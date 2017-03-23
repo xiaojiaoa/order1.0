@@ -87,7 +87,9 @@
                 <div class="col-xs-12">
                     <h6>
                         入库清单
+                        <% if(mateInfo.stcode == 2){%>
                         <a class="label label-primary" id="checkThis">审核</a>
+                        <% }%>
                     </h6>
 
                     <hr class="simple">
@@ -118,9 +120,9 @@
                             inlistInfo.result.forEach(function (element, index) {  %>
                             <tr>
                                 <td><%= index+1 %></td>
-                                <td><a href="/cargospace/detail/<%= element.spaceId %>"><%= element.spaceId %></a></td>
+                                <td><a href="/cargospace/cargospace/detail/<%= element.spaceId %>"><%= element.spaceId %></a></td>
                                 <td><%= element.batchId %></td>
-                                <td><a href="/materialManage/detail/<%= element.mateId %>"><%= element.mateId %></a></td>
+                                <td><a href="/materialManage/detail/<%= user.bid %>/<%= element.mateId %>"><%= element.mateId %></a></td>
                                 <td><%= element.mateName %></td>
                                 <td><%= element.colorName %></td>
                                 <td><%= element.size %></td>
@@ -154,13 +156,12 @@
 
     $(document).ready(function () {
 
-        var ftyId = 10000;
         $("#checkThis").click(function () {
             var id = $(this).attr('data-id');
 
             layer.confirm('确定提交审核?', {icon: 3, title: '提示'}, function (index) {
                 $.ajax({
-                    url: '/enterMaterial/doPass/'+id,
+                    url:  '/enterMaterial/doPass/<%= mateInfo.inId %>/<%= mateInfo.purId %>',
                     method: 'put',
                     success: function (data) {
                         successLayout.reload();
@@ -174,24 +175,6 @@
             }, function (index) { layer.close(index) })
         })
 
-        $("#backThis").click(function () {
-            var id = $(this).attr('data-id');
-
-            layer.confirm('确定撤回重新审核吗?', {icon: 3, title: '提示'}, function (index) {
-                $.ajax({
-                    url: '/enterMaterial/notPass/'+id,
-                    method: 'put',
-                    success: function (data) {
-                        successLayout.reload();
-                    },
-                    error: function (response) {
-                        layer.close(index)
-                        errorLayout.normal(response);
-
-                    }
-                });
-            }, function (index) { layer.close(index) })
-        })
 
 
     })

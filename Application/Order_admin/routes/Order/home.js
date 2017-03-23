@@ -333,7 +333,7 @@ router.get('/collection', Middleware.AuthCheck, OrderController.receiptMoneyPage
 
 
 //
-router.put('/collection/receiptCheck/:tid/:bid/:type', Middleware.AuthCheck, OrderController.receiptCheck);
+router.post('/collection/receiptCheck', Middleware.AuthCheck, OrderController.receiptCheck);
 
 /*
  * 页面范围: 拆单

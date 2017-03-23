@@ -1118,20 +1118,13 @@ var OrderController = {
         });
     },
     receiptCheck: function (req, res) {
-        var tid = req.params.tid;
-        var bid = req.params.bid;
-        var type = req.params.type;
         request(Base.mergeRequestOptions({
             method: 'post',
             url: '/api/stores/money/review',
-            form: {
-                tid:tid,
-                bid:bid,
-                status:type,
-            },
+            form: req.body,
         }, req, res), function (error, response, body) {
             if (!error && response.statusCode == 201) {
-                res.sendStatus(200)
+                res.redirect('/collection')
             } else {
                 Base.handlerError(res, req, error, response, body);
             }
