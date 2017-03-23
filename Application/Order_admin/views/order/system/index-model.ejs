@@ -38,8 +38,30 @@
                             data[$(this).attr("name")]=$(this).val();
                         }
                     });
+                    console.log(data);
                     delete data.undefined;
-                    if(!data.key){data.key=key;data.parentId=$(".level-1").find("tr").eq(index).attr("id")};
+
+                    if(key=="assistantOrderSpaceinfo"){
+                        if(!data.key){
+                            data.key="assistantOrderSpaceinfo";
+                            data.parentId=$(".level-1").find("tr").eq(index).attr("id");
+                        }
+                        else{
+                            data.parentId=0
+                        }
+                    }
+                    if(key=="assistantResupplyReason"){
+                        data.key="assistantResupplyReason";
+                        if(data.levelType==1){
+                            data.parentId=0
+                        }
+                        if(data.levelType==2){
+                            data.parentId=$(".level-1").find("tr").eq(index).attr("id")
+                        }
+                        if(data.levelType==3){
+                            data.parentId=$(".level-2").find("tr").eq(index).attr("id")
+                        }
+                    }
                     console.log("这个是data"+JSON.stringify(data));
                     $.ajax({
                         url: '/system/doCreate',
@@ -92,7 +114,27 @@
                     var id=classDom.find("tr").eq(index).attr("id");
                     data.id=id;
                     delete data.undefined;
-                    if(!data.key){data.key=key;data.parentId=$(".level-1").find("tr").eq(index).attr("id")};
+                    if(key=="assistantOrderSpaceinfo"){
+                        if(!data.key){
+                            data.key="assistantOrderSpaceinfo";
+                            data.parentId=$(".level-1").find("tr").eq(index).attr("id");
+                        }
+                        else{
+                            data.parentId=0
+                        }
+                    }
+                    if(key=="assistantResupplyReason"){
+                        data.key="assistantResupplyReason";
+                        if(data.levelType==1){
+                            data.parentId=0
+                        }
+                        if(data.levelType==2){
+                            data.parentId=$(".level-1").find("tr").eq(index).attr("id")
+                        }
+                        if(data.levelType==3){
+                            data.parentId=$(".level-2").find("tr").eq(index).attr("id")
+                        }
+                    }
                     console.log("这个是修改等操作"+JSON.stringify(data));
                     $.ajax({
                         url: '/system/doModify/'+id,
@@ -160,9 +202,29 @@
             var id=classDom.find("tr").eq(index).attr("id");
             var stcode=classDom.find("tr").eq(index).attr("stcode");
             data.id=id;
-            data.stcode=stcode;
+            data.status=0;
             delete data.undefined;
-            if(!data.key){data.key=key;data.parentId=$(".level-1").find("tr").eq(index).attr("id")};
+            if(key=="assistantOrderSpaceinfo"){
+                if(!data.key){
+                    data.key="assistantOrderSpaceinfo";
+                    data.parentId=$(".level-1").find("tr").eq(index).attr("id");
+                }
+                else{
+                    data.parentId=0
+                }
+            }
+            if(key=="assistantResupplyReason"){
+                data.key="assistantResupplyReason";
+                if(data.levelType==1){
+                    data.parentId=0
+                }
+                if(data.levelType==2){
+                    data.parentId=$(".level-1").find("tr").eq(index).attr("id")
+                }
+                if(data.levelType==3){
+                    data.parentId=$(".level-2").find("tr").eq(index).attr("id")
+                }
+            }
             console.log("这个是删除等操作"+JSON.stringify(data));
             layer.confirm('确定删除该项?', {icon: 3, title: '提示'}, function (index) {
                 $.ajax({
@@ -224,7 +286,7 @@
             var level = $(this).parent().attr('data-level');
             var classDom=$('.'+level);
 
-            classDom.find("tr").eq(index).removeAttr("class");
+           /* classDom.find("tr").eq(index).removeAttr("class");*/
 
             classDom.find('.modify').show();
             $(this).hide();
@@ -240,9 +302,29 @@
             var id=classDom.find("tr").eq(index).attr("id");
             var stcode=classDom.find("tr").eq(index).attr("stcode");
             data.id=id;
-            data.stcode=stcode;
+            data.status=1;
             delete data.undefined;
-            if(!data.key){data.key=key;data.parentId=$(".level-1").find("tr").eq(index).attr("id")};
+            if(key=="assistantOrderSpaceinfo"){
+                if(!data.key){
+                    data.key="assistantOrderSpaceinfo";
+                    data.parentId=$(".level-1").find("tr").eq(index).attr("id");
+                }
+                else{
+                    data.parentId=0
+                }
+            }
+            if(key=="assistantResupplyReason"){
+                data.key="assistantResupplyReason";
+                if(data.levelType==1){
+                    data.parentId=0
+                }
+                if(data.levelType==2){
+                    data.parentId=$(".level-1").find("tr").eq(index).attr("id")
+                }
+                if(data.levelType==3){
+                    data.parentId=$(".level-2").find("tr").eq(index).attr("id")
+                }
+            }
             console.log("这个是启用等操作"+JSON.stringify(data));
             layer.confirm('确定启用该项?', {icon: 3, title: '提示'}, function (index) {
                 $.ajax({
@@ -288,13 +370,13 @@
                 string="<tr class='add-input'><td><input class='border-0 text-align-center' type='text' value='' name='type'/></td><td><input class='border-0 text-align-center' type='text' value='' name='name'/></td></tr>"
             }
             else  if(key=="assistantOrderSpaceinfo"){
-                string="<tr class='add-input'><td><input class='border-0 text-align-center' type='text' value='' name='parentId'/></td><td><input class='border-0 text-align-center' type='text' value='' name='name'/></td></tr>"
+                string="<tr class='add-input'><td><input class='border-0 text-align-center' type='text' value='' name='name'/></td></tr>"
             }
             else  if(key=="assistantSpaceProd"){
                 string="<tr class='add-input'><td><input class='border-0 text-align-center' type='text' value='' name='name'/></td><td><input class='border-0 text-align-center' type='text' value='' name='spaceId'/></td></tr>"
             }
             else  if(key=="assistantResupplyReason"){
-                string="<tr class='add-input'><td><input class='border-0 text-align-center' type='text' value='' name='name'/></td><td><input class='border-0 text-align-center' type='text' value='' name='parentId'/></td><td><input class='border-0 text-align-center' type='text' value='' name='levelType'/></td></tr>"
+                string="<tr class='add-input'><td><input class='border-0 text-align-center' type='text' value='' name='name'/></td><td><input class='border-0 text-align-center' type='text' value='' name='levelType'/></td></tr>"
             }
             else  if(key=="assistantReviewReson"){
                 string="<tr class='add-input'><td><input class='border-0 text-align-center' type='text' value='' name='name'/></td><td><input class='border-0 text-align-center' type='text' value='' name='reasonType'/></td></tr>"

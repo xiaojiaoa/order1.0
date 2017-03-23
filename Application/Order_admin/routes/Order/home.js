@@ -1152,6 +1152,7 @@ router.put('/orderSpaceinfo/:parentId', Middleware.AuthCheck, SystemController.o
 
 // 预警时间设置
 router.get('/system/timeSet', Middleware.AuthCheck,SystemController.timeSetPage);
+
 router.put('/system/timeSet/doSet', Middleware.AuthCheck,SystemController.doSetTime);
 
 

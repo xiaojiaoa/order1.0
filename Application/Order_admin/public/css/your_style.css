@@ -645,7 +645,7 @@ tr > td > .separation:last-child {
     color: #999999;
 }
 .table-linkage tr.disable{
-    display: none;
+ /*   display: none;*/
 }
 .status01{
     display:inline-block;
