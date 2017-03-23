@@ -202,7 +202,14 @@
             var id=classDom.find("tr").eq(index).attr("id");
             var stcode=classDom.find("tr").eq(index).attr("stcode");
             data.id=id;
-            data.status=0;
+
+            if(key=="assistantConfig"){
+                data.status=0;
+            }
+            else{
+                data.stcode=0;
+            }
+
             delete data.undefined;
             if(key=="assistantOrderSpaceinfo"){
                 if(!data.key){
@@ -227,20 +234,20 @@
             }
             console.log("这个是删除等操作"+JSON.stringify(data));
             layer.confirm('确定删除该项?', {icon: 3, title: '提示'}, function (index) {
-                $.ajax({
-                    url: '/system/doModify/'+id,
-                    data:data,
-                    method: 'post',
-                    success: function (data) {
-                        successLayout.reload();
-                    },
-                    error: function (response) {
-                        layer.close(index)
-                        errorLayout.normal(response);
-                    }
-                });
-            }, function (index) { layer.close(index) })
-        })
+         $.ajax({
+         url: '/system/doModify/'+id,
+         data:data,
+         method: 'post',
+         success: function (data) {
+         successLayout.reload();
+         },
+         error: function (response) {
+         layer.close(index)
+         errorLayout.normal(response);
+         }
+         });
+         }, function (index) { layer.close(index) })
+    })
 
         //点击"查看所有"
         $('.see-all').click(function () {
@@ -302,7 +309,14 @@
             var id=classDom.find("tr").eq(index).attr("id");
             var stcode=classDom.find("tr").eq(index).attr("stcode");
             data.id=id;
-            data.status=1;
+
+            if(key=="assistantConfig"){
+                data.status=1;
+            }
+            else{
+                data.stcode=1;
+            }
+
             delete data.undefined;
             if(key=="assistantOrderSpaceinfo"){
                 if(!data.key){
