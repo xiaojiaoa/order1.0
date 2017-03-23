@@ -95,6 +95,7 @@ var AppServiceController = {
         request(Base.mergeRequestOptions({
             method: 'post',
             url: '/api/whse/app/cargoin/order/package/list',
+            headers:req.headers,
             form:req.body
         }, req, res), function (error, response, body) {
             if (!error) {
