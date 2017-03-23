@@ -30,8 +30,8 @@ var DepartmentController = {
     doCreate: function (req, res) {
         var bid = req.body.bid;
         var type = req.body.type;
-        console.log('departments',JSON.stringify(req.body))
-        console.log( '/api/'+type+'/departments')
+        // console.log('departments',JSON.stringify(req.body))
+        // console.log( '/api/'+type+'/departments')
         request(Base.mergeRequestOptions({
             method: 'post',
             url: '/api/'+type+'/departments',

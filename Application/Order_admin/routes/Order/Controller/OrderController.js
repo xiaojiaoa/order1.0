@@ -75,15 +75,12 @@ var OrderController = {
 
                 var spaceInfo = [];
                 resultList.spaceInfo.forEach(function(element,index){
-                    console.log('ppppp',spaceInfo[element.spaceId])
                     if( spaceInfo[element.spaceId] == undefined){
 
                         spaceInfo[element.spaceId] = {};
                         spaceInfo[element.spaceId].data = [];
-                        console.log('undefined')
-                        console.log('undefined:',spaceInfo[element.spaceId])
+
                     }
-                    console.log('ppppp66666',element)
                     spaceInfo[element.spaceId].data.push(element);
 
                     // if(element.parentId == 0){
@@ -95,8 +92,6 @@ var OrderController = {
                 });
 
                 resultList.spaceInfo = spaceInfo;
-                // console.log('stringify',resultList.spaceInfo)
-                console.log('stringify',JSON.stringify(resultList.spaceInfo))
 
                 var returnData = Base.mergeData(helper.mergeObject({
                     title: ' ',
@@ -976,7 +971,7 @@ var OrderController = {
         })
     },
     movePacket:function(req,res){
-        console.log('移动包装'+ JSON.stringify(req.body));
+        //console.log('移动包装'+ JSON.stringify(req.body));
         request(Base.mergeRequestOptions({
             method: 'put',
             url: '/api/orders/package/packet/move?'+queryString.stringify(req.body),
@@ -991,7 +986,7 @@ var OrderController = {
     deletePacket:function(req,res){
         var pid = req.params.pid;
         var type = req.params.type;
-        console.log('删除包装'+ JSON.stringify(req.params));
+        //console.log('删除包装'+ JSON.stringify(req.params));
         request(Base.mergeRequestOptions({
          method: 'put',
          url: '/api/orders/package/packet/delete/'+pid+'?packageType='+type,
@@ -1014,7 +1009,7 @@ var OrderController = {
     addPacket: function (req, res) {
         var tid = req.body.tid;
         var pid=req.body.pid
-        console.log("增加包装"+queryString.stringify(req.body));
+        //console.log("增加包装"+queryString.stringify(req.body));
         request(Base.mergeRequestOptions({
             method: 'post',
             url: '/api/orders/package/packet/add/'+tid,
@@ -1097,7 +1092,52 @@ var OrderController = {
             url: '/api/orders/package/accessory/export/'+tid,
         }, req, res)).pipe(res)
     },
+    receiptMoneyPage: function (req, res) {
+        var cid =  req.params.cid;
+        var paramObject = helper.genPaginationQuery(req);
+        Base.multiDataRequest(req, res, [
+            {url: '/api/stores/money/page?'+queryString.stringify(req.query), method: 'GET', resConfig: {keyName: 'moneyList', is_must: true}},
+            {url: '/api/organizations/list', method: 'GET', resConfig: {keyName: 'organizationsList', is_must: true}},
 
+        ], function (req, res, resultList) {
+            var paginationInfo =  resultList.moneyList;
+
+            var boostrapPaginator = new Pagination.TemplatePaginator(helper.genPageInfo({
+                prelink: paramObject.withoutPageNo,
+                current: paginationInfo.page,
+                rowsPerPage: paginationInfo.pageSize,
+                totalResult: paginationInfo.totalItems
+            }));
+            var returnData = Base.mergeData(helper.mergeObject({
+                title: ' ',
+                cid:cid,
+                pagination: boostrapPaginator.render(),
+            },resultList));
+            res.render('order/order/money_receipt', returnData);
+        });
+    },
+    receiptCheck: function (req, res) {
+        var tid = req.params.tid;
+        var bid = req.params.bid;
+        var type = req.params.type;
+        request(Base.mergeRequestOptions({
+            method: 'post',
+            url: '/api/stores/money/review',
+            form: {
+                tid:tid,
+                bid:bid,
+                status:type,
+            },
+        }, req, res), function (error, response, body) {
+            if (!error && response.statusCode == 201) {
+                res.sendStatus(200)
+            } else {
+                Base.handlerError(res, req, error, response, body);
+            }
+        })
+
+
+    },
 
 };
 

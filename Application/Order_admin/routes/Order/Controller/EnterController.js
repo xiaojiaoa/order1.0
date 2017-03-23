@@ -20,18 +20,18 @@ var Permissions = require('../config/permission');
 var EnterController = {
 
     enterMaterialPage: function (req, res) {
-        console.log('user_session9999',req.session.user.ftyId)
+        //console.log('user_session9999',req.session.user.ftyId)
         var ftyId = req.query.ftyId ? req.query.ftyId: req.session.user.ftyId;
         var whseId = req.query.whseId;
         var regionId = req.query.regionId;
-        console.log('ftyId:'+ftyId+'whseId:'+whseId+'regionId:'+regionId);
+        //console.log('ftyId:'+ftyId+'whseId:'+whseId+'regionId:'+regionId);
         var multiDataRequest= [
             {url: '/api/whse/cargoin/mate/page?'+queryString.stringify(req.query), method: 'GET', resConfig: {keyName: 'mateList', is_must: false}},
             {url: '/api/whse/factory/list', method: 'GET', resConfig: {keyName: 'factoryList', is_must: true}},
             {url: '/api/whse/warehouse/list/'+ftyId, method: 'GET', resConfig: {keyName: 'warehouseList', is_must: true}},
         ];
         if(whseId){
-            console.log('有whseId');
+            //console.log('有whseId');
             multiDataRequest= [
                 {url: '/api/whse/cargoin/mate/page?'+queryString.stringify(req.query), method: 'GET', resConfig: {keyName: 'mateList', is_must: false}},
                 {url: '/api/whse/factory/list', method: 'GET', resConfig: {keyName: 'factoryList', is_must: true}},
@@ -66,8 +66,8 @@ var EnterController = {
     enterMaterialDetailPage: function (req, res) {
         var id =  req.params.id;
         Base.multiDataRequest(req, res, [
-                {url: '/api/whse/cargoin/mate/'+ id, method: 'GET', resConfig: {keyName: 'mateInfo', is_must: true}},
-                {url: '/api/whse/cargoin/mate/inlist/'+ id, method: 'GET', resConfig: {keyName: 'inlistInfo', is_must: true}},
+                {url: '/api/whse/cargoin/mate/inlist?inId='+ id, method: 'GET', resConfig: {keyName: 'mateInfo', is_must: true}},
+                {url: '/api/whse/cargoin/mate/inlist/page?inId='+ id, method: 'GET', resConfig: {keyName: 'inlistInfo', is_must: true}},
             ],
             function (req, res, resultList) {
                 var returnData = Base.mergeData(helper.mergeObject({
@@ -113,7 +113,6 @@ var EnterController = {
             url: '/api/purchase/reqmaterial/purchase?'+queryString.stringify(req.query)
         }, req, res), function (error, response, body) {
             var returnData = JSON.parse(body);
-            console.log(response)
             if (!error && response.statusCode == 200) {
 
                 res.render('order/enter/enter_material_stock',returnData);
@@ -150,7 +149,7 @@ var EnterController = {
     },
     ifCanEnter: function (req, res) {
         // var num = req.body.num0;
-        console.log('/api/whse/cargoin/mate/usable?'+queryString.stringify(req.body))
+        //console.log('/api/whse/cargoin/mate/usable?'+queryString.stringify(req.body))
 
         // var id = req.params.id;
         request(Base.mergeRequestOptions({
@@ -187,7 +186,7 @@ var EnterController = {
     },
     reqmaterialModify: function (req, res) {
         // var num = req.body.num0;
-        console.log('doEnterreqmaterial',JSON.stringify(req.body))
+        //console.log('doEnterreqmaterial',JSON.stringify(req.body))
         request(Base.mergeRequestOptions({
             method: 'post',
             url: '/api/purchase/reqmaterial/money',
@@ -195,12 +194,8 @@ var EnterController = {
             body:JSON.stringify(req.body),
         }, req, res), function (error, response, body) {
             if (!error && response.statusCode == 201) {
-                // res.redirect('/enterMaterial')
-                console.log('doEnter66666')
                 res.sendStatus(200);
             } else {
-                console.log('doEnter44444')
-                console.log(body)
                 Base.handlerError(res, req, error, response, body);
             }
         })
@@ -216,7 +211,7 @@ var EnterController = {
             {url: '/api/whse/warehouse/list/'+ftyId, method: 'GET', resConfig: {keyName: 'warehouseList', is_must: true}},
         ];
         if(whseId){
-            console.log('有whseId');
+            //console.log('有whseId');
             multiDataRequest= [
                 {url: '/api/whse/cargoin/prod/page?'+queryString.stringify(req.query), method: 'GET', resConfig: {keyName: 'prodList', is_must: false}},
                 {url: '/api/whse/factory/list', method: 'GET', resConfig: {keyName: 'factoryList', is_must: true}},

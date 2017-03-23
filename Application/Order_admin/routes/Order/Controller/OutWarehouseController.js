@@ -253,7 +253,6 @@ var OutWarehouseController = {
 
     },
     doSend: function (req, res) {
-        // console.log('doEnter',JSON.stringify(req.body))
         request(Base.mergeRequestOptions({
             method: 'post',
             url: '/api/whse/cargout/mates',
@@ -372,28 +371,6 @@ var OutWarehouseController = {
           res.render('order/shipments/out_bred_doOut', returnData);
         });
 
-        // request(Base.mergeRequestOptions({
-        //     method: 'post',
-        //     url: '/api/whse/cargout/plate/file',
-        //     form:req.body,
-        // }, req, res), function (error, response, body) {
-        //     if (!error && response.statusCode == 200) {
-        //         var $data = JSON.parse(body);
-        //         var factoryList = {};
-        //
-        //       console.log('factoryList222',factoryList)
-        //
-        //         var returnData = Base.mergeData(helper.mergeObject({
-        //             title: '',
-        //         }, {plateList: $data,factoryList:factoryList}));
-        //       console.log('factoryList',factoryList)
-        //         res.render('order/shipments/out_bred_doOut', returnData);
-        //     } else {
-        //         console.log('handlerError')
-        //         Base.handlerError(res, req, error, response, body);
-        //     }
-        // })
-
 
     },
     outBredDeatil: function (req, res) {
@@ -439,8 +416,6 @@ var OutWarehouseController = {
         })
     },
   plateOut: function (req, res) {
-    // var num = req.body.num0;
-    console.log('doEnter',JSON.stringify(req.body))
     request(Base.mergeRequestOptions({
       method: 'post',
       url: '/api/whse/cargout/plate/out',
@@ -448,12 +423,8 @@ var OutWarehouseController = {
       body:JSON.stringify(req.body),
     }, req, res), function (error, response, body) {
       if (!error && response.statusCode == 201) {
-        // res.redirect('/enterMaterial')
-        console.log('doEnter66666')
         res.sendStatus(200);
       } else {
-        console.log('doEnter44444')
-        console.log(body)
         Base.handlerError(res, req, error, response, body);
       }
     })
@@ -461,8 +432,6 @@ var OutWarehouseController = {
 
   },
   accessoryOut: function (req, res) {
-    // var num = req.body.num0;
-    console.log('doEnter',JSON.stringify(req.body))
     request(Base.mergeRequestOptions({
       method: 'post',
       url: '/api/whse/cargout/accessory/out',
@@ -470,11 +439,8 @@ var OutWarehouseController = {
       body:JSON.stringify(req.body),
     }, req, res), function (error, response, body) {
       if (!error && response.statusCode == 201) {
-        // res.redirect('/enterMaterial')
-        console.log('doEnter66666')
         res.sendStatus(200);
       } else {
-        console.log('doEnter44444')
         console.log(body)
         Base.handlerError(res, req, error, response, body);
       }

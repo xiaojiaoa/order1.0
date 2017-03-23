@@ -328,7 +328,12 @@ router.get('/order/exportWorkpiece/:tid',Middleware.AuthCheck,OrderController.ex
 //订单详情--订单物料--配件导出
 router.get('/order/exportParts/:tid',Middleware.AuthCheck,OrderController.exportParts);
 
+// 收款页面
+router.get('/collection', Middleware.AuthCheck, OrderController.receiptMoneyPage);
 
+
+//
+router.put('/collection/receiptCheck/:tid/:bid/:type', Middleware.AuthCheck, OrderController.receiptCheck);
 
 /*
  * 页面范围: 拆单
@@ -385,11 +390,8 @@ router.get('/storesManage/detail/:cid', Middleware.AuthCheck, StoresController.d
 // 门店详情页面-充值
 router.post('/storesManage/doRecharge', Middleware.AuthCheck, StoresController.doRecharge);
 
-// 门店详情页面-收款页面
-router.get('/storesManage/receiptMoney/:cid', Middleware.AuthCheck, StoresController.receiptMoneyPage);
 
-// 门店详情页面-充值
-router.put('/storesManage/receiptCheck/:tid/:bid/:type', Middleware.AuthCheck, StoresController.receiptCheck);
+
 
 // 新建门店页面
 router.get('/storesManage/create', Middleware.AuthCheck, StoresController.createPage);

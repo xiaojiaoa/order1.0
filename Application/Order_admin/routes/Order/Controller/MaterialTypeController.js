@@ -65,7 +65,7 @@ var MaterialTypeController = {
         //res.render('order/material/material_type_creOther');
     },
     materialTypeCreOneDo: function (req, res) {
-       console.log('新建物料一级分类'+ JSON.stringify(req.body));
+       // console.log('新建物料一级分类'+ JSON.stringify(req.body));
         request(Base.mergeRequestOptions({
             method: 'post',
             url: '/api/categories',
@@ -80,7 +80,7 @@ var MaterialTypeController = {
 
     },
     materialTypeCreOtherDo: function (req, res) {
-         console.log('新建物料二/三级分类'+ JSON.stringify(req.body));
+         // console.log('新建物料二/三级分类'+ JSON.stringify(req.body));
         request(Base.mergeRequestOptions({
             method: 'post',
             url: '/api/categories',
@@ -97,7 +97,7 @@ var MaterialTypeController = {
     setMaterialTypeStatus: function (req, res) {
         var id = req.params.id;
         var type = req.params.type;
-        console.log('ajx'+ JSON.stringify(req.params));
+        // console.log('ajx'+ JSON.stringify(req.params));
         request(Base.mergeRequestOptions({
             method: 'put',
             url: '/api/categories/stcode/'+id+'?stcode='+type,
@@ -124,7 +124,7 @@ var MaterialTypeController = {
            // res.render('order/material/material_type_modify');
     },
     materialTypeDoModify: function (req, res) {
-        console.log('修改分类'+ JSON.stringify(req.body));
+        // console.log('修改分类'+ JSON.stringify(req.body));
         var id=req.body.id;
         request(Base.mergeRequestOptions({
             method: 'put',

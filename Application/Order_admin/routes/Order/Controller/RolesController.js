@@ -74,7 +74,7 @@ var RolesController = {
             permission = permission.substring(0,permission.length-1);
             req.body.permission = permission;
         }
-        console.log('doCreate',JSON.stringify(req.body))
+        //console.log('doCreate',JSON.stringify(req.body))
         request(Base.mergeRequestOptions({
             method: 'post',
             url: '/api/roles',

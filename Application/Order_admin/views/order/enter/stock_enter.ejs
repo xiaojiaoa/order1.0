@@ -104,17 +104,13 @@
                                             <td><%= index+1 %></td>
                                             <td>
                                                 <a href="/purchase/applyDetail/<%= element.reqId %>"><%= element.reqId %></a>
-                                                <input type="hidden" id="reqId" value="<%= element.reqId %>">
+                                                <input type="hidden" id="reqId<%= index %>" value="<%= element.reqId %>">
                                             </td>
                                             <td><a href="/purchase/orderDetail/<%= element.orderId %>"><%= element.orderId %></a></td>
                                             <td><a href="/materialManage/detail/<%= user.bid %>/<%= element.mateId %>"><%= element.mateId %></a></td>
                                             <td><%=element.mateName%></td>
-                                            <td id="modigyprice">
-                                                <%=element.price%>
-                                            </td>
-                                            <td id="modigytotal">
-                                                <%=element.totalAmount%>
-                                            </td>
+                                            <td id="modigyprice<%= index %>"><%=element.price%></td>
+                                            <td id="modigytotal<%= index %>"><%=element.totalAmount%></td>
                                             <td><%=element.amount%></td>
 
                                             <td>
@@ -238,6 +234,8 @@
             return $("#spaceId"+index).validationEngine('validate') && $("#spaceId"+index).val() && $("#amount"+index).validationEngine('validate')
 
         }
+
+        var lengthTr = $(".status").length;
         
         $('#toEnter').click(function () {
             var ftyId=$("#ftyId").val();
@@ -245,10 +243,9 @@
             var regionId=$("#regionId").val();
 
             var myArray=new Array();
-            var length=$(".status").length;
-            console.log('length',length);
+//            var length=$(".status").length;
             var ifSubmit = false;
-            for(var i=0;i<length;i++){
+            for(var i=0;i<lengthTr;i++){
                 var spaceId=$("input[name=spaceId"+i+"]").val();
                 var statusThis=$("input[name=statusThis"+i+"]").val();
                 var amount=$("input[name=amount"+i+"]").val();
@@ -308,38 +305,53 @@
         })
       
       $('#toModify').click(function () {
-          var price = $.trim($('#modigyprice').text()) ;
-          $('#modigyprice').html('<input class="form-control short validate[required]" value="'+price+'" name="price" id="price">')
-          var total = $.trim($('#modigytotal').text()) ;
-          $('#modigytotal').html('<input class="form-control short validate[required]" value="'+total+'" name="total" id="total">')
+          for(var i=0;i<lengthTr;i++){
+              var price = $.trim($('#modigyprice'+i).text()) ;
+              $('#modigyprice'+i).html('<input class="form-control short validate[required]" value="'+price+'" name="price'+i+'" id="price'+i+'">')
+              var total = $.trim($('#modigytotal'+i).text()) ;
+              $('#modigytotal'+i).html('<input class="form-control short validate[required]" value="'+total+'" name="total'+i+'" id="total'+i+'">')
+          }
 
+          $("#contentArea").validationEngine();
           $('#toModify').hide();
           $('#toEnter').hide();
           $('#toModifySave').show();
       })
         $('#toModifySave').click(function () {
             var _self = $(this);
-            var price = $('#price').val() ;
-            var total = $('#total').val() ;
-            var reqId = $('#reqId').val() ;
-            var mateId = $('input[name=cargoId0]').val() ;
+            var myArray=new Array();
+            var ifSubmit = false;
+            for(var i=0;i<lengthTr;i++){
+                var price=$("input[name=price"+i+"]").val();
+                var total=$("input[name=total"+i+"]").val();
+
+                if(!price ||!total){console.log('continue');continue;}
+                var mateId=$("input[name=cargoId"+i+"]").val();
+                var reqId=$("#reqId"+i).val();
+
+                var a = new Object();
+                a = {
+                    price:price,
+                    total:total,
+                    reqId:reqId,
+                    mateId:mateId,
+                }
+
+                myArray.push(a);
+                ifSubmit = true;
+            }
+
+
             var date={
-                reqMaterialList:[
-                    {
-                        price:price,
-                        total:total,
-                        reqId:reqId,
-                        mateId:mateId,
-                    }
-                ]
+                reqMaterialList:myArray
             };
             if(!price || !total){layer.msg('请先填写正确物料信息', {icon: 2, time: 2000}); _self.html('确认修改物料信息');return ;}
 
 
             layer.confirm("确认提交？", {title:'提示'},function(index){
-                _self.html('保存中 <i class="fa fa-circle-o-notch fa-spin">');
+                    _self.html('保存中 <i class="fa fa-circle-o-notch fa-spin">');
 
-                $.ajax({
+                    $.ajax({
                         url: '/enterMaterial/reqmaterialModify',
                         data:JSON.stringify(date),
                         method: 'post',
@@ -353,10 +365,7 @@
                             var status = response.status;
                             if(status == 200){
                                 _self.html('确认修改物料信息');
-                                layer.msg('操作成功', {icon: 1, time: DWY_GLOBAL_CONSTANT.TimeOut});
-                                setTimeout(function () {
-                                    window.location.reload();
-                                }, DWY_GLOBAL_CONSTANT.TimeOut)
+                                successLayout.reload();
                                 return;
                             }
                             _self.html('确认修改物料信息');
@@ -367,6 +376,8 @@
                 },function(index){
                     layer.close(index)}
             )
+
+
         })
 
     })

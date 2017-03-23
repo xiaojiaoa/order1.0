@@ -34,7 +34,7 @@ var StoresController = {
                 pagination: boostrapPaginator.render(),
                 Permission :Permissions,
             },resultList));
-            console.log('/api/stores?'+ queryString.stringify(req.query))
+            // console.log('/api/stores?'+ queryString.stringify(req.query))
             res.render('order/manages/store', returnData);
         });
 
@@ -141,50 +141,7 @@ var StoresController = {
 
 
     },
-    receiptMoneyPage: function (req, res) {
-        var cid =  req.params.cid;
-        var paramObject = helper.genPaginationQuery(req);
-        Base.multiDataRequest(req, res, [
-            {url: '/api/stores/money/review/'+cid, method: 'GET', resConfig: {keyName: 'moneyList', is_must: true}},
-        ], function (req, res, resultList) {
-            var paginationInfo =  resultList.moneyList;
 
-            var boostrapPaginator = new Pagination.TemplatePaginator(helper.genPageInfo({
-                prelink: paramObject.withoutPageNo,
-                current: paginationInfo.page,
-                rowsPerPage: paginationInfo.pageSize,
-                totalResult: paginationInfo.totalItems
-            }));
-            var returnData = Base.mergeData(helper.mergeObject({
-                title: ' ',
-                cid:cid,
-                pagination: boostrapPaginator.render(),
-            },resultList));
-            res.render('order/manages/store_money_receipt', returnData);
-        });
-    },
-    receiptCheck: function (req, res) {
-        var tid = req.params.tid;
-        var bid = req.params.bid;
-        var type = req.params.type;
-        request(Base.mergeRequestOptions({
-            method: 'post',
-            url: '/api/stores/money/review',
-            form: {
-                tid:tid,
-                bid:bid,
-                status:type,
-            },
-        }, req, res), function (error, response, body) {
-            if (!error && response.statusCode == 201) {
-                res.sendStatus(200)
-            } else {
-                Base.handlerError(res, req, error, response, body);
-            }
-        })
-
-
-    },
 
     setStatus: function (req, res) {
         var cid = req.params.cid;
