@@ -98,7 +98,8 @@
                         </div>
                         <div class="col-xs-7">
                             <div class="table-responsive">
-                                <% if(packedListDetail.packageType==1002){%>
+                                <% if(packedListDetail.orderPackageDetails.length!=0){
+                                if(packedListDetail.packageType==1002 ){%>
                                 <table class="table table-bordered table-striped packedListDetail-artifacts">
                                     <thead>
                                     <tr>
@@ -209,7 +210,7 @@
                                     <%}%>
                                     </tbody>
                                 </table>
-                                <%}%>
+                                <%}}%>
 
 
                             </div>
