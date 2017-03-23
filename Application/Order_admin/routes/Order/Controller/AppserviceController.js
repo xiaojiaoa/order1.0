@@ -91,7 +91,8 @@ var AppServiceController = {
         })
     },
     cargoinOrder: function (req, res) {
-        var tid = req.params.tid;
+        console.log(99999)
+        console.log('666666',JSON.stringify(req.body))
         request(Base.mergeRequestOptions({
             method: 'post',
             url: '/api/whse/app/cargoin/order/package/list',
@@ -123,8 +124,8 @@ var AppServiceController = {
         var pakgId = req.body.pakgId;
         request(Base.mergeRequestOptions({
             method: 'post',
-            url: '/api/whse/app/cargoout/prod?pakgId='+pakgId,
-
+            url: '/api/whse/app/cargoout/prod',
+            form: req.body,
             headers:req.headers,
         }, req, res), function (error, response, body) {
             if (!error) {

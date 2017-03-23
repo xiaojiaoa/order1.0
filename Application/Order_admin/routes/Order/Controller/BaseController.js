@@ -70,7 +70,7 @@ var BaseController = {
             if (user_session) {
                 user_session.DWY_message = {
                     type: 'error',
-                    msg: '服务器错误',
+                    msg: '网络错误',
                     sign: parseInt(Math.random() * 1000),
                 };
 
@@ -80,7 +80,7 @@ var BaseController = {
                 }
             }
 
-            returnInfo(500, '500', '服务器错误');
+            returnInfo(500, '500', '网络错误');
             return;
         }
 
