@@ -46,14 +46,17 @@ var InformationController = {
         // res.render('order/information/notice_info');
     },
     noticeDoCreate: function (req, res) {
-        // console.log('公告信息创建'+ JSON.stringify(req.body));
+        // var num = req.body.num0;
+         console.log('公告信息创建',JSON.stringify(req.body));
         request(Base.mergeRequestOptions({
             method: 'post',
             url: '/api/notices',
-            form:req.body,
+            headers:{'Content-type':'application/json'},
+            body:JSON.stringify(req.body),
         }, req, res), function (error, response, body) {
             if (!error && response.statusCode == 201) {
-                res.redirect("/noticeInfo");
+                // res.redirect('/enterMaterial')
+                res.sendStatus(200);
             } else {
                 Base.handlerError(res, req, error, response, body);
             }
@@ -92,6 +95,8 @@ var InformationController = {
         var paramObject = helper.genPaginationQuery(req);
         Base.multiDataRequest(req, res, [
             {url: '/api/share/page?'+(queryString.stringify(req.query)), method: 'GET', resConfig: {keyName: 'fileInfoList', is_must: true}},
+            {url: '/api/assist/store/types', method: 'GET', resConfig: {keyName: 'storeType', is_must: true}},
+            {url: '/api/assist/store/addrTypes', method: 'GET', resConfig: {keyName: 'storeAttrType', is_must: true}},
         ], function (req, res, resultList) {
 
             var paginationInfo =  resultList.fileInfoList;
@@ -117,7 +122,8 @@ var InformationController = {
         request(Base.mergeRequestOptions({
             method: 'post',
             url: '/api/share',
-            form:req.body,
+            headers:{'Content-type':'application/json'},
+            body:JSON.stringify(req.body),
         }, req, res), function (error, response, body) {
             if (!error && response.statusCode == 201) {
                 res.sendStatus(200);
