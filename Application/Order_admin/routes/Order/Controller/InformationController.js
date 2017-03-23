@@ -46,7 +46,7 @@ var InformationController = {
         // res.render('order/information/notice_info');
     },
     noticeDoCreate: function (req, res) {
-        console.log('公告信息创建'+ JSON.stringify(req.body));
+        // console.log('公告信息创建'+ JSON.stringify(req.body));
         request(Base.mergeRequestOptions({
             method: 'post',
             url: '/api/notices',
@@ -60,7 +60,7 @@ var InformationController = {
         })
     },
     noticeDoModify: function (req, res) {
-        console.log('公告信息修改'+ JSON.stringify(req.body));
+        // console.log('公告信息修改'+ JSON.stringify(req.body));
         request(Base.mergeRequestOptions({
             method: 'put',
             url: '/api/notices?'+queryString.stringify(req.body),
@@ -113,7 +113,7 @@ var InformationController = {
         // res.render('order/information/file_info');
     },
     fileDoCreate: function (req, res) {
-        console.log(req.body);
+        //console.log(req.body);
         request(Base.mergeRequestOptions({
             method: 'post',
             url: '/api/share',

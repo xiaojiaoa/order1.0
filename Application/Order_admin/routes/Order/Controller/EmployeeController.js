@@ -27,7 +27,6 @@ var EmployeeController = {
         ], function (req, res, resultList) {
 
             var paginationInfo = resultList.employeesList;
-            console.log('paginationInfo',paginationInfo);
 
             var boostrapPaginator = new Pagination.TemplatePaginator(helper.genPageInfo({
                 prelink: paramObject.withoutPageNo,

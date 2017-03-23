@@ -102,7 +102,7 @@ var MaterialAttrController = {
          });
     },
     attrValCreate: function (req, res) {
-        console.log('增加物料的属性值'+ JSON.stringify(req.body));
+        //console.log('增加物料的属性值'+ JSON.stringify(req.body));
         var attrId=req.body.attrId;
         request(Base.mergeRequestOptions({
             method: 'post',

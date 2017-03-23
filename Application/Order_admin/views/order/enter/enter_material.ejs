@@ -196,7 +196,7 @@
                                 <th>入库人</th>
                                 <th>状态</th>
                                 <th>审核人</th>
-                                <th>操作</th>
+                                <th width="80">操作</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -219,7 +219,7 @@
                                             <td>已审核</td>
                                         <% }%>
                                         <td><%=element.reviewName %></td>
-                                        <td>
+                                        <td width="80">
                                             <% if(element.stcode == 2){%>
                                             <a class="label label-primary checkThis" data-inId="<%=element.inId %>" data-purId="<%=element.purId %>">审核</a>
                                             <% }%>

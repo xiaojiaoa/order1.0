@@ -56,7 +56,7 @@ var MaterialController = {
     detailPage: function (req, res) {
         var mid =req.params.mid;
         var bid=req.params.bid;
-        console.log( '/api/purchases/mate?bid='+bid+"&mateId="+mid);
+        //console.log( '/api/purchases/mate?bid='+bid+"&mateId="+mid);
         Base.multiDataRequest(req, res, [
             {url: '/api/materials/'+mid+"?bid="+bid, method: 'GET', resConfig: {keyName: 'mateInfo', is_must: true}},
             {url: '/api/organizations//factory', method: 'GET', resConfig: {keyName: 'factoryList', is_must: true}},
@@ -165,7 +165,7 @@ var MaterialController = {
        // res.render('order/material/material_create_second');
     },
     doCreate: function (req, res) {
-        console.log('物料创建'+ JSON.stringify(req.body));
+        //console.log('物料创建'+ JSON.stringify(req.body));
         request(Base.mergeRequestOptions({
             method: 'post',
             url: '/api/materials',
@@ -194,7 +194,7 @@ var MaterialController = {
         });
     },
     doModify: function (req, res) {
-        console.log('物料修改'+ JSON.stringify(req.body));
+        //console.log('物料修改'+ JSON.stringify(req.body));
         var mid = req.body.id;
         request(Base.mergeRequestOptions({
             method: 'put',
@@ -211,7 +211,7 @@ var MaterialController = {
     setMaterialStatus: function (req, res) {
         var mid = req.params.mid;
         var type = req.params.type;
-        console.log('ajx'+ JSON.stringify(req.params));
+        //console.log('ajx'+ JSON.stringify(req.params));
         request(Base.mergeRequestOptions({
             method: 'put',
             url: '/api/materials/'+mid+'/stcode?stcode='+type,
@@ -239,7 +239,7 @@ var MaterialController = {
         });
     },
     doAdd: function (req, res) {
-    console.log('工厂物料完善物料'+ JSON.stringify(req.body));
+        //console.log('工厂物料完善物料'+ JSON.stringify(req.body));
     var mid=req.body.mateId;
     var bid=req.body.bid;
     request(Base.mergeRequestOptions({
@@ -311,7 +311,7 @@ var MaterialController = {
         var mid = req.params.mid;
         var bid= req.params.bid;
         var type = req.params.type;
-        console.log('ajx'+ JSON.stringify(req.params));
+        //console.log('ajx'+ JSON.stringify(req.params));
         request(Base.mergeRequestOptions({
             method: 'put',
             url: '/api/materials/stcode/'+bid+'/'+mid+'?stcode='+type,

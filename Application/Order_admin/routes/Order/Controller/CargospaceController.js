@@ -125,7 +125,7 @@ var CargospaceController = {
         var whseId = req.body.whseId;
         var regionId = req.body.regionId;
         var createType = req.body.create;
-        console.log('/api/whse/warehouse'+ JSON.stringify(req.body))
+        //console.log('/api/whse/warehouse'+ JSON.stringify(req.body))
         request(Base.mergeRequestOptions({
             method: 'post',
             url: '/api/whse/cargospace',

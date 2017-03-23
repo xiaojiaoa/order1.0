@@ -68,7 +68,7 @@ var FactoryController = {
         //     area = area.substring(0,area.length-1);
         //     req.body.area = area;
         // }
-        console.log('whse6666'+ JSON.stringify(req.body))
+        //console.log('whse6666'+ JSON.stringify(req.body))
         request(Base.mergeRequestOptions({
             method: 'post',
             url: '/api/whse/factory',
@@ -112,7 +112,6 @@ var FactoryController = {
     },
     doModify: function (req, res) {
         var ftyId = req.body.ftyId;
-console.log('555',JSON.stringify(req.body))
         request(Base.mergeRequestOptions({
             method: 'put',
             url: '/api/whse/factory/update?'+queryString.stringify(req.body),

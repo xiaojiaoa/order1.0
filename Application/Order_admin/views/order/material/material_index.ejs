@@ -156,9 +156,9 @@
                             <thead>
                             <tr>
                                 <th width="50">序号</th>
-                                <th>物料编号</th>
-                                <th width="5%">物料名称</th>
-                                <th width="10%">分类</th>
+                                <th width="10%">物料编号</th>
+                                <th width="10%">物料名称</th>
+                                <th width="15%">分类</th>
                                 <th>单位</th>
                                 <th>库存</th>
                                 <th>预警</th>
@@ -179,22 +179,24 @@
                             mateList.result.forEach(function (element, index) { %>
                             <tr class="<%= ( element.stock<element.warning )? 'mark-row':'' %>">
                                 <td width="50"><%= index+1 %></td>
-                                <td><a href="/materialManage/detail/<%= bid%>/<%= element.id %>" class=" "><%= element.id %></a></td>
-                                <td width="5%"><%= element.name %></td>
-                                <td width="10%"><%= element.catName%></td>
+                                <td width="10%"><a href="/materialManage/detail/<%= bid%>/<%= element.id %>" class=" "><%= element.id %></a></td>
+                                <td width="10%"><%= element.name %></td>
+                                <td width="15%"><%= element.catName%></td>
                                 <td><%= element.unit%></td>
                                 <td><%= element.stock %></td>
                                 <td><%= element.warning %></td>
                                 <td><%= element.usable %></td>
                                 <td><%= element.price%></td>
                                 <td><%= element.stcode ==1 ? '是':'否'%></td>
-                                <% if(element.valueList && element.valueList.length>0){
+                                <% if(DWY_Helper.isCanLoop(element.valueList)){
                                 element.valueList.forEach(function (elementtab) { %>
                                 <td><%= elementtab.name %></td>
                                 <% })
-                                }else{ %>
+                                }else{
+                                for(var i=0;i<theadList.length;i++){%>
                                 <td></td>
-                                <% } %>
+                                <%   }
+                               } %>
                                 <td width="220">
                                     <a class="label label-primary" href="/materialManage/add/<%= bid %>/<%= element.id %>">完善物料库存</a>
                                      <%if(element.id.slice(0,2)==90){%>
