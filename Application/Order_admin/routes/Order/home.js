@@ -1142,6 +1142,12 @@ router.post('/system/doCreate', Middleware.AuthCheck, SystemController.doCreate)
 //修改，删除，启用
 router.post('/system/doModify/:id', Middleware.AuthCheck, SystemController.doModify);
 
+//获取补单原因
+router.put('/resupplyReason/:parentId', Middleware.AuthCheck, SystemController.resupplyReasonPage);
+
+//获取空间信息
+router.put('/orderSpaceinfo/:parentId', Middleware.AuthCheck, SystemController.orderSpaceinfoPage);
+
 // 预警时间设置
 router.get('/system/timeSet', Middleware.AuthCheck,SystemController.timeSetPage);
 router.put('/system/timeSet/doSet', Middleware.AuthCheck,SystemController.doSetTime);
