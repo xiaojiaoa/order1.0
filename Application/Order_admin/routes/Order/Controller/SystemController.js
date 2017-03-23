@@ -47,6 +47,7 @@ var SystemController = {
         })
     },
     doCreate: function (req, res) {
+        console.log(req.body);
         request(Base.mergeRequestOptions({
             method: 'post',
             url: '/api/assist',
@@ -61,12 +62,39 @@ var SystemController = {
     },
     doModify: function (req, res) {
         var id=req.params.id;
+        console.log( '/api/assist/'+id+"?"+queryString.stringify(req.body));
         request(Base.mergeRequestOptions({
             method: 'put',
             url: '/api/assist/'+id+"?"+queryString.stringify(req.body)
         }, req, res), function (error, response, body) {
             if (!error && response.statusCode == 201) {
                 res.redirect("/system");
+            } else {
+                Base.handlerError(res, req, error, response, body);
+            }
+        })
+    },
+    resupplyReasonPage: function (req, res) {
+        var parentId = req.params.parentId;
+        request(Base.mergeRequestOptions({
+            method: 'GET',
+            url: '/api/assist/resupplyReason/subclass?parentId='+parentId,
+        }, req, res), function (error, response, body) {
+            if (!error && response.statusCode == 200) {
+                res.status(200).json(body)
+            } else {
+                Base.handlerError(res, req, error, response, body);
+            }
+        })
+    },
+    orderSpaceinfoPage: function (req, res) {
+        var parentId = req.params.parentId;
+        request(Base.mergeRequestOptions({
+            method: 'GET',
+            url: '/api/assist/orderSpaceinfo/subclass?parentId='+parentId,
+        }, req, res), function (error, response, body) {
+            if (!error && response.statusCode == 200) {
+                res.status(200).json(body)
             } else {
                 Base.handlerError(res, req, error, response, body);
             }

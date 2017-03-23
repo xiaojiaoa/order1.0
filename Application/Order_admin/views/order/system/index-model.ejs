@@ -23,9 +23,9 @@
             //点击"新建"
             if (e.target == $('.'+level+" .create")[0]) {
 
-                classDom.find("tbody").prepend(creFrag(key));
+                classDom.find("tbody").append(creFrag(key)).find("input").focus();
                 //给input添加focus事件
-                classDom.find("input").focus();
+               // classDom.find("input").focus();
 
                 //启用'保存''撤销''输入框'的点击事件
                 classDom.find(".save,.revoke,.add-input").css("pointer-events","auto");
@@ -37,8 +37,9 @@
                         if(!$(this).attr("readonly")){
                             data[$(this).attr("name")]=$(this).val();
                         }
-
                     });
+                    delete data.undefined;
+                    if(!data.key){data.key=key;data.parentId=$(".level-1").find("tr").eq(index).attr("id")};
                     console.log("这个是data"+JSON.stringify(data));
                     $.ajax({
                         url: '/system/doCreate',
@@ -90,6 +91,8 @@
                     });
                     var id=classDom.find("tr").eq(index).attr("id");
                     data.id=id;
+                    delete data.undefined;
+                    if(!data.key){data.key=key;data.parentId=$(".level-1").find("tr").eq(index).attr("id")};
                     console.log("这个是修改等操作"+JSON.stringify(data));
                     $.ajax({
                         url: '/system/doModify/'+id,
@@ -146,6 +149,8 @@
             var level = $(this).parent().attr('data-level');
             var classDom=$('.'+level);
 
+            //获取key值
+            var key=$("input[name=key]").val();
             var data={};
             classDom.find("input").each(function(){
                 if(!$(this).attr("readonly")){
@@ -156,6 +161,8 @@
             var stcode=classDom.find("tr").eq(index).attr("stcode");
             data.id=id;
             data.stcode=stcode;
+            delete data.undefined;
+            if(!data.key){data.key=key;data.parentId=$(".level-1").find("tr").eq(index).attr("id")};
             console.log("这个是删除等操作"+JSON.stringify(data));
             layer.confirm('确定删除该项?', {icon: 3, title: '提示'}, function (index) {
                 $.ajax({
@@ -188,7 +195,7 @@
         })
 
         //点击"启用所有"
-        $('.open-all').click(function () {
+      /*  $('.open-all').click(function () {
 
             var level = $(this).parent().attr('data-level');
             var classDom=$('.'+level);
@@ -210,7 +217,7 @@
                     }
                 });
             }, function (index) { layer.close(index) })
-        })
+        })*/
 
         //点击"启用"
         $('.open-this').click(function(){
@@ -222,13 +229,28 @@
             classDom.find('.modify').show();
             $(this).hide();
 
-            layer.confirm('确定启用该项吗?', {icon: 3, title: '提示'}, function (index) {
+            //获取key值
+            var key=$("input[name=key]").val();
+            var data={};
+            classDom.find("input").each(function(){
+                if(!$(this).attr("readonly")){
+                    data[$(this).attr("name")]=$(this).val();
+                }
+            });
+            var id=classDom.find("tr").eq(index).attr("id");
+            var stcode=classDom.find("tr").eq(index).attr("stcode");
+            data.id=id;
+            data.stcode=stcode;
+            delete data.undefined;
+            if(!data.key){data.key=key;data.parentId=$(".level-1").find("tr").eq(index).attr("id")};
+            console.log("这个是启用等操作"+JSON.stringify(data));
+            layer.confirm('确定启用该项?', {icon: 3, title: '提示'}, function (index) {
                 $.ajax({
-                    url: '/enterMaterial/doPass/',
-                    method: 'put',
+                    url: '/system/doModify/'+id,
+                    data:data,
+                    method: 'post',
                     success: function (data) {
                         successLayout.reload();
-
                     },
                     error: function (response) {
                         layer.close(index)
@@ -280,11 +302,6 @@
             else  if(key=="assistantTaskseqFileType"){
                 string="<tr class='add-input'><td><input class='border-0 text-align-center' type='text' value='' name='type'/></td><td><input class='border-0 text-align-center' type='text' value='' name='fileExt'/></td><td><input class='border-0 text-align-center' type='text' value='' name='name'/></td></tr>"
             }
-           /* else  if(key=="assistantEcType"|| key=="assistantCargoType" || key=="assistantRequestStcode" ||key=="assistantPurchaseStcode"
-                || key=="assistantContractStcode"|| key=="assistantAddrType" ||key=="assistantRemindDate"
-            ){
-                string="<tr class='add-input'><td><input class='border-0 text-align-center' type='text' value='' name='id'/></td><td><input class='border-0 text-align-center' type='text' value='' name='name'/></td></tr>"
-            }*/
             else{
                 string="<tr class='add-input'><td><input class='border-0 text-align-center' type='text' value='' name='name'/></td></tr>"
             }

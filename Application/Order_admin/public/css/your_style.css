@@ -640,7 +640,7 @@ tr > td > .separation:last-child {
     background-color: #ecf3f8!important;
     cursor: pointer;
 }
-.table-linkage tr.disable{
+.table-linkage tr.disable,.table-linkage tr.disable input{
     background-color: rgba(244, 244, 244, 4);
     color: #999999;
 }
