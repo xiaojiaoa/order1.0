@@ -68,16 +68,18 @@
                         data:data,
                         method: 'post',
                         success: function (data) {
-                            successLayout.reload();
+                          setTimeout(function(){
+                              ajaxFunc(key);
+                              status02(classDom);
+                              //启用所有的点击事件
+                              $(".desktop-detected *").css("pointer-events","auto");},500);
                         },
                       error: function (response) {
                        layer.close(index)
                        errorLayout.normal(response);
                   }
                     });
-                    status02(classDom);
-                    //启用所有的点击事件
-                    $(".desktop-detected *").css("pointer-events","auto");
+
                 });
 
                 //撤销
@@ -141,7 +143,11 @@
                         data:data,
                         method: 'post',
                         success: function (data) {
-                            successLayout.reload();
+                            setTimeout(function(){
+                                ajaxFunc(key);
+                                status02(classDom);
+                                //启用所有的点击事件
+                                $(".desktop-detected *").css("pointer-events","auto");},500);
                         },
                         error: function (response) {
                             layer.close(index)
@@ -149,18 +155,15 @@
                         }
                     });
 
-                    status02(classDom);
 
-                    //启用所有的点击事件
-                    $(".desktop-detected *").css("pointer-events","auto");
                 });
 
                 //撤销
                 $(".revoke").on("click",function(){
-                    status02(classDom);
-
-                    //启用所有的点击事件
-                    $(".desktop-detected *").css("pointer-events","auto");
+                        ajaxFunc(key);
+                        status02(classDom);
+                        //启用所有的点击事件
+                        $(".desktop-detected *").css("pointer-events","auto");
                 });
             }
         });
@@ -239,13 +242,16 @@
          data:data,
          method: 'post',
          success: function (data) {
-         successLayout.reload();
+             layer.close(index);
+             ajaxFunc(key);
+             status02(classDom);
          },
          error: function (response) {
          layer.close(index)
          errorLayout.normal(response);
          }
          });
+
          }, function (index) { layer.close(index) })
     })
 
@@ -346,7 +352,9 @@
                     data:data,
                     method: 'post',
                     success: function (data) {
-                        successLayout.reload();
+                        layer.close(index);
+                        ajaxFunc(key);
+                        status02(classDom);
                     },
                     error: function (response) {
                         layer.close(index)
@@ -406,5 +414,96 @@
         }
 
     })
+    function ajaxFunc(key){
+        $.ajax({
+            url: '/system/'+key,
+            method: 'put',
+            success: function (data) {
+                var arry= JSON.parse(data);
+                console.log(arry);
+                if(arry.length==0){
+                    $(".basicDataSec").html('<tr><td>暂无数据</td></tr>');
+                }
+                else if(key=="assistantConfig"){
+                    var frag="";
+                    for(var i=0;i<arry.length;i++){
+                        frag+="<tr id="+arry[i].id+" stcode="+arry[i].status+"><td><input class='border-0 text-align-center' type='text' value="+arry[i].code+" name='code' readonly/></td><td><input class='border-0 text-align-center' type='text' value="+arry[i].value+" name='value' readonly/></td><td><input class='border-0 text-align-center' type='text' value="+arry[i].remark+"       name='remark' readonly/></td></tr>"
+                    }
+                    $(".basicDataSec").html(frag);
+                }
+                else  if(key=="assistantBrandInfo"){
+                    var frag="";
+                    for(var i=0;i<arry.length;i++){
+                        frag+="<tr id="+arry[i].id+" stcode="+arry[i].stcode+"><td><input class='border-0 text-align-center' type='text' value="+arry[i].type+" name='type' readonly/></td><td><input class='border-0 text-align-center' type='text' value="+arry[i].name+" name='name' readonly/></td></tr>"
+                    }
+                    $(".basicDataSec").html(frag);
+                }
+                else  if(key=="assistantOrderSpaceinfo"){
+                    var frag="";
+                    for(var i=0;i<arry.length;i++){
+                        if(arry[i].parentId==0){
+                            frag+="<tr id="+arry[i].id+" stcode="+arry[i].stcode+"><td><input class='border-0 text-align-center' type='text' value="+arry[i].name+" name='name' readonly/></td></tr>"
+                        }
+                    }
+                    $(".basicDataSec").html(frag);
+                }
+                else  if(key=="assistantSpaceProd"){
+                    var frag="";
+                    for(var i=0;i<arry.length;i++){
+                        frag+="<tr id="+arry[i].id+" stcode="+arry[i].stcode+"><td><input class='border-0 text-align-center' type='text' value="+arry[i].name+" name='name' readonly/></td><td><input class='border-0 text-align-center' type='text' value="+arry[i].spaceId+" name='spaceId' readonly/></td></tr>"
+                    }
+                    $(".basicDataSec").html(frag);
+                }
+                else  if(key=="assistantResupplyReason"){
+                    var frag="";
+                    for(var i=0;i<arry.length;i++){
+                        if(arry[i].levelType==1){
+                            frag+="<tr id="+arry[i].id+" stcode="+arry[i].stcode+"><td><input class='border-0 text-align-center' type='text' value="+arry[i].name+" name='name' readonly/></td><td><input class='border-0 text-align-center' type='text' value="+arry[i].levelType+" name='levelType' readonly/></td></tr>"
+                        }
+                    }
+                    $(".basicDataSec").html(frag);
+                }
+                else  if(key=="assistantReviewReson"){
+                    var frag="";
+                    for(var i=0;i<arry.length;i++){
+                        frag+="<tr id="+arry[i].id+" stcode="+arry[i].stcode+"><td><input class='border-0 text-align-center' type='text' value="+arry[i].name+" name='name' readonly/></td><td><input class='border-0 text-align-center' type='text' value="+arry[i].reasonType+" name='reasonType' readonly/></tr>"
+                    }
+                    $(".basicDataSec").html(frag);
+                }
+                else  if(key=="assistantTaskseqFileType"){
+                    var frag="";
+                    for(var i=0;i<arry.length;i++){
+                        frag+="<tr id="+arry[i].id+" stcode="+arry[i].stcode+"><td><input class='border-0 text-align-center' type='text' value="+arry[i].type+" name='type' readonly/></td><td><input class='border-0 text-align-center' type='text' value="+arry[i].name+" name='name' readonly/></td><td><input class='border-0 text-align-center' type='text' value="+arry[i].fileExt+" name='fileExt' readonly/></td></tr>"
+                    }
+                    $(".basicDataSec").html(frag);
+                }
+                else  if(key=="assistantOrderFileType"){
+                    var frag="";
+                    for(var i=0;i<arry.length;i++){
+                        frag+="<tr id="+arry[i].id+" stcode="+arry[i].stcode+"><td><input class='border-0 text-align-center' type='text' value="+arry[i].code+" name='code' readonly/></td><td><input class='border-0 text-align-center' type='text' value="+arry[i].name+" name='name' readonly/></td><td><input class='border-0 text-align-center' type='text' value="+arry[i].fileExt+" name='fileExt' readonly/></td></tr>"
+                    }
+                    $(".basicDataSec").html(frag);
+                }
+                else{
+                    var frag="";
+                    for(var i=0;i<arry.length;i++){
+                        frag+="<tr id="+arry[i].id+" stcode="+arry[i].stcode+"><td><input class='border-0 text-align-center' type='text' value="+arry[i].name+" name='name' readonly/></td></tr>"
+                    }
+                    $(".basicDataSec").html(frag);
+                }
 
+                //给禁用项目设置样式
+                $(".basicDataSec").find("tr").each(function(){
+                    if($(this).attr("stcode")=='0'){
+                        $(this).addClass("disable");
+                    }
+                });
+
+            },
+            error: function (response) {
+                layer.close(index)
+                errorLayout.normal(response);
+            }
+        });
+    }
 </script>
