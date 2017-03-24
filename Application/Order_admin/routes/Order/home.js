@@ -1196,4 +1196,15 @@ router.get('/app/getWhse/:ftyId', AppServiceController.getWhse);
 //仓库是否已满
 router.post('/app/isFull',AppServiceController.isFull);
 
+//备货-可备货订单
+router.get('/app/stock', AppServiceController.getStock);
+
+//备货-备货按钮
+router.post('/app/doStock',AppServiceController.doStock);
+
+//备货-备货扫描后，显示的界面
+router.get('/app/stock/list', AppServiceController.getStockList);
+
+
+
 module.exports = router;
