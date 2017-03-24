@@ -141,8 +141,7 @@
                     url: '/outBred/doCheck/'+id,
                     method: 'put',
                     success: function (data) {
-                        location.href='/canSend';
-
+                        successLayout.hrefTo('/canSend');
                     },
                     error: function (response) {
                         layer.close(index)
@@ -160,7 +159,7 @@
                     url: '/outBred/doUnCheck/'+id,
                     method: 'put',
                     success: function (data) {
-                        window.location.reload();
+                        successLayout.reload()
 
                     },
                     error: function (response) {

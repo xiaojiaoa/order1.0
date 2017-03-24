@@ -133,10 +133,9 @@
                                 <!--输入字段-->
                                 <div class="col-xs-4">
                                     <div class="form-group">
-                                        <label class="col-xs-4 control-label"><span class="requird"></span>
-                                            所属机构:</label>
+                                        <label class="col-xs-4 control-label">所属机构:</label>
                                         <div class="col-xs-8">
-                                            <select class="form-control validate[required]" name="bid">
+                                            <select class="form-control" name="bid">
                                                 <option value="">- 请选择 -</option>
                                                 <%  factoryList.forEach(function (element) {  %>
                                                 <option value="<%= element.id %>" <%= DWY_last_request_param.bid ==element.id ?'selected':'' %>>
