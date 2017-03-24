@@ -67,6 +67,7 @@ var MaterialAttrController = {
             url: '/api/attributes/' + aid + "?" + queryString.stringify(req.body),
         }, req, res), function (error, response, body) {
             if (!error && response.statusCode == 201) {
+                Base.handlerSuccess(res, req);
                 res.redirect("/materialManage/materialAttribute");
             } else {
                 Base.handlerError(res, req, error, response, body);
@@ -82,6 +83,7 @@ var MaterialAttrController = {
             url: '/api/attributes/stcode/'+cid+'?stcode='+type,
         }, req, res), function (error, response, body) {
             if (!error && response.statusCode == 201) {
+                Base.handlerSuccess(res, req);
                 res.sendStatus(200);
             } else {
                 Base.handlerError(res, req, error, response, body);
@@ -110,6 +112,7 @@ var MaterialAttrController = {
             form: req.body,
         }, req, res), function (error, response, body) {
             if (!error && response.statusCode == 201) {
+                Base.handlerSuccess(res, req);
                 res.redirect("/materialManage/mateAttr/detail/"+attrId);
             } else {
                 Base.handlerError(res, req, error, response, body);
@@ -125,6 +128,7 @@ var MaterialAttrController = {
             url: '/api/attributes/value/'+code+'?'+queryString.stringify(req.body),
         }, req, res), function (error, response, body) {
             if (!error && response.statusCode == 201) {
+                Base.handlerSuccess(res, req);
                 res.redirect("/materialManage/mateAttr/detail/"+aid);
             } else {
                 Base.handlerError(res, req, error, response, body);
@@ -142,6 +146,7 @@ var MaterialAttrController = {
             url: '/api/attributes/value/stcode/'+code+'?stcode='+type+'&attrId='+aid,
         }, req, res), function (error, response, body) {
             if (!error && response.statusCode == 201) {
+                Base.handlerSuccess(res, req);
                 res.sendStatus(200);
             } else {
                 Base.handlerError(res, req, error, response, body);

@@ -40,6 +40,7 @@ var SystemController = {
             url: '/api/assist/list?key='+key,
         }, req, res), function (error, response, body) {
             if (!error && response.statusCode == 200) {
+                Base.handlerSuccess(res, req);
                 res.status(200).json(body)
             } else {
                 Base.handlerError(res, req, error, response, body);
@@ -54,6 +55,7 @@ var SystemController = {
             form:req.body,
         }, req, res), function (error, response, body) {
             if (!error && response.statusCode == 201) {
+                Base.handlerSuccess(res, req);
                 res.redirect("/system");
             } else {
                 Base.handlerError(res, req, error, response, body);
@@ -68,6 +70,7 @@ var SystemController = {
             url: '/api/assist/'+id+"?"+queryString.stringify(req.body)
         }, req, res), function (error, response, body) {
             if (!error && response.statusCode == 201) {
+                Base.handlerSuccess(res, req);
                 res.redirect("/system");
             } else {
                 Base.handlerError(res, req, error, response, body);
@@ -81,6 +84,7 @@ var SystemController = {
             url: '/api/assist/resupplyReason/subclass?parentId='+parentId,
         }, req, res), function (error, response, body) {
             if (!error && response.statusCode == 200) {
+                Base.handlerSuccess(res, req);
                 res.status(200).json(body)
             } else {
                 Base.handlerError(res, req, error, response, body);
@@ -94,6 +98,7 @@ var SystemController = {
             url: '/api/assist/orderSpaceinfo/subclass?parentId='+parentId,
         }, req, res), function (error, response, body) {
             if (!error && response.statusCode == 200) {
+                Base.handlerSuccess(res, req);
                 res.status(200).json(body)
             } else {
                 Base.handlerError(res, req, error, response, body);
@@ -107,6 +112,7 @@ var SystemController = {
             url: '/api/assist/space/prod?spaceId='+spaceId,
         }, req, res), function (error, response, body) {
             if (!error && response.statusCode == 200) {
+                Base.handlerSuccess(res, req);
                 res.status(200).json(body)
             } else {
                 Base.handlerError(res, req, error, response, body);
@@ -122,6 +128,7 @@ var SystemController = {
             url: '/api/employees/password?'+queryString.stringify(req.body),
         }, req, res), function (error, response, body) {
             if (!error && response.statusCode == 201) {
+                Base.handlerSuccess(res, req);
                 res.setStatus(200);
             } else {
                 Base.handlerError(res, req, error, response, body);

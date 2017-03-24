@@ -83,6 +83,7 @@ var RolesController = {
             form:req.body,
         }, req, res), function (error, response, body) {
             if (!error && response.statusCode == 201) {
+                Base.handlerSuccess(res, req);
                 res.redirect("/roles/"+bid+'/'+scope);
             } else {
                 Base.handlerError(res, req, error, response, body);
@@ -111,6 +112,7 @@ var RolesController = {
             url: '/api/roles/'+cid+"?"+queryString.stringify(req.body),
         }, req, res), function (error, response, body) {
             if (!error && response.statusCode == 201) {
+                Base.handlerSuccess(res, req);
                 res.redirect("/roles/"+bidUrl+'/'+scope);
             } else {
                 Base.handlerError(res, req, error, response, body);
@@ -127,6 +129,7 @@ var RolesController = {
             // form:req.body,
         }, req, res), function (error, response, body) {
             if (!error && response.statusCode == 201) {
+                Base.handlerSuccess(res, req);
                 res.sendStatus(200)
             } else {
                 Base.handlerError(res, req, error, response, body);

@@ -102,6 +102,7 @@ var StoresController = {
             form: req.body,
         }, req, res), function (error, response, body) {
             if (!error && response.statusCode == 201) {
+                Base.handlerSuccess(res, req);
                 res.redirect("/storesManage");
             } else {
                 Base.handlerError(res, req, error, response, body);
@@ -118,6 +119,7 @@ var StoresController = {
             url: '/api/stores/' + cid + "?" + queryString.stringify(req.body),
         }, req, res), function (error, response, body) {
             if (!error && response.statusCode == 201) {
+                Base.handlerSuccess(res, req);
                 res.redirect("/storesManage");
             } else {
                 Base.handlerError(res, req, error, response, body);
@@ -133,6 +135,7 @@ var StoresController = {
             form: req.body,
         }, req, res), function (error, response, body) {
             if (!error && response.statusCode == 201) {
+                Base.handlerSuccess(res, req);
                 res.redirect("/storesManage/detail/"+cid);
             } else {
                 Base.handlerError(res, req, error, response, body);
@@ -151,6 +154,7 @@ var StoresController = {
             url: '/api/stores/stcode/'+cid+'?stcode='+type,
         }, req, res), function (error, response, body) {
             if (!error && response.statusCode == 201) {
+                Base.handlerSuccess(res, req);
                 res.sendStatus(200);
             } else {
                 Base.handlerError(res, req, error, response, body);
