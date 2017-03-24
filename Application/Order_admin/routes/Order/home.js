@@ -1191,7 +1191,7 @@ router.post('/app/doCargoin',AppServiceController.doCargoin);
 router.post('/app/doCargoout', AppServiceController.doCargoout);
 
 //某工厂下的仓储区域
-router.get('/app/getWhse/:ftyId', AppServiceController.getWhse);
+router.get('/app/getWhse', AppServiceController.getWhse);
 
 //仓库是否已满
 router.post('/app/isFull',AppServiceController.isFull);
