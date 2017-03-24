@@ -80,24 +80,29 @@
 
 <script src="/asset/js/site.config.js"></script>
 <script>
-  window.onresize = function(){
-//    $('.mainFlex').css('height',window.innerHeight-80);
-  }
+
     $(function () {
 //      $('.mainFlex').css('height',window.innerHeight-80);
 
 //        $(".aaaaaaa").niceScroll();
 //        $(".menu-list").niceScroll({styler:"fb",cursorcolor:"#65cea7", cursorwidth: '3', cursorborderradius: '0px',background: '#424f63', spacebarenabled:false, cursorborder: '1px solid #fff'});
 
-
         var type = window.location.pathname;
 //    console.log('window', window.location.pathname)
         $('ul.menu-list li:has(a[href="' + type + '"])').addClass('active');
 
         $('ul.menu-list li').click(function () {
+            var innerHeight =  $('ul.menu-list').scrollTop();
             var height = $(this).offset().top;
-            localStorage.setItem('menuScroll-height',height)
+//            alert(innerHeight)
 //            alert(height)
+            if(innerHeight > 0){
+                localStorage.setItem('menuScroll-height',height+100);
+            }else{
+                localStorage.setItem('menuScroll-height',0);
+            }
+
+
         });
         $('ul.menu-list').animate({
             scrollTop:localStorage.getItem('menuScroll-height')
