@@ -46,7 +46,7 @@
                         <%
                         if(DWY_Helper.isCanLoop(basicDataList)){
                         basicDataList.forEach(function (element, index) { %>
-                        <tr key="<%= element.key%>">
+                        <tr key="<%= element.key%>" class="<%= (element.key == "assistantSpaceProd")?"display-none":'' %>">
                             <td ><%= element.name %></td>
                         </tr>
                         <%  })
@@ -85,7 +85,7 @@
 
                 </div>
 
-                <div class="col-xs-4 table-responsive level-2 scroll display-none">
+                <div class="col-xs-4 table-responsive level-2  display-none">
                     <div data-level="level-2" class="text-align-center basicDataTit01">
                         <a class="label label-primary create status01">新建</a>
                         <a class="label label-primary modify status01">修改</a>
@@ -104,7 +104,7 @@
                     </table>
 
                 </div>
-                <div class="col-xs-4 table-responsive level-3 scroll display-none">
+                <div class="col-xs-4 table-responsive level-3  display-none">
                     <div data-level="level-3" class="text-align-center basicDataTit01">
                         <a class="label label-primary create status01">新建</a>
                         <a class="label label-primary modify status01">修改</a>
@@ -112,6 +112,7 @@
                         <a class="label label-primary revoke status02">撤销</a>
                         <a class="label label-primary save status02">保存</a>
                         <input type="hidden" name="parentId" value="" class="parentId" type='text'/>
+                        <input type="hidden" name="spaceId" value="" class="spaceId" type='text'/>
                     </div>
                     <div class="basicDataTit text-align-center basicDataTit01">
                         类别3
@@ -151,6 +152,10 @@
          var key=$(this).attr("key");
              $(".level-1 input[name=key]").val(key);
 
+             //初始化二三栏内容
+            $(".basicDataThree").html("");
+            $(".basicDataFour").html("");
+
             //展示的样式
           if(key=='assistantResupplyReason'|| key=='assistantOrderSpaceinfo'){
                $(".level-0").removeClass("col-xs-4").addClass("col-xs-3");
@@ -182,120 +187,48 @@
             else{
                 $(".level-1 .basicDataTit" ).html("类别1");
             }
-            ajaxFunc(key);
+            ajaxFuncOne(key);
 
 
 
         });
 
+        //点击左边第二栏
         $(document).on("click",".basicDataSec>tr",function(){
            var key= $(".level-1 input[name=key]").val();
+
             var parentId=$(this).attr("id");
             console.log(parentId);
+
             $(".level-2 input[name=parentId]").val(parentId);
 
             if(key=="assistantResupplyReason"){
-
-                $.ajax({
-                    url: '/resupplyReason/'+parentId,
-                    method: 'put',
-                    success: function (data) {
-                        var arry= JSON.parse(data);
-                        console.log(arry);
-
-                            var frag="";
-                            for(var i=0;i<arry.length;i++){
-                                frag+="<tr id="+arry[i].id+" stcode="+arry[i].stcode+"  parentId="+arry[i].parentId+"><td><input class='border-0 text-align-center' type='text' value="+arry[i].name+" name='name' readonly/></td></td><td><input class='border-0 text-align-center' type='text' value="+arry[i].levelType+" name='levelType' readonly/></td></tr>"
-                            }
-                            $(".basicDataThree").html(frag);
-
-
-
-                    },
-                    error: function (response) {
-                        layer.close(index)
-                        errorLayout.normal(response);
-                    }
-                });
+                ajaxResupplyReason0ne(parentId);
             }
             if(key=="assistantOrderSpaceinfo"){
-
-                $.ajax({
-                    url: '/orderSpaceinfo/'+parentId,
-                    method: 'put',
-                    success: function (data) {
-                        var arry= JSON.parse(data);
-                        console.log(arry);
-
-                            var frag = "";
-                            for (var i = 0; i < arry.length; i++) {
-                                frag += "<tr id=" + arry[i].id + " stcode=" + arry[i].stcode + " parentId=" + arry[i].parentId + "><td><input class='border-0 text-align-center' type='text' value=" + arry[i].name + " name='name' readonly/></td></tr>"
-                            }
-                            $(".basicDataThree").html(frag);
-
-
-
-                    },
-                    error: function (response) {
-                        layer.close(index)
-                        errorLayout.normal(response);
-                    }
-                });
+                ajaxOrderSpaceinfoOne(parentId);
             }
-
         });
+        //点击左边第三栏
         $(document).on("click",".basicDataThree>tr",function(){
             var key= $(".level-1 input[name=key]").val();
+
             var parentId=$(this).attr("id");
             console.log(parentId);
-            $(".level-3 input[name=parentId]").val();
 
+            $(".level-3 input[name=parentId]").val(parentId);
+            $(".level-3 input[name=spaceId]").val();
 
             if(key=="assistantResupplyReason"){
-                $.ajax({
-                    url: '/resupplyReason/'+parentId,
-                    method: 'put',
-                    success: function (data) {
-                        var arry= JSON.parse(data);
-                        console.log(arry);
-                        var frag = "";
-                        for (var i = 0; i < arry.length; i++) {
-                            frag += "<tr id=" + arry[i].id + " stcode=" + arry[i].stcode + "  parentId=" + arry[i].parentId + "><td><input class='border-0 text-align-center' type='text' value=" + arry[i].name + " name='name' readonly/></td></td><td><input class='border-0 text-align-center' type='text' value=" + arry[i].levelType + " name='levelType' readonly/></td></tr>"
-                        }
-                        $(".basicDataFour").html(frag);
-
-                    },
-                    error: function (response) {
-                        layer.close(index)
-                        errorLayout.normal(response);
-                    }
-                });
+                ajaxResupplyReasonTwo(parentId);
             }
             if(key=="assistantOrderSpaceinfo"){
-
-                $.ajax({
-                    url: '/orderSpaceinfoTwo/'+parentId,
-                    method: 'put',
-                    success: function (data) {
-                        var arry= JSON.parse(data);
-                        console.log(arry);
-                        var frag = "";
-                        for (var i = 0; i < arry.length; i++) {
-                            frag += "<tr id=" + arry[i].id + " stcode=" + arry[i].stcode + "  parentId=" + arry[i].parentId + "><td><input class='border-0 text-align-center' type='text' value=" + arry[i].name + " name='name' readonly/></td></tr>"
-                        }
-                        $(".basicDataFour").html(frag);
-
-                    },
-                    error: function (response) {
-                        layer.close(index)
-                        errorLayout.normal(response);
-                    }
-                });
+                ajaxOrderSpaceinfoTwo(parentId);
             }
         });
 
     })
-    function ajaxFunc(key){
+    function ajaxFuncOne(key){
         $.ajax({
             url: '/system/'+key,
             method: 'put',
@@ -339,7 +272,7 @@
                     var frag="";
                     for(var i=0;i<arry.length;i++){
                         if(arry[i].levelType==1){
-                            frag+="<tr id="+arry[i].id+" stcode="+arry[i].stcode+"><td><input class='border-0 text-align-center' type='text' value="+arry[i].name+" name='name' readonly/></td><td><input class='border-0 text-align-center' type='text' value="+arry[i].levelType+" name='levelType' readonly/></td></tr>"
+                            frag+="<tr id="+arry[i].id+" stcode="+arry[i].stcode+"><td><input class='border-0 text-align-center' type='text' value="+arry[i].name+" name='name' readonly/></td></tr>"
                         }
                     }
                     $(".basicDataSec").html(frag);
@@ -375,6 +308,116 @@
 
                 //给禁用项目设置样式
                 $(".basicDataSec").find("tr").each(function(){
+                    if($(this).attr("stcode")=='0'){
+                        $(this).addClass("disable");
+                    }
+                });
+
+            },
+            error: function (response) {
+                layer.close(index)
+                errorLayout.normal(response);
+            }
+        });
+    }
+
+    function ajaxResupplyReason0ne(parentId) {
+        $.ajax({
+            url: '/resupplyReason/'+parentId,
+            method: 'put',
+            success: function (data) {
+                var arry= JSON.parse(data);
+                console.log(arry);
+                var frag = "";
+                for (var i = 0; i < arry.length; i++) {
+                    frag += "<tr id=" + arry[i].id + " stcode=" + arry[i].stcode + "  parentId=" + arry[i].parentId + "><td><input class='border-0 text-align-center' type='text' value=" + arry[i].name + " name='name' readonly/></td></tr>"
+                }
+                $(".basicDataThree").html(frag);
+
+                //给禁用项目设置样式
+                $(".basicDataThree").find("tr").each(function(){
+                    if($(this).attr("stcode")=='0'){
+                        $(this).addClass("disable");
+                    }
+                });
+
+            },
+            error: function (response) {
+                layer.close(index)
+                errorLayout.normal(response);
+            }
+        });
+    }
+    function ajaxResupplyReasonTwo(parentId) {
+        $.ajax({
+            url: '/resupplyReason/'+parentId,
+            method: 'put',
+            success: function (data) {
+                var arry= JSON.parse(data);
+                console.log(arry);
+                var frag = "";
+                for (var i = 0; i < arry.length; i++) {
+                    frag += "<tr id=" + arry[i].id + " stcode=" + arry[i].stcode + "  parentId=" + arry[i].parentId + "><td><input class='border-0 text-align-center' type='text' value=" + arry[i].name + " name='name' readonly/></td></tr>"
+                }
+                $(".basicDataFour").html(frag);
+
+                //给禁用项目设置样式
+                $(".basicDataFour").find("tr").each(function(){
+                    if($(this).attr("stcode")=='0'){
+                        $(this).addClass("disable");
+                    }
+                });
+
+            },
+            error: function (response) {
+                layer.close(index)
+                errorLayout.normal(response);
+            }
+        });
+    }
+    function ajaxOrderSpaceinfoOne(parentId){
+        $.ajax({
+            url: '/orderSpaceinfo/'+parentId,
+            method: 'put',
+            success: function (data) {
+                var arry= JSON.parse(data);
+                console.log(arry);
+
+                var frag = "";
+                for (var i = 0; i < arry.length; i++) {
+                    frag += "<tr id=" + arry[i].id + " stcode=" + arry[i].stcode + " parentId=" + arry[i].parentId + "><td><input class='border-0 text-align-center' type='text' value=" + arry[i].name + " name='name' readonly/></td></tr>"
+                }
+                $(".basicDataThree").html(frag);
+
+                //给禁用项目设置样式
+                $(".basicDataThree").find("tr").each(function(){
+                    if($(this).attr("stcode")=='0'){
+                        $(this).addClass("disable");
+                    }
+                });
+
+            },
+            error: function (response) {
+                layer.close(index)
+                errorLayout.normal(response);
+            }
+        });
+    }
+    function ajaxOrderSpaceinfoTwo(parentId){
+        $.ajax({
+            url: '/orderSpaceinfoTwo/'+parentId,
+            method: 'put',
+            success: function (data) {
+                var arry= JSON.parse(data);
+                console.log(arry);
+                var frag = "";
+                for (var i = 0; i < arry.length; i++) {
+                    frag += "<tr id=" + arry[i].id + " stcode=" + arry[i].stcode + "  parentId=" + arry[i].parentId + "><td><input class='border-0 text-align-center' type='text' value=" + arry[i].name + " name='name' readonly/></td></tr>"
+                }
+                $(".basicDataFour").html(frag);
+
+                //给禁用项目设置样式
+                $(".basicDataFour").find("tr").each(function(){
                     if($(this).attr("stcode")=='0'){
                         $(this).addClass("disable");
                     }

@@ -32,6 +32,7 @@
 
                 //保存
                 $(".save").on("click",function(){
+                    //设置data
                     var data={};
                     classDom.find("input").each(function(){
                         if(!$(this).attr("readonly")){
@@ -41,12 +42,14 @@
                     console.log(data);
                     delete data.undefined;
 
-                    var parentId=classDom.find("input[name=parentId]").val();
+                    var spaceId=classDom.find("input[name=spaceId]").val();
+                    console.log("spaceId"+spaceId);
                     if(key=="assistantOrderSpaceinfo"){
                         if(!data.key){
-                            if(parentId==""){
+                            if(spaceId==""){
                                 data.key="assistantSpaceProd";
                                 data.spaceId=$(".level-2").find("tr").eq(index).attr("id");
+                                console.log(11111);
                             }
                             else{
                                 data.key="assistantOrderSpaceinfo";
@@ -60,24 +63,30 @@
 
                     if(key=="assistantResupplyReason"){
                         data.key="assistantResupplyReason";
-                        if(data.levelType==1){
+                        console.log(level);
+                        if(level=="level-1"){
+                            data.levelType=1
                             data.parentId=0
                         }
-                        if(data.levelType==2){
+                        if(level=="level-2"){
+                            data.levelType=2
                             data.parentId=$(".level-1").find("tr").eq(index).attr("id")
                         }
-                        if(data.levelType==3){
+                        if(level=="level-3"){
+                            data.levelType=3
                             data.parentId=$(".level-2").find("tr").eq(index).attr("id")
                         }
                     }
                     console.log("这个是data"+JSON.stringify(data));
+                    //ajax提交
                     $.ajax({
                         url: '/system/doCreate',
                         data:data,
                         method: 'post',
                         success: function (data) {
                           setTimeout(function(){
-                              ajaxFunc(key);
+                              ajaxFuncOne(key);
+
                               status02(classDom);
                               //启用所有的点击事件
                               $(".desktop-detected *").css("pointer-events","auto");},500);
@@ -93,8 +102,8 @@
                 //撤销
                 $(".revoke").on("click",function(){
                     classDom.find(".add-input").remove();
-                    status02(classDom);
 
+                    status02(classDom);
                     //启用所有的点击事件
                     $(".desktop-detected *").css("pointer-events","auto");
                 });
@@ -118,7 +127,7 @@
 
                 //保存
                 $(".save").on("click",function(){
-
+                    //设置data
                     var data={};
                     classDom.find("input").each(function(){
                         if(!$(this).attr("readonly")){
@@ -129,10 +138,10 @@
                     data.id=id;
                     delete data.undefined;
 
-                    var parentId=classDom.find("input[name=parentId]").val();
+                    var spaceId=classDom.find("input[name=spaceId]").val();
                     if(key=="assistantOrderSpaceinfo"){
                         if(!data.key){
-                            if(parentId==""){
+                            if(spaceId==""){
                                 data.key="assistantSpaceProd";
                                 data.spaceId=$(".level-2").find("tr").eq(index).attr("id");
                             }
@@ -159,13 +168,15 @@
                         }
                     }
                     console.log("这个是修改等操作"+JSON.stringify(data));
+                    //ajax提交
                     $.ajax({
                         url: '/system/doModify/'+id,
                         data:data,
                         method: 'post',
                         success: function (data) {
                             setTimeout(function(){
-                                ajaxFunc(key);
+                                ajaxFuncOne(key);
+
                                 status02(classDom);
                                 if(key=="assistantConfig"){
                                     $(".create ").hide();
@@ -189,7 +200,8 @@
 
                 //撤销
                 $(".revoke").on("click",function(){
-                        ajaxFunc(key);
+                    ajaxFuncOne(key);
+
                         status02(classDom);
                     if(key=="assistantConfig"){
                         $(".create ").hide();
@@ -205,26 +217,6 @@
             }
         });
 
-        /*
-         * status02--用于点击"撤销"、"保存"之后返回的三个状态
-         * */
-        function status02(dom){
-
-            dom.find('.status01').show();
-            dom.find('.status02').hide();
-
-            //根据"查看所有"点击状态显示"启用所有"
-            if(seaAllStat){
-                dom.find('.see-all').hide();
-                dom.find('.open-all').show();
-            }
-
-            //根据"启用所有"点击状态显示"启用所有"
-            if(openAllStat){
-                dom.find('.open-all').hide();
-            }
-        }
-
         //点击"删除"
         $(".delete").click(function () {
 
@@ -233,6 +225,7 @@
 
             //获取key值
             var key=$("input[name=key]").val();
+            //设置data
             var data={};
             classDom.find("input").each(function(){
                 if(!$(this).attr("readonly")){
@@ -252,10 +245,10 @@
 
             delete data.undefined;
 
-            var parentId=classDom.find("input[name=parentId]").val();
+            var spaceId=classDom.find("input[name=spaceId]").val();
             if(key=="assistantOrderSpaceinfo"){
                 if(!data.key){
-                    if(parentId==""){
+                    if(spaceId==""){
                         data.key="assistantSpaceProd";
                         data.spaceId=$(".level-2").find("tr").eq(index).attr("id");
                     }
@@ -282,6 +275,7 @@
                 }
             }
             console.log("这个是删除等操作"+JSON.stringify(data));
+            //ajax提交
             layer.confirm('确定删除该项?', {icon: 3, title: '提示'}, function (index) {
          $.ajax({
          url: '/system/doModify/'+id,
@@ -289,7 +283,7 @@
          method: 'post',
          success: function (data) {
              layer.close(index);
-             ajaxFunc(key);
+             ajaxFuncOne(key);
              status02(classDom);
          },
          error: function (response) {
@@ -300,6 +294,101 @@
 
          }, function (index) { layer.close(index) })
     })
+
+        //点击"启用"
+        $('.open-this').click(function(){
+            var level = $(this).parent().attr('data-level');
+            var classDom=$('.'+level);
+
+            /* classDom.find("tr").eq(index).removeAttr("class");*/
+
+            classDom.find('.modify').show();
+            $(this).hide();
+
+            //获取key值
+            var key=$("input[name=key]").val();
+            //设置data
+            var data={};
+            classDom.find("input").each(function(){
+                if(!$(this).attr("readonly")){
+                    data[$(this).attr("name")]=$(this).val();
+                }
+            });
+            var id=classDom.find("tr").eq(index).attr("id");
+            var stcode=classDom.find("tr").eq(index).attr("stcode");
+            data.id=id;
+
+            if(key=="assistantConfig"){
+                data.status=1;
+            }
+            else{
+                data.stcode=1;
+            }
+
+            var spaceId=classDom.find("input[name=spaceId]").val();
+            if(key=="assistantOrderSpaceinfo"){
+                if(!data.key){
+                    if(spaceId==""){
+                        data.key="assistantSpaceProd";
+                        data.spaceId=$(".level-2").find("tr").eq(index).attr("id");
+                    }
+                    else{
+                        data.key="assistantOrderSpaceinfo";
+                        data.parentId=$(".level-1").find("tr").eq(index).attr("id");
+                    }
+                }
+                else{
+                    data.parentId=0
+                }
+            }
+
+            if(key=="assistantResupplyReason"){
+                data.key="assistantResupplyReason";
+                if(data.levelType==1){
+                    data.parentId=0
+                }
+                if(data.levelType==2){
+                    data.parentId=$(".level-1").find("tr").eq(index).attr("id")
+                }
+                if(data.levelType==3){
+                    data.parentId=$(".level-2").find("tr").eq(index).attr("id")
+                }
+            }
+            console.log("这个是启用等操作"+JSON.stringify(data));
+            //ajax提交
+            layer.confirm('确定启用该项?', {icon: 3, title: '提示'}, function (index) {
+                $.ajax({
+                    url: '/system/doModify/'+id,
+                    data:data,
+                    method: 'post',
+                    success: function (data) {
+                        layer.close(index);
+                        ajaxFuncOne(key);
+                        status02(classDom);
+                    },
+                    error: function (response) {
+                        layer.close(index)
+                        errorLayout.normal(response);
+                    }
+                });
+            }, function (index) { layer.close(index) })
+        });
+
+        //点击tr
+        $(document).on("click","table>tbody>tr",function(){
+
+            if(!$(this).hasClass('add-input')){
+                $(this).addClass("active").siblings("tr").removeClass("active");
+                index=$(this).index();
+            }
+
+            //点击的是"disable"
+            if($(this).hasClass('disable')){
+                var classDom = $(this).parent().parent().parent();
+                classDom.find('.modify').hide();
+                classDom.find('.open-this').show();
+            }
+        });
 
         //点击"查看所有"
       /*  $('.see-all').click(function () {
@@ -340,100 +429,26 @@
             }, function (index) { layer.close(index) })
         })*/
 
-        //点击"启用"
-        $('.open-this').click(function(){
-            var level = $(this).parent().attr('data-level');
-            var classDom=$('.'+level);
 
-           /* classDom.find("tr").eq(index).removeAttr("class");*/
+        /*
+         * status02--用于点击"撤销"、"保存"之后返回的三个状态
+         * */
+        function status02(dom){
 
-            classDom.find('.modify').show();
-            $(this).hide();
+            dom.find('.status01').show();
+            dom.find('.status02').hide();
 
-            //获取key值
-            var key=$("input[name=key]").val();
-            var data={};
-            classDom.find("input").each(function(){
-                if(!$(this).attr("readonly")){
-                    data[$(this).attr("name")]=$(this).val();
-                }
-            });
-            var id=classDom.find("tr").eq(index).attr("id");
-            var stcode=classDom.find("tr").eq(index).attr("stcode");
-            data.id=id;
-
-            if(key=="assistantConfig"){
-                data.status=1;
-            }
-            else{
-                data.stcode=1;
+            //根据"查看所有"点击状态显示"启用所有"
+            if(seaAllStat){
+                dom.find('.see-all').hide();
+                dom.find('.open-all').show();
             }
 
-            delete data.undefined;
-
-            var parentId=classDom.find("input[name=parentId]").val();
-            if(key=="assistantOrderSpaceinfo"){
-                if(!data.key){
-                    if(parentId==""){
-                        data.key="assistantSpaceProd";
-                        data.spaceId=$(".level-2").find("tr").eq(index).attr("id");
-                    }
-                    else{
-                        data.key="assistantOrderSpaceinfo";
-                        data.parentId=$(".level-1").find("tr").eq(index).attr("id");
-                    }
-                }
-                else{
-                    data.parentId=0
-                }
+            //根据"启用所有"点击状态显示"启用所有"
+            if(openAllStat){
+                dom.find('.open-all').hide();
             }
-
-            if(key=="assistantResupplyReason"){
-                data.key="assistantResupplyReason";
-                if(data.levelType==1){
-                    data.parentId=0
-                }
-                if(data.levelType==2){
-                    data.parentId=$(".level-1").find("tr").eq(index).attr("id")
-                }
-                if(data.levelType==3){
-                    data.parentId=$(".level-2").find("tr").eq(index).attr("id")
-                }
-            }
-            console.log("这个是启用等操作"+JSON.stringify(data));
-            layer.confirm('确定启用该项?', {icon: 3, title: '提示'}, function (index) {
-                $.ajax({
-                    url: '/system/doModify/'+id,
-                    data:data,
-                    method: 'post',
-                    success: function (data) {
-                        layer.close(index);
-                        ajaxFunc(key);
-                        status02(classDom);
-                    },
-                    error: function (response) {
-                        layer.close(index)
-                        errorLayout.normal(response);
-                    }
-                });
-            }, function (index) { layer.close(index) })
-        });
-
-        //点击tr
-        $(document).on("click","table>tbody>tr",function(){
-
-            if(!$(this).hasClass('add-input')){
-                $(this).addClass("active").siblings("tr").removeClass("active");
-                index=$(this).index();
-            }
-
-            //点击的是"disable"
-            if($(this).hasClass('disable')){
-                var classDom = $(this).parent().parent().parent();
-                classDom.find('.modify').hide();
-                classDom.find('.open-this').show();
-            }
-        });
+        }
 
        /*
        * creFrag--新建的时候根据不同显示页面
@@ -453,7 +468,7 @@
                 string="<tr class='add-input'><td><input class='border-0 text-align-center' type='text' value='' name='name'/></td><td><input class='border-0 text-align-center' type='text' value='' name='spaceId'/></td></tr>"
             }
             else  if(key=="assistantResupplyReason"){
-                string="<tr class='add-input'><td><input class='border-0 text-align-center' type='text' value='' name='name'/></td><td><input class='border-0 text-align-center' type='text' value='' name='levelType'/></td></tr>"
+                string="<tr class='add-input'><td><input class='border-0 text-align-center' type='text' value='' name='name'/></td></tr>"
             }
             else  if(key=="assistantReviewReson"){
                 string="<tr class='add-input'><td><input class='border-0 text-align-center' type='text' value='' name='name'/></td><td><input class='border-0 text-align-center' type='text' value='' name='reasonType'/></td></tr>"
