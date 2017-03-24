@@ -799,3 +799,12 @@ tr > td > .separation:last-child {
 table>tbody>tr>td a.label:first-child{
     margin-left: 0;
 }
+.margin-bottom-20 {
+    margin-bottom: 20px!important;
+}
+.my-label01 label{
+    width: 25%;
+    box-sizing: border-box;
+    margin-left: 0px!important;
+    float: left;
+}
