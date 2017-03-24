@@ -1150,6 +1150,9 @@ router.put('/resupplyReason/:parentId', Middleware.AuthCheck, SystemController.r
 //获取空间信息
 router.put('/orderSpaceinfo/:parentId', Middleware.AuthCheck, SystemController.orderSpaceinfoPage);
 
+//获取空间信息二
+router.put('/orderSpaceinfoTwo/:spaceId', Middleware.AuthCheck, SystemController.orderSpaceinfoTwoPage);
+
 // 预警时间设置
 router.get('/system/timeSet', Middleware.AuthCheck,SystemController.timeSetPage);
 

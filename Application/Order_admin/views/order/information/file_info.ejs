@@ -340,11 +340,10 @@
             change: function (e) {
                 var _this = $(this);
                 var label = $("#label-upload-file");
-                var lid = $("[name=lid]");
                 var formData = new FormData();
 
                 formData.append('file_name', _this.prop('files')[0])
-                formData.append('lid', lid.val())
+
 
 //            console.log(window.aaa = formData);
                 label.html('上传中 <i class="fa fa-circle-o-notch fa-spin">');

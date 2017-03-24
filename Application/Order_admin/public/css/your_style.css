@@ -628,9 +628,11 @@ tr > td > .separation:last-child {
     font-weight: 700;
     line-height: normal;
 }
+.basicDataTit span{
+    font-size: 12px;
+}
 .basicDataTit01{
     border: 1px solid #ddd;
-    height: 35px;
     line-height: 35px;
     border-bottom: 0px;
     margin-top:0px;
@@ -643,6 +645,10 @@ tr > td > .separation:last-child {
 .table-linkage tr.disable,.table-linkage tr.disable input{
     background-color: rgba(244, 244, 244, 4);
     color: #999999;
+}
+.table-linkage tr td input,.table-linkage tr td textarea{
+    border:none;
+    width:100%;
 }
 .table-linkage tr.disable{
  /*   display: none;*/
