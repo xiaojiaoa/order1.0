@@ -284,11 +284,18 @@ var OutWarehouseController = {
     outProductPage: function (req, res) {
         var ftyId = req.query.ftyId ? req.query.ftyId: req.session.user.ftyId;
         var paramObject = helper.genPaginationQuery(req);
-        Base.multiDataRequest(req, res, [
+        var ajaxRequest = [
             {url: '/api/whse/cargout/prods?'+ queryString.stringify(req.query), method: 'GET', resConfig: {keyName: 'prodsList', is_must: true}},
             {url: '/api/whse/factory/list', method: 'GET', resConfig: {keyName: 'factoryList', is_must: true}},
-            {url: '/api/whse/warehouse/list/'+ftyId, method: 'GET', resConfig: {keyName: 'warehouseList', is_must: true}},
-        ], function (req, res, resultList) {
+        ];
+        if(ftyId){
+            ajaxRequest = [
+                {url: '/api/whse/cargout/prods?'+ queryString.stringify(req.query), method: 'GET', resConfig: {keyName: 'prodsList', is_must: true}},
+                {url: '/api/whse/factory/list', method: 'GET', resConfig: {keyName: 'factoryList', is_must: true}},
+                {url: '/api/whse/warehouse/list/'+ftyId, method: 'GET', resConfig: {keyName: 'warehouseList', is_must: true}},
+            ];
+        }
+        Base.multiDataRequest(req, res, ajaxRequest, function (req, res, resultList) {
 
             var paginationInfo =  resultList.prodsList;
 
@@ -299,6 +306,9 @@ var OutWarehouseController = {
                 totalResult: paginationInfo.totalItems
             }));
 
+            if(!ftyId){
+                resultList.warehouseList = [];
+            }
             var returnData = Base.mergeData(helper.mergeObject({
                 title: ' ',
                 userFtyId: ftyId,
