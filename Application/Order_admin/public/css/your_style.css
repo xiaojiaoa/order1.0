@@ -64,8 +64,8 @@ html,body{
     padding-left: 10px;
 }
 .smart-style-2 nav ul li:hover {
-    background: #4990e2;
-    border-left:5px #8ac5ff solid;
+    background: #80bbff;
+    /*border-left:5px #4990e2 solid;*/
 }
 .smart-style-2 nav ul .active {
     background: #4990e2;
