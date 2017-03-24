@@ -168,8 +168,7 @@
                     url: '/outProduct/doChecked/<%= outId %>',
                     method: 'put',
                     success: function (data) {
-                        location.href='/outProduct/canSend';
-
+                        successLayout.hrefTo('/outProduct/canSend');
                     },
                     error: function (response) {
                         layer.close(index)
