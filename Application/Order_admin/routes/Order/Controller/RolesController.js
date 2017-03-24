@@ -27,10 +27,11 @@ var RolesController = {
     },
     createPage: function (req, res) {
         var bid = req.params.bid;
-        var scope = (req.params.scope == '9'?'1':'2');
+        var scope = req.params.scope;
+        var roleScope = (scope == '9'?'1':'2');
         var type = req.params.type;
         Base.multiDataRequest(req, res, [
-            {url: '/api/permissions?scope='+scope, method: 'GET', resConfig: {keyName: 'permissionsList', is_must: true}}
+            {url: '/api/permissions?scope='+roleScope, method: 'GET', resConfig: {keyName: 'permissionsList', is_must: true}}
         ], function (req, res, resultList) {
             var returnData = Base.mergeData(helper.mergeObject({
                 title: ' ',
@@ -43,11 +44,12 @@ var RolesController = {
     },
     modifyPage: function (req, res) {
         var bid = req.params.bid;
-        var scope = (req.params.scope == '9'?'1':'2');
+        var scope = req.params.scope;
+        var roleScope = (scope == '9'?'1':'2');
         var stcode = req.params.stcode;
 
         Base.multiDataRequest(req, res, [
-            {url: '/api/permissions?scope='+scope, method: 'GET', resConfig: {keyName: 'permissionsAllList', is_must: true}},
+            {url: '/api/permissions?scope='+roleScope, method: 'GET', resConfig: {keyName: 'permissionsAllList', is_must: true}},
             {url: '/api/roles/detail/'+stcode, method: 'GET', resConfig: {keyName: 'rolesInfo', is_must: true}}
         ], function (req, res, resultList) {
             var returnData = Base.mergeData(helper.mergeObject({
