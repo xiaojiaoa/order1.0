@@ -117,14 +117,7 @@
                                 <td><%= element.gid %></td>
                                 <td><%= element.gname %></td>
                                 <td><%= element.lid %></td>
-                                <%
-                                if(element.stcode==749){ %>
-                                <td>已发货</td>
-                                <% } %>
-                                <%
-                                if(element.stcode==769){ %>
-                                    <td>已登记发货</td>
-                                <% } %>
+                                <td><%= element.stcode==749 ? '已发货':'已登记发货'%></td>
                             </tr>
                             <%})}else{%>
                                <td colspan="12" class="text-align-center">暂无结果</td>
@@ -200,7 +193,9 @@
             {
                 click:function(){
                     var stcodeStr=$("input[name='stcode']").attr('class');
-                    var tids=$("input[name='vals']").attr('class');
+                    var tids=$("input[name='vals']").attr('class').replace(/[ ]/g,"");
+                    tids = tids.substring(0,tids.length-1);
+                    var did=$(".did option:selected").val();
                     if(tids==null||tids=='') {
                         layer.alert('请选择！', {icon: 3})
                         return false;

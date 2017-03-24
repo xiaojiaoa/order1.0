@@ -285,7 +285,7 @@ var OrderController = {
     resupplyPage: function (req, res) {
         var paramObject = helper.genPaginationQuery(req);
         Base.multiDataRequest(req, res, [
-                {url: '/api/orders/resupply', method: 'GET', resConfig: {keyName: 'resupplyList', is_must: false}},
+                {url: '/api/orders/resupply?'+queryString.stringify(req.query), method: 'GET', resConfig: {keyName: 'resupplyList', is_must: false}},
                 {url: '/api/assist/brandinfo' , method: 'GET', resConfig: {keyName: 'brandInfo', is_must: true}},
                 {url: '/api/assist/space/prod?spaceId=10', method: 'GET', resConfig: {keyName: 'prodList', is_must: true}},
                 {url: '/api/assist/resupply/reason', method: 'GET', resConfig: {keyName: 'reasonList', is_must: true}},
@@ -1118,6 +1118,7 @@ var OrderController = {
         });
     },
     receiptCheck: function (req, res) {
+        console.log('money',JSON.stringify(req.body))
         request(Base.mergeRequestOptions({
             method: 'post',
             url: '/api/stores/money/review',

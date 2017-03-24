@@ -13,7 +13,7 @@
         <!-- breadcrumb -->
         <ol class="breadcrumb">
             <li>后台管理</li>
-            <li><a class="back-url" href="/supplier/detail/<%= suppliersDetail.id %>"><i class="fa fa-chevron-left"></i> 供应商详情</a></li>
+            <li><a class="back-url" href="/supplier/detail/<%= tid %>"><i class="fa fa-chevron-left"></i> 供应商详情</a></li>
             <li>供应商可供物料</li>
         </ol>
         <!-- end breadcrumb -->
@@ -153,15 +153,11 @@
                                         </table>
                                         <%- pagination %>
                                         <input type="hidden" class="" id="checkedValue">
-                                        <input type="hidden"  id="gid" value="<%= suppliersDetail.id %>">
+                                        <input type="hidden"  id="gid" value="<%= tid %>">
                                     </div>
-
                                 </div>
-
                             </div>
-
                         </div>
-
                         <div class="dwy-clear"></div>
                     </form>
                 </div>
@@ -179,9 +175,7 @@
         function updateCheckedList(isInit) {
             var parentEle = '.supProTr';
             var storageKey = 'LIST_DATA';
-
             var listArr = DWY_Utils.StorageUtils.getListArr(storageKey);
-
             var htmlStr = '';
             if (listArr instanceof Array && listArr.length != 0) {
                 var len = listArr.length;
@@ -198,10 +192,9 @@
                         + '<td>' + listArr[i].name + '</td>'
                         + '<td>' + listArr[i].class_name + '</td>'
                         + '<td><input class="form-control fg-date-picker validate[required] date" type="text" value="" name="date'+i+'"  /></td>'
-                        + '<td><input  class="form-control validate[required] code" value="" name="code'+i+'" /></td>'
+                        + '<td><input  class="form-control validate[required] validate[custom[integer]] code" value="" maxlength="32" name="code'+i+'" /></td>'
                         + '</tr>';
                     htmlStr += itemHtml;
-
                     // 判断是否是初始化 是的话保持下面列表状态同步
                     if(isInit){
                         var $ipts = $(".orderItemLayerTable input[name='roles']");
@@ -220,17 +213,10 @@
                 $(parentEle).html("");
             }
         }
-
         // 页面一加载先刷新一次读取localstorage
         updateCheckedList(true);
-
-
-
-
         $(".orderItemLayerTable input[name='roles']").on("change",function () {
-
             var $tds = $(this).parent().parent().parent().children("td");
-
             // 获取整个条目数据
             var item = {
                 id : $(this).val(),
@@ -240,9 +226,7 @@
                 warning_num : $tds.eq(5).html(),
                 usable_stock : $tds.eq(6).html(),
                 price : $tds.eq(7).html(),
-
             }
-
             // 选中添加  取消选中则删除
             if($(this).is(':checked')){
                 DWY_Utils.StorageUtils.addItem(item,'id','LIST_DATA',updateCheckedList)
@@ -252,14 +236,12 @@
                 },'id','LIST_DATA',updateCheckedList)
             }
         })
-
         $(".supProTr").on("change","input",function () {
             var id = $(this).val();
             // 点中删除
             DWY_Utils.StorageUtils.deletItem({
                 id:id
             }, 'id','LIST_DATA',function(){
-
                 // 与下面列表的选中状态保持一致
                 var $ipts = $(".orderItemLayerTable input[name='roles']");
 
@@ -272,14 +254,7 @@
                     }
                 }
             })
-
         })
-
-
-
-
-
-
         var checkedValue = $('#checkedValue');
         $(".supProTr input[name='roles']:checked").each(function(){
             var val=$(this).val();
@@ -292,7 +267,6 @@
                 checkedValue.removeClass(this.value+',')
             }
         });
-
         $("#relateMaterial").on({
             click:function(){
                 if(checkedValue.attr('class')==null||checkedValue.attr('class')==''){
@@ -301,8 +275,6 @@
                 }
                 var dateVal = $(".date").val();
                 var codeVal = $(".code").val();
-                var reg = /^(\d{1,32})$/;
-                var r = codeVal.match(reg);
                 if(dateVal==null||dateVal==''){
                     layer.alert('请填写合同日期！', {icon: 3})
                     return false;
@@ -311,11 +283,6 @@
                     layer.alert('请填写物料编码！', {icon: 3})
                     return false;
                 }
-                if(r==null){
-                    layer.alert('请输入0-9且长度不大于32！', {icon: 3})
-                    return false;
-                }
-
                 var len= $('.topTr').length;
                 var arr=new Array();
                 for(var i=0;i<len;i++){
@@ -331,7 +298,7 @@
                     arr.push(obj);
                 }
                 var list={list:arr};
-                console.log(list)
+//                console.log(list)
                 layer.confirm("确认关联？", {title:'提示'},function(index){
                         $.ajax({
                             url: '/supplier/createMaterialSupplier',
@@ -339,7 +306,6 @@
                             method: 'post',
                             dataType: 'json',
                             contentType:"application/json",
-
                             success: function (data) {
                                 var href='/supplier/detail/'+suppId;
                                 localStorage.clear();
@@ -347,8 +313,9 @@
                             },
                             error: function (response) {
                                 if(response.status==200){
-                                    location.href='/supplier/detail/'+suppId;
+                                    var href='/supplier/detail/'+suppId;
                                     localStorage.clear();
+                                    successLayout.hrefTo(href);
                                 }else {
                                     layer.close(index);
                                     errorLayout.normal(response);
@@ -359,7 +326,6 @@
                     },function(index){
                         layer.close(index)}
                 )
-
             }})
     })
 </script>

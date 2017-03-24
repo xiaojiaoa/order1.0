@@ -47,7 +47,6 @@
                                     </tr>
                                     </thead>
                                     <tbody class="purApplyTr">
-
                                     </tbody>
                                 </table>
                             </div>
@@ -72,8 +71,6 @@
 <script type="text/javascript">
     $(document).ready(function () {
         pageSetUp();
-
-
         var parentEle = '.purApplyTr';
         var storageKey = 'LIST_DATA';
         var listArr = DWY_Utils.StorageUtils.getListArr(storageKey);
@@ -101,8 +98,6 @@
         }else{
             $(parentEle).html("");
         }
-
-
         $("#sub").click(function(){
             if (isNaN(parseFloat($(".amountApply").val())) || parseFloat($(".amountApply").val()) <= 0) {
                 layer.alert('请输入有效数字！', {icon: 3});
@@ -145,7 +140,6 @@
                         success: function (data) {
                             location.href="/purchase";
                             localStorage.clear();
-
                         },
                         error: function (response) {
                             if(response.status==200){
@@ -163,11 +157,7 @@
                 },function(index){
                     layer.close(index)}
             )
-
-
         })
-
-
     })
 </script>
 <%- include('../layouts/foot'); %>

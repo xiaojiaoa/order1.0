@@ -176,7 +176,9 @@
                         <input type="hidden" class="" id="checkedValue">
                         </tbody>
                       </table>
+
                 </div>
+                <%- pagination %>
             </div>
             <div class="dwy-clear"></div>
         </form>
@@ -189,10 +191,6 @@
 <script type="text/javascript">
     $(document).ready(function () {
         pageSetUp();
-
-
-
-
         //刷新选中列表 这个函数根据每个页面不同需自己填写
         function updateCheckedList(isInit) {
             var parentEle = '.purApplyTr';
@@ -294,8 +292,6 @@
                 checkedValue.removeClass(this.value+',');
             }
         });
-
-
     })
 </script>
 <%- include('../layouts/foot'); %>

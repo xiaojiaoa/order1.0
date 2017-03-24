@@ -125,16 +125,7 @@
                                 <td width="8%"><%= element.contact %></td>
                                 <td width="8%"><%= element.contactMobile %></td>
                                 <td width="90px"><%= element.grade %></td>
-                                <td width="90px">
-                                    <%
-                                    if(element.type==1){%>
-                                    外部
-                                    <%}%>
-                                    <%
-                                    if(element.type==2){%>
-                                        内部
-                                    <%}%>
-                                </td>
+                                <td width="90px"><%= element.type==1 ? '外部':'内部'%></td>
                                 <td width="8%"><%= element.gname %></td>
                                 <td width="8%"><%= element.deptName %></td>
                                 <td width="10%"><%= DWY_Helper.getLocalDate(element.addTime) %></td>
