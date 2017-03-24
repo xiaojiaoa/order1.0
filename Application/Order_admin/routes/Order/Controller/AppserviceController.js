@@ -139,7 +139,7 @@ var AppServiceController = {
         var ftyId = req.params.ftyId;
         request(Base.mergeRequestOptions({
             method: 'get',
-            url: '/api/whse/app/'+ftyId,
+            url: '/api/whse/app',
             headers:req.headers,
         }, req, res), function (error, response, body) {
             if (!error ) {
@@ -161,6 +161,46 @@ var AppServiceController = {
         }, req, res), function (error, response, body) {
             if (!error) {
                 // res.redirect('/enterMaterial')
+                res.send(JSON.parse(body));
+            } else {
+                res.send(AppServiceController.error);
+            }
+        })
+    },
+    getStock: function (req, res) {
+        request(Base.mergeRequestOptions({
+            method: 'get',
+            url: '/api/whse/app/stock/order/list',
+            headers:req.headers,
+        }, req, res), function (error, response, body) {
+            if (!error) {
+                res.send(JSON.parse(body));
+            } else {
+                res.send(AppServiceController.error);
+            }
+        })
+    },
+    doStock: function (req, res) {
+        request(Base.mergeRequestOptions({
+            method: 'post',
+            url: '/api/whse/app/stock',
+            form: req.body,
+            headers:req.headers,
+        }, req, res), function (error, response, body) {
+            if (!error) {
+                res.send(JSON.parse(body));
+            } else {
+                res.send(AppServiceController.error);
+            }
+        })
+    },
+    getStockList: function (req, res) {
+        request(Base.mergeRequestOptions({
+            method: 'get',
+            url: '/api/whse/app/stock/list?'+queryString.stringify(req.query),
+            headers:req.headers,
+        }, req, res), function (error, response, body) {
+            if (!error) {
                 res.send(JSON.parse(body));
             } else {
                 res.send(AppServiceController.error);
