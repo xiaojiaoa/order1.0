@@ -46,16 +46,25 @@ var PurchaseController = {
     },
     //新建请购单页面
     purchaseApplyCreatPage: function (req, res) {
+        var paramObject = helper.genPaginationQuery(req);
         var tid = req.params.tid;
         var bid = req.query.bid? req.query.bid: req.session.user.bid;
         Base.multiDataRequest(req, res, [
                 {url: '/api/categories/list?parentId=0', method: 'GET', resConfig: {keyName: 'suppliersMaterialList', is_must: true}},
                 {url: '/api/purchase/request/mates?'+(queryString.stringify(req.query)), method: 'GET', resConfig: {keyName: 'supMaterialList', is_must: true}},
-            ],
-            function (req, res, resultList) {
+            ], function (req, res, resultList) {
+                var paginationInfo =  resultList.supMaterialList;
+                var boostrapPaginator = new Pagination.TemplatePaginator(helper.genPageInfo({
+                    prelink: paramObject.withoutPageNo,
+                    current: paginationInfo.page,
+                    rowsPerPage: paginationInfo.pageSize,
+                    totalResult: paginationInfo.totalItems
+                }));
+
                 var returnData = Base.mergeData(helper.mergeObject({
                     title: ' ',
                     Permission :Permissions,
+                    pagination: boostrapPaginator.render(),
                     tid:tid,
                     bid:bid,
                 }, resultList));
