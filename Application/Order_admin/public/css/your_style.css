@@ -634,15 +634,15 @@ tr > td > .separation:last-child {
 .basicDataTit01{
     border: 1px solid #ddd;
     line-height: 35px;
-    border-bottom: 0px;
+  /*  border-bottom: 0px;*/
     margin-top:0px;
     margin-bottom:0px;
 }
-.table-linkage tr.active,.table-linkage tr.active input{
+.table-linkage tr.active,.table-linkage tr.active input,.table-linkage tr.active textarea{
     background-color: #ecf3f8!important;
     cursor: pointer;
 }
-.table-linkage tr.disable,.table-linkage tr.disable input{
+.table-linkage tr.disable,.table-linkage tr.disable input,.table-linkage tr.active textarea{
     background-color: rgba(244, 244, 244, 4);
     color: #999999;
 }
