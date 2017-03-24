@@ -29,6 +29,7 @@ var CargospaceController = {
             url: '/api/whse/warehouse/list/'+ftyId,
         }, req, res), function (error, response, body) {
             if (!error && response.statusCode == 200) {
+                Base.handlerSuccess(res, req);
                 // res.sendStatus(200);
                 res.status(200).json(body)
 
@@ -45,6 +46,7 @@ var CargospaceController = {
             url: '/api/whse/region/list/'+whseId,
         }, req, res), function (error, response, body) {
             if (!error && response.statusCode == 200) {
+                Base.handlerSuccess(res, req);
                 res.status(200).json(body)
             } else {
                 Base.handlerError(res, req, error, response, body);
@@ -132,6 +134,7 @@ var CargospaceController = {
             form:req.body,
         }, req, res), function (error, response, body) {
             if (!error && response.statusCode == 201) {
+                Base.handlerSuccess(res, req);
                 // var lid = JSON.parse(body).lid;
                 if(createType == 2){
                     res.redirect("/cargospace/createNext/"+ftyId+"/"+whseId+"/"+regionId);
@@ -181,6 +184,7 @@ var CargospaceController = {
             // form:req.body,
         }, req, res), function (error, response, body) {
             if (!error && response.statusCode == 201) {
+                Base.handlerSuccess(res, req);
                 // var lid = JSON.parse(body).lid;
                 res.redirect("/cargospace/detail/"+spaceId);
 
@@ -199,6 +203,7 @@ var CargospaceController = {
             url: '/api/whse/cargospace/'+spaceId,
         }, req, res), function (error, response, body) {
             if (!error && response.statusCode == 204) {
+                Base.handlerSuccess(res, req);
                 res.sendStatus(200);
             } else {
                 Base.handlerError(res, req, error, response, body);
@@ -213,6 +218,7 @@ var CargospaceController = {
             url: '/api/whse/cargospace/enable/'+spaceId,
         }, req, res), function (error, response, body) {
             if (!error && response.statusCode == 201) {
+                Base.handlerSuccess(res, req);
                 res.sendStatus(200);
             } else {
                 Base.handlerError(res, req, error, response, body);

@@ -46,6 +46,7 @@ var UserController = {
             url: '/api/employees/password?'+queryString.stringify(req.body),
         }, req, res), function (error, response, body) {
             if (!error && response.statusCode == 201) {
+                Base.handlerSuccess(res, req);
                 res.redirect("/login");
             } else {
                 Base.handlerError(res, req, error, response, body);

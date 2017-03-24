@@ -6,6 +6,7 @@ html,body{
 #divSmallBoxes{
     z-index: 99999999;
 }
+
 #main {
     min-width: 1420px;
     background: #fff;

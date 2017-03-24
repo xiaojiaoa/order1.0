@@ -38,3 +38,43 @@
 
 <!-- MAIN APP JS FILE -->
 <script src="/js/app.min.js"></script>
+<script>
+    //判断浏览器的版本 下载chorme浏览器
+    function Whatbrowser(){
+        var browsername="";
+        var Sys = {};
+        var ua = navigator.userAgent.toLowerCase();
+        var s;
+        var scan;
+        (s = ua.match(/msie ([\d.]+)/)) ? Sys.ie = s[1] :
+            (s = ua.match(/firefox\/([\d.]+)/)) ? Sys.firefox = s[1] :
+                (s = ua.match(/chrome\/([\d.]+)/)) ? Sys.chrome = s[1] :
+                    (s = ua.match(/opera.([\d.]+)/)) ? Sys.opera = s[1] :
+                        (s = ua.match(/version\/([\d.]+).*safari/)) ? Sys.safari = s[1] : 0;
+
+        //以下进行测试
+
+//	if(Sys.ie)
+//	{
+//	    scan=Sys.ie;
+//	}
+//	if(Sys.firefox)
+//	{
+//	    scan="您使用的是firefox内核"+Sys.firefox+"浏览器，如果有问题，建议您使用ie浏览器";
+//	}
+        if(Sys.chrome)
+        {
+//	    scan="您使用的是chrome内核"+Sys.chrome+"浏览器，如果有问题，建议您使用ie浏览器";
+            browsername="chrome";
+        }
+//	if(Sys.opera)
+//	{
+//	    scan="您使用的是opera内核"+Sys.opera+"浏览器，如果有问题，建议您使用ie浏览器";
+//	}
+//	if(Sys.safari)
+//	{
+//	    scan="您使用的是safari内核"+Sys.safari+"浏览器，如果有问题，建议您使用ie浏览器";
+//	}
+        return browsername;
+    }
+</script>

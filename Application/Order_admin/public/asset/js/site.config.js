@@ -366,6 +366,8 @@ var successLayout = {
 }
 
 
+
+
 $(document).ready(function () {
     var dwy_msg_type = $('input[name=dwy-message-type]');
     var dwy_msg_info = $('input[name=dwy-message-info]');

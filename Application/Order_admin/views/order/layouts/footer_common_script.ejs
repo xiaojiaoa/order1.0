@@ -101,13 +101,18 @@
             }else{
                 localStorage.setItem('menuScroll-height',0);
             }
-
-
         });
+
         $('ul.menu-list').animate({
             scrollTop:localStorage.getItem('menuScroll-height')
         }, 500);
 
+
+        $('#bot1-Msg1').click(function (e) {
+            e.preventDefault()
+            alert(66666)
+            localStorage.setItem('menuScroll-height',0);
+        })
         //超过屏幕的li展示在页面中间
  /*       if($(".menu-list li.active")){
             $('ul.menu-list').animate({

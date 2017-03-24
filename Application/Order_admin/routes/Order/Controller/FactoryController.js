@@ -52,6 +52,7 @@ var FactoryController = {
             url: '/api/whse/factory/exist?ftyId='+id,
         }, req, res), function (error, response, body) {
             if (!error && response.statusCode == 200) {
+                Base.handlerSuccess(res, req);
                 res.status(200).json(body);
             }
         })
@@ -75,6 +76,7 @@ var FactoryController = {
             form:req.body,
         }, req, res), function (error, response, body) {
             if (!error && response.statusCode == 201) {
+                Base.handlerSuccess(res, req);
                 res.redirect("/factory");
 
             } else {
@@ -118,6 +120,7 @@ var FactoryController = {
             // form:req.body,
         }, req, res), function (error, response, body) {
             if (!error && response.statusCode == 201) {
+                Base.handlerSuccess(res, req);
                 // var lid = JSON.parse(body).lid;
                 res.redirect("/factory/detail/"+ftyId);
 
@@ -135,6 +138,7 @@ var FactoryController = {
             url: '/api/whse/factory/'+ftyId,
         }, req, res), function (error, response, body) {
             if (!error && response.statusCode == 204) {
+                Base.handlerSuccess(res, req);
                 res.sendStatus(200);
             } else {
                 Base.handlerError(res, req, error, response, body);
@@ -149,6 +153,7 @@ var FactoryController = {
             url: '/api/whse/factory/enable/'+ftyId,
         }, req, res), function (error, response, body) {
             if (!error && response.statusCode == 201) {
+                Base.handlerSuccess(res, req);
                 res.sendStatus(200);
             } else {
                 Base.handlerError(res, req, error, response, body);
@@ -208,6 +213,7 @@ var FactoryController = {
             form:req.body,
         }, req, res), function (error, response, body) {
             if (!error && response.statusCode == 201) {
+                Base.handlerSuccess(res, req);
                 res.redirect("/warehouse?ftyId="+ftyId);
             } else {
                 Base.handlerError(res, req, error, response, body);
@@ -236,6 +242,7 @@ var FactoryController = {
             url: '/api/whse/warehouse/update?'+queryString.stringify(req.body),
         }, req, res), function (error, response, body) {
             if (!error && response.statusCode == 201) {
+                Base.handlerSuccess(res, req);
                 res.redirect("/warehouse?ftyId="+ftyId);
 
             } else {
@@ -252,6 +259,7 @@ var FactoryController = {
             url: '/api/whse/warehouse/'+whseId,
         }, req, res), function (error, response, body) {
             if (!error && response.statusCode == 204) {
+                Base.handlerSuccess(res, req);
                 res.sendStatus(200);
             } else {
                 Base.handlerError(res, req, error, response, body);
@@ -266,6 +274,7 @@ var FactoryController = {
             url: '/api/whse/warehouse/enable/'+whseId,
         }, req, res), function (error, response, body) {
             if (!error && response.statusCode == 201) {
+                Base.handlerSuccess(res, req);
                 res.sendStatus(200);
             } else {
                 Base.handlerError(res, req, error, response, body);
@@ -330,6 +339,7 @@ var FactoryController = {
             form:req.body,
         }, req, res), function (error, response, body) {
             if (!error && response.statusCode == 201) {
+                Base.handlerSuccess(res, req);
                 res.redirect("/region?ftyId="+ftyId+"&whseId="+whseId);
             } else {
                 Base.handlerError(res, req, error, response, body);
@@ -356,6 +366,7 @@ var FactoryController = {
             url: '/api/whse/region/update?'+queryString.stringify(req.body),
         }, req, res), function (error, response, body) {
             if (!error && response.statusCode == 201) {
+                Base.handlerSuccess(res, req);
                 res.redirect("/region/"+ftyId+'/'+whseId);
 
             } else {
@@ -372,6 +383,7 @@ var FactoryController = {
             url: '/api/whse/region/'+regionId,
         }, req, res), function (error, response, body) {
             if (!error && response.statusCode == 204) {
+                Base.handlerSuccess(res, req);
                 res.sendStatus(200);
             } else {
                 Base.handlerError(res, req, error, response, body);
@@ -386,6 +398,7 @@ var FactoryController = {
             url: '/api/whse/region/enable/'+regionId,
         }, req, res), function (error, response, body) {
             if (!error && response.statusCode == 201) {
+                Base.handlerSuccess(res, req);
                 res.sendStatus(200);
             } else {
                 Base.handlerError(res, req, error, response, body);

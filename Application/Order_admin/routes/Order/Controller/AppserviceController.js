@@ -106,6 +106,24 @@ var AppServiceController = {
             }
         })
     },
+    cargoinOrderWeb: function (req, res) {
+        Base.multiDataRequest(req, res, [
+                {url: '/api/whse/app/cargoin/order/package/list', method: 'post', form:req.body,resConfig: {keyName: 'packageList', is_must: false}},
+                {url: '/api/whse/factory/list', method: 'GET', resConfig: {keyName: 'factoryList', is_must: true}},
+            ],
+            function (req, res, resultList) {
+            console.log('packageList',JSON.stringify(resultList.packageList))
+                var returnData = Base.mergeData(helper.mergeObject({
+                    title: ' ',
+                }, resultList));
+            if(resultList.packageList.list.length>0){
+                res.render('order/enter/enter_product_scanning', returnData);
+            }else{
+                // Base.handlerError(res, req, error, response, body);
+            }
+
+            });
+    },
     doCargoin: function (req, res) {
         request(Base.mergeRequestOptions({
             method: 'post',

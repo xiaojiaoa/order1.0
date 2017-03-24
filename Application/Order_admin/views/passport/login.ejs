@@ -1,6 +1,28 @@
 <%- include('layouts/head_top'); %>
 <%- include('layouts/head_bottom'); %>
 <%- include('layouts/header'); %>
+<style>
+    #validate-img {
+        position: absolute;
+        right: 1px;
+        top: 1px;
+        height: 30px;
+        cursor: pointer;
+    }
+    #fix-alert{
+        /*position: absolute;*/
+        /*width: 100%;*/
+        /*top: 0;*/
+        /*z-index: 999;*/
+        opacity: 0.8;
+        font-size: 20px;
+        line-height: 50px;
+        display: none;
+    }
+    #fix-alert .alert{
+        margin-bottom: 0;
+    }
+</style>
 
 <div class="row">
     <div class="col-xs-12 col-sm-12 col-md-7 col-lg-8 hidden-xs hidden-sm">
@@ -83,6 +105,18 @@
 <%- include('layouts/footer_common_script'); %>
 
 <script type="text/javascript">
+
+    $(function(){
+        var browsername=Whatbrowser();
+        if(browsername!="chrome"){
+            $("#fix-alert").slideDown();
+        }
+        $('#alertClose').click(function () {
+            $("#fix-alert").slideUp();
+        })
+    });
+
+
     runAllForms();
 
     $(function () {
@@ -171,14 +205,6 @@
     });
 </script>
 
-<style scoped>
-    #validate-img {
-        position: absolute;
-        right: 1px;
-        top: 1px;
-        height: 30px;
-        cursor: pointer;
-    }
-</style>
+
 
 <%- include('layouts/foot'); %>

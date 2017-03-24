@@ -51,7 +51,9 @@ var EmployeeController = {
     createPage: function (req, res) {
         var type = req.params.type;
         var bid = req.params.bid;
-        var scope = (type == 'stores')? 1 : 2 ;
+        // var scope = (type == 'stores')? 1 : 2 ;
+        var scope = req.session.user.orgType;
+        console.log('orgType',req.session.user.orgType)
         Base.multiDataRequest(req, res, [
             {url: '/api/'+type+'/departments/'+bid, method: 'GET', resConfig: {keyName: 'departmentsInfo', is_must: true}},
             {url: '/api/roles/'+bid+'?scope='+scope, method: 'GET', resConfig: {keyName: 'rolesInfo', is_must: true}},
@@ -87,6 +89,7 @@ var EmployeeController = {
             form:req.body,
         }, req, res), function (error, response, body) {
             if (!error && response.statusCode == 201) {
+                Base.handlerSuccess(res, req);
                 // var lid = JSON.parse(body).lid;
                 res.redirect("/"+type+"/employees?bid="+bid);
 
@@ -120,6 +123,7 @@ var EmployeeController = {
             url: '/api/employees?mobile='+mobile,
         }, req, res), function (error, response, body) {
             if (!error && response.statusCode == 200) {
+                Base.handlerSuccess(res, req);
                 if(body){
                     var $data = JSON.parse(body);
                     // res.redirect("/customer/detail/"+custInfo.cid);
@@ -132,7 +136,8 @@ var EmployeeController = {
         var cid =  req.params.cid;
         var type =  req.params.type;
         var bid =  req.params.bid;
-        var scope = (type == 'stores')? 1 : 2 ;
+        // var scope = (type == 'stores')? 1 : 2 ;
+        var scope = req.session.user.orgType;
         var employeesUrl = (type == 'stores')? '/api/stores/employees/' : '/api/employees/' ;
         Base.multiDataRequest(req, res, [
             {url: employeesUrl+cid, method: 'GET', resConfig: {keyName: 'employeesInfo', is_must: true}},
@@ -170,6 +175,7 @@ var EmployeeController = {
             // form:req.body,
         }, req, res), function (error, response, body) {
             if (!error && response.statusCode == 201) {
+                Base.handlerSuccess(res, req);
                 // var lid = JSON.parse(body).lid;
                 res.redirect("/employees/detail/"+cid);
 
@@ -186,6 +192,7 @@ var EmployeeController = {
             url: '/api/stores/employees/password/rest/'+cid,
         }, req, res), function (error, response, body) {
             if (!error && response.statusCode == 201) {
+                Base.handlerSuccess(res, req);
                 res.sendStatus(200);
             } else {
                 Base.handlerError(res, req, error, response, body);
@@ -203,6 +210,7 @@ var EmployeeController = {
             url: apiUrl+cid+'?stcode='+type,
         }, req, res), function (error, response, body) {
             if (!error && response.statusCode == 201) {
+                Base.handlerSuccess(res, req);
                 res.sendStatus(200);
             } else {
                 Base.handlerError(res, req, error, response, body);

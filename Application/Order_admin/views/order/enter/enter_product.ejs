@@ -138,8 +138,11 @@
                                         查询
                                     </button>
                                     <!--<a class="btn btn-primary" href="/enterProduct/scanning">-->
-                                        <!--扫描入库-->
+                                        <!--入库-->
                                     <!--</a>-->
+                                    <a class="btn btn-primary" id="inPackageList">
+                                        入库
+                                    </a>
                                 </div>
                             </div>
 
@@ -210,12 +213,36 @@
 <%- include('../layouts/footer'); %>
 <%- include('../layouts/footer_common_script'); %>
 
+<form class="form-horizontal layer-template" method="post" action="/web/cargoin/order" id="in-packageList">
+    <div class="col-xs-12 padding-top-15">
+
+        <div class="form-group">
+            <label class="col-xs-2 control-label"><span class="requird"></span> 包装流水号:</label>
+            <div class="col-xs-6">
+                <textarea name="packageList" class="form-control validate[required]"
+                          cols="30" rows="5" placeholder="可操作多个包装流水号，以英文 , 分隔"></textarea>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="col-xs-8">
+        <hr class="simple">
+        <div class="col-xs-12 text-center">
+            <button class="btn btn-primary " type="submit">
+                确认
+            </button>
+        </div>
+    </div>
+    <div class="dwy-clear"></div>
+</form>
 
 <script type="text/javascript">
 
     $(document).ready(function () {
 
         $("#search-customer").validationEngine();
+        $("#in-packageList").validationEngine();
 
         pageSetUp();
 
@@ -260,7 +287,20 @@
         })
 
 
+        $('#inPackageList').on({
+            click: function (e) {
+                layer.open({
+                    title: false,
+                    type: 1,
+                    area: '700px',
+                    content: $('#in-packageList'),
+                    cancel: function () {
+                        //右上角关闭回调
+                    },
 
+                });
+            }
+        })
 
     })
 
