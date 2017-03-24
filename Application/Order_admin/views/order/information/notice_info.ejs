@@ -502,7 +502,8 @@
                                layer.close(index)
                                var status = response.status;
                                if(status == 200){
-                                   location.href="/noticeInfo";
+                                   var href='/noticeInfo';
+                                   successLayout.hrefTo(href);
                                    return;
                                }
                                errorLayout.normal(response);

@@ -112,7 +112,7 @@
                             url: '/factory/doClose/'+ftyId,
                             method: 'delete',
                             success: function (data) {
-                                window.location.reload();
+                                successLayout.reload();
                             },
                             error: function (response) {
                                 layer.close(index)
@@ -132,7 +132,7 @@
                             url: '/factory/doOpen/'+ftyId,
                             method: 'put',
                             success: function (data) {
-                                window.location.reload();
+                                successLayout.reload();
                             },
                             error: function (response) {
                                 layer.close(index)

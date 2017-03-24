@@ -143,11 +143,8 @@
                         },
                         error: function (response) {
                             if(response.status==200){
-                                layer.msg('操作成功', {icon: 1, time: DWY_GLOBAL_CONSTANT.TimeOut})
-                                setTimeout(function(){
-                                    location.href="/purchase";
-                                    localStorage.clear();
-                                },DWY_GLOBAL_CONSTANT.TimeOut);
+                                successLayout.hrefTo("/purchase");
+                                localStorage.clear();
                             }else {
                                 layer.close(index)
                                 errorLayout.normal(response);

@@ -177,10 +177,7 @@
                             url: '/storesManage/setStatus/'+storeId+'/40',
                             method: 'put',
                             success: function (data) {
-                                layer.msg('操作成功', {icon: 1, time: DWY_GLOBAL_CONSTANT.TimeOut});
-                                setTimeout(function () {
-                                    window.location.reload();
-                                }, DWY_GLOBAL_CONSTANT.TimeOut)
+                                successLayout.reload();
                             },
                             error: function (response) {
                                 layer.close(index)
@@ -200,10 +197,7 @@
                             url: '/storesManage/setStatus/'+storeId+'/10',
                             method: 'put',
                             success: function (data) {
-                                layer.msg('操作成功', {icon: 1, time: DWY_GLOBAL_CONSTANT.TimeOut});
-                                setTimeout(function () {
-                                    window.location.reload();
-                                }, DWY_GLOBAL_CONSTANT.TimeOut)
+                                successLayout.reload();
                             },
                             error: function (response) {
                                 layer.close(index)
