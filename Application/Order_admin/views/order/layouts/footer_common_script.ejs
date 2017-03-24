@@ -94,6 +94,15 @@
 //    console.log('window', window.location.pathname)
         $('ul.menu-list li:has(a[href="' + type + '"])').addClass('active');
 
+        $('ul.menu-list li').click(function () {
+            var height = $(this).offset().top;
+            localStorage.setItem('menuScroll-height',height)
+//            alert(height)
+        });
+        $('ul.menu-list').animate({
+            scrollTop:localStorage.getItem('menuScroll-height')
+        }, 500);
+
         //超过屏幕的li展示在页面中间
  /*       if($(".menu-list li.active")){
             $('ul.menu-list').animate({
