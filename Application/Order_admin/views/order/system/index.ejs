@@ -68,8 +68,8 @@
                             <a class="label label-primary modify status01">修改</a>
                             <a class="label label-primary open-this status03">启用</a>
                             <a class="label label-danger delete status01">删除</a>
-                            <a class="label label-primary see-all status01 display-none">查看所有</a>
-                            <a class="label label-primary open-all status01">启用所有</a>
+                            <a class="label label-primary see-all display-none">查看所有</a>
+                            <a class="label label-primary open-all display-none">启用所有</a>
                             <a class="label label-primary revoke status02">撤销</a>
                             <a class="label label-primary save status02">保存</a>
                             <input type="hidden" name="key" value="" class="key"type='text'/>
@@ -152,13 +152,7 @@
              $(".level-1 input[name=key]").val(key);
 
             //展示的样式
-           if(key=='assistantOrderSpaceinfo'){
-               $(".level-0").removeClass("col-xs-3").addClass("col-xs-4");
-                $(".level-1").removeClass("col-xs-8").addClass("col-xs-4");
-                $(".level-2").removeClass("display-none").addClass("col-xs-4");
-                $(".level-3").addClass("display-none");
-            }
-            else if(key=='assistantResupplyReason'){
+          if(key=='assistantResupplyReason'|| key=='assistantOrderSpaceinfo'){
                $(".level-0").removeClass("col-xs-4").addClass("col-xs-3");
                $(".level-1").removeClass("col-xs-8").addClass("col-xs-3");
                $(".level-2").removeClass("display-none").addClass("col-xs-3");
@@ -181,6 +175,13 @@
                 $(".delete").show();
             }
 
+            //订单退单原因添加备注
+            if(key=="assistantReviewReson"){
+                $(".level-1 .basicDataTit" ).html("类别1"+"<p>22:加盟退回原因 21:受理退回原因 60:排料退回原因 50:拆审退回原因 40:拆单退回原因 20:审单退回原因<p>");
+            }
+            else{
+                $(".level-1 .basicDataTit" ).html("类别1");
+            }
             ajaxFunc(key);
 
 
@@ -192,7 +193,9 @@
             var parentId=$(this).attr("id");
             console.log(parentId);
             $(".level-2 input[name=parentId]").val(parentId);
+
             if(key=="assistantResupplyReason"){
+
                 $.ajax({
                     url: '/resupplyReason/'+parentId,
                     method: 'put',
@@ -216,6 +219,7 @@
                 });
             }
             if(key=="assistantOrderSpaceinfo"){
+
                 $.ajax({
                     url: '/orderSpaceinfo/'+parentId,
                     method: 'put',
@@ -225,7 +229,7 @@
 
                             var frag = "";
                             for (var i = 0; i < arry.length; i++) {
-                                frag += "<tr id=" + arry[i].id + " stcode=" + arry[i].stcode + "><td><input class='border-0 text-align-center' type='text' value=" + arry[i].name + " name='name' readonly/></td></tr>"
+                                frag += "<tr id=" + arry[i].id + " stcode=" + arry[i].stcode + " parentId=" + arry[i].parentId + "><td><input class='border-0 text-align-center' type='text' value=" + arry[i].name + " name='name' readonly/></td></tr>"
                             }
                             $(".basicDataThree").html(frag);
 
@@ -244,7 +248,9 @@
             var key= $(".level-1 input[name=key]").val();
             var parentId=$(this).attr("id");
             console.log(parentId);
-            $(".level-2 input[name=parentId]").val(parentId);
+            $(".level-3 input[name=parentId]").val();
+
+
             if(key=="assistantResupplyReason"){
                 $.ajax({
                     url: '/resupplyReason/'+parentId,
@@ -252,11 +258,32 @@
                     success: function (data) {
                         var arry= JSON.parse(data);
                         console.log(arry);
-                            var frag = "";
-                            for (var i = 0; i < arry.length; i++) {
-                                frag += "<tr id=" + arry[i].id + " stcode=" + arry[i].stcode + "  parentId=" + arry[i].parentId + "><td><input class='border-0 text-align-center' type='text' value=" + arry[i].name + " name='name' readonly/></td></td><td><input class='border-0 text-align-center' type='text' value=" + arry[i].levelType + " name='levelType' readonly/></td></tr>"
-                            }
-                            $(".basicDataFour").html(frag);
+                        var frag = "";
+                        for (var i = 0; i < arry.length; i++) {
+                            frag += "<tr id=" + arry[i].id + " stcode=" + arry[i].stcode + "  parentId=" + arry[i].parentId + "><td><input class='border-0 text-align-center' type='text' value=" + arry[i].name + " name='name' readonly/></td></td><td><input class='border-0 text-align-center' type='text' value=" + arry[i].levelType + " name='levelType' readonly/></td></tr>"
+                        }
+                        $(".basicDataFour").html(frag);
+
+                    },
+                    error: function (response) {
+                        layer.close(index)
+                        errorLayout.normal(response);
+                    }
+                });
+            }
+            if(key=="assistantOrderSpaceinfo"){
+
+                $.ajax({
+                    url: '/orderSpaceinfoTwo/'+parentId,
+                    method: 'put',
+                    success: function (data) {
+                        var arry= JSON.parse(data);
+                        console.log(arry);
+                        var frag = "";
+                        for (var i = 0; i < arry.length; i++) {
+                            frag += "<tr id=" + arry[i].id + " stcode=" + arry[i].stcode + "  parentId=" + arry[i].parentId + "><td><input class='border-0 text-align-center' type='text' value=" + arry[i].name + " name='name' readonly/></td></tr>"
+                        }
+                        $(".basicDataFour").html(frag);
 
                     },
                     error: function (response) {
@@ -281,14 +308,14 @@
                 else if(key=="assistantConfig"){
                     var frag="";
                     for(var i=0;i<arry.length;i++){
-                        frag+="<tr id="+arry[i].id+" stcode="+arry[i].status+"><td><input class='border-0 text-align-center' type='text' value="+arry[i].code+" name='code' readonly/></td><td><input class='border-0 text-align-center' type='text' value="+arry[i].value+" name='value' readonly/></td><td><input class='border-0 text-align-center' type='text' value="+arry[i].remark+"       name='remark' readonly/></td></tr>"
+                        frag+="<tr id="+arry[i].id+" stcode="+arry[i].status+"><td width='30%'><input class='border-0 text-align-center' type='text' value="+arry[i].code+" name='code' readonly/></td><td width='30%'><input class='border-0 text-align-center' type='text' value="+arry[i].value+" name='value' readonly/></td><td width='40%'><textarea class='border-0 text-align-center' name='remark' row='6'>"+arry[i].remark+"</textarea></td></tr>"
                     }
                     $(".basicDataSec").html(frag);
                 }
                 else  if(key=="assistantBrandInfo"){
                     var frag="";
                     for(var i=0;i<arry.length;i++){
-                        frag+="<tr id="+arry[i].id+" stcode="+arry[i].stcode+"><td><input class='border-0 text-align-center' type='text' value="+arry[i].type+" name='type' readonly/></td><td><input class='border-0 text-align-center' type='text' value="+arry[i].name+" name='name' readonly/></td></tr>"
+                        frag+="<tr id="+arry[i].id+" stcode="+arry[i].stcode+"><td><input class='border-0 text-align-center' type='text' value="+arry[i].name+" name='name' readonly/></td></tr>"
                     }
                     $(".basicDataSec").html(frag);
                 }
@@ -296,7 +323,7 @@
                     var frag="";
                     for(var i=0;i<arry.length;i++){
                         if(arry[i].parentId==0){
-                            frag+="<tr id="+arry[i].id+" stcode="+arry[i].stcode+"><td><input class='border-0 text-align-center' type='text' value="+arry[i].name+" name='name' readonly/></td></tr>"
+                            frag+="<tr id="+arry[i].id+" stcode="+arry[i].stcode+" parentId=" + arry[i].parentId + "><td><input class='border-0 text-align-center' type='text' value="+arry[i].name+" name='name' readonly/></td></tr>"
                         }
                     }
                     $(".basicDataSec").html(frag);

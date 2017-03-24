@@ -100,6 +100,19 @@ var SystemController = {
             }
         })
     },
+    orderSpaceinfoTwoPage: function (req, res) {
+        var spaceId = req.params.spaceId;
+        request(Base.mergeRequestOptions({
+            method: 'GET',
+            url: '/api/assist/space/prod?spaceId='+spaceId,
+        }, req, res), function (error, response, body) {
+            if (!error && response.statusCode == 200) {
+                res.status(200).json(body)
+            } else {
+                Base.handlerError(res, req, error, response, body);
+            }
+        })
+    },
     timeSetPage: function (req, res) {
         res.render('order/system/time')
     },

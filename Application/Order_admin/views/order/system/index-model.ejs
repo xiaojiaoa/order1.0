@@ -41,15 +41,23 @@
                     console.log(data);
                     delete data.undefined;
 
+                    var parentId=classDom.find("input[name=parentId]").val();
                     if(key=="assistantOrderSpaceinfo"){
                         if(!data.key){
-                            data.key="assistantOrderSpaceinfo";
-                            data.parentId=$(".level-1").find("tr").eq(index).attr("id");
+                            if(parentId==""){
+                                data.key="assistantSpaceProd";
+                                data.spaceId=$(".level-2").find("tr").eq(index).attr("id");
+                            }
+                            else{
+                                data.key="assistantOrderSpaceinfo";
+                                data.parentId=$(".level-1").find("tr").eq(index).attr("id");
+                            }
                         }
                         else{
                             data.parentId=0
                         }
                     }
+
                     if(key=="assistantResupplyReason"){
                         data.key="assistantResupplyReason";
                         if(data.levelType==1){
@@ -98,8 +106,12 @@
 
                 //根据有无点击tr执行取消readonly属性
 
+                if(key=="assistantConfig"){
+                    classDom.find("tr").eq(index).addClass("add-input").find("input[name=code],input[name=value]").removeAttr('readonly').focus();
+                }
+                else{
                     classDom.find("tr").eq(index).addClass("add-input").find("input").removeAttr('readonly').focus();
-
+                }
 
                 //启用'保存''撤销''输入框'的点击事件
                 classDom.find(".save,.revoke,.add-input *").css("pointer-events","auto");
@@ -116,15 +128,24 @@
                     var id=classDom.find("tr").eq(index).attr("id");
                     data.id=id;
                     delete data.undefined;
+
+                    var parentId=classDom.find("input[name=parentId]").val();
                     if(key=="assistantOrderSpaceinfo"){
                         if(!data.key){
-                            data.key="assistantOrderSpaceinfo";
-                            data.parentId=$(".level-1").find("tr").eq(index).attr("id");
+                            if(parentId==""){
+                                data.key="assistantSpaceProd";
+                                data.spaceId=$(".level-2").find("tr").eq(index).attr("id");
+                            }
+                            else{
+                                data.key="assistantOrderSpaceinfo";
+                                data.parentId=$(".level-1").find("tr").eq(index).attr("id");
+                            }
                         }
                         else{
                             data.parentId=0
                         }
                     }
+
                     if(key=="assistantResupplyReason"){
                         data.key="assistantResupplyReason";
                         if(data.levelType==1){
@@ -146,8 +167,16 @@
                             setTimeout(function(){
                                 ajaxFunc(key);
                                 status02(classDom);
+                                if(key=="assistantConfig"){
+                                    $(".create ").hide();
+                                    $(".delete").hide();
+                                }
+                                else{
+                                    $(".create").show();
+                                    $(".delete").show();
+                                }
                                 //启用所有的点击事件
-                                $(".desktop-detected *").css("pointer-events","auto");},500);
+                                $(".desktop-detected *").css("pointer-events","auto");},1000);
                         },
                         error: function (response) {
                             layer.close(index)
@@ -162,6 +191,14 @@
                 $(".revoke").on("click",function(){
                         ajaxFunc(key);
                         status02(classDom);
+                    if(key=="assistantConfig"){
+                        $(".create ").hide();
+                        $(".delete").hide();
+                    }
+                    else{
+                        $(".create").show();
+                        $(".delete").show();
+                    }
                         //启用所有的点击事件
                         $(".desktop-detected *").css("pointer-events","auto");
                 });
@@ -214,15 +251,24 @@
             }
 
             delete data.undefined;
+
+            var parentId=classDom.find("input[name=parentId]").val();
             if(key=="assistantOrderSpaceinfo"){
                 if(!data.key){
-                    data.key="assistantOrderSpaceinfo";
-                    data.parentId=$(".level-1").find("tr").eq(index).attr("id");
+                    if(parentId==""){
+                        data.key="assistantSpaceProd";
+                        data.spaceId=$(".level-2").find("tr").eq(index).attr("id");
+                    }
+                    else{
+                        data.key="assistantOrderSpaceinfo";
+                        data.parentId=$(".level-1").find("tr").eq(index).attr("id");
+                    }
                 }
                 else{
                     data.parentId=0
                 }
             }
+
             if(key=="assistantResupplyReason"){
                 data.key="assistantResupplyReason";
                 if(data.levelType==1){
@@ -256,7 +302,7 @@
     })
 
         //点击"查看所有"
-        $('.see-all').click(function () {
+      /*  $('.see-all').click(function () {
 
             var level = $(this).parent().attr('data-level');
             var classDom=$('.'+level);
@@ -267,16 +313,16 @@
             classDom.find('.disable').show();
 
             seaAllStat=true;
-        })
+        })*/
 
         //点击"启用所有"
-      /*  $('.open-all').click(function () {
+     /*   $('.open-all').click(function () {
 
             var level = $(this).parent().attr('data-level');
             var classDom=$('.'+level);
 
-            $(this).hide();
-            classDom.find('.disable').removeAttr('class');
+          /!*  $(this).hide();
+            classDom.find('.disable').removeAttr('class');*!/
             openAllStat=true;
 
             layer.confirm('确定启用所有?', {icon: 3, title: '提示'}, function (index) {
@@ -324,15 +370,24 @@
             }
 
             delete data.undefined;
+
+            var parentId=classDom.find("input[name=parentId]").val();
             if(key=="assistantOrderSpaceinfo"){
                 if(!data.key){
-                    data.key="assistantOrderSpaceinfo";
-                    data.parentId=$(".level-1").find("tr").eq(index).attr("id");
+                    if(parentId==""){
+                        data.key="assistantSpaceProd";
+                        data.spaceId=$(".level-2").find("tr").eq(index).attr("id");
+                    }
+                    else{
+                        data.key="assistantOrderSpaceinfo";
+                        data.parentId=$(".level-1").find("tr").eq(index).attr("id");
+                    }
                 }
                 else{
                     data.parentId=0
                 }
             }
+
             if(key=="assistantResupplyReason"){
                 data.key="assistantResupplyReason";
                 if(data.levelType==1){
@@ -389,7 +444,7 @@
                 string="<tr class='add-input'><td><input class='border-0 text-align-center' type='text' value='' name='code'/></td><td><input class='border-0 text-align-center' type='text' value='' name='value'/></td><td><input class='border-0 text-align-center' type='text' value='' name='remark'/></td></tr>"
         }
             else  if(key=="assistantBrandInfo"){
-                string="<tr class='add-input'><td><input class='border-0 text-align-center' type='text' value='' name='type'/></td><td><input class='border-0 text-align-center' type='text' value='' name='name'/></td></tr>"
+                string="<tr class='add-input'><td><input class='border-0 text-align-center' type='text' value='' name='name'/></td></tr>"
             }
             else  if(key=="assistantOrderSpaceinfo"){
                 string="<tr class='add-input'><td><input class='border-0 text-align-center' type='text' value='' name='name'/></td></tr>"
@@ -414,96 +469,4 @@
         }
 
     })
-    function ajaxFunc(key){
-        $.ajax({
-            url: '/system/'+key,
-            method: 'put',
-            success: function (data) {
-                var arry= JSON.parse(data);
-                console.log(arry);
-                if(arry.length==0){
-                    $(".basicDataSec").html('<tr><td>暂无数据</td></tr>');
-                }
-                else if(key=="assistantConfig"){
-                    var frag="";
-                    for(var i=0;i<arry.length;i++){
-                        frag+="<tr id="+arry[i].id+" stcode="+arry[i].status+"><td><input class='border-0 text-align-center' type='text' value="+arry[i].code+" name='code' readonly/></td><td><input class='border-0 text-align-center' type='text' value="+arry[i].value+" name='value' readonly/></td><td><input class='border-0 text-align-center' type='text' value="+arry[i].remark+"       name='remark' readonly/></td></tr>"
-                    }
-                    $(".basicDataSec").html(frag);
-                }
-                else  if(key=="assistantBrandInfo"){
-                    var frag="";
-                    for(var i=0;i<arry.length;i++){
-                        frag+="<tr id="+arry[i].id+" stcode="+arry[i].stcode+"><td><input class='border-0 text-align-center' type='text' value="+arry[i].type+" name='type' readonly/></td><td><input class='border-0 text-align-center' type='text' value="+arry[i].name+" name='name' readonly/></td></tr>"
-                    }
-                    $(".basicDataSec").html(frag);
-                }
-                else  if(key=="assistantOrderSpaceinfo"){
-                    var frag="";
-                    for(var i=0;i<arry.length;i++){
-                        if(arry[i].parentId==0){
-                            frag+="<tr id="+arry[i].id+" stcode="+arry[i].stcode+"><td><input class='border-0 text-align-center' type='text' value="+arry[i].name+" name='name' readonly/></td></tr>"
-                        }
-                    }
-                    $(".basicDataSec").html(frag);
-                }
-                else  if(key=="assistantSpaceProd"){
-                    var frag="";
-                    for(var i=0;i<arry.length;i++){
-                        frag+="<tr id="+arry[i].id+" stcode="+arry[i].stcode+"><td><input class='border-0 text-align-center' type='text' value="+arry[i].name+" name='name' readonly/></td><td><input class='border-0 text-align-center' type='text' value="+arry[i].spaceId+" name='spaceId' readonly/></td></tr>"
-                    }
-                    $(".basicDataSec").html(frag);
-                }
-                else  if(key=="assistantResupplyReason"){
-                    var frag="";
-                    for(var i=0;i<arry.length;i++){
-                        if(arry[i].levelType==1){
-                            frag+="<tr id="+arry[i].id+" stcode="+arry[i].stcode+"><td><input class='border-0 text-align-center' type='text' value="+arry[i].name+" name='name' readonly/></td><td><input class='border-0 text-align-center' type='text' value="+arry[i].levelType+" name='levelType' readonly/></td></tr>"
-                        }
-                    }
-                    $(".basicDataSec").html(frag);
-                }
-                else  if(key=="assistantReviewReson"){
-                    var frag="";
-                    for(var i=0;i<arry.length;i++){
-                        frag+="<tr id="+arry[i].id+" stcode="+arry[i].stcode+"><td><input class='border-0 text-align-center' type='text' value="+arry[i].name+" name='name' readonly/></td><td><input class='border-0 text-align-center' type='text' value="+arry[i].reasonType+" name='reasonType' readonly/></tr>"
-                    }
-                    $(".basicDataSec").html(frag);
-                }
-                else  if(key=="assistantTaskseqFileType"){
-                    var frag="";
-                    for(var i=0;i<arry.length;i++){
-                        frag+="<tr id="+arry[i].id+" stcode="+arry[i].stcode+"><td><input class='border-0 text-align-center' type='text' value="+arry[i].type+" name='type' readonly/></td><td><input class='border-0 text-align-center' type='text' value="+arry[i].name+" name='name' readonly/></td><td><input class='border-0 text-align-center' type='text' value="+arry[i].fileExt+" name='fileExt' readonly/></td></tr>"
-                    }
-                    $(".basicDataSec").html(frag);
-                }
-                else  if(key=="assistantOrderFileType"){
-                    var frag="";
-                    for(var i=0;i<arry.length;i++){
-                        frag+="<tr id="+arry[i].id+" stcode="+arry[i].stcode+"><td><input class='border-0 text-align-center' type='text' value="+arry[i].code+" name='code' readonly/></td><td><input class='border-0 text-align-center' type='text' value="+arry[i].name+" name='name' readonly/></td><td><input class='border-0 text-align-center' type='text' value="+arry[i].fileExt+" name='fileExt' readonly/></td></tr>"
-                    }
-                    $(".basicDataSec").html(frag);
-                }
-                else{
-                    var frag="";
-                    for(var i=0;i<arry.length;i++){
-                        frag+="<tr id="+arry[i].id+" stcode="+arry[i].stcode+"><td><input class='border-0 text-align-center' type='text' value="+arry[i].name+" name='name' readonly/></td></tr>"
-                    }
-                    $(".basicDataSec").html(frag);
-                }
-
-                //给禁用项目设置样式
-                $(".basicDataSec").find("tr").each(function(){
-                    if($(this).attr("stcode")=='0'){
-                        $(this).addClass("disable");
-                    }
-                });
-
-            },
-            error: function (response) {
-                layer.close(index)
-                errorLayout.normal(response);
-            }
-        });
-    }
 </script>
