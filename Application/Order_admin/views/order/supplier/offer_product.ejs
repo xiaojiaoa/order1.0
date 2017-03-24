@@ -13,7 +13,7 @@
         <!-- breadcrumb -->
         <ol class="breadcrumb">
             <li>后台管理</li>
-            <li><a class="back-url" href="/supplier/detail/<%= suppliersDetails.id %>"><i class="fa fa-chevron-left"></i> 供应商详情</a></li>
+            <li><a class="back-url" href="/supplier/detail/<%= tid %>"><i class="fa fa-chevron-left"></i> 供应商详情</a></li>
             <li>供应商可供物料</li>
         </ol>
         <!-- end breadcrumb -->
@@ -153,7 +153,7 @@
                                         </table>
                                         <%- pagination %>
                                         <input type="hidden" class="" id="checkedValue">
-                                        <input type="hidden"  id="gid" value="<%= suppliersDetails.id %>">
+                                        <input type="hidden"  id="gid" value="<%= tid %>">
                                     </div>
                                 </div>
                             </div>
