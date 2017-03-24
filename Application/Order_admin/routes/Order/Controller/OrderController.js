@@ -108,6 +108,7 @@ var OrderController = {
             url: '/api/orders/'+id+'?'+queryString.stringify(req.body),
         }, req, res), function (error, response, body) {
             if (!error && response.statusCode == 201) {
+                Base.handlerSuccess(res, req);
                 res.redirect("/order/check/waitOrder");
             } else {
                 Base.handlerError(res, req, error, response, body);
@@ -122,6 +123,7 @@ var OrderController = {
             url: '/api/orders/review/getTask/'+tid,
         }, req, res), function (error, response, body) {
             if (!error && response.statusCode == 201) {
+                Base.handlerSuccess(res, req);
                 res.sendStatus(200);
                 // res.redirect("/order/check/getOrder");
             } else {
@@ -137,6 +139,7 @@ var OrderController = {
             url: '/api/orders/review/reSubmit/'+tid,
         }, req, res), function (error, response, body) {
             if (!error && response.statusCode == 201) {
+                Base.handlerSuccess(res, req);
                 res.sendStatus(200);
                 // res.redirect("/order/check/getOrder");
             } else {
@@ -152,6 +155,7 @@ var OrderController = {
             url: '/api/orders/review/unlock/'+tid,
         }, req, res), function (error, response, body) {
             if (!error && response.statusCode == 201) {
+                Base.handlerSuccess(res, req);
                 res.sendStatus(200);
             } else {
                 Base.handlerError(res, req, error, response, body);
@@ -165,6 +169,7 @@ var OrderController = {
             url: '/api/orders/review/notPass?'+queryString.stringify(req.body),
         }, req, res), function (error, response, body) {
             if (!error && response.statusCode == 201) {
+                Base.handlerSuccess(res, req);
                 res.redirect("/order/check/waitOrder");
             } else {
                 Base.handlerError(res, req, error, response, body);
@@ -178,6 +183,7 @@ var OrderController = {
             url: '/api/orders/review/pass?'+queryString.stringify(req.body),
         }, req, res), function (error, response, body) {
             if (!error && response.statusCode == 201) {
+                Base.handlerSuccess(res, req);
                 res.redirect("/order/check/waitOrder");
             } else {
                 Base.handlerError(res, req, error, response, body);
@@ -191,6 +197,7 @@ var OrderController = {
             url: '/api/orders/review/updateDifficultyLevel?'+queryString.stringify(req.body),
         }, req, res), function (error, response, body) {
             if (!error && response.statusCode == 201) {
+                Base.handlerSuccess(res, req);
                 res.redirect("/order/check/waitOrder");
             } else {
                 Base.handlerError(res, req, error, response, body);
@@ -244,6 +251,7 @@ var OrderController = {
             form: req.body,
         }, req, res), function (error, response, body) {
             if (!error && response.statusCode == 201) {
+                Base.handlerSuccess(res, req);
                 if(type == 'order'){
                     res.redirect("/order/detail/" + tid);
                 }else{
@@ -350,6 +358,7 @@ var OrderController = {
             url: '/api/orders/resupply/accept/getTask?tid='+tid,
         }, req, res), function (error, response, body) {
             if (!error && response.statusCode == 201) {
+                Base.handlerSuccess(res, req);
                 res.sendStatus(200);
             } else {
                 Base.handlerError(res, req, error, response, body);
@@ -364,6 +373,7 @@ var OrderController = {
             url: '/api/orders/resupply/accept/reSubmit?tid='+tid,
         }, req, res), function (error, response, body) {
             if (!error && response.statusCode == 201) {
+                Base.handlerSuccess(res, req);
                 res.sendStatus(200);
             } else {
                 Base.handlerError(res, req, error, response, body);
@@ -378,6 +388,7 @@ var OrderController = {
             url: '/api/orders/resupply/accept/unlock?tid='+tid,
         }, req, res), function (error, response, body) {
             if (!error && response.statusCode == 201) {
+                Base.handlerSuccess(res, req);
                 res.sendStatus(200);
             } else {
                 Base.handlerError(res, req, error, response, body);
@@ -391,6 +402,7 @@ var OrderController = {
             url: '/api/orders/resupply/accept/notPass?'+queryString.stringify(req.body),
         }, req, res), function (error, response, body) {
             if (!error && response.statusCode == 201) {
+                Base.handlerSuccess(res, req);
                 res.redirect("/orders/resupplys/accept");
             } else {
                 Base.handlerError(res, req, error, response, body);
@@ -404,6 +416,7 @@ var OrderController = {
             url: '/api/orders/resupply/accept/pass?'+queryString.stringify(req.body),
         }, req, res), function (error, response, body) {
             if (!error && response.statusCode == 201) {
+                Base.handlerSuccess(res, req);
                 res.redirect("/orders/resupplys/apart");
             } else {
                 Base.handlerError(res, req, error, response, body);
@@ -445,6 +458,7 @@ var OrderController = {
             url: '/api/orders/apart/notPass?'+queryString.stringify(req.body),
         }, req, res), function (error, response, body) {
             if (!error && response.statusCode == 201) {
+                Base.handlerSuccess(res, req);
                 res.redirect("/orders/resupplys/accept");
             } else {
                 Base.handlerError(res, req, error, response, body);
@@ -537,6 +551,7 @@ var OrderController = {
             url: '/api/orders/apartReview/notPass?'+queryString.stringify(req.body),
         }, req, res), function (error, response, body) {
             if (!error && response.statusCode == 201) {
+                Base.handlerSuccess(res, req);
                 res.redirect("/orders/resupplys/apartCheck");
             } else {
                 Base.handlerError(res, req, error, response, body);
@@ -798,6 +813,7 @@ var OrderController = {
             url: '/api/orders/schedule/getTask?tids='+ids,
         }, req, res), function (error, response, body) {
             if (!error && response.statusCode == 201) {
+                Base.handlerSuccess(res, req);
                 res.sendStatus(200)
             }else{
                 Base.handlerError(res, req, error, response, body);
@@ -811,6 +827,7 @@ var OrderController = {
             url: '/api/orders/schedule/getTask?tids='+tid,
         }, req, res), function (error, response, body) {
             if (!error && response.statusCode == 201) {
+                Base.handlerSuccess(res, req);
                 res.sendStatus(200);
             } else {
                 Base.handlerError(res, req, error, response, body);
@@ -826,6 +843,7 @@ var OrderController = {
             url: '/api/orders/schedule/edit/batchnumber?batchNumber='+cid+'&tids='+bid,
         }, req, res), function (error, response, body) {
             if (!error && response.statusCode == 201) {
+                Base.handlerSuccess(res, req);
                 res.sendStatus(200);
             }else {
                     Base.handlerError(res, req, error, response, body);
@@ -839,6 +857,7 @@ var OrderController = {
             url: '/api/orders/schedule/unlock/'+tid,
         }, req, res), function (error, response, body) {
             if (!error && response.statusCode == 201) {
+                Base.handlerSuccess(res, req);
                 res.sendStatus(200);
             } else {
                 Base.handlerError(res, req, error, response, body);
@@ -851,6 +870,7 @@ var OrderController = {
             url: '/api/orders/schedule/notPass?'+queryString.stringify(req.body),
         }, req, res), function (error, response, body) {
             if (!error && response.statusCode == 201) {
+                Base.handlerSuccess(res, req);
                 console.log('statusCode')
                 res.redirect("/orders/nesting");
             } else {
@@ -865,6 +885,7 @@ var OrderController = {
             url: '/api/orders/schedule/pass?tid='+tid,
         }, req, res), function (error, response, body) {
             if (!error && response.statusCode == 201) {
+                Base.handlerSuccess(res, req);
                 res.sendStatus(200);
             } else {
                 Base.handlerError(res, req, error, response, body);
@@ -951,6 +972,7 @@ var OrderController = {
             url: '/api/orders/package/unpacket/'+tid,
         }, req, res), function (error, response, body) {
             if (!error && response.statusCode == 201) {
+                Base.handlerSuccess(res, req);
                 res.sendStatus(200);
             } else {
                 Base.handlerError(res, req, error, response, body);
@@ -965,6 +987,7 @@ var OrderController = {
             url: '/api/orders/package/packet/'+tid,
         }, req, res), function (error, response, body) {
             if (!error && response.statusCode == 201) {
+                Base.handlerSuccess(res, req);
                 res.sendStatus(200);
             } else {
                 Base.handlerError(res, req, error, response, body);
@@ -978,6 +1001,7 @@ var OrderController = {
             url: '/api/orders/package/packet/move?'+queryString.stringify(req.body),
         }, req, res), function (error, response, body) {
             if (!error && response.statusCode == 201) {
+                Base.handlerSuccess(res, req);
                 res.sendStatus(200);
             } else {
                 Base.handlerError(res, req, error, response, body);
@@ -993,6 +1017,7 @@ var OrderController = {
          url: '/api/orders/package/packet/delete/'+pid+'?packageType='+type,
          }, req, res), function (error, response, body) {
          if (!error && response.statusCode == 201) {
+             Base.handlerSuccess(res, req);
          res.sendStatus(200);
          } else {
          Base.handlerError(res, req, error, response, body);
@@ -1017,6 +1042,7 @@ var OrderController = {
             form:req.body
         }, req, res), function (error, response, body) {
             if (!error && response.statusCode == 201) {
+                Base.handlerSuccess(res, req);
                 if(pid){
                    res.redirect("/orders/package/"+tid+"?packageLid="+pid);
                 }
@@ -1125,6 +1151,7 @@ var OrderController = {
             form: req.body,
         }, req, res), function (error, response, body) {
             if (!error && response.statusCode == 201) {
+                Base.handlerSuccess(res, req);
                 res.redirect('/collection')
             } else {
                 Base.handlerError(res, req, error, response, body);

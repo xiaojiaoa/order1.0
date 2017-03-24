@@ -46,6 +46,7 @@ var InstallserviceController = {
             url: '/api/tasks/install/getTask?'+queryString.stringify(req.body),
         }, req, res), function (error, response, body) {
             if (!error && response.statusCode == 201) {
+                Base.handlerSuccess(res, req);
                 res.redirect("/installService");
             } else {
                 Base.handlerError(res, req, error, response, body);
@@ -59,6 +60,7 @@ var InstallserviceController = {
             url: '/api/tasks/install/registerDeliver/'+tid,
         }, req, res), function (error, response, body) {
             if (!error && response.statusCode == 201) {
+                Base.handlerSuccess(res, req);
                 res.sendStatus(200);
             } else {
                 Base.handlerError(res, req, error, response, body);

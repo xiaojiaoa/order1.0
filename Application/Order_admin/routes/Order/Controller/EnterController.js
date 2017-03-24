@@ -96,6 +96,7 @@ var EnterController = {
             url: '/api/whse/cargoin/mate/review?inId='+inId+'&purId='+purId
         }, req, res), function (error, response, body) {
             if (!error && response.statusCode == 201) {
+                Base.handlerSuccess(res, req);
                 res.sendStatus(200);
             } else {
                 Base.handlerError(res, req, error, response, body);
@@ -110,6 +111,7 @@ var EnterController = {
             url: '/api/orders/review/getTask/'+id,
         }, req, res), function (error, response, body) {
             if (!error && response.statusCode == 201) {
+                Base.handlerSuccess(res, req);
                 res.sendStatus(200);
             } else {
                 Base.handlerError(res, req, error, response, body);
@@ -124,7 +126,7 @@ var EnterController = {
         }, req, res), function (error, response, body) {
             var returnData = JSON.parse(body);
             if (!error && response.statusCode == 200) {
-
+                Base.handlerSuccess(res, req);
                 res.render('order/enter/enter_material_stock',returnData);
             } else {
                 Base.handlerError(res, req, error, response, body);
@@ -167,6 +169,7 @@ var EnterController = {
             url: '/api/whse/cargoin/mate/usable?'+queryString.stringify(req.body),
         }, req, res), function (error, response, body) {
             if (!error && response.statusCode == 200) {
+                Base.handlerSuccess(res, req);
                 res.sendStatus(200);
             } else {
                 // res.status(500).json(body)
@@ -185,6 +188,7 @@ var EnterController = {
             body:JSON.stringify(req.body),
         }, req, res), function (error, response, body) {
             if (!error && response.statusCode == 201) {
+                Base.handlerSuccess(res, req);
                 // res.redirect('/enterMaterial')
                 res.sendStatus(200);
             } else {
@@ -204,6 +208,7 @@ var EnterController = {
             body:JSON.stringify(req.body),
         }, req, res), function (error, response, body) {
             if (!error && response.statusCode == 201) {
+                Base.handlerSuccess(res, req);
                 res.sendStatus(200);
             } else {
                 Base.handlerError(res, req, error, response, body);
@@ -287,6 +292,7 @@ var EnterController = {
             url: '/api/orders/review/getTask/'+id,
         }, req, res), function (error, response, body) {
             if (!error && response.statusCode == 201) {
+                Base.handlerSuccess(res, req);
                 res.sendStatus(200);
             } else {
                 Base.handlerError(res, req, error, response, body);

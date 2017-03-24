@@ -87,6 +87,7 @@ var EmployeeController = {
             form:req.body,
         }, req, res), function (error, response, body) {
             if (!error && response.statusCode == 201) {
+                Base.handlerSuccess(res, req);
                 // var lid = JSON.parse(body).lid;
                 res.redirect("/"+type+"/employees?bid="+bid);
 
@@ -120,6 +121,7 @@ var EmployeeController = {
             url: '/api/employees?mobile='+mobile,
         }, req, res), function (error, response, body) {
             if (!error && response.statusCode == 200) {
+                Base.handlerSuccess(res, req);
                 if(body){
                     var $data = JSON.parse(body);
                     // res.redirect("/customer/detail/"+custInfo.cid);
@@ -170,6 +172,7 @@ var EmployeeController = {
             // form:req.body,
         }, req, res), function (error, response, body) {
             if (!error && response.statusCode == 201) {
+                Base.handlerSuccess(res, req);
                 // var lid = JSON.parse(body).lid;
                 res.redirect("/employees/detail/"+cid);
 
@@ -186,6 +189,7 @@ var EmployeeController = {
             url: '/api/stores/employees/password/rest/'+cid,
         }, req, res), function (error, response, body) {
             if (!error && response.statusCode == 201) {
+                Base.handlerSuccess(res, req);
                 res.sendStatus(200);
             } else {
                 Base.handlerError(res, req, error, response, body);
@@ -203,6 +207,7 @@ var EmployeeController = {
             url: apiUrl+cid+'?stcode='+type,
         }, req, res), function (error, response, body) {
             if (!error && response.statusCode == 201) {
+                Base.handlerSuccess(res, req);
                 res.sendStatus(200);
             } else {
                 Base.handlerError(res, req, error, response, body);

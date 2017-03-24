@@ -38,6 +38,7 @@ var DepartmentController = {
             form:req.body,
         }, req, res), function (error, response, body) {
             if (!error && response.statusCode == 201) {
+                Base.handlerSuccess(res, req);
                 res.redirect("/department/"+type+'/'+bid);
             } else {
                 Base.handlerError(res, req, error, response, body);
@@ -55,6 +56,7 @@ var DepartmentController = {
             url: '/api/'+type+'/departments/'+cid+"?"+queryString.stringify(req.body),
         }, req, res), function (error, response, body) {
             if (!error && response.statusCode == 201) {
+                Base.handlerSuccess(res, req);
                 res.redirect("/department/"+type+'/'+bid);
             } else {
                 Base.handlerError(res, req, error, response, body);
@@ -72,6 +74,7 @@ var DepartmentController = {
             // form:req.body,
         }, req, res), function (error, response, body) {
             if (!error && response.statusCode == 204) {
+                Base.handlerSuccess(res, req);
                 res.sendStatus(200)
             } else {
                 Base.handlerError(res, req, error, response, body);
@@ -87,6 +90,7 @@ var DepartmentController = {
             // form:req.body,
         }, req, res), function (error, response, body) {
             if (!error && response.statusCode == 201) {
+                Base.handlerSuccess(res, req);
                 res.sendStatus(200)
             } else {
                 Base.handlerError(res, req, error, response, body);

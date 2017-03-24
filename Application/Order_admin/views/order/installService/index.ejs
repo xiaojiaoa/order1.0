@@ -88,8 +88,8 @@
                                 <th width="13%">订单编号</th>
                                 <th>客户编号</th>
                                 <th>客户名称</th>
-                                <th>所属空间名称</th>
-                                <th>父空间名称</th>
+                                <th>空间名称</th>
+                                <!--<th>父空间名称</th>-->
                                 <th>产品名称</th>
                                 <th>建单柜员编号</th>
                                 <th>建单柜员名称</th>
@@ -111,8 +111,7 @@
                                 <td width="13%"><a href="/order/detail/<%= element.tid %>"><%= element.tid %></a></td>
                                 <td><%= element.cid %></td>
                                 <td><%= element.name %></td>
-                                <td><%= element.spaceName %></td>
-                                <td><%= element.parentSpaceinfoName %></td>
+                                <td><%= element.spaceName %>(<%= element.parentSpaceinfoName %>)</td>
                                 <td><%= element.prodName %></td>
                                 <td><%= element.gid %></td>
                                 <td><%= element.gname %></td>
