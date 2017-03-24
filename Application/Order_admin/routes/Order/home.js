@@ -814,7 +814,7 @@ router.get('/enterProduct', Middleware.AuthCheck, EnterController.enterProductPa
 router.get('/enterProduct/detail/:id', Middleware.AuthCheck, EnterController.enterProductDetailPage);
 
 // 成品扫描入库页面
-router.get('/enterProduct/scanning', Middleware.AuthCheck, EnterController.enterScanningPage);
+// router.get('/enterProduct/scanning', Middleware.AuthCheck, EnterController.enterScanningPage);
 
 // 成品扫描入库-入库
 router.put('/enterProduct/scanning/doEnter/:id', Middleware.AuthCheck, EnterController.doEnterProduct);
@@ -1183,6 +1183,9 @@ router.get('/app/cargoin/package',AppServiceController.cargoinPackage);
 
 //出库-入库扫描完成后的显示界面
 router.post('/app/cargoin/order',AppServiceController.cargoinOrder);
+
+//出库-入库扫描完成后的显示界面--pc端接口
+router.post('/web/cargoin/order',AppServiceController.cargoinOrderWeb);
 
 //入库-入库接口
 router.post('/app/doCargoin',AppServiceController.doCargoin);
