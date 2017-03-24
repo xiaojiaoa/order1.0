@@ -28,8 +28,15 @@ var EnterController = {
         var multiDataRequest= [
             {url: '/api/whse/cargoin/mate/page?'+queryString.stringify(req.query), method: 'GET', resConfig: {keyName: 'mateList', is_must: false}},
             {url: '/api/whse/factory/list', method: 'GET', resConfig: {keyName: 'factoryList', is_must: true}},
-            {url: '/api/whse/warehouse/list/'+ftyId, method: 'GET', resConfig: {keyName: 'warehouseList', is_must: true}},
         ];
+        if(ftyId){
+            //console.log('有whseId');
+            multiDataRequest= [
+                {url: '/api/whse/cargoin/mate/page?'+queryString.stringify(req.query), method: 'GET', resConfig: {keyName: 'mateList', is_must: false}},
+                {url: '/api/whse/factory/list', method: 'GET', resConfig: {keyName: 'factoryList', is_must: true}},
+                {url: '/api/whse/warehouse/list/'+ftyId, method: 'GET', resConfig: {keyName: 'warehouseList', is_must: true}},
+            ];
+        }
         if(whseId){
             //console.log('有whseId');
             multiDataRequest= [
@@ -50,6 +57,9 @@ var EnterController = {
                     rowsPerPage: paginationInfo.pageSize,
                     totalResult: paginationInfo.totalItems
                 }));
+                if(!ftyId){
+                    resultList.warehouseList = [];
+                }
                 if(!whseId){
                     resultList.regionList = [];
                 }
@@ -208,8 +218,15 @@ var EnterController = {
         var multiDataRequest= [
             {url: '/api/whse/cargoin/prod/page?'+queryString.stringify(req.query), method: 'GET', resConfig: {keyName: 'prodList', is_must: false}},
             {url: '/api/whse/factory/list', method: 'GET', resConfig: {keyName: 'factoryList', is_must: true}},
-            {url: '/api/whse/warehouse/list/'+ftyId, method: 'GET', resConfig: {keyName: 'warehouseList', is_must: true}},
         ];
+        if(ftyId){
+            //console.log('有whseId');
+            multiDataRequest= [
+                {url: '/api/whse/cargoin/prod/page?'+queryString.stringify(req.query), method: 'GET', resConfig: {keyName: 'prodList', is_must: false}},
+                {url: '/api/whse/factory/list', method: 'GET', resConfig: {keyName: 'factoryList', is_must: true}},
+                {url: '/api/whse/warehouse/list/'+ftyId, method: 'GET', resConfig: {keyName: 'warehouseList', is_must: true}},
+            ];
+        }
         if(whseId){
             //console.log('有whseId');
             multiDataRequest= [
@@ -231,6 +248,9 @@ var EnterController = {
                     rowsPerPage: paginationInfo.pageSize,
                     totalResult: paginationInfo.totalItems
                 }));
+                if(!ftyId){
+                    resultList.warehouseList = [];
+                }
                 if(!whseId){
                     resultList.regionList = [];
                 }
