@@ -27,7 +27,7 @@ var RolesController = {
     },
     createPage: function (req, res) {
         var bid = req.params.bid;
-        var scope = req.params.scope;
+        var scope = (req.params.scope == '9'?'1':'2');
         var type = req.params.type;
         Base.multiDataRequest(req, res, [
             {url: '/api/permissions?scope='+scope, method: 'GET', resConfig: {keyName: 'permissionsList', is_must: true}}
@@ -43,7 +43,7 @@ var RolesController = {
     },
     modifyPage: function (req, res) {
         var bid = req.params.bid;
-        var scope = req.params.scope;
+        var scope = (req.params.scope == '9'?'1':'2');
         var stcode = req.params.stcode;
 
         Base.multiDataRequest(req, res, [
