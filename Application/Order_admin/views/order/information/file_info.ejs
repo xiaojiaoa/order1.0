@@ -314,13 +314,15 @@
                         dataType: 'json',
                         contentType:"application/json",
                         success: function (data) {
-                            location.href="/fileInfo";
+                            var href='/fileInfo';
+                            successLayout.hrefTo(href);
                         },
                         error: function (response) {
                             layer.close(index)
                             var status = response.status;
                             if(status == 200){
-                                location.href="/fileInfo";
+                                var href='/fileInfo';
+                                successLayout.hrefTo(href);
                                 return;
                             }
                             errorLayout.normal(response);

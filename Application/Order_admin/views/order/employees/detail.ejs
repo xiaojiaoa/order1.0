@@ -226,7 +226,7 @@
                             url: '/<%= type %>/employees/setStatus/' + employeesId + '/2',
                             method: 'put',
                             success: function (data) {
-                                window.location.reload();
+                                successLayout.reload();
                             },
                             error: function (response) {
                                 layer.close(index)
@@ -250,7 +250,7 @@
                             url: '/<%= type %>/employees/setStatus/' + employeesId + '/1',
                             method: 'put',
                             success: function (data) {
-                                window.location.reload();
+                                successLayout.reload();
                             },
                             error: function (response) {
                                 layer.close(index)

@@ -171,8 +171,7 @@
                     url: '/canSend/doSend/'+id,
                     method: 'put',
                     success: function (data) {
-                        successLayout.hrefTo('/outMaterial');
-
+                        successLayout.hrefTo("/outMaterial");
                     },
                     error: function (response) {
                         layer.close(index)
