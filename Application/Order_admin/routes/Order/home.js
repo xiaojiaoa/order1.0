@@ -881,6 +881,8 @@ router.get('/productStock', Middleware.AuthCheck, OutWarehouseController.product
 
 router.get('/productStock/pakg/:tid', Middleware.AuthCheck, OutWarehouseController.productPakgList);
 
+router.get('/productOut/pakg/:tid', Middleware.AuthCheck, OutWarehouseController.productOutPakgList);
+
 // 大板领料单页面
 router.get('/outBred', Middleware.AuthCheck, OutWarehouseController.outBredPage);
 
