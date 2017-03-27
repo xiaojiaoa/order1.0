@@ -9,6 +9,8 @@ var helper = require('../config/helper');
 
 var request = require('request');
 
+//引入权限
+var Permissions = require('../config/permission');
 
 var CargospaceController = {
     unlistPage: function (req, res) {
@@ -17,6 +19,7 @@ var CargospaceController = {
         ], function (req, res, resultList) {
             var returnData = Base.mergeData(helper.mergeObject({
                 title: '',
+                Permission :Permissions,
             }, resultList));
             res.render('order/cargospace/index_unselect', returnData);
         });
@@ -80,7 +83,8 @@ var CargospaceController = {
                 ftyId:ftyId,
                 whseId:whseId,
                 regionId:regionId,
-                pagination: boostrapPaginator.render()
+                pagination: boostrapPaginator.render(),
+                Permission :Permissions,
             }, resultList));
 
             res.render('order/cargospace/index', returnData);

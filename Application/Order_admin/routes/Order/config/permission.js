@@ -305,6 +305,20 @@ var permissions = {
             name:"退回拆审订单"
         }
     },
+    goodsAllocation :{
+        create:{
+            id:"701010",
+            name:"新建货位"
+        },
+        update :{
+            id:"701030",
+            name:"修改货位"
+        },
+        delete :{
+            id:"701020",
+            name:"删除货位"
+        }
+    },
     taskseq:{
         cancel:{
             id:"",
