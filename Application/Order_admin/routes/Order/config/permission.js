@@ -305,6 +305,80 @@ var permissions = {
             name:"退回拆审订单"
         }
     },
+    goodsAllocation :{
+        create:{
+            id:"701010",
+            name:"新建货位"
+        },
+        update :{
+            id:"701030",
+            name:"修改货位"
+        },
+        delete :{
+            id:"701020",
+            name:"删除货位"
+        }
+    },
+    organization :{
+        create:{
+            id:"881010",
+            name:"新建机构"
+        },
+        queryDept :{
+            id:"881041",
+            name:"查看部门"
+        },
+        queryRole :{
+            id:"881042",
+            name:"查看角色"
+        },
+        createRole :{
+            id:"881011",
+            name:"创建角色"
+        },
+        updateRole :{
+            id:"881030",
+            name:"创建角色"
+        },
+        deleteRole:{
+            id:"881020",
+            name:"删除角色"
+        },
+        queryEmployee:{
+            id:"881043",
+            name:"查看柜员"
+        }
+    },
+    store :{
+        create:{
+            id:"882010",
+            name:"新建机构"
+        },
+        queryDept :{
+            id:"882041",
+            name:"查看部门"
+        },
+        queryRole :{
+            id:"882042",
+            name:"查看角色"
+        },
+        createRole :{
+            id:"882011",
+            name:"创建角色"
+        },
+        updateRole :{
+            id:"882030",
+            name:"创建角色"
+        },
+        deleteRole:{
+            id:"882020",
+            name:"删除角色"
+        },
+        queryEmployee:{
+            id:"882043",
+            name:"查看柜员"
+        }
+    },
     taskseq:{
         cancel:{
             id:"",

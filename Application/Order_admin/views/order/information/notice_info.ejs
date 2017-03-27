@@ -158,57 +158,52 @@
         </div>
         <div class="col-xs-12">
             <div class="col-xs-12">
-                <div class="form-group">
-                    <label class="col-xs-2 control-label"><span class="requird"></span> 门店类型:</label>
-                    <div class="col-xs-8">
-                        <label class="checkbox-inline">
-                            <input type="checkbox" class="checkbox" id="checkAll01">
-                            <span>全部</span>
-                        </label>
-                        <%
-                        storeType.forEach(function (element, index) { %>
-                        <label class="checkbox-inline">
-                            <input type="checkbox" class="checkbox validate[minCheckbox[1]]" name="storeType" value="<%= element.id %>">
-                            <span><%= element.name%></span>
-                        </label>
-                        <% })%>
-                    </div>
+            <label class="col-xs-2 control-label"><span class="requird"></span> 发布范围:</label>
+            <div class="col-xs-10">
+                <div class="form-group well margin-bottom-20 my-label01">
+                            <div class="col-xs-12">
+                                <label class="col-xs-2 control-label text-align-left">门店类型:</label>
+                                <div class="col-xs-9">
+                                    <label class="checkbox-inline">
+                                        <input type="checkbox" class="checkbox" id="checkAll01">
+                                        <span>全部</span>
+                                    </label>
+                                    <%
+                                    storeType.forEach(function (element, index) { %>
+                                    <label class="checkbox-inline">
+                                        <input type="checkbox" class="checkbox " name="storeType" value="<%= element.id %>">
+                                        <span><%= element.name%></span>
+                                    </label>
+                                    <% })%>
+                                </div>
+                            </div>
+                            <div class="col-xs-12">
+                                <label class="col-xs-2 control-label text-align-left">位置类型:</label>
+                                <div class="col-xs-9">
+                                    <label class="checkbox-inline">
+                                        <input type="checkbox" class="checkbox" id="checkAll02">
+                                        <span>全部</span>
+                                    </label>
+                                    <%
+                                    storeAttrType.forEach(function (element, index) { %>
+                                    <label class="checkbox-inline">
+                                        <input type="checkbox" class="checkbox" name="addrType" value="<%= element.id %>">
+                                        <span><%= element.name%></span>
+                                    </label>
+                                    <% })%>
+                                </div>
+                            </div>
+                            <div class="col-xs-12">
+                                <label class="col-xs-2 control-label text-align-left">机构类型:</label>
+                                <div class="col-xs-9">
+                                    <label class="checkbox-inline">
+                                        <input type="checkbox" class="checkbox"  id="checkAll03" name="organizationType">
+                                        <span>全部</span>
+                                    </label>
+                                </div>
+                            </div>
                 </div>
             </div>
-        </div>
-
-        <div class="col-xs-12">
-            <div class="col-xs-12">
-                <div class="form-group">
-                    <label class="col-xs-2 control-label"><span class="requird"></span> 位置类型:</label>
-                    <div class="col-xs-8">
-                        <label class="checkbox-inline">
-                            <input type="checkbox" class="checkbox" id="checkAll02">
-                            <span>全部</span>
-                        </label>
-                        <%
-                        storeAttrType.forEach(function (element, index) { %>
-                        <label class="checkbox-inline">
-                            <input type="checkbox" class="checkbox validate[minCheckbox[1]]" name="addrType" value="<%= element.id %>">
-                            <span><%= element.name%></span>
-                        </label>
-                        <% })%>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="col-xs-12">
-            <div class="col-xs-12">
-                <div class="form-group">
-                    <label class="col-xs-2 control-label"><span class="requird"></span> 机构类型:</label>
-                    <div class="col-xs-8">
-                        <label class="checkbox-inline">
-                            <input type="checkbox" class="checkbox validate[minCheckbox[1]]"  id="checkAll03" name="organizationType">
-                            <span>全部</span>
-                        </label>
-                    </div>
-                </div>
             </div>
         </div>
 
@@ -270,6 +265,7 @@
             </div>
 
         </div>
+
         <div class="col-xs-12">
             <div class="col-xs-6">
                 <div class="form-group">
@@ -422,103 +418,114 @@
         checkFuc("#checkAll02","input[name=addrType]:checkbox");
         checkFuc("#checkAll03","input[name=organizationType]:checkbox");
 
+     //提交新建公告信息
+
 
         $('#doCreate').click(function () {
+            var length=$("input[type='checkbox']:checked").length;
+           if(length>0){
+            if($("#create-noticeInfo-form").validationEngine('validate')){
+                var title=$("input[name=title]").val();
+                var typeId=$("#typeId option:selected").val();
+                var content=$("textarea[name=content]").val();
 
-           if($("#create-noticeInfo-form").validationEngine('validate')){
-               var title=$("input[name=title]").val();
-               var typeId=$("#typeId option:selected").val();
-               var content=$("textarea[name=content]").val();
+                console.log(title);
+                console.log(typeId);
+                console.log(content);
 
-               console.log(title);
-               console.log(typeId);
-               console.log(content);
-               function  getList(a,b) {
-                   var myArray=new Array();
-                   var sendType;
-                   switch (a)
-                   {
-                       case "#checkAll01":
-                           sendType=1;
-                           break;
-                       case "#checkAll02":
-                           sendType=2;
-                           break;
-                       case "#checkAll03":
-                           sendType=3;
-                           break;
-                   }
-                   if($(a).is(":checked")){
-                       var sendValue=-1;
-                       var a = new Object();
-                       a = {
-                           sendType:sendType,
-                           sendValue:sendValue,
-                       }
-                       myArray.push(a);
-                   } else{
-                       $(b).each(function(){
-                           var sendValue=$(this).val();
-                           var a = new Object();
-                           a = {
-                               sendType:sendType,
-                               sendValue:sendValue,
-                           }
+                var a=getList("#checkAll01","input[name=storeType]:checked");
+                var b=getList("#checkAll02","input[name=addrType]:checked");
+                var c=getList("#checkAll03","input[name=organizationType]:checked");
+                console.log(a);
+                console.log(b);
+                console.log(c);
+                var myArray=a.concat(b,c);
+                console.log(myArray);
 
-                           myArray.push(a);
-                       });
-                   }
-                   return myArray;
-               }
-               var a=getList("#checkAll01","input[name=storeType]:checked");
-               var b=getList("#checkAll02","input[name=addrType]:checked");
-               var c=getList("#checkAll03","input[name=organizationType]:checked");
-               console.log(a);
-               console.log(b);
-               console.log(c);
-               var myArray=a.concat(b,c);
-               console.log(myArray);
+                var date={
+                    title:title,
+                    typeId:typeId,
+                    content:content,
+                    noticeScopes:myArray
+                };
 
-               var date={
-                   title:title,
-                   typeId:typeId,
-                   content:content,
-                   noticeScopes:myArray
-               };
+                layer.confirm("确认提交？", {title:'提示'},function(index){
+                        console.log(date);
+                                $.ajax({
+                             url: '/noticeInfo/doCreate',
+                             data:JSON.stringify(date),
+                             method: 'post',
+                             dataType: 'json',
+                             contentType:"application/json",
+                             success: function (data) {
+                             location.href="/noticeInfo";
 
-               layer.confirm("确认提交？", {title:'提示'},function(index){
-                       console.log(date);
-                       $.ajax({
-                           url: '/noticeInfo/doCreate',
-                           data:JSON.stringify(date),
-                           method: 'post',
-                           dataType: 'json',
-                           contentType:"application/json",
-                           success: function (data) {
-                               location.href="/noticeInfo";
+                             },
+                             error: function (response) {
+                             layer.close(index)
+                             var status = response.status;
+                             if(status == 200){
+                             var href='/noticeInfo';
+                             successLayout.hrefTo(href);
+                             return;
+                             }
+                             errorLayout.normal(response);
 
-                           },
-                           error: function (response) {
-                               layer.close(index)
-                               var status = response.status;
-                               if(status == 200){
-                                   var href='/noticeInfo';
-                                   successLayout.hrefTo(href);
-                                   return;
-                               }
-                               errorLayout.normal(response);
-
-                           }
-                       });
-                   },function(index){
-                       layer.close(index)}
-               )
+                             }
+                             });
+                    },function(index){
+                        layer.close(index)}
+                )
+            }
            }
+          else{
+            layer.alert('请至少选中一项复选框', {
+                icon: 1,
+            });
+        }
+
         })
 
 
     })
+   //获取选中的checkbox的值
+    function  getList(a,b) {
+        var myArray=new Array();
+        var sendType;
+        switch (a)
+        {
+            case "#checkAll01":
+                sendType=1;
+                break;
+            case "#checkAll02":
+                sendType=2;
+                break;
+            case "#checkAll03":
+                sendType=3;
+                break;
+        }
+        if($(a).is(":checked")){
+            var sendValue=-1;
+            var a = new Object();
+            a = {
+                sendType:sendType,
+                sendValue:sendValue,
+            }
+            myArray.push(a);
+        } else{
+            $(b).each(function(){
+                var sendValue=$(this).val();
+                var a = new Object();
+                a = {
+                    sendType:sendType,
+                    sendValue:sendValue,
+                }
 
+                myArray.push(a);
+            });
+        }
+        return myArray;
+    }
 </script>
 
 
