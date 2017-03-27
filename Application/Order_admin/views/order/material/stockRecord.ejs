@@ -1,0 +1,198 @@
+<%- include('../layouts/head_top'); %>
+<%- include('../layouts/head_bottom'); %>
+<%- include('../layouts/header'); %>
+<%- include('../layouts/nav'); %>
+
+
+<!-- MAIN PANEL -->
+<div id="main" role="main" class="mainFlex">
+
+    <!-- RIBBON -->
+    <div id="ribbon">
+
+        <!-- breadcrumb -->
+        <ol class="breadcrumb">
+            <li>后台管理</li>
+            <li>库存记录</li>
+        </ol>
+        <!-- end breadcrumb -->
+
+    </div>
+    <!-- END RIBBON -->
+
+
+    <!-- MAIN CONTENT -->
+    <div id="content" class="dis-flex">
+
+
+        <!-- well -->
+        <div class="well display-none">
+            <!-- row -->
+            <div class="row">
+                <!-- col -->
+                <div class="col-xs-12">
+                    <!--<legend>物料搜索</legend>-->
+                    <!-- row -->
+                    <div class="row search-form">
+                        <form class="form-horizontal" method="get">
+
+                            <div class="col-xs-12">
+
+                                <div class="col-xs-3">
+                                    <div class="form-group">
+                                        <label class="col-xs-4 control-label">物料编号:</label>
+                                        <div class="col-xs-8">
+                                            <input class="form-control" placeholder="请输入物料编号" value="<%= DWYRequest.query.materNo %>" type="text" name="materNo">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-xs-3">
+                                    <div class="form-group">
+                                        <label class="col-xs-4 control-label">物料名称:</label>
+                                        <div class="col-xs-8">
+                                            <input class="form-control" placeholder="请输入物料名称" value="<%= DWYRequest.query.name %>" type="text" name="name">
+                                        </div>
+                                    </div>
+                                </div>
+
+
+
+                              </div>
+                            <div class="col-xs-12" style="display:none;">
+
+                                <div class="col-xs-3">
+
+                                </div>
+
+                                <div class="col-xs-3">
+
+                                </div>
+
+
+                                <div class="col-xs-3">
+                                    <div class="form-group">
+                                        <label class="col-xs-4 control-label">其他：</label>
+                                        <div class="col-xs-8">
+                                            <select class="form-control" name="">
+                                                <option value="">- 请选择 -</option>
+                                                <option value="预计缺货">预计缺货</option>
+                                                <option value="真是库存预警">真是库存预警</option>
+                                            </select>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                                </div>
+                            <input type="hidden" name="stairCatId" value="<%= DWYRequest.query.stairCatId %>">
+
+                            <div class="col-xs-12 ">
+                                <hr class="simple">
+                                <div class="col-xs-12 text-center">
+                                    <button class="btn btn-primary " type="submit">
+                                        <i class="fa fa-search"></i>
+                                        查询
+                                    </button>
+                                    <a class="btn btn-primary margin-left-10" href="/materialManage/materialType">
+                                        查看物料分类
+                                    </a>
+
+                                    <a class="btn btn-primary margin-left-10" href="/materialManage/materialAttribute">
+                                        查看物料属性
+                                    </a>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <!-- end row -->
+                </div>
+                <!-- end col -->
+            <!-- end row -->
+        </div>
+        </div>
+        <!-- end well -->
+        <!--well-->
+        <div class="well dis-flex">
+
+            <!-- row -->
+            <div class="row">
+                <div class="col-xs-12">
+                    <h6>库存数量历史修改记录 </h6>
+                    <hr class="simple">
+                </div>
+            </div>
+<!--end roll-->
+            <!-- row -->
+            <div class="row dis-flex">
+                <div class="col-xs-12 dis-flex">
+                    <div class="table-responsive dis-flex">
+                        <table class="table table-bordered table-striped table-hover table-scroll dis-flex">
+                            <thead>
+                            <tr>
+                                <th>序号</th>
+                                <th>仓库名称</th>
+                                <th>区域名称</th>
+                                <th>货位号</th>
+                                <th>库存修改数量</th>
+                                <th>修改原因</th>
+                                <th>修改日期</th>
+                                <th>修改人</th>
+                                <th>备注</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <%if(DWY_Helper.isCanLoop(stockOperationList.result) ){
+                            stockOperationList.result.forEach(function (element, index) { %>
+                            <tr>
+                                <td><%= index+1 %></td>
+                                <td></td>
+                                <td></td>
+                                <td><%= element.spaceId%></td>
+                                <td><%= element.newStock%></td>
+                                <td><%= element.reasonName%></td>
+                                <td><%= DWY_Helper.getLocalDateYMD(element.operateEmp)%></td>
+                                <td><%= element.spaceId%></td>
+                                <td><%= element.remark%></td>
+                            </tr>
+                            <% })}else{ %>
+                            <tr>
+                                <td colspan="9" align="center">暂无数据</td>
+                            </tr>
+                            <% } %>
+                            </tbody>
+                        </table>
+                    </div>
+                    <%- pagination %>
+                </div>
+            </div>
+        </div>
+        <!--end well-->
+        <!-- well-->
+      </div>
+      <!-- end well-->
+
+
+
+</div>
+<!-- END MAIN CONTENT -->
+
+</div>
+<!-- END MAIN PANEL -->
+
+<%- include('../layouts/footer'); %>
+<%- include('../layouts/footer_common_script'); %>
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+        pageSetUp();
+      //日期组件
+        $(".fg-date-time-picker").flatpickr(data_time_picker.data_time_picker);
+    })
+
+
+</script>
+
+
+<%- include('../layouts/foot'); %>
