@@ -60,9 +60,12 @@
 
                                 </td>
                                 <td>
+                                    <% if (DWY_Helper.hasPermission(Permission.store.queryDept.id, permission) ){ %>
                                     <a href="/roles/modify/<%= bid %>/<%= scope %>/<%= element.id %>" class="label label-primary">修改</a>
+                                    <% } %>
+                                    <% if (DWY_Helper.hasPermission(Permission.store.queryDept.id, permission) ){ %>
                                     <a class="delete-role label label-danger"  selfId="<%= element.id %>">删除</a>
-
+                                    <% } %>
                                 </td>
                             </tr>
                             <%  } }) %>
