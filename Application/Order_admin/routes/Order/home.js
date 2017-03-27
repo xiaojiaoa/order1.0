@@ -876,6 +876,11 @@ router.put('/outProduct/doChecked/:id', Middleware.AuthCheck, OutWarehouseContro
 // 成品出库详情页面
 router.get('/outProduct/deatil/:id', Middleware.AuthCheck, OutWarehouseController.outProductDeatil);
 
+// 成品备货页面
+router.get('/productStock', Middleware.AuthCheck, OutWarehouseController.productStock);
+
+router.get('/productStock/pakg/:tid', Middleware.AuthCheck, OutWarehouseController.productPakgList);
+
 // 大板领料单页面
 router.get('/outBred', Middleware.AuthCheck, OutWarehouseController.outBredPage);
 

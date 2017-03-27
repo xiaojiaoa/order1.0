@@ -1,0 +1,103 @@
+<%- include('../layouts/head_top'); %>
+<%- include('../layouts/head_bottom'); %>
+<%- include('../layouts/header'); %>
+<%- include('../layouts/nav'); %>
+
+
+<!-- MAIN PANEL -->
+<div id="main" role="main" class="mainFlex">
+
+    <!-- RIBBON -->
+    <div id="ribbon">
+
+        <!-- breadcrumb -->
+        <ol class="breadcrumb">
+            <li>后台管理</li>
+            <li>成品备货</li>
+        </ol>
+
+
+    </div>
+    <!-- END RIBBON -->
+
+
+    <!-- MAIN CONTENT -->
+    <div id="content" class="dis-flex">
+
+        <!-- well -->
+        <!-- end well -->
+
+        <div class="well dis-flex">
+            <div class="row">
+                <div class="col-xs-12">
+                    <h6>可备货订单</h6>
+                    <hr class="simple">
+                </div>
+            </div>
+            <div class="row dis-flex">
+                <div class="col-xs-12 dis-flex">
+                    <div class="table-responsive dis-flex">
+                        <table class="table table-bordered table-striped table-hover table-scroll dis-flex">
+                            <thead>
+                            <tr>
+                                <th width="5%">序号</th>
+                                <th>订单号</th>
+                                <th>包装总数</th>
+                                <th>交付日期</th>
+                                <th>客户号</th>
+                                <th>客户姓名</th>
+                                <th>出产价（元）</th>
+                                <th>操作</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <%  if(DWY_Helper.isCanLoop(stockList.list) ){
+                            stockList.list.forEach(function (element, index) { %>
+                            <tr>
+                                <td width="5%"><%= ++index %></td>
+                                <td><a href="/order/detail/<%= element.tid %>"><%= element.tid %></a></td>
+                                <td><%= element.packageTotal %></td>
+                                <td><%= DWY_Helper.getLocalDate(element.deliveryDate) %></td>
+                                <td><%= element.custId %></td>
+                                <td><%= element.custName %></td>
+                                <td><%= element.factoryPrice %></td>
+                                <td>
+                                    <a class="label label-primary" href="/productStock/pakg/<%= element.tid %>" >备货</a>
+                                </td>
+                            </tr>
+                            <% })
+                            }else{ %>
+                            <tr>
+                                <td colspan="8" class="text-align-center">暂无数据</td>
+                            </tr>
+                            <% }  %>
+
+                            </tbody>
+                        </table>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- END MAIN CONTENT -->
+
+</div>
+<!-- END MAIN PANEL -->
+
+<%- include('../layouts/footer'); %>
+<%- include('../layouts/footer_common_script'); %>
+
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+
+
+        pageSetUp();
+
+    })
+
+</script>
+
+<%- include('../layouts/foot'); %>

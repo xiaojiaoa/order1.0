@@ -32,7 +32,7 @@ var CargospaceController = {
             url: '/api/whse/warehouse/list/'+ftyId,
         }, req, res), function (error, response, body) {
             if (!error && response.statusCode == 200) {
-                Base.handlerSuccess(res, req);
+                // Base.handlerSuccess(res, req);
                 // res.sendStatus(200);
                 res.status(200).json(body)
 
@@ -49,7 +49,7 @@ var CargospaceController = {
             url: '/api/whse/region/list/'+whseId,
         }, req, res), function (error, response, body) {
             if (!error && response.statusCode == 200) {
-                Base.handlerSuccess(res, req);
+                // Base.handlerSuccess(res, req);
                 res.status(200).json(body)
             } else {
                 Base.handlerError(res, req, error, response, body);
