@@ -1117,6 +1117,9 @@ router.get('/fileInfo', Middleware.AuthCheck, InformationController.fileInfoPage
 //资料上传接口
 router.post('/fileInfo/share', Middleware.AuthCheck,InformationController.fileDoCreate);
 
+//资料删除接口
+router.put('/fileInfo/doDelete/:fid', Middleware.AuthCheck, InformationController.fileDoDelete);
+
 
 
 /*

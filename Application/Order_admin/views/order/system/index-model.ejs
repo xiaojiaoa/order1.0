@@ -48,12 +48,12 @@
                         if(!data.key){
                             if(spaceId==""){
                                 data.key="assistantSpaceProd";
-                                data.spaceId=$(".level-2").find("tr").eq(index).attr("id");
+                                data.spaceId=$(".level-3").$("input[name=spaceId]").val();
                                 console.log(11111);
                             }
                             else{
                                 data.key="assistantOrderSpaceinfo";
-                                data.parentId=$(".level-1").find("tr").eq(index).attr("id");
+                                data.parentId=$(".level-2").$("input[name=parentId]").val();
                             }
                         }
                         else{
@@ -70,11 +70,11 @@
                         }
                         if(level=="level-2"){
                             data.levelType=2
-                            data.parentId=$(".level-1").find("tr").eq(index).attr("id")
+                            data.parentId=$(".level-2").$("input[name=parentId]").val();
                         }
                         if(level=="level-3"){
                             data.levelType=3
-                            data.parentId=$(".level-2").find("tr").eq(index).attr("id")
+                            data.parentId=$(".level-3").$("input[name=parentId]").val();
                         }
                     }
                     console.log("这个是data"+JSON.stringify(data));

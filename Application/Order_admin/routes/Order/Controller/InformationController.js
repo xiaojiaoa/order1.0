@@ -46,7 +46,6 @@ var InformationController = {
         // res.render('order/information/notice_info');
     },
     noticeDoCreate: function (req, res) {
-        // var num = req.body.num0;
          console.log('公告信息创建',JSON.stringify(req.body));
         request(Base.mergeRequestOptions({
             method: 'post',
@@ -56,7 +55,6 @@ var InformationController = {
         }, req, res), function (error, response, body) {
             if (!error && response.statusCode == 201) {
                 Base.handlerSuccess(res, req);
-                // res.redirect('/enterMaterial')
                 res.sendStatus(200);
             } else {
                 Base.handlerError(res, req, error, response, body);
@@ -64,14 +62,16 @@ var InformationController = {
         })
     },
     noticeDoModify: function (req, res) {
-        // console.log('公告信息修改'+ JSON.stringify(req.body));
+        console.log('公告信息修改'+ JSON.stringify(req.body));
         request(Base.mergeRequestOptions({
-            method: 'put',
-            url: '/api/notices?'+queryString.stringify(req.body),
+            method: 'post',
+            url: '/api/notices/update',
+            headers:{'Content-type':'application/json'},
+            body:JSON.stringify(req.body),
         }, req, res), function (error, response, body) {
             if (!error && response.statusCode == 201) {
                 Base.handlerSuccess(res, req);
-                res.redirect("/noticeInfo");
+                res.sendStatus(200);
             } else {
                 Base.handlerError(res, req, error, response, body);
             }
@@ -131,6 +131,21 @@ var InformationController = {
             if (!error && response.statusCode == 201) {
                 Base.handlerSuccess(res, req);
                 res.sendStatus(200);
+            } else {
+                Base.handlerError(res, req, error, response, body);
+            }
+        })
+    },
+    fileDoDelete: function (req, res) {
+        var id = req.params.fid;
+        console.log(req.params);
+        request(Base.mergeRequestOptions({
+            method: 'put',
+            url: '/api/share/'+id,
+        }, req, res), function (error, response, body) {
+            if (!error && response.statusCode == 201) {
+                Base.handlerSuccess(res, req);
+                res.sendStatus(200)
             } else {
                 Base.handlerError(res, req, error, response, body);
             }
