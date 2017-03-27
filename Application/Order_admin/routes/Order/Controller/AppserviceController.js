@@ -119,7 +119,20 @@ var AppServiceController = {
             if(resultList.packageList.list.length>0){
                 res.render('order/enter/enter_product_scanning', returnData);
             }else{
-                // Base.handlerError(res, req, error, response, body);
+                var error;
+                var msgid = '';
+                // console.log('8888',resultList.packageList)
+                var arry = resultList.packageList.info.errorPackgeNos;
+                var length = arry.length;
+                for(var i=0;i<length;i++){
+                    msgid += arry[i] + ",</br>"
+                }
+                msgid = msgid.substring(0,msgid.length-6);
+                var response = {
+                    body: '{"code":8001,"msg":"导入包装号失败</br>'+msgid+'"}'
+
+                }
+                Base.handlerError(res, req, error, response);
             }
 
             });

@@ -47,8 +47,8 @@ var BaseController = {
 
     //处理错误
     handlerError: function (res, req, error, response, body) {
-        //console.log('Error:');
-        //console.log(response);
+        // console.log('Error:');
+        // console.log(response);
 
         var user_session = req.session;
 

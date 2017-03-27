@@ -14,7 +14,7 @@
         <ol class="breadcrumb">
             <li>后台管理</li>
             <li><a class="back-url" href="/enterProduct"><i class="fa fa-chevron-left"></i> 成品入库</a></li>
-            <li>成品扫描入库</li>
+            <li>入库</li>
         </ol>
 
 
@@ -25,121 +25,103 @@
     <!-- MAIN CONTENT -->
     <div id="content">
         <!-- well -->
-        <div class="well">
-            <!-- row -->
-            <div class="row">
-                <!-- col -->
-                <div class="col-xs-12">
-                    <!--<legend>客户搜索</legend>-->
-                    <!-- row -->
-                    <div class="row search-form">
-                        <form class="form-horizontal" method="get" id="search-customer">
 
-                            <div class="col-xs-12">
-
-                                <!--输入字段-->
-                                <div class="col-xs-3">
-                                    <div class="form-group">
-                                        <label class="col-xs-4 control-label">包装号:</label>
-                                        <div class="col-xs-8">
-                                            <label class="control-label">564789564</label>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="col-xs-3">
-                                    <div class="form-group">
-                                        <label class="col-xs-4 control-label">包数</label>
-                                        <div class="col-xs-8">
-                                            <label class="control-label">1</label>
-                                        </div>
-                                    </div>
-                                </div>
-
-                            </div>
-
-                            <div class="col-xs-12">
-                                <div class="col-xs-3">
-                                    <div class="form-group">
-                                        <label class="col-xs-4 control-label">货位号:</label>
-                                        <div class="col-xs-8">
-                                            <input class="form-control" value="<%= DWYRequest.query.cid %>" type="text"
-                                                   name="cid">
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-xs-3">
-                                    <div class="form-group">
-                                        <label class="col-xs-4 control-label">显示方式:</label>
-                                        <div class="col-xs-8">
-                                            <select class="form-control" name="ctype">
-                                                <option value="1">不显示已排满</option>
-                                                <option value="2">显示所有</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="col-xs-12">
-                                <hr class="simple">
-                                <div class="col-xs-12 text-center">
-                                    <button class="btn btn-primary " type="submit">
-                                        <i class="fa fa-search"></i>
-                                        查询
-                                    </button>
-                                </div>
-                            </div>
-
-                        </form>
-                    </div>
-                    <!-- end row -->
-                </div>
-                <!-- end col -->
-            </div>
-            <!-- end row -->
-        </div>
-        <!-- end well -->
 
         <div class="well">
+
             <div class="row">
-                <div class="col-xs-12">
-                    <div class="table-responsive">
-                        <table class="table table-bordered table-striped table-hover">
-                            <thead>
-                            <tr>
-                                <th>序号</th>
-                                <th>货位号</th>
-                                <th>所在行/列/层</th>
-                                <th>最大承重</th>
-                                <th>最大存货数量</th>
-                                <th>货架长宽高</th>
-                                <th>货位状态</th>
-                                <th>可用承重</th>
-                                <th>操作</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <tr>
-                                <td>1</td>
-                                <td>01</td>
-                                <td>25行25列35层</td>
-                                <td>7500KG</td>
-                                <td>1334件</td>
-                                <td>750*1334*666</td>
-                                <td>空</td>
-                                <td>3500KG</td>
-                                <td><a class="enterThis" data-id="37">入库</a></td>
-                            </tr>
+                <form class="form-horizontal" id="search-customer">
 
-                            <tr>
-                                <td colspan="9" class="text-align-center">暂无数据</td>
-                            </tr>
-                            </tbody>
-                        </table>
+                    <div class="col-xs-12 search-form">
+                        <div class="col-xs-3">
+                            <div class="form-group">
+                                <label class="col-xs-3 control-label"><span class="requird"></span> 工厂:</label>
+                                <div class="col-xs-9">
+                                    <select class="form-control validate[required]" name="ftyId" id="ftyId">
+                                        <option value="">- 请选择 -</option>
+                                        <% factoryList.forEach(function (element) { %>
+                                        <option value="<%= element.ftyId %>"  >
+                                            <%= element.name %>
+                                        </option>
+                                        <% }) %>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xs-3">
+                            <div class="form-group">
+                                <label class="col-xs-3 control-label"><span class="requird"></span> 仓库:</label>
+                                <div class="col-xs-9">
+                                    <select class="form-control validate[required]" name="whseId" id="whseId">
+                                        <option value="">- 请选择 -</option>
 
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xs-3">
+                            <div class="form-group">
+                                <label class="col-xs-3 control-label"><span class="requird"></span> 区域:</label>
+                                <div class="col-xs-9">
+                                    <select class="form-control validate[required]" name="regionId" id="regionId">
+                                        <option value="">- 请选择 -</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xs-3" id="waningArea">
+                            <input class="form-control validate[required,custom[number],minSize[6],maxSize[6]]"
+                                   name="spaceId" placeholder="行列层，6位数字" id="spaceId">
+                        </div>
                     </div>
-                </div>
+
+                    <div class="col-xs-12">
+                        <div class="table-responsive">
+                            <table class="table table-bordered table-striped table-hover table-editinput" id="contentArea">
+                                <thead>
+                                <tr>
+                                    <th>序号</th>
+                                    <th>包装流水号</th>
+                                    <th>包装名</th>
+                                    <th>包装类型</th>
+                                    <th>包装产品</th>
+                                    <th>包装产品材料</th>
+                                    <th>订单号</th>
+                                    <th>包装状态</th>
+                                </tr>
+                                </thead>
+                                <tbody id="moreAddTR">
+                                <% if(DWY_Helper.isCanLoop(packageList.list)){
+                                var packageLidAll = '' %>
+                                <% packageList.list.forEach(function(element,index){
+                                element.packageList.forEach(function (elementlist,index) {
+                                    packageLidAll += elementlist.packageLid +',' %>
+                                <tr>
+                                    <td><%= index+1 %></td>
+                                    <td><%=elementlist.packageLid%></td>
+                                    <td><%=elementlist.packageName%></td>
+                                    <td><%=elementlist.packageTypeName%></td>
+                                    <td><%=elementlist.packageProduct%></td>
+                                    <td><%=elementlist.packageProductMaterial%></td>
+                                    <td><%=elementlist.tid%></td>
+                                    <td><%= DWY_Helper.getPackageType(elementlist.stcode) %></td>
+                                </tr>
+                                <%   })
+                                })}
+                                packageLidAll = packageLidAll.substring(0,packageLidAll.length-1);
+                                %>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <input id="packageList" value="<%= packageLidAll %>" type="hidden">
+                    <div class="col-xs-12">
+                        <hr class="simple">
+                        <div class="col-xs-12 text-center">
+                            <a class="btn btn-primary" id="toEnter">确认入库</a>
+                        </div>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
@@ -153,36 +135,69 @@
 
 
 <script type="text/javascript">
-
     $(document).ready(function () {
 
         $("#search-customer").validationEngine();
 
-        pageSetUp();
 
+        $('#ftyId,#whseId,#regionId').change(function () {
+            $('#spaceId').val('');
 
-        $(".enterThis").click(function () {
-            var id = $(this).attr('data-id');
+        })
 
-            layer.confirm('确定放入该货位中吗?', {icon: 3, title: '提示'}, function (index) {
+        $('#toEnter').click(function () {
+            if($("#search-customer").validationEngine('validate')){
+                var regionId=$("#regionId").val();
+                var spaceId=$("#spaceId").val();
+                var packageList=$("#packageList").val();
                 $.ajax({
-                    url: '/enterProduct/scanning/doEnter/'+id,
-                    method: 'put',
+                    url: '/app/doCargoin',
+                    data:{
+                        regionId:regionId,
+                        spaceId:spaceId,
+                        packageList:packageList,
+                    },
+                    method: 'post',
                     success: function (data) {
-                        successLayout.hrefTo('/enterProduct');
+                        console.log(data)
+                        if(data.code == 1001){
+                            successLayout.hrefTo("/enterProduct");
+                        }else{
+                            var response = {
+                                responseText:JSON.stringify(data)
+                            };
+//                            data.responseText = data;
+//                            var data = JSON.parse(data.responseText);
+                            errorLayout.normal(response);
+                        }
 
                     },
                     error: function (response) {
                         layer.close(index)
+                        var status = response.status;
+                        if(status == 201){
+                            location.href="/enterProduct";
+                            return;
+                        }
                         errorLayout.normal(response);
 
                     }
                 });
-            }, function (index) { layer.close(index) })
+
+
+            }
+
+
+
+
         })
+
+        pageSetUp();
+
+
     })
 
 </script>
 
-
+<%- include('../cargospace/js_function'); %>
 <%- include('../layouts/foot'); %>

@@ -1,0 +1,171 @@
+<%- include('../layouts/head_top'); %>
+<%- include('../layouts/head_bottom'); %>
+<%- include('../layouts/header'); %>
+<%- include('../layouts/nav'); %>
+
+
+<!-- MAIN PANEL -->
+<div id="main" role="main" class="mainFlex">
+
+    <!-- RIBBON -->
+    <div id="ribbon">
+
+        <!-- breadcrumb -->
+        <ol class="breadcrumb">
+            <li>后台管理</li>
+            <li><a class="back-url" href="/productStock"><i class="fa fa-chevron-left"></i> 成品备货</a></li>
+            <li>备货</li>
+        </ol>
+
+    </div>
+    <!-- END RIBBON -->
+
+
+    <!-- MAIN CONTENT -->
+    <div id="content" class="dis-flex">
+
+
+
+        <div class="well dis-flex">
+
+            <!-- row -->
+            <div class="row">
+                <div class="col-xs-12">
+                    <h6>包装列表</h6>
+                    <hr class="simple">
+                </div>
+            </div>
+
+            <!-- row -->
+            <div class="row dis-flex">
+                <div class="col-xs-12 dis-flex">
+                    <div class="table-responsive dis-flex">
+                        <table class="table table-bordered table-striped table-hover table-scroll dis-flex">
+                            <thead>
+                            <tr>
+                                <th width="6%"><label class="checkbox-inline">
+                                        <input type="checkbox" class="checkbox"
+                                               id="checkAll">
+                                        <span>&nbsp;</span>
+                                    </label>序号</th>
+                                <th>包装流水号</th>
+                                <th>货位号</th>
+                                <th>包装名</th>
+                                <th>包装类型</th>
+                                <th>包装产品</th>
+                                <th>包装产品材料</th>
+                                <th>包装状态</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <% if(DWY_Helper.isCanLoop(stockPakgList.list)){
+                            stockPakgList.list.forEach(function (element, index) {  %>
+                            <tr>
+                                <td width="6%">
+                                    <label class="checkbox-inline">
+                                        <input type="checkbox" class="checkbox"
+                                               name="tids" value="<%= element.tid %>" <%= element.stcode!=2? 'disabled':''%>>
+                                        <span><%= index+1 %></span>
+                                    </label>
+                                </td>
+                                <td><%= element.packageLid %></td>
+                                <td><%= element.spaceId %></td>
+                                <td><%= element.packageName %></td>
+                                <td><%= element.packageTypeName %></td>
+                                <td><%= element.packageProduct %></td>
+                                <td><%= element.packageProductMaterial%></td>
+                                <td><%= DWY_Helper.getPackageType(element.stcode) %></td>
+                            </tr>
+                            <%    })
+                            } %>
+
+
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div>
+            <div class="col-xs-8 form-horizontal">
+                <div class="col-xs-3">
+                    <button class="btn btn-primary" id="submitDifficulty">确定备货</button>
+                    <input type="hidden" class="" id="checkedValue">
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+    <!-- END MAIN CONTENT -->
+
+</div>
+<!-- END MAIN PANEL -->
+
+<%- include('../layouts/footer'); %>
+<%- include('../layouts/footer_common_script'); %>
+
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+
+        pageSetUp();
+
+
+        $(".fg-date-picker").flatpickr(data_time_picker.data_picker); // jQuery
+
+        var checkedValue = $('#checkedValue');
+        $("#checkAll").change(function () {
+            if($(this).is(":checked")){
+                $(":checkbox:not(:disabled)").prop('checked',true);
+                $("input[name='tids']:checked").each(function (i) {
+                    checkedValue.addClass(this.value+',')
+                });
+            }else{
+                $(":checkbox").prop('checked',false);
+                checkedValue.removeClass()
+            }
+        })
+        $("input[name='tids']").change(function () {
+            if($(this).is(':checked')){
+                checkedValue.addClass(this.value+',')
+            }else{
+                checkedValue.removeClass(this.value+',')
+            }
+        });
+
+        $('#submitDifficulty').click(function () {
+            var tids = checkedValue.attr('class');
+            tids = tids.substring(0,tids.length-1);
+            tids = tids.replace(/\s/g,"");
+            if(!tids){
+                layer.msg('请先选择订单', {icon: 2, time: 2000});
+                return;
+            }
+            console.log(tids);
+            $.ajax({
+                url: '/app/doStock',
+                method: 'post',
+                data: {
+                    tids:tids,
+                    difficulty:difficulty
+                },
+                success: function (data) {
+                    successLayout.reload();
+                },
+                error: function (response) {
+                    errorLayout.normal(response);
+
+                }
+            });
+        })
+
+
+    })
+
+</script>
+
+
+<%- include('../layouts/foot'); %>

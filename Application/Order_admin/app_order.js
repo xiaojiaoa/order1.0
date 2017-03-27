@@ -199,6 +199,24 @@ app.locals.DWY_Helper = {
         }
         return code;
     },
+//字典翻译-包装状态
+    getPackageType: function (code) {
+        switch (code){
+            case 1:
+                return "未入库";
+                break;
+            case 2:
+                return "已入库";
+                break;
+            case 3:
+                return "已备货";
+                break;
+            case 4:
+                return "已出库";
+                break;
+        }
+        return code;
+    },
 
     //字典翻译-是否
     getWhether: function (code) {

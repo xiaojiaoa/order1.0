@@ -348,6 +348,29 @@ var OutWarehouseController = {
             res.render('order/shipments/out_product_detail', returnData);
         });
     },
+    productStock: function (req, res) {
+        Base.multiDataRequest(req, res, [
+            {url: '/api/whse/app/stock/order/list?'+ queryString.stringify(req.query), method: 'GET', resConfig: {keyName: 'stockList', is_must: true}},
+        ], function (req, res, resultList) {
+            var returnData = Base.mergeData(helper.mergeObject({
+                title: ' ',
+            },resultList));
+            res.render('order/shipments/stock_order', returnData);
+        });
+
+    },
+    productPakgList: function (req, res) {
+        var tid = req.params.tid;
+        Base.multiDataRequest(req, res, [
+            {url: '/api/whse/app/cargoout/package/list/'+ tid, method: 'GET', resConfig: {keyName: 'stockPakgList', is_must: true}},
+        ], function (req, res, resultList) {
+            var returnData = Base.mergeData(helper.mergeObject({
+                title: ' ',
+            },resultList));
+            res.render('order/shipments/stock_order_pakg', returnData);
+        });
+
+    },
     outBredPage: function (req, res) {
         var paramObject = helper.genPaginationQuery(req);
         Base.multiDataRequest(req, res, [
