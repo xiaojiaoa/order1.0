@@ -62,7 +62,9 @@
                                 <td><%= element.custName %></td>
                                 <td><%= element.factoryPrice %></td>
                                 <td>
+                                    <% if (DWY_Helper.hasPermission(Permission.stockUp.finish.id, permission) ){ %>
                                     <a class="label label-primary" href="/productStock/pakg/<%= element.tid %>" >备货</a>
+                                    <% } %>
                                 </td>
                             </tr>
                             <% })

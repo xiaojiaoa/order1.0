@@ -135,6 +135,9 @@
                                         </label>
                                         <input type="file" name="file_name" id="dwy_file_upload" style="display: none">
                                     </div>
+                                    <label class="pull-left control-label" id="uploadStatus">
+
+                                    </label>
                                 </div>
 
                             </div>
@@ -380,7 +383,7 @@
 
         $("#create-employees").validationEngine();
 
-
+        var uploadStatus = $('#uploadStatus');
         $(".fg-date-picker").flatpickr(data_time_picker.data_picker); // jQuery
 
 //        DWY_area.init({});
@@ -446,12 +449,14 @@
                         if (data.code == 200) {
                             if (!idPhotoOne.val()) {
                                 idPhotoOneFuc(data);
-                                label.html('上传成功 <i class="fa fa-check">');
+                                label.html('上传照片<i class="fa fa-upload"></i>');
+                                uploadStatus.html('<span class="text-success"><i class="fa fa-check"></i> 上传成功</span>')
                                 return;
                             }
                             if (!idPhotoTwo.val()) {
                                 idPhotoTwoFuc(data);
-                                label.html('上传成功 <i class="fa fa-check">');
+                                label.html('上传照片<i class="fa fa-upload"></i>');
+                                uploadStatus.html('<span class="text-success"><i class="fa fa-check"></i> 上传成功</span>')
                                 return;
                             }
                             switch (idPhotoNum % 2) {
@@ -463,13 +468,16 @@
                                     break;
                             }
                             idPhotoNum++;
-                            label.html('上传成功 <i class="fa fa-check">');
+                            label.html('上传照片<i class="fa fa-upload"></i>');
+                            uploadStatus.html('<span class="text-success"><i class="fa fa-check"></i> 上传成功</span>')
                         } else {
-                            label.html('上传失败 <i class="fa fa-times">');
+                            label.html('上传照片<i class="fa fa-upload"></i>');
+                            uploadStatus.html('<span class="text-danger"><i class="fa fa-times"></i> 上传失败</span>')
                         }
                     },
                     error: function (error) {
-                        label.html('上传失败 <i class="fa fa-times">');
+                        label.html('上传照片<i class="fa fa-upload"></i>');
+                        uploadStatus.html('<span class="text-danger"><i class="fa fa-times"></i> 上传失败</span>')
                     }
                 })
             }

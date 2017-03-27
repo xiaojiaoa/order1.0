@@ -82,20 +82,26 @@
 <script>
 
     $(function () {
+        // Create the measurement node
+        var scrollDiv = document.createElement("div");
+        scrollDiv.style.overflow = 'scroll';
+        document.body.appendChild(scrollDiv);
+        var scrollbarWidth = scrollDiv.offsetWidth - scrollDiv.clientWidth;
+        document.body.removeChild(scrollDiv);
+//        alert(scrollbarWidth)
+        $('.table-scroll thead').css('width','calc( 100% - '+scrollbarWidth+'px )')
+
 //      $('.mainFlex').css('height',window.innerHeight-80);
 
-//        $(".aaaaaaa").niceScroll();
+//        $(".table-scroll ").niceScroll();
 //        $(".menu-list").niceScroll({styler:"fb",cursorcolor:"#65cea7", cursorwidth: '3', cursorborderradius: '0px',background: '#424f63', spacebarenabled:false, cursorborder: '1px solid #fff'});
 
         var type = window.location.pathname;
-//    console.log('window', window.location.pathname)
         $('ul.menu-list li:has(a[href="' + type + '"])').addClass('active');
 
         $('ul.menu-list li').click(function () {
             var innerHeight =  $('ul.menu-list').scrollTop();
             var height = $(this).offset().top;
-//            alert(innerHeight)
-//            alert(height)
             if(innerHeight > 0){
                 localStorage.setItem('menuScroll-height',height+100);
             }else{

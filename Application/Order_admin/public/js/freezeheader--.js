@@ -33,28 +33,22 @@
           scroller: null
         };
 
-
-          obj.header = obj.grid.find('thead');
-          if (params && params.height !== undefined) {
-              if ($('#hdScroll' + obj.id).length == 0) {
-                  obj.grid.wrapAll(obj.divScroll);
-              }
-          }
-
-
-
-
-
         if (params && params.height !== undefined) {
           obj.divScroll = '<div id="hdScroll' + obj.id + '" style="height: ' + params.height + '; overflow-y: scroll">';
           obj.closeDivScroll = '</div>';
         }
 
-
+        obj.header = obj.grid.find('thead');
+        if (params && params.height !== undefined) {
+          if ($('#hdScroll' + obj.id).length == 0) {
+            obj.grid.wrapAll(obj.divScroll);
+          }
+        }
 
         obj.scroller = params && params.height !== undefined
           ? $('#hdScroll' + obj.id)
           : $(window);
+        console.log('2222222',params.scrollListenerEl)
         if (params && params.scrollListenerEl !== undefined) {
           obj.scroller = params.scrollListenerEl;
         }
@@ -65,10 +59,41 @@
 
           obj.container = $('#hd' + obj.id);
 
-            cloneHeaderRow(obj);
-            copiedHeader = true;
+          if (obj.header.offset() != null) {
+            if (limiteAlcancado(obj, params)) {
+              console.log('limiteAlcancado')
+              if (!copiedHeader) {
+                console.log('cloneHeaderRow')
+                cloneHeaderRow(obj);
+                copiedHeader = true;
+              }
+            }
+            else {
+              console.log('limiteAlcancado22222222')
+              if (($(document).scrollTop() > obj.header.offset().top)) {
+                obj.container.css("position", "absolute");
+                obj.container.css("top", (obj.grid.find("tr:last").offset().top - obj.header.height()) + "px");
+                obj.container.css("top", (obj.grid.find("tr:last").offset().top - obj.header.height()) + "px");
+              }
+              else {
+                obj.container.css("visibility", "hidden");
+                obj.container.css("top", "0px");
+                obj.container.width(0);
+              }
+              copiedHeader = false;
+            }
+          }
 
         });
+      }
+    }
+
+    function limiteAlcancado(obj, params) {
+      if (params && (params.height !== undefined || params.scrollListenerEl !== undefined)) {
+        return (obj.header.offset().top <= obj.scroller.offset().top);
+      }
+      else {
+        return ($(document).scrollTop() > obj.header.offset().top && $(document).scrollTop() < (obj.grid.height() - obj.header.height() - obj.grid.find("tr:last").height()) + obj.header.offset().top);
       }
     }
 
@@ -96,9 +121,30 @@
 
       obj.container.css("visibility", "visible");
       obj.container.css("z-index", "999");
-      obj.container.css("top", "0px");
-      obj.container.css("position", "absolute");
 
+      if (params && params.height !== undefined) {
+        if(params.offset !== undefined){
+          obj.container.css("top", obj.scroller.offset().top + (params.offset.replace("px","") * 1) + "px");
+        }
+        else
+        {
+          // obj.container.css("top", obj.scroller.offset().top + "px");
+          obj.container.css("top", "0px");
+        }
+
+        obj.container.css("position", "absolute");
+
+      } else if (params && params.scrollListenerEl!== undefined) {
+        obj.container.css("top", obj.scroller.find("thead > tr").innerHeight() + "px");
+        obj.container.css("position", "absolute");
+        obj.container.css("z-index", "2");
+      } else if (params && params.offset !== undefined) {
+        obj.container.css("top", params.offset);
+        obj.container.css("position", "fixed");
+      } else {
+        obj.container.css("top", "0px");
+        obj.container.css("position", "fixed");
+      }
     }
 
     return this.each(function (i, e) {

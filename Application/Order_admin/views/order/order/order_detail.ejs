@@ -34,6 +34,10 @@
                         <% if( orderInfo.stcode == 250 ){ %>
                         <a class="label label-primary" id="modifyInfo-modal">修改</a>
                         <% } %>
+
+                        <a class="label label-primary" href="/order/communicateAll/<%= tid %>">
+                            查看所有交流信息
+                        </a>
                     </legend>
                     <!-- row -->
                     <div class="table-responsive">
@@ -335,50 +339,6 @@
 
             <% } %>
 
-            <div class="row">
-                <!-- col -->
-                <div class="col-xs-12">
-                    <legend>交流信息
-                        <a class="label label-primary" href="/order/communicate/create/<%= tid %>">
-                            添加交流信息
-                        </a>
-                        <a class="label label-primary" href="/order/communicateAll/<%= tid %>">
-                            查看所有交流信息
-                        </a>
-                    </legend>
-
-                    <div class="table-responsive">
-                        <table class="table table-bordered table-striped">
-                            <thead>
-                            <tr>
-                                <th width="100">序号</th>
-                                <th>交流信息</th>
-                                <th>新增柜员</th>
-                                <th>新增日期</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <% if(DWY_Helper.isCanLoop(progressInfo)){
-                            progressInfo.forEach(function (element, index) {  %>
-                            <tr>
-                                <td><%= index+1 %></td>
-                                <td><%= element.content %></td>
-                                <td><%= element.gid %>/<%= element.name %></td>
-                                <td><%= DWY_Helper.getLocalDate(element.addTime) %></td>
-                            </tr>
-                            <%  })
-                            } %>
-
-                            </tbody>
-                        </table>
-
-                    </div>
-
-
-                    <!-- end row -->
-                </div>
-                <!-- end col -->
-            </div>
 
             <div class="row">
                 <!-- col -->
@@ -716,6 +676,50 @@
                 </div>
             </div>
 
+            <div class="row">
+                <!-- col -->
+                <div class="col-xs-12">
+                    <legend>交流信息
+                        <a class="label label-primary" href="/order/communicate/create/<%= tid %>">
+                            添加交流信息
+                        </a>
+                        <a class="label label-primary" href="/order/communicateAll/<%= tid %>">
+                            查看所有交流信息
+                        </a>
+                    </legend>
+
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-striped">
+                            <thead>
+                            <tr>
+                                <th width="100">序号</th>
+                                <th>交流信息</th>
+                                <th>新增柜员</th>
+                                <th>新增日期</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <% if(DWY_Helper.isCanLoop(progressInfo)){
+                            progressInfo.forEach(function (element, index) {  %>
+                            <tr>
+                                <td><%= index+1 %></td>
+                                <td><%= element.content %></td>
+                                <td><%= element.gid %>/<%= element.name %></td>
+                                <td><%= DWY_Helper.getLocalDate(element.addTime) %></td>
+                            </tr>
+                            <%  })
+                            } %>
+
+                            </tbody>
+                        </table>
+
+                    </div>
+
+
+                    <!-- end row -->
+                </div>
+                <!-- end col -->
+            </div>
 
         </div>
         <!-- end row -->

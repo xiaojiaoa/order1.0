@@ -187,7 +187,7 @@
                                 <td><%= DWY_Helper.geOutStatus(element.stcode) %></td>
                                 <td width="80">
                                     <% if(element.stcode == 2){ %>
-                                    <a class="label label-primary checkThis" data-id="<%= element.outId %>">审核</a>
+                                    <a class="label label-primary" href="/outProduct/deatil/<%= element.outId %>">出库</a>
                                     <% }%>
                                 </td>
                             </tr>
@@ -225,25 +225,25 @@
 
         $(".fg-date-time-picker").flatpickr(data_time_picker.data_picker); // jQuery
 
-        $(".checkThis").click(function () {
-            var id = $(this).attr('data-id');
-
-            layer.confirm('确定提交审核?', {icon: 3, title: '提示'}, function (index) {
-                $.ajax({
-                    url: '/outProduct/doChecked/'+id,
-                    method: 'put',
-                    success: function (data) {
-                        successLayout.reload();
-
-                    },
-                    error: function (response) {
-                        layer.close(index)
-                        errorLayout.normal(response);
-
-                    }
-                });
-            }, function (index) { layer.close(index) })
-        })
+//        $(".checkThis").click(function () {
+//            var id = $(this).attr('data-id');
+//
+//            layer.confirm('确定提交审核?', {icon: 3, title: '提示'}, function (index) {
+//                $.ajax({
+//                    url: '/outProduct/doChecked/'+id,
+//                    method: 'put',
+//                    success: function (data) {
+//                        successLayout.reload();
+//
+//                    },
+//                    error: function (response) {
+//                        layer.close(index)
+//                        errorLayout.normal(response);
+//
+//                    }
+//                });
+//            }, function (index) { layer.close(index) })
+//        })
 
 
     })
