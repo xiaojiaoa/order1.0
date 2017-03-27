@@ -411,7 +411,7 @@
 
                     layer.confirm("确认提交？", {title:'提示'},function(index){
                             console.log(date);
-                         /*   $.ajax({
+                            $.ajax({
                                 url: '/noticeInfo/doCreate',
                                 data:JSON.stringify(date),
                                 method: 'post',
@@ -432,7 +432,7 @@
                                     errorLayout.normal(response);
 
                                 }
-                            });*/
+                            });
                         },function(index){
                             layer.close(index)}
                     )
