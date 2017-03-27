@@ -9,6 +9,8 @@ var helper = require('../config/helper');
 
 var request = require('request');
 
+//引入权限
+var Permissions = require('../config/permission');
 
 var CargospaceController = {
     unlistPage: function (req, res) {
@@ -17,6 +19,7 @@ var CargospaceController = {
         ], function (req, res, resultList) {
             var returnData = Base.mergeData(helper.mergeObject({
                 title: '',
+                Permission :Permissions,
             }, resultList));
             res.render('order/cargospace/index_unselect', returnData);
         });
@@ -29,7 +32,7 @@ var CargospaceController = {
             url: '/api/whse/warehouse/list/'+ftyId,
         }, req, res), function (error, response, body) {
             if (!error && response.statusCode == 200) {
-                Base.handlerSuccess(res, req);
+                // Base.handlerSuccess(res, req);
                 // res.sendStatus(200);
                 res.status(200).json(body)
 
@@ -46,7 +49,7 @@ var CargospaceController = {
             url: '/api/whse/region/list/'+whseId,
         }, req, res), function (error, response, body) {
             if (!error && response.statusCode == 200) {
-                Base.handlerSuccess(res, req);
+                // Base.handlerSuccess(res, req);
                 res.status(200).json(body)
             } else {
                 Base.handlerError(res, req, error, response, body);
@@ -80,7 +83,8 @@ var CargospaceController = {
                 ftyId:ftyId,
                 whseId:whseId,
                 regionId:regionId,
-                pagination: boostrapPaginator.render()
+                pagination: boostrapPaginator.render(),
+                Permission :Permissions,
             }, resultList));
 
             res.render('order/cargospace/index', returnData);
