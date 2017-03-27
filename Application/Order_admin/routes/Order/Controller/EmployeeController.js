@@ -9,6 +9,9 @@ var helper = require('../config/helper');
 
 var request = require('request');
 
+//引入权限
+var Permissions = require('../config/permission');
+
 
 var EmployeeController = {
     listPage: function (req, res) {
@@ -40,7 +43,8 @@ var EmployeeController = {
                 type: type,
                 bid: bid,
                 did: did,
-                pagination: boostrapPaginator.render()
+                pagination: boostrapPaginator.render(),
+                Permission :Permissions,
             }, resultList));
 
             res.render('order/employees', returnData);
