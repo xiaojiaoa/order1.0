@@ -65,7 +65,7 @@
                                     <% if (DWY_Helper.hasPermission(Permission.store.updateRole.id, permission)|| DWY_Helper.hasPermission(Permission.organization.updateRole.id, permission)  ){ %>
                                     <a href="/roles/modify/<%= bid %>/<%= scope %>/<%= element.id %>" class="label label-primary">修改</a>
                                     <% } %>
-                                    <% if (DWY_Helper.hasPermission(Permission.store.deleteRole.id, permission) || DWY_Helper.hasPermission(Permission.organization.deleteRole.id, permission) ){ %>
+                                    <% if ((element.id<99900000) && (DWY_Helper.hasPermission(Permission.store.deleteRole.id, permission) || DWY_Helper.hasPermission(Permission.organization.deleteRole.id, permission)) ){ %>
                                     <a class="delete-role label label-danger"  selfId="<%= element.id %>">删除</a>
                                     <% } %>
                                 </td>
