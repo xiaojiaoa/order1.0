@@ -1,0 +1,75 @@
+﻿successLayout.hrefTo(locationUrl);   
+successLayout.reload();
+
+
+errorLayout.normal(response);
+Base.handlerSuccess(res, req);
+
+if(DWY_Helper.isCanLoop(realAccountPage.result))
+
+
+
+<span class="requird"></span>
+
+ tight-right
+
+custom[number]
+
+<span code-data="元" class="unit"></span>
+
+ <li><a class="back-url" href="/taskseq/index/<%= lid %>"><i class="fa fa-chevron-left"></i> 流水信息</a></li>
+
+ <tr><td colspan="11" class="text-align-center">暂无数据</td></tr>
+
+请输入备注信息
+
+validate[required,funcCall[custom_validate_fn.isMobile]]
+
+
+validate[required]
+
+custom[onlyNumberSp]
+
+validate[minCheckbox[1]]
+
+必输入一个
+validate[groupRequired[someName]]
+
+
+
+id="create-customer"
+
+
+
+        $("#create-customer").validationEngine('attach', {
+            onValidationComplete: function (form, status) {
+                if(status){
+                    form.submit();
+                }
+            }
+        })
+
+$("#create-customer").validationEngine();
+
+
+SearchControl
+
+
+＆nbsp;
+
+DWY_Helper.
+
+
+
+if(wantPurchases.length == 1){
+                req.body.wantPurchases = wantPurchases.split(",");
+            }
+
+
+
+账号要换一下330100320001 密码11111111
+
+
+
+
+http://localhost:8080/order/resupply/create/3301003200005

@@ -368,8 +368,22 @@ var OutWarehouseController = {
             var returnData = Base.mergeData(helper.mergeObject({
                 title: ' ',
                 Permission :Permissions,
+                tid:tid,
             },resultList));
             res.render('order/shipments/stock_order_pakg', returnData);
+        });
+
+    },
+    productOutPakgList: function (req, res) {
+        var tid = req.params.tid;
+        Base.multiDataRequest(req, res, [
+            {url: '/api/whse/app/cargoout/package/list/'+ tid, method: 'GET', resConfig: {keyName: 'stockPakgList', is_must: true}},
+        ], function (req, res, resultList) {
+            var returnData = Base.mergeData(helper.mergeObject({
+                title: ' ',
+                tid:tid,
+            },resultList));
+            res.render('order/shipments/out_order_pakg', returnData);
         });
 
     },
