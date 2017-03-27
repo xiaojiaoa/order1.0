@@ -354,6 +354,7 @@ var OutWarehouseController = {
         ], function (req, res, resultList) {
             var returnData = Base.mergeData(helper.mergeObject({
                 title: ' ',
+                Permission :Permissions,
             },resultList));
             res.render('order/shipments/stock_order', returnData);
         });
@@ -366,6 +367,7 @@ var OutWarehouseController = {
         ], function (req, res, resultList) {
             var returnData = Base.mergeData(helper.mergeObject({
                 title: ' ',
+                Permission :Permissions,
             },resultList));
             res.render('order/shipments/stock_order_pakg', returnData);
         });

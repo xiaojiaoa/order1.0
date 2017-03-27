@@ -385,6 +385,22 @@ var permissions = {
             name:"查询所有机构柜员"
         }
     },
+    gathering :{
+        queryAll:{
+            id:"533040",
+            name:"查询所有机构订单收款"
+        },
+        finishGathering:{
+            id:"533031",
+            name:"完成收款"
+        }
+    },
+    stockUp :{
+        finish:{
+            id:"705031",
+            name:"完成备货"
+        }
+    },
     taskseq:{
         cancel:{
             id:"",

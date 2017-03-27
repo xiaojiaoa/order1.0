@@ -1139,6 +1139,7 @@ var OrderController = {
                 title: ' ',
                 cid:cid,
                 pagination: boostrapPaginator.render(),
+                Permission :Permissions,
             },resultList));
             res.render('order/order/money_receipt', returnData);
         });
