@@ -44,7 +44,7 @@
                         </a>
                         <% } %>
 
-                        <a class="label label-primary" href="/materialManage/add/<%= bid %>/<%= mid %>">完善物料库存</a>
+                        <a class="label label-primary " href="/materialManage/add/<%= bid %>/<%= mid %>">完善物料库存</a>
                     </legend>
 
                     <!-- row -->
@@ -61,11 +61,13 @@
                             </tr>
                             <tr>
                                 <td>预警</td>
-                                <td><%= mateInfo.warning %></td>
-                                <td>可用</td>
-                                <td><%= mateInfo.usable %></td>
+                                <td><%= mateInfo.warning %>
+                                <a class="label label-primary pull-right modifyWarning"  href="javascript:void(0)">修改预警</a>
+                                </td>
                                 <td>库存</td>
                                 <td><%= mateInfo.stock %></td>
+                                <td>可用</td>
+                                <td><%= mateInfo.usable %></td>
                             </tr>
                             <tr>
                                 <td>出厂价格</td>
@@ -74,16 +76,6 @@
                                 <td><%= mateInfo.unit%></td>
                                 <td>工厂</td>
                                 <td><%= mateInfo.factoryName %></td>
-                            </tr>
-                            <tr>
-                                <td>物料图片</td>
-                                <td>
-                                    <a class="fancybox dwy_image" href="<%= DWY_GLOBAL.Static %>/download?url=<%= mateInfo.image %>" data-fancybox-group="gallery" title="<%= mateInfo.image %>"><%= mateInfo.image %></a>
-                                </td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
                             </tr>
                             <%
                             var isTr = true;
@@ -124,7 +116,12 @@
 
                             <% } }
                             }) %>
-
+                            <tr>
+                                <td>物料图片</td>
+                                <td colspan="5">
+                                    <a class="fancybox dwy_image" href="<%= DWY_GLOBAL.Static %>/download?url=<%= mateInfo.image %>" data-fancybox-group="gallery" title="<%= mateInfo.image %>"><%= mateInfo.image %></a>
+                                </td>
+                            </tr>
                             <tr>
                                 <td>备注</td>
                                 <td colspan="5"></td>
@@ -236,17 +233,7 @@
             <!-- end row -->
         </div>
         <!--end well-->
-        <!--well-->
-        <div class="col-xs-12 " style="display: none;">
-            <hr class="simple">
-            <div class="col-xs-12 text-center">
-                <a class="btn btn-primary margin-left-10"  href="javascript:void(0)">
-                    <i class="fa fa-save"></i>
-                   选择工厂
-                </a>
-            </div>
-        </div>
-        <!--end well-->
+
 
          </div>
     <!-- END MAIN CONTENT -->

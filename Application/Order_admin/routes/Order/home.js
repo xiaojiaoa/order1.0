@@ -421,11 +421,8 @@ router.get('/materialManage', Middleware.AuthCheck,Middleware.FilterEmptyField,M
 // 物料详情页面
 router.get('/materialManage/detail/:bid/:mid', Middleware.AuthCheck, MaterialController.detailPage);
 
-// 物料详情页面--选择工厂物料
-router.post('/materialManage/choiceFactory', Middleware.AuthCheck, MaterialController.choiceFactory);
-
 // 根据工厂选择物料详情页面
-router.get('/materialManage/detail/factory/:fid/:mid', Middleware.AuthCheck, MaterialController.detailFacPage);
+router.post('/materialManage/choiceFactory', Middleware.AuthCheck, MaterialController.choiceFactory);
 
 // 物料出入库总计页面
 router.get('/materialManage/summary', Middleware.AuthCheck,Middleware.FilterEmptyField,MaterialController.summaryPage);
@@ -1118,6 +1115,9 @@ router.get('/fileInfo', Middleware.AuthCheck, InformationController.fileInfoPage
 
 //资料上传接口
 router.post('/fileInfo/share', Middleware.AuthCheck,InformationController.fileDoCreate);
+
+//资料删除接口
+router.put('/fileInfo/doDelete/:fid', Middleware.AuthCheck, InformationController.fileDoDelete);
 
 
 

@@ -379,6 +379,12 @@ var permissions = {
             name:"查看柜员"
         }
     },
+    employeeManage :{
+        queryAll:{
+            id:"201040",
+            name:"查询所有机构柜员"
+        }
+    },
     taskseq:{
         cancel:{
             id:"",

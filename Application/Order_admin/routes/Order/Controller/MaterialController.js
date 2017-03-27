@@ -79,21 +79,6 @@ var MaterialController = {
         var mid=req.body.mateId;
        res.redirect("/materialManage/detail/"+fac+"/"+mid);
     },
-    detailFacPage: function (req, res) {
-        var mid =  req.params.mid;
-        var bid =  req.params.bid;
-        Base.multiDataRequest(req, res, [
-            {url: '/api/materials/'+mid, method: 'GET', resConfig: {keyName: 'mateInfo', is_must: true}},
-        ], function (req, res, resultList) {
-            var returnData = Base.mergeData(helper.mergeObject({
-                title: ' ',
-                mid:mid,
-                bid:bid,
-            },resultList));
-            res.render('order/material/material_detail_choice_factory',returnData);
-        });
-        //res.render('order/material/material_detail_choice_factory');
-    },
     summaryPage: function (req, res) {
         if(!req.query.type){
             req.query.type=1;

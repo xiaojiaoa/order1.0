@@ -57,7 +57,7 @@
                                         查询
                                     </button>
                                     <a class="btn btn-primary create-fileInfo" >
-                                        新建文件
+                                        上传文件
                                     </a>
                                 </div>
                             </div>
@@ -88,6 +88,7 @@
                                 <th>测试名称</th>
                                 <th>上传人</th>
                                 <th>上传时间</th>
+                                <th>操作</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -98,6 +99,7 @@
                                 <td> <a href="<%= DWY_GLOBAL.Static %>/download?url=<%= element.path %>"><%= element.name%></a></td>
                                 <td><%= element.empName%></td>
                                 <td><%= DWY_Helper.getLocalDateYMD(element.addTime)%></td>
+                                <td><a class="label label-danger delete-fileInfo" selfId="<%= element.id%>">删除</a></td>
                             </tr>
                             <%})} else{ %>
                             <td class="text-align-center" colspan="4">暂无数据</td>
@@ -208,7 +210,7 @@
     <div class="dwy-clear"></div>
 </form>
 <!--END 资料公告信息-->
-
+<%- include('./information_model'); %>
 <script type="text/javascript">
 
     $(document).ready(function () {
@@ -236,17 +238,6 @@
         })
         pageFunction();
 
-        function checkFuc(a,b){
-            //点击全选/全不选影响复选框状态
-            $(a).click(function(){
-                $(b).prop("checked",this.checked);
-            });
-            //复选框是否选中影响全选/全不选框状态-复选框的总数是否与选中的复选框数量相等
-            $(b).click(function(){
-                var $tmp=$(b);
-                $(a).prop("checked",$tmp.length==$tmp.filter(":checked").length);
-            });
-        }
         checkFuc("#checkAll01","input[name=storeType]:checkbox");
         checkFuc("#checkAll02","input[name=addrType]:checkbox");
         checkFuc("#checkAll03","input[name=organizationType]:checkbox");
@@ -363,45 +354,30 @@
                 })
             }
         })
-    })
-    //获取选中的checkbox的值
-    function  getList(a,b) {
-        var myArray=new Array();
-        var sendType;
-        switch (a)
-        {
-            case "#checkAll01":
-                sendType=1;
-                break;
-            case "#checkAll02":
-                sendType=2;
-                break;
-            case "#checkAll03":
-                sendType=3;
-                break;
-        }
-        if($(a).is(":checked")){
-            var sendValue=-1;
-            var a = new Object();
-            a = {
-                sendType:sendType,
-                sendValue:sendValue,
-            }
-            myArray.push(a);
-        } else{
-            $(b).each(function(){
-                var sendValue=$(this).val();
-                var a = new Object();
-                a = {
-                    sendType:sendType,
-                    sendValue:sendValue,
-                }
 
-                myArray.push(a);
-            });
-        }
-        return myArray;
-    }
+        //删除文件信息
+        $(".delete-fileInfo").on({
+            click: function () {
+                var id = $(this).attr('selfId');
+                console.log(id);
+                layer.confirm('确认删除?',{icon: 3, title:'提示'},
+                    function(index){
+                        $.ajax({
+                            url: '/fileInfo/doDelete/'+id,
+                            method: 'put',
+                            success: function (data) {
+                                successLayout.reload();
+                            },
+                            error: function (response) {
+                                layer.close(index)
+                                errorLayout.normal(response);
+                            }
+                        });
+                    },
+                    function(index){layer.close(index)})
+            }
+        })
+    })
 </script>
 
 

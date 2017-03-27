@@ -9,6 +9,9 @@ var helper = require('../config/helper');
 
 var request = require('request');
 
+//引入权限
+var Permissions = require('../config/permission');
+
 
 var RolesController = {
     listPage: function (req, res) {
@@ -21,6 +24,7 @@ var RolesController = {
                 title: ' ',
                 bid:bid,
                 scope:scope,
+                Permission :Permissions,
             }, resultList));
             res.render('order/role/index', returnData);
         });
