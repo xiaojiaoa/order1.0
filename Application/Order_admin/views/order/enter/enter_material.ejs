@@ -162,9 +162,11 @@
                                         <i class="fa fa-search"></i>
                                         查询
                                     </button>
+                                    <% if (DWY_Helper.hasPermission(Permission.rawMateInventory.finish.id, permission) ){ %>
                                     <a class="btn btn-primary " href="/enterMaterial/stockOver">
                                         采购完成单
                                     </a>
+                                    <% } %>
                                 </div>
                             </div>
 
