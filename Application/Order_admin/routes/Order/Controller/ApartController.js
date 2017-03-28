@@ -74,7 +74,7 @@ var ApartController = {
             url: '/api/orders/apart/getTask/'+tid,
         }, req, res), function (error, response, body) {
             if (!error && response.statusCode == 201) {
-                Base.handlerSuccess(res, req);
+
                 res.sendStatus(200);
                 // res.redirect("/order/check/getOrder");
             } else {
@@ -90,7 +90,7 @@ var ApartController = {
             url: '/api/orders/apart/unlock/'+tid,
         }, req, res), function (error, response, body) {
             if (!error && response.statusCode == 201) {
-                Base.handlerSuccess(res, req);
+
                 res.sendStatus(200);
             } else {
                 Base.handlerError(res, req, error, response, body);
@@ -119,7 +119,7 @@ var ApartController = {
             url: '/api/orders/apart/pass?tid='+tid,
         }, req, res), function (error, response, body) {
             if (!error && response.statusCode == 201) {
-                Base.handlerSuccess(res, req);
+
                 res.sendStatus(200);
             } else {
                 Base.handlerError(res, req, error, response, body);
@@ -173,7 +173,7 @@ var ApartController = {
             url: '/api/orders/apartReview/getTask/'+tid,
         }, req, res), function (error, response, body) {
             if (!error && response.statusCode == 201) {
-                Base.handlerSuccess(res, req);
+
                 res.sendStatus(200);
                 // res.redirect("/order/check/getOrder");
             } else {
@@ -189,7 +189,7 @@ var ApartController = {
             url: '/api/orders/apartReview/reSubmit/'+tid,
         }, req, res), function (error, response, body) {
             if (!error && response.statusCode == 201) {
-                Base.handlerSuccess(res, req);
+
                 res.sendStatus(200);
                 // res.redirect("/order/check/getOrder");
             } else {
@@ -205,7 +205,7 @@ var ApartController = {
             url: '/api/orders/apartReview/unlock/'+tid,
         }, req, res), function (error, response, body) {
             if (!error && response.statusCode == 201) {
-                Base.handlerSuccess(res, req);
+
                 res.sendStatus(200);
             } else {
                 Base.handlerError(res, req, error, response, body);
@@ -234,7 +234,7 @@ var ApartController = {
             url: '/api/orders/apartReview/pass?tid='+tid,
         }, req, res), function (error, response, body) {
             if (!error && response.statusCode == 201) {
-                Base.handlerSuccess(res, req);
+
                 res.sendStatus(200);
             } else {
                 Base.handlerError(res, req, error, response, body);

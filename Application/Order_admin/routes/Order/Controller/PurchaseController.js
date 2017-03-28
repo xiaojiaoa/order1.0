@@ -100,7 +100,7 @@ var PurchaseController = {
             body:JSON.stringify(req.body),
         }, req, res), function (error, response, body) {
             if (!error && response.statusCode == 201) {
-                Base.handlerSuccess(res, req);
+
                 res.sendStatus(200);
             } else {
                 Base.handlerError(res, req, error, response, body);
@@ -134,7 +134,7 @@ var PurchaseController = {
             url: '/api/purchase/request?id='+tid,
         }, req, res), function (error, response, body) {
             if (!error && response.statusCode == 201) {
-                Base.handlerSuccess(res, req);
+
                 res.sendStatus(200)
             }else{
                 Base.handlerError(res, req, error, response, body);
@@ -149,7 +149,7 @@ var PurchaseController = {
             url: '/api/purchases?reqId='+tid,
         }, req, res), function (error, response, body) {
             if (!error && response.statusCode == 201) {
-                Base.handlerSuccess(res, req);
+
                 res.sendStatus(200)
             }else{
                 Base.handlerError(res, req, error, response, body);
@@ -201,7 +201,7 @@ var PurchaseController = {
             url: '/api/purchases/merge?purcIds='+tid,
         }, req, res), function (error, response, body) {
             if (!error && response.statusCode == 201) {
-                Base.handlerSuccess(res, req);
+
                 res.sendStatus(200)
             }else{
                 Base.handlerError(res, req, error, response, body);
@@ -216,7 +216,7 @@ var PurchaseController = {
             url: '/api/purchases/review?purcIds='+tid,
         }, req, res), function (error, response, body) {
             if (!error && response.statusCode == 201) {
-                Base.handlerSuccess(res, req);
+
                 res.sendStatus(200)
             }else{
                 Base.handlerError(res, req, error, response, body);
@@ -231,7 +231,7 @@ var PurchaseController = {
             url: '/api/purchases/submit?purcIds='+tid,
         }, req, res), function (error, response, body) {
             if (!error && response.statusCode == 201) {
-                Base.handlerSuccess(res, req);
+
                 res.sendStatus(200)
             }else{
                 Base.handlerError(res, req, error, response, body);

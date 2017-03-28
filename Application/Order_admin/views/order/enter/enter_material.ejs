@@ -119,23 +119,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-xs-3">
-                                    <div class="form-group">
-                                        <label class="col-xs-4 control-label">类别:</label>
-                                        <div class="col-xs-8">
-                                            <select class="form-control" name="inType">
-                                                <option value="">- 请选择 -</option>
-                                                <option value="1" <%= (DWYRequest.query.inType == 1) ? "selected" : "" %> >
-                                                    物料
-                                                </option>
-                                                <option value="2" <%= (DWYRequest.query.inType == 2) ? "selected" : "" %> >
-                                                    成品
-                                                </option>
-                                            </select>
 
-                                        </div>
-                                    </div>
-                                </div>
                                 <div class="col-xs-6">
                                     <div class="form-group">
                                         <label class="col-xs-2 control-label">日期:</label>
@@ -186,7 +170,6 @@
                             <thead>
                             <tr>
                                 <th width="4%">序号</th>
-                                <th>类型</th>
                                 <th>入库单号</th>
                                 <th>日期</th>
                                 <th>工厂</th>
@@ -204,7 +187,6 @@
                                 <% mateList.result.forEach(function (element, index) {%>
                                     <tr>
                                         <td width="4%"><%= index+1 %></td>
-                                        <td><%=DWY_Helper.getEnterType(element.inType)%></td>
                                         <td><a href="/enterMaterial/detail/<%=element.inId %>"><%=element.inId %></a></td>
                                         <td><%= DWY_Helper.getLocalDate(element.editTime) %></td>
                                         <td><%=element.ftyName %></td>
