@@ -212,9 +212,9 @@
                             </tr>
                             </thead>
                             <tbody>
-                            <% if(orderList.totalItems == 0){%>
+                            <% if(!DWY_Helper.isCanLoop(orderList.result)){%>
                             <tr>
-                                <td colspan="13" align="center">暂无结果</td>
+                                <td colspan="12" align="center">暂无结果</td>
                             </tr>
                             <% }else{
                             orderList.result.forEach(function (element, index) { %>

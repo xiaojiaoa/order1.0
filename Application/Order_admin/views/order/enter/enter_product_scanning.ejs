@@ -217,10 +217,17 @@
         })
 
         $('#toEnter').click(function () {
+            var packageList = checkedValue.attr('class');
+            if(!packageList){
+                layer.msg('请先选择订单', {icon: 2, time: 2000});
+                return;
+            }
             if($("#opretion").validationEngine('validate')){
                 var regionId=$("#regionId").val();
                 var spaceId=$("#spaceId").val();
-                var packageList=$("#packageList").val();
+
+                packageList = packageList.substring(0,packageList.length-1);
+                packageList = packageList.replace(/\s/g,"")
                 $.ajax({
                     url: '/app/doCargoin',
                     data:{

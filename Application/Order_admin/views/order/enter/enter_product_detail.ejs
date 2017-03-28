@@ -38,11 +38,11 @@
                             <tbody>
                             <tr>
                                 <td width="12%">入库单号</td>
-                                <td><%= inlistPageInfo.inId %></td>
+                                <td width="21%"><%= inlistPageInfo.inId %></td>
                                 <td width="12%">入库人</td>
-                                <td><%= inlistPageInfo.inName %></td>
+                                <td width="21%"><%= inlistPageInfo.inName %></td>
                                 <td width="12%">入库日期</td>
-                                <td><%= inlistPageInfo.inTime %></td>
+                                <td><%= DWY_Helper.getLocalDate(inlistPageInfo.inTime) %></td>
                             </tr>
                             <tr>
                                 <td>仓库</td>
@@ -56,14 +56,11 @@
                                 <td>客户名称</td>
                                 <td><%= inlistPageInfo.custName %></td>
                                 <td>交货日期</td>
-                                <td><%= inlistPageInfo.deliveryDate %></td>
-                                <td>类别</td>
-                                <td><%= inlistPageInfo.type %></td>
-                            </tr>
-                            <tr>
+                                <td><%= DWY_Helper.getLocalDate(inlistPageInfo.deliveryDate) %></td>
                                 <td>出厂价</td>
-                                <td colspan="5"><%= inlistPageInfo.price %></td>
+                                <td><%= inlistPageInfo.price %> 元</td>
                             </tr>
+
                             <tr>
                                 <td>备注</td>
                                 <td colspan="5"><%= inlistPageInfo.remark %></td>
@@ -109,7 +106,6 @@
                                 <th>包重</th>
                                 <th>包装产品材料</th>
                                 <th>入库数量</th>
-                                <th>状态</th>
                                 <th>入库时间</th>
                                 <th>预计交货时间</th>
                                 <th>扫描人</th>
@@ -131,15 +127,15 @@
                                 <td><%= element.weight %></td>
                                 <td><%= element.packageProductMaterial %></td>
                                 <td><%= element.num %></td>
-                                <td><%= element.inTime %></td>
-                                <td><%= element.deliveryDate %></td>
+                                <td><%= DWY_Helper.getLocalDate(element.inTime) %></td>
+                                <td><%= DWY_Helper.getLocalDate(element.deliveryDate) %></td>
                                 <td><%= element.inEmpName %></td>
                                 <td><%= element.remark %></td>
                             </tr>
                             <%  })
                             }else{ %>
                             <tr>
-                                <td colspan="16" class="text-align-center">暂无数据</td>
+                                <td colspan="15" class="text-align-center">暂无数据</td>
                             </tr>
                             <% } %>
 

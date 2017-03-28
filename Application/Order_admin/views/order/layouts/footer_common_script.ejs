@@ -82,14 +82,16 @@
 <script>
 
     $(function () {
-//        // Create the measurement node
-//        var scrollDiv = document.createElement("div");
-//        scrollDiv.style.overflow = 'scroll';
-//        document.body.appendChild(scrollDiv);
-//        var scrollbarWidth = scrollDiv.offsetWidth - scrollDiv.clientWidth;
-//        document.body.removeChild(scrollDiv);
-////        alert(scrollbarWidth)
-//        $('.table-scroll thead').css('width','calc( 100% - '+scrollbarWidth+'px )')
+        // Create the measurement node
+        var scrollDiv = document.createElement("div");
+        scrollDiv.style.overflow = 'scroll';
+        document.body.appendChild(scrollDiv);
+        var scrollbarWidth = scrollDiv.offsetWidth - scrollDiv.clientWidth;
+        document.body.removeChild(scrollDiv);
+        if(scrollbarWidth < 100){
+            $('.table-scroll thead').css('width','calc( 100% - '+scrollbarWidth+'px )')
+        }
+
 
 //      $('.mainFlex').css('height',window.innerHeight-80);
 
