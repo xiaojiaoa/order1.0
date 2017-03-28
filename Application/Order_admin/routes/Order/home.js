@@ -479,7 +479,7 @@ router.post('/materials/doWarning', Middleware.AuthCheck, MaterialController.war
 router.post('/materials/doStock', Middleware.AuthCheck, MaterialController.stockDoCreate);
 
 //物料管理--库存记录
-router.get('/stockRecord', Middleware.AuthCheck,Middleware.FilterEmptyField,MaterialController.stockRecordPage);
+router.get('/stockRecord/:mid', Middleware.AuthCheck,Middleware.FilterEmptyField,MaterialController.stockRecordPage);
 
 
 /*
