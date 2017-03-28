@@ -8,7 +8,8 @@ var queryString = require('qs');
 var helper = require('../config/helper');
 
 var request = require('request');
-
+//引入权限
+var Permissions = require('../config/permission');
 
 var FactoryController = {
     listPage: function (req, res) {
@@ -28,7 +29,8 @@ var FactoryController = {
 
             var returnData = Base.mergeData(helper.mergeObject({
                 title: '',
-                pagination: boostrapPaginator.render()
+                pagination: boostrapPaginator.render(),
+                Permission :Permissions,
             }, resultList));
 
             res.render('order/factory/factory', returnData);
@@ -183,7 +185,8 @@ var FactoryController = {
             var returnData = Base.mergeData(helper.mergeObject({
                 title: '',
                 ftyId:ftyId,
-                pagination: boostrapPaginator.render()
+                pagination: boostrapPaginator.render(),
+                Permission :Permissions,
             }, resultList));
 
             res.render('order/factory/warehouse', returnData);
@@ -306,7 +309,8 @@ var FactoryController = {
                 title: '',
                 ftyId:ftyId,
                 whseId:whseId,
-                pagination: boostrapPaginator.render()
+                pagination: boostrapPaginator.render(),
+                Permission :Permissions,
             }, resultList));
 
             res.render('order/factory/region', returnData);

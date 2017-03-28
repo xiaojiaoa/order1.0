@@ -461,6 +461,52 @@ var permissions = {
             name:"审核采购"
         }
     },
+    storage:{
+       createFactory:{
+           id:"707011",
+           name:"新建工厂"
+       },
+       createStorage:{
+           id:"707012",
+           name:"新建仓库"
+       },
+       createArea:{
+           id:"707013",
+           name:"新建区域"
+       },
+       createAllocation:{
+           id:"707014",
+           name:"新建货位"
+       },
+       updateStorage:{
+           id:"707032",
+           name:"修改仓库"
+       },
+       updateArea:{
+           id:"707033",
+           name:"更新区域"
+       },
+       updateAllocation:{
+           id:"707034",
+           name:"更新货位"
+       },
+       deleteStorage:{
+            id:"707032",
+            name:"禁用仓库"
+        },
+       deleteArea:{
+            id:"707033",
+            name:"禁用区域"
+        },
+        deleteAllocation:{
+            id:"707034",
+            name:"禁用货位"
+        },
+        queryAll:{
+            id:"707050",
+            name:"查询所有仓储信息"
+        }
+    },
     taskseq:{
         cancel:{
             id:"",

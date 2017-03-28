@@ -157,13 +157,19 @@
                                 <td><%= element.remark %></td>
                                 <td>
                                     <% if(element.stcode == 1){ %>
+                                    <% if (DWY_Helper.hasPermission(Permission.goodsAllocation.create.id, permission) ){ %>
                                     <a href="/cargospace/createNext/<%= element.ftyId %>/<%= element.whseId %>/<%= element.regionId %>" class="label label-primary">新建货位</a>
+                                    <% } %>
                                     <a href="/cargospace?isAll=1&ftyId=<%= element.ftyId %>&whseId=<%= element.whseId %>&regionId=<%= element.regionId %>" class="label label-primary">查看所有货位</a>
+                                    <% if (DWY_Helper.hasPermission(Permission.storage.updateArea.id, permission) ){ %>
                                     <a href="/region/modify/<%= element.whseId %>/<%= element.regionId %>" class="label label-primary">修改</a>
+                                    <% } %>
+                                    <% if (DWY_Helper.hasPermission(Permission.storage.deleteArea.id, permission) ){ %>
                                     <a class=" todoClose label label-danger" data-id="<%= element.regionId %>" >禁用</a>
                                     <%  }else{ %>
                                     <a class="todoOpen label label-primary"  data-id="<%= element.regionId %>">启用</a>
                                     <%  }%>
+                                    <% } %>
                                 </td>
                             </tr>
                             <%  })
