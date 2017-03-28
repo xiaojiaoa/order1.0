@@ -54,7 +54,7 @@ var InformationController = {
             body:JSON.stringify(req.body),
         }, req, res), function (error, response, body) {
             if (!error && response.statusCode == 201) {
-                Base.handlerSuccess(res, req);
+
                 res.sendStatus(200);
             } else {
                 Base.handlerError(res, req, error, response, body);
@@ -70,7 +70,7 @@ var InformationController = {
             body:JSON.stringify(req.body),
         }, req, res), function (error, response, body) {
             if (!error && response.statusCode == 201) {
-                Base.handlerSuccess(res, req);
+
                 res.sendStatus(200);
             } else {
                 Base.handlerError(res, req, error, response, body);
@@ -85,7 +85,7 @@ var InformationController = {
             url: '/api/notices/'+id,
         }, req, res), function (error, response, body) {
             if (!error && response.statusCode == 201) {
-                Base.handlerSuccess(res, req);
+
                 res.sendStatus(200)
             } else {
                 Base.handlerError(res, req, error, response, body);
@@ -129,7 +129,7 @@ var InformationController = {
             body:JSON.stringify(req.body),
         }, req, res), function (error, response, body) {
             if (!error && response.statusCode == 201) {
-                Base.handlerSuccess(res, req);
+
                 res.sendStatus(200);
             } else {
                 Base.handlerError(res, req, error, response, body);
@@ -144,7 +144,7 @@ var InformationController = {
             url: '/api/share/'+id,
         }, req, res), function (error, response, body) {
             if (!error && response.statusCode == 201) {
-                Base.handlerSuccess(res, req);
+
                 res.sendStatus(200)
             } else {
                 Base.handlerError(res, req, error, response, body);

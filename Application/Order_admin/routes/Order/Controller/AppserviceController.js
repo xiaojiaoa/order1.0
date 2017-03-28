@@ -152,7 +152,6 @@ var AppServiceController = {
         })
     },
     doCargoout: function (req, res) {
-        var pakgId = req.body.pakgId;
         request(Base.mergeRequestOptions({
             method: 'post',
             url: '/api/whse/app/cargoout/prod',

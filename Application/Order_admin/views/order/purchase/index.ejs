@@ -74,12 +74,12 @@
                                         <div class="form-group">
                                             <label class="col-xs-4 control-label">机构:</label>
                                             <div class="col-xs-8">
-                                                <select class="form-control" name="ftyId">
+                                                <select class="form-control" name="bid">
                                                     <option value="">- 请选择 -</option>
                                                     <%
                                                     if(DWY_Helper.isCanLoop(factoryLists)){
                                                     factoryLists.forEach(function (element, index) { %>
-                                                    <option value="<%= element.ftyId %>" <%= (DWYRequest.query.ftyId == element.ftyId)?"selected":"" %>><%= element.name %></option>
+                                                    <option value="<%= element.id %>" <%= (DWYRequest.query.bid == element.id)?"selected":"" %>><%= element.name %></option>
                                                     <%})}%>
                                                 </select>
                                             </div>
@@ -93,7 +93,7 @@
                                 <div class="col-xs-12 text-center">
                                     <button class="btn btn-primary " type="submit">
                                         <i class="fa fa-search"></i>
-                                        搜索
+                                        查询
                                     </button>
                                     <% if (DWY_Helper.hasPermission(Permission.purchase.queryAll.id, permission)|| DWY_Helper.hasPermission(Permission.purchase.queryDept.id, permission) || DWY_Helper.hasPermission(Permission.purchase.query.id, permission) ){ %>
                                     <a class="btn btn-primary " href="/purchase/detail">

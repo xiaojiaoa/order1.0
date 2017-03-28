@@ -209,7 +209,7 @@
                 <!-- col -->
                 <div class="col-xs-12">
                     <legend>库存数量修改记录
-                        <a href="/stockRecord" class="label label-primary">查看更多</a>
+                        <a href="/stockRecord/<%= mid%>" class="label label-primary">查看更多</a>
                     </legend>
 
                     <!-- row -->
@@ -239,7 +239,7 @@
                                 <td><%= element.newStock%></td>
                                 <td><%= element.reasonName%></td>
                                 <td><%= DWY_Helper.getLocalDateYMD(element.operateTime)%></td>
-                                <td><%= element.spaceId%></td>
+                                <td><%= element.operateEmpName%></td>
                                 <td><%= element.remark%></td>
                             </tr>
                             <% })}else{ %>
@@ -265,9 +265,7 @@
             <div class="row">
                 <!-- col -->
                 <div class="col-xs-12">
-                    <legend>采购情况
-
-                    </legend>
+                    <legend>采购情况</legend>
 
                     <!-- row -->
                     <div class="table-responsive">

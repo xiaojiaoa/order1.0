@@ -479,7 +479,7 @@ router.post('/materials/doWarning', Middleware.AuthCheck, MaterialController.war
 router.post('/materials/doStock', Middleware.AuthCheck, MaterialController.stockDoCreate);
 
 //物料管理--库存记录
-router.get('/stockRecord', Middleware.AuthCheck,Middleware.FilterEmptyField,MaterialController.stockRecordPage);
+router.get('/stockRecord/:mid', Middleware.AuthCheck,Middleware.FilterEmptyField,MaterialController.stockRecordPage);
 
 
 /*
@@ -819,8 +819,8 @@ router.get('/enterProduct', Middleware.AuthCheck, EnterController.enterProductPa
 // 成品入库详情页面
 router.get('/enterProduct/detail/:id', Middleware.AuthCheck, EnterController.enterProductDetailPage);
 
-// 成品扫描入库页面
-// router.get('/enterProduct/scanning', Middleware.AuthCheck, EnterController.enterScanningPage);
+// 成品-入库页面
+router.get('/enterProduct/notin', Middleware.AuthCheck, EnterController.enterNotinPage);
 
 // 成品扫描入库-入库
 router.put('/enterProduct/scanning/doEnter/:id', Middleware.AuthCheck, EnterController.doEnterProduct);
@@ -1201,7 +1201,7 @@ router.get('/app/cargoin/package',AppServiceController.cargoinPackage);
 router.post('/app/cargoin/order',AppServiceController.cargoinOrder);
 
 //出库-入库扫描完成后的显示界面--pc端接口
-router.post('/web/cargoin/order',AppServiceController.cargoinOrderWeb);
+// router.get('/web/cargoin/order',AppServiceController.cargoinOrderWeb);
 
 //入库-入库接口
 router.post('/app/doCargoin',AppServiceController.doCargoin);
