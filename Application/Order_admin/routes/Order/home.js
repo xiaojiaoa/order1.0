@@ -472,6 +472,15 @@ router.get('/materialManage/accessory/:mid', Middleware.AuthCheck, MaterialContr
 //物料管理--成品关联物料--上传工件、配件文件
 router.post('/api/materials/accessory/workpiece', Middleware.AuthCheck, MaterialController.fileDoCreate);
 
+//物料管理--修改预警
+router.post('/materials/doWarning', Middleware.AuthCheck, MaterialController.warningDoCreate);
+
+//物料管理--修改库存
+router.post('/materials/doStock', Middleware.AuthCheck, MaterialController.stockDoCreate);
+
+//物料管理--库存记录
+router.get('/stockRecord/:mid', Middleware.AuthCheck,Middleware.FilterEmptyField,MaterialController.stockRecordPage);
+
 
 /*
  * 页面范围: 物料属性相关

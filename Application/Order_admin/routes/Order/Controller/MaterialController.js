@@ -58,12 +58,15 @@ var MaterialController = {
     },
     detailPage: function (req, res) {
         var mid =req.params.mid;
-        var bid=req.params.bid;
+        var bid = req.params.bid;
         //console.log( '/api/purchases/mate?bid='+bid+"&mateId="+mid);
         Base.multiDataRequest(req, res, [
             {url: '/api/materials/'+mid+"?bid="+bid, method: 'GET', resConfig: {keyName: 'mateInfo', is_must: true}},
             {url: '/api/organizations//factory', method: 'GET', resConfig: {keyName: 'factoryList', is_must: true}},
             {url: '/api/purchases/mate?bid='+bid+"&mateId="+mid, method: 'GET', resConfig: {keyName: 'purchasesMateList', is_must: true}},
+            {url: '/api/whse/cargospace?mateId='+mid+"&isAll=1&bid=9001", method: 'GET', resConfig: {keyName: 'whseCargospaceList', is_must: true}},
+            {url: '/api/assist/stock/reasonTypes', method: 'GET', resConfig: {keyName: 'stockReasonTypes', is_must: true}},
+            {url: '/api/materials/stockOperation/page?pageSize=6&mateId'+mid, method: 'GET', resConfig: {keyName: 'stockOperationList', is_must: true}},
         ], function (req, res, resultList) {
             var returnData = Base.mergeData(helper.mergeObject({
                 title: ' ',
@@ -318,6 +321,96 @@ var MaterialController = {
             }
         })
 
+    },
+    warningDoCreate: function (req, res) {
+        console.log(req.body);
+        request(Base.mergeRequestOptions({
+            method: 'post',
+            url: '/api/materials/stock',
+            form:req.body,
+        }, req, res), function (error, response, body) {
+            if (!error && response.statusCode == 201) {
+                Base.handlerSuccess(res, req);
+                res.sendStatus(200);
+            } else {
+                Base.handlerError(res, req, error, response, body);
+            }
+        })
+    },
+    stockDoCreate: function (req, res) {
+        var mid=req.body.mateId;
+        var bid=req.body.bid;
+        console.log(req.body);
+        request(Base.mergeRequestOptions({
+            method: 'post',
+            url: '/api/materials/stockOperation',
+            form:req.body,
+        }, req, res), function (error, response, body) {
+            if (!error && response.statusCode == 201) {
+                Base.handlerSuccess(res, req);
+                res.redirect("/materialManage/detail/"+bid+"/"+mid);
+            } else {
+                Base.handlerError(res, req, error, response, body);
+            }
+        })
+    },
+    stockRecordPage: function (req, res) {
+        var mid=req.params.mid;
+        if(!req.query.mateId){
+            req.query.mateId=mid;
+        }
+        var ftyId = req.query.ftyId ? req.query.ftyId: req.session.user.ftyId;
+        var whseId = req.query.whseId;
+        var regionId = req.query.regionId;
+        console.log('ftyId:'+ftyId+'whseId:'+whseId+'regionId:'+regionId);
+        var multiDataRequest= [
+            {url: '/api/materials/stockOperation/page?'+ queryString.stringify(req.query), method: 'GET', resConfig: {keyName: 'stockOperationList', is_must: true}},
+            {url: '/api/whse/factory/list', method: 'GET', resConfig: {keyName: 'factoryList', is_must: true}},
+        ];
+        if(ftyId){
+            //console.log('有whseId');
+            multiDataRequest= [
+                {url: '/api/materials/stockOperation/page?'+ queryString.stringify(req.query), method: 'GET', resConfig: {keyName: 'stockOperationList', is_must: true}},
+                {url: '/api/whse/factory/list', method: 'GET', resConfig: {keyName: 'factoryList', is_must: true}},
+                {url: '/api/whse/warehouse/list/'+ftyId, method: 'GET', resConfig: {keyName: 'warehouseList', is_must: true}},
+            ];
+        }
+        if(whseId){
+            //console.log('有whseId');
+            multiDataRequest= [
+                {url: '/api/materials/stockOperation/page?'+ queryString.stringify(req.query), method: 'GET', resConfig: {keyName: 'stockOperationList', is_must: true}},
+                {url: '/api/whse/factory/list', method: 'GET', resConfig: {keyName: 'factoryList', is_must: true}},
+                {url: '/api/whse/warehouse/list/'+ftyId, method: 'GET', resConfig: {keyName: 'warehouseList', is_must: true}},
+                {url: '/api/whse/region/list/'+whseId, method: 'GET', resConfig: {keyName: 'regionList', is_must: true}},
+            ];
+        }
+        var paramObject = helper.genPaginationQuery(req);
+        Base.multiDataRequest(req, res, multiDataRequest, function (req, res, resultList) {
+
+            var paginationInfo =  resultList.stockOperationList;
+
+            var boostrapPaginator = new Pagination.TemplatePaginator(helper.genPageInfo({
+                prelink: paramObject.withoutPageNo,
+                current: paginationInfo.page,
+                rowsPerPage: paginationInfo.pageSize,
+                totalResult: paginationInfo.totalItems
+            }));
+
+            if(!ftyId){
+                resultList.warehouseList = [];
+            }
+            if(!whseId){
+                resultList.regionList = [];
+            }
+
+            var returnData = Base.mergeData(helper.mergeObject({
+                title: ' ',
+                userFtyId: ftyId,
+                pagination: boostrapPaginator.render()
+            },resultList));
+            res.render('order/material/stockRecord',returnData);
+        });
+        //res.render('order/material/stockRecord');
     },
 };
 module.exports = MaterialController;

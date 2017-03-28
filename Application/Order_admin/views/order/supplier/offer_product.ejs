@@ -39,8 +39,8 @@
                                 <th>物料编号</th>
                                 <th>物料名称</th>
                                 <th>分类名称</th>
-                                <th>截止合同日期</th>
-                                <th>物料编码</th>
+                                <th>合同截止日期</th>
+                                <th>产品编码</th>
                             </tr>
                             </thead>
                             <tbody class="supProTr">
@@ -51,11 +51,10 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-xs-12">
                     <div class="col-xs-3">
                         <a class="btn btn-primary margin-bottom-10" id="relateMaterial">关联物料</a>
+                        <a class="btn btn-primary margin-bottom-10" id="setEndDate">合同截止日期</a>
                     </div>
-                </div>
             </div>
         </div>
         <div class="well">
@@ -97,7 +96,7 @@
                                 <div class="col-xs-12 text-center">
                                     <button class="btn btn-primary " type="submit">
                                         <i class="fa fa-search"></i>
-                                        搜索
+                                        查询
                                     </button>
                                 </div>
                             </div>
@@ -108,7 +107,7 @@
                     <form class="form-horizontal margin-top-10" method="post" id="orderItemCon" action="" >
                         <div class="col-xs-12">
                             <div class="form-group">
-                                <div class="col-xs-12">
+
                                     <div class="row">
                                         <div class="col-xs-12">
                                             <legend>
@@ -155,7 +154,7 @@
                                         <input type="hidden" class="" id="checkedValue">
                                         <input type="hidden"  id="gid" value="<%= tid %>">
                                     </div>
-                                </div>
+
                             </div>
                         </div>
                         <div class="dwy-clear"></div>
@@ -171,6 +170,23 @@
     $(document).ready(function () {
         pageSetUp();
         $(".supProTr").validationEngine({scroll: false});
+
+        $("#setEndDate").click(function(){
+            if(checkedValue.attr('class')==null||checkedValue.attr('class')==''){
+                layer.alert('请选择！', {icon: 3})
+                return false;
+            }
+            layer.open({
+                title: false,
+                type: 1,
+                area: '500px',
+                content: $('#setDate'),
+                cancel: function () {
+                },
+            });
+        });
+
+
         //刷新选中列表 这个函数根据每个页面不同需自己填写
         function updateCheckedList(isInit) {
             var parentEle = '.supProTr';
@@ -192,7 +208,7 @@
                         + '<td>' + listArr[i].name + '</td>'
                         + '<td>' + listArr[i].class_name + '</td>'
                         + '<td><input class="form-control fg-date-picker validate[required] date" type="text" value="" name="date'+i+'"  /></td>'
-                        + '<td><input  class="form-control validate[required] validate[custom[integer]] code" value="" maxlength="32" name="code'+i+'" /></td>'
+                        + '<td><input  class="form-control validate[custom[integer]] code" value="" maxlength="32" name="code'+i+'" /></td>'
                         + '</tr>';
                     htmlStr += itemHtml;
                     // 判断是否是初始化 是的话保持下面列表状态同步
@@ -274,13 +290,8 @@
                     return false;
                 }
                 var dateVal = $(".date").val();
-                var codeVal = $(".code").val();
                 if(dateVal==null||dateVal==''){
-                    layer.alert('请填写合同日期！', {icon: 3})
-                    return false;
-                }
-                if(codeVal==null||codeVal==''){
-                    layer.alert('请填写物料编码！', {icon: 3})
+                    layer.alert('请填写合同截止日期！', {icon: 3})
                     return false;
                 }
                 var len= $('.topTr').length;
@@ -298,7 +309,6 @@
                     arr.push(obj);
                 }
                 var list={list:arr};
-//                console.log(list)
                 layer.confirm("确认关联？", {title:'提示'},function(index){
                         $.ajax({
                             url: '/supplier/createMaterialSupplier',
@@ -330,5 +340,5 @@
     })
 </script>
 <%- include('../layouts/foot'); %>
-<%- include('./supplier_modal'); %>
+<%- include('../purchase/purchase_modal'); %>
 

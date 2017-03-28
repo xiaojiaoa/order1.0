@@ -61,8 +61,18 @@
                             </tr>
                             <tr>
                                 <td>预警</td>
-                                <td><%= mateInfo.warning %>
-                                <a class="label label-primary pull-right modifyWarning"  href="javascript:void(0)">修改预警</a>
+                                <td>
+                                    <form class="form-horizontal" method="post" action="/materials/doWarning"  id="doWarning-form">
+                                        <div class="col-xs-6">
+                                            <input  class="form-control validate[required]" name="warning" type="text" value="<%= mateInfo.warning %>"/>
+                                        </div>
+                                        <input type="hidden" name="mateId" value="<%= mid %>">
+                                        <div class="col-xs-2">
+                                                <button class="btn btn-primary " type="submit">
+                                                    确认
+                                                </button>
+                                        </div>
+                                    </form>
                                 </td>
                                 <td>库存</td>
                                 <td><%= mateInfo.stock %></td>
@@ -145,7 +155,7 @@
             <div class="row">
                 <!-- col -->
                 <div class="col-xs-12">
-                    <legend>库存状况
+                    <legend>库存数量状况
                         <a href="/materialManage/summary" class="label label-primary">出入仓明细</a>
                         <span class="spanStyle01">剩余3160000支</span>
                     </legend>
@@ -155,23 +165,88 @@
                         <table class="table table-bordered table-striped">
                             <thead>
                             <tr>
-                                <th>预计日期</th>
-                                <th>预购事项</th>
-                                <th>预计发生数量</th>
-                                <th>虚拟库存</th>
+                                <th>序号</th>
+                                <th>所属区域名</th>
+                                <th>所属仓库名</th>
+                                <th>货位号</th>
+                                <th>库存数量</th>
+                                <th>操作</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <%if(DWY_Helper.isCanLoop(whseCargospaceList.result) ){
+                            whseCargospaceList.result.forEach(function (element, index) { %>
+                            <tr>
+                                <td><%= index+1 %></td>
+                                <td><%= element.regionName%></td>
+                                <td><%= element.whseName%></td>
+                                <td><%= element.spaceId%></td>
+                                <td><%= element.amount%></td>
+                                <td><a class="label label-primary modifyStock" href="javascript:void(0)">修改库存</a></td>
+                            </tr>
+                            <% })}else{ %>
+                            <tr>
+                                <td colspan="6" align="center">暂无数据</td>
+                            </tr>
+                            <% } %>
+                            </tbody>
+                        </table>
+
+
+                    </div>
+                    <!-- end row -->
+                </div>
+                <!-- end col -->
+            </div>
+            <!-- end row -->
+        </div>
+        <!--end well-->
+
+        <!--well-->
+        <div class="well">
+            <!-- row -->
+            <div class="row">
+                <!-- col -->
+                <div class="col-xs-12">
+                    <legend>库存数量修改记录
+                        <a href="/stockRecord/<%= mid%>" class="label label-primary">查看更多</a>
+                    </legend>
+
+                    <!-- row -->
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-striped">
+                            <thead>
+                            <tr>
+                                <th>序号</th>
+                                <th>所属区域名</th>
+                                <th>所属仓库名</th>
+                                <th>货位号</th>
+                                <th>修改后的库存数量</th>
+                                <th>修改原因</th>
+                                <th>修改日期</th>
+                                <th>修改人</th>
                                 <th>备注</th>
                             </tr>
                             </thead>
                             <tbody>
-
+                            <%if(DWY_Helper.isCanLoop(stockOperationList.result) ){
+                            stockOperationList.result.forEach(function (element, index) { %>
                             <tr>
-                                <td>2016-10-10</td>
-                                <td>材料订购</td>
-                                <td>1000000支</td>
-                                <td>1000000支</td>
-                                <td></td>
+                                <td><%= index+1 %></td>
+                                <td><%= element.regionName%></td>
+                                <td><%= element.whseName%></td>
+                                <td><%= element.spaceId%></td>
+                                <td><%= element.newStock%></td>
+                                <td><%= element.reasonName%></td>
+                                <td><%= DWY_Helper.getLocalDateYMD(element.operateTime)%></td>
+                                <td><%= element.operateEmpName%></td>
+                                <td><%= element.remark%></td>
                             </tr>
-
+                            <% })}else{ %>
+                            <tr>
+                                <td colspan="9" align="center">暂无数据</td>
+                            </tr>
+                            <% } %>
                             </tbody>
                         </table>
 
@@ -190,20 +265,18 @@
             <div class="row">
                 <!-- col -->
                 <div class="col-xs-12">
-                    <legend>采购情况
-
-                    </legend>
+                    <legend>采购情况</legend>
 
                     <!-- row -->
                     <div class="table-responsive">
 
-                        <table class="table table-bordered table-striped table-hover table-scroll dis-flex" id="purchasesMateList">
+                        <table class="table table-bordered table-striped table-hover" id="purchasesMateList">
                             <thead>
                             <tr>
-                                <th width="3%">序号</th>
-                                <th width="8%">订购日期</th>
-                                <th width="5%">订购数量</th>
-                                <th width="10%">备注</th>
+                                <th>序号</th>
+                                <th>订购日期</th>
+                                <th>订购数量</th>
+                                <th>备注</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -211,16 +284,16 @@
                             if(DWY_Helper.isCanLoop(purchasesMateList.result) ){
                             purchasesMateList.result.forEach(function (element, index) { %>
                             <tr>
-                                <td width="3%"><%= index+1 %></td>
-                                <td width="8%"><%= DWY_Helper.getLocalDateYMD(element.addTime)%></td>
-                                <td width="5%"><%= element.amount %></td>
-                                <td width="10%"><%= element.remark%></td>
+                                <td><%= index+1 %></td>
+                                <td><%= DWY_Helper.getLocalDateYMD(element.addTime)%></td>
+                                <td><%= element.amount %></td>
+                                <td><%= element.remark%></td>
                             </tr>
                             <% })%>
-                            <tr><td colspan="2" class="text-align-right" width="11%">总计</td><td colspan="2" class="text-align-left purchasesMateListAll" width="15%"></td></tr>
+                            <tr><td colspan="2" class="text-align-right" width="11%">总计</td><td colspan="2" class="text-align-left purchasesMateListAll" ></td></tr>
                             <%}else{ %>
                             <tr>
-                                <td colspan="4" align="center">暂无结果</td>
+                                <td colspan="4" align="center">暂无数据</td>
                             </tr>
                             <% } %>
                             </tbody>
@@ -272,7 +345,51 @@
     <div class="dwy-clear"></div>
 </form>
 <!-- END 选择工厂-->
-
+<!--修改库存-->
+<form class="form-horizontal  layer-template" method="post" action="/materials/doStock"  id="modifyStock-form"  style="display: none;" >
+    <div class="col-xs-12">
+        <div class="form-group">
+            <label class="col-xs-2 control-label"><span class="requird"></span>修改原因:</label>
+            <div class="col-xs-6">
+                <select  class="form-control validate[required]" name="factory">
+                    <option value="">- 请选择 -</option>
+                    <% stockReasonTypes.forEach(function (element,index) {%>
+                    <option value="<%= element.id%>"><%= element.name%></option>
+                    <%})%>
+                </select>
+            </div>
+        </div>
+    </div>
+    <div class="col-xs-12">
+        <div class="form-group">
+            <label class="col-xs-2 control-label"><span class="requird"></span>库存数量:</label>
+            <div class="col-xs-6">
+                <input  class="form-control validate[required]" type="text" value="" name=""  placeholder="请输入库存数量"/>
+            </div>
+        </div>
+    </div>
+    <div class="col-xs-12">
+        <div class="form-group">
+            <label class="col-xs-2 control-label">备注:</label>
+            <div class="col-xs-6">
+                <input  class="form-control" type="text" value="" name="" placeholder="请输入备注"/>
+            </div>
+        </div>
+    </div>
+    <input type="hidden" name="mateId" value="<%= mid %>">
+    <input type="hidden" name="bid" value="<%= bid %>">
+    <div class="col-xs-12">
+        <hr class="simple">
+        <div class="col-xs-12 text-center">
+            <button class="btn btn-primary " type="submit">
+                <i class="fa fa-save"></i>
+                确认
+            </button>
+        </div>
+    </div>
+    <div class="dwy-clear"></div>
+</form>
+<!-- END 修改库存-->
 <script type="text/javascript">
 
     $(document).ready(function () {
@@ -281,6 +398,12 @@
         pageSetUp();
 
         $(".fg-date-time-picker").flatpickr(data_time_picker.data_picker); // jQuery
+
+        //初始化表单
+        $("#choiceFac-form").validationEngine();
+        $("#doWarning-form").validationEngine();
+        $("#modifyStock-form").validationEngine();
+
         //启用、禁用物料详情页状态
         var mid='<%= mid %>';
         console.log(mid);
@@ -323,8 +446,7 @@
             }
         })
 
-        //初始化表单
-        $("#choiceFac-form").validationEngine();
+
 
         //弹出选择工厂框
         $('#choiceFac').on({
@@ -346,6 +468,23 @@
 
         //采购物料总计
         $(".purchasesMateListAll").text(DWY_Utils.CommonMethods.calcTotal(document.getElementById('purchasesMateList'),2,1));
+
+        //弹出修改库存框
+        $('.modifyStock').on({
+            click: function (e) {
+                layer.open({
+                    title: false,
+                    type: 1,
+                    area: '800px',
+                    content: $('#modifyStock-form'),
+                    cancel: function () {
+                        //右上角关闭回调
+                    },
+
+                });
+            }
+        })
+
     })
 
 </script>
