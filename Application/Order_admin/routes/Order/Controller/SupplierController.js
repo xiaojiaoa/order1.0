@@ -163,7 +163,7 @@ var SupplierController = {
             body:JSON.stringify(req.body),
         }, req, res), function (error, response, body) {
             if (!error && response.statusCode == 201) {
-                Base.handlerSuccess(res, req);
+
                 res.sendStatus(200)
             }else{
                 Base.handlerError(res, req, error, response, body);
@@ -198,7 +198,7 @@ var SupplierController = {
             url: '/api/suppliers/materials?suppId='+sid+'&mateId='+mid,
         }, req, res), function (error, response, body) {
             if (!error && response.statusCode == 204) {
-                Base.handlerSuccess(res, req);
+
                 res.sendStatus(200);
             } else {
                 Base.handlerError(res, req, error, response, body);
@@ -215,7 +215,7 @@ var SupplierController = {
             url: '/api/suppliers/categories/list?parentId='+tid,
         }, req, res), function (error, response, body) {
             if (!error && response.statusCode == 200) {
-                Base.handlerSuccess(res, req);
+
                 res.status(200).json(body)
             } else {
                 Base.handlerError(res, req, error, response, body);

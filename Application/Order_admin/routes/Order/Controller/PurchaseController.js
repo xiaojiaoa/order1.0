@@ -25,7 +25,7 @@ var PurchaseController = {
         Base.multiDataRequest(req, res, [
             {url: '/api/purchase/request?'+(queryString.stringify(req.query)), method: 'GET', resConfig: {keyName: 'purchasesList', is_must: true}},
             {url: '/api/assist/order/stcodes', method: 'GET', resConfig: {keyName: 'stcodeInfo', is_must: false}},
-            {url: '/api/whse/factory/list', method: 'GET', resConfig: {keyName: 'factoryLists', is_must: true}},
+            {url: '/api/organizations//list?'+(queryString.stringify(req.query)), method: 'GET', resConfig: {keyName: 'factoryLists', is_must: true}},
         ], function (req, res, resultList) {
             var paginationInfo =  resultList.purchasesList;
             var boostrapPaginator = new Pagination.TemplatePaginator(helper.genPageInfo({
@@ -100,7 +100,7 @@ var PurchaseController = {
             body:JSON.stringify(req.body),
         }, req, res), function (error, response, body) {
             if (!error && response.statusCode == 201) {
-                Base.handlerSuccess(res, req);
+
                 res.sendStatus(200);
             } else {
                 Base.handlerError(res, req, error, response, body);
@@ -134,7 +134,7 @@ var PurchaseController = {
             url: '/api/purchase/request?id='+tid,
         }, req, res), function (error, response, body) {
             if (!error && response.statusCode == 201) {
-                Base.handlerSuccess(res, req);
+
                 res.sendStatus(200)
             }else{
                 Base.handlerError(res, req, error, response, body);
@@ -149,7 +149,7 @@ var PurchaseController = {
             url: '/api/purchases?reqId='+tid,
         }, req, res), function (error, response, body) {
             if (!error && response.statusCode == 201) {
-                Base.handlerSuccess(res, req);
+
                 res.sendStatus(200)
             }else{
                 Base.handlerError(res, req, error, response, body);
@@ -161,7 +161,7 @@ var PurchaseController = {
         var paramObject = helper.genPaginationQuery(req);
         Base.multiDataRequest(req, res, [
             {url: '/api/purchases?'+(queryString.stringify(req.query)), method: 'GET', resConfig: {keyName: 'purchasesLists', is_must: true}},
-            {url: '/api/whse/factory/list', method: 'GET', resConfig: {keyName: 'factoryLists', is_must: true}},
+            {url: '/api/organizations//list?'+(queryString.stringify(req.query)), method: 'GET', resConfig: {keyName: 'factoryLists', is_must: true}},
         ], function (req, res, resultList) {
             var paginationInfo =  resultList.purchasesLists;
             var boostrapPaginator = new Pagination.TemplatePaginator(helper.genPageInfo({
@@ -201,7 +201,7 @@ var PurchaseController = {
             url: '/api/purchases/merge?purcIds='+tid,
         }, req, res), function (error, response, body) {
             if (!error && response.statusCode == 201) {
-                Base.handlerSuccess(res, req);
+
                 res.sendStatus(200)
             }else{
                 Base.handlerError(res, req, error, response, body);
@@ -216,7 +216,7 @@ var PurchaseController = {
             url: '/api/purchases/review?purcIds='+tid,
         }, req, res), function (error, response, body) {
             if (!error && response.statusCode == 201) {
-                Base.handlerSuccess(res, req);
+
                 res.sendStatus(200)
             }else{
                 Base.handlerError(res, req, error, response, body);
@@ -231,7 +231,7 @@ var PurchaseController = {
             url: '/api/purchases/submit?purcIds='+tid,
         }, req, res), function (error, response, body) {
             if (!error && response.statusCode == 201) {
-                Base.handlerSuccess(res, req);
+
                 res.sendStatus(200)
             }else{
                 Base.handlerError(res, req, error, response, body);

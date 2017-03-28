@@ -128,7 +128,7 @@ var MaterialController = {
             url: '/api/categories/list?parentId='+pid,
         }, req, res), function (error, response, body) {
             if (!error && response.statusCode == 200) {
-                Base.handlerSuccess(res, req);
+
                 res.status(200).json(body);
             } else {
                 Base.handlerError(res, req, error, response, body);
@@ -164,7 +164,7 @@ var MaterialController = {
             form:req.body,
         }, req, res), function (error, response, body) {
             if (!error && response.statusCode == 201) {
-                Base.handlerSuccess(res, req);
+
                 res.sendStatus(200);
             } else {
                 Base.handlerError(res, req, error, response, body);
@@ -211,7 +211,7 @@ var MaterialController = {
             url: '/api/materials/'+mid+'/stcode?stcode='+type,
         }, req, res), function (error, response, body) {
             if (!error && response.statusCode == 201) {
-                Base.handlerSuccess(res, req);
+
                 res.sendStatus(200);
             } else {
                 Base.handlerError(res, req, error, response, body);
@@ -297,7 +297,7 @@ var MaterialController = {
             form:req.body,
         }, req, res), function (error, response, body) {
             if (!error && response.statusCode == 201) {
-                Base.handlerSuccess(res, req);
+
                 res.sendStatus(200);
             } else {
                 Base.handlerError(res, req, error, response, body);
@@ -314,7 +314,7 @@ var MaterialController = {
             url: '/api/materials/stcode/'+bid+'/'+mid+'?stcode='+type,
         }, req, res), function (error, response, body) {
             if (!error && response.statusCode == 201) {
-                Base.handlerSuccess(res, req);
+
                 res.sendStatus(200);
             } else {
                 Base.handlerError(res, req, error, response, body);
