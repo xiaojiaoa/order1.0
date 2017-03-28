@@ -48,7 +48,14 @@
                                     <div class="form-group">
                                         <label class="col-xs-4 control-label">机构号:</label>
                                         <div class="col-xs-8">
-                                            <input class="form-control" placeholder="请输入批次号" type="text" value="<%= DWYRequest.query.bid %>" name="bid">
+                                            <select name="bid" id="" class="form-control">
+                                                <option value="">- 请选择 -</option>
+                                                <%
+                                                if(DWY_Helper.isCanLoop(organizationsList)){
+                                                organizationsList.forEach(function (element, index) { %>
+                                                <option value="<%= element.id %>" <%=( DWYRequest.query.bid ==element.id )? 'selected':'';%>><%= element.name %></option>
+                                                <%})}%>
+                                            </select>
                                         </div>
                                     </div>
                                 </div>
@@ -97,7 +104,7 @@
             <!-- row -->
             <div class="row">
                 <div class="col-xs-12">
-                    <h6>待包装订单</h6>
+                    <h6>包装列表</h6>
                     <hr class="simple">
                 </div>
             </div>
@@ -115,6 +122,7 @@
                                 <th>包装序号</th>
                                 <th>包装名称</th>
                                 <th>包装类型</th>
+                                <th>包装状态</th>
                                 <th>货位编号</th>
                             </tr>
                             </thead>
@@ -129,11 +137,12 @@
                                 <td><%= element.packageNo %></td>
                                 <td><%= element.packageName %></td>
                                 <td><%= element.packageTypeStr %></td>
+                                <td></td>
                                 <td><%= element.spaceId %></td>
                             </tr>
                             <%  })
                             }else{ %>
-                            <td colspan="7" class="text-align-center">暂无结果</td>
+                            <td colspan="8" class="text-align-center">暂无结果</td>
                             <%  }%>
                             </tbody>
                         </table>

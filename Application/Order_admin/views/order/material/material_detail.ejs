@@ -166,8 +166,8 @@
                             <thead>
                             <tr>
                                 <th>序号</th>
-                                <th>仓库名称</th>
-                                <th>区域名称</th>
+                                <th>所属区域名</th>
+                                <th>所属仓库名</th>
                                 <th>货位号</th>
                                 <th>库存数量</th>
                                 <th>操作</th>
@@ -178,8 +178,8 @@
                             whseCargospaceList.result.forEach(function (element, index) { %>
                             <tr>
                                 <td><%= index+1 %></td>
-                                <td></td>
-                                <td></td>
+                                <td><%= element.regionName%></td>
+                                <td><%= element.whseName%></td>
                                 <td><%= element.spaceId%></td>
                                 <td><%= element.amount%></td>
                                 <td><a class="label label-primary modifyStock" href="javascript:void(0)">修改库存</a></td>
@@ -218,8 +218,8 @@
                             <thead>
                             <tr>
                                 <th>序号</th>
-                                <th>仓库名称</th>
-                                <th>区域名称</th>
+                                <th>所属区域名</th>
+                                <th>所属仓库名</th>
                                 <th>货位号</th>
                                 <th>库存修改数量</th>
                                 <th>修改原因</th>
@@ -233,8 +233,8 @@
                             stockOperationList.result.forEach(function (element, index) { %>
                             <tr>
                                 <td><%= index+1 %></td>
-                                <td></td>
-                                <td></td>
+                                <td><%= element.regionName%></td>
+                                <td><%= element.whseName%></td>
                                 <td><%= element.spaceId%></td>
                                 <td><%= element.newStock%></td>
                                 <td><%= element.reasonName%></td>

@@ -947,6 +947,7 @@ var OrderController = {
         var paramObject = helper.genPaginationQuery(req);
         Base.multiDataRequest(req, res, [
             {url: '/api/orders/package?'+queryString.stringify(req.query), method: 'GET', resConfig: {keyName: 'packageAll', is_must: true}},
+            {url: '/api/organizations/list', method: 'GET', resConfig: {keyName: 'organizationsList', is_must: true}},
         ], function (req, res, resultList) {
             var paginationInfo =  resultList.packageAll;
             var boostrapPaginator = new Pagination.TemplatePaginator(helper.genPageInfo({
