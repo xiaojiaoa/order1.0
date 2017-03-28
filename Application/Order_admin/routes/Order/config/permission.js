@@ -401,6 +401,66 @@ var permissions = {
             name:"完成备货"
         }
     },
+    rawMateInventory :{
+        finish:{
+            id:"702031",
+            name:"采购完成（原料入库）"
+        }
+    },
+    deliveryGoods :{
+        finish:{
+            id:"702031",
+            name:"发货通知"
+        }
+    },
+    request :{
+        queryAll:{
+            id:"582041",
+            name:"请购查询所有机构"
+        },
+        queryDept:{
+            id:"582042",
+            name:"请购查询自己部门"
+        },
+        query:{
+            id:"582043",
+            name:"请购查询自己"
+        },
+        create:{
+            id:"582010",
+            name:"新建请购"
+        }
+    },
+    purchase :{
+        queryAll:{
+            id:"581041",
+            name:"采购查询所有机构"
+        },
+        queryDept:{
+            id:"581042",
+            name:"采购查询自己部门"
+        },
+        query:{
+            id:"581043",
+            name:"采购查询自己"
+        },
+        create:{
+            id:"581010",
+            name:"新建采购"
+        },
+        merge:{
+            id:"581011",
+            name:"合并采购"
+        },
+        check:{
+            id:"581012",
+            name:"审核采购"
+        },
+        commit:{
+            id:"581013",
+            name:"审核采购"
+        }
+    },
     taskseq:{
         cancel:{
             id:"",

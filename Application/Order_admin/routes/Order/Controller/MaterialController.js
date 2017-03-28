@@ -355,10 +355,10 @@ var MaterialController = {
         })
     },
     stockRecordPage: function (req, res) {
-        var mid=req.params.mid;
+      /*  var mid=req.query.mateId;
         if(!req.query.mateId){
             req.query.mateId=mid;
-        }
+        }*/
         var ftyId = req.query.ftyId ? req.query.ftyId: req.session.user.ftyId;
         var whseId = req.query.whseId;
         var regionId = req.query.regionId;
