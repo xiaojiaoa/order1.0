@@ -208,7 +208,7 @@
             <div class="row">
                 <!-- col -->
                 <div class="col-xs-12">
-                    <legend>库存数量历史修改记录
+                    <legend>库存数量修改记录
                         <a href="/stockRecord" class="label label-primary">查看更多</a>
                     </legend>
 
@@ -221,7 +221,7 @@
                                 <th>所属区域名</th>
                                 <th>所属仓库名</th>
                                 <th>货位号</th>
-                                <th>库存修改数量</th>
+                                <th>修改后的库存数量</th>
                                 <th>修改原因</th>
                                 <th>修改日期</th>
                                 <th>修改人</th>
@@ -238,7 +238,7 @@
                                 <td><%= element.spaceId%></td>
                                 <td><%= element.newStock%></td>
                                 <td><%= element.reasonName%></td>
-                                <td><%= DWY_Helper.getLocalDateYMD(element.operateEmp)%></td>
+                                <td><%= DWY_Helper.getLocalDateYMD(element.operateTime)%></td>
                                 <td><%= element.spaceId%></td>
                                 <td><%= element.remark%></td>
                             </tr>
@@ -404,6 +404,7 @@
         //初始化表单
         $("#choiceFac-form").validationEngine();
         $("#doWarning-form").validationEngine();
+        $("#modifyStock-form").validationEngine();
 
         //启用、禁用物料详情页状态
         var mid='<%= mid %>';
