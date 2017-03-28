@@ -129,30 +129,18 @@
                if(!sendTypeVal){
                    sendValue.html("<option value=''>-请选择-</option>");
                }
-               if(sendTypeVal==1){
-                   sendValue.empty();
-                   html = '<option value="-1">全部</option>'
-                   for(var i=0;i<scopesList[0].values.length;i++){
-                       html +='<option value="'+scopesList[0].values[i].scopeId+'">'+scopesList[0].values[i].name+'</option>'
+               for(var i=0;i<scopesList.length;i++){
+                   if(sendTypeVal==scopesList[i].scopeId){
+                       sendValue.empty();
+                      var  html = '<option value="-1">全部</option>'
+                       for(var j=0;j<scopesList[i].values.length;j++){
+                           html +='<option value="'+scopesList[i].values[j].scopeId+'">'+scopesList[i].values[j].name+'</option>'
+                       }
+                       sendValue.html(html);
                    }
-                   sendValue.html(html);
                }
-               if(sendTypeVal==2){
-                   sendValue.empty();
-                   html = '<option value="-1">全部</option>'
-                   for(var i=0;i<scopesList[1].values.length;i++){
-                       html +='<option value="'+scopesList[1].values[i].scopeId+'">'+scopesList[1].values[i].name+'</option>'
-                   }
-                   sendValue.html(html);
-               }
-               if(sendTypeVal==3){
-                   sendValue.empty();
-                   html = '<option value="-1">全部</option>'
-                   for(var i=0;i<scopesList[2].values.length;i++){
-                       html +='<option value="'+scopesList[2].values[i].scopeId+'">'+scopesList[2].values[i].name+'</option>'
-                   }
-                   sendValue.html(html);
-               }
+
+
 
            });
        }
