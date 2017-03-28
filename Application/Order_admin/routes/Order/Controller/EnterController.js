@@ -270,8 +270,8 @@ var EnterController = {
     enterProductDetailPage: function (req, res){
         var id =  req.params.id;
         Base.multiDataRequest(req, res, [
-                {url: '/api/whse/cargoin/prod/inlist/page?inId='+ id, method: 'GET', resConfig: {keyName: 'inlistPageInfo', is_must: true}},
-                {url: '/api/whse/cargoin/prod/inlist?inId='+ id, method: 'GET', resConfig: {keyName: 'inlistInfo', is_must: true}},
+                {url: '/api/whse/cargoin/prod/inlist/page?inId='+ id, method: 'GET', resConfig: {keyName: 'inlistInfo', is_must: true}},
+                {url: '/api/whse/cargoin/prod/inlist?inId='+ id, method: 'GET', resConfig: {keyName: 'inlistPageInfo', is_must: true}},
             ],
             function (req, res, resultList) {
                 var returnData = Base.mergeData(helper.mergeObject({

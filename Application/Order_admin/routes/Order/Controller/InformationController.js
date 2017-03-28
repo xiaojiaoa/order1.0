@@ -25,6 +25,7 @@ var InformationController = {
             {url: '/api/assist/notice/types', method: 'GET', resConfig: {keyName: 'noticeType', is_must: true}},
             {url: '/api/assist/store/types', method: 'GET', resConfig: {keyName: 'storeType', is_must: true}},
             {url: '/api/assist/store/addrTypes', method: 'GET', resConfig: {keyName: 'storeAttrType', is_must: true}},
+            {url: '/api/notices/scopes', method: 'GET', resConfig: {keyName: 'scopesList', is_must: true}},
         ], function (req, res, resultList) {
 
             var paginationInfo =  resultList.noticeInfoList;
@@ -100,6 +101,7 @@ var InformationController = {
             {url: '/api/share/page?'+(queryString.stringify(req.query)), method: 'GET', resConfig: {keyName: 'fileInfoList', is_must: true}},
             {url: '/api/assist/store/types', method: 'GET', resConfig: {keyName: 'storeType', is_must: true}},
             {url: '/api/assist/store/addrTypes', method: 'GET', resConfig: {keyName: 'storeAttrType', is_must: true}},
+            {url: '/api/notices/scopes', method: 'GET', resConfig: {keyName: 'scopesList', is_must: true}},
         ], function (req, res, resultList) {
 
             var paginationInfo =  resultList.fileInfoList;

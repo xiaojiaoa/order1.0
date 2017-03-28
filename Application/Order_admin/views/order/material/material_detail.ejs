@@ -209,7 +209,7 @@
                 <!-- col -->
                 <div class="col-xs-12">
                     <legend>库存数量修改记录
-                        <a href="/stockRecord/<%= mid%>" class="label label-primary">查看更多</a>
+                        <a href="/stockRecord?mateId=<%= mid%>" class="label label-primary">查看更多</a>
                     </legend>
 
                     <!-- row -->
@@ -346,7 +346,7 @@
 </form>
 <!-- END 选择工厂-->
 <!--修改库存-->
-<form class="form-horizontal  layer-template" method="post" action="/materials/doStock"  id="modifyStock-form"  style="display: none;" >
+<form class="form-horizontal  layer-template" method="post" action="/materials/doStock"  id="modifyStock-form"  style="display: none;padding-top: 50px;" >
     <div class="col-xs-12">
         <div class="form-group">
             <label class="col-xs-2 control-label"><span class="requird"></span>修改原因:</label>

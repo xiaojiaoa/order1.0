@@ -164,7 +164,7 @@
                         <table class="table table-bordered table-striped table-hover table-scroll dis-flex">
                             <thead>
                             <tr>
-                                <th width="4%">序号</th>
+                                <th width="50">序号</th>
                                 <th>门店名称</th>
                                 <th width="7%">客户名称</th>
                                 <th width="7%">客户电话</th>
@@ -181,10 +181,10 @@
                             </thead>
                             <tbody>
                             <%
-                            var num = 1;
-                            taskseqList.result.forEach(function (element) { %>
+                            if(DWY_Helper.isCanLoop(taskseqList.result)){
+                            taskseqList.result.forEach(function (element, index) { %>
                             <tr>
-                                <td width="4%"><%= num %></td>
+                                <td width="50"><%= ++index %></td>
                                 <td><%= element.storeName %></td>
                                 <td width="7%"><a href="/customer/detail/<%= element.cid %>"><%= element.custName %></a></td>
                                 <td width="7%"><%= element.custMobile %></td>
@@ -198,8 +198,11 @@
                                 <td><%= element.desName %></td>
                                 <td width="7%"><%= DWY_Helper.getAssistVal(element.stcode,statusInfo)  %></td>
                             </tr>
-                            <% num++ }) %>
-
+                            <% }) }else{ %>
+                            <tr>
+                                <td colspan="13" align="center">暂无结果</td>
+                            </tr>
+                            <% } %>
                             </tbody>
                         </table>
                         <%- pagination %>
@@ -224,13 +227,10 @@
 
         pageSetUp();
 
-        var pageFunction = function () {
-
-        }
 
         $(".fg-date-time-picker").flatpickr(data_time_picker.data_picker); // jQuery
 
-        pageFunction();
+
 
     })
 
