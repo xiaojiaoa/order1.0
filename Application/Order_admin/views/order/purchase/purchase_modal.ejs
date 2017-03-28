@@ -1,0 +1,45 @@
+<form class="form-horizontal  layer-template"  id="setDate">
+    <div class="col-xs-12">
+        <!--输入字段-->
+        <div class="col-xs-12">
+            <div class="form-group">
+                <label class="col-xs-4 control-label "><span class="requird"></span>合同截止日期:
+                </label>
+                <div class="col-xs-8">
+                    <input class="form-control validate[required] fg-date-picker" type="text" value="" name="endDate" data-prompt-position="bottomLeft:20,5">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-xs-12">
+        <hr class="simple">
+        <div class="col-xs-12 text-center">
+            <a class="btn btn-primary" id="btnSetDate">
+                <i class="fa fa-save"></i>
+                确定修改
+            </a>
+        </div>
+    </div>
+    <div class="dwy-clear"></div>
+</form>
+
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#setDate").validationEngine({scroll: false});
+        $(".fg-date-picker").flatpickr(data_time_picker.data_picker);
+        $('#btnSetDate').on({
+            click:function () {
+                var dateLen=$(".date").length;
+                var dateVa =$("input[name=endDate]").val();
+                if(dateVa==null||dateVa==''){
+                    layer.alert('请填写合同截止日期！', {icon: 3})
+                    return false;
+                }
+                for(var i=0;i<dateLen;i++){
+                    $(".date").val(dateVa);
+                }
+            }
+        })
+    })
+</script>
