@@ -115,4 +115,46 @@
            }
        }
 
+
+        //设置范围筛选
+       function scopeFunc() {
+           var scopesList=eval($("#scopesList").val());
+           var sendType=$("#sendType")
+           var sendValue=$("#sendValue");
+
+           console.log(scopesList)
+           $("select[name=sendType]").change(function () {
+               var sendTypeVal=$(this).val();
+
+               if(!sendTypeVal){
+                   sendValue.html("<option value=''>-请选择-</option>");
+               }
+               if(sendTypeVal==1){
+                   sendValue.empty();
+                   html = '<option value="-1">全部</option>'
+                   for(var i=0;i<scopesList[0].values.length;i++){
+                       html +='<option value="'+scopesList[0].values[i].scopeId+'">'+scopesList[0].values[i].name+'</option>'
+                   }
+                   sendValue.html(html);
+               }
+               if(sendTypeVal==2){
+                   sendValue.empty();
+                   html = '<option value="-1">全部</option>'
+                   for(var i=0;i<scopesList[1].values.length;i++){
+                       html +='<option value="'+scopesList[1].values[i].scopeId+'">'+scopesList[1].values[i].name+'</option>'
+                   }
+                   sendValue.html(html);
+               }
+               if(sendTypeVal==3){
+                   sendValue.empty();
+                   html = '<option value="-1">全部</option>'
+                   for(var i=0;i<scopesList[2].values.length;i++){
+                       html +='<option value="'+scopesList[2].values[i].scopeId+'">'+scopesList[2].values[i].name+'</option>'
+                   }
+                   sendValue.html(html);
+               }
+
+           });
+       }
+
 </script>

@@ -1128,6 +1128,8 @@ router.post('/fileInfo/share', Middleware.AuthCheck,InformationController.fileDo
 //资料删除接口
 router.put('/fileInfo/doDelete/:fid', Middleware.AuthCheck, InformationController.fileDoDelete);
 
+//获取发布范围的下拉列表
+
 
 
 /*
