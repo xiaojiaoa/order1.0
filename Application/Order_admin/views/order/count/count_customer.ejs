@@ -66,11 +66,11 @@
                                     <div class="form-group">
                                         <label class="col-xs-4 control-label">门店:</label>
                                         <div class="col-xs-8">
-                                            <select class="form-control validate[required]" name="conid">
+                                            <select class="form-control validate[required]" name="bid" id="storeId">
                                                 <option value="">- 请选择 -</option>
                                                 <% if(DWY_Helper.isCanLoop(storesList)){
                                                 storesList.forEach(function (element) { %>
-                                                <option value="<%= element.id %>" <%= (DWYRequest.query.conid == element.id)?"selected":"" %> >
+                                                <option value="<%= element.id %>" <%= (DWYRequest.query.bid == element.id)?"selected":"" %> >
                                                     <%= element.storeName %>
                                                 </option>
                                                 <% })
@@ -84,16 +84,16 @@
                                     <div class="form-group">
                                         <label class="col-xs-4 control-label">部门:</label>
                                         <div class="col-xs-8">
-                                            <select class="form-control validate[required]" name="conid">
+                                            <select class="form-control validate[required]" name="did" id="departId">
                                                 <option value="">- 请选择 -</option>
-                                                <% if(DWY_Helper.isCanLoop(homeAdviserInfo)){
-                                                homeAdviserInfo.forEach(function (element) { %>
-                                                <option value="<%= element.id %>" <%= (DWYRequest.query.conid == element.id)?"selected":"" %> >
+
+                                                <% if(DWY_Helper.isCanLoop(departmentsList)){
+                                                departmentsList.forEach(function (element) { %>
+                                                <option value="<%= element.id %>" <%= (DWYRequest.query.did == element.id)?"selected":"" %> >
                                                     <%= element.name %>
                                                 </option>
                                                 <% })
                                                 } %>
-
                                             </select>
                                         </div>
                                     </div>
@@ -102,10 +102,11 @@
                                     <div class="form-group">
                                         <label class="col-xs-4 control-label">家居顾问:</label>
                                         <div class="col-xs-8">
-                                            <select class="form-control validate[required]" name="conid">
+                                            <select class="form-control validate[required]" name="conid" id="homeAdviserId">
                                                 <option value="">- 请选择 -</option>
-                                                <% if(DWY_Helper.isCanLoop(homeAdviserInfo)){
-                                                homeAdviserInfo.forEach(function (element) { %>
+
+                                                <% if(DWY_Helper.isCanLoop(homeAdviserList)){
+                                                homeAdviserList.forEach(function (element) { %>
                                                 <option value="<%= element.id %>" <%= (DWYRequest.query.conid == element.id)?"selected":"" %> >
                                                     <%= element.name %>
                                                 </option>
@@ -237,7 +238,7 @@
 
 </div>
 <!-- END MAIN PANEL -->
-
+<input type="hidden" name="storeIdVal" value="" id="storeIdVal"/>
 <%- include('../layouts/footer'); %>
 <%- include('../layouts/footer_common_script'); %>
 
@@ -250,7 +251,86 @@
 
         pageSetUp();
 
+        //获取部门，家具顾问列表
+        var storeSelect = $('#storeId');
+        var departSelect = $('#departId');
+        var homeAdviserSelect = $('#homeAdviserId');
 
+        storeSelect.change(function () {
+            var storeId = $(this).val();
+            $("#storeIdVal").val(storeId);
+            if(!storeId){
+                departSelect.html('<option value="">- 请选择 -</option>');
+                homeAdviserSelect.html('<option value="">- 请选择 -</option>');
+                return
+            }
+            $.ajax({
+                url: '/getDepartList/'+storeId,
+                method: 'put',
+                success: function (data) {
+                    var arry = eval(data);
+                    console.log(arry);
+                    departSelect.empty();
+                    homeAdviserSelect.html('<option value="">- 请选择 -</option>');
+                    var html = '<option value="">- 请选择 -</option>';
+                    if(arry.length == 0){
+                        html = '<option value="">该机构下暂无部门信息</option>'
+                    }else{
+                        for(var i=0;i<arry.length;i++){
+                            html +='<option value="'+arry[i].id+'">'+arry[i].name+'</option>'
+                        }
+                    }
+
+                    departSelect.html(html);
+                    console.log(arry)
+                },
+                error: function (response) {
+                    $.smallBox({
+                        title: "部门请求失败，请重试",
+//                        content: data.msg,
+                        color: "#C46A69",
+                        iconSmall: "fa fa-times fa-2x fadeInRight animated",
+                        timeout: 3000
+                    });
+                }
+            });
+        })
+        departSelect.change(function () {
+            var storeId= $("#storeIdVal").val();
+            var departId = $(this).val();
+            if(!departId){
+                homeAdviserSelect.html('<option value="">- 请选择 -</option>');
+                return
+            }
+            $.ajax({
+                url: '/getHomeAdviserList/'+storeId+'/'+departId,
+                method: 'put',
+                success: function (data) {
+                    var arry = eval(data);
+                    console.log(arry);
+                    homeAdviserSelect.empty();
+                    var html = '<option value="">- 请选择 -</option>';
+                    if(arry.length == 0){
+                        html = '<option value="">该部门暂无家具顾问</option>'
+                    }else{
+                        for(var i=0;i<arry.length;i++){
+                            html +='<option value="'+arry[i].id+'">'+arry[i].name+'</option>'
+                        }
+                    }
+
+                    homeAdviserSelect.html(html);
+                },
+                error: function (response) {
+                    $.smallBox({
+                        title: "家具顾问请求失败，请重试",
+//                        content: data.msg,
+                        color: "#C46A69",
+                        iconSmall: "fa fa-times fa-2x fadeInRight animated",
+                        timeout: 3000
+                    });
+                }
+            });
+        })
 
     })
 

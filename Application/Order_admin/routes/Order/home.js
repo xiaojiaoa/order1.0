@@ -149,6 +149,12 @@ router.get('/', Middleware.AuthCheck, IndexController.indexPage);
 // 客户跟进统计
 router.get('/countCustomer', Middleware.AuthCheck, IndexController.countCustomerPage);
 
+//获取门店列表
+router.put('/getDepartList/:sid', Middleware.AuthCheck, IndexController.getDepartList);
+
+//获取部门列表
+router.put('/getHomeAdviserList/:sid/:did', Middleware.AuthCheck, IndexController.getHomeAdviserList);
+
 // 成交情况统计
 router.get('/countDeal', Middleware.AuthCheck, IndexController.countDealPage);
 
