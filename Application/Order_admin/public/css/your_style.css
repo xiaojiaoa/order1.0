@@ -521,6 +521,44 @@ tr > td > .separation:last-child {
 .table-editinput .short{
     width: 100px;
 }
+.table-editinput .target select{
+    width: 120px;
+    float: left;
+    margin-right: 5px;
+}
+.table-editinput .target select:last-child{
+    margin-right: 0;
+}
+.more-space {
+    padding:8px 10px;;
+    border-bottom: 1px solid #ddd;
+    height: 48px;
+}
+.add-spaceid{
+    background-color: #36c154;
+    padding: 4px 6px;
+    border-radius: 10px;
+    color: #fff;
+    cursor: pointer;
+}
+.add-spaceid:hover{
+    color: #fff;
+    background-color: #1ea604;
+}
+.less-spaceid{
+    background-color: #d9534f;
+    padding: 4px 6px;
+    border-radius: 10px;
+    color: #fff;
+    cursor: pointer;
+}
+.less-spaceid:hover{
+    color: #fff;
+    background-color: #ef514c;
+}
+tr>td .more-space:last-child {
+    border-bottom: 0;
+}
 .initdisplay-none{
     display: none;
 }

@@ -134,13 +134,15 @@ var EnterController = {
         });
     },
     stockEnterPage: function (req, res){
-        var id=req.query.purcId;
+        var id = req.query.purcId;
+        console.log('88888',id)
         var paramObject = helper.genPaginationQuery(req);
         Base.multiDataRequest(req, res, [
                 {url: '/api/purchase/reqmaterial/purchase/cargoin?'+queryString.stringify(req.query), method: 'GET', resConfig: {keyName: 'cargoinList', is_must: false}},
                 {url: '/api/whse/factory/list', method: 'GET', resConfig: {keyName: 'factoryList', is_must: true}},
             ],
             function (req, res, resultList) {
+                console.log('888666688')
                 var paginationInfo =  resultList.cargoinList;
 
                 var boostrapPaginator = new Pagination.TemplatePaginator(helper.genPageInfo({
@@ -155,13 +157,14 @@ var EnterController = {
                     pid:id,
                     pagination: boostrapPaginator.render(),
                 }, resultList));
+                console.log('order/enter/stock_enter')
                 res.render('order/enter/stock_enter', returnData);
             });
 
     },
     ifCanEnter: function (req, res) {
         // var num = req.body.num0;
-        //console.log('/api/whse/cargoin/mate/usable?'+queryString.stringify(req.body))
+        console.log('/api/whse/cargoin/mate/usable?'+queryString.stringify(req.body))
 
         // var id = req.params.id;
         request(Base.mergeRequestOptions({
@@ -172,8 +175,9 @@ var EnterController = {
 
                 res.sendStatus(200);
             } else {
-                // res.status(500).json(body)
-                Base.handlerError(res, req, error, response, body);
+                res.status(500).json(body.responseJSON)
+                // res.status(500).send({code: code, msg: msg});
+                // Base.handlerError(res, req, error, response, body);
             }
         })
 

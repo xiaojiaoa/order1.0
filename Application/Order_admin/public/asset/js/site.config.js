@@ -325,6 +325,212 @@ var DWY_area = {
 
 }
 
+//工厂-仓库-区域 联动下拉框
+var DWY_fty_region = {
+    area: {},
+
+//     DWY_area.init({
+//     //可不填
+//     target: '.dwy-area',
+//     province: '.dwy-province',
+//     city: '.dwy-city',
+//     district: '.dwy-district'
+// });
+    getFactoryList: function (callback) {
+        $.ajax({
+            url: '/getFactoryList',
+            method: "get",
+            success: function (data) {
+                data = JSON.parse(data);
+                // if (id)
+                //     DWY_fty_region.area[id] = data;
+                // else
+                //     DWY_fty_region.area.factory = data;
+
+                //有回调执行回调
+                callback ? callback(data) : '';
+            }
+        })
+    },
+    getWarehouseList: function (id, callback) {
+
+        if (DWY_fty_region.area[id]) {
+            callback ? callback(DWY_fty_region.area[id]) : '';
+            return;
+        }
+
+        $.ajax({
+            url: '/getWarehouseList/'+id,
+            method: "put",
+            success: function (data) {
+                //console.log(data);
+                data = JSON.parse(data);
+                if (id)
+                    DWY_fty_region.area[id] = data;
+                else
+                    DWY_fty_region.area.factory = data;
+
+                //有回调执行回调
+                callback ? callback(data) : '';
+            }
+        })
+    },
+    getRegionList: function (id, callback) {
+
+        if (DWY_fty_region.area[id]) {
+            callback ? callback(DWY_fty_region.area[id]) : '';
+            return;
+        }
+
+        $.ajax({
+            url: '/getRegionList/'+id,
+            method: "put",
+            success: function (data) {
+                //console.log(data);
+                data = JSON.parse(data);
+                if (id)
+                    DWY_fty_region.area[id] = data;
+                else
+                    DWY_fty_region.area.factory = data;
+
+                //有回调执行回调
+                callback ? callback(data) : '';
+            }
+        })
+    },
+    refreshWarehouse: function ($warehouse, $region, factory_id, warehouse_id) {
+
+        $warehouse.find('option').remove();
+
+        DWY_fty_region.getWarehouseList(factory_id, function (data) {
+            var warehouse_option_list = [];
+            warehouse_option_list.push(new Option('- 仓库 -',''));
+            for (var i in data) {
+                warehouse_option_list.push(new Option(data[i].name, data[i].whseId));
+            }
+            $warehouse.append($(warehouse_option_list).clone());
+
+            DWY_fty_region.clearRegion($region);
+
+
+        })
+
+
+    },
+    refreshRegion: function ($region, warehouse_id, region_id) {
+        $region.find('option').remove();
+
+        DWY_fty_region.getRegionList(warehouse_id, function (data) {
+            var region_option_list = [];
+            region_option_list.push(new Option('- 区域 -',''));
+            for (var i in data) {
+                region_option_list.push(new Option(data[i].name, data[i].regionId));
+            }
+            $region.append($(region_option_list).clone());
+
+            if(region_id){
+                $region.val(region_id)
+            }
+
+        })
+
+    },
+    clearWarehouse: function ($warehouse) {
+        $warehouse.find('option').remove();
+        $warehouse.append(new Option('- 仓库 -',''));
+    },
+    clearRegion: function ($region) {
+        $region.find('option').remove();
+        $region.append(new Option('- 区域 -',''));
+    },
+    setValue: function (list) {
+        if(list){
+            for(var i=0; i<list.length; i++){
+                var element = list[i];
+                if(element.value){
+                    switch (element.key){
+                        case 'province':
+                            DWY_area.refreshCity($('select[name='+element.linkcity+']'), $('select[name='+element.linkdis+']'), element.value, element.cityId);
+                            break;
+                        case 'city':
+                            DWY_area.refreshDistrict($('select[name='+element.linkdis+']'), element.value, element.disId);
+                            break;
+                    }
+                    $("select[name="+element.name+"]").val(element.value);
+                }
+
+                // $("select[name=birthCity]").val(650400);
+            }
+
+        }
+    },
+    init: function (config) {
+        var _config = config || {};
+        _config.target = _config.target || '.target';
+        _config.factory = _config.province || '.ftyId';
+        _config.warehouse = _config.city || '.whseId';
+        _config.region = _config.district || '.regionId';
+
+        _config.defaultValue = _config.defaultValue || [];
+
+        if (!_config.target) {
+            console.log('目标不存在!')
+        }
+
+        DWY_fty_region.getFactoryList(function (data) {
+
+            var factory_option_list = [];
+
+            factory_option_list.push(new Option('- 工厂 -',''));
+
+            for (var i in data) {
+                factory_option_list.push(new Option(data[i].name, data[i].ftyId));
+            }
+
+
+            $(_config.target).each(function (index, element) {
+                var area_select = $(element);
+                var factory = area_select.find(_config.factory);
+                var warehouse = area_select.find(_config.warehouse);
+                var region = area_select.find(_config.region);
+                factory.find('option').remove();
+                factory.append($(factory_option_list).clone());
+
+                factory.on({
+                    change: function (e) {
+                        var factory_id = $(this).val();
+                        if(factory_id){
+                            DWY_fty_region.refreshWarehouse(warehouse, region, factory_id);
+                        }else{
+                            DWY_fty_region.clearWarehouse(warehouse);
+                            DWY_fty_region.clearRegion(region);
+                        }
+
+                    }
+                });
+                warehouse.on({
+                    change: function (e) {
+                        var warehouse_id = $(this).val();
+                        if(warehouse_id){
+                            DWY_fty_region.refreshRegion(region, warehouse_id);
+                        }else{
+                            DWY_fty_region.clearRegion(region);
+                        }
+
+                    }
+                })
+
+
+            });
+
+            // DWY_fty_region.setValue(_config.defaultValue);
+
+        })
+
+    },
+
+}
+
 var errorLayout = {
     normal : function (data) {
         var data = JSON.parse(data.responseText);

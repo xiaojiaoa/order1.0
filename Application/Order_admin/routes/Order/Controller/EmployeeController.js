@@ -192,9 +192,10 @@ var EmployeeController = {
     resetPassword: function (req, res) {
         var cid = req.params.cid;
         var type = req.params.type;
+        var url = (type == 'stores')?'/api/stores/employees/password/rest/'+cid :'/api/employees/password/rest/'+cid
         request(Base.mergeRequestOptions({
             method: 'put',
-            url: '/api/stores/employees/password/rest/'+cid,
+            url: url,
         }, req, res), function (error, response, body) {
             if (!error && response.statusCode == 201) {
 

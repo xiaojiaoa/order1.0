@@ -77,7 +77,8 @@ var Middleware = {
     //检测SESSION 是否存在TOKEN (NODE),TODO 区分AJAX请求,以JSON格式返回
     AuthCheck: function (req, res, next) {
         if(req.method.toLowerCase() == 'get'){
-            req.session.preventPath = req.path;
+            // req.session.preventPath = req.path;
+            req.session.preventPath = req.url;
         }
         // console.log(req.path)
         if (!req.session.auth) {
@@ -742,6 +743,8 @@ var CargospaceController = require('./Controller/CargospaceController');
 // 获取货位列表-菜单栏直接进入
 router.get('/cargospaceList', Middleware.AuthCheck, Middleware.FilterEmptyField, CargospaceController.unlistPage);
 
+// 取工厂列表
+router.get('/getFactoryList', Middleware.AuthCheck, CargospaceController.getFactory);
 // 取工厂下仓库列表
 router.put('/getWarehouseList/:ftyId', Middleware.AuthCheck, CargospaceController.getWarehouse);
 

@@ -24,6 +24,22 @@ var CargospaceController = {
             res.render('order/cargospace/index_unselect', returnData);
         });
     },
+    getFactory: function (req, res) {
+        request(Base.mergeRequestOptions({
+            method: 'GET',
+            url: '/api/whse/factory/list',
+        }, req, res), function (error, response, body) {
+            if (!error && response.statusCode == 200) {
+                // Base.handlerSuccess(res, req);
+                // res.sendStatus(200);
+                res.status(200).json(body)
+
+            } else {
+                Base.handlerError(res, req, error, response, body);
+            }
+        })
+
+    },
     getWarehouse: function (req, res) {
         var ftyId = req.params.ftyId;
 
