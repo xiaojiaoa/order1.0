@@ -40,7 +40,11 @@
                                     <div class="form-group">
                                         <label class="col-xs-4 control-label"><span class="requird"></span> 工厂:</label>
                                         <div class="col-xs-8">
-                                            <select class="form-control validate[required]" name="ftyId" id="ftyId">
+                                            <select class="form-control validate[required]" name="ftyId" id="ftyId"
+                                            <% if ( !DWY_Helper.hasPermission(Permission.storage.queryAll.id, permission) ){ %>
+                                                    disabled
+                                            <% } %>
+                                            >
                                                 <option value="">- 请选择 -</option>
                                                 <% factoryList.forEach(function (element) { %>
                                                 <option value="<%= element.ftyId %>" <%= ftyId == element.ftyId?'selected':'' %> >

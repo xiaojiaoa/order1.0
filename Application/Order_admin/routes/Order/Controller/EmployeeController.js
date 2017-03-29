@@ -115,6 +115,7 @@ var EmployeeController = {
             var returnData = Base.mergeData(helper.mergeObject({
                 title: ' ',
                 type:type,
+                bid:bid,
             }, resultList));
             res.render('order/employees/detail', returnData);
         });
