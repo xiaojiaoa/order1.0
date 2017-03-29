@@ -146,6 +146,14 @@ var IndexController = require('./Controller/IndexController');
 // 首页页面
 router.get('/', Middleware.AuthCheck, IndexController.indexPage);
 
+// 客户跟进统计
+router.get('/countCustomer', Middleware.AuthCheck, IndexController.countCustomerPage);
+
+// 成交情况统计
+router.get('/countDeal', Middleware.AuthCheck, IndexController.countDealPage);
+
+
+
 /*
  * 页面范围: 用户操作相关
  * 控制器:   UserController
