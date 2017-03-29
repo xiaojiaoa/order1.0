@@ -144,6 +144,8 @@
     <!-- END MAIN CONTENT -->
 
 </div>
+
+<div class="">55555555</div>
 <!-- END MAIN PANEL -->
 
 <%- include('../layouts/footer'); %>
@@ -154,7 +156,6 @@
     var cargoinList_result = parseInt(<%= cargoinList.result.length %>);
 
     $(document).ready(function () {
-
         //初始化工厂联动
         DWY_fty_region.init({});
 
@@ -162,16 +163,15 @@
 
 //        $('#search-customer :text').attr('disabled',true)
 
-
-        $('.ftyId, .whseId, .regionId').change(function () {
+        $('#contentArea').on('change','.ftyId, .whseId, .regionId',function () {
             var _self = $(this);
             var index = _self.attr('data-index');
 //            var tager = _self[0].name
 //            console.log(tager)
             $("input[name=spaceId"+index+"]").val('');
             $('.status'+index).html('');
-
         })
+
 
         pageSetUp();
 
@@ -202,6 +202,7 @@
                     },
                     error: function (response) {
                         console.log('response',response)
+                        $("input[name=statusThis"+index+"]").val(0);
                         if(response.responseText){
                             var data = JSON.parse(response.responseText);
                             console.log(data.msg)
@@ -245,42 +246,38 @@
                         var spaceId=$("input[name=spaceId"+index+"]").val();
                         var statusThis=$("input[name=statusThis"+index+"]").val();
                         var amount=$("input[name=amount"+index+"]").val();
+
+                        console.log('ifSubmit6666666',ftyId)
                         if(!ftyId ||!whseId ||!regionId ||!spaceId ||!amount || statusThis == 0){
                             console.log('break');
                             ifSubmit = false;
                             return false
                         }
-                        console.log('ifSubmit',ifSubmit)
-                        if(!ifSubmit){layer.msg('请先填写正确入库信息', {icon: 2, time: 2000});return ;}
 
-
+                        var a = new Object();
+                        a = {
+                            ftyId:ftyId,
+                            whseId:whseId,
+                            regionId:regionId,
+                            spaceId:spaceId,
+                            cargoId:cargoId,
+                            purId:purId,
+                            unitPrice:unitPrice,
+                            amount:amount,
+                        }
+                        myArray.push(a);
+                        ifSubmit = true;
 
                     })
-                })
-
-
-
-                for(var i=0;i<cargoinList_result;i++){
-
-
-
-
-                    var a = new Object();
-                    a = {
-                        ftyId:ftyId,
-                        whseId:whseId,
-                        regionId:regionId,
-                        spaceId:spaceId,
-                        cargoId:cargoId,
-                        purId:purId,
-                        unitPrice:unitPrice,
-                        amount:amount,
+                    console.log('ifSubmit',ifSubmit)
+                    if(!ifSubmit){
+                        return false
                     }
-                    myArray.push(a);
-                    ifSubmit = true;
+                })
+                if(!ifSubmit){
+                    layer.msg('请先填写正确入库信息', {icon: 2, time: 2000});
+                    return;
                 }
-
-
                 var date={
                     purId:'<%= pid %>',
                     list:myArray
@@ -313,6 +310,9 @@
                     },function(index){
                         layer.close(index)}
                 )
+
+
+
             }
 
         })
