@@ -96,7 +96,7 @@
                                                     <strong>推荐货位</strong>
                                                     <%  element.list.forEach(function (context,num) { %>
                                                     <li data-ftyId="<%=context.ftyId%>" data-whseId="<%=context.whseId%>"
-                                                        data-regionId="<%=context.regionId%>" data-value="<%=context.spaceId%>">
+                                                        data-regionId="<%=context.regionId%>" data-value="010101">
                                                         <%=context.spaceId%>(剩余可用 <%=context.amount == -1? '不限':context.amount%> )
                                                     </li>
                                                     <%  }) %>
@@ -171,7 +171,7 @@
         //初始化工厂联动
         DWY_fty_region.init({});
 
-        $("#search-customer").validationEngine();
+        $("#search-customer").validationEngine({binded:false});//失去焦点时不校验，提交时才校验
         var contentArea = $('#contentArea');
 //        $('#search-customer :text').attr('disabled',true)
 
@@ -198,8 +198,6 @@
             spaceIdCurrentINdex = index;
             var top = _self.offset().top+30;
             var left = _self.offset().left;
-            console.log(top)
-            console.log(left)
             var spaceIdTip = $('.spaceId-tip'+selectIndex);
             spaceIdTip.css('top',top).css('left',left).fadeIn();
         })
@@ -213,11 +211,11 @@
                 warehouseValue: _this.attr('data-whseId'),
                 regionValue: _this.attr('data-regionId')
             });
-//            $("#spaceId"+spaceIdCurrentINdex).validationEngine('validate');
+            setTimeout(function () {
+                ifRegionIdUsable(spaceIdCurrentINdex);
+            },100)
         })
-//        contentArea.on('blur','.spaceIdInput',function () {
-//            $('.position-ulselect').hide();
-//        })
+
 
         $('body').bind('click',function (e) {
             var target = $(e.target);
@@ -233,6 +231,11 @@
 
         contentArea.on('input propertychange',':text', function() {
             var index = $(this).attr('data-index');
+            ifRegionIdUsable(index);
+        });
+
+        //判断货位是否可用
+        function ifRegionIdUsable(index){
             var status = $('.status'+index);
             status.empty();
             console.log('data-index',index);
@@ -270,8 +273,8 @@
                     }
                 });
             }
-        });
-        
+        }
+
         function validateRow(index) {
             return $("select[name=regionId"+index+"]").val() && $("#spaceId"+index).validationEngine('validate') && $("#spaceId"+index).val() && $("#amount"+index).validationEngine('validate')
 
