@@ -324,6 +324,7 @@ var FactoryController = {
         Base.multiDataRequest(req, res, [
             {url: '/api/whse/factory/list', method: 'GET', resConfig: {keyName: 'factoryList', is_must: true}},
             {url: '/api/whse/warehouse/list/'+ftyId, method: 'GET', resConfig: {keyName: 'warehouseList', is_must: true}},
+            {url: '/api/categories/list?parentId=0', method: 'GET', resConfig: {keyName: 'stairCategory', is_must: true}},
         ], function (req, res, resultList) {
             var returnData = Base.mergeData(helper.mergeObject({
                 title: ' ',
@@ -336,6 +337,22 @@ var FactoryController = {
     doRegionCreate: function (req, res) {
         var ftyId = req.body.ftyId;
         var whseId = req.body.whseId;
+        var cargoType = req.body.cargoType;
+        if(cargoType == 1){
+            var stairCategory = req.body.stairCategory;
+            var secondaryCategory = req.body.secondaryCategory;
+            var thirdlyCategory = req.body.thirdlyCategory;
+            if(thirdlyCategory){
+                req.body.regionType = thirdlyCategory;
+            }else if(secondaryCategory){
+                req.body.regionType = secondaryCategory;
+            }else{
+                req.body.regionType = stairCategory;
+            }
+        }else{
+            req.body.regionType = req.body.packgeCode;
+        }
+        console.log("region6666",JSON.stringify(req.body))
         request(Base.mergeRequestOptions({
             method: 'post',
             url: '/api/whse/region',
