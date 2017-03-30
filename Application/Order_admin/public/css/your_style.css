@@ -522,7 +522,7 @@ tr > td > .separation:last-child {
     width: 100px;
 }
 .table-editinput .target select{
-    width: 120px;
+    width: 32.3%;
     float: left;
     margin-right: 5px;
 }
@@ -558,6 +558,22 @@ tr > td > .separation:last-child {
 }
 tr>td .more-space:last-child {
     border-bottom: 0;
+}
+.position-ulselect{
+    position: fixed;
+    padding: 5px;
+    background: #fff;
+    border: 1px solid #ddd;
+    list-style: none;
+    box-shadow: 0 6px 12px rgba(0,0,0,.175);
+    z-index: 99;
+    display: none;
+}
+.position-ulselect li{
+    cursor: default;
+}
+.position-ulselect li:hover{
+    color: #827a7a;
 }
 .initdisplay-none{
     display: none;

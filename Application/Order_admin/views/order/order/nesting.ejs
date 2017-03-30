@@ -301,7 +301,6 @@
     $(document).ready(function () {
         pageSetUp();
         $(".fg-date-picker").flatpickr(data_time_picker.data_picker); // jQuery
-
         //修改批次号
         var editBatchNum = $('#editBatchNum');
         $("input[name='role']").change(function () {
@@ -312,16 +311,17 @@
             }
         });
         $("#editBatchNumSub").click(function () {
+
             var cid=$("#batchNum").val();
             var bid = editBatchNum.attr('class').replace(/[ ]/g,"");
             bid = bid.substring(0,bid.length-1);
-            layer.confirm("<div>批次号&nbsp<input id='batchInput' value=''  /></div>",
+            layer.confirm("<div>批次号&nbsp<input id='batchInput'' value=''  /></div>",
                     {title:'提示'},function(index){
                     cid= $("#batchInput").val();
                     var reg = /^(\d{1,12})$/;
                     var r = cid.match(reg);
                     if(r==null){
-                        layer.alert('请输入0-9且长度不大于12！', {icon: 3})
+                        layer.alert('请输入数字且长度不大于12！', {icon: 3})
                         return false;
                     }
                         $.ajax({

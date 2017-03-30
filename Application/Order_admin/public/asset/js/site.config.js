@@ -329,13 +329,6 @@ var DWY_area = {
 var DWY_fty_region = {
     area: {},
 
-//     DWY_area.init({
-//     //可不填
-//     target: '.dwy-area',
-//     province: '.dwy-province',
-//     city: '.dwy-city',
-//     district: '.dwy-district'
-// });
     getFactoryList: function (callback) {
         $.ajax({
             url: '/getFactoryList',
@@ -352,6 +345,7 @@ var DWY_fty_region = {
             }
         })
     },
+
     getWarehouseList: function (id, callback) {
 
         if (DWY_fty_region.area[id]) {
@@ -398,7 +392,11 @@ var DWY_fty_region = {
             }
         })
     },
-    refreshWarehouse: function ($warehouse, $region, factory_id, warehouse_id) {
+    setFactoryValue: function ($factory,$warehouse, $region,factory_id,warehouse_id,region_id) {
+        $factory.val(factory_id);
+        DWY_fty_region.refreshWarehouse($warehouse, $region, factory_id,warehouse_id,region_id);
+    },
+    refreshWarehouse: function ($warehouse, $region, factory_id, warehouse_id,region_id) {
 
         $warehouse.find('option').remove();
 
@@ -412,8 +410,12 @@ var DWY_fty_region = {
 
             DWY_fty_region.clearRegion($region);
 
-
+            if(warehouse_id){
+                $warehouse.val(warehouse_id);
+                DWY_fty_region.refreshRegion($region, warehouse_id,region_id);
+            }
         })
+
 
 
     },
@@ -444,32 +446,54 @@ var DWY_fty_region = {
         $region.append(new Option('- 区域 -',''));
     },
     setValue: function (list) {
-        if(list){
-            for(var i=0; i<list.length; i++){
-                var element = list[i];
-                if(element.value){
-                    switch (element.key){
-                        case 'province':
-                            DWY_area.refreshCity($('select[name='+element.linkcity+']'), $('select[name='+element.linkdis+']'), element.value, element.cityId);
-                            break;
-                        case 'city':
-                            DWY_area.refreshDistrict($('select[name='+element.linkdis+']'), element.value, element.disId);
-                            break;
-                    }
-                    $("select[name="+element.name+"]").val(element.value);
-                }
+        var _config = list || {};
+        _config.target = _config.target || '.target';
+        _config.factoryValue = _config.factoryValue || '';
+        _config.warehouseValue = _config.warehouseValue || '';
+        _config.regionValue = _config.regionValue || '';
 
-                // $("select[name=birthCity]").val(650400);
-            }
+        _config.defaultValue = _config.defaultValue || [];
 
+        if (!_config.target) {
+            console.log('目标不存在!')
         }
+
+        $(_config.target).each(function (index, element) {
+            var area_select = $(element);
+            var factory = area_select.find('.ftyId');
+            var warehouse = area_select.find('.whseId');
+            var region = area_select.find('.regionId');
+            DWY_fty_region.setFactoryValue(factory,warehouse,region, _config.factoryValue,_config.warehouseValue,_config.regionValue);
+
+
+        });
+
+        // if(list){
+        //     for(var i=0; i<list.length; i++){
+        //         var element = list[i];
+        //         if(element.value){
+        //             switch (element.key){
+        //                 case 'province':
+        //                     DWY_area.refreshCity($('select[name='+element.linkcity+']'), $('select[name='+element.linkdis+']'), element.value, element.cityId);
+        //                     break;
+        //                 case 'city':
+        //                     DWY_area.refreshDistrict($('select[name='+element.linkdis+']'), element.value, element.disId);
+        //                     break;
+        //             }
+        //             $("select[name="+element.name+"]").val(element.value);
+        //         }
+        //
+        //         // $("select[name=birthCity]").val(650400);
+        //     }
+        //
+        // }
     },
     init: function (config) {
         var _config = config || {};
         _config.target = _config.target || '.target';
-        _config.factory = _config.province || '.ftyId';
-        _config.warehouse = _config.city || '.whseId';
-        _config.region = _config.district || '.regionId';
+        _config.factory = _config.factory || '.ftyId';
+        _config.warehouse = _config.warehouse || '.whseId';
+        _config.region = _config.region || '.regionId';
 
         _config.defaultValue = _config.defaultValue || [];
 

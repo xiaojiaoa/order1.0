@@ -184,7 +184,7 @@ var EnterController = {
     },
     doEnter: function (req, res) {
         // var num = req.body.num0;
-        // console.log('doEnter',JSON.stringify(req.body))
+        console.log('doEnter',JSON.stringify(req.body))
         request(Base.mergeRequestOptions({
             method: 'post',
             url: '/api/whse/cargoin/mate',
