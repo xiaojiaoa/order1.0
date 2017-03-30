@@ -5,12 +5,12 @@
         //生成包装操作
         $(".crePackage").on({
             click: function (e) {
-               /* var  tid= $(this).attr("tid");*/
-                var  bid=$(this).attr("bid");
-                layer.confirm('确定按批次号生成包装吗？',{icon: 3, title:'提示'},
+                var  tid= $(this).attr("tid");
+               /* var  bid=$(this).attr("bid");*/
+                layer.confirm('确定生成包装吗？',{icon: 3, title:'提示'},
                     function(index){
                         $.ajax({
-                            url: '/orders/package/packet/'+bid,
+                            url: '/orders/package/packet/'+tid,
                             method: 'put',
                             success: function (data) {
                                 successLayout.reload();

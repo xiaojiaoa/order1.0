@@ -185,7 +185,7 @@
                                     <%}%>
                                     <% if(element.packageStatus!=0 && DWY_Helper.hasPermission(Permission.orderPackage.queryDetail.id, permission) ){%>
                                     <a class="label label-success packageDetail" href="/orders/package/<%= element.tid %>">包装详情</a>
-                                    <a class="label label-danger margin-left-10 undoPackingBtn" bid="<%= element.batchNumber %>">撤销包装</a>
+                                    <a class="label label-danger margin-left-10 undoPackingBtn" bid="<%= element.batchNumber %>" tid="<%= element.tid %>">撤销包装</a>
                                     <%}%>
                                 </td>
                             </tr>
@@ -227,24 +227,24 @@
 
     //撤销包装按钮
       $(document).on("click",".undoPackingBtn",function(){
-          var  bid=$(this).attr("bid");
-     layer.confirm('确定按批次号撤销包装吗？',{icon: 3, title:'提示'},
-     function(index){
-         console.log(bid);
-     $.ajax({
-          url: '/orders/package/packet/delete/'+bid,
-           method: 'put',
-           success: function (data) {
-           successLayout.hrefTo("/orders/package");
+          var  tid= $(this).attr("tid");
+          layer.confirm('确定撤销包装吗？',{icon: 3, title:'提示'},
+              function(index){
+               console.log(tid);
+               $.ajax({
+               url: '/orders/package/unpacket/'+tid,
+               method: 'put',
+               success: function (data) {
+              successLayout.hrefTo("/orders/package");
 
-             },
-            error: function (response) {
-            layer.close(index)
-           errorLayout.normal(response);
-           }
-           });
-            },
-         function(index){layer.close(index)})
+               },
+                error: function (response) {
+                layer.close(index)
+               errorLayout.normal(response);
+               }
+               });
+               },
+              function(index){layer.close(index)})
      });
     })
 
