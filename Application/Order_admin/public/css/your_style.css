@@ -569,6 +569,10 @@ tr>td .more-space:last-child {
     z-index: 99;
     display: none;
 }
+.position-ulselect strong{
+    width: 100%;
+    display: inline-block;
+}
 .position-ulselect li{
     cursor: default;
 }

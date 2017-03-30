@@ -96,7 +96,7 @@
                                                     <strong>推荐货位</strong>
                                                     <%  element.list.forEach(function (context,num) { %>
                                                     <li data-ftyId="<%=context.ftyId%>" data-whseId="<%=context.whseId%>"
-                                                        data-regionId="<%=context.regionId%>" data-value="010101">
+                                                        data-regionId="<%=context.regionId%>" data-value="<%=context.spaceId%>">
                                                         <%=context.spaceId%>(剩余可用 <%=context.amount == -1? '不限':context.amount%> )
                                                     </li>
                                                     <%  }) %>
@@ -211,6 +211,7 @@
                 warehouseValue: _this.attr('data-whseId'),
                 regionValue: _this.attr('data-regionId')
             });
+            $('.position-ulselect').hide();
             setTimeout(function () {
                 ifRegionIdUsable(spaceIdCurrentINdex);
             },100)
