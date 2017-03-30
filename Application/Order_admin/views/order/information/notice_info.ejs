@@ -123,7 +123,12 @@
                                     <a class="label label-danger delete-noticeInfo" selfId="<%= element.id%>">删除</a>
                                     <% } %>
                                     <% if (DWY_Helper.hasPermission(Permission.notice.update.id, permission) ){ %>
-                                    <a class=" label label-primary modify-noticeInfo " selfId="<%= element.id%>" title="<%= element.title%>" typeId="<%= element.typeId%>" noticeScopes="<%= JSON.stringify(element.noticeScopes) %>" content="<%= element.content%>">修改</a>
+                                    <a class=" label label-primary modify-noticeInfo "
+                                       selfId="<%= element.id%>"
+                                       title="<%= element.title%>"
+                                       typeId="<%= element.typeId%>"
+                                       noticeScopes="<%= JSON.stringify(element.noticeScopes) %>"
+                                       content="<%= element.content%>">修改</a>
                                     <% } %>
                                 </legend>
                             </dt>
