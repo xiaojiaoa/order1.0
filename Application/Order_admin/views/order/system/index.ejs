@@ -172,15 +172,6 @@
                $(".level-3").addClass("display-none");
             }
 
-            //系统项隐藏新建和删除
-            if(key=="assistantConfig"){
-                $(".create ").hide();
-                $(".delete").hide();
-            }
-            else{
-                $(".create").show();
-                $(".delete").show();
-            }
 
             //订单退单原因添加备注
             if(key=="assistantReviewReson"){
@@ -193,6 +184,17 @@
             //重置按钮
             $(".level-1").find('.status01').show();
             $(".level-1").find('.status02,.status03').hide();
+
+
+            //系统项隐藏新建和删除
+            if(key=="assistantConfig"){
+                $(".create ").hide();
+                $(".delete").hide();
+            }
+            else{
+                $(".create").show();
+                $(".delete").show();
+            }
 
             //ajax功能
             ajaxFuncOne(key);
