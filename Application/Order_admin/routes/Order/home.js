@@ -311,19 +311,20 @@ router.put('/schedule/doPass/:tid', Middleware.AuthCheck, OrderController.doPass
 // 订单包装页面
 router.get('/orders/package', Middleware.AuthCheck,Middleware.FilterEmptyField,OrderController.packagePage);
 router.get('/orders/package/allInfo', Middleware.AuthCheck,Middleware.FilterEmptyField,OrderController.allInfoPage);
+
 //查询订单生成包装后的包装列表
 router.get('/orders/package/:tid', Middleware.AuthCheck,OrderController.packedListPage);
-
-//撤销包装
-router.put('/orders/package/unpacket/:tid', Middleware.AuthCheck,OrderController.unPacket);
 
 //生成包装操作
 router.put('/orders/package/packet/:tid',Middleware.AuthCheck,OrderController.doPacket);
 
+//撤销包装操作
+router.put('/orders/package/unpacket/:tid', Middleware.AuthCheck,OrderController.unPacket);
+
 //移动包装操作
 router.post('/orders/package/packet/move',Middleware.AuthCheck,OrderController.movePacket);
 
-//删除包装
+//删除空包装操作
 router.put('/orders/package/packet/delete/:pid/:type',Middleware.AuthCheck,OrderController.deletePacket);
 
 //导出包装清单
@@ -1162,6 +1163,7 @@ router.post('/installServiceTask/:tid/:did', Middleware.AuthCheck,Installservice
 //登记已收货
 router.post('/registerDeliver/:tid', Middleware.AuthCheck,InstallserviceController.registerDeliver);
 
+
 /*
  * 页面范围: 基础数据
  * 控制器:   SystemController
@@ -1170,8 +1172,11 @@ var SystemController = require('./Controller/SystemController');
 // 首页
 router.get('/system', Middleware.AuthCheck,SystemController.indexPage);
 
-//获取第二栏的内容
-router.put('/system/:key', Middleware.AuthCheck, SystemController.keyFirstPage);
+//获取第二栏的可用内容
+router.put('/systemEnabled/:key', Middleware.AuthCheck, SystemController.keyFirstPage);
+
+//获取第二栏的所有内容
+router.put('/system/:key', Middleware.AuthCheck, SystemController.keyFirstALLPage);
 
 //新增值
 router.post('/system/doCreate', Middleware.AuthCheck, SystemController.doCreate);

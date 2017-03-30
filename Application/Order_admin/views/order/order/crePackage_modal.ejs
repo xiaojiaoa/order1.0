@@ -6,6 +6,7 @@
         $(".crePackage").on({
             click: function (e) {
                 var  tid= $(this).attr("tid");
+               /* var  bid=$(this).attr("bid");*/
                 layer.confirm('确定生成包装吗？',{icon: 3, title:'提示'},
                     function(index){
                         $.ajax({

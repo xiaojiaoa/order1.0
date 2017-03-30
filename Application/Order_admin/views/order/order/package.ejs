@@ -150,17 +150,17 @@
                                     </label>
                                 </th>-->
                                 <th width="4%">序号</th>
-                                <th width="12%">订单号</th>
+                                <th width="10%">订单号</th>
                                 <th>批次号</th>
                                 <th>专卖店</th>
                                 <th>客户名称</th>
-                                <th width="15%">客户地址</th>
+                                <th width="12%">客户地址</th>
                                 <th>楼盘名称</th>
                                 <th>下单日期</th>
                                 <th>交货日期</th>
-                                <th width="10%">备注</th>
+                                <th width="8%">备注</th>
                                 <th>包装状态</th>
-                                <th width="90">操作</th>
+                                <th width="160">操作</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -169,22 +169,23 @@
                             toBePackedList.result.forEach(function (element, index) { %>
                             <tr>
                                 <td width="4%"><%= index+1 %></td>
-                                <td width="12%"><a href="/order/detail/<%= element.tid %>"><%= element.tid %></a></td>
+                                <td width="10%"><a href="/order/detail/<%= element.tid %>"><%= element.tid %></a></td>
                                 <td><%= element.batchNumber %></td>
                                 <td><%= element.storeName %></td>
                                 <td><%= element.cName %></td>
-                                <td width="15%"><%= element.custAdress %></td>
+                                <td width="12%"><%= element.custAdress %></td>
                                 <td><%= element.realEstate %></td>
                                 <td><%= element.orderTimeStr %></td>
                                 <td><%= element.deliveryTimeStr%></td>
-                                <td width="10%"><%= element.remark %></td>
+                                <td width="8%"><%= element.remark %></td>
                                 <td><%= element.packageStatusStr %></td>
-                                <td width="90">
+                                <td width="160">
                                     <% if(element.packageStatus==0 && DWY_Helper.hasPermission(Permission.orderPackage.create.id, permission) ){%>
-                                    <a class="label label-primary crePackage" tid="<%= element.tid %>">生成包装</a>
+                                    <a class="label label-primary crePackage" tid="<%= element.tid %>" bid="<%= element.batchNumber %>">生成包装</a>
                                     <%}%>
                                     <% if(element.packageStatus!=0 && DWY_Helper.hasPermission(Permission.orderPackage.queryDetail.id, permission) ){%>
                                     <a class="label label-success packageDetail" href="/orders/package/<%= element.tid %>">包装详情</a>
+                                    <a class="label label-danger margin-left-10 undoPackingBtn" bid="<%= element.batchNumber %>" tid="<%= element.tid %>">撤销包装</a>
                                     <%}%>
                                 </td>
                             </tr>
@@ -224,6 +225,27 @@
         //对表单进行初始化验证
         $("#toBePackedForm").validationEngine();
 
+    //撤销包装按钮
+      $(document).on("click",".undoPackingBtn",function(){
+          var  tid= $(this).attr("tid");
+          layer.confirm('确定撤销包装吗？',{icon: 3, title:'提示'},
+              function(index){
+               console.log(tid);
+               $.ajax({
+               url: '/orders/package/unpacket/'+tid,
+               method: 'put',
+               success: function (data) {
+              successLayout.hrefTo("/orders/package");
+
+               },
+                error: function (response) {
+                layer.close(index)
+               errorLayout.normal(response);
+               }
+               });
+               },
+              function(index){layer.close(index)})
+     });
     })
 
 </script>

@@ -284,7 +284,9 @@
          success: function (data) {
              layer.close(index);
              ajaxFuncOne(key);
-             status02(classDom);
+
+             //重置按钮
+             $('.status01').show()
          },
          error: function (response) {
          layer.close(index)
@@ -297,11 +299,9 @@
 
         //点击"启用"
         $('.open-this').click(function(){
+
             var level = $(this).parent().attr('data-level');
             var classDom=$('.'+level);
-
-            /* classDom.find("tr").eq(index).removeAttr("class");*/
-
             classDom.find('.modify').show();
             $(this).hide();
 
@@ -364,7 +364,8 @@
                     success: function (data) {
                         layer.close(index);
                         ajaxFuncOne(key);
-                        status02(classDom);
+                        //重置按钮
+                        $('.status01').show()
                     },
                     error: function (response) {
                         layer.close(index)
@@ -391,27 +392,32 @@
         });
 
         //点击"查看所有"
-      /*  $('.see-all').click(function () {
+        $('.see-all').click(function () {
+
+            var level = $(this).parent().attr('data-level');
+            var classDom=$('.'+level);
+
+
+           /* classDom.find('.open-all').show();*/
+            seaAllStat=true;
+
+            var key=classDom.find("input[name=key]").val();
+
+            layer.confirm('确定查看所有?', {icon: 3, title: '提示'}, function (index) {
+                 classDom.find('.see-all').hide();
+                 classDom.find('.disable').removeClass('display-none');
+                layer.close(index)
+            }, function (index) { layer.close(index) })
+        })
+
+        //点击"启用所有"
+/*        $('.open-all').click(function () {
 
             var level = $(this).parent().attr('data-level');
             var classDom=$('.'+level);
 
             $(this).hide();
-            classDom.find('.open-all').show();
-
-            classDom.find('.disable').show();
-
-            seaAllStat=true;
-        })*/
-
-        //点击"启用所有"
-     /*   $('.open-all').click(function () {
-
-            var level = $(this).parent().attr('data-level');
-            var classDom=$('.'+level);
-
-          /!*  $(this).hide();
-            classDom.find('.disable').removeAttr('class');*!/
+          /!*  classDom.find('.disable').removeAttr('class');*!/
             openAllStat=true;
 
             layer.confirm('确定启用所有?', {icon: 3, title: '提示'}, function (index) {
@@ -438,7 +444,7 @@
             dom.find('.status01').show();
             dom.find('.status02').hide();
 
-            //根据"查看所有"点击状态显示"启用所有"
+           /* //根据"查看所有"点击状态显示"启用所有"
             if(seaAllStat){
                 dom.find('.see-all').hide();
                 dom.find('.open-all').show();
@@ -447,7 +453,7 @@
             //根据"启用所有"点击状态显示"启用所有"
             if(openAllStat){
                 dom.find('.open-all').hide();
-            }
+            }*/
         }
 
        /*

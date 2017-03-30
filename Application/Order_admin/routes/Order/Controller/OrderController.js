@@ -965,12 +965,12 @@ var OrderController = {
         });
        // res.render('order/order/packedList');
     },
-    unPacket:function(req,res){
+    doPacket:function(req,res){
         var tid=req.params.tid;
-        console.log("撤销包装"+tid);
+        console.log("生成包装"+tid);
         request(Base.mergeRequestOptions({
             method: 'put',
-            url: '/api/orders/package/unpacket/'+tid,
+            url: '/api/orders/package/batch/packet/'+tid,
         }, req, res), function (error, response, body) {
             if (!error && response.statusCode == 201) {
 
@@ -980,12 +980,12 @@ var OrderController = {
             }
         })
     },
-    doPacket:function(req,res){
+    unPacket:function(req,res){
         var tid=req.params.tid;
-        console.log("生成包装"+tid);
+        console.log("撤销包装"+tid);
         request(Base.mergeRequestOptions({
             method: 'put',
-            url: '/api/orders/package/packet/'+tid,
+            url: '/api/orders/package/batch/unpacket/'+tid,
         }, req, res), function (error, response, body) {
             if (!error && response.statusCode == 201) {
 
@@ -1012,18 +1012,18 @@ var OrderController = {
     deletePacket:function(req,res){
         var pid = req.params.pid;
         var type = req.params.type;
-        //console.log('删除包装'+ JSON.stringify(req.params));
+        //console.log('删除空包装'+ JSON.stringify(req.params));
         request(Base.mergeRequestOptions({
-         method: 'put',
-         url: '/api/orders/package/packet/delete/'+pid+'?packageType='+type,
-         }, req, res), function (error, response, body) {
-         if (!error && response.statusCode == 201) {
+            method: 'put',
+            url: '/api/orders/package/packet/delete/'+pid+'?packageType='+type,
+        }, req, res), function (error, response, body) {
+            if (!error && response.statusCode == 201) {
 
-         res.sendStatus(200);
-         } else {
-         Base.handlerError(res, req, error, response, body);
-         }
-         })
+                res.sendStatus(200);
+            } else {
+                Base.handlerError(res, req, error, response, body);
+            }
+        })
     },
     exportPacket: function (req, res) {
         var tid = req.params.tid;
