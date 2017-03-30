@@ -69,7 +69,8 @@
                                                 <option value="2" <%= (DWYRequest.query.packageStatus ==2)?"selected":"" %>>已入库</option>
 
 
-                                                <option value="3" <%= (DWYRequest.query.packageStatus ==3)?"selected":"" %>>已出库</option>
+                                                <option value="3" <%= (DWYRequest.query.packageStatus ==3)?"selected":"" %>>已备货</option>
+                                                <option value="3" <%= (DWYRequest.query.packageStatus ==4)?"selected":"" %>>已出库</option>
 
                                             </select>
                                         </div>
@@ -119,6 +120,8 @@
                                 <th width="4%">序号</th>
                                 <th width="12%">订单号</th>
                                 <th>包装流水号</th>
+                                <th>流水号</th>
+                                <th>批次号</th>
                                 <th>包装序号</th>
                                 <th>包装名称</th>
                                 <th>包装类型</th>
@@ -134,6 +137,8 @@
                                 <td width="4%"><%= index+1 %></td>
                                 <td width="12%"><a href="/order/detail/<%= element.tid %>"><%= element.tid %></a></td>
                                 <td><%= element.packageLid %></td>
+                                <th><%= element.lid %></th>
+                                <th><%= element.batchNumber %></th>
                                 <td><%= element.packageNo %></td>
                                 <td><%= element.packageName %></td>
                                 <td><%= element.packageTypeStr %></td>
@@ -142,7 +147,7 @@
                             </tr>
                             <%  })
                             }else{ %>
-                            <td colspan="8" class="text-align-center">暂无结果</td>
+                            <td colspan="10" class="text-align-center">暂无结果</td>
                             <%  }%>
                             </tbody>
                         </table>
