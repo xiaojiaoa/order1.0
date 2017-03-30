@@ -219,8 +219,20 @@
                                 <td width="4%"><%= index+1 %></td>
                                 <td><a href="/cargospace/cargospace/detail/<%= element.spaceId %>"><%= element.spaceId %></a></td>
                                 <td><%= element.spaceRow %>行<%= element.spaceColumn %>列<%= element.spaceLayer %>层</td>
-                                <td><%= element.maxWeight %>KG</td>
-                                <td><%= element.maxAmount %>件</td>
+                                <td><% if( element.maxWeight==0) {%>
+                                    不限
+                                    <%} else{%>
+                                    <%= element.maxWeight%>KG
+                                    <%}%>
+                                </td>
+                                <td>
+                                    <% if( element.maxAmount==0) {%>
+                                    不限
+                                    <%} else{%>
+                                    <%= element.maxAmount%>件
+                                    <%}%>
+                                </td>
+
                                 <td><%= element.sizeLength %>*<%= element.sizeWidth %>*<%= element.sizeHeight %></td>
                                 <td><%= element.usable ==1 ? '可用':'禁用' %></td>
                                 <td  width="150">
