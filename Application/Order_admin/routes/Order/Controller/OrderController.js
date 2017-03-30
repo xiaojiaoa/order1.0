@@ -981,11 +981,11 @@ var OrderController = {
         })
     },
     doPacket:function(req,res){
-        var tid=req.params.tid;
-        console.log("生成包装"+tid);
+        var bid=req.params.bid;
+        console.log("生成包装"+bid);
         request(Base.mergeRequestOptions({
             method: 'put',
-            url: '/api/orders/package/packet/'+tid,
+            url: '/api/orders/package/batch/packet/'+bid,
         }, req, res), function (error, response, body) {
             if (!error && response.statusCode == 201) {
 
@@ -1010,15 +1010,14 @@ var OrderController = {
         })
     },
     deletePacket:function(req,res){
-        var pid = req.params.pid;
-        var type = req.params.type;
-        //console.log('删除包装'+ JSON.stringify(req.params));
+        var bid = req.params.bid;
+        console.log('删除包装'+ JSON.stringify(req.params));
+        console.log( '/api/orders/package/batch/unpacket/'+bid);
         request(Base.mergeRequestOptions({
          method: 'put',
-         url: '/api/orders/package/packet/delete/'+pid+'?packageType='+type,
+         url: '/api/orders/package/batch/unpacket/'+bid,
          }, req, res), function (error, response, body) {
          if (!error && response.statusCode == 201) {
-
          res.sendStatus(200);
          } else {
          Base.handlerError(res, req, error, response, body);

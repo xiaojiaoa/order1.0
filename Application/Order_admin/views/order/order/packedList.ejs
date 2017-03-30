@@ -31,7 +31,7 @@
                 <div class="col-xs-12">
                     <h6>订单包装详情
                         <% if( DWY_Helper.hasPermission(Permission.orderPackage.cancelPackage.id, permission) ){%>
-                        <a class="label label-primary margin-left-10 undoPackingBtn" >撤销包装</a>
+                        <a class="label label-primary margin-left-10 undoPackingBtn display-none" >撤销包装</a>
                         <%}%>
                         <% if(DWY_Helper.hasPermission(Permission.orderPackage.packageList.id, permission) ){%>
                         <a class="label label-primary margin-left-10  packedListBtn" href="/orders/package/export/<%= tid %>">导出包装清单</a>
@@ -368,10 +368,10 @@
         })
 
         //撤销包装按钮
-        $(document).on("click",".undoPackingBtn",function(){
+     /*   $(document).on("click",".undoPackingBtn",function(){
             layer.confirm('确定撤销该包装吗？',{icon: 3, title:'提示'},
                 function(index){
-                    var tid="<%= tid%>";
+                    var tid=;
                     $.ajax({
                         url: '/orders/package/unpacket/'+tid,
                         method: 'put',
@@ -387,7 +387,7 @@
                 },
                 function(index){layer.close(index)})
         });
-
+*/
         //移包操作
         $("select[name=destinationPackageLid]").on('change',function(e){
             var thingId=$(this).attr("thingId");

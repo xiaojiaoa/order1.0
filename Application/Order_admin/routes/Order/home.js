@@ -311,6 +311,7 @@ router.put('/schedule/doPass/:tid', Middleware.AuthCheck, OrderController.doPass
 // 订单包装页面
 router.get('/orders/package', Middleware.AuthCheck,Middleware.FilterEmptyField,OrderController.packagePage);
 router.get('/orders/package/allInfo', Middleware.AuthCheck,Middleware.FilterEmptyField,OrderController.allInfoPage);
+
 //查询订单生成包装后的包装列表
 router.get('/orders/package/:tid', Middleware.AuthCheck,OrderController.packedListPage);
 
@@ -318,13 +319,13 @@ router.get('/orders/package/:tid', Middleware.AuthCheck,OrderController.packedLi
 router.put('/orders/package/unpacket/:tid', Middleware.AuthCheck,OrderController.unPacket);
 
 //生成包装操作
-router.put('/orders/package/packet/:tid',Middleware.AuthCheck,OrderController.doPacket);
+router.put('/orders/package/packet/:bid',Middleware.AuthCheck,OrderController.doPacket);
 
 //移动包装操作
 router.post('/orders/package/packet/move',Middleware.AuthCheck,OrderController.movePacket);
 
 //删除包装
-router.put('/orders/package/packet/delete/:pid/:type',Middleware.AuthCheck,OrderController.deletePacket);
+router.put('/orders/package/packet/delete/:bid',Middleware.AuthCheck,OrderController.deletePacket);
 
 //导出包装清单
 router.get('/orders/package/export/:tid',Middleware.AuthCheck,OrderController.exportPacket);
