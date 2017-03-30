@@ -1163,6 +1163,7 @@ router.post('/installServiceTask/:tid/:did', Middleware.AuthCheck,Installservice
 //登记已收货
 router.post('/registerDeliver/:tid', Middleware.AuthCheck,InstallserviceController.registerDeliver);
 
+
 /*
  * 页面范围: 基础数据
  * 控制器:   SystemController
@@ -1171,8 +1172,11 @@ var SystemController = require('./Controller/SystemController');
 // 首页
 router.get('/system', Middleware.AuthCheck,SystemController.indexPage);
 
-//获取第二栏的内容
-router.put('/system/:key', Middleware.AuthCheck, SystemController.keyFirstPage);
+//获取第二栏的可用内容
+router.put('/systemEnabled/:key', Middleware.AuthCheck, SystemController.keyFirstPage);
+
+//获取第二栏的所有内容
+router.put('/system/:key', Middleware.AuthCheck, SystemController.keyFirstALLPage);
 
 //新增值
 router.post('/system/doCreate', Middleware.AuthCheck, SystemController.doCreate);

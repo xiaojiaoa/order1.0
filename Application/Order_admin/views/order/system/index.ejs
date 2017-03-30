@@ -68,7 +68,7 @@
                             <a class="label label-primary modify status01">修改</a>
                             <a class="label label-primary open-this status03">启用</a>
                             <a class="label label-danger delete status01">删除</a>
-                            <a class="label label-primary see-all display-none">查看所有</a>
+                            <a class="label label-primary see-all status01">查看所有</a>
                             <a class="label label-primary open-all display-none">启用所有</a>
                             <a class="label label-primary revoke status02">撤销</a>
                             <a class="label label-primary save status02">保存</a>
@@ -89,6 +89,7 @@
                     <div data-level="level-2" class="text-align-center basicDataTit01">
                         <a class="label label-primary create status01">新建</a>
                         <a class="label label-primary modify status01">修改</a>
+                        <a class="label label-primary open-this status03">启用</a>
                         <a class="label label-danger delete status01">删除</a>
                         <a class="label label-primary revoke status02">撤销</a>
                         <a class="label label-primary save status02">保存</a>
@@ -108,6 +109,7 @@
                     <div data-level="level-3" class="text-align-center basicDataTit01">
                         <a class="label label-primary create status01">新建</a>
                         <a class="label label-primary modify status01">修改</a>
+                        <a class="label label-primary open-this status03">启用</a>
                         <a class="label label-danger delete status01">删除</a>
                         <a class="label label-primary revoke status02">撤销</a>
                         <a class="label label-primary save status02">保存</a>
@@ -187,6 +189,12 @@
             else{
                 $(".level-1 .basicDataTit" ).html("类别1");
             }
+
+            //重置按钮
+            $(".level-1").find('.status01').show();
+            $(".level-1").find('.status02,.status03').hide();
+
+            //ajax功能
             ajaxFuncOne(key);
 
 
@@ -229,91 +237,19 @@
         });
 
     })
+
     function ajaxFuncOne(key){
         $.ajax({
             url: '/system/'+key,
             method: 'put',
+            async: true, //异步请求
+            beforeSend: function(){
+                $(".basicDataSec").html('数据正在加载中');
+            },
             success: function (data) {
                 var arry= JSON.parse(data);
                 console.log(arry);
-                if(arry.length==0){
-                    $(".basicDataSec").html('<tr><td>暂无数据</td></tr>');
-                }
-                else if(key=="assistantConfig"){
-                    var frag="";
-                    for(var i=0;i<arry.length;i++){
-                        frag+="<tr id="+arry[i].id+" stcode="+arry[i].status+"><td width='30%'><input class='border-0 text-align-center' type='text' value="+arry[i].code+" name='code' readonly/></td><td width='30%'><input class='border-0 text-align-center' type='text' value="+arry[i].value+" name='value' readonly/></td><td width='40%'><textarea class='border-0 text-align-center' name='remark' row='6'>"+arry[i].remark+"</textarea></td></tr>"
-                    }
-                    $(".basicDataSec").html(frag);
-                }
-                else  if(key=="assistantBrandInfo"){
-                    var frag="";
-                    for(var i=0;i<arry.length;i++){
-                        frag+="<tr id="+arry[i].id+" stcode="+arry[i].stcode+"><td><input class='border-0 text-align-center' type='text' value="+arry[i].name+" name='name' readonly/></td></tr>"
-                    }
-                    $(".basicDataSec").html(frag);
-                }
-                else  if(key=="assistantOrderSpaceinfo"){
-                    var frag="";
-                    for(var i=0;i<arry.length;i++){
-                        if(arry[i].parentId==0){
-                            frag+="<tr id="+arry[i].id+" stcode="+arry[i].stcode+" parentId=" + arry[i].parentId + "><td><input class='border-0 text-align-center' type='text' value="+arry[i].name+" name='name' readonly/></td></tr>"
-                        }
-                    }
-                    $(".basicDataSec").html(frag);
-                }
-                else  if(key=="assistantSpaceProd"){
-                    var frag="";
-                    for(var i=0;i<arry.length;i++){
-                        frag+="<tr id="+arry[i].id+" stcode="+arry[i].stcode+"><td><input class='border-0 text-align-center' type='text' value="+arry[i].name+" name='name' readonly/></td><td><input class='border-0 text-align-center' type='text' value="+arry[i].spaceId+" name='spaceId' readonly/></td></tr>"
-                    }
-                    $(".basicDataSec").html(frag);
-                }
-                else  if(key=="assistantResupplyReason"){
-                    var frag="";
-                    for(var i=0;i<arry.length;i++){
-                        if(arry[i].levelType==1){
-                            frag+="<tr id="+arry[i].id+" stcode="+arry[i].stcode+"><td><input class='border-0 text-align-center' type='text' value="+arry[i].name+" name='name' readonly/></td></tr>"
-                        }
-                    }
-                    $(".basicDataSec").html(frag);
-                }
-                else  if(key=="assistantReviewReson"){
-                    var frag="";
-                    for(var i=0;i<arry.length;i++){
-                        frag+="<tr id="+arry[i].id+" stcode="+arry[i].stcode+"><td><input class='border-0 text-align-center' type='text' value="+arry[i].name+" name='name' readonly/></td><td><input class='border-0 text-align-center' type='text' value="+arry[i].reasonType+" name='reasonType' readonly/></tr>"
-                    }
-                    $(".basicDataSec").html(frag);
-                }
-                else  if(key=="assistantTaskseqFileType"){
-                    var frag="";
-                    for(var i=0;i<arry.length;i++){
-                        frag+="<tr id="+arry[i].id+" stcode="+arry[i].stcode+"><td><input class='border-0 text-align-center' type='text' value="+arry[i].type+" name='type' readonly/></td><td><input class='border-0 text-align-center' type='text' value="+arry[i].name+" name='name' readonly/></td><td><input class='border-0 text-align-center' type='text' value="+arry[i].fileExt+" name='fileExt' readonly/></td></tr>"
-                    }
-                    $(".basicDataSec").html(frag);
-                }
-                else  if(key=="assistantOrderFileType"){
-                    var frag="";
-                    for(var i=0;i<arry.length;i++){
-                        frag+="<tr id="+arry[i].id+" stcode="+arry[i].stcode+"><td><input class='border-0 text-align-center' type='text' value="+arry[i].code+" name='code' readonly/></td><td><input class='border-0 text-align-center' type='text' value="+arry[i].name+" name='name' readonly/></td><td><input class='border-0 text-align-center' type='text' value="+arry[i].fileExt+" name='fileExt' readonly/></td></tr>"
-                    }
-                    $(".basicDataSec").html(frag);
-                }
-                else{
-                    var frag="";
-                    for(var i=0;i<arry.length;i++){
-                        frag+="<tr id="+arry[i].id+" stcode="+arry[i].stcode+"><td><input class='border-0 text-align-center' type='text' value="+arry[i].name+" name='name' readonly/></td></tr>"
-                    }
-                    $(".basicDataSec").html(frag);
-                }
-
-                //给禁用项目设置样式
-                $(".basicDataSec").find("tr").each(function(){
-                    if($(this).attr("stcode")=='0'){
-                        $(this).addClass("disable");
-                    }
-                });
-
+                setFrag(key,arry);
             },
             error: function (response) {
                 layer.close(index)
@@ -321,11 +257,93 @@
             }
         });
     }
+    function setFrag(key,arry){
+        if(arry.length==0){
+            $(".basicDataSec").html('<tr><td>暂无数据</td></tr>');
+        }
+        else if(key=="assistantConfig"){
+            var frag="";
+            for(var i=0;i<arry.length;i++){
+                frag+="<tr id="+arry[i].id+" stcode="+arry[i].status+"><td width='30%'><input class='border-0 text-align-center' type='text' value="+arry[i].code+" name='code' readonly/></td><td width='30%'><input class='border-0 text-align-center' type='text' value="+arry[i].value+" name='value' readonly/></td><td width='40%'><textarea class='border-0 text-align-center' name='remark' row='6'>"+arry[i].remark+"</textarea></td></tr>"
+            }
+            $(".basicDataSec").html(frag);
+        }
+        else  if(key=="assistantBrandInfo"){
+            var frag="";
+            for(var i=0;i<arry.length;i++){
+                frag+="<tr id="+arry[i].id+" stcode="+arry[i].stcode+"><td><input class='border-0 text-align-center' type='text' value="+arry[i].name+" name='name' readonly/></td></tr>"
+            }
+            $(".basicDataSec").html(frag);
+        }
+        else  if(key=="assistantOrderSpaceinfo"){
+            var frag="";
+            for(var i=0;i<arry.length;i++){
+                if(arry[i].parentId==0){
+                    frag+="<tr id="+arry[i].id+" stcode="+arry[i].stcode+" parentId=" + arry[i].parentId + "><td><input class='border-0 text-align-center' type='text' value="+arry[i].name+" name='name' readonly/></td></tr>"
+                }
+            }
+            $(".basicDataSec").html(frag);
+        }
+        else  if(key=="assistantSpaceProd"){
+            var frag="";
+            for(var i=0;i<arry.length;i++){
+                frag+="<tr id="+arry[i].id+" stcode="+arry[i].stcode+"><td><input class='border-0 text-align-center' type='text' value="+arry[i].name+" name='name' readonly/></td><td><input class='border-0 text-align-center' type='text' value="+arry[i].spaceId+" name='spaceId' readonly/></td></tr>"
+            }
+            $(".basicDataSec").html(frag);
+        }
+        else  if(key=="assistantResupplyReason"){
+            var frag="";
+            for(var i=0;i<arry.length;i++){
+                if(arry[i].levelType==1){
+                    frag+="<tr id="+arry[i].id+" stcode="+arry[i].stcode+"><td><input class='border-0 text-align-center' type='text' value="+arry[i].name+" name='name' readonly/></td></tr>"
+                }
+            }
+            $(".basicDataSec").html(frag);
+        }
+        else  if(key=="assistantReviewReson"){
+            var frag="";
+            for(var i=0;i<arry.length;i++){
+                frag+="<tr id="+arry[i].id+" stcode="+arry[i].stcode+"><td><input class='border-0 text-align-center' type='text' value="+arry[i].name+" name='name' readonly/></td><td><input class='border-0 text-align-center' type='text' value="+arry[i].reasonType+" name='reasonType' readonly/></tr>"
+            }
+            $(".basicDataSec").html(frag);
+        }
+        else  if(key=="assistantTaskseqFileType"){
+            var frag="";
+            for(var i=0;i<arry.length;i++){
+                frag+="<tr id="+arry[i].id+" stcode="+arry[i].stcode+"><td><input class='border-0 text-align-center' type='text' value="+arry[i].type+" name='type' readonly/></td><td><input class='border-0 text-align-center' type='text' value="+arry[i].name+" name='name' readonly/></td><td><input class='border-0 text-align-center' type='text' value="+arry[i].fileExt+" name='fileExt' readonly/></td></tr>"
+            }
+            $(".basicDataSec").html(frag);
+        }
+        else  if(key=="assistantOrderFileType"){
+            var frag="";
+            for(var i=0;i<arry.length;i++){
+                frag+="<tr id="+arry[i].id+" stcode="+arry[i].stcode+"><td><input class='border-0 text-align-center' type='text' value="+arry[i].code+" name='code' readonly/></td><td><input class='border-0 text-align-center' type='text' value="+arry[i].name+" name='name' readonly/></td><td><input class='border-0 text-align-center' type='text' value="+arry[i].fileExt+" name='fileExt' readonly/></td></tr>"
+            }
+            $(".basicDataSec").html(frag);
+        }
+        else{
+            var frag="";
+            for(var i=0;i<arry.length;i++){
+                frag+="<tr id="+arry[i].id+" stcode="+arry[i].stcode+"><td><input class='border-0 text-align-center' type='text' value="+arry[i].name+" name='name' readonly/></td></tr>"
+            }
+            $(".basicDataSec").html(frag);
+        }
 
+        //给禁用项目设置样式
+        $(".basicDataSec").find("tr").each(function(){
+            if($(this).attr("stcode")=='0'){
+                $(this).addClass("disable display-none");
+            }
+        });
+    }
     function ajaxResupplyReason0ne(parentId) {
         $.ajax({
             url: '/resupplyReason/'+parentId,
             method: 'put',
+            async: true, //异步请求
+            beforeSend: function(){
+                $(".basicDataThree").html('数据正在加载中');
+            },
             success: function (data) {
                 var arry= JSON.parse(data);
                 console.log(arry);
@@ -353,6 +371,10 @@
         $.ajax({
             url: '/resupplyReason/'+parentId,
             method: 'put',
+            async: true, //异步请求
+            beforeSend: function(){
+                $(".basicDataFour").html('数据正在加载中');
+            },
             success: function (data) {
                 var arry= JSON.parse(data);
                 console.log(arry);
@@ -380,6 +402,10 @@
         $.ajax({
             url: '/orderSpaceinfo/'+parentId,
             method: 'put',
+            async: true, //异步请求
+            beforeSend: function(){
+                $(".basicDataThree").html('数据正在加载中');
+            },
             success: function (data) {
                 var arry= JSON.parse(data);
                 console.log(arry);
@@ -408,6 +434,10 @@
         $.ajax({
             url: '/orderSpaceinfoTwo/'+parentId,
             method: 'put',
+            async: true, //异步请求
+            beforeSend: function(){
+                $(".basicDataFour").html('数据正在加载中');
+            },
             success: function (data) {
                 var arry= JSON.parse(data);
                 console.log(arry);
@@ -431,6 +461,7 @@
             }
         });
     }
+
 </script>
 
 <%- include('./index-model'); %>

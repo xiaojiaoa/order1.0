@@ -37,6 +37,20 @@ var SystemController = {
         var key = req.params.key;
         request(Base.mergeRequestOptions({
             method: 'GET',
+            url: '/api/assist/list/enabled?key='+key,
+        }, req, res), function (error, response, body) {
+            if (!error && response.statusCode == 200) {
+                // Base.handlerSuccess(res, req);
+                res.status(200).json(body)
+            } else {
+                Base.handlerError(res, req, error, response, body);
+            }
+        })
+    },
+    keyFirstALLPage: function (req, res) {
+        var key = req.params.key;
+        request(Base.mergeRequestOptions({
+            method: 'GET',
             url: '/api/assist/list?key='+key,
         }, req, res), function (error, response, body) {
             if (!error && response.statusCode == 200) {
