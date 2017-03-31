@@ -169,7 +169,7 @@ var AppServiceController = {
         var ftyId = req.params.ftyId;
         request(Base.mergeRequestOptions({
             method: 'get',
-            url: '/api/whse/app/ftyid',
+            url: '/api/whse/app/ftyid?'+queryString.stringify(req.query),
             headers:req.headers,
         }, req, res), function (error, response, body) {
             if (!error ) {
