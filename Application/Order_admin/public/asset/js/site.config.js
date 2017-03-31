@@ -327,7 +327,7 @@ var DWY_area = {
 
 //工厂-仓库-区域 联动下拉框
 var DWY_fty_region = {
-    area: {},
+    region_diff: {},
 
     getFactoryList: function (callback) {
         $.ajax({
@@ -348,10 +348,10 @@ var DWY_fty_region = {
 
     getWarehouseList: function (id, callback) {
 
-        if (DWY_fty_region.area[id]) {
-            callback ? callback(DWY_fty_region.area[id]) : '';
-            return;
-        }
+        // if (DWY_fty_region.area[id]) {
+        //     callback ? callback(DWY_fty_region.area[id]) : '';
+        //     return;
+        // }
 
         $.ajax({
             url: '/getWarehouseList/'+id,
@@ -359,10 +359,10 @@ var DWY_fty_region = {
             success: function (data) {
                 //console.log(data);
                 data = JSON.parse(data);
-                if (id)
-                    DWY_fty_region.area[id] = data;
-                else
-                    DWY_fty_region.area.factory = data;
+                // if (id)
+                //     DWY_fty_region.area[id] = data;
+                // else
+                //     DWY_fty_region.area.factory = data;
 
                 //有回调执行回调
                 callback ? callback(data) : '';
@@ -371,21 +371,21 @@ var DWY_fty_region = {
     },
     getRegionList: function (id, callback) {
 
-        if (DWY_fty_region.area[id]) {
-            callback ? callback(DWY_fty_region.area[id]) : '';
-            return;
-        }
+        // if (DWY_fty_region.area[id]) {
+        //     callback ? callback(DWY_fty_region.area[id]) : '';
+        //     return;
+        // }
 
         $.ajax({
-            url: '/getRegionList/'+id,
+            url: '/getRegionList/'+id+'?cargoId='+DWY_fty_region.region_diff.cargoId+'&type='+DWY_fty_region.region_diff.type,
             method: "put",
             success: function (data) {
                 //console.log(data);
                 data = JSON.parse(data);
-                if (id)
-                    DWY_fty_region.area[id] = data;
-                else
-                    DWY_fty_region.area.factory = data;
+                // if (id)
+                //     DWY_fty_region.area[id] = data;
+                // else
+                //     DWY_fty_region.area.factory = data;
 
                 //有回调执行回调
                 callback ? callback(data) : '';
@@ -452,8 +452,6 @@ var DWY_fty_region = {
         _config.warehouseValue = _config.warehouseValue || '';
         _config.regionValue = _config.regionValue || '';
 
-        _config.defaultValue = _config.defaultValue || [];
-
         if (!_config.target) {
             console.log('目标不存在!')
         }
@@ -494,6 +492,16 @@ var DWY_fty_region = {
         _config.factory = _config.factory || '.ftyId';
         _config.warehouse = _config.warehouse || '.whseId';
         _config.region = _config.region || '.regionId';
+
+        _config.factoryValue = _config.factoryValue || '';
+        _config.warehouseValue = _config.warehouseValue || '';
+        _config.regionValue = _config.regionValue || '';
+
+        _config.cargoId = _config.cargoId || '';
+        _config.type = _config.type || '';
+
+        DWY_fty_region.region_diff.cargoId = _config.cargoId;
+        DWY_fty_region.region_diff.type = _config.type;
 
         _config.defaultValue = _config.defaultValue || [];
 
@@ -542,7 +550,11 @@ var DWY_fty_region = {
                         }
 
                     }
-                })
+                });
+
+                if(_config.factoryValue){
+                    DWY_fty_region.setFactoryValue(factory,warehouse,region, _config.factoryValue,_config.warehouseValue,_config.regionValue);
+                }
 
 
             });

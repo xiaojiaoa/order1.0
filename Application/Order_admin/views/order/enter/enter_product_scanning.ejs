@@ -43,6 +43,7 @@
                                                    name="tid">
                                         </div>
                                     </div>
+                                    <input name="type" type="hidden" value="<%= DWYRequest.query.type %>">
                                 </div>
                                 <div class="col-xs-3">
                                     <button class="btn btn-primary " type="submit">
@@ -66,7 +67,20 @@
         <div class="well">
 
             <div class="row">
+                <div class="col-xs-12">
+                    <div class="orderItemLayerTit">
+                        <ul class="orderItemMenu">
+                            <a href="/enterProduct/notin?type=1001">
+                                <li class="padding-10 <%= DWYRequest.query.type ==1001 ?'materielBak':'' %>">配件</li>
+                            </a>
+                            <a href="/enterProduct/notin?type=1002">
+                                <li class="padding-10 <%= DWYRequest.query.type ==1002 ?'materielBak':'' %>">工件</li>
+                            </a>
+                        </ul>
 
+                    </div>
+
+                </div>
 
                     <div class="col-xs-12">
                         <div class="table-responsive">
@@ -125,18 +139,15 @@
             </div>
         </div>
         <div class="well" >
-                <form class="search-form form-horizontal" id="opretion">
+                <form class="search-form form-horizontal target" id="opretion">
                     <div class="col-xs-3">
                         <div class="form-group">
                             <label class="col-xs-3 control-label"><span class="requird"></span> 工厂:</label>
                             <div class="col-xs-9">
-                                <select class="form-control validate[required]" name="ftyId" id="ftyId">
-                                    <option value="">- 请选择 -</option>
-                                    <% factoryList.forEach(function (element) { %>
-                                    <option value="<%= element.ftyId %>"  >
-                                        <%= element.name %>
-                                    </option>
-                                    <% }) %>
+                                <select class="form-control ftyId validate[required]" name="ftyId" id="ftyId" hidden
+                                        <% if( !DWY_Helper.hasPermission(Permission.storage.queryAll.id, permission) ){ %> disabled<% } %>
+                                >
+                                    <option value="">- 工厂 -</option>
                                 </select>
                             </div>
                         </div>
@@ -145,8 +156,8 @@
                         <div class="form-group">
                             <label class="col-xs-3 control-label"><span class="requird"></span> 仓库:</label>
                             <div class="col-xs-9">
-                                <select class="form-control validate[required]" name="whseId" id="whseId">
-                                    <option value="">- 请选择 -</option>
+                                <select class="form-control whseId validate[required]" name="whseId" id="whseId">
+                                    <option value="">- 仓库 -</option>
 
                                 </select>
                             </div>
@@ -156,12 +167,14 @@
                         <div class="form-group">
                             <label class="col-xs-3 control-label"><span class="requird"></span> 区域:</label>
                             <div class="col-xs-9">
-                                <select class="form-control validate[required]" name="regionId" id="regionId">
-                                    <option value="">- 请选择 -</option>
+                                <select class="form-control regionId validate[required]" name="regionId" id="regionId">
+                                    <option value="">- 区域 -</option>
                                 </select>
                             </div>
                         </div>
                     </div>
+
+
                     <div class="col-xs-2">
                         <input class="form-control validate[required,custom[number],minSize[6],maxSize[6]]"
                                name="spaceId" placeholder="行列层，6位数字" id="spaceId">
@@ -190,6 +203,18 @@
 
         $("#search-customer").validationEngine();
         $("#opretion").validationEngine();
+
+        DWY_fty_region.init({
+            target: '.target',
+//                factory: '.ftyId',
+//                warehouse: '.whseId',
+//                region: '.regionId',
+            factoryValue: '<%= user.ftyId %>',
+
+            cargoId:1,  //类型，1物料，2包装
+            type:'<%= DWYRequest.query.type %>' ,     //物料时传物料编号， 包装时传工件、配件 id
+        });
+
         var checkedValue = $('#checkedValue');
 
         $("#checkAll").change(function () {
@@ -275,5 +300,4 @@
 
 </script>
 
-<%- include('../cargospace/js_function'); %>
 <%- include('../layouts/foot'); %>

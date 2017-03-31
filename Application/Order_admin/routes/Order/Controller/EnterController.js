@@ -156,6 +156,7 @@ var EnterController = {
                     title: ' ',
                     pid:id,
                     pagination: boostrapPaginator.render(),
+                    Permission :Permissions,
                 }, resultList));
                 console.log('order/enter/stock_enter')
                 res.render('order/enter/stock_enter', returnData);
@@ -305,6 +306,7 @@ var EnterController = {
                 var returnData = Base.mergeData(helper.mergeObject({
                     title: ' ',
                     pagination: boostrapPaginator.render(),
+                    Permission :Permissions,
                 }, resultList));
                 res.render('order/enter/enter_product_scanning', returnData);
             });

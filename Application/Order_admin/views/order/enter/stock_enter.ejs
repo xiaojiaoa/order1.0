@@ -57,7 +57,8 @@
                                 <tbody id="moreAddTR">
                                 <input name="howmuch" value="<%= cargoinList.result.length %>" type="hidden">
                                 <input name="list" value="" type="hidden">
-                                <% if(cargoinList.result.length>0){%>
+                                <% if(cargoinList.result.length>0){
+                                var ifHasPermission = DWY_Helper.hasPermission(Permission.storage.queryAll.id, permission) %>
                                     <% cargoinList.result.forEach(function(element,index){%>
                                         <tr class="cargoinDo" data-index="<%= index %>">
                                             <td><%= index+1 %></td>
@@ -73,7 +74,8 @@
                                             <td><%=element.amount%></td>
                                             <td class="no-padding" id="regionIdArea<%= index %>">
                                                 <div class="target more-space newtarget<%= index %>" data-index="<%= index %>">
-                                                    <select class="form-control ftyId validate[required]" name="ftyId<%= index %>" data-index="<%= index %>">
+                                                    <select class="form-control ftyId validate[required]" name="ftyId<%= index %>" data-index="<%= index %>"
+                                                            <% if ( !ifHasPermission ){ %> disabled<% } %>>
                                                         <option value="">- 工厂 -</option>
                                                     </select>
                                                     <select class="form-control whseId validate[required]" name="whseId<%= index %>" data-index="<%= index %>">
@@ -96,7 +98,7 @@
                                                     <strong>推荐货位</strong>
                                                     <%  element.list.forEach(function (context,num) { %>
                                                     <li data-ftyId="<%=context.ftyId%>" data-whseId="<%=context.whseId%>"
-                                                        data-regionId="<%=context.regionId%>" data-value="<%=context.spaceId%>">
+                                                        data-regionId="<%=context.regionId%>" data-value="<%= context.spaceId.substring(6,12) %>">
                                                         <%=context.spaceId%>(剩余可用 <%=context.amount == -1? '不限':context.amount%> )
                                                     </li>
                                                     <%  }) %>
@@ -168,8 +170,26 @@
     var cargoinList_result = parseInt(<%= cargoinList.result.length %>);
 
     $(document).ready(function () {
+        var cargoinList = <%- JSON.stringify(cargoinList.result) %>;
+        var ifHasPermissionaaa = <%- ifHasPermission %>;
+
+        console.log(ifHasPermissionaaa)
+
         //初始化工厂联动
-        DWY_fty_region.init({});
+        cargoinList.forEach(function (element,index) {
+            DWY_fty_region.init({
+                target: '.newtarget'+index,
+//                factory: '.ftyId',
+//                warehouse: '.whseId',
+//                region: '.regionId',
+                factoryValue: '<%= user.ftyId %>',
+
+                cargoId:1,  //类型，1物料，2包装
+                type:element.mateId ,     //物料时传物料编号， 包装时传工件、配件 id
+            });
+        })
+
+
 
         $("#search-customer").validationEngine({binded:false});//失去焦点时不校验，提交时才校验
         var contentArea = $('#contentArea');
@@ -409,6 +429,7 @@
         $('.add-spaceid').on('click',function () {
             var _self = $(this);
             var index = _self.attr('data-index');
+            var cargoIdType = $("input[name=cargoId"+index+"]").val();
 
             var regionIdHtml = '<div class="target more-space newtarget'+cargoinList_result+'" data-index="'+cargoinList_result+'">'+
                 '<select class="form-control ftyId validate[required]" name="ftyId'+cargoinList_result+'" data-index="'+cargoinList_result+'">'+
@@ -440,7 +461,9 @@
                 target: '.newtarget'+cargoinList_result,
                 factory: '.ftyId',
                 warehouse: '.whseId',
-                region: '.regionId'
+                region: '.regionId',
+                cargoId:1,  //类型，1物料，2包装
+                type:cargoIdType ,     //物料时传物料编号， 包装时传工件、配件 id
             });
             ++cargoinList_result;
 

@@ -60,9 +60,10 @@ var CargospaceController = {
     },
     getRegion: function (req, res) {
         var whseId = req.params.whseId;
+        console.log('/region/list','/api/whse/region/list/'+whseId+'?'+queryString.stringify(req.query))
         request(Base.mergeRequestOptions({
             method: 'GET',
-            url: '/api/whse/region/list/'+whseId,
+            url: '/api/whse/region/list/'+whseId+'?'+queryString.stringify(req.query),
         }, req, res), function (error, response, body) {
             if (!error && response.statusCode == 200) {
                 // Base.handlerSuccess(res, req);
