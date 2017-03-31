@@ -173,7 +173,6 @@ var AppServiceController = {
             headers:req.headers,
         }, req, res), function (error, response, body) {
             if (!error ) {
-               
                 var $data = JSON.parse(body);
                 res.send($data);               
             }else{

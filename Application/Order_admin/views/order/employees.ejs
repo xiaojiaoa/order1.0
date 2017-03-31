@@ -179,18 +179,27 @@
                                 <hr class="simple">
                                 <div class="col-xs-12 text-center">
 
-                                    <% if(type == 'stores'){ %>
+                                    <% if(type == 'organizations'){
+                                        if(DWYRequest.query.bid){
+                                            if(DWYRequest.query.bid == user.bid){ %>
+                                    <a class="btn btn-primary" href="/<%= type %>/employees/create/<%=  bid %>">
+                                        <i class="fa fa-save"></i>
+                                        新增柜员
+                                    </a>
+                                    <% }
+                                        }else{ %>
+                                    <a class="btn btn-primary" href="/<%= type %>/employees/create/<%=  bid %>">
+                                        <i class="fa fa-save"></i>
+                                        新增柜员
+                                    </a>
+                                    <%  }
+
+                                    %>
                                     <!--<a class="btn btn-primary">-->
                                         <!--<i class="fa fa-save"></i>-->
                                         <!--&lt;!&ndash;href="/stores/employees/create/bid"&ndash;&gt;-->
                                         <!--门店可否 新增柜员 未定？？？-->
                                     <!--</a>-->
-
-                                    <%  }else{ %>
-                                    <a class="btn btn-primary" href="/<%= type %>/employees/create/<%=  bid %>">
-                                        <i class="fa fa-save"></i>
-                                        新增柜员
-                                    </a>
 
                                     <%  } %>
 
