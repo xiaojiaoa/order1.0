@@ -217,6 +217,16 @@
                     layer.alert('请选择！', {icon: 3});
                     return false;
                 }
+               var lenCheck =  $('input[name=roles]:checked').length;
+
+                if(lenCheck<=1){
+                    layer.alert('请至少选择两条合并！', {icon: 3})
+                    return false;
+                }
+                if(stcodeStr.indexOf('30')>-1){
+                    layer.alert('已审核订单无法合并！', {icon: 3})
+                    return false;
+                }
                 var tid = checkedValue.attr('class').replace(/[ ]/g,"");
                 tid = tid.substring(0,tid.length-1);
                 layer.confirm('确认合并?',{icon: 3, title:'提示'},
@@ -257,6 +267,18 @@
             $("#purchaseReview").click(function(){
                 if(checkedValue.attr('class')==null||checkedValue.attr('class')=='') {
                     layer.alert('请选择！', {icon: 3})
+                    return false;
+                }
+                if(stcodeStr.indexOf('30')>-1){
+                    layer.alert('该订单已审核！', {icon: 3})
+                    return false;
+                }
+                if(stcodeStr.indexOf('50')>-1){
+                    layer.alert('该订单已提交！', {icon: 3})
+                    return false;
+                }
+                if(stcodeStr.indexOf('70')>-1){
+                    layer.alert('该订单已入库！', {icon: 3})
                     return false;
                 }
                 var tid = checkedValue.attr('class').replace(/[ ]/g,"");
@@ -306,6 +328,14 @@
                 }
                 if(stcodeStr.indexOf('10')>-1){
                     layer.alert('请先审核！', {icon: 3})
+                    return false;
+                }
+                if(stcodeStr.indexOf('50')>-1){
+                    layer.alert('该订单已提交！', {icon: 3})
+                    return false;
+                }
+                if(stcodeStr.indexOf('70')>-1){
+                    layer.alert('该订单已入库！', {icon: 3})
                     return false;
                 }
                 var tid = checkedValue.attr('class').replace(/[ ]/g,"");

@@ -148,7 +148,7 @@
                             purchasesList.result.forEach(function (element, index) { %>
                             <tr>
                                 <td width="50px"><%= index+1 %></td>
-                                <td><a href="/purchase/applyDetail/<%= element.id %>"><%= element.id %></a></td>
+                                <td><a href="/purchase/applyDetail/<%= element.id %>" class="purId"><%= element.id %></a></td>
                                 <td><%= element.addEmpName %></td>
                                 <td><%= element.addDeptName %></td>
                                 <td><%= DWY_Helper.getLocalDate(element.addTime) %></td>
@@ -161,7 +161,7 @@
                                     <button class="label label-primary PurchaseOrder" data-purchase-id="<%= element.id %>">生成采购单</button>
                                     <% } %>
                                     <% if(element.stcode == 10 ){ %>
-                                    <button class="label label-primary purchaseReview" data-purchase-id="<%= element.id %>">审核</button>
+                                    <button class="label label-primary purchaseReview" data-stcode="<%= element.stcode %>" data-purchase-id="<%= element.id %>">审核</button>
                                     <% } %>
                                     <% if(element.stcode == 50 ){ %>
                                     <button class="label label-success">已生成</button>
@@ -190,6 +190,13 @@
         pageSetUp();
         $(".fg-date-time-picker").flatpickr(data_time_picker.data_time_picker); // jQuery
 
+        $('.purId').click(function(){
+            var stcode = $(this).parents('td').siblings().find('.purchaseReview').data('stcode');
+            if(stcode==10){
+                layer.alert('请先审核！', {icon: 3})
+                return false;
+            }
+        })
         $(".PurchaseOrder").click(function(){
             var tid=$(this).data('purchaseId');
             layer.confirm('确认生成采购单?',{icon: 3, title:'提示'},
