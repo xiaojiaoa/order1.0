@@ -123,7 +123,7 @@
                                 <th>类型</th>
                                 <th>说明</th>
                                 <th>增加时间</th>
-                                <th width="100">操作</th>
+                                <!--<th width="100">操作</th>-->
                             </tr>
                             </thead>
                             <tbody>
@@ -139,12 +139,12 @@
                                 <td><%= element.typeName %></td>
                                 <td><%= element.describe %></td>
                                 <td><%= DWY_Helper.getLocalDate(element.addTime) %></td>
-                                <td width="100">
-                                    <% if(element.type == 3){  %>
-                                    <a class="label label-primary checkThis" data-tid="<%=element.tid %>" data-bid="<%=element.bid %>">收款</a>
-                                    <% } %>
+                                <!--<td width="100">-->
+                                    <!--<% if(element.type == 3){  %>-->
+                                    <!--<a class="label label-primary checkThis" data-tid="<%=element.tid %>" data-bid="<%=element.bid %>">收款</a>-->
+                                    <!--<% } %>-->
 
-                                </td>
+                                <!--</td>-->
                             </tr>
                             <% })
                             }else{ %>
