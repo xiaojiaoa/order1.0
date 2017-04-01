@@ -932,6 +932,7 @@ var OrderController = {
         var pid=req.query.packageLid;
         Base.multiDataRequest(req, res, [
             {url: '/api/orders/package/pcaketview/'+tid+"?"+(queryString.stringify(req.query)), method: 'GET', resConfig: {keyName: 'packedListDetail', is_must: true}},
+            {url: '/api/assist/package/types', method: 'GET', resConfig: {keyName: 'packageTypeList', is_must: true}},
         ], function (req, res, resultList) {
             var returnData = Base.mergeData(helper.mergeObject({
                 title: ' ',
@@ -1036,7 +1037,7 @@ var OrderController = {
     addPacket: function (req, res) {
         var tid = req.body.tid;
         var pid=req.body.pid
-        //console.log("增加包装"+queryString.stringify(req.body));
+        console.log("增加包装"+queryString.stringify(req.body));
         request(Base.mergeRequestOptions({
             method: 'post',
             url: '/api/orders/package/packet/add/'+tid,
