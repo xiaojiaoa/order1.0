@@ -169,7 +169,7 @@
                     <label class="col-xs-4 control-label" id="whiceName"><span class="requird"></span> 标题:</label>
                     <div class="col-xs-8">
                         <input class="form-control validate[required]"
-                               value="" name="title" id="">
+                               value="<%= DWY_last_request_param.title %>" name="title" id="">
                     </div>
                 </div>
             </div>
@@ -244,7 +244,9 @@
                 <div class="form-group">
                     <label class="col-xs-2 control-label"><span class="requird"></span> 内容:</label>
                     <div class="col-xs-10">
-                        <textarea rows="10" cols="30" class="form-control validate[required]" name="content" id="content"></textarea>
+                        <textarea rows="10" cols="30" class="form-control validate[required]" name="content" id="content">
+                            <%= DWY_last_request_param.content %>
+                        </textarea>
                     </div>
                 </div>
             </div>
