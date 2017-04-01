@@ -66,7 +66,7 @@ var MaterialController = {
             {url: '/api/purchases/mate?bid='+bid+"&mateId="+mid, method: 'GET', resConfig: {keyName: 'purchasesMateList', is_must: true}},
             {url: '/api/whse/cargospace?mateId='+mid+"&isAll=1&bid=9001", method: 'GET', resConfig: {keyName: 'whseCargospaceList', is_must: true}},
             {url: '/api/assist/stock/reasonTypes', method: 'GET', resConfig: {keyName: 'stockReasonTypes', is_must: true}},
-            {url: '/api/materials/stockOperation/page?pageSize=6&mateId'+mid, method: 'GET', resConfig: {keyName: 'stockOperationList', is_must: true}},
+            {url: '/api/materials/stockOperation/page?pageSize=6&mateId='+mid, method: 'GET', resConfig: {keyName: 'stockOperationList', is_must: true}},
         ], function (req, res, resultList) {
             var returnData = Base.mergeData(helper.mergeObject({
                 title: ' ',
