@@ -126,6 +126,7 @@
                                        data-distCode="<%= element.address %>"
                                     >分配店铺</a>
                                     <% } %>
+
                                     <% if (DWY_Helper.hasPermission(Permission.network.delete.id, permission)&& element.stcode==1 ){ %>
                                     <a class="label label-danger closeThis" data-id="<%= element.id %>">置为无效</a>
                                     <% } %>

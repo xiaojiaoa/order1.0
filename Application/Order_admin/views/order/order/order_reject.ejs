@@ -78,35 +78,35 @@
     <div class="dwy-clear"></div>
 </form>
 
-<form class="form-horizontal  layer-template" method="post" id="order_income"  action="/collection/receiptCheck">
-    <div class="col-xs-12">
+<!--<form class="form-horizontal  layer-template" method="post" id="order_income"  action="/collection/receiptCheck">-->
+    <!--<div class="col-xs-12">-->
 
-        <div class="form-group">
-            <label class="col-xs-2 control-label"><span class="requird"></span> 类型:</label>
-            <div class="col-xs-8">
-                <select class="form-control" name="moneyType" >
-                    <option value="1">待收款</option>
-                    <option value="2">已收款</option>
-                </select>
-            </div>
+        <!--<div class="form-group">-->
+            <!--<label class="col-xs-2 control-label"><span class="requird"></span> 类型:</label>-->
+            <!--<div class="col-xs-8">-->
+                <!--<select class="form-control" name="moneyType" >-->
+                    <!--<option value="1">待收款</option>-->
+                    <!--<option value="2">已收款</option>-->
+                <!--</select>-->
+            <!--</div>-->
 
-        </div>
+        <!--</div>-->
 
-    </div>
-    <input value="<%= tid %>" name="tid" id="tid" type="hidden">
-    <input value="<%= orderInfo.bid %>" name="bid" id="bid" type="hidden">
-    <input value="1" name="status" type="hidden">
+    <!--</div>-->
+    <!--<input value="<%= tid %>" name="tid" id="tid" type="hidden">-->
+    <!--<input value="<%= orderInfo.bid %>" name="bid" id="bid" type="hidden">-->
+    <!--<input value="1" name="status" type="hidden">-->
 
-    <div class="col-xs-12">
-        <hr class="simple">
-        <div class="col-xs-12 text-center">
-            <button class="btn btn-primary " type="submit">
-                确定
-            </button>
-        </div>
-    </div>
-    <div class="dwy-clear"></div>
-</form>
+    <!--<div class="col-xs-12">-->
+        <!--<hr class="simple">-->
+        <!--<div class="col-xs-12 text-center">-->
+            <!--<button class="btn btn-primary " type="submit">-->
+                <!--确定-->
+            <!--</button>-->
+        <!--</div>-->
+    <!--</div>-->
+    <!--<div class="dwy-clear"></div>-->
+<!--</form>-->
 
 <script type="text/javascript">
 
@@ -131,19 +131,19 @@
         })
 
 
-        $(".doInCome").click(function () {
-            layer.open({
-                title: false,
-                type: 1,
-                area: '500px',
-                content: $('#order_income'),
-                cancel: function () {
-                    //右上角关闭回调
-                },
-
-            });
-
-        })
+//        $(".doInCome").click(function () {
+//            layer.open({
+//                title: false,
+//                type: 1,
+//                area: '500px',
+//                content: $('#order_income'),
+//                cancel: function () {
+//                    //右上角关闭回调
+//                },
+//
+//            });
+//
+//        })
 
 
     })

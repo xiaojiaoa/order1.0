@@ -120,10 +120,10 @@
                                 <th>所属机构</th>
                                 <th>所属门店</th>
                                 <th>金额（元）</th>
-                                <th>类型</th>
-                                <th>说明</th>
+                                <!--<th>类型</th>-->
+                                <!--<th>说明</th>-->
                                 <th>增加时间</th>
-                                <!--<th width="100">操作</th>-->
+                                <th width="100">操作</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -136,15 +136,15 @@
                                 <td><%= element.orgName %></td>
                                 <td><%= element.storeName %></td>
                                 <td><%= element.direction ==1?'+':'-' %><%= element.money %></td>
-                                <td><%= element.typeName %></td>
-                                <td><%= element.describe %></td>
+                                <!--<td>element.typeName</td>-->
+                                <!--<td><element.describe</td>-->
                                 <td><%= DWY_Helper.getLocalDate(element.addTime) %></td>
-                                <!--<td width="100">-->
+                                <td width="100">
                                     <!--<% if(element.type == 3){  %>-->
-                                    <!--<a class="label label-primary checkThis" data-tid="<%=element.tid %>" data-bid="<%=element.bid %>">收款</a>-->
+                                    <!---->
                                     <!--<% } %>-->
-
-                                <!--</td>-->
+                                    <a class="label label-primary checkThis" data-tid="<%=element.tid %>" data-bid="<%=element.bid %>">收款</a>
+                                </td>
                             </tr>
                             <% })
                             }else{ %>
@@ -175,8 +175,8 @@
             <label class="col-xs-2 control-label"><span class="requird"></span> 类型:</label>
             <div class="col-xs-8">
                 <select class="form-control" name="moneyType" >
-                    <option value="1">待收款</option>
-                    <option value="2">已收款</option>
+                    <option value="3">已收款</option>
+                    <option value="4">待收款</option>
                 </select>
             </div>
 
@@ -203,23 +203,23 @@
 
     $(document).ready(function () {
         $('#search-form').validationEngine();
-//        $(".checkThis").click(function () {
-//            var tid = $(this).attr('data-tid');
-//            var bid = $(this).attr('data-bid');
-//            $('#tid').val(tid);
-//            $('#bid').val(bid);
-//            layer.open({
-//                title: false,
-//                type: 1,
-//                area: '500px',
-//                content: $('#order_reject'),
-//                cancel: function () {
-//                    //右上角关闭回调
-//                },
-//
-//            });
-//
-//        })
+        $(".checkThis").click(function () {
+            var tid = $(this).attr('data-tid');
+            var bid = $(this).attr('data-bid');
+            $('#tid').val(tid);
+            $('#bid').val(bid);
+            layer.open({
+                title: false,
+                type: 1,
+                area: '500px',
+                content: $('#order_reject'),
+                cancel: function () {
+                    //右上角关闭回调
+                },
+
+            });
+
+        })
 
 
 
