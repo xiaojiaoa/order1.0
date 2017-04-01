@@ -121,6 +121,9 @@
                                        data-realAddress="<%= element.realAddress %>"
                                        data-custMobile="<%= element.custMobile %>"
                                        data-custName="<%= element.custName %>"
+                                       data-provinceCode="<%= element.provinceCode %>"
+                                       data-cityCode="<%= element.cityCode %>"
+                                       data-distCode="<%= element.address %>"
                                     >分配店铺</a>
                                     <% } %>
                                     <% if (DWY_Helper.hasPermission(Permission.network.delete.id, permission)&& element.stcode==1 ){ %>
@@ -231,6 +234,9 @@
                     </div>
                 </div>
             </div>
+            <input value="" id="provinceCode" name="provinceCode" type="hidden">
+            <input value="" id="cityCode" name="cityCode" type="hidden">
+            <input value="" id="distCode" name="distCode" type="hidden">
             <div class="col-xs-6">
                 <div class="form-group">
                     <label class="col-xs-4 control-label">客户手机号:</label>
@@ -386,9 +392,15 @@
                 var realAddress = $(this).attr('data-realAddress');
                 var custMobile = $(this).attr('data-custMobile');
                 var custName = $(this).attr('data-custName');
+                var provinceCode = $(this).attr('data-provinceCode');
+                var cityCode = $(this).attr('data-cityCode');
+                var distCode = $(this).attr('data-distCode');
                 $('#ebisId').val(ebisId)
                 $('#custName').val(custName)
                 $('#custMobile').val(custMobile)
+                $('#provinceCode').val(provinceCode)
+                $('#cityCode').val(cityCode)
+                $('#distCode').val(distCode)
                 $('#realAddress').text(realAddress);
                 $.ajax({
                     url: '/measure/'+custMobile,
