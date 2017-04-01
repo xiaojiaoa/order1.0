@@ -142,12 +142,119 @@
 
 </div>
 <!-- END MAIN PANEL -->
+<!--新建分包类型-->
+<form class="form-horizontal  layer-template" method="post" id="create-subPackageDao-form" action="/system/doCreate">
 
+    <div class="row" style="padding-top: 30px;">
+
+        <div class="col-xs-12">
+            <div class="col-xs-8">
+                <div class="form-group">
+                    <label class="col-xs-4 control-label"><span class="requird"></span>分包类型:</label>
+                    <div class="col-xs-8">
+                        <select class="form-control validate[required]" name="code" id="" >
+                            <option value="">- 请选择 -</option>
+                            <option value="1003">导轨</option>
+                            <option value="1004">趟门</option>
+                            <option value="1005">功能部件</option>
+                            <option value="1006">背面板件</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="col-xs-8">
+                <div class="form-group">
+                    <label class="col-xs-4 control-label" ><span class="requird"></span> 输入值:</label>
+                    <div class="col-xs-8">
+                        <input class="form-control validate[required]" value="" name="name" id="">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+  <input type="hidden" name="key" value="subPackageDao"/>
+    <div class="row">
+        <div class="col-xs-12">
+            <hr class="simple">
+            <div class="col-xs-12 text-center">
+                <button  class="btn btn-primary  margin-right-5" type="submit">
+                    <i class="fa fa-save"></i>
+                    提交
+                </button>
+            </div>
+        </div>
+    </div>
+    <div class="dwy-clear"></div>
+</form>
+<!--END 新建分包类型-->
+<!--修改分包类型-->
+<form class="form-horizontal  layer-template" method="post" id="modify-subPackageDao-form" action="/system/doModify">
+
+    <div class="row" style="padding-top: 30px;">
+
+        <div class="col-xs-12">
+            <div class="col-xs-8">
+                <div class="form-group">
+                    <label class="col-xs-4 control-label"><span class="requird"></span>分包类型:</label>
+                    <div class="col-xs-8">
+                        <select class="form-control validate[required]" name="code" id="subPackageDaoCode" >
+                            <option value="">- 请选择 -</option>
+                            <option value="1003">导轨</option>
+                            <option value="1004">趟门</option>
+                            <option value="1005">功能部件</option>
+                            <option value="1006">背面板件</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="col-xs-8">
+                <div class="form-group">
+                    <label class="col-xs-4 control-label" ><span class="requird"></span> 输入值:</label>
+                    <div class="col-xs-8">
+                        <input class="form-control validate[required]" value="" name="name" id="subPackageDaoName">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <input type="hidden" name="key" value="subPackageDao"/>
+    <input type="hidden" name="id" value="" id="subPackageDaoId"/>
+    <div class="row">
+        <div class="col-xs-12">
+            <hr class="simple">
+            <div class="col-xs-12 text-center">
+                <button  class="btn btn-primary  margin-right-5" type="submit">
+                    <i class="fa fa-save"></i>
+                    提交
+                </button>
+            </div>
+        </div>
+    </div>
+    <div class="dwy-clear"></div>
+</form>
+<!--END 修改分包类型-->
 <%- include('../layouts/footer'); %>
 <%- include('../layouts/footer_common_script'); %>
 <script type="text/javascript">
 
     $(document).ready(function () {
+
+        //表单初始验证
+        $("#create-subPackageDao-form").validationEngine();
+        $("#modify-subPackageDao-form").validationEngine();
+
 
         //点击basicDataFirst--左边第一栏的tr时
         $(".basicDataFirst>tbody>tr").click(function(){
@@ -266,14 +373,20 @@
         else if(key=="assistantConfig"){
             var frag="";
             for(var i=0;i<arry.length;i++){
-                frag+="<tr id="+arry[i].id+" stcode="+arry[i].status+"><td width='30%'><input class='border-0 text-align-center' type='text' value="+arry[i].code+" name='code' readonly/></td><td width='30%'><input class='border-0 text-align-center' type='text' value="+arry[i].value+" name='value' readonly/></td><td width='40%'><textarea class='border-0 text-align-center' name='remark' row='6'>"+arry[i].remark+"</textarea></td></tr>"
+                frag+="<tr id=" +arry[i].id+" stcode="+arry[i].status+">" +
+                    "<td width='30%'><input class='border-0 text-align-center' type='text' value="+arry[i].code+" name='code' readonly/></td>" +
+                    "<td width='30%'><input class='border-0 text-align-center' type='text' value="+arry[i].value+" name='value' readonly/></td>" +
+                    "<td width='40%'><textarea class='border-0 text-align-center' name='remark' row='6'>"+arry[i].remark+"</textarea></td>" +
+                    "</tr>"
             }
             $(".basicDataSec").html(frag);
         }
         else  if(key=="assistantBrandInfo"){
             var frag="";
             for(var i=0;i<arry.length;i++){
-                frag+="<tr id="+arry[i].id+" stcode="+arry[i].stcode+"><td><input class='border-0 text-align-center' type='text' value="+arry[i].name+" name='name' readonly/></td></tr>"
+                frag+="<tr id="+arry[i].id+" stcode="+arry[i].stcode+">" +
+                    "<td><input class='border-0 text-align-center' type='text' value="+arry[i].name+" name='name' readonly/></td>" +
+                    "</tr>"
             }
             $(".basicDataSec").html(frag);
         }
@@ -281,7 +394,9 @@
             var frag="";
             for(var i=0;i<arry.length;i++){
                 if(arry[i].parentId==0){
-                    frag+="<tr id="+arry[i].id+" stcode="+arry[i].stcode+" parentId=" + arry[i].parentId + "><td><input class='border-0 text-align-center' type='text' value="+arry[i].name+" name='name' readonly/></td></tr>"
+                    frag+="<tr id="+arry[i].id+" stcode="+arry[i].stcode+" parentId=" + arry[i].parentId + ">" +
+                        "<td><input class='border-0 text-align-center' type='text' value="+arry[i].name+" name='name' readonly/></td>" +
+                        "</tr>"
                 }
             }
             $(".basicDataSec").html(frag);
@@ -289,7 +404,10 @@
         else  if(key=="assistantSpaceProd"){
             var frag="";
             for(var i=0;i<arry.length;i++){
-                frag+="<tr id="+arry[i].id+" stcode="+arry[i].stcode+"><td><input class='border-0 text-align-center' type='text' value="+arry[i].name+" name='name' readonly/></td><td><input class='border-0 text-align-center' type='text' value="+arry[i].spaceId+" name='spaceId' readonly/></td></tr>"
+                frag+="<tr id="+arry[i].id+" stcode="+arry[i].stcode+">" +
+                    "<td><input class='border-0 text-align-center' type='text' value="+arry[i].name+" name='name' readonly/></td>" +
+                    "<td><input class='border-0 text-align-center' type='text' value="+arry[i].spaceId+" name='spaceId' readonly/></td>" +
+                    "</tr>"
             }
             $(".basicDataSec").html(frag);
         }
@@ -297,7 +415,9 @@
             var frag="";
             for(var i=0;i<arry.length;i++){
                 if(arry[i].levelType==1){
-                    frag+="<tr id="+arry[i].id+" stcode="+arry[i].stcode+"><td><input class='border-0 text-align-center' type='text' value="+arry[i].name+" name='name' readonly/></td></tr>"
+                    frag+="<tr id="+arry[i].id+" stcode="+arry[i].stcode+">" +
+                        "<td><input class='border-0 text-align-center' type='text' value="+arry[i].name+" name='name' readonly/></td>" +
+                        "</tr>"
                 }
             }
             $(".basicDataSec").html(frag);
@@ -305,28 +425,50 @@
         else  if(key=="assistantReviewReson"){
             var frag="";
             for(var i=0;i<arry.length;i++){
-                frag+="<tr id="+arry[i].id+" stcode="+arry[i].stcode+"><td><input class='border-0 text-align-center' type='text' value="+arry[i].name+" name='name' readonly/></td><td><input class='border-0 text-align-center' type='text' value="+arry[i].reasonType+" name='reasonType' readonly/></tr>"
+                frag+="<tr id="+arry[i].id+" stcode="+arry[i].stcode+">" +
+                    "<td><input class='border-0 text-align-center' type='text' value="+arry[i].name+" name='name' readonly/></td>" +
+                    "<td><input class='border-0 text-align-center' type='text' value="+arry[i].reasonType+" name='reasonType' readonly/>" +
+                    "</tr>"
             }
             $(".basicDataSec").html(frag);
         }
         else  if(key=="assistantTaskseqFileType"){
             var frag="";
             for(var i=0;i<arry.length;i++){
-                frag+="<tr id="+arry[i].id+" stcode="+arry[i].stcode+"><td><input class='border-0 text-align-center' type='text' value="+arry[i].type+" name='type' readonly/></td><td><input class='border-0 text-align-center' type='text' value="+arry[i].name+" name='name' readonly/></td><td><input class='border-0 text-align-center' type='text' value="+arry[i].fileExt+" name='fileExt' readonly/></td></tr>"
+                frag+="<tr id="+arry[i].id+" stcode="+arry[i].stcode+">" +
+                    "<td><input class='border-0 text-align-center' type='text' value="+arry[i].type+" name='type' readonly/></td>" +
+                    "<td><input class='border-0 text-align-center' type='text' value="+arry[i].name+" name='name' readonly/>" +
+                    "</td><td><input class='border-0 text-align-center' type='text' value="+arry[i].fileExt+" name='fileExt' readonly/></td>" +
+                    "</tr>"
             }
             $(".basicDataSec").html(frag);
         }
         else  if(key=="assistantOrderFileType"){
             var frag="";
             for(var i=0;i<arry.length;i++){
-                frag+="<tr id="+arry[i].id+" stcode="+arry[i].stcode+"><td><input class='border-0 text-align-center' type='text' value="+arry[i].code+" name='code' readonly/></td><td><input class='border-0 text-align-center' type='text' value="+arry[i].name+" name='name' readonly/></td><td><input class='border-0 text-align-center' type='text' value="+arry[i].fileExt+" name='fileExt' readonly/></td></tr>"
+                frag+="<tr id="+arry[i].id+" stcode="+arry[i].stcode+">" +
+                    "<td><input class='border-0 text-align-center' type='text' value="+arry[i].code+" name='code' readonly/></td>" +
+                    "<td><input class='border-0 text-align-center' type='text' value="+arry[i].name+" name='name' readonly/></td>" +
+                    "<td><input class='border-0 text-align-center' type='text' value="+arry[i].fileExt+" name='fileExt' readonly/></td>" +
+                    "</tr>"
+            }
+            $(".basicDataSec").html(frag);
+        }
+        else if(key=="subPackageDao"){
+            for(var i=0;i<arry.length;i++){
+                frag+="<tr id="+arry[i].id+" stcode="+arry[i].stcode+" code="+arry[i].code+">" +
+                    "<td><input class='border-0 text-align-center' type='text' value="+arry[i].type+" name='type' readonly/></td>" +
+                    "<td><input class='border-0 text-align-center' type='text' value="+arry[i].name+" name='name' readonly/></td>" +
+                    "</tr>"
             }
             $(".basicDataSec").html(frag);
         }
         else{
             var frag="";
             for(var i=0;i<arry.length;i++){
-                frag+="<tr id="+arry[i].id+" stcode="+arry[i].stcode+"><td><input class='border-0 text-align-center' type='text' value="+arry[i].name+" name='name' readonly/></td></tr>"
+                frag+="<tr id="+arry[i].id+" stcode="+arry[i].stcode+">" +
+                    "<td><input class='border-0 text-align-center' type='text' value="+arry[i].name+" name='name' readonly/></td>" +
+                    "</tr>"
             }
             $(".basicDataSec").html(frag);
         }
@@ -351,7 +493,9 @@
                 console.log(arry);
                 var frag = "";
                 for (var i = 0; i < arry.length; i++) {
-                    frag += "<tr id=" + arry[i].id + " stcode=" + arry[i].stcode + "  parentId=" + arry[i].parentId + "><td><input class='border-0 text-align-center' type='text' value=" + arry[i].name + " name='name' readonly/></td></tr>"
+                    frag += "<tr id=" + arry[i].id + " stcode=" + arry[i].stcode + "  parentId=" + arry[i].parentId + ">" +
+                        "<td><input class='border-0 text-align-center' type='text' value=" + arry[i].name + " name='name' readonly/></td>" +
+                        "</tr>"
                 }
                 $(".basicDataThree").html(frag);
 
@@ -382,7 +526,9 @@
                 console.log(arry);
                 var frag = "";
                 for (var i = 0; i < arry.length; i++) {
-                    frag += "<tr id=" + arry[i].id + " stcode=" + arry[i].stcode + "  parentId=" + arry[i].parentId + "><td><input class='border-0 text-align-center' type='text' value=" + arry[i].name + " name='name' readonly/></td></tr>"
+                    frag += "<tr id=" + arry[i].id + " stcode=" + arry[i].stcode + "  parentId=" + arry[i].parentId + ">" +
+                        "<td><input class='border-0 text-align-center' type='text' value=" + arry[i].name + " name='name' readonly/></td>" +
+                        "</tr>"
                 }
                 $(".basicDataFour").html(frag);
 
@@ -414,7 +560,9 @@
 
                 var frag = "";
                 for (var i = 0; i < arry.length; i++) {
-                    frag += "<tr id=" + arry[i].id + " stcode=" + arry[i].stcode + " parentId=" + arry[i].parentId + "><td><input class='border-0 text-align-center' type='text' value=" + arry[i].name + " name='name' readonly/></td></tr>"
+                    frag += "<tr id=" + arry[i].id + " stcode=" + arry[i].stcode + " parentId=" + arry[i].parentId + ">" +
+                        "<td><input class='border-0 text-align-center' type='text' value=" + arry[i].name + " name='name' readonly/></td>" +
+                        "</tr>"
                 }
                 $(".basicDataThree").html(frag);
 
@@ -445,7 +593,9 @@
                 console.log(arry);
                 var frag = "";
                 for (var i = 0; i < arry.length; i++) {
-                    frag += "<tr id=" + arry[i].id + " stcode=" + arry[i].stcode + "  parentId=" + arry[i].parentId + "><td><input class='border-0 text-align-center' type='text' value=" + arry[i].name + " name='name' readonly/></td></tr>"
+                    frag += "<tr id=" + arry[i].id + " stcode=" + arry[i].stcode + "  parentId=" + arry[i].parentId + ">" +
+                        "<td><input class='border-0 text-align-center' type='text' value=" + arry[i].name + " name='name' readonly/></td>" +
+                        "</tr>"
                 }
                 $(".basicDataFour").html(frag);
 

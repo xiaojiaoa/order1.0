@@ -22,198 +22,237 @@
 
             //点击"新建"
             if (e.target == $('.'+level+" .create")[0]) {
+               if(key=='subPackageDao'){
+                   status02(classDom);
+                   $(".desktop-detected *").css("pointer-events","auto");
+                   layer.open({
+                       title: false,
+                       type: 1,
+                       area: '700px',
+                       content: $('#create-subPackageDao-form'),
+                       cancel: function () {
+                           //右上角关闭回调
+                       },
 
-                classDom.find("tbody").append(creFrag(key)).find("input").focus();
-                //给input添加focus事件
-               // classDom.find("input").focus();
+                   });
+               }
+               else{
+                   classDom.find("tbody").append(creFrag(key)).find("input").focus();
+                   //给input添加focus事件
+                   // classDom.find("input").focus();
 
-                //启用'保存''撤销''输入框'的点击事件
-                classDom.find(".save,.revoke,.add-input").css("pointer-events","auto");
+                   //启用'保存''撤销''输入框'的点击事件
+                   classDom.find(".save,.revoke,.add-input").css("pointer-events","auto");
 
-                //保存
-                $(".save").on("click",function(){
-                    //设置data
-                    var data={};
-                    classDom.find("input").each(function(){
-                        if(!$(this).attr("readonly")){
-                            data[$(this).attr("name")]=$(this).val();
-                        }
-                    });
-                    console.log(data);
-                    delete data.undefined;
+                   //保存
+                   $(".save").on("click",function(){
+                       //设置data
+                       var data={};
+                       classDom.find("input").each(function(){
+                           if(!$(this).attr("readonly")){
+                               data[$(this).attr("name")]=$(this).val();
+                           }
+                       });
+                       console.log(data);
+                       delete data.undefined;
 
-                    var spaceId=classDom.find("input[name=spaceId]").val();
-                    console.log("spaceId"+spaceId);
-                    if(key=="assistantOrderSpaceinfo"){
-                        if(!data.key){
-                            if(spaceId==""){
-                                data.key="assistantSpaceProd";
-                                data.spaceId=$(".level-3").$("input[name=spaceId]").val();
-                                console.log(11111);
-                            }
-                            else{
-                                data.key="assistantOrderSpaceinfo";
-                                data.parentId=$(".level-2").$("input[name=parentId]").val();
-                            }
-                        }
-                        else{
-                            data.parentId=0
-                        }
-                    }
+                       var spaceId=classDom.find("input[name=spaceId]").val();
+                       console.log("spaceId"+spaceId);
+                       if(key=="assistantOrderSpaceinfo"){
+                           if(!data.key){
+                               if(spaceId==""){
+                                   data.key="assistantSpaceProd";
+                                   data.spaceId=$(".level-3").$("input[name=spaceId]").val();
+                                   console.log(11111);
+                               }
+                               else{
+                                   data.key="assistantOrderSpaceinfo";
+                                   data.parentId=$(".level-2").$("input[name=parentId]").val();
+                               }
+                           }
+                           else{
+                               data.parentId=0
+                           }
+                       }
 
-                    if(key=="assistantResupplyReason"){
-                        data.key="assistantResupplyReason";
-                        console.log(level);
-                        if(level=="level-1"){
-                            data.levelType=1
-                            data.parentId=0
-                        }
-                        if(level=="level-2"){
-                            data.levelType=2
-                            data.parentId=$(".level-2").$("input[name=parentId]").val();
-                        }
-                        if(level=="level-3"){
-                            data.levelType=3
-                            data.parentId=$(".level-3").$("input[name=parentId]").val();
-                        }
-                    }
-                    console.log("这个是data"+JSON.stringify(data));
-                    //ajax提交
-                    $.ajax({
-                        url: '/system/doCreate',
-                        data:data,
-                        method: 'post',
-                        success: function (data) {
-                          setTimeout(function(){
-                              ajaxFuncOne(key);
+                       if(key=="assistantResupplyReason"){
+                           data.key="assistantResupplyReason";
+                           console.log(level);
+                           if(level=="level-1"){
+                               data.levelType=1
+                               data.parentId=0
+                           }
+                           if(level=="level-2"){
+                               data.levelType=2
+                               data.parentId=$(".level-2").$("input[name=parentId]").val();
+                           }
+                           if(level=="level-3"){
+                               data.levelType=3
+                               data.parentId=$(".level-3").$("input[name=parentId]").val();
+                           }
+                       }
+                       console.log("这个是data"+JSON.stringify(data));
+                       //ajax提交
+                       $.ajax({
+                           url: '/system/doCreate',
+                           data:data,
+                           method: 'post',
+                           success: function (data) {
+                               setTimeout(function(){
+                                   ajaxFuncOne(key);
 
-                              status02(classDom);
-                              //启用所有的点击事件
-                              $(".desktop-detected *").css("pointer-events","auto");},500);
-                        },
-                      error: function (response) {
-                       layer.close(index)
-                       errorLayout.normal(response);
-                  }
-                    });
+                                   status02(classDom);
+                                   //启用所有的点击事件
+                                   $(".desktop-detected *").css("pointer-events","auto");},500);
+                           },
+                           error: function (response) {
+                               layer.close(index)
+                               errorLayout.normal(response);
+                           }
+                       });
 
-                });
+                   });
 
-                //撤销
-                $(".revoke").on("click",function(){
-                    classDom.find(".add-input").remove();
+                   //撤销
+                   $(".revoke").on("click",function(){
+                       classDom.find(".add-input").remove();
 
-                    status02(classDom);
-                    //启用所有的点击事件
-                    $(".desktop-detected *").css("pointer-events","auto");
-                });
+                       status02(classDom);
+                       //启用所有的点击事件
+                       $(".desktop-detected *").css("pointer-events","auto");
+                   });
+               }
+
             }
 
             //点击"修改"
             if (e.target == $('.'+level+" .modify")[0]) {
+                if(key=='subPackageDao'){
+                    status02(classDom);
+                    $(".desktop-detected *").css("pointer-events","auto");
 
-
-                //根据有无点击tr执行取消readonly属性
-
-                if(key=="assistantConfig"){
-                    classDom.find("tr").eq(index).addClass("add-input").find("input[name=code],input[name=value]").removeAttr('readonly').focus();
-                }
-                else{
-                    classDom.find("tr").eq(index).addClass("add-input").find("input").removeAttr('readonly').focus();
-                }
-
-                //启用'保存''撤销''输入框'的点击事件
-                classDom.find(".save,.revoke,.add-input *").css("pointer-events","auto");
-
-                //保存
-                $(".save").on("click",function(){
-                    //设置data
-                    var data={};
-                    classDom.find("input").each(function(){
-                        if(!$(this).attr("readonly")){
-                            data[$(this).attr("name")]=$(this).val();
-                        }
-                    });
-                    var id=classDom.find("tr").eq(index).attr("id");
-                    data.id=id;
-                    delete data.undefined;
-
-                    var spaceId=classDom.find("input[name=spaceId]").val();
-                    if(key=="assistantOrderSpaceinfo"){
-                        if(!data.key){
-                            if(spaceId==""){
-                                data.key="assistantSpaceProd";
-                                data.spaceId=$(".level-2").find("tr").eq(index).attr("id");
-                            }
-                            else{
-                                data.key="assistantOrderSpaceinfo";
-                                data.parentId=$(".level-1").find("tr").eq(index).attr("id");
-                            }
-                        }
-                        else{
-                            data.parentId=0
-                        }
-                    }
-
-                    if(key=="assistantResupplyReason"){
-                        data.key="assistantResupplyReason";
-                        if(data.levelType==1){
-                            data.parentId=0
-                        }
-                        if(data.levelType==2){
-                            data.parentId=$(".level-1").find("tr").eq(index).attr("id")
-                        }
-                        if(data.levelType==3){
-                            data.parentId=$(".level-2").find("tr").eq(index).attr("id")
-                        }
-                    }
-                    console.log("这个是修改等操作"+JSON.stringify(data));
-                    //ajax提交
-                    $.ajax({
-                        url: '/system/doModify/'+id,
-                        data:data,
-                        method: 'post',
-                        success: function (data) {
-                            setTimeout(function(){
-                                ajaxFuncOne(key);
-
-                                status02(classDom);
-                                if(key=="assistantConfig"){
-                                    $(".create ").hide();
-                                    $(".delete").hide();
-                                }
-                                else{
-                                    $(".create").show();
-                                    $(".delete").show();
-                                }
-                                //启用所有的点击事件
-                                $(".desktop-detected *").css("pointer-events","auto");},1000);
+                    //给表单赋值
+                    console.log(classDom.find("tr").eq(index).find("input[name=code]").val())
+                    console.log(classDom.find("tr").eq(index).find("input[name=name]").val());
+                    $("#subPackageDaoCode").val(classDom.find("tr").eq(index).attr("code"));
+                    $("#subPackageDaoName").val(classDom.find("tr").eq(index).find("input[name=name]").val());
+                    $("#subPackageDaoId").val(classDom.find("tr").eq(index).attr("id"));
+                    layer.open({
+                        title: false,
+                        type: 1,
+                        area: '700px',
+                        content: $('#modify-subPackageDao-form'),
+                        cancel: function () {
+                            //右上角关闭回调
                         },
-                        error: function (response) {
-                            layer.close(index)
-                            errorLayout.normal(response);
-                        }
+
                     });
+                }
+              else{
+
+                  //根据有无点击tr执行取消readonly属性
+
+                  if(key=="assistantConfig"){
+                      classDom.find("tr").eq(index).addClass("add-input").find("input[name=code],input[name=value]").removeAttr('readonly').focus();
+                  }
+                  else{
+                      classDom.find("tr").eq(index).addClass("add-input").find("input").removeAttr('readonly').focus();
+                  }
+
+                  //启用'保存''撤销''输入框'的点击事件
+                  classDom.find(".save,.revoke,.add-input *").css("pointer-events","auto");
+
+                  //保存
+                  $(".save").on("click",function(){
+                      //设置data
+                      var data={};
+                      classDom.find("input").each(function(){
+                          if(!$(this).attr("readonly")){
+                              data[$(this).attr("name")]=$(this).val();
+                          }
+                      });
+                      var id=classDom.find("tr").eq(index).attr("id");
+                      data.id=id;
+                      delete data.undefined;
+
+                      var spaceId=classDom.find("input[name=spaceId]").val();
+                      if(key=="assistantOrderSpaceinfo"){
+                          if(!data.key){
+                              if(spaceId==""){
+                                  data.key="assistantSpaceProd";
+                                  data.spaceId=$(".level-2").find("tr").eq(index).attr("id");
+                              }
+                              else{
+                                  data.key="assistantOrderSpaceinfo";
+                                  data.parentId=$(".level-1").find("tr").eq(index).attr("id");
+                              }
+                          }
+                          else{
+                              data.parentId=0
+                          }
+                      }
+
+                      if(key=="assistantResupplyReason"){
+                          data.key="assistantResupplyReason";
+                          if(data.levelType==1){
+                              data.parentId=0
+                          }
+                          if(data.levelType==2){
+                              data.parentId=$(".level-1").find("tr").eq(index).attr("id")
+                          }
+                          if(data.levelType==3){
+                              data.parentId=$(".level-2").find("tr").eq(index).attr("id")
+                          }
+                      }
+                      console.log("这个是修改等操作"+JSON.stringify(data));
+                      //ajax提交
+                      $.ajax({
+                          url: '/system/doModify/'+id,
+                          data:data,
+                          method: 'post',
+                          success: function (data) {
+                              setTimeout(function(){
+                                  ajaxFuncOne(key);
+
+                                  status02(classDom);
+                                  if(key=="assistantConfig"){
+                                      $(".create ").hide();
+                                      $(".delete").hide();
+                                  }
+                                  else{
+                                      $(".create").show();
+                                      $(".delete").show();
+                                  }
+                                  //启用所有的点击事件
+                                  $(".desktop-detected *").css("pointer-events","auto");},1000);
+                          },
+                          error: function (response) {
+                              layer.close(index)
+                              errorLayout.normal(response);
+                          }
+                      });
 
 
-                });
+                  });
 
-                //撤销
-                $(".revoke").on("click",function(){
-                    ajaxFuncOne(key);
+                  //撤销
+                  $(".revoke").on("click",function(){
+                      ajaxFuncOne(key);
 
-                        status02(classDom);
-                    if(key=="assistantConfig"){
-                        $(".create ").hide();
-                        $(".delete").hide();
-                    }
-                    else{
-                        $(".create").show();
-                        $(".delete").show();
-                    }
-                        //启用所有的点击事件
-                        $(".desktop-detected *").css("pointer-events","auto");
-                });
+                      status02(classDom);
+                      if(key=="assistantConfig"){
+                          $(".create ").hide();
+                          $(".delete").hide();
+                      }
+                      else{
+                          $(".create").show();
+                          $(".delete").show();
+                      }
+                      //启用所有的点击事件
+                      $(".desktop-detected *").css("pointer-events","auto");
+                  });
+              }
+
             }
         });
 
@@ -462,28 +501,50 @@
         function creFrag(key){
             var string;
             if(key=="assistantConfig"){
-                string="<tr class='add-input'><td><input class='border-0 text-align-center' type='text' value='' name='code'/></td><td><input class='border-0 text-align-center' type='text' value='' name='value'/></td><td><input class='border-0 text-align-center' type='text' value='' name='remark'/></td></tr>"
+                string="<tr class='add-input'>" +
+                    "<td><input class='border-0 text-align-center' type='text' value='' name='code'/></td>" +
+                    "<td><input class='border-0 text-align-center' type='text' value='' name='value'/></td>" +
+                    "<td><input class='border-0 text-align-center' type='text' value='' name='remark'/></td>" +
+                    "</tr>"
         }
             else  if(key=="assistantBrandInfo"){
-                string="<tr class='add-input'><td><input class='border-0 text-align-center' type='text' value='' name='name'/></td></tr>"
+                string="<tr class='add-input'>" +
+                    "<td><input class='border-0 text-align-center' type='text' value='' name='name'/></td>" +
+                    "</tr>"
             }
             else  if(key=="assistantOrderSpaceinfo"){
-                string="<tr class='add-input'><td><input class='border-0 text-align-center' type='text' value='' name='name'/></td></tr>"
+                string="<tr class='add-input'>" +
+                    "<td><input class='border-0 text-align-center' type='text' value='' name='name'/></td>" +
+                    "</tr>"
             }
             else  if(key=="assistantSpaceProd"){
-                string="<tr class='add-input'><td><input class='border-0 text-align-center' type='text' value='' name='name'/></td><td><input class='border-0 text-align-center' type='text' value='' name='spaceId'/></td></tr>"
+                string="<tr class='add-input'>" +
+                    "<td><input class='border-0 text-align-center' type='text' value='' name='name'/></td>" +
+                    "<td><input class='border-0 text-align-center' type='text' value='' name='spaceId'/></td>" +
+                    "</tr>"
             }
             else  if(key=="assistantResupplyReason"){
-                string="<tr class='add-input'><td><input class='border-0 text-align-center' type='text' value='' name='name'/></td></tr>"
+                string="<tr class='add-input'>" +
+                    "<td><input class='border-0 text-align-center' type='text' value='' name='name'/></td>" +
+                    "</tr>"
             }
             else  if(key=="assistantReviewReson"){
-                string="<tr class='add-input'><td><input class='border-0 text-align-center' type='text' value='' name='name'/></td><td><input class='border-0 text-align-center' type='text' value='' name='reasonType'/></td></tr>"
+                string="<tr class='add-input'>" +
+                    "<td><input class='border-0 text-align-center' type='text' value='' name='name'/></td>" +
+                    "<td><input class='border-0 text-align-center' type='text' value='' name='reasonType'/></td>" +
+                    "</tr>"
             }
             else  if(key=="assistantTaskseqFileType"){
-                string="<tr class='add-input'><td><input class='border-0 text-align-center' type='text' value='' name='type'/></td><td><input class='border-0 text-align-center' type='text' value='' name='fileExt'/></td><td><input class='border-0 text-align-center' type='text' value='' name='name'/></td></tr>"
+                string="<tr class='add-input'>" +
+                    "<td><input class='border-0 text-align-center' type='text' value='' name='type'/></td>" +
+                    "<td><input class='border-0 text-align-center' type='text' value='' name='fileExt'/></td>" +
+                    "<td><input class='border-0 text-align-center' type='text' value='' name='name'/></td>" +
+                    "</tr>"
             }
             else{
-                string="<tr class='add-input'><td><input class='border-0 text-align-center' type='text' value='' name='name'/></td></tr>"
+                string="<tr class='add-input'>" +
+                    "<td><input class='border-0 text-align-center' type='text' value='' name='name'/></td>" +
+                    "</tr>"
             }
             console.log(string);
             return string;
