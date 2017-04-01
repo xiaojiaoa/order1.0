@@ -1146,7 +1146,7 @@ var OrderController = {
         });
     },
     receiptCheck: function (req, res) {
-        console.log('money',JSON.stringify(req.body))
+        // console.log('money',JSON.stringify(req.body))
         request(Base.mergeRequestOptions({
             method: 'post',
             url: '/api/stores/money/review',
