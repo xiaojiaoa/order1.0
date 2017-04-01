@@ -56,7 +56,7 @@
                                         <th>包装类型</th>
                                         <th>包装分类</th>
                                         <th>包装产品</th>
-                                        <th>包装产品材料</th>
+                                        <th class="display-none">包装产品材料</th>
                                         <th>重量</th>
                                         <th>删包操作</th>
                                         <th class="display-none"></th>
@@ -71,7 +71,7 @@
                                         <td><%= element.packageName %></td>
                                         <td><%= element.packageTypeStr %></td>
                                         <td><%= element.pacakgeCategoryStr %></td>
-                                        <td><%= element.packageProductStr %></td>
+                                        <td class="display-none"><%= element.packageProductStr %></td>
                                         <td><%= element.packageProductMaterialStr%></td>
                                         <td><%= element.weightStr %></td>
                                         <td>
@@ -118,7 +118,7 @@
                                         <th>规格尺寸</th>
                                         <th>数量</th>
                                         <th>重量</th>
-                                        <th>封边</th>
+                                        <th class="display-none">封边</th>
                                         <th>移包操作</th>
                                     </tr>
                                     </thead>
@@ -133,7 +133,7 @@
                                         <td><%= element.standard %></td>
                                         <td><%= element.amount %></td>
                                         <td><%= element.weigth %></td>
-                                        <td></td>
+                                        <td class="display-none"></td>
                                         <td>
                                             <select class="form-control"
                                                     name="destinationPackageLid"
@@ -173,7 +173,7 @@
                                         <th>规格尺寸</th>
                                         <th>数量</th>
                                         <th>单位</th>
-                                        <th>封边</th>
+                                        <th class="display-none">封边</th>
                                         <th>移包操作</th>
                                     </tr>
                                     </thead>
@@ -188,7 +188,7 @@
                                         <td><%= element.standard %></td>
                                         <td><%= element.amount %></td>
                                         <td><%= element.unitStr %></td>
-                                        <td></td>
+                                        <td class="display-none"></td>
                                         <td>
                                             <select class="form-control"
                                                     name="destinationPackageLid"
@@ -238,7 +238,7 @@
     <div class="row" style="padding: 30px 40px 0 0;">
 
         <div class="col-xs-12">
-            <div class="col-xs-6">
+            <div class="col-xs-10">
                 <div class="form-group">
                     <label class="col-xs-4 control-label"><span class="requird"></span>包装类型:</label>
                     <div class="col-xs-8">
@@ -253,42 +253,66 @@
                     </div>
                 </div>
             </div>
-            <div class="col-xs-6">
-                <div class="form-group">
-                    <label class="col-xs-4 control-label"><span class="requird"></span>包装名称:</label>
-                    <div class="col-xs-8">
-                        <div class="input-group">
-                            <span class="input-group-addon packagePreName"></span>
-                            <input
-                                    class="form-control validate[required,custom[onlyNumberSp],maxSize[3],minSize[3]]"
-                                    placeholder="请输入三位编码"
-                                    value=""
-                                    name="packageName01"
-                                    type="">
-                        </div>
 
+        </div>
+        <div class="col-xs-12 display-none" id="packageCategory">
+            <div class="col-xs-10">
+                <div class="form-group">
+                    <label class="col-xs-4 control-label"><span class="requird"></span>工件类型:</label>
+                    <div class="col-xs-8">
+                        <select class="form-control validate[required] " name="packageCategory" >
+                            <option value="">- 请选择 -</option>
+                             <%
+                             if(DWY_Helper.isCanLoop(packageTypeList) ){
+                                 packageTypeList.forEach(function (element,index) {%>
+                            <option value="<%= element.id%>" name="<%= element.name%>"><%= element.name%></option>
+                             <%})
+                             }
+                             %>
+                        </select>
                     </div>
                 </div>
             </div>
-            <div class="col-xs-6">
+        </div>
+          <div class="col-xs-12">
+              <div class="col-xs-10">
+                  <div class="form-group">
+                      <label class="col-xs-4 control-label"><span class="requird"></span>包装名称:</label>
+                      <div class="col-xs-8">
+                          <div class="input-group">
+                              <span class="input-group-addon packagePreName"></span>
+                              <input
+                                      class="form-control validate[required,custom[onlyNumberSp],maxSize[3],minSize[3]]"
+                                      placeholder="请输入三位编码"
+                                      value=""
+                                      name="packageName01"
+                                      type="">
+                          </div>
+
+                      </div>
+                  </div>
+              </div>
+          </div>
+        <div class="col-xs-12">
+            <div class="col-xs-10">
                 <div class="form-group">
                     <label class="col-xs-4 control-label"><span class="requird"></span>包装序号:</label>
                     <div class="col-xs-8">
-                            <input
-                                    class="form-control validate[required,custom[onlyNumberSp],maxSize[2]]"
-                                    placeholder="请输入二位编码"
-                                    value=""
-                                    name="packageNo"
-                                    type="">
+                        <input
+                                class="form-control validate[required,custom[onlyNumberSp],maxSize[2]]"
+                                placeholder="请输入二位编码"
+                                value=""
+                                name="packageNo"
+                                type="">
 
                     </div>
                 </div>
             </div>
-
-
         </div>
-    </div>
 
+
+
+    </div>
 
     <div class="row">
         <div class="col-xs-12">
@@ -337,15 +361,28 @@
 
       //根据包装类型设置包装名称的前缀
         $("select[name=packageType]").on('change',function(e){
+            $(".packagePreName").text("");
             if($(this).val()==1001){
                 $(".packagePreName").text("A");
+                $("#packageCategory").addClass("display-none");
             }else if($(this).val()==1002){
-                $(".packagePreName").text("W");
+                $("#packageCategory").removeClass("display-none");
             }
             else{
                 $(".packagePreName").text("");
             }
         })
+        $("select[name=packageCategory]").on('change',function(){
+           var pcId= $(this).val();
+           $("select[name=packageCategory] option").each(function(){
+               console.log(1111)
+               if($(this).attr("value")==pcId){
+                   console.log(22222)
+                   $(".packagePreName").text($(this).attr("name"));
+               }
+           })
+
+        });
 
         //合并包装名称
         $("input[name=packageName01]").on('change',function(e){

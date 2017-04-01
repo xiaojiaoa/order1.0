@@ -312,7 +312,7 @@ router.put('/schedule/doPass/:tid', Middleware.AuthCheck, OrderController.doPass
 router.get('/orders/package', Middleware.AuthCheck,Middleware.FilterEmptyField,OrderController.packagePage);
 router.get('/orders/package/allInfo', Middleware.AuthCheck,Middleware.FilterEmptyField,OrderController.allInfoPage);
 
-//查询订单生成包装后的包装列表
+//查询订单生成包装后的包装详情
 router.get('/orders/package/:tid', Middleware.AuthCheck,OrderController.packedListPage);
 
 //生成包装操作
