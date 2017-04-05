@@ -25,6 +25,10 @@ var permissions = {
        upload:{
            id:"892010",
            name:"资料上传"
+       },
+       delete:{
+           id:  "892020",
+           name:"资料删除"
        }
     },
     customer:{
