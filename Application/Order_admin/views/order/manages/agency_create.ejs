@@ -86,12 +86,15 @@
                                             机构类型:</label>
                                         <div class="col-xs-8">
                                             <select class="form-control validate[required]" name="orgType">
-                                                <option value="">- 请选择 -</option>
-                                                <% organTypes.forEach(function (element) { %>
-                                                <option value="<%= element.id %>" <%= (DWY_last_request_param.orgType == element.id )?"selected":"" %> >
+                                                <% organTypes.forEach(function (element) {
+                                                 if(element.id != 1){ %>
+                                                <option value="<%= element.id %>"
+                                                   <%= DWY_last_request_param.orgType ? ((DWY_last_request_param.orgType == element.id )?"selected":"")  : (element.id == 2?'selected':'') %>
+                                                >
                                                     <%= element.name %>
                                                 </option>
-                                                <% }) %>
+                                                <%  }
+                                                 }) %>
                                             </select>
                                         </div>
                                     </div>
@@ -106,7 +109,6 @@
                                             是否自带仓库:</label>
                                         <div class="col-xs-8">
                                             <select class="form-control validate[required]" name="isWareh">
-                                                <option value="">- 请选择 -</option>
                                                 <option value="1" <%= (DWY_last_request_param.isWareh == 1) ? 'selected' : '' %> >
                                                     是
                                                 </option>

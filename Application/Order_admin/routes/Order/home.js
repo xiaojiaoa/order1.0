@@ -80,26 +80,23 @@ var Middleware = {
             // req.session.preventPath = req.path;
             req.session.preventPath = req.url;
         }
-        // console.log(req.path)
         if (!req.session.auth) {
             console.log('SESSION HAS NO AUTH');
             res.redirect('/login');
         } else {
             //增加token失效验证. token存在但过期时,自动发送refresh_token并保存新的token到用户session
             var user_auth = req.session.auth;
-
             if ((new Date().getTime() - user_auth.time) > 1600000) {
-
                 //refresh_token request
                 request(Base.mergeRequestOptions({
                     method: 'POST',
                     url: '/api/refresh',
                     form: {refreshToken: user_auth.refresh_token}
                 }, req, res), function (error, response, body) {
-                    if (!error && response.statusCode == 201) {
+                    if (!error && response.statusCode == 200) {
                         // Show the HTML for the Google homepage.
                         let $data = JSON.parse(body);
-                        console.log(JSON.stringify($data));
+                        // console.log('refresh_token',JSON.stringify($data));
 
                         //TOKEN 存入session
                         var user_session = req.session;

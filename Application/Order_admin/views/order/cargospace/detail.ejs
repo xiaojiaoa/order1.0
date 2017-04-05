@@ -47,23 +47,21 @@
                                 <td width="12%">货位编号</td>
                                 <td width="21%"><%= cargospaceInfo.spaceId %></td>
                                 <td width="12%">所在行/列/层</td>
-                                <td width="21%"><%= cargospaceInfo.spaceRow %>行<%= cargospaceInfo.spaceColumn %>列<%= cargospaceInfo.spaceLayer %>层</td>
-                                <td width="12%">所属工厂</td>
-                                <td ><%= cargospaceInfo.ftyName %></td>
+                                <td colspan="3"><%= cargospaceInfo.spaceRow %>行<%= cargospaceInfo.spaceColumn %>列<%= cargospaceInfo.spaceLayer %>层</td>
                             </tr>
                             <tr>
+                                <td>所属工厂</td>
+                                <td><%= cargospaceInfo.ftyName %></td>
                                 <td>所属仓库</td>
-                                <td><%= cargospaceInfo.whseName %></td>
-                                <td>所属仓库区域</td>
-                                <td><%= cargospaceInfo.regionName %></td>
-                                <td>已有行/列/层</td>
-                                <td></td>
+                                <td  width="21%"><%= cargospaceInfo.whseName %></td>
+                                <td width="12%">所属仓库区域</td>
+                                <td  width="21%"><%= cargospaceInfo.regionName %></td>
                             </tr>
                             <tr>
                                 <td>最大承重</td>
-                                <td><%= cargospaceInfo.maxWeight %>KG</td>
+                                <td><%= (cargospaceInfo.maxWeight==0)?'不限':cargospaceInfo.maxWeight+'KG' %></td>
                                 <td>最大存货数量</td>
-                                <td><%= cargospaceInfo.maxAmount %> 件</td>
+                                <td><%= (cargospaceInfo.maxAmount==0)?'不限':cargospaceInfo.maxAmount+'件' %></td>
                                 <td>货架长宽高</td>
                                 <td><%= cargospaceInfo.sizeLength %>*<%= cargospaceInfo.sizeWidth %>*<%= cargospaceInfo.sizeHeight %></td>
                             </tr>

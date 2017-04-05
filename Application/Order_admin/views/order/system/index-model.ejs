@@ -22,6 +22,9 @@
 
             //点击"新建"
             if (e.target == $('.'+level+" .create")[0]) {
+
+                classDom.find(".save").attr("change",1);
+
                if(key=='subPackageDao'){
                    status02(classDom);
                    $(".desktop-detected *").css("pointer-events","auto");
@@ -62,12 +65,11 @@
                            if(!data.key){
                                if(spaceId==""){
                                    data.key="assistantSpaceProd";
-                                   data.spaceId=$(".level-3").$("input[name=spaceId]").val();
-                                   console.log(11111);
+                                   data.spaceId=$(".level-3").find("input[name=parentId]").val();
                                }
                                else{
                                    data.key="assistantOrderSpaceinfo";
-                                   data.parentId=$(".level-2").$("input[name=parentId]").val();
+                                   data.parentId=$(".level-2").find("input[name=parentId]").val();
                                }
                            }
                            else{
@@ -84,32 +86,35 @@
                            }
                            if(level=="level-2"){
                                data.levelType=2
-                               data.parentId=$(".level-2").$("input[name=parentId]").val();
+                               data.parentId=$(".level-2").find("input[name=parentId]").val();
                            }
                            if(level=="level-3"){
                                data.levelType=3
-                               data.parentId=$(".level-3").$("input[name=parentId]").val();
+                               data.parentId=$(".level-3").find("input[name=parentId]").val();
                            }
                        }
                        console.log("这个是data"+JSON.stringify(data));
                        //ajax提交
-                       $.ajax({
-                           url: '/system/doCreate',
-                           data:data,
-                           method: 'post',
-                           success: function (data) {
-                               setTimeout(function(){
-                                   ajaxFuncOne(key);
+                      if( classDom.find(".save").attr('change')==1){
+                          $.ajax({
+                              url: '/system/doCreate',
+                              data:data,
+                              method: 'post',
+                              success: function (data) {
 
-                                   status02(classDom);
-                                   //启用所有的点击事件
-                                   $(".desktop-detected *").css("pointer-events","auto");},500);
-                           },
-                           error: function (response) {
-                               layer.close(index)
-                               errorLayout.normal(response);
-                           }
-                       });
+                                  ajaxFuncOne(key);
+
+                                  status02(classDom);
+                                  //启用所有的点击事件
+                                  $(".desktop-detected *").css("pointer-events","auto");
+                                  classDom.find(".save").removeAttr("change");
+                              },
+                              error: function (response) {
+                                  layer.close(index)
+                                  errorLayout.normal(response);
+                              }
+                          });
+                      }
 
                    });
 
@@ -120,6 +125,7 @@
                        status02(classDom);
                        //启用所有的点击事件
                        $(".desktop-detected *").css("pointer-events","auto");
+                       classDom.find(".save").removeAttr("change");
                    });
                }
 
@@ -127,6 +133,7 @@
 
             //点击"修改"
             if (e.target == $('.'+level+" .modify")[0]) {
+                classDom.find(".save").attr("change",0);
                 if(key=='subPackageDao'){
                     status02(classDom);
                     $(".desktop-detected *").css("pointer-events","auto");
@@ -206,12 +213,13 @@
                       }
                       console.log("这个是修改等操作"+JSON.stringify(data));
                       //ajax提交
-                      $.ajax({
-                          url: '/system/doModify/'+id,
-                          data:data,
-                          method: 'post',
-                          success: function (data) {
-                              setTimeout(function(){
+                      if( classDom.find(".save").attr('change')==0){
+                          $.ajax({
+                              url: '/system/doModify/'+id,
+                              data:data,
+                              method: 'post',
+                              success: function (data) {
+
                                   ajaxFuncOne(key);
 
                                   status02(classDom);
@@ -224,13 +232,16 @@
                                       $(".delete").show();
                                   }
                                   //启用所有的点击事件
-                                  $(".desktop-detected *").css("pointer-events","auto");},1000);
-                          },
-                          error: function (response) {
-                              layer.close(index)
-                              errorLayout.normal(response);
-                          }
-                      });
+                                  $(".desktop-detected *").css("pointer-events","auto");
+                                  classDom.find(".save").removeAttr("change");
+                              },
+                              error: function (response) {
+                                  layer.close(index)
+                                  errorLayout.normal(response);
+                              }
+                          });
+                      }
+
 
 
                   });
@@ -250,6 +261,7 @@
                       }
                       //启用所有的点击事件
                       $(".desktop-detected *").css("pointer-events","auto");
+                      classDom.find(".save").removeAttr("change");
                   });
               }
 
