@@ -315,7 +315,7 @@
            var key= $(".level-1 input[name=key]").val();
 
             var parentId=$(this).attr("id");
-            console.log(parentId);
+           // console.log(parentId);
 
             $(".level-2 input[name=parentId]").val(parentId);
 
@@ -331,7 +331,7 @@
             var key= $(".level-1 input[name=key]").val();
 
             var parentId=$(this).attr("id");
-            console.log(parentId);
+           // console.log(parentId);
 
             $(".level-3 input[name=parentId]").val(parentId);
 
@@ -357,7 +357,7 @@
             },
             success: function (data) {
                 var arry= JSON.parse(data);
-                console.log(arry);
+                //console.log(arry);
                 setFrag(key,arry);
             },
             error: function (response) {
@@ -490,7 +490,7 @@
             },
             success: function (data) {
                 var arry= JSON.parse(data);
-                console.log(arry);
+               // console.log(arry);
                 var frag = "";
                 for (var i = 0; i < arry.length; i++) {
                     frag += "<tr id=" + arry[i].id + " stcode=" + arry[i].stcode + "  parentId=" + arry[i].parentId + ">" +
@@ -523,7 +523,7 @@
             },
             success: function (data) {
                 var arry= JSON.parse(data);
-                console.log(arry);
+               // console.log(arry);
                 var frag = "";
                 for (var i = 0; i < arry.length; i++) {
                     frag += "<tr id=" + arry[i].id + " stcode=" + arry[i].stcode + "  parentId=" + arry[i].parentId + ">" +
@@ -556,7 +556,7 @@
             },
             success: function (data) {
                 var arry= JSON.parse(data);
-                console.log(arry);
+                //console.log(arry);
 
                 var frag = "";
                 for (var i = 0; i < arry.length; i++) {
@@ -590,7 +590,7 @@
             },
             success: function (data) {
                 var arry= JSON.parse(data);
-                console.log(arry);
+                //console.log(arry);
                 var frag = "";
                 for (var i = 0; i < arry.length; i++) {
                     frag += "<tr id=" + arry[i].id + " stcode=" + arry[i].stcode + "  parentId=" + arry[i].parentId + ">" +
