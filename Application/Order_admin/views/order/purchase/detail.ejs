@@ -313,13 +313,14 @@
             })
             $("input[name='roles']").change(function () {
                 var stcode = $(this).attr('stcode');
-                $("input[name='stcode']").addClass(stcode+'');
-                stcodeStr=$("input[name='stcode']").attr('class')
                 if($(this).is(':checked')){
                     checkedValue.addClass(this.value+',');
+                    $("input[name='stcode']").addClass(stcode+'');
                 }else{
                     checkedValue.removeClass(this.value+',');
+                    $("input[name='stcode']").removeClass(stcode+'');
                 }
+                stcodeStr=$("input[name='stcode']").attr('class');
             });
             $("#purchaseSubmit").click(function(){
                 if(checkedValue.attr('class')==null||checkedValue.attr('class')=='') {
