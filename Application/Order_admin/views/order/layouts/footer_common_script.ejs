@@ -105,7 +105,7 @@
             var innerHeight =  $('ul.menu-list').scrollTop();
             var height = $(this).offset().top;
             if(innerHeight > 0){
-                localStorage.setItem('menuScroll-height',height+100);
+                localStorage.setItem('menuScroll-height',height);
             }else{
                 localStorage.setItem('menuScroll-height',0);
             }
