@@ -56,7 +56,7 @@
                                data[$(this).attr("name")]=$(this).val();
                            }
                        });
-                       console.log(data);
+                       //console.log(data);
                        delete data.undefined;
 
                        var spaceId=classDom.find("input[name=spaceId]").val();
@@ -79,7 +79,7 @@
 
                        if(key=="assistantResupplyReason"){
                            data.key="assistantResupplyReason";
-                           console.log(level);
+                           //console.log(level);
                            if(level=="level-1"){
                                data.levelType=1
                                data.parentId=0
@@ -93,7 +93,7 @@
                                data.parentId=$(".level-3").find("input[name=parentId]").val();
                            }
                        }
-                       console.log("这个是data"+JSON.stringify(data));
+                       console.log("这个是新建data"+JSON.stringify(data));
                        //ajax提交
                       if( classDom.find(".save").attr('change')==1){
                           $.ajax({
@@ -573,7 +573,7 @@
                     "<td><input class='border-0 text-align-center' type='text' value='' name='name'/></td>" +
                     "</tr>"
             }
-            console.log(string);
+            //console.log(string);
             return string;
         }
 
@@ -587,7 +587,7 @@
                 }
                 if(level=="level-2"){
                     var parentId=$(".level-2").find("input[name=parentId]").val();
-                    console.log('level-2',parentId);
+                   // console.log('level-2',parentId);
                     ajaxOrderSpaceinfoOne(parentId);
                 }
                 if(level=="level-3"){
@@ -601,7 +601,7 @@
                 }
                 if(level=="level-2"){
                     var parentId=$(".level-2").find("input[name=parentId]").val();
-                    console.log('level-2',parentId);
+                    //console.log('level-2',parentId);
                     ajaxResupplyReason0ne(parentId);
                 }
                 if(level=="level-3"){
