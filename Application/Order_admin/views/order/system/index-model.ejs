@@ -24,6 +24,7 @@
             if (e.target == $('.'+level+" .create")[0]) {
 
                 classDom.find(".save").attr("change",1);
+                classDom.find(".revoke").attr("change",1);
 
                if(key=='subPackageDao'){
                    status02(classDom);
@@ -41,105 +42,19 @@
                }
                else{
                    classDom.find("tbody").append(creFrag(key)).find("input").focus();
-                   //给input添加focus事件
-                   // classDom.find("input").focus();
 
                    //启用'保存''撤销''输入框'的点击事件
                    classDom.find(".save,.revoke,.add-input").css("pointer-events","auto");
-
-                   //保存
-                   $(".save").off();
-                   $(".save").on("click",function(){
-                       console.log("11111：");
-                       //设置data
-                       var data={};
-                       classDom.find("input").each(function(){
-                           if(!$(this).attr("readonly")){
-                               data[$(this).attr("name")]=$(this).val();
-                           }
-                       });
-                       //console.log(data);
-                       delete data.undefined;
-
-                       var spaceId=classDom.find("input[name=spaceId]").val();
-                       console.log("spaceId："+spaceId);
-                       if(key=="assistantOrderSpaceinfo"){
-                           if(!data.key){
-                               if(spaceId==""){
-                                   data.key="assistantSpaceProd";
-                                   data.spaceId=$(".level-3").find("input[name=parentId]").val();
-                               }
-                               else{
-                                   data.key="assistantOrderSpaceinfo";
-                                   data.parentId=$(".level-2").find("input[name=parentId]").val();
-                               }
-                           }
-                           else{
-                               data.parentId=0
-                           }
-                       }
-
-                       if(key=="assistantResupplyReason"){
-                           data.key="assistantResupplyReason";
-                           //console.log(level);
-                           if(level=="level-1"){
-                               data.levelType=1
-                               data.parentId=0
-                           }
-                           if(level=="level-2"){
-                               data.levelType=2
-                               data.parentId=$(".level-2").find("input[name=parentId]").val();
-                           }
-                           if(level=="level-3"){
-                               data.levelType=3
-                               data.parentId=$(".level-3").find("input[name=parentId]").val();
-                           }
-                       }
-                       console.log("这个是新建data"+JSON.stringify(data));
-                       //ajax提交
-                      if( classDom.find(".save").attr('change')==1){
-                          $.ajax({
-                              url: '/system/doCreate',
-                              data:data,
-                              method: 'post',
-                              success: function (data) {
-
-                                  //刷新页面
-                                  ajaxRefresh(key,level);
-
-                                  //重置按钮
-                                  status02(classDom);
-                                  //启用所有的点击事件
-                                  $(".desktop-detected *").css("pointer-events","auto");
-                                  classDom.find(".save").removeAttr("change");
-                              },
-                              error: function (response) {
-                                  layer.close(index)
-                                  errorLayout.normal(response);
-                              }
-                          });
-                      }
-
-                   });
-
-                   //撤销
-                   $(".revoke").off();
-                   $(".revoke").on("click",function(){
-                       classDom.find(".add-input").remove();
-
-                       //重置按钮
-                       status02(classDom);
-                       //启用所有的点击事件
-                       $(".desktop-detected *").css("pointer-events","auto");
-                       classDom.find(".save").removeAttr("change");
-                   });
                }
 
             }
 
             //点击"修改"
             if (e.target == $('.'+level+" .modify")[0]) {
+
                 classDom.find(".save").attr("change",0);
+                classDom.find(".revoke").attr("change",0);
+
                 if(key=='subPackageDao'){
                     status02(classDom);
                     $(".desktop-detected *").css("pointer-events","auto");
@@ -164,8 +79,7 @@
               else{
 
                   //根据有无点击tr执行取消readonly属性
-
-                  if(key=="assistantConfig"){
+                    if(key=="assistantConfig"){
                       classDom.find("tr").eq(index).addClass("add-input").find("input[name=code],input[name=value]").removeAttr('readonly').focus();
                   }
                   else{
@@ -175,110 +89,161 @@
                   //启用'保存''撤销''输入框'的点击事件
                   classDom.find(".save,.revoke,.add-input *").css("pointer-events","auto");
 
-                  //保存
-                    $(".save").off();
-                  $(".save").on("click",function(){
-                      console.log("22222：");
-                      //设置data
-                      var data={};
-                      classDom.find("input").each(function(){
-                          if(!$(this).attr("readonly")){
-                              data[$(this).attr("name")]=$(this).val();
-                          }
-                      });
-                      var id=classDom.find("tr").eq(index).attr("id");
-                      data.id=id;
-                      delete data.undefined;
 
-                      var spaceId=classDom.find("input[name=spaceId]").val();
-                      if(key=="assistantOrderSpaceinfo"){
-                          if(!data.key){
-                              if(spaceId==""){
-                                  data.key="assistantSpaceProd";
-                                  data.spaceId=$(".level-2").find("tr").eq(index).attr("id");
-                              }
-                              else{
-                                  data.key="assistantOrderSpaceinfo";
-                                  data.parentId=$(".level-1").find("tr").eq(index).attr("id");
-                              }
-                          }
-                          else{
-                              data.parentId=0
-                          }
-                      }
-
-                      if(key=="assistantResupplyReason"){
-                          data.key="assistantResupplyReason";
-                          if(data.levelType==1){
-                              data.parentId=0
-                          }
-                          if(data.levelType==2){
-                              data.parentId=$(".level-1").find("tr").eq(index).attr("id")
-                          }
-                          if(data.levelType==3){
-                              data.parentId=$(".level-2").find("tr").eq(index).attr("id")
-                          }
-                      }
-                      console.log("这个是修改等操作"+JSON.stringify(data));
-                      //ajax提交
-                      if( classDom.find(".save").attr('change')==0){
-                          $.ajax({
-                              url: '/system/doModify/'+id,
-                              data:data,
-                              method: 'post',
-                              success: function (data) {
-
-                                  //刷新页面
-                                  ajaxRefresh(key,level);
-
-                                  //重置按钮
-                                  status02(classDom);
-                                  if(key=="assistantConfig"){
-                                      $(".create ").hide();
-                                      $(".delete").hide();
-                                  }
-                                  else{
-                                      $(".create").show();
-                                      $(".delete").show();
-                                  }
-                                  //启用所有的点击事件
-                                  $(".desktop-detected *").css("pointer-events","auto");
-                                  classDom.find(".save").removeAttr("change");
-                              },
-                              error: function (response) {
-                                  layer.close(index)
-                                  errorLayout.normal(response);
-                              }
-                          });
-                      }
-
-
-
-                  });
-
-                  //撤销
-                    $(".revoke").off();
-                   $(".revoke").on("click",function(){
-                      //刷新页面
-                      ajaxRefresh(key,level);
-
-                      //重置按钮
-                      status02(classDom);
-                      if(key=="assistantConfig"){
-                          $(".create ").hide();
-                          $(".delete").hide();
-                      }
-                      else{
-                          $(".create").show();
-                          $(".delete").show();
-                      }
-                      //启用所有的点击事件
-                      $(".desktop-detected *").css("pointer-events","auto");
-                      classDom.find(".save").removeAttr("change");
-                  });
               }
 
             }
+        });
+
+        //保存
+        $(".save").on("click",function(){
+
+            var level = $(this).parent().attr('data-level');
+            var classDom=$('.'+level);
+            //获取key值
+            var key=$("input[name=key]").val();
+            //设置data
+            var data={};
+            classDom.find("input").each(function(){
+                if(!$(this).attr("readonly")){
+                    data[$(this).attr("name")]=$(this).val();
+                }
+            });
+
+            var spaceId=classDom.find("input[name=spaceId]").val();
+            console.log("spaceId："+spaceId);
+            if(key=="assistantOrderSpaceinfo"){
+                if(!data.key){
+                    if(spaceId==""){
+                        data.key="assistantSpaceProd";
+                        data.spaceId=$(".level-3").find("input[name=parentId]").val();
+                    }
+                    else{
+                        data.key="assistantOrderSpaceinfo";
+                        data.parentId=$(".level-2").find("input[name=parentId]").val();
+                    }
+                }
+                else{
+                    data.parentId=0
+                }
+            }
+
+            if(key=="assistantResupplyReason"){
+                data.key="assistantResupplyReason";
+                //console.log(level);
+                if(level=="level-1"){
+                    data.levelType=1
+                    data.parentId=0
+                }
+                if(level=="level-2"){
+                    data.levelType=2
+                    data.parentId=$(".level-2").find("input[name=parentId]").val();
+                }
+                if(level=="level-3"){
+                    data.levelType=3
+                    data.parentId=$(".level-3").find("input[name=parentId]").val();
+                }
+            }
+
+            //新建--保存
+            if( classDom.find(".save").attr('change')==1){
+                delete data.undefined;
+                console.log("这个是新建data"+JSON.stringify(data));
+                $.ajax({
+                    url: '/system/doCreate',
+                    data:data,
+                    method: 'post',
+                    success: function (data) {
+
+                        //刷新页面
+                        ajaxRefresh(key,level);
+
+                        //重置按钮
+                        status02(classDom);
+                        //启用所有的点击事件
+                        $(".desktop-detected *").css("pointer-events","auto");
+                        classDom.find(".save").removeAttr("change");
+                    },
+                    error: function (response) {
+                        layer.close(index)
+                        errorLayout.normal(response);
+                    }
+                });
+            }
+            //修改--保存
+            if( classDom.find(".save").attr('change')==0){
+                var id=classDom.find("tr").eq(index).attr("id");
+                data.id=id;
+                delete data.undefined;
+                console.log("这个是修改data"+JSON.stringify(data));
+                $.ajax({
+                    url: '/system/doModify/'+id,
+                    data:data,
+                    method: 'post',
+                    success: function (data) {
+
+                        //刷新页面
+                        ajaxRefresh(key,level);
+
+                        //重置按钮
+                        status02(classDom);
+                        if(key=="assistantConfig"){
+                            $(".create ").hide();
+                            $(".delete").hide();
+                        }
+                        else{
+                            $(".create").show();
+                            $(".delete").show();
+                        }
+                        //启用所有的点击事件
+                        $(".desktop-detected *").css("pointer-events","auto");
+                        classDom.find(".save").removeAttr("change");
+                    },
+                    error: function (response) {
+                        layer.close(index)
+                        errorLayout.normal(response);
+                    }
+                });
+            }
+
+        });
+
+        //撤销
+        $(".revoke").on("click",function(){
+            var level = $(this).parent().attr('data-level');
+            var classDom=$('.'+level);
+            //获取key值
+            var key=$("input[name=key]").val();
+
+            //新建--撤销
+            if( classDom.find(".revoke").attr('change')==1){
+                //重置按钮
+                status02(classDom);
+                //启用所有的点击事件
+                $(".desktop-detected *").css("pointer-events","auto");
+                classDom.find(".save").removeAttr("change");
+            }
+
+            //修改--撤销
+            if(classDom.find(".revoke").attr('change')==0){
+                //刷新页面
+                ajaxRefresh(key,level);
+
+                //重置按钮
+                status02(classDom);
+                if(key=="assistantConfig"){
+                    $(".create ").hide();
+                    $(".delete").hide();
+                }
+                else{
+                    $(".create").show();
+                    $(".delete").show();
+                }
+                //启用所有的点击事件
+                $(".desktop-detected *").css("pointer-events","auto");
+                classDom.find(".save").removeAttr("change");
+            }
+
         });
 
         //点击"删除"
