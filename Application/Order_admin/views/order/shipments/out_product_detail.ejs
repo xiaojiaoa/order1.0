@@ -182,6 +182,7 @@
                         if(data.code == 1001){
                             successLayout.reload();
                         }else{
+                            layer.close(index)
                             var response = {
                                 responseText:JSON.stringify(data)
                             };

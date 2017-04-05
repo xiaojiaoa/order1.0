@@ -159,13 +159,13 @@
                                 <th width="4%">序号</th>
                                 <th>出库单号</th>
                                 <th width="12%">订单号</th>
-                                <th>出库日期</th>
+                                <!--<th>出库日期</th>-->
                                 <th width="12%">仓库</th>
-                                <th>出库人</th>
+                                <!--<th>出库人</th>-->
                                 <th>交货日期</th>
                                 <th>客户姓名</th>
                                 <th>出厂价</th>
-                                <th>经销商</th>
+                                <!--<th>经销商</th>-->
                                 <th>状态</th>
                                 <th width="80">操作</th>
                             </tr>
@@ -177,16 +177,16 @@
                                 <td width="4%"><%= ++index %></td>
                                 <td><a href="/outProduct/deatil/<%= element.outId %>"><%= element.outId %></a></td>
                                 <td width="12%"><a href="/order/detail/<%= element.tid %>"><%= element.tid %></a></td>
-                                <td><%= DWY_Helper.getLocalDate(element.outTime) %></td>
+                                <!--<td><%= DWY_Helper.getLocalDate(element.outTime) %></td>-->
                                 <td width="12%"><%= element.whseName %></td>
-                                <td><%= element.outEmp %></td>
+                                <!--<td><%= element.outEmp %></td>-->
                                 <td><%= DWY_Helper.getLocalDate(element.deliveryTime) %></td>
                                 <td><%= element.cName %></td>
                                 <td><%= element.ftyPrice %></td>
-                                <td><%= element.stoName %></td>
-                                <td><%= DWY_Helper.geOutStatus(element.stcode) %></td>
+                                <!--<td><%= element.stoName %></td>-->
+                                <td><%= element.stcodeName %></td>
                                 <td width="80">
-                                    <% if(element.stcode == 2){ %>
+                                    <% if(element.stcode == 745){ %>
                                     <a class="label label-primary" href="/outProduct/deatil/<%= element.outId %>">出库</a>
                                     <% }%>
                                 </td>
