@@ -81,7 +81,7 @@ var SystemController = {
         console.log("修改",req.body);
         request(Base.mergeRequestOptions({
             method: 'put',
-            url: '/api/assist/'+id+"?"+queryString.stringify(req.body)
+            url: '/api/assist/update'+"?"+queryString.stringify(req.body)
         }, req, res), function (error, response, body) {
             if (!error && response.statusCode == 201) {
                 Base.handlerSuccess(res, req);
@@ -96,7 +96,7 @@ var SystemController = {
         console.log( '/api/assist/'+id+"?"+queryString.stringify(req.body));
         request(Base.mergeRequestOptions({
             method: 'put',
-            url: '/api/assist/'+id+"?"+queryString.stringify(req.body)
+            url: '/api/assist/update'+"?"+queryString.stringify(req.body)
         }, req, res), function (error, response, body) {
             if (!error && response.statusCode == 201) {
                 Base.handlerSuccess(res, req);
