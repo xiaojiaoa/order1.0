@@ -315,7 +315,8 @@ var OutWarehouseController = {
             var returnData = Base.mergeData(helper.mergeObject({
                 title: ' ',
                 userFtyId: ftyId,
-                pagination: boostrapPaginator.render()
+                pagination: boostrapPaginator.render(),
+                Permission :Permissions,
             },resultList));
             res.render('order/shipments/out_product', returnData);
         });
@@ -337,13 +338,24 @@ var OutWarehouseController = {
     },
     outProductDeatil: function (req, res) {
         var id = req.params.id;
+        var paramObject = helper.genPaginationQuery(req);
         Base.multiDataRequest(req, res, [
             {url: '/api/whse/cargout/prods/'+ id, method: 'GET', resConfig: {keyName: 'prodsInfo', is_must: true}},
         ], function (req, res, resultList) {
 
+            var paginationInfo =  resultList.prodsInfo.page;
+
+            var boostrapPaginator = new Pagination.TemplatePaginator(helper.genPageInfo({
+                prelink: paramObject.withoutPageNo,
+                current: paginationInfo.page,
+                rowsPerPage: paginationInfo.pageSize,
+                totalResult: paginationInfo.totalItems
+            }));
+
             var returnData = Base.mergeData(helper.mergeObject({
                 title: ' ',
                 outId: id,
+                pagination: boostrapPaginator.render()
             },resultList));
             res.render('order/shipments/out_product_detail', returnData);
         });

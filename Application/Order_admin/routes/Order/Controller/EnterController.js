@@ -268,6 +268,7 @@ var EnterController = {
                     title: ' ',
                     userFtyId: ftyId,
                     pagination: boostrapPaginator.render(),
+                    Permission :Permissions,
                 }, resultList));
                 res.render('order/enter/enter_product', returnData);
             });

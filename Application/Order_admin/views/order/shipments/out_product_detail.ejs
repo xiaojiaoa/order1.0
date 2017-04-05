@@ -39,26 +39,22 @@
                             <tr>
                                 <td width="12%">出库单号</td>
                                 <td width="21%"><%= prodsInfo.id %></td>
-                                <td width="12%">出库人</td>
-                                <td width="21%"><%= prodsInfo.outEmp %></td>
-                                <td width="12%">出库日期</td>
-                                <td><%= DWY_Helper.getLocalDate(prodsInfo.deliveryTime) %></td>
+                                <td width="12%">订单号</td>
+                                <td colspan="3"><a href="/order/detail/<%= prodsInfo.tid %>"><%= prodsInfo.tid %></a></td>
                             </tr>
                             <tr>
-                                <td>订单号</td>
-                                <td><a href="/order/detail/<%= prodsInfo.tid %>"><%= prodsInfo.tid %></a></td>
                                 <td>出库类型</td>
                                 <td><%= prodsInfo.outType %></td>
                                 <td>仓库</td>
-                                <td><%= prodsInfo.whse %></td>
+                                <td colspan="3"><%= prodsInfo.whse %></td>
                             </tr>
                             <tr>
                                 <td>客户姓名</td>
                                 <td><%= prodsInfo.custName %></td>
                                 <td>出厂价</td>
                                 <td><%= prodsInfo.ftyPrice %> 元</td>
-                                <td>经销商</td>
-                                <td><%= prodsInfo.stoName %></td>
+                                <td width="12%">经销商</td>
+                                <td width="21%"><%= prodsInfo.stoName %></td>
                             </tr>
 
                             <tr>
@@ -114,8 +110,8 @@
                             </tr>
                             </thead>
                             <tbody>
-                            <% if(DWY_Helper.isCanLoop(prodsInfo.prodOutItems)){
-                            prodsInfo.prodOutItems.forEach(function (element, index) {  %>
+                            <% if(DWY_Helper.isCanLoop(prodsInfo.page.result)){
+                            prodsInfo.page.result.forEach(function (element, index) {  %>
                             <tr>
                                 <td><%= ++index %></td>
                                 <td><a href="/cargospace/cargospace/detail/<%= element.spaceId %>"><%= element.spaceId %></a></td>
@@ -140,12 +136,13 @@
                             <%   })
                             }else{  %>
                             <tr>
-                                <td colspan="10" class="text-align-center">暂无数据</td>
+                                <td colspan="11" class="text-align-center">暂无数据</td>
                             </tr>
                             <% } %>
 
                             </tbody>
                         </table>
+                        <%- pagination %>
 
                     </div>
                 </div>
