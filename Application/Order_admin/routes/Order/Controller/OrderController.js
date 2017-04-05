@@ -1056,13 +1056,14 @@ var OrderController = {
             }
         })
     },
-    //订单详情--订单物料--工件
+    //订单详情--订单物料--非标件
     workpiecePage:function (req, res) {
         var paramObject = helper.genPaginationQuery(req);
         var tid=req.params.tid;
         Base.multiDataRequest(req, res, [
             {url: '/api/orders/package/workpiece/list/'+tid+'?'+queryString.stringify(req.query), method: 'GET', resConfig: {keyName: 'workpieceList', is_must: true}},
             {url: '/api/orders/'+tid, method: 'GET', resConfig: {keyName: 'orderDetail', is_must: true}},
+            {url: '/api/orders/package/workpiece/amount/'+tid, method: 'GET', resConfig: {keyName: 'workpieceAmount', is_must: true}},
             {url: '/api/assist/order/stcodes', method: 'GET', resConfig: {keyName: 'stcodeInfo', is_must: false}},
         ], function (req, res, resultList) {
             var paginationInfo =  resultList.workpieceList;
