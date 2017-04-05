@@ -471,16 +471,9 @@
             }
         })
         //跳出--删除空包按钮
-        var packageType=$(".saveValue").attr("packageType");
-        var sourcePackageLid=$(".saveValue").attr("packageLid");
-        if($("select[name=destinationPackageLid]").length==0){
-            console.log("type"+packageType);
-            console.log("plid"+sourcePackageLid);
+        if('<%=packedListDetail.orderPackageDetails.length%>'==0){
             $(".deletePacket").each(function(){
-                if($(this).attr("packageType")==packageType && $(this).attr("packageLid")==sourcePackageLid) {
-                    console.log($(this).attr("packageType"));
-                    console.log($(this).attr("packageLid"));
-                    console.log($(this).attr("class"))
+                if($(this).attr("packageLid")=='<%= pid%>') {
                     $(this).removeClass("display-none");
                 }
             });

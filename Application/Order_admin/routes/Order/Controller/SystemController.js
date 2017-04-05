@@ -62,7 +62,7 @@ var SystemController = {
         })
     },
     doCreate: function (req, res) {
-        console.log(req.body);
+        console.log( "新建",req.body);
         request(Base.mergeRequestOptions({
             method: 'post',
             url: '/api/assist',
@@ -78,7 +78,7 @@ var SystemController = {
     },
     doModify: function (req, res) {
         var id=req.params.id;
-        console.log( '/api/assist/'+id+"?"+queryString.stringify(req.body));
+        console.log("修改",req.body);
         request(Base.mergeRequestOptions({
             method: 'put',
             url: '/api/assist/'+id+"?"+queryString.stringify(req.body)
