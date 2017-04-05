@@ -48,7 +48,9 @@
                    classDom.find(".save,.revoke,.add-input").css("pointer-events","auto");
 
                    //保存
+                   $(".save").off();
                    $(".save").on("click",function(){
+                       console.log("11111：");
                        //设置data
                        var data={};
                        classDom.find("input").each(function(){
@@ -60,7 +62,7 @@
                        delete data.undefined;
 
                        var spaceId=classDom.find("input[name=spaceId]").val();
-                       console.log("spaceId"+spaceId);
+                       console.log("spaceId："+spaceId);
                        if(key=="assistantOrderSpaceinfo"){
                            if(!data.key){
                                if(spaceId==""){
@@ -121,6 +123,7 @@
                    });
 
                    //撤销
+                   $(".revoke").off();
                    $(".revoke").on("click",function(){
                        classDom.find(".add-input").remove();
 
@@ -173,7 +176,9 @@
                   classDom.find(".save,.revoke,.add-input *").css("pointer-events","auto");
 
                   //保存
+                    $(".save").off();
                   $(".save").on("click",function(){
+                      console.log("22222：");
                       //设置data
                       var data={};
                       classDom.find("input").each(function(){
@@ -252,7 +257,8 @@
                   });
 
                   //撤销
-                  $(".revoke").on("click",function(){
+                    $(".revoke").off();
+                   $(".revoke").on("click",function(){
                       //刷新页面
                       ajaxRefresh(key,level);
 
