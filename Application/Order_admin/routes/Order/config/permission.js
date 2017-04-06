@@ -511,6 +511,40 @@ var permissions = {
             name:"查询所有仓储信息"
         }
     },
+    supplier:{
+      creae:{
+          id:"583010",
+          name:"添加供应商"
+      },
+      update:{
+          id:"583030",
+          name:"更新供应商"
+      },
+      delete:{
+          id:"583031",
+          name:"删除供应商"
+      },
+      createCategory:{
+          id:"584010",
+          name:"添加供应商分类"
+      },
+      updateCategory:{
+          id:"584030",
+          name:"更新供应商分类"
+      },
+      deleteCategory:{
+          id:"584031",
+          name:"删除供应商分类"
+      },
+      queryCategory:{
+          id:"584040",
+          name:"查询供应商分类"
+      },
+      queryAll:{
+          id:"583040",
+          name:"查询所有机构供应商"
+      }
+    },
     taskseq:{
         cancel:{
             id:"",
