@@ -111,38 +111,26 @@
                 }
             });
 
-            var spaceId=classDom.find("input[name=spaceId]").val();
-            console.log("spaceId："+spaceId);
             if(key=="assistantOrderSpaceinfo"){
-                if(!data.key){
-                    if(spaceId==""){
-                        data.key="assistantSpaceProd";
-                        data.spaceId=$(".level-3").find("input[name=parentId]").val();
-                    }
-                    else{
-                        data.key="assistantOrderSpaceinfo";
-                        data.parentId=$(".level-2").find("input[name=parentId]").val();
-                    }
-                }
-                else{
+                if(level=="level-1"){
                     data.parentId=0
+                }
+                if(level=="level-3"){
+                    data.key="assistantSpaceProd";
+                    data.spaceId=$(".level-3").find("input[name=parentId]").val();
                 }
             }
 
             if(key=="assistantResupplyReason"){
-                data.key="assistantResupplyReason";
-                //console.log(level);
                 if(level=="level-1"){
                     data.levelType=1
                     data.parentId=0
                 }
                 if(level=="level-2"){
                     data.levelType=2
-                    data.parentId=$(".level-2").find("input[name=parentId]").val();
                 }
                 if(level=="level-3"){
                     data.levelType=3
-                    data.parentId=$(".level-3").find("input[name=parentId]").val();
                 }
             }
 
@@ -218,6 +206,10 @@
 
             //新建--撤销
             if( classDom.find(".revoke").attr('change')==1){
+
+                //移除新增的元素
+                classDom.find(".add-input").remove();
+
                 //重置按钮
                 status02(classDom);
                 //启用所有的点击事件
@@ -326,8 +318,6 @@
             });
             var id=classDom.find("tr").eq(index).attr("id");
             data.id=id;
-
-            var stcode=classDom.find("tr").eq(index).attr("stcode");
             if(key=="assistantConfig"){
                 data.status=0;
             }
@@ -338,34 +328,13 @@
             delete data.undefined;
 
             var spaceId=classDom.find("input[name=spaceId]").val();
-            if(key=="assistantOrderSpaceinfo"){
-                if(!data.key){
-                    if(spaceId==""){
-                        data.key="assistantSpaceProd";
-                        data.spaceId=$(".level-2").find("tr").eq(index).attr("id");
-                    }
-                    else{
-                        data.key="assistantOrderSpaceinfo";
-                        data.parentId=$(".level-1").find("tr").eq(index).attr("id");
-                    }
-                }
-                else{
-                    data.parentId=0
-                }
-            }
+               if(spaceId==""){
+                data.key="assistantSpaceProd";
+                data.spaceId=$(".level-2").find("tr").eq(index).attr("id");
+               }
 
-            if(key=="assistantResupplyReason"){
-                data.key="assistantResupplyReason";
-                if(data.levelType==1){
-                    data.parentId=0
-                }
-                if(data.levelType==2){
-                    data.parentId=$(".level-1").find("tr").eq(index).attr("id")
-                }
-                if(data.levelType==3){
-                    data.parentId=$(".level-2").find("tr").eq(index).attr("id")
-                }
-            }
+
+
             console.log("这个是删除等操作"+JSON.stringify(data));
             //ajax提交
             layer.confirm('确定删除该项?', {icon: 3, title: '提示'}, function (index) {
@@ -411,7 +380,6 @@
                 }
             });
             var id=classDom.find("tr").eq(index).attr("id");
-            var stcode=classDom.find("tr").eq(index).attr("stcode");
             data.id=id;
 
             if(key=="assistantConfig"){
@@ -422,34 +390,11 @@
             }
 
             var spaceId=classDom.find("input[name=spaceId]").val();
-            if(key=="assistantOrderSpaceinfo"){
-                if(!data.key){
-                    if(spaceId==""){
-                        data.key="assistantSpaceProd";
-                        data.spaceId=$(".level-2").find("tr").eq(index).attr("id");
-                    }
-                    else{
-                        data.key="assistantOrderSpaceinfo";
-                        data.parentId=$(".level-1").find("tr").eq(index).attr("id");
-                    }
-                }
-                else{
-                    data.parentId=0
-                }
+            if(spaceId==""){
+                data.key="assistantSpaceProd";
+                data.spaceId=$(".level-2").find("tr").eq(index).attr("id");
             }
 
-            if(key=="assistantResupplyReason"){
-                data.key="assistantResupplyReason";
-                if(data.levelType==1){
-                    data.parentId=0
-                }
-                if(data.levelType==2){
-                    data.parentId=$(".level-1").find("tr").eq(index).attr("id")
-                }
-                if(data.levelType==3){
-                    data.parentId=$(".level-2").find("tr").eq(index).attr("id")
-                }
-            }
             console.log("这个是启用等操作"+JSON.stringify(data));
             //ajax提交
             layer.confirm('确定启用该项?', {icon: 3, title: '提示'}, function (index) {
@@ -618,11 +563,12 @@
             if(key=='assistantOrderSpaceinfo'){
                 if(level=="level-1"){
                     ajaxFuncOne(key);
+                    $(".basicDataThree").html("");
                 }
                 if(level=="level-2"){
                     var parentId=$(".level-2").find("input[name=parentId]").val();
-                   // console.log('level-2',parentId);
                     ajaxOrderSpaceinfoOne(parentId);
+                    $(".basicDataFour").html("");
                 }
                 if(level=="level-3"){
                     var parentId=$(".level-3").find("input[name=parentId]").val();
@@ -632,11 +578,12 @@
             else if(key=='assistantResupplyReason'){
                 if(level=="level-1"){
                     ajaxFuncOne(key);
+                    $(".basicDataThree").html("");
                 }
                 if(level=="level-2"){
                     var parentId=$(".level-2").find("input[name=parentId]").val();
-                    //console.log('level-2',parentId);
                     ajaxResupplyReason0ne(parentId);
+                    $(".basicDataFour").html("");
                 }
                 if(level=="level-3"){
                     var parentId=$(".level-3").find("input[name=parentId]").val();
@@ -646,6 +593,7 @@
             else{
                 ajaxFuncOne(key);
             }
+
             $.smallBox({
                 title: "操作成功",
                 content:"刷新页面中...",
