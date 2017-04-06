@@ -62,7 +62,7 @@
 
                                 <div class="col-xs-6">
                                     <div class="form-group">
-                                        <label class="col-xs-2 control-label">建客日期:</label>
+                                        <label class="col-xs-2 control-label">新建日期:</label>
                                         <div class="col-xs-4">
                                             <input class="form-control fg-date-time-picker" value="<%= DWYRequest.query.startDate %>"
                                                    name="startDate">
@@ -102,6 +102,25 @@
                                                 <% storeTypes.forEach(function (element) { %>
                                                 <option value="<%= element.id %>" <%= (DWYRequest.query.storeType == element.id )?"selected":"" %> ><%= element.name %></option>
                                                 <% }) %>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xs-3">
+                                    <div class="form-group">
+                                        <label class="col-xs-4 control-label">大区类型:</label>
+                                        <div class="col-xs-8">
+                                            <select class="form-control" name="regionTypeId">
+                                                <option value="">- 请选择 -</option>
+                                                <%
+                                                if(DWY_Helper.isCanLoop(TypesList)){
+                                                TypesList.forEach(function (element) { %>
+                                                <option value="<%= element.id %>" <%= (DWYRequest.query.regionTypeId == element.id )?"selected":"" %> >
+                                                    <%= element.name %>
+                                                </option>
+                                                <% })
+                                                }%>
+
                                             </select>
                                         </div>
                                     </div>

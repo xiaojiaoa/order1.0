@@ -44,7 +44,7 @@
                                         <label class="col-xs-4 control-label">公告类型:</label>
                                         <div class="col-xs-8">
                                             <select class="form-control" name="typeId" >
-                                                <option value="">- 请选择 -</option>
+                                                <option value="">- 全部 -</option>
                                                 <%  if(DWY_Helper.isCanLoop(noticeType)){noticeType.forEach(function(element,index){%>
                                                 <option value="<%= element.id　%>" <%= (DWYRequest.query.typeId == element.id)?"selected":"" %>> <%= element.name%></option>
                                                 <%})}%>
@@ -67,6 +67,7 @@
 
                                         <div class="col-xs-4">
                                             <select class="form-control" name="sendValue"  id="sendValue">
+                                                <option value="" >-请选择-</option>
                                                 <option value="-1" <%= (DWYRequest.query.sendValue ==-1)?"selected":"" %>>-全部-</option>
                                                 <% if(DWY_Helper.isCanLoop(scopesList)){
                                                     scopesList.forEach(function(element,index){

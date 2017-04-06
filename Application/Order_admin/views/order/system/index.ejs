@@ -261,7 +261,8 @@
          var key=$(this).attr("key");
              $(".level-1 input[name=key]").val(key);
 
-             //初始化二三栏内容
+             //初始化二三四栏内容
+            $(".basicDataSec").html("");
             $(".basicDataThree").html("");
             $(".basicDataFour").html("");
 
@@ -314,6 +315,10 @@
         $(document).on("click",".basicDataSec>tr",function(){
            var key= $(".level-1 input[name=key]").val();
 
+            //初始化三四栏内容
+            $(".basicDataThree").html("");
+            $(".basicDataFour").html("");
+
             var parentId=$(this).attr("id");
            // console.log(parentId);
 
@@ -329,6 +334,9 @@
         //点击左边第三栏
         $(document).on("click",".basicDataThree>tr",function(){
             var key= $(".level-1 input[name=key]").val();
+
+            //初始化四栏内容
+            $(".basicDataFour").html("");
 
             var parentId=$(this).attr("id");
            // console.log(parentId);

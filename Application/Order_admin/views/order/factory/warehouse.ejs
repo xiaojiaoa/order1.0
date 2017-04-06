@@ -175,10 +175,9 @@
                                     <% } %>
                                     <% if (DWY_Helper.hasPermission(Permission.storage.deleteStorage.id, permission) ){ %>
                                     <a class="todoClose label label-danger" data-id="<%= element.whseId %>">禁用</a>
-                                    <%  }else{ %>
+                                    <%  }}else if(DWY_Helper.hasPermission(Permission.storage.deleteStorage.id, permission)){ %>
                                     <a class="todoOpen label label-primary" data-id="<%= element.whseId %>">启用</a>
                                     <%  }%>
-                                    <% } %>
                                 </td>
                             </tr>
                             <%  })
