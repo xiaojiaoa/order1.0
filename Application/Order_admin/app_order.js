@@ -430,6 +430,20 @@ app.locals.DWY_Helper = {
         }
         return code;
     },
+    //判断登录用户信息里的ftyId是否可用
+    getAssistInitFtyId: function (code, list) {
+        var usableFtyId = '';
+        if (list && code) {
+            for (var i = 0; i < list.length; i++) {
+                var element = list[i]
+                if (element && element.ftyId == code) {
+                    usableFtyId = code;
+                    return usableFtyId;
+                }
+            }
+        }
+        return usableFtyId;
+    },
 //字典翻译-whseId
     getAssistValWhseId: function (code, list) {
         if (list && code) {

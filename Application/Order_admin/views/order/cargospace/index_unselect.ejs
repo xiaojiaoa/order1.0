@@ -47,7 +47,10 @@
                                             <select class="form-control ftyId validate[required]" name="ftyId" id="ftyId">
                                                 <option value="">- 请选择 -</option>
                                             </select>
-                                            <% } %>
+                                            <% }
+
+                                            var initFtyId = DWY_Helper.getAssistInitFtyId(user.ftyId,factoryList)
+                                            %>
 
                                         </div>
                                     </div>
@@ -210,14 +213,10 @@
         pageSetUp();
         $("#create-store").validationEngine({scroll: false});
 
+
         DWY_fty_region.init({
             target: '.target',
-//                factory: '.ftyId',
-//                warehouse: '.whseId',
-//                region: '.regionId',
-            factoryValue: '<%= DWYRequest.query.ftyId? DWYRequest.query.ftyId : user.ftyId %>',
-//            warehouseValue: _this.attr('data-whseId'),
-//            regionValue: _this.attr('data-regionId')
+            factoryValue: '<%= DWYRequest.query.ftyId? DWYRequest.query.ftyId : initFtyId %>',
 
         });
     })
