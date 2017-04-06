@@ -192,14 +192,18 @@ var OrderController = {
 
     },
     updateDifficultyLevel: function (req, res) {
+        var rehref = req.body.rehref;
         request(Base.mergeRequestOptions({
             method: 'put',
             url: '/api/orders/review/updateDifficultyLevel?'+queryString.stringify(req.body),
         }, req, res), function (error, response, body) {
             if (!error && response.statusCode == 201) {
-                // Base.handlerSuccess(res, req);
-                // res.redirect("/order/check/waitOrder");
-                res.sendStatus(200);
+                if(rehref == 1){
+                    Base.handlerSuccess(res, req);
+                    res.redirect("/order/permit");
+                }else{
+                    res.sendStatus(200);
+                }
             } else {
                 Base.handlerError(res, req, error, response, body);
             }
@@ -679,6 +683,7 @@ var OrderController = {
                 {url: '/api/assist/brandinfo', method: 'GET', resConfig: {keyName: 'brandinfoList', is_must: true}},
                 {url: '/api/assist/order/difficulty', method: 'GET', resConfig: {keyName: 'difficultyList', is_must: true}},
                 {url: '/api/assist/space/prod', method: 'GET', resConfig: {keyName: 'prodList', is_must: true}},
+                {url: '/api/orders/review/reviewNumber', method: 'GET', resConfig: {keyName: 'reviewNumber', is_must: true}},
             ], function (req, res, resultList) {
 
                 var paginationInfo =  resultList.selfList;
@@ -712,6 +717,7 @@ var OrderController = {
                 {url: '/api/assist/brandinfo', method: 'GET', resConfig: {keyName: 'brandinfoList', is_must: true}},
                 {url: '/api/assist/order/difficulty', method: 'GET', resConfig: {keyName: 'difficultyList', is_must: true}},
                 {url: '/api/assist/space/prod', method: 'GET', resConfig: {keyName: 'prodList', is_must: true}},
+                {url: '/api/orders/review/reviewNumber', method: 'GET', resConfig: {keyName: 'reviewNumber', is_must: true}},
             ], function (req, res, resultList) {
 
                 var paginationInfo =  resultList.selfList;
@@ -731,31 +737,7 @@ var OrderController = {
                 res.render('order/order/order_check', returnData);
             });
         }
-        // Base.multiDataRequest(req, res, [
-        //     {url: '/api/orders/review/gid', method: 'GET', resConfig: {keyName: 'selfList', is_must: true}},
-        //     {url: '/api/assist/brandinfo', method: 'GET', resConfig: {keyName: 'brandinfoList', is_must: true}},
-        //     {url: '/api/assist/order/difficulty', method: 'GET', resConfig: {keyName: 'difficultyList', is_must: true}},
-        //     {url: '/api/assist/space/prod', method: 'GET', resConfig: {keyName: 'prodList', is_must: true}},
-        //     apiRequest
-        // ], function (req, res, resultList) {
-        //
-        //     var paginationInfo =  resultList.selfList;
-        //
-        //     var boostrapPaginator = new Pagination.TemplatePaginator(helper.genPageInfo({
-        //         prelink: paramObject.withoutPageNo,
-        //         current: paginationInfo.page,
-        //         rowsPerPage: paginationInfo.pageSize,
-        //         totalResult: paginationInfo.totalItems
-        //     }));
-        //
-        //     var returnData = Base.mergeData(helper.mergeObject({
-        //         title: '订单审核 ',
-        //         pagination: boostrapPaginator.render(),
-        //         Permission :Permissions,
-        //         type :type,
-        //     },resultList));
-        //     res.render('order/order/order_check', returnData);
-        // });
+
     },
     processPage: function (req, res) {
         res.render('order/order/order_process');
