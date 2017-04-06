@@ -244,6 +244,7 @@ var OrderController = {
         res.render('order/order/communicate_create', returnData);
     },
     doCreateCommunicate: function (req, res) {
+        var reload = req.body.reload;
         var tid = req.body.tid;
         var type = req.params.type;
         request(Base.mergeRequestOptions({
@@ -253,11 +254,16 @@ var OrderController = {
         }, req, res), function (error, response, body) {
             if (!error && response.statusCode == 201) {
                 Base.handlerSuccess(res, req);
-                if(type == 'order'){
-                    res.redirect("/order/detail/" + tid);
+                if(reload == 1){
+                    res.redirect("/"+type+"/communicateAll/" + tid);
                 }else{
-                    res.redirect("/order/resupply/detail/" + tid);
+                    if(type == 'order'){
+                        res.redirect("/order/detail/" + tid);
+                    }else{
+                        res.redirect("/order/resupply/detail/" + tid);
+                    }
                 }
+
 
             } else {
                 Base.handlerError(res, req, error, response, body);

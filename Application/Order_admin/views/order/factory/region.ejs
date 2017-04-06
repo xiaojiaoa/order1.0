@@ -158,7 +158,7 @@
                                 <td><%= element.name %></td>
                                 <td><a href="/factory/detail/<%= element.ftyId %>"><%= element.ftyName %></a></td>
                                 <td><%= DWY_Helper.getLocalDateYMD(element.addTime) %></td>
-                                <td><%= element.remark %>/<%= element.stcode %></td>
+                                <td><%= element.remark %></td>
                                 <td>
                                     <% if(element.stcode == 1){ %>
                                     <% if (DWY_Helper.hasPermission(Permission.goodsAllocation.create.id, permission) ){ %>
