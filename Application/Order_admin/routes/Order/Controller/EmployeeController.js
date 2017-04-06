@@ -162,6 +162,8 @@ var EmployeeController = {
         });
     },
     doModify: function (req, res) {
+        var urlType = req.body.urlType;
+        var bid = req.body.bid;
         var cid = req.body.cid;
         var roles = req.body.roles;
         var role ="";
@@ -182,7 +184,7 @@ var EmployeeController = {
             if (!error && response.statusCode == 201) {
                 Base.handlerSuccess(res, req);
                 // var lid = JSON.parse(body).lid;
-                res.redirect("/employees/detail/"+cid);
+                res.redirect("/"+urlType+"/employees/detail/"+bid+"/"+cid);
 
             } else {
                 Base.handlerError(res, req, error, response, body);

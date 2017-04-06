@@ -197,8 +197,9 @@ var OrderController = {
             url: '/api/orders/review/updateDifficultyLevel?'+queryString.stringify(req.body),
         }, req, res), function (error, response, body) {
             if (!error && response.statusCode == 201) {
-                Base.handlerSuccess(res, req);
-                res.redirect("/order/check/waitOrder");
+                // Base.handlerSuccess(res, req);
+                // res.redirect("/order/check/waitOrder");
+                res.sendStatus(200);
             } else {
                 Base.handlerError(res, req, error, response, body);
             }

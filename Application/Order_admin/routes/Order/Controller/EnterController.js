@@ -135,14 +135,12 @@ var EnterController = {
     },
     stockEnterPage: function (req, res){
         var id = req.query.purcId;
-        console.log('88888',id)
         var paramObject = helper.genPaginationQuery(req);
         Base.multiDataRequest(req, res, [
                 {url: '/api/purchase/reqmaterial/purchase/cargoin?'+queryString.stringify(req.query), method: 'GET', resConfig: {keyName: 'cargoinList', is_must: false}},
                 {url: '/api/whse/factory/list', method: 'GET', resConfig: {keyName: 'factoryList', is_must: true}},
             ],
             function (req, res, resultList) {
-                console.log('888666688')
                 var paginationInfo =  resultList.cargoinList;
 
                 var boostrapPaginator = new Pagination.TemplatePaginator(helper.genPageInfo({
@@ -158,14 +156,13 @@ var EnterController = {
                     pagination: boostrapPaginator.render(),
                     Permission :Permissions,
                 }, resultList));
-                console.log('order/enter/stock_enter')
                 res.render('order/enter/stock_enter', returnData);
             });
 
     },
     ifCanEnter: function (req, res) {
         // var num = req.body.num0;
-        console.log('/api/whse/cargoin/mate/usable?'+queryString.stringify(req.body))
+        // console.log('/api/whse/cargoin/mate/usable?'+queryString.stringify(req.body))
 
         // var id = req.params.id;
         request(Base.mergeRequestOptions({
