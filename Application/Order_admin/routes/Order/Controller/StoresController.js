@@ -18,6 +18,8 @@ var StoresController = {
             {url: '/api/stores?'+ queryString.stringify(req.query), method: 'GET', resConfig: {keyName: 'storeList', is_must: true}},
             {url: '/api/assist/store/types', method: 'GET', resConfig: {keyName: 'storeTypes', is_must: true}},
             {url: '/api/assist/store/addrTypes', method: 'GET', resConfig: {keyName: 'addrTypesList', is_must: true}},
+            {url: '/api/assist/region/types', method: 'GET', resConfig: {keyName: 'TypesList', is_must: true}},
+
         ], function (req, res, resultList) {
 
             var paginationInfo =  resultList.storeList;
