@@ -34,25 +34,21 @@
                     <div class="row search-form">
                         <form class="form-horizontal" method="get" action="/cargospace" id="create-store">
 
-                            <div class="col-xs-12">
-
+                            <div class="col-xs-12 target">
                                 <!--输入字段-->
                                 <div class="col-xs-4">
                                     <div class="form-group">
                                         <label class="col-xs-4 control-label"><span class="requird"></span> 工厂:</label>
                                         <div class="col-xs-8">
-                                            <select class="form-control validate[required]" name="ftyId" id="ftyId"
-                                                    <% if ( !DWY_Helper.hasPermission(Permission.storage.queryAll.id, permission) ){ %>
-                                                    disabled
-                                                    <% } %>
-                                            >
+                                            <% if ( !DWY_Helper.hasPermission(Permission.storage.queryAll.id, permission) ){ %>
+                                            <input class="form-control"  value="<%= DWY_Helper.getAssistValFtyId(user.ftyId,factoryList) %>" readonly>
+                                            <input type="hidden" name="ftyId" value="<%= user.ftyId %>">
+                                            <% }else{  %>
+                                            <select class="form-control ftyId validate[required]" name="ftyId" id="ftyId">
                                                 <option value="">- 请选择 -</option>
-                                                <% factoryList.forEach(function (element) { %>
-                                                <option value="<%= element.ftyId %>" <%= user.ftyId == element.ftyId?'selected':'' %> >
-                                                    <%= element.name %>
-                                                </option>
-                                                <% }) %>
                                             </select>
+                                            <% } %>
+
                                         </div>
                                     </div>
                                 </div>
@@ -62,7 +58,7 @@
                                     <div class="form-group">
                                         <label class="col-xs-4 control-label"><span class="requird"></span> 仓库:</label>
                                         <div class="col-xs-8">
-                                            <select class="form-control validate[required]" name="whseId" id="whseId">
+                                            <select class="form-control whseId validate[required]" name="whseId" id="whseId">
                                                 <option value="">- 请选择 -</option>
 
                                             </select>
@@ -74,7 +70,7 @@
                                     <div class="form-group">
                                         <label class="col-xs-4 control-label"><span class="requird"></span> 仓库区域:</label>
                                         <div class="col-xs-8">
-                                            <select class="form-control validate[required]" name="regionId" id="regionId">
+                                            <select class="form-control regionId validate[required]" name="regionId" id="regionId">
                                                 <option value="">- 请选择 -</option>
 
                                             </select>
@@ -206,8 +202,7 @@
 
 <%- include('../layouts/footer'); %>
 <%- include('../layouts/footer_common_script'); %>
-
-<%- include('./js_function'); %>
+<!--include('./js_function');-->
 
 <script type="text/javascript">
 
@@ -215,7 +210,16 @@
         pageSetUp();
         $("#create-store").validationEngine({scroll: false});
 
+        DWY_fty_region.init({
+            target: '.target',
+//                factory: '.ftyId',
+//                warehouse: '.whseId',
+//                region: '.regionId',
+            factoryValue: '<%= DWYRequest.query.ftyId? DWYRequest.query.ftyId : user.ftyId %>',
+//            warehouseValue: _this.attr('data-whseId'),
+//            regionValue: _this.attr('data-regionId')
 
+        });
     })
 
 </script>
