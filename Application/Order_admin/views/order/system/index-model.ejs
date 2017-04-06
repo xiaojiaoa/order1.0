@@ -166,7 +166,7 @@
                 delete data.undefined;
                 console.log("这个是修改data"+JSON.stringify(data));
                 $.ajax({
-                    url: '/system/doModify/'+id,
+                    url: '/system/doModify',
                     data:data,
                     method: 'post',
                     success: function (data) {
@@ -282,7 +282,7 @@
                 console.log("分包类型修改"+JSON.stringify(data));
                 //将数据提交到nodejs端
                 $.ajax({
-                    url: '/system/doModify/',
+                    url: '/system/doModify',
                     method: 'post',
                     data:data,
                     success: function (data) {
@@ -339,7 +339,7 @@
             //ajax提交
             layer.confirm('确定删除该项?', {icon: 3, title: '提示'}, function (index) {
          $.ajax({
-         url: '/system/doModify/'+id,
+         url: '/system/doModify',
          data:data,
          method: 'post',
          success: function (data) {
@@ -399,7 +399,7 @@
             //ajax提交
             layer.confirm('确定启用该项?', {icon: 3, title: '提示'}, function (index) {
                 $.ajax({
-                    url: '/system/doModify/'+id,
+                    url: '/system/doModify',
                     data:data,
                     method: 'post',
                     success: function (data) {
