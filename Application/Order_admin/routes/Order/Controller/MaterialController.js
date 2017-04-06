@@ -50,7 +50,8 @@ var MaterialController = {
             var returnData = Base.mergeData(helper.mergeObject({
                 title: ' ',
                 bid:bid,
-                pagination: boostrapPaginator.render()
+                pagination: boostrapPaginator.render(),
+                Permission :Permissions,
             },resultList));
             res.render('order/material/material_index',returnData);
         });
@@ -72,6 +73,7 @@ var MaterialController = {
                 title: ' ',
                 mid:mid,
                 bid:bid,
+                Permission :Permissions,
             },resultList));
             res.render('order/material/material_detail',returnData);
         });

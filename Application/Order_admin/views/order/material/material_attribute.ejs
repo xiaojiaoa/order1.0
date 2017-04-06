@@ -73,10 +73,12 @@
                                         <i class="fa fa-search"></i>
                                         查询
                                     </button>
+                                    <% if (DWY_Helper.hasPermission(Permission.material.createAttribute.id, permission) ){ %>
                                     <a class="btn btn-primary attrCreate margin-left-10" href="javascript:void(0)">
                                         <i class="fa fa-save"></i>
                                         新建属性
                                     </a>
+                                    <% } %>
                                 </div>
                             </div>
 
@@ -129,11 +131,19 @@
                                                           <td class="display-none"><%= element.length %></td>
                                                           <td>
                                                               <% if( element.stcode == 2 ){ %>
+                                                              <% if (DWY_Helper.hasPermission(Permission.material.deleteAttribute.id, permission) ){ %>
                                                               <a href="javascript:void(0)" id="openStore" class="label label-primary openStore ">启用</a>
+                                                              <% } %>
                                                               <% }else{ %>
+                                                              <% if (DWY_Helper.hasPermission(Permission.material.updateAttribute.id, permission) ){ %>
                                                               <a href="javascript:void(0)" class="label label-primary attrChange ">修改</a>
+                                                              <% } %>
+                                                              <% if (DWY_Helper.hasPermission(Permission.material.deleteAttribute.id, permission) ){ %>
                                                               <a href="javascript:void(0)" class=" label label-danger closeStore" id="closeStore">禁用</a>
+                                                              <% } %>
+                                                              <% if (DWY_Helper.hasPermission(Permission.material.createAttribute.id, permission) ){ %>
                                                               <a href="javascript:void(0)" class="label label-primary creAttrVal attrValCreate">新建值</a>
+                                                              <% } %>
                                                               <% } %>
                                                           </td>
                                                       </tr>
