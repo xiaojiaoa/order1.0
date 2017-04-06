@@ -105,7 +105,8 @@
                                 </tr>
                                 </thead>
                                 <tbody id="moreAddTR">
-                                <% if(DWY_Helper.isCanLoop(cargoinList.result)){
+                                <% var initFtyId = DWY_Helper.getAssistInitFtyId(user.ftyId,factoryList);
+                                if(DWY_Helper.isCanLoop(cargoinList.result)){
                                cargoinList.result.forEach(function(element,index){%>
                                 <tr>
                                     <td>
@@ -226,7 +227,7 @@
 //                factory: '.ftyId',
 //                warehouse: '.whseId',
 //                region: '.regionId',
-            factoryValue: '<%= user.ftyId %>',
+            factoryValue: '<%= initFtyId %>',
 
             cargoId:2,  //类型，1物料，2包装
             type:'<%= DWYRequest.query.type %>' ,     //物料时传物料编号， 包装时传工件、配件 id
