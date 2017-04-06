@@ -1181,7 +1181,7 @@ router.post('/system/doCreate', Middleware.AuthCheck, SystemController.doCreate)
 //修改，删除，启用
 router.post('/system/doModify/:id', Middleware.AuthCheck, SystemController.doModify);
 
-//分包类型--修改，删除，启用
+//分包类型--修改
 router.post('/system/doModify', Middleware.AuthCheck, SystemController.doModifySubPackageDao);
 
 //获取补单原因

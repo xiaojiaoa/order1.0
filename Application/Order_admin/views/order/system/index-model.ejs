@@ -5,6 +5,9 @@
         var seaAllStat=false;//标记"查看所有"点击状态
         var openAllStat=false;//标记"启用所有"点击状态
         var index;//点击的tr的位置
+        var createSubPackageDaoLayer;//新建分包类型-弹窗
+        var modifySubPackageDaoLayer;//修改分包类型-弹窗
+
 
         //点击"新建"，"修改"
         $(".create,.modify").on("click",function(e){
@@ -29,7 +32,7 @@
                if(key=='subPackageDao'){
                    status02(classDom);
                    $(".desktop-detected *").css("pointer-events","auto");
-                   layer.open({
+                   createSubPackageDaoLayer=layer.open({
                        title: false,
                        type: 1,
                        area: '700px',
@@ -60,12 +63,10 @@
                     $(".desktop-detected *").css("pointer-events","auto");
 
                     //给表单赋值
-                    console.log(classDom.find("tr").eq(index).find("input[name=code]").val())
-                    console.log(classDom.find("tr").eq(index).find("input[name=name]").val());
                     $("#subPackageDaoCode").val(classDom.find("tr").eq(index).attr("code"));
                     $("#subPackageDaoName").val(classDom.find("tr").eq(index).find("input[name=name]").val());
                     $("#subPackageDaoId").val(classDom.find("tr").eq(index).attr("id"));
-                    layer.open({
+                   modifySubPackageDaoLayer= layer.open({
                         title: false,
                         type: 1,
                         area: '700px',
@@ -95,7 +96,7 @@
             }
         });
 
-        //保存
+        //保存按钮
         $(".save").on("click",function(){
 
             var level = $(this).parent().attr('data-level');
@@ -208,7 +209,7 @@
 
         });
 
-        //撤销
+        //撤销按钮
         $(".revoke").on("click",function(){
             var level = $(this).parent().attr('data-level');
             var classDom=$('.'+level);
@@ -246,6 +247,68 @@
 
         });
 
+
+        //分包类型--新建提交
+        $(".createBtn").on("click",function(){
+            if ($("#create-subPackageDao-form").validationEngine('validate')) {
+                //序列化表单中的每一个值，并且存储在对象中
+                var data = {};
+                var t = $('#create-subPackageDao-form').serializeArray();
+                $.each(t, function() {
+                    data[this.name] = this.value;
+                });
+                console.log("分包类型新建"+JSON.stringify(data));
+                //将数据提交到nodejs端
+                $.ajax({
+                    url: '/system/doCreate',
+                    method: 'post',
+                    data:data,
+                    success: function (data) {
+                        //刷新页面
+                        var key='subPackageDao';
+                        var level="level-1";
+                        ajaxRefresh(key,level);
+                        layer.close(createSubPackageDaoLayer);
+                    },
+                    error: function (response) {
+                        layer.close(index)
+                        errorLayout.normal(response);
+                    }
+                })
+            }
+        })
+
+        //分包类型--修改提交
+        $(".modifyBtn").on("click",function(){
+            if ($("#modify-subPackageDao-form").validationEngine('validate')) {
+                //序列化表单中的每一个值，并且存储在对象中
+                var data = {};
+                var t = $('#modify-subPackageDao-form').serializeArray();
+                $.each(t, function() {
+                    data[this.name] = this.value;
+                });
+                console.log("分包类型修改"+JSON.stringify(data));
+                //将数据提交到nodejs端
+                $.ajax({
+                    url: '/system/doModify/',
+                    method: 'post',
+                    data:data,
+                    success: function (data) {
+                        //刷新页面
+                        var key='subPackageDao';
+                        var level="level-1";
+                        ajaxRefresh(key,level);
+                        layer.close(modifySubPackageDaoLayer);
+                    },
+                    error: function (response) {
+                        layer.close(index)
+                        errorLayout.normal(response);
+                    }
+                })
+            }
+        })
+
+
         //点击"删除"
         $(".delete").click(function () {
 
@@ -262,9 +325,9 @@
                 }
             });
             var id=classDom.find("tr").eq(index).attr("id");
-            var stcode=classDom.find("tr").eq(index).attr("stcode");
             data.id=id;
 
+            var stcode=classDom.find("tr").eq(index).attr("stcode");
             if(key=="assistantConfig"){
                 data.status=0;
             }

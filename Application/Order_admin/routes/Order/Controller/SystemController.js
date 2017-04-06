@@ -92,8 +92,7 @@ var SystemController = {
         })
     },
     doModifySubPackageDao: function (req, res) {
-        var id=req.body.id;
-        console.log( '/api/assist/'+id+"?"+queryString.stringify(req.body));
+        console.log( '/api/assist/update'+"?"+queryString.stringify(req.body));
         request(Base.mergeRequestOptions({
             method: 'put',
             url: '/api/assist/update'+"?"+queryString.stringify(req.body)
