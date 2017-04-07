@@ -7,6 +7,7 @@
         var index;//点击的tr的位置
         var createSubPackageDaoLayer;//新建分包类型-弹窗
         var modifySubPackageDaoLayer;//修改分包类型-弹窗
+        var modifyHtml;//保存修改前的内容
 
 
         //点击"新建"，"修改"
@@ -46,8 +47,8 @@
                else{
                    classDom.find("tbody").append(creFrag(key)).find("input").focus();
 
-                   //启用'保存''撤销''输入框'的点击事件
-                   classDom.find(".save,.revoke,.add-input").css("pointer-events","auto");
+                   //启用'保存''撤销''输入框' '滚动条'的点击事件
+                   classDom.find(".save,.revoke,.add-input,.scrollTbody").css("pointer-events","auto");
                }
 
             }
@@ -78,7 +79,9 @@
                     });
                 }
               else{
-
+                    //保存修改前的内容
+                    modifyHtml= classDom.find("tr").eq(index).html();
+                    console.log('modifyHtml',modifyHtml);
                   //根据有无点击tr执行取消readonly属性
                     if(key=="assistantConfig"){
                       classDom.find("tr").eq(index).addClass("add-input").find("input[name=code],input[name=value]").removeAttr('readonly').focus();
@@ -87,8 +90,9 @@
                       classDom.find("tr").eq(index).addClass("add-input").find("input").removeAttr('readonly').focus();
                   }
 
-                  //启用'保存''撤销''输入框'的点击事件
-                  classDom.find(".save,.revoke,.add-input *").css("pointer-events","auto");
+
+                  //启用'保存''撤销''输入框' '滚动条'的点击事件
+                  classDom.find(".save,.revoke,.add-input *,.scrollTbody").css("pointer-events","auto");
 
 
               }
@@ -219,8 +223,9 @@
 
             //修改--撤销
             if(classDom.find(".revoke").attr('change')==0){
-                //刷新页面
-                ajaxRefresh(key,level);
+
+                //回到原来的页面
+                classDom.find("tr").eq(index).removeClass('add-input').html(modifyHtml);
 
                 //重置按钮
                 status02(classDom);
