@@ -599,6 +599,65 @@ var permissions = {
             name:"删除物料属性"
         }
     },
+    cargoManages :{
+        mateIn:{
+            id:"702060",
+            name:"原料确定入库按钮"
+        },
+        mateInReview:{
+            id:"702050",
+            name:"原料入库审核"
+        },
+        prodInList:{
+            id:"704030",
+            name:"成品入库查询可入库的包的按钮"
+        },
+        prodIn:{
+            id:"704040",
+            name:"成品确定入库按钮"
+        },
+        deliveryReview:{
+            id:"709023",
+            name:"发货通知单审核"
+        },
+        deliveryList:{
+            id:"709024",
+            name:"发货通知按钮"
+        },
+        deliveryWrite:{
+            id:"709033",
+            name:"填写发货通知单"
+        },
+        deliverySubmit:{
+            id:"709040",
+            name:"提交发货通知单"
+        },
+
+        deliveryPackage:{
+            id:"705023",
+            name:"备货按钮查出包装列表"
+        },
+        prodOutList:{
+            id:"703023",
+            name:"成品出库查询订单下可出库的包"
+        },
+        prodOut:{
+            id:"703030",
+            name:"成品确定出库按钮"
+        },
+        mateOutList:{
+            id:"703011",
+            name:"领料单导入"
+        },
+        mateOut:{
+            id:"706012",
+            name:"领料单确定出库"
+        },
+        mateOutReview:{
+            id:"706013",
+            name:"原料出库审核"
+        },
+    },
     taskseq:{
         cancel:{
             id:"",

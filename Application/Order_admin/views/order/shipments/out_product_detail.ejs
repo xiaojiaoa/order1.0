@@ -127,7 +127,7 @@
                                 <td><%= element.outEmp %></td>
                                 <td><%= element.remark %></td>
                                 <td>
-                                    <% if(element.stcode == 3){ %>
+                                    <% if(element.stcode == 3 && DWY_Helper.hasPermission(Permission.cargoManages.prodOut.id, permission)){ %>
                                     <a class="label label-primary checkThis" data-pakgid="<%= element.pakgId %>">出库</a>
                                     <% } %>
 

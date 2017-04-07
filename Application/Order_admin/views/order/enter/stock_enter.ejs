@@ -150,7 +150,10 @@
                             <!--</a>-->
                             <a class="btn btn-primary" id="toModify">修改物料信息</a>
                             <a class="btn btn-primary" id="toModifySave" style="display: none;">确认修改物料信息</a>
+                            <% if ( DWY_Helper.hasPermission(Permission.cargoManages.mateIn.id, permission) ){ %>
                             <a class="btn btn-primary" id="toEnter">确认入库</a>
+                            <% } %>
+
                         </div>
                     </div>
                 </form>

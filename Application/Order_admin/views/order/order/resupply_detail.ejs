@@ -322,11 +322,6 @@
                                     <% } %>
                                 </td>
                                 <% break;
-                                case 290: %>
-                                <td>
-                                    待加盟商确认
-                                </td>
-                                <% break;
                                     default: %>
                                 <td><%= DWY_Helper.getLocalDate(orderStatusInfo.acceptTime) %></td>
                                 <% } %>
@@ -337,9 +332,18 @@
 
                             <tr>
                                 <td>补单确认</td>
-                                <td></td>
+                                <% switch (resupplyInfo.status){
+                                    case 290: %>
+                                <td>
+                                    待加盟商确认
+                                </td>
+                                <%  break;
+                                default: %>
+                                <td><%= DWY_Helper.getLocalDate(orderStatusInfo.joinConfirmTime) %></td>
+                                <% } %>
+
                                 <td>确认人</td>
-                                <td></td>
+                                <td><%= orderStatusInfo.joinConfirmName %></td>
                             </tr>
                             <tr>
                                 <td>收款确认</td>

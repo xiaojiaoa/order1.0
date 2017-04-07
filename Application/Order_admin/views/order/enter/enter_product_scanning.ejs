@@ -193,7 +193,10 @@
                                 <div class="col-xs-9">
                                     <input type="hidden" class="" id="checkedValue">
                                     <input type="hidden" id="statusThis">
+                                    <% if ( DWY_Helper.hasPermission(Permission.cargoManages.prodIn.id, permission) ){ %>
                                     <a class="btn btn-primary" id="toEnter">确定入库</a>
+                                    <% } %>
+
                                 </div>
                             </div>
                         </div>

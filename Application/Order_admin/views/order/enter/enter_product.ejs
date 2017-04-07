@@ -147,9 +147,11 @@
                                     <!--<a class="btn btn-primary" href="/enterProduct/scanning">-->
                                         <!--入库-->
                                     <!--</a>-->
-                                    <a class="btn btn-primary" href="/enterProduct/notin?type=1001">
-                                        入库
-                                    </a>
+
+                                    <% if ( DWY_Helper.hasPermission(Permission.cargoManages.prodInList.id, permission) ){ %>
+                                    <a class="btn btn-primary" href="/enterProduct/notin?type=1001">入库</a>
+                                    <% } %>
+
                                 </div>
                             </div>
 

@@ -24,11 +24,16 @@
     }
     .browser-icon{
         padding: 0 5px;
+        list-style: none;
+    }
+    .browser-icon li{
+        display: inline-block;
+        margin-right: 10px;
     }
     .browser-icon img{
         width: 40px;
         height:40px;
-        margin:0 10px;
+        margin-right:10px;
     }
 </style>
 
@@ -115,10 +120,21 @@
 <script type="text/javascript">
 
     $(function(){
-        var browsername=Whatbrowser();
-        if(browsername!="chrome"){
+
+        if (window.ActiveXObject || "ActiveXObject" in window){
             $("#fix-alert").slideDown();
+        }else{
+            var userAgent = navigator.userAgent; //取得浏览器的userAgent字符串
+            var isEdge = userAgent.indexOf("Edge") > -1; //判断是否IE的Edge浏览器
+            if(isEdge){
+                $("#fix-alert").slideDown();
+            }
         }
+
+//        var browsername=Whatbrowser();
+//        if(browsername!="chrome"){
+//            $("#fix-alert").slideDown();
+//        }
         $('#alertClose').click(function () {
             $("#fix-alert").slideUp();
         })

@@ -61,20 +61,20 @@
                                     </div>
                                 </div>
 
-                                <div class="col-xs-3">
-                                    <div class="form-group">
-                                        <label class="col-xs-4 control-label">资金类型:</label>
-                                        <div class="col-xs-8">
-                                            <select class="form-control" name="type">
-                                                <option value="">- 全部 -</option>
-                                                <option value="0" <%= (DWYRequest.query.type == '0')?"selected":"" %>>付款</option>
-                                                <option value="1" <%= (DWYRequest.query.type == '1')?"selected":"" %>>代收的款项</option>
-                                                <option value="2" <%= (DWYRequest.query.type == '2')?"selected":"" %>>已收的款项</option>
-                                            </select>
+                                <!--<div class="col-xs-3">-->
+                                    <!--<div class="form-group">-->
+                                        <!--<label class="col-xs-4 control-label">资金类型:</label>-->
+                                        <!--<div class="col-xs-8">-->
+                                            <!--<select class="form-control" name="type">-->
+                                                <!--<option value="">- 全部 -</option>-->
+                                                <!--<option value="0" <%= (DWYRequest.query.type == '0')?"selected":"" %>>付款</option>-->
+                                                <!--<option value="1" <%= (DWYRequest.query.type == '1')?"selected":"" %>>代收的款项</option>-->
+                                                <!--<option value="2" <%= (DWYRequest.query.type == '2')?"selected":"" %>>已收的款项</option>-->
+                                            <!--</select>-->
 
-                                        </div>
-                                    </div>
-                                </div>
+                                        <!--</div>-->
+                                    <!--</div>-->
+                                <!--</div>-->
                             </div>
 
 
@@ -117,6 +117,7 @@
                             <tr>
                                 <th width="80">序号</th>
                                 <th>订单号</th>
+                                <th>订单状态</th>
                                 <th>所属机构</th>
                                 <th>所属门店</th>
                                 <th>金额（元）</th>
@@ -133,6 +134,7 @@
                             <tr>
                                 <td width="80"><%= index+1 %></td>
                                 <td><a href="/order/detail/<%= element.tid %>"><%= element.tid %></a></td>
+                                <td><%= DWY_Helper.getAssistVal(element.stcode,statusInfo) %></td>
                                 <td><%= element.orgName %></td>
                                 <td><%= element.storeName %></td>
                                 <td><%= element.direction ==1?'+':'-' %><%= element.money %></td>

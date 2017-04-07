@@ -187,7 +187,7 @@
                                 <td><%= element.ftyPrice %></td>
                                 <td><%= element.stcodeName %></td>
                                 <td width="80">
-                                    <% if(element.stcode == 745){ %>
+                                    <% if(element.stcode == 745 && DWY_Helper.hasPermission(Permission.cargoManages.prodOutList.id, permission)){ %>
                                     <a class="label label-primary" href="/outProduct/deatil/<%= element.outId %>">出库</a>
                                     <% }%>
                                 </td>

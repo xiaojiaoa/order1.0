@@ -73,36 +73,19 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-xs-3">
+                                <div class="col-xs-6">
                                     <div class="form-group">
-                                        <label class="col-xs-4 control-label">仓库:</label>
-                                        <div class="col-xs-8">
-                                            <select class="form-control" name="whseId" id="whseId">
-                                                <option value="">- 请选择 -</option>
-                                                <%
-                                                if(DWY_Helper.isCanLoop(warehouseList) && initFtyId){
-                                                warehouseList.forEach(function (element) { %>
-                                                <option value="<%= element.whseId %>" <%= (DWYRequest.query.whseId == element.whseId )?"selected":"" %> >
-                                                    <%= element.name %>
-                                                </option>
-                                                <% })
-                                                } %>
-                                            </select>
+                                        <label class="col-xs-2 control-label">日期:</label>
+                                        <div class="col-xs-4">
+                                            <input class="form-control fg-date-time-picker"
+                                                   value="<%= DWYRequest.query.startTime %>"
+                                                   name="startTime">
                                         </div>
-                                    </div>
-                                </div>
-                                <div class="col-xs-3">
-                                    <div class="form-group">
-                                        <label class="col-xs-4 control-label">区域:</label>
-                                        <div class="col-xs-8">
-                                            <select class="form-control" name="regionId" id="regionId">
-                                                <option value="">- 请选择 -</option>
-                                                <% regionList.forEach(function (element) { %>
-                                                <option value="<%= element.regionId %>" <%= (DWYRequest.query.regionId == element.regionId )?"selected":"" %> >
-                                                    <%= element.name %>
-                                                </option>
-                                                <% }) %>
-                                            </select>
+                                        <label class="control-label " style="float: left"> 至 </label>
+                                        <div class="col-xs-4">
+                                            <input class="form-control fg-date-time-picker"
+                                                   value="<%= DWYRequest.query.endTime %>"
+                                                   name="endTime">
                                         </div>
                                     </div>
                                 </div>
@@ -127,22 +110,7 @@
                                     </div>
                                 </div>
 
-                                <div class="col-xs-6">
-                                    <div class="form-group">
-                                        <label class="col-xs-2 control-label">日期:</label>
-                                        <div class="col-xs-4">
-                                            <input class="form-control fg-date-time-picker"
-                                                   value="<%= DWYRequest.query.startTime %>"
-                                                   name="startTime">
-                                        </div>
-                                        <label class="control-label " style="float: left"> 至 </label>
-                                        <div class="col-xs-4">
-                                            <input class="form-control fg-date-time-picker"
-                                                   value="<%= DWYRequest.query.endTime %>"
-                                                   name="endTime">
-                                        </div>
-                                    </div>
-                                </div>
+
                             </div>
 
                             <div class="col-xs-12">
@@ -182,8 +150,6 @@
                                 <th>入库单号</th>
                                 <th>日期</th>
                                 <th>工厂</th>
-                                <th>仓库</th>
-                                <th>区域</th>
                                 <th>采购单号</th>
                                 <th>入库人</th>
                                 <th>状态</th>
@@ -199,15 +165,13 @@
                                         <td><a href="/enterMaterial/detail/<%=element.inId %>"><%=element.inId %></a></td>
                                         <td><%= DWY_Helper.getLocalDate(element.editTime) %></td>
                                         <td><%=element.ftyName %></td>
-                                        <td><%=element.whseName %></td>
-                                        <td><%=element.regionName %></td>
                                         <td><a href="/purchase/orderDetail/<%=element.purId %>"><%=element.purId %></a></td>
                                         <td><%=element.inName%></td>
                                         <td><%= DWY_Helper.geOutStatus(element.stcode) %></td>
 
                                         <td><%=element.reviewName %></td>
                                         <td width="80">
-                                            <% if(element.stcode == 2){%>
+                                            <% if(element.stcode == 2 && DWY_Helper.hasPermission(Permission.cargoManages.mateInReview.id, permission)){%>
                                             <a class="label label-primary checkThis" data-inId="<%=element.inId %>" data-purId="<%=element.purId %>">审核</a>
                                             <% }%>
                                         </td>

@@ -97,9 +97,12 @@
                                         <i class="fa fa-search"></i>
                                         查询
                                     </button>
+                                    <% if ( DWY_Helper.hasPermission(Permission.cargoManages.deliveryList.id, permission) ){ %>
                                     <a class="btn btn-primary " href="/waitSend">
                                         发货通知
                                     </a>
+                                    <% } %>
+
                                 </div>
                             </div>
 
@@ -151,9 +154,11 @@
                                 <td width="150"><%= DWY_Helper.getLocalDate(element.reviewDate) %></td>
                                 <td><%=element.driverName %></td>
                                 <td><%=element.licensePlate %></td>
-                                <td width="70px"><% if(element.type == 2){ %>
+                                <td width="70px">
+                                    <% if(element.type == 2 && DWY_Helper.hasPermission(Permission.cargoManages.deliveryReview.id, permission)){ %>
                                     <a class="label label-primary checkThis" data-id="<%=element.diId %>">审核</a>
-                                    <% }%></td>
+                                    <% }%>
+                                </td>
                             </tr>
                             <%})%>
                             <% } else {%>

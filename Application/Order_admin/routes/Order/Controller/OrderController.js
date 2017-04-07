@@ -1117,7 +1117,7 @@ var OrderController = {
         Base.multiDataRequest(req, res, [
             {url: '/api/stores/money/page?'+queryString.stringify(req.query), method: 'GET', resConfig: {keyName: 'moneyList', is_must: true}},
             {url: '/api/organizations/list', method: 'GET', resConfig: {keyName: 'organizationsList', is_must: true}},
-
+            {url: '/api/assist/order/stcodes', method: 'GET', resConfig: {keyName: 'statusInfo', is_must: false}},
         ], function (req, res, resultList) {
             var paginationInfo =  resultList.moneyList;
 

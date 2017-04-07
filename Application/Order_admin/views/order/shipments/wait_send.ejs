@@ -169,10 +169,15 @@
                                 <td><%=element.address %></td>
                                 <td><%= DWY_Helper.getLocalDateYMD(element.deliveryTime) %></td>
                                 <td><%=DWY_Helper.getAssistVal(element.stcode, statusInfo)%></td>
-                                <td><a class="cursor-pointer deliverThis label label-primary" data-lid="<%=element.lid %>"
+                                <td>
+                                    <% if ( DWY_Helper.hasPermission(Permission.cargoManages.deliveryWrite.id, permission) ){ %>
+                                    <a class="cursor-pointer deliverThis label label-primary" data-lid="<%=element.lid %>"
                                        data-contNo="<%=element.contNo %>" data-deliveryTime="<%=element.deliveryTime %>" data-cName="<%=element.cName %>"
                                        data-mobile="<%=element.mobile %>" data-address="<%=element.address %>"
-                                    >填写发货通知单</a></td>
+                                    >填写发货通知单</a>
+                                    <% } %>
+
+                                </td>
                             </tr>
                             <%})%>
                             <% } else {%>

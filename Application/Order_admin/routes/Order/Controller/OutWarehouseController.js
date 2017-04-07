@@ -38,6 +38,7 @@ var OutWarehouseController = {
                 var returnData = Base.mergeData(helper.mergeObject({
                     title: ' ',
                     pagination: boostrapPaginator.render(),
+                    Permission :Permissions,
                 }, resultList));
                 res.render('order/shipments/wait_send', returnData);
             });
@@ -118,6 +119,7 @@ var OutWarehouseController = {
                 var returnData = Base.mergeData(helper.mergeObject({
                     title: ' ',
                     pagination: boostrapPaginator.render(),
+                    Permission :Permissions,
                 }, resultList));
                 res.render('order/shipments/deliver_note', returnData);
             });
@@ -355,6 +357,7 @@ var OutWarehouseController = {
             var returnData = Base.mergeData(helper.mergeObject({
                 title: ' ',
                 outId: id,
+                Permission :Permissions,
                 pagination: boostrapPaginator.render()
             },resultList));
             res.render('order/shipments/out_product_detail', returnData);
@@ -439,6 +442,7 @@ var OutWarehouseController = {
 
             var returnData = Base.mergeData(helper.mergeObject({
                 title: ' ',
+                Permission :Permissions,
                 pagination: boostrapPaginator.render()
             },resultList));
             res.render('order/shipments/out_bred', returnData);
@@ -455,6 +459,7 @@ var OutWarehouseController = {
           var returnData = Base.mergeData(helper.mergeObject({
             title: ' ',
             type:type,
+            Permission :Permissions,
           }, resultList));
           res.render('order/shipments/out_bred_doOut', returnData);
         });
