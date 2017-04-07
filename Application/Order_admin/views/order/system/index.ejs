@@ -72,6 +72,7 @@
                             <a class="label label-primary open-all display-none">启用所有</a>
                             <a class="label label-primary revoke status02">撤销</a>
                             <a class="label label-primary save status02">保存</a>
+                            <input type="hidden" name="listNum" value="" class="listNum"type='text'/>
                             <input type="hidden" name="key" value="" class="key"type='text'/>
                         </div>
                         <div class="basicDataTit text-align-center basicDataTit01 fixed-header">
@@ -96,6 +97,7 @@
                         <a class="label label-primary see-all status01">查看所有</a>
                         <a class="label label-primary revoke status02">撤销</a>
                         <a class="label label-primary save status02">保存</a>
+                        <input type="hidden" name="listNum" value="" class="listNum"type='text'/>
                         <input type="hidden" name="key" value="" class="key"type='text'/>
                         <input type="hidden" name="parentId" value="" class="parentId" type='text'/>
                     </div>
@@ -119,6 +121,7 @@
                         <a class="label label-primary see-all status01">查看所有</a>
                         <a class="label label-primary revoke status02">撤销</a>
                         <a class="label label-primary save status02">保存</a>
+                        <input type="hidden" name="listNum" value="" class="listNum"type='text'/>
                         <input type="hidden" name="key" value="" class="key"type='text'/>
                         <input type="hidden" name="parentId" value="" class="parentId" type='text'/>
                         <input type="hidden" name="spaceId" value="" class="spaceId" type='text'/>
@@ -295,10 +298,18 @@
             else{
                 $(".level-1 .basicDataTit" ).html("类别1");
             }
+            //流水空间信息修改类别三
+            if(key=='assistantOrderSpaceinfo'){
+                $(".level-3 .basicDataTit" ).html('流水空间产品信息');
+            }
+            else{
+                $(".level-3 .basicDataTit" ).html("类别3");
+            }
 
             //重置按钮
             $(".level-1").find('.status01').show();
             $(".level-1").find('.status02,.status03').hide();
+            $(".level-1 input[name=listNum]").val('');
 
 
             //系统项隐藏新建和删除
@@ -321,6 +332,10 @@
         //点击左边第二栏
         $(document).on("click",".basicDataSec>tr",function(){
            var key= $(".level-1 input[name=key]").val();
+
+            $(".level-1 input[name=listNum]").val($(this).index());
+            $(".level-2 input[name=listNum]").val('');
+            $(".level-3 input[name=listNum]").val('');
 
             //初始化三四栏内容
             $(".basicDataThree").html("");
@@ -354,6 +369,8 @@
         $(document).on("click",".basicDataThree>tr",function(){
             var key= $(".level-1 input[name=key]").val();
 
+            $(".level-2 input[name=listNum]").val($(this).index());
+            $(".level-3 input[name=listNum]").val('');
             //初始化四栏内容
             $(".basicDataFour").html("");
 
@@ -382,6 +399,12 @@
 
         });
 
+        //点击左边第四栏
+        $(document).on("click",".basicDataFour>tr",function(){
+            $(".level-3 input[name=listNum]").val($(this).index());
+
+        });
+
     })
 
     function ajaxFuncOne(key){
@@ -398,7 +421,7 @@
                 setFrag(key,arry);
             },
             error: function (response) {
-                layer.close(index)
+                layer.close(index);
                 errorLayout.normal(response);
             }
         });
@@ -545,7 +568,7 @@
 
             },
             error: function (response) {
-                layer.close(index)
+              layer.close(index);
                 errorLayout.normal(response);
             }
         });
@@ -578,7 +601,7 @@
 
             },
             error: function (response) {
-                layer.close(index)
+              layer.close(index);
                 errorLayout.normal(response);
             }
         });
@@ -612,7 +635,7 @@
 
             },
             error: function (response) {
-                layer.close(index)
+              layer.close(index);
                 errorLayout.normal(response);
             }
         });
@@ -645,7 +668,7 @@
 
             },
             error: function (response) {
-                layer.close(index)
+                layer.close(index);
                 errorLayout.normal(response);
             }
         });
