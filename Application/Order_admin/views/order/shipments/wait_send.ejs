@@ -168,7 +168,7 @@
                                 <td><%=element.mobile %></td>
                                 <td><%=element.address %></td>
                                 <td><%= DWY_Helper.getLocalDateYMD(element.deliveryTime) %></td>
-                                <td><%=DWY_Helper.getAssistVal(element.stcode, statusInfo)%></td>
+                                <td><%= element.stcodeName %></td>
                                 <td>
                                     <% if ( DWY_Helper.hasPermission(Permission.cargoManages.deliveryWrite.id, permission) ){ %>
                                     <a class="cursor-pointer deliverThis label label-primary" data-lid="<%=element.lid %>"
