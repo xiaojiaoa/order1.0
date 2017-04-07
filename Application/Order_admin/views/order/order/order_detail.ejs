@@ -427,9 +427,6 @@
                                 <%         break;
                                 case 280: %>
                                 <td>审核退回
-                                    <% if (DWY_Helper.hasPermission(Permission.orderReview.takeOrder.id, permission) ){ %>
-                                    <a class="label label-primary doGetTask" data-stcode="<%= orderInfo.stcode %>">重新提交</a>
-                                    <% } %>
                                 </td>
                                 <%         break;
                                     default: %>
@@ -504,7 +501,7 @@
                                 case 478: %>
                                 <td>
                                     拆审退回
-                                    <% if (DWY_Helper.hasPermission(Permission.orderReviewApart.takeOrder.id, permission) ){ %>
+                                    <% if (DWY_Helper.hasPermission(Permission.orderApart.passOrder.id, permission) ){ %>
                                     <a class="label label-primary doGetTask" data-stcode="<%= orderInfo.stcode %>">重新提交</a>
                                     <% } %>
                                 </td>

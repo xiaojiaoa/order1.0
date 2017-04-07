@@ -36,12 +36,14 @@
                                 <th>加急</th>
                                 <th>试装</th>
                                 <th>收款</th>
+                                <th>包装</th>
                                 <th>下单完毕</th>
                                 <th>产品类型</th>
+                                <th>订单类型</th>
                                 <th>主材颜色</th>
                                 <th>订单号</th>
                                 <th>批次号</th>
-                                <th>包装</th>
+
                                 <th>专卖店</th>
                                 <th>客户名称</th>
                                 <th>下单日期</th>
@@ -64,8 +66,10 @@
                                 <td><%= element.urgent %></td>
                                 <td><%= element.tryInstall %></td>
                                 <td><%= element.receivedStr %></td>
+                                <td class="text-left"><%= element.packageStatusStr %></td>
                                 <td><%= element.orderFinishStr %></td>
                                 <td><%= element.productTypeStr %></td>
+                                <td><%= element.orderTypeStr %></td>
                                 <td><%= element.colorStr %></td>
                                 <td><a href="/order/detail/<%= element.tid %>"><%= element.tid %></a></td>
                                 <%
@@ -74,7 +78,6 @@
                                 <% }else{%>
                                 <td><%= element.batchNumber %></td>
                                 <%}%>
-                                <td><%= element.packageStatusStr %></td>
                                 <td><%= element.storeName %></td>
                                 <td>
                                     <a href="/customer/detail/<%= element.cid %>"><%= element.cName %></a>
@@ -221,6 +224,7 @@
                                 <th>收款</th>
                                 <th>下单完毕</th>
                                 <th>产品类型</th>
+                                <th>订单类型</th>
                                 <th>主材颜色</th>
                                 <th>订单号</th>
                                 <th>批次号</th>
@@ -239,7 +243,7 @@
                                 <td>
                                     <label class="checkbox-inline">
                                         <%
-                                        if(element.received==0){%>
+                                        if(element.received==0||element.received==null){%>
                                         <input type="checkbox" class="checkbox" name="roles" value="<%= element.tid %>" disabled="disabled">
                                         <% }else{%>
                                         <input type="checkbox" class="checkbox" name="roles" value="<%= element.tid %>">
@@ -249,9 +253,15 @@
                                 </td>
                                 <td><%= element.urgent %></td>
                                 <td><%= element.tryInstall %></td>
-                                <td><%= element.receivedStr %></td>
+                                <%
+                                    if(element.receivedStr=='否'){%>
+                                        <td><span class="padding-5" style="background:#fdcc9c;"><%= element.receivedStr %></span></td>
+                                    <%}else{%>
+                                        <td><%= element.receivedStr %></td>
+                                <%}%>
                                 <td><%= element.orderFinishStr %></td>
                                 <td><%= element.productTypeStr %></td>
+                                <td><%= element.orderTypeStr %></td>
                                 <td><%= element.colorStr %></td>
                                 <td><a href="/order/detail/<%= element.tid %>"><%= element.tid %></a></td>
                                 <%
