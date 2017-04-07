@@ -440,16 +440,20 @@
 
         //点击tr
         $(document).on("click","table>tbody>tr",function(){
-
+            var classDom = $(this).parent().parent().parent();
             if(!$(this).hasClass('add-input')){
                 $(this).addClass("active").siblings("tr").removeClass("active");
             }
 
             //点击的是"disable"
             if($(this).hasClass('disable')){
-                var classDom = $(this).parent().parent().parent();
+
                 classDom.find('.modify').hide();
                 classDom.find('.open-this').show();
+            }
+            else{
+                classDom.find('.open-this').hide();
+                classDom.find('.modify').show();
             }
         });
 
@@ -504,7 +508,7 @@
         function status02(dom){
 
             dom.find('.status01').show();
-            dom.find('.status02').hide();
+            dom.find('.status02,.status03').hide();
 
            /* //根据"查看所有"点击状态显示"启用所有"
             if(seaAllStat){
