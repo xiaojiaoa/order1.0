@@ -4,7 +4,6 @@
 
         var seaAllStat=false;//标记"查看所有"点击状态
         var openAllStat=false;//标记"启用所有"点击状态
-        var index;//点击的tr的位置
         var createSubPackageDaoLayer;//新建分包类型-弹窗
         var modifySubPackageDaoLayer;//修改分包类型-弹窗
         var modifyHtml;//保存修改前的内容
@@ -17,6 +16,7 @@
             var classDom=$('.'+level);
             classDom.find('.status01,.status03').hide();
             classDom.find('.status02').show();
+            var listNum=classDom.find('.listNum').val();
 
             //获取key值
             var key=$("input[name=key]").val();
@@ -64,9 +64,9 @@
                     $(".desktop-detected *").css("pointer-events","auto");
 
                     //给表单赋值
-                    $("#subPackageDaoCode").val(classDom.find("tr").eq(index).attr("code"));
-                    $("#subPackageDaoName").val(classDom.find("tr").eq(index).find("input[name=name]").val());
-                    $("#subPackageDaoId").val(classDom.find("tr").eq(index).attr("id"));
+                    $("#subPackageDaoCode").val(classDom.find("tr").eq(listNum).attr("code"));
+                    $("#subPackageDaoName").val(classDom.find("tr").eq(listNum).find("input[name=name]").val());
+                    $("#subPackageDaoId").val(classDom.find("tr").eq(listNum).attr("id"));
                    modifySubPackageDaoLayer= layer.open({
                         title: false,
                         type: 1,
@@ -80,14 +80,13 @@
                 }
               else{
                     //保存修改前的内容
-                    modifyHtml= classDom.find("tr").eq(index).html();
-                    console.log('modifyHtml',modifyHtml);
+                    modifyHtml= classDom.find("tr").eq(listNum).html();
                   //根据有无点击tr执行取消readonly属性
                     if(key=="assistantConfig"){
-                      classDom.find("tr").eq(index).addClass("add-input").find("input[name=code],input[name=value]").removeAttr('readonly').focus();
+                      classDom.find("tr").eq(listNum).addClass("add-input").find("input[name=code],input[name=value]").removeAttr('readonly').focus();
                   }
                   else{
-                      classDom.find("tr").eq(index).addClass("add-input").find("input").removeAttr('readonly').focus();
+                      classDom.find("tr").eq(listNum).addClass("add-input").find("input").removeAttr('readonly').focus();
                   }
 
 
@@ -105,6 +104,7 @@
 
             var level = $(this).parent().attr('data-level');
             var classDom=$('.'+level);
+            var listNum=classDom.find('.listNum').val();
             //获取key值
             var key=$("input[name=key]").val();
             //设置data
@@ -158,15 +158,17 @@
                         classDom.find(".save").removeAttr("change");
                     },
                     error: function (response) {
-                        layer.close(index)
+                     /*   layer.close(index)*/
                         errorLayout.normal(response);
                     }
                 });
             }
             //修改--保存
             if( classDom.find(".save").attr('change')==0){
-                var id=classDom.find("tr").eq(index).attr("id");
-                data.id=id;
+                if(listNum!=''){
+                    var id=classDom.find("tr").eq(listNum).attr("id");
+                    data.id=id;
+                }
                 delete data.undefined;
                 console.log("这个是修改data"+JSON.stringify(data));
                 $.ajax({
@@ -193,7 +195,7 @@
                         classDom.find(".save").removeAttr("change");
                     },
                     error: function (response) {
-                        layer.close(index)
+                     /*   layer.close(index)*/
                         errorLayout.normal(response);
                     }
                 });
@@ -205,6 +207,7 @@
         $(".revoke").on("click",function(){
             var level = $(this).parent().attr('data-level');
             var classDom=$('.'+level);
+            var listNum=classDom.find('.listNum').val();
             //获取key值
             var key=$("input[name=key]").val();
 
@@ -225,7 +228,7 @@
             if(classDom.find(".revoke").attr('change')==0){
 
                 //回到原来的页面
-                classDom.find("tr").eq(index).removeClass('add-input').html(modifyHtml);
+                classDom.find("tr").eq(listNum).removeClass('add-input').html(modifyHtml);
 
                 //重置按钮
                 status02(classDom);
@@ -311,7 +314,7 @@
 
             var level = $(this).parent().attr('data-level');
             var classDom=$('.'+level);
-
+            var listNum=classDom.find('.listNum').val();
             //获取key值
             var key=$("input[name=key]").val();
             //设置data
@@ -321,8 +324,12 @@
                     data[$(this).attr("name")]=$(this).val();
                 }
             });
-            var id=classDom.find("tr").eq(index).attr("id");
-            data.id=id;
+            if(listNum!='') {
+                var id = classDom.find("tr").eq(listNum).attr("id");
+                console.log('bb删除', listNum);
+                console.log('aa删除', classDom.find("tr").eq(listNum));
+                data.id = id;
+            }
             if(key=="assistantConfig"){
                 data.status=0;
             }
@@ -335,7 +342,7 @@
             var spaceId=classDom.find("input[name=spaceId]").val();
                if(spaceId==""){
                 data.key="assistantSpaceProd";
-                data.spaceId=$(".level-2").find("tr").eq(index).attr("id");
+                data.spaceId=$(".level-2").find("tr").eq(listNum).attr("id");
                }
 
 
@@ -353,7 +360,7 @@
              ajaxRefresh(key,level);
 
              //重置按钮
-             $('.status01').show()
+             status02(classDom);
 
              //关闭弹窗
              layer.close(index);
@@ -372,6 +379,7 @@
 
             var level = $(this).parent().attr('data-level');
             var classDom=$('.'+level);
+            var listNum=classDom.find('.listNum').val();
             classDom.find('.modify').show();
             $(this).hide();
 
@@ -384,9 +392,12 @@
                     data[$(this).attr("name")]=$(this).val();
                 }
             });
-            var id=classDom.find("tr").eq(index).attr("id");
-            data.id=id;
-
+            if(listNum!='') {
+                var id = classDom.find("tr").eq(listNum).attr("id");
+                console.log('bb启用', listNum);
+                console.log('aa启用', classDom.find("tr").eq(listNum));
+                data.id = id;
+            }
             if(key=="assistantConfig"){
                 data.status=1;
             }
@@ -394,11 +405,13 @@
                 data.stcode=1;
             }
 
+
             var spaceId=classDom.find("input[name=spaceId]").val();
             if(spaceId==""){
                 data.key="assistantSpaceProd";
-                data.spaceId=$(".level-2").find("tr").eq(index).attr("id");
+                data.spaceId=$(".level-2").find("tr").eq(listNum).attr("id");
             }
+
 
             console.log("这个是启用等操作"+JSON.stringify(data));
             //ajax提交
@@ -413,7 +426,7 @@
                         ajaxRefresh(key,level);
 
                         //重置按钮
-                        $('.status01').show()
+                        status02(classDom);
                         //关闭弹窗
                         layer.close(index);
                     },
@@ -430,7 +443,6 @@
 
             if(!$(this).hasClass('add-input')){
                 $(this).addClass("active").siblings("tr").removeClass("active");
-                index=$(this).index();
             }
 
             //点击的是"disable"
@@ -569,30 +581,36 @@
                 if(level=="level-1"){
                     ajaxFuncOne(key);
                     $(".basicDataThree").html("");
+                    $(".level-1 input[name=listNum]").val('');
                 }
                 if(level=="level-2"){
                     var parentId=$(".level-2").find("input[name=parentId]").val();
                     ajaxOrderSpaceinfoOne(parentId);
                     $(".basicDataFour").html("");
+                    $(".level-2 input[name=listNum]").val('');
                 }
                 if(level=="level-3"){
                     var parentId=$(".level-3").find("input[name=parentId]").val();
                     ajaxOrderSpaceinfoTwo(parentId);
+                    $(".level-3 input[name=listNum]").val('');
                 }
             }
             else if(key=='assistantResupplyReason'){
                 if(level=="level-1"){
                     ajaxFuncOne(key);
                     $(".basicDataThree").html("");
+                    $(".level-1 input[name=listNum]").val('');
                 }
                 if(level=="level-2"){
                     var parentId=$(".level-2").find("input[name=parentId]").val();
                     ajaxResupplyReason0ne(parentId);
                     $(".basicDataFour").html("");
+                    $(".level-2 input[name=listNum]").val('');
                 }
                 if(level=="level-3"){
                     var parentId=$(".level-3").find("input[name=parentId]").val();
                     ajaxResupplyReasonTwo(parentId);
+                    $(".level-3 input[name=listNum]").val('');
                 }
             }
             else{

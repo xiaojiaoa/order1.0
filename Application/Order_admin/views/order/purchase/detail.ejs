@@ -227,6 +227,14 @@
                     layer.alert('已审核订单无法合并！', {icon: 3})
                     return false;
                 }
+                if(stcodeStr.indexOf('50')>-1){
+                    layer.alert('已提交订单无法合并！', {icon: 3})
+                    return false;
+                }
+                if(stcodeStr.indexOf('70')>-1){
+                    layer.alert('已入库订单无法合并！', {icon: 3})
+                    return false;
+                }
                 var tid = checkedValue.attr('class').replace(/[ ]/g,"");
                 tid = tid.substring(0,tid.length-1);
                 layer.confirm('确认合并?',{icon: 3, title:'提示'},
