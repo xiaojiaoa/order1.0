@@ -428,7 +428,7 @@ var OrderController = {
         }, req, res), function (error, response, body) {
             if (!error && response.statusCode == 201) {
                 Base.handlerSuccess(res, req);
-                res.redirect("/orders/resupplys/apart");
+                res.redirect("/orders/resupplys/accept");
             } else {
                 Base.handlerError(res, req, error, response, body);
             }

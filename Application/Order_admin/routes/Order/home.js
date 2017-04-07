@@ -952,7 +952,7 @@ router.get('/file/create/:lid/:type', Middleware.AuthCheck, FileController.creat
 // router.get('/file/order/create/:lid/:type/:tid', Middleware.AuthCheck, FileController.createOrderFilePage);
 router.get('/file/order/create/:lid/:stcode/:type/:tid', Middleware.AuthCheck, FileController.createOrderFilePage);
 
-router.get('/file/resupply/create/:lid/:stcode/:tid/:pid/:type', Middleware.AuthCheck, FileController.createResupplyFilePage);
+router.get('/file/resupply/create/:lid/:stcode/:type/:tid', Middleware.AuthCheck, FileController.createResupplyFilePage);
 
 
 // 新增文件上传地址(拆单)

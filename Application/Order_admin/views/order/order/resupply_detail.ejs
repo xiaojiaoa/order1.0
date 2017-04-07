@@ -53,7 +53,7 @@
                                 <td>专卖店</td>
                                 <td><%= resupplyInfo.storeName %></td>
                                 <td>专卖店编号</td>
-                                <td><%= resupplyInfo.storeId %></td>
+                                <td><%= resupplyInfo.bid %></td>
                             </tr>
                             <tr>
                                 <td>收货人</td>
@@ -175,7 +175,7 @@
                         <% if( (resupplyInfo.status == 250) || (resupplyInfo.status == 450) || (resupplyInfo.status == 475) ){ %>
 
                         <a class="label label-primary"
-                           href="/file/order/create/<%= resupplyInfo.orgLid %>/<%= resupplyInfo.status %>/<%= resupplyInfo.orderType == 'B'? 2:3 %>/<%= tid %>">
+                           href="/file/resupply/create/<%= resupplyInfo.orgLid %>/<%= resupplyInfo.status %>/<%= resupplyInfo.orderTypeStr == '补单'? 2:3 %>/<%= tid %>">
                             文件管理
                         </a>
                         <% } %>
@@ -670,7 +670,7 @@
             switch (orderStcode) {
                 case '450':
                     ajaxUrl = '/apart/doPass/<%= tid %>';
-                    locationUrl = '/orders/resupplys/apartCheck';
+                    locationUrl = '/orders/resupplys/apart';
                     text = '确定拆单完毕吗?';
                     break;
                 case '475':
