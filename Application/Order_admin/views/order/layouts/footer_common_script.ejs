@@ -103,16 +103,14 @@
 
         $('ul.menu-list li').click(function () {
             var innerHeight =  $('ul.menu-list').scrollTop();
-            var height = $(this).offset().top;
-            if(innerHeight > 0){
-                localStorage.setItem('menuScroll-height',height);
-            }else{
-                localStorage.setItem('menuScroll-height',0);
-            }
+//            var height = $(this).offset().top;
+
+            localStorage.setItem('menuScroll-height',innerHeight);
         });
 
         $('ul.menu-list').animate({
             scrollTop:localStorage.getItem('menuScroll-height')
+//            scrollTop:'120px'
         }, 500);
 
 

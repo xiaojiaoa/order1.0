@@ -35,13 +35,21 @@
                     <legend>物料信息
 
                         <% if( mateInfo.stcode == 2){ %>
+                        <% if (DWY_Helper.hasPermission(Permission.material.delete.id, permission) ){ %>
                         <a class="label label-primary" id="openStore">启用</a>
+                        <% } %>
                         <% }else{ %>
+                        <% if (DWY_Helper.hasPermission(Permission.material.update.id, permission) ){ %>
                         <a class="label label-primary" href="/materialManage/material/modify/<%= mateInfo.id%>">修改</a>
+                        <% } %>
+                        <% if (DWY_Helper.hasPermission(Permission.material.delete.id, permission) ){ %>
                         <a class="label label-danger" id="closeStore">禁用</a>
+                        <% } %>
+                        <% if (DWY_Helper.hasPermission(Permission.material.queryAll.id, permission) ){ %>
                         <a class="label label-primary margin-left-10"  href="javascript:void(0)" id="choiceFac">
                             选择工厂
                         </a>
+                        <% } %>
                         <% } %>
 
                         <a class="label label-primary display-none" href="/materialManage/add/<%= bid %>/<%= mid %>">完善物料库存</a>
@@ -68,9 +76,11 @@
                                         </div>
                                         <input type="hidden" name="mateId" value="<%= mid %>">
                                         <div class="col-xs-2">
+                                            <% if (DWY_Helper.hasPermission(Permission.material.update.id, permission) ){ %>
                                                 <button class="btn btn-primary " type="submit">
                                                     确认
                                                 </button>
+                                            <% } %>
                                         </div>
                                     </form>
                                 </td>

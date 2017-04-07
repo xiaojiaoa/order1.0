@@ -57,7 +57,8 @@
                                 <tbody id="moreAddTR">
                                 <input name="howmuch" value="<%= cargoinList.result.length %>" type="hidden">
                                 <input name="list" value="" type="hidden">
-                                <% if(cargoinList.result.length>0){
+                                <%  var initFtyId = DWY_Helper.getAssistInitFtyId(user.ftyId,factoryList);
+                                if(cargoinList.result.length>0){
                                 var ifHasPermission = DWY_Helper.hasPermission(Permission.storage.queryAll.id, permission) %>
                                     <% cargoinList.result.forEach(function(element,index){%>
                                         <tr class="cargoinDo" data-index="<%= index %>">
@@ -182,7 +183,7 @@
 //                factory: '.ftyId',
 //                warehouse: '.whseId',
 //                region: '.regionId',
-                factoryValue: '<%= user.ftyId %>',
+                factoryValue: '<%= initFtyId %>',
 
                 cargoId:1,  //类型，1物料，2包装
                 type:element.mateId ,     //物料时传物料编号， 包装时传工件、配件 id
@@ -241,10 +242,10 @@
         $('body').bind('click',function (e) {
             var target = $(e.target);
             if(!target.is('.spaceIdInput') && !target.is('.position-ulselect *')) {
-                console.log('不在弹层区')
+//                console.log('不在弹层区')
                 $('.position-ulselect').hide();
             }else{
-                console.log('在弹层区')
+//                console.log('在弹层区')
             }
 
         })
@@ -432,7 +433,7 @@
             var cargoIdType = $("input[name=cargoId"+index+"]").val();
 
             var regionIdHtml = '<div class="target more-space newtarget'+cargoinList_result+'" data-index="'+cargoinList_result+'">'+
-                '<select class="form-control ftyId validate[required]" name="ftyId'+cargoinList_result+'" data-index="'+cargoinList_result+'">'+
+                '<select class="form-control ftyId validate[required]" name="ftyId'+cargoinList_result+'" data-index="'+cargoinList_result+'" '+(ifHasPermissionaaa?'':'disabled')+'>'+
                 '<option value="">- 工厂 -</option>'+
                 '</select>'+
                 '<select class="form-control whseId validate[required]" name="whseId'+cargoinList_result+'" data-index="'+cargoinList_result+'">'+
@@ -462,6 +463,7 @@
                 factory: '.ftyId',
                 warehouse: '.whseId',
                 region: '.regionId',
+                factoryValue: '<%= initFtyId %>',
                 cargoId:1,  //类型，1物料，2包装
                 type:cargoIdType ,     //物料时传物料编号， 包装时传工件、配件 id
             });

@@ -111,7 +111,7 @@
                             <tr>
                                 <td>难度等级</td>
                                 <td>
-                                    <% if(orderInfo.stcode == 220){ %>
+                                    <% if( DWY_Helper.hasPermission(Permission.orderAssess.assess.id, permission) && orderInfo.stcode == 220){ %>
                                     <form class="form-horizontal" method="post" action="/orders/updateDifficultyLevel">
                                         <div class="col-xs-4">
                                             <select class="form-control" name="difficulty">
@@ -123,6 +123,7 @@
                                                 <% }) %>
                                             </select>
                                             <input value="<%= tid %>" name="tids" type="hidden">
+                                            <input value="1" name="rehref" type="hidden">
                                         </div>
                                         <div class="col-xs-2">
                                             <% if (DWY_Helper.hasPermission(Permission.orderAssess.assess.id, permission) ){ %>
@@ -345,7 +346,16 @@
                 <div class="col-xs-12">
                     <legend>状态信息
                         <!--(调试订单状态:<%= orderInfo.stcode %><%= DWY_Helper.getAssistVal(orderInfo.stcode, stcodeInfo) %> )-->
-                        <% if( (orderInfo.stcode == 250) || (orderInfo.stcode == 450) || (orderInfo.stcode == 475) || (orderInfo.stcode == 635) ){ %>
+                        <% if( DWY_Helper.hasPermission(Permission.orderReview.cancelOrder.id, permission) && (orderInfo.stcode == 250) ){ %>
+                        <a class="label label-primary" id="doUnlock" data-stcode="<%= orderInfo.stcode %>">&nbsp; 解锁 &nbsp;</a>
+                        <% } %>
+                        <% if( DWY_Helper.hasPermission(Permission.orderApart.cancelOrder.id, permission) &&  (orderInfo.stcode == 450) ){ %>
+                        <a class="label label-primary" id="doUnlock" data-stcode="<%= orderInfo.stcode %>">&nbsp; 解锁 &nbsp;</a>
+                        <% } %>
+                        <% if( DWY_Helper.hasPermission(Permission.orderReviewApart.cancelOrder.id, permission) && (orderInfo.stcode == 475) ){ %>
+                        <a class="label label-primary" id="doUnlock" data-stcode="<%= orderInfo.stcode %>">&nbsp; 解锁 &nbsp;</a>
+                        <% } %>
+                        <% if( DWY_Helper.hasPermission(Permission.orderSchedule.cancelOrder.id, permission) &&  (orderInfo.stcode == 635) ){ %>
                         <a class="label label-primary" id="doUnlock" data-stcode="<%= orderInfo.stcode %>">&nbsp; 解锁 &nbsp;</a>
                         <% } %>
                     </legend>
@@ -516,7 +526,7 @@
                                     <% if (DWY_Helper.hasPermission(Permission.orderSchedule.passOrder.id, permission) ){ %>
                                     <a class="label label-primary doPass"  data-stcode="<%= orderInfo.stcode %>">确认排料</a>
                                     <% } %>
-                                    <% if (DWY_Helper.hasPermission(Permission.orderSchedule.sendBackOrder.id, permission) ){ %>
+                                    <% if (DWY_Helper.hasPermission(Permission.orderSchedule.sendBackOrder.id, permission)&& (orderInfo.packeted==0) ){ %>
                                     <a class="label label-primary margin-left-20 reject-modal">排料退回</a>
                                     <% } %>
                                 </td>
@@ -538,7 +548,7 @@
 
                             <tr>
                                 <td>包装时间</td>
-                                <% if (orderInfo.stcode >=675 && orderInfo.stcode <729){%>
+                                <% if (orderInfo.stcode >=635 && orderInfo.stcode <729){%>
                                 <td>
                                 <% if(orderInfo.packeted==0){%>
                                 未包装

@@ -91,8 +91,10 @@
                         <a class="label label-primary modify status01">修改</a>
                         <a class="label label-primary open-this status03">启用</a>
                         <a class="label label-danger delete status01">删除</a>
+                        <a class="label label-primary see-all status01">查看所有</a>
                         <a class="label label-primary revoke status02">撤销</a>
                         <a class="label label-primary save status02">保存</a>
+                        <input type="hidden" name="key" value="" class="key"type='text'/>
                         <input type="hidden" name="parentId" value="" class="parentId" type='text'/>
                     </div>
                     <div class="basicDataTit text-align-center basicDataTit01">
@@ -111,8 +113,10 @@
                         <a class="label label-primary modify status01">修改</a>
                         <a class="label label-primary open-this status03">启用</a>
                         <a class="label label-danger delete status01">删除</a>
+                        <a class="label label-primary see-all status01">查看所有</a>
                         <a class="label label-primary revoke status02">撤销</a>
                         <a class="label label-primary save status02">保存</a>
+                        <input type="hidden" name="key" value="" class="key"type='text'/>
                         <input type="hidden" name="parentId" value="" class="parentId" type='text'/>
                         <input type="hidden" name="spaceId" value="" class="spaceId" type='text'/>
                     </div>
@@ -143,7 +147,7 @@
 </div>
 <!-- END MAIN PANEL -->
 <!--新建分包类型-->
-<form class="form-horizontal  layer-template" method="post" id="create-subPackageDao-form" action="/system/doCreate">
+<form class="form-horizontal  layer-template" method="post" id="create-subPackageDao-form">
 
     <div class="row" style="padding-top: 30px;">
 
@@ -183,10 +187,10 @@
         <div class="col-xs-12">
             <hr class="simple">
             <div class="col-xs-12 text-center">
-                <button  class="btn btn-primary  margin-right-5" type="submit">
+                <a  class="btn btn-primary  margin-right-5 createBtn">
                     <i class="fa fa-save"></i>
                     提交
-                </button>
+                </a>
             </div>
         </div>
     </div>
@@ -194,7 +198,7 @@
 </form>
 <!--END 新建分包类型-->
 <!--修改分包类型-->
-<form class="form-horizontal  layer-template" method="post" id="modify-subPackageDao-form" action="/system/doModify">
+<form class="form-horizontal  layer-template" method="post" id="modify-subPackageDao-form" >
 
     <div class="row" style="padding-top: 30px;">
 
@@ -235,10 +239,10 @@
         <div class="col-xs-12">
             <hr class="simple">
             <div class="col-xs-12 text-center">
-                <button  class="btn btn-primary  margin-right-5" type="submit">
+                <a  class="btn btn-primary  margin-right-5 modifyBtn" >
                     <i class="fa fa-save"></i>
                     提交
-                </button>
+                </a>
             </div>
         </div>
     </div>
@@ -259,9 +263,10 @@
         //点击basicDataFirst--左边第一栏的tr时
         $(".basicDataFirst>tbody>tr").click(function(){
          var key=$(this).attr("key");
-             $(".level-1 input[name=key]").val(key);
+             $("input[name=key]").val(key);
 
-             //初始化二三栏内容
+             //初始化二三四栏内容
+            $(".basicDataSec").html("");
             $(".basicDataThree").html("");
             $(".basicDataFour").html("");
 
@@ -314,35 +319,64 @@
         $(document).on("click",".basicDataSec>tr",function(){
            var key= $(".level-1 input[name=key]").val();
 
-            var parentId=$(this).attr("id");
-           // console.log(parentId);
+            //初始化三四栏内容
+            $(".basicDataThree").html("");
+            $(".basicDataFour").html("");
 
-            $(".level-2 input[name=parentId]").val(parentId);
+            //重置按钮
+            $(".level-2").find('.status01').show();
+            $(".level-2").find('.status02,.status03').hide();
 
-            if(key=="assistantResupplyReason"){
-                ajaxResupplyReason0ne(parentId);
+
+            if($(this).attr("stcode")==1){
+                var parentId=$(this).attr("id");
+                // console.log(parentId);
+
+                $(".level-2 input[name=parentId]").val(parentId);
+
+                if(key=="assistantResupplyReason"){
+                    ajaxResupplyReason0ne(parentId);
+                }
+                if(key=="assistantOrderSpaceinfo"){
+                    ajaxOrderSpaceinfoOne(parentId);
+                }
             }
-            if(key=="assistantOrderSpaceinfo"){
-                ajaxOrderSpaceinfoOne(parentId);
+            else{
+                $(".basicDataThree").html('请先启用该项');
             }
+
+
         });
         //点击左边第三栏
         $(document).on("click",".basicDataThree>tr",function(){
             var key= $(".level-1 input[name=key]").val();
 
-            var parentId=$(this).attr("id");
-           // console.log(parentId);
+            //初始化四栏内容
+            $(".basicDataFour").html("");
 
-            $(".level-3 input[name=parentId]").val(parentId);
+            //重置按钮
+            $(".level-3").find('.status01').show();
+            $(".level-3").find('.status02,.status03').hide();
 
-            $(".level-3 input[name=spaceId]").val();
+            if($(this).attr("stcode")==1){
+                var parentId=$(this).attr("id");
+                // console.log(parentId);
 
-            if(key=="assistantResupplyReason"){
-                ajaxResupplyReasonTwo(parentId);
+                $(".level-3 input[name=parentId]").val(parentId);
+
+                $(".level-3 input[name=spaceId]").val();
+
+                if(key=="assistantResupplyReason"){
+                    ajaxResupplyReasonTwo(parentId);
+                }
+                if(key=="assistantOrderSpaceinfo"){
+                    ajaxOrderSpaceinfoTwo(parentId);
+                }
             }
-            if(key=="assistantOrderSpaceinfo"){
-                ajaxOrderSpaceinfoTwo(parentId);
+            else{
+                $(".basicDataFour").html('请先启用该项');
             }
+
         });
 
     })
@@ -415,7 +449,7 @@
             var frag="";
             for(var i=0;i<arry.length;i++){
                 if(arry[i].levelType==1){
-                    frag+="<tr id="+arry[i].id+" stcode="+arry[i].stcode+">" +
+                    frag+="<tr id="+arry[i].id+" stcode="+arry[i].stcode+" parentId=" + arry[i].parentId + ">" +
                         "<td><input class='border-0 text-align-center' type='text' value="+arry[i].name+" name='name' readonly/></td>" +
                         "</tr>"
                 }
@@ -457,8 +491,8 @@
         else if(key=="subPackageDao"){
             for(var i=0;i<arry.length;i++){
                 frag+="<tr id="+arry[i].id+" stcode="+arry[i].stcode+" code="+arry[i].code+">" +
-                    "<td><input class='border-0 text-align-center' type='text' value="+arry[i].type+" name='type' readonly/></td>" +
                     "<td><input class='border-0 text-align-center' type='text' value="+arry[i].name+" name='name' readonly/></td>" +
+                    "<td><input class='border-0 text-align-center' type='text' value="+arry[i].type+" name='type' readonly/></td>" +
                     "</tr>"
             }
             $(".basicDataSec").html(frag);
@@ -490,7 +524,7 @@
             },
             success: function (data) {
                 var arry= JSON.parse(data);
-               // console.log(arry);
+                console.log('补单原因类别2',arry);
                 var frag = "";
                 for (var i = 0; i < arry.length; i++) {
                     frag += "<tr id=" + arry[i].id + " stcode=" + arry[i].stcode + "  parentId=" + arry[i].parentId + ">" +
@@ -502,7 +536,7 @@
                 //给禁用项目设置样式
                 $(".basicDataThree").find("tr").each(function(){
                     if($(this).attr("stcode")=='0'){
-                        $(this).addClass("disable");
+                        $(this).addClass("disable display-none");
                     }
                 });
 
@@ -523,7 +557,7 @@
             },
             success: function (data) {
                 var arry= JSON.parse(data);
-               // console.log(arry);
+                console.log('补单原因类别3',arry);
                 var frag = "";
                 for (var i = 0; i < arry.length; i++) {
                     frag += "<tr id=" + arry[i].id + " stcode=" + arry[i].stcode + "  parentId=" + arry[i].parentId + ">" +
@@ -535,7 +569,7 @@
                 //给禁用项目设置样式
                 $(".basicDataFour").find("tr").each(function(){
                     if($(this).attr("stcode")=='0'){
-                        $(this).addClass("disable");
+                        $(this).addClass("disable display-none");
                     }
                 });
 
@@ -556,7 +590,7 @@
             },
             success: function (data) {
                 var arry= JSON.parse(data);
-                //console.log(arry);
+                console.log('空间信息类别2',arry);
 
                 var frag = "";
                 for (var i = 0; i < arry.length; i++) {
@@ -569,7 +603,7 @@
                 //给禁用项目设置样式
                 $(".basicDataThree").find("tr").each(function(){
                     if($(this).attr("stcode")=='0'){
-                        $(this).addClass("disable");
+                        $(this).addClass("disable display-none");
                     }
                 });
 
@@ -590,7 +624,7 @@
             },
             success: function (data) {
                 var arry= JSON.parse(data);
-                //console.log(arry);
+                console.log('空间信息类别3',arry);
                 var frag = "";
                 for (var i = 0; i < arry.length; i++) {
                     frag += "<tr id=" + arry[i].id + " stcode=" + arry[i].stcode + "  parentId=" + arry[i].parentId + ">" +
@@ -602,7 +636,7 @@
                 //给禁用项目设置样式
                 $(".basicDataFour").find("tr").each(function(){
                     if($(this).attr("stcode")=='0'){
-                        $(this).addClass("disable");
+                        $(this).addClass("disable display-none");
                     }
                 });
 

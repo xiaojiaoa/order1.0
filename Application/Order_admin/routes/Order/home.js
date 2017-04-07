@@ -87,6 +87,8 @@ var Middleware = {
             //增加token失效验证. token存在但过期时,自动发送refresh_token并保存新的token到用户session
             var user_auth = req.session.auth;
             if ((new Date().getTime() - user_auth.time) > 1600000) {
+                console.log('1600000getTime',(new Date().getTime() - user_auth.time));
+
                 //refresh_token request
                 request(Base.mergeRequestOptions({
                     method: 'POST',
@@ -96,7 +98,7 @@ var Middleware = {
                     if (!error && response.statusCode == 200) {
                         // Show the HTML for the Google homepage.
                         let $data = JSON.parse(body);
-                        // console.log('refresh_token',JSON.stringify($data));
+                        console.log('refresh_token',JSON.stringify($data));
 
                         //TOKEN 存入session
                         var user_session = req.session;
@@ -1179,10 +1181,7 @@ router.put('/system/:key', Middleware.AuthCheck, SystemController.keyFirstALLPag
 router.post('/system/doCreate', Middleware.AuthCheck, SystemController.doCreate);
 
 //修改，删除，启用
-router.post('/system/doModify/:id', Middleware.AuthCheck, SystemController.doModify);
-
-//分包类型--修改，删除，启用
-router.post('/system/doModify', Middleware.AuthCheck, SystemController.doModifySubPackageDao);
+router.post('/system/doModify', Middleware.AuthCheck, SystemController.doModify);
 
 //获取补单原因
 router.put('/resupplyReason/:parentId', Middleware.AuthCheck, SystemController.resupplyReasonPage);

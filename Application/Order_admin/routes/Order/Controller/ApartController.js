@@ -30,6 +30,8 @@ var ApartController = {
             // {url: '/api/assist/deco/color', method: 'GET', resConfig: {keyName: 'colorList', is_must: true}},
             {url: '/api/assist/space/prod', method: 'GET', resConfig: {keyName: 'prodList', is_must: true}},
             {url: '/api/assist/order/difficulty', method: 'GET', resConfig: {keyName: 'difficultyList', is_must: true}},
+            {url: '/api/orders/apart/apartNumber', method: 'GET', resConfig: {keyName: 'apartNumber', is_must: true}},
+
         ], function (req, res, resultList) {
 
             var paginationInfoOne =  resultList.apartingList;
@@ -137,6 +139,8 @@ var ApartController = {
             {url: '/api/assist/deco/color', method: 'GET', resConfig: {keyName: 'colorList', is_must: true}},
             {url: '/api/assist/space/prod', method: 'GET', resConfig: {keyName: 'prodList', is_must: true}},
             {url: '/api/assist/order/difficulty', method: 'GET', resConfig: {keyName: 'difficultyList', is_must: true}},
+            {url: '/api/orders/apartReview/apartReviewNumber', method: 'GET', resConfig: {keyName: 'apartReviewNumber', is_must: true}},
+
         ], function (req, res, resultList) {
 
             var paginationInfoOne =  resultList.doingList;
