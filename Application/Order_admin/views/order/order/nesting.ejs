@@ -36,8 +36,10 @@
                                 <th>加急</th>
                                 <th>试装</th>
                                 <th>收款</th>
+                                <th>包装</th>
                                 <th>下单完毕</th>
                                 <th>产品类型</th>
+                                <th>订单类型</th>
                                 <th>主材颜色</th>
                                 <th>订单号</th>
                                 <th>批次号</th>
@@ -63,8 +65,10 @@
                                 <td><%= element.urgent %></td>
                                 <td><%= element.tryInstall %></td>
                                 <td><%= element.receivedStr %></td>
+                                <td class="text-left"><%= element.packageStatusStr %></td>
                                 <td><%= element.orderFinishStr %></td>
                                 <td><%= element.productTypeStr %></td>
+                                <td><%= element.orderTypeStr %></td>
                                 <td><%= element.colorStr %></td>
                                 <td><a href="/order/detail/<%= element.tid %>"><%= element.tid %></a></td>
                                 <%
@@ -219,6 +223,7 @@
                                 <th>收款</th>
                                 <th>下单完毕</th>
                                 <th>产品类型</th>
+                                <th>订单类型</th>
                                 <th>主材颜色</th>
                                 <th>订单号</th>
                                 <th>批次号</th>
@@ -247,9 +252,15 @@
                                 </td>
                                 <td><%= element.urgent %></td>
                                 <td><%= element.tryInstall %></td>
-                                <td><%= element.receivedStr %></td>
+                                <%
+                                    if(element.receivedStr=='否'){%>
+                                        <td><span class="padding-5" style="background:#fdcc9c;"><%= element.receivedStr %></span></td>
+                                    <%}else{%>
+                                        <td><%= element.receivedStr %></td>
+                                <%}%>
                                 <td><%= element.orderFinishStr %></td>
                                 <td><%= element.productTypeStr %></td>
+                                <td><%= element.orderTypeStr %></td>
                                 <td><%= element.colorStr %></td>
                                 <td><a href="/order/detail/<%= element.tid %>"><%= element.tid %></a></td>
                                 <%
