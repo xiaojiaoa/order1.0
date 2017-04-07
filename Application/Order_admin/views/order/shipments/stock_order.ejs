@@ -51,8 +51,8 @@
                             </tr>
                             </thead>
                             <tbody>
-                            <%  if(DWY_Helper.isCanLoop(stockList.list) ){
-                            stockList.list.forEach(function (element, index) { %>
+                            <%  if(DWY_Helper.isCanLoop(stockList.result) ){
+                            stockList.result.forEach(function (element, index) { %>
                             <tr>
                                 <td width="5%"><%= ++index %></td>
                                 <td><a href="/order/detail/<%= element.tid %>"><%= element.tid %></a></td>
@@ -76,6 +76,7 @@
 
                             </tbody>
                         </table>
+                        <%- pagination %>
 
                     </div>
                 </div>

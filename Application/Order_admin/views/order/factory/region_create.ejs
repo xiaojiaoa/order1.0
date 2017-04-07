@@ -139,11 +139,10 @@
                                 <div class="col-xs-12">
                                     <div class="col-xs-8">
                                         <div class="form-group">
-                                            <label class="col-xs-2 control-label"><span class="requird"></span>
-                                                物料存储类型:</label>
+                                            <label class="col-xs-2 control-label">物料存储类型:</label>
                                             <div class="col-xs-10">
                                                 <div class="col-xs-4 no-padding">
-                                                    <select  class="form-control validate[required]" name="stairCategory" id="stairCategory">
+                                                    <select  class="form-control" name="stairCategory" id="stairCategory">
                                                         <option value="">- 请选择 -</option>
                                                         <% stairCategory.forEach(function(element,index){%>
                                                         <option value="<%= element.id %>"><%= element.name%></option>
@@ -311,16 +310,25 @@
 //        pageSetUp();
 
         $("#create-store").validationEngine();
-        
+        var CategorySelect = $('#CategorySelect');
+        var PackgeSelect = $('#PackgeSelect');
+
         $('#cargoType').change(function () {
             var value = $(this).val();
-            if(value == 1){
-                $('#CategorySelect').show();
-                $('#PackgeSelect').hide();
-            }else{
-                $('#CategorySelect').hide();
-                $('#PackgeSelect').show();
+            switch (value){
+                case '1':
+                    CategorySelect.show();
+                    PackgeSelect.hide();
+                    break;
+                case '2':
+                    CategorySelect.hide();
+                    PackgeSelect.show();
+                    break;
+                default:
+                    CategorySelect.hide();
+                    PackgeSelect.hide();
             }
+
             
         })
 

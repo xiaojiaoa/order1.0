@@ -361,12 +361,24 @@ var OutWarehouseController = {
         });
     },
     productStock: function (req, res) {
+        var paramObject = helper.genPaginationQuery(req);
         Base.multiDataRequest(req, res, [
-            {url: '/api/whse/app/stock/order/list?'+ queryString.stringify(req.query), method: 'GET', resConfig: {keyName: 'stockList', is_must: true}},
+            // {url: '/api/whse/app/stock/order/list?'+ queryString.stringify(req.query), method: 'GET', resConfig: {keyName: 'stockList', is_must: true}},
+            {url: '/api/whse/app/stock/order/page?'+ queryString.stringify(req.query), method: 'GET', resConfig: {keyName: 'stockList', is_must: true}},
         ], function (req, res, resultList) {
+            var paginationInfo =  resultList.stockList;
+
+            var boostrapPaginator = new Pagination.TemplatePaginator(helper.genPageInfo({
+                prelink: paramObject.withoutPageNo,
+                current: paginationInfo.page,
+                rowsPerPage: paginationInfo.pageSize,
+                totalResult: paginationInfo.totalItems
+            }));
+
             var returnData = Base.mergeData(helper.mergeObject({
                 title: ' ',
                 Permission :Permissions,
+                pagination: boostrapPaginator.render()
             },resultList));
             res.render('order/shipments/stock_order', returnData);
         });
@@ -374,12 +386,23 @@ var OutWarehouseController = {
     },
     productPakgList: function (req, res) {
         var tid = req.params.tid;
+        var paramObject = helper.genPaginationQuery(req);
         Base.multiDataRequest(req, res, [
-            {url: '/api/whse/app/cargoout/package/list/'+ tid, method: 'GET', resConfig: {keyName: 'stockPakgList', is_must: true}},
+            {url: '/api/whse/app/stock/page?tid='+ tid, method: 'GET', resConfig: {keyName: 'stockPakgList', is_must: true}},
         ], function (req, res, resultList) {
+            var paginationInfo =  resultList.stockPakgList;
+
+            var boostrapPaginator = new Pagination.TemplatePaginator(helper.genPageInfo({
+                prelink: paramObject.withoutPageNo,
+                current: paginationInfo.page,
+                rowsPerPage: paginationInfo.pageSize,
+                totalResult: paginationInfo.totalItems
+            }));
+
             var returnData = Base.mergeData(helper.mergeObject({
                 title: ' ',
                 Permission :Permissions,
+                pagination: boostrapPaginator.render(),
                 tid:tid,
             },resultList));
             res.render('order/shipments/stock_order_pakg', returnData);

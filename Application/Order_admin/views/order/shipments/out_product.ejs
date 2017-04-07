@@ -166,13 +166,10 @@
                                 <th width="4%">序号</th>
                                 <th>出库单号</th>
                                 <th width="12%">订单号</th>
-                                <!--<th>出库日期</th>-->
                                 <th width="12%">仓库</th>
-                                <!--<th>出库人</th>-->
                                 <th>交货日期</th>
                                 <th>客户姓名</th>
                                 <th>出厂价</th>
-                                <!--<th>经销商</th>-->
                                 <th>状态</th>
                                 <th width="80">操作</th>
                             </tr>
@@ -184,13 +181,10 @@
                                 <td width="4%"><%= ++index %></td>
                                 <td><a href="/outProduct/deatil/<%= element.outId %>"><%= element.outId %></a></td>
                                 <td width="12%"><a href="/order/detail/<%= element.tid %>"><%= element.tid %></a></td>
-                                <!--<td><%= DWY_Helper.getLocalDate(element.outTime) %></td>-->
                                 <td width="12%"><%= element.whseName %></td>
-                                <!--<td><%= element.outEmp %></td>-->
                                 <td><%= DWY_Helper.getLocalDate(element.deliveryTime) %></td>
                                 <td><%= element.cName %></td>
                                 <td><%= element.ftyPrice %></td>
-                                <!--<td><%= element.stoName %></td>-->
                                 <td><%= element.stcodeName %></td>
                                 <td width="80">
                                     <% if(element.stcode == 745){ %>
@@ -231,27 +225,6 @@
         pageSetUp();
 
         $(".fg-date-time-picker").flatpickr(data_time_picker.data_picker); // jQuery
-
-//        $(".checkThis").click(function () {
-//            var id = $(this).attr('data-id');
-//
-//            layer.confirm('确定提交审核?', {icon: 3, title: '提示'}, function (index) {
-//                $.ajax({
-//                    url: '/outProduct/doChecked/'+id,
-//                    method: 'put',
-//                    success: function (data) {
-//                        successLayout.reload();
-//
-//                    },
-//                    error: function (response) {
-//                        layer.close(index)
-//                        errorLayout.normal(response);
-//
-//                    }
-//                });
-//            }, function (index) { layer.close(index) })
-//        })
-
 
     })
 
