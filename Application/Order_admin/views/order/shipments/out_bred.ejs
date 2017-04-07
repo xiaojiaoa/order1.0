@@ -136,7 +136,7 @@
                                 <td><%= element.outEmpName %></td>
                                 <td><%= element.did %></td>
                                 <td><%=DWY_Helper.getEnterType(element.type)%></td>
-                                <td><%= DWY_Helper.geOutStatus(element.stcode) %></td>
+                                <td><%= element.stcodeName %></td>
                                 <td><%= element.reviewName %></td>
                                 <td>
                                     <% if(element.stcode == 2 && DWY_Helper.hasPermission(Permission.cargoManages.mateOutReview.id, permission)){ %>
