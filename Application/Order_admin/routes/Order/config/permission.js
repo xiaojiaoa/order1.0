@@ -385,7 +385,7 @@ var permissions = {
     },
     employeeManage :{
         queryAll:{
-            id:"201040",
+            id:"881043",
             name:"查询所有机构柜员"
         }
     },
