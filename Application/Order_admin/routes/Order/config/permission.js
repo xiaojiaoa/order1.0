@@ -550,6 +550,10 @@ var permissions = {
             id:"603010",
             name:"添加物料"
         },
+        associateProduct:{
+            id:"604011",
+            name:"关联成品"
+        },
         update:{
             id:"603030",
             name:"更新物料"

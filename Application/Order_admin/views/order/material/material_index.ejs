@@ -209,8 +209,10 @@
                                 <td width="220">
                                     <a class="label label-primary display-none" href="/materialManage/add/<%= bid %>/<%= element.id %>" >完善物料库存</a>
                                      <%if(element.id.slice(0,2)==90){%>
-                                    <a class="label label-primary" href="/materialManage/workpiece/<%= element.id %>">成品关联物料</a>
-                                      <%}%>
+                                      <% if (DWY_Helper.hasPermission(Permission.material.associateProduct.id, permission) ){ %>
+                                      <a class="label label-primary" href="/materialManage/workpiece/<%= element.id %>">成品关联物料</a>
+                                    <% } %>
+                                    <%}%>
                                 </td>
                             </tr>
                             <% })
