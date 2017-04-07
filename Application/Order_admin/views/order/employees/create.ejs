@@ -184,16 +184,13 @@
                                         <div class="col-xs-10">
 
                                             <% rolesInfo.forEach(function (element, index) { %>
+                                            <% if(element.id != 99989999 && element.id != 99969999 && element.id != 99979999 && element.id != 99999999) {  %>
                                             <label class="checkbox-inline">
                                                 <input type="checkbox" class="checkbox style-0 validate[minCheckbox[1]]"
-                                                       name="roles" value="<%= element.id %>"
-                                                        <% if(element.id == 99989999 || element.id == 99969999 || element.id == 99979999 || element.id == 99999999) {  %>
-                                                       disabled
-                                                <%}
-                                                        %>>
+                                                       name="roles" value="<%= element.id %>">
                                                 <span><%= element.name %></span>
                                             </label>
-                                            <% }) %>
+                                            <%} }) %>
 
                                         </div>
                                     </div>
