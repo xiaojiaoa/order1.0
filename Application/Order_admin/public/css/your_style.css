@@ -721,11 +721,6 @@ tr>td .more-space:last-child {
 .display-block{
     display:block!important;
 }
-.scroll{
-    height:600px;
-    overflow-y: scroll;
-}
-
 .float-none{
     float: none;
     margin: 0 auto;
@@ -917,5 +912,20 @@ table>tbody>tr>td a.label:first-child{
     white-space: pre;
     width: 530px;
 }
+/*S基础数据-头部固定，内容滚动*/
+.fixedThead{
+    display: block;
+    width: 100%;
+}
+.scrollTbody{
+    display: block;
+    height: 630px;
+    overflow: auto;
+}
+.scrollTbody td,.scrollTbody th{
+    width:1200px;
+    border-bottom-width: 1px!important;
+}
+/*E基础数据-头部固定，内容滚动*/
 
 
