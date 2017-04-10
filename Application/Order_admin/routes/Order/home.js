@@ -308,6 +308,10 @@ router.post('/schedule/notPass', Middleware.AuthCheck, OrderController.notPassSc
 // 审核通过
 router.put('/schedule/doPass/:tid', Middleware.AuthCheck, OrderController.doPassSchedule);
 
+// 重新提交 (排料审核退回)
+router.put('/schedule/getTaskAgain/:tid', Middleware.AuthCheck, OrderController.getTaskCheckAgain);
+
+
 // 订单包装页面
 router.get('/orders/package', Middleware.AuthCheck,Middleware.FilterEmptyField,OrderController.packagePage);
 router.get('/orders/package/allInfo', Middleware.AuthCheck,Middleware.FilterEmptyField,OrderController.allInfoPage);

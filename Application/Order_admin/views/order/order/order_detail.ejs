@@ -539,6 +539,14 @@
                                     <a class="label label-primary doGetTask" data-stcode="<%= orderInfo.stcode %>">标记为排料中</a>
                                     <% } %>
                                 </td>
+                                <%        break;
+                                case 638: %>
+                                <td>
+                                    排料退回
+                                    <% if (DWY_Helper.hasPermission(Permission.orderApart.passOrder.id, permission) ){ %>
+                                    <a class="label label-primary doGetTask" data-stcode="<%= orderInfo.stcode %>">重新提交</a>
+                                    <% } %>
+                                </td>
                                 <%         break;
                                     default: %>
                                 <td><%= DWY_Helper.getLocalDate(orderStatusInfo.scheduleTime) %></td>
@@ -799,6 +807,11 @@
                     ajaxUrl = '/schedule/getTask/<%= tid %>';
                     locationUrl = '/orders/nesting';
                     text = '确认标记为排料中?';
+                    break;
+                case '638':
+                    ajaxUrl = '/schedule/getTaskAgain/<%= tid %>';
+                    locationUrl = '/orders/nesting';
+                    text = '确认重新提交?';
                     break;
             }
             layer.confirm(text, {icon: 3, title: '提示'}, function (index) {
