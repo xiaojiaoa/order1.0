@@ -1197,6 +1197,8 @@ router.get('/system/timeSet', Middleware.AuthCheck,SystemController.timeSetPage)
 
 router.put('/system/timeSet/doSet', Middleware.AuthCheck,SystemController.doSetTime);
 
+//模板管理-页面
+router.get('/system/template', Middleware.AuthCheck,SystemController.templatePage);
 
 
 /*

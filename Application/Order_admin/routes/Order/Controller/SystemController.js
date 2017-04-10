@@ -136,17 +136,10 @@ var SystemController = {
         res.render('order/system/time')
     },
     doSetTime: function (req, res) {
-        request(Base.mergeRequestOptions({
-            method: 'put',
-            url: '/api/employees/password?'+queryString.stringify(req.body),
-        }, req, res), function (error, response, body) {
-            if (!error && response.statusCode == 201) {
-                Base.handlerSuccess(res, req);
-                res.setStatus(200);
-            } else {
-                Base.handlerError(res, req, error, response, body);
-            }
-        })
+
+    },
+    templatePage: function (req, res) {
+        res.render('order/system/template')
     },
 };
 
