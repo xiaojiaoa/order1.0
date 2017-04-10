@@ -445,7 +445,7 @@ var permissions = {
     },
     purchase :{
         queryAll:{
-            id:"581041",
+            id:"581040",
             name:"采购查询所有机构"
         },
         queryDept:{
