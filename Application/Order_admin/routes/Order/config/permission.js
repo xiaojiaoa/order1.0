@@ -423,7 +423,7 @@ var permissions = {
     },
     request :{
         queryAll:{
-            id:"582041",
+            id:"582040",
             name:"请购查询所有机构"
         },
         queryDept:{
