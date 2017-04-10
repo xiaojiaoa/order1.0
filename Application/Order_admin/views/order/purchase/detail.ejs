@@ -176,7 +176,7 @@
                             }else{ %>
                             <td colspan="7" class="text-align-center">暂无结果</td>
                             <%  }%>
-                            <input type="hidden" name="stcode" class="" />
+                            <input type="hidden" name="stcodeStr" />
                             </tbody>
                         </table>
                         <%- pagination %>
@@ -192,7 +192,6 @@
         $(document).ready(function () {
             pageSetUp();
             $(".fg-date-time-picker").flatpickr(data_time_picker.data_time_picker); // jQuery
-            //合并采购单
             var checkedValue = $('#checkedValue');
             $("#checkAll").change(function () {
                 if($(this).is(":checked")){
@@ -206,12 +205,23 @@
                 }
             })
             $("input[name='roles']").change(function () {
+                var vids='';
+                $('input[name=roles]:checked').each(function(){
+                    vids += $(this).attr('stcode') + ',';
+                    if($(this).is(':checked')){
+                        $("input[name='stcodeStr']").attr('stcode',vids);
+                    }else{
+                        $("input[name='stcodeStr']").attr('stcode','');
+                    }
+                    stcodeStr=$("input[name='stcodeStr']").attr('stcode');
+                })
                 if($(this).is(':checked')){
                     checkedValue.addClass(this.value+',');
                 }else{
                     checkedValue.removeClass(this.value+',');
                 }
             });
+            //合并采购单
             $("#purchaseMerge").click(function(){
                 if(checkedValue.attr('class')==null||checkedValue.attr('class')=='') {
                     layer.alert('请选择！', {icon: 3});
@@ -253,25 +263,7 @@
                     },
                     function(index){layer.close(index)})
             })
-            //审核采购单
-            $("#checkAll").change(function () {
-                if($(this).is(":checked")){
-                    $(":checkbox").prop('checked',true);
-                    $("input[name='roles']:checked").each(function (i) {
-                        checkedValue.addClass(this.value+',');
-                    });
-                }else{
-                    $(":checkbox").prop('checked',false);
-                    checkedValue.removeClass();
-                }
-            })
-            $("input[name='roles']").change(function () {
-                if($(this).is(':checked')){
-                    checkedValue.addClass(this.value+',');
-                }else{
-                    checkedValue.removeClass(this.value+',');
-                }
-            });
+
             $("#purchaseReview").click(function(){
                 if(checkedValue.attr('class')==null||checkedValue.attr('class')=='') {
                     layer.alert('请选择！', {icon: 3})
@@ -308,28 +300,6 @@
                     function(index){layer.close(index)})
             })
             //提交采购单
-            $("#checkAll").change(function () {
-                if($(this).is(":checked")){
-                    $(":checkbox").prop('checked',true);
-                    $("input[name='roles']:checked").each(function (i) {
-                        checkedValue.addClass(this.value+',');
-                    });
-                }else{
-                    $(":checkbox").prop('checked',false);
-                    checkedValue.removeClass();
-                }
-            })
-            $("input[name='roles']").change(function () {
-                var stcode = $(this).attr('stcode');
-                if($(this).is(':checked')){
-                    checkedValue.addClass(this.value+',');
-                    $("input[name='stcode']").addClass(stcode+'');
-                }else{
-                    checkedValue.removeClass(this.value+',');
-                    $("input[name='stcode']").removeClass(stcode+'');
-                }
-                stcodeStr=$("input[name='stcode']").attr('class');
-            });
             $("#purchaseSubmit").click(function(){
                 if(checkedValue.attr('class')==null||checkedValue.attr('class')=='') {
                     layer.alert('请选择！', {icon: 3});
