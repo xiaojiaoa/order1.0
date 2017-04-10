@@ -75,6 +75,7 @@
                                             <input  class="form-control validate[required]" name="warning" type="text" value="<%= mateInfo.warning %>"/>
                                         </div>
                                         <input type="hidden" name="mateId" value="<%= mid %>">
+                                        <input type="hidden" name="bid" value="<%= bid %>">
                                         <div class="col-xs-2">
                                             <% if (DWY_Helper.hasPermission(Permission.material.update.id, permission) ){ %>
                                                 <button class="btn btn-primary " type="submit">

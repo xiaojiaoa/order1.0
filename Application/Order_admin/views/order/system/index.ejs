@@ -307,9 +307,10 @@
             }
 
             //重置按钮
-            $(".level-1").find('.status01').show();
-            $(".level-1").find('.status02,.status03').hide();
-            $(".level-1 input[name=listNum]").val('');
+           $('.status01').show();
+           $('.status02,.status03').hide();
+
+           $(".level-1 input[name=listNum]").val('');
 
 
             //系统项隐藏新建和删除
@@ -341,11 +342,6 @@
             $(".basicDataThree").html("");
             $(".basicDataFour").html("");
 
-            //重置按钮
-            $(".level-2").find('.status01').show();
-            $(".level-2").find('.status02,.status03').hide();
-
-
             if($(this).attr("stcode")==1){
                 var parentId=$(this).attr("id");
                 // console.log(parentId);
@@ -373,10 +369,6 @@
             $(".level-3 input[name=listNum]").val('');
             //初始化四栏内容
             $(".basicDataFour").html("");
-
-            //重置按钮
-            $(".level-3").find('.status01').show();
-            $(".level-3").find('.status02,.status03').hide();
 
             if($(this).attr("stcode")==1){
                 var parentId=$(this).attr("id");
