@@ -437,6 +437,10 @@ var permissions = {
         create:{
             id:"582010",
             name:"新建请购"
+        },
+        check:{
+            id:"582012",
+            name:"审核请购"
         }
     },
     purchase :{

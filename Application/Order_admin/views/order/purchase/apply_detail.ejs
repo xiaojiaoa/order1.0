@@ -76,10 +76,14 @@
                                 <td>操作</td>
                                 <td>
                                     <% if(purchaseRequestDetail.stcode == 30 ){ %>
+                                    <% if (DWY_Helper.hasPermission(Permission.purchase.create.id, permission) ){ %>
                                     <button class="label label-primary" id="PurchaseOrder">生成采购单</button>
                                     <% } %>
+                                    <% } %>
                                     <% if(purchaseRequestDetail.stcode == 10 ){ %>
+                                    <% if (DWY_Helper.hasPermission(Permission.request.check.id, permission) ){ %>
                                     <button class="label label-primary" id="purchaseReview">审核</button>
+                                    <% } %>
                                     <% } %>
                                     <% if(purchaseRequestDetail.stcode == 50 ){ %>
                                     <a class="label label-primary" href="/purchase/detail">查看采购列表</a>
