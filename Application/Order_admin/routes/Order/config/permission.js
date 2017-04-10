@@ -107,6 +107,10 @@ var permissions = {
         query :{
             id:"531051",
             name:"订单查询"
+        },
+        queryAll:{
+            id:"531554",
+            name:"查询所有订单"
         }
     },
     orderAssess:{

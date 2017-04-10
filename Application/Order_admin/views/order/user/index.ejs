@@ -114,7 +114,11 @@
             <div class="row">
                 <!-- col -->
                 <div class="col-xs-7 well height01">
-                    <legend>订单信息     <a href="/orders" class="label label-primary">查看所有</a></legend>
+                    <legend>订单信息
+                        <% if (DWY_Helper.hasPermission(Permission.order.queryAll.id, permission) ){ %>
+                        <a href="/orders" class="label label-primary">查看所有</a>
+                        <%  }%>
+                    </legend>
                     <!-- row -->
                     <div class="row">
                         <div class="col-xs-12">
