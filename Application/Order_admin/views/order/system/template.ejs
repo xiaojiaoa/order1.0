@@ -37,36 +37,11 @@
                 </ul>
             </div>
             <div class="col-xs-8">
-                <table class="table table-bordered time-edit">
-                    <thead>
-                    <tr>
-                        <th width="50%">类别</th>
-                        <th width="50%">值</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-
-                    <tr>
-                        <td>黄色预警</td>
-                        <td class="time-value insert" data-time="15"></td>
-                    </tr>
-                    <tr>
-                        <td>红色预警</td>
-                        <td class="time-value insert" data-time="15"></td>
-                    </tr>
-                    <tr>
-                        <td>红色预警</td>
-                        <td class="time-value insert" data-time="15"></td>
-                    </tr>
-
-                    <!--<tr>-->
-                    <!--<td>红色预警</td>-->
-                    <!--<td class="time-value" data-time="15">-->
-                    <!--<input class="form-control validate[custom[number]]" name="time" value="15" >-->
-                    <!--</td>-->
-                    <!--</tr>-->
-                    </tbody>
-                </table>
+                <form action="/orders/updateDifficultyLevel" method="post">
+                    <!-- 加载编辑器的容器 -->
+                    <script id="container" name="content" type="text/plain">这里写你的初始化内容</script>
+                    <input type="submit" value="通过input的submit提交">
+                </form>
 
             </div>
 
@@ -83,11 +58,17 @@
 <%- include('../layouts/footer'); %>
 <%- include('../layouts/footer_common_script'); %>
 
+<!-- 配置文件 -->
+<script type="text/javascript" src="/asset/ueditor/ueditor.config.js"></script>
+<!-- 编辑器源码文件 -->
+<script type="text/javascript" src="/asset/ueditor/ueditor.all.js"></script>
+
 
 <script type="text/javascript">
 
     $(document).ready(function () {
-
+        <!-- 实例化编辑器 -->
+        var ue = UE.getEditor('container');
 
     })
 

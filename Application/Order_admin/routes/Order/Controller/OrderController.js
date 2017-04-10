@@ -148,6 +148,21 @@ var OrderController = {
         })
 
     },
+    returnOrder: function (req, res) {
+        var tid = req.params.tid;
+        request(Base.mergeRequestOptions({
+            method: 'put',
+            url: '/api/orders/assess/returnOrder/'+tid,
+        }, req, res), function (error, response, body) {
+            if (!error && response.statusCode == 201) {
+
+                res.sendStatus(200);
+            } else {
+                Base.handlerError(res, req, error, response, body);
+            }
+        })
+
+    },
     doUnlock: function (req, res) {
         var tid = req.params.tid;
         request(Base.mergeRequestOptions({
@@ -192,6 +207,7 @@ var OrderController = {
 
     },
     updateDifficultyLevel: function (req, res) {
+        console.log('editor:::::'+JSON.stringify( req.body))
         var rehref = req.body.rehref;
         request(Base.mergeRequestOptions({
             method: 'put',
