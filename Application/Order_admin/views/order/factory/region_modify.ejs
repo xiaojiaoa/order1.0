@@ -92,6 +92,91 @@
                                 </div>
 
                             </div>
+                            <div class="col-xs-12">
+                                <div class="col-xs-4">
+                                    <div class="form-group">
+                                        <label class="col-xs-4 control-label "><span class="requird"></span> 存储类型:</label>
+                                        <div class="col-xs-8">
+                                            <select class="form-control validate[required]" name="cargoType"  id="cargoType">
+                                                <option value="1" <%= regionInfo.cargoType == 1?'selected':'' %>>物料</option>
+                                                <option value="2" <%= regionInfo.cargoType == 2?'selected':'' %>>包装</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <% if(regionInfo.cargoType == 1){
+                                if(regionInfo.regionType){
+                                    var ifstair = JSON.stringify(regionInfo.regionType).substring(0,2);
+                                    var ifsecondary = JSON.stringify(regionInfo.regionType).substring(2,4);
+                                    var ifthirdly = JSON.stringify(regionInfo.regionType).substring(4,8);
+                                    var stair = JSON.stringify(regionInfo.regionType).substring(0,2)+'000000';
+                                    var secondary = JSON.stringify(regionInfo.regionType).substring(0,4)+'0000';
+                                    var thirdly = JSON.stringify(regionInfo.regionType).substring(0,8);
+                                }else{
+                                    var stair = ''
+                                }
+
+                            %>
+                            <div id="CategorySelect" >
+                                <div class="col-xs-12">
+                                    <div class="col-xs-8">
+                                        <div class="form-group">
+                                            <label class="col-xs-2 control-label">物料存储类型:</label>
+                                            <div class="col-xs-10">
+                                                <div class="col-xs-4 no-padding">
+                                                    <select  class="form-control" name="stairCategory" id="stairCategory">
+                                                        <option value="">- 请选择 -</option>
+                                                        <% stairCategory.forEach(function(element,index){%>
+                                                        <option value="<%= element.id %>" <%= stair == element.id?'selected':'' %> >
+                                                            <%= element.name%>
+                                                        </option>
+                                                        <%})%>
+                                                    </select>
+                                                </div>
+                                                <div class="col-xs-4">
+                                                    <select  class="form-control" name="secondaryCategory" id="secondaryCategory">
+                                                        <option value="">- 请选择 -</option>
+                                                    </select>
+                                                </div>
+
+                                                <div class="col-xs-4 no-padding">
+                                                    <select  class="form-control" name="thirdlyCategory" id="thirdlyCategory">
+                                                        <option value="">- 请选择 -</option>
+                                                    </select>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                            <%  } %>
+                            <% if(regionInfo.cargoType == 2){ %>
+                            <div id="PackgeSelect" >
+                                <div class="col-xs-12">
+                                    <div class="col-xs-4">
+                                        <div class="form-group">
+                                            <label class="col-xs-4 control-label "><span class="requird"></span> 包装存储类型:</label>
+                                            <div class="col-xs-8">
+                                                <select class="form-control validate[required]" name="packgeCode">
+                                                    <option value="">- 请选择 -</option>
+                                                    <% if(DWY_Helper.isCanLoop(assistantWarehouseType)){
+                                                    assistantWarehouseType.forEach(function (element) { %>
+                                                    <option value="<%= element.id %>" <%= regionInfo.regionType == element.id?'selected':'' %> >
+                                                        <%= element.name %>
+                                                    </option>
+                                                    <%   })
+                                                    } %>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <%  } %>
+
 
 
                             <div class="col-xs-12">
@@ -137,7 +222,7 @@
 
 <%- include('../layouts/footer'); %>
 <%- include('../layouts/footer_common_script'); %>
-
+<%- include('../material/select_material_type'); %>
 
 <script type="text/javascript">
 
@@ -146,6 +231,105 @@
 //        pageSetUp();
 
         $("#create-store").validationEngine();
+        var CategorySelect = $('#CategorySelect');
+        var PackgeSelect = $('#PackgeSelect');
+
+        $('#cargoType').change(function () {
+            var value = $(this).val();
+            switch (value){
+                case '1':
+                    CategorySelect.show();
+                    PackgeSelect.hide();
+                    break;
+                case '2':
+                    CategorySelect.hide();
+                    PackgeSelect.show();
+                    break;
+                default:
+                    CategorySelect.hide();
+                    PackgeSelect.hide();
+            }
+
+
+        });
+
+        var stairSelect = $('#stairCategory');
+        var secondarySelect = $('#secondaryCategory');
+        var thirdlySelect = $('#thirdlyCategory');
+        if('<%= regionInfo.regionType %>'){
+            getTwo();
+
+            if('<%= ifsecondary %>' != '00'){
+                getThree();
+            }
+
+        }
+        function getTwo() {
+            $.ajax({
+                url: '/materialManage/material/selectMateCate/<%= stair %>',
+                method: 'put',
+                success: function (data) {
+                    console.log(data);
+                    var arry = eval(data);
+                    secondarySelect.empty();
+                    thirdlySelect.html('<option value="">- 请选择 -</option>');
+                    var html = '<option value="">- 请选择 -</option>';
+                    if(arry.length == 0){
+                        html = '<option value="">请选择有二级分类的物料</option>'
+                    }else{
+                        for(var i=0;i<arry.length;i++){
+                            html +='<option value="'+arry[i].id+'">'+arry[i].name+'</option>'
+                        }
+                    }
+
+                    secondarySelect.html(html);
+                    if('<%= ifsecondary %>' != '00'){
+                        setTimeout(function () {
+                            secondarySelect.val('<%= secondary %>');
+                        },300)
+
+                    }
+
+                },
+                error: function (response) {
+                    layer.close(index)
+                    errorLayout.normal(response);
+                }
+            });
+
+        }
+        function getThree() {
+            $.ajax({
+                url: '/materialManage/material/selectMateCate/<%= secondary %>',
+                method: 'put',
+                success: function (data) {
+                    var arry = eval(data);
+                    thirdlySelect.empty();
+                    var html = '<option value="">- 请选择 -</option>';
+                    if(arry.length == 0){
+                        html = '<option value="">请选择有三级分类的物料</option>'
+                    }else{
+                        for(var i=0;i<arry.length;i++){
+                            html +='<option value="'+arry[i].id+'">'+arry[i].name+'</option>'
+                        }
+                    }
+
+                    thirdlySelect.html(html);
+                    if('<%= ifthirdly %>' != '0000'){
+                        setTimeout(function () {
+                            thirdlySelect.val('<%= thirdly %>');
+
+                        },300)
+                    }
+
+                },
+                error: function (response) {
+                    layer.close(index)
+                    errorLayout.normal(response);
+                }
+            });
+
+        }
 
     })
 

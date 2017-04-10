@@ -108,6 +108,7 @@
                                 <th>订单号</th>
                                 <th>包号名称</th>
                                 <th>包装流水号</th>
+                                <th>包装状态</th>
                                 <th>包装类型</th>
                             </tr>
                             </thead>
@@ -119,6 +120,7 @@
                                 <td><a href="/order/detail/<%= element.tid %>"><%= element.tid %></a></td>
                                 <td><%= element.pakgName %></td>
                                 <td><%= element.pakgLid %></td>
+                                <td><%= element.stcodeName %></td>
                                 <td><%= element.pakgType %></td>
                             </tr>
                             <% })
