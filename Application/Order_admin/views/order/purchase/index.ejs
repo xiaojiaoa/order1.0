@@ -158,10 +158,14 @@
                                 <td><%= DWY_Helper.getLocalDate(element.buildTime) %></td>
                                 <td>
                                     <% if(element.stcode == 30 ){ %>
+                                    <% if (DWY_Helper.hasPermission(Permission.purchase.create.id, permission) ){ %>
                                     <button class="label label-primary PurchaseOrder" data-purchase-id="<%= element.id %>">生成采购单</button>
                                     <% } %>
+                                    <% } %>
                                     <% if(element.stcode == 10 ){ %>
+                                    <% if (DWY_Helper.hasPermission(Permission.request.check.id, permission) ){ %>
                                     <button class="label label-primary purchaseReview" data-stcode="<%= element.stcode %>" data-purchase-id="<%= element.id %>">审核</button>
+                                    <% } %>
                                     <% } %>
                                     <% if(element.stcode == 50 ){ %>
                                     <button class="label label-success">已生成</button>

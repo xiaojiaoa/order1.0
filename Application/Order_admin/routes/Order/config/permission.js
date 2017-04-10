@@ -423,7 +423,7 @@ var permissions = {
     },
     request :{
         queryAll:{
-            id:"582041",
+            id:"582040",
             name:"请购查询所有机构"
         },
         queryDept:{
@@ -437,11 +437,15 @@ var permissions = {
         create:{
             id:"582010",
             name:"新建请购"
+        },
+        check:{
+            id:"582012",
+            name:"审核请购"
         }
     },
     purchase :{
         queryAll:{
-            id:"581041",
+            id:"581040",
             name:"采购查询所有机构"
         },
         queryDept:{
