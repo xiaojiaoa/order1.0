@@ -112,7 +112,7 @@
                                     </tr>
                                     <tr>
                                         <th></th>
-                                        <th>层数</th>
+                                        <th class="display-none">层数</th>
                                         <th>材料</th>
                                         <th>名称</th>
                                         <th>规格尺寸</th>
@@ -127,7 +127,7 @@
                                     packedListDetail.orderPackageDetails.forEach(function (element, index) { %>
                                     <tr>
                                         <td></td>
-                                        <td><%= element.layer %></td>
+                                        <td class="display-none"><%= element.layer %></td>
                                         <td><%= element.material %></td>
                                         <td><%= element.name %></td>
                                         <td><%= element.standard %></td>
