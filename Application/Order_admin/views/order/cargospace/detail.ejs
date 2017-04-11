@@ -99,25 +99,35 @@
                             <thead>
                             <tr>
                                 <th>序号</th>
-                                <th>品牌</th>
-                                <th>专卖店</th>
-                                <th>订单号</th>
-                                <th>产品名称</th>
-                                <th>订单类型</th>
-                                <th>包号</th>
-                                <th>包名</th>
-                                <th>车间</th>
+                                <th>货物类型</th>
+                                <th>货物号</th>
+                                <th>包名/物料名</th>
                                 <th>货位号</th>
-                                <th>非标准货位号</th>
-                                <th>状态</th>
+                                <th>数量</th>
                             </tr>
                             </thead>
                             <tbody>
-
+                            <%
+                            if(DWY_Helper.isCanLoop(cargospaceList.result)){
+                            cargospaceList.result.forEach(function (element, index) { %>
+                            <tr>
+                                <td><%= index+1 %></td>
+                                <td><%= element.typeName %></td>
+                                <td><%= element.cargoId %></td>
+                                <td><%= element.name %></td>
+                                <td><%= element.spaceId %></td>
+                                <td><%= element.amount %></td>
+                            </tr>
+                            <%  })
+                            }else{ %>
+                            <tr>
+                                <td colspan="6" align="center">暂无数据</td>
+                            </tr>
+                            <% } %>
 
                             </tbody>
                         </table>
-
+                        <%- pagination %>
                     </div>
                 </div>
             </div>

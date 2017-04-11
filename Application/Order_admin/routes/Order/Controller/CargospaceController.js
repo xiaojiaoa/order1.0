@@ -173,13 +173,26 @@ var CargospaceController = {
     detailPage: function (req, res) {
         var spaceId =  req.params.spaceId;
         var type =  req.params.type;
+
+        var paramObject = helper.genPaginationQuery(req);
         Base.multiDataRequest(req, res, [
             {url: '/api/whse/cargospace/'+spaceId, method: 'GET', resConfig: {keyName: 'cargospaceInfo', is_must: true}},
+            {url: '/api/whse/cargospace/page/index/'+spaceId, method: 'GET', resConfig: {keyName: 'cargospaceList', is_must: true}},
         ], function (req, res, resultList) {
+            var paginationInfo = resultList.cargospaceList;
+
+            var boostrapPaginator = new Pagination.TemplatePaginator(helper.genPageInfo({
+                prelink: paramObject.withoutPageNo,
+                current: paginationInfo.page,
+                rowsPerPage: paginationInfo.pageSize,
+                totalResult: paginationInfo.totalItems
+            }));
+
 
             var returnData = Base.mergeData(helper.mergeObject({
                 title: ' ',
                 type: type,
+                pagination: boostrapPaginator.render(),
             }, resultList));
             res.render('order/cargospace/detail', returnData);
         });
