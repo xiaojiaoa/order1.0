@@ -1044,6 +1044,13 @@ table > tbody > tr > td a.label:first-child {
 .template-ul li:last-child{
     border: none;
 }
+.template-ul li:hover{
+    background: #ecf3f8;
+}
+.template-ul li.active{
+    background: #80bbff;
+    color: #fff;
+}
 .print-ul li{
     line-height: 25px;
 }

@@ -155,7 +155,6 @@ var OrderController = {
             url: '/api/orders/assess/returnOrder/'+tid,
         }, req, res), function (error, response, body) {
             if (!error && response.statusCode == 201) {
-
                 res.sendStatus(200);
             } else {
                 Base.handlerError(res, req, error, response, body);
@@ -207,7 +206,7 @@ var OrderController = {
 
     },
     updateDifficultyLevel: function (req, res) {
-        console.log('editor:::::'+JSON.stringify( req.body))
+        // console.log('editor:::::'+JSON.stringify( req.body))
         var rehref = req.body.rehref;
         request(Base.mergeRequestOptions({
             method: 'put',
@@ -1058,7 +1057,7 @@ var OrderController = {
     addPacket: function (req, res) {
         var tid = req.body.tid;
         var pid=req.body.pid
-        console.log("增加包装"+queryString.stringify(req.body));
+        // console.log("增加包装"+queryString.stringify(req.body));
         request(Base.mergeRequestOptions({
             method: 'post',
             url: '/api/orders/package/packet/add/'+tid,
