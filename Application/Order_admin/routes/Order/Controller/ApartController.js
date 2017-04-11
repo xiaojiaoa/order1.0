@@ -190,7 +190,7 @@ var ApartController = {
         var tid = req.params.tid;
         request(Base.mergeRequestOptions({
             method: 'put',
-            url: '/api/orders/review/reSubmit/'+tid,
+            url: '/api/orders/apartReview/reSubmit/'+tid,
         }, req, res), function (error, response, body) {
             if (!error && response.statusCode == 201) {
 
