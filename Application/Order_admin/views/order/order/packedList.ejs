@@ -112,7 +112,7 @@
                                     </tr>
                                     <tr>
                                         <th></th>
-                                        <th>层数</th>
+                                        <th class="display-none">层数</th>
                                         <th>材料</th>
                                         <th>名称</th>
                                         <th>规格尺寸</th>
@@ -127,7 +127,7 @@
                                     packedListDetail.orderPackageDetails.forEach(function (element, index) { %>
                                     <tr>
                                         <td></td>
-                                        <td><%= element.layer %></td>
+                                        <td class="display-none"><%= element.layer %></td>
                                         <td><%= element.material %></td>
                                         <td><%= element.name %></td>
                                         <td><%= element.standard %></td>
@@ -149,7 +149,7 @@
                                         </td>
                                     </tr>
                                     <%  })%>
-                                    <tr><td>总计</td><td></td><td></td><td></td><td></td><td><%= packedListDetail.statistics.totalAmount %></td><td><%= packedListDetail.statistics.totalWeight %></td><td></td><td></td></tr>
+                                    <tr><td>总计</td><td></td><td></td><td></td><td><%= packedListDetail.statistics.totalAmount %></td><td><%= packedListDetail.statistics.totalWeight %></td><td></td><td></td></tr>
                                     <%}else{%>
                                     <tr><td colspan="9" class="text-align-center">暂无数据</td></tr>
                                     <%}%>
