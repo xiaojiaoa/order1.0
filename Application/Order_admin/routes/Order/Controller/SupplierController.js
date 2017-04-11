@@ -191,8 +191,6 @@ var SupplierController = {
     deleteRelate:function(req,res){
         var sid=req.params.sid;
         var mid=req.params.mid;
-        console.log(sid)
-        console.log(mid)
         request(Base.mergeRequestOptions({
             method: 'delete',
             url: '/api/suppliers/materials?suppId='+sid+'&mateId='+mid,
