@@ -561,10 +561,14 @@
                                 <td>
                                 <% if(orderInfo.packeted==0){%>
                                 未包装
+                                <% if (DWY_Helper.hasPermission(Permission.orderPackage.create.id, permission ) ){ %>
                                 <a class="label label-primary margin-left-20 crePackage" bid="<%= orderInfo.batchNumber %>" tid="<%= tid %>">生成包装</a>
+                                <% } %>
                                 <%}else{%>
                                 已包装
+                                <% if (DWY_Helper.hasPermission(Permission.orderPackage.queryDetail.id, permission ) ){ %>
                                 <a class="label label-success margin-left-20 packageDetail" href="/orders/package/<%= tid %>">包装详情</a>
+                                <% } %>
                                 <%}%>
                                 </td>
                                 <%  } else{ %>
