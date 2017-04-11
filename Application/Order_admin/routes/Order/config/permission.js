@@ -107,6 +107,10 @@ var permissions = {
         query :{
             id:"531051",
             name:"订单查询"
+        },
+        queryAll:{
+            id:"531554",
+            name:"查询所有订单"
         }
     },
     orderAssess:{
@@ -385,7 +389,7 @@ var permissions = {
     },
     employeeManage :{
         queryAll:{
-            id:"201040",
+            id:"881043",
             name:"查询所有机构柜员"
         }
     },
@@ -419,7 +423,7 @@ var permissions = {
     },
     request :{
         queryAll:{
-            id:"582041",
+            id:"582040",
             name:"请购查询所有机构"
         },
         queryDept:{
@@ -433,11 +437,15 @@ var permissions = {
         create:{
             id:"582010",
             name:"新建请购"
+        },
+        check:{
+            id:"582012",
+            name:"审核请购"
         }
     },
     purchase :{
         queryAll:{
-            id:"581041",
+            id:"581040",
             name:"采购查询所有机构"
         },
         queryDept:{
@@ -510,6 +518,153 @@ var permissions = {
             id:"707050",
             name:"查询所有仓储信息"
         }
+    },
+    supplier:{
+      creae:{
+          id:"583010",
+          name:"添加供应商"
+      },
+      update:{
+          id:"583030",
+          name:"更新供应商"
+      },
+      delete:{
+          id:"583031",
+          name:"删除供应商"
+      },
+      createCategory:{
+          id:"584010",
+          name:"添加供应商分类"
+      },
+      updateCategory:{
+          id:"584030",
+          name:"更新供应商分类"
+      },
+      deleteCategory:{
+          id:"584031",
+          name:"删除供应商分类"
+      },
+      queryCategory:{
+          id:"584040",
+          name:"查询供应商分类"
+      },
+      queryAll:{
+          id:"583040",
+          name:"查询所有机构供应商"
+      }
+    },
+    material:{
+        creae:{
+            id:"603010",
+            name:"添加物料"
+        },
+        associateProduct:{
+            id:"604011",
+            name:"关联成品"
+        },
+        update:{
+            id:"603030",
+            name:"更新物料"
+        },
+        delete:{
+            id:"603020",
+            name:"删除物料"
+        },
+        queryCategory:{
+            id:"604040",
+            name:"查看物料分类"
+        },
+        createCategory:{
+            id:"604010",
+            name:"添加物料分类"
+        },
+        updateCategory:{
+            id:"604030",
+            name:"更新物料分类"
+        },
+        deleteCategory:{
+            id:"604020",
+            name:"删除物料分类"
+        },
+        queryAll:{
+            id:"603041",
+            name:"查询所有工厂物料"
+        },
+        queryAttribute:{
+            id:"605040",
+            name:"查看物料属性"
+        },
+        createAttribute:{
+            id:"605010",
+            name:"添加物料属性"
+        },
+        updateAttribute:{
+            id:"605030",
+            name:"更新物料属性"
+        },
+        deleteAttribute:{
+            id:"605020",
+            name:"删除物料属性"
+        }
+    },
+    cargoManages :{
+        mateIn:{
+            id:"702060",
+            name:"原料确定入库按钮"
+        },
+        mateInReview:{
+            id:"702050",
+            name:"原料入库审核"
+        },
+        prodInList:{
+            id:"704030",
+            name:"成品入库查询可入库的包的按钮"
+        },
+        prodIn:{
+            id:"704040",
+            name:"成品确定入库按钮"
+        },
+        deliveryReview:{
+            id:"709023",
+            name:"发货通知单审核"
+        },
+        deliveryList:{
+            id:"709024",
+            name:"发货通知按钮"
+        },
+        deliveryWrite:{
+            id:"709033",
+            name:"填写发货通知单"
+        },
+        deliverySubmit:{
+            id:"709040",
+            name:"提交发货通知单"
+        },
+
+        deliveryPackage:{
+            id:"705023",
+            name:"备货按钮查出包装列表"
+        },
+        prodOutList:{
+            id:"703023",
+            name:"成品出库查询订单下可出库的包"
+        },
+        prodOut:{
+            id:"703030",
+            name:"成品确定出库按钮"
+        },
+        mateOutList:{
+            id:"703011",
+            name:"领料单导入"
+        },
+        mateOut:{
+            id:"706012",
+            name:"领料单确定出库"
+        },
+        mateOutReview:{
+            id:"706013",
+            name:"原料出库审核"
+        },
     },
     taskseq:{
         cancel:{

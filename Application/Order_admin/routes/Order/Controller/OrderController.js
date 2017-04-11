@@ -148,6 +148,20 @@ var OrderController = {
         })
 
     },
+    returnOrder: function (req, res) {
+        var tid = req.params.tid;
+        request(Base.mergeRequestOptions({
+            method: 'put',
+            url: '/api/orders/assess/returnOrder/'+tid,
+        }, req, res), function (error, response, body) {
+            if (!error && response.statusCode == 201) {
+                res.sendStatus(200);
+            } else {
+                Base.handlerError(res, req, error, response, body);
+            }
+        })
+
+    },
     doUnlock: function (req, res) {
         var tid = req.params.tid;
         request(Base.mergeRequestOptions({
@@ -192,13 +206,19 @@ var OrderController = {
 
     },
     updateDifficultyLevel: function (req, res) {
+        // console.log('editor:::::'+JSON.stringify( req.body))
+        var rehref = req.body.rehref;
         request(Base.mergeRequestOptions({
             method: 'put',
             url: '/api/orders/review/updateDifficultyLevel?'+queryString.stringify(req.body),
         }, req, res), function (error, response, body) {
             if (!error && response.statusCode == 201) {
-                Base.handlerSuccess(res, req);
-                res.redirect("/order/check/waitOrder");
+                if(rehref == 1){
+                    Base.handlerSuccess(res, req);
+                    res.redirect("/order/permit");
+                }else{
+                    res.sendStatus(200);
+                }
             } else {
                 Base.handlerError(res, req, error, response, body);
             }
@@ -243,6 +263,7 @@ var OrderController = {
         res.render('order/order/communicate_create', returnData);
     },
     doCreateCommunicate: function (req, res) {
+        var reload = req.body.reload;
         var tid = req.body.tid;
         var type = req.params.type;
         request(Base.mergeRequestOptions({
@@ -252,11 +273,16 @@ var OrderController = {
         }, req, res), function (error, response, body) {
             if (!error && response.statusCode == 201) {
                 Base.handlerSuccess(res, req);
-                if(type == 'order'){
-                    res.redirect("/order/detail/" + tid);
+                if(reload == 1){
+                    res.redirect("/"+type+"/communicateAll/" + tid);
                 }else{
-                    res.redirect("/order/resupply/detail/" + tid);
+                    if(type == 'order'){
+                        res.redirect("/order/detail/" + tid);
+                    }else{
+                        res.redirect("/order/resupply/detail/" + tid);
+                    }
                 }
+
 
             } else {
                 Base.handlerError(res, req, error, response, body);
@@ -417,7 +443,7 @@ var OrderController = {
         }, req, res), function (error, response, body) {
             if (!error && response.statusCode == 201) {
                 Base.handlerSuccess(res, req);
-                res.redirect("/orders/resupplys/apart");
+                res.redirect("/orders/resupplys/accept");
             } else {
                 Base.handlerError(res, req, error, response, body);
             }
@@ -672,6 +698,7 @@ var OrderController = {
                 {url: '/api/assist/brandinfo', method: 'GET', resConfig: {keyName: 'brandinfoList', is_must: true}},
                 {url: '/api/assist/order/difficulty', method: 'GET', resConfig: {keyName: 'difficultyList', is_must: true}},
                 {url: '/api/assist/space/prod', method: 'GET', resConfig: {keyName: 'prodList', is_must: true}},
+                {url: '/api/orders/review/reviewNumber', method: 'GET', resConfig: {keyName: 'reviewNumber', is_must: true}},
             ], function (req, res, resultList) {
 
                 var paginationInfo =  resultList.selfList;
@@ -705,6 +732,7 @@ var OrderController = {
                 {url: '/api/assist/brandinfo', method: 'GET', resConfig: {keyName: 'brandinfoList', is_must: true}},
                 {url: '/api/assist/order/difficulty', method: 'GET', resConfig: {keyName: 'difficultyList', is_must: true}},
                 {url: '/api/assist/space/prod', method: 'GET', resConfig: {keyName: 'prodList', is_must: true}},
+                {url: '/api/orders/review/reviewNumber', method: 'GET', resConfig: {keyName: 'reviewNumber', is_must: true}},
             ], function (req, res, resultList) {
 
                 var paginationInfo =  resultList.selfList;
@@ -724,31 +752,7 @@ var OrderController = {
                 res.render('order/order/order_check', returnData);
             });
         }
-        // Base.multiDataRequest(req, res, [
-        //     {url: '/api/orders/review/gid', method: 'GET', resConfig: {keyName: 'selfList', is_must: true}},
-        //     {url: '/api/assist/brandinfo', method: 'GET', resConfig: {keyName: 'brandinfoList', is_must: true}},
-        //     {url: '/api/assist/order/difficulty', method: 'GET', resConfig: {keyName: 'difficultyList', is_must: true}},
-        //     {url: '/api/assist/space/prod', method: 'GET', resConfig: {keyName: 'prodList', is_must: true}},
-        //     apiRequest
-        // ], function (req, res, resultList) {
-        //
-        //     var paginationInfo =  resultList.selfList;
-        //
-        //     var boostrapPaginator = new Pagination.TemplatePaginator(helper.genPageInfo({
-        //         prelink: paramObject.withoutPageNo,
-        //         current: paginationInfo.page,
-        //         rowsPerPage: paginationInfo.pageSize,
-        //         totalResult: paginationInfo.totalItems
-        //     }));
-        //
-        //     var returnData = Base.mergeData(helper.mergeObject({
-        //         title: '订单审核 ',
-        //         pagination: boostrapPaginator.render(),
-        //         Permission :Permissions,
-        //         type :type,
-        //     },resultList));
-        //     res.render('order/order/order_check', returnData);
-        // });
+
     },
     processPage: function (req, res) {
         res.render('order/order/order_process');
@@ -891,6 +895,22 @@ var OrderController = {
                 Base.handlerError(res, req, error, response, body);
             }
         })
+    },
+    getTaskCheckAgain: function (req, res) {
+        var tid = req.params.tid;
+        request(Base.mergeRequestOptions({
+            method: 'put',
+            url: '/api/orders/schedule/reSubmit/'+tid,
+        }, req, res), function (error, response, body) {
+            if (!error && response.statusCode == 201) {
+
+                res.sendStatus(200);
+                // res.redirect("/order/check/getOrder");
+            } else {
+                Base.handlerError(res, req, error, response, body);
+            }
+        })
+
     },
     packagePage:function (req, res) {
         if(!req.query.packageStatusaaa){
@@ -1037,7 +1057,7 @@ var OrderController = {
     addPacket: function (req, res) {
         var tid = req.body.tid;
         var pid=req.body.pid
-        console.log("增加包装"+queryString.stringify(req.body));
+        // console.log("增加包装"+queryString.stringify(req.body));
         request(Base.mergeRequestOptions({
             method: 'post',
             url: '/api/orders/package/packet/add/'+tid,
@@ -1128,7 +1148,7 @@ var OrderController = {
         Base.multiDataRequest(req, res, [
             {url: '/api/stores/money/page?'+queryString.stringify(req.query), method: 'GET', resConfig: {keyName: 'moneyList', is_must: true}},
             {url: '/api/organizations/list', method: 'GET', resConfig: {keyName: 'organizationsList', is_must: true}},
-
+            {url: '/api/assist/order/stcodes', method: 'GET', resConfig: {keyName: 'statusInfo', is_must: false}},
         ], function (req, res, resultList) {
             var paginationInfo =  resultList.moneyList;
 

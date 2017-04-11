@@ -70,10 +70,12 @@
                                         <i class="fa fa-search"></i>
                                         查询
                                     </button>
+                                    <% if (DWY_Helper.hasPermission(Permission.material.createCategory.id, permission) ){ %>
                                     <a class="btn btn-primary margin-left-10" href="/materialManage/materialType/creOne">
                                         <i class="fa fa-save"></i>
                                         新建分类
                                     </a>
+                                    <% } %>
                                 </div>
                             </div>
 
@@ -147,33 +149,57 @@
                                 case "一级": %>
                                 <td>
                                     <% if( element.stcode == 2 ){ %>
+                                    <% if (DWY_Helper.hasPermission(Permission.material.deleteCategory.id, permission) ){ %>
                                     <a href="javascript:void(0)"  class="openStore label label-primary">启用</a>
+                                    <% } %>
                                     <% }else{ %>
+                                    <% if (DWY_Helper.hasPermission(Permission.material.createCategory.id, permission) ){ %>
                                     <a href="/materialManage/materialType/creOther/<%= element.id %>" class="label label-primary">新建子类</a>
+                                    <% } %>
+                                    <% if (DWY_Helper.hasPermission(Permission.material.updateCategory.id, permission) ){ %>
                                     <a href="/materialManage/materialType/modify/<%= element.id %>" class="label label-primary">修改</a>
+                                    <% } %>
+                                    <% if (DWY_Helper.hasPermission(Permission.material.deleteCategory.id, permission) ){ %>
                                     <a href="javascript:void(0)" class="closeStore label label-danger" >禁用</a>
+                                    <% } %>
                                     <% } %>
                                 </td>
                                 <%        break;
                                 case "二级": %>
                                 <td>
                                     <% if( element.stcode == 2 ){ %>
+                                    <% if (DWY_Helper.hasPermission(Permission.material.deleteCategory.id, permission) ){ %>
                                     <a href="javascript:void(0)" class="openStore label label-primary">启用</a>
+                                    <% } %>
                                     <% }else{ %>
+                                    <% if (DWY_Helper.hasPermission(Permission.material.createCategory.id, permission) ){ %>
                                     <a href="/materialManage/materialType/creOther/<%= element.id %>" class="label label-primary">新建子类</a>
+                                    <% } %>
+                                    <% if (DWY_Helper.hasPermission(Permission.material.updateCategory.id, permission) ){ %>
                                     <a href="/materialManage/materialType/modify/<%= element.id %>"  class="label label-primary">修改</a>
+                                    <% } %>
+                                    <% if (DWY_Helper.hasPermission(Permission.material.deleteCategory.id, permission) ){ %>
                                     <a href="javascript:void(0)" class="closeStore label label-danger">禁用</a>
+                                    <% } %>
                                     <% } %>
                                 </td>
                                 <%         break;
                                 default: %>
                                 <td>
                                     <% if( element.stcode == 2){ %>
+                                    <% if (DWY_Helper.hasPermission(Permission.material.deleteCategory.id, permission) ){ %>
                                     <a href="javascript:void(0)" class="openStore label label-primary">启用</a>
+                                    <% } %>
                                     <% }else{ %>
+                                    <% if (DWY_Helper.hasPermission(Permission.material.updateCategory.id, permission) ){ %>
                                     <a href="/materialManage/materialType/modify/<%= element.id %>" class="label label-danger margin-left-85">修改</a>
+                                    <% } %>
+                                    <% if (DWY_Helper.hasPermission(Permission.material.deleteCategory.id, permission) ){ %>
                                     <a href="javascript:void(0)" class="closeStore label label-danger" >禁用</a>
+                                    <% } %>
+                                    <% if (DWY_Helper.hasPermission(Permission.material.createCategory.id, permission) ){ %>
                                     <a href="/materialManage/material/<%= element.id %>/creStepO"  class="label label-primary">新建物料</a>
+                                    <% } %>
                                     <% } %>
                                 </td>
                                 <%  } %>

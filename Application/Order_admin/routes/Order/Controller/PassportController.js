@@ -23,7 +23,7 @@ var PassportController = {
             if (!error && response.statusCode == 200) {
                 // Show the HTML for the Google homepage.
                 let $data = JSON.parse(body);
-                console.log('token33333',JSON.stringify($data));
+                // console.log('token33333',JSON.stringify($data));
 
                 //TOKEN 存入session
                 var user_session = req.session;
@@ -38,15 +38,12 @@ var PassportController = {
                     {url: '/api/permissions/menus/currentuser', method: 'GET', resConfig: {keyName: 'menu', is_must: true}},
                     {url: '/api/permissions/currentuser', method: 'GET', resConfig: {keyName: 'permission', is_must: false}}
                 ], function (req, res, resultList) {
-                    console.log('token666666');
                     user_session.user = resultList['user'];
                     user_session.menu = resultList['menu'];
                     user_session.permission = resultList['permission'];
                     if(req.session.preventPath){
-                        console.log('token77777:',req.session.preventPath);
                         $data.preventPath = req.session.preventPath;
                     }else{
-                        console.log('token788888');
                         $data.preventPath = "/";
                     }
                     res.send($data);

@@ -58,8 +58,8 @@
                             </tr>
                             </thead>
                             <tbody>
-                            <% if(DWY_Helper.isCanLoop(stockPakgList.list)){
-                            stockPakgList.list.forEach(function (element, index) {  %>
+                            <% if(DWY_Helper.isCanLoop(stockPakgList.result)){
+                            stockPakgList.result.forEach(function (element, index) {  %>
                             <tr>
                                 <td width="6%">
                                     <label class="checkbox-inline">
@@ -78,11 +78,9 @@
                             </tr>
                             <%    })
                             } %>
-
-
-
                             </tbody>
                         </table>
+                        <%- pagination %>
                     </div>
                 </div>
             </div>

@@ -87,6 +87,8 @@ var Middleware = {
             //增加token失效验证. token存在但过期时,自动发送refresh_token并保存新的token到用户session
             var user_auth = req.session.auth;
             if ((new Date().getTime() - user_auth.time) > 1600000) {
+                console.log('1600000getTime',(new Date().getTime() - user_auth.time));
+
                 //refresh_token request
                 request(Base.mergeRequestOptions({
                     method: 'POST',
@@ -96,7 +98,7 @@ var Middleware = {
                     if (!error && response.statusCode == 200) {
                         // Show the HTML for the Google homepage.
                         let $data = JSON.parse(body);
-                        // console.log('refresh_token',JSON.stringify($data));
+                        console.log('refresh_token',JSON.stringify($data));
 
                         //TOKEN 存入session
                         var user_session = req.session;
@@ -207,7 +209,8 @@ router.put('/orders/getTask/:tid', Middleware.AuthCheck, OrderController.getTask
 router.put('/orders/getTaskAgain/:tid', Middleware.AuthCheck, OrderController.getTaskAgain);
 // 解锁订单
 router.put('/orders/unlock/:tid', Middleware.AuthCheck, OrderController.doUnlock);
-
+// 评估退回
+router.put('/orders/returnOrder/:tid', Middleware.AuthCheck, OrderController.returnOrder);
 // 审核未通过（退单）
 router.post('/orders/notPass', Middleware.AuthCheck, OrderController.notPass);
 // 审核通过
@@ -304,6 +307,10 @@ router.post('/schedule/notPass', Middleware.AuthCheck, OrderController.notPassSc
 
 // 审核通过
 router.put('/schedule/doPass/:tid', Middleware.AuthCheck, OrderController.doPassSchedule);
+
+// 重新提交 (排料审核退回)
+router.put('/schedule/getTaskAgain/:tid', Middleware.AuthCheck, OrderController.getTaskCheckAgain);
+
 
 // 订单包装页面
 router.get('/orders/package', Middleware.AuthCheck,Middleware.FilterEmptyField,OrderController.packagePage);
@@ -950,7 +957,7 @@ router.get('/file/create/:lid/:type', Middleware.AuthCheck, FileController.creat
 // router.get('/file/order/create/:lid/:type/:tid', Middleware.AuthCheck, FileController.createOrderFilePage);
 router.get('/file/order/create/:lid/:stcode/:type/:tid', Middleware.AuthCheck, FileController.createOrderFilePage);
 
-router.get('/file/resupply/create/:lid/:stcode/:tid/:pid/:type', Middleware.AuthCheck, FileController.createResupplyFilePage);
+router.get('/file/resupply/create/:lid/:stcode/:type/:tid', Middleware.AuthCheck, FileController.createResupplyFilePage);
 
 
 // 新增文件上传地址(拆单)
@@ -1179,10 +1186,7 @@ router.put('/system/:key', Middleware.AuthCheck, SystemController.keyFirstALLPag
 router.post('/system/doCreate', Middleware.AuthCheck, SystemController.doCreate);
 
 //修改，删除，启用
-router.post('/system/doModify/:id', Middleware.AuthCheck, SystemController.doModify);
-
-//分包类型--修改，删除，启用
-router.post('/system/doModify', Middleware.AuthCheck, SystemController.doModifySubPackageDao);
+router.post('/system/doModify', Middleware.AuthCheck, SystemController.doModify);
 
 //获取补单原因
 router.put('/resupplyReason/:parentId', Middleware.AuthCheck, SystemController.resupplyReasonPage);
@@ -1198,6 +1202,8 @@ router.get('/system/timeSet', Middleware.AuthCheck,SystemController.timeSetPage)
 
 router.put('/system/timeSet/doSet', Middleware.AuthCheck,SystemController.doSetTime);
 
+//模板管理-页面
+router.get('/system/template', Middleware.AuthCheck,SystemController.templatePage);
 
 
 /*

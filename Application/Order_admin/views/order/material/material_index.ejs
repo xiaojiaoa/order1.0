@@ -56,7 +56,7 @@
                                     </div>
                                 </div>
 
-
+                                <% if (DWY_Helper.hasPermission(Permission.material.queryAll.id, permission) ){ %>
                                 <div class="col-xs-3" style="">
                                     <label class="col-xs-4 control-label">选择工厂:</label>
                                     <div class="col-xs-8">
@@ -69,6 +69,7 @@
                                     </div>
 
                                     </div>
+                                <% } %>
                               </div>
                             <div class="col-xs-12" style="display:none;">
 
@@ -105,13 +106,17 @@
                                         <i class="fa fa-search"></i>
                                         查询
                                     </button>
+
+                                    <% if (DWY_Helper.hasPermission(Permission.material.queryCategory.id, permission) ){ %>
                                     <a class="btn btn-primary margin-left-10" href="/materialManage/materialType">
                                         查看物料分类
                                     </a>
-
+                                    <% } %>
+                                    <% if (DWY_Helper.hasPermission(Permission.material.queryAttribute.id, permission) ){ %>
                                     <a class="btn btn-primary margin-left-10" href="/materialManage/materialAttribute">
                                         查看物料属性
                                     </a>
+                                    <% } %>
                                 </div>
                             </div>
                         </form>
@@ -129,7 +134,11 @@
             <!-- row -->
             <div class="row">
                 <div class="col-xs-12">
-                    <h6>物料列表  <a class="label label-primary" href="/materialManage/material/creStepO">新建物料</a></h6>
+                    <h6>物料列表
+                        <% if (DWY_Helper.hasPermission(Permission.material.creae.id, permission) ){ %>
+                        <a class="label label-primary" href="/materialManage/material/creStepO">新建物料</a>
+                        <% } %>
+                    </h6>
                     <hr class="simple">
                 </div>
             </div>
@@ -200,8 +209,10 @@
                                 <td width="220">
                                     <a class="label label-primary display-none" href="/materialManage/add/<%= bid %>/<%= element.id %>" >完善物料库存</a>
                                      <%if(element.id.slice(0,2)==90){%>
-                                    <a class="label label-primary" href="/materialManage/workpiece/<%= element.id %>">成品关联物料</a>
-                                      <%}%>
+                                      <% if (DWY_Helper.hasPermission(Permission.material.associateProduct.id, permission) ){ %>
+                                      <a class="label label-primary" href="/materialManage/workpiece/<%= element.id %>">成品关联物料</a>
+                                    <% } %>
+                                    <%}%>
                                 </td>
                             </tr>
                             <% })

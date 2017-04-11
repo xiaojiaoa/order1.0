@@ -88,9 +88,13 @@
                                         <i class="fa fa-search"></i>
                                         查询
                                     </button>
+
+                                    <% if ( DWY_Helper.hasPermission(Permission.cargoManages.mateOutList.id, permission) ){ %>
                                     <a class="btn btn-primary" id="import">
                                         领料单导入
                                     </a>
+                                    <% } %>
+
                                 </div>
                             </div>
 
@@ -132,10 +136,10 @@
                                 <td><%= element.outEmpName %></td>
                                 <td><%= element.did %></td>
                                 <td><%=DWY_Helper.getEnterType(element.type)%></td>
-                                <td><%= DWY_Helper.geOutStatus(element.stcode) %></td>
+                                <td><%= element.stcodeName %></td>
                                 <td><%= element.reviewName %></td>
                                 <td>
-                                    <% if(element.stcode == 2){ %>
+                                    <% if(element.stcode == 2 && DWY_Helper.hasPermission(Permission.cargoManages.mateOutReview.id, permission)){ %>
                                     <a class="label label-primary checkThis" data-id="<%= element.outId %>">审核</a>
                                     <% }%>
                                     </td>

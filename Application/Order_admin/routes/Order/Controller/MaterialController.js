@@ -50,7 +50,8 @@ var MaterialController = {
             var returnData = Base.mergeData(helper.mergeObject({
                 title: ' ',
                 bid:bid,
-                pagination: boostrapPaginator.render()
+                pagination: boostrapPaginator.render(),
+                Permission :Permissions,
             },resultList));
             res.render('order/material/material_index',returnData);
         });
@@ -72,6 +73,7 @@ var MaterialController = {
                 title: ' ',
                 mid:mid,
                 bid:bid,
+                Permission :Permissions,
             },resultList));
             res.render('order/material/material_detail',returnData);
         });
@@ -323,6 +325,8 @@ var MaterialController = {
 
     },
     warningDoCreate: function (req, res) {
+        var mid=req.body.mateId;
+        var bid=req.body.bid;
         console.log(req.body);
         request(Base.mergeRequestOptions({
             method: 'post',
@@ -331,7 +335,7 @@ var MaterialController = {
         }, req, res), function (error, response, body) {
             if (!error && response.statusCode == 201) {
                 Base.handlerSuccess(res, req);
-                res.sendStatus(200);
+                res.redirect("/materialManage/detail/"+bid+"/"+mid);
             } else {
                 Base.handlerError(res, req, error, response, body);
             }

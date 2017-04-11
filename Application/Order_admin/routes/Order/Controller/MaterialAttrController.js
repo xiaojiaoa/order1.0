@@ -40,7 +40,8 @@ var MaterialAttrController = {
 
             var returnData = Base.mergeData(helper.mergeObject({
                 title: ' ',
-                pagination: boostrapPaginator.render()
+                pagination: boostrapPaginator.render(),
+                Permission :Permissions,
             },resultList));
             res.render('order/material/material_attribute',returnData);
         });
@@ -99,6 +100,7 @@ var MaterialAttrController = {
          var returnData = Base.mergeData(helper.mergeObject({
              title: ' ',
              mid:mid,
+             Permission :Permissions,
          },resultList));
          res.render('order/material/material_attribute_detail',returnData);
          });

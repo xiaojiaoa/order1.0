@@ -77,23 +77,7 @@ var SystemController = {
         })
     },
     doModify: function (req, res) {
-        var id=req.params.id;
         console.log("修改",req.body);
-        request(Base.mergeRequestOptions({
-            method: 'put',
-            url: '/api/assist/update'+"?"+queryString.stringify(req.body)
-        }, req, res), function (error, response, body) {
-            if (!error && response.statusCode == 201) {
-                Base.handlerSuccess(res, req);
-                res.redirect("/system");
-            } else {
-                Base.handlerError(res, req, error, response, body);
-            }
-        })
-    },
-    doModifySubPackageDao: function (req, res) {
-        var id=req.body.id;
-        console.log( '/api/assist/'+id+"?"+queryString.stringify(req.body));
         request(Base.mergeRequestOptions({
             method: 'put',
             url: '/api/assist/update'+"?"+queryString.stringify(req.body)
@@ -152,17 +136,10 @@ var SystemController = {
         res.render('order/system/time')
     },
     doSetTime: function (req, res) {
-        request(Base.mergeRequestOptions({
-            method: 'put',
-            url: '/api/employees/password?'+queryString.stringify(req.body),
-        }, req, res), function (error, response, body) {
-            if (!error && response.statusCode == 201) {
-                Base.handlerSuccess(res, req);
-                res.setStatus(200);
-            } else {
-                Base.handlerError(res, req, error, response, body);
-            }
-        })
+
+    },
+    templatePage: function (req, res) {
+        res.render('order/system/template')
     },
 };
 

@@ -51,8 +51,8 @@
                             </tr>
                             </thead>
                             <tbody>
-                            <%  if(DWY_Helper.isCanLoop(stockList.list) ){
-                            stockList.list.forEach(function (element, index) { %>
+                            <%  if(DWY_Helper.isCanLoop(stockList.result) ){
+                            stockList.result.forEach(function (element, index) { %>
                             <tr>
                                 <td width="5%"><%= ++index %></td>
                                 <td><a href="/order/detail/<%= element.tid %>"><%= element.tid %></a></td>
@@ -62,7 +62,7 @@
                                 <td><%= element.custName %></td>
                                 <td><%= element.factoryPrice %></td>
                                 <td>
-                                    <% if (DWY_Helper.hasPermission(Permission.stockUp.finish.id, permission) ){ %>
+                                    <% if (DWY_Helper.hasPermission(Permission.cargoManages.deliveryPackage.id, permission) ){ %>
                                     <a class="label label-primary" href="/productStock/pakg/<%= element.tid %>" >备货</a>
                                     <% } %>
                                 </td>
@@ -76,6 +76,7 @@
 
                             </tbody>
                         </table>
+                        <%- pagination %>
 
                     </div>
                 </div>

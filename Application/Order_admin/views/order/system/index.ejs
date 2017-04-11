@@ -34,15 +34,15 @@
             <!-- row -->
             <div class="row">
                 <!-- col -->
-                <div class="col-xs-4 table-responsive scroll level-0">
-                    <div data-level="level-1" class="text-align-center basicDataTit01">
+                <div class="col-xs-4 table-responsive  level-0">
+                    <div data-level="level-1" class="text-align-center basicDataTit01 fixed-header">
                      &nbsp;
                     </div>
-                    <div class="basicDataTit text-align-center basicDataTit01">
+                    <div class="basicDataTit text-align-center basicDataTit01 fixed-header">
                         类别
                     </div>
-                    <table class="table table-bordered table-linkage basicDataFirst">
-                        <tbody>
+                    <table class="table table-bordered table-linkage basicDataFirst ">
+                        <tbody class="scrollTbody">
                         <%
                         if(DWY_Helper.isCanLoop(basicDataList)){
                         basicDataList.forEach(function (element, index) { %>
@@ -63,7 +63,7 @@
 
                 <div class="col-xs-8 table-responsive level-1">
 
-                        <div data-level="level-1" class="text-align-center basicDataTit01">
+                        <div data-level="level-1" class="text-align-center basicDataTit01 fixed-header">
                             <a class="label label-primary create status01">新建</a>
                             <a class="label label-primary modify status01">修改</a>
                             <a class="label label-primary open-this status03">启用</a>
@@ -72,55 +72,65 @@
                             <a class="label label-primary open-all display-none">启用所有</a>
                             <a class="label label-primary revoke status02">撤销</a>
                             <a class="label label-primary save status02">保存</a>
+                            <input type="hidden" name="listNum" value="" class="listNum"type='text'/>
                             <input type="hidden" name="key" value="" class="key"type='text'/>
                         </div>
-                        <div class="basicDataTit text-align-center basicDataTit01">
+                        <div class="basicDataTit text-align-center basicDataTit01 fixed-header">
                             类别1
                         </div>
                         <table class="table table-bordered table-linkage ">
-                            <tbody class="basicDataSec">
-                            <tr><td>请点击左侧进行查看</td></tr>
+                            <tbody class="basicDataSec scrollTbody">
+                            <tr>
+                                <td>请点击左侧进行查看</td>
+                            </tr>
                             </tbody>
                         </table>
 
                 </div>
 
                 <div class="col-xs-4 table-responsive level-2  display-none">
-                    <div data-level="level-2" class="text-align-center basicDataTit01">
+                    <div data-level="level-2" class="text-align-center basicDataTit01 fixed-header">
                         <a class="label label-primary create status01">新建</a>
                         <a class="label label-primary modify status01">修改</a>
                         <a class="label label-primary open-this status03">启用</a>
                         <a class="label label-danger delete status01">删除</a>
+                        <a class="label label-primary see-all status01">查看所有</a>
                         <a class="label label-primary revoke status02">撤销</a>
                         <a class="label label-primary save status02">保存</a>
+                        <input type="hidden" name="listNum" value="" class="listNum"type='text'/>
+                        <input type="hidden" name="key" value="" class="key"type='text'/>
                         <input type="hidden" name="parentId" value="" class="parentId" type='text'/>
                     </div>
-                    <div class="basicDataTit text-align-center basicDataTit01">
+                    <div class="basicDataTit text-align-center basicDataTit01 fixed-header">
                         类别2
                     </div>
                     <table class="table table-bordered table-linkage ">
-                        <tbody class="basicDataThree">
+                        <tbody class="basicDataThree scrollTbody">
                         <tr><td>点击左侧进行数据查看</td></tr>
                         </tbody>
                     </table>
 
                 </div>
+
                 <div class="col-xs-4 table-responsive level-3  display-none">
-                    <div data-level="level-3" class="text-align-center basicDataTit01">
+                    <div data-level="level-3" class="text-align-center basicDataTit01 fixed-header">
                         <a class="label label-primary create status01">新建</a>
                         <a class="label label-primary modify status01">修改</a>
                         <a class="label label-primary open-this status03">启用</a>
                         <a class="label label-danger delete status01">删除</a>
+                        <a class="label label-primary see-all status01">查看所有</a>
                         <a class="label label-primary revoke status02">撤销</a>
                         <a class="label label-primary save status02">保存</a>
+                        <input type="hidden" name="listNum" value="" class="listNum"type='text'/>
+                        <input type="hidden" name="key" value="" class="key"type='text'/>
                         <input type="hidden" name="parentId" value="" class="parentId" type='text'/>
                         <input type="hidden" name="spaceId" value="" class="spaceId" type='text'/>
                     </div>
-                    <div class="basicDataTit text-align-center basicDataTit01">
+                    <div class="basicDataTit text-align-center basicDataTit01 fixed-header">
                         类别3
                     </div>
                     <table class="table table-bordered table-linkage ">
-                        <tbody class="basicDataFour">
+                        <tbody class="basicDataFour scrollTbody">
                         <tr><td>点击左侧进行数据查看</td></tr>
                         </tbody>
                     </table>
@@ -143,7 +153,7 @@
 </div>
 <!-- END MAIN PANEL -->
 <!--新建分包类型-->
-<form class="form-horizontal  layer-template" method="post" id="create-subPackageDao-form" action="/system/doCreate">
+<form class="form-horizontal  layer-template" method="post" id="create-subPackageDao-form">
 
     <div class="row" style="padding-top: 30px;">
 
@@ -183,10 +193,10 @@
         <div class="col-xs-12">
             <hr class="simple">
             <div class="col-xs-12 text-center">
-                <button  class="btn btn-primary  margin-right-5" type="submit">
+                <a  class="btn btn-primary  margin-right-5 createBtn">
                     <i class="fa fa-save"></i>
                     提交
-                </button>
+                </a>
             </div>
         </div>
     </div>
@@ -194,7 +204,7 @@
 </form>
 <!--END 新建分包类型-->
 <!--修改分包类型-->
-<form class="form-horizontal  layer-template" method="post" id="modify-subPackageDao-form" action="/system/doModify">
+<form class="form-horizontal  layer-template" method="post" id="modify-subPackageDao-form" >
 
     <div class="row" style="padding-top: 30px;">
 
@@ -235,10 +245,10 @@
         <div class="col-xs-12">
             <hr class="simple">
             <div class="col-xs-12 text-center">
-                <button  class="btn btn-primary  margin-right-5" type="submit">
+                <a  class="btn btn-primary  margin-right-5 modifyBtn" >
                     <i class="fa fa-save"></i>
                     提交
-                </button>
+                </a>
             </div>
         </div>
     </div>
@@ -259,9 +269,10 @@
         //点击basicDataFirst--左边第一栏的tr时
         $(".basicDataFirst>tbody>tr").click(function(){
          var key=$(this).attr("key");
-             $(".level-1 input[name=key]").val(key);
+             $("input[name=key]").val(key);
 
-             //初始化二三栏内容
+             //初始化二三四栏内容
+            $(".basicDataSec").html("");
             $(".basicDataThree").html("");
             $(".basicDataFour").html("");
 
@@ -287,10 +298,19 @@
             else{
                 $(".level-1 .basicDataTit" ).html("类别1");
             }
+            //流水空间信息修改类别三
+            if(key=='assistantOrderSpaceinfo'){
+                $(".level-3 .basicDataTit" ).html('流水空间产品信息');
+            }
+            else{
+                $(".level-3 .basicDataTit" ).html("类别3");
+            }
 
             //重置按钮
-            $(".level-1").find('.status01').show();
-            $(".level-1").find('.status02,.status03').hide();
+           $('.status01').show();
+           $('.status02,.status03').hide();
+
+           $(".level-1 input[name=listNum]").val('');
 
 
             //系统项隐藏新建和删除
@@ -314,35 +334,67 @@
         $(document).on("click",".basicDataSec>tr",function(){
            var key= $(".level-1 input[name=key]").val();
 
-            var parentId=$(this).attr("id");
-           // console.log(parentId);
+            $(".level-1 input[name=listNum]").val($(this).index());
+            $(".level-2 input[name=listNum]").val('');
+            $(".level-3 input[name=listNum]").val('');
 
-            $(".level-2 input[name=parentId]").val(parentId);
+            //初始化三四栏内容
+            $(".basicDataThree").html("");
+            $(".basicDataFour").html("");
 
-            if(key=="assistantResupplyReason"){
-                ajaxResupplyReason0ne(parentId);
+            if($(this).attr("stcode")==1){
+                var parentId=$(this).attr("id");
+                // console.log(parentId);
+
+                $(".level-2 input[name=parentId]").val(parentId);
+
+                if(key=="assistantResupplyReason"){
+                    ajaxResupplyReason0ne(parentId);
+                }
+                if(key=="assistantOrderSpaceinfo"){
+                    ajaxOrderSpaceinfoOne(parentId);
+                }
             }
-            if(key=="assistantOrderSpaceinfo"){
-                ajaxOrderSpaceinfoOne(parentId);
+            else{
+                $(".basicDataThree").html('请先启用该项');
             }
+
+
         });
         //点击左边第三栏
         $(document).on("click",".basicDataThree>tr",function(){
             var key= $(".level-1 input[name=key]").val();
 
-            var parentId=$(this).attr("id");
-           // console.log(parentId);
+            $(".level-2 input[name=listNum]").val($(this).index());
+            $(".level-3 input[name=listNum]").val('');
+            //初始化四栏内容
+            $(".basicDataFour").html("");
 
-            $(".level-3 input[name=parentId]").val(parentId);
+            if($(this).attr("stcode")==1){
+                var parentId=$(this).attr("id");
+                // console.log(parentId);
 
-            $(".level-3 input[name=spaceId]").val();
+                $(".level-3 input[name=parentId]").val(parentId);
 
-            if(key=="assistantResupplyReason"){
-                ajaxResupplyReasonTwo(parentId);
+                $(".level-3 input[name=spaceId]").val();
+
+                if(key=="assistantResupplyReason"){
+                    ajaxResupplyReasonTwo(parentId);
+                }
+                if(key=="assistantOrderSpaceinfo"){
+                    ajaxOrderSpaceinfoTwo(parentId);
+                }
             }
-            if(key=="assistantOrderSpaceinfo"){
-                ajaxOrderSpaceinfoTwo(parentId);
+            else{
+                $(".basicDataFour").html('请先启用该项');
             }
+
+        });
+
+        //点击左边第四栏
+        $(document).on("click",".basicDataFour>tr",function(){
+            $(".level-3 input[name=listNum]").val($(this).index());
+
         });
 
     })
@@ -361,7 +413,7 @@
                 setFrag(key,arry);
             },
             error: function (response) {
-                layer.close(index)
+                layer.close(index);
                 errorLayout.normal(response);
             }
         });
@@ -415,7 +467,7 @@
             var frag="";
             for(var i=0;i<arry.length;i++){
                 if(arry[i].levelType==1){
-                    frag+="<tr id="+arry[i].id+" stcode="+arry[i].stcode+">" +
+                    frag+="<tr id="+arry[i].id+" stcode="+arry[i].stcode+" parentId=" + arry[i].parentId + ">" +
                         "<td><input class='border-0 text-align-center' type='text' value="+arry[i].name+" name='name' readonly/></td>" +
                         "</tr>"
                 }
@@ -457,8 +509,8 @@
         else if(key=="subPackageDao"){
             for(var i=0;i<arry.length;i++){
                 frag+="<tr id="+arry[i].id+" stcode="+arry[i].stcode+" code="+arry[i].code+">" +
-                    "<td><input class='border-0 text-align-center' type='text' value="+arry[i].type+" name='type' readonly/></td>" +
                     "<td><input class='border-0 text-align-center' type='text' value="+arry[i].name+" name='name' readonly/></td>" +
+                    "<td><input class='border-0 text-align-center' type='text' value="+arry[i].type+" name='type' readonly/></td>" +
                     "</tr>"
             }
             $(".basicDataSec").html(frag);
@@ -490,7 +542,7 @@
             },
             success: function (data) {
                 var arry= JSON.parse(data);
-               // console.log(arry);
+                console.log('补单原因类别2',arry);
                 var frag = "";
                 for (var i = 0; i < arry.length; i++) {
                     frag += "<tr id=" + arry[i].id + " stcode=" + arry[i].stcode + "  parentId=" + arry[i].parentId + ">" +
@@ -502,13 +554,13 @@
                 //给禁用项目设置样式
                 $(".basicDataThree").find("tr").each(function(){
                     if($(this).attr("stcode")=='0'){
-                        $(this).addClass("disable");
+                        $(this).addClass("disable display-none");
                     }
                 });
 
             },
             error: function (response) {
-                layer.close(index)
+              layer.close(index);
                 errorLayout.normal(response);
             }
         });
@@ -523,7 +575,7 @@
             },
             success: function (data) {
                 var arry= JSON.parse(data);
-               // console.log(arry);
+                console.log('补单原因类别3',arry);
                 var frag = "";
                 for (var i = 0; i < arry.length; i++) {
                     frag += "<tr id=" + arry[i].id + " stcode=" + arry[i].stcode + "  parentId=" + arry[i].parentId + ">" +
@@ -535,13 +587,13 @@
                 //给禁用项目设置样式
                 $(".basicDataFour").find("tr").each(function(){
                     if($(this).attr("stcode")=='0'){
-                        $(this).addClass("disable");
+                        $(this).addClass("disable display-none");
                     }
                 });
 
             },
             error: function (response) {
-                layer.close(index)
+              layer.close(index);
                 errorLayout.normal(response);
             }
         });
@@ -556,7 +608,7 @@
             },
             success: function (data) {
                 var arry= JSON.parse(data);
-                //console.log(arry);
+                console.log('空间信息类别2',arry);
 
                 var frag = "";
                 for (var i = 0; i < arry.length; i++) {
@@ -569,13 +621,13 @@
                 //给禁用项目设置样式
                 $(".basicDataThree").find("tr").each(function(){
                     if($(this).attr("stcode")=='0'){
-                        $(this).addClass("disable");
+                        $(this).addClass("disable display-none");
                     }
                 });
 
             },
             error: function (response) {
-                layer.close(index)
+              layer.close(index);
                 errorLayout.normal(response);
             }
         });
@@ -590,7 +642,7 @@
             },
             success: function (data) {
                 var arry= JSON.parse(data);
-                //console.log(arry);
+                console.log('空间信息类别3',arry);
                 var frag = "";
                 for (var i = 0; i < arry.length; i++) {
                     frag += "<tr id=" + arry[i].id + " stcode=" + arry[i].stcode + "  parentId=" + arry[i].parentId + ">" +
@@ -602,13 +654,13 @@
                 //给禁用项目设置样式
                 $(".basicDataFour").find("tr").each(function(){
                     if($(this).attr("stcode")=='0'){
-                        $(this).addClass("disable");
+                        $(this).addClass("disable display-none");
                     }
                 });
 
             },
             error: function (response) {
-                layer.close(index)
+                layer.close(index);
                 errorLayout.normal(response);
             }
         });

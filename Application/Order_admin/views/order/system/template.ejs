@@ -1,0 +1,93 @@
+<%- include('../layouts/head_top'); %>
+<%- include('../layouts/head_bottom'); %>
+<%- include('../layouts/header'); %>
+<%- include('../layouts/nav'); %>
+
+
+<!-- MAIN PANEL -->
+<div id="main" role="main">
+
+    <!-- RIBBON -->
+    <div id="ribbon">
+
+        <!-- breadcrumb -->
+        <ol class="breadcrumb">
+            <li>后台管理</li>
+            <li>模板管理</li>
+        </ol>
+        <!-- end breadcrumb -->
+
+
+    </div>
+    <!-- END RIBBON -->
+
+    <!-- MAIN CONTENT -->
+    <div id="content">
+
+
+        <div class="row">
+            <!-- col -->
+            <div class="col-xs-2">
+                <ul class="template-ul">
+                    <li class="active">包装</li>
+                    <li>包装</li>
+                    <li>包装</li>
+                    <li>包装</li>
+                    <li>包装</li>
+                </ul>
+            </div>
+            <div class="col-xs-8">
+                <form action="/orders/updateDifficultyLevel" method="post">
+                    <!-- 加载编辑器的容器 -->
+                    <script id="container" name="content" type="text/plain">这里写你的初始化内容</script>
+
+                    <button class="btn btn-primary margin-top-10" type="submit">
+                        <i class="fa fa-save"></i>
+                        保存模板
+                    </button>
+                </form>
+
+            </div>
+            <div class="col-xs-2">
+                <div class="alert alert-success print-ul">
+                    <h4 class="alert-heading margin-bottom-10">可打印字段</h4>
+                    <ul>
+                        <li>包装号 &nbsp;&nbsp;  ${packageId}</li>
+                        <li>包装号 &nbsp;&nbsp;  ${packageId}</li>
+                        <li>包装号 &nbsp;&nbsp;  ${packageId}</li>
+                        <li>包装号 &nbsp;&nbsp;  ${packageId}</li>
+                        <li>包装号 &nbsp;&nbsp;  ${packageId}</li>
+                    </ul>
+                </div>
+            </div>
+
+        </div>
+
+
+
+    </div>
+    <!-- END MAIN CONTENT -->
+
+</div>
+<!-- END MAIN PANEL -->
+
+<%- include('../layouts/footer'); %>
+<%- include('../layouts/footer_common_script'); %>
+
+<!-- 配置文件 -->
+<script type="text/javascript" charset="utf-8" src="/asset/ueditor/ueditor/ueditor.config.js"></script>
+<!-- 编辑器源码文件 -->
+<script type="text/javascript" charset="utf-8" src="/asset/ueditor/ueditor/ueditor.all.js"> </script>
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+        <!-- 实例化编辑器 -->
+        var ue = UE.getEditor('container');
+
+    })
+
+</script>
+
+
+<%- include('../layouts/foot'); %>

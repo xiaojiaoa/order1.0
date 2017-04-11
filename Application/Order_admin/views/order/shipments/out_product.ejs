@@ -92,11 +92,13 @@
                                     <div class="form-group">
                                         <label class="col-xs-4 control-label">工厂:</label>
                                         <div class="col-xs-8">
-                                            <select class="form-control"  name="ftyId" id="ftyId"
-                                                    <% if ( !DWY_Helper.hasPermission(Permission.storage.queryAll.id, permission) ){ %>
-                                                    disabled
-                                                    <% } %>
-                                            >
+                                            <% var initFtyId = DWY_Helper.getAssistInitFtyId(userFtyId,factoryList);
+                                            if ( !DWY_Helper.hasPermission(Permission.storage.queryAll.id, permission) ){ %>
+                                            <input class="form-control"  value="<%= DWY_Helper.getAssistValFtyId(userFtyId,factoryList) %>" readonly>
+                                            <input type="hidden" name="ftyId" value="<%= userFtyId %>">
+                                            <% }else{ %>
+
+                                            <select class="form-control"  name="ftyId" id="ftyId">
                                                 <option value="">- 请选择 -</option>
                                                 <% factoryList.forEach(function (element) { %>
                                                 <option value="<%= element.ftyId %>" <%= userFtyId == element.ftyId? 'selected':'' %> >
@@ -104,6 +106,7 @@
                                                 </option>
                                                 <% }) %>
                                             </select>
+                                            <% } %>
                                         </div>
                                     </div>
                                 </div>
@@ -114,7 +117,7 @@
                                             <select class="form-control" name="whseId" id="whseId">
                                                 <option value="">- 请选择 -</option>
                                                 <%
-                                                if(DWY_Helper.isCanLoop(warehouseList)){
+                                                if(DWY_Helper.isCanLoop(warehouseList) && initFtyId){
                                                 warehouseList.forEach(function (element) { %>
                                                 <option value="<%= element.whseId %>" <%= (DWYRequest.query.whseId == element.whseId )?"selected":"" %> >
                                                     <%= element.name %>
@@ -163,15 +166,11 @@
                                 <th width="4%">序号</th>
                                 <th>出库单号</th>
                                 <th width="12%">订单号</th>
-                                <!--<th>出库日期</th>-->
-                                <th width="12%">仓库</th>
-                                <!--<th>出库人</th>-->
                                 <th>交货日期</th>
                                 <th>客户姓名</th>
                                 <th>出厂价</th>
-                                <!--<th>经销商</th>-->
                                 <th>状态</th>
-                                <th width="80">操作</th>
+                                <th width="150">操作</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -181,17 +180,13 @@
                                 <td width="4%"><%= ++index %></td>
                                 <td><a href="/outProduct/deatil/<%= element.outId %>"><%= element.outId %></a></td>
                                 <td width="12%"><a href="/order/detail/<%= element.tid %>"><%= element.tid %></a></td>
-                                <!--<td><%= DWY_Helper.getLocalDate(element.outTime) %></td>-->
-                                <td width="12%"><%= element.whseName %></td>
-                                <!--<td><%= element.outEmp %></td>-->
                                 <td><%= DWY_Helper.getLocalDate(element.deliveryTime) %></td>
                                 <td><%= element.cName %></td>
                                 <td><%= element.ftyPrice %></td>
-                                <!--<td><%= element.stoName %></td>-->
                                 <td><%= element.stcodeName %></td>
-                                <td width="80">
-                                    <% if(element.stcode == 745){ %>
-                                    <a class="label label-primary" href="/outProduct/deatil/<%= element.outId %>">出库</a>
+                                <td width="150">
+                                    <% if(element.stcode == 745 && DWY_Helper.hasPermission(Permission.cargoManages.prodOutList.id, permission)){ %>
+                                    <a class="label label-primary" href="/outProduct/deatil/<%= element.tid %>">出库</a>
                                     <% }%>
                                 </td>
                             </tr>
@@ -228,27 +223,6 @@
         pageSetUp();
 
         $(".fg-date-time-picker").flatpickr(data_time_picker.data_picker); // jQuery
-
-//        $(".checkThis").click(function () {
-//            var id = $(this).attr('data-id');
-//
-//            layer.confirm('确定提交审核?', {icon: 3, title: '提示'}, function (index) {
-//                $.ajax({
-//                    url: '/outProduct/doChecked/'+id,
-//                    method: 'put',
-//                    success: function (data) {
-//                        successLayout.reload();
-//
-//                    },
-//                    error: function (response) {
-//                        layer.close(index)
-//                        errorLayout.normal(response);
-//
-//                    }
-//                });
-//            }, function (index) { layer.close(index) })
-//        })
-
 
     })
 

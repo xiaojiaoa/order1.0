@@ -12,6 +12,10 @@
         <!-- breadcrumb -->
         <ol class="breadcrumb">
             <li>后台管理</li>
+            <% if(type == 'stores'){ %>
+            <li><a class="back-url" href="/storesManage"><i class="fa fa-chevron-left"></i> 门店管理</a></li>
+            <% } %>
+
             <li>柜员管理</li>
         </ol>
         <!-- end breadcrumb -->
@@ -236,7 +240,7 @@
                         </a>
                         <%        break;
                         case 'organizations': %>
-                        <a class="label label-primary" href="/department/organizations/<%=  user.bid %>">
+                        <a class="label label-primary" href="/department/organizations/<%=  bid %>">
                             查看所有部门信息
                         </a>
                         <%        break;
