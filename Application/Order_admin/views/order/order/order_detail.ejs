@@ -572,22 +572,10 @@
                                 <%}%>
                                 </td>
                                 <%  } else{ %>
-                                <td></td>
+                                <td><%= DWY_Helper.getLocalDate(orderStatusInfo.packageTime) %></td>
                                 <%}%>
                                 <td>包装人</td>
-                                <td></td>
-                            </tr>
-                            <tr>
-                                <td>排产时间</td>
-                                <td></td>
-                                <td>排产人</td>
-                                <td></td>
-                            </tr>
-                            <tr>
-                                <td>入库日期</td>
-                                <td></td>
-                                <td>货架号</td>
-                                <td></td>
+                                <td><%= orderStatusInfo.packageName %></td>
                             </tr>
                             <tr>
                                 <td>出仓时间</td>
@@ -602,47 +590,25 @@
                                 <td></td>
                             </tr>
                             <tr>
-                                <td>开始安装时间</td>
-                                <td></td>
-                                <td>结束安装时间</td>
-                                <td></td>
-                            </tr>
-                            <tr>
+                                <td>安装时间</td>
+                                <td><%= DWY_Helper.getLocalDate(orderStatusInfo.installTime) %></td>
                                 <td>安装人</td>
-                                <td></td>
-                                <td>安装次数</td>
-                                <td></td>
+                                <td><%= orderStatusInfo.installName %></td>
                             </tr>
-                            <tr>
+                           <!-- <tr>
                                 <td>安装意见</td>
                                 <td colspan="3"></td>
-                            </tr>
-                            <tr>
-                                <td>回访时间</td>
-                                <td></td>
-                                <td>回访电话</td>
-                                <td></td>
-                            </tr>
-                            <tr>
-                                <td>回访人</td>
-                                <td></td>
-                                <td>回访次数</td>
-                                <td></td>
                             </tr>
                             <tr>
                                 <td>客户评价</td>
                                 <td colspan="3"></td>
                             </tr>
                             <tr>
-                                <td>回访意见</td>
-                                <td colspan="3"></td>
-                            </tr>
-                            <tr>
                                 <td>流程记录</td>
                                 <td colspan="3">
-                                    <!--发浙联物流，自提 <a class="margin-left-20" href="/order/process">添加/查看更多</a>-->
+                                    &lt;!&ndash;发浙联物流，自提 <a class="margin-left-20" href="/order/process">添加/查看更多</a>&ndash;&gt;
                                 </td>
-                            </tr>
+                            </tr>-->
 
                             </tbody>
                         </table>
