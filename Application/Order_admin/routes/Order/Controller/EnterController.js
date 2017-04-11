@@ -292,7 +292,7 @@ var EnterController = {
                 {url: '/api/whse/factory/list', method: 'GET', resConfig: {keyName: 'factoryList', is_must: true}},
             ],
             function (req, res, resultList) {
-                var paginationInfo =  resultList.cargoinList;
+                var paginationInfo =  resultList.cargoinList.page;
 
                 var boostrapPaginator = new Pagination.TemplatePaginator(helper.genPageInfo({
                     prelink: paramObject.withoutPageNo,

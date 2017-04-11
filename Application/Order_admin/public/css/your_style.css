@@ -1044,4 +1044,6 @@ table > tbody > tr > td a.label:first-child {
 .template-ul li:last-child{
     border: none;
 }
-
+.print-ul li{
+    line-height: 25px;
+}
