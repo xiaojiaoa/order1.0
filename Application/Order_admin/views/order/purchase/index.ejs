@@ -95,7 +95,7 @@
                                         <i class="fa fa-search"></i>
                                         查询
                                     </button>
-                                    <% if (DWY_Helper.hasPermission(Permission.purchase.queryAll.id, permission)|| DWY_Helper.hasPermission(Permission.purchase.queryDept.id, permission) || DWY_Helper.hasPermission(Permission.purchase.query.id, permission) ){ %>
+                                    <% if (DWY_Helper.hasPermission(Permission.purchase.queryAll.id, permission)|| DWY_Helper.hasPermission(Permission.purchase.queryOrganization.id, permission) || DWY_Helper.hasPermission(Permission.purchase.query.id, permission) ){ %>
                                     <a class="btn btn-primary " href="/purchase/detail">
                                         查看采购列表
                                     </a>
