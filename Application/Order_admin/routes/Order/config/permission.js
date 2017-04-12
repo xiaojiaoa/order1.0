@@ -662,6 +662,12 @@ var permissions = {
             name:"原料出库审核"
         },
     },
+    inventory :{
+        queryAll:{
+            id:"708040",
+            name:"查询所有机构库存记录"
+        }
+    },
     taskseq:{
         cancel:{
             id:"",
