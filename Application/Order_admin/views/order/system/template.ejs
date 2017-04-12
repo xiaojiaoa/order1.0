@@ -28,20 +28,83 @@
         <div class="row">
             <!-- col -->
             <div class="col-xs-2">
-                <ul class="template-ul">
-                    <li class="active">包装</li>
-                    <li>包装</li>
-                    <li>包装</li>
-                    <li>包装</li>
-                    <li>包装</li>
-                </ul>
+                <div class="widget-body">
+
+                    <div class="panel-group smart-accordion-default" id="accordion">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h4 class="panel-title">
+                                    <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
+                                        <i class="fa fa-lg fa-angle-down pull-right"></i>
+                                        <i class="fa fa-lg fa-angle-up pull-right"></i>
+                                        自定义模板
+                                    </a>
+                                </h4>
+                            </div>
+                            <div id="collapseOne" class="panel-collapse collapse">
+                                <div class="panel-body ">
+                                    <ul class="template-ul">
+                                        <% if(DWY_Helper.isCanLoop(freemarkerSelf)){
+                                        freemarkerSelf.forEach(function (element) { %>
+                                        <li><a><%= element.name %></a></li>
+                                        <%   })
+                                        } else{  %>
+                                        <li>暂无模板</li>
+                                        <% } %>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h4 class="panel-title">
+                                    <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" >
+                                        <i class="fa fa-lg fa-angle-down pull-right"></i>
+                                        <i class="fa fa-lg fa-angle-up pull-right"></i>
+                                        系统模板
+                                    </a>
+                                </h4>
+                            </div>
+                            <div id="collapseTwo" class="panel-collapse collapse" >
+                                <div class="panel-body">
+                                    <ul class="template-ul">
+                                        <% if(DWY_Helper.isCanLoop(freemarkerSystem)){
+                                        freemarkerSystem.forEach(function (element) { %>
+                                        <li><a><%= element.name %></a></li>
+                                        <%   })
+                                        }else{  %>
+                                        <li>暂无模板</li>
+                                        <% } %>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
             </div>
             <div class="col-xs-8">
-                <form action="/orders/updateDifficultyLevel" method="post">
+                <form class="form-horizontal" method="post" action="/system/template/create" id="create-store">
                     <!-- 加载编辑器的容器 -->
                     <script id="container" name="content" type="text/plain">这里写你的初始化内容</script>
 
-                    <button class="btn btn-primary margin-top-10" type="submit">
+                    <div class="col-xs-12 margin-top-10">
+                        <div class="col-xs-8">
+                            <div class="form-group">
+                                <label class="col-xs-2 control-label"><span class="requird"></span>模板名称:</label>
+                                <div class="col-xs-10">
+                                    <input class="form-control validate[required]" value="包装模板" name="ftlName">
+                                    <input class="form-control validate[required]" value="包装模板" name="name">
+                                    <input class="form-control validate[required]" value="0" name="ftlId">
+                                    <input class="form-control validate[required]" value="0" name="ftyId">
+                                    <input class="form-control validate[required]" value="1" name="stcode">
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <button class="btn btn-primary " type="submit">
                         <i class="fa fa-save"></i>
                         保存模板
                     </button>
@@ -85,6 +148,8 @@
         <!-- 实例化编辑器 -->
         var ue = UE.getEditor('container');
 
+        $(function () { $('#collapseOne').collapse('toggle')});
+        $(function () { $('#collapseTwo').collapse('toggle')});
     })
 
 </script>

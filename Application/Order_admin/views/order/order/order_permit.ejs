@@ -60,16 +60,6 @@
                                             </select>
                                         </div>
                                         <div class="col-xs-3">
-                                            <select class="form-control" name="difficulty">
-                                                <option value="1">1级</option>
-                                                <% difficultyList.forEach(function (element) {  %>
-                                                <option value="<%= element.id %>" <%= (DWYRequest.query.difficulty == element.id)?"selected":"" %>  class="<%= element.id ==1  ? 'display-none': '' %>">
-                                                    <%= element.name %>
-                                                </option>
-                                                <% }) %>
-                                            </select>
-                                        </div>
-                                        <div class="col-xs-3">
                                             <select class="form-control" name="productType">
                                                 <option value="">- 类型 -</option>
                                                 <% prodList.forEach(function (element) {  %>

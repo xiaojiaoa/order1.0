@@ -1205,7 +1205,7 @@ router.put('/system/timeSet/doSet', Middleware.AuthCheck,SystemController.doSetT
 //模板管理-页面
 router.get('/system/template', Middleware.AuthCheck,SystemController.templatePage);
 
-
+router.post('/system/template/create', Middleware.AuthCheck, SystemController.templateCreate);
 /*
  * 页面范围: app接口
  * 控制器:   AppServiceController

@@ -410,6 +410,7 @@ var MaterialController = {
             var returnData = Base.mergeData(helper.mergeObject({
                 title: ' ',
                 userFtyId: ftyId,
+                Permission :Permissions,
                 pagination: boostrapPaginator.render()
             },resultList));
             res.render('order/material/stockRecord',returnData);

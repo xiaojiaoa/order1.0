@@ -139,7 +139,35 @@ var SystemController = {
 
     },
     templatePage: function (req, res) {
-        res.render('order/system/template')
+        var ftyId = req.session.user.ftyId? req.session.user.ftyId: '';
+        console.log('templatePage',ftyId)
+        Base.multiDataRequest(req, res, [
+            {url: '/api/whse/freemarker/list?ftyId=0', method: 'GET', resConfig: {keyName: 'freemarkerSystem', is_must: true}},
+            {url: '/api/whse/freemarker/list?ftyId='+ftyId, method: 'GET', resConfig: {keyName: 'freemarkerSelf', is_must: true}},
+        ], function (req, res, resultList) {
+            if(!ftyId){
+                resultList.freemarkerSelf = [];
+            }
+            var returnData = Base.mergeData(helper.mergeObject({
+                title: ' ',
+            }, resultList));
+            res.render('order/system/template', returnData);
+        });
+    },
+    templateCreate: function (req, res) {
+        console.log( "templateCreate",JSON.stringify(req.body));
+        request(Base.mergeRequestOptions({
+            method: 'post',
+            url: '/api/whse/freemarker',
+            form:req.body,
+        }, req, res), function (error, response, body) {
+            if (!error && response.statusCode == 201) {
+                Base.handlerSuccess(res, req);
+                res.redirect("/system/template");
+            } else {
+                Base.handlerError(res, req, error, response, body);
+            }
+        })
     },
 };
 
