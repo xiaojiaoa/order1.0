@@ -47,7 +47,9 @@
                                 <td width="12%">货位编号</td>
                                 <td width="21%"><%= cargospaceInfo.spaceId %></td>
                                 <td width="12%">所在行/列/层</td>
-                                <td colspan="3"><%= cargospaceInfo.spaceRow %>行<%= cargospaceInfo.spaceColumn %>列<%= cargospaceInfo.spaceLayer %>层</td>
+                                <td width="21%"><%= cargospaceInfo.spaceRow %>行<%= cargospaceInfo.spaceColumn %>列<%= cargospaceInfo.spaceLayer %>层</td>
+                                <td width="12%">货位状态</td>
+                                <td width="21%"><%= cargospaceInfo.usable ==1 ? '可用':'禁用' %></td>
                             </tr>
                             <tr>
                                 <td>所属工厂</td>
@@ -58,16 +60,18 @@
                                 <td  width="21%"><%= cargospaceInfo.regionName %></td>
                             </tr>
                             <tr>
-                                <td>最大承重</td>
-                                <td><%= (cargospaceInfo.maxWeight==0)?'不限':cargospaceInfo.maxWeight+'KG' %></td>
-                                <td>最大存货数量</td>
-                                <td><%= (cargospaceInfo.maxAmount==0)?'不限':cargospaceInfo.maxAmount+'件' %></td>
                                 <td>货架长宽高</td>
                                 <td><%= cargospaceInfo.sizeLength %>*<%= cargospaceInfo.sizeWidth %>*<%= cargospaceInfo.sizeHeight %></td>
+                                <td>最大承重</td>
+                                <td colspan="3"><%= (cargospaceInfo.maxWeight==0)?'不限':cargospaceInfo.maxWeight+'KG' %></td>
+
+
                             </tr>
                             <tr>
-                                <td>货位状态</td>
-                                <td colspan="5"><%= cargospaceInfo.usable ==1 ? '可用':'禁用' %></td>
+                                <td>最大存货数量</td>
+                                <td><%= (cargospaceInfo.maxAmount==0)?'不限':cargospaceInfo.maxAmount+'件' %></td>
+                                <td>剩余存货数</td>
+                                <td colspan="3"><%= cargospaceInfo.amountRemain <0 ?'不限':cargospaceInfo.amountRemain %></td>
                             </tr>
                             </tbody>
                         </table>

@@ -70,10 +70,10 @@
                 <div class="col-xs-12">
                     <div class="orderItemLayerTit">
                         <ul class="orderItemMenu">
-                            <a href="/enterProduct/notin?type=1001">
+                            <a href="/enterProduct/notin?type=1001&tid=<%= DWYRequest.query.tid %>">
                                 <li class="padding-10 <%= DWYRequest.query.type == 1001 ? 'materielBak' : '' %>">配件</li>
                             </a>
-                            <a href="/enterProduct/notin?type=1002">
+                            <a href="/enterProduct/notin?type=1002&tid=<%= DWYRequest.query.tid %>">
                                 <li class="padding-10 <%= DWYRequest.query.type == 1002 ? 'materielBak' : '' %>">工件</li>
                             </a>
                         </ul>
@@ -104,14 +104,14 @@
                             </tr>
                             </thead>
                             <tbody id="moreAddTR">
-                            <% var initFtyId = DWY_Helper.getAssistInitFtyId(user.ftyId, factoryList);
+                            <%
                             if(DWY_Helper.isCanLoop(cargoinList.page.result)){
                             cargoinList.page.result.forEach(function(element, index){ %>
                             <tr>
                                 <td>
                                     <label class="checkbox-inline">
                                         <input type="checkbox" class="checkbox"
-                                               name="pakgs" value="<%= element.packageLid %>">
+                                               name="pakgs" value="<%= element.packageLid %>" data-tid="<%= element.tid %>">
                                         <span><%= index + 1 %></span>
                                     </label>
                                 </td>
@@ -119,9 +119,8 @@
                                 <td><%= element.packageName %></td>
                                 <td><%= element.packageTypeName %></td>
                                 <td><%= element.packageProduct %></td>
-                                <td><%= element.tid %></td>
+                                <td class="tid-td"><%= element.tid %></td>
                                 <td><%= DWY_Helper.getPackageType(element.stcode) %></td>
-                                <!--<td><a class="label label-primary" id="toEnter">入库</a></td>-->
                             </tr>
                             <%
                             })}else{ %>
