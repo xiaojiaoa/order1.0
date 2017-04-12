@@ -468,15 +468,27 @@ var OutWarehouseController = {
     },
     outBredDeatil: function (req, res) {
         var id = req.params.id;
+
+        var paramObject = helper.genPaginationQuery(req);
         Base.multiDataRequest(req, res, [
             {url: '/api/whse/cargout/mate/list/'+ id, method: 'GET', resConfig: {keyName: 'plateInfo', is_must: true}},
             {url: '/api/whse/cargout/mate/page?outId='+id, method: 'GET', resConfig: {keyName: 'cargoutInfo', is_must: false}},
 
         ], function (req, res, resultList) {
+            var paginationInfo =  resultList.plateInfo;
+
+            var boostrapPaginator = new Pagination.TemplatePaginator(helper.genPageInfo({
+                prelink: paramObject.withoutPageNo,
+                current: paginationInfo.page,
+                rowsPerPage: paginationInfo.pageSize,
+                totalResult: paginationInfo.totalItems
+            }));
+
             resultList.cargoutInfo = resultList.cargoutInfo.result[0];
             var returnData = Base.mergeData(helper.mergeObject({
                 title: ' ',
                 outId: id,
+                pagination: boostrapPaginator.render()
             },resultList));
             res.render('order/shipments/out_bred_detail', returnData);
         });
