@@ -842,7 +842,7 @@ router.get('/enterProduct', Middleware.AuthCheck, EnterController.enterProductPa
 router.get('/enterProduct/detail/:id', Middleware.AuthCheck, EnterController.enterProductDetailPage);
 
 // 成品-入库页面
-router.get('/enterProduct/notin', Middleware.AuthCheck, EnterController.enterNotinPage);
+router.get('/enterProduct/notin', Middleware.AuthCheck,Middleware.FilterEmptyField, EnterController.enterNotinPage);
 
 // 成品扫描入库-入库
 router.put('/enterProduct/scanning/doEnter/:id', Middleware.AuthCheck, EnterController.doEnterProduct);
