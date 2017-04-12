@@ -358,7 +358,7 @@
                         <% if( DWY_Helper.hasPermission(Permission.orderSchedule.cancelOrder.id, permission) &&  (orderInfo.stcode == 635) && (orderInfo.packeted==0) && orderInfo.receiveGid == user.id  ){ %>
                         <a class="label label-primary" id="doUnlock" data-stcode="<%= orderInfo.stcode %>">&nbsp; 解锁 &nbsp;</a>
                         <% } %>
-                        <% if( orderInfo.stcode == 220 ){ %>
+                        <% if( orderInfo.stcode == 220 && orderInfo.difficulty ){ %>
                         <a class="label label-primary" id="returnPermit" data-stcode="<%= orderInfo.stcode %>">&nbsp; 评估退回 &nbsp;</a>
                         <% } %>
 
