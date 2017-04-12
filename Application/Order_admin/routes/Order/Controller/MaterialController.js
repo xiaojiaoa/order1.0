@@ -65,7 +65,7 @@ var MaterialController = {
             {url: '/api/materials/'+mid+"?bid="+bid, method: 'GET', resConfig: {keyName: 'mateInfo', is_must: true}},
             {url: '/api/organizations//factory', method: 'GET', resConfig: {keyName: 'factoryList', is_must: true}},
             {url: '/api/purchases/mate?bid='+bid+"&mateId="+mid, method: 'GET', resConfig: {keyName: 'purchasesMateList', is_must: true}},
-            {url: '/api/whse/cargospace?mateId='+mid+"&isAll=1&bid="+bid, method: 'GET', resConfig: {keyName: 'whseCargospaceList', is_must: true}},
+            {url: '/api/whse/cargospace?mateId='+mid+"&isAll=1&xbid="+bid, method: 'GET', resConfig: {keyName: 'whseCargospaceList', is_must: true}},
             {url: '/api/assist/stock/reasonTypes', method: 'GET', resConfig: {keyName: 'stockReasonTypes', is_must: true}},
             {url: '/api/materials/stockOperation/page?pageSize=6&mateId='+mid, method: 'GET', resConfig: {keyName: 'stockOperationList', is_must: true}},
         ], function (req, res, resultList) {
