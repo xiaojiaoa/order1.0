@@ -154,7 +154,7 @@
 //                    successLayout.reload();
                     console.log(data)
                     if(data.code == 1001){
-                        successLayout.reload();
+                        successLayout.hrefTo('/productStock');
                     }else{
                         var response = {
                             responseText:JSON.stringify(data)
