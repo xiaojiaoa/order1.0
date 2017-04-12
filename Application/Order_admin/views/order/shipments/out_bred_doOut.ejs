@@ -78,8 +78,9 @@
                                 <th>单位</th>
                                 <th>数量</th>
                                 <th>备注</th>
-                                <th width="200">货位号(行列层)</th>
+                                <th width="300">货位号(行列层)</th>
                                 <th width="100">出库数量</th>
+                                <th width="50">操作</th>
                             </tr>
                             </thead>
                             <tbody id="moreAddTR">
@@ -97,17 +98,37 @@
                                 <td><%= element.unit %></td>
                                 <td><%= element.amount %></td>
                                 <td><%= element.remark %></td>
-                                <td>
-                                    <input class="form-control validate[required,custom[number],minSize[12],maxSize[12]]"
-                                           name="spaceId<%= index %>" placeholder="12位货位编号" id="spaceId<%= index %>"
-                                           data-index="<%= index %>">
+                                <td class="no-padding" id="selectTD<%= index %>">
                                     <input name="cargoId<%= index %>" value="<%= element.mateId %>" type="hidden">
                                     <input name="remark<%= index %>" value="<%= element.price %>" type="hidden">
+
+                                    <div class="more-space">
+                                        <select class="form-control spaceIdSelect validate[required]" name="spaceId<%= index %>" id="spaceId<%= index %>" data-index="<%= index %>">
+                                            <option value="">-- 请选择 --</option>
+                                            <% if(DWY_Helper.isCanLoop(element.list)){
+                                                element.list.forEach(function (context) { %>
+                                            <option value="<%= context.spaceId %>" data-nowAmount="<%= context.nowAmount %>">
+                                                <%= context.spaceId %>(库存数量 <%= context.nowAmount %> )
+                                            </option>
+                                            <% }) } %>
+                                        </select>
+                                    </div>
+
+
                                 </td>
-                                <td>
-                                    <input class="form-control short validate[required,custom[number]]"
-                                           value="<%= element.amount %>" name="amount<%= index %>"
-                                           id="amount<%= index %>" data-index="<%= index %>">
+                                <td class="no-padding" id="amountTD<%= index %>">
+                                    <div class="more-space">
+                                        <input class="form-control validate[required,custom[number]]"
+                                               value="<%= element.amount %>" name="amount<%= index %>"
+                                               id="amount<%= index %>" data-index="<%= index %>">
+                                    </div>
+
+                                </td>
+                                <td class="no-padding" id="operationArea<%= index %>">
+                                    <div class="more-space">
+                                        <a class="add-spaceid" data-index="<%= index %>"><i class="fa fa-plus"></i></a>
+                                    </div>
+
                                 </td>
                             </tr>
                             <%
@@ -144,12 +165,55 @@
 <script type="text/javascript">
 
     $(document).ready(function () {
+        var cargoinList_result = parseInt(<%= plateList.length %>);
+        var contentArea = $('#moreAddTR');
 
-        $("#search-customer").validationEngine();
+        $("#search-customer").validationEngine({binded:false});
 
         pageSetUp();
 
         $(".fg-date-time-picker").flatpickr(data_time_picker.data_picker); // jQuery
+
+
+        contentArea.on('change','.spaceIdSelect',function () {
+            var _self = $(this);
+            var index = _self.attr('data-index');
+            var option = _self.find('option:selected').attr('data-nowAmount');
+            $("#amount0").attr('class','form-control validate[required,custom[number],max['+option+']]');
+
+        })
+
+        //增加货位
+        $('.add-spaceid').on('click',function () {
+            var _self = $(this);
+            var index = _self.attr('data-index');
+            var select = $("#spaceId"+index).html();
+
+            var selectHtml = '<div class="more-space newtarget'+cargoinList_result+'">'
+                + '<select class="form-control validate[required]" name="spaceId'+cargoinList_result+'" id="spaceId'+cargoinList_result+'" data-index="'+cargoinList_result+'">'
+                +select
+                + '</select>'
+                + '</div>';
+            $("#selectTD"+index).append(selectHtml);
+            var amountHtml = '<div class="more-space newtarget'+cargoinList_result+'">'
+                +'<input class="form-control short validate[required,custom[number]]"'
+                +'value="" name="amount'+cargoinList_result+'"'
+                +'id="amount'+cargoinList_result+'" data-index="'+cargoinList_result+'">'
+                +'</div>';
+            $("#amountTD"+index).append(amountHtml);
+            $('#operationArea'+index).append(' <div class="more-space newtarget'+cargoinList_result+'"> <a class="less-spaceid" data-index="'+cargoinList_result+'"><i class="fa fa-minus"></i></a> </div>');
+
+            ++cargoinList_result;
+
+        })
+
+        //删除货位
+        contentArea.on('click','.less-spaceid',function () {
+            var _self = $(this);
+            var index = _self.attr('data-index');
+            $('.newtarget'+index).remove();
+        })
+
 
         $('#toEnter').click(function () {
             if ($("#search-customer").validationEngine('validate')) {
@@ -162,7 +226,7 @@
                 console.log('length', length);
                 var ifSubmit = false;
                 for (var i = 0; i < length; i++) {
-                    var spaceId = $("input[name=spaceId" + i + "]").val();
+                    var spaceId = $("#spaceId" + i).val();
                     var amount = $("input[name=amount" + i + "]").val();
                     if (!spaceId || !amount) {
                         console.log('continue');
