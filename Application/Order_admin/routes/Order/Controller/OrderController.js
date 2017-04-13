@@ -651,6 +651,8 @@ var OrderController = {
     },
     resupplyDetailPage: function (req, res) {
         var tid = req.params.tid;
+
+        var paramObject = helper.genPaginationQuery(req);
         Base.multiDataRequest(req, res, [
                 {url: '/api/orders/resupply/detail?tid='+tid, method: 'GET', resConfig: {keyName: 'resupplyInfo', is_must: true}},
                 {url: '/api/orders/statusInfo/'+tid, method: 'GET', resConfig: {keyName: 'orderStatusInfo', is_must: false}},
@@ -663,6 +665,7 @@ var OrderController = {
                 // {url: '/api/assist/orderfile/type', method: 'GET', resConfig: {keyName: 'allFileTypeInfo', is_must: true}},
                 {url: '/api/orders/chgback/'+tid, method: 'GET', resConfig: {keyName: 'chgbackInfo', is_must: true}},
                 {url: '/api/orders/progress/'+tid, method: 'GET', resConfig: {keyName: 'progressInfo', is_must: true}},
+                {url: '/api/orders/package/delivery/'+tid, method: 'GET', resConfig: {keyName: 'deliveryInfo', is_must: true}},
             ],
             function (req, res, resultList) {
 
@@ -687,10 +690,20 @@ var OrderController = {
 // console.log('resupplyReason',JSON.stringify(resupplyReason))
 // console.log('resupplyReason222',JSON.stringify(resupplyLeveTwo))
 
+                var paginationInfo =  resultList.deliveryInfo;
+
+                var boostrapPaginator = new Pagination.TemplatePaginator(helper.genPageInfo({
+                    prelink: paramObject.withoutPageNo,
+                    current: paginationInfo.page,
+                    rowsPerPage: paginationInfo.pageSize,
+                    totalResult: paginationInfo.totalItems
+                }));
+
                 var returnData = Base.mergeData(helper.mergeObject({
                     title: ' ',
                     tid:tid,
                     Permission :Permissions,
+                    pagination: boostrapPaginator.render()
                 }, resultList));
                 res.render('order/order/resupply_detail', returnData);
             });
