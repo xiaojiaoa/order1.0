@@ -444,9 +444,9 @@
 
                             <tr>
                                 <td>收款确认</td>
-                                <td></td>
+                                <td><%= DWY_Helper.getLocalDate(orderStatusInfo.receiptTime) %></td>
                                 <td>确认人</td>
-                                <td></td>
+                                <td><%= orderStatusInfo.receiptName %></td>
                             </tr>
                             <tr>
                                 <td>拆单时间</td>
@@ -579,15 +579,15 @@
                             </tr>
                             <tr>
                                 <td>出仓时间</td>
-                                <td></td>
+                                <td><%= DWY_Helper.getLocalDate(orderStatusInfo.outStorageTime) %></td>
                                 <td>出仓人</td>
-                                <td></td>
+                                <td><%= orderStatusInfo.outStorageName %></td>
                             </tr>
                             <tr>
                                 <td>发货日期</td>
-                                <td></td>
+                                <td><%= DWY_Helper.getLocalDate(orderStatusInfo.sendOutTime) %></td>
                                 <td>货运单号</td>
-                                <td></td>
+                                <td><%= orderStatusInfo.sendOutName %></td>
                             </tr>
                             <tr>
                                 <td>安装时间</td>
