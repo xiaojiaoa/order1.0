@@ -56,12 +56,12 @@
                                     <div class="form-group">
                                         <label class="col-xs-2 control-label">起止日期:</label>
                                         <div class="col-xs-4">
-                                            <input class="form-control fg-date-time-picker" placeholder="" type="text" value="<%= DWYRequest.query.startDate%>"
+                                            <input class="form-control fg-date-picker" placeholder="" type="text" value="<%= DWYRequest.query.startDate%>"
                                                    name="startDate">
                                         </div>
                                         <label class="from-to control-label "> 至 </label>
                                         <div class="col-xs-4">
-                                            <input class="form-control fg-date-time-picker" placeholder="" type="text" value="<%= DWYRequest.query.endDate%>"
+                                            <input class="form-control fg-date-picker" placeholder="" type="text" value="<%= DWYRequest.query.endDate%>"
                                                    name="endDate">
                                         </div>
                                     </div>
@@ -192,7 +192,7 @@
 <script type="text/javascript">
     $(document).ready(function () {
         pageSetUp();
-        $(".fg-date-time-picker").flatpickr(data_time_picker.data_picker); // jQuery
+        $(".fg-date-picker").flatpickr(data_time_picker.data_picker); // jQuery
         $(".PurchaseOrder").click(function(){
             var tid=$(this).data('purchaseId');
             layer.confirm('确认生成采购单?',{icon: 3, title:'提示'},
