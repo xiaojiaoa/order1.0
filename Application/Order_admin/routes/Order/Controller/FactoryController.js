@@ -70,7 +70,7 @@ var FactoryController = {
         //     area = area.substring(0,area.length-1);
         //     req.body.area = area;
         // }
-        //console.log('whse6666'+ JSON.stringify(req.body))
+        console.log('whse6666'+ JSON.stringify(req.body))
         request(Base.mergeRequestOptions({
             method: 'post',
             url: '/api/whse/factory',
