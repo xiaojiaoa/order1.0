@@ -902,7 +902,7 @@ var OrderController = {
         }, req, res), function (error, response, body) {
             if (!error && response.statusCode == 201) {
                 Base.handlerSuccess(res, req);
-                console.log('statusCode')
+               // console.log('statusCode')
                 res.redirect("/orders/nesting");
             } else {
                 Base.handlerError(res, req, error, response, body);
@@ -1015,7 +1015,7 @@ var OrderController = {
     },
     doPacket:function(req,res){
         var tid=req.params.tid;
-        console.log("生成包装"+tid);
+        //console.log("生成包装"+tid);
         request(Base.mergeRequestOptions({
             method: 'put',
             url: '/api/orders/package/batch/packet/'+tid,
@@ -1030,7 +1030,7 @@ var OrderController = {
     },
     unPacket:function(req,res){
         var tid=req.params.tid;
-        console.log("撤销包装"+tid);
+        //console.log("撤销包装"+tid);
         request(Base.mergeRequestOptions({
             method: 'put',
             url: '/api/orders/package/batch/unpacket/'+tid,
@@ -1075,7 +1075,7 @@ var OrderController = {
     },
     exportPacket: function (req, res) {
         var tid = req.params.tid;
-        console.log("包装导出"+tid);
+        //console.log("包装导出"+tid);
         request(Base.mergeRequestOptions({
             method: 'post',
             url: '/api/orders/package/export/'+tid,

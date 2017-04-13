@@ -20,7 +20,7 @@ var Permissions = require('../config/permission');
 var NetworkBookController = {
     indexPage: function (req, res) {
         var stcode = req.query.stcode;
-        console.log('stcode',stcode)
+       // console.log('stcode',stcode)
         if(stcode == undefined){
             res.redirect('/networkBook?stcode=1')
         }
@@ -72,7 +72,7 @@ var NetworkBookController = {
             if (!error && response.statusCode == 201) {
                 Base.handlerSuccess(res, req);
                 // var lid = JSON.parse(body).lid;
-                console.log('success!!!')
+               // console.log('success!!!')
                 res.redirect("/networkBook");
 
             } else {

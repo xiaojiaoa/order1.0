@@ -56,7 +56,7 @@ var EmployeeController = {
         var bid = req.params.bid;
         // var scope = (type == 'stores')? 1 : 2 ;
         var scope = req.session.user.orgType;
-        console.log('orgType',req.session.user.orgType)
+        //console.log('orgType',req.session.user.orgType)
         Base.multiDataRequest(req, res, [
             {url: '/api/'+type+'/departments/'+bid, method: 'GET', resConfig: {keyName: 'departmentsInfo', is_must: true}},
             {url: '/api/roles/'+bid+'?scope='+scope, method: 'GET', resConfig: {keyName: 'rolesInfo', is_must: true}},

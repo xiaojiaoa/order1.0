@@ -62,7 +62,7 @@ var SystemController = {
         })
     },
     doCreate: function (req, res) {
-        console.log( "新建",req.body);
+        //console.log( "新建",req.body);
         request(Base.mergeRequestOptions({
             method: 'post',
             url: '/api/assist',
@@ -77,7 +77,7 @@ var SystemController = {
         })
     },
     doModify: function (req, res) {
-        console.log("修改",req.body);
+        //console.log("修改",req.body);
         request(Base.mergeRequestOptions({
             method: 'put',
             url: '/api/assist/update'+"?"+queryString.stringify(req.body)
@@ -141,6 +141,7 @@ var SystemController = {
     templatePage: function (req, res) {
         var ftyId = req.session.user.ftyId? req.session.user.ftyId: '';
         console.log('templatePageftyId',ftyId)
+
         Base.multiDataRequest(req, res, [
             {url: '/api/whse/freemarker/list?ftyId=0', method: 'GET', resConfig: {keyName: 'freemarkerSystem', is_must: true}},
             {url: '/api/whse/freemarker/list?ftyId='+ftyId, method: 'GET', resConfig: {keyName: 'freemarkerSelf', is_must: true}},
@@ -189,6 +190,7 @@ var SystemController = {
             req.body.name = req.body.ftlName;
         }
         console.log( "templateCreate",JSON.stringify(req.body));
+
 
         request(Base.mergeRequestOptions({
             method: 'post',
