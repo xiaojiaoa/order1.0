@@ -59,12 +59,12 @@
                                     <div class="form-group">
                                         <label class="col-xs-2 control-label">建单日期:</label>
                                         <div class="col-xs-4">
-                                            <input class="form-control fg-date-time-picker" placeholder="" type="text" value="<%= DWYRequest.query.startDate%>"
+                                            <input class="form-control fg-date-picker" placeholder="" type="text" value="<%= DWYRequest.query.startDate%>"
                                                    name="startDate">
                                         </div>
                                         <label class="from-to control-label "> 至 </label>
                                         <div class="col-xs-4">
-                                            <input class="form-control fg-date-time-picker" placeholder="" type="text" value="<%= DWYRequest.query.endDate%>"
+                                            <input class="form-control fg-date-picker" placeholder="" type="text" value="<%= DWYRequest.query.endDate%>"
                                                    name="endDate">
                                         </div>
                                     </div>
@@ -104,12 +104,12 @@
                                     <div class="form-group">
                                         <label class="col-xs-2 control-label">预计发货时间:</label>
                                         <div class="col-xs-4">
-                                            <input class="form-control fg-date-time-picker" placeholder="" type="text" value="<%= DWYRequest.query.startDeliveryDate%>"
+                                            <input class="form-control fg-date-picker" placeholder="" type="text" value="<%= DWYRequest.query.startDeliveryDate%>"
                                                    name="startDeliveryDate">
                                         </div>
                                         <label class="from-to control-label "> 至 </label>
                                         <div class="col-xs-4">
-                                            <input class="form-control fg-date-time-picker" placeholder="" type="text" value="<%= DWYRequest.query.endDeliveryDate%>"
+                                            <input class="form-control fg-date-picker" placeholder="" type="text" value="<%= DWYRequest.query.endDeliveryDate%>"
                                                    name="endDeliveryDate">
                                         </div>
                                     </div>
@@ -275,7 +275,7 @@
         pageSetUp();
 
 
-        $(".fg-date-time-picker").flatpickr(data_time_picker.data_picker);  // jQuery
+        $(".fg-date-picker").flatpickr(data_time_picker.data_picker);  // jQuery
 
 
     })

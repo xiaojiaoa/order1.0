@@ -193,7 +193,7 @@
                                 <td><%= element.whseName%></td>
                                 <td><%= element.spaceId%></td>
                                 <td><%= element.amount%></td>
-                                <td><a class="label label-primary modifyStock" href="javascript:void(0)">修改库存</a></td>
+                                <td><a class="label label-primary modifyStock" href="javascript:void(0)" spaceId="<%= element.spaceId%>">修改库存</a></td>
                             </tr>
                             <% })}else{ %>
                             <tr>
@@ -362,7 +362,7 @@
         <div class="form-group">
             <label class="col-xs-2 control-label"><span class="requird"></span>修改原因:</label>
             <div class="col-xs-6">
-                <select  class="form-control validate[required]" name="factory">
+                <select  class="form-control validate[required]" name="reason">
                     <option value="">- 请选择 -</option>
                     <% stockReasonTypes.forEach(function (element,index) {%>
                     <option value="<%= element.id%>"><%= element.name%></option>
@@ -375,7 +375,7 @@
         <div class="form-group">
             <label class="col-xs-2 control-label"><span class="requird"></span>库存数量:</label>
             <div class="col-xs-6">
-                <input  class="form-control validate[required]" type="text" value="" name=""  placeholder="请输入库存数量"/>
+                <input  class="form-control validate[required]" type="text" value="" name="newStock"  placeholder="请输入库存数量"/>
             </div>
         </div>
     </div>
@@ -383,12 +383,13 @@
         <div class="form-group">
             <label class="col-xs-2 control-label">备注:</label>
             <div class="col-xs-6">
-                <input  class="form-control" type="text" value="" name="" placeholder="请输入备注"/>
+                <input  class="form-control" type="text" value="" name="remark" placeholder="请输入备注"/>
             </div>
         </div>
     </div>
     <input type="hidden" name="mateId" value="<%= mid %>">
     <input type="hidden" name="bid" value="<%= bid %>">
+    <input type="hidden" name="spaceId" value="">
     <div class="col-xs-12">
         <hr class="simple">
         <div class="col-xs-12 text-center">
@@ -483,6 +484,8 @@
         //弹出修改库存框
         $('.modifyStock').on({
             click: function (e) {
+                var spaceId=$(this).attr("spaceId");
+                $("input[name=spaceId]").val(spaceId);
                 layer.open({
                     title: false,
                     type: 1,

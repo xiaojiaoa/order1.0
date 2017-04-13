@@ -58,11 +58,11 @@
                                     <div class="form-group">
                                         <label class="col-xs-2 control-label">下单日期:</label>
                                         <div class="col-xs-4">
-                                            <input class="form-control fg-date-time-picker flatpickr-input" placeholder="" type="text" value="<%= DWYRequest.query.orderStartTime %>" name="orderStartTime" readonly="readonly">
+                                            <input class="form-control fg-date-picker flatpickr-input" placeholder="" type="text" value="<%= DWYRequest.query.orderStartTime %>" name="orderStartTime" readonly="readonly">
                                         </div>
                                         <label class="from-to control-label "> 至 </label>
                                         <div class="col-xs-4">
-                                            <input class="form-control fg-date-time-picker flatpickr-input" placeholder="" type="text" value="<%= DWYRequest.query.orderEndTime %>" name="orderEndTime" readonly="readonly">
+                                            <input class="form-control fg-date-picker flatpickr-input" placeholder="" type="text" value="<%= DWYRequest.query.orderEndTime %>" name="orderEndTime" readonly="readonly">
                                         </div>
                                     </div>
                                 </div>
@@ -220,7 +220,7 @@
         pageSetUp();
 
       //日期组件
-        $(".fg-date-time-picker").flatpickr(data_time_picker.data_picker);
+        $(".fg-date-picker").flatpickr(data_time_picker.data_picker);
 
         //对表单进行初始化验证
         $("#toBePackedForm").validationEngine();
