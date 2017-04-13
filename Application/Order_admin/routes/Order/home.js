@@ -1204,8 +1204,11 @@ router.put('/system/timeSet/doSet', Middleware.AuthCheck,SystemController.doSetT
 
 //模板管理-页面
 router.get('/system/template', Middleware.AuthCheck,SystemController.templatePage);
+router.get('/system/template/modify/:type/:id', Middleware.AuthCheck,SystemController.modifyPage);
 
-router.post('/system/template/create', Middleware.AuthCheck, SystemController.templateCreate);
+router.post('/system/template/doCreate', Middleware.AuthCheck, SystemController.templateCreate);
+router.post('/system/template/doModify', Middleware.AuthCheck, SystemController.templateModify);
+router.put('/system/template/doDelete/:id', Middleware.AuthCheck, SystemController.templateDelete);
 /*
  * 页面范围: app接口
  * 控制器:   AppServiceController

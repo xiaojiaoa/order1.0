@@ -523,6 +523,7 @@ var OutWarehouseController = {
         })
     },
   plateOut: function (req, res) {
+        console.log('plateOut',JSON.stringify(req.body))
     request(Base.mergeRequestOptions({
       method: 'post',
       url: '/api/whse/cargout/plate/out',

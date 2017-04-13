@@ -89,7 +89,7 @@
                             <% if(DWY_Helper.isCanLoop(plateList)){ %>
 
                             <% plateList.forEach(function(element, index){ %>
-                            <tr class="cargoinDo">
+                            <tr class="cargoinDo" data-index="<%= index %>">
                                 <td><%= index + 1 %></td>
                                 <td><%= element.mateId %></td>
                                 <td><%= element.mateName %></td>
@@ -100,9 +100,10 @@
                                 <td><%= element.remark %></td>
                                 <td class="no-padding" id="selectTD<%= index %>">
                                     <input name="cargoId<%= index %>" value="<%= element.mateId %>" type="hidden">
+                                    <input name="amountAll<%= index %>" value="<%= element.amount %>" type="hidden">
                                     <input name="remark<%= index %>" value="<%= element.price %>" type="hidden">
 
-                                    <div class="more-space">
+                                    <div class="more-space" data-index="<%= index %>">
                                         <select class="form-control spaceIdSelect validate[required]" name="spaceId<%= index %>" id="spaceId<%= index %>" data-index="<%= index %>">
                                             <option value="">-- 请选择 --</option>
                                             <% if(DWY_Helper.isCanLoop(element.list)){
@@ -118,7 +119,7 @@
                                 </td>
                                 <td class="no-padding" id="amountTD<%= index %>">
                                     <div class="more-space">
-                                        <input class="form-control validate[required,custom[number]]"
+                                        <input class="form-control validate[required,custom[number],min[1]]"
                                                value="<%= element.amount %>" name="amount<%= index %>"
                                                id="amount<%= index %>" data-index="<%= index %>">
                                     </div>
@@ -179,7 +180,7 @@
             var _self = $(this);
             var index = _self.attr('data-index');
             var option = _self.find('option:selected').attr('data-nowAmount');
-            $("#amount0").attr('class','form-control validate[required,custom[number],max['+option+']]');
+            $("#amount"+index).attr('class','form-control validate[required,custom[number],min[1],max['+option+']]');
 
         })
 
@@ -189,8 +190,8 @@
             var index = _self.attr('data-index');
             var select = $("#spaceId"+index).html();
 
-            var selectHtml = '<div class="more-space newtarget'+cargoinList_result+'">'
-                + '<select class="form-control validate[required]" name="spaceId'+cargoinList_result+'" id="spaceId'+cargoinList_result+'" data-index="'+cargoinList_result+'">'
+            var selectHtml = '<div class="more-space newtarget'+cargoinList_result+'" data-index="'+cargoinList_result+'">'
+                + '<select class="form-control spaceIdSelect validate[required]" name="spaceId'+cargoinList_result+'" id="spaceId'+cargoinList_result+'" data-index="'+cargoinList_result+'">'
                 +select
                 + '</select>'
                 + '</div>';
@@ -221,28 +222,54 @@
                 var outEmp = $("#outEmp").val();
                 var outTime = $("#outTime").val();
                 var batchId = $("#batchId").val();
+
                 var myArray = new Array();
-                var length = $(".cargoinDo").length;
-                console.log('length', length);
-                var ifSubmit = false;
-                for (var i = 0; i < length; i++) {
-                    var spaceId = $("#spaceId" + i).val();
-                    var amount = $("input[name=amount" + i + "]").val();
-                    if (!spaceId || !amount) {
-                        console.log('continue');
-                        continue;
-                    }
-                    var cargoId = $("input[name=cargoId" + i + "]").val();
+                var ifAmount = true;//主要判断入库数量是否正确
+                var cargoIdNotIn = '';
 
-                    var a = new Object();
-                    a = {
-                        spaceId: spaceId,
-                        cargoId: cargoId,
-                        amount: amount,
+                $('.cargoinDo').each(function () {
+                    var _self = $(this);
+                    var indexTR = _self.attr('data-index');
+
+                    var cargoId = $("input[name=cargoId" + indexTR + "]").val();
+                    //原料需要入库的数量
+                    var amountTotal=Number($("input[name=amountAll"+indexTR+"]").val());
+                    //实际填的总入库数量
+                    var amountActually = 0;
+
+                    $('#selectTD'+indexTR).find('.more-space').each(function () {
+                        var _element = $(this);
+                        var index = _element.attr('data-index');
+
+                        var spaceId=$("select[name=spaceId"+index+"]").val();
+                        var amount=$("input[name=amount"+index+"]").val();
+                        amountActually += Number(amount);
+
+                        var a = new Object();
+                        a = {
+                            spaceId: spaceId,
+                            cargoId: cargoId,
+                            amount: amount,
+                        }
+
+                        myArray.push(a);
+
+                    })
+
+                    console.log('amountTotal',amountTotal)
+                    console.log('amountActually',amountActually)
+                    if(amountTotal != amountActually){
+                        ifAmount = false;
+                        cargoIdNotIn += cargoId+'</br>'
+                        return false
                     }
 
-                    myArray.push(a);
-                    ifSubmit = true;
+                    console.log('ifAmount',ifAmount)
+                })
+
+                if(!ifAmount){
+                    layer.msg('以下物料号出库数量不正确，填写的总出库数需要与该单号要求出库数量保持一致！</br>'+cargoIdNotIn, {icon: 2, time: 3000});
+                    return;
                 }
                 var date = {
                     mateEmp: mateEmp,
@@ -251,10 +278,6 @@
                     batchId: batchId,
                     plateList: myArray
                 };
-                if (!ifSubmit) {
-                    layer.msg('请先填写正确入库信息', {icon: 2, time: 2000});
-                    return;
-                }
 
                 layer.confirm("确认提交？", {title: '提示'}, function (index) {
                         console.log(myArray);
