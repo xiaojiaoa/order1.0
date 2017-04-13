@@ -630,37 +630,48 @@
                             <thead>
 
                             <tr>
-                                <th rowspan="2">序号</th>
-                                <th rowspan="2">车间</th>
-                                <th rowspan="2">包号</th>
-                                <th rowspan="2">属性</th>
-                                <th rowspan="2">特包</th>
-                                <th colspan="3">纸箱</th>
-                                <th rowspan="2">产品名称</th>
-                                <th rowspan="2">流水号</th>
-                                <th rowspan="2">批号</th>
-                                <th rowspan="2">工序</th>
-                                <th rowspan="2">入库时间</th>
-                                <th rowspan="2">接收人</th>
-                                <th rowspan="2">出仓时间</th>
-                                <th rowspan="2">出仓人</th>
-                                <th rowspan="2">校验</th>
-                                <th rowspan="2">出仓单号</th>
+                                <th>序号</th>
+                                <th>包装流水号</th>
+                                <th>属性</th>
+                                <th>包装名称</th>
+                                <th>流水号</th>
+                                <th>批号</th>
+                                <th>入库时间</th>
+                                <th>入库人</th>
+                                <th>出仓时间</th>
+                                <th>出仓人</th>
+                                <th>出仓单号</th>
                             </tr>
-                            <tr>
-                                <th>型号</th>
-                                <th>长宽高</th>
-                                <th>形状</th>
-                            </tr>
+
                             </thead>
                             <tbody>
+                            <% if(DWY_Helper.isCanLoop(deliveryInfo.result)){
+                                deliveryInfo.result.forEach(function (element, index) {  %>
                             <tr>
-                                <td colspan="18" class="text-align-center">暂无数据</td>
+                                <td><%= ++index %></td>
+                                <td><%= element.packageLid %></td>
+                                <td><%= element.packageType %></td>
+                                <td><%= element.packageName %></td>
+                                <td><%= element.lid %></td>
+                                <td><%= element.batchNumber %></td>
+                                <td><%= DWY_Helper.getLocalDate(element.inTime) %></td>
+                                <td><%= element.inGName %></td>
+                                <td><%= DWY_Helper.getLocalDate(element.outTime) %></td>
+                                <td><%= element.outGName %></td>
+                                <td><%= element.outId %></td>
                             </tr>
+                            <%    })
+                            }else{%>
+                            <tr>
+                                <td colspan="11" class="text-align-center">暂无数据</td>
+                            </tr>
+                            <%  } %>
+
+
 
                             </tbody>
                         </table>
-
+                        <%- pagination %>
                     </div>
                 </div>
             </div>
