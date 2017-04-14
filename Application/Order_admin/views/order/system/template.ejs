@@ -132,27 +132,39 @@
                     <div class="col-xs-12 margin-top-10">
                         <div class="col-xs-8">
                             <div class="form-group">
-                                <label class="pull-left control-label"><span class="requird"></span>模板名称:</label>
+                                <label class="col-xs-2 control-label"><span class="requird"></span>模板类型名称:</label>
                                 <div class="col-xs-10">
                                     <% if(type == 'createSys'){ %>
                                     <input class="form-control validate[required]" value="包装模板" name="ftlName" id="ftlName">
-                                    <input class="form-control" value="" name="name">
-                                    <input class="form-control" value="0" name="ftlId">
-                                    <input class="form-control" value="0" name="ftyId">
-                                    <input class="form-control" value="1" name="stcode">
+                                    <input class="form-control" value="0" name="ftlId" type="hidden">
+                                    <input class="form-control" value="0" name="ftyId" type="hidden">
+                                     <input class="form-control" value="1" name="stcode" type="hidden">
                                     <% } %>
 
                                     <% if(type == 'modify'){ %>
-                                    <input class="form-control validate[required]" value="<%= freemarkerInfo.name %>" name="name">
-                                    <input class="form-control" value="<%= freemarkerInfo.ftlName %>" name="ftlName" >
-                                    <input class="form-control" value="<%= freemarkerInfo.id %>" name="id" >
-                                    <input class="form-control" value="<%= freemarkerInfo.ftlId %>" name="ftlId">
-                                    <input class="form-control" value="<%= freemarkerInfo.ftyId %>" name="ftyId" id="ftyId">
 
-                                    <input class="form-control" value="<%= paramsType %>" name="paramsType">
+                                    <% if(paramsType == 'sys'){  %>
+                                    <input class="form-control" value="<%= freemarkerInfo.ftlName %>" name="ftlName" <%= user.bid == 9999? '':'readonly'%>>
+                                    <%  }else{ %>
+                                    <input class="form-control" value="<%= freemarkerInfo.ftlName %>" name="ftlName" readonly>
+                                    <% }%>
+
+                                    <input class="form-control" value="<%= freemarkerInfo.id %>" name="id" id="id" type="hidden">
+                                    <input class="form-control" value="<%= freemarkerInfo.ftlId %>" name="ftlId" type="hidden">
+                                    <input class="form-control" value="" name="ftyId" id="ftyId" type="hidden">
+                                    <input class="form-control" value="1" name="stcode" type="hidden">
+                                    <input class="form-control" value="<%= paramsType %>" name="paramsType" type="hidden">
                                     <% } %>
 
 
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xs-8">
+                            <div class="form-group">
+                                <label class="col-xs-2 control-label"><span class="requird"></span>模板名称:</label>
+                                <div class="col-xs-10">
+                                    <input class="form-control" value="<%= freemarkerInfo.name %>" name="name">
                                 </div>
                             </div>
                         </div>
@@ -253,12 +265,14 @@
         var fieldDIV = $('#fieldDIV');
 
         var ftyId = $('#ftyId'); //模板类型id,新建默认模板传0
+        var id = $('#id'); //模板类型id,新建默认模板传0
 
 
         $('#saveAsSelf').click(function (e) {
             e.preventDefault();
             form.attr('action','/system/template/doCreate');
             ftyId.val('<%= userFtyId %>');
+            id.val('');
             form.submit();
         })
         $('#delete').click(function () {

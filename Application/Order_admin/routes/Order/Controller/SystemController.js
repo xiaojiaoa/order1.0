@@ -186,9 +186,9 @@ var SystemController = {
     },
     templateCreate: function (req, res) {
         var ftlId = req.body.ftlId;
-        if(ftlId == 0){
-            req.body.name = req.body.ftlName;
-        }
+        // if(ftlId == 0){
+        //     req.body.name = req.body.ftlName;
+        // }
         console.log( "templateCreate",JSON.stringify(req.body));
 
 
@@ -209,7 +209,7 @@ var SystemController = {
         var id = req.body.id;
         var paramsType = req.body.paramsType;
 
-        console.log( "templateModify",JSON.stringify(req.body));
+        console.log( 'templateModify',JSON.stringify(req.body));
 
         request(Base.mergeRequestOptions({
             method: 'put',
@@ -239,18 +239,6 @@ var SystemController = {
     },
     printOut: function (req, res) {
 
-        // var id = req.params.id;
-        // Base.multiDataRequest(req, res, [
-        //     {url: '/api/whse/freemarker/print/'+id, method: 'GET', resConfig: {keyName: 'printInfo', is_must: true}},
-        // ], function (req, res, resultList) {
-        //
-        //     var returnData = Base.mergeData(helper.mergeObject({
-        //         id:id,
-        //     }, resultList));
-        //     res.render('order/system/print', returnData);
-        // });
-
-
         var id = req.params.id;
         request(Base.mergeRequestOptions({
             method: 'get',
@@ -259,7 +247,6 @@ var SystemController = {
             if (!error && response.statusCode == 200) {
                 console.log('printOut',body)
                 // res.status(200).json(body);
-                // var resultList = body;
                 var returnData = Base.mergeData(helper.mergeObject({
                     id:id,
                 }, {printINfo:body}));
