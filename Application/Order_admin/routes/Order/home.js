@@ -1263,6 +1263,7 @@ router.post('/app/doStock',AppServiceController.doStock);
 //备货-备货扫描后，显示的界面
 router.get('/app/stock/list', AppServiceController.getStockList);
 
+router.get('/app/stock/permission', AppServiceController.permission);
 
 
 module.exports = router;
