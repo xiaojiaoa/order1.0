@@ -65,7 +65,7 @@
                                 <td>主材颜色</td>
                                 <td><%= orderInfo.decoColor %></td>
                                 <td>风格</td>
-                                <td><%= DWY_Helper.getAssistVal(orderInfo.decoStyleId, styleInfo) %></td>
+                                <td><%= orderInfo.decoStyleStr %></td>
                             </tr>
                             <tr>
                                 <td>专卖店</td>
@@ -103,10 +103,6 @@
                                 <td>流水号</td>
                                 <td colspan="3"><a href="/taskseq/index/<%= orderInfo.lid %>"><%= orderInfo.lid %></a>
                                 </td>
-                            </tr>
-                            <tr>
-                                <td>包装信息</td>
-                                <td colspan="3"></td>
                             </tr>
                             <tr>
                                 <td>难度等级</td>
