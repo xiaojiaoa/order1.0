@@ -128,6 +128,7 @@
                                 <th>包装类型</th>
                                 <th>包装状态</th>
                                 <th>货位编号</th>
+                                <th>操作</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -145,6 +146,9 @@
                                 <td><%= element.packageTypeStr %></td>
                                 <td><%= element.packageStatusStr %></td>
                                 <td><%= element.spaceId %></td>
+                                <td>
+                                    <a class="label label-primary">预览</a>
+                                </td>
                             </tr>
                             <%  })
                             }else{ %>
