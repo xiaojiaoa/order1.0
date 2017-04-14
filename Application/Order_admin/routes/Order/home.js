@@ -1209,6 +1209,12 @@ router.get('/system/template/modify/:type/:id', Middleware.AuthCheck,SystemContr
 router.post('/system/template/doCreate', Middleware.AuthCheck, SystemController.templateCreate);
 router.post('/system/template/doModify', Middleware.AuthCheck, SystemController.templateModify);
 router.put('/system/template/doDelete/:id', Middleware.AuthCheck, SystemController.templateDelete);
+
+//测试打印接口
+router.get('/system/printOut/:id', Middleware.AuthCheck,SystemController.printOut);
+
+//包装流水打印接口
+router.get('/system/printPackageLid/:packageLid', Middleware.AuthCheck,SystemController.printPackageLid);
 /*
  * 页面范围: app接口
  * 控制器:   AppServiceController

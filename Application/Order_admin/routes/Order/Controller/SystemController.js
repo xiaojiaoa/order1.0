@@ -237,6 +237,57 @@ var SystemController = {
             }
         })
     },
+    printOut: function (req, res) {
+
+        // var id = req.params.id;
+        // Base.multiDataRequest(req, res, [
+        //     {url: '/api/whse/freemarker/print/'+id, method: 'GET', resConfig: {keyName: 'printInfo', is_must: true}},
+        // ], function (req, res, resultList) {
+        //
+        //     var returnData = Base.mergeData(helper.mergeObject({
+        //         id:id,
+        //     }, resultList));
+        //     res.render('order/system/print', returnData);
+        // });
+
+
+        var id = req.params.id;
+        request(Base.mergeRequestOptions({
+            method: 'get',
+            url: '/api/whse/freemarker/print/'+id,
+        }, req, res), function (error, response, body) {
+            if (!error && response.statusCode == 200) {
+                console.log('printOut',body)
+                // res.status(200).json(body);
+                // var resultList = body;
+                var returnData = Base.mergeData(helper.mergeObject({
+                    id:id,
+                }, {printINfo:body}));
+                res.render('order/system/print', returnData);
+            } else {
+                Base.handlerError(res, req, error, response, body);
+            }
+        })
+    },
+    printPackageLid: function (req, res) {
+        var packageLid = req.params.packageLid;
+        request(Base.mergeRequestOptions({
+            method: 'get',
+            url: '/api/orders/package/inventory/'+packageLid,
+        }, req, res), function (error, response, body) {
+            if (!error && response.statusCode == 200) {
+                console.log('printOut',body)
+                // res.status(200).json(body);
+                // var resultList = body;
+                var returnData = Base.mergeData(helper.mergeObject({
+                    id:packageLid,
+                }, {printINfo:body}));
+                res.render('order/system/print', returnData);
+            } else {
+                Base.handlerError(res, req, error, response, body);
+            }
+        })
+    },
 };
 
 module.exports = SystemController;
