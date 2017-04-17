@@ -2,6 +2,7 @@
 var Base = require('./BaseController');
 
 var helper = require('../config/helper');
+var Global = require('../config/global');
 
 var request = require('request');
 
@@ -9,6 +10,7 @@ var Pagination = require('pagination');
 
 var queryString = require('qs');
 
+var downloadStatic = Global.server.Static.http + Global.server.Static.host + (Global.server.Static.port ? ':' + Global.server.Static.port : '');
 
 var IndexController = {
 
@@ -107,6 +109,10 @@ var IndexController = {
 
                 res.render('order/count/count_deal', returnData);
             });
+    },
+    getDownload: function (req, res) {
+        res.redirect(downloadStatic+'/download?url='+"2017\\10003739\\1511400011704140002\\bls - 数据字典20170410-改.xlsx")
+
     },
 };
 
