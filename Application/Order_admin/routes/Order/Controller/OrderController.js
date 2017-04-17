@@ -685,7 +685,7 @@ var OrderController = {
                 resultList.resupplyReason = resupplyReason;
 
 // console.log('resupplyReason',JSON.stringify(resupplyReason))
-// console.log('resupplyReason222',JSON.stringify(resupplyLeveTwo))
+console.log('resupplyReason222',JSON.stringify(resultList.resupplyReason))
 
                 var paginationInfo =  resultList.deliveryInfo;
 
