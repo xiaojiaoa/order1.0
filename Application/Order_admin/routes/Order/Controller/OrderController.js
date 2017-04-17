@@ -63,12 +63,14 @@ var OrderController = {
                 {url: '/api/cofficient', method: 'GET', resConfig: {keyName: 'cofficientInfo', is_must: true}},
                 {url: '/api/orders/chgback/'+tid, method: 'GET', resConfig: {keyName: 'chgbackInfo', is_must: true}},
                 {url: '/api/orders/progress/'+tid, method: 'GET', resConfig: {keyName: 'progressInfo', is_must: true}},
+                {url: '/api/assist/space/prod', method: 'GET', resConfig: {keyName: 'spaceInfo', is_must: true}},
             ],
             function (req, res, resultList) {
 
                 var spaceInfo = [];
                 resultList.spaceInfo.forEach(function(element,index){
                     if( spaceInfo[element.spaceId] == undefined){
+
 
                         spaceInfo[element.spaceId] = {};
                         spaceInfo[element.spaceId].data = [];
