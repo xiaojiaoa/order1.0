@@ -200,7 +200,7 @@
                             <td><%= element.spaceStr %></td>
                             <td><%= element.typeStr %></td>
                             <td><%= element.price %></td>
-                            <td> <a href="<%= DWY_GLOBAL.Static %>/download?url=<%= element.savePath %>"><%= element.fileName %></a></td>
+                            <td> <a href="<%= DWY_GLOBAL.Static %>/download?originalFileName=<%= element.fileName %>&url=<%= element.savePath %>"><%= element.fileName %></a></td>
                             <td><%= DWY_Helper.renderSize(element.fileSize) %></td>
                             <td><%= DWY_Helper.getLocalDate(element.addTime) %></td>
                             <td><%= element.remark %></td>

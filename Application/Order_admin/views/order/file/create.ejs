@@ -213,7 +213,7 @@
                                 <td><%= DWY_Helper.renderSize(element.fileSize) %></td>
                                 <td><%= DWY_Helper.getLocalDate(element.addTime) %></td>
                                 <td><%= element.remark %></td>
-                                <td><a onclick="deleteFile(<%= element.id %>)">删除</a>  <a href="<%= DWY_GLOBAL.Static %>/download?url=<%= element.savePath %>">下载</a></td>
+                                <td><a onclick="deleteFile(<%= element.id %>)">删除</a>  <a href="<%= DWY_GLOBAL.Static %>/download?originalFileName=<%= element.fileName %>&url=<%= element.savePath %>">下载</a></td>
                             </tr>
                             <% }) %>
 

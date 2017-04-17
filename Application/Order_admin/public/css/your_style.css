@@ -1034,6 +1034,7 @@ table > tbody > tr > td a.label:first-child {
 .template-ul {
     list-style: none;
     padding: 0;
+    margin: 0;
 }
 
 .template-ul li {
@@ -1082,8 +1083,13 @@ table > tbody > tr > td a.label:first-child {
     line-height: 50px;
     margin-top: 100px;
 }
+.prin-preview{
+    width: 600px;
+    margin: 0 auto;
+    margin-top: 150px;
+}
 .printBody{
-  padding:20px;
+  /*padding:20px;*/
 }
 .printBody table {
     width: 100%;

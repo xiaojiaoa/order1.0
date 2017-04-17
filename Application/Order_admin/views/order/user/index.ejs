@@ -168,7 +168,7 @@
                                     if(DWY_Helper.isCanLoop(fileInfo.result)){
                                     fileInfo.result.forEach(function(element,index){%>
                                     <tr>
-                                        <td><a href="<%= DWY_GLOBAL.Static %>/download?url=<%= element.path %>"><%= element.name%></a></td>
+                                        <td><a href="<%= DWY_GLOBAL.Static %>/download?originalFileName=<%= element.name%>&url=<%= element.path %>"><%= element.name%></a></td>
                                         <td><%= DWY_Helper.getLocalDateYMD(element.addTime) %></td>
                                     </tr>
                                     <%})

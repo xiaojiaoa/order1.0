@@ -166,7 +166,7 @@
                                 <td><%= element.remark %></td>
                                 <td>
                                     <a onclick="deleteFile(<%= element.id %>)" class="cursor-pointer">删除</a>
-                                    <a href="<%= DWY_GLOBAL.Static %>/download?url=<%= element.savePath %>">下载</a>
+                                    <a href="<%= DWY_GLOBAL.Static %>/download?originalFileName=<%= element.fileName %>&url=<%= element.savePath %>">下载</a>
                                 </td>
                             </tr>
                             <% }) %>

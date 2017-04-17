@@ -61,7 +61,7 @@
                                 <td><%= element.addTime %></td>
                                 <td><%= element.uploadName %></td>
                                 <td><%= element.remark %></td>
-                                <td><a onclick="deleteFile(<%= element.id %>)">删除</a> <a href="<%= DWY_GLOBAL.Static %>/download?url=<%= element.filePath %>">下载</a></td>
+                                <td><a onclick="deleteFile(<%= element.id %>)">删除</a> <a href="<%= DWY_GLOBAL.Static %>/download?originalFileName=<%= element.fileName %>&url=<%= element.filePath %>">下载</a></td>
                             </tr>
                             <% })
                                 }else{ %>
