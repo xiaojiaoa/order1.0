@@ -73,6 +73,9 @@
         case 475: %>
       action='/resupplys/apartCheck/notPass'
         <%       break;
+        case 635: %>
+      action='/schedule/notPass'
+        <%       break;
         } %>
 >
 
@@ -101,6 +104,11 @@
                     <option value="<%= element.id %>"><%= element.name %></option>
                     <%  })
                             break;
+                    case 635:
+                    scheduleReason.forEach(function (element) { %>
+                    <option value="<%= element.id %>"><%= element.name %></option>
+                    <%  })
+                        break;
                     }  %>
 
                 </select>
