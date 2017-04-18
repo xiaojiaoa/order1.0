@@ -108,11 +108,11 @@
                                 <td colspan="3"><%= resupplyInfo.describe %></td>
                             </tr>
 
-                            <tr>
+                            <!--<tr>-->
 
-                                <td>信用评级</td>
-                                <td><%= resupplyInfo.creditRatingStr %>分（该店平均 分）</td>
-                            </tr>
+                                <!--<td>信用评级</td>-->
+                                <!--<td><%= resupplyInfo.creditRatingStr %>分（该店平均 分）</td>-->
+                            <!--</tr>-->
                             <tr>
                                 <td>受理意见</td>
                                 <td colspan="3"><%= resupplyInfo.acceptOpinion %></td>
@@ -172,15 +172,15 @@
                 <!-- col -->
                 <div class="col-xs-12">
                     <legend>相关文件
-                        <% if( (resupplyInfo.status == 250) || (resupplyInfo.status == 450) || (resupplyInfo.status == 475) ){ %>
+                        <% if( (resupplyInfo.status == 250) || (resupplyInfo.status == 450) || (resupplyInfo.status == 475)|| resupplyInfo.status == 635 ){ %>
 
                         <a class="label label-primary"
                            href="/file/resupply/create/<%= resupplyInfo.orgLid %>/<%= resupplyInfo.status %>/<%= resupplyInfo.orderTypeStr == '补单'? 2:3 %>/<%= tid %>">
                             文件管理
                         </a>
                         <% } %>
-                        <% if( resupplyInfo.status == 450 || resupplyInfo.status == 475){ %>
-                        <button class="label label-primary" id="orderItem">订单物料</button>
+                        <% if( resupplyInfo.status == 450 || resupplyInfo.status == 475 || resupplyInfo.status == 635){ %>
+                        <a class="label label-primary" href="/order/workpiece/<%= tid %>?type=resupply">订单物料</a>
                         <% } %>
                     </legend>
 
@@ -276,13 +276,25 @@
             <div class="row">
                 <!-- col -->
                 <div class="col-xs-12">
-                    <legend>状态信息
-                        <!--(调试订单状态:<%= resupplyInfo.status %><%= DWY_Helper.getAssistVal(resupplyInfo.status, stcodeInfo) %> )-->
-
-                        <% if( (resupplyInfo.status == 250) || (resupplyInfo.status == 450) || (resupplyInfo.status == 475) ){ %>
-                        <a class="label label-primary" id="doUnlock" data-stcode="<%= resupplyInfo.status %>">&nbsp; 解锁
-                            &nbsp;</a>
+                    <legend><%= resupplyInfo.receiveGid %>状态信息
+                        (调试订单状态:<%= resupplyInfo.status %><%= DWY_Helper.getAssistVal(resupplyInfo.status, stcodeInfo) %> )
+                        <% if( DWY_Helper.hasPermission(Permission.orderReview.cancelOrder.id, permission) && (resupplyInfo.status == 250) && resupplyInfo.receiveGid == user.id ){ %>
+                        <a class="label label-primary" id="doUnlock" data-stcode="<%= resupplyInfo.status %>">&nbsp; 解锁 &nbsp;</a>
                         <% } %>
+                        <% if( DWY_Helper.hasPermission(Permission.orderApart.cancelOrder.id, permission) &&  (resupplyInfo.status == 450) && resupplyInfo.receiveGid == user.id ){ %>
+                        <a class="label label-primary" id="doUnlock" data-stcode="<%= resupplyInfo.status %>">&nbsp; 解锁 &nbsp;</a>
+                        <% } %>
+                        <% if( DWY_Helper.hasPermission(Permission.orderReviewApart.cancelOrder.id, permission) && (resupplyInfo.status == 475) && resupplyInfo.receiveGid == user.id ){ %>
+                        <a class="label label-primary" id="doUnlock" data-stcode="<%= resupplyInfo.status %>">&nbsp; 解锁 &nbsp;</a>
+                        <% } %>
+                        <% if( DWY_Helper.hasPermission(Permission.orderSchedule.cancelOrder.id, permission) &&  (resupplyInfo.status == 635) && (resupplyInfo.packeted==0) && resupplyInfo.receiveGid == user.id  ){ %>
+                        <a class="label label-primary" id="doUnlock" data-stcode="<%= resupplyInfo.status %>">&nbsp; 解锁 &nbsp;</a>
+                        <% } %>
+                        <% if( DWY_Helper.hasPermission(Permission.orderAssess.assess.id, permission) && resupplyInfo.status == 220 && resupplyInfo.difficulty ){ %>
+                        <a class="label label-primary" id="returnPermit" data-stcode="<%= resupplyInfo.status %>">&nbsp; 评估退回 &nbsp;</a>
+                        <% } %>
+
+
                     </legend>
                     <!-- row -->
                     <div class="table-responsive">
@@ -417,59 +429,94 @@
                                 <td>审核人</td>
                                 <td><%= orderStatusInfo.apartReviewName %></td>
                             </tr>
-
                             <tr>
                                 <td>排料时间</td>
+                                <% switch (resupplyInfo.status){
+                                case 635: %>
+                                <td>
+                                    排料中
+                                    <% if (DWY_Helper.hasPermission(Permission.orderSchedule.passOrder.id, permission) && resupplyInfo.receiveGid == user.id ){ %>
+                                    <a class="label label-primary doPass"  data-stcode="<%= resupplyInfo.status %>">确认排料</a>
+                                    <% } %>
+                                    <% if (DWY_Helper.hasPermission(Permission.orderSchedule.sendBackOrder.id, permission)&& (resupplyInfo.packeted==0) && resupplyInfo.receiveGid == user.id ){ %>
+                                    <a class="label label-primary margin-left-20 reject-modal">排料退回</a>
+                                    <% } %>
+                                </td>
+                                <%        break;
+                                case 632: %>
+                                <td>
+                                    待排料
+                                    <% if (DWY_Helper.hasPermission(Permission.orderSchedule.takeOrder.id, permission) ){ %>
+                                    <a class="label label-primary doGetTask" data-stcode="<%= resupplyInfo.status %>">标记为排料中</a>
+                                    <% } %>
+                                </td>
+                                <%        break;
+                                case 638: %>
+                                <td>
+                                    排料退回
+                                    <% if (DWY_Helper.hasPermission(Permission.orderReviewApart.passOrder.id, permission ) ){ %>
+                                    <a class="label label-primary doGetTask" data-stcode="<%= resupplyInfo.status %>">重新提交</a>
+                                    <% } %>
+                                </td>
+                                <%         break;
+                                default: %>
                                 <td><%= DWY_Helper.getLocalDate(orderStatusInfo.scheduleTime) %></td>
+                                <%  } %>
                                 <td>排料人</td>
                                 <td><%= orderStatusInfo.scheduleName %></td>
                             </tr>
+
                             <tr>
-                                <td>排产时间</td>
-                                <td></td>
-                                <td>排产人</td>
-                                <td></td>
-                            </tr>
-                            <tr>
-                                <td>入库日期</td>
-                                <td></td>
-                                <td>货架号</td>
-                                <td></td>
-                            </tr>
-                            <tr>
-                                <td>出仓时间</td>
-                                <td></td>
-                                <td>出仓人</td>
-                                <td></td>
-                            </tr>
-                            <tr>
-                                <td>发货日期</td>
-                                <td></td>
-                                <td>货运单号</td>
-                                <td></td>
-                            </tr>
-                            <tr>
-                                <td>开始安装时间</td>
-                                <td></td>
-                                <td>结束安装时间</td>
-                                <td></td>
-                            </tr>
-                            <tr>
-                                <td>安装人</td>
-                                <td></td>
-                                <td>安装次数</td>
-                                <td></td>
-                            </tr>
-                            <tr>
-                                <td>安装意见</td>
-                                <td colspan="3"></td>
+                                <td>包装时间：<%= resupplyInfo.packeted %></td>
+                                <% if (resupplyInfo.status >=635 && resupplyInfo.status <729){%>
+                                <td>
+                                    <% if(resupplyInfo.packeted==0){%>
+                                    未包装
+                                    <% if (DWY_Helper.hasPermission(Permission.orderPackage.create.id, permission ) ){ %>
+                                    <a class="label label-primary margin-left-20 crePackage" bid="<%= resupplyInfo.batchNumber %>" tid="<%= tid %>">生成包装</a>
+                                    <% } %>
+                                    <%}else{%>
+                                    已包装
+                                    <% if (DWY_Helper.hasPermission(Permission.orderPackage.queryDetail.id, permission ) ){ %>
+                                    <a class="label label-success margin-left-20 packageDetail" href="/orders/package/<%= tid %>">包装详情</a>
+                                    <% } %>
+                                    <%}%>
+                                </td>
+                                <%  } else{ %>
+                                <td><%= DWY_Helper.getLocalDate(orderStatusInfo.packageTime) %></td>
+                                <%}%>
+                                <td>包装人</td>
+                                <td><%= orderStatusInfo.packageName %></td>
                             </tr>
 
                             <tr>
-                                <td>流程记录</td>
-                                <td colspan="3">发浙联物流，自提 <a class="margin-left-20" href="/order/process">添加/查看更多</a>
-                                </td>
+                                <td>出仓时间</td>
+                                <td><%= DWY_Helper.getLocalDate(orderStatusInfo.outStorageTime) %></td>
+                                <td>出仓人</td>
+                                <td><%= orderStatusInfo.outStorageName %></td>
                             </tr>
+                            <tr>
+                                <td>发货日期</td>
+                                <td><%= DWY_Helper.getLocalDate(orderStatusInfo.sendOutTime) %></td>
+                                <td>货运单号</td>
+                                <td><%= orderStatusInfo.sendOutName %></td>
+                            </tr>
+                            <tr>
+                                <td>安装时间</td>
+                                <td><%= DWY_Helper.getLocalDate(orderStatusInfo.installTime) %></td>
+                                <td>安装人</td>
+                                <td><%= orderStatusInfo.installName %></td>
+                            </tr>
+                            <!--<tr>-->
+                                <!--<td>安装意见</td>-->
+                                <!--<td colspan="3"></td>-->
+                            <!--</tr>-->
+
+                            <!--<tr>-->
+                                <!--<td>流程记录</td>-->
+                                <!--<td colspan="3">发浙联物流，自提 <a class="margin-left-20" href="/order/process">添加/查看更多</a>-->
+                                <!--</td>-->
+                            <!--</tr>-->
 
                             </tbody>
                         </table>
@@ -632,6 +679,16 @@
                     locationUrl = '/orders/resupplys/apartCheck';
                     text = '确认标记为拆单审核中?';
                     break;
+                case '632':
+                    ajaxUrl = '/schedule/getTask/<%= tid %>';
+                    locationUrl = '/orders/nesting';
+                    text = '确认标记为排料中?';
+                    break;
+                case '638':
+                    ajaxUrl = '/schedule/getTaskAgain/<%= tid %>';
+                    locationUrl = '/apartCheckPage/waitOrder';
+                    text = '确认重新提交?';
+                    break;
             }
             layer.confirm(text, {icon: 3, title: '提示'}, function (index) {
                 $.ajax({
@@ -668,6 +725,10 @@
                     ajaxUrl = '/apartCheck/unlock/<%= tid %>';
                     locationUrl = '/orders/resupplys/apartCheck';
                     break;
+                case '635':
+                    ajaxUrl = '/schedule/unlock/<%= tid %>';
+                    locationUrl = '/orders/nesting';
+                    break;
             }
             layer.confirm('确认解锁该订单?', {icon: 3, title: '提示'}, function (index) {
                 $.ajax({
@@ -702,7 +763,11 @@
                     locationUrl = '/orders/resupplys/apartCheck';
                     text = '确认拆单审核完毕吗?';
                     break;
-
+                case '635':
+                    ajaxUrl = '/schedule/doPass/<%= tid %>';
+                    locationUrl = '/orders/nesting';
+                    text = '确定排料提交吗?';
+                    break;
             }
             layer.confirm(text, {icon: 3, title: '提示'}, function (index) {
                 $.ajax({
@@ -725,6 +790,7 @@
 
 </script>
 
+<%- include('./crePackage_modal');%>
 
 <%- include('../layouts/foot'); %>
 <%- include('./resupplys_modal'); %>
