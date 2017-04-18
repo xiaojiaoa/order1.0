@@ -659,6 +659,8 @@ var OrderController = {
                 {url: '/api/assist/review/acceptReason', method: 'GET', resConfig: {keyName: 'acceptReason', is_must: true}},
                 {url: '/api/assist/review/apartReason', method: 'GET', resConfig: {keyName: 'apartReason', is_must: true}},
                 {url: '/api/assist/review/apartReviewReason', method: 'GET', resConfig: {keyName: 'apartReviewReason', is_must: true}},
+                {url: '/api/assist/review/scheduleReason', method: 'GET', resConfig: {keyName: 'scheduleReason', is_must: true}},
+
                 // {url: '/api/assist/orderfile/type', method: 'GET', resConfig: {keyName: 'allFileTypeInfo', is_must: true}},
                 {url: '/api/orders/chgback/'+tid, method: 'GET', resConfig: {keyName: 'chgbackInfo', is_must: true}},
                 {url: '/api/orders/progress/'+tid, method: 'GET', resConfig: {keyName: 'progressInfo', is_must: true}},
@@ -685,7 +687,7 @@ var OrderController = {
                 resultList.resupplyReason = resupplyReason;
 
 // console.log('resupplyReason',JSON.stringify(resupplyReason))
-// console.log('resupplyReason222',JSON.stringify(resupplyLeveTwo))
+// console.log('resupplyReason222',JSON.stringify(resultList.resupplyReason))
 
                 var paginationInfo =  resultList.deliveryInfo;
 
@@ -1104,6 +1106,7 @@ var OrderController = {
     workpiecePage:function (req, res) {
         var paramObject = helper.genPaginationQuery(req);
         var tid=req.params.tid;
+        var type=req.query.type;
         Base.multiDataRequest(req, res, [
             {url: '/api/orders/package/workpiece/list/'+tid+'?'+queryString.stringify(req.query), method: 'GET', resConfig: {keyName: 'workpieceList', is_must: true}},
             {url: '/api/orders/'+tid, method: 'GET', resConfig: {keyName: 'orderDetail', is_must: true}},
@@ -1120,7 +1123,8 @@ var OrderController = {
             var returnData = Base.mergeData(helper.mergeObject({
                 title: ' ',
                 pagination: boostrapPaginator.render(),
-                tid:tid
+                tid:tid,
+                type:type
             },resultList));
             res.render('order/order/workpiece', returnData);
         });

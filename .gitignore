@@ -1,9 +1,0 @@
-# Created by .ignore support plugin (hsz.mobi)
-/server.js
-/uploads/
-/ecosystem.config.js
-/Logs/dev/
-node_modules/
-.DS_Store
-.idea/
-/.env
