@@ -347,9 +347,9 @@
                             </tr>
                             <tr>
                                 <td>收款确认</td>
-                                <td></td>
+                                <td><%= DWY_Helper.getLocalDate(orderStatusInfo.receiptTime) %></td>
                                 <td>确认人</td>
-                                <td></td>
+                                <td><%= orderStatusInfo.receiptName %></td>
                             </tr>
                             <tr>
                                 <td>拆单时间</td>
@@ -423,12 +423,6 @@
                                 <td><%= DWY_Helper.getLocalDate(orderStatusInfo.scheduleTime) %></td>
                                 <td>排料人</td>
                                 <td><%= orderStatusInfo.scheduleName %></td>
-                            </tr>
-                            <tr>
-                                <td>排产时间</td>
-                                <td></td>
-                                <td>排产人</td>
-                                <td></td>
                             </tr>
                             <tr>
                                 <td>入库日期</td>
