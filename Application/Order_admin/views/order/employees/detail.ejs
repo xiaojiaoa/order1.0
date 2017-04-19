@@ -13,7 +13,10 @@
         <!-- breadcrumb -->
         <ol class="breadcrumb">
             <li>后台管理</li>
-            <li><a class="back-url" href="/<%= type %>/employees?bid=<%= bid %>">柜员列表</a></li>
+            <% if(type=='stores'){%>
+            <li><a class="back-url" href="/storesManage">门店管理</a></li>
+            <%}%>
+            <li><a class="back-url" href="/<%= type %>/employees?bid=<%= bid %>">柜员管理</a></li>
             <li>柜员信息</li>
             <li><a class="back-url" href="javascript:history.go(-1)"> <i class="fa fa-chevron-left"></i>返回</a></li>
         </ol>
