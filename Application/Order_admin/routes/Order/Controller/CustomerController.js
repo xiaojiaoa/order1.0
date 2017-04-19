@@ -83,7 +83,12 @@ var CustomerController = {
                     cid:cid,
                     Permission :Permissions,
                 }, resultList));
-                res.render('order/customer/detail', returnData);
+                var customerInfo = resultList.customerInfo;
+                if(customerInfo.ctype == 10 ){
+                    res.render('order/customer/detail', returnData);
+                }else{
+                    res.render('order/customer/company_detail', returnData);
+                }
 
             });
     }
