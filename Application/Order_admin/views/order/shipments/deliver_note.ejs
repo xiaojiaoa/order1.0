@@ -135,7 +135,7 @@
                                 <th width="150">审核时间</th>
                                 <th>司机姓名</th>
                                 <th>物流车牌号</th>
-                                <th width="70px">操作</th>
+                                <th width="130px">操作</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -154,9 +154,10 @@
                                 <td width="150"><%= DWY_Helper.getLocalDate(element.reviewDate) %></td>
                                 <td><%=element.driverName %></td>
                                 <td><%=element.licensePlate %></td>
-                                <td width="70px">
+                                <td width="130px">
                                     <% if(element.type == 2 && DWY_Helper.hasPermission(Permission.cargoManages.deliveryReview.id, permission)){ %>
-                                    <a class="label label-primary checkThis" data-id="<%=element.diId %>">审核</a>
+                                    <a class="label label-primary checkThis" data-id="<%=element.diId %>" data-type="1">审核</a>
+                                    <a class="label label-danger checkThis" data-id="<%=element.diId %>" data-type="2">退回</a>
                                     <% }%>
                                 </td>
                             </tr>
@@ -193,10 +194,12 @@
 
         $(".checkThis").click(function () {
             var id = $(this).attr('data-id');
+            var type = $(this).attr('data-type');
+            var text = type== 1?'确定审核通过?':'确定退回?'
 
-            layer.confirm('确定提交审核?', {icon: 3, title: '提示'}, function (index) {
+            layer.confirm(text, {icon: 3, title: '提示'}, function (index) {
                 $.ajax({
-                    url: '/deliveryNote/doChecked/'+id,
+                    url: '/deliveryNote/doChecked/'+id+'/'+type,
                     method: 'put',
                     success: function (data) {
                         successLayout.reload();

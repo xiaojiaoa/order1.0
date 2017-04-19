@@ -88,7 +88,8 @@
                     <h6>
                         发货清单
                         <% if(deliveryInfo.type == 2){ %>
-                        <a class="label label-primary" id="checkThis">审核</a>
+                        <a class="label label-primary checkThis" data-type="1">审核</a>
+                        <a class="label label-danger checkThis" data-type="2">退回</a>
                         <% }%>
 
                     </h6>
@@ -149,11 +150,13 @@
 
     $(document).ready(function () {
 
-        var id = <%= deliveryInfo.diId %>;
-        $("#checkThis").click(function () {
-            layer.confirm('确定提交审核?', {icon: 3, title: '提示'}, function (index) {
+        $(".checkThis").click(function () {
+            var type = $(this).attr('data-type');
+            var text = type== 1?'确定审核通过?':'确定退回?'
+
+            layer.confirm(text, {icon: 3, title: '提示'}, function (index) {
                 $.ajax({
-                    url: '/deliveryNote/doChecked/'+id,
+                    url: '/deliveryNote/doChecked/<%= deliveryInfo.diId %>/'+type,
                     method: 'put',
                     success: function (data) {
                         successLayout.reload();
@@ -166,6 +169,7 @@
                 });
             }, function (index) { layer.close(index) })
         })
+
 
     })
 

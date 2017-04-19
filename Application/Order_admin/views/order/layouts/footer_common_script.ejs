@@ -82,7 +82,7 @@
 <script>
 
     $(function () {
-        $('ul.menu-list').scrollTop(localStorage.getItem('menuScroll-height'))
+        $('ul.menu-list').scrollTop(localStorage.getItem('menuScroll-height'));
 
         // Create the measurement node
         var scrollDiv = document.createElement("div");
@@ -94,6 +94,9 @@
             $('.table-scroll thead').css('width','calc( 100% - '+scrollbarWidth+'px )')
         }
 
+        $('body').on('a','mousedown',function () {
+            alert(window.location.href)
+        })
 
 //      $('.mainFlex').css('height',window.innerHeight-80);
 

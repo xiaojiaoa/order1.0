@@ -71,7 +71,8 @@
                     <h6>
                         领料清单
                         <% if(cargoutInfo.stcode == 2){ %>
-                        <a class="label label-primary" id="checkThis">审核</a>
+                        <a class="label label-primary checkThis" data-type="1">审核</a>
+                        <a class="label label-danger checkThis" data-type="2">退回</a>
                         <% } %>
                     </h6>
 
@@ -135,16 +136,16 @@
 
     $(document).ready(function () {
 
-        var ftyId = 10000;
-        $("#checkThis").click(function () {
-            var id = $(this).attr('data-id');
+        $(".checkThis").click(function () {
+            var type = $(this).attr('data-type');
+            var text = type== 1?'确定审核通过?':'确定退回?'
 
-            layer.confirm('确定提交审核?', {icon: 3, title: '提示'}, function (index) {
+            layer.confirm(text, {icon: 3, title: '提示'}, function (index) {
                 $.ajax({
-                    url: '/outBred/doCheck/' + id,
+                    url: '/outBred/doCheck/<%= cargoutInfo.outId %>/' + type,
                     method: 'put',
                     success: function (data) {
-                        successLayout.hrefTo('/canSend');
+                        successLayout.hrefTo('/outBred');
                     },
                     error: function (response) {
                         layer.close(index)
@@ -156,28 +157,6 @@
                 layer.close(index)
             })
         })
-        $("#backThis").click(function () {
-            var id = $(this).attr('data-id');
-
-            layer.confirm('确定撤回重新审核吗?', {icon: 3, title: '提示'}, function (index) {
-                $.ajax({
-                    url: '/outBred/doUnCheck/' + id,
-                    method: 'put',
-                    success: function (data) {
-                        successLayout.reload()
-
-                    },
-                    error: function (response) {
-                        layer.close(index)
-                        errorLayout.normal(response);
-
-                    }
-                });
-            }, function (index) {
-                layer.close(index)
-            })
-        })
-
 
     })
 

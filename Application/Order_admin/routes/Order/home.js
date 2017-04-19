@@ -870,7 +870,7 @@ router.post('/doDelivery', Middleware.AuthCheck, OutWarehouseController.doDelive
 router.get('/deliveryNote', Middleware.AuthCheck, OutWarehouseController.deliveryNotePage);
 
 // 发货通知单-审核
-router.put('/deliveryNote/doChecked/:id', Middleware.AuthCheck, OutWarehouseController.doDeliveryChecked);
+router.put('/deliveryNote/doChecked/:id/:stcode', Middleware.AuthCheck, OutWarehouseController.doDeliveryChecked);
 
 // 发货通知单-详情 页面
 router.get('/deliveryNote/deatil/:id', Middleware.AuthCheck, OutWarehouseController.deliveryNoteDeatil);
@@ -922,10 +922,8 @@ router.post('/outBred/upload', Middleware.AuthCheck, OutWarehouseController.outB
 router.get('/outBred/deatil/:id', Middleware.AuthCheck, OutWarehouseController.outBredDeatil);
 
 // 可发货订单-审核
-router.put('/outBred/doCheck/:id', Middleware.AuthCheck, OutWarehouseController.doCheckBred);
+router.put('/outBred/doCheck/:id/:stcode', Middleware.AuthCheck, OutWarehouseController.doCheckBred);
 
-// 可发货订单-审核
-router.put('/outBred/doUnCheck/:id', Middleware.AuthCheck, OutWarehouseController.doUnCheckBred);
 
 router.post('/outBred/plateOut', Middleware.AuthCheck, OutWarehouseController.plateOut);
 router.post('/outBred/accessoryOut', Middleware.AuthCheck, OutWarehouseController.accessoryOut);
