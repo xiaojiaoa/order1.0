@@ -68,6 +68,7 @@
                                                 <option value="4" <%= (DWYRequest.query.type == 4 )?"selected":"" %> >已审核</option>
                                                 <option value="6" <%= (DWYRequest.query.type == 6 )?"selected":"" %> >已备货</option>
                                                 <option value="8" <%= (DWYRequest.query.type == 8 )?"selected":"" %> >已发货</option>
+                                                <option value="9" <%= (DWYRequest.query.type == 9 )?"selected":"" %> >作废</option>
                                             </select>
                                         </div>
                                     </div>
@@ -149,7 +150,7 @@
                                 <td width="100"><%=element.mobile %></td>
                                 <td width="18%"><%=element.address %></td>
                                 <td><%=element.stoName %></td>
-                                <td><%=DWY_Helper.geDeliveryStatus(element.type)%></td>
+                                <td><%=element.typeName%></td>
                                 <td><%=element.reviewName %></td>
                                 <td width="150"><%= DWY_Helper.getLocalDate(element.reviewDate) %></td>
                                 <td><%=element.driverName %></td>
