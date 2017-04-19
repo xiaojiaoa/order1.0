@@ -38,6 +38,33 @@ var CustomerController = {
 
             var returnData = Base.mergeData(helper.mergeObject({
                 title: ' ',
+                type:'customers',
+                pagination: boostrapPaginator.render(),
+                Permission :Permissions,
+            },resultList));
+            res.render('order/customers', returnData);
+        });
+    },
+    companyCustomersPage: function (req, res) {
+
+        var paramObject = helper.genPaginationQuery(req);
+        Base.multiDataRequest(req, res, [
+            {url: '/api/customers/company?'+ queryString.stringify(req.query), method: 'GET', resConfig: {keyName: 'customerList', is_must: true}},
+            {url: '/api/assist/taskseq/status', method: 'GET', resConfig: {keyName: 'statusInfo', is_must: false}}
+        ], function (req, res, resultList) {
+
+            var paginationInfo =  resultList.customerList;
+
+            var boostrapPaginator = new Pagination.TemplatePaginator(helper.genPageInfo({
+                prelink: paramObject.withoutPageNo,
+                current: paginationInfo.page,
+                rowsPerPage: paginationInfo.pageSize,
+                totalResult: paginationInfo.totalItems
+            }));
+
+            var returnData = Base.mergeData(helper.mergeObject({
+                title: ' ',
+                type:'companyCustomers',
                 pagination: boostrapPaginator.render(),
                 Permission :Permissions,
             },resultList));
