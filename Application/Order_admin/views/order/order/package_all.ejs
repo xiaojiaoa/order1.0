@@ -137,7 +137,7 @@
                             packageAll.result.forEach(function (element, index) { %>
                             <tr>
                                 <td width="4%"><%= index+1 %></td>
-                                <td width="12%"><a href="/order/detail/<%= element.tid %>"><%= element.tid %></a></td>
+                                <td width="12%"><a  <%=  element.orderType ==20  ?  "href=/order/resupply/detail/"+ element.tid :  "href=/order/detail/"+element.tid  %>  ><%= element.tid %></a></a></td>
                                 <td><%= element.packageLid %></td>
                                 <th><%= element.lid %></th>
                                 <th><%= element.batchNumber %></th>

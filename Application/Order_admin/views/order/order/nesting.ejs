@@ -71,7 +71,7 @@
                                 <td><%= element.productTypeStr %></td>
                                 <td><%= element.orderTypeStr %></td>
                                 <td><%= element.colorStr %></td>
-                                <td><a href="/order/detail/<%= element.tid %>"><%= element.tid %></a></td>
+                                <td><a  <%=  element.orderType ==20  ?  "href=/order/resupply/detail/"+ element.tid :  "href=/order/detail/"+element.tid  %>  ><%= element.tid %></a></td>
                                 <%
                                 if(element.batchNumber == '0'){%>
                                 <td></td>
@@ -263,7 +263,7 @@
                                 <td><%= element.productTypeStr %></td>
                                 <td><%= element.orderTypeStr %></td>
                                 <td><%= element.colorStr %></td>
-                                <td><a href="/order/detail/<%= element.tid %>"><%= element.tid %></a></td>
+                                <td><a  <%=  element.orderType ==20  ?  "href=/order/resupply/detail/"+ element.tid :  "href=/order/detail/"+element.tid  %>  ><%= element.tid %></a></td>
                                 <%
                                 if(element.batchNumber == '0'){%>
                                 <td></td>

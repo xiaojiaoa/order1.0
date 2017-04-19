@@ -12,7 +12,7 @@
         <!-- breadcrumb -->
         <ol class="breadcrumb">
             <li>后台管理</li>
-            <li>工厂</li>
+            <li>仓储管理</li>
         </ol>
         <!-- end breadcrumb -->
 
@@ -149,7 +149,7 @@
                                     <% if (DWY_Helper.hasPermission(Permission.storage.createStorage.id, permission) ){ %>
                                     <a href="/warehouse/create/<%= element.ftyId %>" class="label label-primary">新建仓库</a>
                                     <% } %>
-                                    <a href="/warehouse?ftyId=<%= element.ftyId %>" class="label label-primary">查看所有仓库</a>
+                                    <a href="/warehouse?ftyId=<%= element.ftyId %>" class="label label-primary">仓库列表</a>
                                     <% }%>
 
                                 </td>

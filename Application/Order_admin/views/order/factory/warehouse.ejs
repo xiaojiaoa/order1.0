@@ -12,7 +12,7 @@
         <!-- breadcrumb -->
         <ol class="breadcrumb">
             <li>后台管理</li>
-            <li><a class="back-url" href="/factory"><i class="fa fa-chevron-left"></i> 工厂列表</a></li>
+            <li><a class="back-url" href="/factory"><i class="fa fa-chevron-left"></i>仓储管理</a></li>
             <li>仓库列表</li>
         </ol>
         <!-- end breadcrumb -->
@@ -170,7 +170,7 @@
                                     <% if (DWY_Helper.hasPermission(Permission.storage.createArea.id, permission) ){ %>
                                     <a href="/region/create/<%= element.ftyId %>/<%= element.whseId %>" class="label label-primary">新建仓库区域</a>
                                     <% } %>
-                                    <a href="/region?ftyId=<%= element.ftyId %>&whseId=<%= element.whseId %>" class="label label-primary">查看所有区域</a>
+                                    <a href="/region?ftyId=<%= element.ftyId %>&whseId=<%= element.whseId %>" class="label label-primary">仓库区域列表</a>
                                     <% if (DWY_Helper.hasPermission(Permission.storage.updateStorage.id, permission) ){ %>
                                     <a href="/warehouse/modify/<%= element.whseId %>" class="label label-primary">修改</a>
                                     <% } %>

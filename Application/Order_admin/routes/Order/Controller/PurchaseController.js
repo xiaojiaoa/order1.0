@@ -20,6 +20,9 @@ var Permissions = require('../config/permission');
 var PurchaseController = {
     //已请购列表
     purchasePage: function (req, res) {
+        if(!req.query.stcode){
+            req.query.stcode=50;
+        }
         var paramObject = helper.genPaginationQuery(req);
         var tid=req.params.tid;
         Base.multiDataRequest(req, res, [
