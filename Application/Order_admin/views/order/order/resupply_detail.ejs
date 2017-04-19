@@ -276,7 +276,7 @@
             <div class="row">
                 <!-- col -->
                 <div class="col-xs-12">
-                    <legend><%= resupplyInfo.receiveGid %>状态信息
+                    <legend>状态信息
                         (调试订单状态:<%= resupplyInfo.status %><%= DWY_Helper.getAssistVal(resupplyInfo.status, stcodeInfo) %> )
                         <% if( DWY_Helper.hasPermission(Permission.orderReview.cancelOrder.id, permission) && (resupplyInfo.status == 250) && resupplyInfo.receiveGid == user.id ){ %>
                         <a class="label label-primary" id="doUnlock" data-stcode="<%= resupplyInfo.status %>">&nbsp; 解锁 &nbsp;</a>
@@ -359,9 +359,9 @@
                             </tr>
                             <tr>
                                 <td>收款确认</td>
-                                <td></td>
+                                <td><%= DWY_Helper.getLocalDate(orderStatusInfo.receiptTime) %></td>
                                 <td>确认人</td>
-                                <td></td>
+                                <td><%= orderStatusInfo.receiptName %></td>
                             </tr>
                             <tr>
                                 <td>拆单时间</td>
@@ -465,9 +465,15 @@
                                 <td>排料人</td>
                                 <td><%= orderStatusInfo.scheduleName %></td>
                             </tr>
+                            <tr>
+                                <td>入库日期</td>
+                                <td></td>
+                                <td>货架号</td>
+                                <td></td>
+                            </tr>
 
                             <tr>
-                                <td>包装时间：<%= resupplyInfo.packeted %></td>
+                                <td>包装时间</td>
                                 <% if (resupplyInfo.status >=635 && resupplyInfo.status <729){%>
                                 <td>
                                     <% if(resupplyInfo.packeted==0){%>

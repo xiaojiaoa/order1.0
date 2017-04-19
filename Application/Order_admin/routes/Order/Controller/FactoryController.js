@@ -369,6 +369,8 @@ var FactoryController = {
     },
     modifyRegionPage: function (req, res) {
         var regionId =  req.params.regionId;
+        var ftyId=req.query.ftyId;
+        var whseId =  req.params.whseId;
         Base.multiDataRequest(req, res, [
             {url: '/api/whse/region/'+regionId, method: 'GET', resConfig: {keyName: 'regionInfo', is_must: true}},
             {url: '/api/categories/list?parentId=0', method: 'GET', resConfig: {keyName: 'stairCategory', is_must: true}},
@@ -378,6 +380,8 @@ var FactoryController = {
 
             var returnData = Base.mergeData(helper.mergeObject({
                 title: ' ',
+                ftyId:ftyId,
+                whseId:whseId,
             }, resultList));
             res.render('order/factory/region_modify', returnData);
         });
