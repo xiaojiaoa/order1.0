@@ -22,5 +22,9 @@
     "pagination": "^0.4.4",
     "request": "^2.81.0",
     "serve-favicon": "~2.3.2"
+  },
+  "devDependencies": {
+    "ioredis": "^2.5.0",
+    "ueditor": "^1.2.2"
   }
 }
