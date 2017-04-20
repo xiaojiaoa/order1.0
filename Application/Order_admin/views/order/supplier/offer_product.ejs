@@ -192,7 +192,7 @@
         //刷新选中列表 这个函数根据每个页面不同需自己填写
         function updateCheckedList(isInit) {
             var parentEle = '.supProTr';
-            var storageKey = 'LIST_DATA';
+            var storageKey = 'LIST_DATA_SUP';
             var listArr = DWY_Utils.StorageUtils.getListArr(storageKey);
             var htmlStr = '';
             if (listArr instanceof Array && listArr.length != 0) {
@@ -247,11 +247,11 @@
             }
             // 选中添加  取消选中则删除
             if($(this).is(':checked')){
-                DWY_Utils.StorageUtils.addItem(item,'id','LIST_DATA',updateCheckedList)
+                DWY_Utils.StorageUtils.addItem(item,'id','LIST_DATA_SUP',updateCheckedList)
             }else{
                 DWY_Utils.StorageUtils.deletItem({
                     id:$(this).val()
-                },'id','LIST_DATA',updateCheckedList)
+                },'id','LIST_DATA_SUP',updateCheckedList)
             }
         })
         $(".supProTr").on("change","input",function () {
@@ -259,7 +259,7 @@
             // 点中删除
             DWY_Utils.StorageUtils.deletItem({
                 id:id
-            }, 'id','LIST_DATA',function(){
+            }, 'id','LIST_DATA_SUP',function(){
                 // 与下面列表的选中状态保持一致
                 var $ipts = $(".orderItemLayerTable input[name='roles']");
 
