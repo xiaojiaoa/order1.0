@@ -12,9 +12,9 @@
         <!-- breadcrumb -->
         <ol class="breadcrumb">
             <li>后台管理</li>
-            <li><a class="back-url" href="/waitSend"><i class="fa fa-chevron-left"></i> 待发货流水</a></li>
-            <li><a class="back-url" href="/deliveryNote"><i class="fa fa-chevron-left"></i> 发货通知单</a></li>
+            <li><a class="back-url" href="/deliveryNote">发货管理</a></li>
             <li>发货通知单信息</li>
+            <li><a class="back-url" href="javascript:history.go(-1)"> <i class="fa fa-chevron-left"></i>返回</a></li>
         </ol>
         <!-- end breadcrumb -->
 
@@ -57,7 +57,7 @@
                             </tr>
                             <tr>
                                 <td>状态</td>
-                                <td><%=DWY_Helper.geDeliveryStatus(deliveryInfo.type)%></td>
+                                <td><%= deliveryInfo.typeName %></td>
                                 <td>审核人</td>
                                 <td><%= deliveryInfo.reviewName %></td>
                                 <td>审核时间</td>
@@ -88,7 +88,8 @@
                     <h6>
                         发货清单
                         <% if(deliveryInfo.type == 2){ %>
-                        <a class="label label-primary" id="checkThis">审核</a>
+                        <a class="label label-primary checkThis" data-type="1">审核</a>
+                        <a class="label label-danger checkThis" data-type="2">退回</a>
                         <% }%>
 
                     </h6>
@@ -149,11 +150,13 @@
 
     $(document).ready(function () {
 
-        var id = <%= deliveryInfo.diId %>;
-        $("#checkThis").click(function () {
-            layer.confirm('确定提交审核?', {icon: 3, title: '提示'}, function (index) {
+        $(".checkThis").click(function () {
+            var type = $(this).attr('data-type');
+            var text = type== 1?'确定审核通过?':'确定退回?'
+
+            layer.confirm(text, {icon: 3, title: '提示'}, function (index) {
                 $.ajax({
-                    url: '/deliveryNote/doChecked/'+id,
+                    url: '/deliveryNote/doChecked/<%= deliveryInfo.diId %>/'+type,
                     method: 'put',
                     success: function (data) {
                         successLayout.reload();
@@ -166,6 +169,7 @@
                 });
             }, function (index) { layer.close(index) })
         })
+
 
     })
 

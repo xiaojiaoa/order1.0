@@ -12,8 +12,9 @@
         <!-- breadcrumb -->
         <ol class="breadcrumb">
             <li>后台管理</li>
-            <li><a class="back-url" href="/enterMaterial"><i class="fa fa-chevron-left"></i> 原料入库</a></li>
+            <li><a class="back-url" href="/enterMaterial"> 原料入库</a></li>
             <li>原料入库信息</li>
+            <li><a class="back-url" href="javascript:history.go(-1)"> <i class="fa fa-chevron-left"></i>返回</a></li>
         </ol>
         <!-- end breadcrumb -->
 
@@ -87,9 +88,10 @@
                 <div class="col-xs-12">
                     <h6>
                         入库清单
-                        <% if(mateInfo.stcode == 2){%>
-                        <a class="label label-primary" id="checkThis">审核</a>
-                        <% }%>
+                        <% if(mateInfo.stcode == 2){ %>
+                        <a class="label label-primary checkThis" data-type="1">审核</a>
+                        <a class="label label-danger checkThis" data-type="2">退回</a>
+                        <% } %>
                     </h6>
 
                     <hr class="simple">
@@ -117,12 +119,16 @@
                             </thead>
                             <tbody>
                             <% if(DWY_Helper.isCanLoop(inlistInfo.result)){
-                            inlistInfo.result.forEach(function (element, index) {  %>
+                            inlistInfo.result.forEach(function (element, index) { %>
                             <tr>
-                                <td><%= index+1 %></td>
-                                <td><a href="/cargospace/cargospace/detail/<%= element.spaceId %>"><%= element.spaceId %></a></td>
+                                <td><%= index + 1 %></td>
+                                <td>
+                                    <a href="/cargospace/cargospace/detail/<%= element.spaceId %>"><%= element.spaceId %></a>
+                                </td>
                                 <td><%= element.batchId %></td>
-                                <td><a href="/materialManage/detail/<%= user.bid %>/<%= element.mateId %>"><%= element.mateId %></a></td>
+                                <td>
+                                    <a href="/materialManage/detail/<%= user.bid %>/<%= element.mateId %>"><%= element.mateId %></a>
+                                </td>
                                 <td><%= element.mateName %></td>
                                 <td><%= element.colorName %></td>
                                 <td><%= element.size %></td>
@@ -130,7 +136,7 @@
                                 <td><%= element.amount %></td>
                                 <td><%= element.totalPrice %></td>
                             </tr>
-                            <%  })
+                            <% })
                             } %>
 
                             </tbody>
@@ -154,30 +160,32 @@
 
 <script type="text/javascript">
 
-    $(document).ready(function () {
+  $(document).ready(function () {
 
-        $("#checkThis").click(function () {
-            var id = $(this).attr('data-id');
+    $(".checkThis").click(function () {
+      var type = $(this).attr('data-type');
+      var text = type == 1 ? '确定提交审核?' : '确定退回?';
 
-            layer.confirm('确定提交审核?', {icon: 3, title: '提示'}, function (index) {
-                $.ajax({
-                    url:  '/enterMaterial/doPass/<%= mateInfo.inId %>/<%= mateInfo.purId %>',
-                    method: 'put',
-                    success: function (data) {
-                        successLayout.reload();
-                    },
-                    error: function (response) {
-                        layer.close(index)
-                        errorLayout.normal(response);
+      layer.confirm(text, {icon: 3, title: '提示'}, function (index) {
+        $.ajax({
+          url: '/enterMaterial/doPass/<%= mateInfo.inId %>/<%= mateInfo.purId %>/' + type,
+          method: 'put',
+          success: function (data) {
+            successLayout.reload();
+          },
+          error: function (response) {
+            layer.close(index)
+            errorLayout.normal(response);
 
-                    }
-                });
-            }, function (index) { layer.close(index) })
-        })
-
-
-
+          }
+        });
+      }, function (index) {
+        layer.close(index)
+      })
     })
+
+
+  })
 
 </script>
 

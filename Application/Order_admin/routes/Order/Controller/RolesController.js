@@ -17,6 +17,7 @@ var RolesController = {
     listPage: function (req, res) {
         var bid = req.params.bid;
         var scope = req.params.scope;
+        var type= req.query.type;
         Base.multiDataRequest(req, res, [
             {url: '/api/roles/'+bid+'?scope='+scope, method: 'GET', resConfig: {keyName: 'rolesInfo', is_must: true}}
         ], function (req, res, resultList) {
@@ -25,6 +26,7 @@ var RolesController = {
                 bid:bid,
                 scope:scope,
                 Permission :Permissions,
+                type:type,
             }, resultList));
             res.render('order/role/index', returnData);
         });
@@ -34,6 +36,7 @@ var RolesController = {
         var scope = req.params.scope;
         var roleScope = (scope == '9'?'1':'2');
         var type = req.params.type;
+        var typeM=req.query.typeM;
         Base.multiDataRequest(req, res, [
             {url: '/api/permissions?scope='+roleScope, method: 'GET', resConfig: {keyName: 'permissionsList', is_must: true}}
         ], function (req, res, resultList) {
@@ -42,6 +45,7 @@ var RolesController = {
                 bid:bid,
                 scope:scope,
                 type:type,
+                typeM:typeM,
             }, resultList));
             res.render('order/role/role_create', returnData);
         });
@@ -51,7 +55,7 @@ var RolesController = {
         var scope = req.params.scope;
         var roleScope = (scope == '9'?'1':'2');
         var stcode = req.params.stcode;
-
+        var type=req.query.type;
         Base.multiDataRequest(req, res, [
             {url: '/api/permissions?scope='+roleScope, method: 'GET', resConfig: {keyName: 'permissionsAllList', is_must: true}},
             {url: '/api/roles/detail/'+stcode, method: 'GET', resConfig: {keyName: 'rolesInfo', is_must: true}}
@@ -61,6 +65,7 @@ var RolesController = {
                 bid:bid,
                 scope:scope,
                 stcode:stcode,
+                type:type,
             }, resultList));
             res.render('order/role/role_modify', returnData);
         });

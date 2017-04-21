@@ -60,10 +60,10 @@
                                 <div class="col-xs-3" style="">
                                     <label class="col-xs-4 control-label">选择工厂:</label>
                                     <div class="col-xs-8">
-                                        <select  class="form-control validate[required]" name="bid" value="<%= DWYRequest.query.factory %>">
+                                        <select  class="form-control validate[required]" name="bid">
                                             <option value="">- 请选择 -</option>
                                             <% factoryList.forEach(function (element,index) {%>
-                                            <option value="<%= element.id%>"><%= element.name%></option>
+                                            <option value="<%= element.id%>" <%=(DWYRequest.query.bid==element.id)?'selected':'';%>><%= element.name%></option>
                                             <%})%>
                                         </select>
                                     </div>
@@ -249,8 +249,7 @@
 
     $(document).ready(function () {
         pageSetUp();
-      //日期组件
-        $(".fg-date-time-picker").flatpickr(data_time_picker.data_time_picker);
+
     })
 
 

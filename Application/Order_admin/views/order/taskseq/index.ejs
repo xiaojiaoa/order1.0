@@ -13,7 +13,9 @@
         <!-- breadcrumb -->
         <ol class="breadcrumb">
             <li>后台管理</li>
+            <li><a class="back-url" href="/taskseqs">流水查询</a></li>
             <li>流水信息</li>
+            <li><a class="back-url" href="javascript:history.go(-1)"> <i class="fa fa-chevron-left"></i>返回</a></li>
         </ol>
         <!-- end breadcrumb -->
 
@@ -67,7 +69,7 @@
                             </tr>
                             <tr>
                                 <td>量尺空间</td>
-                                <td colspan="3"><%= DWY_Helper.getAssistStr(taskseqInfo.space,spaceInfo) %> &nbsp;  (<%= taskseqInfo.parentSpaceStr %>)</td>
+                                <td colspan="3"><%= taskseqInfo.spaceStr %> &nbsp;  (<%= taskseqInfo.parentSpaceStr %>)</td>
                                 <td>希望量尺时间</td>
                                 <td><%= DWY_Helper.getLocalDate(taskseqInfo.appointmentTime) %></td>
                             </tr>
@@ -113,13 +115,13 @@
                             <td>客户性质</td>
                             <td>无字段</td>
                             <td>装修阶段</td>
-                            <td><%= DWY_Helper.getAssistVal(measureInfo.decoStageId,decoInfo) %></td>
+                            <td><%= measureInfo.decoStageStr %></td>
                             <td>计划入住时间</td>
                             <td><%= DWY_Helper.getLocalDateYMD(measureInfo.planDate) %></td>
                         </tr>
                         <tr>
                             <td>量尺性质</td>
-                            <td><%= DWY_Helper.getAssistVal(measureInfo.measPropId,propertyInfo) %></td>
+                            <td><%= measureInfo.measPropStr %></td>
                             <td>客户职业</td>
                             <td><%= measureInfo.custOcp %></td>
                             <td>面积</td>
@@ -148,17 +150,17 @@
                         </tr>
                         <tr>
                             <td>家庭成员</td>
-                            <td><%= DWY_Helper.getAssistVal(measureInfo.fmlyNumId,memberInfo) %></td>
+                            <td><%= measureInfo.fmlyNumStr  %></td>
                             <td>孩子性别</td>
                             <td><%= DWY_Helper.getChildrenGender(measureInfo.childGender) %></td>
                             <td>装修风格</td>
-                            <td><%= DWY_Helper.getAssistVal(measureInfo.decoStyleId,styleInfo) %></td>
+                            <td><%= measureInfo.decoStyleStr %></td>
                         </tr>
                         <tr>
                             <td>预购家具</td>
-                            <td colspan="3"><%= DWY_Helper.getAssistStr(measureInfo.wantPurchase,purchaseInfo) %></td>
+                            <td colspan="3"><%= measureInfo.wantPurchaseStr %></td>
                             <td>喜欢主材颜色</td>
-                            <td><%= DWY_Helper.getAssistVal(measureInfo.decoColorId,colorInfo) %></td>
+                            <td><%= measureInfo.decoColorStr %></td>
                         </tr>
                         <tr>
                             <td>量尺备注</td>
@@ -197,10 +199,10 @@
                         fileInfo.forEach(function (element, index) { %>
                         <tr>
                             <td><%= index+1 %></td>
-                            <td><%= DWY_Helper.getAssistVal(element.space,spaceInfo) %></td>
-                            <td><%= DWY_Helper.getAssistVal(element.type,fileTypeInfo) %></td>
+                            <td><%= element.spaceStr %></td>
+                            <td><%= element.typeStr %></td>
                             <td><%= element.price %></td>
-                            <td> <a href="<%= DWY_GLOBAL.Static %>/download?url=<%= element.savePath %>"><%= element.fileName %></a></td>
+                            <td> <a href="<%= DWY_GLOBAL.Static %>/download?originalFileName=<%= element.fileName %>&url=<%= element.savePath %>"><%= element.fileName %></a></td>
                             <td><%= DWY_Helper.renderSize(element.fileSize) %></td>
                             <td><%= DWY_Helper.getLocalDate(element.addTime) %></td>
                             <td><%= element.remark %></td>
@@ -364,14 +366,14 @@
                                 <% } %>
 
                                 <td><a href="/order/detail/<%= orderelement.tid %>"><%= orderelement.tid %></a></td>
-                                <td><%= DWY_Helper.getAssistVal(orderelement.brandId ,brandInfo)%></td>
-                                <td><%= DWY_Helper.getAssistVal(orderelement.decoColorId,colorInfo)%></td>
-                                <td><%= DWY_Helper.getAssistVal(orderelement.prodType,prodInfo)%></td>
+                                <td><%= orderelement.brandStr %></td>
+                                <td><%= orderelement.decoColorStr %></td>
+                                <td><%= orderelement.prodName %></td>
                                 <td><%=orderelement.channelName%></td>
                                 <td><%=orderelement.difficulty%></td>
                                 <td><%=orderelement.retailPrice%></td>
                                 <td><%=DWY_Helper.getLocalDate(orderelement.deliveryDate)%></td>
-                                <td><%=DWY_Helper.getAssistVal(orderelement.stcode,stcodeInfo)%></td>
+                                <td><%=orderelement.stcodeStr %></td>
                             </tr>
                             <% num++ })
                             }) %>

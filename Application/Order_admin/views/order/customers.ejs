@@ -13,9 +13,8 @@
         <!-- breadcrumb -->
         <ol class="breadcrumb">
             <li>后台管理</li>
-            <li>客户查询</li>
+            <li><%= type == 'companyCustomers'?'企业':''%>客户查询</li>
         </ol>
-
 
     </div>
     <!-- END RIBBON -->
@@ -62,12 +61,12 @@
                                     <div class="form-group">
                                         <label class="col-xs-2 control-label">建客日期:</label>
                                         <div class="col-xs-4">
-                                            <input class="form-control fg-date-time-picker" placeholder="" type="text"  value="<%= DWYRequest.query.startDate %>"
+                                            <input class="form-control fg-date-picker" placeholder="" type="text"  value="<%= DWYRequest.query.startDate %>"
                                                    name="startDate">
                                         </div>
                                         <label class="control-label " style="float: left"> 至 </label>
                                         <div class="col-xs-4">
-                                            <input class="form-control fg-date-time-picker" placeholder="" type="text"  value="<%= DWYRequest.query.endDate %>"
+                                            <input class="form-control fg-date-picker" placeholder="" type="text"  value="<%= DWYRequest.query.endDate %>"
                                                    name="endDate">
                                         </div>
                                     </div>
@@ -76,31 +75,30 @@
 
                             </div>
 
-                            <div class="col-xs-12">
-                                <div class="col-xs-3">
-                                    <div class="form-group">
-                                        <label class="col-xs-4 control-label">客户类型:</label>
-                                        <div class="col-xs-8">
-                                            <select class="form-control" name="ctype">
-                                                <option value="">- 请选择 -</option>
-                                                <option value="10" <%= (DWYRequest.query.ctype == 10)?"selected":"" %> >个人客户</option>
-                                                <option value="20" <%= (DWYRequest.query.ctype == 20)?"selected":"" %>>企业客户</option>
-                                            </select>
 
-                                        </div>
-                                    </div>
-                                </div>
-
-                            </div>
 
                             <div class="col-xs-12">
                                 <hr class="simple">
                                 <div class="col-xs-12 text-center">
-                                    <span style="width: 20px;display: inline-block;"></span>
+
                                     <button class="btn btn-primary " type="submit">
                                         <i class="fa fa-search"></i>
                                         查询
                                     </button>
+                                    <% if(type == 'customers'){ %>
+                                    <span style="width: 20px;display: inline-block;"></span>
+                                    <a class="btn btn-primary" href="/companyCustomers">
+                                        <i class="fa fa-search"></i>
+                                        查询企业客户
+                                    </a>
+                                    <% } %>
+                                    <% if(type == 'companyCustomers'){ %>
+                                    <span style="width: 20px;display: inline-block;"></span>
+                                    <a class="btn btn-primary" href="/customers">
+                                        <i class="fa fa-search"></i>
+                                        查询普通客户
+                                    </a>
+                                    <% } %>
                                 </div>
                             </div>
 
@@ -135,6 +133,9 @@
                                 <th>客户号</th>
                                 <th>客户名</th>
                                 <th>客户电话</th>
+                                <% if(type == 'companyCustomers'){ %>
+                                <th>企业名称</th>
+                                <% } %>
                                 <th>流水号</th>
                                 <th>流水状态</th>
                             </tr>
@@ -149,6 +150,9 @@
                                 <td><a href="/customer/detail/<%= element.cid %>"><%= element.cid %></a></td>
                                 <td><%= element.name %></td>
                                 <td><%= element.mobile %></td>
+                                <% if(type == 'companyCustomers'){ %>
+                                <td><%= element.entpName %></td>
+                                <% } %>
                                 <% if (element.custFlowDtos.length) { %>
                                 <% var custFlow = element.custFlowDtos[0] %>
                                 <td><a href="/taskseq/index/<%= custFlow.lid %>"><%= custFlow.lid %></a></td>
@@ -194,7 +198,7 @@
 
         }
 
-        $(".fg-date-time-picker").flatpickr(data_time_picker.data_time_picker); // jQuery
+        $(".fg-date-picker").flatpickr(data_time_picker.data_picker); // jQuery
 
         pageFunction();
 

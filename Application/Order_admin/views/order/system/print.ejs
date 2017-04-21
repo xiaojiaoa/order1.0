@@ -1,0 +1,66 @@
+<%- include('../layouts/head_top'); %>
+<%- include('../layouts/head_bottom'); %>
+<%- include('../layouts/header'); %>
+<%- include('../layouts/nav'); %>
+
+
+<!-- MAIN PANEL -->
+<div id="main" role="main">
+
+    <!-- RIBBON -->
+    <div id="ribbon">
+
+        <!-- breadcrumb -->
+        <ol class="breadcrumb">
+            <li>后台管理</li>
+            <li><a class="back-url" href="javascript:history.go(-1)"> <i class="fa fa-chevron-left"></i>返回</a></li>
+            <li>打印预览</li>
+        </ol>
+        <!-- end breadcrumb -->
+
+
+    </div>
+    <!-- END RIBBON -->
+
+    <!-- MAIN CONTENT -->
+    <div id="content">
+
+        <div class="prin-preview">
+            <div id="printHtml">
+                <div class="printBody"><%- printINfo %></div>
+            </div>
+
+            <button class="btn btn-primary " id="print">
+                <i class="fa fa-print"></i>
+                打印
+            </button>
+        </div>
+
+    </div>
+    <!-- END MAIN CONTENT -->
+
+</div>
+<!-- END MAIN PANEL -->
+
+
+<%- include('../layouts/footer'); %>
+<%- include('../layouts/footer_common_script'); %>
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+        $('body').on('click','#print',function () {
+            var headstr = '<html><head><title></title></head><body>';  //打印头部
+            var footstr = "</body></html>";  //打印尾部
+            var printData = $("#printHtml").html(); //获得 div 里的所有 html 数据
+            var oldstr = document.body.innerHTML;
+            document.body.innerHTML = headstr+printData+footstr;
+            window.print();
+            document.body.innerHTML = oldstr;   //保持原页面格式
+        })
+    })
+
+</script>
+
+
+<%- include('../layouts/foot'); %>

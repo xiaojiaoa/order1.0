@@ -209,10 +209,10 @@
                                     <a href="/department/stores/<%= element.bid %>" class="label label-primary">部门信息</a>
                                     <% } %>
                                     <% if (DWY_Helper.hasPermission(Permission.store.queryRole.id, permission) ){ %>
-                                    <a href="/roles/<%= element.bid %>/9" class="label label-primary">角色信息</a>
+                                    <a href="/roles/<%= element.bid %>/9?type=stores" class="label label-primary">角色信息</a>
                                     <% } %>
                                     <% if (DWY_Helper.hasPermission(Permission.store.queryEmployee.id, permission) ){ %>
-                                    <a href="/stores/employees?bid=<%= element.bid %>" class="label label-primary">查看柜员</a>
+                                    <a href="/stores/employees?bid=<%= element.bid %>&type=stores" class="label label-primary">查看柜员</a>
                                     <% } %>
                                 </td>
                             </tr>

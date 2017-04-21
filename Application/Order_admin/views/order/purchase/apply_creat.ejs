@@ -13,7 +13,9 @@
         <!-- breadcrumb -->
         <ol class="breadcrumb">
             <li>后台管理</li>
-            <li>新建请购单</li>
+            <li><a href="/purchase" class="back-url">采购管理</a></li>
+            <li>新建请购单--选择物料</li>
+            <li><a class="back-url" href="javascript:history.go(-1)"> <i class="fa fa-chevron-left"></i>返回</a></li>
         </ol>
         <!-- end breadcrumb -->
     </div>
@@ -25,7 +27,7 @@
                 <!-- row -->
                 <div class="row">
                     <div class="col-xs-12">
-                        <h6>已选中物料</h6>
+                        <h6>已选中物料(请点击查询下方的物料来选中)</h6>
                         <hr class="simple">
                     </div>
                 </div>
@@ -59,7 +61,7 @@
                 </div>
                 <div class="row">
                     <div class="col-xs-12">
-                            <a href="/purchase/applyOrderMaterial" class="btn btn-primary selecMate">选择物料</a>
+                            <a href="/purchase/applyOrderMaterial" class="btn btn-primary selecMate">填写请购信息</a>
                             <!--<button class="btn btn-primary delAll">删除选中物料</button>-->
                     </div>
                 </div>
@@ -194,7 +196,7 @@
         //刷新选中列表 这个函数根据每个页面不同需自己填写
         function updateCheckedList(isInit) {
             var parentEle = '.purApplyTr';
-            var storageKey = 'LIST_DATA';
+            var storageKey = 'LIST_DATA_PUR';
             var listArr = DWY_Utils.StorageUtils.getListArr(storageKey);
             var htmlStr = '';
             if (listArr instanceof Array && listArr.length != 0) {
@@ -254,11 +256,11 @@
             }
             // 选中添加  取消选中则删除
             if($(this).is(':checked')){
-                DWY_Utils.StorageUtils.addItem(item,'uniqueId','LIST_DATA',updateCheckedList)
+                DWY_Utils.StorageUtils.addItem(item,'uniqueId','LIST_DATA_PUR',updateCheckedList)
             }else{
                 DWY_Utils.StorageUtils.deletItem({
                     uniqueId:unique
-                },'uniqueId','LIST_DATA',updateCheckedList)
+                },'uniqueId','LIST_DATA_PUR',updateCheckedList)
             }
         })
         $(".purApplyTr").on("change","input",function () {
@@ -266,7 +268,7 @@
             // 点中删除
             DWY_Utils.StorageUtils.deletItem({
                 uniqueId:unique
-            }, 'uniqueId','LIST_DATA',function(){
+            }, 'uniqueId','LIST_DATA_PUR',function(){
                 // 与下面列表的选中状态保持一致
                  var $ipts = $(".orderItemLayerTable input[name='roles']");
                  var len = $ipts.length;

@@ -127,13 +127,12 @@ var OutWarehouseController = {
     },
     doDeliveryChecked: function (req, res) {
         var id = req.params.id;
+        var stcode = req.params.stcode;
         request(Base.mergeRequestOptions({
             method: 'post',
-            url: '/api/whse/cargout/delivery/notice/review/'+id,
+            url: '/api/whse/cargout/delivery/notice/review/'+id+'?stcode='+stcode,
         }, req, res), function (error, response, body) {
             if (!error && response.statusCode == 200) {
-
-                // Base.handlerSuccess(res, req);
                 res.sendStatus(200);
             } else {
                 Base.handlerError(res, req, error, response, body);
@@ -468,15 +467,27 @@ var OutWarehouseController = {
     },
     outBredDeatil: function (req, res) {
         var id = req.params.id;
+
+        var paramObject = helper.genPaginationQuery(req);
         Base.multiDataRequest(req, res, [
             {url: '/api/whse/cargout/mate/list/'+ id, method: 'GET', resConfig: {keyName: 'plateInfo', is_must: true}},
             {url: '/api/whse/cargout/mate/page?outId='+id, method: 'GET', resConfig: {keyName: 'cargoutInfo', is_must: false}},
 
         ], function (req, res, resultList) {
+            var paginationInfo =  resultList.plateInfo;
+
+            var boostrapPaginator = new Pagination.TemplatePaginator(helper.genPageInfo({
+                prelink: paramObject.withoutPageNo,
+                current: paginationInfo.page,
+                rowsPerPage: paginationInfo.pageSize,
+                totalResult: paginationInfo.totalItems
+            }));
+
             resultList.cargoutInfo = resultList.cargoutInfo.result[0];
             var returnData = Base.mergeData(helper.mergeObject({
                 title: ' ',
                 outId: id,
+                pagination: boostrapPaginator.render()
             },resultList));
             res.render('order/shipments/out_bred_detail', returnData);
         });
@@ -484,33 +495,21 @@ var OutWarehouseController = {
 
     doCheckBred: function (req, res) {
         var id = req.params.id;
+        var stcode = req.params.stcode;
         request(Base.mergeRequestOptions({
             method: 'post',
-            url: '/api/whse/cargout/mate/review/'+id,
+            url: '/api/whse/cargout/mate/review/'+id+'?stcode='+stcode,
         }, req, res), function (error, response, body) {
             if (!error && response.statusCode == 201) {
-
                 res.sendStatus(200);
             } else {
                 Base.handlerError(res, req, error, response, body);
             }
         })
     },
-    doUnCheckBred: function (req, res) {
-        var id = req.params.id;
-        request(Base.mergeRequestOptions({
-            method: 'put',
-            url: '/api/orders/schedule/getTask?tids='+id,
-        }, req, res), function (error, response, body) {
-            if (!error && response.statusCode == 201) {
 
-                res.sendStatus(200);
-            } else {
-                Base.handlerError(res, req, error, response, body);
-            }
-        })
-    },
   plateOut: function (req, res) {
+        // console.log('plateOut',JSON.stringify(req.body))
     request(Base.mergeRequestOptions({
       method: 'post',
       url: '/api/whse/cargout/plate/out',
@@ -518,7 +517,6 @@ var OutWarehouseController = {
       body:JSON.stringify(req.body),
     }, req, res), function (error, response, body) {
       if (!error && response.statusCode == 201) {
-
         res.sendStatus(200);
       } else {
         Base.handlerError(res, req, error, response, body);
@@ -538,7 +536,6 @@ var OutWarehouseController = {
 
         res.sendStatus(200);
       } else {
-        console.log(body)
         Base.handlerError(res, req, error, response, body);
       }
     })

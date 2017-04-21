@@ -13,6 +13,11 @@
         <!-- breadcrumb -->
         <ol class="breadcrumb">
             <li>后台管理</li>
+            <% if(type=='stores'){%>
+            <li><a class="back-url" href="/storesManage">门店管理</a></li>
+            <%}else{%>
+            <li><a class="back-url" href="/agency">机构管理</a></li>
+            <%}%>
             <li>角色信息</li>
         </ol>
         <!-- end breadcrumb -->
@@ -31,7 +36,7 @@
                 <div class="col-xs-12">
                     <h6>默认角色
                         <% if (DWY_Helper.hasPermission(Permission.store.createRole.id, permission)|| DWY_Helper.hasPermission(Permission.organization.createRole.id, permission)  ){ %>
-                        <a class="label label-primary" href="/roles/create/<%= bid %>/<%= scope %>/sys">新建角色</a>
+                        <a class="label label-primary" href="/roles/create/<%= bid %>/<%= scope %>/sys?typeM=<%= type%>">新建角色</a>
                         <% } %>
                     </h6>
                     <hr class="simple">
@@ -63,7 +68,7 @@
                                 </td>
                                 <td>
                                     <% if (DWY_Helper.hasPermission(Permission.store.updateRole.id, permission)|| DWY_Helper.hasPermission(Permission.organization.updateRole.id, permission)  ){ %>
-                                    <a href="/roles/modify/<%= bid %>/<%= scope %>/<%= element.id %>" class="label label-primary">修改</a>
+                                    <a href="/roles/modify/<%= bid %>/<%= scope %>/<%= element.id %>?type=<%= type%>" class="label label-primary">修改</a>
                                     <% } %>
                                     <% if ((element.id<99900000) && (DWY_Helper.hasPermission(Permission.store.deleteRole.id, permission) || DWY_Helper.hasPermission(Permission.organization.deleteRole.id, permission)) ){ %>
                                     <a class="delete-role label label-danger"  selfId="<%= element.id %>">删除</a>
@@ -88,7 +93,7 @@
                 <div class="col-xs-12">
                     <h6>自定义角色
                         <% if (DWY_Helper.hasPermission(Permission.store.createRole.id, permission)|| DWY_Helper.hasPermission(Permission.organization.createRole.id, permission)  ){ %>
-                        <a class="label label-primary"  href="/roles/create/<%= bid %>/<%= scope %>/self" >新建自定义角色</a>
+                        <a class="label label-primary"  href="/roles/create/<%= bid %>/<%= scope %>/self?typeM=<%= type%>" >新建自定义角色</a>
                         <% } %>
                     </h6>
                     <hr class="simple">
@@ -119,7 +124,7 @@
 
                                 </td>
                                 <td>
-                                    <a href="/roles/modify/<%= bid %>/<%= scope %>/<%= element.id %>" class="label label-primary">修改</a>
+                                    <a href="/roles/modify/<%= bid %>/<%= scope %>/<%= element.id %>?type=<%= type%>" class="label label-primary">修改</a>
                                     <a class="delete-role label label-danger"  selfId="<%= element.id %>">删除</a>
 
                                 </td>

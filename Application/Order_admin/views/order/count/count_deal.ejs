@@ -89,12 +89,12 @@
                                     <div class="form-group">
                                         <label class="col-xs-2 control-label">时间段:</label>
                                         <div class="col-xs-4">
-                                            <input class="form-control fg-date-time-picker" placeholder="" type="text"  value="<%= DWYRequest.query.startDate %>"
+                                            <input class="form-control fg-date-picker" placeholder="" type="text"  value="<%= DWYRequest.query.startDate %>"
                                                    name="startDate">
                                         </div>
                                         <label class="control-label " style="float: left"> 至 </label>
                                         <div class="col-xs-4">
-                                            <input class="form-control fg-date-time-picker" placeholder="" type="text"  value="<%= DWYRequest.query.endDate %>"
+                                            <input class="form-control fg-date-picker" placeholder="" type="text"  value="<%= DWYRequest.query.endDate %>"
                                                    name="endDate">
                                         </div>
                                     </div>
@@ -175,7 +175,7 @@
 
     $(document).ready(function () {
 
-        $(".fg-date-time-picker").flatpickr(data_time_picker.data_time_picker);
+        $(".fg-date-picker").flatpickr(data_time_picker.data_picker);
 
         pageSetUp();
 

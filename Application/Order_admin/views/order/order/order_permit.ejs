@@ -13,7 +13,7 @@
         <!-- breadcrumb -->
         <ol class="breadcrumb">
             <li>后台管理</li>
-            <li>订单许可</li>
+            <li>订单评估</li>
         </ol>
 
     </div>
@@ -54,16 +54,6 @@
                                                 <option value="">- 品牌 -</option>
                                                 <% brandinfoList.forEach(function (element) {  %>
                                                 <option value="<%= element.id %>" <%= (DWYRequest.query.brandId == element.id)?"selected":"" %>>
-                                                    <%= element.name %>
-                                                </option>
-                                                <% }) %>
-                                            </select>
-                                        </div>
-                                        <div class="col-xs-3">
-                                            <select class="form-control" name="difficulty">
-                                                <option value="1">1级</option>
-                                                <% difficultyList.forEach(function (element) {  %>
-                                                <option value="<%= element.id %>" <%= (DWYRequest.query.difficulty == element.id)?"selected":"" %>  class="<%= element.id ==1  ? 'display-none': '' %>">
                                                     <%= element.name %>
                                                 </option>
                                                 <% }) %>
@@ -211,9 +201,8 @@
                 <label class="pull-left control-label "> 将选中订单难度设置为: </label>
                 <div class="col-xs-3">
                     <select class="form-control" name="difficulty" id="difficultyCode" >
-                        <option value="1">1级</option>
                         <% difficultyList.forEach(function (element) {  %>
-                        <option value="<%= element.id %>" <%= difficultyList.difficulty == element.id ? 'selected': '' %>  class="<%= element.id ==1  ? 'display-none': '' %>"><%= element.name %></option>
+                        <option value="<%= element.id %>" <%= difficultyList.difficulty == element.id ? 'selected': '' %> ><%= element.name %></option>
                         <% }) %>
                     </select>
                 </div>

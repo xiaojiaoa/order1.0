@@ -453,7 +453,13 @@
             }
             else{
                 classDom.find('.open-this').hide();
-                classDom.find('.modify').show();
+                if(classDom.find(".save").attr("change")==0){
+                    classDom.find('.modify').hide();
+                }
+                else{
+                    classDom.find('.modify').show();
+                }
+
             }
         });
 

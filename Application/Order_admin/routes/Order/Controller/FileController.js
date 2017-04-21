@@ -94,8 +94,9 @@ var FileController = {
     },
     orderFileDetail: function (req, res) {
         var lid = req.params.lid;
+        //console.log('文件路径','/api/files/'+ lid);
         Base.multiDataRequest(req, res, [
-                {url: '/api/order/file/'+ lid+"?ordType=1", method: 'GET', resConfig: {keyName: 'fileInfo', is_must: false}},
+                {url: '/api/files/'+ lid, method: 'GET', resConfig: {keyName: 'fileInfo', is_must: false}},
             ],
             function (req, res, resultList) {
                 var returnData = Base.mergeData(helper.mergeObject({

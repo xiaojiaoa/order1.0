@@ -5,24 +5,33 @@
             <label class="col-xs-3 control-label"><span class="requird"></span> 补单原因:</label>
             <div class="col-xs-6">
                 <select class="form-control margin-bottom-10 validate[required]" id="levelOne" data-prompt-position="bottomLeft:20,5">
-                    <% resupplyReason.forEach(function (element) {  %>
+                    <% resupplyReason.forEach(function (element,index) {
+                       if(element){ %>
                     <option value="<%= element.id %>" >
                         <%= element.name %>
                     </option>
+                    <% } %>
+
                     <% }) %>
                 </select>
                 <select class="form-control margin-bottom-10 validate[required]" id="levelTwo" data-prompt-position="bottomLeft:20,5">
-                    <% resupplyReason[1].data.forEach(function (element) {  %>
+                    <% resupplyReason[1].data.forEach(function (element) {
+                    if(element){ %>
                     <option value="<%= element.id %>" >
                         <%= element.name %>
                     </option>
+                    <% }%>
+
                     <% }) %>
                 </select>
                 <select class="form-control validate[required]" name="cause"  id="levelThr" data-prompt-position="bottomLeft:20,5">
-                    <% resupplyReason[1].data[0].dataChild.forEach(function (element) {  %>
+                    <% resupplyReason[1].data[0].dataChild.forEach(function (element) {
+                        if(element){ %>
                     <option value="<%= element.id %>" >
                         <%= element.name %>
                     </option>
+                    <%   }%>
+
                     <% }) %>
                 </select>
             </div>
@@ -64,6 +73,9 @@
         case 475: %>
       action='/resupplys/apartCheck/notPass'
         <%       break;
+        case 635: %>
+      action='/schedule/notPass'
+        <%       break;
         } %>
 >
 
@@ -92,6 +104,11 @@
                     <option value="<%= element.id %>"><%= element.name %></option>
                     <%  })
                             break;
+                    case 635:
+                    scheduleReason.forEach(function (element) { %>
+                    <option value="<%= element.id %>"><%= element.name %></option>
+                    <%  })
+                        break;
                     }  %>
 
                 </select>

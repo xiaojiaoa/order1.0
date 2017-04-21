@@ -426,13 +426,9 @@ var permissions = {
             id:"582040",
             name:"请购查询所有机构"
         },
-        queryDept:{
-            id:"582042",
-            name:"请购查询自己部门"
-        },
-        query:{
-            id:"582043",
-            name:"请购查询自己"
+        queryOrganization:{
+            id:"582041",
+            name:"请购查询自己机构"
         },
         create:{
             id:"582010",
@@ -448,9 +444,9 @@ var permissions = {
             id:"581040",
             name:"采购查询所有机构"
         },
-        queryDept:{
-            id:"581042",
-            name:"采购查询自己部门"
+        queryOrganization:{
+            id:"581041",
+            name:"采购查询自己机构"
         },
         query:{
             id:"581043",
@@ -665,6 +661,12 @@ var permissions = {
             id:"706013",
             name:"原料出库审核"
         },
+    },
+    inventory :{
+        queryAll:{
+            id:"708040",
+            name:"查询所有机构库存记录"
+        }
     },
     taskseq:{
         cancel:{

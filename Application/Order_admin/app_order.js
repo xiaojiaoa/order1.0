@@ -4,7 +4,7 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
-// var ueditor = require("ueditor");
+var ueditor = require("ueditor");
 //for session
 var session = require('express-session');
 var RedisStore = require('connect-redis')(session);
@@ -12,6 +12,36 @@ var orderSessionConfig = require('./routes/Order/config/session');
 
 
 var app = express();
+
+if (process.env.REDIS_SENTINEL_ON) {
+    var Redis = require('ioredis');
+
+    var redisSentinelServer = [];
+    if (process.env.REDIS_SENTINEL_FIRST_HOST) {
+        redisSentinelServer.push({
+            host: process.env.REDIS_SENTINEL_FIRST_HOST,
+            port: process.env.REDIS_SENTINEL_FIRST_PORT
+        })
+    }
+    if (process.env.REDIS_SENTINEL_SECOND_HOST) {
+        redisSentinelServer.push({
+            host: process.env.REDIS_SENTINEL_SECOND_HOST,
+            port: process.env.REDIS_SENTINEL_SECOND_PORT
+        })
+    }
+    if (process.env.REDIS_SENTINEL_THIRD_HOST) {
+        redisSentinelServer.push({
+            host: process.env.REDIS_SENTINEL_THIRD_HOST,
+            port: process.env.REDIS_SENTINEL_THIRD_PORT
+        })
+    }
+
+    var redis = new Redis({
+        sentinels: redisSentinelServer,
+        name: process.env.REDIS_SENTINEL_NAME || 'mymaster'
+    });
+    orderSessionConfig.redis = {client: redis};
+}
 
 //
 app.use(session({
@@ -37,34 +67,34 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
-// app.use("/ueditor/ue", ueditor(path.join(__dirname, 'public'), function (req, res, next) {
-//     //客户端上传文件设置
-//     var imgDir = '/uploads/ueditor/'
-//     var ActionType = req.query.action;
-//     if (ActionType === 'uploadimage' || ActionType === 'uploadfile' || ActionType === 'uploadvideo') {
-//         var file_url = imgDir;//默认图片上传地址
-//         /*其他上传格式的地址*/
-//         if (ActionType === 'uploadfile') {
-//             file_url = '/file/ueditor/'; //附件
-//         }
-//         if (ActionType === 'uploadvideo') {
-//             file_url = '/video/ueditor/'; //视频
-//         }
-//         res.ue_up(file_url); //你只要输入要保存的地址 。保存操作交给ueditor来做
-//         res.setHeader('Content-Type', 'text/html');
-//     }
-//     //  客户端发起图片列表请求
-//     else if (req.query.action === 'listimage') {
-//         var dir_url = imgDir;
-//         res.ue_list(dir_url); // 客户端会列出 dir_url 目录下的所有图片
-//     }
-//     // 客户端发起其它请求
-//     else {
-//         // console.log('config.json')
-//         res.setHeader('Content-Type', 'application/json');
-//         res.redirect('/ueditor/nodejs/config.json');
-//     }
-// }));
+app.use("/asset/ueditor/ueditor/ue", ueditor(path.join(__dirname, 'public'), function (req, res, next) {
+    //客户端上传文件设置
+    var imgDir = '/uploads/ueditor/'
+    var ActionType = req.query.action;
+    if (ActionType === 'uploadimage' || ActionType === 'uploadfile' || ActionType === 'uploadvideo') {
+        var file_url = imgDir;//默认图片上传地址
+        /*其他上传格式的地址*/
+        if (ActionType === 'uploadfile') {
+            file_url = '/file/ueditor/'; //附件
+        }
+        if (ActionType === 'uploadvideo') {
+            file_url = '/video/ueditor/'; //视频
+        }
+        res.ue_up(file_url); //你只要输入要保存的地址 。保存操作交给ueditor来做
+        res.setHeader('Content-Type', 'text/html');
+    }
+    //  客户端发起图片列表请求
+    else if (req.query.action === 'listimage') {
+        var dir_url = imgDir;
+        res.ue_list(dir_url); // 客户端会列出 dir_url 目录下的所有图片
+    }
+    // 客户端发起其它请求
+    else {
+        // console.log('config.json')
+        res.setHeader('Content-Type', 'application/json');
+        res.redirect('/asset/ueditor/ueditor/ueditor.config.json');
+    }
+}));
 
 var home = require('./routes/Order/home');
 var passport = require('./routes/Order/passport');
@@ -82,7 +112,7 @@ app.locals.DWY_GLOBAL = {
 
 }
 //格式化金额
-outputdollars= function (number) {
+outputdollars = function (number) {
     if (number.length <= 3)
         return (number == '' ? '0' : number);
     else {
@@ -97,7 +127,7 @@ outputdollars= function (number) {
         return (output);
     }
 };
-outputcents=function (amount) {
+outputcents = function (amount) {
     amount = Math.round(((amount) - Math.floor(amount)) * 100);
     return (amount < 10 ? '.0' + amount : '.' + amount);
 };
@@ -139,16 +169,16 @@ Date.prototype.format = function (fmt) {
 app.locals.DWY_Helper = {
 
     // 判断是否可以循环,即判断是否是数组
-    isCanLoop:function(value){
+    isCanLoop: function (value) {
 
-        if(typeof value == 'object' && value instanceof Array ){
-            return value.length>0 ? true : false;
-        }else{
+        if (typeof value == 'object' && value instanceof Array) {
+            return value.length > 0 ? true : false;
+        } else {
             return false;
         }
 
     },
-    
+
     //增加时间格式化工具
     getLocalDate: function (timestamp) {
         if (timestamp) {
@@ -211,7 +241,7 @@ app.locals.DWY_Helper = {
 
 //字典翻译-门店类型
     getStoreType: function (code) {
-        switch (code){
+        switch (code) {
             case '0':
                 return "";
                 break;
@@ -232,7 +262,7 @@ app.locals.DWY_Helper = {
     },
 //字典翻译-包装状态
     getPackageType: function (code) {
-        switch (code){
+        switch (code) {
             case 1:
                 return "未入库";
                 break;
@@ -251,7 +281,7 @@ app.locals.DWY_Helper = {
 
     //字典翻译-是否
     getWhether: function (code) {
-        switch (code){
+        switch (code) {
             case 1:
                 return "是";
                 break;
@@ -262,7 +292,7 @@ app.locals.DWY_Helper = {
     },
 
     getMoneyTYpe: function (code) {
-        switch (code){
+        switch (code) {
             case 0:
                 return "付款";
                 break;
@@ -277,9 +307,9 @@ app.locals.DWY_Helper = {
         return code;
     },
 
-     //字典翻译-入库类型
+    //字典翻译-入库类型
     getEnterType: function (code) {
-        switch (code){
+        switch (code) {
             case 1:
                 return "物料";
                 break;
@@ -289,7 +319,7 @@ app.locals.DWY_Helper = {
         return code;
     },
     geOutStatus: function (code) {
-        switch (code){
+        switch (code) {
             case 2:
                 return "待审核";
                 break;
@@ -300,27 +330,9 @@ app.locals.DWY_Helper = {
         }
         return code;
     },
-    geDeliveryStatus: function (code) {
-        switch (code){
-            case '2':
-                return "未审核";
-                break;
-            case '4':
-                return "已审核";
-                break;
-            case '6':
-                return "已备货";
-                break;
-            case '8':
-                return "已发货";
-                break;
-
-        }
-        return code;
-    },
     //字典翻译-工厂类型
     getFactoryType: function (code) {
-        switch (code){
+        switch (code) {
             case 1:
                 return "工厂";
                 break;
@@ -393,7 +405,7 @@ app.locals.DWY_Helper = {
         return code;
     },
     getMeasureType: function (code) {
-        switch (code){
+        switch (code) {
             case 0:
                 return "已删除";
                 break;
@@ -409,7 +421,9 @@ app.locals.DWY_Helper = {
     },
     //柜员状态
     getEmployeeStatus: function (code) {
-        if(code == 0){ return "锁定"}
+        if (code == 0) {
+            return "锁定"
+        }
         if (code) {
 
             if (code == "1") {
@@ -524,7 +538,7 @@ app.locals.DWY_Helper = {
         return false;
     },
     //判断物料分类级别
-    judgeMateType:function(number) {
+    judgeMateType: function (number) {
         var string = number.toString();
         var j = 0;
         var a;

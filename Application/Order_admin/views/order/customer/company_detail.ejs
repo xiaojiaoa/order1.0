@@ -1,0 +1,216 @@
+<%- include('../layouts/head_top'); %>
+<%- include('../layouts/head_bottom'); %>
+<%- include('../layouts/header'); %>
+<%- include('../layouts/nav'); %>
+
+
+<!-- MAIN PANEL -->
+<div id="main" role="main">
+
+    <!-- RIBBON -->
+    <div id="ribbon">
+
+        <!-- breadcrumb -->
+        <ol class="breadcrumb">
+            <li>后台管理</li>
+            <% if(customerInfo.ctype == 10 ){  %>
+            <li><a class="back-url" href="/customers">客户查询</a></li>
+            <% }else{  %>
+            <li><a class="back-url" href="/companyCustomers">企业客户查询</a></li>
+            <% } %>
+            <li>客户详情页</li>
+            <li><a class="back-url" href="javascript:history.go(-1)"> <i class="fa fa-chevron-left"></i>返回</a></li>
+        </ol>
+        <!-- end breadcrumb -->
+
+    </div>
+    <!-- END RIBBON -->
+
+
+    <!-- MAIN CONTENT -->
+    <div id="content">
+
+
+
+        <!-- well -->
+        <div class="well">
+            <!-- row -->
+            <div class="row">
+                <!-- col -->
+                <div class="col-xs-12 ">
+                    <legend>基本信息</legend>
+                    <!-- row -->
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-striped table-information">
+                            <tbody>
+                            <tr>
+                                <td>客户编号</td>
+                                <td><%= customerInfo.cid %></td>
+                                <td>企业联系人</td>
+                                <td><%= customerInfo.ecName %></td>
+                                <td>企业联系人电话</td>
+                                <td><%= customerInfo.mobile %></td>
+                            </tr>
+                            <tr>
+                                <td>建档日期</td>
+                                <td><%= DWY_Helper.getLocalDate(customerInfo.addTime) %></td>
+                                <td>建档人编号</td>
+                                <td colspan="3"><%= customerInfo.gid %></td>
+
+                            </tr>
+
+                            <tr>
+                                <td>企业名称</td>
+                                <td><%= customerInfo.entpName %></td>
+                                <td>企业类型</td>
+                                <td><%= customerInfo.ecType %></td>
+                                <td>企业所属行业</td>
+                                <td><%= customerInfo.beIndustry %></td>
+                            </tr>
+                            <tr>
+                                <td>企业地址</td>
+                                <td colspan="5"><%= customerInfo.address %></td>
+                            </tr>
+                            <tr>
+                                <td>企业情况</td>
+                                <td colspan="5"><%= customerInfo.remark %></td>
+                            </tr>
+                            </tbody>
+                        </table>
+
+                    </div>
+
+                    <!-- end row -->
+                </div>
+                <!-- end col -->
+            </div>
+
+            <div class="row">
+                <!-- col -->
+                <div class="col-xs-12 ">
+                    <legend>交易流水</legend>
+                    <!-- row -->
+
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-striped">
+                            <thead>
+                            <tr>
+                                <th>流水号</th>
+                                <th>订单号</th>
+                                <th>流水状态</th>
+                                <th>交易时间</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <%
+                                if( customerInfo.custFlowDtos){
+                                customerInfo.custFlowDtos.forEach(function (element) { %>
+                            <tr>
+                                <td><a href="/taskseq/index/<%= element.lid %>"><%= element.lid %></a></td>
+                                <%
+                                    var orderList="";
+                                    element.orders.forEach(function (orderElement) {
+                                        orderList = orderList+"<a href=/order/detail/"+ orderElement.tid +">"+orderElement.tid+"     &nbsp</a>";
+                                    })
+                                %>
+                                <td><%- orderList %></td>
+                                <td><%= element.stcode %></td>
+                                <td><%= DWY_Helper.getLocalDate(element.addTime) %></td>
+                            </tr>
+                            <% })
+                                } %>
+
+
+                            </tbody>
+                        </table>
+
+                    </div>
+
+                    <!-- end row -->
+                </div>
+                <!-- end col -->
+            </div>
+
+        </div>
+        <!-- end row -->
+    </div>
+    <!-- end well -->
+
+
+</div>
+<!-- END MAIN CONTENT -->
+
+</div>
+<!-- END MAIN PANEL -->
+
+<%- include('../layouts/footer'); %>
+<%- include('../layouts/footer_common_script'); %>
+
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+
+        /* DO NOT REMOVE : GLOBAL FUNCTIONS!
+         *
+         * pageSetUp(); WILL CALL THE FOLLOWING FUNCTIONS
+         *
+         * // activate tooltips
+         * $("[rel=tooltip]").tooltip();
+         *
+         * // activate popovers
+         * $("[rel=popover]").popover();
+         *
+         * // activate popovers with hover states
+         * $("[rel=popover-hover]").popover({ trigger: "hover" });
+         *
+         * // activate inline charts
+         * runAllCharts();
+         *
+         * // setup widgets
+         * setup_widgets_desktop();
+         *
+         * // run form elements
+         * runAllForms();
+         *
+         ********************************
+         *
+         * pageSetUp() is needed whenever you load a page.
+         * It initializes and checks for all basic elements of the page
+         * and makes rendering easier.
+         *
+         */
+
+        pageSetUp();
+
+        /*
+         * ALL PAGE RELATED SCRIPTS CAN GO BELOW HERE
+         * eg alert("my home function");
+         *
+         * var pagefunction = function() {
+         *   ...
+         * }
+         * loadScript("js/plugin/_PLUGIN_NAME_.js", pagefunction);
+         *
+         * TO LOAD A SCRIPT:
+         * var pagefunction = function (){
+         *  loadScript(".../plugin.js", run_after_loaded);
+         * }
+         *
+         * OR
+         *
+         * loadScript(".../plugin.js", run_after_loaded);
+         */
+
+        var pageFunction = function () {
+
+        }
+
+        pageFunction();
+
+    })
+
+</script>
+
+
+<%- include('../layouts/foot'); %>

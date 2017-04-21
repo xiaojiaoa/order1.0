@@ -236,6 +236,19 @@ var AppServiceController = {
             }
         })
     },
+    permission: function (req, res) {
+        request(Base.mergeRequestOptions({
+            method: 'get',
+            url: '/api/whse/app/permission?'+queryString.stringify(req.query),
+            headers:req.headers,
+        }, req, res), function (error, response, body) {
+            if (!error) {
+                res.send(JSON.parse(body));
+            } else {
+                res.send(AppServiceController.error);
+            }
+        })
+    },
 };
 module.exports = AppServiceController;
 

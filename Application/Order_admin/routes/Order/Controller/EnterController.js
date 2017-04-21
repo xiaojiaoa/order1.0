@@ -92,9 +92,10 @@ var EnterController = {
     doPassMaterial: function (req, res) {
         var inId = req.params.inId;
         var purId = req.params.purId;
+        var stcode = req.params.stcode;
         request(Base.mergeRequestOptions({
             method: 'put',
-            url: '/api/whse/cargoin/mate/review?inId='+inId+'&purId='+purId
+            url: '/api/whse/cargoin/mate/review?inId='+inId+'&purId='+purId+'?stcode='+stcode
         }, req, res), function (error, response, body) {
             if (!error && response.statusCode == 201) {
 
@@ -292,7 +293,7 @@ var EnterController = {
                 {url: '/api/whse/factory/list', method: 'GET', resConfig: {keyName: 'factoryList', is_must: true}},
             ],
             function (req, res, resultList) {
-                var paginationInfo =  resultList.cargoinList;
+                var paginationInfo =  resultList.cargoinList.page;
 
                 var boostrapPaginator = new Pagination.TemplatePaginator(helper.genPageInfo({
                     prelink: paramObject.withoutPageNo,

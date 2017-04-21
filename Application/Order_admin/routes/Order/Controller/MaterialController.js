@@ -65,9 +65,9 @@ var MaterialController = {
             {url: '/api/materials/'+mid+"?bid="+bid, method: 'GET', resConfig: {keyName: 'mateInfo', is_must: true}},
             {url: '/api/organizations//factory', method: 'GET', resConfig: {keyName: 'factoryList', is_must: true}},
             {url: '/api/purchases/mate?bid='+bid+"&mateId="+mid, method: 'GET', resConfig: {keyName: 'purchasesMateList', is_must: true}},
-            {url: '/api/whse/cargospace?mateId='+mid+"&isAll=1&bid=9001", method: 'GET', resConfig: {keyName: 'whseCargospaceList', is_must: true}},
+            {url: '/api/whse/cargospace?mateId='+mid+"&isAll=1&xbid="+bid, method: 'GET', resConfig: {keyName: 'whseCargospaceList', is_must: true}},
             {url: '/api/assist/stock/reasonTypes', method: 'GET', resConfig: {keyName: 'stockReasonTypes', is_must: true}},
-            {url: '/api/materials/stockOperation/page?pageSize=6&mateId='+mid, method: 'GET', resConfig: {keyName: 'stockOperationList', is_must: true}},
+            {url: '/api/materials/stockOperation/page?pageSize=6&mateId='+mid+'&bid='+bid, method: 'GET', resConfig: {keyName: 'stockOperationList', is_must: true}},
         ], function (req, res, resultList) {
             var returnData = Base.mergeData(helper.mergeObject({
                 title: ' ',
@@ -139,12 +139,12 @@ var MaterialController = {
     },
     doNext: function (req, res) {
         var id = req.body.thirdlyCategory;
-        console.log(id);
+       // console.log(id);
         res.redirect("/materialManage/material/creStepS/"+id);
     },
     materialCreateSecPage: function (req, res) {
          var id = req.params.id;
-         console.log(id);
+         //console.log(id);
          Base.multiDataRequest(req, res, [
              {url: '/api/materials/attributes/'+id, method: 'GET', resConfig: {keyName: 'materialInfo', is_must: true}},
              {url: '/api/assist/material/units', method: 'GET', resConfig: {keyName: 'units', is_must: true}},
@@ -175,7 +175,7 @@ var MaterialController = {
     },
     materialModifyPage: function (req, res) {
         var id = req.params.mid;
-        console.log(id);
+        //console.log(id);
         Base.multiDataRequest(req, res, [
             {url: '/api/materials/'+id, method: 'GET', resConfig: {keyName: 'mateInfo', is_must: true}},
             {url: '/api/assist/material/units', method: 'GET', resConfig: {keyName: 'units', is_must: true}},
@@ -292,7 +292,7 @@ var MaterialController = {
        // res.render('order/material/materiel_modal');
     },
     fileDoCreate: function (req, res) {
-        console.log(req.body);
+        //console.log(req.body);
         request(Base.mergeRequestOptions({
             method: 'post',
             url: '/api/materials/accessory/workpiece',
@@ -327,7 +327,7 @@ var MaterialController = {
     warningDoCreate: function (req, res) {
         var mid=req.body.mateId;
         var bid=req.body.bid;
-        console.log(req.body);
+        //console.log(req.body);
         request(Base.mergeRequestOptions({
             method: 'post',
             url: '/api/materials/stock',
@@ -344,7 +344,7 @@ var MaterialController = {
     stockDoCreate: function (req, res) {
         var mid=req.body.mateId;
         var bid=req.body.bid;
-        console.log(req.body);
+        //console.log(req.body);
         request(Base.mergeRequestOptions({
             method: 'post',
             url: '/api/materials/stockOperation',
@@ -366,7 +366,7 @@ var MaterialController = {
         var ftyId = req.query.ftyId ? req.query.ftyId: req.session.user.ftyId;
         var whseId = req.query.whseId;
         var regionId = req.query.regionId;
-        console.log('ftyId:'+ftyId+'whseId:'+whseId+'regionId:'+regionId);
+       // console.log('ftyId:'+ftyId+'whseId:'+whseId+'regionId:'+regionId);
         var multiDataRequest= [
             {url: '/api/materials/stockOperation/page?'+ queryString.stringify(req.query), method: 'GET', resConfig: {keyName: 'stockOperationList', is_must: true}},
             {url: '/api/whse/factory/list', method: 'GET', resConfig: {keyName: 'factoryList', is_must: true}},
@@ -410,6 +410,7 @@ var MaterialController = {
             var returnData = Base.mergeData(helper.mergeObject({
                 title: ' ',
                 userFtyId: ftyId,
+                Permission :Permissions,
                 pagination: boostrapPaginator.render()
             },resultList));
             res.render('order/material/stockRecord',returnData);

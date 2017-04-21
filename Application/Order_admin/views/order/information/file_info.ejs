@@ -12,8 +12,8 @@
 
         <!-- breadcrumb -->
         <ol class="breadcrumb">
-            <li>个人中心</li>
-            <li>资料信息</li>
+            <li>后台管理</li>
+            <li>资料管理</li>
         </ol>
 
 
@@ -126,7 +126,7 @@
                             fileInfoList.result.forEach(function(element,index){%>
                             <tr>
                                 <td><%= index+1%></td>
-                                <td> <a href="<%= DWY_GLOBAL.Static %>/download?url=<%= element.path %>"><%= element.name%></a></td>
+                                <td> <a href="<%= DWY_GLOBAL.Static %>/download?originalFileName=<%= element.name%>&url=<%= element.path %>"><%= element.name%></a></td>
                                 <td><%= element.empName%></td>
                                 <td><%= DWY_Helper.getLocalDateYMD(element.addTime)%></td>
                                 <td>

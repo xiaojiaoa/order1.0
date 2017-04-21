@@ -13,8 +13,8 @@
         <!-- breadcrumb -->
         <ol class="breadcrumb">
             <li>后台管理</li>
-            <!--<li><a class="back-url" href="/waitSend"><i class="fa fa-chevron-left"></i> 待发货流水</a></li>-->
-            <li>发货通知单</li>
+            <!--<li><a class="back-url" href="/waitSend"> 待发货流水</a></li>-->
+            <li>发货管理</li>
         </ol>
 
 
@@ -68,6 +68,7 @@
                                                 <option value="4" <%= (DWYRequest.query.type == 4 )?"selected":"" %> >已审核</option>
                                                 <option value="6" <%= (DWYRequest.query.type == 6 )?"selected":"" %> >已备货</option>
                                                 <option value="8" <%= (DWYRequest.query.type == 8 )?"selected":"" %> >已发货</option>
+                                                <option value="9" <%= (DWYRequest.query.type == 9 )?"selected":"" %> >作废</option>
                                             </select>
                                         </div>
                                     </div>
@@ -99,7 +100,7 @@
                                     </button>
                                     <% if ( DWY_Helper.hasPermission(Permission.cargoManages.deliveryList.id, permission) ){ %>
                                     <a class="btn btn-primary " href="/waitSend">
-                                        发货通知
+                                        查看流水号发货信息
                                     </a>
                                     <% } %>
 
@@ -135,7 +136,7 @@
                                 <th width="150">审核时间</th>
                                 <th>司机姓名</th>
                                 <th>物流车牌号</th>
-                                <th width="70px">操作</th>
+                                <th width="130px">操作</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -149,14 +150,15 @@
                                 <td width="100"><%=element.mobile %></td>
                                 <td width="18%"><%=element.address %></td>
                                 <td><%=element.stoName %></td>
-                                <td><%=DWY_Helper.geDeliveryStatus(element.type)%></td>
+                                <td><%=element.typeName%></td>
                                 <td><%=element.reviewName %></td>
                                 <td width="150"><%= DWY_Helper.getLocalDate(element.reviewDate) %></td>
                                 <td><%=element.driverName %></td>
                                 <td><%=element.licensePlate %></td>
-                                <td width="70px">
+                                <td width="130px">
                                     <% if(element.type == 2 && DWY_Helper.hasPermission(Permission.cargoManages.deliveryReview.id, permission)){ %>
-                                    <a class="label label-primary checkThis" data-id="<%=element.diId %>">审核</a>
+                                    <a class="label label-primary checkThis" data-id="<%=element.diId %>" data-type="1">审核</a>
+                                    <a class="label label-danger checkThis" data-id="<%=element.diId %>" data-type="2">作废</a>
                                     <% }%>
                                 </td>
                             </tr>
@@ -193,10 +195,12 @@
 
         $(".checkThis").click(function () {
             var id = $(this).attr('data-id');
+            var type = $(this).attr('data-type');
+            var text = type== 1?'确定审核通过?':'确定退回?'
 
-            layer.confirm('确定提交审核?', {icon: 3, title: '提示'}, function (index) {
+            layer.confirm(text, {icon: 3, title: '提示'}, function (index) {
                 $.ajax({
-                    url: '/deliveryNote/doChecked/'+id,
+                    url: '/deliveryNote/doChecked/'+id+'/'+type,
                     method: 'put',
                     success: function (data) {
                         successLayout.reload();

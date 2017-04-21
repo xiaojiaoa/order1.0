@@ -62,7 +62,7 @@ var SystemController = {
         })
     },
     doCreate: function (req, res) {
-        console.log( "新建",req.body);
+        //console.log( "新建",req.body);
         request(Base.mergeRequestOptions({
             method: 'post',
             url: '/api/assist',
@@ -77,7 +77,7 @@ var SystemController = {
         })
     },
     doModify: function (req, res) {
-        console.log("修改",req.body);
+        //console.log("修改",req.body);
         request(Base.mergeRequestOptions({
             method: 'put',
             url: '/api/assist/update'+"?"+queryString.stringify(req.body)
@@ -139,7 +139,141 @@ var SystemController = {
 
     },
     templatePage: function (req, res) {
-        res.render('order/system/template')
+        var ftyId = req.session.user.ftyId? req.session.user.ftyId: '';
+        console.log('templatePageftyId',ftyId)
+
+        Base.multiDataRequest(req, res, [
+            {url: '/api/whse/freemarker/list?ftyId=0', method: 'GET', resConfig: {keyName: 'freemarkerSystem', is_must: true}},
+            {url: '/api/whse/freemarker/list?ftyId='+ftyId, method: 'GET', resConfig: {keyName: 'freemarkerSelf', is_must: true}},
+            {url: '/api/whse/factory/list', method: 'GET', resConfig: {keyName: 'factoryList', is_must: true}},
+
+        ], function (req, res, resultList) {
+            if(!ftyId){
+                resultList.freemarkerSelf = [];
+            }
+            var returnData = Base.mergeData(helper.mergeObject({
+                title: ' ',
+                freemarkerInfo:{},
+                id:'',
+                userFtyId:ftyId,
+                type:'createSys'
+            }, resultList));
+            res.render('order/system/template', returnData);
+        });
+    },
+    modifyPage: function (req, res) {
+        var id = req.params.id;
+        var paramsType = req.params.type;
+        var ftyId = req.session.user.ftyId? req.session.user.ftyId: '';
+        Base.multiDataRequest(req, res, [
+            {url: '/api/whse/freemarker/list?ftyId=0', method: 'GET', resConfig: {keyName: 'freemarkerSystem', is_must: true}},
+            {url: '/api/whse/freemarker/list?ftyId='+ftyId, method: 'GET', resConfig: {keyName: 'freemarkerSelf', is_must: true}},
+            {url: '/api/whse/freemarker/listone/'+id, method: 'GET', resConfig: {keyName: 'freemarkerInfo', is_must: true}},
+            {url: '/api/whse/factory/list', method: 'GET', resConfig: {keyName: 'factoryList', is_must: true}},
+        ], function (req, res, resultList) {
+            if(!ftyId){
+                resultList.freemarkerSelf = [];
+            }
+            var returnData = Base.mergeData(helper.mergeObject({
+                title: ' ',
+                type:'modify',
+                paramsType:paramsType,
+                id:id,
+                userFtyId:ftyId,
+            }, resultList));
+            res.render('order/system/template', returnData);
+        });
+    },
+    templateCreate: function (req, res) {
+        var ftlId = req.body.ftlId;
+        // if(ftlId == 0){
+        //     req.body.name = req.body.ftlName;
+        // }
+        console.log( "templateCreate",JSON.stringify(req.body));
+
+
+        request(Base.mergeRequestOptions({
+            method: 'post',
+            url: '/api/whse/freemarker',
+            form:req.body,
+        }, req, res), function (error, response, body) {
+            if (!error && response.statusCode == 201) {
+                Base.handlerSuccess(res, req);
+                res.redirect("/system/template");
+            } else {
+                Base.handlerError(res, req, error, response, body);
+            }
+        })
+    },
+    templateModify: function (req, res) {
+        var id = req.body.id;
+        var paramsType = req.body.paramsType;
+
+        console.log( 'templateModify',JSON.stringify(req.body));
+
+        request(Base.mergeRequestOptions({
+            method: 'put',
+            url: '/api/whse/freemarker/'+id+'?'+queryString.stringify(req.body),
+        }, req, res), function (error, response, body) {
+            if (!error && response.statusCode == 201) {
+                Base.handlerSuccess(res, req);
+                res.redirect("/system/template/modify/"+paramsType+"/"+id);
+            } else {
+                Base.handlerError(res, req, error, response, body);
+            }
+        })
+    },
+    templateDelete: function (req, res) {
+        var id = req.params.id;
+        console.log('/api/whse/freemarker/status/'+id+'?stcode=0')
+        request(Base.mergeRequestOptions({
+            method: 'put',
+            url: '/api/whse/freemarker/status/'+id+'?stcode=0',
+        }, req, res), function (error, response, body) {
+            if (!error && response.statusCode == 201) {
+                res.sendStatus(200);
+            } else {
+                Base.handlerError(res, req, error, response, body);
+            }
+        })
+    },
+    printOut: function (req, res) {
+
+        var id = req.params.id;
+        request(Base.mergeRequestOptions({
+            method: 'get',
+            url: '/api/whse/freemarker/print/'+id,
+        }, req, res), function (error, response, body) {
+            if (!error && response.statusCode == 200) {
+                console.log('printOut',body)
+                // res.status(200).json(body);
+                var returnData = Base.mergeData(helper.mergeObject({
+                    id:id,
+                }, {printINfo:body}));
+                res.render('order/system/print', returnData);
+            } else {
+                Base.handlerError(res, req, error, response, body);
+            }
+        })
+    },
+    printPackageLid: function (req, res) {
+        var packageLid = req.params.packageLid;
+        request(Base.mergeRequestOptions({
+            method: 'get',
+            url: '/api/orders/package/inventory/'+packageLid,
+        }, req, res), function (error, response, body) {
+            if (!error && response.statusCode == 200) {
+                console.log('printOut',body)
+                // res.status(200).json(body);
+                // var resultList = body;
+                var returnData = Base.mergeData(helper.mergeObject({
+                    id:packageLid,
+                }, {printINfo:body}));
+                res.render('order/system/print', returnData);
+            } else {
+                Base.handlerError(res, req, error, response, body);
+            }
+        })
     },
 };
 

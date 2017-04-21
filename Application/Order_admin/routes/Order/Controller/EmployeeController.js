@@ -21,11 +21,10 @@ var EmployeeController = {
         var did = req.query.did;
         // /organizations/employees?bid=<%= user.bid %>
         var employeesUrl = (type == 'stores')? '/api/stores/employees?' : '/api/employees?' ;
-        var scope = (type == 'stores')? '1' : '2' ;
         Base.multiDataRequest(req, res, [
             {url: employeesUrl + (queryString.stringify(req.query)), method: 'GET', resConfig: {keyName: 'employeesList', is_must: true}},
             {url: '/api/'+type+'/departments/'+bid, method: 'GET', resConfig: {keyName: 'departmentsInfo', is_must: true}},
-            {url: '/api/roles/'+bid+'?scope='+scope, method: 'GET', resConfig: {keyName: 'roleList', is_must: true}},
+            {url: '/api/roles/current/'+bid, method: 'GET', resConfig: {keyName: 'roleList', is_must: true}},
             {url: '/api/organizations/list', method: 'GET', resConfig: {keyName: 'organizationsList', is_must: true}},
         ], function (req, res, resultList) {
 
@@ -57,7 +56,7 @@ var EmployeeController = {
         var bid = req.params.bid;
         // var scope = (type == 'stores')? 1 : 2 ;
         var scope = req.session.user.orgType;
-        console.log('orgType',req.session.user.orgType)
+        //console.log('orgType',req.session.user.orgType)
         Base.multiDataRequest(req, res, [
             {url: '/api/'+type+'/departments/'+bid, method: 'GET', resConfig: {keyName: 'departmentsInfo', is_must: true}},
             {url: '/api/roles/'+bid+'?scope='+scope, method: 'GET', resConfig: {keyName: 'rolesInfo', is_must: true}},

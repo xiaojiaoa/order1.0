@@ -19,6 +19,11 @@ var Permissions = require('../config/permission');
 
 var NetworkBookController = {
     indexPage: function (req, res) {
+        var stcode = req.query.stcode;
+       // console.log('stcode',stcode)
+        if(stcode == undefined){
+            res.redirect('/networkBook?stcode=1')
+        }
         var paramObject = helper.genPaginationQuery(req);
         Base.multiDataRequest(req, res, [
             {url: '/api/ebis/measure?'+ queryString.stringify(req.query), method: 'GET', resConfig: {keyName: 'measureList', is_must: true}},
@@ -67,7 +72,7 @@ var NetworkBookController = {
             if (!error && response.statusCode == 201) {
                 Base.handlerSuccess(res, req);
                 // var lid = JSON.parse(body).lid;
-                console.log('success!!!')
+               // console.log('success!!!')
                 res.redirect("/networkBook");
 
             } else {

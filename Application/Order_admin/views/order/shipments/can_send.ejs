@@ -14,13 +14,13 @@
         <ol class="breadcrumb">
             <li>后台管理</li>
             <% if(type=='outMaterial'){ %>
-            <li><a class="back-url" href="/outMaterial"><i class="fa fa-chevron-left"></i>  原料出库</a></li>
+            <li><a class="back-url" href="/outMaterial">  原料出库</a></li>
             <% }%>
             <% if(type=='outProduct'){ %>
-            <li><a class="back-url" href="/outProduct"><i class="fa fa-chevron-left"></i> 成品出库</a></li>
+            <li><a class="back-url" href="/outProduct"> 成品出库</a></li>
             <% }%>
-
             <li>可发货订单</li>
+            <li><a class="back-url" href="javascript:history.go(-1)"> <i class="fa fa-chevron-left"></i>返回</a></li>
         </ol>
 
 

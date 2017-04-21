@@ -52,30 +52,30 @@ var OrderController = {
     },
     detailPage: function (req, res) {
         var tid = req.params.tid;
+
+        var paramObject = helper.genPaginationQuery(req);
         Base.multiDataRequest(req, res, [
                 {url: '/api/orders/'+tid, method: 'GET', resConfig: {keyName: 'orderInfo', is_must: true}},
                 {url: '/api/orders/statusInfo/'+tid, method: 'GET', resConfig: {keyName: 'orderStatusInfo', is_must: false}},
                 {url: '/api/assist/order/stcodes', method: 'GET', resConfig: {keyName: 'stcodeInfo', is_must: false}},
-                {url: '/api/assist/deco/style' , method: 'GET', resConfig: {keyName: 'styleInfo', is_must: true}},
-                // {url: '/api/assist/review/reson', method: 'GET', resConfig: {keyName: 'resonList', is_must: true}},
-                {url: '/api/assist/review/reviewReason', method: 'GET', resConfig: {keyName: 'reviewReason', is_must: true}},
-                {url: '/api/assist/review/apartReason', method: 'GET', resConfig: {keyName: 'apartReason', is_must: true}},
-                {url: '/api/assist/review/apartReviewReason', method: 'GET', resConfig: {keyName: 'apartReviewReason', is_must: true}},
-                {url: '/api/assist/review/scheduleReason', method: 'GET', resConfig: {keyName: 'scheduleReason', is_must: true}},
-
+                {url: '/api/orders/package/delivery/'+tid, method: 'GET', resConfig: {keyName: 'deliveryInfo', is_must: true}},
                 {url: '/api/assist/order/difficulty', method: 'GET', resConfig: {keyName: 'difficultyList', is_must: true}},
                 {url: '/api/cofficient', method: 'GET', resConfig: {keyName: 'cofficientInfo', is_must: true}},
                 {url: '/api/orders/chgback/'+tid, method: 'GET', resConfig: {keyName: 'chgbackInfo', is_must: true}},
                 {url: '/api/orders/progress/'+tid, method: 'GET', resConfig: {keyName: 'progressInfo', is_must: true}},
-                {url: '/api/assist/deco/color', method: 'GET', resConfig: {keyName: 'colorList', is_must: true}},
-                {url: '/api/assist/deco/color', method: 'GET', resConfig: {keyName: 'colorList', is_must: true}},
                 {url: '/api/assist/space/prod', method: 'GET', resConfig: {keyName: 'spaceInfo', is_must: true}},
+                {url: '/api/assist/review/reviewReason', method: 'GET', resConfig: {keyName: 'reviewReason', is_must: true}},
+                {url: '/api/assist/review/apartReason', method: 'GET', resConfig: {keyName: 'apartReason', is_must: true}},
+                {url: '/api/assist/review/apartReviewReason', method: 'GET', resConfig: {keyName: 'apartReviewReason', is_must: true}},
+                {url: '/api/assist/review/scheduleReason', method: 'GET', resConfig: {keyName: 'scheduleReason', is_must: true}},
+                {url: '/api/assist/deco/color', method: 'GET', resConfig: {keyName: 'colorList', is_must: true}},
             ],
             function (req, res, resultList) {
 
                 var spaceInfo = [];
                 resultList.spaceInfo.forEach(function(element,index){
                     if( spaceInfo[element.spaceId] == undefined){
+
 
                         spaceInfo[element.spaceId] = {};
                         spaceInfo[element.spaceId].data = [];
@@ -93,10 +93,21 @@ var OrderController = {
 
                 resultList.spaceInfo = spaceInfo;
 
+
+                var paginationInfo =  resultList.deliveryInfo;
+
+                var boostrapPaginator = new Pagination.TemplatePaginator(helper.genPageInfo({
+                    prelink: paramObject.withoutPageNo,
+                    current: paginationInfo.page,
+                    rowsPerPage: paginationInfo.pageSize,
+                    totalResult: paginationInfo.totalItems
+                }));
+
                 var returnData = Base.mergeData(helper.mergeObject({
                     title: ' ',
                     tid:tid,
                     Permission :Permissions,
+                    pagination: boostrapPaginator.render()
                 }, resultList));
                 res.render('order/order/order_detail', returnData);
             });
@@ -155,7 +166,6 @@ var OrderController = {
             url: '/api/orders/assess/returnOrder/'+tid,
         }, req, res), function (error, response, body) {
             if (!error && response.statusCode == 201) {
-
                 res.sendStatus(200);
             } else {
                 Base.handlerError(res, req, error, response, body);
@@ -207,7 +217,7 @@ var OrderController = {
 
     },
     updateDifficultyLevel: function (req, res) {
-        console.log('editor:::::'+JSON.stringify( req.body))
+        // console.log('editor:::::'+JSON.stringify( req.body))
         var rehref = req.body.rehref;
         request(Base.mergeRequestOptions({
             method: 'put',
@@ -638,6 +648,8 @@ var OrderController = {
     },
     resupplyDetailPage: function (req, res) {
         var tid = req.params.tid;
+
+        var paramObject = helper.genPaginationQuery(req);
         Base.multiDataRequest(req, res, [
                 {url: '/api/orders/resupply/detail?tid='+tid, method: 'GET', resConfig: {keyName: 'resupplyInfo', is_must: true}},
                 {url: '/api/orders/statusInfo/'+tid, method: 'GET', resConfig: {keyName: 'orderStatusInfo', is_must: false}},
@@ -647,9 +659,12 @@ var OrderController = {
                 {url: '/api/assist/review/acceptReason', method: 'GET', resConfig: {keyName: 'acceptReason', is_must: true}},
                 {url: '/api/assist/review/apartReason', method: 'GET', resConfig: {keyName: 'apartReason', is_must: true}},
                 {url: '/api/assist/review/apartReviewReason', method: 'GET', resConfig: {keyName: 'apartReviewReason', is_must: true}},
+                {url: '/api/assist/review/scheduleReason', method: 'GET', resConfig: {keyName: 'scheduleReason', is_must: true}},
+
                 // {url: '/api/assist/orderfile/type', method: 'GET', resConfig: {keyName: 'allFileTypeInfo', is_must: true}},
                 {url: '/api/orders/chgback/'+tid, method: 'GET', resConfig: {keyName: 'chgbackInfo', is_must: true}},
                 {url: '/api/orders/progress/'+tid, method: 'GET', resConfig: {keyName: 'progressInfo', is_must: true}},
+                {url: '/api/orders/package/delivery/'+tid, method: 'GET', resConfig: {keyName: 'deliveryInfo', is_must: true}},
             ],
             function (req, res, resultList) {
 
@@ -672,12 +687,22 @@ var OrderController = {
                 resultList.resupplyReason = resupplyReason;
 
 // console.log('resupplyReason',JSON.stringify(resupplyReason))
-// console.log('resupplyReason222',JSON.stringify(resupplyLeveTwo))
+// console.log('resupplyReason222',JSON.stringify(resultList.resupplyReason))
+
+                var paginationInfo =  resultList.deliveryInfo;
+
+                var boostrapPaginator = new Pagination.TemplatePaginator(helper.genPageInfo({
+                    prelink: paramObject.withoutPageNo,
+                    current: paginationInfo.page,
+                    rowsPerPage: paginationInfo.pageSize,
+                    totalResult: paginationInfo.totalItems
+                }));
 
                 var returnData = Base.mergeData(helper.mergeObject({
                     title: ' ',
                     tid:tid,
                     Permission :Permissions,
+                    pagination: boostrapPaginator.render()
                 }, resultList));
                 res.render('order/order/resupply_detail', returnData);
             });
@@ -876,7 +901,7 @@ var OrderController = {
         }, req, res), function (error, response, body) {
             if (!error && response.statusCode == 201) {
                 Base.handlerSuccess(res, req);
-                console.log('statusCode')
+               // console.log('statusCode')
                 res.redirect("/orders/nesting");
             } else {
                 Base.handlerError(res, req, error, response, body);
@@ -989,7 +1014,7 @@ var OrderController = {
     },
     doPacket:function(req,res){
         var tid=req.params.tid;
-        console.log("生成包装"+tid);
+        //console.log("生成包装"+tid);
         request(Base.mergeRequestOptions({
             method: 'put',
             url: '/api/orders/package/batch/packet/'+tid,
@@ -1004,7 +1029,7 @@ var OrderController = {
     },
     unPacket:function(req,res){
         var tid=req.params.tid;
-        console.log("撤销包装"+tid);
+        //console.log("撤销包装"+tid);
         request(Base.mergeRequestOptions({
             method: 'put',
             url: '/api/orders/package/batch/unpacket/'+tid,
@@ -1049,7 +1074,7 @@ var OrderController = {
     },
     exportPacket: function (req, res) {
         var tid = req.params.tid;
-        console.log("包装导出"+tid);
+        //console.log("包装导出"+tid);
         request(Base.mergeRequestOptions({
             method: 'post',
             url: '/api/orders/package/export/'+tid,
@@ -1058,7 +1083,7 @@ var OrderController = {
     addPacket: function (req, res) {
         var tid = req.body.tid;
         var pid=req.body.pid
-        console.log("增加包装"+queryString.stringify(req.body));
+        // console.log("增加包装"+queryString.stringify(req.body));
         request(Base.mergeRequestOptions({
             method: 'post',
             url: '/api/orders/package/packet/add/'+tid,
@@ -1081,6 +1106,7 @@ var OrderController = {
     workpiecePage:function (req, res) {
         var paramObject = helper.genPaginationQuery(req);
         var tid=req.params.tid;
+        var type=req.query.type;
         Base.multiDataRequest(req, res, [
             {url: '/api/orders/package/workpiece/list/'+tid+'?'+queryString.stringify(req.query), method: 'GET', resConfig: {keyName: 'workpieceList', is_must: true}},
             {url: '/api/orders/'+tid, method: 'GET', resConfig: {keyName: 'orderDetail', is_must: true}},
@@ -1097,7 +1123,8 @@ var OrderController = {
             var returnData = Base.mergeData(helper.mergeObject({
                 title: ' ',
                 pagination: boostrapPaginator.render(),
-                tid:tid
+                tid:tid,
+                type:type
             },resultList));
             res.render('order/order/workpiece', returnData);
         });

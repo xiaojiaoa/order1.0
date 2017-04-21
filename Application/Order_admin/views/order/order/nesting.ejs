@@ -71,7 +71,7 @@
                                 <td><%= element.productTypeStr %></td>
                                 <td><%= element.orderTypeStr %></td>
                                 <td><%= element.colorStr %></td>
-                                <td><a href="/order/detail/<%= element.tid %>"><%= element.tid %></a></td>
+                                <td><a  <%=  element.orderType ==20  ?  "href=/order/resupply/detail/"+ element.tid :  "href=/order/detail/"+element.tid  %>  ><%= element.tid %></a></td>
                                 <%
                                 if(element.batchNumber == '0'){%>
                                 <td></td>
@@ -161,8 +161,8 @@
                                         <div class="col-xs-8">
                                             <select class="form-control" name="orderFinish">
                                                 <option value="">-  请选择 -</option>
-                                                <option value="0">未完毕</option>
-                                                <option value="1">已完毕</option>
+                                                <option value="0" <%= (DWYRequest.query.orderFinish == 0 )?"selected":"" %> >未完毕</option>
+                                                <option value="1" <%= (DWYRequest.query.orderFinish == 1 )?"selected":"" %> >已完毕</option>
                                             </select>
                                         </div>
                                     </div>
@@ -263,7 +263,7 @@
                                 <td><%= element.productTypeStr %></td>
                                 <td><%= element.orderTypeStr %></td>
                                 <td><%= element.colorStr %></td>
-                                <td><a href="/order/detail/<%= element.tid %>"><%= element.tid %></a></td>
+                                <td><a  <%=  element.orderType ==20  ?  "href=/order/resupply/detail/"+ element.tid :  "href=/order/detail/"+element.tid  %>  ><%= element.tid %></a></td>
                                 <%
                                 if(element.batchNumber == '0'){%>
                                 <td></td>

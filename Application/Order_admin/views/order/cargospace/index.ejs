@@ -209,6 +209,7 @@
                                 <th>所在行/列/层</th>
                                 <th>最大承重</th>
                                 <th>最大存货数量</th>
+                                <th>剩余存货数</th>
                                 <th>货架长宽高</th>
                                 <th>货位状态</th>
                                 <th width="150">操作</th>
@@ -235,6 +236,7 @@
                                     <%= element.maxAmount%>件
                                     <%}%>
                                 </td>
+                                <td><%= element.amountRemain <0 ?'不限':element.amountRemain %></td>
 
                                 <td><%= element.sizeLength %>*<%= element.sizeWidth %>*<%= element.sizeHeight %></td>
                                 <td><%= element.usable ==1 ? '可用':'禁用' %></td>

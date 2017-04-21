@@ -13,9 +13,10 @@
         <!-- breadcrumb -->
         <ol class="breadcrumb">
             <li>后台管理</li>
-            <li><a class="back-url" href="/enterMaterial"><i class="fa fa-chevron-left"></i> 原料入库</a></li>
-            <li><a class="back-url" href="/enterMaterial/stockOver"><i class="fa fa-chevron-left"></i> 采购完成单</a></li>
+            <li><a class="back-url" href="/enterMaterial"> 原料入库</a></li>
+            <li><a class="back-url" href="/enterMaterial/stockOver"> 采购完成单</a></li>
             <li>入库</li>
+            <li><a class="back-url" href="javascript:history.go(-1)"> <i class="fa fa-chevron-left"></i>返回</a></li>
         </ol>
 
 
@@ -73,10 +74,13 @@
                                             <td id="modigyprice<%= index %>"><%=element.price%></td>
                                             <td id="modigytotal<%= index %>"><%=element.totalAmount%></td>
                                             <td><%=element.amount%></td>
+
+                                            <% if(!initFtyId){ %>
+                                            <td colspan="5" class="text-danger">无所属工厂，无法操作，请先到<a href="/factory">"仓储管理"</a>进行新建</td>
+                                            <% }else{  %>
                                             <td class="no-padding" id="regionIdArea<%= index %>">
                                                 <div class="target more-space newtarget<%= index %>" data-index="<%= index %>">
-                                                    <select class="form-control ftyId validate[required]" name="ftyId<%= index %>" data-index="<%= index %>"
-                                                            <% if ( !ifHasPermission ){ %> disabled<% } %>>
+                                                    <select class="form-control ftyId validate[required]" name="ftyId<%= index %>" data-index="<%= index %>" disabled>
                                                         <option value="">- 工厂 -</option>
                                                     </select>
                                                     <select class="form-control whseId validate[required]" name="whseId<%= index %>" data-index="<%= index %>">
@@ -87,7 +91,10 @@
                                                     </select>
                                                 </div>
                                             </td>
+                                                <% } %>
 
+
+                                            <% if(user.ftyId&& initFtyId){ %>
                                             <td class="no-padding" id="spaceIdArea<%= index %>">
                                                 <input name="cargoId<%= index %>" value="<%= element.mateId %>" type="hidden">
                                                 <input name="purId<%= index %>" value="<%= element.orderId %>" type="hidden">
@@ -129,6 +136,8 @@
                                                 </div>
 
                                             </td>
+                                            <%  } %>
+
                                         </tr>
                                 <%
                                     })}else{%>
@@ -150,8 +159,8 @@
                             <!--</a>-->
                             <a class="btn btn-primary" id="toModify">修改物料信息</a>
                             <a class="btn btn-primary" id="toModifySave" style="display: none;">确认修改物料信息</a>
-                            <% if ( DWY_Helper.hasPermission(Permission.cargoManages.mateIn.id, permission) ){ %>
-                            <a class="btn btn-primary" id="toEnter">确认入库</a>
+                            <% if ( DWY_Helper.hasPermission(Permission.cargoManages.mateIn.id, permission)){ %>
+                            <a class="btn btn-primary" id="toEnter" <%= user.ftyId&& initFtyId ? '':'disabled' %>>确认入库</a>
                             <% } %>
 
                         </div>
@@ -436,7 +445,7 @@
             var cargoIdType = $("input[name=cargoId"+index+"]").val();
 
             var regionIdHtml = '<div class="target more-space newtarget'+cargoinList_result+'" data-index="'+cargoinList_result+'">'+
-                '<select class="form-control ftyId validate[required]" name="ftyId'+cargoinList_result+'" data-index="'+cargoinList_result+'" '+(ifHasPermissionaaa?'':'disabled')+'>'+
+                '<select class="form-control ftyId validate[required]" name="ftyId'+cargoinList_result+'" data-index="'+cargoinList_result+'" disabled>'+
                 '<option value="">- 工厂 -</option>'+
                 '</select>'+
                 '<select class="form-control whseId validate[required]" name="whseId'+cargoinList_result+'" data-index="'+cargoinList_result+'">'+

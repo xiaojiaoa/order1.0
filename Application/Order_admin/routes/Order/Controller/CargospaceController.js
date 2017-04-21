@@ -79,7 +79,7 @@ var CargospaceController = {
         var whseId = req.query.whseId;
         var regionId = req.query.regionId;
         var paramObject = helper.genPaginationQuery(req);
-        console.log('/api/whse/cargospace?'+ queryString.stringify(req.query))
+        //console.log('/api/whse/cargospace?'+ queryString.stringify(req.query))
         Base.multiDataRequest(req, res, [
             {url: '/api/whse/cargospace?'+ queryString.stringify(req.query), method: 'GET', resConfig: {keyName: 'cargospaceList', is_must: true}},
             {url: '/api/whse/factory/list', method: 'GET', resConfig: {keyName: 'factoryList', is_must: true}},

@@ -140,7 +140,8 @@
                                 <td><%= element.reviewName %></td>
                                 <td>
                                     <% if(element.stcode == 2 && DWY_Helper.hasPermission(Permission.cargoManages.mateOutReview.id, permission)){ %>
-                                    <a class="label label-primary checkThis" data-id="<%= element.outId %>">审核</a>
+                                    <a class="label label-primary checkThis" data-id="<%= element.outId %>" data-type="1">审核</a>
+                                    <a class="label label-danger checkThis" data-id="<%= element.outId %>" data-type="2">作废</a>
                                     <% }%>
                                     </td>
                             </tr>
@@ -181,10 +182,12 @@
 
         $(".checkThis").click(function () {
             var id = $(this).attr('data-id');
+            var type = $(this).attr('data-type');
+            var text = type== 1?'确定审核通过?':'确定退回?'
 
-            layer.confirm('确定提交审核?', {icon: 3, title: '提示'}, function (index) {
+            layer.confirm(text, {icon: 3, title: '提示'}, function (index) {
                 $.ajax({
-                    url: '/outBred/doCheck/'+id,
+                    url: '/outBred/doCheck/'+id+'/'+type,
                     method: 'put',
                     success: function (data) {
                         successLayout.reload();
@@ -197,29 +200,6 @@
                 });
             }, function (index) { layer.close(index) })
         })
-
-        $(".backThis").click(function () {
-            var id = $(this).attr('data-id');
-
-            layer.confirm('确定撤回重新审核吗?', {icon: 3, title: '提示'}, function (index) {
-                $.ajax({
-                    url: '/outBred/doUnCheck/'+id,
-                    method: 'put',
-                    success: function (data) {
-                        successLayout.reload();
-                    },
-                    error: function (response) {
-                        layer.close(index)
-                        errorLayout.normal(response);
-
-                    }
-                });
-            }, function (index) { layer.close(index) })
-        })
-
-
-
-
     })
 
 </script>

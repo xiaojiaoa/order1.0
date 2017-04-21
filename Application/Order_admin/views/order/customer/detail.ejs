@@ -13,7 +13,9 @@
         <!-- breadcrumb -->
         <ol class="breadcrumb">
             <li>后台管理</li>
+            <li><a class="back-url" href="/customers">客户查询</a></li>
             <li>客户详情页</li>
+            <li><a class="back-url" href="javascript:history.go(-1)"> <i class="fa fa-chevron-left"></i>返回</a></li>
         </ol>
         <!-- end breadcrumb -->
 
@@ -52,7 +54,7 @@
                                 <td>建档人编号</td>
                                 <td><%= customerInfo.gid %></td>
                                 <td>客户生日</td>
-                                <td><%= DWY_Helper.getLocalDate(customerInfo.birthday) %></td>
+                                <td><%= DWY_Helper.getLocalDateYMD(customerInfo.birthday) %></td>
                             </tr>
 
                             <tr>

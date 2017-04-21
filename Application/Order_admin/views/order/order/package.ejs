@@ -58,11 +58,11 @@
                                     <div class="form-group">
                                         <label class="col-xs-2 control-label">下单日期:</label>
                                         <div class="col-xs-4">
-                                            <input class="form-control fg-date-time-picker flatpickr-input" placeholder="" type="text" value="<%= DWYRequest.query.orderStartTime %>" name="orderStartTime" readonly="readonly">
+                                            <input class="form-control fg-date-picker flatpickr-input" placeholder="" type="text" value="<%= DWYRequest.query.orderStartTime %>" name="orderStartTime" readonly="readonly">
                                         </div>
                                         <label class="from-to control-label "> 至 </label>
                                         <div class="col-xs-4">
-                                            <input class="form-control fg-date-time-picker flatpickr-input" placeholder="" type="text" value="<%= DWYRequest.query.orderEndTime %>" name="orderEndTime" readonly="readonly">
+                                            <input class="form-control fg-date-picker flatpickr-input" placeholder="" type="text" value="<%= DWYRequest.query.orderEndTime %>" name="orderEndTime" readonly="readonly">
                                         </div>
                                     </div>
                                 </div>
@@ -84,7 +84,7 @@
                                             </select>
                                         </div>
                                     </div>
-                                </div>
+                               </div>
 
                                 <div class="col-xs-3">
                                     <div class="form-group">
@@ -169,7 +169,7 @@
                             toBePackedList.result.forEach(function (element, index) { %>
                             <tr>
                                 <td width="4%"><%= index+1 %></td>
-                                <td width="10%"><a href="/order/detail/<%= element.tid %>"><%= element.tid %></a></td>
+                                <td width="10%"><a  <%=  element.orderType ==20  ?  "href=/order/resupply/detail/"+ element.tid :  "href=/order/detail/"+element.tid  %>  ><%= element.tid %></a></td>
                                 <td><%= element.batchNumber %></td>
                                 <td><%= element.storeName %></td>
                                 <td><%= element.cName %></td>
@@ -220,7 +220,7 @@
         pageSetUp();
 
       //日期组件
-        $(".fg-date-time-picker").flatpickr(data_time_picker.data_time_picker);
+        $(".fg-date-picker").flatpickr(data_time_picker.data_picker);
 
         //对表单进行初始化验证
         $("#toBePackedForm").validationEngine();

@@ -178,7 +178,7 @@
                             prodsList.result.forEach(function (element, index) { %>
                             <tr>
                                 <td width="4%"><%= ++index %></td>
-                                <td><a href="/outProduct/deatil/<%= element.outId %>"><%= element.outId %></a></td>
+                                <td><a href="/outProduct/deatil/<%= element.tid %>"><%= element.outId %></a></td>
                                 <td width="12%"><a href="/order/detail/<%= element.tid %>"><%= element.tid %></a></td>
                                 <td><%= DWY_Helper.getLocalDate(element.deliveryTime) %></td>
                                 <td><%= element.cName %></td>

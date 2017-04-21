@@ -13,7 +13,7 @@
         <!-- breadcrumb -->
         <ol class="breadcrumb">
             <li>后台管理</li>
-            <li>订单管理页面</li>
+            <li>订单查询</li>
         </ol>
 
     </div>
@@ -59,12 +59,12 @@
                                     <div class="form-group">
                                         <label class="col-xs-2 control-label">建单日期:</label>
                                         <div class="col-xs-4">
-                                            <input class="form-control fg-date-time-picker" placeholder="" type="text" value="<%= DWYRequest.query.startDate%>"
+                                            <input class="form-control fg-date-picker" placeholder="" type="text" value="<%= DWYRequest.query.startDate%>"
                                                    name="startDate">
                                         </div>
                                         <label class="from-to control-label "> 至 </label>
                                         <div class="col-xs-4">
-                                            <input class="form-control fg-date-time-picker" placeholder="" type="text" value="<%= DWYRequest.query.endDate%>"
+                                            <input class="form-control fg-date-picker" placeholder="" type="text" value="<%= DWYRequest.query.endDate%>"
                                                    name="endDate">
                                         </div>
                                     </div>
@@ -104,12 +104,12 @@
                                     <div class="form-group">
                                         <label class="col-xs-2 control-label">预计发货时间:</label>
                                         <div class="col-xs-4">
-                                            <input class="form-control fg-date-time-picker" placeholder="" type="text" value="<%= DWYRequest.query.startDeliveryDate%>"
+                                            <input class="form-control fg-date-picker" placeholder="" type="text" value="<%= DWYRequest.query.startDeliveryDate%>"
                                                    name="startDeliveryDate">
                                         </div>
                                         <label class="from-to control-label "> 至 </label>
                                         <div class="col-xs-4">
-                                            <input class="form-control fg-date-time-picker" placeholder="" type="text" value="<%= DWYRequest.query.endDeliveryDate%>"
+                                            <input class="form-control fg-date-picker" placeholder="" type="text" value="<%= DWYRequest.query.endDeliveryDate%>"
                                                    name="endDeliveryDate">
                                         </div>
                                     </div>
@@ -234,22 +234,6 @@
                             </tr>
                             <%  })
                             } %>
-                            <!--<tr class="mark-row">-->
-                                <!--<td>2</td>-->
-                                <!--<td><a href="/customer/detail">12345</a></td>-->
-                                <!--<td>张先生</td>-->
-                                <!--<td><a href="/taskseq/index">565555</a></td>-->
-                                <!--<td><a href="/order/detail/555">565555</a></td>-->
-                                <!--<td>昆仑公馆</td>-->
-                                <!--<td>具体类型</td>-->
-                                <!--<td>客餐厅</td>-->
-                                <!--<td>衣柜</td>-->
-                                <!--<td>564798456465321/356456</td>-->
-                                <!--<td>2016-10-10</td>-->
-                                <!--<td>审核退回</td>-->
-                                <!--<td>5645678</td>-->
-                            <!--</tr>-->
-
                             </tbody>
                         </table>
                         <%- pagination %>
@@ -275,7 +259,7 @@
         pageSetUp();
 
 
-        $(".fg-date-time-picker").flatpickr(data_time_picker.data_time_picker);  // jQuery
+        $(".fg-date-picker").flatpickr(data_time_picker.data_picker);  // jQuery
 
 
     })

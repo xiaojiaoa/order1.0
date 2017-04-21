@@ -1,0 +1,13 @@
+.printBody{
+    padding:20px;
+    margin-bottom: 0;
+}
+.printBody table {
+    width: 100%;
+    margin-bottom: 18px;
+}
+.printBody table td{
+    border: 1px solid #ddd;
+    padding: 8px 10px;
+    margin: 0;
+}

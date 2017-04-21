@@ -21,7 +21,7 @@
 
 <!-- JS TOUCH : include this plugin for mobile drag / drop touch events-->
 <script src="/js/plugin/jquery-touch/jquery.ui.touch-punch.min.js"></script>
-<!-- <script src="/js/plugin/jquery.jqprint-0.3.js"></script> -->
+ <!--<script src="/js/plugin/jquery.jqprint-0.3.js"></script>-->
 <!-- 分页插件 -->
 <script src="/js/plugin/jquery.pagination.min.js"></script>
 
@@ -82,6 +82,8 @@
 <script>
 
     $(function () {
+        $('ul.menu-list').scrollTop(localStorage.getItem('menuScroll-height'));
+
         // Create the measurement node
         var scrollDiv = document.createElement("div");
         scrollDiv.style.overflow = 'scroll';
@@ -92,6 +94,9 @@
             $('.table-scroll thead').css('width','calc( 100% - '+scrollbarWidth+'px )')
         }
 
+        $('body').on('a','mousedown',function () {
+            alert(window.location.href)
+        })
 
 //      $('.mainFlex').css('height',window.innerHeight-80);
 
@@ -107,11 +112,10 @@
 
             localStorage.setItem('menuScroll-height',innerHeight);
         });
-
-        $('ul.menu-list').animate({
-            scrollTop:localStorage.getItem('menuScroll-height')
-//            scrollTop:'120px'
-        }, 500);
+//        $('ul.menu-list').animate({
+//            scrollTop:localStorage.getItem('menuScroll-height')
+////            scrollTop:'120px'
+//        }, 500);
 
 
         //超过屏幕的li展示在页面中间

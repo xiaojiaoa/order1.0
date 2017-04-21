@@ -13,7 +13,7 @@
         <!-- breadcrumb -->
         <ol class="breadcrumb">
             <li>后台管理</li>
-            <li>请购列表</li>
+            <li>采购管理</li>
         </ol>
         <!-- end breadcrumb -->
     </div>
@@ -56,12 +56,12 @@
                                     <div class="form-group">
                                         <label class="col-xs-2 control-label">起止日期:</label>
                                         <div class="col-xs-4">
-                                            <input class="form-control fg-date-time-picker" placeholder="" type="text" value="<%= DWYRequest.query.startDate%>"
+                                            <input class="form-control fg-date-picker" placeholder="" type="text" value="<%= DWYRequest.query.startDate%>"
                                                    name="startDate">
                                         </div>
                                         <label class="from-to control-label "> 至 </label>
                                         <div class="col-xs-4">
-                                            <input class="form-control fg-date-time-picker" placeholder="" type="text" value="<%= DWYRequest.query.endDate%>"
+                                            <input class="form-control fg-date-picker" placeholder="" type="text" value="<%= DWYRequest.query.endDate%>"
                                                    name="endDate">
                                         </div>
                                     </div>
@@ -95,7 +95,7 @@
                                         <i class="fa fa-search"></i>
                                         查询
                                     </button>
-                                    <% if (DWY_Helper.hasPermission(Permission.purchase.queryAll.id, permission)|| DWY_Helper.hasPermission(Permission.purchase.queryDept.id, permission) || DWY_Helper.hasPermission(Permission.purchase.query.id, permission) ){ %>
+                                    <% if (DWY_Helper.hasPermission(Permission.purchase.queryAll.id, permission)|| DWY_Helper.hasPermission(Permission.purchase.queryOrganization.id, permission) || DWY_Helper.hasPermission(Permission.purchase.query.id, permission) ){ %>
                                     <a class="btn btn-primary " href="/purchase/detail">
                                         查看采购列表
                                     </a>
@@ -192,7 +192,7 @@
 <script type="text/javascript">
     $(document).ready(function () {
         pageSetUp();
-        $(".fg-date-time-picker").flatpickr(data_time_picker.data_time_picker); // jQuery
+        $(".fg-date-picker").flatpickr(data_time_picker.data_picker); // jQuery
         $(".PurchaseOrder").click(function(){
             var tid=$(this).data('purchaseId');
             layer.confirm('确认生成采购单?',{icon: 3, title:'提示'},

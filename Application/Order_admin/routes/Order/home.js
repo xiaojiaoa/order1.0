@@ -87,7 +87,6 @@ var Middleware = {
             //增加token失效验证. token存在但过期时,自动发送refresh_token并保存新的token到用户session
             var user_auth = req.session.auth;
             if ((new Date().getTime() - user_auth.time) > 1600000) {
-                console.log('1600000getTime',(new Date().getTime() - user_auth.time));
 
                 //refresh_token request
                 request(Base.mergeRequestOptions({
@@ -98,7 +97,6 @@ var Middleware = {
                     if (!error && response.statusCode == 200) {
                         // Show the HTML for the Google homepage.
                         let $data = JSON.parse(body);
-                        console.log('refresh_token',JSON.stringify($data));
 
                         //TOKEN 存入session
                         var user_session = req.session;
@@ -159,6 +157,9 @@ router.put('/getHomeAdviserList/:sid/:did', Middleware.AuthCheck, IndexControlle
 router.get('/countDeal', Middleware.AuthCheck, IndexController.countDealPage);
 
 
+router.get('/download', Middleware.AuthCheck, IndexController.getDownload);
+
+
 
 /*
  * 页面范围: 用户操作相关
@@ -184,6 +185,7 @@ var CustomerController = require('./Controller/CustomerController');
 
 // 获取客户列表
 router.get('/customers', Middleware.AuthCheck, Middleware.FilterEmptyField, CustomerController.listPage);
+router.get('/companyCustomers', Middleware.AuthCheck, Middleware.FilterEmptyField, CustomerController.companyCustomersPage);
 
 // 获取客户详情页面
 router.get('/customer/detail/:cid', Middleware.AuthCheck, CustomerController.detailPage);
@@ -814,7 +816,7 @@ var EnterController = require('./Controller/EnterController');
 router.get('/enterMaterial', Middleware.AuthCheck, Middleware.FilterEmptyField, EnterController.enterMaterialPage);
 
 // 原料入库-审核
-router.put('/enterMaterial/doPass/:inId/:purId', Middleware.AuthCheck, EnterController.doPassMaterial);
+router.put('/enterMaterial/doPass/:inId/:purId/:stcode', Middleware.AuthCheck, EnterController.doPassMaterial);
 
 // 原料入库-撤审
 router.put('/enterMaterial/notPass/:id', Middleware.AuthCheck, EnterController.notPassMaterial);
@@ -842,7 +844,7 @@ router.get('/enterProduct', Middleware.AuthCheck, EnterController.enterProductPa
 router.get('/enterProduct/detail/:id', Middleware.AuthCheck, EnterController.enterProductDetailPage);
 
 // 成品-入库页面
-router.get('/enterProduct/notin', Middleware.AuthCheck, EnterController.enterNotinPage);
+router.get('/enterProduct/notin', Middleware.AuthCheck,Middleware.FilterEmptyField, EnterController.enterNotinPage);
 
 // 成品扫描入库-入库
 router.put('/enterProduct/scanning/doEnter/:id', Middleware.AuthCheck, EnterController.doEnterProduct);
@@ -869,7 +871,7 @@ router.post('/doDelivery', Middleware.AuthCheck, OutWarehouseController.doDelive
 router.get('/deliveryNote', Middleware.AuthCheck, OutWarehouseController.deliveryNotePage);
 
 // 发货通知单-审核
-router.put('/deliveryNote/doChecked/:id', Middleware.AuthCheck, OutWarehouseController.doDeliveryChecked);
+router.put('/deliveryNote/doChecked/:id/:stcode', Middleware.AuthCheck, OutWarehouseController.doDeliveryChecked);
 
 // 发货通知单-详情 页面
 router.get('/deliveryNote/deatil/:id', Middleware.AuthCheck, OutWarehouseController.deliveryNoteDeatil);
@@ -921,10 +923,8 @@ router.post('/outBred/upload', Middleware.AuthCheck, OutWarehouseController.outB
 router.get('/outBred/deatil/:id', Middleware.AuthCheck, OutWarehouseController.outBredDeatil);
 
 // 可发货订单-审核
-router.put('/outBred/doCheck/:id', Middleware.AuthCheck, OutWarehouseController.doCheckBred);
+router.put('/outBred/doCheck/:id/:stcode', Middleware.AuthCheck, OutWarehouseController.doCheckBred);
 
-// 可发货订单-审核
-router.put('/outBred/doUnCheck/:id', Middleware.AuthCheck, OutWarehouseController.doUnCheckBred);
 
 router.post('/outBred/plateOut', Middleware.AuthCheck, OutWarehouseController.plateOut);
 router.post('/outBred/accessoryOut', Middleware.AuthCheck, OutWarehouseController.accessoryOut);
@@ -1204,8 +1204,17 @@ router.put('/system/timeSet/doSet', Middleware.AuthCheck,SystemController.doSetT
 
 //模板管理-页面
 router.get('/system/template', Middleware.AuthCheck,SystemController.templatePage);
+router.get('/system/template/modify/:type/:id', Middleware.AuthCheck,SystemController.modifyPage);
 
+router.post('/system/template/doCreate', Middleware.AuthCheck, SystemController.templateCreate);
+router.post('/system/template/doModify', Middleware.AuthCheck, SystemController.templateModify);
+router.put('/system/template/doDelete/:id', Middleware.AuthCheck, SystemController.templateDelete);
 
+//测试打印接口
+router.get('/system/printOut/:id', Middleware.AuthCheck,SystemController.printOut);
+
+//包装流水打印接口
+router.get('/system/printPackageLid/:packageLid', Middleware.AuthCheck,SystemController.printPackageLid);
 /*
  * 页面范围: app接口
  * 控制器:   AppServiceController
@@ -1254,6 +1263,7 @@ router.post('/app/doStock',AppServiceController.doStock);
 //备货-备货扫描后，显示的界面
 router.get('/app/stock/list', AppServiceController.getStockList);
 
+router.get('/app/stock/permission', AppServiceController.permission);
 
 
 module.exports = router;

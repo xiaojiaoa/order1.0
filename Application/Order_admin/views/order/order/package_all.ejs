@@ -13,8 +13,9 @@
         <!-- breadcrumb -->
         <ol class="breadcrumb">
             <li>后台管理</li>
-            <li><a href="/orders/package" class="back-url"><i class="fa fa-chevron-left"></i>订单包装</a></li>
+            <li><a href="/orders/package" class="back-url">订单包装</a></li>
             <li>查看所有包装信息</li>
+            <li><a class="back-url" href="javascript:history.go(-1)"> <i class="fa fa-chevron-left"></i>返回</a></li>
         </ol>
         <!-- end breadcrumb -->
 
@@ -128,6 +129,7 @@
                                 <th>包装类型</th>
                                 <th>包装状态</th>
                                 <th>货位编号</th>
+                                <th>操作</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -136,7 +138,7 @@
                             packageAll.result.forEach(function (element, index) { %>
                             <tr>
                                 <td width="4%"><%= index+1 %></td>
-                                <td width="12%"><a href="/order/detail/<%= element.tid %>"><%= element.tid %></a></td>
+                                <td width="12%"><a  <%=  element.orderType ==20  ?  "href=/order/resupply/detail/"+ element.tid :  "href=/order/detail/"+element.tid  %>  ><%= element.tid %></a></a></td>
                                 <td><%= element.packageLid %></td>
                                 <th><%= element.lid %></th>
                                 <th><%= element.batchNumber %></th>
@@ -145,6 +147,9 @@
                                 <td><%= element.packageTypeStr %></td>
                                 <td><%= element.packageStatusStr %></td>
                                 <td><%= element.spaceId %></td>
+                                <td>
+                                    <a class="label label-primary" href="/system/printPackageLid/<%= element.packageLid %>">预览</a>
+                                </td>
                             </tr>
                             <%  })
                             }else{ %>

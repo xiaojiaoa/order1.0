@@ -78,6 +78,13 @@
                                     <div class="form-group">
                                         <label class="col-xs-4 control-label">工厂:</label>
                                         <div class="col-xs-8">
+
+                                            <% var initFtyId = DWY_Helper.getAssistInitFtyId(userFtyId,factoryList);
+                                            if ( !DWY_Helper.hasPermission(Permission.inventory.queryAll.id, permission) ){ %>
+                                            <input class="form-control"  value="<%= DWY_Helper.getAssistValFtyId(userFtyId,factoryList) %>" readonly>
+                                            <input type="hidden" name="ftyId" value="<%= userFtyId %>">
+                                            <% }else{ %>
+
                                             <select class="form-control"  name="ftyId" id="ftyId" >
                                                 <option value="">- 请选择 -</option>
                                                 <%
@@ -90,6 +97,10 @@
                                                 } %>
 
                                             </select>
+                                            <% } %>
+
+
+
                                         </div>
                                     </div>
                                 </div>
@@ -100,7 +111,7 @@
                                             <select class="form-control" name="whseId" id="whseId">
                                                 <option value="">- 请选择 -</option>
                                                 <%
-                                                if(DWY_Helper.isCanLoop(warehouseList)){
+                                                if(DWY_Helper.isCanLoop(warehouseList)&& initFtyId){
                                                 warehouseList.forEach(function (element) { %>
                                                 <option value="<%= element.whseId %>" <%= (DWYRequest.query.whseId == element.whseId )?"selected":"" %> >
                                                     <%= element.name %>
@@ -206,7 +217,7 @@
                                 <td><%= element.spaceId%></td>
                                 <td><%= element.newStock%></td>
                                 <td><%= element.reasonName%></td>
-                                <td><%= DWY_Helper.getLocalDateYMD(element.operateEmp)%></td>
+                                <td><%= DWY_Helper.getLocalDateYMD(element.operateTime)%></td>
                                 <td><%= element.operateEmpName%></td>
                                 <td><%= element.remark%></td>
                             </tr>

@@ -27,26 +27,211 @@
 
         <div class="row">
             <!-- col -->
-            <div class="col-xs-3">
-                <ul class="template-ul">
-                    <li>包装</li>
-                    <li>包装</li>
-                    <li>包装</li>
-                    <li>包装</li>
-                    <li>包装</li>
-                </ul>
+            <div class="col-xs-2">
+                <div class="widget-body">
+
+                    <div class="panel-group smart-accordion-default" id="accordion">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h4 class="panel-title">
+                                    <a data-toggle="collapse" href="#collapseOne">
+                                        <i class="fa fa-lg fa-angle-down pull-right"></i>
+                                        <i class="fa fa-lg fa-angle-up pull-right"></i>
+                                        自定义模板
+                                    </a>
+                                </h4>
+                            </div>
+                            <div id="collapseOne" class="panel-collapse collapse in">
+                                <div class="panel-body no-padding">
+                                    <ul class="template-ul">
+                                        <% var initFtyId = DWY_Helper.getAssistInitFtyId(userFtyId,factoryList);
+                                        if(initFtyId){
+                                         if(DWY_Helper.isCanLoop(freemarkerSelf)){
+                                        freemarkerSelf.forEach(function (element) {
+                                        if(element.stcode == 1){ %>
+                                        <li class="<%= element.id == id?'active':'' %>">
+                                            <a href="/system/template/modify/self/<%= element.id %>"><%= element.name %></a>
+                                        </li>
+                                        <%  }  })
+                                        } else{ %>
+                                        <li>暂无模板</li>
+                                        <% }
+                                        }else{ %>
+                                        <li>无所属工厂，无法操作自定义模板</li>
+                                        <% } %>
+
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h4 class="panel-title">
+                                    <a data-toggle="collapse" href="#collapseTwo">
+                                        <i class="fa fa-lg fa-angle-down pull-right"></i>
+                                        <i class="fa fa-lg fa-angle-up pull-right"></i>
+                                        系统模板
+                                    </a>
+                                </h4>
+                            </div>
+                            <div id="collapseTwo" class="panel-collapse collapse in">
+                                <div class="panel-body no-padding">
+                                    <ul class="template-ul">
+                                        <% if(DWY_Helper.isCanLoop(freemarkerSystem)){
+                                        freemarkerSystem.forEach(function (element) {
+                                        if(element.stcode == 1){ %>
+                                        <li class="<%= element.id == id?'active':'' %>">
+                                            <a href="/system/template/modify/sys/<%= element.id %>"><%= element.name %></a>
+                                        </li>
+                                        <%  } })
+                                        }else{ %>
+                                        <li>暂无模板</li>
+                                        <% } %>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <% if(user.bid == 9999){ %>
+                <a href="/system/template?type=createSys" class="btn btn-primary btn-block margin-top-10">
+                    新建默认模板
+                </a>
+                <% } %>
+
+
+
             </div>
-            <div class="col-xs-8">
-                <form action="/orders/updateDifficultyLevel" method="post">
+
+            <% if(type == 'createSys'){
+            if( !DWYRequest.query.type){ %>
+            <div class="col-xs-8 empty-div"><h1 class="tip">打印模板管理页面<br>请点击左侧栏操作</h1></div>
+            <% }
+            } %>
+
+            <div class="col-xs-8
+                    <% if(type == 'createSys'){
+                            if( !DWYRequest.query.type){ %>
+                            initdisplay-none
+                           <% }
+                        } %>
+                " id="ueditorDIV">
+                <form class="form-horizontal" method="post"
+                        <% if(type == 'createSys'){ %>
+                      action="/system/template/doCreate"
+                        <% } %>
+                        <% if(type == 'modify'){ %>
+                      action="/system/template/doModify"
+                        <% } %>
+                       id="create-store">
                     <!-- 加载编辑器的容器 -->
                     <script id="container" name="content" type="text/plain">这里写你的初始化内容</script>
-                    <input type="submit" value="通过input的submit提交">
-                </form>
 
+                    <div class="col-xs-12 margin-top-10">
+                        <div class="col-xs-8">
+                            <div class="form-group">
+                                <label class="col-xs-2 control-label "><span class="requird"></span>模板类型名称:</label>
+                                <div class="col-xs-10">
+                                    <% if(type == 'createSys'){ %>
+                                    <input class="form-control validate[required]" value="包装模板" name="ftlName" id="ftlName">
+                                    <input class="form-control" value="0" name="ftlId" type="hidden">
+                                    <input class="form-control" value="0" name="ftyId" type="hidden">
+                                     <input class="form-control" value="1" name="stcode" type="hidden">
+                                    <% } %>
+
+                                    <% if(type == 'modify'){ %>
+
+                                    <% if(paramsType == 'sys'){  %>
+                                    <input class="form-control" value="<%= freemarkerInfo.ftlName %>" name="ftlName" <%= user.bid == 9999? '':'readonly'%>>
+                                    <%  }else{ %>
+                                    <input class="form-control" value="<%= freemarkerInfo.ftlName %>" name="ftlName" readonly>
+                                    <% }%>
+
+                                    <input class="form-control" value="<%= freemarkerInfo.id %>" name="id" id="id" type="hidden">
+                                    <input class="form-control" value="<%= freemarkerInfo.ftlId %>" name="ftlId" type="hidden">
+                                    <input class="form-control" value="" name="ftyId" id="ftyId" type="hidden">
+                                    <input class="form-control" value="1" name="stcode" type="hidden">
+                                    <input class="form-control" value="<%= paramsType %>" name="paramsType" type="hidden">
+                                    <% } %>
+
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xs-8">
+                            <div class="form-group">
+                                <label class="col-xs-2 control-label"><span class="requird"></span>模板名称:</label>
+                                <div class="col-xs-10">
+                                    <input class="form-control" value="<%= freemarkerInfo.name %>" name="name">
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="col-xs-12 margin-top-10">
+                        <% if(type == 'createSys'){ %>
+                        <button class="btn btn-primary " type="submit">
+                            <i class="fa fa-save"></i>
+                            保存模板
+                        </button>
+                        <% } %>
+
+                        <% if(type == 'modify'){ %>
+
+                        <!--点击默认模板时-->
+                        <% if(paramsType == 'sys'){ %>
+
+                        <!--有所属工厂才能保存为自定义模板-->
+                        <% if(initFtyId){ %>
+                        <button class="btn btn-primary" id="saveAsSelf">
+                            <i class="fa fa-save"></i>
+                            另存为自定义模板
+                        </button>
+                        <% } %>
+
+                        <!--平台能修改和删除-->
+                        <% if(user.bid == 9999){ %>
+                        <button class="btn btn-primary " type="submit">
+                            <i class="fa fa-save"></i>
+                            保存修改
+                        </button>
+                        <a class="btn btn-danger" id="delete">删除</a>
+                        <% } %>
+
+                        <% } %>
+
+                        <!--点击自定义模板时-->
+                        <% if(paramsType == 'self'){ %>
+                        <button class="btn btn-primary " type="submit">
+                            <i class="fa fa-save"></i>
+                            保存修改
+                        </button>
+                        <a class="btn btn-danger" id="delete">删除</a>
+                        <%  } %>
+
+                        <!--<a class="btn btn-danger"  href="/system/printOut/26" target="_blank">测试打印</a>-->
+                        <% } %>
+
+
+                    </div>
+                </form>
+            </div>
+            <div class="col-xs-2 <%= type == 'createSys' ? 'initdisplay-none' : '' %>" id="fieldDIV">
+                <div class="alert alert-success print-ul">
+                    <h4 class="alert-heading margin-bottom-10">可打印字段</h4>
+                    <ul>
+                        <li>包装号 &nbsp;&nbsp; ${packageId}</li>
+                        <li>包装号 &nbsp;&nbsp; ${packageId}</li>
+                        <li>包装号 &nbsp;&nbsp; ${packageId}</li>
+                        <li>包装号 &nbsp;&nbsp; ${packageId}</li>
+                        <li>包装号 &nbsp;&nbsp; ${packageId}</li>
+                    </ul>
+                </div>
             </div>
 
         </div>
-
 
 
     </div>
@@ -55,19 +240,58 @@
 </div>
 <!-- END MAIN PANEL -->
 
+
 <%- include('../layouts/footer'); %>
 <%- include('../layouts/footer_common_script'); %>
 
 <!-- 配置文件 -->
 <script type="text/javascript" charset="utf-8" src="/asset/ueditor/ueditor/ueditor.config.js"></script>
 <!-- 编辑器源码文件 -->
-<script type="text/javascript" charset="utf-8" src="/asset/ueditor/ueditor/ueditor.all.min.js"> </script>
+<script type="text/javascript" charset="utf-8" src="/asset/ueditor/ueditor/ueditor.all.js"></script>
 
 <script type="text/javascript">
 
     $(document).ready(function () {
+        var form  = $('#create-store');
+        form.validationEngine();
         <!-- 实例化编辑器 -->
         var ue = UE.getEditor('container');
+        if('<%= type %>' == 'modify'){
+            ue.ready(function() {
+                ue.setContent('<%- freemarkerInfo.content %>');
+            });
+        }
+        var ueditorDIV = $('#ueditorDIV');
+        var fieldDIV = $('#fieldDIV');
+
+        var ftyId = $('#ftyId'); //模板类型id,新建默认模板传0
+        var id = $('#id'); //模板类型id,新建默认模板传0
+
+
+        $('#saveAsSelf').click(function (e) {
+            e.preventDefault();
+            form.attr('action','/system/template/doCreate');
+            ftyId.val('<%= userFtyId %>');
+            id.val('');
+            form.submit();
+        })
+        $('#delete').click(function () {
+            layer.confirm('确认删除该模板?', {icon: 3, title: '提示'}, function (index) {
+                $.ajax({
+                    url: '/system/template/doDelete/<%= id %>',
+                    method: 'put',
+                    success: function (data) {
+                        successLayout.hrefTo('/system/template');
+                    },
+                    error: function (response) {
+                        layer.close(index)
+                        errorLayout.normal(response);
+                    }
+                });
+            }, function (index) { layer.close(index) })
+        })
+
+
 
     })
 
