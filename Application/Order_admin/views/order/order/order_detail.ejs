@@ -115,9 +115,8 @@
                                     <form class="form-horizontal" method="post" action="/orders/updateDifficultyLevel">
                                         <div class="col-xs-4">
                                             <select class="form-control" name="difficulty">
-                                                <option value="1">1级</option>
                                                 <% difficultyList.forEach(function (element) { %>
-                                                    <option value="<%= element.id %>" <%= orderInfo.difficulty == element.id ? 'selected': '' %> class="<%= element.id ==1  ? 'display-none': '' %>">
+                                                    <option value="<%= element.id %>" <%= orderInfo.difficulty == element.id ? 'selected': '' %> >
                                                         <%= element.name %>
                                                     </option>
                                                 <% }) %>
