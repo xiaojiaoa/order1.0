@@ -132,6 +132,19 @@ var SystemController = {
             }
         })
     },
+    doClearCache: function (req, res) {
+        request(Base.mergeRequestOptions({
+            method: 'put',
+            url: '/api/clearCache',
+        }, req, res), function (error, response, body) {
+            if (!error && response.statusCode == 201) {
+                Base.handlerSuccess(res, req);
+                res.redirect("/system");
+            } else {
+                Base.handlerError(res, req, error, response, body);
+            }
+        })
+    },
     timeSetPage: function (req, res) {
         res.render('order/system/time')
     },

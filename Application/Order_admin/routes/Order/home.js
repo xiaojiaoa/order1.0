@@ -1197,6 +1197,9 @@ router.put('/orderSpaceinfo/:parentId', Middleware.AuthCheck, SystemController.o
 //获取空间信息二
 router.put('/orderSpaceinfoTwo/:spaceId', Middleware.AuthCheck, SystemController.orderSpaceinfoTwoPage);
 
+//基础数据--清除缓存
+router.get('/api/clearCache', Middleware.AuthCheck, SystemController.doClearCache);
+
 // 预警时间设置
 router.get('/system/timeSet', Middleware.AuthCheck,SystemController.timeSetPage);
 
