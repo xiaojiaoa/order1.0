@@ -30,6 +30,10 @@
                 classDom.find(".save").attr("change",1);
                 classDom.find(".revoke").attr("change",1);
 
+                if(classDom.find(".noData").length>0){
+                    classDom.find(".noData").remove();
+                }
+
                if(key=='subPackageDao'){
                    status02(classDom);
                    $(".desktop-detected *").css("pointer-events","auto");
@@ -45,6 +49,8 @@
                    });
                }
                else{
+
+
                    classDom.find("tbody").append(creFrag(key)).find("input").focus();
 
                    //启用'保存''撤销''输入框' '滚动条'的点击事件
