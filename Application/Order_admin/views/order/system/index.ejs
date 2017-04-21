@@ -419,10 +419,11 @@
         });
     }
     function setFrag(key,arry){
-        if(arry.length==0){
-            $(".basicDataSec").html('<tr><td>暂无数据</td></tr>');
+    /*    if(arry.length==0){
+            $(".basicDataSec").html('<tr class="noData"><td>暂无数据</td></tr>');
         }
-        else if(key=="assistantConfig"){
+        else */
+        if(key=="assistantConfig"){
             var frag="";
             for(var i=0;i<arry.length;i++){
                 frag+="<tr id=" +arry[i].id+" stcode="+arry[i].status+">" +

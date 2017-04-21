@@ -45,7 +45,7 @@
                    });
                }
                else{
-                   classDom.find("tbody").empty().append(creFrag(key)).find("input").focus();
+                   classDom.find("tbody").append(creFrag(key)).find("input").focus();
 
                    //启用'保存''撤销''输入框' '滚动条'的点击事件
                    classDom.find(".save,.revoke,.add-input,.scrollTbody").css("pointer-events","auto");
