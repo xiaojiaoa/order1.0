@@ -816,7 +816,7 @@ var EnterController = require('./Controller/EnterController');
 router.get('/enterMaterial', Middleware.AuthCheck, Middleware.FilterEmptyField, EnterController.enterMaterialPage);
 
 // 原料入库-审核
-router.put('/enterMaterial/doPass/:inId/:purId', Middleware.AuthCheck, EnterController.doPassMaterial);
+router.put('/enterMaterial/doPass/:inId/:purId/:stcode', Middleware.AuthCheck, EnterController.doPassMaterial);
 
 // 原料入库-撤审
 router.put('/enterMaterial/notPass/:id', Middleware.AuthCheck, EnterController.notPassMaterial);

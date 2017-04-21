@@ -51,18 +51,20 @@
                                     <div class="form-group">
                                         <label class="col-xs-4 control-label">工厂:</label>
                                         <div class="col-xs-8">
-                                            <% var initFtyId = DWY_Helper.getAssistInitFtyId(userFtyId,factoryList);
+                                            <% var initFtyId = DWY_Helper.getAssistInitFtyId(userFtyId, factoryList);
                                             if ( !DWY_Helper.hasPermission(Permission.storage.queryAll.id, permission) ){ %>
-                                            <input class="form-control"  value="<%= DWY_Helper.getAssistValFtyId(userFtyId,factoryList) %>" readonly>
+                                            <input class="form-control"
+                                                   value="<%= DWY_Helper.getAssistValFtyId(userFtyId, factoryList) %>"
+                                                   readonly>
                                             <input type="hidden" name="ftyId" value="<%= userFtyId %>">
                                             <% }else{ %>
 
-                                            <select class="form-control"  name="ftyId" id="ftyId">
+                                            <select class="form-control" name="ftyId" id="ftyId">
                                                 <option value="">- 请选择 -</option>
                                                 <%
                                                 if(DWY_Helper.isCanLoop(factoryList)){
                                                 factoryList.forEach(function (element) { %>
-                                                <option value="<%= element.ftyId %>" <%= initFtyId == element.ftyId? 'selected':'' %> >
+                                                <option value="<%= element.ftyId %>" <%= initFtyId == element.ftyId ? 'selected' : '' %> >
                                                     <%= element.name %>
                                                 </option>
                                                 <% })
@@ -154,37 +156,39 @@
                                 <th>入库人</th>
                                 <th>状态</th>
                                 <th>审核人</th>
-                                <th width="80">操作</th>
+                                <th width="140">操作</th>
                             </tr>
                             </thead>
                             <tbody>
-                            <% if(mateList.result.length>0){%>
-                                <% mateList.result.forEach(function (element, index) {%>
-                                    <tr>
-                                        <td width="4%"><%= index+1 %></td>
-                                        <td><a href="/enterMaterial/detail/<%=element.inId %>"><%=element.inId %></a></td>
-                                        <td><%= DWY_Helper.getLocalDate(element.editTime) %></td>
-                                        <td><%=element.ftyName %></td>
-                                        <td><a href="/purchase/orderDetail/<%=element.purId %>"><%=element.purId %></a></td>
-                                        <td><%=element.inName%></td>
-                                        <td><%= DWY_Helper.geOutStatus(element.stcode) %></td>
+                            <% if(mateList.result.length > 0){ %>
+                            <% mateList.result.forEach(function (element, index) { %>
+                            <tr>
+                                <td width="4%"><%= index + 1 %></td>
+                                <td><a href="/enterMaterial/detail/<%= element.inId %>"><%= element.inId %></a></td>
+                                <td><%= DWY_Helper.getLocalDate(element.editTime) %></td>
+                                <td><%= element.ftyName %></td>
+                                <td><a href="/purchase/orderDetail/<%= element.purId %>"><%= element.purId %></a></td>
+                                <td><%= element.inName %></td>
+                                <td><%= DWY_Helper.geOutStatus(element.stcode) %></td>
 
-                                        <td><%=element.reviewName %></td>
-                                        <td width="80">
-                                            <% if(element.stcode == 2 && DWY_Helper.hasPermission(Permission.cargoManages.mateInReview.id, permission)){%>
-                                            <a class="label label-primary checkThis" data-inId="<%=element.inId %>" data-purId="<%=element.purId %>">审核</a>
-                                            <% }%>
-                                        </td>
-                                    </tr>
-                                <%})%>
-                            <% } else {%>
-                                <tr>
-                                    <td colspan="12" class="text-align-center">暂无数据</td>
-                                </tr>
-                            <% }%>
+                                <td><%= element.reviewName %></td>
+                                <td width="140">
+                                    <% if(element.stcode == 2 && DWY_Helper.hasPermission(Permission.cargoManages.mateInReview.id, permission)){ %>
+                                    <a class="label label-primary checkThis" data-inId="<%= element.inId %>"
+                                       data-purId="<%= element.purId %>" data-type="1">审核</a>
+                                    <a class="label label-danger checkThis" data-id="<%= element.inId %>" data-type="2">作废</a>
+                                    <% } %>
+                                </td>
+                            </tr>
+                            <% }) %>
+                            <% } else { %>
+                            <tr>
+                                <td colspan="12" class="text-align-center">暂无数据</td>
+                            </tr>
+                            <% } %>
                             </tbody>
                         </table>
-                            <%- pagination %>
+                        <%- pagination %>
                     </div>
                 </div>
             </div>
@@ -201,36 +205,41 @@
 
 <script type="text/javascript">
 
-    $(document).ready(function () {
+  $(document).ready(function () {
 
-        $("#search-customer").validationEngine();
+    $("#search-customer").validationEngine();
 
-        pageSetUp();
+    pageSetUp();
 
-        $(".fg-date-time-picker").flatpickr(data_time_picker.data_picker); // jQuery
+    $(".fg-date-time-picker").flatpickr(data_time_picker.data_picker); // jQuery
 
-        $(".checkThis").click(function () {
-            var inId = $(this).attr('data-inId');
-            var purId = $(this).attr('data-purId');
+    $(".checkThis").click(function () {
+      var inId = $(this).attr('data-inId');
+      var purId = $(this).attr('data-purId');
 
-            layer.confirm('确定提交审核?', {icon: 3, title: '提示'}, function (index) {
-                $.ajax({
-                    url: '/enterMaterial/doPass/'+inId+'/'+purId,
-                    method: 'put',
-                    success: function (data) {
-                        successLayout.reload();
+      var type = $(this).attr('data-type');
+      var text = type == 1 ? '确定提交审核?' : '确定退回?';
 
-                    },
-                    error: function (response) {
-                        layer.close(index)
-                        errorLayout.normal(response);
+      layer.confirm(text, {icon: 3, title: '提示'}, function (index) {
+        $.ajax({
+          url: '/enterMaterial/doPass/' + inId + '/' + purId+'/'+type,
+          method: 'put',
+          success: function (data) {
+            successLayout.reload();
 
-                    }
-                });
-            }, function (index) { layer.close(index) })
-        })
+          },
+          error: function (response) {
+            layer.close(index)
+            errorLayout.normal(response);
 
+          }
+        });
+      }, function (index) {
+        layer.close(index)
+      })
     })
+
+  })
 
 </script>
 
