@@ -39,7 +39,7 @@ if (process.env.REDIS_SENTINEL_ON) {
     var redis = new Redis({
         sentinels: redisSentinelServer,
         name: process.env.REDIS_SENTINEL_NAME || 'mymaster',
-        password: process.env.REDIS_SENTINEL_PASSWORD || '',
+        password: process.env.REDIS_PASSWORD || '',
     });
     orderSessionConfig.redis = {client: redis};
 }
