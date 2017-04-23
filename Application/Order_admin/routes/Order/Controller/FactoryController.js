@@ -325,7 +325,7 @@ var FactoryController = {
             {url: '/api/whse/factory/list', method: 'GET', resConfig: {keyName: 'factoryList', is_must: true}},
             {url: '/api/whse/warehouse/list/'+ftyId, method: 'GET', resConfig: {keyName: 'warehouseList', is_must: true}},
             {url: '/api/categories/list?parentId=0', method: 'GET', resConfig: {keyName: 'stairCategory', is_must: true}},
-            {url: '/api/assist/list/enabled?key=assistantWarehouseType', method: 'GET', resConfig: {keyName: 'assistantWarehouseType', is_must: true}},
+            {url: '/api/orders/package/packagetype', method: 'GET', resConfig: {keyName: 'assistantWarehouseType', is_must: true}},
         ], function (req, res, resultList) {
             var returnData = Base.mergeData(helper.mergeObject({
                 title: ' ',
