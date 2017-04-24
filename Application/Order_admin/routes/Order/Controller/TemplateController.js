@@ -161,8 +161,7 @@ var TemplateController = {
         var data = req.body;
 
         var formData = helper.mergeObject(data, {file: fs.createReadStream(file.destination + file.filename)});
-      console.log('doSingleUpload111',JSON.stringify(req.body))
-      console.log('doSingleUpload',JSON.stringify(formData))
+
         request(Base.mergeRequestOptions({
             method: 'post',
             host: GlobalConfig.server.Upload.host,
@@ -178,7 +177,6 @@ var TemplateController = {
                 res.status(200).send(_.merge({}, $data, {tmp_path: file.filename}));
 
             } else {
-              console.log('error222',error)
                 Base.handlerError(res, req, error, response, body);
             }
         })
@@ -194,8 +192,6 @@ var TemplateController = {
         var data = req.body;
 
         var formData = helper.mergeObject(data, {file: fs.createReadStream(file.destination + file.filename)});
-      console.log('doSingleUpload111',JSON.stringify(req.body))
-      console.log('doSingleUpload',JSON.stringify(formData))
         request(Base.mergeRequestOptions({
             method: 'post',
             host: GlobalConfig.server.Upload.host,
