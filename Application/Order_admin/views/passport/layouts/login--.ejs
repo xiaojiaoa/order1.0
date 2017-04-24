@@ -37,33 +37,40 @@
     }
 </style>
 
-<div class="row">
-    <div class="col-xs-12 col-sm-12 col-md-7 col-lg-8 hidden-xs hidden-sm">
-        <h1 class="txt-color-red login-header-big">布兰莎 - 全屋定制订单管理系统</h1>
+
+
+
+<div class="row smart-skin-row">
+    <div class="col-xs-12 hidden-xs hidden-sm">
+        <h1 class=" login-header-big smart-skin-h1 text-align-center">
+            <p class="p1"></p>
+            <p class="p2"> 全屋定制订单业务系统</p>
+        </h1>
         <div class="">
 
-            <div class="pull-left login-desc-box-l">
-                <h4 class="paragraph-header">
-                    布兰莎全屋定制为中国衣柜影响力十大品牌,专业定制家具、定制衣柜,提供卧房、书房、客厅、餐厅的全屋家具定制服务。一站式的家居定制,让购买家具省心放心!</h4>
+            <div class="">
+                <h4 class="smart-skin-h4">
+                    布兰莎全屋定制为中国衣柜影响力十大品牌。<br/>
+                    专业定制家具、定制衣柜,提供卧房、书房、客厅、餐厅的全<br/>
+                    屋家具定制服务。<br/>
+                    一站式的家居定制,让购买家具省心放心!</h4>
             </div>
+
 
         </div>
 
-
-    </div>
-    <div class="col-xs-12 col-sm-12 col-md-5 col-lg-4">
-        <div class="well no-padding">
+        <div class="smart-skin-well">
             <form action="/login" id="login-form" class="smart-form client-form" method="post">
-                <header>
-                    登录
-                </header>
+                <!--  <header>
+                      登录
+                  </header>-->
 
                 <fieldset>
 
                     <section>
                         <label class="label">用户名:</label>
                         <label class="input"> <i class="icon-append fa fa-user"></i>
-                            <input type="text" name="userNo" autocomplete="off" value="999900000001" >
+                            <input type="text" name="userNo" autocomplete="off"  >
                             <b class="tooltip tooltip-top-right"><i class="fa fa-user txt-color-teal"></i>
                                 请输入您的用户名</b></label>
                     </section>
@@ -71,7 +78,7 @@
                     <section>
                         <label class="label">密码:</label>
                         <label class="input"> <i class="icon-append fa fa-lock"></i>
-                            <input type="password" name="password" autocomplete="off" value="32294417">
+                            <input type="password" name="password" autocomplete="off" >
                             <b class="tooltip tooltip-top-right"><i class="fa fa-lock txt-color-teal"></i> 请输入密码</b>
                         </label>
                     </section>
@@ -102,19 +109,15 @@
                     <!--<i></i>保持我的登录状态</label>-->
                     <!--</section>-->
                 </fieldset>
-                <footer>
-                    <button type="submit" class="btn btn-primary">
-                        登录
-                    </button>
-                </footer>
+                <button type="submit" class="btn smart-skin-btn">
+                    登录
+                </button>
             </form>
 
         </div>
-
-
     </div>
-</div>
 
+</div>
 
 <%- include('layouts/footer_common_script'); %>
 
