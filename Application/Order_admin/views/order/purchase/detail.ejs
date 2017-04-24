@@ -163,7 +163,12 @@
                             <tr class="">
                                 <td>
                                     <label class="checkbox-inline">
+                                        <%
+                                        if(element.stcode<30){%>
                                         <input type="checkbox" class="checkbox" name="roles" value="<%= element.id %>" stcode="<%= element.stcode %>" />
+                                       <% }else{%>
+                                        <input type="checkbox" class="checkbox" name="roles" value="<%= element.id %>" stcode="<%= element.stcode %>" disabled="disabled" />
+                                        <%}%>
                                         <span><%= index+1 %></span>
                                     </label>
                                 </td>
