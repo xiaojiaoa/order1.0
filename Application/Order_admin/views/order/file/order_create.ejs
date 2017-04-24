@@ -230,7 +230,8 @@
                 var lid = $("[name=lid]");
                 var tid = $("[name=tid]");
                 var formData = new FormData();
-
+              console.log('lid',lid.val())
+              console.log('tid',tid.val())
                 formData.append('file_name', _this.prop('files')[0])
                 formData.append('lid', lid.val())
                 formData.append('tid', tid.val())
@@ -239,7 +240,7 @@
                 label.html('上传中 <i class="fa fa-circle-o-notch fa-spin">');
                 label.attr('disabled', true);
 
-
+              console.log('createOrderFilePage',formData)
                 $.ajax({
                     url: '/template/upload/single',
                     data: formData,
