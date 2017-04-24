@@ -14,6 +14,10 @@ var storage = multer.diskStorage({
     destination: function (req, file, cb) {
         cb(null, __dirname + '/../../public/uploads/')
     },
+    // filename: function (req, file, cb) {
+    //     var fileFormat = (file.originalname).split(".");
+    //     cb(null, file.fieldname + '-' + Date.now() + "." + fileFormat[fileFormat.length - 1]);
+    // },
     filename: function (req, file, cb) {
         cb(null, file.originalname.toLowerCase())
     }
@@ -906,6 +910,9 @@ router.put('/outProduct/doChecked/:id', Middleware.AuthCheck, OutWarehouseContro
 // 成品出库详情页面
 router.get('/outProduct/deatil/:id', Middleware.AuthCheck, OutWarehouseController.outProductDeatil);
 
+// 成品出库详情页面-出库
+router.post('/outProduct/doCargoout', Middleware.AuthCheck, OutWarehouseController.outProducDoCargoout);
+
 // 成品备货页面
 router.get('/productStock', Middleware.AuthCheck, OutWarehouseController.productStock);
 
@@ -992,9 +999,10 @@ var TemplateController = require('./Controller/TemplateController');
 router.get('/template', TemplateController.createPage);
 
 //单文件上传
-router.post('/template/upload/single', [upload.single('file_name'), Middleware.FilterEmptyField], TemplateController.doSingleUpload);
+router.post('/template/upload/single/:type', [upload.single('file_name'), Middleware.FilterEmptyField], TemplateController.doSingleUpload);
+
 //共享文件上传路径
-router.post('/template/upload/single', [upload.single('file_name'), Middleware.FilterEmptyField], TemplateController.doSingleUpload);
+// router.post('/template/upload/file/share', [upload.single('file_name'), Middleware.FilterEmptyField], TemplateController.doSingleUpload);
 
 //图片上传
 router.post('/template/upload/img', [upload.single('file_name'), Middleware.FilterEmptyField], TemplateController.doImgUpload);

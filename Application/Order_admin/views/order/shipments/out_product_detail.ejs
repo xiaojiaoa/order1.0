@@ -211,42 +211,25 @@
 
       layer.confirm('确定出库所选包装?', {icon: 3, title: '提示'}, function (index) {
         $.ajax({
-          url: '/app/doCargoout',
+          url: '/outProduct/doCargoout',
           method: 'post',
           data: {
             tid: '<%= prodsInfo.tid %>',
             pakgId: pakgs
           },
-          success: function (data) {
-            console.log(data)
-            if (data.code == 1001) {
+          success: function () {
               successLayout.reload();
-            } else {
-              layer.close(index)
-              var response = {
-                responseText: JSON.stringify(data)
-              };
-              errorLayout.normal(response);
-            }
-//                        successLayout.hrefTo('/outProduct/canSend');
           },
           error: function (response) {
             layer.close(index)
             errorLayout.normal(response);
-
           }
         });
       }, function (index) {
         layer.close(index)
       })
 
-
-      console.log(pakgs);
-
     })
-
-
-
   })
 
 </script>

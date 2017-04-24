@@ -146,7 +146,8 @@ var EmployeeController = {
         Base.multiDataRequest(req, res, [
             {url: employeesUrl+cid, method: 'GET', resConfig: {keyName: 'employeesInfo', is_must: true}},
             {url: '/api/'+type+'/departments/'+bid, method: 'GET', resConfig: {keyName: 'departmentsInfo', is_must: true}},
-            {url: '/api/roles/'+bid+'?scope='+scope, method: 'GET', resConfig: {keyName: 'rolesInfo', is_must: true}},
+            // {url: '/api/roles/'+bid+'?scope='+scope, method: 'GET', resConfig: {keyName: 'rolesInfo', is_must: true}},
+            {url: '/api/roles/current/'+bid, method: 'GET', resConfig: {keyName: 'rolesInfo', is_must: true}},
             {url: '/api/assist/education', method: 'GET', resConfig: {keyName: 'educationInfo', is_must: true}},
         ], function (req, res, resultList) {
 
