@@ -137,16 +137,6 @@
                                     <div class="form-group">
                                         <label class="col-xs-4 control-label">所属机构:</label>
                                         <div class="col-xs-8">
-                                            <% if(user.bid == 9999){ %>
-                                            <select class="form-control" name="bid">
-                                                <option value="">- 请选择 -</option>
-                                                <%  factoryList.forEach(function (element) {  %>
-                                                <option value="<%= element.id %>" <%= DWY_last_request_param.bid ==element.id ?'selected':'' %>>
-                                                    <%= element.name %>
-                                                </option>
-                                                <% }) %>
-                                            </select>
-                                            <% }else{%>
                                             <select class="form-control" name="bid">
                                                 <%  factoryList.forEach(function (element) {
                                                     if(element.id == user.bid){ %>
@@ -156,6 +146,7 @@
                                                 <% } }) %>
                                             </select>
                                             <% } %>
+
 
                                         </div>
                                     </div>

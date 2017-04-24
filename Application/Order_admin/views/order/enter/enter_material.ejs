@@ -106,6 +106,9 @@
                                                 <option value="4" <%= (DWYRequest.query.stcode == 4) ? "selected" : "" %> >
                                                     已审核
                                                 </option>
+                                                <option value="9" <%= (DWYRequest.query.stcode == 9) ? "selected" : "" %> >
+                                                    作废
+                                                </option>
                                             </select>
 
                                         </div>
@@ -169,14 +172,15 @@
                                 <td><%= element.ftyName %></td>
                                 <td><a href="/purchase/orderDetail/<%= element.purId %>"><%= element.purId %></a></td>
                                 <td><%= element.inName %></td>
-                                <td><%= DWY_Helper.geOutStatus(element.stcode) %></td>
+                                <td><%= element.stcodeName %></td>
 
                                 <td><%= element.reviewName %></td>
                                 <td width="140">
                                     <% if(element.stcode == 2 && DWY_Helper.hasPermission(Permission.cargoManages.mateInReview.id, permission)){ %>
                                     <a class="label label-primary checkThis" data-inId="<%= element.inId %>"
                                        data-purId="<%= element.purId %>" data-type="1">审核</a>
-                                    <a class="label label-danger checkThis" data-id="<%= element.inId %>" data-type="2">作废</a>
+                                    <a class="label label-danger checkThis" data-inId="<%= element.inId %>"
+                                       data-purId="<%= element.purId %>" data-type="2">作废</a>
                                     <% } %>
                                 </td>
                             </tr>

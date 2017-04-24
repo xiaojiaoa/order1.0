@@ -40,6 +40,7 @@ var FileController = {
         var ordType = req.params.type;
         var tid = req.params.tid;
         var stcode = req.params.stcode;
+
         Base.multiDataRequest(req, res, [
                 {url: '/api/assist/orderfile/type?type='+stcode, method: 'GET', resConfig: {keyName: 'fileTypeInfo', is_must: true}},
                 {url: '/api/order/file/'+ lid+"?ordType="+ordType+"&tid="+tid, method: 'GET', resConfig: {keyName: 'fileInfo', is_must: false}}

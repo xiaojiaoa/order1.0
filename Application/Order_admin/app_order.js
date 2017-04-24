@@ -13,7 +13,7 @@ var orderSessionConfig = require('./routes/Order/config/session');
 
 var app = express();
 
-if (process.env.REDIS_SENTINEL_ON) {
+if (process.env.REDIS_SENTINEL_ON == 'ON') {
     var Redis = require('ioredis');
 
     var redisSentinelServer = [];
@@ -38,7 +38,8 @@ if (process.env.REDIS_SENTINEL_ON) {
 
     var redis = new Redis({
         sentinels: redisSentinelServer,
-        name: process.env.REDIS_SENTINEL_NAME || 'mymaster'
+        name: process.env.REDIS_SENTINEL_NAME || 'mymaster',
+        password: process.env.REDIS_PASSWORD || '',
     });
     orderSessionConfig.redis = {client: redis};
 }
