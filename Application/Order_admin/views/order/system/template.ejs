@@ -129,13 +129,13 @@
                     <!-- 加载编辑器的容器 -->
                     <script id="container" name="content" type="text/plain">这里写你的初始化内容</script>
 
-                    <div class="col-xs-12 margin-top-10">
+                    <div class="margin-top-10">
                         <div class="col-xs-8">
                             <div class="form-group">
                                 <label class="col-xs-2 control-label "><span class="requird"></span>模板类型名称:</label>
                                 <div class="col-xs-10">
                                     <% if(type == 'createSys'){ %>
-                                    <input class="form-control validate[required]" value="包装模板" name="ftlName" id="ftlName">
+                                    <input class="form-control validate[required]" value="" name="ftlName" id="ftlName">
                                     <input class="form-control" value="0" name="ftlId" type="hidden">
                                     <input class="form-control" value="0" name="ftyId" type="hidden">
                                      <input class="form-control" value="1" name="stcode" type="hidden">
@@ -144,7 +144,7 @@
                                     <% if(type == 'modify'){ %>
 
                                     <% if(paramsType == 'sys'){  %>
-                                    <input class="form-control" value="<%= freemarkerInfo.ftlName %>" name="ftlName" <%= user.bid == 9999? '':'readonly'%>>
+                                    <input class="form-control validate[required]" value="<%= freemarkerInfo.ftlName %>" name="ftlName" <%= user.bid == 9999? '':'readonly'%>>
                                     <%  }else{ %>
                                     <input class="form-control" value="<%= freemarkerInfo.ftlName %>" name="ftlName" readonly>
                                     <% }%>
@@ -164,7 +164,7 @@
                             <div class="form-group">
                                 <label class="col-xs-2 control-label"><span class="requird"></span>模板名称:</label>
                                 <div class="col-xs-10">
-                                    <input class="form-control" value="<%= freemarkerInfo.name %>" name="name">
+                                    <input class="form-control validate[required]" value="<%= freemarkerInfo.name %>" name="name">
                                 </div>
                             </div>
                         </div>
@@ -253,7 +253,7 @@
 
     $(document).ready(function () {
         var form  = $('#create-store');
-        form.validationEngine();
+
         <!-- 实例化编辑器 -->
         var ue = UE.getEditor('container');
         if('<%= type %>' == 'modify'){
@@ -261,6 +261,9 @@
                 ue.setContent('<%- freemarkerInfo.content %>');
             });
         }
+
+      form.validationEngine();
+
         var ueditorDIV = $('#ueditorDIV');
         var fieldDIV = $('#fieldDIV');
 

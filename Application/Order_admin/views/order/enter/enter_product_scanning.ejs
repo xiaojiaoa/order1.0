@@ -146,13 +146,13 @@
                         <div class="form-group">
                             <label class="col-xs-3 control-label"><span class="requird"></span> 工厂:</label>
                             <div class="col-xs-9">
-                                <select class="form-control ftyId validate[required]" name="ftyId" id="ftyId" hidden
-                                        <% if( !DWY_Helper.hasPermission(Permission.storage.queryAll.id, permission) ){ %>
-                                        disabled
-                                        <% } %>
-                                >
-                                    <option value="">- 工厂 -</option>
-                                </select>
+                                <!--<select class="form-control ftyId validate[required]" disabled>-->
+                                    <!--<option value="">- 工厂 -</option>-->
+                                <!--</select>-->
+                                <input class="form-control"
+                                       value="<%= DWY_Helper.getAssistValFtyId(cargoinList.ftyId, factoryList) %>"
+                                       readonly>
+                                <input type="hidden" name="ftyId" value="<%= cargoinList.ftyId %>">
                             </div>
                         </div>
                     </div>

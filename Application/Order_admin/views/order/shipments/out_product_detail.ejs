@@ -41,7 +41,8 @@
                                 <td width="12%">出库单号</td>
                                 <td width="21%"><%= prodsInfo.id %></td>
                                 <td width="12%">订单号</td>
-                                <td colspan="3"><a href="/order/detail/<%= prodsInfo.tid %>"><%= prodsInfo.tid %></a></td>
+                                <td colspan="3"><a href="/order/detail/<%= prodsInfo.tid %>"><%= prodsInfo.tid %></a>
+                                </td>
                             </tr>
                             <tr>
                                 <td>出库类型</td>
@@ -81,6 +82,10 @@
                     <h6>
                         成品出库清单
 
+                        <% if( DWY_Helper.hasPermission(Permission.cargoManages.prodOut.id, permission)){ %>
+                        <a class="label label-primary" id="checkThis">出库</a>
+                        <input type="hidden" class="" id="checkedValue">
+                        <% } %>
                     </h6>
 
                     <hr class="simple">
@@ -94,7 +99,14 @@
                         <table class="table table-bordered table-striped">
                             <thead>
                             <tr>
-                                <th>序号</th>
+                                <th width="80px">
+                                    <label class="checkbox-inline">
+                                        <input type="checkbox" class="checkbox"
+                                               id="checkAll">
+                                        <span>&nbsp;</span>
+                                    </label>
+                                    序号
+                                </th>
                                 <th>货位号</th>
                                 <th>包装序号</th>
                                 <th>包装名称</th>
@@ -107,15 +119,22 @@
                                 <th>出库时间</th>
                                 <th>扫描人</th>
                                 <th>备注</th>
-                                <th>操作</th>
                             </tr>
                             </thead>
                             <tbody>
                             <% if(DWY_Helper.isCanLoop(prodsInfo.page.result)){
-                            prodsInfo.page.result.forEach(function (element, index) {  %>
+                            prodsInfo.page.result.forEach(function (element, index) { %>
                             <tr>
-                                <td><%= ++index %></td>
-                                <td><a href="/cargospace/cargospace/detail/<%= element.spaceId %>"><%= element.spaceId %></a></td>
+                                <td>
+                                    <label class="checkbox-inline">
+                                        <input type="checkbox" class="checkbox"
+                                               name="pakgs" value="<%= element.pakgId %>" <%= element.stcode == 3? '':'disabled'%> >
+                                        <span><%= index + 1 %></span>
+                                    </label>
+                                </td>
+                                <td>
+                                    <a href="/cargospace/cargospace/detail/<%= element.spaceId %>"><%= element.spaceId %></a>
+                                </td>
                                 <td><%= element.pakgId %></td>
                                 <td><%= element.pakgName %></td>
                                 <td><%= element.pakgType %></td>
@@ -127,15 +146,10 @@
                                 <td><%= DWY_Helper.getLocalDate(element.outTime) %></td>
                                 <td><%= element.outEmp %></td>
                                 <td><%= element.remark %></td>
-                                <td>
-                                    <% if(element.stcode == 3 && DWY_Helper.hasPermission(Permission.cargoManages.prodOut.id, permission)){ %>
-                                    <a class="label label-primary checkThis" data-pakgid="<%= element.pakgId %>">出库</a>
-                                    <% } %>
 
-                                </td>
                             </tr>
-                            <%   })
-                            }else{  %>
+                            <% })
+                            }else{ %>
                             <tr>
                                 <td colspan="11" class="text-align-center">暂无数据</td>
                             </tr>
@@ -163,41 +177,77 @@
 
 <script type="text/javascript">
 
-    $(document).ready(function () {
+  $(document).ready(function () {
 
-        $(".checkThis").click(function () {
-            var pakgId = $(this).attr('data-pakgid');
-            layer.confirm('确定出库该包装?', {icon: 3, title: '提示'}, function (index) {
-                $.ajax({
-                    url: '/app/doCargoout',
-                    method: 'post',
-                    data: {
-                        tid:'<%= prodsInfo.tid %>',
-                        pakgId:pakgId
-                    },
-                    success: function (data) {
-                        console.log(data)
-                        if(data.code == 1001){
-                            successLayout.reload();
-                        }else{
-                            layer.close(index)
-                            var response = {
-                                responseText:JSON.stringify(data)
-                            };
-                            errorLayout.normal(response);
-                        }
+    var checkedValue = $('#checkedValue');
+    $("#checkAll").change(function () {
+      if ($(this).is(":checked")) {
+        $(":checkbox").prop('checked', true);
+        $("input[name='pakgs']:checked").each(function (i) {
+          checkedValue.addClass(this.value + ',')
+        });
+      } else {
+        $(":checkbox").prop('checked', false);
+        checkedValue.removeClass()
+      }
+    })
+    $("input[name='pakgs']").change(function () {
+      if ($(this).is(':checked')) {
+        checkedValue.addClass(this.value + ',')
+      } else {
+        checkedValue.removeClass(this.value + ',')
+      }
+    });
+
+    $('#checkThis').click(function () {
+      var pakgs = checkedValue.attr('class');
+      pakgs = pakgs.substring(0,pakgs.length-1);
+      pakgs = pakgs.replace(/\s/g,"");
+
+      if(!pakgs){
+        layer.msg('请先选择订单', {icon: 2, time: 2000});
+        return;
+      }
+
+      layer.confirm('确定出库所选包装?', {icon: 3, title: '提示'}, function (index) {
+        $.ajax({
+          url: '/app/doCargoout',
+          method: 'post',
+          data: {
+            tid: '<%= prodsInfo.tid %>',
+            pakgId: pakgs
+          },
+          success: function (data) {
+            console.log(data)
+            if (data.code == 1001) {
+              successLayout.reload();
+            } else {
+              layer.close(index)
+              var response = {
+                responseText: JSON.stringify(data)
+              };
+              errorLayout.normal(response);
+            }
 //                        successLayout.hrefTo('/outProduct/canSend');
-                    },
-                    error: function (response) {
-                        layer.close(index)
-                        errorLayout.normal(response);
+          },
+          error: function (response) {
+            layer.close(index)
+            errorLayout.normal(response);
 
-                    }
-                });
-            }, function (index) { layer.close(index) })
-        })
+          }
+        });
+      }, function (index) {
+        layer.close(index)
+      })
+
+
+      console.log(pakgs);
 
     })
+
+
+
+  })
 
 </script>
 
