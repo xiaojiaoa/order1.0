@@ -166,7 +166,7 @@ var TemplateController = {
             method: 'post',
             host: GlobalConfig.server.Upload.host,
             port: GlobalConfig.server.Upload.port,
-            url: '/api/statics/img',
+            url: '/api/statics/file/card',
             formData: formData
         }, req, res), function (error, response, body) {
             if (!error && response.statusCode == 200) {
@@ -183,7 +183,23 @@ var TemplateController = {
     },
 
     doSingleUpload: function (req, res) {
+        var type = req.params.type;
+        var ajaxUrl = '';
 
+        switch (type){
+            case 'share':
+                ajaxUrl = '/api/statics/file/share';
+                break;
+            case 'materiel':
+                ajaxUrl = '/api/statics/file/materiel';
+                break;
+            case 'order':
+                ajaxUrl = '/api/statics/file/order';
+                break;
+            case 'temporary':
+                ajaxUrl = '/api/statics/file/temporary';
+                break;
+        }
 
         //请求文件
         var file = req.file;
@@ -196,7 +212,7 @@ var TemplateController = {
             method: 'post',
             host: GlobalConfig.server.Upload.host,
             port: GlobalConfig.server.Upload.port,
-            url: '/api/statics/file',
+            url: ajaxUrl,
             formData: formData
         }, req, res), function (error, response, body) {
             if (!error && response.statusCode == 200) {

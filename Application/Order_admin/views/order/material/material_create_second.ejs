@@ -170,12 +170,8 @@
                                             <input class="upimg-input" placeholder="请上传图片"
                                                    data-errormessage-value-missing="请上传图片" readonly >
                                         </p>
-                                      <!--  <p id="idPhotoTwoName">
-                                            <input class="upimg-input validate[required]" placeholder="请上传图片2"
-                                                   data-errormessage-value-missing="请上传图片2" readonly>
-                                        </p>-->
+
                                         <input type="hidden" name="image" id="idPhotoOne" value="">
-                                    <!--    <input type="hidden" name="image" id="idPhotoTwo" value="">-->
                                     </div>
 
                                 </div>
@@ -293,7 +289,7 @@
                             successLayout.hrefTo("/materialManage");
                         },
                         error: function (response) {
-                            layer.close(index)
+//                            layer.close(index)
                             errorLayout.normal(response);
                         }
                     })
@@ -329,14 +325,6 @@
         });
 
         //上传图片
-        DWY_area.init({});
-
-        var idPhotoNum = 1;
-        var idPhotoOneName = $("#idPhotoOneName");
-        var idPhotoTwoName = $("#idPhotoTwoName");
-        var idPhotoOne = $("#idPhotoOne");
-        var idPhotoTwo = $("#idPhotoTwo");
-
         $('#dwy_file_upload').on({
             change: function (e) {
                 var _this = $(this);
@@ -344,34 +332,17 @@
 
                 var formData = new FormData();
                 formData.append('file_name', _this.prop('files')[0])
-
                 $.ajax({
-                    url: '/template/upload/img',
+                    url: '/template/upload/single/materiel',
                     data: formData,
                     type: 'POST',
                     processData: false, // 不处理发送的数据，因为data值是Formdata对象，不需要对数据做处理
                     contentType: false, // 不设置Content-type请求头
                     success: function (data) {
+                        console.log(data)
                         if (data.code == 200) {
-                            if(!idPhotoOne.val()){
-                                idPhotoOneFuc(data);
-                                label.html('上传成功 <i class="fa fa-check">');
-                                return;
-                            }
-                            if(!idPhotoTwo.val()){
-                                idPhotoTwoFuc(data);
-                                label.html('上传成功 <i class="fa fa-check">');
-                                return;
-                            }
-                            switch(idPhotoNum%2){
-                                case 1:
-                                    idPhotoOneFuc(data);
-                                    break;
-                                case 0:
-                                    idPhotoTwoFuc(data);
-                                    break;
-                            }
-                            idPhotoNum++;
+                            $("#idPhotoOne").val(data.data.url);
+                            $("#idPhotoOneName").html('<a  class="fancybox dwy_image" href="/uploads/'+data.data.name+'" data-fancybox-group="gallery" title="'+data.data.name+'">'+data.data.name+'</a>')
                             label.html('上传成功 <i class="fa fa-check">');
                         } else {
                             label.html('上传失败 <i class="fa fa-times">');
@@ -384,16 +355,7 @@
             }
         })
 
-        function idPhotoOneFuc(data) {
-            idPhotoOne.val(data.data.url);
-            idPhotoOneName.html('<a  class="fancybox dwy_image" href="/uploads/'+data.data.name+'" data-fancybox-group="gallery" title="'+data.data.name+'">'+data.data.name+'</a>')
 
-        }
-        function idPhotoTwoFuc(data) {
-            idPhotoTwo.val(data.data.url);
-            idPhotoTwoName.html('<a  class="fancybox dwy_image" href="/uploads/'+data.data.name+'" data-fancybox-group="gallery" title="'+data.data.name+'">'+data.data.name+'</a>')
-
-        }
 
         //图片浏览
         $('.fancybox').fancybox();
