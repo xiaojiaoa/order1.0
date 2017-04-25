@@ -662,7 +662,7 @@ $(document).ready(function () {
         var _opt = $.extend(opt, {
             success: function (data, textStatus, jqXHR) {
                 //alert('重写success事件');
-                alert(666666)
+                //alert(666666)
                 // if (data.status == '408') {
                 //     location.href = '/service/login/LogoutForWeb.jsp';
                 //     return;
