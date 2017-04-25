@@ -1109,3 +1109,13 @@ table > tbody > tr > td a.label:first-child {
         padding: 8px 10px;
     }
 }
+
+
+.btn.disabled, .btn[disabled], .label.disabled {
+    cursor: not-allowed;
+    pointer-events: none;
+    opacity: .65;
+    filter: alpha(opacity=65);
+    -webkit-box-shadow: none;
+    box-shadow: none;
+}
