@@ -120,11 +120,11 @@
                                 <div class="col-xs-4">
                                     <div class="pull-left padding-right-10">
                                         <p id="idPhotoOneName">
-                                            <a  class="fancybox dwy_image" href="<%= DWY_GLOBAL.Static + "/"+ employeesInfo.idPhotoOne %>"
+                                            <a  class="fancybox dwy_image" href="<%= DWY_GLOBAL.Static + "/preview?url="+ employeesInfo.idPhotoOne %>"
                                                 data-fancybox-group="gallery" title="身份证照片1">身份证照片1</a>
                                         </p>
                                         <p id="idPhotoTwoName">
-                                            <a  class="fancybox dwy_image" href="<%= DWY_GLOBAL.Static + "/"+ employeesInfo.idPhotoTwo %>"
+                                            <a  class="fancybox dwy_image" href="<%= DWY_GLOBAL.Static + "/preview?url="+ employeesInfo.idPhotoTwo %>"
                                                 data-fancybox-group="gallery" title="身份证照片2">身份证照片2</a>
                                         </p>
 
@@ -491,16 +491,14 @@
 
         function idPhotoOneFuc(data) {
             idPhotoOne.val(data.data.url);
-            idPhotoOneName.html('<a  class="fancybox dwy_image" href="/uploads/'
-                + data.data.name + '" data-fancybox-group="gallery" title="' + data.data.name + '">'
+            idPhotoOneName.html('<a  class="fancybox dwy_image" href="<%= DWY_GLOBAL.Static %>/preview?url=' + data.data.url + '" data-fancybox-group="gallery" title="' + data.data.name + '">'
                 + data.data.name + '</a>')
 
         }
 
         function idPhotoTwoFuc(data) {
             idPhotoTwo.val(data.data.url);
-            idPhotoTwoName.html('<a  class="fancybox dwy_image" href="/uploads/'
-                + data.data.name + '" data-fancybox-group="gallery" title="' + data.data.name + '">'
+            idPhotoTwoName.html('<a  class="fancybox dwy_image" href="<%= DWY_GLOBAL.Static %>/preview?url=' + data.data.url + '" data-fancybox-group="gallery" title="' + data.data.name + '">'
                 + data.data.name + '</a>')
 //            idPhotoTwoName.text(data.data.name);
 //            idPhotoTwoName.attr("href","/uploads/"+data.data.name);

@@ -463,12 +463,12 @@
 
         function idPhotoOneFuc(data) {
             idPhotoOne.val(data.data.url);
-            idPhotoOneName.html('<a  class="fancybox dwy_image" href="/uploads/'+data.data.name+'" data-fancybox-group="gallery" title="'+data.data.name+'">'+data.data.name+'</a>')
+            idPhotoOneName.html('<a  class="fancybox dwy_image" href="<%= DWY_GLOBAL.Static %>/preview?url=' + data.data.url + '" data-fancybox-group="gallery" title="'+data.data.name+'">'+data.data.name+'</a>')
 
         }
         function idPhotoTwoFuc(data) {
             idPhotoTwo.val(data.data.url);
-            idPhotoTwoName.html('<a  class="fancybox dwy_image" href="/uploads/'+data.data.name+'" data-fancybox-group="gallery" title="'+data.data.name+'">'+data.data.name+'</a>')
+            idPhotoTwoName.html('<a  class="fancybox dwy_image" href="<%= DWY_GLOBAL.Static %>/preview?url=' + data.data.url + '" data-fancybox-group="gallery" title="'+data.data.name+'">'+data.data.name+'</a>')
 
         }
 

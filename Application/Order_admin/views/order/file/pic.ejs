@@ -46,10 +46,10 @@
                                 <%
                                 picInfo.forEach(function (element) { %>
                                 <div class="col-xs-3 dwy-image-layer"><a class="fancybox dwy_image"
-                                                         href="<%= DWY_GLOBAL.Static + "/"+ element.savePath %>"
+                                                         href="<%= DWY_GLOBAL.Static + "/preview?url="+ element.savePath %>"
                                                          data-fancybox-group="gallery"
                                                          title="大王椰"><img
-                                                src="<%= DWY_GLOBAL.Static + "/"+ element.savePath %>"
+                                                src="<%= DWY_GLOBAL.Static + "/preview?url="+ element.savePath %>"
                                                 alt=""/></a></div>
                                 <% }) %>
 

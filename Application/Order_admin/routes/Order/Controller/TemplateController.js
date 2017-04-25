@@ -174,11 +174,14 @@ var TemplateController = {
 
                 var $data = JSON.parse(body);
 
-                res.status(200).send(_.merge({}, $data, {tmp_path: file.filename}));
+                // res.status(200).send(_.merge({}, $data, {tmp_path: file.filename}));
 
             } else {
                 Base.handlerError(res, req, error, response, body);
             }
+            fs.unlink(file.destination + file.filename, function () {
+                res.status(200).send(_.merge({}, $data, {tmp_path: file.filename}));
+            });
         })
     },
 
@@ -220,13 +223,14 @@ var TemplateController = {
 
                 var $data = JSON.parse(body);
 
-                fs.unlink(file.destination + file.filename, function () {
-                    res.status(200).send(_.merge({}, $data, {tmp_path: file.filename}));
-                });
+
 
             } else {
                 Base.handlerError(res, req, error, response, body);
             }
+            fs.unlink(file.destination + file.filename, function () {
+                res.status(200).send(_.merge({}, $data, {tmp_path: file.filename}));
+            });
         })
     },
 

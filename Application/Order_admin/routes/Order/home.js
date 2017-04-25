@@ -172,7 +172,7 @@ var limiter = new RateLimit({
         // }
     },
     handler: function (req, res, next) {
-        // res.status(500).end('请勿重复提交数据');
+        res.sendStatus(304);
         // res.redirect('/noticeInfo');
         // next();
         // res.format({
@@ -185,7 +185,7 @@ var limiter = new RateLimit({
 });
 
 
-router.use(limiter);
+// router.use(limiter);
 //  apply to all requests
 // app.use(limiter);
 
@@ -1188,7 +1188,7 @@ router.put('/networkBook/doClose/:measureId', Middleware.AuthCheck, NetworkBookC
 var InformationController = require('./Controller/InformationController');
 
 //公告信息详情页面
-router.get('/noticeInfo', Middleware.AuthCheck,Middleware.FilterEmptyField,InformationController.noticeInfoPage);
+router.get('/noticeInfo', Middleware.AuthCheck,Middleware.FilterEmptyField,limiter,InformationController.noticeInfoPage);
 
 //公告信息-新建
 router.post('/noticeInfo/doCreate', Middleware.AuthCheck,Middleware.FilterEmptyField,InformationController.noticeDoCreate);

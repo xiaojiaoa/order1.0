@@ -342,7 +342,7 @@
                         console.log(data)
                         if (data.code == 200) {
                             $("#idPhotoOne").val(data.data.url);
-                            $("#idPhotoOneName").html('<a  class="fancybox dwy_image" href="/uploads/'+data.data.name+'" data-fancybox-group="gallery" title="'+data.data.name+'">'+data.data.name+'</a>')
+                            $("#idPhotoOneName").html('<a  class="fancybox dwy_image" href="<%= DWY_GLOBAL.Static %>/preview?url=' + data.data.url + '" data-fancybox-group="gallery" title="'+data.data.name+'">'+data.data.name+'</a>')
                             label.html('上传成功 <i class="fa fa-check">');
                         } else {
                             label.html('上传失败 <i class="fa fa-times">');
