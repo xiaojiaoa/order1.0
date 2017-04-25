@@ -145,6 +145,11 @@
                     data.levelType=3
                 }
             }
+            if(key=="assistantMaterialUnit"){
+                if(level=="level-1"){
+                    data.parentId=0
+                }
+            }
 
             //新建--保存
             if( classDom.find(".save").attr('change')==1){

@@ -62,7 +62,7 @@ var SystemController = {
         })
     },
     doCreate: function (req, res) {
-        //console.log( "新建",req.body);
+        console.log( "新建",req.body);
         request(Base.mergeRequestOptions({
             method: 'post',
             url: '/api/assist',
