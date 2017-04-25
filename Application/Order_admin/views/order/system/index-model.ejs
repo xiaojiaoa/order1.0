@@ -459,7 +459,7 @@
             }
             else{
                 classDom.find('.open-this').hide();
-                if(classDom.find(".save").attr("change")==0){
+                if(classDom.find(".save").attr("change")){
                     classDom.find('.modify').hide();
                 }
                 else{
@@ -569,8 +569,8 @@
             }
             else  if(key=="assistantReviewReson"){
                 string="<tr class='add-input'>" +
-                    "<td><input class='border-0 text-align-center' type='text' value='' name='name'/></td>" +
-                    "<td><input class='border-0 text-align-center' type='text' value='' name='reasonType'/></td>" +
+                    "<td><input class='border-0 text-align-center' type='text' value='' name='name' placeholder='请输入原因'/></td>" +
+                    "<td><input class='border-0 text-align-center' type='text' value='' name='reasonType' placeholder='请输入编码'/></td>" +
                     "</tr>"
             }
             else  if(key=="assistantTaskseqFileType"){
