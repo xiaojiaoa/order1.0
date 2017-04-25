@@ -145,6 +145,19 @@ var SystemController = {
             }
         })
     },
+    assistantMaterialUnitPage: function (req, res) {
+        var parentId = req.params.parentId;
+        request(Base.mergeRequestOptions({
+            method: 'GET',
+            url: '/api/assist/material/units/'+parentId,
+        }, req, res), function (error, response, body) {
+            if (!error && response.statusCode == 200) {
+                res.status(200).json(body)
+            } else {
+                Base.handlerError(res, req, error, response, body);
+            }
+        })
+    },
     timeSetPage: function (req, res) {
         res.render('order/system/time')
     },

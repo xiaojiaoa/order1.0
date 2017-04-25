@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-
+delete process.env['DEBUG_FD']
 /**
  *  导入环境变量
  *  */

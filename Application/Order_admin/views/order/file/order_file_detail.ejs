@@ -42,13 +42,13 @@
                             <thead>
                             <tr>
                                 <th>流水号</th>
-                                <th>订单号</th>
+                                <th>空间名</th>
                                 <th>文件名</th>
                                 <th>文件类型</th>
                                 <th>上传时间</th>
                                 <th>上传柜员</th>
                                 <th>备注</th>
-                                <th>操作</th>
+                                <th width="120px">操作</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -57,13 +57,16 @@
                                 fileInfo.forEach(function (element) { %>
                             <tr>
                                 <td><%= element.lid %></td>
-                                <td><%= element.tid  %></td>
+                                <td><%= element.spaceStr %></td>
                                 <td><%= element.fileName %></td>
-                                <td><%= element.fileTypeDesc %></td>
-                                <td><%= element.addTime %></td>
-                                <td><%= element.uploadName %></td>
+                                <td><%= element.typeStr %></td>
+                                <td><%= DWY_Helper.getLocalDateYMD(element.addTime) %></td>
+                                <td><%= element.gid %></td>
                                 <td><%= element.remark %></td>
-                                <td><a onclick="deleteFile(<%= element.id %>)">删除</a> <a href="<%= DWY_GLOBAL.Static %>/download?originalFileName=<%= element.fileName %>&url=<%= element.filePath %>">下载</a></td>
+                                <td>
+                                    <a class="label label-danger" onclick="deleteFile(<%= element.id %>)">删除</a>
+                                    <a class="label label-primary" href="<%= DWY_GLOBAL.Static %>/download?originalFileName=<%= element.fileName %>&url=<%= element.savePath %>">下载</a>
+                                </td>
                             </tr>
                             <% })
                                 }else{ %>

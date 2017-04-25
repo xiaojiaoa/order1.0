@@ -5,6 +5,7 @@
 
 
 var express = require('express');
+var RateLimit = require('express-rate-limit');
 
 
 //for multipart form data
@@ -14,10 +15,7 @@ var storage = multer.diskStorage({
     destination: function (req, file, cb) {
         cb(null, __dirname + '/../../public/uploads/')
     },
-    // filename: function (req, file, cb) {
-    //     var fileFormat = (file.originalname).split(".");
-    //     cb(null, file.fieldname + '-' + Date.now() + "." + fileFormat[fileFormat.length - 1]);
-    // },
+
     filename: function (req, file, cb) {
         cb(null, file.originalname.toLowerCase())
     }
@@ -28,6 +26,8 @@ var upload = multer({storage: storage});
 var _ = require('lodash');
 
 var router = express.Router();
+
+
 
 //把USER信息加入到全局
 router.use(function (req, res, next) {
@@ -134,10 +134,22 @@ var Middleware = {
         });
 
         next();
-    }
+    },
+    // limiter: new RateLimit({
+    //     windowMs: 10*1000, // 15 minutes
+    //     max: 1, // limit each IP to 100 requests per windowMs
+    //     delayMs: 0 // disable delaying - full speed until the max limit is reached
+    // })
 };
 
-
+var limiter = new RateLimit({
+    windowMs: 60*1000, // 15 minutes
+    max: 1, // limit each IP to 100 requests per windowMs
+    delayMs: 0 ,// disable delaying - full speed until the max limit is reached
+    message: 'Too many accounts created from this IP, please try again after an hour'
+});
+//  apply to all requests
+// app.use(limiter);
 
 /*
  * 页面范围: 首页相关
@@ -720,7 +732,7 @@ router.get('/warehouse', Middleware.AuthCheck, Middleware.FilterEmptyField, Fact
 router.get('/warehouse/create/:ftyId', Middleware.AuthCheck, FactoryController.createWarehousePage);
 
 // 新增仓库
-router.post('/warehouse/doCreate', Middleware.AuthCheck, FactoryController.doWarehouseCreate);
+router.post('/warehouse/doCreate', Middleware.AuthCheck,  FactoryController.doWarehouseCreate);
 
 // 修改仓库详情页面
 router.get('/warehouse/modify/:whseId', Middleware.AuthCheck, FactoryController.modifyWarehousePage);
@@ -1207,6 +1219,9 @@ router.put('/orderSpaceinfoTwo/:spaceId', Middleware.AuthCheck, SystemController
 
 //基础数据--清除缓存
 router.get('/api/clearCache', Middleware.AuthCheck, SystemController.doClearCache);
+
+//获取物料单位二的内容
+router.put('/assistantMaterialUnitTwo/:parentId', Middleware.AuthCheck, SystemController.assistantMaterialUnitPage);
 
 // 预警时间设置
 router.get('/system/timeSet', Middleware.AuthCheck,SystemController.timeSetPage);

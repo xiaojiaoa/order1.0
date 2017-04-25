@@ -50,7 +50,9 @@
                }
                else{
 
-
+                  if(key=='assistantMaterialUnit' &&  classDom.find('input[name=parentId]').length>0 ){
+                      key='assistantMaterialUnitChild';
+                  }
                    classDom.find("tbody").append(creFrag(key)).find("input").focus();
 
                    //启用'保存''撤销''输入框' '滚动条'的点击事件
@@ -580,6 +582,12 @@
                     "<td><input class='border-0 text-align-center' type='text' value='' name='name'/></td>" +
                     "</tr>"
             }
+            else if(key=='assistantMaterialUnitChild'){
+                string="<tr class='add-input'>" +
+                    "<td><input class='border-0 text-align-center' type='text' value='' name='name' placeholder='请输入名称'/></td>" +
+                    "<td><input class='border-0 text-align-center' type='text' value='' name='amount' placeholder='请输入换算数量'/></td>" +
+                    "</tr>"
+            }
             else{
                 string="<tr class='add-input'>" +
                     "<td><input class='border-0 text-align-center' type='text' value='' name='name'/></td>" +
@@ -627,6 +635,19 @@
                     var parentId=$(".level-3").find("input[name=parentId]").val();
                     ajaxResupplyReasonTwo(parentId);
                     $(".level-3 input[name=listNum]").val('');
+                }
+            }
+            else if (key=='assistantMaterialUnit'){
+                if(level=="level-1"){
+                    ajaxFuncOne(key);
+                    $(".basicDataThree").html("");
+                    $(".level-1 input[name=listNum]").val('');
+                }
+                if(level=="level-2"){
+                    var parentId=$(".level-2").find("input[name=parentId]").val();
+                    ajaxAssistantMaterialUnitOne(parentId);
+                    $(".basicDataFour").html("");
+                    $(".level-2 input[name=listNum]").val('');
                 }
             }
             else{

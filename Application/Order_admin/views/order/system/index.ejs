@@ -284,10 +284,17 @@
                $(".level-2").removeClass("display-none").addClass("col-xs-3");
                $(".level-3").removeClass("display-none").addClass("col-xs-3");
            }
+            else if(key=='assistantMaterialUnit')
+            {
+                $(".level-0").removeClass("col-xs-3").addClass("col-xs-4");
+                $(".level-1").removeClass("col-xs-8").removeClass("col-xs-3").addClass("col-xs-4");
+                $(".level-2").removeClass("display-none").removeClass("col-xs-3").addClass("col-xs-4");
+                $(".level-3").addClass("display-none");
+            }
             else{
                $(".level-0").removeClass("col-xs-3").addClass("col-xs-4");
                $(".level-1").removeClass("col-xs-3").removeClass("col-xs-4").addClass("col-xs-8");
-               $(".level-2").removeClass("col-xs-4").addClass("display-none");
+               $(".level-2").removeClass("col-xs-3").removeClass("col-xs-4").addClass("display-none");
                $(".level-3").addClass("display-none");
             }
 
@@ -355,6 +362,9 @@
                 if(key=="assistantOrderSpaceinfo"){
                     ajaxOrderSpaceinfoOne(parentId);
                 }
+                if(key='assistantMaterialUnit'){
+                    ajaxAssistantMaterialUnitOne(parentId);
+                }
             }
             else{
                 $(".basicDataThree").html('请先启用该项');
@@ -406,7 +416,7 @@
             method: 'put',
             async: true, //异步请求
             beforeSend: function(){
-                $(".basicDataSec").html('数据正在加载中');
+                $(".basicDataSec").html('数据崩溃了，请刷新页面');
             },
             success: function (data) {
                 var arry= JSON.parse(data);
@@ -539,7 +549,7 @@
             method: 'put',
             async: true, //异步请求
             beforeSend: function(){
-                $(".basicDataThree").html('数据正在加载中');
+                $(".basicDataThree").html('数据崩溃了，请刷新页面');
             },
             success: function (data) {
                 var arry= JSON.parse(data);
@@ -577,7 +587,7 @@
             method: 'put',
             async: true, //异步请求
             beforeSend: function(){
-                $(".basicDataFour").html('数据正在加载中');
+                $(".basicDataFour").html('数据崩溃了，请刷新页面');
             },
             success: function (data) {
                 var arry= JSON.parse(data);
@@ -616,7 +626,7 @@
             method: 'put',
             async: true, //异步请求
             beforeSend: function(){
-                $(".basicDataThree").html('数据正在加载中');
+                $(".basicDataThree").html('数据崩溃了，请刷新页面');
             },
             success: function (data) {
                 var arry= JSON.parse(data);
@@ -655,7 +665,7 @@
             method: 'put',
             async: true, //异步请求
             beforeSend: function(){
-                $(".basicDataFour").html('数据正在加载中');
+                $(".basicDataFour").html('数据崩溃了，请刷新页面');
             },
             success: function (data) {
                 var arry= JSON.parse(data);
@@ -676,6 +686,46 @@
 
                 //给禁用项目设置样式
                 $(".basicDataFour").find("tr").each(function(){
+                    if($(this).attr("stcode")=='0'){
+                        $(this).addClass("disable display-none");
+                    }
+                });
+
+            },
+            error: function (response) {
+                layer.close(index);
+                errorLayout.normal(response);
+            }
+        });
+    }
+    function ajaxAssistantMaterialUnitOne(parentId){
+        $.ajax({
+            url: '/assistantMaterialUnitTwo/'+parentId,
+            method: 'put',
+            async: true, //异步请求
+            beforeSend: function(){
+                $(".basicDataThree").html('数据崩溃了，请刷新页面');
+            },
+            success: function (data) {
+                var arry= JSON.parse(data);
+                console.log('物料单位2',arry);
+
+                if(arry.length==0){
+                    $(".basicDataThree").html('<tr class="noData"><td>暂无数据，请选择新建</td></tr>');
+                }else{
+                    var frag = "";
+                    for (var i = 0; i < arry.length; i++) {
+                        frag += "<tr id=" + arry[i].id + " stcode=" + arry[i].stcode + " >" +
+                            "<td><input class='border-0 text-align-center' type='text' value=" + arry[i].name + " name='name' readonly/></td>" +
+                            "<td><input class='border-0 text-align-center' type='text' value=" + arry[i].amount + " name='amount' readonly/></td>" +
+                            "</tr>"
+                    }
+                    $(".basicDataThree").html(frag);
+                }
+
+
+                //给禁用项目设置样式
+                $(".basicDataThree").find("tr").each(function(){
                     if($(this).attr("stcode")=='0'){
                         $(this).addClass("disable display-none");
                     }
