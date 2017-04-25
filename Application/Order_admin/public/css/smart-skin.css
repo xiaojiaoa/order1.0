@@ -1,71 +1,93 @@
 /*订单系统登录页样式S*/
-.smart-skin{
-    background-image: url("../img/order-loginBg.png");
+#smart-skin{
+    background: url("../img/order-loginBg.png") no-repeat center top;
     height:995px;
     color: #000000;
 }
-.smart-skin #main{
+#smart-skin #main{
   background-color: transparent!important;
+    padding-top: 0px!important;
+    padding-bottom: 0px!important;
 }
-#extr-page #header{
+#smart-skin #header{
     background:none!important;
     border-bottom:none!important;
     display: none;
 }
-#extr-page #main {
-     padding-top: 0px!important;
-     padding-bottom: 0px!important;
+#smart-skin #content {
+    padding: 0px 8px;
 }
-.smart-skin #content {
-    padding: 0px 17px;
-}
-.smart-skin-row{
+#smart-skin-row{
     background: rgba(255,255,255,0.8);
     width: 50%;
     height:995px;
 }
-.smart-skin-h1{
+#smart-skin-row>div{
+    width:100%;
+}
+#smart-skin-row .col-lg-8{
     margin-top:160px;
-}
-.smart-skin-h1 .p1{
     background: url("../img/logo-black.png") no-repeat center top;
-    height:114px;
-    margin-bottom:32px;
+    padding-top: 130px;
 }
-.smart-skin-h1 .p2{
+#smart-skin-row  .login-header-big{
     height:60px;
     line-height:60px;
     font-size: 42px;
     letter-spacing: 0;
     font-weight:600!important;
-}
-.smart-skin-h4{
-    font-size: 20px;
-    letter-spacing: 0;
-    line-height: 30px;
-    font-weight: 400;
+    color: #000000!important;
     text-align: center;
-    margin-bottom:32px;
 }
-.smart-skin-well {
-    width: 70%;
+#smart-skin-row  .login-header-big span{
+    display: none;
+}
+#smart-skin-row .login-desc-box-l{
+    width:100%;
+    min-height: 197px;
+}
+#smart-skin-row .paragraph-header{
+    font-size: 20px!important;
+    letter-spacing: 0;
+    line-height: 30px!important;
+    font-weight: 400!important;
+    text-align: center;
+    width: 100%!important;
+    color: #000000!important;
+}
+#smart-skin-row .paragraph-header span{
+    display: block;
+}
+#smart-skin-row .well{
+    width: 65%;
     margin: 0px auto;
     background: #FFFFFF!important;
     border: 1px solid #F6A623;
     border-radius: 4px;
     height:310px;
 }
-.smart-skin-well .label,.smart-skin-well .input {
-    font-size: 14px;
-
+#smart-skin-row .well header{
+    display: none;
 }
-.smart-skin-btn,.smart-skin-btn:hover{
+#smart-skin-row .well fieldset {
+    padding: 25px 22px 5px;
+}
+#smart-skin-row .well footer{
+     padding: 0px;
+    border:0px;
+    background:transparent;
+}
+#smart-skin-row .label,#smart-skin-row .input {
+    font-size: 14px;
+}
+#smart-skin-row .well .btn,#smart-skin-row .well .btn:hover{
     background: url("../img/Rectangle 3.png") no-repeat center top;
     width:314px;
     height:36px;
-    margin-left:30px;
+    margin-right: 20px;
     font-size: 16px;
     color: #FFFFFF;
+    border-color: transparent;
 }
 :root input:-webkit-autofill, textarea:-webkit-autofill, select:-webkit-autofill {
     box-shadow: 0 0 50px 50px #fffefb inset;/*阴影大小等于input框宽度一半 颜色与input框宽度一样 暂时无法解决input框使用背景图片问题*/
