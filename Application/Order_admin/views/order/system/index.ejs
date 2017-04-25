@@ -362,7 +362,7 @@
                 if(key=="assistantOrderSpaceinfo"){
                     ajaxOrderSpaceinfoOne(parentId);
                 }
-                if(key='assistantMaterialUnit'){
+                if(key=="assistantMaterialUnit"){
                     ajaxAssistantMaterialUnitOne(parentId);
                 }
             }
@@ -526,7 +526,17 @@
             }
             $(".basicDataSec").html(frag);
         }
-        else{
+        else if(key=='assistantMaterialUnit'){
+            var frag="";
+            for(var i=0;i<arry.length;i++){
+                if(arry[i].parentId==0){
+                    frag+="<tr id="+arry[i].id+" stcode="+arry[i].stcode+" parentId=" + arry[i].parentId + ">" +
+                        "<td><input class='border-0 text-align-center' type='text' value="+arry[i].name+" name='name' readonly/></td>" +
+                        "</tr>"
+                }
+            }
+            $(".basicDataSec").html(frag);
+        }else{
             var frag="";
             for(var i=0;i<arry.length;i++){
                 frag+="<tr id="+arry[i].id+" stcode="+arry[i].stcode+">" +
