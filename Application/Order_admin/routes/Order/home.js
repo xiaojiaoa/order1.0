@@ -15,10 +15,7 @@ var storage = multer.diskStorage({
     destination: function (req, file, cb) {
         cb(null, __dirname + '/../../public/uploads/')
     },
-    // filename: function (req, file, cb) {
-    //     var fileFormat = (file.originalname).split(".");
-    //     cb(null, file.fieldname + '-' + Date.now() + "." + fileFormat[fileFormat.length - 1]);
-    // },
+
     filename: function (req, file, cb) {
         cb(null, file.originalname.toLowerCase())
     }
@@ -31,7 +28,6 @@ var _ = require('lodash');
 var router = express.Router();
 
 
-// var RateLimit = require('express-rate-limit');
 
 //把USER信息加入到全局
 router.use(function (req, res, next) {
@@ -736,7 +732,7 @@ router.get('/warehouse', Middleware.AuthCheck, Middleware.FilterEmptyField, Fact
 router.get('/warehouse/create/:ftyId', Middleware.AuthCheck, FactoryController.createWarehousePage);
 
 // 新增仓库
-router.post('/warehouse/doCreate', Middleware.AuthCheck,limiter,  FactoryController.doWarehouseCreate);
+router.post('/warehouse/doCreate', Middleware.AuthCheck,  FactoryController.doWarehouseCreate);
 
 // 修改仓库详情页面
 router.get('/warehouse/modify/:whseId', Middleware.AuthCheck, FactoryController.modifyWarehousePage);
