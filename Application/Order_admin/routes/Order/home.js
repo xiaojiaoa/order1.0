@@ -1224,6 +1224,9 @@ router.put('/orderSpaceinfoTwo/:spaceId', Middleware.AuthCheck, SystemController
 //基础数据--清除缓存
 router.get('/api/clearCache', Middleware.AuthCheck, SystemController.doClearCache);
 
+//获取物料单位二的内容
+router.put('/assistantMaterialUnitTwo/:parentId', Middleware.AuthCheck, SystemController.assistantMaterialUnitPage);
+
 // 预警时间设置
 router.get('/system/timeSet', Middleware.AuthCheck,SystemController.timeSetPage);
 
