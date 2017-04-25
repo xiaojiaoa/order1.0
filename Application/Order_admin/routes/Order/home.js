@@ -1001,8 +1001,6 @@ router.get('/template', TemplateController.createPage);
 //单文件上传
 router.post('/template/upload/single/:type', [upload.single('file_name'), Middleware.FilterEmptyField], TemplateController.doSingleUpload);
 
-//共享文件上传路径
-// router.post('/template/upload/file/share', [upload.single('file_name'), Middleware.FilterEmptyField], TemplateController.doSingleUpload);
 
 //图片上传
 router.post('/template/upload/img', [upload.single('file_name'), Middleware.FilterEmptyField], TemplateController.doImgUpload);

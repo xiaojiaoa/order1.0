@@ -141,14 +141,25 @@ var OutWarehouseController = {
     },
     deliveryNoteDeatil: function (req, res) {
         var id = req.params.id;
+        var paramObject = helper.genPaginationQuery(req);
         Base.multiDataRequest(req, res, [
                 {url: '/api/whse/cargout/delivery/notice/page?diId='+id, method: 'GET', resConfig: {keyName: 'deliveryInfo', is_must: false}},
-                {url: '/api/whse/cargout/delivery/notice/list/'+id, method: 'GET', resConfig: {keyName: 'deliveryInfoList', is_must: false}},
+                {url: '/api/whse/cargout/delivery/notice/diid/page?diId='+id+'&'+queryString.stringify(req.query), method: 'GET', resConfig: {keyName: 'deliveryInfoList', is_must: false}},
+                // {url: '/api/whse/cargout/delivery/notice/list/'+id, method: 'GET', resConfig: {keyName: 'deliveryInfoList', is_must: false}},
             ],
             function (req, res, resultList) {
+                var paginationInfo =  resultList.deliveryInfoList;
+
+                var boostrapPaginator = new Pagination.TemplatePaginator(helper.genPageInfo({
+                    prelink: paramObject.withoutPageNo,
+                    current: paginationInfo.page,
+                    rowsPerPage: paginationInfo.pageSize,
+                    totalResult: paginationInfo.totalItems
+                }));
                 resultList.deliveryInfo = resultList.deliveryInfo.result[0];
                 var returnData = Base.mergeData(helper.mergeObject({
                     title: ' ',
+                    pagination: boostrapPaginator.render()
                 }, resultList));
                 res.render('order/shipments/deliver_detail', returnData);
             });
