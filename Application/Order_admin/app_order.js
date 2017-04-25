@@ -10,8 +10,13 @@ var session = require('express-session');
 var RedisStore = require('connect-redis')(session);
 var orderSessionConfig = require('./routes/Order/config/session');
 
-
 var app = express();
+
+app.enable('trust proxy'); // only if you're behind a reverse proxy (Heroku, Bluemix, AWS if you use an ELB, custom Nginx setup, etc)
+
+
+
+
 
 if (process.env.REDIS_SENTINEL_ON == 'ON') {
     var Redis = require('ioredis');
@@ -63,6 +68,10 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+
+
+
+
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
