@@ -202,7 +202,7 @@
             var checkedValue = $('#checkedValue');
             $("#checkAll").change(function () {
                 if($(this).is(":checked")){
-                    $(":checkbox").prop('checked',true);
+                    $(":checkbox:not(:disabled)").prop('checked',true);
                     $("input[name='roles']:checked").each(function (i) {
                         checkedValue.addClass(this.value+',');
                     });
