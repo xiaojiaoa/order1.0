@@ -128,7 +128,8 @@
                                 <td>
                                     <label class="checkbox-inline">
                                         <input type="checkbox" class="checkbox"
-                                               name="pakgs" value="<%= element.pakgId %>" <%= element.stcode == 3? '':'disabled'%> >
+                                               name="pakgs"
+                                               value="<%= element.pakgId %>" <%= element.stcode == 3 ? '' : 'disabled' %> >
                                         <span><%= index + 1 %></span>
                                     </label>
                                 </td>
@@ -177,60 +178,61 @@
 
 <script type="text/javascript">
 
-  $(document).ready(function () {
+    $(document).ready(function () {
 
-    var checkedValue = $('#checkedValue');
-    $("#checkAll").change(function () {
-      if ($(this).is(":checked")) {
-        $(":checkbox").prop('checked', true);
-        $("input[name='pakgs']:checked").each(function (i) {
-          checkedValue.addClass(this.value + ',')
+        var checkedValue = $('#checkedValue');
+        $("#checkAll").change(function () {
+            if ($(this).is(":checked")) {
+                $(":checkbox:not(:disabled)").prop('checked', true);
+                $("input[name='pakgs']:checked").each(function (i) {
+                    checkedValue.addClass(this.value + ',')
+                });
+            } else {
+                $(":checkbox").prop('checked', false);
+                checkedValue.removeClass()
+            }
+        })
+        $("input[name='pakgs']").change(function () {
+            if ($(this).is(':checked')) {
+                checkedValue.addClass(this.value + ',')
+            } else {
+                checkedValue.removeClass(this.value + ',')
+            }
         });
-      } else {
-        $(":checkbox").prop('checked', false);
-        checkedValue.removeClass()
-      }
+
+        $('#checkThis').click(function () {
+            var pakgs = checkedValue.attr('class');
+            pakgs = pakgs.substring(0, pakgs.length - 1);
+            pakgs = pakgs.replace(/\s/g, "");
+
+            if (!pakgs) {
+                layer.msg('请先选择订单', {icon: 2, time: 2000});
+                return;
+            }
+
+            layer.confirm('确定出库所选包装?', {icon: 3, title: '提示'}, function (index) {
+                $.ajax({
+                    url: '/outProduct/doCargoout',
+                    method: 'post',
+                    data: {
+                        tid: '<%= prodsInfo.tid %>',
+                        pakgId: pakgs
+                    },
+                    success: function () {
+                        successLayout.reload();
+                        $(":checkbox").prop('checked', false);
+                    },
+                    error: function (response) {
+                        layer.close(index)
+                        errorLayout.normal(response);
+                    }
+                });
+            }, function (index) {
+                layer.close(index)
+            })
+
+        })
     })
-    $("input[name='pakgs']").change(function () {
-      if ($(this).is(':checked')) {
-        checkedValue.addClass(this.value + ',')
-      } else {
-        checkedValue.removeClass(this.value + ',')
-      }
-    });
-
-    $('#checkThis').click(function () {
-      var pakgs = checkedValue.attr('class');
-      pakgs = pakgs.substring(0,pakgs.length-1);
-      pakgs = pakgs.replace(/\s/g,"");
-
-      if(!pakgs){
-        layer.msg('请先选择订单', {icon: 2, time: 2000});
-        return;
-      }
-
-      layer.confirm('确定出库所选包装?', {icon: 3, title: '提示'}, function (index) {
-        $.ajax({
-          url: '/outProduct/doCargoout',
-          method: 'post',
-          data: {
-            tid: '<%= prodsInfo.tid %>',
-            pakgId: pakgs
-          },
-          success: function () {
-              successLayout.reload();
-          },
-          error: function (response) {
-            layer.close(index)
-            errorLayout.normal(response);
-          }
-        });
-      }, function (index) {
-        layer.close(index)
-      })
-
-    })
-  })
 
 </script>
 
