@@ -366,7 +366,7 @@
                     ajaxAssistantMaterialUnitOne(parentId);
                 }
             }
-            else{
+            if($(this).attr("stcode")==0){
                 $(".basicDataThree").html('请先启用该项');
             }
 
@@ -396,7 +396,7 @@
                     ajaxOrderSpaceinfoTwo(parentId);
                 }
             }
-            else{
+            if($(this).attr("stcode")==0){
                 $(".basicDataFour").html('请先启用该项');
             }
 

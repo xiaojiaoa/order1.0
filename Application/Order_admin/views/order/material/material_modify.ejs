@@ -109,20 +109,52 @@
                                 </div>
                             </div>
                             <div class="col-xs-12">
+                                <!--输入字段-->
                                 <div class="col-xs-6">
                                     <div class="form-group">
-                                        <label class="col-xs-4 control-label">单位：</label>
-                                        <div class="col-xs-8">
-                                            <select class="form-control validate[required]" name="unit" id="unitVal">
+                                        <label class="col-xs-4 control-label"><span class="requird"></span> 单位:</label>
+                                        <div class="col-xs-3">
+                                            <select class="form-control validate[required]" name="unit" id="unit-select">
+                                                <% if(DWY_Helper.isCanLoop(unitsInfo)){
+                                                unitsInfo.forEach(function (element) { %>
+                                                <option value="<%= element.id %>" <%= (mateInfo.unit == element.name)?"selected":"" %> ><%= element.name %></option>
+                                                <% })
+                                                }else{ %>
                                                 <option value="">- 请选择 -</option>
-                                                <% units.forEach(function(element,index){%>
-                                                <option value="<%= element.id %>"><%= element.name%></option>
-                                                <%})%>
-
-                                            </select>
-
+                                                <%  } %>
                                             </select>
                                         </div>
+                                        <div class="col-xs-5">
+                                              <%
+                                                 var bb='';
+                                                 mateInfo.mateUnits.forEach(function (element) {
+                                                     bb+=element.id+',';
+                                                 });
+                                                  bb.substring(0,bb.length-1);
+                                              %>
+                                            <%  if(DWY_Helper.isCanLoop(unitsInfo)){
+                                            unitsInfo.forEach(function (element, index) { %>
+                                            <div class="unit-list" style="display: <%= (mateInfo.unit == element.name)?"block":"none" %>;"   data-id="<%= element.id %>" id="my-label">
+                                                <% if(DWY_Helper.isCanLoop( element.data)){
+                                                element.data.forEach(function (element) { %>
+                                                <label class="checkbox-inline">
+                                                    <input type="checkbox" class="checkbox style-0 validate[minCheckbox[1]]"
+                                                           name="mateUnit"
+                                                           value="<%= element.id %>"
+                                                            <%= DWY_Helper.checkboxStatusStr(bb, element.id) %>
+                                                    >
+                                                    <span><%= element.name %></span>
+                                                </label>
+                                                <% })
+                                                }%>
+
+
+                                            </div>
+                                            <% })
+                                            }%>
+
+                                        </div>
+
                                     </div>
                                 </div>
                             </div>
@@ -189,6 +221,7 @@
                                     </div>
                                 </div>
                             </div>
+                            <input type="hidden" name="mateUnits" value="" id="mateUnitsId">
                             <input type="hidden" value="<%= id%>" name="id"/>
                             <div class="col-xs-8">
                                 <hr class="simple">
@@ -231,6 +264,15 @@
 
         $("#unitVal").val('<%= mateInfo.unitId %>');
         $("#typeVal").val('<%= mateInfo.type %>');
+
+        $("input[name='mateUnit']").on("change",function () {
+            var mateUnitCode=[];
+            $("input[name='mateUnit']:checked").each(function(){
+                mateUnitCode.push($(this).val());
+            });
+            $("#mateUnitsId").val(mateUnitCode.join(','));
+        });
+
         //初始化表单
         $("#material_modify_form").validationEngine();
 
@@ -304,7 +346,26 @@
         //图片浏览
         $('.fancybox').fancybox();
 
+        $('#unit-select').on({
+            change: function (e) {
+                var _this = $(this);
+                var select_value = _this.find('option:selected').attr('value');
 
+                var space_list = $('.unit-list');
+
+
+                if (!select_value) {
+                    space_list.css('display', 'none');
+                    space_list.find('input[type=checkbox]').prop('checked', false);
+                    return;
+                }
+
+                space_list.css('display', 'none');
+                space_list.find('input[type=checkbox]').prop('checked', false);
+                space_list.filter('[data-id=' + select_value + ']').css('display', 'block');
+
+            }
+        })
 
 
     })

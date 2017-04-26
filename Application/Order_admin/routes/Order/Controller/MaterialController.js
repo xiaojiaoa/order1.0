@@ -16,6 +16,8 @@ var request = require('request');
 //引入权限
 var Permissions = require('../config/permission');
 
+var _ = require('lodash');
+
 var MaterialController = {
     indexPage: function (req, res) {
         var bid = req.query.bid? req.query.bid: req.session.user.bid;
@@ -147,9 +149,24 @@ var MaterialController = {
          //console.log(id);
          Base.multiDataRequest(req, res, [
              {url: '/api/materials/attributes/'+id, method: 'GET', resConfig: {keyName: 'materialInfo', is_must: true}},
-             {url: '/api/assist/material/units', method: 'GET', resConfig: {keyName: 'units', is_must: true}},
+             {url: '/api/assist/material/units', method: 'GET', resConfig: {keyName: 'unitsInfo', is_must: true}},
              {url: '/api/assist/package/types', method: 'GET', resConfig: {keyName: 'getPackageTypes', is_must: true}},
          ], function (req, res, resultList) {
+
+             //console.log('resultList.unitsInfo', resultList.unitsInfo);
+             var unitsInfo = {};
+             resultList.unitsInfo.forEach(function(element,index){
+                 if(element.parentId == 0){
+                     unitsInfo[element.id] = element;
+                     unitsInfo[element.id].data = [];
+                 }else{
+                    unitsInfo[element.parentId].data.push(element);
+                 }
+             });
+
+             resultList.unitsInfo = _.orderBy(unitsInfo,['id'],['asc']);
+
+
              var returnData = Base.mergeData(helper.mergeObject({
                  title: ' ',
                  id:id,
@@ -178,18 +195,38 @@ var MaterialController = {
         //console.log(id);
         Base.multiDataRequest(req, res, [
             {url: '/api/materials/'+id, method: 'GET', resConfig: {keyName: 'mateInfo', is_must: true}},
-            {url: '/api/assist/material/units', method: 'GET', resConfig: {keyName: 'units', is_must: true}},
+            {url: '/api/assist/material/units', method: 'GET', resConfig: {keyName: 'unitsInfo', is_must: true}},
             {url: '/api/assist/package/types', method: 'GET', resConfig: {keyName: 'getPackageTypes', is_must: true}},
         ], function (req, res, resultList) {
+
+            //console.log('resultList.unitsInfo', resultList.unitsInfo);
+
+            console.log('mateInfo',resultList.mateInfo);
+            var unitsInfo = {};
+            resultList.unitsInfo.forEach(function(element,index){
+                if(element.parentId == 0){
+                    unitsInfo[element.id] = element;
+                    unitsInfo[element.id].data = [];
+                }else{
+                    unitsInfo[element.parentId].data.push(element);
+                }
+            });
+
+            resultList.unitsInfo = _.orderBy(unitsInfo,['id'],['asc']);
+
+
+
             var returnData = Base.mergeData(helper.mergeObject({
                 title: ' ',
                 id:id,
             },resultList));
+
+
             res.render('order/material/material_modify',returnData);
         });
     },
     doModify: function (req, res) {
-        //console.log('物料修改'+ JSON.stringify(req.body));
+        console.log('物料修改'+ JSON.stringify(req.body));
         var mid = req.body.id;
         request(Base.mergeRequestOptions({
             method: 'put',
