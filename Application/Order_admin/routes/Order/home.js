@@ -142,7 +142,6 @@ var limiter = new RateLimit({
     windowMs: 1*1000, // 时间段 1 minutes
     max: 1, // 时间段内限制每个IP的请求数
     delayMs: 0 ,// 禁用延迟
-    message: 'Too many accounts created from this IP, please try again after an hour',
     skip: function (req, res) {
         if(req.method.toLowerCase() == 'get'){
             return true;
@@ -152,7 +151,8 @@ var limiter = new RateLimit({
         // res.sendStatus(304);
         console.log('submit!!!!!!!')
         if (req.xhr) {
-            res.status(500).send({code: 500, msg: '请勿重复提交数据'});
+            res.end();
+            // res.status(500).send({code: 500, msg: '请勿重复提交数据'});
         } else {
             res.redirect('back');
         }

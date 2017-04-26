@@ -641,53 +641,50 @@ $(document).ready(function () {
         localStorage.setItem('dwy_msg_sign', dwy_msg_sign.val());
     }
 
-    $('#checkThis').click(function () {
-        $(this).attr('disable',true);
-        $(this).addClass('disabled');
-    });
+
 
 
 //对jQuery ajax请求成功（失败）回调执行前的统一处理（兼容较老版本jQuery）
-    var ajax = $.ajax;
-    $.ajax = function (opt) {
-        //备份opt中error和success方法
-        var fn = {
-            success: function (data, textStatus, jqXHR) {
-            }
-        }
-        if (opt.success) {
-            fn.success = opt.success;
-        }
-        //扩展增强处理
-        var _opt = $.extend(opt, {
-            success: function (data, textStatus, jqXHR) {
-                //alert('重写success事件');
-                //alert(666666)
-                // if (data.status == '408') {
-                //     location.href = '/service/login/LogoutForWeb.jsp';
-                //     return;
-                // }
-                fn.success(data, textStatus, jqXHR);
-            }
-        });
-        var def = ajax.call($, _opt);     // 兼容不支持异步回调的版本
-        if('done' in def){
-            var done = def.done;
-            def.done = function (func) {
-                function _done(data) {
-                    // if (data.status == '408') {
-                    //     location.href = '/service/login/LogoutForWeb.jsp';
-                    //     return;
-                    // }
-                    alert(888888)
-                    func(data);
-                }
-
-                done.call(def, _done);
-                return def;
-            };
-        }
-        return def;
-    };
+//     var ajax = $.ajax;
+//     $.ajax = function (opt) {
+//         //备份opt中error和success方法
+//         var fn = {
+//             success: function (data, textStatus, jqXHR) {
+//             }
+//         }
+//         if (opt.success) {
+//             fn.success = opt.success;
+//         }
+//         //扩展增强处理
+//         var _opt = $.extend(opt, {
+//             success: function (data, textStatus, jqXHR) {
+//                 //alert('重写success事件');
+//                 //alert(666666)
+//                 // if (data.status == '408') {
+//                 //     location.href = '/service/login/LogoutForWeb.jsp';
+//                 //     return;
+//                 // }
+//                 fn.success(data, textStatus, jqXHR);
+//             }
+//         });
+//         var def = ajax.call($, _opt);     // 兼容不支持异步回调的版本
+//         if('done' in def){
+//             var done = def.done;
+//             def.done = function (func) {
+//                 function _done(data) {
+//                     // if (data.status == '408') {
+//                     //     location.href = '/service/login/LogoutForWeb.jsp';
+//                     //     return;
+//                     // }
+//                     alert(888888)
+//                     func(data);
+//                 }
+//
+//                 done.call(def, _done);
+//                 return def;
+//             };
+//         }
+//         return def;
+//     };
 
 });
