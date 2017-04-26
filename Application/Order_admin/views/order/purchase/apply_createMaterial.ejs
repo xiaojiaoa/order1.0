@@ -80,7 +80,7 @@
         var storageKey = 'LIST_DATA_PUR';
         var listArr = DWY_Utils.StorageUtils.getListArr(storageKey);
         var htmlStr = '';
-        console.log(listArr)
+//        console.log(listArr)
         if (listArr instanceof Array && listArr.length != 0) {
             var len = listArr.length;
             for (var i = 0; i < len; i++) {
@@ -128,14 +128,18 @@
                 var amount=$("input[name=amount"+i+"]").val();
                 var minAmount=$("input[name=minAmount"+i+"]").val();
                 var deliveryDate=$("input[name=deliveryDate"+i+"]").val();
+                var unit=$("select[name=unit"+i+"]").val();
                 a.mateId=mateId;
                 a.price=price;
                 a.amount = amount;
                 a.minAmount = minAmount;
                 a.deliveryDate = deliveryDate;
+                a.unit = unit;
                 myArray.push(a);
             }
+
             var date={reqMaterialList:myArray};
+            console.log(myArray)
             layer.confirm("确认提交？", {title:'提示'},function(index){
 //                    console.log(myArray);return false;
                     $.ajax({
