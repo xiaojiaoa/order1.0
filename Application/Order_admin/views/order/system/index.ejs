@@ -414,10 +414,10 @@
         $.ajax({
             url: '/system/'+key,
             method: 'put',
-            async: true, //异步请求
+          /*  async: true, //异步请求
             beforeSend: function(){
                 $(".basicDataSec").html('数据崩溃了，请刷新页面');
-            },
+            },*/
             success: function (data) {
                 var arry= JSON.parse(data);
                 //console.log(arry);
@@ -557,10 +557,10 @@
         $.ajax({
             url: '/resupplyReason/'+parentId,
             method: 'put',
-            async: true, //异步请求
+           /* async: true, //异步请求
             beforeSend: function(){
                 $(".basicDataThree").html('数据崩溃了，请刷新页面');
-            },
+            },*/
             success: function (data) {
                 var arry= JSON.parse(data);
                 console.log('补单原因类别2',arry);
@@ -595,10 +595,10 @@
         $.ajax({
             url: '/resupplyReason/'+parentId,
             method: 'put',
-            async: true, //异步请求
+        /*    async: true, //异步请求
             beforeSend: function(){
                 $(".basicDataFour").html('数据崩溃了，请刷新页面');
-            },
+            },*/
             success: function (data) {
                 var arry= JSON.parse(data);
                 console.log('补单原因类别3',arry);
@@ -634,10 +634,10 @@
         $.ajax({
             url: '/orderSpaceinfo/'+parentId,
             method: 'put',
-            async: true, //异步请求
+         /*   async: true, //异步请求
             beforeSend: function(){
                 $(".basicDataThree").html('数据崩溃了，请刷新页面');
-            },
+            },*/
             success: function (data) {
                 var arry= JSON.parse(data);
                 console.log('空间信息类别2',arry);
@@ -673,10 +673,10 @@
         $.ajax({
             url: '/orderSpaceinfoTwo/'+parentId,
             method: 'put',
-            async: true, //异步请求
+         /*   async: true, //异步请求
             beforeSend: function(){
                 $(".basicDataFour").html('数据崩溃了，请刷新页面');
-            },
+            },*/
             success: function (data) {
                 var arry= JSON.parse(data);
                 console.log('空间信息类别3',arry);
@@ -712,10 +712,10 @@
         $.ajax({
             url: '/assistantMaterialUnitTwo/'+parentId,
             method: 'put',
-            async: true, //异步请求
+          /*  async: true, //异步请求
             beforeSend: function(){
                 $(".basicDataThree").html('数据崩溃了，请刷新页面');
-            },
+            },*/
             success: function (data) {
                 var arry= JSON.parse(data);
                 console.log('物料单位2',arry);
