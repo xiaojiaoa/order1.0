@@ -380,7 +380,6 @@ var DWY_fty_region = {
             url: '/getRegionList/'+id+'?cargoId='+DWY_fty_region.region_diff.cargoId+'&type='+DWY_fty_region.region_diff.type,
             method: "put",
             success: function (data) {
-                //console.log(data);
                 data = JSON.parse(data);
                 // if (id)
                 //     DWY_fty_region.area[id] = data;
