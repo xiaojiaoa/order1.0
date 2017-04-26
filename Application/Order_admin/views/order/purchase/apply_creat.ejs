@@ -171,6 +171,7 @@
                             <td><%= element.warning %></td>
                             <td><%= element.usable %></td>
                             <td><%= element.price %></td>
+                            
                         <%  }) }else{%>
                         <td colspan="9" class="text-align-center">暂无结果</td>
                         <%}%>
@@ -192,6 +193,12 @@
 <%- include('../layouts/footer_common_script'); %>
 <script type="text/javascript">
     $(document).ready(function () {
+//        $(".units").each(function(){
+//            var aaa=$(".units").html();
+//            alert(aaa)
+//        })
+
+
         pageSetUp();
         //刷新选中列表 这个函数根据每个页面不同需自己填写
         function updateCheckedList(isInit) {
@@ -240,8 +247,10 @@
         // 页面一加载先刷新一次读取localstorage
         updateCheckedList(true);
         $(".orderItemLayerTable input[name='roles']").on("change",function () {
+
             var $tds = $(this).parent().parent().parent().children("td");
             var unique=$(this).attr("uniqueId");
+
             // 获取整个条目数据
             var item = {
                 uniqueId:unique,
@@ -253,6 +262,7 @@
                 warning_num : $tds.eq(6).html(),
                 usable_stock : $tds.eq(7).html(),
                 price : $tds.eq(8).html(),
+
             }
             // 选中添加  取消选中则删除
             if($(this).is(':checked')){
