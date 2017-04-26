@@ -80,7 +80,13 @@
         var storageKey = 'LIST_DATA_PUR';
         var listArr = DWY_Utils.StorageUtils.getListArr(storageKey);
         var htmlStr = '';
-//        console.log(listArr)
+        var options = ''
+        var unitsp=listArr[0].unit.split(',');
+        var unitId=listArr[0].unitId.split(',');
+        var unitAmount=listArr[0].unitAmount.split(',');
+        for(var j=0;j<unitsp.length-1;j++){
+            options += '<option value="'+unitId[j]+'" amount="'+unitAmount[j]+'">'+unitsp[j]+'</option>'
+        }
         if (listArr instanceof Array && listArr.length != 0) {
             var len = listArr.length;
             for (var i = 0; i < len; i++) {
@@ -90,8 +96,8 @@
                     + '<td>' + listArr[i].name + '</td>'
                     + '<td>' + listArr[i].suppName + '</td>'
                     + '<td>' + listArr[i].class_name + '</td>'
-                    + '<td class="price'+i+'">' + listArr[i].price + '</td>'
-                    + '<td><select name="unit'+i+'" class="form-control"><option value="1">块</option></select></td>'
+                    + '<td class="price'+i+'" priceUnit="' + listArr[i].price + '">' + listArr[i].price + '</td>'
+                    + '<td><select data-index="' + i + '" name="unit' + i + '" class="form-control unitSelect">'+options+'</select></td>'
                     + '<td><input type="text" name="amount'+i+'" value="" class="form-control amountApply" /> </td>'
                     + '<td><input class="form-control fg-date-picker deliveryDate" type="text" value="" name="deliveryDate'+i+'" /> </td>'
                     + '<td><input name="minAmount'+i+'" class="form-control minAmount" value="" /></td>'
@@ -139,7 +145,7 @@
             }
 
             var date={reqMaterialList:myArray};
-            console.log(myArray)
+//            console.log(myArray)
             layer.confirm("确认提交？", {title:'提示'},function(index){
 //                    console.log(myArray);return false;
                     $.ajax({
@@ -165,6 +171,13 @@
                 },function(index){
                     layer.close(index)}
             )
+        })
+        $(".unitSelect").on('change',function(){
+            var index = $(this).attr('data-index');
+            var indexUnit = $(this).parents('td').siblings('.price'+index).attr('priceUnit');
+            var amount = $(this).find('option:selected').attr("amount");
+            var parse =  parseInt(indexUnit) * parseInt(amount);
+            $('.price'+index).text(parse);
         })
     })
 </script>

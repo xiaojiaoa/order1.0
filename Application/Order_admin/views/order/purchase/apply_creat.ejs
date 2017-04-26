@@ -171,7 +171,24 @@
                             <td><%= element.warning %></td>
                             <td><%= element.usable %></td>
                             <td><%= element.price %></td>
-                            
+                            <%
+                            if(DWY_Helper.isCanLoop(element.mateUnitList)){
+                            element.mateUnitList.forEach(function(elementa,indexa){%>
+                            <td class="unitsId" style="display:none"><%= elementa.id %></td>
+                            <%
+                            })}%>
+                            <%
+                            if(DWY_Helper.isCanLoop(element.mateUnitList)){
+                            element.mateUnitList.forEach(function(elementa,indexa){%>
+                            <td class="units" style="display:none"><%= elementa.name %></td>
+                            <%
+                            })}%>
+                            <%
+                            if(DWY_Helper.isCanLoop(element.mateUnitList)){
+                            element.mateUnitList.forEach(function(elementa,indexa){%>
+                            <td class="unitsAmount" style="display:none"><%= elementa.amount %></td>
+                            <%
+                            })}%>
                         <%  }) }else{%>
                         <td colspan="9" class="text-align-center">暂无结果</td>
                         <%}%>
@@ -193,12 +210,6 @@
 <%- include('../layouts/footer_common_script'); %>
 <script type="text/javascript">
     $(document).ready(function () {
-//        $(".units").each(function(){
-//            var aaa=$(".units").html();
-//            alert(aaa)
-//        })
-
-
         pageSetUp();
         //刷新选中列表 这个函数根据每个页面不同需自己填写
         function updateCheckedList(isInit) {
@@ -250,7 +261,18 @@
 
             var $tds = $(this).parent().parent().parent().children("td");
             var unique=$(this).attr("uniqueId");
-
+            var unit='';
+            var unitId='';
+            var unitAmount='';
+            $(".units").each(function(){
+                unit += $(this).html()+',';
+            })
+            $(".unitsId").each(function(){
+                unitId += $(this).html()+',';
+            })
+            $(".unitsAmount").each(function(){
+                unitAmount += $(this).html()+',';
+            })
             // 获取整个条目数据
             var item = {
                 uniqueId:unique,
@@ -262,7 +284,9 @@
                 warning_num : $tds.eq(6).html(),
                 usable_stock : $tds.eq(7).html(),
                 price : $tds.eq(8).html(),
-
+                unit : unit,
+                unitId : unitId,
+                unitAmount : unitAmount,
             }
             // 选中添加  取消选中则删除
             if($(this).is(':checked')){
