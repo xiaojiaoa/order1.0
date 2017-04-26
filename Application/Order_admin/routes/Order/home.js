@@ -135,11 +135,50 @@ var Middleware = {
 
         next();
     },
+    // apiLimiter: function (req, res, next) {
+    //
+    //     var limiter = new RateLimit({
+    //         windowMs: 3*1000, // 时间段 1 minutes
+    //         max: 1, // 时间段内限制每个IP的请求数
+    //         delayMs: 0 ,// 禁用延迟
+    //         skip: function (req, res) {
+    //             // if(req.method.toLowerCase() == 'get'){
+    //             //     return true;
+    //             // }
+    //         },
+    //         handler: function (req, res) {
+    //             console.log('submit????????')
+    //             // res.status(500).end('请勿重复提交数据');
+    //         }
+    //     });
+    //
+    //     // next();
+    // },
+    apiLimiter: new RateLimit({
+        windowMs: 5*1000, // 时间段 1 minutes
+        max: 1, // 时间段内限制每个IP的请求数
+        delayMs: 0 ,// 禁用延迟
+        skip: function (req, res) {
+            // if(req.method.toLowerCase() == 'get'){
+            //     return true;
+            // }
+        },
+        handler: function (req, res, next) {
+            console.log('submit????????')
+            // res.status(500).end('请勿重复提交数据');
+            // next();
+            res.format({
 
+                json: function(){
+                    res.status(200).json({ message: '请勿重复提交数据' });
+                }
+            });
+        }
+    })
 };
 
 var limiter = new RateLimit({
-    windowMs: 1*1000, // 时间段 1 minutes
+    windowMs: 3*1000, // 时间段 1 minutes
     max: 1, // 时间段内限制每个IP的请求数
     delayMs: 0 ,// 禁用延迟
     skip: function (req, res) {
@@ -151,10 +190,13 @@ var limiter = new RateLimit({
         // res.sendStatus(304);
         console.log('submit!!!!!!!')
         if (req.xhr) {
-            res.end();
-            // res.status(500).send({code: 500, msg: '请勿重复提交数据'});
+            // res.end();
+            res.status(500).send({code: 500, msg: '请勿重复提交数据'});
         } else {
-            res.redirect('back');
+            // res.end();
+            res.status(500).send({code: 500, msg: '请勿重复提交数据'});
+            Base.handlerError(res, req, error);
+            // res.redirect('back');
         }
         // res.status(500).send({code: 500, msg: '请勿重复提交数据'});
         // next();
@@ -168,7 +210,7 @@ var limiter = new RateLimit({
 });
 
 //  apply to all requests
-router.use(limiter);
+// router.use(limiter);
 
 
 /*
@@ -750,7 +792,7 @@ router.put('/factory/doOpen/:ftyId', Middleware.AuthCheck, FactoryController.doO
 router.get('/warehouse', Middleware.AuthCheck, Middleware.FilterEmptyField, FactoryController.listWarehousePage);
 
 // 新增仓库页面
-router.get('/warehouse/create/:ftyId', Middleware.AuthCheck, FactoryController.createWarehousePage);
+router.get('/warehouse/create/:ftyId',Middleware.apiLimiter, Middleware.AuthCheck, FactoryController.createWarehousePage);
 
 // 新增仓库
 router.post('/warehouse/doCreate', Middleware.AuthCheck,  FactoryController.doWarehouseCreate);

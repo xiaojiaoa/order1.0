@@ -208,8 +208,8 @@ var FactoryController = {
         });
     },
     doWarehouseCreate: function (req, res) {
+        console.log(8888888877777777777999999999)
         var ftyId = req.body.ftyId;
-        console.log("999999999888888888777777777")
         request(Base.mergeRequestOptions({
             method: 'post',
             url: '/api/whse/warehouse',

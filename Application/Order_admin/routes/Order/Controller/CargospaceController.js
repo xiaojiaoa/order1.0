@@ -221,7 +221,7 @@ var CargospaceController = {
             if (!error && response.statusCode == 201) {
                 Base.handlerSuccess(res, req);
                 // var lid = JSON.parse(body).lid;
-                res.redirect("/cargospace/detail/"+spaceId);
+                res.redirect("/cargospace/cargospace/detail/"+spaceId);
 
             } else {
                 Base.handlerError(res, req, error, response, body);

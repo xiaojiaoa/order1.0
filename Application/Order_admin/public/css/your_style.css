@@ -555,17 +555,29 @@ tr > td > .separation:last-child {
 .table-editinput .short {
     width: 100px;
 }
-
+#withWidth{
+    width:391px;
+}
 .table-editinput .target select {
-    width: 32.3%;
+    width: 32%;
     float: left;
-    margin-right: 5px;
+    margin-right: 2%;
 }
 
 .table-editinput .target select:last-child {
     margin-right: 0;
 }
-
+@media screen and (max-width: 1600px){
+    #withWidth{
+        width:150px;
+    }
+    .table-editinput .target select {
+        width: 100%;
+    }
+    .more-space{
+        height:110px !important;
+    }
+}
 .more-space {
     padding: 8px 10px;;
     border-bottom: 1px solid #ddd;
