@@ -419,6 +419,8 @@
                 $(".basicDataSec").html('数据崩溃了，请刷新页面');
             },*/
             success: function (data) {
+                //console.log('后台返回回来的data',data);
+                //console.log('data类型',typeof data);
                 var arry= JSON.parse(data);
                 //console.log(arry);
                 setFrag(key,arry);
