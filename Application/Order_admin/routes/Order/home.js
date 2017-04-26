@@ -135,30 +135,7 @@ var Middleware = {
 
         next();
     },
-    // apiLimiter: function (req, res, next) {
-    //
-    //     var limiter = new RateLimit({
-    //         windowMs: 60*1000, // 时间段 1 minutes
-    //         max: 1, // 时间段内限制每个IP的请求数
-    //         delayMs: 0 ,// 禁用延迟
-    //         message: 'Too many accounts created from this IP, please try again after an hour',
-    //         skip: function (req, res) {
-    //             // if(req.method.toLowerCase() == 'get'){
-    //             //     return true;
-    //             // }
-    //         },
-    //         handler: function (req, res) {
-    //             res.status(500).end('请勿重复提交数据');
-    //         }
-    //     });
-    //
-    //     next();
-    // },
-    // limiter: new RateLimit({
-    //     windowMs: 10*1000, // 15 minutes
-    //     max: 1, // limit each IP to 100 requests per windowMs
-    //     delayMs: 0 // disable delaying - full speed until the max limit is reached
-    // })
+
 };
 
 var limiter = new RateLimit({
@@ -180,7 +157,6 @@ var limiter = new RateLimit({
             res.redirect('back');
         }
         // res.status(500).send({code: 500, msg: '请勿重复提交数据'});
-        // res.redirect('/noticeInfo');
         // next();
         // res.format({
         //     html: function(){
@@ -191,10 +167,9 @@ var limiter = new RateLimit({
     }
 });
 
-
-router.use(limiter);
 //  apply to all requests
-// app.use(limiter);
+router.use(limiter);
+
 
 /*
  * 页面范围: 首页相关
