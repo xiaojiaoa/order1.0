@@ -48,10 +48,10 @@
                             </tr>
 
                             <tr>
-                                <td>柜员手机</td>
-                                <td><%= employeesInfo.mobile %></td>
-                                <td>柜员姓名</td>
-                                <td>
+                                <td width="20%">柜员手机</td>
+                                <td width="30%"><%= employeesInfo.mobile %></td>
+                                <td width="20%"> 柜员姓名</td>
+                                <td width="30%">
                                     <%= employeesInfo.name %>
                                     <% switch(employeesInfo.gender){
                                     case 0: %>
@@ -172,18 +172,13 @@
                         <% }else{ %>
                         <div class="col-xs-12 text-center" id="close-employee-btn">
 
-                            <% if(type == 'stores'){ %>
-                            <!--<a class="btn btn-primary ">-->
-                                <!--<i class="fa fa-edit"></i>-->
-                                <!--门店可否修改柜员信息未定？？？-->
-                            <!--</a>-->
-                            <%  }else{ %>
+                            <% if(type == 'organizations'){ %>
                             <a class="btn btn-primary "
                                href="/<%= type %>/employees/modify/<%= employeesInfo.bid %>/<%= employeesInfo.id %>">
                                 <i class="fa fa-edit"></i>
                                 修改柜员信息
                             </a>
-                            <%  } %>
+                            <% }%>
 
 
                             <a class="btn btn-primary" id="reset-password">
@@ -193,6 +188,11 @@
                             <a class="btn btn-warning" id="close-employee">
                                 <i class="fa fa-unlock-alt"></i>
                                 关闭账号
+                            </a>
+
+                            <a class="btn btn-warning" id="open-login">
+                                <i class="fa fa-history"></i>
+                                登陆解锁
                             </a>
                         </div>
                         <% } %>
@@ -296,6 +296,32 @@
                     })
             }
         })
+
+        $("#open-login").on({
+            click: function () {
+                layer.confirm('确定登陆解锁该柜员账号？', {icon: 3, title: '提示'},
+                    function (index) {
+                        $.ajax({
+                            url: '/employees/openLogin/' + employeesId ,
+                            method: 'put',
+                            success: function (data) {
+                                layer.close(index)
+                                layer.msg('已解锁', {icon: 1, time: 2000});
+                            },
+                            error: function (response) {
+                                layer.close(index)
+                                errorLayout.normal(response);
+
+                            }
+                        });
+
+                    },
+                    function (index) {
+                        layer.close(index)
+                    })
+            }
+        })
+
     })
 
 </script>

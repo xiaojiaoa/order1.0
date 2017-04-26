@@ -226,6 +226,20 @@ var EmployeeController = {
         })
 
     },
+    openLogin: function (req, res) {
+        var cid = req.params.cid;
+        request(Base.mergeRequestOptions({
+            method: 'put',
+            url:  '/api/employees/cache/'+cid,
+        }, req, res), function (error, response, body) {
+            if (!error && response.statusCode == 201) {
+                res.sendStatus(200);
+            } else {
+                Base.handlerError(res, req, error, response, body);
+            }
+        })
+
+    },
 };
 
 module.exports = EmployeeController;

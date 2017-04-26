@@ -162,17 +162,24 @@ var Middleware = {
 };
 
 var limiter = new RateLimit({
-    windowMs: 10*1000, // 时间段 1 minutes
-    max: 2, // 时间段内限制每个IP的请求数
+    windowMs: 1*1000, // 时间段 1 minutes
+    max: 1, // 时间段内限制每个IP的请求数
     delayMs: 0 ,// 禁用延迟
     message: 'Too many accounts created from this IP, please try again after an hour',
     skip: function (req, res) {
-        // if(req.method.toLowerCase() == 'get'){
-        //     return true;
-        // }
+        if(req.method.toLowerCase() == 'get'){
+            return true;
+        }
     },
-    handler: function (req, res, next) {
-        res.sendStatus(304);
+    handler: function (req, res) {
+        // res.sendStatus(304);
+        console.log('submit!!!!!!!')
+        if (req.xhr) {
+            res.status(500).send({code: 500, msg: '请勿重复提交数据'});
+        } else {
+            res.redirect('back');
+        }
+        // res.status(500).send({code: 500, msg: '请勿重复提交数据'});
         // res.redirect('/noticeInfo');
         // next();
         // res.format({
@@ -185,7 +192,7 @@ var limiter = new RateLimit({
 });
 
 
-// router.use(limiter);
+router.use(limiter);
 //  apply to all requests
 // app.use(limiter);
 
@@ -731,7 +738,8 @@ router.put('/:type/employees/resetPassword/:cid', Middleware.AuthCheck, Employee
 // 关闭/解锁 员工账号
 router.put('/:bidtype/employees/setStatus/:cid/:type', Middleware.AuthCheck, EmployeeController.setStatus);
 
-
+// 登陆解锁 员工账号
+router.put('/employees/openLogin/:cid', Middleware.AuthCheck, EmployeeController.openLogin);
 /*
  * 页面范围: 仓储管理
  * 控制器:   FactoryController

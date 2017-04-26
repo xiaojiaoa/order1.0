@@ -15,7 +15,7 @@
             <li>后台管理</li>
             <li><a class="back-url" href="/taskseqs">流水查询</a></li>
             <li><a class="back-url" href="/taskseq/index/<%= lid %>"> 流水信息</a></li>
-            <li>订单文件详情</li>
+            <li>流水文件</li>
             <li><a class="back-url" href="javascript:history.go(-1)"> <i class="fa fa-chevron-left"></i>返回</a></li>
         </ol>
 
@@ -103,72 +103,6 @@
 
 <script type="text/javascript">
 
-    $(document).ready(function () {
-
-        pageSetUp();
-
-        $('#parentSpaceType').change(function () {
-            var p1 = $('#parentSpaceType').children('option:selected').val();
-            if (p1) {
-                DWY_space.getAreaList(p1)
-            }
-        })
-
-        var DWY_space = {
-            space: {},
-            getAreaList: function (id) {
-                $.ajax({
-                    url: '/order/space/' + id,
-                    method: "get",
-                    success: function (data) {
-                        refreshSpace(data)
-                    },
-                    error: function (response) {
-                        layer.close(index)
-                        errorLayout.normal(response);
-
-                    }
-                })
-            }
-        }
-
-        var refreshSpace = function (date) {
-            $("#spaceType").find('option').remove();
-            if (date.length > 1) {
-                for (var i = 0; i < date.length; i++) {
-                    $("#spaceType").append("<option value='" + date[i].id + "'>" + date[i].name + "</option>");
-                }
-            }
-        }
-
-        var pageFunction = function () {
-
-        }
-        pageFunction();
-
-    })
-
-    function submitForm() {
-
-        var formData = new FormData(document.getElementById('singleSubmit'));
-
-//        $.ajax({
-//            url: '/template/upload/single',
-//            data: formData,
-//            type: 'POST',
-//            // THIS MUST BE DONE FOR FILE UPLOADING
-//            processData: false, // 不处理发送的数据，因为data值是Formdata对象，不需要对数据做处理
-//            contentType: false, // 不设置Content-type请求头
-//            // ... Other options like success and et
-//            success: function (data) {
-//                console.log(data);
-//            },
-//            error: function () {
-//            }
-//        })
-
-    }
-
     function deleteFile(id) {
         layer.confirm('确认删除该文件?',{icon: 3, title:'提示'},function(index){
             $.ajax({
@@ -187,52 +121,6 @@
             layer.close(index)})
     }
 
-    $('#dwy_file_upload').on({
-        change: function (e) {
-            var _this = $(this);
-            var label = $("#label-upload-file");
-            var lid = $("[name=lid]");
-            var tid = $("[name=tid]");
-            var formData = new FormData();
-
-            formData.append('file_name', _this.prop('files')[0])
-            formData.append('lid', lid.val())
-            formData.append('tid', tid.val())
-
-//            console.log(window.aaa = formData);
-            label.html('上传中 <i class="fa fa-circle-o-notch fa-spin">');
-            label.attr('disabled', true);
-
-
-            $.ajax({
-                url: '/template/upload/single/order',
-                data: formData,
-                type: 'POST',
-                // THIS MUST BE DONE FOR FILE UPLOADING
-                processData: false, // 不处理发送的数据，因为data值是Formdata对象，不需要对数据做处理
-                contentType: false, // 不设置Content-type请求头
-                // ... Other options like success and et
-                success: function (data) {
-                    label.attr('disabled', false);
-                    if (data.code == 200) {
-                        var fileName = $('[name=fileName]').val(data.data.name);
-                        var fileSize = $('[name=fileSize]').val(data.data.size);
-                        var savePath = $('[name=savePath]').val(data.data.url);
-                        label.html('上传成功 <i class="fa fa-check">');
-
-                        // 图片预览
-//                        $('#test-image-upload').attr('src', '/uploads/' + data.tmp_path);
-                    } else {
-                        label.html('上传失败 <i class="fa fa-times">');
-                    }
-                },
-                error: function () {
-                    label.attr('disabled', false);
-                    label.html('上传失败 <i class="fa fa-times">');
-                }
-            })
-        }
-    })
 
 </script>
 

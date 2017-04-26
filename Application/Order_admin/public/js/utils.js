@@ -1,5 +1,5 @@
 var DWY_GLOBAL_CONSTANT = {
-    TimeOut: 500,
+    TimeOut: 5000,
 };
 
 var DWY_Utils = DWY_Utils || {

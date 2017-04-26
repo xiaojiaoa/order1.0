@@ -19,6 +19,7 @@ var Permissions = require('../config/permission');
 
 var InformationController = {
     noticeInfoPage: function (req, res) {
+        console.log(66666666666666);
         var paramObject = helper.genPaginationQuery(req);
         //console.log( '公告列表','/api/notices/page?pageSize=5&'+queryString.stringify(req.query))
         Base.multiDataRequest(req, res, [
