@@ -48,6 +48,9 @@
                                     <th width="100">单价</th>
                                     <th width="100">采购金额</th>
                                     <th>采购数量</th>
+                                    <th>采购单位</th>
+                                    <th>总入库数</th>
+                                    <th>入库单位</th>
                                     <th width="391px">区域(必选)</th>
                                     <th width="120">货位号(行列层)</th>
                                     <th width="100">入库数量</th>
@@ -73,7 +76,10 @@
                                             <td><%=element.mateName%></td>
                                             <td id="modigyprice<%= index %>"><%=element.price%></td>
                                             <td id="modigytotal<%= index %>"><%=element.totalAmount%></td>
+                                            <td><%=element.befAmount%></td>
+                                            <td><%=element.befUnit%></td>
                                             <td><%=element.amount%></td>
+                                            <td><%=element.inUnit%></td>
 
                                             <% if(!initFtyId){ %>
                                             <td colspan="5" class="text-danger">无所属工厂，无法操作，请先到<a href="/factory">"仓储管理"</a>进行新建</td>
