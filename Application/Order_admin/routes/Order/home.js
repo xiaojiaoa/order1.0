@@ -83,10 +83,15 @@ var Middleware = {
         if(req.method.toLowerCase() == 'get'){
             // req.session.preventPath = req.path;
             if(req.session.preventPath){
-                req.session.preventPath[req.session.user.id] = req.url;
+                if(req.session.user){
+                    req.session.preventPath[req.session.user.id] = req.url;
+                }
+
             }else{
                 req.session.preventPath = {};
-                req.session.preventPath[req.session.user.id] = req.url;
+                if(req.session.user){
+                    req.session.preventPath[req.session.user.id] = req.url;
+                }
             }
 
         }
