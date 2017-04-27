@@ -1135,7 +1135,7 @@ table > tbody > tr > td a.label:first-child {
     float: left;
 }
 .role-span{
-    width: 500px;
+    max-width: 500px;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
