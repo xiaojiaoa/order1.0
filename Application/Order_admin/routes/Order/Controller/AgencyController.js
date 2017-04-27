@@ -46,6 +46,7 @@ var AgencyController = {
 
             var returnData = Base.mergeData(helper.mergeObject({
                 title: ' ',
+                Permission :Permissions,
             },resultList));
             res.render('order/manages/agency_detail', returnData);
         });
@@ -57,6 +58,7 @@ var AgencyController = {
 
             var returnData = Base.mergeData(helper.mergeObject({
                 title: ' ',
+                Permission :Permissions,
             },resultList));
             res.render('order/manages/agency_create', returnData);
         });

@@ -9,6 +9,7 @@ var helper = require('../config/helper');
 
 var request = require('request');
 
+var Permissions = require('../config/permission');
 
 var DepartmentController = {
     listPage: function (req, res) {
@@ -22,6 +23,7 @@ var DepartmentController = {
                 title: ' ',
                 bid: bid,
                 type: type,
+                Permission :Permissions,
             }, resultList));
             res.render('order/department/index', returnData);
         });

@@ -33,10 +33,14 @@
                 <div class="col-xs-12">
                     <legend>基本信息
                         <% if( organizationsInfo.stcode == 2 ){ %>
+                        <% if (DWY_Helper.hasPermission(Permission.organization.create.id, permission) ){ %>
                         <a class="label label-primary" id="openStore">启用</a>
+                        <% }%>
                         <% }else{ %>
+                        <% if (DWY_Helper.hasPermission(Permission.organization.create.id, permission) ){ %>
                         <a class="label label-primary" href="/agency/modify/<%= organizationsInfo.id %>">修改</a>
                         <a class="label label-danger" id="closeStore">禁用</a>
+                        <% }%>
                         <% } %>
 
                     </legend>

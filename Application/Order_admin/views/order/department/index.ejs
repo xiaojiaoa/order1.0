@@ -36,7 +36,9 @@
             <div class="row">
                 <div class="col-xs-12">
                     <h6>部门列表
+                        <% if (DWY_Helper.hasPermission(Permission.employeeManage.createDepartment.id, permission) || DWY_Helper.hasPermission(Permission.employeeManage.createAllDepartment.id, permission) ){ %>
                         <a class="label label-primary" id="department-modal" >新建部门</a>
+                        <% }%>
                     </h6>
                     <hr class="simple">
                 </div>
@@ -61,9 +63,11 @@
                                 <td>
                                     <% if(element.stcode ==1){ %>
 
+                                    <% if (DWY_Helper.hasPermission(Permission.employeeManage.createDepartment.id, permission) || DWY_Helper.hasPermission(Permission.employeeManage.createAllDepartment.id, permission) ){ %>
                                     <a class="departmentChild-modal label label-primary" parent="<%= element.name %>" parentId="<%= element.id %>">新建子级</a>
                                     <a class="departmentModify-modal label label-primary" name="<%= element.name %>" selfId="<%= element.id %>">修改</a>
                                     <a class="delete-department label label-danger" selfId="<%= element.id %>">禁用</a>
+                                    <% }%>
 
                                     <% if(!element.subDeparts || element.subDeparts.length==0){
                                     if(type == 'stores') {  %>
@@ -75,7 +79,9 @@
                                     }%>
 
                                     <% }else{ %>
+                                    <% if (DWY_Helper.hasPermission(Permission.employeeManage.createDepartment.id, permission) || DWY_Helper.hasPermission(Permission.employeeManage.createAllDepartment.id, permission) ){ %>
                                     <a class="open-department label label-primary" selfId="<%= element.id %>">启用</a>
+                                    <% }%>
                                     <% } %>
 
                                 </td>
@@ -87,9 +93,10 @@
                                 <td>
                                     <% if(element.stcode ==1){ %>
 
+                                    <% if ( (DWY_Helper.hasPermission(Permission.employeeManage.createDepartment.id, permission) && user.bid ==  bid ) || DWY_Helper.hasPermission(Permission.employeeManage.createAllDepartment.id, permission) ){ %>
                                     <a class="departmentModify-modal label label-primary margin-left-85" name="<%= element.name %>"  selfId="<%= element.id %>">修改</a>
                                     <a class="delete-department label label-danger"  selfId="<%= element.id %>">禁用</a>
-
+                                    <% }%>
                                     <% if(type == 'stores') {  %>
                                     <a href="/stores/employees?bid=<%= bid %>&did=<%= element.id %>" class="label label-primary">查看柜员</a>
                                     <% }else{
@@ -98,7 +105,9 @@
                                     <%} %>
 
                                     <%  }else{ %>
+                                    <% if (DWY_Helper.hasPermission(Permission.employeeManage.createDepartment.id, permission) || DWY_Helper.hasPermission(Permission.employeeManage.createAllDepartment.id, permission) ){ %>
                                     <a class="open-department label label-primary" selfId="<%= element.id %>">启用</a>
+                                    <% }%>
                                     <%  } %>
 
                                 </td>

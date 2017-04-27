@@ -388,6 +388,22 @@ var permissions = {
         }
     },
     employeeManage :{
+        createDepartment:{
+          id  : "201011",
+          name :"新增本机构部门"
+        },
+        createAllDepartment:{
+          id : "881012",
+          name :"新增所有机构部门"
+        },
+        update:{
+          id   : "201031",
+          name :"修改本机构柜员信息"
+        },
+        updateAll:{
+          id  :"201030",
+          name:"修改所有机构柜员信息"
+        },
         queryAll:{
             id:"881043",
             name:"查询所有机构柜员"

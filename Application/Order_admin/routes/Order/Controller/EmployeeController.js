@@ -115,6 +115,7 @@ var EmployeeController = {
                 title: ' ',
                 type:type,
                 bid:bid,
+                Permission :Permissions,
             }, resultList));
             res.render('order/employees/detail', returnData);
         });
@@ -156,6 +157,7 @@ var EmployeeController = {
                 cid:cid,
                 type:type,
                 bid:bid,
+                Permission :Permissions,
             }, resultList));
             // console.log('employees'+ JSON.stringify(resultList))
             res.render('order/employees/modify', returnData);

@@ -163,24 +163,28 @@
                         <hr class="simple">
 
                         <% if(employeesInfo.stcode == 2) { %>
+                        <% if (DWY_Helper.hasPermission(Permission.employeeManage.update.id, permission) || DWY_Helper.hasPermission(Permission.employeeManage.updateAll.id, permission)  ){ %>
                         <div class="col-xs-12 text-center" id="open-employee-btn">
                             <a class="btn btn-primary" id="open-employee">
                                 <i class="fa fa-unlock"></i>
                                 解锁
                             </a>
                         </div>
+                        <% }%>
                         <% }else{ %>
                         <div class="col-xs-12 text-center" id="close-employee-btn">
 
                             <% if(type == 'organizations'){ %>
+                            <% if (DWY_Helper.hasPermission(Permission.employeeManage.update.id, permission) || DWY_Helper.hasPermission(Permission.employeeManage.updateAll.id, permission)  ){ %>
                             <a class="btn btn-primary "
                                href="/<%= type %>/employees/modify/<%= employeesInfo.bid %>/<%= employeesInfo.id %>">
                                 <i class="fa fa-edit"></i>
                                 修改柜员信息
                             </a>
                             <% }%>
+                            <% }%>
 
-
+                            <% if (DWY_Helper.hasPermission(Permission.employeeManage.update.id, permission) || DWY_Helper.hasPermission(Permission.employeeManage.updateAll.id, permission)  ){ %>
                             <a class="btn btn-primary" id="reset-password">
                                 <i class="fa fa-refresh"></i>
                                 密码重置
@@ -194,6 +198,7 @@
                                 <i class="fa fa-history"></i>
                                 登陆解锁
                             </a>
+                            <% }%>
                         </div>
                         <% } %>
 

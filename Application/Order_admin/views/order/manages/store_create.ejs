@@ -257,11 +257,12 @@
                             <div class="col-xs-8">
                                 <hr class="simple">
                                 <div class="col-xs-12 text-center">
-
+                                    <% if (DWY_Helper.hasPermission(Permission.store.create.id, permission) ){ %>
                                     <button class="btn btn-primary " type="submit">
                                         <i class="fa fa-save"></i>
                                         确认添加
                                     </button>
+                                    <% } %>
                                 </div>
                             </div>
 

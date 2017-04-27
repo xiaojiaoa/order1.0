@@ -75,6 +75,7 @@ var StoresController = {
 
             var returnData = Base.mergeData(helper.mergeObject({
                 title: ' ',
+                Permission :Permissions,
             },resultList));
             res.render('order/manages/store_create', returnData);
         });

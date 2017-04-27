@@ -88,9 +88,11 @@
                 <div class="col-xs-12">
                     <legend>
                         供货信息
+                        <% if (DWY_Helper.hasPermission(Permission.supplier.creae.id, permission) ){ %>
                         <a class="label label-primary " type="submit" href="/supplier/offer_product/<%= suppliersDetail.id  %>">
                             添加可提供物料
                         </a>
+                        <% } %>
                     </legend>
                     <div class="table-responsive">
                         <table class="table table-bordered table-striped table-hover">
@@ -117,8 +119,10 @@
                                 <td><%= DWY_Helper.getLocalDateYMD(element.expiryDate) %></td>
                                 <td><%= element.outerCode %></td>
                                 <td class="supMatTd">
+                                    <% if (DWY_Helper.hasPermission(Permission.supplier.creae.id, permission) ){ %>
                                     <button class="label label-primary deleteRelate" sid="<%= tid %>" mid="<%= element.id %>">解除关联</button>
                                     <button class="label label-primary updateDate" mid="<%= element.id %>">修改日期</button>
+                                    <% } %>
                                 </td>
                             </tr>
                             <%  })}%>
