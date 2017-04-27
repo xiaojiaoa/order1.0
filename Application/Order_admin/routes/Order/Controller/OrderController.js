@@ -75,20 +75,13 @@ var OrderController = {
                 var spaceInfo = [];
                 resultList.spaceInfo.forEach(function(element,index){
                     if( spaceInfo[element.spaceId] == undefined){
-
-
                         spaceInfo[element.spaceId] = {};
                         spaceInfo[element.spaceId].data = [];
 
                     }
-                    spaceInfo[element.spaceId].data.push(element);
-
-                    // if(element.parentId == 0){
-                    //     spaceInfo[element.id] = element;
-                    //     spaceInfo[element.id].data = [];
-                    // }else{
-                    //     spaceInfo[element.parentId].data.push(element);
-                    // }
+                    if(spaceInfo[element.spaceId]){
+                        spaceInfo[element.spaceId].data.push(element);
+                    }
                 });
 
                 resultList.spaceInfo = spaceInfo;
@@ -676,11 +669,16 @@ var OrderController = {
                         resupplyReason[element.id] = element;
                         resupplyReason[element.id].data = [];
                     }else if(element.levelType == 2){
-                        resupplyReason[element.parentId].data.push(element);
-                        resupplyLeveTwo[element.id] = element;
-                        resupplyLeveTwo[element.id].dataChild = [];
+                        if(resupplyReason[element.parentId]){
+                            resupplyReason[element.parentId].data.push(element);
+                            resupplyLeveTwo[element.id] = element;
+                            resupplyLeveTwo[element.id].dataChild = [];
+                        }
+
                     }else{
-                        resupplyLeveTwo[element.parentId].dataChild.push(element);
+                        if(resupplyLeveTwo[element.parentId]){
+                            resupplyLeveTwo[element.parentId].dataChild.push(element);
+                        }
                     }
                 });
 

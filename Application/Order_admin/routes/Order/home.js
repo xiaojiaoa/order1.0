@@ -8,7 +8,7 @@ var express = require('express');
 var RateLimit = require('express-rate-limit');
 
 
-//for multipart form data
+//  for multipart form data
 var multer = require('multer');
 
 var storage = multer.diskStorage({
@@ -29,20 +29,20 @@ var router = express.Router();
 
 
 
-//把USER信息加入到全局
+// 把USER信息加入到全局
 router.use(function (req, res, next) {
-    //登录用户信息
+    // 登录用户信息
     res.locals.user = req.session.user;
-    //菜单信息
+    // 菜单信息
     res.locals.menu = req.session.menu;
-    //权限信息
+    // 权限信息
     res.locals.permission = req.session.permission;
-    //请求本身
+    // 请求本身
     res.locals.DWYRequest = req;
     next();
 });
 
-//错误或者正确信息处理
+// 错误或者正确信息处理
 router.use(function (req, res, next) {
     if (req.session.DWY_message) {
         res.locals.DWY_message = req.session.DWY_message;
@@ -53,7 +53,7 @@ router.use(function (req, res, next) {
     next();
 });
 
-//取回上一次错误提交时的请求参数
+// 取回上一次错误提交时的请求参数
 router.use(function (req, res, next) {
     console.log(req.session.DWY_last_request_param)
     if (req.session.DWY_last_request_param) {
@@ -78,17 +78,23 @@ var request = require('request');
  * 中间件
  * */
 var Middleware = {
-    //检测SESSION 是否存在TOKEN (NODE),TODO 区分AJAX请求,以JSON格式返回
+    // 检测SESSION 是否存在TOKEN (NODE),TODO 区分AJAX请求,以JSON格式返回
     AuthCheck: function (req, res, next) {
         if(req.method.toLowerCase() == 'get'){
             // req.session.preventPath = req.path;
-            req.session.preventPath = req.url;
+            if(req.session.preventPath){
+                req.session.preventPath[req.session.user.id] = req.url;
+            }else{
+                req.session.preventPath = {};
+                req.session.preventPath[req.session.user.id] = req.url;
+            }
+
         }
         if (!req.session.auth) {
             console.log('SESSION HAS NO AUTH');
             res.redirect('/login');
         } else {
-            //增加token失效验证. token存在但过期时,自动发送refresh_token并保存新的token到用户session
+            // 增加token失效验证. token存在但过期时,自动发送refresh_token并保存新的token到用户session
             var user_auth = req.session.auth;
             if ((new Date().getTime() - user_auth.time) > 1600000) {
 
@@ -120,7 +126,7 @@ var Middleware = {
             }
         }
     },
-    //过滤去掉空字段
+    // 过滤去掉空字段
     FilterEmptyField: function (req, res, next) {
 
         _.each({body: req.body, query: req.query}, function (value, key) {
@@ -146,7 +152,11 @@ var Middleware = {
         },
         handler: function (req, res, next) {
             console.log('submit????????')
-            res.redirect('back');
+            if(req.xhr){
+                res.status(500).send({code: 500, msg: '请勿重复提交数据'});
+            }else{
+                res.redirect('back');
+            }
             // res.status(500).end('请勿重复提交数据');
             // next();
         }
@@ -194,10 +204,10 @@ router.get('/', Middleware.AuthCheck, IndexController.indexPage);
 // 客户跟进统计
 router.get('/countCustomer', Middleware.AuthCheck, IndexController.countCustomerPage);
 
-//获取门店列表
+// 获取门店列表
 router.put('/getDepartList/:sid', Middleware.AuthCheck, IndexController.getDepartList);
 
-//获取部门列表
+// 获取部门列表
 router.put('/getHomeAdviserList/:sid/:did', Middleware.AuthCheck, IndexController.getHomeAdviserList);
 
 // 成交情况统计
@@ -286,7 +296,7 @@ router.get('/orders/resupplys/accept', Middleware.AuthCheck, Middleware.FilterEm
 
 // 标记为审核中
 router.put('/resupplys/getTask/:tid', Middleware.AuthCheck, OrderController.getTaskResupplys);
-//重新提交
+// 重新提交
 router.put('/resupplys/getTaskAgain/:tid', Middleware.AuthCheck, OrderController.getTaskResupplysAgain);
 // 解锁补单
 router.put('/resupplys/unlock/:tid', Middleware.AuthCheck, OrderController.doUnlockResupplys);
@@ -341,9 +351,9 @@ router.get('/order/permit', Middleware.AuthCheck, OrderController.permitPage);
 
 // 订单排料页面
 router.get('/orders/nesting', Middleware.AuthCheck, OrderController.nestingPage);
-//标记排料中页面
+// 标记排料中页面
 router.post('/orders/getNestingTask/:cid', Middleware.AuthCheck, OrderController.getNestingTask);
-//修改批次页面
+// 修改批次页面
 router.post('/order/editBatchNum/:cid/:bid', Middleware.AuthCheck, OrderController.editBatchNum);
 // 标记为审核中 (待排料)
 router.put('/schedule/getTask/:tid', Middleware.AuthCheck, OrderController.getTaskSchedule);
@@ -365,43 +375,42 @@ router.put('/schedule/getTaskAgain/:tid', Middleware.AuthCheck, OrderController.
 router.get('/orders/package', Middleware.AuthCheck,Middleware.FilterEmptyField,OrderController.packagePage);
 router.get('/orders/package/allInfo', Middleware.AuthCheck,Middleware.FilterEmptyField,OrderController.allInfoPage);
 
-//查询订单生成包装后的包装详情
+// 查询订单生成包装后的包装详情
 router.get('/orders/package/:tid', Middleware.AuthCheck,OrderController.packedListPage);
 
-//生成包装操作
-router.put('/orders/package/packet/:tid',Middleware.AuthCheck,OrderController.doPacket);
+// 生成包装操作
+router.put('/orders/package/packet/:tid', Middleware.apiLimiter,Middleware.AuthCheck,OrderController.doPacket);
 
-//撤销包装操作
+// 撤销包装操作
 router.put('/orders/package/unpacket/:tid', Middleware.AuthCheck,OrderController.unPacket);
 
-//移动包装操作
+// 移动包装操作
 router.post('/orders/package/packet/move',Middleware.AuthCheck,OrderController.movePacket);
 
-//删除空包装操作
+// 删除空包装操作
 router.put('/orders/package/packet/delete/:pid/:type',Middleware.AuthCheck,OrderController.deletePacket);
 
-//导出包装清单
+// 导出包装清单
 router.get('/orders/package/export/:tid',Middleware.AuthCheck,OrderController.exportPacket);
 
-//增加包装
+// 增加包装
 router.post('/orders/package/packet/add',Middleware.AuthCheck,OrderController.addPacket);
 
 
-//订单详情--订单物料--非标件
+// 订单详情--订单物料--非标件
 router.get('/order/workpiece/:tid',Middleware.AuthCheck,OrderController.workpiecePage);
-//订单详情--订单物料--配件
+// 订单详情--订单物料--配件
  router.get('/order/materiel_modal/:tid',Middleware.AuthCheck,OrderController.partsPage);
 
-//订单详情--订单物料--非标件导出
+// 订单详情--订单物料--非标件导出
 router.get('/order/exportWorkpiece/:tid',Middleware.AuthCheck,OrderController.exportWorkpiece);
-//订单详情--订单物料--配件导出
+// 订单详情--订单物料--配件导出
 router.get('/order/exportParts/:tid',Middleware.AuthCheck,OrderController.exportParts);
 
 // 收款页面
 router.get('/collection', Middleware.AuthCheck, OrderController.receiptMoneyPage);
 
 
-//
 router.post('/collection/receiptCheck', Middleware.AuthCheck, OrderController.receiptCheck);
 
 /*
@@ -496,28 +505,28 @@ router.post('/materialManage/choiceFactory', Middleware.AuthCheck, MaterialContr
 // 物料出入库总计页面
 router.get('/materialManage/summary', Middleware.AuthCheck,Middleware.FilterEmptyField,MaterialController.summaryPage);
 
-//物料分类一物料新建
+// 物料分类一物料新建
 router.get('/materialManage/material/:tid/creStepO', Middleware.AuthCheck, MaterialController.materialTypeCreateOnePage);
 
-//物料新建页面一
+// 物料新建页面一
 router.get('/materialManage/material/creStepO', Middleware.AuthCheck, MaterialController.materialCreateOnePage);
 
 // 物料新建页面一-第一步传值
 router.post('/materialCreate/doNext', Middleware.AuthCheck, MaterialController.doNext);
 
-//物料新建页面二
+// 物料新建页面二
 router.get('/materialManage/material/creStepS/:id', Middleware.AuthCheck, MaterialController.materialCreateSecPage);
 
-//物料分类三级联动菜单接口
+// 物料分类三级联动菜单接口
 router.put('/materialManage/material/selectMateCate/:pid', Middleware.AuthCheck, MaterialController.selectMateCate);
 
 // 新建物料-提交数据接口
 router.post('/materialManage/material/doCreate', Middleware.AuthCheck, MaterialController.doCreate);
 
-//修改物料
+// 修改物料
 router.get('/materialManage/material/modify/:mid', Middleware.AuthCheck, MaterialController.materialModifyPage);
 
-//修改物料-提交数据接口
+// 修改物料-提交数据接口
 router.post('/materialManage/material/doModify', Middleware.AuthCheck, MaterialController.doModify);
 
 // 禁用/解锁 物料详情
@@ -532,22 +541,22 @@ router.put('/material/add/setStatus/:bid/:mid/:type', Middleware.AuthCheck, Mate
 // 物料管理--物料详情-完善物料--提交数据接口
 router.post('/materialManage/doAdd', Middleware.AuthCheck, MaterialController.doAdd);
 
-//物料管理--成品关联物料--工件
+// 物料管理--成品关联物料--工件
 router.get('/materialManage/workpiece/:mid', Middleware.AuthCheck, MaterialController.workpiecePage);
 
-//物料管理--成品关联物料--配件
+// 物料管理--成品关联物料--配件
 router.get('/materialManage/accessory/:mid', Middleware.AuthCheck, MaterialController.materiel_accessoryPage);
 
-//物料管理--成品关联物料--上传工件、配件文件
+// 物料管理--成品关联物料--上传工件、配件文件
 router.post('/api/materials/accessory/workpiece', Middleware.AuthCheck, MaterialController.fileDoCreate);
 
-//物料管理--修改预警
+// 物料管理--修改预警
 router.post('/materials/doWarning', Middleware.AuthCheck, MaterialController.warningDoCreate);
 
-//物料管理--修改库存
+// 物料管理--修改库存
 router.post('/materials/doStock', Middleware.AuthCheck, MaterialController.stockDoCreate);
 
-//物料管理--库存记录
+// 物料管理--库存记录
 router.get('/stockRecord', Middleware.AuthCheck,Middleware.FilterEmptyField,MaterialController.stockRecordPage);
 
 
@@ -556,25 +565,25 @@ router.get('/stockRecord', Middleware.AuthCheck,Middleware.FilterEmptyField,Mate
  * 控制器:   MaterialAttrController
  * */
 var MaterialAttrController = require('./Controller/MaterialAttrController');
-//物料属性页面
+// 物料属性页面
 router.get('/materialManage/materialAttribute', Middleware.AuthCheck,Middleware.FilterEmptyField, MaterialAttrController.materialAttributePage);
 
-//新建物料属性接口
+// 新建物料属性接口
 router.post('/material/attrCreate', Middleware.AuthCheck, MaterialAttrController.attrCreate);
 
-//修改物料属性接口
+// 修改物料属性接口
 router.post('/material/attrChange', Middleware.AuthCheck, MaterialAttrController.attrChange);
 
 // 禁用/解锁 物料属性状态
 router.put('/mateAttr/setStatus/:aid/:type', Middleware.AuthCheck, MaterialAttrController.setAttrStatus);
 
-//新建物料属性值接口
+// 新建物料属性值接口
 router.post('/material/attrValCreate', Middleware.AuthCheck, MaterialAttrController.attrValCreate);
 
-//修改物料属性值接口
+// 修改物料属性值接口
 router.post('/material/attrValChange', Middleware.AuthCheck, MaterialAttrController.attrValChange);
 
-//物料属性值详情页面
+// 物料属性值详情页面
 router.get('/materialManage/mateAttr/detail/:mid', Middleware.AuthCheck, MaterialAttrController.mateAttrDetailPage);
 
 // 禁用/解锁 物料属性值状态
@@ -586,13 +595,13 @@ router.put('/mateAttrVal/setStatus/:code/:type/:aid', Middleware.AuthCheck, Mate
  * */
 var MaterialTypeController = require('./Controller/MaterialTypeController');
 
-//物料分类页面
+// 物料分类页面
 router.get('/materialManage/materialType', Middleware.AuthCheck,Middleware.FilterEmptyField,MaterialTypeController.materialTypePage);
 
-//物料分类-新建一级分类页面
+// 物料分类-新建一级分类页面
 router.get('/materialManage/materialType/creOne', Middleware.AuthCheck, MaterialTypeController.materialTypeCreOnePage);
 
-//物料分类-新建二级、三级分类页面
+// 物料分类-新建二级、三级分类页面
 router.get('/materialManage/materialType/creOther/:id', Middleware.AuthCheck, MaterialTypeController.materialTypeCreOtherPage);
 
 // 物料分类-新建一级分类页面--数据接口
@@ -601,7 +610,7 @@ router.post('/materialManage/materialType/creOneDo', Middleware.AuthCheck, Mater
 // 物料分类-新建二级、三级分类--数据接口
 router.post('/materialManage/materialType/creOtherDo', Middleware.AuthCheck, MaterialTypeController.materialTypeCreOtherDo);
 
-//物料分类-修改分类页面
+// 物料分类-修改分类页面
 router.get('/materialManage/materialType/modify/:id', Middleware.AuthCheck, MaterialTypeController.materialTypeModify);
 
 // 物料分类-修改分类页面--数据接口
@@ -1017,7 +1026,6 @@ router.get('/file/resupply/create/:lid/:stcode/:type/:tid', Middleware.AuthCheck
 // 显示所有效果图
 router.get('/file/pic/:lid', Middleware.AuthCheck, FileController.picPage);
 
-//
 router.get('/file/order/detail/:lid', Middleware.AuthCheck, FileController.orderFileDetail);
 
 // 新增上传文件
@@ -1042,28 +1050,28 @@ var TemplateController = require('./Controller/TemplateController');
 
 router.get('/template', TemplateController.createPage);
 
-//单文件上传
+// 单文件上传
 router.post('/template/upload/single/:type', [upload.single('file_name'), Middleware.FilterEmptyField], TemplateController.doSingleUpload);
 
 
-//图片上传
+// 图片上传
 router.post('/template/upload/img', [upload.single('file_name'), Middleware.FilterEmptyField], TemplateController.doImgUpload);
 
 
-//文件组上传
+// 文件组上传
 router.post('/template/upload/multi', upload.array('file_name'), TemplateController.doMultiUpload);
 
-//自定义上传
+// 自定义上传
 router.post('/template/upload/custom', upload.fields([{name: 'file_name', maxCount: 2},
     {name: 'file_name2', maxCount: 1}]), TemplateController.doCustomUpload);
 
-//任意文件组上传
+// 任意文件组上传
 router.post('/template/upload/any', upload.any(), TemplateController.doAnyUpload);
 
-//分页请求
+// 分页请求
 router.get('/template/pagination',TemplateController.pagination);
 
-//级联请求统一处理 /cascade/api/areas
+// 级联请求统一处理 /cascade/api/areas
 router.get('/cascade/*', TemplateController.getData);
 
 
@@ -1077,44 +1085,44 @@ var SupplierController = require('./Controller/SupplierController');
 
 // 供应商列表
 router.get('/supplier', Middleware.AuthCheck,SupplierController.supplierPage);
-//供应商详情
+// 供应商详情
 router.get('/supplier/detail/:tid', Middleware.AuthCheck,SupplierController.supplierDetailPage);
-//供应商新增页面
+// 供应商新增页面
 router.get('/supplier/createPage', Middleware.AuthCheck,SupplierController.supplierCreatPage);
-//供应商新增 子类
+// 供应商新增 子类
 // router.get('/supplier/createPage', Middleware.AuthCheck,SupplierController.supplierCreatPage);
-//供应商新增获取一级分类
+// 供应商新增获取一级分类
 router.get('/supplier/create/:tid', Middleware.AuthCheck,SupplierController.supSortParentId);
-//供应商信息新增
+// 供应商信息新增
 router.post('/supplier/doCreate', Middleware.AuthCheck,SupplierController.supplierDoCreate);
-//供应商信息修改页面
+// 供应商信息修改页面
 router.get('/supplier/modify/:tid', Middleware.AuthCheck,SupplierController.supplierModifyPage);
-//供应商信息修改
+// 供应商信息修改
 router.post('/supplier/doModify', Middleware.AuthCheck,SupplierController.supplierDoModify);
-//新增供应商物料关联
+// 新增供应商物料关联
 router.post('/supplier/createMaterialSupplier', Middleware.AuthCheck,SupplierController.createMaterialSupplier);
-//供应商可供物料
+// 供应商可供物料
 router.get('/supplier/offer_product/:tid', Middleware.AuthCheck,Middleware.FilterEmptyField,SupplierController.supplierOfferProductPage);
 
-//修改供应商物料关联有效期
+// 修改供应商物料关联有效期
 router.post('/supplier/updateDate', Middleware.AuthCheck,SupplierController.updateDate);
 
-//删除供应商物料关联
+// 删除供应商物料关联
 router.post('/supplier/deleteRelate/:sid/:mid', Middleware.AuthCheck,SupplierController.deleteRelate);
 
-//供应商禁用+启用
+// 供应商禁用+启用
 router.post('/supplier/supDoDelete/:tid/:type', Middleware.AuthCheck, SupplierController.supplierdoDelete);
 
-//供应商分类
+// 供应商分类
 router.get('/supplier/sort', Middleware.AuthCheck,SupplierController.supplierSortPage);
-//供应商一级分类添加
+// 供应商一级分类添加
 router.post('/supplier/doCreat', Middleware.AuthCheck,SupplierController.doCreate);
-//供应商分类禁用
+// 供应商分类禁用
 router.post('/supplier/doDelete/:tid/:type', Middleware.AuthCheck, SupplierController.doDelete);
-//供应商分类修改
+// 供应商分类修改
 router.post('/supplier/sortDoModify', Middleware.AuthCheck, SupplierController.doModify);
 
-//供应商分类修改
+// 供应商分类修改
 // router.get('/supplier/sort_modify', Middleware.AuthCheck,SupplierController.supplierSortModifyPage);
 
 
@@ -1130,11 +1138,11 @@ router.get('/purchase', Middleware.AuthCheck,PurchaseController.purchasePage);
 
 // 新建请购单页面
 router.get('/purchase/applyCreat', Middleware.AuthCheck,Middleware.FilterEmptyField,PurchaseController.purchaseApplyCreatPage);
-//新建请购单 选择物料信息列表
+// 新建请购单 选择物料信息列表
 router.get('/purchase/applyOrderMaterial', Middleware.AuthCheck,PurchaseController.purchaseApplyMaterialCreat);
-//新建请购单 物料信息修改
+// 新建请购单 物料信息修改
 router.get('/purchase/apply_createMaterial/:tid', Middleware.AuthCheck,PurchaseController.applyMaterialCreatePage);
-//新建请购单 添加物料数量+预计交期
+// 新建请购单 添加物料数量+预计交期
 router.post('/purchase/applyMaterialCreate', Middleware.AuthCheck,PurchaseController.applyMaterialCreate);
 
 
@@ -1181,28 +1189,28 @@ router.put('/networkBook/doClose/:measureId', Middleware.AuthCheck, NetworkBookC
  * */
 var InformationController = require('./Controller/InformationController');
 
-//公告信息详情页面
+// 公告信息详情页面
 router.get('/noticeInfo', Middleware.AuthCheck,Middleware.FilterEmptyField,InformationController.noticeInfoPage);
 
-//公告信息-新建
+// 公告信息-新建
 router.post('/noticeInfo/doCreate', Middleware.AuthCheck,Middleware.FilterEmptyField,InformationController.noticeDoCreate);
 
-//公告信息-修改
+// 公告信息-修改
 router.post('/noticeInfo/doModify', Middleware.AuthCheck, InformationController.noticeDoModify);
 
-//公告信息-删除
+// 公告信息-删除
 router.put('/noticeInfo/doDelete/:nid', Middleware.AuthCheck, InformationController.noticeDoDelete);
 
-//资料信息详情页面
+// 资料信息详情页面
 router.get('/fileInfo', Middleware.AuthCheck, InformationController.fileInfoPage);
 
-//资料上传接口
+// 资料上传接口
 router.post('/fileInfo/share', Middleware.AuthCheck,InformationController.fileDoCreate);
 
-//资料删除接口
+// 资料删除接口
 router.put('/fileInfo/doDelete/:fid', Middleware.AuthCheck, InformationController.fileDoDelete);
 
-//获取发布范围的下拉列表
+// 获取发布范围的下拉列表
 
 
 
@@ -1213,10 +1221,10 @@ router.put('/fileInfo/doDelete/:fid', Middleware.AuthCheck, InformationControlle
 var InstallserviceController = require('./Controller/InstallserviceController');
 // 待安装列表
 router.get('/installService', Middleware.AuthCheck,InstallserviceController.installServicePage);
-//指定安装组
+// 指定安装组
 router.post('/installServiceTask/:tid/:did', Middleware.AuthCheck,InstallserviceController.getTask);
 
-//登记已收货
+// 登记已收货
 router.post('/registerDeliver/:tid', Middleware.AuthCheck,InstallserviceController.registerDeliver);
 
 
@@ -1228,31 +1236,31 @@ var SystemController = require('./Controller/SystemController');
 // 首页
 router.get('/system', Middleware.AuthCheck,SystemController.indexPage);
 
-//获取第二栏的可用内容
+// 获取第二栏的可用内容
 router.put('/systemEnabled/:key', Middleware.AuthCheck, SystemController.keyFirstPage);
 
-//获取第二栏的所有内容
+// 获取第二栏的所有内容
 router.put('/system/:key', Middleware.AuthCheck, SystemController.keyFirstALLPage);
 
-//新增值
+// 新增值
 router.post('/system/doCreate', Middleware.AuthCheck, SystemController.doCreate);
 
-//修改，删除，启用
+// 修改，删除，启用
 router.post('/system/doModify', Middleware.AuthCheck, SystemController.doModify);
 
-//获取补单原因
+// 获取补单原因
 router.put('/resupplyReason/:parentId', Middleware.AuthCheck, SystemController.resupplyReasonPage);
 
-//获取空间信息
+// 获取空间信息
 router.put('/orderSpaceinfo/:parentId', Middleware.AuthCheck, SystemController.orderSpaceinfoPage);
 
-//获取空间信息二
+// 获取空间信息二
 router.put('/orderSpaceinfoTwo/:spaceId', Middleware.AuthCheck, SystemController.orderSpaceinfoTwoPage);
 
-//基础数据--清除缓存
+// 基础数据--清除缓存
 router.get('/api/clearCache', Middleware.AuthCheck, SystemController.doClearCache);
 
-//获取物料单位二的内容
+// 获取物料单位二的内容
 router.put('/assistantMaterialUnitTwo/:parentId', Middleware.AuthCheck, SystemController.assistantMaterialUnitPage);
 
 // 预警时间设置
@@ -1260,7 +1268,7 @@ router.get('/system/timeSet', Middleware.AuthCheck,SystemController.timeSetPage)
 
 router.put('/system/timeSet/doSet', Middleware.AuthCheck,SystemController.doSetTime);
 
-//模板管理-页面
+// 模板管理-页面
 router.get('/system/template', Middleware.AuthCheck,SystemController.templatePage);
 router.get('/system/template/modify/:type/:id', Middleware.AuthCheck,SystemController.modifyPage);
 
@@ -1268,10 +1276,10 @@ router.post('/system/template/doCreate', Middleware.AuthCheck, SystemController.
 router.post('/system/template/doModify', Middleware.AuthCheck, SystemController.templateModify);
 router.put('/system/template/doDelete/:id', Middleware.AuthCheck, SystemController.templateDelete);
 
-//测试打印接口
+// 测试打印接口
 router.get('/system/printOut/:id', Middleware.AuthCheck,SystemController.printOut);
 
-//包装流水打印接口
+// 包装流水打印接口
 router.get('/system/printPackageLid/:packageLid', Middleware.AuthCheck,SystemController.printPackageLid);
 /*
  * 页面范围: app接口
@@ -1282,43 +1290,43 @@ var AppServiceController = require('./Controller/AppserviceController');
 // 移动端登陆
 router.post('/app/login',AppServiceController.doLogin);
 
-//刷新token
+// 刷新token
 router.post('/app/refresh',AppServiceController.refreshToken);
 
 // 出库-按照订单号查出包装
 router.get('/app/cargoout/:tid',AppServiceController.cargooutPage);
 
-//出库-获取所有可出库的订单列表
+// 出库-获取所有可出库的订单列表
 router.get('/app/cargooutOrder',AppServiceController.cargooutOrder);
 
-//出库-已入库包装
+// 出库-已入库包装
 router.get('/app/cargoin/package',AppServiceController.cargoinPackage);
 
-//出库-入库扫描完成后的显示界面
+// 出库-入库扫描完成后的显示界面
 router.post('/app/cargoin/order',AppServiceController.cargoinOrder);
 
-//出库-入库扫描完成后的显示界面--pc端接口
+// 出库-入库扫描完成后的显示界面--pc端接口
 // router.get('/web/cargoin/order',AppServiceController.cargoinOrderWeb);
 
-//入库-入库接口
+// 入库-入库接口
 router.post('/app/doCargoin',AppServiceController.doCargoin);
 
-//入库-出库接口
+// 入库-出库接口
 router.post('/app/doCargoout', AppServiceController.doCargoout);
 
-//某工厂下的仓储区域
+// 某工厂下的仓储区域
 router.get('/app/getWhse', AppServiceController.getWhse);
 
-//仓库是否已满
+// 仓库是否已满
 router.post('/app/isFull',AppServiceController.isFull);
 
-//备货-可备货订单
+// 备货-可备货订单
 router.get('/app/stock', AppServiceController.getStock);
 
-//备货-备货按钮
+// 备货-备货按钮
 router.post('/app/doStock',AppServiceController.doStock);
 
-//备货-备货扫描后，显示的界面
+// 备货-备货扫描后，显示的界面
 router.get('/app/stock/list', AppServiceController.getStockList);
 
 router.get('/app/stock/permission', AppServiceController.permission);

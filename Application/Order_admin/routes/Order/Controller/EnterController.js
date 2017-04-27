@@ -163,21 +163,16 @@ var EnterController = {
 
     },
     ifCanEnter: function (req, res) {
-        // var num = req.body.num0;
         // console.log('/api/whse/cargoin/mate/usable?'+queryString.stringify(req.body))
-
-        // var id = req.params.id;
         request(Base.mergeRequestOptions({
             method: 'get',
             url: '/api/whse/cargoin/mate/usable?'+queryString.stringify(req.body),
         }, req, res), function (error, response, body) {
             if (!error && response.statusCode == 200) {
-
-                res.sendStatus(200);
+                res.status(200).json(body);
             } else {
                 res.status(500).json(body.responseJSON)
                 // res.status(500).send({code: code, msg: msg});
-                // Base.handlerError(res, req, error, response, body);
             }
         })
 

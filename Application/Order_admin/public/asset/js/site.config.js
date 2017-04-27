@@ -1,23 +1,23 @@
-//jquery validate engien custom function
+// jquery validate engien custom function
 var custom_validate_fn = {
-    //手机验证
+    // 手机验证
     isMobile: function (field, rules, i, options) {
         var value = field.val();
         return (value.length == 11 && /^1[3578]\d{9}$/.test(value)) ? true : '请输入有效的手机号码';
     },
 
-    //密码验证
+    // 密码验证
     regexPassword: function (field, rules, i, options) {
         // -S-密码校验
         var value = field.val();
         return /^(?![^a-zA-Z]+$)(?!\D+$).{8,16}$/.test(value) ? true : "8-16位字符，其中包括至少一个字母和一个数字";
     },
-    //邮箱验证
+    // 邮箱验证
     isEMail: function (field, rules, i, options) {
         var value = field.val();
         return (/^\w+((-\w+)|(\.\w+))*\@[A-Za-z0-9]+((\.|-)[A-Za-z0-9]+)*\.[A-Za-z0-9]+$/.test(value)) ? true : '请输入正确的邮箱格式';
     },
-    //身份证验证
+    // 身份证验证
     // -S-身份证验证
     isIdCardNo: function (field, rules, i, options) {
 
@@ -72,7 +72,7 @@ var custom_validate_fn = {
                 }
             }
             if (intStrLen == 18) {
-                //check date
+                // check date
                 var date8 = idNumber.substring(6, 14);
                 if (isDate8(date8) == false) {
                     return false;
@@ -88,8 +88,8 @@ var custom_validate_fn = {
                     return false;
                 }
             }
-            else {        //length is 15
-                //check date
+            else {        // length is 15
+                // check date
                 var date6 = idNumber.substring(6, 12);
                 if (isDate6(date6) == false) {
                     return false;
@@ -172,13 +172,12 @@ var DWY_area = {
             url: '/cascade/api/areas' + (((id != 'province') && id) ? '?id=' + id : ''),
             method: "get",
             success: function (data) {
-                //console.log(data);
                 if (id)
                     DWY_area.area[id] = data;
                 else
                     DWY_area.area.province = data;
 
-                //有回调执行回调
+                // 有回调执行回调
                 callback ? callback(data) : '';
             }
         })
@@ -190,7 +189,7 @@ var DWY_area = {
         DWY_area.getAreaList(province_id, function (data) {
             var city_option_list = [];
             if (data.length > 1) {
-                //多个选项
+                // 多个选项
                 city_option_list.push(new Option('- 市 -',''));
                 for (var i in data) {
                     city_option_list.push(new Option(data[i].name, data[i].id));
@@ -205,7 +204,7 @@ var DWY_area = {
                     $city.val(city_id)
                 }
             } else {
-                //如果只有一个选项
+                // 如果只有一个选项
                 $city.append($(new Option(data[0].name, data[0].id)).attr('selected', true));
                 $city.trigger('change');
                 if(city_id){
@@ -223,7 +222,7 @@ var DWY_area = {
         DWY_area.getAreaList(city_id, function (data) {
             var district_option_list = [];
             if (data.length > 1) {
-                //多个选项
+                // 多个选项
                 district_option_list.push(new Option('- 区 -',''));
                 for (var i in data) {
                     district_option_list.push(new Option(data[i].name, data[i].id));
@@ -234,7 +233,7 @@ var DWY_area = {
                     $district.val(district_id)
                 }
             } else {
-                //如果只有一个选项
+                // 如果只有一个选项
                 $district.append($(new Option(data[0].name, data[0].id)).attr('selected', true));
                 if(district_id){
                     $district.val(district_id)
@@ -325,7 +324,7 @@ var DWY_area = {
 
 }
 
-//工厂-仓库-区域 联动下拉框
+// 工厂-仓库-区域 联动下拉框
 var DWY_fty_region = {
     region_diff: {},
 
@@ -340,7 +339,7 @@ var DWY_fty_region = {
                 // else
                 //     DWY_fty_region.area.factory = data;
 
-                //有回调执行回调
+                // 有回调执行回调
                 callback ? callback(data) : '';
             }
         })
@@ -357,14 +356,13 @@ var DWY_fty_region = {
             url: '/getWarehouseList/'+id,
             method: "put",
             success: function (data) {
-                //console.log(data);
-                data = JSON.parse(data);
+                 data = JSON.parse(data);
                 // if (id)
                 //     DWY_fty_region.area[id] = data;
                 // else
                 //     DWY_fty_region.area.factory = data;
 
-                //有回调执行回调
+                // 有回调执行回调
                 callback ? callback(data) : '';
             }
         })
@@ -386,7 +384,7 @@ var DWY_fty_region = {
                 // else
                 //     DWY_fty_region.area.factory = data;
 
-                //有回调执行回调
+                // 有回调执行回调
                 callback ? callback(data) : '';
             }
         })
@@ -465,25 +463,6 @@ var DWY_fty_region = {
 
         });
 
-        // if(list){
-        //     for(var i=0; i<list.length; i++){
-        //         var element = list[i];
-        //         if(element.value){
-        //             switch (element.key){
-        //                 case 'province':
-        //                     DWY_area.refreshCity($('select[name='+element.linkcity+']'), $('select[name='+element.linkdis+']'), element.value, element.cityId);
-        //                     break;
-        //                 case 'city':
-        //                     DWY_area.refreshDistrict($('select[name='+element.linkdis+']'), element.value, element.disId);
-        //                     break;
-        //             }
-        //             $("select[name="+element.name+"]").val(element.value);
-        //         }
-        //
-        //         // $("select[name=birthCity]").val(650400);
-        //     }
-        //
-        // }
     },
     init: function (config) {
         var _config = config || {};
@@ -558,7 +537,6 @@ var DWY_fty_region = {
 
             });
 
-            // DWY_fty_region.setValue(_config.defaultValue);
 
         })
 
@@ -615,7 +593,7 @@ $(document).ready(function () {
     var dwy_msg_sign = $('input[name=dwy-message-sign]');
 
 
-    //信息处理
+    // 信息处理
     if (dwy_msg_sign.val() && (dwy_msg_sign.val() != localStorage.getItem('dwy_msg_sign'))) {
         if (dwy_msg_type.val() == 'error') {
             $.smallBox({
@@ -643,10 +621,10 @@ $(document).ready(function () {
 
 
 
-//对jQuery ajax请求成功（失败）回调执行前的统一处理（兼容较老版本jQuery）
+// 对jQuery ajax请求成功（失败）回调执行前的统一处理（兼容较老版本jQuery）
     var ajax = $.ajax;
     $.ajax = function (opt) {
-        //备份opt中error和success方法
+        // 备份opt中error和success方法
         var fn = {
             success: function (data, textStatus, jqXHR) {
             }
@@ -654,11 +632,11 @@ $(document).ready(function () {
         if (opt.success) {
             fn.success = opt.success;
         }
-        //扩展增强处理
+        // 扩展增强处理
         var _opt = $.extend(opt, {
             success: function (data, textStatus, jqXHR) {
-                //alert('重写success事件');
-                //alert(666666)
+                // alert('重写success事件');
+                // alert(666666)
                 // if (data.status == '408') {
                 //     location.href = '/service/login/LogoutForWeb.jsp';
                 //     return;
@@ -675,7 +653,6 @@ $(document).ready(function () {
                     //     location.href = '/service/login/LogoutForWeb.jsp';
                     //     return;
                     // }
-                    alert(888888)
                     func(data);
                 }
 

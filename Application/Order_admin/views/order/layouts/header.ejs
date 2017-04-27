@@ -45,14 +45,15 @@
         <div class="btn-header transparent pull-right">
             <span>
 					<a href="/" class="user-info">
-                        欢迎您!
-                        <span  id="show-shortcut">
-							<%= user.name %> (
+                       <span>欢迎您!</span>
+                       <span id="show-shortcut"><%= user.name %> </span>
+                        <span>(</span>
+                        <span  class="role-span">
                             <% user.role.forEach(function (element) { %>
                             <%= element.name %>
                             <% }) %>
-                            )
 						</span>
+                        <span>)</span>
                     </a>
 
 				</span>

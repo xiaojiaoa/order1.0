@@ -21,10 +21,7 @@ var PassportController = {
             form: req.body
         }, req, res), function (error, response, body) {
             if (!error && response.statusCode == 200) {
-                // Show the HTML for the Google homepage.
                 let $data = JSON.parse(body);
-                // console.log('token33333',JSON.stringify($data));
-
                 //TOKEN 存入session
                 var user_session = req.session;
                 user_session.auth = {
@@ -41,15 +38,19 @@ var PassportController = {
                     user_session.user = resultList['user'];
                     user_session.menu = resultList['menu'];
                     user_session.permission = resultList['permission'];
-                    if(req.session.preventPath){
-                        $data.preventPath = req.session.preventPath;
+                    // if(user_session.auth.preventPath){
+                    //     $data.preventPath = user_session.auth.preventPath;
+                    // }else{
+                    //     $data.preventPath = "/";
+                    // }
+                    if(req.session.preventPath && req.session.preventPath[user_session.user.id]){
+                        $data.preventPath = req.session.preventPath[user_session.user.id];
                     }else{
                         $data.preventPath = "/";
                     }
                     res.send($data);
                 });
             } else {
-                console.log('token233333');
                 Base.handlerError(res, req, error, response, body);
             }
         })
