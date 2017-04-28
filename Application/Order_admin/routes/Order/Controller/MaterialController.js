@@ -71,6 +71,8 @@ var MaterialController = {
             {url: '/api/assist/stock/reasonTypes', method: 'GET', resConfig: {keyName: 'stockReasonTypes', is_must: true}},
             {url: '/api/materials/stockOperation/page?pageSize=6&mateId='+mid+'&bid='+bid, method: 'GET', resConfig: {keyName: 'stockOperationList', is_must: true}},
         ], function (req, res, resultList) {
+
+            resultList.mateInfo.mateUnits = _.orderBy( resultList.mateInfo.mateUnits,['parentId'],['asc']);
             var returnData = Base.mergeData(helper.mergeObject({
                 title: ' ',
                 mid:mid,
