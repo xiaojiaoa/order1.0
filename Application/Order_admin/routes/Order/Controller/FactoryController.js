@@ -375,7 +375,7 @@ var FactoryController = {
         Base.multiDataRequest(req, res, [
             {url: '/api/whse/region/'+regionId, method: 'GET', resConfig: {keyName: 'regionInfo', is_must: true}},
             {url: '/api/categories/list?parentId=0', method: 'GET', resConfig: {keyName: 'stairCategory', is_must: true}},
-            {url: '/api/assist/list/enabled?key=assistantWarehouseType', method: 'GET', resConfig: {keyName: 'assistantWarehouseType', is_must: true}},
+            {url: '/api/orders/package/packagetype', method: 'GET', resConfig: {keyName: 'assistantWarehouseType', is_must: true}},
 
         ], function (req, res, resultList) {
 
