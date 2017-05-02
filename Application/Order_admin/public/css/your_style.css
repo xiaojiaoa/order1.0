@@ -1131,3 +1131,12 @@ table > tbody > tr > td a.label:first-child {
     -webkit-box-shadow: none;
     box-shadow: none;
 }
+.btn-header a>span{
+    float: left;
+}
+.role-span{
+    max-width: 500px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}

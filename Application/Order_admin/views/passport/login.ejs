@@ -189,13 +189,11 @@
                         if (data.code) {
                             getValidateInfo();
                         } else {
-
                             location.href = data.preventPath;
                         }
                     },
                     error: function (response) {
                         var data = JSON.parse(response.responseText);
-//                        var data = (response.responseText);
                         layer.msg(data.msg)
                         getValidateInfo();
                     }

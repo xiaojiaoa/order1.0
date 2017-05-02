@@ -310,7 +310,7 @@
                     },
                     success: function (data) {
                         console.log('data', data)
-                        if (data) {
+                        if (data == 'true') {
                             $("input[name=statusThis" + index + "]").val(1);
                             status.html('<i class="fa fa-check text-success font-lg"></i>');
                         } else {
@@ -331,6 +331,7 @@
                         $(".text-danger").tooltip();
                     }
                 });
+                $(".text-danger").tooltip();
             }
         }
 

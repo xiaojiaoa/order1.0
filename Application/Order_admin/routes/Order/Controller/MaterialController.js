@@ -1,19 +1,19 @@
-//模板 供复制用
+// 模板 供复制用
 var Base = require('./BaseController');
 
-//分页
+// 分页
 var Pagination = require('pagination');
 
-//生成请求query
+// 生成请求query
 var queryString = require('qs');
 
-//自定义帮助函数
+// 自定义帮助函数
 var helper = require('../config/helper');
 
-//请求模块
+// 请求模块
 var request = require('request');
 
-//引入权限
+// 引入权限
 var Permissions = require('../config/permission');
 
 var _ = require('lodash');
@@ -31,7 +31,7 @@ var MaterialController = {
             {url: '/api/organizations/factory', method: 'GET', resConfig: {keyName: 'factoryList', is_must: true}},
         ], function (req, res, resultList) {
 
-            //stairCatId 不存在，从菜单栏点击进入页面时
+            // stairCatId 不存在，从菜单栏点击进入页面时
             if(resultList.stairCategory && resultList.stairCategory.length>0){
                 if(!stairCatId){
                     var searchId = resultList.stairCategory[0].id;
@@ -57,12 +57,12 @@ var MaterialController = {
             },resultList));
             res.render('order/material/material_index',returnData);
         });
-        //res.render('order/material/material_index');
+        // res.render('order/material/material_index');
     },
     detailPage: function (req, res) {
         var mid =req.params.mid;
         var bid = req.params.bid;
-        //console.log( '/api/purchases/mate?bid='+bid+"&mateId="+mid);
+        // console.log( '/api/purchases/mate?bid='+bid+"&mateId="+mid);
         Base.multiDataRequest(req, res, [
             {url: '/api/materials/'+mid+"?bid="+bid, method: 'GET', resConfig: {keyName: 'mateInfo', is_must: true}},
             {url: '/api/organizations//factory', method: 'GET', resConfig: {keyName: 'factoryList', is_must: true}},
@@ -71,6 +71,8 @@ var MaterialController = {
             {url: '/api/assist/stock/reasonTypes', method: 'GET', resConfig: {keyName: 'stockReasonTypes', is_must: true}},
             {url: '/api/materials/stockOperation/page?pageSize=6&mateId='+mid+'&bid='+bid, method: 'GET', resConfig: {keyName: 'stockOperationList', is_must: true}},
         ], function (req, res, resultList) {
+
+            resultList.mateInfo.mateUnits = _.orderBy( resultList.mateInfo.mateUnits,['parentId'],['asc']);
             var returnData = Base.mergeData(helper.mergeObject({
                 title: ' ',
                 mid:mid,
@@ -79,7 +81,6 @@ var MaterialController = {
             },resultList));
             res.render('order/material/material_detail',returnData);
         });
-    //res.render('order/material/material_detail');
     },
     choiceFactory: function (req, res) {
         var fac=req.body.factory;
@@ -110,7 +111,6 @@ var MaterialController = {
             },resultList));
             res.render('order/material/material_summary',returnData);
         });
-        //res.render('order/material/material_summary');
     },
     materialCreateOnePage: function (req, res) {
         var tid=req.params.tid;
@@ -123,7 +123,6 @@ var MaterialController = {
          },resultList));
          res.render('order/material/material_create_one',returnData);
          });
-        //res.render('order/material/material_create_one');
     },
     selectMateCate:function(req,res){
         var pid=req.params.pid;
@@ -146,21 +145,23 @@ var MaterialController = {
     },
     materialCreateSecPage: function (req, res) {
          var id = req.params.id;
-         //console.log(id);
+         // console.log(id);
          Base.multiDataRequest(req, res, [
              {url: '/api/materials/attributes/'+id, method: 'GET', resConfig: {keyName: 'materialInfo', is_must: true}},
              {url: '/api/assist/material/units', method: 'GET', resConfig: {keyName: 'unitsInfo', is_must: true}},
              {url: '/api/assist/package/types', method: 'GET', resConfig: {keyName: 'getPackageTypes', is_must: true}},
          ], function (req, res, resultList) {
 
-             //console.log('resultList.unitsInfo', resultList.unitsInfo);
+             // console.log('resultList.unitsInfo', resultList.unitsInfo);
              var unitsInfo = {};
              resultList.unitsInfo.forEach(function(element,index){
                  if(element.parentId == 0){
                      unitsInfo[element.id] = element;
                      unitsInfo[element.id].data = [];
                  }else{
-                    unitsInfo[element.parentId].data.push(element);
+                     if(unitsInfo[element.parentId]){
+                         unitsInfo[element.parentId].data.push(element);
+                     }
                  }
              });
 
@@ -176,7 +177,7 @@ var MaterialController = {
        // res.render('order/material/material_create_second');
     },
     doCreate: function (req, res) {
-        //console.log('物料创建'+ JSON.stringify(req.body));
+        // console.log('物料创建'+ JSON.stringify(req.body));
         request(Base.mergeRequestOptions({
             method: 'post',
             url: '/api/materials',
@@ -192,23 +193,24 @@ var MaterialController = {
     },
     materialModifyPage: function (req, res) {
         var id = req.params.mid;
-        //console.log(id);
+        // console.log(id);
         Base.multiDataRequest(req, res, [
             {url: '/api/materials/'+id, method: 'GET', resConfig: {keyName: 'mateInfo', is_must: true}},
             {url: '/api/assist/material/units', method: 'GET', resConfig: {keyName: 'unitsInfo', is_must: true}},
             {url: '/api/assist/package/types', method: 'GET', resConfig: {keyName: 'getPackageTypes', is_must: true}},
         ], function (req, res, resultList) {
 
-            //console.log('resultList.unitsInfo', resultList.unitsInfo);
-
-            console.log('mateInfo',resultList.mateInfo);
+            // console.log('resultList.unitsInfo', resultList.unitsInfo);
+            // console.log('mateInfo',resultList.mateInfo);
             var unitsInfo = {};
             resultList.unitsInfo.forEach(function(element,index){
                 if(element.parentId == 0){
                     unitsInfo[element.id] = element;
                     unitsInfo[element.id].data = [];
                 }else{
-                    unitsInfo[element.parentId].data.push(element);
+                    if(unitsInfo[element.parentId]){
+                        unitsInfo[element.parentId].data.push(element);
+                    }
                 }
             });
 
@@ -226,7 +228,7 @@ var MaterialController = {
         });
     },
     doModify: function (req, res) {
-        console.log('物料修改'+ JSON.stringify(req.body));
+        // console.log('物料修改'+ JSON.stringify(req.body));
         var mid = req.body.id;
         request(Base.mergeRequestOptions({
             method: 'put',
@@ -244,7 +246,7 @@ var MaterialController = {
     setMaterialStatus: function (req, res) {
         var mid = req.params.mid;
         var type = req.params.type;
-        //console.log('ajx'+ JSON.stringify(req.params));
+        // console.log('ajx'+ JSON.stringify(req.params));
         request(Base.mergeRequestOptions({
             method: 'put',
             url: '/api/materials/'+mid+'/stcode?stcode='+type,
@@ -273,7 +275,7 @@ var MaterialController = {
         });
     },
     doAdd: function (req, res) {
-        //console.log('工厂物料完善物料'+ JSON.stringify(req.body));
+        // console.log('工厂物料完善物料'+ JSON.stringify(req.body));
     var mid=req.body.mateId;
     var bid=req.body.bid;
     request(Base.mergeRequestOptions({
@@ -300,7 +302,7 @@ var MaterialController = {
             },resultList));
             res.render('order/material/material_create_one',returnData);
         });
-        //res.render('order/material/material_create_one');
+        // res.render('order/material/material_create_one');
     },
     workpiecePage: function (req, res) {
         var mid =req.params.mid;
@@ -313,7 +315,7 @@ var MaterialController = {
             },resultList));
             res.render('order/material/material_workpiece',returnData);
         });
-        //res.render('order/material/material_workpiece');
+        // res.render('order/material/material_workpiece');
     },
     materiel_accessoryPage: function (req, res) {
          var mid =req.params.mid;
@@ -329,7 +331,7 @@ var MaterialController = {
        // res.render('order/material/materiel_modal');
     },
     fileDoCreate: function (req, res) {
-        //console.log(req.body);
+        // console.log(req.body);
         request(Base.mergeRequestOptions({
             method: 'post',
             url: '/api/materials/accessory/workpiece',
@@ -347,7 +349,7 @@ var MaterialController = {
         var mid = req.params.mid;
         var bid= req.params.bid;
         var type = req.params.type;
-        //console.log('ajx'+ JSON.stringify(req.params));
+        // console.log('ajx'+ JSON.stringify(req.params));
         request(Base.mergeRequestOptions({
             method: 'put',
             url: '/api/materials/stcode/'+bid+'/'+mid+'?stcode='+type,
@@ -364,7 +366,7 @@ var MaterialController = {
     warningDoCreate: function (req, res) {
         var mid=req.body.mateId;
         var bid=req.body.bid;
-        //console.log(req.body);
+        // console.log(req.body);
         request(Base.mergeRequestOptions({
             method: 'post',
             url: '/api/materials/stock',
@@ -381,7 +383,7 @@ var MaterialController = {
     stockDoCreate: function (req, res) {
         var mid=req.body.mateId;
         var bid=req.body.bid;
-        //console.log(req.body);
+        // console.log(req.body);
         request(Base.mergeRequestOptions({
             method: 'post',
             url: '/api/materials/stockOperation',
@@ -409,7 +411,7 @@ var MaterialController = {
             {url: '/api/whse/factory/list', method: 'GET', resConfig: {keyName: 'factoryList', is_must: true}},
         ];
         if(ftyId){
-            //console.log('有whseId');
+            // console.log('有whseId');
             multiDataRequest= [
                 {url: '/api/materials/stockOperation/page?'+ queryString.stringify(req.query), method: 'GET', resConfig: {keyName: 'stockOperationList', is_must: true}},
                 {url: '/api/whse/factory/list', method: 'GET', resConfig: {keyName: 'factoryList', is_must: true}},
@@ -417,7 +419,7 @@ var MaterialController = {
             ];
         }
         if(whseId){
-            //console.log('有whseId');
+            // console.log('有whseId');
             multiDataRequest= [
                 {url: '/api/materials/stockOperation/page?'+ queryString.stringify(req.query), method: 'GET', resConfig: {keyName: 'stockOperationList', is_must: true}},
                 {url: '/api/whse/factory/list', method: 'GET', resConfig: {keyName: 'factoryList', is_must: true}},
@@ -452,7 +454,6 @@ var MaterialController = {
             },resultList));
             res.render('order/material/stockRecord',returnData);
         });
-        //res.render('order/material/stockRecord');
     },
 };
 module.exports = MaterialController;

@@ -94,8 +94,10 @@
                             <tr>
                                 <td>出厂价格</td>
                                 <td><%= mateInfo.price %></td>
-                                <td>单位</td>
-                                <td><%= mateInfo.unit%></td>
+                                <td>物料图片</td>
+                                <td>
+                                    <a class="fancybox dwy_image" href="<%= DWY_GLOBAL.Static %>/download?url=<%= mateInfo.image %>" data-fancybox-group="gallery" title="<%= mateInfo.image %>"><%= mateInfo.image %></a>
+                                </td>
                                 <td>工厂</td>
                                 <td><%= mateInfo.factoryName %></td>
                             </tr>
@@ -138,12 +140,36 @@
 
                             <% } }
                             }) %>
+
+                            <%
+                            var mateUnit=mateInfo.mateUnits;
+                            var result=[];
+                            for (var i=0;i<mateUnit.length;i+=3){
+                                result.push(mateUnit.slice(i,i+3));
+                            }
+                            for(var i=0;i<result.length;i++){
+                                for(var j=0;j<3;j++){
+                                    if(result[i][j]==undefined){
+                                        result[i][j]='no';
+                                    }
+                                }
+                            }
+                            %>
+                            <% if(DWY_Helper.isCanLoop(result)){
+                            result.forEach(function (element,index) {%>
                             <tr>
-                                <td>物料图片</td>
-                                <td colspan="5">
-                                    <a class="fancybox dwy_image" href="<%= DWY_GLOBAL.Static %>/download?url=<%= mateInfo.image %>" data-fancybox-group="gallery" title="<%= mateInfo.image %>"><%= mateInfo.image %></a>
-                                </td>
+                                <% element.forEach(function (element,index) {
+                                if(element=='no'){%>
+                                <td></td>
+                                <td></td>
+                                <% }else{%>
+                                <td><%= element.name%></td>
+                                <td><%= element.amount%></td>
+                                <%}
+                                })%>
                             </tr>
+                            <%})
+                            }%>
                             <tr>
                                 <td>备注</td>
                                 <td colspan="5"></td>
