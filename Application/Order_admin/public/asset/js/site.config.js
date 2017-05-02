@@ -133,6 +133,7 @@ var data_time_picker = {
         dateFormat: 'Y-m-d H:i:S',
         locale: "zh",
         enableTime: true,
+        time_24hr: true,
         onChange:function(selectedDates, dateStr, instance){
 
             var $ele = $(instance.element);

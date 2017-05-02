@@ -284,6 +284,7 @@
 
         $('#ftyId,#whseId,#regionId').change(function () {
             $('#spaceId').val('');
+            status.empty();
 
         });
 
@@ -307,7 +308,7 @@
                     },
                     success: function (data) {
                         console.log('data', data)
-                        if (data) {
+                        if (data == 'true') {
                             statusThis.val(1);
                             status.html('<i class="fa fa-check text-success font-lg"></i>');
                         } else {
