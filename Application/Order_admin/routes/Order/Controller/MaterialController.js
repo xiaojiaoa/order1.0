@@ -20,44 +20,79 @@ var _ = require('lodash');
 
 var MaterialController = {
     indexPage: function (req, res) {
-        var bid = req.query.bid? req.query.bid: req.session.user.bid;
-        var stairCatId = req.query.stairCatId;
-        if(!stairCatId){stairCatId='';}
-        var paramObject = helper.genPaginationQuery(req);
-        Base.multiDataRequest(req, res, [
+        var ftyId = req.query.ftyId ? req.query.ftyId: req.session.user.ftyId;
+        var whseId = req.query.whseId?req.query.whseId: '';
+        var multiDataRequest= [
             {url: '/api/materials?'+ queryString.stringify(req.query), method: 'GET', resConfig: {keyName: 'mateList', is_must: true}},
             {url: '/api/categories/list?parentId=0', method: 'GET', resConfig: {keyName: 'stairCategory', is_must: true}},
             {url: '/api/attributes/categories?categoryId='+stairCatId, method: 'GET', resConfig: {keyName: 'theadList', is_must: true}},
-            {url: '/api/organizations/factory', method: 'GET', resConfig: {keyName: 'factoryList', is_must: true}},
-        ], function (req, res, resultList) {
+            {url: '/api/whse/factory/list', method: 'GET', resConfig: {keyName: 'factoryList', is_must: true}},
+        ];
+        if(ftyId){
+            //console.log('有whseId');
+            multiDataRequest= [
+                {url: '/api/materials?'+ queryString.stringify(req.query), method: 'GET', resConfig: {keyName: 'mateList', is_must: true}},
+                {url: '/api/categories/list?parentId=0', method: 'GET', resConfig: {keyName: 'stairCategory', is_must: true}},
+                {url: '/api/attributes/categories?categoryId='+stairCatId, method: 'GET', resConfig: {keyName: 'theadList', is_must: true}},
+                {url: '/api/whse/factory/list', method: 'GET', resConfig: {keyName: 'factoryList', is_must: true}},
+                {url: '/api/whse/warehouse/list/'+ftyId, method: 'GET', resConfig: {keyName: 'warehouseList', is_must: true}},
+            ];
+        }
+        if(whseId){
+            //console.log('有whseId');
+            multiDataRequest= [
+                {url: '/api/materials?'+ queryString.stringify(req.query), method: 'GET', resConfig: {keyName: 'mateList', is_must: true}},
+                {url: '/api/categories/list?parentId=0', method: 'GET', resConfig: {keyName: 'stairCategory', is_must: true}},
+                {url: '/api/attributes/categories?categoryId='+stairCatId, method: 'GET', resConfig: {keyName: 'theadList', is_must: true}},
+                {url: '/api/whse/factory/list', method: 'GET', resConfig: {keyName: 'factoryList', is_must: true}},
+                {url: '/api/whse/warehouse/list/'+ftyId, method: 'GET', resConfig: {keyName: 'warehouseList', is_must: true}},
+                {url: '/api/whse/region/list/'+whseId, method: 'GET', resConfig: {keyName: 'regionList', is_must: true}},
+            ];
+        }
 
-            // stairCatId 不存在，从菜单栏点击进入页面时
-            if(resultList.stairCategory && resultList.stairCategory.length>0){
-                if(!stairCatId){
-                    var searchId = resultList.stairCategory[0].id;
-                    // console.log('searchId',searchId)
-                    res.redirect("/materialManage?stairCatId="+searchId);
+        var bid = req.query.bid? req.query.bid: req.session.user.bid;
+        var stairCatId = req.query.stairCatId;
+        if(!stairCatId){stairCatId='';}
+
+        var paramObject = helper.genPaginationQuery(req);
+        Base.multiDataRequest(req, res, multiDataRequest,
+            function (req, res, resultList) {
+
+                // stairCatId 不存在，从菜单栏点击进入页面时
+                if(resultList.stairCategory && resultList.stairCategory.length>0){
+                    if(!stairCatId){
+                        var searchId = resultList.stairCategory[0].id;
+                        // console.log('searchId',searchId)
+                        res.redirect("/materialManage?stairCatId="+searchId);
+                    }
                 }
-            }
 
-            var paginationInfo =  resultList.mateList;
+                var paginationInfo =  resultList.mateList;
 
-            var boostrapPaginator = new Pagination.TemplatePaginator(helper.genPageInfo({
-                prelink: paramObject.withoutPageNo,
-                current: paginationInfo.page,
-                rowsPerPage: paginationInfo.pageSize,
-                totalResult: paginationInfo.totalItems
-            }));
+                var boostrapPaginator = new Pagination.TemplatePaginator(helper.genPageInfo({
+                    prelink: paramObject.withoutPageNo,
+                    current: paginationInfo.page,
+                    rowsPerPage: paginationInfo.pageSize,
+                    totalResult: paginationInfo.totalItems
+                }));
 
-            var returnData = Base.mergeData(helper.mergeObject({
-                title: ' ',
-                bid:bid,
-                pagination: boostrapPaginator.render(),
-                Permission :Permissions,
-            },resultList));
-            res.render('order/material/material_index',returnData);
-        });
-        // res.render('order/material/material_index');
+                if(!ftyId){
+                    resultList.warehouseList = [];
+                }
+                if(!whseId){
+                    resultList.regionList = [];
+                }
+
+                var returnData = Base.mergeData(helper.mergeObject({
+                    title: ' ',
+                    bid:bid,
+                    userFtyId: ftyId,
+                    pagination: boostrapPaginator.render(),
+                    Permission :Permissions,
+                },resultList));
+                res.render('order/material/material_index',returnData);
+            });
+
     },
     detailPage: function (req, res) {
         var mid =req.params.mid;
