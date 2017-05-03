@@ -82,21 +82,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-xs-3">
-                                    <div class="form-group">
-                                        <label class="col-xs-4 control-label">仓库类型:</label>
-                                        <div class="col-xs-8">
-                                            <select class="form-control" name="type">
-                                                <option value="">- 请选择 -</option>
-                                                <% warehouseTypes.forEach(function (element) {  %>
-                                                <option value="<%= element.id %>" <%= (DWYRequest.query.type == element.id )?"selected":"" %> >
-                                                    <%= element.name %>
-                                                </option>
-                                                <% }) %>
-                                            </select>
-                                        </div>
-                                    </div>
-                                </div>
+
 
                             </div>
 
