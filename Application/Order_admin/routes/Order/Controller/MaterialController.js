@@ -22,10 +22,16 @@ var MaterialController = {
     indexPage: function (req, res) {
         var ftyId = req.query.ftyId ? req.query.ftyId: req.session.user.ftyId;
         var whseId = req.query.whseId?req.query.whseId: '';
+
+        var bid = req.query.bid? req.query.bid: req.session.user.bid;
+        var stairCatId = req.query.stairCatId;
+        if(!stairCatId){stairCatId='';}
+
         var multiDataRequest= [
             {url: '/api/materials?'+ queryString.stringify(req.query), method: 'GET', resConfig: {keyName: 'mateList', is_must: true}},
             {url: '/api/categories/list?parentId=0', method: 'GET', resConfig: {keyName: 'stairCategory', is_must: true}},
             {url: '/api/attributes/categories?categoryId='+stairCatId, method: 'GET', resConfig: {keyName: 'theadList', is_must: true}},
+            {url: '/api/organizations/factory', method: 'GET', resConfig: {keyName: 'organizationsList', is_must: true}},
             {url: '/api/whse/factory/list', method: 'GET', resConfig: {keyName: 'factoryList', is_must: true}},
         ];
         if(ftyId){
@@ -34,6 +40,7 @@ var MaterialController = {
                 {url: '/api/materials?'+ queryString.stringify(req.query), method: 'GET', resConfig: {keyName: 'mateList', is_must: true}},
                 {url: '/api/categories/list?parentId=0', method: 'GET', resConfig: {keyName: 'stairCategory', is_must: true}},
                 {url: '/api/attributes/categories?categoryId='+stairCatId, method: 'GET', resConfig: {keyName: 'theadList', is_must: true}},
+                {url: '/api/organizations/factory', method: 'GET', resConfig: {keyName: 'organizationsList', is_must: true}},
                 {url: '/api/whse/factory/list', method: 'GET', resConfig: {keyName: 'factoryList', is_must: true}},
                 {url: '/api/whse/warehouse/list/'+ftyId, method: 'GET', resConfig: {keyName: 'warehouseList', is_must: true}},
             ];
@@ -44,15 +51,14 @@ var MaterialController = {
                 {url: '/api/materials?'+ queryString.stringify(req.query), method: 'GET', resConfig: {keyName: 'mateList', is_must: true}},
                 {url: '/api/categories/list?parentId=0', method: 'GET', resConfig: {keyName: 'stairCategory', is_must: true}},
                 {url: '/api/attributes/categories?categoryId='+stairCatId, method: 'GET', resConfig: {keyName: 'theadList', is_must: true}},
+                {url: '/api/organizations/factory', method: 'GET', resConfig: {keyName: 'organizationsList', is_must: true}},
                 {url: '/api/whse/factory/list', method: 'GET', resConfig: {keyName: 'factoryList', is_must: true}},
                 {url: '/api/whse/warehouse/list/'+ftyId, method: 'GET', resConfig: {keyName: 'warehouseList', is_must: true}},
                 {url: '/api/whse/region/list/'+whseId, method: 'GET', resConfig: {keyName: 'regionList', is_must: true}},
             ];
         }
 
-        var bid = req.query.bid? req.query.bid: req.session.user.bid;
-        var stairCatId = req.query.stairCatId;
-        if(!stairCatId){stairCatId='';}
+
 
         var paramObject = helper.genPaginationQuery(req);
         Base.multiDataRequest(req, res, multiDataRequest,
