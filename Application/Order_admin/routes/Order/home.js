@@ -830,9 +830,13 @@ router.get('/cargospaceList', Middleware.AuthCheck, Middleware.FilterEmptyField,
 router.get('/getFactoryList', Middleware.AuthCheck, CargospaceController.getFactory);
 // 取工厂下仓库列表
 router.put('/getWarehouseList/:ftyId', Middleware.AuthCheck, CargospaceController.getWarehouse);
+// 带角色筛选
+router.put('/getWarehouseList/perm/:ftyId', Middleware.AuthCheck, CargospaceController.getWarehousePerm);
 
 // 取仓库下区域列表
 router.put('/getRegionList/:whseId', Middleware.AuthCheck, CargospaceController.getRegion);
+// 带角色筛选
+router.put('/getRegionList/perm/:whseId', Middleware.AuthCheck, CargospaceController.getRegionPerm);
 
 
 // 获取货位列表

@@ -58,12 +58,45 @@ var CargospaceController = {
         })
 
     },
+    getWarehousePerm: function (req, res) {
+        var ftyId = req.params.ftyId;
+
+        request(Base.mergeRequestOptions({
+            method: 'GET',
+            url: '/api/whse/warehouse/list/perm/'+ftyId,
+        }, req, res), function (error, response, body) {
+            if (!error && response.statusCode == 200) {
+                // Base.handlerSuccess(res, req);
+                // res.sendStatus(200);
+                res.status(200).json(body)
+
+            } else {
+                Base.handlerError(res, req, error, response, body);
+            }
+        })
+
+    },
     getRegion: function (req, res) {
         var whseId = req.params.whseId;
         console.log('/region/list','/api/whse/region/list/'+whseId+'?'+queryString.stringify(req.query))
         request(Base.mergeRequestOptions({
             method: 'GET',
             url: '/api/whse/region/list/'+whseId+'?'+queryString.stringify(req.query),
+        }, req, res), function (error, response, body) {
+            if (!error && response.statusCode == 200) {
+                // Base.handlerSuccess(res, req);
+                res.status(200).json(body)
+            } else {
+                Base.handlerError(res, req, error, response, body);
+            }
+        })
+
+    },
+    getRegionPerm: function (req, res) {
+        var whseId = req.params.whseId;
+        request(Base.mergeRequestOptions({
+            method: 'GET',
+            url: '/api/whse/region/list/perm/'+whseId+'?'+queryString.stringify(req.query),
         }, req, res), function (error, response, body) {
             if (!error && response.statusCode == 200) {
                 // Base.handlerSuccess(res, req);
