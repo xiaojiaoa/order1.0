@@ -352,7 +352,7 @@ var OutWarehouseController = {
         var id = req.params.id;
         var paramObject = helper.genPaginationQuery(req);
         Base.multiDataRequest(req, res, [
-            {url: '/api/whse/cargout/prods/'+ id, method: 'GET', resConfig: {keyName: 'prodsInfo', is_must: true}},
+            {url: '/api/whse/cargout/prods/'+ id+'?'+queryString.stringify(req.query), method: 'GET', resConfig: {keyName: 'prodsInfo', is_must: true}},
         ], function (req, res, resultList) {
 
             var paginationInfo =  resultList.prodsInfo.page;
