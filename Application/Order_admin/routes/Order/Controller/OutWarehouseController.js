@@ -415,7 +415,7 @@ var OutWarehouseController = {
         var tid = req.params.tid;
         var paramObject = helper.genPaginationQuery(req);
         Base.multiDataRequest(req, res, [
-            {url: '/api/whse/app/stock/page?tid='+ tid, method: 'GET', resConfig: {keyName: 'stockPakgList', is_must: true}},
+            {url: '/api/whse/app/stock/page?tid='+ tid+'&'+queryString.stringify(req.query), method: 'GET', resConfig: {keyName: 'stockPakgList', is_must: true}},
         ], function (req, res, resultList) {
             var paginationInfo =  resultList.stockPakgList;
 
