@@ -59,18 +59,6 @@ var FactoryController = {
         })
     },
     doCreate: function (req, res) {
-        var areaNum = req.body.areaNum;
-        // var areafor = req.body.areafor;
-        // var area = '';
-        // if(areafor){
-        //     for (var i=0;i<areaNum;i++)
-        //     {
-        //         area += areafor[i] +","
-        //     }
-        //     area = area.substring(0,area.length-1);
-        //     req.body.area = area;
-        // }
-        console.log('whse6666'+ JSON.stringify(req.body))
         request(Base.mergeRequestOptions({
             method: 'post',
             url: '/api/whse/factory',
@@ -79,7 +67,6 @@ var FactoryController = {
             if (!error && response.statusCode == 201) {
                 Base.handlerSuccess(res, req);
                 res.redirect("/factory");
-
             } else {
                 Base.handlerError(res, req, error, response, body);
             }
@@ -91,7 +78,6 @@ var FactoryController = {
             {url: '/api/whse/factory/'+ftyId, method: 'GET', resConfig: {keyName: 'factoryInfo', is_must: true}},
             {url: '/api/organizations/factory', method: 'GET', resConfig: {keyName: 'factoryList', is_must: true}},
         ], function (req, res, resultList) {
-
             var returnData = Base.mergeData(helper.mergeObject({
                 title: ' ',
             }, resultList));
@@ -118,7 +104,6 @@ var FactoryController = {
         request(Base.mergeRequestOptions({
             method: 'put',
             url: '/api/whse/factory/update?'+queryString.stringify(req.body),
-            // form:req.body,
         }, req, res), function (error, response, body) {
             if (!error && response.statusCode == 201) {
                 Base.handlerSuccess(res, req);
@@ -165,7 +150,6 @@ var FactoryController = {
 
     listWarehousePage: function (req, res) {
         var ftyId = req.query.ftyId;
-// console.log('warehouse','/api/whse/warehouse?ftyId='+ftyId+'&'+ queryString.stringify(req.query))
         var paramObject = helper.genPaginationQuery(req);
         Base.multiDataRequest(req, res, [
             {url: '/api/whse/warehouse?ftyId='+ftyId+'&'+ queryString.stringify(req.query), method: 'GET', resConfig: {keyName: 'warehouseList', is_must: true}},
@@ -195,10 +179,12 @@ var FactoryController = {
 
     },
     createWarehousePage: function (req, res) {
+        var bid = req.session.user.bid;
         var ftyId = req.params.ftyId;
         Base.multiDataRequest(req, res, [
             {url: '/api/whse/factory/list', method: 'GET', resConfig: {keyName: 'factoryList', is_must: true}},
-            {url: '/api/assist/warehouse/types', method: 'GET', resConfig: {keyName: 'warehouseTypes', is_must: true}},
+            // {url: '/api/assist/warehouse/types', method: 'GET', resConfig: {keyName: 'warehouseTypes', is_must: true}},
+            {url: '/api/roles/current/'+bid, method: 'GET', resConfig: {keyName: 'roleList', is_must: true}},
         ], function (req, res, resultList) {
             var returnData = Base.mergeData(helper.mergeObject({
                 title: ' ',
@@ -208,7 +194,6 @@ var FactoryController = {
         });
     },
     doWarehouseCreate: function (req, res) {
-        console.log(8888888877777777777999999999)
         var ftyId = req.body.ftyId;
         request(Base.mergeRequestOptions({
             method: 'post',
@@ -225,11 +210,13 @@ var FactoryController = {
     },
 
     modifyWarehousePage: function (req, res) {
+        var bid = req.session.user.bid;
         var whseId =  req.params.whseId;
         Base.multiDataRequest(req, res, [
             {url: '/api/whse/warehouse/'+whseId, method: 'GET', resConfig: {keyName: 'warehouseInfo', is_must: true}},
             {url: '/api/whse/factory/list', method: 'GET', resConfig: {keyName: 'factoryList', is_must: true}},
-            {url: '/api/assist/warehouse/types', method: 'GET', resConfig: {keyName: 'warehouseTypes', is_must: true}},
+            // {url: '/api/assist/warehouse/types', method: 'GET', resConfig: {keyName: 'warehouseTypes', is_must: true}},
+            {url: '/api/roles/current/'+bid, method: 'GET', resConfig: {keyName: 'roleList', is_must: true}},
         ], function (req, res, resultList) {
 
             var returnData = Base.mergeData(helper.mergeObject({
@@ -320,6 +307,7 @@ var FactoryController = {
 
     },
     createRegionPage: function (req, res) {
+        var bid = req.session.user.bid;
         var ftyId = req.params.ftyId;
         var whseId = req.params.whseId;
         Base.multiDataRequest(req, res, [
@@ -327,6 +315,7 @@ var FactoryController = {
             {url: '/api/whse/warehouse/list/'+ftyId, method: 'GET', resConfig: {keyName: 'warehouseList', is_must: true}},
             {url: '/api/categories/list?parentId=0', method: 'GET', resConfig: {keyName: 'stairCategory', is_must: true}},
             {url: '/api/orders/package/packagetype', method: 'GET', resConfig: {keyName: 'assistantWarehouseType', is_must: true}},
+            {url: '/api/roles/current/'+bid, method: 'GET', resConfig: {keyName: 'roleList', is_must: true}},
         ], function (req, res, resultList) {
             var returnData = Base.mergeData(helper.mergeObject({
                 title: ' ',
@@ -354,7 +343,6 @@ var FactoryController = {
         }else{
             req.body.regionType = req.body.packgeCode;
         }
-        console.log("region6666",JSON.stringify(req.body))
         request(Base.mergeRequestOptions({
             method: 'post',
             url: '/api/whse/region',
@@ -369,6 +357,7 @@ var FactoryController = {
         })
     },
     modifyRegionPage: function (req, res) {
+        var bid = req.session.user.bid;
         var regionId =  req.params.regionId;
         var ftyId=req.query.ftyId;
         var whseId =  req.params.whseId;
@@ -376,7 +365,7 @@ var FactoryController = {
             {url: '/api/whse/region/'+regionId, method: 'GET', resConfig: {keyName: 'regionInfo', is_must: true}},
             {url: '/api/categories/list?parentId=0', method: 'GET', resConfig: {keyName: 'stairCategory', is_must: true}},
             {url: '/api/orders/package/packagetype', method: 'GET', resConfig: {keyName: 'assistantWarehouseType', is_must: true}},
-
+            {url: '/api/roles/current/'+bid, method: 'GET', resConfig: {keyName: 'roleList', is_must: true}},
         ], function (req, res, resultList) {
 
             var returnData = Base.mergeData(helper.mergeObject({
@@ -405,7 +394,6 @@ var FactoryController = {
         }else{
             req.body.regionType = req.body.packgeCode;
         }
-        console.log("region666677777",JSON.stringify(req.body))
         request(Base.mergeRequestOptions({
             method: 'put',
             url: '/api/whse/region/update?'+queryString.stringify(req.body),

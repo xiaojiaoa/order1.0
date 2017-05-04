@@ -64,7 +64,24 @@
                                     </div>
                                 </div>
                             </div>
+                            <div class="col-xs-12">
 
+                                <div class="col-xs-4">
+                                    <div class="form-group">
+                                        <label class="col-xs-4 control-label">角色:</label>
+                                        <div class="col-xs-8">
+                                            <select class="form-control" name="roleId">
+                                                <option value="">- 请选择 -</option>
+                                                <%
+                                                roleList.forEach(function (element) { %>
+                                                <option value="<%= element.id %>" <%= (regionInfo.roleId == element.id)?"selected":"" %>><%= element.name %></option>
+                                                <%  }) %>
+                                            </select>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                             <div class="col-xs-12">
                                 <div class="col-xs-8">
                                     <div class="form-group">
