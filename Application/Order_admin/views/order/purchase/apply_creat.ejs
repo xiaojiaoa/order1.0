@@ -180,7 +180,7 @@
                             <%
                             if(DWY_Helper.isCanLoop(element.mateUnitList)){
                             element.mateUnitList.forEach(function(elementa,indexa){%>
-                            <td class="units" style="display:none"><%= elementa.name %></td>
+                            <td class="units" style="display:block"><%= elementa.name %></td>
                             <%
                             })}%>
                             <%
@@ -264,26 +264,15 @@
             var unit='';
             var unitId='';
             var unitAmount='';
-//            $(".units").each(function(){
-//                unit += $(this).html()+',';
-//            })
-//            console.log(unit)
             $(this).parents(".botTr").find(".units").each(function(){
                 unit += $(this).html()+',';
             })
-            console.log(unit)
-
-
-
-
-            $(".unitsId").each(function(){
+            $(this).parents(".botTr").find(".unitsId").each(function(){
                 unitId += $(this).html()+',';
             })
-            $(".unitsAmount").each(function(){
+            $(this).parents(".botTr").find(".unitsAmount").each(function(){
                 unitAmount += $(this).html()+',';
             })
-
-//            unit.split(",");
 
             // 获取整个条目数据
             var item = {

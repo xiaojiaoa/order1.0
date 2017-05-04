@@ -80,18 +80,18 @@
         var storageKey = 'LIST_DATA_PUR';
         var listArr = DWY_Utils.StorageUtils.getListArr(storageKey);
         var htmlStr = '';
-        var options = ''
+
 
         if (listArr instanceof Array && listArr.length != 0) {
             var len = listArr.length;
             for (var i = 0; i < len; i++) {
+                var options = ''
                 var unitsp=listArr[i].unit.split(',');
                 var unitId=listArr[i].unitId.split(',');
                 var unitAmount=listArr[i].unitAmount.split(',');
                 for(var j=0;j<unitsp.length-1;j++){
                     options += '<option value="'+unitId[j]+'" amount="'+unitAmount[j]+'">'+unitsp[j]+'</option>'
                 }
-
                 var itemHtml = ''
                     + '<tr class="topTr">'
                     + '<td class="materialId'+i+'">' + listArr[i].id + '</td>'
