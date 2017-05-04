@@ -136,9 +136,14 @@ var Middleware = {
 
         _.each({body: req.body, query: req.query}, function (value, key) {
             if (!_.isEmpty(value)) {
+
                 for (var i in req[key]) {
+                    console.log('9999',req[key][i])
                     if (req[key][i] === "") {
                         delete req[key][i];
+                    }else{
+                        //  去掉首尾空字符 包括空格，制表符(Tab)，换行符，中文全角空格等
+                        req[key][i] =  req[key][i].replace(/\s*$|^\s*/g,"")
                     }
                 }
             }

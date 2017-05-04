@@ -121,7 +121,7 @@
                             <tr>
                                 <th width="4%">序号</th>
                                 <th width="12%">订单号</th>
-                                <th>包装流水号</th>
+                                <th width="12%">包装流水号</th>
                                 <th>流水号</th>
                                 <th>批次号</th>
                                 <th>包装序号</th>
@@ -139,7 +139,7 @@
                             <tr>
                                 <td width="4%"><%= index+1 %></td>
                                 <td width="12%"><a  <%=  element.orderType ==20  ?  "href=/order/resupply/detail/"+ element.tid :  "href=/order/detail/"+element.tid  %>  ><%= element.tid %></a></a></td>
-                                <td><%= element.packageLid %></td>
+                                <td width="12%"><%= element.packageLid %></td>
                                 <th><%= element.lid %></th>
                                 <th><%= element.batchNumber %></th>
                                 <td><%= element.packageNo %></td>

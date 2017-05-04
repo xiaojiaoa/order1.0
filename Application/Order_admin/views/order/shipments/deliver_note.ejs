@@ -125,9 +125,9 @@
                             <thead>
                             <tr>
                                 <th width="4%">序号</th>
-                                <th width="10%">发货通知单号</th>
-                                <th width="10%">合同号</th>
-                                <th>客户姓名</th>
+                                <th width="100">发货通知单号</th>
+                                <th width="80">合同号</th>
+                                <th width="100">客户姓名</th>
                                 <th width="100">客户电话</th>
                                 <th width="18%">收货地址</th>
                                 <th>经销商</th>
@@ -144,9 +144,9 @@
                             deliveryNotice.result.forEach(function (element, index) {%>
                             <tr>
                                 <td width="4%"><%= index+1 %></td>
-                                <td width="10%"><a href="/deliveryNote/deatil/<%=element.diId %>"><%=element.diId %></a></td>
-                                <td width="10%"><%=element.contNo %></td>
-                                <td><%=element.cName %></td>
+                                <td width="100"><a href="/deliveryNote/deatil/<%=element.diId %>"><%=element.diId %></a></td>
+                                <td width="80"><%=element.contNo %></td>
+                                <td width="100"><%=element.cName %></td>
                                 <td width="100"><%=element.mobile %></td>
                                 <td width="18%"><%=element.address %></td>
                                 <td><%=element.stoName %></td>
