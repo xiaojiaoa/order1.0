@@ -617,6 +617,18 @@ var permissions = {
         deleteAttribute:{
             id:"605020",
             name:"删除物料属性"
+        },
+        queryByRegionAll:{
+            id:"603042",
+            name:"查看所有机构区域物料信息"
+        },
+        queryByRegionOrganization:{
+            id:"603043",
+            name:"查看本机构区域物料信息"
+        },
+        queryByRegion:{
+            id:"603044",
+            name:"查看本人区域物料信息"
         }
     },
     cargoManages :{
