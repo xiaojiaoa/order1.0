@@ -81,15 +81,17 @@
         var listArr = DWY_Utils.StorageUtils.getListArr(storageKey);
         var htmlStr = '';
         var options = ''
-        var unitsp=listArr[0].unit.split(',');
-        var unitId=listArr[0].unitId.split(',');
-        var unitAmount=listArr[0].unitAmount.split(',');
-        for(var j=0;j<unitsp.length-1;j++){
-            options += '<option value="'+unitId[j]+'" amount="'+unitAmount[j]+'">'+unitsp[j]+'</option>'
-        }
+
         if (listArr instanceof Array && listArr.length != 0) {
             var len = listArr.length;
             for (var i = 0; i < len; i++) {
+                var unitsp=listArr[i].unit.split(',');
+                var unitId=listArr[i].unitId.split(',');
+                var unitAmount=listArr[i].unitAmount.split(',');
+                for(var j=0;j<unitsp.length-1;j++){
+                    options += '<option value="'+unitId[j]+'" amount="'+unitAmount[j]+'">'+unitsp[j]+'</option>'
+                }
+
                 var itemHtml = ''
                     + '<tr class="topTr">'
                     + '<td class="materialId'+i+'">' + listArr[i].id + '</td>'
