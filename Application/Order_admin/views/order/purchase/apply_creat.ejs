@@ -273,6 +273,18 @@
             $(".unitsAmount").each(function(){
                 unitAmount += $(this).html()+',';
             })
+
+            unit=unit.split(",");
+            var result = [],
+                hash = {};
+            for (var i = 0, elem; (elem = unit[i]) != null; i++) {
+                if (!hash[elem]) {
+                    result.push(elem);
+                    hash[elem] = true;
+                }
+            }
+            unit = result;
+            unit=unit.join(",");
             // 获取整个条目数据
             var item = {
                 uniqueId:unique,
