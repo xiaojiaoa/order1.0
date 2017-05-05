@@ -364,6 +364,7 @@
                 $(".packagePreName").text("A");
                 $("#packageCategory").addClass("display-none");
             }else if($(this).val()==1002){
+                $("select[name=packageCategory]").val("");
                 $("#packageCategory").removeClass("display-none");
             }
             else{
@@ -373,9 +374,7 @@
         $("select[name=packageCategory]").on('change',function(){
            var pcId= $(this).val();
            $("select[name=packageCategory] option").each(function(){
-               console.log(1111)
                if($(this).attr("value")==pcId){
-                   console.log(22222)
                    $(".packagePreName").text($(this).attr("name"));
                }
            })
