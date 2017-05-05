@@ -901,6 +901,8 @@ tr > td .more-space:last-child {
     display: -webkit-flex; /* NEW - Chrome */
     display: flex;
     flex-direction: row;
+    min-width: 0;
+    min-height: 0;
 }
 
 /*.table-responsive.dis-flex{*/
@@ -920,7 +922,6 @@ tr > td .more-space:last-child {
 
     border: 1px solid #ddd;
     /*border-top: none;*/
-
 }
 
 .table-scroll thead, .table-scroll tbody tr {
@@ -928,7 +929,10 @@ tr > td .more-space:last-child {
     width: 100%;
     table-layout: fixed;
 }
-
+.table-scroll thead{
+    display: block;
+    z-index:9999;
+}
 .table-scroll thead tr {
     display: table;
     width: 100%;
