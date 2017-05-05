@@ -631,6 +631,7 @@
                             <tr>
                                 <th>序号</th>
                                 <th>包装流水号</th>
+                                <th>货位号</th>
                                 <th>属性</th>
                                 <th>包装名称</th>
                                 <th>流水号</th>
@@ -649,7 +650,8 @@
                             <tr>
                                 <td><%= ++index %></td>
                                 <td><%= element.packageLid %></td>
-                                <td><%= element.packageType %></td>
+                                <td><%= element.spaceId %></td>
+                                <td><%= element.packageTypeName %></td>
                                 <td><%= element.packageName %></td>
                                 <td><%= element.lid %></td>
                                 <td><%= element.batchNumber %></td>
