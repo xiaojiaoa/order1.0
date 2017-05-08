@@ -245,7 +245,7 @@
                         <!--<a class="label label-primary" href="/file/create/<%= orderInfo.lid %>/<%= orderInfo.stcode %>">文件管理</a>-->
 
                         <% if( ((orderInfo.stcode == 250 || orderInfo.stcode == 450 || orderInfo.stcode == 475
-                                || orderInfo.stcode == 550 || orderInfo.stcode == 650 || orderInfo.stcode == 635)&& orderInfo.receiveGid == user.id)|| (orderInfo.stcode == 290 || orderInfo.stcode == 472 || orderInfo.stcode == 632) ){ %>
+                                || orderInfo.stcode == 550 || orderInfo.stcode == 650 || orderInfo.stcode == 635 || orderInfo.stcode == 638)&& orderInfo.receiveGid == user.id)|| (orderInfo.stcode == 290 || orderInfo.stcode == 472 || orderInfo.stcode == 632) ){ %>
                         <a class="label label-primary" href="/file/order/create/<%= orderInfo.lid %>/<%= orderInfo.stcode %>/1/<%= tid %>">文件管理</a>
                         <% } %>
 
