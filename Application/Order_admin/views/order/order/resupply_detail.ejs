@@ -173,7 +173,7 @@
                 <!-- col -->
                 <div class="col-xs-12">
                     <legend>相关文件
-                        <% if( (resupplyInfo.status == 250) || (resupplyInfo.status == 450) || (resupplyInfo.status == 475)|| resupplyInfo.status == 635 ){ %>
+                        <% if( (resupplyInfo.status == 250) || (resupplyInfo.status == 450) || (resupplyInfo.status == 475)|| resupplyInfo.status == 635 || resupplyInfo.status == 472 || resupplyInfo.status == 632 ){ %>
 
                         <a class="label label-primary"
                            href="/file/resupply/create/<%= resupplyInfo.orgLid %>/<%= resupplyInfo.status %>/<%= resupplyInfo.orderTypeStr == '补单'? 2:3 %>/<%= tid %>">
