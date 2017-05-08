@@ -46,7 +46,7 @@
                                 <th>交付日期</th>
                                 <th>客户号</th>
                                 <th>客户姓名</th>
-                                <th>出产价（元）</th>
+                                <!--<th>出厂价（元）</th>-->
                                 <th>操作</th>
                             </tr>
                             </thead>
@@ -60,7 +60,7 @@
                                 <td><%= DWY_Helper.getLocalDate(element.deliveryDate) %></td>
                                 <td><%= element.custId %></td>
                                 <td><%= element.custName %></td>
-                                <td><%= element.factoryPrice %></td>
+                                <!--<td><%= element.factoryPrice %></td>-->
                                 <td>
                                     <% if (DWY_Helper.hasPermission(Permission.cargoManages.deliveryPackage.id, permission) ){ %>
                                     <a class="label label-primary" href="/productStock/pakg/<%= element.tid %>" >备货</a>
