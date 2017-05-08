@@ -931,7 +931,7 @@ tr > td .more-space:last-child {
 }
 .table-scroll thead{
     display: block;
-    z-index:9999;
+    z-index:99;
 }
 .table-scroll thead tr {
     display: table;
