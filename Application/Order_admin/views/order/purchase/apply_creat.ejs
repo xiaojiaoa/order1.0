@@ -49,7 +49,7 @@
                                     <th>真实库存</th>
                                     <th>预警数量</th>
                                     <th>可用库存</th>
-                                    <th>单价</th>
+                                    <th class="display-none">单价</th>
                                 </tr>
                                 </thead>
                                 <tbody class="purApplyTr">
@@ -235,7 +235,7 @@
                         + '<td>' + listArr[i].real_stock + '</td>'
                         + '<td>' + listArr[i].warning_num + '</td>'
                         + '<td>' + listArr[i].usable_stock + '</td>'
-                        + '<td>' + listArr[i].price + '</td>'
+                        + '<td class="display-none">' + listArr[i].price + '</td>'
                         + '</tr>';
                     htmlStr += itemHtml;
                     // 判断是否是初始化 是的话保持下面列表状态同步
