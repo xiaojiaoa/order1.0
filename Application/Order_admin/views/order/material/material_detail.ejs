@@ -315,8 +315,8 @@
                                 <th>采购员</th>
                                 <th>供应商名称</th>
                                 <th>采购日期</th>
-                                <th>采购数量</th>
-                                <th>备注</th>
+                                <th width="3%">采购数量</th>
+                                <th width="3%">备注</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -328,8 +328,8 @@
                                 <td><%= element.empName  %></td>
                                 <td><%= element.suppName %></td>
                                 <td><%= DWY_Helper.getLocalDateYMD(element.addTime)%></td>
-                                <td><%= element.amount %></td>
-                                <td><%= element.remark%></td>
+                                <td  width="3%"><%= element.amount %></td>
+                                <td  width="3%"><%= element.remark%></td>
                             </tr>
                             <% })%>
                             <tr><td colspan="4" class="text-align-right" width="11%">总计</td><td colspan="2" class="text-align-left purchasesMateListAll" ></td></tr>
