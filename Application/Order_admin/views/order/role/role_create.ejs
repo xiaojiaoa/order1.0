@@ -80,7 +80,8 @@
                                                     <td width="100%">
                                                         <label>
                                                             <input type="checkbox" class="checkbox validate[minCheckbox[1]]"
-                                                                   name="permission" value="<%= element.id%>">
+                                                                   name="permission" value="<%= element.id%>"
+                                                                    <% if(element.id == 53 ||element.id == 58 ||element.id == 54 ||element.id == 134 ){ %>checked <% } %> >
                                                             <span><%= element.name%></span>
                                                         </label>
                                                     </td>
@@ -92,7 +93,9 @@
                                                     <td class="level-1-title">
                                                         <label>
                                                             <input type="checkbox" class="checkbox validate[minCheckbox[1]]"
-                                                                   name="permission" value="<%= element.id%>" parentId="<%= parentId %>">
+                                                                   name="permission" value="<%= element.id%>" parentId="<%= parentId %>"
+                                                                   <% if(element.id == 157 ||element.id == 80 ||element.id == 82 ){ %>checked <% } %>
+                                                            >
                                                             <span><%= element.name%></span>
                                                         </label>
                                                     </td>
@@ -147,8 +150,6 @@
 
     $(document).ready(function () {
 
-//        pageSetUp();
-//      $("#mytable").freezeHeader({ 'height': '100%' });
         $("#create-store").validationEngine();
 
       $("#checkAll").change(function () {
