@@ -312,8 +312,10 @@
                             <thead>
                             <tr>
                                 <th>序号</th>
-                                <th>订购日期</th>
-                                <th>订购数量</th>
+                                <th>采购员</th>
+                                <th>供应商名称</th>
+                                <th>采购日期</th>
+                                <th>采购数量</th>
                                 <th>备注</th>
                             </tr>
                             </thead>
@@ -323,15 +325,17 @@
                             purchasesMateList.result.forEach(function (element, index) { %>
                             <tr>
                                 <td><%= index+1 %></td>
+                                <td><%= element.empName  %></td>
+                                <td><%= element.suppName %></td>
                                 <td><%= DWY_Helper.getLocalDateYMD(element.addTime)%></td>
                                 <td><%= element.amount %></td>
                                 <td><%= element.remark%></td>
                             </tr>
                             <% })%>
-                            <tr><td colspan="2" class="text-align-right" width="11%">总计</td><td colspan="2" class="text-align-left purchasesMateListAll" ></td></tr>
+                            <tr><td colspan="4" class="text-align-right" width="11%">总计</td><td colspan="2" class="text-align-left purchasesMateListAll" ></td></tr>
                             <%}else{ %>
                             <tr>
-                                <td colspan="4" align="center">暂无数据</td>
+                                <td colspan="6" align="center">暂无数据</td>
                             </tr>
                             <% } %>
                             </tbody>
