@@ -94,13 +94,14 @@
                 }
                 var itemHtml = ''
                     + '<tr class="topTr">'
-                    + '<td class="materialId'+i+'">' + listArr[i].id + '</td>'
-                    + '<td>' + listArr[i].name + '</td>'
-                    + '<td>' + listArr[i].suppName + '</td>'
-                    + '<td>' + listArr[i].class_name + '</td>'
-                    + '<td class="price'+i+'" priceUnit="' + listArr[i].price + '">' + listArr[i].price + '</td>'
+                    + '<td style="line-height:32px" class="materialId'+i+'">' + listArr[i].id + '</td>'
+                    + '<td style="display:none"  class="suppId">' + listArr[i].suppId + '</td>'
+                    + '<td style="line-height:32px" class="matName">' + listArr[i].name + '</td>'
+                    + '<td style="line-height:32px" class="suppName">' + listArr[i].suppName + '</td>'
+                    + '<td style="line-height:32px">' + listArr[i].class_name + '</td>'
+                    + '<td style="line-height:32px" class="price'+i+'" priceUnit="' + listArr[i].price + '">' + listArr[i].price + '</td>'
                     + '<td><select data-index="' + i + '" name="unit' + i + '" class="form-control unitSelect">'+options+'</select></td>'
-                    + '<td><input type="text" name="amount'+i+'" value="" class="form-control amountApply" /> </td>'
+                    + '<td><input data-index="' + i + '" type="text" name="amount'+i+'" value="" class="form-control amountApply" /> </td>'
                     + '<td><input class="form-control fg-date-picker deliveryDate" type="text" value="" name="deliveryDate'+i+'" /> </td>'
                     + '<td><input name="minAmount'+i+'" class="form-control minAmount" value="" /></td>'
                     + '</tr>';
@@ -113,6 +114,24 @@
         }else{
             $(parentEle).html("");
         }
+        $(".unitSelect").on('change',function(){
+            var index = $(this).attr('data-index');
+            var indexUnit = $(this).parents('td').siblings('.price'+index).attr('priceUnit');
+            var amount = $(this).find('option:selected').attr("amount");
+            var parse =  parseInt(indexUnit) * parseInt(amount);
+            $('.price'+index).text(parse);
+        })
+        $(".amountApply").change(function(){
+            var index = $(this).attr('data-index');
+            var price=$(this).parents('td').siblings('.price'+index).text();
+            var amount=$(this).val();
+            var val=parseInt(price) * parseInt(amount);
+            if(val.toString().length>10){
+                layer.alert('您输入的数量过大，请重新输入！', {icon: 3});
+                return false;
+            }
+        })
+
         $("#sub").click(function(){
             if (isNaN(parseFloat($(".amountApply").val())) || parseFloat($(".amountApply").val()) <= 0) {
                 layer.alert('请输入有效数字！', {icon: 3});
@@ -132,6 +151,9 @@
             for(var i=0;i<len;i++){
                 var a = new Object();
                 var mateId=$(".materialId"+i).text();
+                var suppId=$(".suppId").text();
+                var mateName = $(".matName").text();
+                var suppName = $(".suppName").text();
                 var price=$(".price"+i).text();
                 var amount=$("input[name=amount"+i+"]").val();
                 var minAmount=$("input[name=minAmount"+i+"]").val();
@@ -143,11 +165,15 @@
                 a.minAmount = minAmount;
                 a.deliveryDate = deliveryDate;
                 a.unit = unit;
+                a.suppId = suppId;
+                a.mateName = mateName;
+                a.suppName = suppName;
                 myArray.push(a);
             }
 
             var date={reqMaterialList:myArray};
-//            console.log(myArray)
+//            console.log(myArray);
+//            return false;
             layer.confirm("确认提交？", {title:'提示'},function(index){
 //                    console.log(myArray);return false;
                     $.ajax({
@@ -173,13 +199,6 @@
                 },function(index){
                     layer.close(index)}
             )
-        })
-        $(".unitSelect").on('change',function(){
-            var index = $(this).attr('data-index');
-            var indexUnit = $(this).parents('td').siblings('.price'+index).attr('priceUnit');
-            var amount = $(this).find('option:selected').attr("amount");
-            var parse =  parseInt(indexUnit) * parseInt(amount);
-            $('.price'+index).text(parse);
         })
     })
 </script>

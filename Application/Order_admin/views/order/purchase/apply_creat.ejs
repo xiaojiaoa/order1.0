@@ -171,6 +171,7 @@
                             <td><%= element.warning %></td>
                             <td><%= element.usable %></td>
                             <td><%= element.price %></td>
+                            <td style="display:none"><%= element.suppId %></td>
                             <%
                             if(DWY_Helper.isCanLoop(element.mateUnitList)){
                             element.mateUnitList.forEach(function(elementa,indexa){%>
@@ -285,6 +286,7 @@
                 warning_num : $tds.eq(6).html(),
                 usable_stock : $tds.eq(7).html(),
                 price : $tds.eq(8).html(),
+                suppId : $tds.eq(9).html(),
                 unit : unit,
                 unitId : unitId,
                 unitAmount : unitAmount,
