@@ -1110,6 +1110,7 @@ var OrderController = {
             {url: '/api/orders/'+tid, method: 'GET', resConfig: {keyName: 'orderDetail', is_must: true}},
             {url: '/api/orders/package/workpiece/amount/'+tid, method: 'GET', resConfig: {keyName: 'workpieceAmount', is_must: true}},
             {url: '/api/assist/order/stcodes', method: 'GET', resConfig: {keyName: 'stcodeInfo', is_must: false}},
+            {url: '/api/orders/workPieceHistory/'+tid, method: 'GET', resConfig: {keyName: 'workPieceHistory', is_must: false}},
         ], function (req, res, resultList) {
             var paginationInfo =  resultList.workpieceList;
             var boostrapPaginator = new Pagination.TemplatePaginator(helper.genPageInfo({
@@ -1160,7 +1161,7 @@ var OrderController = {
         }, req, res)).pipe(res)
     },
 
-    //订单详情--订单物料--配件导出
+    // 订单详情--订单物料--配件导出
     exportParts: function (req, res) {
         var tid = req.params.tid;
         request(Base.mergeRequestOptions({

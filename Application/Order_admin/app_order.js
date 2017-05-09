@@ -5,7 +5,7 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var ueditor = require("ueditor");
-//for session
+// for session
 var session = require('express-session');
 var RedisStore = require('connect-redis')(session);
 var orderSessionConfig = require('./routes/Order/config/session');
@@ -13,9 +13,6 @@ var orderSessionConfig = require('./routes/Order/config/session');
 var app = express();
 
 app.enable('trust proxy'); // only if you're behind a reverse proxy (Heroku, Bluemix, AWS if you use an ELB, custom Nginx setup, etc)
-
-
-
 
 
 if (process.env.REDIS_SENTINEL_ON == 'ON') {
@@ -49,7 +46,6 @@ if (process.env.REDIS_SENTINEL_ON == 'ON') {
     orderSessionConfig.redis = {client: redis};
 }
 
-//
 app.use(session({
     store: process.env.SESSION_DRIVER ? new RedisStore(orderSessionConfig.redis) : '',
     name: orderSessionConfig.name,
@@ -60,17 +56,14 @@ app.use(session({
 }));
 
 // uncomment after placing your favicon in /public
-//app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
+// app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 
 
-app.use(logger('dev'));
+app.use(logger('tiny'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
-
-
-
 
 
 // view engine setup
@@ -116,12 +109,12 @@ app.use('/', passport);
 
 var DWY_GLOBAL = require('./routes/Order/config/global');
 
-//大王椰全局变量
+// 大王椰全局变量
 app.locals.DWY_GLOBAL = {
     Static: DWY_GLOBAL.server.Static.remote_server(),
 
 }
-//格式化金额
+// 格式化金额
 outputdollars = function (number) {
     if (number.length <= 3)
         return (number == '' ? '0' : number);
@@ -141,17 +134,17 @@ outputcents = function (amount) {
     amount = Math.round(((amount) - Math.floor(amount)) * 100);
     return (amount < 10 ? '.0' + amount : '.' + amount);
 };
-//添加时间格式化函数
+// 添加时间格式化函数
 Date.prototype.format = function (fmt) {
     var o = {
-        "M+": this.getMonth() + 1, //月份
-        "d+": this.getDate(), //日
-        "h+": this.getHours() % 12 == 0 ? 12 : this.getHours() % 12, //小时
-        "H+": this.getHours(), //小时
-        "m+": this.getMinutes(), //分
-        "s+": this.getSeconds(), //秒
-        "q+": Math.floor((this.getMonth() + 3) / 3), //季度
-        "S": this.getMilliseconds() //毫秒
+        "M+": this.getMonth() + 1, // 月份
+        "d+": this.getDate(), // 日
+        "h+": this.getHours() % 12 == 0 ? 12 : this.getHours() % 12, // 小时
+        "H+": this.getHours(), // 小时
+        "m+": this.getMinutes(), // 分
+        "s+": this.getSeconds(), // 秒
+        "q+": Math.floor((this.getMonth() + 3) / 3), // 季度
+        "S": this.getMilliseconds() // 毫秒
     };
     var week = {
         "0": "/u65e5",
@@ -189,7 +182,7 @@ app.locals.DWY_Helper = {
 
     },
 
-    //增加时间格式化工具
+    // 增加时间格式化工具
     getLocalDate: function (timestamp) {
         if (timestamp) {
             var time = parseInt(timestamp);
@@ -206,7 +199,7 @@ app.locals.DWY_Helper = {
         return null;
     },
 
-    //字典翻译
+    // 字典翻译
     getAssistVal: function (code, list) {
         if (list && code) {
             for (var i = 0; i < list.length; i++) {
@@ -219,7 +212,7 @@ app.locals.DWY_Helper = {
         return code;
     },
 
-    //字典翻译
+    // 字典翻译
     getAssistValByCode: function (code, list) {
         if (list && code) {
             for (var i = 0; i < list.length; i++) {
@@ -232,7 +225,7 @@ app.locals.DWY_Helper = {
         return code;
     },
 
-    //字典拼接
+    // 字典拼接
     getAssistStr: function (code, list) {
         var assistStr = "";
         if (list && code) {
@@ -249,7 +242,7 @@ app.locals.DWY_Helper = {
         return assistStr;
     },
 
-//字典翻译-门店类型
+// 字典翻译-门店类型
     getStoreType: function (code) {
         switch (code) {
             case '0':
@@ -270,7 +263,7 @@ app.locals.DWY_Helper = {
         }
         return code;
     },
-//字典翻译-包装状态
+// 字典翻译-包装状态
     getPackageType: function (code) {
         switch (code) {
             case 1:
@@ -289,7 +282,7 @@ app.locals.DWY_Helper = {
         return code;
     },
 
-    //字典翻译-是否
+    // 字典翻译-是否
     getWhether: function (code) {
         switch (code) {
             case 1:
@@ -317,7 +310,7 @@ app.locals.DWY_Helper = {
         return code;
     },
 
-    //字典翻译-入库类型
+    // 字典翻译-入库类型
     getEnterType: function (code) {
         switch (code) {
             case 1:
@@ -340,7 +333,7 @@ app.locals.DWY_Helper = {
         }
         return code;
     },
-    //字典翻译-工厂类型
+    // 字典翻译-工厂类型
     getFactoryType: function (code) {
         switch (code) {
             case 1:
@@ -354,7 +347,7 @@ app.locals.DWY_Helper = {
         return code;
     },
 
-    //字典翻译
+    // 字典翻译
     getResupply: function (code) {
         if (code) {
             code = code.replace(/\s+/g, "");
@@ -367,7 +360,7 @@ app.locals.DWY_Helper = {
         return code;
     },
 
-    //字典翻译
+    // 字典翻译
     getChildrenGender: function (code) {
         if (code) {
             if (code == "0") {
@@ -385,7 +378,7 @@ app.locals.DWY_Helper = {
         return code;
     },
 
-    //判断是否已婚
+    // 判断是否已婚
     getMarryStatus: function (code) {
         if (code) {
             if (code == "1") {
@@ -400,7 +393,7 @@ app.locals.DWY_Helper = {
         return code;
     },
 
-    //判断订单文件类型
+    // 判断订单文件类型
     getFileType: function (code) {
         if (code) {
             if (code == "1") {
@@ -429,7 +422,7 @@ app.locals.DWY_Helper = {
         }
         return code;
     },
-    //柜员状态
+    // 柜员状态
     getEmployeeStatus: function (code) {
         if (code == 0) {
             return "锁定"
@@ -446,7 +439,7 @@ app.locals.DWY_Helper = {
         return code;
     },
 
-    //checkbox 状态判断  code为[{},{}]
+    // checkbox 状态判断  code为[{},{}]
     checkboxStatus: function (code, option) {
         if (option && code) {
             for (var i = 0; i < code.length; i++) {
@@ -459,7 +452,7 @@ app.locals.DWY_Helper = {
         return code;
     },
 
-    //checkbox 状态判断  code为 ,分隔的字符串
+    // checkbox 状态判断  code为 ,分隔的字符串
     checkboxStatusStr: function (code, option) {
         if (option && code) {
             var codeArry = code.split(",");
@@ -473,7 +466,7 @@ app.locals.DWY_Helper = {
         return code;
     },
 
-    //字典翻译-ftyId
+    // 字典翻译-ftyId
     getAssistValFtyId: function (code, list) {
         if (list && code) {
             for (var i = 0; i < list.length; i++) {
@@ -485,7 +478,7 @@ app.locals.DWY_Helper = {
         }
         return code;
     },
-    //判断登录用户信息里的ftyId是否可用
+    // 判断登录用户信息里的ftyId是否可用
     getAssistInitFtyId: function (code, list) {
         var usableFtyId = '';
         if (list && code) {
@@ -499,7 +492,7 @@ app.locals.DWY_Helper = {
         }
         return usableFtyId;
     },
-//字典翻译-whseId
+// 字典翻译-whseId
     getAssistValWhseId: function (code, list) {
         if (list && code) {
             for (var i = 0; i < list.length; i++) {
@@ -522,7 +515,7 @@ app.locals.DWY_Helper = {
         var srcsize = parseFloat(value);
         index = Math.floor(Math.log(srcsize) / Math.log(1024));
         var size = srcsize / Math.pow(1024, index);
-        size = size.toFixed(2);//保留的小数位数
+        size = size.toFixed(2);  // 保留的小数位数
         return size + unitArr[index];
     },
     outputmoney: function (number) {
@@ -534,7 +527,7 @@ app.locals.DWY_Helper = {
         else
             return outputdollars(Math.floor(number - 0) + '') + outputcents(number - 0);
     },
-    //判断是否有权限
+    // 判断是否有权限
     hasPermission: function (code, permission) {
         if (permission && code) {
             var i = permission.length;
@@ -547,7 +540,7 @@ app.locals.DWY_Helper = {
         }
         return false;
     },
-    //判断物料分类级别
+    // 判断物料分类级别
     judgeMateType: function (number) {
         var string = number.toString();
         var j = 0;

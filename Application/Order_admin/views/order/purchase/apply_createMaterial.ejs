@@ -44,7 +44,7 @@
                                         <th>物料名称</th>
                                         <th>供应商名称</th>
                                         <th>分类名称</th>
-                                        <th>单价</th>
+                                        <th class="display-none">单价</th>
                                         <th>单位</th>
                                         <th>请购数量</th>
                                         <th>预计交期</th>
@@ -200,6 +200,30 @@
                     layer.close(index)}
             )
         })
+
+        $(".unitSelect").on('change',function(){
+            var index = $(this).attr('data-index');
+            var indexUnit = $(this).parents('td').siblings('.price'+index).attr('priceUnit');
+            var amount = $(this).find('option:selected').attr("amount");
+            var parse =  parseInt(indexUnit) * parseInt(amount);
+            $('.price'+index).text(parse);
+        })
+
+        //输入请购数量的时候自动填充最小数量
+            $(".amountApply").on('keyup',function(){
+                var value=$(this).val();
+                $(this).parent().next().next().children("input").val(value);
+            });
+
+        //最小数量的值应该小于请购数量
+        $(".minAmount").on('change',function(){
+            var valM=$(this).val();
+            var valA= $(this).parent().prev().prev().children("input").val();
+            if(valM>valA){
+                layer.alert('最小数量应小于请购数量，请重新输入',{icon:3})
+            }
+        });
+
     })
 </script>
 <%- include('../layouts/foot'); %>

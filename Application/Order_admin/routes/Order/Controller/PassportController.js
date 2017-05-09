@@ -6,13 +6,13 @@ var request = require('request');
 
 
 var PassportController = {
-    //显示登录页面
+    // 显示登录页面
     loginPage: function (req, res, next) {
 
         res.render('passport/login', Base.mergeData(helper.mergeObject({title: '订单登录系统'}, {})));
     },
 
-    //登录
+    // 登录
     doLogin: function (req, res) {
 
         request(Base.mergeRequestOptions({
@@ -22,7 +22,7 @@ var PassportController = {
         }, req, res), function (error, response, body) {
             if (!error && response.statusCode == 200) {
                 let $data = JSON.parse(body);
-                //TOKEN 存入session
+                // TOKEN 存入session
                 var user_session = req.session;
                 user_session.auth = {
                     access_token: $data.userTokenString,
@@ -38,13 +38,8 @@ var PassportController = {
                     user_session.user = resultList['user'];
                     user_session.menu = resultList['menu'];
                     user_session.permission = resultList['permission'];
-                    // if(user_session.auth.preventPath){
-                    //     $data.preventPath = user_session.auth.preventPath;
-                    // }else{
-                    //     $data.preventPath = "/";
-                    // }
-                    if(req.session.preventPath && req.session.preventPath[user_session.user.id]){
-                        $data.preventPath = req.session.preventPath[user_session.user.id];
+                    if(req.session.preventPath){
+                        $data.preventPath = req.session.preventPath;
                     }else{
                         $data.preventPath = "/";
                     }
@@ -56,7 +51,7 @@ var PassportController = {
         })
     },
 
-    //获取登录验证信息
+    // 获取登录验证信息
     getLoginValidate: function (req, res, next) {
         request(Base.mergeRequestOptions({
             url: '/api/captcha'

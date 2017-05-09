@@ -44,7 +44,8 @@
                                     <div class="form-group">
                                         <label class="col-xs-4 control-label">名称:</label>
                                         <div class="col-xs-8">
-                                            <input class="form-control" placeholder="请输入名称" value="<%= DWYRequest.query.name %>" type="text" name="name">
+                                            <input class="form-control" placeholder="请输入名称"
+                                                   value="<%= DWYRequest.query.name %>" type="text" name="name">
                                         </div>
                                     </div>
                                 </div>
@@ -54,17 +55,19 @@
                                         <div class="col-xs-8">
                                             <select class="form-control" name="stcode">
                                                 <option value="">- 请选择 -</option>
-                                                <option value="1" <%= (DWYRequest.query.stcode == 1 )?"selected":"" %>>启用</option>
-                                                <option value="2"  <%= (DWYRequest.query.stcode == 2 )?"selected":"" %>>禁用</option>
+                                                <option value="1" <%= (DWYRequest.query.stcode == 1 ) ? "selected" : "" %>>
+                                                    启用
+                                                </option>
+                                                <option value="2" <%= (DWYRequest.query.stcode == 2 ) ? "selected" : "" %>>
+                                                    禁用
+                                                </option>
                                             </select>
                                         </div>
                                     </div>
                                 </div>
 
 
-
                             </div>
-
 
 
                             <div class="col-xs-12 ">
@@ -82,9 +85,6 @@
                                     <% } %>
                                 </div>
                             </div>
-
-
-
 
 
                         </form>
@@ -116,44 +116,45 @@
                             </thead>
                             <tbody>
 
-                                                     <%
-                                                     if(attributeList.totalItems != 0  ){
-                                                     attributeList.result.forEach(function (element, index) { %>
-                                                      <tr class="<%= ( element.stcode == 2 )? 'close-info01':'' %>">
-                                                          <td><%= index+1 %></td>
-                                                          <td><%= element.id %></td>
-                                                          <td>
-                                                              <% if( element.stcode == 2 ){ %>
-                                                              <a href="javascript:void(0)" class="close-info01"><%= element.name %></a>
-                                                              <% }else{ %>
-                                                              <a href="/materialManage/mateAttr/detail/<%= element.id %>" class=" "><%= element.name %></a>
-                                                              <% } %>
-                                                          </td>
-                                                          <td class="display-none"><%= element.length %></td>
-                                                          <td>
-                                                              <% if( element.stcode == 2 ){ %>
-                                                              <% if (DWY_Helper.hasPermission(Permission.material.deleteAttribute.id, permission) ){ %>
-                                                              <a href="javascript:void(0)" id="openStore" class="label label-primary openStore ">启用</a>
-                                                              <% } %>
-                                                              <% }else{ %>
-                                                              <% if (DWY_Helper.hasPermission(Permission.material.updateAttribute.id, permission) ){ %>
-                                                              <a href="javascript:void(0)" class="label label-primary attrChange ">修改</a>
-                                                              <% } %>
-                                                              <% if (DWY_Helper.hasPermission(Permission.material.deleteAttribute.id, permission) ){ %>
-                                                              <a href="javascript:void(0)" class=" label label-danger closeStore" id="closeStore">禁用</a>
-                                                              <% } %>
-                                                              <% if (DWY_Helper.hasPermission(Permission.material.createAttribute.id, permission) ){ %>
-                                                              <a href="javascript:void(0)" class="label label-primary creAttrVal attrValCreate">新建值</a>
-                                                              <% } %>
-                                                              <% } %>
-                                                          </td>
-                                                      </tr>
-                                                      <% })
-                                                     }else{ %>
-                                                     <tr>
-                                                         <td colspan="12" align="center">暂无结果</td>
-                                                     </tr>
-                                                     <% } %>
+                            <%
+                            if(attributeList.totalItems != 0  ){
+                            attributeList.result.forEach(function (element, index) { %>
+                            <tr class="<%= ( element.stcode == 2 ) ? 'close-info01' : '' %>">
+                                <td><%= index + 1 %></td>
+                                <td><%= element.id %></td>
+                                <td>
+                                    <% if( element.stcode == 2 ){ %>
+                                    <a href="javascript:void(0)" class="close-info01"><%= element.name %></a>
+                                    <% }else{ %>
+                                    <a href="/materialManage/mateAttr/detail/<%= element.id %>"
+                                       class=" "><%= element.name %></a>
+                                    <% } %>
+                                </td>
+                                <td class="display-none"><%= element.length %></td>
+                                <td>
+                                    <% if( element.stcode == 2 ){ %>
+                                    <% if (DWY_Helper.hasPermission(Permission.material.deleteAttribute.id, permission) ){ %>
+                                    <a href="javascript:void(0)" id="openStore" class="label label-primary openStore ">启用</a>
+                                    <% } %>
+                                    <% }else{ %>
+                                    <% if (DWY_Helper.hasPermission(Permission.material.updateAttribute.id, permission) ){ %>
+                                    <a href="javascript:void(0)" class="label label-primary attrChange ">修改</a>
+                                    <% } %>
+                                    <% if (DWY_Helper.hasPermission(Permission.material.deleteAttribute.id, permission) ){ %>
+                                    <a href="javascript:void(0)" class=" label label-danger closeStore" id="closeStore">禁用</a>
+                                    <% } %>
+                                    <% if (DWY_Helper.hasPermission(Permission.material.createAttribute.id, permission) ){ %>
+                                    <a href="javascript:void(0)" class="label label-primary creAttrVal attrValCreate">新建值</a>
+                                    <% } %>
+                                    <% } %>
+                                </td>
+                            </tr>
+                            <% })
+                            }else{ %>
+                            <tr>
+                                <td colspan="12" align="center">暂无结果</td>
+                            </tr>
+                            <% } %>
                             </tbody>
                         </table>
                         <%- pagination %>
@@ -165,19 +166,19 @@
     </div>
 
 
-
 </div>
 <!-- END MAIN CONTENT -->
 
 </div>
 <!-- END MAIN PANEL -->
 <!--新建属性-->
-<form class="form-horizontal  layer-template" method="post" id="attrCreate-form" action="/material/attrCreate" >
+<form class="form-horizontal  layer-template" method="post" id="attrCreate-form" action="/material/attrCreate">
     <div class="col-xs-12">
         <div class="form-group">
             <label class="col-xs-4 control-label"><span class="requird"></span>名称:</label>
             <div class="col-xs-6">
-                <input class="form-control validate[required]" type="text"  value="" name="name" data-prompt-position="bottomLeft:20,5">
+                <input class="form-control validate[required]" type="text" value="" name="name"
+                       data-prompt-position="bottomLeft:20,5">
             </div>
         </div>
     </div>
@@ -185,7 +186,8 @@
         <div class="form-group">
             <label class="col-xs-4 control-label"><span class="requird"></span>长度:</label>
             <div class="col-xs-6">
-                <input class="form-control validate[required,custom[onlyNumberSp]]" type="text"  value="" name="length" data-prompt-position="bottomLeft:20,5">
+                <input class="form-control validate[required,custom[onlyNumberSp]]" type="text" value="" name="length"
+                       data-prompt-position="bottomLeft:20,5">
             </div>
         </div>
     </div>
@@ -195,9 +197,9 @@
             <div class="col-xs-6">
                 <select class="form-control" name="type">
                     <option value="">- 无 -</option>
-                    <% getAttributeTypes.forEach(function(element,index){%>
-                    <option value="<%= element.id %>"><%= element.name%></option>
-                    <%})%>
+                    <% getAttributeTypes.forEach(function(element, index){ %>
+                    <option value="<%= element.id %>"><%= element.name %></option>
+                    <% }) %>
                 </select>
             </div>
         </div>
@@ -221,12 +223,12 @@
         //启用、禁用物料属性
         $(".closeStore").on({
             click: function () {
-               var attrId= $(this).parent().parent().children().eq(1).text();
+                var attrId = $(this).parent().parent().children().eq(1).text();
                 console.log(attrId);
-                layer.confirm('确定禁用该属性？',{icon: 3, title:'提示'},
-                    function(index){
+                layer.confirm('确定禁用该属性？', {icon: 3, title: '提示'},
+                    function (index) {
                         $.ajax({
-                            url: '/mateAttr/setStatus/'+attrId+'/2',
+                            url: '/mateAttr/setStatus/' + attrId + '/2',
                             method: 'put',
                             success: function (data) {
                                 successLayout.reload();
@@ -238,17 +240,19 @@
                             }
                         });
                     },
-                    function(index){layer.close(index)})
+                    function (index) {
+                        layer.close(index)
+                    })
             }
         });
         $(".openStore").on({
             click: function () {
-                var attrId= $(this).parent().parent().children().eq(1).text();
+                var attrId = $(this).parent().parent().children().eq(1).text();
                 console.log(attrId);
-                layer.confirm('确定启用该属性？',{icon: 3, title:'提示'},
-                    function(index){
+                layer.confirm('确定启用该属性？', {icon: 3, title: '提示'},
+                    function (index) {
                         $.ajax({
-                            url: '/mateAttr/setStatus/'+attrId+'/1',
+                            url: '/mateAttr/setStatus/' + attrId + '/1',
                             method: 'put',
                             success: function (data) {
                                 successLayout.reload();
@@ -259,7 +263,9 @@
                             }
                         });
                     },
-                    function(index){layer.close(index)})
+                    function (index) {
+                        layer.close(index)
+                    })
             }
         })
 

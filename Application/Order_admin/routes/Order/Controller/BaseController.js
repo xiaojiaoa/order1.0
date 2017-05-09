@@ -1,23 +1,23 @@
-//基础控制器
+// 基础控制器
 
-//站点全局配置
+// 站点全局配置
 var globalConfig = require('../config/global');
 
 var _ = require('lodash');
 
-//求请处理
+// 求请处理
 var request = require('request');
 
 var helper = require('../config/helper');
 
 var BaseController = {
 
-    //合并站点配置
+    // 合并站点配置
     mergeData: (data)=> {
         return helper.mergeObject(globalConfig.site, data);
     },
 
-    //请求服务器配置以及共用请求头配置
+    // 请求服务器配置以及共用请求头配置
     mergeRequestOptions: function (options, req, res) {
 
         if (options.host) {
@@ -30,10 +30,10 @@ var BaseController = {
 
         if(!options.headers) options.headers={}
 
-        //添加请求token验证信息
+        // 添加请求token验证信息
         if (req.session.auth) {
 
-            //TODO 打印TOKEN
+            // TODO 打印TOKEN
             // console.log(req.session.auth.access_token);
 
             options.headers['access_token'] = req.session.auth.access_token;
@@ -45,14 +45,14 @@ var BaseController = {
         }, options);
     },
 
-    //处理错误
+    // 处理错误
     handlerError: function (res, req, error, response, body) {
         // console.log('Error:');
         // console.log(response);
 
         var user_session = req.session;
 
-        //返回错误信息
+        // 返回错误信息
         var returnInfo = function (status, code, msg, redirect) {
             if (req.xhr) {
                 res.status(500).send({code: code, msg: msg});
@@ -62,11 +62,10 @@ var BaseController = {
         };
 
 
-        //检查是否可以解析出错误
+        // 检查是否可以解析出错误
         try {
             var $res = JSON.parse(response.body);
         } catch (e) {
-
             if (user_session) {
                 user_session.DWY_message = {
                     type: 'error',
@@ -97,12 +96,15 @@ var BaseController = {
         if (user_session) {
             user_session.DWY_last_request_param = _.isEmpty(req.body) ? _.isEmpty(req.query) ? "" : req.query  : req.body;
         }
-
+        // console.log('loginloginloginloginlogin',$res)
         //根据错误代码做对应处理
         switch ($res.code.toString()) {
             case '1015':
             case '1016':
                 returnInfo(500, $res.code, $res.msg, '/login');
+                break;
+            case '1018':
+                returnInfo(500, $res.code, $res.msg, '/');
                 break;
             default:
                 returnInfo(500, $res.code, $res.msg);

@@ -5,7 +5,7 @@
 
 
 <!-- MAIN PANEL -->
-<div id="main" role="main" class="mainFlex">
+<div id="main" role="main">
 
     <!-- RIBBON -->
     <div id="ribbon">
@@ -28,99 +28,86 @@
             <!-- row -->
             <div class="row">
                 <!-- col -->
-                <div class="col-xs-12">
-                    <!--订单详情---订单物料-->
                     <div class="col-xs-12">
-                        <div class="form-group">
-                            <div class="col-xs-12">
-                                <div class="col-xs-12">
-                                    <h3 class="text-align-center">成品关联物料</h3>
-                                    <hr class="simple">
-                                </div>
-                                <div class="orderItemLayerTit">
-                                    <ul class="orderItemMenu">
-                                        <a href="/materialManage/workpiece/<%= mid%>"><li class=" materielBak padding-10">工件</li></a>
-                                        <a href="/materialManage/accessory/<%= mid%>"><li class="padding-10">配件</li></a>
-                                    </ul>
-                                    <div class="col-xs-7 text-center">
-                                        <div class="pull-left padding-right-10 display-none">
-                                            <p id="idPhotoOneName">
-                                                <input class="upimg-input validate[required]" placeholder="请上传工件文件"
-                                                       data-errormessage-value-missing="请上传工件文件" readonly  style="width:95px">
-                                            </p>
-                                            <input type="hidden" name="idPhotoOne" id="idPhotoOne" value="">
+                        <h3 class="text-align-center">成品关联物料</h3>
+                        <hr class="simple">
+                    </div>
+                    <div class="orderItemLayerTit">
+                        <ul class="orderItemMenu">
+                            <a href="/materialManage/workpiece/<%= mid%>"><li class=" materielBak padding-10">工件</li></a>
+                            <a href="/materialManage/accessory/<%= mid%>"><li class="padding-10">配件</li></a>
+                        </ul>
+                        <div class="col-xs-7 text-center">
+                            <div class="pull-left padding-right-10 display-none">
+                                <p id="idPhotoOneName">
+                                    <input class="upimg-input validate[required]" placeholder="请上传工件文件"
+                                           data-errormessage-value-missing="请上传工件文件" readonly  style="width:95px">
+                                </p>
+                                <input type="hidden" name="idPhotoOne" id="idPhotoOne" value="">
 
-                                        </div>
-                                        <div class="col-xs-2 no-padding">
-                                            <label for="dwy_file_upload" class="btn-primary btn-sm btn" id="label-upload-file">
-                                                上传文件<i class="fa fa-upload"></i>
-                                            </label>
-                                            <input type="file" name="file_name" id="dwy_file_upload" style="display: none">
-                                        </div>
-
-                                        <input type="hidden" name="mid" value="<%= mid%>"/>
-                                    </div>
-                                </div>
-                                <div class="col-xs-12">
-                                    <table class="table table-bordered">
-                                        <thead>
-                                        <tr>
-                                            <th>
-                                                <label class="checkbox-inline">
-                                                    <span>序号</span>
-                                                </label>
-                                            </th>
-                                            <th>物料ID</th>
-                                            <th>工件ID</th>
-                                            <th>工件名称</th>
-                                            <th>代号</th>
-                                            <th>长度</th>
-                                            <th>宽度</th>
-                                            <th>数量</th>
-                                            <th>纹理方向</th>
-                                            <th>封边信息</th>
-                                            <th>排孔信息</th>
-                                        </tr>
-                                        </thead>
-                                        <tbody>
-                                        <%
-                                        if(DWY_Helper.isCanLoop(workpieceList)){
-                                        workpieceList.forEach(function(element,index){%>
-                                        <tr>
-                                            <td>
-                                                <label class="checkbox-inline">
-
-                                                    <span><%= index+1 %></span>
-                                                </label>
-                                            </td>
-                                            <td><%= element.mid %></td>
-                                            <td><%= element.workPieceId %></td>
-                                            <td><%= element.name %></td>
-                                            <td><%= element.code %></td>
-                                            <td><%= element.length %></td>
-                                            <td><%= element.width %></td>
-                                            <td><%= element.amount %></td>
-                                            <td><%= element.textureOrientation %></td>
-                                            <td><%= element.edgeInformation %></td>
-                                            <td><%= element.holeInformation %></td>
-                                        </tr>
-                                        <%})}else{%>
-                                        <td colspan="11" class="text-align-center">暂无结果</td>
-                                        <%}%>
-                                        </tbody>
-                                    </table>
-                                </div>
                             </div>
+                            <div class="col-xs-2 no-padding">
+                                <label for="dwy_file_upload" class="btn-primary btn-sm btn" id="label-upload-file">
+                                    上传文件<i class="fa fa-upload"></i>
+                                </label>
+                                <input type="file" name="file_name" id="dwy_file_upload" style="display: none">
+                            </div>
+
+                            <input type="hidden" name="mid" value="<%= mid%>"/>
                         </div>
                     </div>
-                </div>
+                    <div class="col-xs-12">
+                        <table class="table table-bordered">
+                            <thead>
+                            <tr>
+                                <th>
+                                    <label class="checkbox-inline">
+                                        <span>序号</span>
+                                    </label>
+                                </th>
+                                <th>物料ID</th>
+                                <th>工件ID</th>
+                                <th>工件名称</th>
+                                <th>代号</th>
+                                <th>长度</th>
+                                <th>宽度</th>
+                                <th>数量</th>
+                                <th>纹理方向</th>
+                                <th>封边信息</th>
+                                <th>排孔信息</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <%
+                            if(DWY_Helper.isCanLoop(workpieceList)){
+                            workpieceList.forEach(function(element,index){%>
+                            <tr>
+                                <td>
+                                    <label class="checkbox-inline">
+
+                                        <span><%= index+1 %></span>
+                                    </label>
+                                </td>
+                                <td><%= element.mid %></td>
+                                <td><%= element.workPieceId %></td>
+                                <td><%= element.name %></td>
+                                <td><%= element.code %></td>
+                                <td><%= element.length %></td>
+                                <td><%= element.width %></td>
+                                <td><%= element.amount %></td>
+                                <td><%= element.textureOrientation %></td>
+                                <td><%= element.edgeInformation %></td>
+                                <td><%= element.holeInformation %></td>
+                            </tr>
+                            <%})}else{%>
+                            <td colspan="11" class="text-align-center">暂无结果</td>
+                            <%}%>
+                            </tbody>
+                        </table>
+                    </div>
             </div>
         </div>
     </div>
-      <!-- end well-->
-
-
-
 </div>
 <!-- END MAIN CONTENT -->
 
@@ -130,15 +117,6 @@
 <%- include('../layouts/footer'); %>
 <%- include('../layouts/footer_common_script'); %>
 
-<script type="text/javascript">
-
-    $(document).ready(function () {
-        pageSetUp();
-
-    })
-
-
-</script>
 
 <%- include('./materiel_standardParts'); %>
 <%- include('../layouts/foot'); %>

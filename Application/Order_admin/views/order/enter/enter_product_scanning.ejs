@@ -141,9 +141,9 @@
 
         <% if(cargoinList.ftyId){ %>
         <div class="well">
-            <form class="search-form form-horizontal target" id="opretion">
+            <form class="form-horizontal target" id="opretion">
                 <div class="col-xs-12">
-                    <div class="col-xs-3">
+                    <div class="col-xs-2">
                         <div class="form-group">
                             <label class="col-xs-3 control-label"><span class="requird"></span> 工厂:</label>
                             <div class="col-xs-9">
@@ -157,7 +157,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-xs-3">
+                    <div class="col-xs-2">
                         <div class="form-group">
                             <label class="col-xs-3 control-label"><span class="requird"></span> 仓库:</label>
                             <div class="col-xs-9">
@@ -168,7 +168,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-xs-3">
+                    <div class="col-xs-2">
                         <div class="form-group">
                             <label class="col-xs-3 control-label"><span class="requird"></span> 区域:</label>
                             <div class="col-xs-9">
@@ -185,6 +185,9 @@
                     </div>
                     <div class="col-xs-1">
                         <label class="control-label" id="statusFa"></label>
+                    </div>
+                    <div class="col-xs-1">
+                        <a class="btn btn-success" id="toRecommend">推荐货位</a>
                     </div>
                 </div>
 
@@ -331,7 +334,13 @@
                 });
             }
         }
-
+        $('#toRecommend').click(function () {
+            var packageList = checkedValue.attr('class');
+            if (!packageList) {
+                layer.msg('请先选择订单', {icon: 2, time: 2000});
+                return;
+            }
+        })
         $('#toEnter').click(function () {
             var packageList = checkedValue.attr('class');
             if (!packageList) {

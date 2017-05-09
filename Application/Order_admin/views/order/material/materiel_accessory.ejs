@@ -5,7 +5,7 @@
 
 
 <!-- MAIN PANEL -->
-<div id="main" role="main" class="mainFlex">
+<div id="main" role="main">
 
     <!-- RIBBON -->
     <div id="ribbon">
@@ -28,85 +28,77 @@
             <!-- row -->
             <div class="row">
                 <!-- col -->
-                <div class="col-xs-12">
-                    <!--物料管理---成品关联物料--配件-->
+                <!--物料管理---成品关联物料--配件-->
                     <div class="col-xs-12">
-                        <div class="form-group">
-                            <div class="col-xs-12">
-                                <div class="col-xs-12">
-                                    <h3 class="text-align-center">成品关联物料</h3>
-                                    <hr class="simple">
-                                </div>
-                                <div class="orderItemLayerTit">
-                                    <ul class="orderItemMenu">
-                                        <a href="/materialManage/workpiece/<%= mid%>"><li class="padding-10">工件</li></a>
-                                        <a href="/materialManage/accessory/<%= mid%>" ><li class="materielBak padding-10">配件</li></a>
-                                    </ul>
-                                    <div class="col-xs-7 text-center">
-                                        <div class="pull-left padding-right-10 display-none">
-                                            <p id="idPhotoTwoName">
-                                                <input class="upimg-input validate[required]" placeholder="请上传配件文件"
-                                                       data-errormessage-value-missing="请上传配件文件" readonly style="width:95px">
-                                            </p>
-                                            <input type="hidden" name="idPhotoTwo" id="idPhotoTwo" value="">
-                                        </div>
-                                        <div class="col-xs-2 no-padding">
-                                            <label for="dwy_file_upload" class="btn-primary btn-sm btn" id="label-upload-file">
-                                                上传文件<i class="fa fa-upload"></i>
-                                            </label>
-                                            <input type="file" name="file_name" id="dwy_file_upload" style="display: none">
-                                        </div>
-
-                                        <input type="hidden" name="mid" value="<%= mid%>"/>
-                                    </div>
-                                </div>
-                                <div class="col-xs-12">
-                                    <table class="table table-bordered">
-                                        <thead>
-                                        <tr>
-                                            <th>
-                                                <label class="checkbox-inline">
-                                                    <span>序号</span>
-                                                </label>
-                                            </th>
-                                            <th>物料ID</th>
-                                            <th>配件ID</th>
-                                            <th>名称</th>
-                                            <th>代号</th>
-                                            <th>规格</th>
-                                            <th>数量</th>
-                                            <th>单位</th>
-                                        </tr>
-                                        </thead>
-                                        <tbody>
-                                        <%
-                                        if(DWY_Helper.isCanLoop(accessoryList)){
-                                        accessoryList.forEach(function(element,index){%>
-                                        <tr>
-                                            <td>
-                                                <label class="checkbox-inline">
-
-                                                    <span><%= index+1 %></span>
-                                                </label>
-                                            </td>
-                                            <td><%= element.mid %></td>
-                                            <td><%= element.accessoryId %></td>
-                                            <td><%= element.name %></td>
-                                            <td><%= element.code %></td>
-                                            <td><%= element.standard %></td>
-                                            <td><%= element.amount %></td>
-                                            <td><%= element.unit %></td>
-                                        </tr>
-                                        <%})}else{%>
-                                        <td colspan="8" class="text-align-center">暂无结果</td>
-                                        <%}%>
-                                        </tbody>
-                                    </table>
-                                </div>
+                        <h3 class="text-align-center">成品关联物料</h3>
+                        <hr class="simple">
+                    </div>
+                    <div class="orderItemLayerTit">
+                        <ul class="orderItemMenu">
+                            <a href="/materialManage/workpiece/<%= mid%>"><li class="padding-10">工件</li></a>
+                            <a href="/materialManage/accessory/<%= mid%>" ><li class="materielBak padding-10">配件</li></a>
+                        </ul>
+                        <div class="col-xs-7 text-center">
+                            <div class="pull-left padding-right-10 display-none">
+                                <p id="idPhotoTwoName">
+                                    <input class="upimg-input validate[required]" placeholder="请上传配件文件"
+                                           data-errormessage-value-missing="请上传配件文件" readonly style="width:95px">
+                                </p>
+                                <input type="hidden" name="idPhotoTwo" id="idPhotoTwo" value="">
                             </div>
+                            <div class="col-xs-2 no-padding">
+                                <label for="dwy_file_upload" class="btn-primary btn-sm btn" id="label-upload-file">
+                                    上传文件<i class="fa fa-upload"></i>
+                                </label>
+                                <input type="file" name="file_name" id="dwy_file_upload" style="display: none">
+                            </div>
+
+                            <input type="hidden" name="mid" value="<%= mid%>"/>
                         </div>
                     </div>
-                </div>
+                    <div class="col-xs-12">
+                        <table class="table table-bordered">
+                            <thead>
+                            <tr>
+                                <th>
+                                    <label class="checkbox-inline">
+                                        <span>序号</span>
+                                    </label>
+                                </th>
+                                <th>物料ID</th>
+                                <th>配件ID</th>
+                                <th>名称</th>
+                                <th>代号</th>
+                                <th>规格</th>
+                                <th>数量</th>
+                                <th>单位</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <%
+                            if(DWY_Helper.isCanLoop(accessoryList)){
+                            accessoryList.forEach(function(element,index){%>
+                            <tr>
+                                <td>
+                                    <label class="checkbox-inline">
+
+                                        <span><%= index+1 %></span>
+                                    </label>
+                                </td>
+                                <td><%= element.mid %></td>
+                                <td><%= element.accessoryId %></td>
+                                <td><%= element.name %></td>
+                                <td><%= element.code %></td>
+                                <td><%= element.standard %></td>
+                                <td><%= element.amount %></td>
+                                <td><%= element.unit %></td>
+                            </tr>
+                            <%})}else{%>
+                            <td colspan="8" class="text-align-center">暂无结果</td>
+                            <%}%>
+                            </tbody>
+                        </table>
+                    </div>
             </div>
         </div>
     </div>

@@ -55,7 +55,7 @@ router.use(function (req, res, next) {
 
 // 取回上一次错误提交时的请求参数
 router.use(function (req, res, next) {
-    console.log(req.session.DWY_last_request_param)
+    // console.log(req.session.DWY_last_request_param)
     if (req.session.DWY_last_request_param) {
         res.locals.DWY_last_request_param = req.session.DWY_last_request_param;
         req.session.DWY_last_request_param = '';
@@ -82,18 +82,7 @@ var Middleware = {
     AuthCheck: function (req, res, next) {
         if(req.method.toLowerCase() == 'get'){
             // req.session.preventPath = req.path;
-            if(req.session.preventPath){
-                if(req.session.user){
-                    req.session.preventPath[req.session.user.id] = req.url;
-                }
-
-            }else{
-                req.session.preventPath = {};
-                if(req.session.user){
-                    req.session.preventPath[req.session.user.id] = req.url;
-                }
-            }
-
+            req.session.preventPath = req.url;
         }
         if (!req.session.auth) {
             console.log('SESSION HAS NO AUTH');
@@ -103,7 +92,7 @@ var Middleware = {
             var user_auth = req.session.auth;
             if ((new Date().getTime() - user_auth.time) > 1600000) {
 
-                //refresh_token request
+                // refresh_token request
                 request(Base.mergeRequestOptions({
                     method: 'POST',
                     url: '/api/refresh',
@@ -113,7 +102,7 @@ var Middleware = {
                         // Show the HTML for the Google homepage.
                         let $data = JSON.parse(body);
 
-                        //TOKEN 存入session
+                        // TOKEN 存入session
                         var user_session = req.session;
                         user_session.auth = {
                             access_token: $data.userTokenString,
@@ -138,7 +127,6 @@ var Middleware = {
             if (!_.isEmpty(value)) {
 
                 for (var i in req[key]) {
-                    console.log('9999',req[key][i])
                     if (req[key][i] === "") {
                         delete req[key][i];
                     }else{
