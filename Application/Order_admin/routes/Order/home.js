@@ -275,6 +275,10 @@ router.post('/orders/doPass', Middleware.AuthCheck, OrderController.doPass);
 // 设置难度等级
 router.post('/orders/updateDifficultyLevel', Middleware.AuthCheck, OrderController.updateDifficultyLevel);
 
+// 获取审核价格
+router.put('/orders/getPriceInfo/:tid', Middleware.AuthCheck, OrderController.getPriceInfo);
+// 修改审核价格
+router.post('/orders/getPriceInfo/modify', Middleware.AuthCheck, OrderController.modifyPriceInfo);
 // 所有退回信息页面
 router.get('/:type/chgback/:tid', Middleware.AuthCheck, OrderController.chgbackeAllPage);
 // 新增交流信息页面

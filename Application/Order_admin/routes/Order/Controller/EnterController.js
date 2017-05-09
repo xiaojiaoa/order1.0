@@ -171,7 +171,7 @@ var EnterController = {
             if (!error && response.statusCode == 200) {
                 res.status(200).json(body);
             } else {
-                res.status(500).json(body)
+                res.status(500).json(body.responseJSON)
                 // res.status(500).send({code: code, msg: msg});
             }
         })

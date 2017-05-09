@@ -103,6 +103,37 @@
             }
         })
 
+
+        $('#modifyMoney').on({
+            click: function (e) {
+                $.ajax({
+                    url: '/orders/getPriceInfo/<%= tid %>',
+                    method: 'put',
+                    success: function (data) {
+                        var data = JSON.parse(data)
+                        $('#check_pass').attr('action','/orders/getPriceInfo/modify');
+                        $('#check_pass #money').val(data.retailPrice);
+                        layer.open({
+                            title: false,
+                            type: 1,
+                            area: '700px',
+                            content: $('#check_pass'),
+                            cancel: function () {
+                                //右上角关闭回调
+                            },
+
+                        });
+
+                    },
+                    error: function (response) {
+                        errorLayout.normal(response);
+                    }
+                });
+
+
+            }
+        })
+
     })
 
 </script>
