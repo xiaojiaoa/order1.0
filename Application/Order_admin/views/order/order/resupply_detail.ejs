@@ -418,7 +418,7 @@
                                 case 478: %>
                                 <td>
                                     拆审退回
-                                    <% if (DWY_Helper.hasPermission(Permission.resupplyOrderReviewApart.takeOrder.id, permission) ){ %>
+                                    <% if (DWY_Helper.hasPermission(Permission.resupplyOrderApart.passOrder.id, permission) ){ %>
                                     <a class="label label-primary doGetTask" data-stcode="<%= resupplyInfo.status %>">重新提交</a>
                                     <% } %>
                                 </td>
