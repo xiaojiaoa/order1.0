@@ -95,7 +95,6 @@ var FileController = {
     },
     orderFileDetail: function (req, res) {
         var lid = req.params.lid;
-        //console.log('文件路径','/api/files/'+ lid);
         Base.multiDataRequest(req, res, [
                 {url: '/api/files/'+ lid, method: 'GET', resConfig: {keyName: 'fileInfo', is_must: false}},
             ],

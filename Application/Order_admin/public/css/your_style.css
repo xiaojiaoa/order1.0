@@ -437,7 +437,7 @@ tr > td > .separation:last-child {
     float: left;
     padding: 2px 5px;
     text-align: left;
-    cursor: pointer;
+    /*cursor: pointer;*/
 }
 
 .orderItemMenu li.selected {

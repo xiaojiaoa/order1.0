@@ -55,7 +55,7 @@ router.use(function (req, res, next) {
 
 // 取回上一次错误提交时的请求参数
 router.use(function (req, res, next) {
-    console.log(req.session.DWY_last_request_param)
+    // console.log(req.session.DWY_last_request_param)
     if (req.session.DWY_last_request_param) {
         res.locals.DWY_last_request_param = req.session.DWY_last_request_param;
         req.session.DWY_last_request_param = '';
