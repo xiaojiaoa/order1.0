@@ -1323,6 +1323,7 @@ router.get('/app/getWhse', AppServiceController.getWhse);
 
 // 仓库是否已满
 router.post('/app/isFull',AppServiceController.isFull);
+router.post('/app/cargospace/find',AppServiceController.find);
 
 // 备货-可备货订单
 router.get('/app/stock', AppServiceController.getStock);
