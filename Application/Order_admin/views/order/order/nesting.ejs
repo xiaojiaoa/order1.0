@@ -49,6 +49,7 @@
                                 <th>下单日期</th>
                                 <th>零售价</th>
                                 <th>交货日期</th>
+                                <th>所属机构</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -85,7 +86,7 @@
                                 <td><%= DWY_Helper.getLocalDate(element.orderTime) %></td>
                                 <td><%= element.retailPrice %></td>
                                 <td><%= DWY_Helper.getLocalDate(element.deliveryTime) %></td>
-                                <input type="hidden" value="<%= element.batchNumber %>" id="batchNum" />
+                                <td><%= element.factoryName %></td>
                             </tr>
                             <%  })
                             }else{ %>
@@ -324,9 +325,13 @@
         });
         $("#editBatchNumSub").click(function () {
 
-            var cid=$("#batchNum").val();
+            var cid;
             var bid = editBatchNum.attr('class').replace(/[ ]/g,"");
             bid = bid.substring(0,bid.length-1);
+            if(!bid){
+                layer.alert('请选择！', {icon: 3})
+                return;
+            }
             layer.confirm("<div>批次号&nbsp<input id='batchInput'' value=''  /></div>",
                     {title:'提示'},function(index){
                     cid= $("#batchInput").val();
