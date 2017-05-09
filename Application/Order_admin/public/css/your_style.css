@@ -173,17 +173,18 @@ nav ul span.menu-item-parent {
 .flatpickr-input[readonly] {
     background-color: #fff;
     float: left;
-    width: 90%;
+    /*width: 90%;*/
 }
 
 /*日历清除*/
 .close-picker {
-    float: left;
-    width: 10%;
+    /*float: left;*/
+    width: 8%;
     line-height: 32px;
     font-size: 14px;
     text-align: center;
     cursor: pointer;
+    position: absolute;
 }
 
 .table-information tr td:nth-of-type(2n+1) {

@@ -115,6 +115,11 @@ var BMapLib = window.BMapLib = BMapLib || {};
             this.dom.nSearchBtn.on("click", function () {
                 _self.localSearchAction()
             });
+            this.dom.searchText.on("keydown", function (event) {
+                if(event.keyCode==13){
+                    _self.localSearchAction()
+                }
+            });
             // this.autoCompleteIni()
         },
 
