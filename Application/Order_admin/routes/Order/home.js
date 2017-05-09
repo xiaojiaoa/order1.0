@@ -895,6 +895,8 @@ router.post('/enterMaterial/reqmaterialModify', Middleware.AuthCheck, EnterContr
 
 // 原料入库-采购完成单-入库-判断仓库是否可以放入
 router.post('/enterMaterial/stockOver/toEnter/ifCanEnter', Middleware.AuthCheck, EnterController.ifCanEnter);
+// 成品入库分配货位
+router.post('/enter/findWhse', Middleware.AuthCheck, EnterController.findWhse);
 
 // 成品入库页面
 router.get('/enterProduct', Middleware.AuthCheck, EnterController.enterProductPage);

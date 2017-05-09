@@ -171,8 +171,23 @@ var EnterController = {
             if (!error && response.statusCode == 200) {
                 res.status(200).json(body);
             } else {
-                res.status(500).json(body.responseJSON)
+                res.status(500).json(body)
                 // res.status(500).send({code: code, msg: msg});
+            }
+        })
+
+    },
+    findWhse: function (req, res) {
+        console.log('findWhse'+JSON.stringify(req.body))
+        request(Base.mergeRequestOptions({
+            method: 'post',
+            url: '/api/whse/cargoin/prod/notin/find',
+            form: req.body
+        }, req, res), function (error, response, body) {
+            if (!error && response.statusCode == 200) {
+                res.status(200).json(body);
+            } else {
+                res.status(500).json(body)
             }
         })
 
