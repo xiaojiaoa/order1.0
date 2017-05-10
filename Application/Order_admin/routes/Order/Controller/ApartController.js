@@ -27,7 +27,6 @@ var ApartController = {
             {url: '/api/orders/apart/waitReview/gid', method: 'GET', resConfig: {keyName: 'waitReviewList', is_must: true}},
             {url: '/api/orders/apart?'+ (queryString.stringify(req.query)), method: 'GET', resConfig: {keyName: 'apartList', is_must: true}},
             {url: '/api/assist/brandinfo', method: 'GET', resConfig: {keyName: 'brandinfoList', is_must: true}},
-            // {url: '/api/assist/deco/color', method: 'GET', resConfig: {keyName: 'colorList', is_must: true}},
             {url: '/api/assist/space/prod', method: 'GET', resConfig: {keyName: 'prodList', is_must: true}},
             {url: '/api/assist/order/difficulty', method: 'GET', resConfig: {keyName: 'difficultyList', is_must: true}},
             {url: '/api/orders/apart/apartNumber', method: 'GET', resConfig: {keyName: 'apartNumber', is_must: true}},
@@ -134,6 +133,7 @@ var ApartController = {
         var paramObject = helper.genPaginationQuery(req);
         Base.multiDataRequest(req, res, [
             {url: '/api/orders/apartReview/gid', method: 'GET', resConfig: {keyName: 'doingList', is_must: true}},
+            {url: '/api/orders/apartReview/waitApartReview/gid', method: 'GET', resConfig: {keyName: 'waitApartReview', is_must: true}},
             {url: '/api/orders/apartReview?'+ (queryString.stringify(req.query)), method: 'GET', resConfig: {keyName: 'apartReviewList', is_must: true}},
             {url: '/api/assist/brandinfo', method: 'GET', resConfig: {keyName: 'brandinfoList', is_must: true}},
             {url: '/api/assist/deco/color', method: 'GET', resConfig: {keyName: 'colorList', is_must: true}},

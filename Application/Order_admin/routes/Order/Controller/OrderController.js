@@ -256,6 +256,33 @@ var OrderController = {
         });
 
     },
+    getPriceInfo: function (req, res) {
+        var tid = req.params.tid;
+        request(Base.mergeRequestOptions({
+            method: 'get',
+            url: '/api/orders/review/getPriceInfo/'+tid,
+        }, req, res), function (error, response, body) {
+            if (!error && response.statusCode == 200) {
+                res.status(200).json(body);
+            } else {
+                Base.handlerError(res, req, error, response, body);
+            }
+        })
+    },
+    modifyPriceInfo: function (req, res) {
+        request(Base.mergeRequestOptions({
+            method: 'put',
+            url: '/api/orders/review/updatePrice?'+queryString.stringify(req.body),
+        }, req, res), function (error, response, body) {
+            if (!error && response.statusCode == 201) {
+                Base.handlerSuccess(res, req);
+                res.redirect("/order/check/getOrder");
+            } else {
+                Base.handlerError(res, req, error, response, body);
+            }
+        })
+
+    },
     communicatePage: function (req, res) {
         var tid = req.params.tid;
         var type = req.params.type;
@@ -514,6 +541,7 @@ var OrderController = {
         var paramObject = helper.genPaginationQuery(req);
         Base.multiDataRequest(req, res, [
             {url: '/api/orders/apartReview/gid?orderType=20', method: 'GET', resConfig: {keyName: 'apartReviewingList', is_must: true}},
+            {url: '/api/orders/apartReview/waitApartReview/gid?orderType=20', method: 'GET', resConfig: {keyName: 'waitApartReview', is_must: true}},
             {url: '/api/orders/apartReview?orderType=20&'+ (queryString.stringify(req.query)), method: 'GET', resConfig: {keyName: 'apartReviewList', is_must: true}},
             {url: '/api/assist/brandinfo' , method: 'GET', resConfig: {keyName: 'brandInfo', is_must: true}},
             {url: '/api/assist/space/prod?spaceId=10', method: 'GET', resConfig: {keyName: 'prodList', is_must: true}},
@@ -606,6 +634,7 @@ var OrderController = {
         var paramObject = helper.genPaginationQuery(req);
         Base.multiDataRequest(req, res, [
             {url: '/api/orders/apart/gid?orderType=20', method: 'GET', resConfig: {keyName: 'apartingList', is_must: true}},
+            {url: '/api/orders/apart/waitReview/gid?orderType=20', method: 'GET', resConfig: {keyName: 'waitReviewList', is_must: true}},
             {url: '/api/orders/resupply/apart?orderType=20&'+ (queryString.stringify(req.query)), method: 'GET', resConfig: {keyName: 'apartList', is_must: true}},
             {url: '/api/assist/brandinfo' , method: 'GET', resConfig: {keyName: 'brandInfo', is_must: true}},
             {url: '/api/assist/space/prod?spaceId=10', method: 'GET', resConfig: {keyName: 'prodList', is_must: true}},
@@ -719,6 +748,7 @@ var OrderController = {
             Base.multiDataRequest(req, res, [
                 {url: '/api/orders/review/gid', method: 'GET', resConfig: {keyName: 'selfList', is_must: true}},
                 {url: '/api/orders/review?'+ (queryString.stringify(req.query)), method: 'GET', resConfig: {keyName: 'orderList', is_must: true}},
+                {url: '/api/orders/review/waitApart/gid', method: 'GET', resConfig: {keyName: 'waitApart', is_must: true}},
                 {url: '/api/assist/brandinfo', method: 'GET', resConfig: {keyName: 'brandinfoList', is_must: true}},
                 {url: '/api/assist/order/difficulty', method: 'GET', resConfig: {keyName: 'difficultyList', is_must: true}},
                 {url: '/api/assist/space/prod', method: 'GET', resConfig: {keyName: 'prodList', is_must: true}},
@@ -753,6 +783,7 @@ var OrderController = {
         }else{
             Base.multiDataRequest(req, res, [
                 {url: '/api/orders/review/gid', method: 'GET', resConfig: {keyName: 'selfList', is_must: true}},
+                {url: '/api/orders/review/waitApart/gid', method: 'GET', resConfig: {keyName: 'waitApart', is_must: true}},
                 {url: '/api/assist/brandinfo', method: 'GET', resConfig: {keyName: 'brandinfoList', is_must: true}},
                 {url: '/api/assist/order/difficulty', method: 'GET', resConfig: {keyName: 'difficultyList', is_must: true}},
                 {url: '/api/assist/space/prod', method: 'GET', resConfig: {keyName: 'prodList', is_must: true}},

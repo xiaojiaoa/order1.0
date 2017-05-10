@@ -275,6 +275,10 @@ router.post('/orders/doPass', Middleware.AuthCheck, OrderController.doPass);
 // 设置难度等级
 router.post('/orders/updateDifficultyLevel', Middleware.AuthCheck, OrderController.updateDifficultyLevel);
 
+// 获取审核价格
+router.put('/orders/getPriceInfo/:tid', Middleware.AuthCheck, OrderController.getPriceInfo);
+// 修改审核价格
+router.post('/orders/getPriceInfo/modify', Middleware.AuthCheck, OrderController.modifyPriceInfo);
 // 所有退回信息页面
 router.get('/:type/chgback/:tid', Middleware.AuthCheck, OrderController.chgbackeAllPage);
 // 新增交流信息页面
@@ -895,6 +899,8 @@ router.post('/enterMaterial/reqmaterialModify', Middleware.AuthCheck, EnterContr
 
 // 原料入库-采购完成单-入库-判断仓库是否可以放入
 router.post('/enterMaterial/stockOver/toEnter/ifCanEnter', Middleware.AuthCheck, EnterController.ifCanEnter);
+// 成品入库分配货位
+router.post('/enter/findWhse', Middleware.AuthCheck, EnterController.findWhse);
 
 // 成品入库页面
 router.get('/enterProduct', Middleware.AuthCheck, EnterController.enterProductPage);
@@ -1331,6 +1337,7 @@ router.get('/app/getWhse', AppServiceController.getWhse);
 
 // 仓库是否已满
 router.post('/app/isFull',AppServiceController.isFull);
+router.post('/app/cargospace/find',AppServiceController.find);
 
 // 备货-可备货订单
 router.get('/app/stock', AppServiceController.getStock);
@@ -1342,6 +1349,9 @@ router.post('/app/doStock',AppServiceController.doStock);
 router.get('/app/stock/list', AppServiceController.getStockList);
 
 router.get('/app/stock/permission', AppServiceController.permission);
+
+// 获取包的类型
+router.get('/app/packagetype', AppServiceController.packagetype);
 
 
 module.exports = router;

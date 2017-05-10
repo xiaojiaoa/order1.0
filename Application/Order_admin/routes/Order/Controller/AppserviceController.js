@@ -196,6 +196,22 @@ var AppServiceController = {
             }
         })
     },
+    find: function (req, res) {
+
+        request(Base.mergeRequestOptions({
+            method: 'post',
+            url: '/api/whse/app/cargospace/find',
+            headers:req.headers,
+            form: req.body
+        }, req, res), function (error, response, body) {
+            if (!error) {
+                // res.redirect('/enterMaterial')
+                res.send(JSON.parse(body));
+            } else {
+                res.send(AppServiceController.error);
+            }
+        })
+    },
     getStock: function (req, res) {
         request(Base.mergeRequestOptions({
             method: 'get',
@@ -227,6 +243,19 @@ var AppServiceController = {
         request(Base.mergeRequestOptions({
             method: 'get',
             url: '/api/whse/app/stock/list?'+queryString.stringify(req.query),
+            headers:req.headers,
+        }, req, res), function (error, response, body) {
+            if (!error) {
+                res.send(JSON.parse(body));
+            } else {
+                res.send(AppServiceController.error);
+            }
+        })
+    },
+    packagetype: function (req, res) {
+        request(Base.mergeRequestOptions({
+            method: 'get',
+            url: '/api/whse/app/packagetype?'+queryString.stringify(req.query),
             headers:req.headers,
         }, req, res), function (error, response, body) {
             if (!error) {

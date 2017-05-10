@@ -44,7 +44,7 @@
                                         <th>物料名称</th>
                                         <th>供应商名称</th>
                                         <th>分类名称</th>
-                                        <th>单价</th>
+                                        <th class="display-none">单价</th>
                                         <th>单位</th>
                                         <th>请购数量</th>
                                         <th>预计交期</th>
@@ -99,7 +99,7 @@
                     + '<td style="line-height:32px" class="matName">' + listArr[i].name + '</td>'
                     + '<td style="line-height:32px" class="suppName">' + listArr[i].suppName + '</td>'
                     + '<td style="line-height:32px">' + listArr[i].class_name + '</td>'
-                    + '<td style="line-height:32px" class="price'+i+'" priceUnit="' + listArr[i].price + '">' + listArr[i].price + '</td>'
+                    + '<td style="line-height:32px" class="price'+i+' display-none" priceUnit="' + listArr[i].price + '">' + listArr[i].price + '</td>'
                     + '<td><select data-index="' + i + '" name="unit' + i + '" class="form-control unitSelect">'+options+'</select></td>'
                     + '<td><input data-index="' + i + '" type="text" name="amount'+i+'" value="" class="form-control amountApply" /> </td>'
                     + '<td><input class="form-control fg-date-picker deliveryDate" type="text" value="" name="deliveryDate'+i+'" /> </td>'
