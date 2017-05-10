@@ -483,6 +483,10 @@ var permissions = {
         commit:{
             id:"581013",
             name:"审核采购"
+        },
+        createP:{
+            id:"581010",
+            name:"采购单生成"
         }
     },
     storage:{

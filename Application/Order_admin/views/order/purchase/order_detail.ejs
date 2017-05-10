@@ -86,7 +86,15 @@
                                         <span><%= index+1 %></span>
                                     </label>
                                 </td>
-                                <td><a href="/purchase/applyDetail/<%= element.reqId %>"><%= element.reqId %></a></td>
+                                <td>
+                                    <a href="/purchase/applyDetail/<%= element.reqId %>">
+                                        <%if(element.reqId==-1){%>
+
+                                        <%}else{%>
+                                        <%= element.reqId %>
+                                        <%}%>
+                                    </a>
+                                </td>
                                 <td><%= element.amount %></td>
                                 <td><%= element.minAmount %></td>
                                 <td><%= element.mateName %></td>
