@@ -170,10 +170,10 @@
                 a.suppName = suppName;
                 myArray.push(a);
             }
-
-            var date={reqMaterialList:myArray};
-//            console.log(myArray);
-//            return false;
+            var date={
+                reqMaterialList:myArray,
+                type:10
+            };
             layer.confirm("确认提交？", {title:'提示'},function(index){
 //                    console.log(myArray);return false;
                     $.ajax({
