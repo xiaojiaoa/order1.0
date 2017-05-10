@@ -218,14 +218,14 @@ var MaterialController = {
        // res.render('order/material/material_create_second');
     },
     doCreate: function (req, res) {
-         console.log('物料创建'+ JSON.stringify(req.body));
+        // console.log( req.body);
         request(Base.mergeRequestOptions({
             method: 'post',
             url: '/api/materials',
             form:req.body,
         }, req, res), function (error, response, body) {
+            //console.log(response.statusCode)
             if (!error && response.statusCode == 201) {
-
                 res.sendStatus(200);
             } else {
                 Base.handlerError(res, req, error, response, body);
