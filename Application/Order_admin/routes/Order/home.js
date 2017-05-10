@@ -1173,6 +1173,16 @@ router.post('/purchases/review/:tid', Middleware.AuthCheck,PurchaseController.pu
 // 提交采购单
 router.post('/purchases/submit/:tid', Middleware.AuthCheck,PurchaseController.purchaseSubmit);
 
+//新建采购单页面
+router.get('/purchase/create', Middleware.AuthCheck,Middleware.FilterEmptyField,PurchaseController.purchaseCreatePage);
+
+// 新建采购单 选择物料信息列表
+router.get('/purchase/orderMaterial', Middleware.AuthCheck,PurchaseController.purchaseMaterialCreat);
+
+// 新建采购单 添加物料数量+预计交期
+router.post('/purchase/materialCreate', Middleware.AuthCheck,PurchaseController.materialCreate);
+
+
 /*
  * 页面范围: 网络预约相关
  * 控制器:   networkBookController
@@ -1339,6 +1349,9 @@ router.post('/app/doStock',AppServiceController.doStock);
 router.get('/app/stock/list', AppServiceController.getStockList);
 
 router.get('/app/stock/permission', AppServiceController.permission);
+
+// 获取包的类型
+router.get('/app/packagetype', AppServiceController.packagetype);
 
 
 module.exports = router;

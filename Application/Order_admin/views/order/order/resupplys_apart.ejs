@@ -52,7 +52,7 @@
                             <%
                             if(apartingList.result && apartingList.result.length>0 ){
                             apartingList.result.forEach(function (element, index) { %>
-                            <tr>
+                            <tr class="<%= (element.sign == 1) ? "mark-row":"" %>">
                                 <td><%= index+1 %></td>
                                 <td><%= element.brandName %></td>
                                 <td><%= element.colorStr %></td>

@@ -13,8 +13,8 @@
             <li>后台管理</li>
             <li>后台管理</li>
             <li><a href="/purchase" class="back-url">采购管理</a></li>
-            <li><a class="back-url" href="/purchase/applyCreat">新建请购单</a></li>
-            <li>填写请购信息</li>
+            <li><a class="back-url" href="/purchase/create">新建采购单</a></li>
+            <li>填写采购信息</li>
             <li><a class="back-url" href="javascript:history.go(-1)"> <i class="fa fa-chevron-left"></i>返回</a></li>
         </ol>
         <!-- end breadcrumb -->
@@ -30,7 +30,7 @@
                     <form class="form-horizontal" method="post" id="creat-supplier" >
                         <div class="col-xs-12">
                             <legend>
-                                新建请购单
+                                新建采购单
                             </legend>
                         </div>
                         <div class="col-xs-12">
@@ -46,7 +46,7 @@
                                         <th>分类名称</th>
                                         <th class="display-none">单价</th>
                                         <th>单位</th>
-                                        <th>请购数量</th>
+                                        <th>采购数量</th>
                                         <th>预计交期</th>
                                         <th>最小数量</th>
                                     </tr>
@@ -144,7 +144,7 @@
             var num=$('.amountApply').val();
             var minNum=$('.minAmount').val();
             if(parseInt(num)<parseInt(minNum)){
-                layer.alert('请购数量不能低于最小数量！', {icon: 3});
+                layer.alert('采购数量不能低于最小数量！', {icon: 3});
                 return false;
             }
             var myArray=new Array()
@@ -170,14 +170,14 @@
                 a.suppName = suppName;
                 myArray.push(a);
             }
-
-            var date={reqMaterialList:myArray};
-//            console.log(myArray);
-//            return false;
+            var date={
+                reqMaterialList:myArray,
+                type:10
+            };
             layer.confirm("确认提交？", {title:'提示'},function(index){
 //                    console.log(myArray);return false;
                     $.ajax({
-                        url: '/purchase/applyMaterialCreate',
+                        url: '/purchase/materialCreate',
                         data:JSON.stringify(date),
                         method: 'post',
                         dataType: 'json',
@@ -188,7 +188,7 @@
                         },
                         error: function (response) {
                             if(response.status==200){
-                                successLayout.hrefTo("/purchase");
+                                successLayout.hrefTo("/purchase/detail");
                                 localStorage.clear();
                             }else {
                                 layer.close(index)
@@ -209,18 +209,18 @@
             $('.price'+index).text(parse);
         })
 
-        //输入请购数量的时候自动填充最小数量
+        //输入采购数量的时候自动填充最小数量
             $(".amountApply").on('keyup',function(){
                 var value=$(this).val();
                 $(this).parent().next().next().children("input").val(value);
             });
 
-        //最小数量的值应该小于请购数量
+        //最小数量的值应该小于采购数量
         $(".minAmount").on('change',function(){
             var valM=$(this).val();
             var valA= $(this).parent().prev().prev().children("input").val();
             if(valM>valA){
-                layer.alert('最小数量应小于请购数量，请重新输入',{icon:3})
+                layer.alert('最小数量应小于采购数量，请重新输入',{icon:3})
             }
         });
 
