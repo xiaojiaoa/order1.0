@@ -102,7 +102,7 @@
                     + '<td style="line-height:32px" class="price'+i+' display-none" priceUnit="' + listArr[i].price + '">' + listArr[i].price + '</td>'
                     + '<td><select data-index="' + i + '" name="unit' + i + '" class="form-control unitSelect">'+options+'</select></td>'
                     + '<td><input data-index="' + i + '" type="text" name="amount'+i+'" value="" class="form-control amountApply" /> </td>'
-                    + '<td><input class="form-control fg-date-picker deliveryDate" type="text" value="" name="deliveryDate'+i+'" /> </td>'
+                    + '<td><div class="col-xs-12"><input class="form-control fg-date-picker deliveryDate" type="text" value="" name="deliveryDate'+i+'" /></div> </td>'
                     + '<td><input name="minAmount'+i+'" class="form-control minAmount" value="" /></td>'
                     + '</tr>';
                 htmlStr += itemHtml;
