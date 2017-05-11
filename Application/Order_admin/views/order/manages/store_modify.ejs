@@ -180,19 +180,6 @@
                                 </div>
                                 <div class="col-xs-4">
                                     <div class="form-group">
-                                        <label class="col-xs-4 control-label">门店所在行政区:</label>
-                                        <div class="col-xs-8">
-                                            <input class="form-control validate"
-                                                   value="<%= storeInfo.areaStr %>"
-                                                   name="" readonly>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="col-xs-12">
-                                <div class="col-xs-4">
-                                    <div class="form-group">
                                         <label class="col-xs-4 control-label"><span class="requird"></span>
                                             大区类型:</label>
                                         <div class="col-xs-8">
@@ -208,6 +195,20 @@
                                                 }%>
 
                                             </select>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div class="col-xs-12">
+                                <div class="col-xs-8">
+                                    <div class="form-group">
+                                        <label class="col-xs-2 control-label">门店所在行政区:</label>
+                                        <div class="col-xs-10">
+                                            <input class="form-control validate"
+                                                   value="<%= storeInfo.provinceStr %> <%= storeInfo.cityStr %> <%= storeInfo.areaStr %>"
+                                                   name="" readonly>
                                         </div>
                                     </div>
                                 </div>
