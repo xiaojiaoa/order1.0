@@ -33,24 +33,24 @@
                 <div class="">
                     <div class="col-xs-2">
                         <div class="form-group">
-                            <label class="col-xs-3 control-label"><span class="requird"></span> 领料人:</label>
-                            <div class="col-xs-9">
+                            <label class="col-xs-4 control-label"><span class="requird"></span> 领料人:</label>
+                            <div class="col-xs-8">
                                 <input class="form-control validate[required]" value="" name="mateEmp" id="mateEmp">
                             </div>
                         </div>
                     </div>
                     <div class="col-xs-2">
                         <div class="form-group">
-                            <label class="col-xs-3 control-label"><span class="requird"></span> 出库人:</label>
-                            <div class="col-xs-9">
+                            <label class="col-xs-4 control-label"><span class="requird"></span> 出库人:</label>
+                            <div class="col-xs-8">
                                 <input class="form-control validate[required]" value="" name="outEmp" id="outEmp">
                             </div>
                         </div>
                     </div>
                     <div class="col-xs-2">
                         <div class="form-group">
-                            <label class="col-xs-3 control-label"><span class="requird"></span>出库时间:</label>
-                            <div class="col-xs-9">
+                            <label class="col-xs-4 control-label"><span class="requird"></span>出库时间:</label>
+                            <div class="col-xs-8">
                                 <input class="form-control fg-date-time-picker validate[required]" value=""
                                        name="outTime" id="outTime">
                             </div>
@@ -58,7 +58,7 @@
                     </div>
                     <div class="col-xs-2">
                         <div class="form-group">
-                            <label class="col-xs-3 control-label"><span class="requird"></span> 批次号:</label>
+                            <label class="col-xs-4 control-label"><span class="requird"></span> 批次号:</label>
                             <div class="col-xs-8">
                                 <input class="form-control validate[required]" value="" name="batchId" id="batchId">
                             </div>
@@ -180,6 +180,7 @@
         var cargoinList_result = parseInt(<%= plateList.length %>);
         var contentArea = $('#moreAddTR');
         var status = $('#statusFa');
+        var toEnter = $('#toEnter');
 
         $("#search-customer").validationEngine({binded:false});
 
@@ -208,14 +209,17 @@
                     success: function (data) {
                         console.log('data', data)
                         if (data == 'true') {
-                            status.html('<span class="text-success"><i class="fa fa-check font-lg"></i>货位号可用</span>');
+                            toEnter.attr('disabled',false);
+                            status.html('<span class="text-success"><i class="fa fa-check font-lg"></i> 批次号可用</span>');
                         } else {
-                            status.html('<span class="text-danger"><i class="fa fa-times font-lg"></i>货位号不可用</span>');
+                            toEnter.attr('disabled',true);
+                            status.html('<span class="text-danger"><i class="fa fa-times font-lg"></i> 批次号不可用</span>');
                         }
                     },
                     error: function (response) {
                         console.log('response', response)
-                        status.html('<span class="text-danger"><i class="fa fa-times font-lg"></i>货位号不可用</span>');
+                        toEnter.attr('disabled',true);
+                        status.html('<span class="text-danger"><i class="fa fa-times font-lg"></i> 批次号不可用</span>');
                     }
                 });
             }

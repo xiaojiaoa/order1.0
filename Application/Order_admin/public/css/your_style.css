@@ -575,7 +575,7 @@ tr > td > .separation:last-child {
     .table-editinput .target select {
         width: 100%;
     }
-    .more-space{
+    .moreAddTR .more-space{
         height:110px !important;
     }
 }
