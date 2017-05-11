@@ -1329,14 +1329,25 @@ var OrderController = {
     batchDetail: function (req, res){
         var batchNumber =  req.params.batchNumber;
         var factoryId =  req.params.factoryId;
+
+        var paramObject = helper.genPaginationQuery(req);
         Base.multiDataRequest(req, res, [
                 {url: '/api/orders/batchNumber/detail?batchNumber='+batchNumber+'&factoryId='+ factoryId, method: 'GET', resConfig: {keyName: 'batchInfo', is_must: true}},
-                // {url: '/api/whse/cargoin/prod/inlist?inId='+ id, method: 'GET', resConfig: {keyName: 'inlistPageInfo', is_must: true}},
+                {url: '/api/orders/batchNumber/orderDetail?batchNumber='+batchNumber+'&factoryId='+ factoryId, method: 'GET', resConfig: {keyName: 'orderDetail', is_must: true}},
             ],
             function (req, res, resultList) {
+                var paginationInfo =  resultList.orderDetail;
+
+                var boostrapPaginator = new Pagination.TemplatePaginator(helper.genPageInfo({
+                    prelink: paramObject.withoutPageNo,
+                    current: paginationInfo.page,
+                    rowsPerPage: paginationInfo.pageSize,
+                    totalResult: paginationInfo.totalItems
+                }));
                 var returnData = Base.mergeData(helper.mergeObject({
                     title: ' ',
                     batchNumber:batchNumber,
+                    pagination: boostrapPaginator.render(),
                 }, resultList));
                 res.render('order/order/batchNumber_detail', returnData);
 

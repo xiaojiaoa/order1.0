@@ -1,0 +1,179 @@
+<%- include('../layouts/head_top'); %>
+<%- include('../layouts/head_bottom'); %>
+<%- include('../layouts/header'); %>
+<%- include('../layouts/nav'); %>
+
+<!-- MAIN PANEL -->
+<div id="main" role="main" class="mainFlex">
+
+    <!-- RIBBON -->
+    <div id="ribbon">
+
+        <!-- breadcrumb -->
+        <ol class="breadcrumb">
+            <li>后台管理</li>
+            <li>批次号管理</li>
+        </ol>
+
+    </div>
+    <!-- END RIBBON -->
+
+
+    <!-- MAIN CONTENT -->
+    <div id="content" class="dis-flex">
+
+
+        <!-- well -->
+        <div class="well">
+            <!-- row -->
+            <div class="row">
+                <!-- col -->
+                <div class="col-xs-12">
+                    <!--<legend>客户搜索</legend>-->
+                    <div class="row search-form">
+                        <form class="form-horizontal" method="get" id="search-customer">
+
+                            <div class="col-xs-12">
+
+                                <div class="col-xs-3">
+                                    <div class="form-group">
+                                        <label class="col-xs-4 control-label">机构号:</label>
+                                        <div class="col-xs-8">
+                                            <select class="form-control" name="factoryId">
+                                                <option value="">- 请选择 -</option>
+                                                <%
+                                                organizationsList.forEach(function (element) { %>
+                                                <option value="<%= element.id %>" <%= (DWYRequest.query.factoryId == element.id)?"selected":"" %>><%= element.name %></option>
+                                                <%  }) %>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xs-3">
+                                    <div class="form-group">
+                                        <label class="col-xs-4 control-label">批次号:</label>
+                                        <div class="col-xs-8">
+                                            <input class="form-control" value="<%= DWYRequest.query.batchNumber %>" name="batchNumber">
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <div class="col-xs-3">
+                                    <div class="form-group">
+                                        <label class="col-xs-4 control-label">包装状态:</label>
+                                        <div class="col-xs-8">
+                                            <select class="form-control" name="stcode">
+                                                <option value="">- 请选择 -</option>
+                                                <option value="0" <%= (DWYRequest.query.stcode == '0')?"selected":"" %>>未包装</option>
+                                                <option value="1" <%= (DWYRequest.query.stcode == '1')?"selected":"" %>>已包装</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <div class="col-xs-12">
+                                <hr class="simple">
+                                <div class="col-xs-12 text-center">
+                                    <button class="btn btn-primary " type="submit">
+                                        <i class="fa fa-search"></i>
+                                        查询
+                                    </button>
+                                </div>
+                            </div>
+
+                        </form>
+                    </div>
+                    <!-- end row -->
+                </div>
+                <!-- end col -->
+            </div>
+            <!-- end row -->
+        </div>
+        <!-- end well -->
+
+        <div class="well dis-flex">
+
+            <!-- row -->
+            <div class="row">
+                <div class="col-xs-12">
+                    <h6>订单列表</h6>
+                    <hr class="simple">
+                </div>
+            </div>
+
+            <!-- row -->
+            <div class="row dis-flex">
+                <div class="col-xs-12 dis-flex">
+                    <div class="table-responsive dis-flex">
+                        <table class="table table-bordered table-striped table-hover table-scroll dis-flex">
+                            <thead>
+                            <tr>
+                                <th width="4%">序号</th>
+                                <th width="7%">批次号</th>
+                                <th width="7%">机构</th>
+                                <th>订单数量</th>
+                                <th>包装数量</th>
+                                <th>包装状态</th>
+                                <th>生成柜员</th>
+                                <th>生成时间</th>
+                                <th>包装柜员</th>
+                                <th>包装时间</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <% if(!DWY_Helper.isCanLoop(batchNumber.result)){%>
+                            <tr>
+                                <td colspan="10" align="center">暂无结果</td>
+                            </tr>
+                            <% }else{
+                            batchNumber.result.forEach(function (element, index) { %>
+                            <tr>
+                                <td width="4%"><%= index+1 %></td>
+                                <td width="7%"><a href="/orders/batchNumber/detail/<%= element.batchNumber %>/<%= element.factoryId %>"><%= element.batchNumber %></a></td>
+                                <td width="7%"><%= element.factoryName %></td>
+                                <td><%= element.orderNumber %></td>
+                                <td><%= element.packetNumber %></td>
+                                <td><%= element.packageStr %></td>
+                                <td><%= element.gname %></td>
+                                <td><%= DWY_Helper.getLocalDateYMD(element.addTime) %></td>
+                                <td><%= element.packetGname %></td>
+                                <td><%= DWY_Helper.getLocalDateYMD(element.packetTime) %></td>
+                            </tr>
+                            <%  })
+                            } %>
+                            </tbody>
+                        </table>
+                        <%- pagination %>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- END MAIN CONTENT -->
+
+</div>
+<!-- END MAIN PANEL -->
+
+
+<%- include('../layouts/footer'); %>
+<%- include('../layouts/footer_common_script'); %>
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+
+        pageSetUp();
+        $("#search-customer").validationEngine();
+
+    })
+
+</script>
+
+
+
+
+<%- include('../layouts/foot'); %>
