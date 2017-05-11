@@ -10,10 +10,13 @@
                             levelOne.data.forEach(function (levelTwo) {
                                 if(DWY_Helper.isCanLoop(levelTwo.dataChild)){
                                     levelTwo.dataChild.forEach(function (levelThr) { %>
-                                        <label class="checkbox-inline">
-                                            <input type="checkbox" class="checkbox validate[minCheckbox[1]]" name="causeStr" value="<%= levelThr.id %>">
-                                            <span> <%= levelOne.name %> — <%= levelTwo.name %> — <%= levelThr.name %></span>
-                                        </label>
+                                        <div class="checkbox">
+                                            <label>
+                                                <input type="checkbox" class="checkbox validate[minCheckbox[1]]" name="causeStr" value="<%= levelThr.id %>">
+                                                <span> <%= levelOne.name %> — <%= levelTwo.name %> — <%= levelThr.name %></span>
+                                            </label>
+                                        </div>
+
                                 <% })
                                 }
                             })
