@@ -235,7 +235,7 @@
                             <div class="col-xs-8">
                                 <hr class="simple">
                                 <div class="col-xs-12 text-center">
-                                    <button class="btn btn-primary"  >
+                                    <button class="btn btn-primary"  id="sub">
                                         <i class="fa fa-save"></i>
                                         提交
                                     </button>
@@ -376,6 +376,9 @@
             }
         })
 
+            $("#sub").click(function(){
+                localStorage.clear();
+            })
 
     })
 
