@@ -260,21 +260,24 @@
                             <thead>
                             <tr>
                                 <th>沟通时间</th>
-                                <th>沟通情况</th>
+                                <th>修改意见</th>
+                                <th>备注</th>
                                 <th>待成交关键点</th>
                                 <th>下次沟通时间</th>
                             </tr>
                             </thead>
                             <tbody>
-                            <%
+                            <% if(DWY_Helper.isCanLoop(followupInfo)){
                             followupInfo.forEach(function (element) { %>
                             <tr>
                                 <td><%= DWY_Helper.getLocalDate(element.commTime) %></td>
+                                <td><%= element.content %></td>
                                 <td><%= element.remark %></td>
                                 <td><%= element.keyPoint %></td>
                                 <td><%= DWY_Helper.getLocalDate(element.nextCommTime) %></td>
                             </tr>
-                            <% }) %>
+                            <% })
+                            } %>
 
                             </tbody>
                         </table>
