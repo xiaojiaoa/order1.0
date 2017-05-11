@@ -77,7 +77,7 @@
                                 if(element.batchNumber == '0'){%>
                                 <td></td>
                                 <% }else{%>
-                                <td><%= element.batchNumber %></td>
+                                <td><a href="/orders/batchNumber/detail/<%= element.batchNumber %>/<%= element.factoryId %>"><%= element.batchNumber %></a></td>
                                 <%}%>
                                 <td><%= element.storeName %></td>
                                 <td>
@@ -269,7 +269,7 @@
                                 if(element.batchNumber == '0'){%>
                                 <td></td>
                                 <% }else{%>
-                                <td><%= element.batchNumber %></td>
+                                <td><a href="/orders/batchNumber/detail/<%= element.batchNumber %>/<%= element.factoryId %>"><%= element.batchNumber %></a></td>
                                 <%}%>
                                 <td><%= element.storeName %></td>
                                 <td>

@@ -121,6 +121,7 @@
                                 <th>生成时间</th>
                                 <th>包装柜员</th>
                                 <th>包装时间</th>
+                                <th width="160">操作</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -141,6 +142,15 @@
                                 <td><%= DWY_Helper.getLocalDateYMD(element.addTime) %></td>
                                 <td><%= element.packetGname %></td>
                                 <td><%= DWY_Helper.getLocalDateYMD(element.packetTime) %></td>
+                                <td width="160">
+                                    <% if(element.stcode==0){%>
+                                    <a class="label label-primary crePackage" batchNumber="<%= element.batchNumber %>" factoryId="<%= element.factoryId %>">生成包装</a>
+                                    <%}%>
+                                    <% if(element.stcode==1){%>
+                                    <a class="label label-danger undoPackingBtn" batchNumber="<%= element.batchNumber %>" factoryId="<%= element.factoryId %>">撤销包装</a>
+                                    <%}%>
+
+                                </td>
                             </tr>
                             <%  })
                             } %>
@@ -169,6 +179,58 @@
         pageSetUp();
         $("#search-customer").validationEngine();
 
+        $(".crePackage").on({
+            click: function (e) {
+                var  batchNumber = $(this).attr("batchNumber");
+                var  factoryId = $(this).attr("factoryId");
+                layer.confirm('确定生成包装吗？',{icon: 3, title:'提示'},
+                    function(index){
+                        $.ajax({
+                            url: '/orders/batchNumber/package/packet',
+                            method: 'post',
+                            data:{
+                                batchNumber:batchNumber,
+                                factoryId:factoryId
+                            },
+                            success: function (data) {
+                                successLayout.reload();
+                            },
+                            error: function (response) {
+                                layer.close(index)
+                                errorLayout.normal(response);
+                            }
+                        });
+                    },
+                    function(index){layer.close(index)});
+
+            }
+        });
+        $(".undoPackingBtn").on({
+            click: function (e) {
+                var  batchNumber = $(this).attr("batchNumber");
+                var  factoryId = $(this).attr("factoryId");
+                layer.confirm('确定撤销包装吗？',{icon: 3, title:'提示'},
+                    function(index){
+                        $.ajax({
+                            url: '/orders/batchNumber/unpacket/packet',
+                            method: 'post',
+                            data:{
+                                batchNumber:batchNumber,
+                                factoryId:factoryId
+                            },
+                            success: function (data) {
+                                successLayout.reload();
+                            },
+                            error: function (response) {
+                                layer.close(index)
+                                errorLayout.normal(response);
+                            }
+                        });
+                    },
+                    function(index){layer.close(index)});
+
+            }
+        });
     })
 
 </script>
