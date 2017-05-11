@@ -4,36 +4,23 @@
         <div class="form-group">
             <label class="col-xs-3 control-label"><span class="requird"></span> 补单原因:</label>
             <div class="col-xs-6">
-                <select class="form-control margin-bottom-10 validate[required]" id="levelOne" data-prompt-position="bottomLeft:20,5">
-                    <% resupplyReason.forEach(function (element,index) {
-                       if(element){ %>
-                    <option value="<%= element.id %>" >
-                        <%= element.name %>
-                    </option>
-                    <% } %>
+                <% if(DWY_Helper.isCanLoop(resupplyReason)){
+                    resupplyReason.forEach(function (levelOne) {
+                        if(DWY_Helper.isCanLoop(levelOne.data)){
+                            levelOne.data.forEach(function (levelTwo) {
+                                if(DWY_Helper.isCanLoop(levelTwo.dataChild)){
+                                    levelTwo.dataChild.forEach(function (levelThr) { %>
+                                        <label class="checkbox-inline">
+                                            <input type="checkbox" class="checkbox validate[minCheckbox[1]]" name="causeStr" value="<%= levelThr.id %>">
+                                            <span> <%= levelOne.name %> — <%= levelTwo.name %> — <%= levelThr.name %></span>
+                                        </label>
+                                <% })
+                                }
+                            })
+                        }
+                    })
+                }%>
 
-                    <% }) %>
-                </select>
-                <select class="form-control margin-bottom-10 validate[required]" id="levelTwo" data-prompt-position="bottomLeft:20,5">
-                    <% resupplyReason[1].data.forEach(function (element) {
-                    if(element){ %>
-                    <option value="<%= element.id %>" >
-                        <%= element.name %>
-                    </option>
-                    <% }%>
-
-                    <% }) %>
-                </select>
-                <select class="form-control validate[required]" name="cause"  id="levelThr" data-prompt-position="bottomLeft:20,5">
-                    <% resupplyReason[1].data[0].dataChild.forEach(function (element) {
-                        if(element){ %>
-                    <option value="<%= element.id %>" >
-                        <%= element.name %>
-                    </option>
-                    <%   }%>
-
-                    <% }) %>
-                </select>
             </div>
         </div>
     </div>
@@ -85,33 +72,57 @@
         <div class="form-group">
             <label class="col-xs-2 control-label"><span class="requird"></span> 退回类型:</label>
             <div class="col-xs-8">
-                <select class="form-control validate[required]" name="cause" data-prompt-position="bottomLeft:20,5">
-                    <option value="">- 请选择 -</option>
-                    <%
-                    switch (resupplyInfo.status){
-                        case 250:
-                    acceptReason.forEach(function (element) { %>
-                    <option value="<%= element.id %>"><%= element.name %></option>
-                    <%  })
-                            break;
-                        case 450:
-                    apartReason.forEach(function (element) { %>
-                    <option value="<%= element.id %>"><%= element.name %></option>
-                    <%  })
-                     break;
-                        case 475:
-                    apartReviewReason.forEach(function (element) { %>
-                    <option value="<%= element.id %>"><%= element.name %></option>
-                    <%  })
-                            break;
-                    case 635:
-                    scheduleReason.forEach(function (element) { %>
-                    <option value="<%= element.id %>"><%= element.name %></option>
-                    <%  })
-                        break;
-                    }  %>
-
-                </select>
+                <%
+                switch (resupplyInfo.status){
+                case 250:
+                if(DWY_Helper.isCanLoop(acceptReason)){
+                acceptReason.forEach(function (element) { %>
+                <label class="checkbox-inline">
+                    <input type="checkbox" class="checkbox validate[minCheckbox[1]]" name="causeStr" value="<%= element.id %>">
+                    <span> <%= element.name %></span>
+                </label>
+                <%  })
+                }else{ %>
+                <label class="pull-left control-label">-- 暂无可选项，请配置 --</label>
+                <%  }
+                    break;
+                case 450:
+                if(DWY_Helper.isCanLoop(apartReason)){
+                apartReason.forEach(function (element) { %>
+                <label class="checkbox-inline">
+                    <input type="checkbox" class="checkbox validate[minCheckbox[1]]" name="causeStr" value="<%= element.id %>">
+                    <span> <%= element.name %></span>
+                </label>
+                <%  })
+                }else{ %>
+                <label class="pull-left control-label">-- 暂无可选项，请配置 --</label>
+                <%  }
+                    break;
+                case 475:
+                if(DWY_Helper.isCanLoop(apartReviewReason)){
+                apartReviewReason.forEach(function (element) { %>
+                <label class="checkbox-inline">
+                    <input type="checkbox" class="checkbox validate[minCheckbox[1]]" name="causeStr" value="<%= element.id %>">
+                    <span> <%= element.name %></span>
+                </label>
+                <%  })
+                }else{ %>
+                <label class="pull-left control-label">-- 暂无可选项，请配置 --</label>
+                <%  }
+                    break;
+                case 635:
+                if(DWY_Helper.isCanLoop(scheduleReason)){
+                scheduleReason.forEach(function (element) { %>
+                <label class="checkbox-inline">
+                    <input type="checkbox" class="checkbox validate[minCheckbox[1]]" name="causeStr" value="<%= element.id %>">
+                    <span> <%= element.name %></span>
+                </label>
+                <%  })
+                }else{ %>
+                <label class="pull-left control-label">-- 暂无可选项，请配置 --</label>
+                <%  }
+                    break;
+                }  %>
             </div>
 
         </div>
@@ -148,7 +159,7 @@
 
         $("#check_pass").validationEngine();
         $("#order_reject").validationEngine();
-        
+
 
         //弹出类
         $('#check-pass-modal').on({
@@ -186,7 +197,4 @@
 
 </script>
 
-<% if(resupplyInfo.status == 250){  %>
-<%- include('./js_function'); %>
-<% } %>
 

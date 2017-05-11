@@ -182,6 +182,16 @@ var OrderController = {
 
     },
     notPass: function (req, res) {
+        var cause =  req.body.causeStr;
+        var causeStr = '';
+        if(cause && typeof cause == 'object'){
+            for (var i=0;i<cause.length;i++)
+            {
+                causeStr += cause[i] +","
+            }
+            causeStr = causeStr.substring(0,causeStr.length-1);
+            req.body.causeStr =  causeStr;
+        }
         request(Base.mergeRequestOptions({
             method: 'put',
             url: '/api/orders/review/notPass?'+queryString.stringify(req.body),
@@ -454,6 +464,16 @@ var OrderController = {
 
     },
     notPassResupplys: function (req, res) {
+        var cause =  req.body.causeStr;
+        var causeStr = '';
+        if(cause && typeof cause == 'object'){
+            for (var i=0;i<cause.length;i++)
+            {
+                causeStr += cause[i] +","
+            }
+            causeStr = causeStr.substring(0,causeStr.length-1);
+            req.body.causeStr =  causeStr;
+        }
         request(Base.mergeRequestOptions({
             method: 'put',
             url: '/api/orders/resupply/accept/notPass?'+queryString.stringify(req.body),
@@ -468,6 +488,16 @@ var OrderController = {
 
     },
     doPassResupplys: function (req, res) {
+        var cause =  req.body.causeStr;
+        var causeStr = '';
+        if(cause && typeof cause == 'object'){
+            for (var i=0;i<cause.length;i++)
+            {
+                causeStr += cause[i] +","
+            }
+            causeStr = causeStr.substring(0,causeStr.length-1);
+            req.body.causeStr =  causeStr;
+        }
         request(Base.mergeRequestOptions({
             method: 'put',
             url: '/api/orders/resupply/accept/pass?'+queryString.stringify(req.body),
@@ -510,6 +540,16 @@ var OrderController = {
     //
     // },
     notPassReApart: function (req, res) {
+        var cause =  req.body.causeStr;
+        var causeStr = '';
+        if(cause && typeof cause == 'object'){
+            for (var i=0;i<cause.length;i++)
+            {
+                causeStr += cause[i] +","
+            }
+            causeStr = causeStr.substring(0,causeStr.length-1);
+            req.body.causeStr =  causeStr;
+        }
         request(Base.mergeRequestOptions({
             method: 'put',
             url: '/api/orders/apart/notPass?'+queryString.stringify(req.body),
@@ -604,6 +644,16 @@ var OrderController = {
     //
     // },
     notPassCheckReApart: function (req, res) {
+        var cause =  req.body.causeStr;
+        var causeStr = '';
+        if(cause && typeof cause == 'object'){
+            for (var i=0;i<cause.length;i++)
+            {
+                causeStr += cause[i] +","
+            }
+            causeStr = causeStr.substring(0,causeStr.length-1);
+            req.body.causeStr =  causeStr;
+        }
         request(Base.mergeRequestOptions({
             method: 'put',
             url: '/api/orders/apartReview/notPass?'+queryString.stringify(req.body),
@@ -924,6 +974,16 @@ var OrderController = {
         })
     },
     notPassSchedule: function (req, res) {
+        var cause =  req.body.causeStr;
+        var causeStr = '';
+        if(cause && typeof cause == 'object'){
+            for (var i=0;i<cause.length;i++)
+            {
+                causeStr += cause[i] +","
+            }
+            causeStr = causeStr.substring(0,causeStr.length-1);
+            req.body.causeStr =  causeStr;
+        }
         request(Base.mergeRequestOptions({
             method: 'put',
             url: '/api/orders/schedule/notPass?'+queryString.stringify(req.body),
@@ -1242,7 +1302,46 @@ var OrderController = {
 
 
     },
+    batchPage: function (req, res) {
+        var paramObject = helper.genPaginationQuery(req);
+        Base.multiDataRequest(req, res, [
+            {url: '/api/orders/batchNumber?'+queryString.stringify(req.query), method: 'GET', resConfig: {keyName: 'batchNumber', is_must: true}},
+            {url: '/api/organizations/list', method: 'GET', resConfig: {keyName: 'organizationsList', is_must: true}},
+            // {url: '/api/organizations/list', method: 'GET', resConfig: {keyName: 'organizationsList', is_must: true}},
+            // {url: '/api/assist/order/stcodes', method: 'GET', resConfig: {keyName: 'statusInfo', is_must: false}},
+        ], function (req, res, resultList) {
+            var paginationInfo =  resultList.batchNumber;
 
+            var boostrapPaginator = new Pagination.TemplatePaginator(helper.genPageInfo({
+                prelink: paramObject.withoutPageNo,
+                current: paginationInfo.page,
+                rowsPerPage: paginationInfo.pageSize,
+                totalResult: paginationInfo.totalItems
+            }));
+            var returnData = Base.mergeData(helper.mergeObject({
+                title: ' ',
+                pagination: boostrapPaginator.render(),
+                Permission :Permissions,
+            },resultList));
+            res.render('order/order/batchNumber', returnData);
+        });
+    },
+    batchDetail: function (req, res){
+        var batchNumber =  req.params.batchNumber;
+        var factoryId =  req.params.factoryId;
+        Base.multiDataRequest(req, res, [
+                {url: '/api/orders/batchNumber/detail?batchNumber='+batchNumber+'&factoryId='+ factoryId, method: 'GET', resConfig: {keyName: 'batchInfo', is_must: true}},
+                // {url: '/api/whse/cargoin/prod/inlist?inId='+ id, method: 'GET', resConfig: {keyName: 'inlistPageInfo', is_must: true}},
+            ],
+            function (req, res, resultList) {
+                var returnData = Base.mergeData(helper.mergeObject({
+                    title: ' ',
+                    batchNumber:batchNumber,
+                }, resultList));
+                res.render('order/order/batchNumber_detail', returnData);
+
+            });
+    },
 };
 
 module.exports = OrderController;

@@ -21,34 +21,41 @@
         <div class="form-group">
             <label class="col-xs-2 control-label"><span class="requird"></span> 退回类型:</label>
             <div class="col-xs-8">
-                <select class="form-control validate[required]" name="cause" data-prompt-position="bottomLeft:20,5">
-                    <option value="">- 请选择 -</option>
-                    <%
-                    switch (orderInfo.stcode){
-                    case 250:
-                    reviewReason.forEach(function (element) { %>
-                    <option value="<%= element.id %>"><%= element.name %></option>
-                    <%  })
-                        break;
-                    case 450:
-                    apartReason.forEach(function (element) { %>
-                    <option value="<%= element.id %>"><%= element.name %></option>
-                    <%  })
-                        break;
-                    case 475:
-                    apartReviewReason.forEach(function (element) { %>
-                    <option value="<%= element.id %>"><%= element.name %></option>
-                    <%  })
-                        break;
-                    case 635:
-                    scheduleReason.forEach(function (element) { %>
-                    <option value="<%= element.id %>"><%= element.name %></option>
-                    <%  })
-                        break;
-                    }  %>
-
-
-                </select>
+                <%
+                switch (orderInfo.stcode){
+                case 250:
+                reviewReason.forEach(function (element) { %>
+                <label class="checkbox-inline">
+                    <input type="checkbox" class="checkbox validate[minCheckbox[1]]" name="causeStr" value="<%= element.id %>">
+                    <span> <%= element.name %></span>
+                </label>
+                <%  })
+                    break;
+                case 450:
+                apartReason.forEach(function (element) { %>
+                <label class="checkbox-inline">
+                    <input type="checkbox" class="checkbox validate[minCheckbox[1]]" name="causeStr" value="<%= element.id %>">
+                    <span> <%= element.name %></span>
+                </label>
+                <%  })
+                    break;
+                case 475:
+                apartReviewReason.forEach(function (element) { %>
+                <label class="checkbox-inline">
+                    <input type="checkbox" class="checkbox validate[minCheckbox[1]]" name="causeStr" value="<%= element.id %>">
+                    <span> <%= element.name %></span>
+                </label>
+                <%  })
+                    break;
+                case 635:
+                scheduleReason.forEach(function (element) { %>
+                <label class="checkbox-inline">
+                    <input type="checkbox" class="checkbox validate[minCheckbox[1]]" name="causeStr" value="<%= element.id %>">
+                    <span> <%= element.name %></span>
+                </label>
+                <%  })
+                    break;
+                }  %>
             </div>
 
         </div>
@@ -78,35 +85,6 @@
     <div class="dwy-clear"></div>
 </form>
 
-<!--<form class="form-horizontal  layer-template" method="post" id="order_income"  action="/collection/receiptCheck">-->
-    <!--<div class="col-xs-12">-->
-
-        <!--<div class="form-group">-->
-            <!--<label class="col-xs-2 control-label"><span class="requird"></span> 类型:</label>-->
-            <!--<div class="col-xs-8">-->
-                <!--<select class="form-control" name="moneyType" >-->
-                    <!--<option value="1">待收款</option>-->
-                    <!--<option value="2">已收款</option>-->
-                <!--</select>-->
-            <!--</div>-->
-
-        <!--</div>-->
-
-    <!--</div>-->
-    <!--<input value="<%= tid %>" name="tid" id="tid" type="hidden">-->
-    <!--<input value="<%= orderInfo.bid %>" name="bid" id="bid" type="hidden">-->
-    <!--<input value="1" name="status" type="hidden">-->
-
-    <!--<div class="col-xs-12">-->
-        <!--<hr class="simple">-->
-        <!--<div class="col-xs-12 text-center">-->
-            <!--<button class="btn btn-primary " type="submit">-->
-                <!--确定-->
-            <!--</button>-->
-        <!--</div>-->
-    <!--</div>-->
-    <!--<div class="dwy-clear"></div>-->
-<!--</form>-->
 
 <script type="text/javascript">
 
@@ -114,7 +92,6 @@
 
         $("#order_reject").validationEngine();
 
-        //弹出类
         $('.reject-modal').on({
             click: function (e) {
                 layer.open({
@@ -123,27 +100,13 @@
                     area: '700px',
                     content: $('#order_reject'),
                     cancel: function () {
-                        //右上角关闭回调
+                        // 右上角关闭回调
                     },
 
                 });
             }
         })
 
-
-//        $(".doInCome").click(function () {
-//            layer.open({
-//                title: false,
-//                type: 1,
-//                area: '500px',
-//                content: $('#order_income'),
-//                cancel: function () {
-//                    //右上角关闭回调
-//                },
-//
-//            });
-//
-//        })
 
 
     })

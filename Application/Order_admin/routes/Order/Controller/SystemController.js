@@ -290,11 +290,37 @@ var SystemController = {
         }, req, res), function (error, response, body) {
             if (!error && response.statusCode == 200) {
                 console.log('printOut',body)
+                console.log('printOuttype',typeof body)
                 // res.status(200).json(body);
                 // var resultList = body;
                 var returnData = Base.mergeData(helper.mergeObject({
                     id:packageLid,
+                    type:'html'
                 }, {printINfo:body}));
+                res.render('order/system/print', returnData);
+            } else {
+                Base.handlerError(res, req, error, response, body);
+            }
+        })
+    },
+    printParts: function (req, res) {
+        var packageLid = req.query.packageLid;
+        request(Base.mergeRequestOptions({
+            method: 'post',
+            url: '/api/orders/package/print/packagelist',
+            form: {
+                packageList:packageLid
+            }
+        }, req, res), function (error, response, body) {
+            if (!error && response.statusCode == 200) {
+                console.log('printOut',body)
+                console.log('printOuttype',JSON.parse(body))
+                // res.status(200).json(body);
+                // var resultList = body;
+                var returnData = Base.mergeData(helper.mergeObject({
+                    id:packageLid,
+                    type:'arry'
+                }, {printINfo:JSON.parse(body)}));
                 res.render('order/system/print', returnData);
             } else {
                 Base.handlerError(res, req, error, response, body);

@@ -27,7 +27,19 @@
 
         <div class="prin-preview">
             <div id="printHtml">
+                <% if(type == 'html'){ %>
                 <div class="printBody"><%- printINfo %></div>
+                <%  } %>
+
+                <% if(type == 'arry'){
+                if(DWY_Helper.isCanLoop(printINfo)){
+                    printINfo.forEach(function (element) { %>
+                <div class="printBody"><%- element %></div>
+                <%  })
+                } %>
+
+                <%  } %>
+
             </div>
 
             <button class="btn btn-primary " id="print">

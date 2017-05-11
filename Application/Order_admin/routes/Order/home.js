@@ -412,8 +412,11 @@ router.get('/order/exportParts/:tid',Middleware.AuthCheck,OrderController.export
 // 收款页面
 router.get('/collection', Middleware.AuthCheck, OrderController.receiptMoneyPage);
 
-
 router.post('/collection/receiptCheck', Middleware.AuthCheck, OrderController.receiptCheck);
+
+// 批次号管理
+router.get('/orders/batchNumber', Middleware.AuthCheck, OrderController.batchPage);
+router.get('/orders/batchNumber/detail/:batchNumber/:factoryId', Middleware.AuthCheck, OrderController.batchDetail);
 
 /*
  * 页面范围: 拆单
@@ -1232,6 +1235,7 @@ router.put('/fileInfo/doDelete/:fid', Middleware.AuthCheck, InformationControlle
 
 
 
+
 /*
  * 页面范围: 安装服务
  * 控制器:   InstallServiceController
@@ -1299,6 +1303,8 @@ router.get('/system/printOut/:id', Middleware.AuthCheck,SystemController.printOu
 
 // 包装流水打印接口
 router.get('/system/printPackageLid/:packageLid', Middleware.AuthCheck,SystemController.printPackageLid);
+
+router.get('/system/printParts', Middleware.AuthCheck,SystemController.printParts);
 /*
  * 页面范围: app接口
  * 控制器:   AppServiceController
