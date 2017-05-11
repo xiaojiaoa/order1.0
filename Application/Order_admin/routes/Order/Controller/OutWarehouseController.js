@@ -564,9 +564,20 @@ var OutWarehouseController = {
         Base.handlerError(res, req, error, response, body);
       }
     })
-
-
   },
+    ifCanBatchnumber: function (req, res) {
+        request(Base.mergeRequestOptions({
+            method: 'get',
+            url: '/api/whse/cargout/batchnumber?'+queryString.stringify(req.body),
+        }, req, res), function (error, response, body) {
+            if (!error && response.statusCode == 200) {
+                res.status(200).json(body);
+            } else {
+                res.status(500).json(body)
+            }
+        })
+
+    },
 };
 
 module.exports = OutWarehouseController;

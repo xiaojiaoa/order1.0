@@ -1353,6 +1353,32 @@ var OrderController = {
 
             });
     },
+    doPacketBatchNumber:function(req,res){
+        request(Base.mergeRequestOptions({
+            method: 'post',
+            url: '/api/orders/package/batch/packet/batchNumber',
+            form: req.body
+        }, req, res), function (error, response, body) {
+            if (!error && response.statusCode == 201) {
+                res.sendStatus(200);
+            } else {
+                Base.handlerError(res, req, error, response, body);
+            }
+        })
+    },
+    doUnpacketBatchNumber:function(req,res){
+        request(Base.mergeRequestOptions({
+            method: 'post',
+            url: '/api/orders/package/batch/unpacket/batchNumber',
+            form: req.body
+        }, req, res), function (error, response, body) {
+            if (!error && response.statusCode == 201) {
+                res.sendStatus(200);
+            } else {
+                Base.handlerError(res, req, error, response, body);
+            }
+        })
+    },
 };
 
 module.exports = OrderController;

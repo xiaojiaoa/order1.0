@@ -30,8 +30,8 @@
         <div class="well">
             <form class="row form-horizontal" id="search-customer">
 
-                <div class="search-form">
-                    <div class="col-xs-3">
+                <div class="">
+                    <div class="col-xs-2">
                         <div class="form-group">
                             <label class="col-xs-3 control-label"><span class="requird"></span> 领料人:</label>
                             <div class="col-xs-9">
@@ -39,7 +39,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-xs-3">
+                    <div class="col-xs-2">
                         <div class="form-group">
                             <label class="col-xs-3 control-label"><span class="requird"></span> 出库人:</label>
                             <div class="col-xs-9">
@@ -47,7 +47,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-xs-3">
+                    <div class="col-xs-2">
                         <div class="form-group">
                             <label class="col-xs-3 control-label"><span class="requird"></span>出库时间:</label>
                             <div class="col-xs-9">
@@ -56,12 +56,18 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-xs-3">
+                    <div class="col-xs-2">
                         <div class="form-group">
-                            <label class="col-xs-3 control-label">批次号:</label>
-                            <div class="col-xs-9">
-                                <input class="form-control" value="" name="batchId" id="batchId">
+                            <label class="col-xs-3 control-label"><span class="requird"></span> 批次号:</label>
+                            <div class="col-xs-8">
+                                <input class="form-control validate[required]" value="" name="batchId" id="batchId">
                             </div>
+
+                        </div>
+                    </div>
+                    <div class="col-xs-2">
+                        <div class="form-group">
+                            <label class="control-label" id="statusFa" style="white-space: nowrap"></label>
                         </div>
                     </div>
                     <div class="dwy-clear"></div>
@@ -173,6 +179,7 @@
     $(document).ready(function () {
         var cargoinList_result = parseInt(<%= plateList.length %>);
         var contentArea = $('#moreAddTR');
+        var status = $('#statusFa');
 
         $("#search-customer").validationEngine({binded:false});
 
@@ -188,6 +195,32 @@
             $("#amount"+index).attr('class','form-control validate[required,custom[number],min[1],max['+option+']]');
 
         })
+        $("#batchId").on('input propertychange', function () {
+            status.empty();
+            var batchId = $(this).val();
+            if (batchId) {
+                $.ajax({
+                    url: '/outBred/batchnumber/ifCan',
+                    method: 'post',
+                    data: {
+                        batchNumber: batchId,
+                    },
+                    success: function (data) {
+                        console.log('data', data)
+                        if (data == 'true') {
+                            status.html('<span class="text-success"><i class="fa fa-check font-lg"></i>货位号可用</span>');
+                        } else {
+                            status.html('<span class="text-danger"><i class="fa fa-times font-lg"></i>货位号不可用</span>');
+                        }
+                    },
+                    error: function (response) {
+                        console.log('response', response)
+                        status.html('<span class="text-danger"><i class="fa fa-times font-lg"></i>货位号不可用</span>');
+                    }
+                });
+            }
+        });
+
 
         //增加货位
         $('.add-spaceid').on('click',function () {

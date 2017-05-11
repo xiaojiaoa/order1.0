@@ -418,6 +418,10 @@ router.post('/collection/receiptCheck', Middleware.AuthCheck, OrderController.re
 router.get('/orders/batchNumber', Middleware.AuthCheck, OrderController.batchPage);
 router.get('/orders/batchNumber/detail/:batchNumber/:factoryId', Middleware.AuthCheck, OrderController.batchDetail);
 
+// 生成包装操作
+router.post('/orders/batchNumber/package/packet', Middleware.apiLimiter,Middleware.AuthCheck,OrderController.doPacketBatchNumber);
+// 撤销包装操作
+router.post('/orders/batchNumber/unpacket/packet', Middleware.apiLimiter,Middleware.AuthCheck,OrderController.doUnpacketBatchNumber);
 /*
  * 页面范围: 拆单
  * 控制器:   TearController
@@ -999,6 +1003,9 @@ router.put('/outBred/doCheck/:id/:stcode', Middleware.AuthCheck, OutWarehouseCon
 
 router.post('/outBred/plateOut', Middleware.AuthCheck, OutWarehouseController.plateOut);
 router.post('/outBred/accessoryOut', Middleware.AuthCheck, OutWarehouseController.accessoryOut);
+
+
+router.post('/outBred/batchnumber/ifCan', Middleware.AuthCheck, OutWarehouseController.ifCanBatchnumber);
 
 /*
  * 页面范围: 任务序列相关
