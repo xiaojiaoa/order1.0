@@ -185,12 +185,32 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-xs-12">
+                            <div class="col-xs-12 display-none">
                                 <div class="col-xs-6">
                                     <div class="form-group">
                                         <label class="col-xs-4 control-label"><span class="requird"></span>价格:</label>
                                         <div class="col-xs-8">
-                                            <input class="form-control validate[required]" placeholder="请输入价格" value="<%= mateInfo.price %>" type="text" name="price">
+                                            <input class="form-control validate[required]" placeholder="请输入价格" value="" type="text" name="price">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xs-12">
+                                <div class="col-xs-6">
+                                    <div class="form-group">
+                                        <label class="col-xs-4 control-label"><span class="requird"></span>采购价格:</label>
+                                        <div class="col-xs-8">
+                                            <input class="form-control validate[required] validate[custom[integer]] validate[maxSize[10]]" placeholder="请输入采购价格" value="<%= mateInfo.totalPrice%>" type="text" name="totalPrice">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xs-12">
+                                <div class="col-xs-6">
+                                    <div class="form-group">
+                                        <label class="col-xs-4 control-label"><span class="requird"></span>出厂价格:</label>
+                                        <div class="col-xs-8">
+                                            <input class="form-control validate[required] validate[custom[integer]] validate[maxSize[10]]" placeholder="请输入出厂价格" value="<%= mateInfo.totalUnitPrice%>" type="text" name="totalUnitPrice">
                                         </div>
                                     </div>
                                 </div>
