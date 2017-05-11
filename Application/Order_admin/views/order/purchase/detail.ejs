@@ -153,6 +153,7 @@
                                 <th>采购单编号</th>
                                 <th>供应商编号</th>
                                 <th>供应商名称</th>
+                                <th>采购类型</th>
                                 <th>预计交付时间</th>
                                 <th>创建时间</th>
                                 <th>采购状态</th>
@@ -178,6 +179,7 @@
                                 <td><a href="/purchase/orderDetail/<%= element.id %>"><%= element.id %></a></td>
                                 <td><a href="/supplier/detail/<%= element.suppId %>"><%= element.suppId %></a></td>
                                 <td><%= element.suppName %></td>
+                                <td><%= (element.type==10)?'普通采购':'成品采购' %></td>
                                 <td><%= DWY_Helper.getLocalDate(element.deliveryDate) %></td>
                                 <td><%= DWY_Helper.getLocalDate(element.addTime) %></td>
                                 <td><%= element.stcodeName %></td>
