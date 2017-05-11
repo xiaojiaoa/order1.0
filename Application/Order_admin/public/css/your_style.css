@@ -179,7 +179,7 @@ nav ul span.menu-item-parent {
 /*日历清除*/
 .close-picker {
     /*float: left;*/
-    width: 8%;
+    width: 10px;
     line-height: 32px;
     font-size: 14px;
     text-align: center;
