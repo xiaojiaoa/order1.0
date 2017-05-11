@@ -205,6 +205,7 @@
                                 <th width="7%">客户姓名</th>
                                 <th width="7%">流水号</th>
                                 <th width="13%">订单号</th>
+                                <th width="4%">订单类型</th>
                                 <th width="7%">品牌</th>
                                 <th>产品信息</th>
                                 <th width="7%">产品类型</th>
@@ -227,6 +228,7 @@
                                 <td width="7%"><a href="/customer/detail/<%= element.cid %>"><%= element.name %></a></td>
                                 <td width="7%"><a href="/taskseq/index/<%= element.lid %>"><%= element.lid %></a></td>
                                 <td width="13%"><a href="/order/detail/<%= element.tid %>"><%= element.tid %></a></td>
+                                <td width="4%"><%= element.typeStr %></td>
                                 <td width="7%"><%= DWY_Helper.getAssistVal(element.brandId,brandInfo) %></td>
                                 <td><%= element.prodInfo %></td>
                                 <td width="7%"><%= element.prodName %></td>
