@@ -64,7 +64,6 @@
                                             <label class="col-xs-4 control-label"><span class="requird"></span>
                                                 <%= element.name%>:</label>
                                             <input name="length" value="<%= element.length%>" type="hidden">
-                                            <input name="attrName" value="<%= (element.name=="长度" || element.name=='宽度')?1:'';%>" type="hidden">
                                             <div class="col-xs-8">
                                                 <select class="form-control validate[required] attrVal" name="attrVal">
                                                     <option value="">- 请选择 -</option>
@@ -241,7 +240,16 @@
                              <input type="hidden" name="attributeValues" value="" id="materialId">
                              <input type="hidden" name="mateUnits" value="" id="mateUnitsId">
                              <input type="hidden" name="catId" value="<%= id %>" id="mateTypeId">
-                            <input type="hidden" name="flag" value="" id="flagId">
+
+                            <%
+                                var attrName=[];
+                            materialInfo.attributeViewList.forEach(function(element,index){
+                                if(element.name=="长度" || element.name=='宽度'){%>
+                                  <% attrName.push(1);%>
+                            <%}})%>
+
+                            <input type="hidden" name="flag" value="<%= (attrName.length==2)?1:"";%>">
+
                             <div class="col-xs-8">
                                 <hr class="simple">
                                 <div class="col-xs-12 text-center">
@@ -324,16 +332,6 @@
             $("#materialId").val(code.join(','));
             $("#mateUnitsId").val(mateUnitCode.join(','));
 
-            var attrName=[];
-            $("input[name='attrName']").each(function(){
-               if($(this).val()){
-                   attrName.push($(this).val());
-               }
-            });
-            console.log(attrName)
-            if(attrName.length==2){
-                $("#flagId").val(1);
-            }
 
         }
         //直接提交
