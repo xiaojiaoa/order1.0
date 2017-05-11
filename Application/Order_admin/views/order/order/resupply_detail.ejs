@@ -219,7 +219,7 @@
 
                             </tbody>
                         </table>
-
+                        <p>建议设置文件默认下载路径：打开浏览器设置页面--》高级设置--》选择下载内容--》<span class="text-danger">勾选</span>"下载前询问每个文件的保存位置"</p>
                     </div>
 
 
@@ -245,6 +245,7 @@
                                 <th width="100">序号</th>
                                 <th>退回原因</th>
                                 <th>退回类型</th>
+                                <th>退回时间</th>
                                 <th>备注</th>
                                 <th>操作柜员</th>
                             </tr>
@@ -255,6 +256,7 @@
                                 <td><%= index+1 %></td>
                                 <td><%= element.causeName %></td>
                                 <td><%= element.reviewReasonTypeStr %></td>
+                                <td> <%= DWY_Helper.getLocalDate(element.createTime) %></td>
                                 <td><%= element.remark %></td>
                                 <td><%= element.gname %></td>
                             </tr>
