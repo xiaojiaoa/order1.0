@@ -239,6 +239,10 @@ var permissions = {
         removePackage:{
             id:"537031",
             name:"移动包装"
+        },
+        queryAll:{
+            id:"537044",
+            name:"查询所有包装"
         }
     },
     resupply:{

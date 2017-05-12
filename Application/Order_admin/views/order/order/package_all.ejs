@@ -46,6 +46,7 @@
                                     </div>
                                 </div>
 
+                                <% if (DWY_Helper.hasPermission(Permission.orderPackage.queryAll.id, permission)){ %>
                                 <div class="col-xs-3">
                                     <div class="form-group">
                                         <label class="col-xs-4 control-label">机构号:</label>
@@ -61,6 +62,7 @@
                                         </div>
                                     </div>
                                 </div>
+                                <% } %>
                                 <div class="col-xs-3">
                                     <div class="form-group">
                                         <label class="col-xs-4 control-label">包装状态:</label>
