@@ -57,22 +57,6 @@
                                         </div>
                                     </div>
                                 </div>
-                                <% if (DWY_Helper.hasPermission(Permission.material.queryAll.id, permission) ){ %>
-                                <div class="col-xs-3">
-                                    <label class="col-xs-4 control-label">机构:</label>
-                                    <div class="col-xs-8">
-                                        <select class="form-control validate[required]" name="bid">
-                                            <option value="">- 请选择 -</option>
-                                            <% if(DWY_Helper.isCanLoop(organizationsList)){
-                                            organizationsList.forEach(function (element, index) { %>
-                                            <option value="<%= element.id %>" <%= (bid == element.id)?'selected':''; %>><%= element.name %></option>
-                                            <% })
-                                            } %>
-                                        </select>
-                                    </div>
-
-                                </div>
-                                <% } %>
                             </div>
 
                             <% if(DWY_Helper.hasPermission(Permission.material.queryByRegionAll.id, permission) ||
