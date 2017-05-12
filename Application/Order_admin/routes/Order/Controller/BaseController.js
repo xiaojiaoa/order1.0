@@ -82,8 +82,7 @@ var BaseController = {
             returnInfo(500, '500', '网络错误');
             return;
         }
-
-        //错误信息放入session 结合入口文件使用
+        // 错误信息放入session 结合入口文件使用
         if (user_session) {
             user_session.DWY_message = {
                 type: 'error',
@@ -92,19 +91,18 @@ var BaseController = {
             };
         }
 
-        //如果有请求参数,参数放入到 DWY_last_request_param 结合入口文件使用
+        // 如果有请求参数,参数放入到 DWY_last_request_param 结合入口文件使用
         if (user_session) {
             user_session.DWY_last_request_param = _.isEmpty(req.body) ? _.isEmpty(req.query) ? "" : req.query  : req.body;
         }
-        // console.log('loginloginloginloginlogin',$res)
-        //根据错误代码做对应处理
+        // 根据错误代码做对应处理
         switch ($res.code.toString()) {
             case '1015':
             case '1016':
                 returnInfo(500, $res.code, $res.msg, '/login');
                 break;
             case '1018':
-                returnInfo(500, $res.code, $res.msg, '/');
+                returnInfo(500, $res.code, $res.msg, '/userCenter');
                 break;
             default:
                 returnInfo(500, $res.code, $res.msg);
@@ -152,25 +150,6 @@ var BaseController = {
 
                     BaseController.handlerError(res, req, error, response, body);
 
-                    //console.log('Error:');
-                    //console.log(response);
-                    //
-                    //if (!response) {
-                    //    res.status(500).send('没有收到服务器回复');
-                    //    return;
-                    //}
-                    //
-                    //var $res = JSON.parse(response.body);
-                    //switch ($res.code.toString()) {
-                    //    case '1015':
-                    //        res.redirect('/login');
-                    //        break;
-                    //    case '1016':
-                    //        res.redirect('/login');
-                    //        break;
-                    //    default:
-                    //        res.status(404).send($res);
-                    //}
                     return;
                 }
 
@@ -179,10 +158,9 @@ var BaseController = {
                 if (count != resultLength) {
 
                 } else {
-                    //console.log('CallResult:');
-                    //console.log(resultList);
 
-                    //回调处理
+
+                    // 回调处理
                     callBack(req, res, resultList);
                 }
             })

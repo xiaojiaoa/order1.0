@@ -44,18 +44,19 @@ router.use(function (req, res, next) {
 
 // 错误或者正确信息处理
 router.use(function (req, res, next) {
+
     if (req.session.DWY_message) {
         res.locals.DWY_message = req.session.DWY_message;
         req.session.DWY_message = '';
     } else {
         res.locals.DWY_message = '';
     }
+
     next();
 });
 
 // 取回上一次错误提交时的请求参数
 router.use(function (req, res, next) {
-    // console.log(req.session.DWY_last_request_param)
     if (req.session.DWY_last_request_param) {
         res.locals.DWY_last_request_param = req.session.DWY_last_request_param;
         req.session.DWY_last_request_param = '';
@@ -149,7 +150,6 @@ var Middleware = {
             // }
         },
         handler: function (req, res, next) {
-            console.log('submit????????')
             if(req.xhr){
                 res.status(500).send({code: 500, msg: '请勿重复提交数据'});
             }else{
