@@ -129,6 +129,8 @@ var data_time_picker = {
             }
         }
     },
+
+
     data_time_picker: {
         dateFormat: 'Y-m-d H:i:S',
         locale: "zh",
@@ -157,7 +159,31 @@ var data_time_picker = {
         locale: "zh",
         noCalendar: true,
         enableTime: true,
-    }
+    },
+    purchase_data_picker: {
+        dateFormat: 'Y-m-d',
+        locale: "zh",
+        minDate: "today",
+        onChange:function(selectedDates, dateStr, instance){
+
+            var $ele = $(instance.element);
+            if(dateStr != '' )
+            {
+                if($ele.next().length == 0){
+                    $ele.parent().append("<i class = 'close-picker fa fa-times'></i>");
+
+                    $ele.next().on("click",function(){
+                        instance.clear();
+                    })
+                }
+
+            }else{
+                $ele.next().remove();
+            }
+        }
+    },
+
+
 }
 
 var DWY_area = {
