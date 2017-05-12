@@ -76,6 +76,7 @@
 <script type="text/javascript">
     $(document).ready(function () {
         pageSetUp();
+        $("#creat-supplier").validationEngine();
         var parentEle = '.purApplyTr';
         var storageKey = 'LIST_DATA_PUR';
         var listArr = DWY_Utils.StorageUtils.getListArr(storageKey);
@@ -101,15 +102,15 @@
                     + '<td style="line-height:32px">' + listArr[i].class_name + '</td>'
                     + '<td style="line-height:32px" class="price'+i+' display-none" priceUnit="' + listArr[i].price + '">' + listArr[i].price + '</td>'
                     + '<td><select data-index="' + i + '" name="unit' + i + '" class="form-control unitSelect">'+options+'</select></td>'
-                    + '<td><input data-index="' + i + '" type="text" name="amount'+i+'" value="" class="form-control amountApply" /> </td>'
-                    + '<td><div class="col-xs-12"><input class="form-control fg-date-picker deliveryDate" type="text" value="" name="deliveryDate'+i+'" /></div> </td>'
-                    + '<td><input name="minAmount'+i+'" class="form-control minAmount" value="" /></td>'
+                    + '<td><input data-index="' + i + '" type="text" name="amount'+i+'" value="" class="form-control amountApply validate[required]" /> </td>'
+                    + '<td><div class="col-xs-12"><input class="form-control fg-date-picker deliveryDate validate[required]" type="text" value="" name="deliveryDate'+i+'" /></div> </td>'
+                    + '<td><input name="minAmount'+i+'" class="form-control minAmount validate[required]" value="" /></td>'
                     + '</tr>';
                 htmlStr += itemHtml;
                 // 判断是否是初始化 是的话保持下面列表状态同步
             }
             $(parentEle).html(htmlStr);
-            $(".fg-date-picker").flatpickr(data_time_picker.data_picker); // jQuery
+            $(".fg-date-picker").flatpickr(data_time_picker.purchase_data_picker); // jQuery
             $("#creat-supplier").validationEngine({scroll: false});
         }else{
             $(parentEle).html("");
@@ -133,72 +134,67 @@
         })
 
         $("#sub").click(function(){
-            if (isNaN(parseFloat($(".amountApply").val())) || parseFloat($(".amountApply").val()) <= 0) {
-                layer.alert('请输入有效数字！', {icon: 3});
-                return false;
-            }
-            if (isNaN(parseFloat($(".deliveryDate").val())) )  {
-                layer.alert('日期不能为空！', {icon: 3});
-                return false;
-            }
-            var num=$('.amountApply').val();
-            var minNum=$('.minAmount').val();
-            if(parseInt(num)<parseInt(minNum)){
-                layer.alert('采购数量不能低于最小数量！', {icon: 3});
-                return false;
-            }
-            var myArray=new Array()
-            for(var i=0;i<len;i++){
-                var a = new Object();
-                var mateId=$(".materialId"+i).text();
-                var suppId=$(".suppId"+i).text();
-                var mateName = $(".matName"+i).text();
-                var suppName = $(".suppName"+i).text();
-                var price=$(".price"+i).text();
-                var amount=$("input[name=amount"+i+"]").val();
-                var minAmount=$("input[name=minAmount"+i+"]").val();
-                var deliveryDate=$("input[name=deliveryDate"+i+"]").val();
-                var unit=$("select[name=unit"+i+"]").val();
-                a.mateId=mateId;
-                a.price=price;
-                a.amount = amount;
-                a.minAmount = minAmount;
-                a.deliveryDate = deliveryDate;
-                a.unit = unit;
-                a.suppId = suppId;
-                a.mateName = mateName;
-                a.suppName = suppName;
-                myArray.push(a);
-            }
-            var date={
-                reqMaterialList:myArray,
-                type:10
-            };
-            layer.confirm("确认提交？", {title:'提示'},function(index){
+            if($("#creat-supplier").validationEngine('validate')) {
+                var num = $('.amountApply').val();
+                var minNum = $('.minAmount').val();
+                if (parseInt(num) < parseInt(minNum)) {
+                    layer.alert('采购数量不能低于最小数量！', {icon: 3});
+                    return false;
+                }
+                var myArray = new Array()
+                for (var i = 0; i < len; i++) {
+                    var a = new Object();
+                    var mateId = $(".materialId" + i).text();
+                    var suppId = $(".suppId" + i).text();
+                    var mateName = $(".matName" + i).text();
+                    var suppName = $(".suppName" + i).text();
+                    var price = $(".price" + i).text();
+                    var amount = $("input[name=amount" + i + "]").val();
+                    var minAmount = $("input[name=minAmount" + i + "]").val();
+                    var deliveryDate = $("input[name=deliveryDate" + i + "]").val();
+                    var unit = $("select[name=unit" + i + "]").val();
+                    a.mateId = mateId;
+                    a.price = price;
+                    a.amount = amount;
+                    a.minAmount = minAmount;
+                    a.deliveryDate = deliveryDate;
+                    a.unit = unit;
+                    a.suppId = suppId;
+                    a.mateName = mateName;
+                    a.suppName = suppName;
+                    myArray.push(a);
+                }
+                var date = {
+                    reqMaterialList: myArray,
+                    type: 10
+                };
+                layer.confirm("确认提交？", {title: '提示'}, function (index) {
 //                    console.log(myArray);return false;
-                    $.ajax({
-                        url: '/purchase/materialCreate',
-                        data:JSON.stringify(date),
-                        method: 'post',
-                        dataType: 'json',
-                        contentType:"application/json",
-                        success: function (data) {
-                            location.href="/purchase";
-                            localStorage.clear();
-                        },
-                        error: function (response) {
-                            if(response.status==200){
-                                successLayout.hrefTo("/purchase/detail");
+                        $.ajax({
+                            url: '/purchase/materialCreate',
+                            data: JSON.stringify(date),
+                            method: 'post',
+                            dataType: 'json',
+                            contentType: "application/json",
+                            success: function (data) {
+                                location.href = "/purchase";
                                 localStorage.clear();
-                            }else {
-                                layer.close(index)
-                                errorLayout.normal(response);
+                            },
+                            error: function (response) {
+                                if (response.status == 200) {
+                                    successLayout.hrefTo("/purchase/detail");
+                                    localStorage.clear();
+                                } else {
+                                    layer.close(index)
+                                    errorLayout.normal(response);
+                                }
                             }
-                        }
-                    });
-                },function(index){
-                    layer.close(index)}
-            )
+                        });
+                    }, function (index) {
+                        layer.close(index)
+                    }
+                )
+            }
         })
 
         $(".unitSelect").on('change',function(){

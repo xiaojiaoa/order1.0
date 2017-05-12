@@ -1146,3 +1146,19 @@ table > tbody > tr > td a.label:first-child {
     text-overflow: ellipsis;
 }
 
+
+.table-role tr:hover{
+    background: #ecf3f8;
+}
+.table-role tr.active{
+    background: #cde5fb;
+}
+.table-role tr.level-1{
+    display: none;
+}
+.table-role tr.show-this{
+    display: table;
+}
+.table-role input[type=checkbox]{
+    top: 0;
+}
