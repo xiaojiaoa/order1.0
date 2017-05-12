@@ -85,13 +85,18 @@
                                                 </div>
                                                 <div class="col-xs-4">
                                                     <div class="form-group">
-                                                        <label class="col-xs-4 control-label "><span class="requird"></span>联系人姓名:
+                                                        <label class="col-xs-4 control-label "><span class="requird"></span>供应商类型:
                                                         </label>
                                                         <div class="col-xs-8">
-                                                            <input class="form-control validate[required]" value="" name="contact">
+                                                            <select class="form-control" name="type" id="">
+                                                                <option value="">-请选择-</option>
+                                                                <option value="1">外部</option>
+                                                                <option value="2">内部</option>
+                                                            </select>
                                                         </div>
                                                     </div>
                                                 </div>
+
                                             </div>
                                         </div>
                                     </div>
@@ -104,6 +109,15 @@
                                             <div class="col-xs-12">
                                                 <div class="col-xs-4">
                                                     <div class="form-group">
+                                                        <label class="col-xs-4 control-label "><span class="requird"></span>联系人姓名:
+                                                        </label>
+                                                        <div class="col-xs-8">
+                                                            <input class="form-control validate[required]" value="" name="contact">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-xs-4">
+                                                    <div class="form-group">
                                                         <label class="col-xs-4 control-label "><span class="requird"></span> 联系人电话:
                                                         </label>
                                                         <div class="col-xs-8">
@@ -111,19 +125,7 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class="col-xs-4">
-                                                    <div class="form-group">
-                                                        <label class="col-xs-4 control-label "><span class="requird"></span>供应商类型:
-                                                        </label>
-                                                        <div class="col-xs-8">
-                                                            <select class="form-control" name="type" id="">
-                                                                <option value="">-请选择-</option>
-                                                                <option value="1">外部</option>
-                                                                <option value="2">内部</option>
-                                                            </select>
-                                                        </div>
-                                                    </div>
-                                                </div>
+
                                             </div>
                                         </div>
                                     </div>
@@ -224,7 +226,7 @@
                                             <div class="col-xs-12">
                                                 <div class="col-xs-4">
                                                     <div class="form-group">
-                                                        <label class="col-xs-4 control-label "><span class="requird"></span>开户卡号:
+                                                        <label class="col-xs-4 control-label "><span class="requird"></span>银行账号:
                                                         </label>
                                                         <div class="col-xs-8">
                                                             <input class="form-control validate[required] validate[custom[integer]] validate[min[16]]" value="" name="depositNo">
@@ -233,7 +235,7 @@
                                                 </div>
                                                 <div class="col-xs-4">
                                                     <div class="form-group">
-                                                        <label class="col-xs-4 control-label "><span class="requird"></span>开户行及银行:
+                                                        <label class="col-xs-4 control-label "><span class="requird"></span>开户银行:
                                                         </label>
                                                         <div class="col-xs-8">
                                                             <input class="form-control validate[required]" value="" name="depositBank">
@@ -244,10 +246,10 @@
                                             <div class="col-xs-12">
                                                 <div class="col-xs-8">
                                                     <div class="form-group">
-                                                        <label class="col-xs-2 control-label "><span class="requird"></span>开票信息:
+                                                        <label class="col-xs-2 control-label ">开票信息:
                                                         </label>
                                                         <div class="col-xs-10">
-                                                            <input class="form-control validate[required]" value="" name="invoiceInfo">
+                                                            <input class="form-control" value="" name="invoiceInfo">
                                                         </div>
                                                     </div>
                                                 </div>
