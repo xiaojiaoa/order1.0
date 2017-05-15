@@ -150,6 +150,7 @@
                                     <% if (DWY_Helper.hasPermission(Permission.orderPackage.create.id, permission ) ){ %>
                                     <% if(element.stcode==0){%>
                                     <a class="label label-primary crePackage" batchNumber="<%= element.batchNumber %>" factoryId="<%= element.factoryId %>">生成包装</a>
+                                    <a class="label label-primary import" batchNumber="<%= element.batchNumber %>" factoryId="<%= element.factoryId %>">上传文件</a>
                                     <%}%>
                                     <% if(element.stcode==1){%>
                                     <a class="label label-danger undoPackingBtn" batchNumber="<%= element.batchNumber %>" factoryId="<%= element.factoryId %>">撤销包装</a>
@@ -173,6 +174,45 @@
 </div>
 <!-- END MAIN PANEL -->
 
+<form class="form-horizontal layer-template" method="post" action="/file/batchNumber/doCreate" id="file-order">
+    <div class="col-xs-12" style="padding-top: 20px">
+
+        <div class="col-xs-8">
+            <div class="form-group">
+                <label class="col-xs-3 control-label"><span class="requird"></span> 文件地址:</label>
+                <div class="col-xs-9">
+                    <input class="form-control validate[required]" readonly value="" name="savePath">
+                </div>
+            </div>
+        </div>
+
+        <div class="col-xs-4">
+            <div class="col-xs-12 text-left">
+                <label for="dwy_file_upload" class="btn btn-primary" id="label-upload-file">
+                    添加文件 <i class="fa fa-upload"></i> </label>
+                <input type="file" name="file_name" id="dwy_file_upload" style="display: none;">
+            </div>
+        </div>
+
+        <input type="hidden" name="fileName" value="">
+        <input type="hidden" name="fileExt" value="">
+        <input type="hidden" name="batchNumber" value="">
+        <input type="hidden" name="factoryId" value="">
+
+    </div>
+
+
+    <div class="col-xs-8">
+        <hr class="simple">
+        <div class="col-xs-12 text-center">
+            <button class="btn btn-primary " type="submit">
+                <i class="fa fa-upload"></i>
+                确认上传
+            </button>
+        </div>
+    </div>
+    <div class="dwy-clear"></div>
+</form>
 
 <%- include('../layouts/footer'); %>
 <%- include('../layouts/footer_common_script'); %>
@@ -183,6 +223,7 @@
 
         pageSetUp();
         $("#search-customer").validationEngine();
+        $("#file-order").validationEngine({scroll: false});
 
         $(".crePackage").on({
             click: function (e) {
@@ -236,6 +277,60 @@
 
             }
         });
+
+        $('.import').on({
+            click: function (e) {
+                layer.open({
+                    title: false,
+                    type: 1,
+                    area: '700px',
+                    content: $('#file-order'),
+                    cancel: function () {},
+                });
+                var  batchNumber = $(this).attr("batchNumber");
+                var  factoryId = $(this).attr("factoryId");
+                $('[name=batchNumber]').val(batchNumber);
+                $('[name=factoryId]').val(factoryId);
+            }
+        });
+        $('#dwy_file_upload').on({
+            change: function (e) {
+                var _this = $(this);
+                var label = $("#label-upload-file");
+                var formData = new FormData();
+
+                formData.append('file_name', _this.prop('files')[0])
+
+                label.html('上传中 <i class="fa fa-circle-o-notch fa-spin">');
+                label.attr('disabled', true);
+
+                $.ajax({
+                    url: '/template/upload/single/temporary',
+                    data: formData,
+                    type: 'POST',
+                    // THIS MUST BE DONE FOR FILE UPLOADING
+                    processData: false, // 不处理发送的数据，因为data值是Formdata对象，不需要对数据做处理
+                    contentType: false, // 不设置Content-type请求头
+                    // ... Other options like success and et
+                    success: function (data) {
+                        label.attr('disabled', false);
+                        if (data.code == 200) {
+                            var fileName = $('[name=fileName]').val(data.data.name);
+                            var savePath = $('[name=savePath]').val(data.data.url);
+                            var fileExt = $('[name=fileExt]').val(data.data.ext);
+                            label.html('上传成功 <i class="fa fa-check">');
+
+                        } else {
+                            label.html('上传失败 <i class="fa fa-times">');
+                        }
+                    },
+                    error: function () {
+                        label.attr('disabled', false);
+                        label.html('上传失败 <i class="fa fa-times">');
+                    }
+                })
+            }
+        })
     })
 
 </script>

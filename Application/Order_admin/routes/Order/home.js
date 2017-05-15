@@ -1052,6 +1052,9 @@ router.post('/file/doCreate', Middleware.AuthCheck, FileController.doCreate);
 // 新增订单文件上传
 router.post('/file/order/doCreate', Middleware.AuthCheck, FileController.doCreateOrderFile);
 
+// 批次号文件上传
+router.post('/file/batchNumber/doCreate', Middleware.AuthCheck, FileController.doCreateBatchNumberFile);
+
 // 删除上传文件
 router.delete('/file/doDelete/:id', Middleware.AuthCheck, FileController.doDelete);
 

@@ -145,6 +145,20 @@ var FileController = {
             }
         })
     },
+    doCreateBatchNumberFile: function (req, res) {
+        request(Base.mergeRequestOptions({
+            method: 'post',
+            url: '/api/orders/batchNumber/measfile',
+            form:req.body,
+        }, req, res), function (error, response, body) {
+            if (!error && response.statusCode == 201) {
+                Base.handlerSuccess(res, req);
+                res.redirect("/orders/batchNumber");
+            } else {
+                Base.handlerError(res, req, error, response, body);
+            }
+        })
+    },
     doDelete: function (req, res) {
         var id = req.params.id;
         request(Base.mergeRequestOptions({
