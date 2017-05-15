@@ -1369,5 +1369,6 @@ router.get('/app/stock/permission', AppServiceController.permission);
 // 获取包的类型
 router.get('/app/packagetype', AppServiceController.packagetype);
 
+router.get('/app/package/page', AppServiceController.packagePage);
 
 module.exports = router;
