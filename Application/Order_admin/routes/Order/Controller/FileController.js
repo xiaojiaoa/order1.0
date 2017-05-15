@@ -146,6 +146,7 @@ var FileController = {
         })
     },
     doCreateBatchNumberFile: function (req, res) {
+        console.log('doCreateBatchNumberFile',JSON.stringify(req.body))
         request(Base.mergeRequestOptions({
             method: 'post',
             url: '/api/orders/batchNumber/measfile',

@@ -224,11 +224,12 @@
         pageSetUp();
         $("#search-customer").validationEngine();
         $("#file-order").validationEngine({scroll: false});
-
+        var  batchNumber;
+        var  factoryId;
         $(".crePackage").on({
             click: function (e) {
-                var  batchNumber = $(this).attr("batchNumber");
-                var  factoryId = $(this).attr("factoryId");
+                batchNumber = $(this).attr("batchNumber");
+                factoryId = $(this).attr("factoryId");
                 layer.confirm('确定生成包装吗？',{icon: 3, title:'提示'},
                     function(index){
                         $.ajax({
@@ -253,8 +254,8 @@
         });
         $(".undoPackingBtn").on({
             click: function (e) {
-                var  batchNumber = $(this).attr("batchNumber");
-                var  factoryId = $(this).attr("factoryId");
+                batchNumber = $(this).attr("batchNumber");
+                factoryId = $(this).attr("factoryId");
                 layer.confirm('确定撤销包装吗？',{icon: 3, title:'提示'},
                     function(index){
                         $.ajax({
@@ -287,8 +288,8 @@
                     content: $('#file-order'),
                     cancel: function () {},
                 });
-                var  batchNumber = $(this).attr("batchNumber");
-                var  factoryId = $(this).attr("factoryId");
+                batchNumber = $(this).attr("batchNumber");
+                factoryId = $(this).attr("factoryId");
                 $('[name=batchNumber]').val(batchNumber);
                 $('[name=factoryId]').val(factoryId);
             }
@@ -300,12 +301,12 @@
                 var formData = new FormData();
 
                 formData.append('file_name', _this.prop('files')[0])
-
+                formData.append('lid', batchNumber)
                 label.html('上传中 <i class="fa fa-circle-o-notch fa-spin">');
                 label.attr('disabled', true);
 
                 $.ajax({
-                    url: '/template/upload/single/temporary',
+                    url: '/template/upload/single/order',
                     data: formData,
                     type: 'POST',
                     // THIS MUST BE DONE FOR FILE UPLOADING
