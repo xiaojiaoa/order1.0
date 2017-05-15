@@ -1116,6 +1116,9 @@ table > tbody > tr > td a.label:first-child {
     border: 1px solid #ddd;
     padding: 8px 10px;
 }
+.fix-print{
+    position: fixed;
+}
 
 @media print {
     table {  width: 100%;

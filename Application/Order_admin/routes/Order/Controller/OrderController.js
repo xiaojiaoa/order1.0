@@ -1379,6 +1379,19 @@ var OrderController = {
             }
         })
     },
+    doScheduleBatchNumber:function(req,res){
+        request(Base.mergeRequestOptions({
+            method: 'post',
+            url: '/api/orders/schedule/batchNumber/pass',
+            form: req.body
+        }, req, res), function (error, response, body) {
+            if (!error && response.statusCode == 201) {
+                res.sendStatus(200);
+            } else {
+                Base.handlerError(res, req, error, response, body);
+            }
+        })
+    },
 };
 
 module.exports = OrderController;

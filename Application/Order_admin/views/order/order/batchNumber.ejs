@@ -154,6 +154,7 @@
                                     <%}%>
                                     <% if(element.stcode==1){%>
                                     <a class="label label-danger undoPackingBtn" batchNumber="<%= element.batchNumber %>" factoryId="<%= element.factoryId %>">撤销包装</a>
+                                    <a class="label label-primary schedule" batchNumber="<%= element.batchNumber %>" factoryId="<%= element.factoryId %>">确认排料</a>
                                     <%}%>
                                     <%}%>
                                 </td>
@@ -230,52 +231,21 @@
             click: function (e) {
                 batchNumber = $(this).attr("batchNumber");
                 factoryId = $(this).attr("factoryId");
-                layer.confirm('确定生成包装吗？',{icon: 3, title:'提示'},
-                    function(index){
-                        $.ajax({
-                            url: '/orders/batchNumber/package/packet',
-                            method: 'post',
-                            data:{
-                                batchNumber:batchNumber,
-                                factoryId:factoryId
-                            },
-                            success: function (data) {
-                                successLayout.reload();
-                            },
-                            error: function (response) {
-                                layer.close(index)
-                                errorLayout.normal(response);
-                            }
-                        });
-                    },
-                    function(index){layer.close(index)});
-
+                doAjax('确定生成包装吗？','/orders/batchNumber/package/packet')
             }
         });
         $(".undoPackingBtn").on({
             click: function (e) {
                 batchNumber = $(this).attr("batchNumber");
                 factoryId = $(this).attr("factoryId");
-                layer.confirm('确定撤销包装吗？',{icon: 3, title:'提示'},
-                    function(index){
-                        $.ajax({
-                            url: '/orders/batchNumber/unpacket/packet',
-                            method: 'post',
-                            data:{
-                                batchNumber:batchNumber,
-                                factoryId:factoryId
-                            },
-                            success: function (data) {
-                                successLayout.reload();
-                            },
-                            error: function (response) {
-                                layer.close(index)
-                                errorLayout.normal(response);
-                            }
-                        });
-                    },
-                    function(index){layer.close(index)});
-
+                doAjax('确定撤销包装吗？','/orders/batchNumber/unpacket/packet')
+            }
+        });
+        $(".schedule").on({
+            click: function (e) {
+                batchNumber = $(this).attr("batchNumber");
+                factoryId = $(this).attr("factoryId");
+                doAjax('确定排料吗？','/orders/batchNumber/schedule')
             }
         });
 
@@ -332,6 +302,28 @@
                 })
             }
         })
+
+        var doAjax = function (text,url) {
+            layer.confirm(text,{icon: 3, title:'提示'},
+                function(index){
+                    $.ajax({
+                        url: url,
+                        method: 'post',
+                        data:{
+                            batchNumber:batchNumber,
+                            factoryId:factoryId
+                        },
+                        success: function (data) {
+                            successLayout.reload();
+                        },
+                        error: function (response) {
+                            layer.close(index)
+                            errorLayout.normal(response);
+                        }
+                    });
+                },
+                function(index){layer.close(index)});
+        }
     })
 
 </script>

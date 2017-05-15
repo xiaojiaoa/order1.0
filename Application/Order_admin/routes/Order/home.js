@@ -422,6 +422,7 @@ router.get('/orders/batchNumber/detail/:batchNumber/:factoryId', Middleware.Auth
 router.post('/orders/batchNumber/package/packet', Middleware.apiLimiter,Middleware.AuthCheck,OrderController.doPacketBatchNumber);
 // 撤销包装操作
 router.post('/orders/batchNumber/unpacket/packet', Middleware.apiLimiter,Middleware.AuthCheck,OrderController.doUnpacketBatchNumber);
+router.post('/orders/batchNumber/schedule', Middleware.apiLimiter,Middleware.AuthCheck,OrderController.doScheduleBatchNumber);
 /*
  * 页面范围: 拆单
  * 控制器:   TearController

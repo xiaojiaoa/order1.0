@@ -1,6 +1,7 @@
 .printBody{
     padding:20px;
     margin-bottom: 0;
+    page-break-before: always;
 }
 .printBody table {
     width: 100%;
@@ -10,4 +11,7 @@
     border: 1px solid #ddd;
     padding: 8px 10px;
     margin: 0;
+}
+.pri-a4{
+
 }
