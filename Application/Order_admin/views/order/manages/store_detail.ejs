@@ -47,16 +47,18 @@
                             <tr>
                                 <td width="12%">门店编号</td>
                                 <td width="21%"><%= storeInfo.bid %></td>
-                                <td width="12%">店长姓名</td>
-                                <td width="21%"><%= storeInfo.storeGid %></td>
-                                <td width="12%">店长电话</td>
-                                <td><%= storeInfo.mobile %></td>
+                                <td width="12%">门店名称</td>
+                                <td width="21%"><%= storeInfo.storeName %></td>
+                                <td width="12%">新建日期</td>
+                                <td><%= DWY_Helper.getLocalDate(storeInfo.addTime) %></td>
                             </tr>
                             <tr>
-                                <td>新建日期</td>
-                                <td><%= DWY_Helper.getLocalDate(storeInfo.addTime) %></td>
+                                <td>店长姓名</td>
+                                <td><%= storeInfo.storeGid %></td>
+                                <td>店长电话</td>
+                                <td><%= storeInfo.mobile %></td>
                                 <td>门店类型</td>
-                                <td colspan="3"><%= DWY_Helper.getAssistVal(storeInfo.addrType, addrTypesList) %></td>
+                                <td><%= DWY_Helper.getAssistVal(storeInfo.addrType, addrTypesList) %></td>
                             </tr>
                             <tr>
                                 <td>经营类型</td>
@@ -66,11 +68,14 @@
                                 <td>门店最低保证金</td>
                                 <td><%= storeInfo.minFunds %> 元</td>
                             </tr>
+
                             <tr>
-                                <td>门店名称</td>
-                                <td><%= storeInfo.storeName %></td>
+                                <td>预约电话</td>
+                                <td><%= storeInfo.businessMobile %></td>
+                                <td>营业时间</td>
+                                <td><%= storeInfo.businessHours %></td>
                                 <td>大区类型</td>
-                                <td colspan="3"><%= storeInfo.regionTypeName %></td>
+                                <td><%= storeInfo.regionTypeName %></td>
                             </tr>
                             <tr>
                                 <td>门店地址</td>
