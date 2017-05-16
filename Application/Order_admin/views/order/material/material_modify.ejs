@@ -84,6 +84,14 @@
                                     </div>
                                     <%})%>
                                 </div>
+                                <%
+                                var attrName=[];
+                                mateInfo.attrs.forEach(function(element,index){
+                                if(element.attrName=="长度" || element.attrName=='宽度'){%>
+                                <% attrName.push(1);%>
+                                <%}})%>
+
+                                <input type="hidden" name="flag" value="<%= (attrName.length==2)?1:"";%>">
                             </div>
 
 
