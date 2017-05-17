@@ -331,6 +331,8 @@
             //获取key值
             var key=$("input[name=key]").val();
             //设置data
+
+
             var data={};
             classDom.find("input").each(function(){
                 if(!$(this).attr("readonly")){
@@ -339,8 +341,6 @@
             });
             if(listNum!='') {
                 var id = classDom.find("tr").eq(listNum).attr("id");
-                console.log('bb删除', listNum);
-                console.log('aa删除', classDom.find("tr").eq(listNum));
                 data.id = id;
             }
             if(key=="assistantConfig"){
@@ -353,9 +353,9 @@
             delete data.undefined;
 
             var spaceId=classDom.find("input[name=spaceId]").val();
-               if(spaceId==""){
+               if(spaceId=="" && key=='assistantOrderSpaceinfo'){
                 data.key="assistantSpaceProd";
-                data.spaceId=$(".level-2").find("tr").eq(listNum).attr("id");
+                data.spaceId=$(".level-3").find("input[name=parentId]").val();
                }
 
 
@@ -407,8 +407,6 @@
             });
             if(listNum!='') {
                 var id = classDom.find("tr").eq(listNum).attr("id");
-                console.log('bb启用', listNum);
-                console.log('aa启用', classDom.find("tr").eq(listNum));
                 data.id = id;
             }
             if(key=="assistantConfig"){
@@ -420,9 +418,9 @@
 
 
             var spaceId=classDom.find("input[name=spaceId]").val();
-            if(spaceId==""){
+            if(spaceId==""&& key=='assistantOrderSpaceinfo'){
                 data.key="assistantSpaceProd";
-                data.spaceId=$(".level-2").find("tr").eq(listNum).attr("id");
+                data.spaceId=$(".level-3").find("input[name=parentId]").val();
             }
 
 

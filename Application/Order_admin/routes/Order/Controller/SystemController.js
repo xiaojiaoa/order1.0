@@ -16,6 +16,9 @@ var request = require('request');
 //引入权限
 var Permissions = require('../config/permission');
 
+ // var ejs=require('../config/ejs.min');
+//node_modules/ejs/lib/ejs
+// var ejs=require("../../../../../node_modules/ejs/ejs");
 
 var SystemController = {
     indexPage: function (req, res) {
@@ -77,7 +80,7 @@ var SystemController = {
         })
     },
     doModify: function (req, res) {
-        //console.log("修改",req.body);
+        console.log("修改",req.body);
         request(Base.mergeRequestOptions({
             method: 'put',
             url: '/api/assist/update'+"?"+queryString.stringify(req.body)
@@ -92,13 +95,19 @@ var SystemController = {
     },
     resupplyReasonPage: function (req, res) {
         var parentId = req.params.parentId;
+        //引入模板文件的路径
+        var path = req.app.get('views')+'/order/system/basicDataOne.ejs';
+        var template = require(path);
+
         request(Base.mergeRequestOptions({
             method: 'GET',
             url: '/api/assist/resupplyReason/subclass?parentId='+parentId,
         }, req, res), function (error, response, body) {
             if (!error && response.statusCode == 200) {
-                // Base.handlerSuccess(res, req);
-                res.status(200).json(body)
+                // 编译模板
+                var data = JSON.parse(body);
+                var basicDataOne = template({result:data});
+                res.send(basicDataOne);
             } else {
                 Base.handlerError(res, req, error, response, body);
             }
@@ -106,27 +115,42 @@ var SystemController = {
     },
     orderSpaceinfoPage: function (req, res) {
         var parentId = req.params.parentId;
+
+        //引入模板文件的路径
+        var path = req.app.get('views')+'/order/system/basicDataOne.ejs';
+        var template = require(path);
+
         request(Base.mergeRequestOptions({
             method: 'GET',
             url: '/api/assist/orderSpaceinfo/subclass?parentId='+parentId,
         }, req, res), function (error, response, body) {
             if (!error && response.statusCode == 200) {
-                // Base.handlerSuccess(res, req);
-                res.status(200).json(body)
+                // 编译模板
+                var data = JSON.parse(body);
+                var basicDataOne = template({result:data});
+                res.send(basicDataOne);
             } else {
                 Base.handlerError(res, req, error, response, body);
             }
         })
+
+
+
     },
     orderSpaceinfoTwoPage: function (req, res) {
         var spaceId = req.params.spaceId;
+        //引入模板文件的路径
+        var path = req.app.get('views')+'/order/system/basicDataOne.ejs';
+        var template = require(path);
         request(Base.mergeRequestOptions({
             method: 'GET',
             url: '/api/assist/space/prod?spaceId='+spaceId,
         }, req, res), function (error, response, body) {
             if (!error && response.statusCode == 200) {
-                // Base.handlerSuccess(res, req);
-                res.status(200).json(body)
+                // 编译模板
+                var data = JSON.parse(body);
+                var basicDataOne = template({result:data});
+                res.send(basicDataOne);
             } else {
                 Base.handlerError(res, req, error, response, body);
             }
@@ -147,12 +171,18 @@ var SystemController = {
     },
     assistantMaterialUnitPage: function (req, res) {
         var parentId = req.params.parentId;
+        //引入模板文件的路径
+        var path = req.app.get('views')+'/order/system/basicDataTwo.ejs';
+        var template = require(path);
         request(Base.mergeRequestOptions({
             method: 'GET',
             url: '/api/assist/material/units/'+parentId,
         }, req, res), function (error, response, body) {
             if (!error && response.statusCode == 200) {
-                res.status(200).json(body)
+                // 编译模板
+                var data = JSON.parse(body);
+                var basicDataTwo = template({result:data});
+                res.send(basicDataTwo);
             } else {
                 Base.handlerError(res, req, error, response, body);
             }

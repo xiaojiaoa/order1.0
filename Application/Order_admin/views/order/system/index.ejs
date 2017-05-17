@@ -414,10 +414,6 @@
         $.ajax({
             url: '/system/'+key,
             method: 'put',
-          /*  async: true, //异步请求
-            beforeSend: function(){
-                $(".basicDataSec").html('数据崩溃了，请刷新页面');
-            },*/
             success: function (data) {
                 //console.log('后台返回回来的data',data);
                 //console.log('data类型',typeof data);
@@ -559,25 +555,9 @@
         $.ajax({
             url: '/resupplyReason/'+parentId,
             method: 'put',
-           /* async: true, //异步请求
-            beforeSend: function(){
-                $(".basicDataThree").html('数据崩溃了，请刷新页面');
-            },*/
             success: function (data) {
-                var arry= JSON.parse(data);
-                console.log('补单原因类别2',arry);
-                if(arry.length==0){
-                    $(".basicDataThree").html('<tr class="noData"><td>暂无数据，请选择新建</td></tr>');
-                }else{
-                    var frag = "";
-                    for (var i = 0; i < arry.length; i++) {
-                        frag += "<tr id=" + arry[i].id + " stcode=" + arry[i].stcode + "  parentId=" + arry[i].parentId + ">" +
-                            "<td><input class='border-0 text-align-center' type='text' value=" + arry[i].name + " name='name' readonly/></td>" +
-                            "</tr>"
-                    }
-                    $(".basicDataThree").html(frag);
-                }
-
+                console.log('补单原因类别2',data);
+                $(".basicDataThree").html(data);
 
                 //给禁用项目设置样式
                 $(".basicDataThree").find("tr").each(function(){
@@ -597,27 +577,9 @@
         $.ajax({
             url: '/resupplyReason/'+parentId,
             method: 'put',
-        /*    async: true, //异步请求
-            beforeSend: function(){
-                $(".basicDataFour").html('数据崩溃了，请刷新页面');
-            },*/
             success: function (data) {
-                var arry= JSON.parse(data);
-                console.log('补单原因类别3',arry);
-
-                if(arry.length==0){
-                    $(".basicDataFour").html('<tr class="noData"><td>暂无数据，请选择新建</td></tr>');
-                }else{
-                    var frag = "";
-                    for (var i = 0; i < arry.length; i++) {
-                        frag += "<tr id=" + arry[i].id + " stcode=" + arry[i].stcode + "  parentId=" + arry[i].parentId + ">" +
-                            "<td><input class='border-0 text-align-center' type='text' value=" + arry[i].name + " name='name' readonly/></td>" +
-                            "</tr>"
-                    }
-                    $(".basicDataFour").html(frag);
-                }
-
-
+                console.log('补单原因类别3',data);
+                $(".basicDataFour").html(data);
                 //给禁用项目设置样式
                 $(".basicDataFour").find("tr").each(function(){
                     if($(this).attr("stcode")=='0'){
@@ -636,25 +598,9 @@
         $.ajax({
             url: '/orderSpaceinfo/'+parentId,
             method: 'put',
-         /*   async: true, //异步请求
-            beforeSend: function(){
-                $(".basicDataThree").html('数据崩溃了，请刷新页面');
-            },*/
             success: function (data) {
-                var arry= JSON.parse(data);
-                console.log('空间信息类别2',arry);
-
-                if(arry.length==0){
-                    $(".basicDataThree").html('<tr class="noData"><td>暂无数据，请选择新建</td></tr>');
-                }else{
-                    var frag = "";
-                    for (var i = 0; i < arry.length; i++) {
-                        frag += "<tr id=" + arry[i].id + " stcode=" + arry[i].stcode + " parentId=" + arry[i].parentId + ">" +
-                            "<td><input class='border-0 text-align-center' type='text' value=" + arry[i].name + " name='name' readonly/></td>" +
-                            "</tr>"
-                    }
-                    $(".basicDataThree").html(frag);
-                }
+                console.log('空间信息类别2',data);
+                $(".basicDataThree").html(data);
 
 
                 //给禁用项目设置样式
@@ -675,26 +621,9 @@
         $.ajax({
             url: '/orderSpaceinfoTwo/'+parentId,
             method: 'put',
-         /*   async: true, //异步请求
-            beforeSend: function(){
-                $(".basicDataFour").html('数据崩溃了，请刷新页面');
-            },*/
             success: function (data) {
-                var arry= JSON.parse(data);
-                console.log('空间信息类别3',arry);
-
-                if(arry.length==0){
-                    $(".basicDataFour").html('<tr class="noData"><td>暂无数据，请选择新建</td></tr>');
-                }else{
-                    var frag = "";
-                    for (var i = 0; i < arry.length; i++) {
-                        frag += "<tr id=" + arry[i].id + " stcode=" + arry[i].stcode + "  parentId=" + arry[i].parentId + ">" +
-                            "<td><input class='border-0 text-align-center' type='text' value=" + arry[i].name + " name='name' readonly/></td>" +
-                            "</tr>"
-                    }
-                    $(".basicDataFour").html(frag);
-                }
-
+                console.log('空间信息类别3',data);
+                $(".basicDataFour").html(data);
 
                 //给禁用项目设置样式
                 $(".basicDataFour").find("tr").each(function(){
@@ -714,27 +643,9 @@
         $.ajax({
             url: '/assistantMaterialUnitTwo/'+parentId,
             method: 'put',
-          /*  async: true, //异步请求
-            beforeSend: function(){
-                $(".basicDataThree").html('数据崩溃了，请刷新页面');
-            },*/
             success: function (data) {
-                var arry= JSON.parse(data);
-                console.log('物料单位2',arry);
-
-                if(arry.length==0){
-                    $(".basicDataThree").html('<tr class="noData"><td>暂无数据，请选择新建</td></tr>');
-                }else{
-                    var frag = "";
-                    for (var i = 0; i < arry.length; i++) {
-                        frag += "<tr id=" + arry[i].id + " stcode=" + arry[i].stcode + " >" +
-                            "<td><input class='border-0 text-align-center' type='text' value=" + arry[i].name + " name='name' readonly/></td>" +
-                            "<td><input class='border-0 text-align-center' type='text' value=" + arry[i].amount + " name='amount' readonly/></td>" +
-                            "</tr>"
-                    }
-                    $(".basicDataThree").html(frag);
-                }
-
+                console.log('物料单位2',data);
+                $(".basicDataThree").html(data);
 
                 //给禁用项目设置样式
                 $(".basicDataThree").find("tr").each(function(){
