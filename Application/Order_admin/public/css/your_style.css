@@ -1118,6 +1118,12 @@ table > tbody > tr > td a.label:first-child {
 }
 .fix-print{
     position: fixed;
+    top: 150px;
+    width: 300px;
+    border: 1px #3b9ff3 solid;
+    padding: 15px;
+    right: 150px;
+    background: #fff;
 }
 
 @media print {
