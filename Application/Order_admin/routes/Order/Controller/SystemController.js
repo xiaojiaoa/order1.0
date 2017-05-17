@@ -144,11 +144,13 @@ var SystemController = {
         var template = require(path);
         request(Base.mergeRequestOptions({
             method: 'GET',
-            url: '/api/assist/space/prod?spaceId='+spaceId,
+            //url: '/api/assist/space/prod?spaceId='+spaceId,
+            url:'/api/assist/space/allprod?spaceId='+spaceId
         }, req, res), function (error, response, body) {
             if (!error && response.statusCode == 200) {
                 // 编译模板
                 var data = JSON.parse(body);
+                console.log('data是啥',data)
                 var basicDataOne = template({result:data});
                 res.send(basicDataOne);
             } else {
