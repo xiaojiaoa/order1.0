@@ -69,6 +69,7 @@ var OrderController = {
                 {url: '/api/assist/review/apartReviewReason', method: 'GET', resConfig: {keyName: 'apartReviewReason', is_must: true}},
                 {url: '/api/assist/review/scheduleReason', method: 'GET', resConfig: {keyName: 'scheduleReason', is_must: true}},
                 {url: '/api/assist/deco/color', method: 'GET', resConfig: {keyName: 'colorList', is_must: true}},
+                {url: '/api/assist/order/orderType', method: 'GET', resConfig: {keyName: 'typeList', is_must: true}}
             ],
             function (req, res, resultList) {
 

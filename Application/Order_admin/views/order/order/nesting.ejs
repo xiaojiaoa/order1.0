@@ -39,6 +39,7 @@
                                 <th>包装</th>
                                 <th>下单完毕</th>
                                 <th>产品类型</th>
+                                <th>类型</th>
                                 <th>订单类型</th>
                                 <th>主材颜色</th>
                                 <th>订单号</th>
@@ -71,6 +72,7 @@
                                 <td><%= element.orderFinishStr %></td>
                                 <td><%= element.productTypeStr %></td>
                                 <td><%= element.orderTypeStr %></td>
+                                <td><%= element.typeStr %></td>
                                 <td><%= element.colorStr %></td>
                                 <td><a  <%=  element.orderType ==20  ?  "href=/order/resupply/detail/"+ element.tid :  "href=/order/detail/"+element.tid  %>  ><%= element.tid %></a></td>
                                 <%
@@ -228,6 +230,7 @@
                                 <th>收款</th>
                                 <th>下单完毕</th>
                                 <th>产品类型</th>
+                                <th>类型</th>
                                 <th>订单类型</th>
                                 <th>主材颜色</th>
                                 <th>订单号</th>
@@ -266,6 +269,7 @@
                                 <td><%= element.orderFinishStr %></td>
                                 <td><%= element.productTypeStr %></td>
                                 <td><%= element.orderTypeStr %></td>
+                                <td><%= element.typeStr %></td>
                                 <td><%= element.colorStr %></td>
                                 <td><a  <%=  element.orderType ==20  ?  "href=/order/resupply/detail/"+ element.tid :  "href=/order/detail/"+element.tid  %>  ><%= element.tid %></a></td>
                                 <%

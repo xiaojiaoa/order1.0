@@ -160,11 +160,28 @@
         </div>
         <div class="col-xs-6">
             <div class="form-group">
-                <label class="col-xs-12 control-label text-align-left">设计文件请到附件管理中上传</label>
+                <label class="col-xs-4 control-label"><span class="requird"></span> 订单类型:</label>
+                <div class="col-xs-8">
+                    <select class="form-control validate[required]" name="decoColorId">
+                        <% typeList.forEach(function (element) {  %>
+                        <option value="<%= element.id %>" <%= (orderInfo.type == element.id)?"selected":"" %>>
+                            <%= element.name %>
+                        </option>
+                        <% }) %>
+                    </select>
+                </div>
             </div>
         </div>
     </div>
 
+    <div class="col-xs-12">
+        <div class="col-xs-6">
+            <div class="form-group">
+                <label class="col-xs-6 control-label">设计文件请到附件管理中上传</label>
+            </div>
+            <div class="col-xs-8"></div>
+        </div>
+    </div>
 
     <div class="col-xs-12">
 
