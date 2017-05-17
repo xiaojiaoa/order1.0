@@ -100,6 +100,7 @@
                                 <th>产品信息</th>
                                 <th>客户姓名</th>
                                 <th>包装状态</th>
+                                <th>操作</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -113,6 +114,11 @@
                                 <td><%= element.prodName %></td>
                                 <td><%= element.custName %></td>
                                 <td><%= element.packageStr %></td>
+                                <td>
+                                    <% if(element.packeted  == 1){ %>
+                                    <a class="label label-primary" href="/orders/package/<%= element.tid %>">包装信息</a>
+                                    <%  } %>
+                                </td>
                             </tr>
                             <%  })
                             }else{ %>
