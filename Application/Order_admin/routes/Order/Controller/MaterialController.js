@@ -193,7 +193,7 @@ var MaterialController = {
              {url: '/api/assist/package/types', method: 'GET', resConfig: {keyName: 'getPackageTypes', is_must: true}},
          ], function (req, res, resultList) {
 
-             // console.log('resultList.unitsInfo', resultList.unitsInfo);
+             // console.log('resultList.materialInfo', resultList.materialInfo);
              var unitsInfo = {};
              resultList.unitsInfo.forEach(function(element,index){
                  if(element.parentId == 0){
@@ -241,7 +241,7 @@ var MaterialController = {
             {url: '/api/assist/package/types', method: 'GET', resConfig: {keyName: 'getPackageTypes', is_must: true}},
         ], function (req, res, resultList) {
 
-            // console.log('resultList.unitsInfo', resultList.unitsInfo);
+             //console.log('resultList.mateInfo', resultList.mateInfo);
             // console.log('mateInfo',resultList.mateInfo);
             var unitsInfo = {};
             resultList.unitsInfo.forEach(function(element,index){
