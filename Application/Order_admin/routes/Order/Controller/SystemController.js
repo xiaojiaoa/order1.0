@@ -52,13 +52,18 @@ var SystemController = {
     },
     keyFirstALLPage: function (req, res) {
         var key = req.params.key;
+        //引入模板文件的路径
+        var path = req.app.get('views')+'/order/system/basicDataThree.ejs';
+        var template = require(path);
         request(Base.mergeRequestOptions({
             method: 'GET',
             url: '/api/assist/list?key='+key,
         }, req, res), function (error, response, body) {
             if (!error && response.statusCode == 200) {
-                // Base.handlerSuccess(res, req);
-                res.status(200).json(body)
+                // 编译模板
+                var data = JSON.parse(body);
+                var basicDataThree = template({result:data,key:key});
+                res.send(basicDataThree);
             } else {
                 Base.handlerError(res, req, error, response, body);
             }

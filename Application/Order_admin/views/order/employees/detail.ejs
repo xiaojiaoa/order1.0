@@ -114,14 +114,16 @@
                                 </td>
                             </tr>
                             <tr>
+                                <td>柜员固定电话</td>
+                                <td><%= employeesInfo.telephone %></td>
                                 <td>生日</td>
                                 <td><%= DWY_Helper.getLocalDateYMD(employeesInfo.birthday) %></td>
-                                <td>学历</td>
-                                <td><%= DWY_Helper.getAssistVal(employeesInfo.education, educationInfo) %></td>
                             </tr>
                             <tr>
+                                <td>学历</td>
+                                <td><%= DWY_Helper.getAssistVal(employeesInfo.education, educationInfo) %></td>
                                 <td>婚否</td>
-                                <td colspan="3">
+                                <td>
                                     <% switch(employeesInfo.isMarrige){
                                     case 1: %>
                                     未婚

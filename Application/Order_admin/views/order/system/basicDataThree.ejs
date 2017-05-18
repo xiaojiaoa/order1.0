@@ -1,0 +1,94 @@
+<%
+if(result && result.length > 0){
+result.forEach(function (element, index) { %>
+<% switch(key){
+case 'assistantConfig': %>
+<tr id="<%= element.id %>" stcode="<%= element.status %>">
+    <td width="30%"><input class="border-0 text-align-center" type="text" value="<%= element.code %>" name="code" readonly/></td>
+    <td width="30%"><input class="border-0 text-align-center" type="text" value="<%= element.value %>" name="value" readonly/></td>
+    <td width="40%"><textarea class="border-0 text-align-center" name="remark" row="6"><%= element.remark %></textarea></td>
+</tr>
+<%
+    break;
+case 'assistantBrandInfo':
+%>
+<tr id="<%= element.id %>" stcode="<%= element.stcode %>">
+    <td ><input class="border-0 text-align-center" type="text" value="<%= element.name %>" name="name" readonly/></td>
+</tr>
+<%
+    break;
+case 'assistantOrderSpaceinfo':
+if(element.parentId==0){%>
+<tr id="<%= element.id %>" stcode="<%= element.stcode %>" parentId="<%= element.parentId%>">
+    <td ><input class="border-0 text-align-center" type="text" value="<%= element.name %>" name="name" readonly/></td>
+</tr>
+<%}
+    break;
+case 'assistantSpaceProd':
+%>
+<tr id="<%= element.id %>" stcode="<%= element.stcode %>">
+    <td ><input class="border-0 text-align-center" type="text" value="<%= element.name %>" name="name" readonly/></td>
+    <td ><input class="border-0 text-align-center" type="text" value="<%= element.spaceId %>" name="spaceId" readonly/></td>
+</tr>
+<%
+    break;
+case 'assistantResupplyReason':
+if(element.levelType==1){%>
+<tr id="<%= element.id %>" stcode="<%= element.stcode %>" parentId="<%= element.parentId%>">
+    <td ><input class="border-0 text-align-center" type="text" value="<%= element.name %>" name="name" readonly/></td>
+</tr>
+<%}
+    break;
+case 'assistantReviewReson':
+%>
+<tr id="<%= element.id %>" stcode="<%= element.stcode %>">
+    <td ><input class="border-0 text-align-center" type="text" value="<%= element.name %>" name="name" readonly/></td>
+    <td ><input class="border-0 text-align-center" type="text" value="<%= element.reasonType %>" name="reasonType" readonly/></td>
+</tr>
+<%
+    break;
+case 'assistantTaskseqFileType':
+%>
+<tr id="<%= element.id %>" stcode="<%= element.stcode %>">
+    <td ><input class="border-0 text-align-center" type="text" value="<%= element.type %>" name="type" readonly/></td>
+    <td ><input class="border-0 text-align-center" type="text" value="<%= element.name %>" name="name" readonly/></td>
+    <td ><input class="border-0 text-align-center" type="text" value="<%= element.fileExt %>" name="fileExt" readonly/></td>
+</tr>
+<%
+    break;
+case 'assistantOrderFileType':
+%>
+<tr id="<%= element.id %>" stcode="<%= element.stcode %>">
+    <td ><input class="border-0 text-align-center" type="text" value="<%= element.code %>" name="code" readonly/></td>
+    <td ><input class="border-0 text-align-center" type="text" value="<%= element.name %>" name="name" readonly/></td>
+    <td ><input class="border-0 text-align-center" type="text" value="<%= element.fileExt %>" name="fileExt" readonly/></td>
+</tr>
+<%
+    break;
+case 'subPackageDao':
+%>
+<tr id="<%= element.id %>" stcode="<%= element.stcode %>" code="<%= element.code%>">
+    <td ><input class="border-0 text-align-center" type="text" value="<%= element.name %>" name="name" readonly/></td>
+    <td ><input class="border-0 text-align-center" type="text" value="<%= element.type %>" name="type" readonly/></td>
+</tr>
+<%
+    break;
+case 'assistantMaterialUnit':
+if(element.parentId==0){%>%>
+<tr id="<%= element.id %>" stcode="<%= element.stcode %>" parentId="<%= element.parentId%>">
+    <td ><input class="border-0 text-align-center" type="text" value="<%= element.name %>" name="name" readonly/></td>
+</tr>
+<%}
+   default:
+%>
+<tr id="<%= element.id %>" stcode="<%= element.stcode %>">
+    <td ><input class="border-0 text-align-center" type="text" value="<%= element.name %>" name="name" readonly/></td>
+</tr>
+<% } })
+}else{ %>
+<tr class="noData">
+    <td>暂无数据，请选择新建</td>
+</tr>
+<% } %>
+
+

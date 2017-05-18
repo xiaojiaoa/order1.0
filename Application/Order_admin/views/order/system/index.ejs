@@ -410,144 +410,28 @@
 
     })
 
+    //给禁用项目设置样式
+     function disableStyleFuc(obj) {
+         $(obj).find("tr").each(function(){
+             if($(this).attr("stcode")=='0'){
+                 $(this).addClass("disable display-none");
+             }
+         });
+     }
+
     function ajaxFuncOne(key){
         $.ajax({
             url: '/system/'+key,
             method: 'put',
             success: function (data) {
                 //console.log('后台返回回来的data',data);
-                //console.log('data类型',typeof data);
-                var arry= JSON.parse(data);
-                //console.log(arry);
-                setFrag(key,arry);
+                $(".basicDataSec").html(data);
+                //给禁用项目设置样式
+                disableStyleFuc(".basicDataSec");
             },
             error: function (response) {
                 layer.close(index);
                 errorLayout.normal(response);
-            }
-        });
-    }
-    function setFrag(key,arry){
-        if(arry.length==0){
-            $(".basicDataSec").html('<tr class="noData"><td>暂无数据，请选择新建</td></tr>');
-        }
-        else if(key=="assistantConfig"){
-            var frag="";
-            for(var i=0;i<arry.length;i++){
-                frag+="<tr id=" +arry[i].id+" stcode="+arry[i].status+">" +
-                    "<td width='30%'><input class='border-0 text-align-center' type='text' value="+arry[i].code+" name='code' readonly/></td>" +
-                    "<td width='30%'><input class='border-0 text-align-center' type='text' value="+arry[i].value+" name='value' readonly/></td>" +
-                    "<td width='40%'><textarea class='border-0 text-align-center' name='remark' row='6'>"+arry[i].remark+"</textarea></td>" +
-                    "</tr>"
-            }
-            $(".basicDataSec").html(frag);
-        }
-        else  if(key=="assistantBrandInfo"){
-            var frag="";
-            for(var i=0;i<arry.length;i++){
-                frag+="<tr id="+arry[i].id+" stcode="+arry[i].stcode+">" +
-                    "<td><input class='border-0 text-align-center' type='text' value="+arry[i].name+" name='name' readonly/></td>" +
-                    "</tr>"
-            }
-            $(".basicDataSec").html(frag);
-        }
-        else  if(key=="assistantOrderSpaceinfo"){
-            var frag="";
-            for(var i=0;i<arry.length;i++){
-                if(arry[i].parentId==0){
-                    frag+="<tr id="+arry[i].id+" stcode="+arry[i].stcode+" parentId=" + arry[i].parentId + ">" +
-                        "<td><input class='border-0 text-align-center' type='text' value="+arry[i].name+" name='name' readonly/></td>" +
-                        "</tr>"
-                }
-            }
-            $(".basicDataSec").html(frag);
-        }
-        else  if(key=="assistantSpaceProd"){
-            var frag="";
-            for(var i=0;i<arry.length;i++){
-                frag+="<tr id="+arry[i].id+" stcode="+arry[i].stcode+">" +
-                    "<td><input class='border-0 text-align-center' type='text' value="+arry[i].name+" name='name' readonly/></td>" +
-                    "<td><input class='border-0 text-align-center' type='text' value="+arry[i].spaceId+" name='spaceId' readonly/></td>" +
-                    "</tr>"
-            }
-            $(".basicDataSec").html(frag);
-        }
-        else  if(key=="assistantResupplyReason"){
-            var frag="";
-            for(var i=0;i<arry.length;i++){
-                if(arry[i].levelType==1){
-                    frag+="<tr id="+arry[i].id+" stcode="+arry[i].stcode+" parentId=" + arry[i].parentId + ">" +
-                        "<td><input class='border-0 text-align-center' type='text' value="+arry[i].name+" name='name' readonly/></td>" +
-                        "</tr>"
-                }
-            }
-            $(".basicDataSec").html(frag);
-        }
-        else  if(key=="assistantReviewReson"){
-            var frag="";
-            for(var i=0;i<arry.length;i++){
-                frag+="<tr id="+arry[i].id+" stcode="+arry[i].stcode+">" +
-                    "<td><input class='border-0 text-align-center' type='text' value="+arry[i].name+" name='name' readonly/></td>" +
-                    "<td><input class='border-0 text-align-center' type='text' value="+arry[i].reasonType+" name='reasonType' readonly/>" +
-                    "</tr>"
-            }
-            $(".basicDataSec").html(frag);
-        }
-        else  if(key=="assistantTaskseqFileType"){
-            var frag="";
-            for(var i=0;i<arry.length;i++){
-                frag+="<tr id="+arry[i].id+" stcode="+arry[i].stcode+">" +
-                    "<td><input class='border-0 text-align-center' type='text' value="+arry[i].type+" name='type' readonly/></td>" +
-                    "<td><input class='border-0 text-align-center' type='text' value="+arry[i].name+" name='name' readonly/>" +
-                    "</td><td><input class='border-0 text-align-center' type='text' value="+arry[i].fileExt+" name='fileExt' readonly/></td>" +
-                    "</tr>"
-            }
-            $(".basicDataSec").html(frag);
-        }
-        else  if(key=="assistantOrderFileType"){
-            var frag="";
-            for(var i=0;i<arry.length;i++){
-                frag+="<tr id="+arry[i].id+" stcode="+arry[i].stcode+">" +
-                    "<td><input class='border-0 text-align-center' type='text' value="+arry[i].code+" name='code' readonly/></td>" +
-                    "<td><input class='border-0 text-align-center' type='text' value="+arry[i].name+" name='name' readonly/></td>" +
-                    "<td><input class='border-0 text-align-center' type='text' value="+arry[i].fileExt+" name='fileExt' readonly/></td>" +
-                    "</tr>"
-            }
-            $(".basicDataSec").html(frag);
-        }
-        else if(key=="subPackageDao"){
-            for(var i=0;i<arry.length;i++){
-                frag+="<tr id="+arry[i].id+" stcode="+arry[i].stcode+" code="+arry[i].code+">" +
-                    "<td><input class='border-0 text-align-center' type='text' value="+arry[i].name+" name='name' readonly/></td>" +
-                    "<td><input class='border-0 text-align-center' type='text' value="+arry[i].type+" name='type' readonly/></td>" +
-                    "</tr>"
-            }
-            $(".basicDataSec").html(frag);
-        }
-        else if(key=='assistantMaterialUnit'){
-            var frag="";
-            for(var i=0;i<arry.length;i++){
-                if(arry[i].parentId==0){
-                    frag+="<tr id="+arry[i].id+" stcode="+arry[i].stcode+" parentId=" + arry[i].parentId + ">" +
-                        "<td><input class='border-0 text-align-center' type='text' value="+arry[i].name+" name='name' readonly/></td>" +
-                        "</tr>"
-                }
-            }
-            $(".basicDataSec").html(frag);
-        }else{
-            var frag="";
-            for(var i=0;i<arry.length;i++){
-                frag+="<tr id="+arry[i].id+" stcode="+arry[i].stcode+">" +
-                    "<td><input class='border-0 text-align-center' type='text' value="+arry[i].name+" name='name' readonly/></td>" +
-                    "</tr>"
-            }
-            $(".basicDataSec").html(frag);
-        }
-
-        //给禁用项目设置样式
-        $(".basicDataSec").find("tr").each(function(){
-            if($(this).attr("stcode")=='0'){
-                $(this).addClass("disable display-none");
             }
         });
     }
@@ -556,15 +440,11 @@
             url: '/resupplyReason/'+parentId,
             method: 'put',
             success: function (data) {
-                console.log('补单原因类别2',data);
+                //console.log('补单原因类别2',data);
                 $(".basicDataThree").html(data);
 
                 //给禁用项目设置样式
-                $(".basicDataThree").find("tr").each(function(){
-                    if($(this).attr("stcode")=='0'){
-                        $(this).addClass("disable display-none");
-                    }
-                });
+               disableStyleFuc(".basicDataThree")
 
             },
             error: function (response) {
@@ -578,14 +458,10 @@
             url: '/resupplyReason/'+parentId,
             method: 'put',
             success: function (data) {
-                console.log('补单原因类别3',data);
+               // console.log('补单原因类别3',data);
                 $(".basicDataFour").html(data);
                 //给禁用项目设置样式
-                $(".basicDataFour").find("tr").each(function(){
-                    if($(this).attr("stcode")=='0'){
-                        $(this).addClass("disable display-none");
-                    }
-                });
+              disableStyleFuc(".basicDataFour");
 
             },
             error: function (response) {
@@ -599,16 +475,10 @@
             url: '/orderSpaceinfo/'+parentId,
             method: 'put',
             success: function (data) {
-                console.log('空间信息类别2',data);
+                //console.log('空间信息类别2',data);
                 $(".basicDataThree").html(data);
-
-
                 //给禁用项目设置样式
-                $(".basicDataThree").find("tr").each(function(){
-                    if($(this).attr("stcode")=='0'){
-                        $(this).addClass("disable display-none");
-                    }
-                });
+                disableStyleFuc(".basicDataThree")
 
             },
             error: function (response) {
@@ -622,15 +492,11 @@
             url: '/orderSpaceinfoTwo/'+parentId,
             method: 'put',
             success: function (data) {
-                console.log('空间信息类别3',data);
+               // console.log('空间信息类别3',data);
                 $(".basicDataFour").html(data);
 
                 //给禁用项目设置样式
-                $(".basicDataFour").find("tr").each(function(){
-                    if($(this).attr("stcode")=='0'){
-                        $(this).addClass("disable display-none");
-                    }
-                });
+                disableStyleFuc(".basicDataFour")
 
             },
             error: function (response) {
@@ -644,15 +510,11 @@
             url: '/assistantMaterialUnitTwo/'+parentId,
             method: 'put',
             success: function (data) {
-                console.log('物料单位2',data);
+                //console.log('物料单位2',data);
                 $(".basicDataThree").html(data);
 
                 //给禁用项目设置样式
-                $(".basicDataThree").find("tr").each(function(){
-                    if($(this).attr("stcode")=='0'){
-                        $(this).addClass("disable display-none");
-                    }
-                });
+                disableStyleFuc(".basicDataThree")
 
             },
             error: function (response) {

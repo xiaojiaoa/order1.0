@@ -402,12 +402,12 @@
 
                     })
 
-                    console.log('ifSubmit', ifSubmit)
+//                    console.log('ifSubmit', ifSubmit)
                     if (!ifSubmit) {
                         return false
                     }
-                    console.log('amountTotal', amountTotal)
-                    console.log('amountActually', amountActually)
+//                    console.log('amountTotal', amountTotal)
+//                    console.log('amountActually', amountActually)
                     if (amountTotal != amountActually) {
                         ifAmount = false;
                         purIdNotIn += qinggoudan + '</br>'
@@ -430,9 +430,9 @@
                     list: myArray
                 };
 
-
+//                console.log('233',myArray);
                 layer.confirm("确认提交？", {title: '提示'}, function (index) {
-                        console.log(myArray);
+
                         $.ajax({
                             url: '/enterMaterial/stockOver/toEnter/doEnter',
                             data: JSON.stringify(date),

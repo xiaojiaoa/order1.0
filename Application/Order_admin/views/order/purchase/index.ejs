@@ -85,6 +85,29 @@
                                             </div>
                                         </div>
                                     </div>
+                                <div class="col-xs-3">
+                                    <div class="form-group">
+                                        <label class="col-xs-4 control-label">供应商:</label>
+                                        <div class="col-xs-8">
+                                            <select class="form-control" name="suppId">
+                                                <option value="">- 请选择 -</option>
+                                                <%
+                                                if(DWY_Helper.isCanLoop(suppLists)){
+                                                suppLists.forEach(function (element, index) { %>
+                                                <option value="<%= element.id %>" <%= (DWYRequest.query.suppId == element.id)?"selected":"" %>><%= element.name %></option>
+                                                <%})}%>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xs-3">
+                                    <div class="form-group">
+                                        <label class="col-xs-4 control-label">物料编号:</label>
+                                        <div class="col-xs-8">
+                                            <input class="form-control" placeholder="请输入物料编号" type="text" value="<%= DWYRequest.query.mateId %>" name="mateId">
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                             <% } %>
 
@@ -120,6 +143,8 @@
                         <% if (DWY_Helper.hasPermission(Permission.request.create.id, permission) ){ %>
                         <a class="label label-primary" href="/purchase/applyCreat">新建请购单</a>
                         <% } %>
+                        <button class="label label-danger" id="DelOrder">删除</button>
+                        <input type="hidden" id="checkedValue"></input>
                     </legend>
                 </div>
             </div>
@@ -130,7 +155,7 @@
                         <table class="table table-bordered table-striped table-hover table-scroll dis-flex">
                             <thead>
                             <tr>
-                                <th width="50px">序号</th>
+                                <th width="80px">序号</th>
                                 <th>请购单号</th>
                                 <th>请购人</th>
                                 <th>请购人部门</th>
@@ -147,7 +172,17 @@
                             if(DWY_Helper.isCanLoop(purchasesList.result)){
                             purchasesList.result.forEach(function (element, index) { %>
                             <tr>
-                                <td width="50px"><%= index+1 %></td>
+                                <td width="80px">
+                                    <label class="checkbox-inline">
+                                        <%
+                                        if(element.stcode<30 && element.addEmp == user.id){%>
+                                        <input type="checkbox" class="checkbox" name="roles" value="<%= element.id %>" stcode="<%= element.stcode %>" />
+                                        <% }else{%>
+                                        <input type="checkbox" class="checkbox" name="roles" value="<%= element.id %>" stcode="<%= element.stcode %>" disabled="disabled" />
+                                        <%}%>
+                                        <span><%= index+1 %></span>
+                                    </label>
+                                </td>
                                 <td><a href="/purchase/applyDetail/<%= element.id %>" class="purId"><%= element.id %></a></td>
                                 <td><%= element.addEmpName %></td>
                                 <td><%= element.addDeptName %></td>
@@ -176,6 +211,7 @@
                             }else{ %>
                             <td colspan="10" class="text-align-center">暂无结果</td>
                             <%  }%>
+                            <input type="hidden" name="stcodeStr" />
                             </tbody>
                         </table>
                     </div>
@@ -193,6 +229,52 @@
     $(document).ready(function () {
         pageSetUp();
         $(".fg-date-picker").flatpickr(data_time_picker.data_picker); // jQuery
+
+        var checkedValue = $('#checkedValue');
+        $("input[name='roles']").change(function () {
+            var vids='';
+            $('input[name=roles]:checked').each(function(){
+                vids += $(this).attr('stcode') + ',';
+                if($(this).is(':checked')){
+                    $("input[name='stcodeStr']").attr('stcode',vids);
+                }else{
+                    $("input[name='stcodeStr']").attr('stcode','');
+                }
+                stcodeStr=$("input[name='stcodeStr']").attr('stcode');
+            })
+            if($(this).is(':checked')){
+                checkedValue.addClass(this.value+',');
+            }else{
+                checkedValue.removeClass(this.value+',');
+            }
+        });
+        $("#DelOrder").click(function(){
+            if(checkedValue.attr('class')==null||checkedValue.attr('class')=='') {
+                layer.alert('请选择！', {icon: 3});
+                return false;
+            }
+            var purcIds = checkedValue.attr('class').replace(/[ ]/g,"");
+            purcIds = purcIds.substring(0,purcIds.length-1);
+            layer.confirm('确认删除?',{icon: 3, title:'提示'},
+                function(index){
+                    $.ajax({
+                        url: '/applyPurchases/del/'+purcIds,
+                        method: 'post',
+                        success: function (data) {
+                            successLayout.reload();
+                        },
+                        error: function (response) {
+                            layer.close(index);
+                            errorLayout.normal(response);
+                        }
+                    });
+                },
+                function(index){layer.close(index)})
+
+
+        })
+
+
         $(".PurchaseOrder").click(function(){
             var tid=$(this).data('purchaseId');
             layer.confirm('确认生成采购单?',{icon: 3, title:'提示'},

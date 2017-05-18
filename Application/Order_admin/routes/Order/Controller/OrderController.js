@@ -9,6 +9,7 @@ var queryString = require('qs');
 
 //自定义帮助函数
 var helper = require('../config/helper');
+var DWY_GLOBAL = require('../config/global');
 
 //请求模块
 var request = require('request');
@@ -489,6 +490,20 @@ var OrderController = {
 
     },
     doPassResupplys: function (req, res) {
+        var tid = req.params.tid;
+        request(Base.mergeRequestOptions({
+            method: 'put',
+            url: '/api/orders/resupply/accept/pass?tid='+tid,
+        }, req, res), function (error, response, body) {
+            if (!error && response.statusCode == 201) {
+                res.sendStatus(200);
+            } else {
+                Base.handlerError(res, req, error, response, body);
+            }
+        })
+    },
+    saveResupplyReason: function (req, res) {
+        var tid =  req.body.tid;
         var cause =  req.body.causeStr;
         var causeStr = '';
         if(cause && typeof cause == 'object'){
@@ -501,11 +516,11 @@ var OrderController = {
         }
         request(Base.mergeRequestOptions({
             method: 'put',
-            url: '/api/orders/resupply/accept/pass?'+queryString.stringify(req.body),
+            url: '/api/orders/resupply/accept/saveResupplyReason?'+queryString.stringify(req.body),
         }, req, res), function (error, response, body) {
             if (!error && response.statusCode == 201) {
                 Base.handlerSuccess(res, req);
-                res.redirect("/orders/resupplys/accept");
+                res.redirect("/order/resupply/detail/"+tid);
             } else {
                 Base.handlerError(res, req, error, response, body);
             }
@@ -1308,8 +1323,6 @@ var OrderController = {
         Base.multiDataRequest(req, res, [
             {url: '/api/orders/batchNumber?'+queryString.stringify(req.query), method: 'GET', resConfig: {keyName: 'batchNumber', is_must: true}},
             {url: '/api/organizations/list', method: 'GET', resConfig: {keyName: 'organizationsList', is_must: true}},
-            // {url: '/api/organizations/list', method: 'GET', resConfig: {keyName: 'organizationsList', is_must: true}},
-            // {url: '/api/assist/order/stcodes', method: 'GET', resConfig: {keyName: 'statusInfo', is_must: false}},
         ], function (req, res, resultList) {
             var paginationInfo =  resultList.batchNumber;
 
@@ -1392,6 +1405,64 @@ var OrderController = {
                 Base.handlerError(res, req, error, response, body);
             }
         })
+    },
+    downloadZip: function (req, res) {
+        var batchNumber =  req.params.batchNumber;
+        var factoryId =  req.params.factoryId;
+        // request(Base.mergeRequestOptions({
+        //     method: 'get',
+        //     url: '/api/orders/batchNumber/files?batchNumber='+batchNumber+'&factoryId='+ factoryId,
+        // }, req, res), function (error, response, body) {
+        //     console.log('response',body)
+        //     if (!error && response.statusCode == 200) {
+        //         var files = body;
+        //         var fileTypeList = [];
+        //         body.forEach(function(element,index){
+        //             fileTypeList.push({url:element.savePath,originalFileName:element.fileName});
+        //         });
+        //         console.log('fileTypeList',JSON.stringify(fileTypeList))
+        //
+        //         request(Base.mergeRequestOptions({
+        //             http: DWY_GLOBAL.server.Static.http,
+        //             host: DWY_GLOBAL.server.Static.host,
+        //             port: DWY_GLOBAL.server.Static.port,
+        //             headers:{'Content-type':'application/json'},
+        //             method: 'post',
+        //             url: '/zipDownload',
+        //             body:JSON.stringify(fileTypeList),
+        //         }, req, res)).pipe(res)
+        //
+        //
+        //     } else {
+        //         Base.handlerError(res, req, error, response, body);
+        //     }
+        // })
+
+        Base.multiDataRequest(req, res, [
+                {url: '/api/orders/batchNumber/files?batchNumber='+batchNumber+'&factoryId='+ factoryId, method: 'GET', resConfig: {keyName: 'files', is_must: true}},
+            ],
+            function (req, res, resultList) {
+                var fileTypeList = [];
+                resultList.files.forEach(function(element,index){
+                    fileTypeList.push({url:element.savePath,originalFileName:element.fileName});
+                });
+
+                var data = {
+                    list:fileTypeList
+                }
+                // console.log('fileTypeList',JSON.stringify(data))
+                request(Base.mergeRequestOptions({
+                    http: DWY_GLOBAL.server.Static.http,
+                    host: DWY_GLOBAL.server.Static.host,
+                    port: DWY_GLOBAL.server.Static.port,
+                    headers:{'Content-type':'application/json'},
+                    method: 'post',
+                    url: '/zipDownload',
+                    body:JSON.stringify(data),
+                }, req, res)).pipe(res)
+
+            });
+
     },
 };
 

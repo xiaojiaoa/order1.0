@@ -306,7 +306,10 @@ router.put('/resupplys/unlock/:tid', Middleware.AuthCheck, OrderController.doUnl
 // 审核未通过（退单）
 router.post('/resupplys/notPass', Middleware.AuthCheck, OrderController.notPassResupplys);
 // 审核通过
-router.post('/resupplys/doPass', Middleware.AuthCheck, OrderController.doPassResupplys);
+
+router.put('/resupplys/doPass/:tid', Middleware.AuthCheck, OrderController.doPassResupplys);
+// 补单原因
+router.post('/resupplys/saveResupplyReason', Middleware.AuthCheck, OrderController.saveResupplyReason);
 
 // 补单拆单页面
 router.get('/orders/resupplys/apart', Middleware.AuthCheck, Middleware.FilterEmptyField, OrderController.apartPage);
@@ -417,6 +420,8 @@ router.post('/collection/receiptCheck', Middleware.AuthCheck, OrderController.re
 // 批次号管理
 router.get('/orders/batchNumber', Middleware.AuthCheck, OrderController.batchPage);
 router.get('/orders/batchNumber/detail/:batchNumber/:factoryId', Middleware.AuthCheck, OrderController.batchDetail);
+
+router.get('/orders/batchNumber/downloadZip/:batchNumber/:factoryId', Middleware.AuthCheck, OrderController.downloadZip);
 
 // 生成包装操作
 router.post('/orders/batchNumber/package/packet', Middleware.apiLimiter,Middleware.AuthCheck,OrderController.doPacketBatchNumber);
@@ -1062,8 +1067,8 @@ router.delete('/file/doDelete/:id', Middleware.AuthCheck, FileController.doDelet
 // 删除订单上传文件
 router.delete('/file/order/doDelete/:id', Middleware.AuthCheck, FileController.doDeleteOrderFile);
 
-
-
+router.post('/file/zipDownload', Middleware.AuthCheck, FileController.zipDownload);
+router.get('/file/zipDownload', Middleware.AuthCheck, FileController.zipDownload);
 /*
  * 页面范围: *模板相关-参考用
  * 控制器:   TemplateController
@@ -1167,12 +1172,14 @@ router.get('/purchase/apply_createMaterial/:tid', Middleware.AuthCheck,PurchaseC
 // 新建请购单 添加物料数量+预计交期
 router.post('/purchase/applyMaterialCreate', Middleware.AuthCheck,PurchaseController.applyMaterialCreate);
 
-
 // 请购单详情
 router.get('/purchase/applyDetail/:tid', Middleware.AuthCheck,PurchaseController.purchaseApplyDetailPage);
 
 // 请购单审核
 router.post('/purchase/applyReview/:tid', Middleware.AuthCheck,PurchaseController.purchaseApplyReview);
+//删除未审核请购单
+router.post('/applyPurchases/del/:purcIds', Middleware.AuthCheck,PurchaseController.applyPurchaseDel);
+
 
 // 采购详情
 router.get('/purchase/detail', Middleware.AuthCheck,PurchaseController.purchaseDetail);
@@ -1186,6 +1193,8 @@ router.post('/purchases/merge/:tid', Middleware.AuthCheck,PurchaseController.pur
 router.post('/purchases/review/:tid', Middleware.AuthCheck,PurchaseController.purchaseReview);
 // 提交采购单
 router.post('/purchases/submit/:tid', Middleware.AuthCheck,PurchaseController.purchaseSubmit);
+//删除未审核采购单
+router.post('/purchases/del/:purcIds', Middleware.AuthCheck,PurchaseController.purchaseDel);
 
 //新建采购单页面
 router.get('/purchase/create', Middleware.AuthCheck,Middleware.FilterEmptyField,PurchaseController.purchaseCreatePage);
