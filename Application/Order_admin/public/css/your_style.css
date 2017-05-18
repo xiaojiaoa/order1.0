@@ -1188,3 +1188,7 @@ table > tbody > tr > td a.label:first-child {
     /*background: #eae8e8;*/
     /*color: #000;*/
 /*}*/
+
+.downloadZip{
+    cursor: pointer;
+}

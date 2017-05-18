@@ -489,6 +489,19 @@ var OrderController = {
 
     },
     doPassResupplys: function (req, res) {
+        var tid = req.params.tid;
+        request(Base.mergeRequestOptions({
+            method: 'put',
+            url: '/api/orders/resupply/accept/pass?tid='+tid,
+        }, req, res), function (error, response, body) {
+            if (!error && response.statusCode == 201) {
+                res.sendStatus(200);
+            } else {
+                Base.handlerError(res, req, error, response, body);
+            }
+        })
+    },
+    saveResupplyReason: function (req, res) {
         var cause =  req.body.causeStr;
         var causeStr = '';
         if(cause && typeof cause == 'object'){
@@ -499,9 +512,10 @@ var OrderController = {
             causeStr = causeStr.substring(0,causeStr.length-1);
             req.body.causeStr =  causeStr;
         }
+        console.log('causeStr',JSON.stringify(req.body))
         request(Base.mergeRequestOptions({
             method: 'put',
-            url: '/api/orders/resupply/accept/pass?'+queryString.stringify(req.body),
+            url: '/api/orders/resupply/accept/saveResupplyReason?'+queryString.stringify(req.body),
         }, req, res), function (error, response, body) {
             if (!error && response.statusCode == 201) {
                 Base.handlerSuccess(res, req);
@@ -1308,8 +1322,6 @@ var OrderController = {
         Base.multiDataRequest(req, res, [
             {url: '/api/orders/batchNumber?'+queryString.stringify(req.query), method: 'GET', resConfig: {keyName: 'batchNumber', is_must: true}},
             {url: '/api/organizations/list', method: 'GET', resConfig: {keyName: 'organizationsList', is_must: true}},
-            // {url: '/api/organizations/list', method: 'GET', resConfig: {keyName: 'organizationsList', is_must: true}},
-            // {url: '/api/assist/order/stcodes', method: 'GET', resConfig: {keyName: 'statusInfo', is_must: false}},
         ], function (req, res, resultList) {
             var paginationInfo =  resultList.batchNumber;
 
