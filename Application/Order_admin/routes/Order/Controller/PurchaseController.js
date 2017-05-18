@@ -182,7 +182,7 @@ var PurchaseController = {
         Base.multiDataRequest(req, res, [
             {url: '/api/purchases?'+(queryString.stringify(req.query)), method: 'GET', resConfig: {keyName: 'purchasesLists', is_must: true}},
             {url: '/api/organizations//list?'+(queryString.stringify(req.query)), method: 'GET', resConfig: {keyName: 'factoryLists', is_must: true}},
-            {url: '/api/suppliers/organ/mate?'+(queryString.stringify(req.query)), method: 'GET', resConfig: {keyName: 'suppLists', is_must: true}},
+            {url: '/api/suppliers/organ?'+(queryString.stringify(req.query)), method: 'GET', resConfig: {keyName: 'suppLists', is_must: true}},
         ], function (req, res, resultList) {
             var paginationInfo =  resultList.purchasesLists;
             var boostrapPaginator = new Pagination.TemplatePaginator(helper.genPageInfo({
@@ -284,6 +284,7 @@ var PurchaseController = {
         Base.multiDataRequest(req, res, [
             {url: '/api/categories/list?parentId=0', method: 'GET', resConfig: {keyName: 'suppliersMaterialList', is_must: true}},
             {url: '/api/purchase/request/mates?'+(queryString.stringify(req.query)), method: 'GET', resConfig: {keyName: 'supMaterialList', is_must: true}},
+            {url: '/api/suppliers/organ/mate?'+(queryString.stringify(req.query)), method: 'GET', resConfig: {keyName: 'suppList', is_must: true}},
         ], function (req, res, resultList) {
             var paginationInfo =  resultList.supMaterialList;
             var boostrapPaginator = new Pagination.TemplatePaginator(helper.genPageInfo({

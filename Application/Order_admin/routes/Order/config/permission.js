@@ -111,6 +111,10 @@ var permissions = {
         queryAll:{
             id:"531554",
             name:"查询所有订单"
+        },
+        unlock:{
+            id:"531000",
+            name:"订单解锁"
         }
     },
     orderAssess:{
