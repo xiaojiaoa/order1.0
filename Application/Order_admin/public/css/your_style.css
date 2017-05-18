@@ -1172,6 +1172,23 @@ table > tbody > tr > td a.label:first-child {
     top: 0;
 }
 
+/*.orderItemLayerTit{*/
+    /*padding:0;*/
+    /*margin:0;*/
+/*}*/
+/*.orderItemLayerTit  li{*/
+    /*list-style:none;*/
+    /*float:left;*/
+    /*text-align:left;*/
+    /*padding:10px;*/
+    /*color:#3276b1;*/
+    /*cursor: pointer;*/
+/*}*/
+/*.orderItemMenu li.selected{*/
+    /*background: #eae8e8;*/
+    /*color: #000;*/
+/*}*/
+
 .downloadZip{
     cursor: pointer;
 }
