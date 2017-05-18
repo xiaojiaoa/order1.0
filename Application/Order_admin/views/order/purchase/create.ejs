@@ -117,9 +117,9 @@
                                             <select class="form-control" name="suppId">
                                                 <option value="">- 请选择 -</option>
                                                 <%
-                                                if(DWY_Helper.isCanLoop(suppliersMaterialList)){
-                                                suppliersMaterialList.forEach(function (element, index) { %>
-                                                <option value="<%= element.id %>" <%= (DWYRequest.query.catId == element.id)?"selected":"" %>>
+                                                if(DWY_Helper.isCanLoop(suppList)){
+                                                suppList.forEach(function (element, index) { %>
+                                                <option value="<%= element.id %>" <%= (DWYRequest.query.suppId == element.id)?"selected":"" %>>
                                                     <%= element.name %>
                                                 </option>
                                                 <%  })}%>
