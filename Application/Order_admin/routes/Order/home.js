@@ -910,6 +910,9 @@ router.get('/enterMaterial/stockOver/toEnter', Middleware.AuthCheck, EnterContro
 router.post('/enterMaterial/stockOver/toEnter/doEnter', Middleware.AuthCheck, EnterController.doEnter);
 router.post('/enterMaterial/reqmaterialModify', Middleware.AuthCheck, EnterController.reqmaterialModify);
 
+// 原料入库-采购完成单-入库-获取空货位
+router.post('/enterMaterial/stockOver/getEmptyOne', Middleware.AuthCheck, EnterController.getEmptyOne);
+
 // 原料入库-采购完成单-入库-判断仓库是否可以放入
 router.post('/enterMaterial/stockOver/toEnter/ifCanEnter', Middleware.AuthCheck, EnterController.ifCanEnter);
 // 成品入库分配货位

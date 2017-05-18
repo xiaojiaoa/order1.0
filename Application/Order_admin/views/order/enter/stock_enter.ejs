@@ -125,19 +125,21 @@
                                         <input name="amountTotal<%= index %>" value="<%= element.amount %>"
                                                type="hidden">
 
-                                        <% if(DWY_Helper.isCanLoop(element.list)){ %>
+
                                         <ul class="position-ulselect dropdown-menu spaceId-tip<%= index %>">
-                                            <strong>推荐货位</strong>
-                                            <% element.list.forEach(function (context, num) { %>
+                                            <strong>推荐货位 <a class="label label-primary getEmptyOne">获取空货位</a></strong>
+                                            <% if(DWY_Helper.isCanLoop(element.list)){
+                                            element.list.forEach(function (context, num) { %>
                                             <li data-ftyId="<%= context.ftyId %>" data-whseId="<%= context.whseId %>"
                                                 data-regionId="<%= context.regionId %>"
                                                 data-value="<%= context.spaceId.substring(6, 12) %>">
                                                 <%= context.spaceId %>
                                                 (剩余可用 <%= context.amount == -1? '不限':context.amount %> )
                                             </li>
-                                            <% }) %>
+                                            <% })  } %>
                                         </ul>
-                                        <% } %>
+
+
 
                                         <div class="more-space">
                                             <input class="form-control spaceIdInput validate[required,custom[number],minSize[6],maxSize[6]]"
@@ -241,14 +243,15 @@
         })
 
         var spaceIdCurrentINdex = 0;
+        var selectIndex = 0;
 
-        //推荐货位小弹窗
+        // 推荐货位小弹窗
         contentArea.on('click', '.spaceIdInput', function () {
             $('.position-ulselect').hide();
             var _self = $(this);
-            var index = _self.attr('data-index'); //赋值 :input 的index
-            var selectIndex = _self.attr('data-parent');// 弹框的index ，与上一个不相等，弹框数量为原始条数，:input可增加删除
-            //如果没有selectIndex 则是第一个货位，selectIndex与index一致
+            var index = _self.attr('data-index'); // 赋值 :input 的index
+            selectIndex = _self.attr('data-parent');// 弹框的index ，与上一个不相等，弹框数量为原始条数，:input可增加删除
+            // 如果没有selectIndex 则是第一个货位，selectIndex与index一致
             if (!selectIndex) {
                 selectIndex = index;
             }
@@ -258,7 +261,7 @@
             var spaceIdTip = $('.spaceId-tip' + selectIndex);
             spaceIdTip.css('top', top).css('left', left).fadeIn();
         })
-        //点击推荐货位
+        // 点击推荐货位
         contentArea.on('click', '.position-ulselect li', function () {
             var _this = $(this);
             var value = _this.attr('data-value');
@@ -273,6 +276,64 @@
             setTimeout(function () {
                 ifRegionIdUsable(spaceIdCurrentINdex);
             }, 1000)
+        })
+        // 点击获取空货位
+        contentArea.on('click', '.position-ulselect .getEmptyOne', function () {
+            var cargoSpaceIn = '';
+            var mateId =$("input[name=cargoId" + selectIndex + "]").val()
+
+            $('#regionIdArea' + selectIndex).find('.more-space').each(function () {
+                var _element = $(this);
+                var index = _element.attr('data-index');
+
+                var ftyId = $("select[name=ftyId" + index + "]").val();
+                var whseId = $("select[name=whseId" + index + "]").val();
+                var regionId = $("select[name=regionId" + index + "]").val();
+                var spaceId = $("input[name=spaceId" + index + "]").val();
+
+                if(whseId && regionId && spaceId){
+                    var string = whseId+regionId+spaceId
+                    cargoSpaceIn += string+',';
+                }
+            })
+//            console.log(selectIndex)
+//            console.log(mateId)
+//            console.log(cargoSpaceIn)
+
+            cargoSpaceIn = cargoSpaceIn.substring(0,cargoSpaceIn.length-1);
+            $.ajax({
+                url: '/enterMaterial/stockOver/getEmptyOne',
+                method: 'post',
+                data: {
+                    ftyId: '<%= initFtyId %>',
+                    cargoId: mateId,
+                    cargoSpaceIn: cargoSpaceIn,
+                },
+                success: function (data) {
+                    console.log('success',data)
+                    var data = JSON.parse(data)
+                    $("input[name=spaceId" + spaceIdCurrentINdex + "]").val(data.spaceIdShort);
+                    DWY_fty_region.setValue({
+                        target: '.newtarget' + spaceIdCurrentINdex, // 必填，指定工厂联动父级元素
+                        factoryValue: data.ftyId,
+                        warehouseValue: data.whseId,
+                        regionValue: data.regionId
+                    });
+                    $('.position-ulselect').hide();
+                    setTimeout(function () {
+                        ifRegionIdUsable(spaceIdCurrentINdex);
+                    }, 1000)
+                },
+                error: function (response) {
+                    console.log('error',response)
+                    errorLayout.normal(response);
+
+                }
+            });
+
+
+
+
         })
 
 
