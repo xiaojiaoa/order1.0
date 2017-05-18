@@ -162,7 +162,7 @@
             <div class="form-group">
                 <label class="col-xs-4 control-label"><span class="requird"></span> 订单类型:</label>
                 <div class="col-xs-8">
-                    <select class="form-control validate[required]" name="decoColorId">
+                    <select class="form-control validate[required]" name="type">
                         <% typeList.forEach(function (element) {  %>
                         <option value="<%= element.id %>" <%= (orderInfo.type == element.id)?"selected":"" %>>
                             <%= element.name %>
