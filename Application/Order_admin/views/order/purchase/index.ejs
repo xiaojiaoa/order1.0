@@ -175,7 +175,7 @@
                                 <td width="80px">
                                     <label class="checkbox-inline">
                                         <%
-                                        if(element.stcode<30){%>
+                                        if(element.stcode<30 && element.addEmp == user.id){%>
                                         <input type="checkbox" class="checkbox" name="roles" value="<%= element.id %>" stcode="<%= element.stcode %>" />
                                         <% }else{%>
                                         <input type="checkbox" class="checkbox" name="roles" value="<%= element.id %>" stcode="<%= element.stcode %>" disabled="disabled" />

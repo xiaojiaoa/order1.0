@@ -199,7 +199,7 @@
                                 <td>
                                     <label class="checkbox-inline">
                                         <%
-                                        if(element.stcode<=30){%>
+                                        if(element.stcode<=30 && element.empId == user.id){%>
                                         <input type="checkbox" class="checkbox" name="roles" value="<%= element.id %>" stcode="<%= element.stcode %>" isDirect="<%= element.isDirect %>" />
                                        <% }else{%>
                                         <input type="checkbox" class="checkbox" name="roles" value="<%= element.id %>" stcode="<%= element.stcode %>" isDirect="<%= element.isDirect %>" disabled="disabled" />
