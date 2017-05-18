@@ -160,7 +160,7 @@
                                     <a class="label label-primary schedule" batchNumber="<%= element.batchNumber %>" factoryId="<%= element.factoryId %>">确认排料</a>
                                     <%}%>
                                     <%}%>
-                                    <a class="label label-success downloadZip" batchNumber="<%= element.batchNumber %>" factoryId="<%= element.factoryId %>">下载文件</a>
+                                    <a class="label label-success" href="/orders/batchNumber/downloadZip/<%= element.batchNumber %>/<%= element.factoryId %>">下载文件</a>
                                 </td>
                             </tr>
                             <%  })

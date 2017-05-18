@@ -421,6 +421,8 @@ router.post('/collection/receiptCheck', Middleware.AuthCheck, OrderController.re
 router.get('/orders/batchNumber', Middleware.AuthCheck, OrderController.batchPage);
 router.get('/orders/batchNumber/detail/:batchNumber/:factoryId', Middleware.AuthCheck, OrderController.batchDetail);
 
+router.get('/orders/batchNumber/downloadZip/:batchNumber/:factoryId', Middleware.AuthCheck, OrderController.downloadZip);
+
 // 生成包装操作
 router.post('/orders/batchNumber/package/packet', Middleware.apiLimiter,Middleware.AuthCheck,OrderController.doPacketBatchNumber);
 // 撤销包装操作
