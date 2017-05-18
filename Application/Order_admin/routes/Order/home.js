@@ -306,7 +306,10 @@ router.put('/resupplys/unlock/:tid', Middleware.AuthCheck, OrderController.doUnl
 // 审核未通过（退单）
 router.post('/resupplys/notPass', Middleware.AuthCheck, OrderController.notPassResupplys);
 // 审核通过
-router.post('/resupplys/doPass', Middleware.AuthCheck, OrderController.doPassResupplys);
+
+router.put('/resupplys/doPass/:tid', Middleware.AuthCheck, OrderController.doPassResupplys);
+// 补单原因
+router.post('/resupplys/saveResupplyReason', Middleware.AuthCheck, OrderController.saveResupplyReason);
 
 // 补单拆单页面
 router.get('/orders/resupplys/apart', Middleware.AuthCheck, Middleware.FilterEmptyField, OrderController.apartPage);
@@ -1062,8 +1065,8 @@ router.delete('/file/doDelete/:id', Middleware.AuthCheck, FileController.doDelet
 // 删除订单上传文件
 router.delete('/file/order/doDelete/:id', Middleware.AuthCheck, FileController.doDeleteOrderFile);
 
-
-
+router.post('/file/zipDownload', Middleware.AuthCheck, FileController.zipDownload);
+router.get('/file/zipDownload', Middleware.AuthCheck, FileController.zipDownload);
 /*
  * 页面范围: *模板相关-参考用
  * 控制器:   TemplateController

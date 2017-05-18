@@ -1171,3 +1171,7 @@ table > tbody > tr > td a.label:first-child {
 .table-role input[type=checkbox]{
     top: 0;
 }
+
+.downloadZip{
+    cursor: pointer;
+}

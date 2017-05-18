@@ -121,12 +121,13 @@
                                 <th width="7%">机构</th>
                                 <th>订单数量</th>
                                 <th>包装数量</th>
+
                                 <th>包装状态</th>
                                 <th>生成柜员</th>
                                 <th>生成时间</th>
                                 <th>包装柜员</th>
                                 <th>包装时间</th>
-                                <th width="160">操作</th>
+                                <th width="260">操作</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -143,11 +144,12 @@
                                 <td><%= element.orderNumber %></td>
                                 <td><%= element.packetNumber %></td>
                                 <td><%= element.packageStr %></td>
+
                                 <td><%= element.gname %></td>
                                 <td><%= DWY_Helper.getLocalDateYMD(element.addTime) %></td>
                                 <td><%= element.packetGname %></td>
                                 <td><%= DWY_Helper.getLocalDateYMD(element.packetTime) %></td>
-                                <td width="160">
+                                <td width="260">
                                     <% if (DWY_Helper.hasPermission(Permission.orderPackage.create.id, permission ) ){ %>
                                     <% if(element.stcode==0){%>
                                     <a class="label label-primary crePackage" batchNumber="<%= element.batchNumber %>" factoryId="<%= element.factoryId %>">生成包装</a>
@@ -158,6 +160,7 @@
                                     <a class="label label-primary schedule" batchNumber="<%= element.batchNumber %>" factoryId="<%= element.factoryId %>">确认排料</a>
                                     <%}%>
                                     <%}%>
+                                    <a class="label label-success downloadZip" batchNumber="<%= element.batchNumber %>" factoryId="<%= element.factoryId %>">下载文件</a>
                                 </td>
                             </tr>
                             <%  })

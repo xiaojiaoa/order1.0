@@ -12,6 +12,7 @@ var helper = require('../config/helper');
 
 //请求模块
 var request = require('request');
+var DWY_GLOBAL = require('../config/global');
 
 
 var FileController = {
@@ -46,6 +47,21 @@ var FileController = {
                 {url: '/api/order/file/'+ lid+"?ordType="+ordType+"&tid="+tid, method: 'GET', resConfig: {keyName: 'fileInfo', is_must: false}}
             ],
             function (req, res, resultList) {
+                var fileTypeList = {};
+                resultList.fileInfo.forEach(function(element,index){
+                    if( fileTypeList[element.fileTypeDesc] == undefined){
+                        console.log('new')
+                        fileTypeList[element.fileTypeDesc] = [];
+                        fileTypeList[element.fileTypeDesc].push({url:element.filePath,originalFileName:element.fileName});
+                    }else{
+                        console.log('haved')
+                        fileTypeList[element.fileTypeDesc].push({url:element.filePath,originalFileName:element.fileName});
+                    }
+                });
+
+                resultList.fileTypeList = fileTypeList;
+                console.log('fileTypeList',JSON.stringify(resultList.fileTypeList))
+
                 var returnData = Base.mergeData(helper.mergeObject({
                     title: ' ',
                     lid:lid,
@@ -189,7 +205,34 @@ var FileController = {
                 Base.handlerError(res, req, error, response, body);
             }
         })
-    }
+    },
+    zipDownload: function (req, res) {
+        // var aaaaa ={
+        //     list:[
+        //         {
+        //             url:"2017\\10001003\\1530800011704250019\\1638341836881606325.xls",
+        //             originalFileName:"工件改.xls"
+        //         }
+        //         ]
+        // }
+        console.log('zipDownload111',DWY_GLOBAL.server.Static.http)
+        // console.log('zipDownload111',req.body)
+        // console.log('zipDownload222',JSON.stringify(aaaaa))
+        req.body.list = JSON.parse(req.body.list)
+        // console.log('zipDownload33333',JSON.stringify(req.body))
+        request(Base.mergeRequestOptions({
+            http: DWY_GLOBAL.server.Static.http,
+            host: DWY_GLOBAL.server.Static.host,
+            port: DWY_GLOBAL.server.Static.port,
+            headers:{'Content-type':'application/json'},
+            method: 'post',
+            url: '/zipDownload',
+            body:JSON.stringify(req.body),
+        }, req, res)).pipe(res)
+
+    },
+
+
 };
 
 module.exports = FileController;
