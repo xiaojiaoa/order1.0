@@ -231,6 +231,21 @@ var EnterController = {
 
 
     },
+    getEmptyOne: function (req, res) {
+        console.log('getEmptyOne'+JSON.stringify(req.body))
+        request(Base.mergeRequestOptions({
+            method: 'post',
+            url: '/api/whse/cargoin/mate/cargospace/empty',
+            form: req.body
+        }, req, res), function (error, response, body) {
+            if (!error && response.statusCode == 200) {
+                res.status(200).json(body);
+            } else {
+                res.status(500).json(body)
+            }
+        })
+
+    },
     enterProductPage: function (req, res){
         var ftyId = req.query.ftyId ? req.query.ftyId: req.session.user.ftyId;
         var whseId = req.query.whseId;
