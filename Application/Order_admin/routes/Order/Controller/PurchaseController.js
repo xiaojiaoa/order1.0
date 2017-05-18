@@ -29,6 +29,7 @@ var PurchaseController = {
             {url: '/api/purchase/request?'+(queryString.stringify(req.query)), method: 'GET', resConfig: {keyName: 'purchasesList', is_must: true}},
             {url: '/api/assist/order/stcodes', method: 'GET', resConfig: {keyName: 'stcodeInfo', is_must: false}},
             {url: '/api/organizations//list?'+(queryString.stringify(req.query)), method: 'GET', resConfig: {keyName: 'factoryLists', is_must: true}},
+            {url: '/api/suppliers/organ?'+(queryString.stringify(req.query)), method: 'GET', resConfig: {keyName: 'suppLists', is_must: true}},
         ], function (req, res, resultList) {
             var paginationInfo =  resultList.purchasesList;
             var boostrapPaginator = new Pagination.TemplatePaginator(helper.genPageInfo({
@@ -144,6 +145,22 @@ var PurchaseController = {
             }
         })
     },
+    //删除请购单
+    applyPurchaseDel: function (req, res) {
+        var purcIds = req.params.purcIds;
+        console.log('2333',purcIds);
+        request(Base.mergeRequestOptions({
+            method: 'put',
+            url: '/api/purchase/request/delete?reqIds='+purcIds,
+        }, req, res), function (error, response, body) {
+            if (!error && response.statusCode == 201) {
+                res.sendStatus(200)
+            }else{
+                Base.handlerError(res, req, error, response, body);
+            }
+        })
+    },
+
     //生成采购单
     purchaseOrder: function (req, res) {
         var tid = req.params.tid;
@@ -165,6 +182,7 @@ var PurchaseController = {
         Base.multiDataRequest(req, res, [
             {url: '/api/purchases?'+(queryString.stringify(req.query)), method: 'GET', resConfig: {keyName: 'purchasesLists', is_must: true}},
             {url: '/api/organizations//list?'+(queryString.stringify(req.query)), method: 'GET', resConfig: {keyName: 'factoryLists', is_must: true}},
+            {url: '/api/suppliers/organ/mate?'+(queryString.stringify(req.query)), method: 'GET', resConfig: {keyName: 'suppLists', is_must: true}},
         ], function (req, res, resultList) {
             var paginationInfo =  resultList.purchasesLists;
             var boostrapPaginator = new Pagination.TemplatePaginator(helper.genPageInfo({
@@ -232,6 +250,22 @@ var PurchaseController = {
         request(Base.mergeRequestOptions({
             method: 'put',
             url: '/api/purchases/submit?purcIds='+tid,
+        }, req, res), function (error, response, body) {
+            if (!error && response.statusCode == 201) {
+
+                res.sendStatus(200)
+            }else{
+                Base.handlerError(res, req, error, response, body);
+            }
+        })
+    },
+    //删除采购单
+    purchaseDel: function (req, res) {
+        var purcIds = req.params.purcIds;
+        console.log('2333',purcIds);
+        request(Base.mergeRequestOptions({
+            method: 'put',
+            url: '/api/purchases/delete?purcIds='+purcIds,
         }, req, res), function (error, response, body) {
             if (!error && response.statusCode == 201) {
 

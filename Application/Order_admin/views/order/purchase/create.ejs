@@ -109,6 +109,25 @@
                                         </div>
                                     </div>
                                 </div>
+
+                                <div class="col-xs-3">
+                                    <div class="form-group">
+                                        <label class="col-xs-4 control-label">供应商:</label>
+                                        <div class="col-xs-8">
+                                            <select class="form-control" name="suppId">
+                                                <option value="">- 请选择 -</option>
+                                                <%
+                                                if(DWY_Helper.isCanLoop(suppliersMaterialList)){
+                                                suppliersMaterialList.forEach(function (element, index) { %>
+                                                <option value="<%= element.id %>" <%= (DWYRequest.query.catId == element.id)?"selected":"" %>>
+                                                    <%= element.name %>
+                                                </option>
+                                                <%  })}%>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+
                             </div>
                             <div class="col-xs-12">
                                 <hr class="simple">
@@ -134,8 +153,11 @@
             </div>
 
             <div class="col-xs-12">
-                <div class="orderItemLayerTit">
-                </div>
+                <!--<ul class="orderItemLayerTit clearfix orderItemMenu">-->
+                    <!--<li class="selected">预警物料</li>-->
+                    <!--<li>未设置库存物料</li>-->
+                    <!--<li>正常物料</li>-->
+                <!--</ul>-->
                 <div class="orderItemLayerTable">
                     <table class="table table-bordered table-hover">
                         <thead>
@@ -190,15 +212,135 @@
                             <td class="unitsAmount" style="display:none"><%= elementa.amount %></td>
                             <%
                             })}%>
-                        <%  }) }else{%>
-                        <td colspan="9" class="text-align-center">暂无结果</td>
-                        <%}%>
+                            <%  }) }else{%>
+                            <td colspan="9" class="text-align-center">暂无结果</td>
+                            <%}%>
                         </tr>
                         <input type="hidden" class="" id="checkedValue">
                         </tbody>
-                      </table>
-
+                    </table>
+                    <table class="table table-bordered table-hover" style="display:none">
+                        <thead>
+                        <tr>
+                            <th>序号</th>
+                            <th>物料编号</th>
+                            <th>物料名称</th>
+                            <th>供应商名称</th>
+                            <th>分类名称</th>
+                            <th>真实库存</th>
+                            <th>预警数量</th>
+                            <th>可用库存</th>
+                            <th>单价</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <%
+                        if(DWY_Helper.isCanLoop(supMaterialList.result)){
+                        supMaterialList.result.forEach(function (element, index) { %>
+                        <tr class="len botTr">
+                            <td>
+                                <label class="checkbox-inline">
+                                    <input type="checkbox" class="checkbox"
+                                           name="roles" value="<%= element.id %>" uniqueId="<%= element.uniqueCode %>">
+                                    <span><%= index+1 %></span>
+                                </label>
+                            </td>
+                            <td><a href="/materialManage/detail/<%= bid %>/<%= element.id %>"><%= element.id %></a></td>
+                            <td><%= element.name %></td>
+                            <td><%= element.suppName %></td>
+                            <td><%= element.catName %></td>
+                            <td><%= element.stock %></td>
+                            <td><%= element.warning %></td>
+                            <td><%= element.usable %></td>
+                            <td><%= element.price %></td>
+                            <td style="display:none"><%= element.suppId %></td>
+                            <%
+                            if(DWY_Helper.isCanLoop(element.mateUnitList)){
+                            element.mateUnitList.forEach(function(elementa,indexa){%>
+                            <td class="unitsId" style="display:none"><%= elementa.id %></td>
+                            <%
+                            })}%>
+                            <%
+                            if(DWY_Helper.isCanLoop(element.mateUnitList)){
+                            element.mateUnitList.forEach(function(elementa,indexa){%>
+                            <td class="units" style="display:none"><%= elementa.name %></td>
+                            <%
+                            })}%>
+                            <%
+                            if(DWY_Helper.isCanLoop(element.mateUnitList)){
+                            element.mateUnitList.forEach(function(elementa,indexa){%>
+                            <td class="unitsAmount" style="display:none"><%= elementa.amount %></td>
+                            <%
+                            })}%>
+                            <%  }) }else{%>
+                            <td colspan="9" class="text-align-center">暂无结果</td>
+                            <%}%>
+                        </tr>
+                        <input type="hidden" class="" id="checkedValue">
+                        </tbody>
+                    </table>
+                    <table class="table table-bordered table-hover" style="display:none">
+                        <thead>
+                        <tr>
+                            <th>序号</th>
+                            <th>物料编号</th>
+                            <th>物料名称</th>
+                            <th>供应商名称</th>
+                            <th>分类名称</th>
+                            <th>真实库存</th>
+                            <th>预警数量</th>
+                            <th>可用库存</th>
+                            <th>单价</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <%
+                        if(DWY_Helper.isCanLoop(supMaterialList.result)){
+                        supMaterialList.result.forEach(function (element, index) { %>
+                        <tr class="len botTr">
+                            <td>
+                                <label class="checkbox-inline">
+                                    <input type="checkbox" class="checkbox"
+                                           name="roles" value="<%= element.id %>" uniqueId="<%= element.uniqueCode %>">
+                                    <span><%= index+1 %></span>
+                                </label>
+                            </td>
+                            <td><a href="/materialManage/detail/<%= bid %>/<%= element.id %>"><%= element.id %></a></td>
+                            <td><%= element.name %></td>
+                            <td><%= element.suppName %></td>
+                            <td><%= element.catName %></td>
+                            <td><%= element.stock %></td>
+                            <td><%= element.warning %></td>
+                            <td><%= element.usable %></td>
+                            <td><%= element.price %></td>
+                            <td style="display:none"><%= element.suppId %></td>
+                            <%
+                            if(DWY_Helper.isCanLoop(element.mateUnitList)){
+                            element.mateUnitList.forEach(function(elementa,indexa){%>
+                            <td class="unitsId" style="display:none"><%= elementa.id %></td>
+                            <%
+                            })}%>
+                            <%
+                            if(DWY_Helper.isCanLoop(element.mateUnitList)){
+                            element.mateUnitList.forEach(function(elementa,indexa){%>
+                            <td class="units" style="display:none"><%= elementa.name %></td>
+                            <%
+                            })}%>
+                            <%
+                            if(DWY_Helper.isCanLoop(element.mateUnitList)){
+                            element.mateUnitList.forEach(function(elementa,indexa){%>
+                            <td class="unitsAmount" style="display:none"><%= elementa.amount %></td>
+                            <%
+                            })}%>
+                            <%  }) }else{%>
+                            <td colspan="9" class="text-align-center">暂无结果</td>
+                            <%}%>
+                        </tr>
+                        <input type="hidden" class="" id="checkedValue">
+                        </tbody>
+                    </table>
                 </div>
+
                 <%- pagination %>
             </div>
             <div class="dwy-clear"></div>
@@ -331,6 +473,13 @@
                 checkedValue.removeClass(this.value+',');
             }
         });
+
+        $(".orderItemMenu li").click(function(){
+            $(this).addClass("selected").siblings().removeClass("selected");
+            $(".orderItemLayerTable table").eq($(this).index()).show().siblings().hide();
+        });
+
+
     })
 </script>
 <%- include('../layouts/foot'); %>
