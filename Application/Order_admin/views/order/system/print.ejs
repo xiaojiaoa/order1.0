@@ -29,6 +29,7 @@
             <div id="printHtml">
                 <% if(type == 'html'){ %>
                 <div class="printBody"><%- printINfo %></div>
+                <div class="printBody"><%- printINfo %></div>
                 <%  } %>
 
                 <% if(type == 'arry'){
@@ -41,11 +42,23 @@
                 <%  } %>
 
             </div>
+        </div>
 
+        <div class="form-horizontal fix-print">
+            <div class="form-group">
+                <label class="pull-left control-label">纸张大小:</label>
+                <div class="col-xs-8">
+                    <select class="form-control" name="stcode">
+                        <option value="0">A4</option>
+                        <option value="1">小票</option>
+                    </select>
+                </div>
+            </div>
             <button class="btn btn-primary " id="print">
                 <i class="fa fa-print"></i>
                 打印
             </button>
+
         </div>
 
     </div>

@@ -503,6 +503,7 @@ var OrderController = {
         })
     },
     saveResupplyReason: function (req, res) {
+        var tid =  req.body.tid;
         var cause =  req.body.causeStr;
         var causeStr = '';
         if(cause && typeof cause == 'object'){
@@ -513,14 +514,13 @@ var OrderController = {
             causeStr = causeStr.substring(0,causeStr.length-1);
             req.body.causeStr =  causeStr;
         }
-        console.log('causeStr',JSON.stringify(req.body))
         request(Base.mergeRequestOptions({
             method: 'put',
             url: '/api/orders/resupply/accept/saveResupplyReason?'+queryString.stringify(req.body),
         }, req, res), function (error, response, body) {
             if (!error && response.statusCode == 201) {
                 Base.handlerSuccess(res, req);
-                res.redirect("/orders/resupplys/accept");
+                res.redirect("/order/resupply/detail/"+tid);
             } else {
                 Base.handlerError(res, req, error, response, body);
             }
