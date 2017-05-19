@@ -20,17 +20,17 @@ var Permissions = require('../config/permission');
 var EnterController = {
 
     enterMaterialPage: function (req, res) {
-        //console.log('user_session9999',req.session.user.ftyId)
+        // console.log('user_session9999',req.session.user.ftyId)
         var ftyId = req.query.ftyId ? req.query.ftyId: req.session.user.ftyId;
         var whseId = req.query.whseId;
         var regionId = req.query.regionId;
-        //console.log('ftyId:'+ftyId+'whseId:'+whseId+'regionId:'+regionId);
+        // console.log('ftyId:'+ftyId+'whseId:'+whseId+'regionId:'+regionId);
         var multiDataRequest= [
             {url: '/api/whse/cargoin/mate/page?'+queryString.stringify(req.query), method: 'GET', resConfig: {keyName: 'mateList', is_must: false}},
             {url: '/api/whse/factory/list', method: 'GET', resConfig: {keyName: 'factoryList', is_must: true}},
         ];
         if(ftyId){
-            //console.log('有whseId');
+            // console.log('有whseId');
             multiDataRequest= [
                 {url: '/api/whse/cargoin/mate/page?'+queryString.stringify(req.query), method: 'GET', resConfig: {keyName: 'mateList', is_must: false}},
                 {url: '/api/whse/factory/list', method: 'GET', resConfig: {keyName: 'factoryList', is_must: true}},
@@ -38,7 +38,7 @@ var EnterController = {
             ];
         }
         if(whseId){
-            //console.log('有whseId');
+            // console.log('有whseId');
             multiDataRequest= [
                 {url: '/api/whse/cargoin/mate/page?'+queryString.stringify(req.query), method: 'GET', resConfig: {keyName: 'mateList', is_must: false}},
                 {url: '/api/whse/factory/list', method: 'GET', resConfig: {keyName: 'factoryList', is_must: true}},
@@ -178,7 +178,7 @@ var EnterController = {
 
     },
     findWhse: function (req, res) {
-        console.log('findWhse'+JSON.stringify(req.body))
+        // console.log('findWhse'+JSON.stringify(req.body))
         request(Base.mergeRequestOptions({
             method: 'post',
             url: '/api/whse/cargoin/prod/notin/find',
@@ -194,7 +194,7 @@ var EnterController = {
     },
     doEnter: function (req, res) {
         // var num = req.body.num0;
-        console.log('doEnter',JSON.stringify(req.body))
+        // console.log('doEnter',JSON.stringify(req.body))
         request(Base.mergeRequestOptions({
             method: 'post',
             url: '/api/whse/cargoin/mate',
@@ -202,19 +202,15 @@ var EnterController = {
             body:JSON.stringify(req.body),
         }, req, res), function (error, response, body) {
             if (!error && response.statusCode == 201) {
-
-                // res.redirect('/enterMaterial')
                 res.sendStatus(200);
             } else {
                 Base.handlerError(res, req, error, response, body);
             }
         })
-
-
     },
     reqmaterialModify: function (req, res) {
         // var num = req.body.num0;
-        //console.log('doEnterreqmaterial',JSON.stringify(req.body))
+        // console.log('doEnterreqmaterial',JSON.stringify(req.body))
         request(Base.mergeRequestOptions({
             method: 'post',
             url: '/api/purchase/reqmaterial/money',
@@ -232,7 +228,7 @@ var EnterController = {
 
     },
     getEmptyOne: function (req, res) {
-        console.log('getEmptyOne'+JSON.stringify(req.body))
+        // console.log('getEmptyOne'+JSON.stringify(req.body))
         request(Base.mergeRequestOptions({
             method: 'post',
             url: '/api/whse/cargoin/mate/cargospace/empty',
@@ -254,7 +250,7 @@ var EnterController = {
             {url: '/api/whse/factory/list', method: 'GET', resConfig: {keyName: 'factoryList', is_must: true}},
         ];
         if(ftyId){
-            //console.log('有whseId');
+            // console.log('有whseId');
             multiDataRequest= [
                 {url: '/api/whse/cargoin/prod/page?'+queryString.stringify(req.query), method: 'GET', resConfig: {keyName: 'prodList', is_must: false}},
                 {url: '/api/whse/factory/list', method: 'GET', resConfig: {keyName: 'factoryList', is_must: true}},
@@ -262,7 +258,7 @@ var EnterController = {
             ];
         }
         if(whseId){
-            //console.log('有whseId');
+            // console.log('有whseId');
             multiDataRequest= [
                 {url: '/api/whse/cargoin/prod/page?'+queryString.stringify(req.query), method: 'GET', resConfig: {keyName: 'prodList', is_must: false}},
                 {url: '/api/whse/factory/list', method: 'GET', resConfig: {keyName: 'factoryList', is_must: true}},

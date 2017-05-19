@@ -22,7 +22,7 @@ var NetworkBookController = {
         var stcode = req.query.stcode;
        // console.log('stcode',stcode)
         if(stcode == undefined){
-            res.redirect('/networkBook?stcode=1')
+            return  res.redirect('/networkBook?stcode=1')
         }
         var paramObject = helper.genPaginationQuery(req);
         Base.multiDataRequest(req, res, [

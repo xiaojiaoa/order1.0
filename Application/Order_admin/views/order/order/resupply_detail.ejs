@@ -280,27 +280,28 @@
                 <div class="col-xs-12">
                     <legend>状态信息
                         <!--(调试订单状态:<%= resupplyInfo.status %> <%= DWY_Helper.getAssistVal(resupplyInfo.status, stcodeInfo) %> )-->
-                        <% if( DWY_Helper.hasPermission(Permission.orderReview.cancelOrder.id, permission) && (resupplyInfo.status == 250) && resupplyInfo.receiveGid == user.id ){ %>
+                        <%if(DWY_Helper.hasPermission(Permission.order.unlock.id, permission)||resupplyInfo.receiveGid == user.id){%>
+                        <% if(resupplyInfo.status == 250){ %>
                         <a class="label label-primary" id="doUnlock" data-stcode="<%= resupplyInfo.status %>">&nbsp; 解锁
                             &nbsp;</a>
                         <% } %>
-                        <% if( DWY_Helper.hasPermission(Permission.orderApart.cancelOrder.id, permission) && (resupplyInfo.status == 450) && resupplyInfo.receiveGid == user.id ){ %>
+                        <% if(resupplyInfo.status == 450){ %>
                         <a class="label label-primary" id="doUnlock" data-stcode="<%= resupplyInfo.status %>">&nbsp; 解锁
                             &nbsp;</a>
                         <% } %>
-                        <% if( DWY_Helper.hasPermission(Permission.orderReviewApart.cancelOrder.id, permission) && (resupplyInfo.status == 475) && resupplyInfo.receiveGid == user.id ){ %>
+                        <% if(resupplyInfo.status == 475){ %>
                         <a class="label label-primary" id="doUnlock" data-stcode="<%= resupplyInfo.status %>">&nbsp; 解锁
                             &nbsp;</a>
                         <% } %>
-                        <% if( DWY_Helper.hasPermission(Permission.orderSchedule.cancelOrder.id, permission) && (resupplyInfo.status == 635) && (resupplyInfo.packeted == 0) && resupplyInfo.receiveGid == user.id  ){ %>
+                        <% if(resupplyInfo.status == 635 && resupplyInfo.packeted == 0){ %>
                         <a class="label label-primary" id="doUnlock" data-stcode="<%= resupplyInfo.status %>">&nbsp; 解锁
                             &nbsp;</a>
                         <% } %>
-                        <% if( DWY_Helper.hasPermission(Permission.orderAssess.assess.id, permission) && resupplyInfo.status == 220 && resupplyInfo.difficulty ){ %>
-                        <a class="label label-primary" id="returnPermit" data-stcode="<%= resupplyInfo.status %>">&nbsp;
-                            评估退回 &nbsp;</a>
+                        <!--<% if( DWY_Helper.hasPermission(Permission.orderAssess.assess.id, permission) && resupplyInfo.status == 220 && resupplyInfo.difficulty ){ %>-->
+                        <!--<a class="label label-primary" id="returnPermit" data-stcode="<%= resupplyInfo.status %>">&nbsp;-->
+                            <!--评估退回 &nbsp;</a>-->
+                        <!--<% } %>-->
                         <% } %>
-
                     </legend>
                     <!-- row -->
                     <div class="table-responsive">
@@ -316,13 +317,13 @@
                                 case 250: %>
                                 <td width="30%">
                                     受理中
-                                    <% if (DWY_Helper.hasPermission(Permission.resupplyOrderReview.passOrder.id, permission) ){ %>
+                                    <% if (DWY_Helper.hasPermission(Permission.resupplyOrderReview.passOrder.id, permission)  && resupplyInfo.receiveGid == user.id ){ %>
                                     <a class="label label-primary doPass"
                                        data-stcode="<%= resupplyInfo.status %>">确认受理</a>
                                     <a class="label label-success" id="check-pass-modal"
                                        data-stcode="<%= resupplyInfo.status %>">补单原因</a>
                                     <% } %>
-                                    <% if (DWY_Helper.hasPermission(Permission.resupplyOrderReview.sendBackOrder.id, permission) ){ %>
+                                    <% if (DWY_Helper.hasPermission(Permission.resupplyOrderReview.sendBackOrder.id, permission) && resupplyInfo.receiveGid == user.id  ){ %>
                                     <a class="label label-primary margin-left-20 reject-modal">补单受理退回</a>
                                     <% } %>
                                 </td>
@@ -338,7 +339,7 @@
                                 case 280: %>
                                 <td>
                                     受理退回
-                                    <% if (DWY_Helper.hasPermission(Permission.resupplyOrderReview.takeOrder.id, permission) ){ %>
+                                    <% if (DWY_Helper.hasPermission(Permission.resupplyOrderReview.takeOrder.id, permission)   && resupplyInfo.receiveGid == user.id ){ %>
                                     <a class="label label-primary doGetTask" data-stcode="<%= resupplyInfo.status %>">重新提交</a>
                                     <% } %>
                                 </td>
@@ -378,11 +379,11 @@
                                 case 450: %>
                                 <td>
                                     拆单中
-                                    <% if (DWY_Helper.hasPermission(Permission.resupplyOrderApart.passOrder.id, permission) ){ %>
+                                    <% if (DWY_Helper.hasPermission(Permission.resupplyOrderApart.passOrder.id, permission) && resupplyInfo.receiveGid == user.id  ){ %>
                                     <a class="label label-primary doPass"
                                        data-stcode="<%= resupplyInfo.status %>">确认拆单</a>
                                     <% } %>
-                                    <% if (DWY_Helper.hasPermission(Permission.resupplyOrderApart.sendBackOrder.id, permission) ){ %>
+                                    <% if (DWY_Helper.hasPermission(Permission.resupplyOrderApart.sendBackOrder.id, permission) && resupplyInfo.receiveGid == user.id ){ %>
                                     <a class="label label-primary margin-left-20 reject-modal">拆单退回</a>
                                     <% } %>
                                 </td>
@@ -408,11 +409,11 @@
                                 case 475: %>
                                 <td>
                                     拆单审核中
-                                    <% if (DWY_Helper.hasPermission(Permission.resupplyOrderReviewApart.passOrder.id, permission) ){ %>
+                                    <% if (DWY_Helper.hasPermission(Permission.resupplyOrderReviewApart.passOrder.id, permission)   && resupplyInfo.receiveGid == user.id ){ %>
                                     <a class="label label-primary doPass"
                                        data-stcode="<%= resupplyInfo.status %>">确定审核</a>
                                     <% } %>
-                                    <% if (DWY_Helper.hasPermission(Permission.resupplyOrderReviewApart.sendBackOrder.id, permission) ){ %>
+                                    <% if (DWY_Helper.hasPermission(Permission.resupplyOrderReviewApart.sendBackOrder.id, permission)   && resupplyInfo.receiveGid == user.id ){ %>
                                     <a class="label label-primary margin-left-20 reject-modal">拆单审核退回</a>
                                     <% } %>
                                 </td>
@@ -490,13 +491,13 @@
                                 <td>
                                     <% if(resupplyInfo.packeted == 0){ %>
                                     未包装
-                                    <% if (DWY_Helper.hasPermission(Permission.orderPackage.create.id, permission) ){ %>
+                                    <% if (DWY_Helper.hasPermission(Permission.orderPackage.create.id, permission) && resupplyInfo.receiveGid == user.id ){ %>
                                     <a class="label label-primary margin-left-20 crePackage"
                                        bid="<%= resupplyInfo.batchNumber %>" tid="<%= tid %>">生成包装</a>
                                     <% } %>
                                     <% }else{ %>
                                     已包装
-                                    <% if (DWY_Helper.hasPermission(Permission.orderPackage.queryDetail.id, permission) ){ %>
+                                    <% if (DWY_Helper.hasPermission(Permission.orderPackage.queryDetail.id, permission) && resupplyInfo.receiveGid == user.id){ %>
                                     <a class="label label-success margin-left-20 packageDetail"
                                        href="/orders/package/<%= tid %>">包装详情</a>
                                     <% } %>

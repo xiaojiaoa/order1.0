@@ -85,6 +85,20 @@ var FileController = {
                 // {url: '/api/assist/orderfile/type', method: 'GET', resConfig: {keyName: 'allFileTypeInfo', is_must: true}}
             ],
             function (req, res, resultList) {
+                var fileTypeList = {};
+                resultList.fileInfo.forEach(function(element,index){
+                    if( fileTypeList[element.fileTypeDesc] == undefined){
+                        console.log('new')
+                        fileTypeList[element.fileTypeDesc] = [];
+                        fileTypeList[element.fileTypeDesc].push({url:element.filePath,originalFileName:element.fileName});
+                    }else{
+                        console.log('haved')
+                        fileTypeList[element.fileTypeDesc].push({url:element.filePath,originalFileName:element.fileName});
+                    }
+                });
+
+                resultList.fileTypeList = fileTypeList;
+
                 var returnData = Base.mergeData(helper.mergeObject({
                     title: ' ',
                     lid:lid,

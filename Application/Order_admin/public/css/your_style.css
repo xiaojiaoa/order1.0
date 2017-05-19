@@ -622,7 +622,7 @@ tr > td .more-space:last-child {
     border: 1px solid #ddd;
     list-style: none;
     box-shadow: 0 6px 12px rgba(0, 0, 0, .175);
-    z-index: 99;
+    z-index: 4;
     display: none;
 }
 
@@ -1191,4 +1191,23 @@ table > tbody > tr > td a.label:first-child {
 
 .downloadZip{
     cursor: pointer;
+}
+.loading{
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    background: #fff;
+    z-index: 5;
+    opacity: 0.5;
+    text-align: center;
+    font-size: 55px;
+    padding: 20%;
+    display: none;
+}
+.loading.show-active{
+    display: block;
+}
+
+.table>tbody>tr>td, .table>tbody>tr>th, .table>tfoot>tr>td, .table>tfoot>tr>th, .table>thead>tr>td, .table>thead>tr>th {
+    vertical-align: middle;
 }

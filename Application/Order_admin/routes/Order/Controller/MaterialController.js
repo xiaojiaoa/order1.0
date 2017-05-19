@@ -69,7 +69,7 @@ var MaterialController = {
                     if(!stairCatId){
                         var searchId = resultList.stairCategory[0].id;
                         // console.log('searchId',searchId)
-                        res.redirect("/materialManage?stairCatId="+searchId);
+                        return  res.redirect("/materialManage?stairCatId="+searchId);
                     }
                 }
 
@@ -112,7 +112,7 @@ var MaterialController = {
             {url: '/api/assist/stock/reasonTypes', method: 'GET', resConfig: {keyName: 'stockReasonTypes', is_must: true}},
             {url: '/api/materials/stockOperation/page?pageSize=6&mateId='+mid+'&bid='+bid, method: 'GET', resConfig: {keyName: 'stockOperationList', is_must: true}},
         ], function (req, res, resultList) {
-
+            //console.log("mate",resultList.mateInfo);
             resultList.mateInfo.mateUnits = _.orderBy( resultList.mateInfo.mateUnits,['parentId'],['asc']);
             var returnData = Base.mergeData(helper.mergeObject({
                 title: ' ',
@@ -411,6 +411,23 @@ var MaterialController = {
         request(Base.mergeRequestOptions({
             method: 'post',
             url: '/api/materials/stock',
+            form:req.body,
+        }, req, res), function (error, response, body) {
+            if (!error && response.statusCode == 201) {
+                Base.handlerSuccess(res, req);
+                res.redirect("/materialManage/detail/"+bid+"/"+mid);
+            } else {
+                Base.handlerError(res, req, error, response, body);
+            }
+        })
+    },
+    outSourcingDoCreate: function (req, res) {
+        var mid=req.body.mateId;
+        var bid=req.body.bid;
+         console.log(req.body);
+        request(Base.mergeRequestOptions({
+            method: 'post',
+            url: '/api/materials/state',
             form:req.body,
         }, req, res), function (error, response, body) {
             if (!error && response.statusCode == 201) {

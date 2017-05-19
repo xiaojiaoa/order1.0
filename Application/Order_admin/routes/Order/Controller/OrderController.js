@@ -1409,34 +1409,6 @@ var OrderController = {
     downloadZip: function (req, res) {
         var batchNumber =  req.params.batchNumber;
         var factoryId =  req.params.factoryId;
-        // request(Base.mergeRequestOptions({
-        //     method: 'get',
-        //     url: '/api/orders/batchNumber/files?batchNumber='+batchNumber+'&factoryId='+ factoryId,
-        // }, req, res), function (error, response, body) {
-        //     console.log('response',body)
-        //     if (!error && response.statusCode == 200) {
-        //         var files = body;
-        //         var fileTypeList = [];
-        //         body.forEach(function(element,index){
-        //             fileTypeList.push({url:element.savePath,originalFileName:element.fileName});
-        //         });
-        //         console.log('fileTypeList',JSON.stringify(fileTypeList))
-        //
-        //         request(Base.mergeRequestOptions({
-        //             http: DWY_GLOBAL.server.Static.http,
-        //             host: DWY_GLOBAL.server.Static.host,
-        //             port: DWY_GLOBAL.server.Static.port,
-        //             headers:{'Content-type':'application/json'},
-        //             method: 'post',
-        //             url: '/zipDownload',
-        //             body:JSON.stringify(fileTypeList),
-        //         }, req, res)).pipe(res)
-        //
-        //
-        //     } else {
-        //         Base.handlerError(res, req, error, response, body);
-        //     }
-        // })
 
         Base.multiDataRequest(req, res, [
                 {url: '/api/orders/batchNumber/files?batchNumber='+batchNumber+'&factoryId='+ factoryId, method: 'GET', resConfig: {keyName: 'files', is_must: true}},
@@ -1448,7 +1420,8 @@ var OrderController = {
                 });
 
                 var data = {
-                    list:fileTypeList
+                    list:fileTypeList,
+                    fileName:batchNumber+'-拆单dwg文件'
                 }
                 // console.log('fileTypeList',JSON.stringify(data))
                 request(Base.mergeRequestOptions({

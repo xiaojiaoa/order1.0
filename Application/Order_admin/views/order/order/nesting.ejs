@@ -61,7 +61,7 @@
                                 <td>
                                     <label class="checkbox-inline">
                                         <input type="checkbox" class="checkbox"
-                                               name="role" value="<%= element.tid %>">
+                                               name="role" value="<%= element.tid %>" <%= element.factoryId != user.bid?'disabled':'' %>>
                                         <span><%= index+1 %></span>
                                     </label>
                                 </td>

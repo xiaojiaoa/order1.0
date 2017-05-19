@@ -104,7 +104,7 @@
                                             文件地址:</label>
                                         <div class="col-xs-10">
                                             <input class="form-control validate[required]" readonly value=""
-                                                   name="savePath">
+                                                   name="fileName">
                                         </div>
                                     </div>
                                 </div>
@@ -124,7 +124,8 @@
                                     </div>
                                 </div>
 
-                                <input type="hidden" name="fileName" value="">
+                                <!--<input type="hidden" name="fileName" value="">-->
+                                <input type="hidden" name="savePath" value="">
                                 <input type="hidden" name="fileSize" value="">
                                 <input type="hidden" name="fileExt" value="">
                                 <input type="hidden" name="lid" value="<%= lid %>">
@@ -212,6 +213,7 @@
 
         <form action="/file/zipDownload" method="post" id="forListSubmit" style="display: none;">
            <textarea name="list" id="list"></textarea>
+            <input type="hidden" name="fileName" id="fileNameDown" value="">
             <button type="submit">submit</button>
         </form>
 
@@ -242,45 +244,52 @@
         $('#dwy_file_upload').on({
             change: function (e) {
                 var _this = $(this);
-                var label = $("#label-upload-file");
-                var lid = $("[name=lid]");
-                var tid = $("[name=tid]");
-                var formData = new FormData();
-                formData.append('file_name', _this.prop('files')[0])
-                formData.append('lid', lid.val())
-                formData.append('tid', tid.val())
+                var choosedName =  _this.prop('files')[0].name;
+                if(choosedName.indexOf('<%= tid %>') == 0){
+                    var label = $("#label-upload-file");
+                    var lid = $("[name=lid]");
+                    var tid = $("[name=tid]");
+                    var formData = new FormData();
+                    formData.append('file_name', _this.prop('files')[0])
+                    formData.append('lid', lid.val())
+                    formData.append('tid', tid.val())
 
-                label.html('上传中 <i class="fa fa-circle-o-notch fa-spin">');
-                label.attr('disabled', true);
+                    label.html('上传中 <i class="fa fa-circle-o-notch fa-spin">');
+                    label.attr('disabled', true);
 
-                $.ajax({
-                    url: '/template/upload/single/order',
-                    data: formData,
-                    type: 'POST',
-                    // THIS MUST BE DONE FOR FILE UPLOADING
-                    processData: false, // 不处理发送的数据，因为data值是Formdata对象，不需要对数据做处理
-                    contentType: false, // 不设置Content-type请求头
-                    // ... Other options like success and et
-                    success: function (data) {
-                        label.attr('disabled', false);
-                        if (data.code == 200) {
-                            var fileName = $('[name=fileName]').val(data.data.name);
-                            var fileSize = $('[name=fileSize]').val(data.data.size);
-                            var savePath = $('[name=savePath]').val(data.data.url);
-                            var fileExt = $('[name=fileExt]').val(data.data.ext);
-                            label.html('上传成功 <i class="fa fa-check">');
+                    $.ajax({
+                        url: '/template/upload/single/order',
+                        data: formData,
+                        type: 'POST',
+                        // THIS MUST BE DONE FOR FILE UPLOADING
+                        processData: false, // 不处理发送的数据，因为data值是Formdata对象，不需要对数据做处理
+                        contentType: false, // 不设置Content-type请求头
+                        // ... Other options like success and et
+                        success: function (data) {
+                            label.attr('disabled', false);
+                            if (data.code == 200) {
+                                var fileName = $('[name=fileName]').val(data.data.name);
+                                var fileSize = $('[name=fileSize]').val(data.data.size);
+                                var savePath = $('[name=savePath]').val(data.data.url);
+                                var fileExt = $('[name=fileExt]').val(data.data.ext);
+                                label.html('上传成功 <i class="fa fa-check">');
 
-                            // 图片预览
+                                // 图片预览
 //                        $('#test-image-upload').attr('src', '/uploads/' + data.tmp_path);
-                        } else {
+                            } else {
+                                label.html('上传失败 <i class="fa fa-times">');
+                            }
+                        },
+                        error: function () {
+                            label.attr('disabled', false);
                             label.html('上传失败 <i class="fa fa-times">');
                         }
-                    },
-                    error: function () {
-                        label.attr('disabled', false);
-                        label.html('上传失败 <i class="fa fa-times">');
-                    }
-                })
+                    })
+
+                }else{
+                    layer.msg('订单号不匹配，请重新选择文件', {icon: 2, time: 2000});
+                    return;
+                }
             }
         })
 
@@ -319,14 +328,14 @@
 //        }]
 
         var listHere = $("#list");
+        var fileNameDown = $("#fileNameDown");
         var forListSubmit = $("#forListSubmit");
         $('.downloadZip').click(function () {
             var type = $(this).attr('type');
             var fileTypeList = <%- JSON.stringify(fileTypeList)%>
-            var date = {
-                list: fileTypeList[type]
-            };
+
             listHere.text(JSON.stringify(fileTypeList[type]))
+            fileNameDown.val('<%= tid %>'+type)
             forListSubmit.submit();
 //            simuFormSubmit($files)
         })
