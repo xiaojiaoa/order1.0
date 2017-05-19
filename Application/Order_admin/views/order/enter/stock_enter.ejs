@@ -20,6 +20,7 @@
 </style>
 <!-- MAIN PANEL -->
 <div id="main" role="main">
+    <div class="loading" id="loading"><i class="fa fa-circle-o-notch fa-spin text-primary"></i></div>
 
     <!-- RIBBON -->
     <div id="ribbon">
@@ -209,8 +210,9 @@
         var cargoinList = <%- JSON.stringify(cargoinList.result) %>;
         var ifHasPermissionaaa = <%- ifHasPermission %>;
 
+        var loading = $("#loading");
 
-        //初始化工厂联动
+        // 初始化工厂联动
         cargoinList.forEach(function (element, index) {
             DWY_fty_region.init({
                 target: '.newtarget' + index,
@@ -225,7 +227,7 @@
         })
 
 
-        $("#search-customer").validationEngine({binded: false});//失去焦点时不校验，提交时才校验
+        $("#search-customer").validationEngine({binded: false});// 失去焦点时不校验，提交时才校验
         var contentArea = $('#contentArea');
 
         contentArea.on('change', '.ftyId, .whseId, .regionId', function () {
@@ -266,6 +268,7 @@
 
         // 点击推荐货位
         contentArea.on('click', '.position-ulselect li', function () {
+            loading.addClass('show-active');
             var _this = $(this);
             var value = _this.attr('data-value');
             $("input[name=spaceId" + spaceIdCurrentINdex + "]").val(value);
@@ -284,7 +287,7 @@
         contentArea.on('click', '.position-ulselect .getEmptyOne', function () {
             var cargoSpaceIn = '';
             var mateId =$("input[name=cargoId" + selectIndex + "]").val()
-
+            loading.addClass('show-active');
             $('.cargoinDo').each(function () {
                 var _self = $(this);
                 var indexTR = _self.attr('data-index');
@@ -382,6 +385,7 @@
                             $("input[name=statusThis" + index + "]").val(0);
                             status.html('<i class="fa fa-times text-danger font-lg"></i>');
                         }
+                        loading.removeClass('show-active');
                     },
                     error: function (response) {
                         console.log('response', response)
@@ -394,10 +398,13 @@
                             status.html('<span class="text-danger" rel="tooltip" data-placement="top" data-original-title="不可用"><i class="fa fa-times font-lg"></i></span>');
                         }
                         $(".text-danger").tooltip();
+                        loading.removeClass('show-active');
                     }
                 });
                 $(".text-danger").tooltip();
             }
+
+            loading.removeClass('show-active');
         }
 
         function validateRow(index) {
@@ -496,8 +503,9 @@
                 };
 
 //                console.log('233',myArray);
-                layer.confirm("确认提交？", {title: '提示'}, function (index) {
 
+                layer.confirm("确认提交？", {title: '提示'}, function (index) {
+                    loading.addClass('show-active');
                         $.ajax({
                             url: '/enterMaterial/stockOver/toEnter/doEnter',
                             data: JSON.stringify(date),
@@ -515,6 +523,7 @@
                                     location.href = "/enterMaterial";
                                     return;
                                 }
+                                loading.removeClass('show-active');
                                 errorLayout.normal(response);
 
                             }

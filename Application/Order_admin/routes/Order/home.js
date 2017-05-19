@@ -1074,7 +1074,6 @@ router.delete('/file/doDelete/:id', Middleware.AuthCheck, FileController.doDelet
 router.delete('/file/order/doDelete/:id', Middleware.AuthCheck, FileController.doDeleteOrderFile);
 
 router.post('/file/zipDownload', Middleware.AuthCheck, FileController.zipDownload);
-router.get('/file/zipDownload', Middleware.AuthCheck, FileController.zipDownload);
 /*
  * 页面范围: *模板相关-参考用
  * 控制器:   TemplateController

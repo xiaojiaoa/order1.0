@@ -213,6 +213,7 @@
 
         <form action="/file/zipDownload" method="post" id="forListSubmit" style="display: none;">
            <textarea name="list" id="list"></textarea>
+            <input type="hidden" name="fileName" id="fileNameDown" value="">
             <button type="submit">submit</button>
         </form>
 
@@ -231,7 +232,7 @@
     $(document).ready(function () {
 
         $("#file-order").validationEngine();
-        <%= tid %>
+
         pageSetUp();
         $('.radiobox').change(function () {
             var id = $("input[name='type']:checked").attr('data-id');
@@ -327,14 +328,14 @@
 //        }]
 
         var listHere = $("#list");
+        var fileNameDown = $("#fileNameDown");
         var forListSubmit = $("#forListSubmit");
         $('.downloadZip').click(function () {
             var type = $(this).attr('type');
             var fileTypeList = <%- JSON.stringify(fileTypeList)%>
-            var date = {
-                list: fileTypeList[type]
-            };
+
             listHere.text(JSON.stringify(fileTypeList[type]))
+            fileNameDown.val('<%= tid %>'+type)
             forListSubmit.submit();
 //            simuFormSubmit($files)
         })
