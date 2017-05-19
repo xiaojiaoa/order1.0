@@ -93,7 +93,7 @@
                                     <td><%= element.befAmount %>/<%= element.befUnit %></td>
                                     <td><%= element.amount %>/<%= element.inUnit %></td>
                                     <td><input class="form-control actualAmount validate[required,custom[number]]"
-                                               name="actualAmount<%= index %>" id="actualAmount<%= index %>" value="0" data-index="<%= index %>"></td>
+                                               name="actualAmount<%= index %>" id="actualAmount<%= index %>" value="<%= element.amount %>" data-index="<%= index %>"></td>
 
                                     <% if(!initFtyId){ %>
                                     <td colspan="5" class="text-danger">无所属工厂，无法操作，请先到<a href="/factory">"仓储管理"</a>进行新建
