@@ -574,6 +574,9 @@ router.post('/materials/doStock', Middleware.AuthCheck, MaterialController.stock
 // 物料管理--库存记录
 router.get('/stockRecord', Middleware.AuthCheck,Middleware.FilterEmptyField,MaterialController.stockRecordPage);
 
+// 物料管理--是否为外协
+router.post('/materials/outSourcing', Middleware.AuthCheck, MaterialController.outSourcingDoCreate);
+
 
 /*
  * 页面范围: 物料属性相关

@@ -171,6 +171,30 @@
                             <%})
                             }%>
                             <tr>
+                                <td>是否为外协</td>
+                                <td>
+                                    <form class="form-horizontal" method="post" action="/materials/outSourcing"  id="outSourcing-form">
+                                        <div class="col-xs-6">
+                                            <input type="hidden" name="mateId" value="<%= mid %>">
+                                            <input type="hidden" name="bid" value="<%= bid %>">
+                                            <select class="form-control validate[required]" name="outsource">
+                                                <option value="2" <%= (mateInfo.outsource==2 || !mateInfo.outsource)?"selected":"" %> >否</option>
+                                                <option value="1" <%= (mateInfo.outsource==1)?'selected':'';%>>是</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-xs-2">
+                                            <button class="btn btn-primary " type="submit">
+                                                确认
+                                            </button>
+                                        </div>
+                                    </form>
+                                </td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                            <tr>
                                 <td>备注</td>
                                 <td colspan="5"></td>
                             </tr>
@@ -247,7 +271,7 @@
                 <!-- col -->
                 <div class="col-xs-12">
                     <legend>库存数量修改记录
-                        <a href="/stockRecord?mateId=<%= mid%>" class="label label-primary">查看更多</a>
+                        <a href="/stockRecord?mateId=<%= mid%>&mateName=<%= mateInfo.name %>" class="label label-primary">查看更多</a>
                     </legend>
 
                     <!-- row -->
@@ -446,6 +470,7 @@
         $("#choiceFac-form").validationEngine();
         $("#doWarning-form").validationEngine();
         $("#modifyStock-form").validationEngine();
+        $("#outSourcing-form").validationEngine();
 
         //启用、禁用物料详情页状态
         var mid='<%= mid %>';
