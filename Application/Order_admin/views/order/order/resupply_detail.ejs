@@ -280,27 +280,28 @@
                 <div class="col-xs-12">
                     <legend>状态信息
                         <!--(调试订单状态:<%= resupplyInfo.status %> <%= DWY_Helper.getAssistVal(resupplyInfo.status, stcodeInfo) %> )-->
-                        <% if( DWY_Helper.hasPermission(Permission.orderReview.cancelOrder.id, permission) && (resupplyInfo.status == 250) && resupplyInfo.receiveGid == user.id ){ %>
+                        <%if(DWY_Helper.hasPermission(Permission.order.unlock.id, permission)||resupplyInfo.receiveGid == user.id){%>
+                        <% if(resupplyInfo.status == 250){ %>
                         <a class="label label-primary" id="doUnlock" data-stcode="<%= resupplyInfo.status %>">&nbsp; 解锁
                             &nbsp;</a>
                         <% } %>
-                        <% if( DWY_Helper.hasPermission(Permission.orderApart.cancelOrder.id, permission) && (resupplyInfo.status == 450) && resupplyInfo.receiveGid == user.id ){ %>
+                        <% if(resupplyInfo.status == 450){ %>
                         <a class="label label-primary" id="doUnlock" data-stcode="<%= resupplyInfo.status %>">&nbsp; 解锁
                             &nbsp;</a>
                         <% } %>
-                        <% if( DWY_Helper.hasPermission(Permission.orderReviewApart.cancelOrder.id, permission) && (resupplyInfo.status == 475) && resupplyInfo.receiveGid == user.id ){ %>
+                        <% if(resupplyInfo.status == 475){ %>
                         <a class="label label-primary" id="doUnlock" data-stcode="<%= resupplyInfo.status %>">&nbsp; 解锁
                             &nbsp;</a>
                         <% } %>
-                        <% if( DWY_Helper.hasPermission(Permission.orderSchedule.cancelOrder.id, permission) && (resupplyInfo.status == 635) && (resupplyInfo.packeted == 0) && resupplyInfo.receiveGid == user.id  ){ %>
+                        <% if(resupplyInfo.status == 635 && resupplyInfo.packeted == 0){ %>
                         <a class="label label-primary" id="doUnlock" data-stcode="<%= resupplyInfo.status %>">&nbsp; 解锁
                             &nbsp;</a>
                         <% } %>
-                        <% if( DWY_Helper.hasPermission(Permission.orderAssess.assess.id, permission) && resupplyInfo.status == 220 && resupplyInfo.difficulty ){ %>
-                        <a class="label label-primary" id="returnPermit" data-stcode="<%= resupplyInfo.status %>">&nbsp;
-                            评估退回 &nbsp;</a>
+                        <!--<% if( DWY_Helper.hasPermission(Permission.orderAssess.assess.id, permission) && resupplyInfo.status == 220 && resupplyInfo.difficulty ){ %>-->
+                        <!--<a class="label label-primary" id="returnPermit" data-stcode="<%= resupplyInfo.status %>">&nbsp;-->
+                            <!--评估退回 &nbsp;</a>-->
+                        <!--<% } %>-->
                         <% } %>
-
                     </legend>
                     <!-- row -->
                     <div class="table-responsive">
