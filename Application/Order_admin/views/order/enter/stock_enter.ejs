@@ -59,10 +59,9 @@
                                     <th width="100">采购单号</th>
                                     <th width="100">物料编号</th>
                                     <th>物料名称</th>
-                                    <th width="100">单价</th>
-                                    <th width="100">采购金额</th>
                                     <th>采购数量/单位</th>
                                     <th>总入库数/单位</th>
+                                    <th width="100">实际入库数</th>
                                     <th  id="withWidth">区域(必选)</th>
                                     <th width="120">货位号(行列层)</th>
                                     <th width="100">入库数量</th>
@@ -90,10 +89,10 @@
                                         <a href="/materialManage/detail/<%= user.bid %>/<%= element.mateId %>"><%= element.mateId %></a>
                                     </td>
                                     <td><%= element.mateName %></td>
-                                    <td id="modigyprice<%= index %>"><%= element.price %></td>
-                                    <td id="modigytotal<%= index %>"><%= element.totalAmount %></td>
                                     <td><%= element.befAmount %>/<%= element.befUnit %></td>
                                     <td><%= element.amount %>/<%= element.inUnit %></td>
+                                    <td><input class="form-control actualAmount validate[required,custom[number]]"
+                                               name="actualAmount<%= index %>" id="actualAmount<%= index %>" value="0" data-index="<%= index %>"></td>
 
                                     <% if(!initFtyId){ %>
                                     <td colspan="5" class="text-danger">无所属工厂，无法操作，请先到<a href="/factory">"仓储管理"</a>进行新建
@@ -122,8 +121,7 @@
                                         <input name="cargoId<%= index %>" value="<%= element.mateId %>" type="hidden">
                                         <input name="purId<%= index %>" value="<%= element.orderId %>" type="hidden">
                                         <input name="unitPrice<%= index %>" value="<%= element.price %>" type="hidden">
-                                        <input name="amountTotal<%= index %>" value="<%= element.amount %>"
-                                               type="hidden">
+                                        <input name="amountTotal<%= index %>" value="<%= element.amount %>" type="hidden">
 
 
                                         <ul class="position-ulselect dropdown-menu spaceId-tip<%= index %>">
@@ -182,12 +180,7 @@
                     <div class="col-xs-12">
                         <hr class="simple">
                         <div class="col-xs-12 text-center">
-                            <!--<a class="btn btn-primary" id="addMater">-->
-                            <!--<i class="fa fa-plus"></i>-->
-                            <!--添加入库物料-->
-                            <!--</a>-->
-                            <a class="btn btn-primary" id="toModify">修改物料信息</a>
-                            <a class="btn btn-primary" id="toModifySave" style="display: none;">确认修改物料信息</a>
+
                             <% if ( DWY_Helper.hasPermission(Permission.cargoManages.mateIn.id, permission)){ %>
                             <a class="btn btn-primary" id="toEnter" <%= user.ftyId && initFtyId ? '' : 'disabled' %>>确认入库</a>
                             <% } %>
@@ -245,6 +238,14 @@
         var spaceIdCurrentINdex = 0;
         var selectIndex = 0;
 
+        var windowScrollHeight = 0;
+        var spaceIdTipOffsetHeight = 0;
+
+        // 滚动弹窗跟随
+        $(window).scroll(function(){
+            windowScrollHeight = $(window).scrollTop();
+            $('.position-ulselect.active').css('top', spaceIdTipOffsetHeight-windowScrollHeight);
+        });
         // 推荐货位小弹窗
         contentArea.on('click', '.spaceIdInput', function () {
             $('.position-ulselect').hide();
@@ -256,11 +257,13 @@
                 selectIndex = index;
             }
             spaceIdCurrentINdex = index;
-            var top = _self.offset().top + 30;
+            spaceIdTipOffsetHeight = _self.offset().top + 30;
+            var top = spaceIdTipOffsetHeight- windowScrollHeight;
             var left = _self.offset().left;
             var spaceIdTip = $('.spaceId-tip' + selectIndex);
-            spaceIdTip.css('top', top).css('left', left).fadeIn();
+            spaceIdTip.css('top', top).css('left', left).fadeIn().addClass('active');
         })
+
         // 点击推荐货位
         contentArea.on('click', '.position-ulselect li', function () {
             var _this = $(this);
@@ -282,13 +285,13 @@
             var cargoSpaceIn = '';
             var mateId =$("input[name=cargoId" + selectIndex + "]").val()
 
-
             $('.cargoinDo').each(function () {
                 var _self = $(this);
                 var indexTR = _self.attr('data-index');
                 $('#regionIdArea' + indexTR).find('.more-space').each(function () {
                     var _element = $(this);
                     var index = _element.attr('data-index');
+                    if(index == spaceIdCurrentINdex){return true;}
 //                    var ftyId = $("select[name=ftyId" + index + "]").val();
                     var whseId = $("select[name=whseId" + index + "]").val();
                     var regionId = $("select[name=regionId" + index + "]").val();
@@ -302,24 +305,6 @@
                 })
             })
 
-//            $('#regionIdArea' + selectIndex).find('.more-space').each(function () {
-//                var _element = $(this);
-//                var index = _element.attr('data-index');
-//
-//                var ftyId = $("select[name=ftyId" + index + "]").val();
-//                var whseId = $("select[name=whseId" + index + "]").val();
-//                var regionId = $("select[name=regionId" + index + "]").val();
-//                var spaceId = $("input[name=spaceId" + index + "]").val();
-//
-//                if(whseId && regionId && spaceId){
-//                    var string = regionId+spaceId
-//                    cargoSpaceIn += string+',';
-//                }
-//            })
-//            console.log(selectIndex)
-//            console.log(mateId)
-//            console.log(cargoSpaceIn)
-
             cargoSpaceIn = cargoSpaceIn.substring(0,cargoSpaceIn.length-1);
             $.ajax({
                 url: '/enterMaterial/stockOver/getEmptyOne',
@@ -330,7 +315,7 @@
                     cargoSpaceIn: cargoSpaceIn,
                 },
                 success: function (data) {
-                    console.log('success',data)
+
                     var data = JSON.parse(data)
                     $("input[name=spaceId" + spaceIdCurrentINdex + "]").val(data.spaceIdShort);
                     DWY_fty_region.setValue({
@@ -345,7 +330,6 @@
                     }, 1000)
                 },
                 error: function (response) {
-                    console.log('error',response)
                     errorLayout.normal(response);
 
                 }
@@ -369,12 +353,12 @@
         })
         pageSetUp();
 
-        contentArea.on('input propertychange', ':text', function () {
+        contentArea.on('input propertychange', ':text:not(.actualAmount)', function () {
             var index = $(this).attr('data-index');
             ifRegionIdUsable(index);
         });
 
-        //判断货位是否可用
+        // 判断货位是否可用
         function ifRegionIdUsable(index) {
             var status = $('.status' + index);
             status.empty();
@@ -427,8 +411,8 @@
             if ($("#search-customer").validationEngine('validate')) {
 
                 var myArray = new Array();
-                var ifSubmit = false; //主要判断仓库是否可以
-                var ifAmount = true;//主要判断入库数量是否正确
+                var ifSubmit = false; // 主要判断仓库是否可以
+                var ifAmount = true;// 主要判断入库数量是否正确
                 var purIdNotIn = '';
                 $('.cargoinDo').each(function () {
                     var _self = $(this);
@@ -440,9 +424,9 @@
                     var purId = $("input[name=purId" + indexTR + "]").val();
                     var unitPrice = $("input[name=unitPrice" + indexTR + "]").val();
 
-                    //原料需要入库的数量
-                    var amountTotal = Number($("input[name=amountTotal" + indexTR + "]").val());
-                    //实际填的总入库数量
+                    // 原料需要入库的数量
+                    var amountTotal = Number($("input[name=actualAmount" + indexTR + "]").val());
+                    // 实际填的总入库数量
                     var amountActually = 0;
 
                     $('#regionIdArea' + indexTR).find('.more-space').each(function () {
@@ -459,7 +443,7 @@
                         amountActually += Number(amount);
 
                         console.log('ifSubmit6666666', ftyId)
-                        //若仓库不可用，终止提交数据
+                        // 若仓库不可用，终止提交数据
 //                        if(!ftyId ||!whseId ||!regionId ||!spaceId ||!amount || statusThis == 0)
                         if (statusThis == 0) {
                             console.log('break');
@@ -545,7 +529,7 @@
 
         })
 
-        //增加货位
+        // 增加货位
         $('.add-spaceid').on('click', function () {
             var _self = $(this);
             var index = _self.attr('data-index');
@@ -589,7 +573,7 @@
             ++cargoinList_result;
 
         })
-        //删除货位
+        // 删除货位
         contentArea.on('click', '.less-spaceid', function () {
             var _self = $(this);
             var index = _self.attr('data-index');
@@ -597,89 +581,6 @@
         })
 
 
-        $('#toModify').click(function () {
-            for (var i = 0; i < lengthTr; i++) {
-                var price = $.trim($('#modigyprice' + i).text());
-                $('#modigyprice' + i).html('<input class="form-control validate[required]" value="' + price + '" name="price' + i + '" id="price' + i + '">')
-                var total = $.trim($('#modigytotal' + i).text());
-                $('#modigytotal' + i).html('<input class="form-control validate[required]" value="' + total + '" name="total' + i + '" id="total' + i + '">')
-            }
-
-            $("#contentArea").validationEngine();
-            $('#toModify').hide();
-            $('#toEnter').hide();
-            $('#toModifySave').show();
-        })
-        $('#toModifySave').click(function () {
-            var _self = $(this);
-            var myArray = new Array();
-            var ifSubmit = false;
-            for (var i = 0; i < lengthTr; i++) {
-                var price = $("input[name=price" + i + "]").val();
-                var total = $("input[name=total" + i + "]").val();
-
-                if (!price || !total) {
-                    console.log('continue');
-                    continue;
-                }
-                var mateId = $("input[name=cargoId" + i + "]").val();
-                var reqId = $("#reqId" + i).val();
-
-                var a = new Object();
-                a = {
-                    price: price,
-                    total: total,
-                    reqId: reqId,
-                    mateId: mateId,
-                }
-
-                myArray.push(a);
-                ifSubmit = true;
-            }
-
-
-            var date = {
-                reqMaterialList: myArray
-            };
-            if (!price || !total) {
-                layer.msg('请先填写正确物料信息', {icon: 2, time: 2000});
-                _self.html('确认修改物料信息');
-                return;
-            }
-
-
-            layer.confirm("确认提交？", {title: '提示'}, function (index) {
-                    _self.html('保存中 <i class="fa fa-circle-o-notch fa-spin">');
-
-                    $.ajax({
-                        url: '/enterMaterial/reqmaterialModify',
-                        data: JSON.stringify(date),
-                        method: 'post',
-                        dataType: 'json',
-                        contentType: "application/json",
-                        success: function (data) {
-                            successLayout.reload();
-                        },
-                        error: function (response) {
-                            layer.close(index)
-                            var status = response.status;
-                            if (status == 200) {
-                                _self.html('确认修改物料信息');
-                                successLayout.reload();
-                                return;
-                            }
-                            _self.html('确认修改物料信息');
-                            errorLayout.normal(response);
-
-                        }
-                    });
-                }, function (index) {
-                    layer.close(index)
-                }
-            )
-
-
-        })
 
     })
 
