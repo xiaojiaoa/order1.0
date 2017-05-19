@@ -69,7 +69,7 @@ var MaterialController = {
                     if(!stairCatId){
                         var searchId = resultList.stairCategory[0].id;
                         // console.log('searchId',searchId)
-                        res.redirect("/materialManage?stairCatId="+searchId);
+                        return  res.redirect("/materialManage?stairCatId="+searchId);
                     }
                 }
 
