@@ -282,20 +282,40 @@
             var cargoSpaceIn = '';
             var mateId =$("input[name=cargoId" + selectIndex + "]").val()
 
-            $('#regionIdArea' + selectIndex).find('.more-space').each(function () {
-                var _element = $(this);
-                var index = _element.attr('data-index');
 
-                var ftyId = $("select[name=ftyId" + index + "]").val();
-                var whseId = $("select[name=whseId" + index + "]").val();
-                var regionId = $("select[name=regionId" + index + "]").val();
-                var spaceId = $("input[name=spaceId" + index + "]").val();
+            $('.cargoinDo').each(function () {
+                var _self = $(this);
+                var indexTR = _self.attr('data-index');
+                $('#regionIdArea' + indexTR).find('.more-space').each(function () {
+                    var _element = $(this);
+                    var index = _element.attr('data-index');
+//                    var ftyId = $("select[name=ftyId" + index + "]").val();
+                    var whseId = $("select[name=whseId" + index + "]").val();
+                    var regionId = $("select[name=regionId" + index + "]").val();
+                    var spaceId = $("input[name=spaceId" + index + "]").val();
 
-                if(whseId && regionId && spaceId){
-                    var string = regionId+spaceId
-                    cargoSpaceIn += string+',';
-                }
+                    if(whseId && regionId && spaceId){
+                        var string = regionId+spaceId
+                        cargoSpaceIn += string+',';
+                    }
+
+                })
             })
+
+//            $('#regionIdArea' + selectIndex).find('.more-space').each(function () {
+//                var _element = $(this);
+//                var index = _element.attr('data-index');
+//
+//                var ftyId = $("select[name=ftyId" + index + "]").val();
+//                var whseId = $("select[name=whseId" + index + "]").val();
+//                var regionId = $("select[name=regionId" + index + "]").val();
+//                var spaceId = $("input[name=spaceId" + index + "]").val();
+//
+//                if(whseId && regionId && spaceId){
+//                    var string = regionId+spaceId
+//                    cargoSpaceIn += string+',';
+//                }
+//            })
 //            console.log(selectIndex)
 //            console.log(mateId)
 //            console.log(cargoSpaceIn)
