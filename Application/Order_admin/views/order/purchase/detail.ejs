@@ -199,8 +199,8 @@
                                 <td>
                                     <label class="checkbox-inline">
                                         <%
-                                        if(element.stcode<=30 && element.empId == user.id){%>
-                                        <input type="checkbox" class="checkbox" name="roles" value="<%= element.id %>" stcode="<%= element.stcode %>" isDirect="<%= element.isDirect %>" />
+                                        if(element.stcode<=30){%>
+                                        <input type="checkbox" class="checkbox" name="roles" value="<%= element.id %>" stcode="<%= element.stcode %>" isDirect="<%= element.isDirect %>" gid="<%= element.empId %>" />
                                        <% }else{%>
                                         <input type="checkbox" class="checkbox" name="roles" value="<%= element.id %>" stcode="<%= element.stcode %>" isDirect="<%= element.isDirect %>" disabled="disabled" />
                                         <%}%>
@@ -227,6 +227,8 @@
                             <%  }%>
                             <input type="hidden" name="stcodeStr" />
                             <input type="hidden" name="isdirect" />
+                            <input type="hidden" name="gid" />
+                            <input type="hidden" name="gidHid" value="<%= user.id %>" />
                             </tbody>
                         </table>
                         <%- pagination %>
@@ -256,20 +258,24 @@
             })
             $("input[name='roles']").change(function () {
                 var vids='',
-                    isDirect='';
-                $('input[name=roles]:checked').each(function(){
-                    vids += $(this).attr('stcode') + ',';
-                    isDirect += $(this).attr('isDirect') + ',';
+                    isDirect='',
+                    gid='';
+                $('input[name=roles]').each(function(){
+
                     if($(this).is(':checked')){
+                        vids += $(this).attr('stcode') + ',';
+                        isDirect += $(this).attr('isDirect') + ',';
+                        gid += $(this).attr('gid') + ',';
                         $("input[name='stcodeStr']").attr('stcode',vids);
                         $("input[name='isdirect']").attr('isdirect',isDirect);
-                    }else{
-                        $("input[name='stcodeStr']").attr('stcode','');
-                        $("input[name='isdirect']").attr('isdirect','');
+                        $("input[name='gid']").attr('gid',gid);
                     }
-                    stcodeStr=$("input[name='stcodeStr']").attr('stcode');
-                    isdirect=$("input[name='isdirect']").attr('isdirect');
                 })
+                stcodeStr=vids;
+                isdirect=isDirect;
+                gidVali = gid;
+
+
                 if($(this).is(':checked')){
                     checkedValue.addClass(this.value+',');
                 }else{
@@ -392,6 +398,7 @@
             })
 
             $("#DelOrder").click(function(){
+                var val= $("input[name=gidHid]").val();
                 if(checkedValue.attr('class')==null||checkedValue.attr('class')=='') {
                     layer.alert('请选择！', {icon: 3});
                     return false;
@@ -404,6 +411,11 @@
                     layer.alert('已完成请购流程的采购单无法删除！', {icon: 3})
                     return false;
                 }
+                if(gidVali.indexOf(val)==-1){
+                    layer.alert('仅能删除自己创建的采购单！', {icon: 3})
+                    return false;
+                }
+
                 var purcIds = checkedValue.attr('class').replace(/[ ]/g,"");
                 purcIds = purcIds.substring(0,purcIds.length-1);
                 layer.confirm('确认删除?',{icon: 3, title:'提示'},
