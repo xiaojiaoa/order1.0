@@ -119,7 +119,7 @@
                                             <option value="">-- 请选择 --</option>
                                             <% if(DWY_Helper.isCanLoop(element.list)){
                                                 element.list.forEach(function (context) { %>
-                                            <option value="<%= context.spaceId %>" data-nowAmount="<%= context.nowAmount %>">
+                                            <option value="<%= context.spaceId %>" data-nowAmount="<%= context.nowAmount %>" data-mateBatchId="<%= context.mateBatchId %>">
                                                 <%= context.spaceId %>(库存数量 <%= context.nowAmount %> , 物料批次号 <%= context.batchId %>)
                                             </option>
                                             <% }) } %>
@@ -284,6 +284,7 @@
                         var index = _element.attr('data-index');
 
                         var spaceId=$("select[name=spaceId"+index+"]").val();
+                        var mateBatchId = $("select[name=spaceId"+index+"]").find('option:selected').attr('data-mateBatchId');
                         var amount=$("input[name=amount"+index+"]").val();
                         amountActually += Number(amount);
 
@@ -292,6 +293,7 @@
                             spaceId: spaceId,
                             cargoId: cargoId,
                             amount: amount,
+                            mateBatchId: mateBatchId,
                         }
 
                         myArray.push(a);
