@@ -16,9 +16,6 @@ var request = require('request');
 //引入权限
 var Permissions = require('../config/permission');
 
- // var ejs=require('../config/ejs.min');
-//node_modules/ejs/lib/ejs
-// var ejs=require("../../../../../node_modules/ejs/ejs");
 
 var SystemController = {
     indexPage: function (req, res) {
@@ -85,7 +82,7 @@ var SystemController = {
         })
     },
     doModify: function (req, res) {
-        console.log("修改",req.body);
+        //console.log("修改",req.body);
         request(Base.mergeRequestOptions({
             method: 'put',
             url: '/api/assist/update'+"?"+queryString.stringify(req.body)
@@ -155,7 +152,7 @@ var SystemController = {
             if (!error && response.statusCode == 200) {
                 // 编译模板
                 var data = JSON.parse(body);
-                console.log('data是啥',data)
+               // console.log('data是啥',data)
                 var basicDataOne = template({result:data});
                 res.send(basicDataOne);
             } else {
