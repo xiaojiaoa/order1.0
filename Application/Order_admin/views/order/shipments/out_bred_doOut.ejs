@@ -120,7 +120,7 @@
                                             <% if(DWY_Helper.isCanLoop(element.list)){
                                                 element.list.forEach(function (context) { %>
                                             <option value="<%= context.spaceId %>" data-nowAmount="<%= context.nowAmount %>">
-                                                <%= context.spaceId %>(库存数量 <%= context.nowAmount %> )
+                                                <%= context.spaceId %>(库存数量 <%= context.nowAmount %> , 物料批次号 <%= context.batchId %>)
                                             </option>
                                             <% }) } %>
                                         </select>
