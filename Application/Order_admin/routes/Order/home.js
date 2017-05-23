@@ -1250,7 +1250,7 @@ router.post('/noticeInfo/doModify', Middleware.AuthCheck, InformationController.
 router.put('/noticeInfo/doDelete/:nid', Middleware.AuthCheck, InformationController.noticeDoDelete);
 
 // 资料信息详情页面
-router.get('/fileInfo', Middleware.AuthCheck, InformationController.fileInfoPage);
+router.get('/fileInfo', Middleware.AuthCheck,Middleware.FilterEmptyField, InformationController.fileInfoPage);
 
 // 资料上传接口
 router.post('/fileInfo/share', Middleware.AuthCheck,InformationController.fileDoCreate);
