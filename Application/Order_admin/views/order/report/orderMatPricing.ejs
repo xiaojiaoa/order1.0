@@ -131,8 +131,8 @@
                                 <td><%= element.totalPrice %></td>
                                 <td><%= element.totalUnitPrice %></td>
                                 <td><%= element.amount %></td>
-                                <td><%= DWY_Helper.getLocalDate(element.addTime) %></td>
-                                <td><%= DWY_Helper.getLocalDate(element.createTime) %></td>
+                                <td><%= DWY_Helper.getLocalDateYMD(element.addTime) %></td>
+                                <td><%= DWY_Helper.getLocalDateYMD(element.createTime) %></td>
                                 <td><%= element.lid %></td>
                             </tr>
                             <%})

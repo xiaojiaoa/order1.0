@@ -140,8 +140,8 @@
                                 <td><%= element.mid %></td>
                                 <td><%= element.name %></td>
                                 <td><%= element.amount %></td>
-                                <td><%= DWY_Helper.getLocalDate(element.scheduleTime) %></td>
-                                <td><%= DWY_Helper.getLocalDate(element.createTime) %></td>
+                                <td><%= DWY_Helper.getLocalDateYMD(element.scheduleTime) %></td>
+                                <td><%= DWY_Helper.getLocalDateYMD(element.createTime) %></td>
                                 <td><%= element.lid %></td>
                             </tr>
                             <%})
