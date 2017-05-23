@@ -281,6 +281,8 @@ var AppServiceController = {
         })
     },
     permission: function (req, res) {
+        console.log('permission',req.headers)
+        console.log('allReq',JSON.stringify(req))
         request(Base.mergeRequestOptions({
             method: 'get',
             url: '/api/whse/app/permission?'+queryString.stringify(req.query),
