@@ -27,7 +27,6 @@ var AppServiceController = {
             form: req.body
         }, req, res), function (error, response, body) {
             if (!error) {
-                console.log('access_token===',body)
                 res.send(JSON.parse(body));
             } else {
                 res.send(AppServiceController.error);
@@ -43,7 +42,6 @@ var AppServiceController = {
             form: {refreshToken: refreshToken}
         }, req, res), function (error, response, body) {
             if (!error) {
-                console.log('refreshToken:::',body)
                 res.send(JSON.parse(body));
             } else {
                 res.send(AppServiceController.error);
@@ -93,8 +91,6 @@ var AppServiceController = {
         })
     },
     cargoinOrder: function (req, res) {
-        //console.log(99999)
-       // console.log('666666',JSON.stringify(req.body))
         request(Base.mergeRequestOptions({
             method: 'post',
             url: '/api/whse/app/cargoin/order/package/list',
@@ -114,7 +110,6 @@ var AppServiceController = {
                 {url: '/api/whse/factory/list', method: 'GET', resConfig: {keyName: 'factoryList', is_must: true}},
             ],
             function (req, res, resultList) {
-           // console.log('packageList',JSON.stringify(resultList.packageList))
                 var returnData = Base.mergeData(helper.mergeObject({
                     title: ' ',
                 }, resultList));
@@ -123,7 +118,6 @@ var AppServiceController = {
             }else{
                 var error;
                 var msgid = '';
-                // console.log('8888',resultList.packageList)
                 var arry = resultList.packageList.info.errorPackgeNos;
                 var length = arry.length;
                 for(var i=0;i<length;i++){
@@ -281,8 +275,6 @@ var AppServiceController = {
         })
     },
     permission: function (req, res) {
-        console.log('permission',req.headers)
-        console.log('allReq',req)
         request(Base.mergeRequestOptions({
             method: 'get',
             url: '/api/whse/app/permission?'+queryString.stringify(req.query),
