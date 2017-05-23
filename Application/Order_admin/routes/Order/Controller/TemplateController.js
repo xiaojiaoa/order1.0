@@ -180,7 +180,7 @@ var TemplateController = {
                 });
             } else {
                 Base.handlerError(res, req, error, response, body);
-                fs.unlink(file.destination + file.filename);
+                fs.unlink(file.destination + file.filename, function () {});
             }
 
         })
@@ -230,7 +230,7 @@ var TemplateController = {
 
             } else {
                 Base.handlerError(res, req, error, response, body);
-                fs.unlink(file.destination + file.filename);
+                fs.unlink(file.destination + file.filename, function () {});
             }
             // fs.unlink(file.destination + file.filename, function () {
             //     res.status(200).send(_.merge({}, $data, {tmp_path: file.filename}));
