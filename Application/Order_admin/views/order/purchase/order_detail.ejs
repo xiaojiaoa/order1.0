@@ -71,7 +71,9 @@
                             <tr>
                                 <th>序号</th>
                                 <th>请购单号</th>
-                                <th>数量</th>
+                                <th>采购数量</th>
+                                <th>入库数量</th>
+                                <th>百分比</th>
                                 <th>最小数量</th>
                                 <th>材料名称</th>
                             </tr>
@@ -80,7 +82,7 @@
                             <%
                             if(DWY_Helper.isCanLoop(purchaseOrderList.reqMaters)){
                             purchaseOrderList.reqMaters.forEach(function (element, index) { %>
-                            <tr>
+                            <tr class="purList">
                                 <td>
                                     <label class="checkbox-inline">
                                         <span><%= index+1 %></span>
@@ -95,7 +97,9 @@
                                         <%}%>
                                     </a>
                                 </td>
-                                <td><%= element.amount %></td>
+                                <td class="amount<%= index %>"><%= element.amount %></td>
+                                <td class="inAmount<%= index %>"><%= element.inAmount %></td>
+                                <td class="percentage"></td>
                                 <td><%= element.minAmount %></td>
                                 <td><%= element.mateName %></td>
                             </tr>
@@ -114,6 +118,12 @@
     $(document).ready(function () {
         pageSetUp();
         $(".fg-date-picker").flatpickr(data_time_picker.data_picker); // jQuery
+        var leng = $(".purList").length;
+        for(var i=0;i<leng;i++){
+            var amount = $(".amount"+i).text();
+            var inAmount = $(".inAmount"+i).text();
+            $(".percentage").text(((parseInt(amount)-parseInt(inAmount))/parseInt(amount)));
+        }
     })
 </script>
 <%- include('../layouts/foot'); %>

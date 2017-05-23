@@ -44,7 +44,7 @@
                                         <th>物料名称</th>
                                         <th>供应商名称</th>
                                         <th>分类名称</th>
-                                        <th class="display-none">单价</th>
+                                        <th>单价</th>
                                         <th>单位</th>
                                         <th>请购数量</th>
                                         <th>预计交期</th>
@@ -100,7 +100,7 @@
                     + '<td style="line-height:32px" class="matName'+i+'">' + listArr[i].name + '</td>'
                     + '<td style="line-height:32px" class="suppName'+i+'">' + listArr[i].suppName + '</td>'
                     + '<td style="line-height:32px">' + listArr[i].class_name + '</td>'
-                    + '<td style="line-height:32px" class="price'+i+' display-none" priceUnit="' + listArr[i].price + '">' + listArr[i].price + '</td>'
+                    + '<td><input name="price'+i+'" class="form-control price validate[required]" price="' + listArr[i].price + '" value="' + listArr[i].price + '" /></td>'
                     + '<td><select data-index="' + i + '" name="unit' + i + '" class="form-control unitSelect">'+options+'</select></td>'
                     + '<td><input data-index="' + i + '" type="text" name="amount'+i+'" value="" class="form-control amountApply validate[required]" /> </td>'
                     + '<td><div class="col-xs-12"><input data-index="' + i + '" class="form-control fg-date-picker deliveryDate validate[required]" type="text" value="" name="deliveryDate'+i+'" /></div> </td>'
@@ -147,7 +147,7 @@
                     var suppId = $(".suppId" + i).text();
                     var mateName = $(".matName" + i).text();
                     var suppName = $(".suppName" + i).text();
-                    var price = $(".price" + i).text();
+                    var price = $("input[name=price" + i + "]").val();
                     var amount = $("input[name=amount" + i + "]").val();
                     var minAmount = $("input[name=minAmount" + i + "]").val();
                     var deliveryDate = $("input[name=deliveryDate" + i + "]").val();
@@ -162,6 +162,7 @@
                     a.mateName = mateName;
                     a.suppName = suppName;
                     myArray.push(a);
+                    console.log(a)
                 }
 
                 var date = {reqMaterialList: myArray};
@@ -198,10 +199,10 @@
 
         $(".unitSelect").on('change',function(){
             var index = $(this).attr('data-index');
-            var indexUnit = $(this).parents('td').siblings('.price'+index).attr('priceUnit');
+            var indexUnit = $(this).parents('td').siblings().find("input[name=price"+index+"]").attr("price");
             var amount = $(this).find('option:selected').attr("amount");
             var parse =  parseInt(indexUnit) * parseInt(amount);
-            $('.price'+index).text(parse);
+            $("input[name=price"+index+"]").val(parse);
         })
 
         //输入请购数量的时候自动填充最小数量

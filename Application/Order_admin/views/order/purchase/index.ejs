@@ -141,7 +141,7 @@
                     <legend>
                         已请购列表
                         <% if (DWY_Helper.hasPermission(Permission.request.create.id, permission) ){ %>
-                        <a class="label label-primary" href="/purchase/applyCreat">新建请购单</a>
+                        <a class="label label-primary" href="/purchase/applyCreat?mateType=10">新建请购单</a>
                         <% } %>
                         <button class="label label-danger" id="DelOrder">删除</button>
                         <input type="hidden" id="checkedValue"></input>

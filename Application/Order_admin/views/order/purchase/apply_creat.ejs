@@ -132,10 +132,12 @@
                 <legend>
                 </legend>
             </div>
-
             <div class="col-xs-12">
-                <div class="orderItemLayerTit">
-                </div>
+                <ul class="orderItemLayerTit clearfix orderItemMenu">
+                    <a href="/purchase/applyCreat?mateType=10"><li class="<%= DWYRequest.query.mateType == 10 ? 'selected' : '' %>">预警物料</li></a>
+                    <a href="/purchase/applyCreat?mateType=20"><li class="<%= DWYRequest.query.mateType == 20 ? 'selected' : '' %>">未设置库存物料</li></a>
+                    <a href="/purchase/applyCreat?mateType=30"><li class="<%= DWYRequest.query.mateType == 30 ? 'selected' : '' %>">正常物料</li></a>
+                </ul>
                 <div class="orderItemLayerTable">
                     <table class="table table-bordered table-hover">
                         <thead>

@@ -157,7 +157,7 @@
                         <button class="btn btn-danger" id="DelOrder">删除</button>
                         <button class="btn btn-primary">打印</button>
                         <% if (DWY_Helper.hasPermission(Permission.purchase.createP.id, permission)){ %>
-                        <a href="/purchase/create" class="btn btn-primary">新建采购单</a>
+                        <a href="/purchase/create?mateType=10" class="btn btn-primary">新建采购单</a>
                         <% } %>
 
                         <!--<button class="btn btn-primary" id="advanceCharge">标记为预付款</button>-->
@@ -180,8 +180,8 @@
                                 <th>采购单编号</th>
                                 <th>供应商编号</th>
                                 <th>供应商名称</th>
-                                <!--<th>采购数量</th>-->
-                                <!--<th>入库数量</th>-->
+                                <th>采购数量</th>
+                                <th>入库数量</th>
                                 <th>采购类型</th>
                                 <th>预计交付时间</th>
                                 <th>创建时间</th>
@@ -210,8 +210,8 @@
                                 <td><a href="/purchase/orderDetail/<%= element.id %>"><%= element.id %></a></td>
                                 <td><a href="/supplier/detail/<%= element.suppId %>"><%= element.suppId %></a></td>
                                 <td><%= element.suppName %></td>
-                                <!--<td></td>-->
-                                <!--<td></td>-->
+                                <td><%= element.purcAmount %></td>
+                                <td><%= element.inAmount %></td>
                                 <td><%= (element.type==10)?'普通采购':'成品采购' %></td>
                                 <td><%= DWY_Helper.getLocalDate(element.deliveryDate) %></td>
                                 <td><%= DWY_Helper.getLocalDate(element.addTime) %></td>
