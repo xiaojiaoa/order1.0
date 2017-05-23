@@ -166,7 +166,7 @@ var BMapLib = window.BMapLib = BMapLib || {};
 
             //鼠标点击下拉列表后的事件
             this.searchAC.addEventListener("onconfirm", function (e) {
-                var _value = e.item.value;
+                // var _value = e.item.value;
                 // console.log(_value);
             });
         },
@@ -186,8 +186,8 @@ var BMapLib = window.BMapLib = BMapLib || {};
                 provincesArry.push({name: provinceValue[0], code: provinceValue[1]})
             }
             var provincesOption = '';
-            for (var i = 0; i < provincesArry.length; i++) {
-                provincesOption += '<option type= "1" value="' + provincesArry[i]["code"] + '"  id="BMapLib_cityItem' + provincesArry[i]["code"] + '">' + provincesArry[i]["name"] + "</option>"
+            for (var j = 0; j < provincesArry.length; j++) {
+                provincesOption += '<option type= "1" value="' + provincesArry[j]["code"] + '"  id="BMapLib_cityItem' + provincesArry[j]["code"] + '">' + provincesArry[j]["name"] + "</option>"
             }
             var _self = this;
             _self.dom.provinces.append(provincesOption);
@@ -282,7 +282,6 @@ var BMapLib = window.BMapLib = BMapLib || {};
         //城市选择事件
         selectCityCallback: function (cities) {
             if (cities.result.error != 0) {
-                alert(22)
                 return
             }
             var sub = cities.content.sub, area_code = cities.content.area_code, area_name = cities.content.area_name;

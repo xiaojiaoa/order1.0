@@ -173,8 +173,8 @@ var SupplierController = {
     //修改供应商物料关联有效期
     updateDate:function(req,res){
         var sid = req.body.suppId;
-        var mid = req.body.mateId;
-        var date = req.body.expiryDate;
+        // var mid = req.body.mateId;
+        // var date = req.body.expiryDate;
         request(Base.mergeRequestOptions({
             method: 'put',
             url: '/api/suppliers/materials?'+queryString.stringify(req.body)

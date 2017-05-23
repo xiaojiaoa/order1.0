@@ -48,7 +48,7 @@
         obj.scroller = params && params.height !== undefined
           ? $('#hdScroll' + obj.id)
           : $(window);
-        console.log('2222222',params.scrollListenerEl)
+        // console.log('2222222',params.scrollListenerEl)
         if (params && params.scrollListenerEl !== undefined) {
           obj.scroller = params.scrollListenerEl;
         }
@@ -61,15 +61,15 @@
 
           if (obj.header.offset() != null) {
             if (limiteAlcancado(obj, params)) {
-              console.log('limiteAlcancado')
+              // console.log('limiteAlcancado')
               if (!copiedHeader) {
-                console.log('cloneHeaderRow')
+                // console.log('cloneHeaderRow')
                 cloneHeaderRow(obj);
                 copiedHeader = true;
               }
             }
             else {
-              console.log('limiteAlcancado22222222')
+              // console.log('limiteAlcancado22222222')
               if (($(document).scrollTop() > obj.header.offset().top)) {
                 obj.container.css("position", "absolute");
                 obj.container.css("top", (obj.grid.find("tr:last").offset().top - obj.header.height()) + "px");

@@ -67,7 +67,7 @@ var SystemController = {
         })
     },
     doCreate: function (req, res) {
-        //console.log( "新建",req.body);
+        // console.log( "新建",req.body);
         request(Base.mergeRequestOptions({
             method: 'post',
             url: '/api/assist',
@@ -82,7 +82,7 @@ var SystemController = {
         })
     },
     doModify: function (req, res) {
-        //console.log("修改",req.body);
+        // console.log("修改",req.body);
         request(Base.mergeRequestOptions({
             method: 'put',
             url: '/api/assist/update'+"?"+queryString.stringify(req.body)
@@ -146,7 +146,7 @@ var SystemController = {
         var template = require(path);
         request(Base.mergeRequestOptions({
             method: 'GET',
-            //url: '/api/assist/space/prod?spaceId='+spaceId,
+            // url: '/api/assist/space/prod?spaceId='+spaceId,
             url:'/api/assist/space/allprod?spaceId='+spaceId
         }, req, res), function (error, response, body) {
             if (!error && response.statusCode == 200) {
@@ -200,7 +200,7 @@ var SystemController = {
     },
     templatePage: function (req, res) {
         var ftyId = req.session.user.ftyId? req.session.user.ftyId: '';
-        console.log('templatePageftyId',ftyId)
+        // console.log('templatePageftyId',ftyId)
 
         Base.multiDataRequest(req, res, [
             {url: '/api/whse/freemarker/list?ftyId=0', method: 'GET', resConfig: {keyName: 'freemarkerSystem', is_must: true}},
@@ -245,11 +245,11 @@ var SystemController = {
         });
     },
     templateCreate: function (req, res) {
-        var ftlId = req.body.ftlId;
+        // var ftlId = req.body.ftlId;
         // if(ftlId == 0){
         //     req.body.name = req.body.ftlName;
         // }
-        console.log( "templateCreate",JSON.stringify(req.body));
+        // console.log( "templateCreate",JSON.stringify(req.body));
 
 
         request(Base.mergeRequestOptions({
@@ -269,7 +269,7 @@ var SystemController = {
         var id = req.body.id;
         var paramsType = req.body.paramsType;
 
-        console.log( 'templateModify',JSON.stringify(req.body));
+        // console.log( 'templateModify',JSON.stringify(req.body));
 
         request(Base.mergeRequestOptions({
             method: 'put',
@@ -285,7 +285,7 @@ var SystemController = {
     },
     templateDelete: function (req, res) {
         var id = req.params.id;
-        console.log('/api/whse/freemarker/status/'+id+'?stcode=0')
+        // console.log('/api/whse/freemarker/status/'+id+'?stcode=0')
         request(Base.mergeRequestOptions({
             method: 'put',
             url: '/api/whse/freemarker/status/'+id+'?stcode=0',
@@ -305,7 +305,7 @@ var SystemController = {
             url: '/api/whse/freemarker/print/'+id,
         }, req, res), function (error, response, body) {
             if (!error && response.statusCode == 200) {
-                console.log('printOut',body)
+                // console.log('printOut',body)
                 // res.status(200).json(body);
                 var returnData = Base.mergeData(helper.mergeObject({
                     id:id,
@@ -323,8 +323,8 @@ var SystemController = {
             url: '/api/orders/package/inventory/'+packageLid,
         }, req, res), function (error, response, body) {
             if (!error && response.statusCode == 200) {
-                console.log('printOut',body)
-                console.log('printOuttype',typeof body)
+                // console.log('printOut',body)
+                // console.log('printOuttype',typeof body)
                 // res.status(200).json(body);
                 // var resultList = body;
                 var returnData = Base.mergeData(helper.mergeObject({
@@ -347,8 +347,8 @@ var SystemController = {
             }
         }, req, res), function (error, response, body) {
             if (!error && response.statusCode == 200) {
-                console.log('printOut',body)
-                console.log('printOuttype',JSON.parse(body))
+                // console.log('printOut',body)
+                // console.log('printOuttype',JSON.parse(body))
                 // res.status(200).json(body);
                 // var resultList = body;
                 var returnData = Base.mergeData(helper.mergeObject({

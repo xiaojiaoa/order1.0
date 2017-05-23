@@ -34,7 +34,7 @@ var BaseController = {
         if (req.session.auth) {
 
             // TODO 打印TOKEN
-             console.log(req.session.auth.access_token);
+            //  console.log(req.session.auth.access_token);
 
             options.headers['access_token'] = req.session.auth.access_token;
         }
@@ -142,7 +142,7 @@ var BaseController = {
 
                 count++;
 
-                console.log('Expect to be ' + resultLength + ', Already got ' + count + '.');
+                // console.log('Expect to be ' + resultLength + ', Already got ' + count + '.');
 
                 if (!BaseController._checkResponseStatus(error, response)) {
                     count--;

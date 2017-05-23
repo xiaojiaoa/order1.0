@@ -142,7 +142,7 @@ var EmployeeController = {
         var type =  req.params.type;
         var bid =  req.params.bid;
         // var scope = (type == 'stores')? 1 : 2 ;
-        var scope = req.session.user.orgType;
+        // var scope = req.session.user.orgType;
         var employeesUrl = (type == 'stores')? '/api/stores/employees/' : '/api/employees/' ;
         Base.multiDataRequest(req, res, [
             {url: employeesUrl+cid, method: 'GET', resConfig: {keyName: 'employeesInfo', is_must: true}},
@@ -159,7 +159,6 @@ var EmployeeController = {
                 bid:bid,
                 Permission :Permissions,
             }, resultList));
-            // console.log('employees'+ JSON.stringify(resultList))
             res.render('order/employees/modify', returnData);
         });
     },
