@@ -23,7 +23,7 @@ var EnterController = {
         // console.log('user_session9999',req.session.user.ftyId)
         var ftyId = req.query.ftyId ? req.query.ftyId: req.session.user.ftyId;
         var whseId = req.query.whseId;
-        var regionId = req.query.regionId;
+        // var regionId = req.query.regionId;
         // console.log('ftyId:'+ftyId+'whseId:'+whseId+'regionId:'+regionId);
         var multiDataRequest= [
             {url: '/api/whse/cargoin/mate/page?'+queryString.stringify(req.query), method: 'GET', resConfig: {keyName: 'mateList', is_must: false}},

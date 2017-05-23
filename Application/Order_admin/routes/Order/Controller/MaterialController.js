@@ -462,7 +462,7 @@ var MaterialController = {
         }*/
         var ftyId = req.query.ftyId ? req.query.ftyId: req.session.user.ftyId;
         var whseId = req.query.whseId;
-        var regionId = req.query.regionId;
+        // var regionId = req.query.regionId;
        // console.log('ftyId:'+ftyId+'whseId:'+whseId+'regionId:'+regionId);
         var multiDataRequest= [
             {url: '/api/materials/stockOperation/page?'+ queryString.stringify(req.query), method: 'GET', resConfig: {keyName: 'stockOperationList', is_must: true}},

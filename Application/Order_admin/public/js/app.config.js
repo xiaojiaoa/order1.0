@@ -317,7 +317,6 @@
 				$('#voiceModal').modal('hide');
 			},	
 			'logout' : function() {
-				alert(6666666)
 				$.speechApp.stop();
 				window.location = $('#logout > span > a').attr("href");
                 localStorage.setItem('menuScroll-height',0);

@@ -16,7 +16,7 @@
   var TABLE_ID = 0;
   $.fn.freezeHeader = function (params) {
 
-    var copiedHeader = false;
+    // var copiedHeader = false;
 
     function freezeHeader(elem) {
       var idObj = elem.attr('id') || ('tbl-' + (++TABLE_ID));
@@ -66,7 +66,7 @@
           obj.container = $('#hd' + obj.id);
 
             cloneHeaderRow(obj);
-            copiedHeader = true;
+            // copiedHeader = true;
 
         });
       }

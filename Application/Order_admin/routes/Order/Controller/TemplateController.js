@@ -240,36 +240,36 @@ var TemplateController = {
 
     doMultiUpload: function (req, res) {
 
-        //请求文件组
-        var files = req.files;
+        // 请求文件组
+        // var files = req.files;
 
-        //请求数据
-        var data = req.body;
+        // 请求数据
+        // var data = req.body;
 
         res.status(200).send('Done');
     },
 
     doCustomUpload: function (req, res) {
 
-        //请求文件组
-        var files = req.files;
+        // 请求文件组
+        // var files = req.files;
 
-        var file = files;
+        // var file = files;
 
 
     },
 
     doAnyUpload: function (req, res) {
 
-        //请求文件组
-        var files = req.files;
+        // 请求文件组
+        // var files = req.files;
 
-        //请求数据
-        var data = req.body;
+        // 请求数据
+        // var data = req.body;
 
     },
 
-    //获取请求数据
+    // 获取请求数据
     getData: function (req, res) {
 
         var url = req.url.replace('/cascade', '');

@@ -66,18 +66,18 @@ var DWY_Utils = DWY_Utils || {
         },
 
         StorageUtils: {
-            //从localStorage里获取列表数据
+            // 从localStorage里获取列表数据
             getListArr: function (storageKey) {
 
-                console.log(this)
+                // console.log(this)
                 return JSON.parse(localStorage.getItem(storageKey));
             },
-            //设置localStorage中的数据
+            // 设置localStorage中的数据
             setList: function (storageKey, list) {
                 return localStorage.setItem(storageKey, JSON.stringify(list));
             },
 
-            //添加一个项目
+            // 添加一个项目
             addItem: function (item, prop, storageKey, callBack) {
 
                 var listArr = this.getListArr(storageKey) || [];
@@ -101,7 +101,7 @@ var DWY_Utils = DWY_Utils || {
                 }
             },
 
-            //删除一个项目
+            // 删除一个项目
             deletItem: function (item, prop, storageKey, callBack) {
                 var listArr = this.getListArr(storageKey);
                 var len = listArr.length;
@@ -119,7 +119,7 @@ var DWY_Utils = DWY_Utils || {
                 }
             },
 
-            //删除所有项目
+            // 删除所有项目
             deleteAll: function (storageKey, callBack) {
                 this.setList(storageKey, "[]");
                 if (typeof callBack == 'function') {
@@ -128,13 +128,13 @@ var DWY_Utils = DWY_Utils || {
             }
         },
         CommonMethods: {
-            //合计，表格对象，对哪一列进行合计--使用方法 calcTotal(document.getElementById('table'),2,2);
+            // 合计，表格对象，对哪一列进行合计--使用方法 calcTotal(document.getElementById('table'),2,2);
             calcTotal: function (table, column, start) {
                 var trs = table.getElementsByTagName('tr');
-                var start = start,//忽略第一行的表头
-                    end = trs.length - 1;//忽略最后合计的一行
+                var _start = start, // 忽略第一行的表头
+                    end = trs.length - 1; // 忽略最后合计的一行
                 var total = 0;
-                for (var i = start; i < end; i++) {
+                for (var i = _start; i < end; i++) {
                     var td = trs[i].getElementsByTagName('td')[column];
                     var t = parseFloat(td.innerHTML);
                     if (t) total += t;

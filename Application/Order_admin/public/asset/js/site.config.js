@@ -305,7 +305,7 @@ var DWY_area = {
         _config.defaultValue = _config.defaultValue || [];
 
         if (!_config.target) {
-            console.log('目标不存在!')
+            // console.log('目标不存在!')
         }
 
         DWY_area.getAreaList('province', function (data) {
@@ -477,7 +477,7 @@ var DWY_fty_region = {
         _config.regionValue = _config.regionValue || '';
 
         if (!_config.target) {
-            console.log('目标不存在!')
+            // console.log('目标不存在!')
         }
 
         $(_config.target).each(function (index, element) {
@@ -511,7 +511,7 @@ var DWY_fty_region = {
         _config.defaultValue = _config.defaultValue || [];
 
         if (!_config.target) {
-            console.log('目标不存在!')
+            // console.log('目标不存在!')
         }
 
         DWY_fty_region.getFactoryList(function (data) {
@@ -573,10 +573,10 @@ var DWY_fty_region = {
 
 var errorLayout = {
     normal : function (data) {
-        var data = JSON.parse(data.responseText);
+        var _data = JSON.parse(data.responseText);
         $.smallBox({
             title: "操作失败",
-            content: data.msg,
+            content: _data.msg,
             color: "#C46A69",
             iconSmall: "fa fa-times fa-2x fadeInRight animated",
             timeout: 3000
