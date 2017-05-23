@@ -78,7 +78,7 @@ var CargospaceController = {
     },
     getRegion: function (req, res) {
         var whseId = req.params.whseId;
-        console.log('/region/list','/api/whse/region/list/'+whseId+'?'+queryString.stringify(req.query))
+        //console.log('/region/list','/api/whse/region/list/'+whseId+'?'+queryString.stringify(req.query))
         request(Base.mergeRequestOptions({
             method: 'GET',
             url: '/api/whse/region/list/'+whseId+'?'+queryString.stringify(req.query),

@@ -1211,3 +1211,18 @@ table > tbody > tr > td a.label:first-child {
 .table>tbody>tr>td, .table>tbody>tr>th, .table>tfoot>tr>td, .table>tfoot>tr>th, .table>thead>tr>td, .table>thead>tr>th {
     vertical-align: middle;
 }
+.font-blod{
+    font-weight: bold;
+}
+.table-print{
+    border: none;
+}
+.table-print thead tr{
+  background: none;
+}
+.table-print>thead>tr>th{
+ border: none;
+}
+.table-print tbody{
+    border: 1px solid #ddd;
+}
