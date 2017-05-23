@@ -248,7 +248,7 @@
                 var _this = $(this);
                 var choosedName =  _this.prop('files')[0].name;
                 <!--choosedName.indexOf('<%= tid %>') == 0-->
-                if(2>1){
+                if(choosedName.indexOf('<%= tid %>') == 0){
                     var label = $("#label-upload-file");
                     var lid = $("[name=lid]");
                     var tid = $("[name=tid]");
