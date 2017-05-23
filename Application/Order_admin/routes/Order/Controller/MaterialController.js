@@ -424,7 +424,7 @@ var MaterialController = {
     outSourcingDoCreate: function (req, res) {
         var mid=req.body.mateId;
         var bid=req.body.bid;
-         console.log(req.body);
+         //console.log(req.body);
         request(Base.mergeRequestOptions({
             method: 'post',
             url: '/api/materials/state',

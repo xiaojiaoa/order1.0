@@ -50,17 +50,17 @@ var FileController = {
                 var fileTypeList = {};
                 resultList.fileInfo.forEach(function(element,index){
                     if( fileTypeList[element.fileTypeDesc] == undefined){
-                        console.log('new')
+                        //console.log('new')
                         fileTypeList[element.fileTypeDesc] = [];
                         fileTypeList[element.fileTypeDesc].push({url:element.filePath,originalFileName:element.fileName});
                     }else{
-                        console.log('haved')
+                        //console.log('haved')
                         fileTypeList[element.fileTypeDesc].push({url:element.filePath,originalFileName:element.fileName});
                     }
                 });
 
                 resultList.fileTypeList = fileTypeList;
-                console.log('fileTypeList',JSON.stringify(resultList.fileTypeList))
+                //console.log('fileTypeList',JSON.stringify(resultList.fileTypeList))
 
                 var returnData = Base.mergeData(helper.mergeObject({
                     title: ' ',
@@ -88,11 +88,11 @@ var FileController = {
                 var fileTypeList = {};
                 resultList.fileInfo.forEach(function(element,index){
                     if( fileTypeList[element.fileTypeDesc] == undefined){
-                        console.log('new')
+                        //console.log('new')
                         fileTypeList[element.fileTypeDesc] = [];
                         fileTypeList[element.fileTypeDesc].push({url:element.filePath,originalFileName:element.fileName});
                     }else{
-                        console.log('haved')
+                       // console.log('haved')
                         fileTypeList[element.fileTypeDesc].push({url:element.filePath,originalFileName:element.fileName});
                     }
                 });
@@ -176,7 +176,7 @@ var FileController = {
         })
     },
     doCreateBatchNumberFile: function (req, res) {
-        console.log('doCreateBatchNumberFile',JSON.stringify(req.body))
+        //console.log('doCreateBatchNumberFile',JSON.stringify(req.body))
         request(Base.mergeRequestOptions({
             method: 'post',
             url: '/api/orders/batchNumber/measfile',
@@ -229,7 +229,7 @@ var FileController = {
         //         }
         //         ]
         // }
-        console.log('zipDownload111',DWY_GLOBAL.server.Static.http)
+        //console.log('zipDownload111',DWY_GLOBAL.server.Static.http)
         // console.log('zipDownload111',req.body)
         // console.log('zipDownload222',JSON.stringify(aaaaa))
         req.body.list = JSON.parse(req.body.list)

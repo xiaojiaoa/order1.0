@@ -99,7 +99,7 @@ var TemplateController = {
                     totalResult: paginationInfo.totalItems
                 }));
 
-                console.log(boostrapPaginator.render());
+                //console.log(boostrapPaginator.render());
 
                 var returnData = Base.mergeData(helper.mergeObject({
                     title: '页面标题',
