@@ -1241,7 +1241,7 @@ var InformationController = require('./Controller/InformationController');
 router.get('/noticeInfo', Middleware.AuthCheck,Middleware.FilterEmptyField,InformationController.noticeInfoPage);
 
 // 公告信息-新建
-router.post('/noticeInfo/doCreate', Middleware.AuthCheck,Middleware.FilterEmptyField,InformationController.noticeDoCreate);
+router.post('/noticeInfo/doCreate', Middleware.AuthCheck,InformationController.noticeDoCreate);
 
 // 公告信息-修改
 router.post('/noticeInfo/doModify', Middleware.AuthCheck, InformationController.noticeDoModify);
