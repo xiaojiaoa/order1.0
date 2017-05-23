@@ -190,10 +190,9 @@
                                 <td><%= element.addTime %></td>
                                 <td><%= element.remark %></td>
                                 <td>
-                                    <% if(element.stcode == stcode && element.gid == user.id ){  %>
+                                    <% if(element.delFlag == true && element.gid == user.id ){  %>
                                     <a class="label label-danger" onclick="deleteFile(<%= element.id %>)">删除</a>
                                     <% } %>
-
                                     <a class="label label-primary" href="<%= DWY_GLOBAL.Static %>/download?originalFileName=<%= element.fileName %>&url=<%= element.filePath %>">下载</a>
                                 </td>
                             </tr>
@@ -248,6 +247,7 @@
             change: function (e) {
                 var _this = $(this);
                 var choosedName =  _this.prop('files')[0].name;
+                <!--choosedName.indexOf('<%= tid %>') == 0-->
                 if(choosedName.indexOf('<%= tid %>') == 0){
                     var label = $("#label-upload-file");
                     var lid = $("[name=lid]");

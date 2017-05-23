@@ -48,20 +48,33 @@
                                             <div class="col-xs-8 control-label strongStyle01 text-left" id="typeContent">
                                                 <strong><%= materialInfo.stairCategory %></strong><strong><%= materialInfo.secondaryCategory %></strong><strong><%= materialInfo.thirdlyCategory  %></strong>
                                             </div>
+
                                         </div>
                                     </div>
 
 
 
                                   </div>
+                            <div class="col-xs-12">
+                                <div class="col-xs-6">
+                                    <div class="form-group">
+                                        <div class="col-xs-6">
+                                            <btn href="javascript:void(0);" class="btn btn-primary " style="float:right" id="attributeViewListBtn">选择物料规格</btn>
+                                        </div>
+                                        <div class="col-xs-6 text-danger" style="margin-top:10px;" >
+                                          <div>
+                                              备注：需要选择物料规格的请点击该按钮
+                                          </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                                 <div class="col-xs-12">
-
                                     <!--输入字段-->
-                                    <div class="col-xs-6">
-
+                                    <div class="col-xs-6 display-none" id="attributeViewList">
                                         <% materialInfo.attributeViewList.forEach(function(element,index){%>
                                         <div class="form-group">
-                                            <label class="col-xs-4 control-label" type="<%= element.type%>"><span class="requird"></span>
+                                            <label class="col-xs-4 control-label text-danger" type="<%= element.type%>"><span class="requird"></span>
                                                 <%= element.name%>:</label>
                                             <input name="length" value="<%= element.length%>" type="hidden">
                                             <div class="col-xs-8">
@@ -82,7 +95,7 @@
                                         <% attrName.push(1);%>
                                         <%}})%>
 
-                                        <input type="hidden" name="flag" value="<%= (attrName.length==2)?1:0;%>">
+                                        <input type="hidden" name="flag" value=0 id="flagValue">
                                     </div>
 
                                 </div>
@@ -112,7 +125,7 @@
                                     <div class="form-group">
                                         <label class="col-xs-4 control-label"><span class="requird"></span>单位物料重量:</label>
                                         <div class="col-xs-8">
-                                            <input class="form-control validate[custom[onlyNumberSp]]" placeholder="请输入单位物料重量" value="" type="text" name="unitWeight">
+                                            <input class="form-control validate[custom[onlyNumberSp]]" placeholder="请输入单位物料重量" value=0 type="text" name="unitWeight">
                                         </div>
                                     </div>
                                 </div>
@@ -190,7 +203,7 @@
                                     <div class="form-group">
                                         <label class="col-xs-4 control-label"><span class="requird"></span>价格:</label>
                                         <div class="col-xs-8">
-                                            <input class="form-control validate[required]" placeholder="请输入价格" value="" type="text" name="price">
+                                            <input class="form-control validate[required]" placeholder="请输入价格" value=0 type="text" name="price">
                                         </div>
                                     </div>
                                 </div>
@@ -314,27 +327,47 @@
                 }
             });
         });*/
+      //用于属性的展示与隐藏
+        $("#attributeViewListBtn").on('click',function () {
+            if($("#attributeViewList").hasClass("display-none")){
+                $("#attributeViewList").removeClass("display-none");
+            }
+            else {
+                $("#attributeViewList").addClass("display-none");
+            }
+
+        });
 
         //用于获取code和addCode
         function getCode(){
-            var code=[];
-            var addCode=[];
-            var mateUnitCode=[]
-            $("select[name='attrVal']").each(function(){
-                code.push($(this).val());
-            });
+            var code=[];//存放属性的数组
+            var addCode=[];//存放属性长度的数组
+            var mateUnitCode=[];//存放附属单位的数组
+
+            var attrName=<%- JSON.stringify(attrName)%>;
+
+            if(!$("#attributeViewList").is(":hidden")){
+
+                $("select[name='attrVal']").each(function(){
+                    code.push($(this).val());
+                });
+                /* $("#materialId").val(($("#mateTypeId").val()+code+addCode).replace(/,/g,''));*/
+                $("#materialId").val(code.join(','));
+                if(attrName.length==2){
+                    $("#flagValue").val(1);
+                }
+
+            }
+
             $("input[name='number']").each(function(){
                 addCode.push($(this).val());
             });
             $("input[name='mateUnit']:checked").each(function(){
                 mateUnitCode.push($(this).val());
             });
-           /* $("#materialId").val(($("#mateTypeId").val()+code+addCode).replace(/,/g,''));*/
-            $("#materialId").val(code.join(','));
             $("#mateUnitsId").val(mateUnitCode.join(','));
-
-
         }
+
         //直接提交
         $("#new").click(function () {
             getCode();

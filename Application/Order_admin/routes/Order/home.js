@@ -1179,6 +1179,8 @@ router.post('/purchase/applyMaterialCreate', Middleware.AuthCheck,PurchaseContro
 
 // 请购单详情
 router.get('/purchase/applyDetail/:tid', Middleware.AuthCheck,PurchaseController.purchaseApplyDetailPage);
+//外协请购修改供应商
+router.post('/purchase/applyModify', Middleware.AuthCheck,PurchaseController.applyPurchaseModify);
 
 // 请购单审核
 router.post('/purchase/applyReview/:tid', Middleware.AuthCheck,PurchaseController.purchaseApplyReview);
@@ -1239,7 +1241,7 @@ var InformationController = require('./Controller/InformationController');
 router.get('/noticeInfo', Middleware.AuthCheck,Middleware.FilterEmptyField,InformationController.noticeInfoPage);
 
 // 公告信息-新建
-router.post('/noticeInfo/doCreate', Middleware.AuthCheck,Middleware.FilterEmptyField,InformationController.noticeDoCreate);
+router.post('/noticeInfo/doCreate', Middleware.AuthCheck,InformationController.noticeDoCreate);
 
 // 公告信息-修改
 router.post('/noticeInfo/doModify', Middleware.AuthCheck, InformationController.noticeDoModify);
@@ -1248,7 +1250,7 @@ router.post('/noticeInfo/doModify', Middleware.AuthCheck, InformationController.
 router.put('/noticeInfo/doDelete/:nid', Middleware.AuthCheck, InformationController.noticeDoDelete);
 
 // 资料信息详情页面
-router.get('/fileInfo', Middleware.AuthCheck, InformationController.fileInfoPage);
+router.get('/fileInfo', Middleware.AuthCheck,Middleware.FilterEmptyField, InformationController.fileInfoPage);
 
 // 资料上传接口
 router.post('/fileInfo/share', Middleware.AuthCheck,InformationController.fileDoCreate);
@@ -1385,5 +1387,23 @@ router.get('/app/stock/permission', AppServiceController.permission);
 router.get('/app/packagetype', AppServiceController.packagetype);
 
 router.get('/app/package/page', AppServiceController.packagePage);
+
+
+/*
+* 页面范围: 报表管理
+* 控制器:   ReportController
+* */
+var ReportController = require('./Controller/ReportController');
+
+//分页查询订单物料计价
+router.get('/orderMatPricing', Middleware.AuthCheck,Middleware.FilterEmptyField,ReportController.orderMatPricingPage);
+
+//分页查询批次物料计价
+router.get('/batchNumMatPricing', Middleware.AuthCheck,Middleware.FilterEmptyField,ReportController.batchNumMatPricingPage);
+
+//分页查询订单计数
+router.get('/orderCount', Middleware.AuthCheck,Middleware.FilterEmptyField,ReportController.orderCountPage);
+
+
 
 module.exports = router;

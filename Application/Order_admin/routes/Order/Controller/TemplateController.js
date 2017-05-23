@@ -99,7 +99,7 @@ var TemplateController = {
                     totalResult: paginationInfo.totalItems
                 }));
 
-                console.log(boostrapPaginator.render());
+                //console.log(boostrapPaginator.render());
 
                 var returnData = Base.mergeData(helper.mergeObject({
                     title: '页面标题',
@@ -175,13 +175,14 @@ var TemplateController = {
                 var $data = JSON.parse(body);
 
                 // res.status(200).send(_.merge({}, $data, {tmp_path: file.filename}));
-
+                fs.unlink(file.destination + file.filename, function () {
+                    res.status(200).send(_.merge({}, $data, {tmp_path: file.filename}));
+                });
             } else {
                 Base.handlerError(res, req, error, response, body);
+                fs.unlink(file.destination + file.filename);
             }
-            fs.unlink(file.destination + file.filename, function () {
-                res.status(200).send(_.merge({}, $data, {tmp_path: file.filename}));
-            });
+
         })
     },
 
@@ -223,14 +224,17 @@ var TemplateController = {
 
                 var $data = JSON.parse(body);
 
-
+                fs.unlink(file.destination + file.filename, function () {
+                    res.status(200).send(_.merge({}, $data, {tmp_path: file.filename}));
+                });
 
             } else {
                 Base.handlerError(res, req, error, response, body);
+                fs.unlink(file.destination + file.filename);
             }
-            fs.unlink(file.destination + file.filename, function () {
-                res.status(200).send(_.merge({}, $data, {tmp_path: file.filename}));
-            });
+            // fs.unlink(file.destination + file.filename, function () {
+            //     res.status(200).send(_.merge({}, $data, {tmp_path: file.filename}));
+            // });
         })
     },
 

@@ -1,17 +1,59 @@
-.printBody{
-    padding:20px;
-    margin-bottom: 0;
-    page-break-before: always;
+@media print {
+  .table {
+    border-collapse: collapse !important
+  }
+
+  .table td, .table th {
+    background-color: #fff !important
+  }
+
+  .table-bordered td{
+    border: 1px solid #ddd !important
+  }
 }
+
+.table-bordered, .table-bordered > tbody > tr > td, .table-bordered > tbody > tr > th, .table-bordered > tfoot > tr > td, .table-bordered > tfoot > tr > th, .table-bordered > thead > tr > td, .table-bordered > thead > tr > th {
+  border: 1px solid #ddd
+}
+
+.table-bordered > thead > tr > td, .table-bordered > thead > tr > th {
+  border-bottom-width: 2px
+}
+
+.printBody {
+  padding: 20px;
+  margin-bottom: 0;
+  page-break-before: always;
+}
+
 .printBody table {
-    width: 100%;
-    margin-bottom: 18px;
+  width: 100%;
+  margin-bottom: 18px;
 }
-.printBody table td{
-    border: 1px solid #ddd;
-    padding: 8px 10px;
-    margin: 0;
+.table-print{
+  border: none;
 }
-.pri-a4{
+.table-print thead tr{
+  background: none;
+}
+.table-print>thead>tr>th{
+  border: none;
+}
+.table-print tbody{
+  border: 1px solid #ddd;
+}
+.printBody table td {
+  /*border: 1px solid #ddd;*/
+  padding: 8px 10px;
+  /*margin: 0;*/
+}
+hr{
+  border-top:3px  dotted #000 !important;
+}
+.font-blod{
+  font-weight: bold;
+}
+.pri-a4 {
 
 }
+
