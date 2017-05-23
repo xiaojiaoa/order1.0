@@ -160,6 +160,7 @@
                                 <th>请购人</th>
                                 <th>请购人部门</th>
                                 <th>请购时间</th>
+                                <th>请购类型</th>
                                 <th>审核人</th>
                                 <th>审核人部门</th>
                                 <th>审核时间</th>
@@ -187,6 +188,7 @@
                                 <td><%= element.addEmpName %></td>
                                 <td><%= element.addDeptName %></td>
                                 <td><%= DWY_Helper.getLocalDate(element.addTime) %></td>
+                                <td><%= (element.reqType==10)?'普通请购':'外协请购' %></td>
                                 <td><%= element.reviewEmpName %></td>
                                 <td><%= element.reviewDeptName %></td>
                                 <td><%= DWY_Helper.getLocalDate(element.reviewTime) %></td>
@@ -199,7 +201,11 @@
                                     <% } %>
                                     <% if(element.stcode == 10 ){ %>
                                     <% if (DWY_Helper.hasPermission(Permission.request.check.id, permission) ){ %>
-                                    <button class="label label-primary purchaseReview" data-stcode="<%= element.stcode %>" data-purchase-id="<%= element.id %>">审核</button>
+                                    <% if(element.reqType==30){%>
+                                        <button class="label label-primary purchaseReview" data-stcode="<%= element.stcode %>" data-purchase-id="<%= element.id %>" <%= (element.isAssign==1)?'disabled=disabled style=background-color:#ccc':'' %> >审核</button>
+                                    <% }else{ %>
+                                        <button class="label label-primary purchaseReview" data-stcode="<%= element.stcode %>" data-purchase-id="<%= element.id %>" >审核</button>
+                                    <% } %>
                                     <% } %>
                                     <% } %>
                                     <% if(element.stcode == 50 ){ %>

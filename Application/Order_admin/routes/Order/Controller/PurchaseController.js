@@ -176,6 +176,25 @@ var PurchaseController = {
             }
         })
     },
+
+    //外协请购修改供应商
+    applyPurchaseModify: function (req, res) {
+        request(Base.mergeRequestOptions({
+            method: 'put',
+            url: '/api/purchase/reqmaterial',
+            headers:{'Content-type':'application/json'},
+            body:JSON.stringify(req.body),
+        }, req, res), function (error, response, body) {
+            if (!error && response.statusCode == 201) {
+
+                res.sendStatus(200);
+            } else {
+                Base.handlerError(res, req, error, response, body);
+            }
+        })
+    },
+
+
     //采购列表
     purchaseDetail: function (req, res) {
         var paramObject = helper.genPaginationQuery(req);

@@ -1179,6 +1179,8 @@ router.post('/purchase/applyMaterialCreate', Middleware.AuthCheck,PurchaseContro
 
 // 请购单详情
 router.get('/purchase/applyDetail/:tid', Middleware.AuthCheck,PurchaseController.purchaseApplyDetailPage);
+//外协请购修改供应商
+router.post('/purchase/applyModify', Middleware.AuthCheck,PurchaseController.applyPurchaseModify);
 
 // 请购单审核
 router.post('/purchase/applyReview/:tid', Middleware.AuthCheck,PurchaseController.purchaseApplyReview);
