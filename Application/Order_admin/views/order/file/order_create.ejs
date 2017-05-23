@@ -188,7 +188,7 @@
                                 <td><a class="downloadZip" type="<%= element.fileTypeDesc %>"><%= element.fileTypeDesc %></a></td>
                                 <td><%= element.uploadName %></td>
                                 <td><%= element.addTime %></td>
-                                <td><%= element.remark %></td>
+                                <td><%= element.remark %>、<%= element.stcode %>、<%= element.gid %></td>
                                 <td>
                                     <% if(element.stcode == stcode && element.gid == user.id ){  %>
                                     <a class="label label-danger" onclick="deleteFile(<%= element.id %>)">删除</a>

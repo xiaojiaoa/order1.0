@@ -27,6 +27,7 @@ var AppServiceController = {
             form: req.body
         }, req, res), function (error, response, body) {
             if (!error) {
+                console.log('access_token===',body)
                 res.send(JSON.parse(body));
             } else {
                 res.send(AppServiceController.error);
@@ -42,6 +43,7 @@ var AppServiceController = {
             form: {refreshToken: refreshToken}
         }, req, res), function (error, response, body) {
             if (!error) {
+                console.log('refreshToken:::',body)
                 res.send(JSON.parse(body));
             } else {
                 res.send(AppServiceController.error);
