@@ -1386,4 +1386,22 @@ router.get('/app/packagetype', AppServiceController.packagetype);
 
 router.get('/app/package/page', AppServiceController.packagePage);
 
+
+/*
+* 页面范围: 报表管理
+* 控制器:   ReportController
+* */
+var ReportController = require('./Controller/ReportController');
+
+//分页查询订单物料计价
+router.get('/orderMatPricing', Middleware.AuthCheck,Middleware.FilterEmptyField,ReportController.orderMatPricingPage);
+
+//分页查询批次物料计价
+router.get('/batchNumMatPricing', Middleware.AuthCheck,Middleware.FilterEmptyField,ReportController.batchNumMatPricingPage);
+
+//分页查询订单计数
+router.get('/orderCount', Middleware.AuthCheck,Middleware.FilterEmptyField,ReportController.orderCountPage);
+
+
+
 module.exports = router;
