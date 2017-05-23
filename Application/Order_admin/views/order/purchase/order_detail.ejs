@@ -97,9 +97,20 @@
                                         <%}%>
                                     </a>
                                 </td>
-                                <td class="amount<%= index %>"><%= element.amount %></td>
-                                <td class="inAmount<%= index %>"><%= element.inAmount %></td>
-                                <td class="percentage"></td>
+                                <td><%= element.amount %></td>
+                                <td><%= element.inAmount %></td>
+                                <td>
+                                    <%
+                                    if((element.amount-element.inAmount)/element.amount*100<0 || (element.amount-element.inAmount)/element.amount*100==100){%>
+                                        <span class="btn-danger">100%</span>
+                                    <%}else if(35<=((element.amount-element.inAmount)/element.amount*100)<70){%>
+                                        <span style="background: #fdcc9c "><%= (element.amount-element.inAmount)/element.amount*100 %>%</span>
+                                    <%}else if(0 <= ((element.amount-element.inAmount)/element.amount*100)<35){%>
+                                        <span class="label-success"><%= (element.amount-element.inAmount)/element.amount*100 %>%</span>
+                                    <%}else if(70 <= ((element.amount-element.inAmount)/element.amount*100)<100){%>
+                                        <span style="background: #fdcc9c "><%= (element.amount-element.inAmount)/element.amount*100 %>%</span>
+                                    <%}%>
+                                </td>
                                 <td><%= element.minAmount %></td>
                                 <td><%= element.mateName %></td>
                             </tr>
@@ -118,12 +129,17 @@
     $(document).ready(function () {
         pageSetUp();
         $(".fg-date-picker").flatpickr(data_time_picker.data_picker); // jQuery
-        var leng = $(".purList").length;
-        for(var i=0;i<leng;i++){
-            var amount = $(".amount"+i).text();
-            var inAmount = $(".inAmount"+i).text();
-            $(".percentage").text(((parseInt(amount)-parseInt(inAmount))/parseInt(amount)));
-        }
+//        var leng = $(".purList").length;
+//        for(var i=0;i<leng;i++){
+//            var amount = $(".amount"+i).text();
+//            var inAmount = $(".inAmount"+i).text();
+//            var percentage = ((parseInt(amount)-parseInt(inAmount))/parseInt(amount))*100+'%';
+//            $(".percentage"+i).text(percentage);
+//            alert(percentage)
+//            if(percentage<0){
+//                $(".percentage"+i).text("100%")
+//            }
+//        }
     })
 </script>
 <%- include('../layouts/foot'); %>

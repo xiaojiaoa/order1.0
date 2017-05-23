@@ -365,9 +365,9 @@
         function ifRegionIdUsable(index) {
             var status = $('.status' + index);
             status.empty();
-            console.log('data-index', index);
+//            console.log('data-index', index);
             if (validateRow(index)) {
-                console.log(index + ':success');
+//                console.log(index + ':success');
                 $.ajax({
                     url: '/enterMaterial/stockOver/toEnter/ifCanEnter',
                     method: 'post',
@@ -377,7 +377,7 @@
                         amount: $("#amount" + index).val(),//入库数量
                     },
                     success: function (data) {
-                        console.log('data', data)
+//                        console.log('data', data)
                         if (data == 'true') {
                             $("input[name=statusThis" + index + "]").val(1);
                             status.html('<i class="fa fa-check text-success font-lg"></i>');
@@ -388,11 +388,11 @@
                         loading.removeClass('show-active');
                     },
                     error: function (response) {
-                        console.log('response', response)
+//                        console.log('response', response)
                         $("input[name=statusThis" + index + "]").val(0);
                         if (response.responseText) {
                             var data = JSON.parse(response.responseText);
-                            console.log(data.msg)
+//                            console.log(data.msg)
                             status.html('<span class="text-danger"  rel="tooltip" data-placement="top" data-original-title="' + data.msg + '"><i class="fa fa-times font-lg"></i></span>');
                         } else {
                             status.html('<span class="text-danger" rel="tooltip" data-placement="top" data-original-title="不可用"><i class="fa fa-times font-lg"></i></span>');
@@ -425,12 +425,10 @@
                     var _self = $(this);
                     var indexTR = _self.attr('data-index');
 
-                    var qinggoudan = $("#reqId" + indexTR).val();
-
                     var cargoId = $("input[name=cargoId" + indexTR + "]").val();
                     var purId = $("input[name=purId" + indexTR + "]").val();
                     var unitPrice = $("input[name=unitPrice" + indexTR + "]").val();
-                    var reqId = $("input[name=reqId" + indexTR + "]").val();
+                    var reqId = $("#reqId" + indexTR).val();
 
                     // 原料需要入库的数量
                     var amountTotal = Number($("input[name=actualAmount" + indexTR + "]").val());
@@ -450,7 +448,7 @@
 
                         amountActually += Number(amount);
 
-                        console.log('ifSubmit6666666', ftyId)
+//                        console.log('ifSubmit6666666', ftyId)
                         // 若仓库不可用，终止提交数据
 //                        if(!ftyId ||!whseId ||!regionId ||!spaceId ||!amount || statusThis == 0)
                         if (statusThis == 0) {
@@ -469,9 +467,11 @@
                             purId: purId,
                             unitPrice: unitPrice,
                             amount: amount,
+                            reqId: reqId,
                         }
                         myArray.push(a);
                         ifSubmit = true;
+                        console.log(a)
 
                     })
 
@@ -483,7 +483,7 @@
 //                    console.log('amountActually', amountActually)
                     if (amountTotal != amountActually) {
                         ifAmount = false;
-                        purIdNotIn += qinggoudan + '</br>'
+                        purIdNotIn += reqId + '</br>'
                         return false
                     }
 
