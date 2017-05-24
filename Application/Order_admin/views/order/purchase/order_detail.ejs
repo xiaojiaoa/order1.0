@@ -75,7 +75,7 @@
                                 <th>入库数量</th>
                                 <th>百分比</th>
                                 <th>最小数量</th>
-                                <th>材料名称</th>
+                                <th>物料名称</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -101,9 +101,9 @@
                                 </td>
                                 <td><%= element.amount %></td>
                                 <td><%= element.inAmount %></td>
-                                <td>
+                                <td class="count<%= index %>">
                                     <%
-                                    if(count<0 ){%>
+                                    if(count<0){%>
                                         <span class="btn-success">0%</span>
                                     <%}else if(0<=count && count<35){%>
                                         <span class="btn-success"><%= count %>% </span>
@@ -131,17 +131,12 @@
     $(document).ready(function () {
         pageSetUp();
         $(".fg-date-picker").flatpickr(data_time_picker.data_picker); // jQuery
-//        var leng = $(".purList").length;
-//        for(var i=0;i<leng;i++){
-//            var amount = $(".amount"+i).text();
-//            var inAmount = $(".inAmount"+i).text();
-//            var percentage = ((parseInt(amount)-parseInt(inAmount))/parseInt(amount))*100+'%';
-//            $(".percentage"+i).text(percentage);
-//            alert(percentage)
-//            if(percentage<0){
-//                $(".percentage"+i).text("100%")
-//            }
-//        }
+        var length = $(".purList").length;
+        for(var i=0;i<length;i++){
+            var count = $(".count"+i).find("span").html();
+            var result = count.substr(0,count.indexOf(".")+3);
+            $(".count"+i).find("span").html(result+'%')
+        }
     })
 </script>
 <%- include('../layouts/foot'); %>
