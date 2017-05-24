@@ -1,6 +1,6 @@
 <form class="form-horizontal  layer-template" method="post" id="order_reject"
         <%  switch (orderInfo.stcode){
-            case 250,280:%>
+            case 250:%>
                 action="/orders/notPass"
         <%    break;
             case 450,478: %>
@@ -23,7 +23,7 @@
             <div class="col-xs-8">
                 <%
                 switch (orderInfo.stcode){
-                case 250,280:
+                case 250:
                 reviewReason.forEach(function (element) { %>
                 <label class="checkbox-inline">
                     <input type="checkbox" class="checkbox validate[minCheckbox[1]]" name="causeStr" value="<%= element.id %>">
