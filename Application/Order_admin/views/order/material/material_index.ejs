@@ -205,8 +205,8 @@
                                 <th>库存</th>
                                 <th>预警</th>
                                 <th>可用</th>
-                                <th width="8%">单位面积采购价格</th>
-                                <th width="8%">单位面积出厂价格</th>
+                                <th width="8%">采购价格</th>
+                                <th width="8%">出厂价格</th>
                                 <th>启用</th>
                                 <% if(DWY_Helper.isCanLoop(theadList)){
                                 theadList.forEach(function (element) { %>
@@ -230,8 +230,8 @@
                                 <td><%= element.stock %></td>
                                 <td><%= element.warning %></td>
                                 <td><%= element.usable %></td>
-                                <td width="8%"><%= element.price %></td>
-                                <td width="8%"><%= element.unitPrice %></td>
+                                <td width="8%"><%= element.totalPrice %></td>
+                                <td width="8%"><%= element.totalUnitPrice %></td>
                                 <td><%= element.stcode == 1 ? '是' : '否' %></td>
                                 <% if(DWY_Helper.isCanLoop(element.valueList)){
                                 element.valueList.forEach(function (elementtab) { %>
