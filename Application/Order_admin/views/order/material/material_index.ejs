@@ -81,7 +81,7 @@
                                                 if(DWY_Helper.isCanLoop(factoryList)){
                                                 factoryList.forEach(function (element) {
                                                     var selectOption = DWYRequest.query.ftyId? DWYRequest.query.ftyId:userFtyId %>
-                                                <option value="<%= element.ftyId %>" <%= selectOption == element.ftyId ? 'selected' : '' %> >
+                                                <option value="<%= element.ftyId %>" <%= DWYRequest.query.ftyId == element.ftyId ? 'selected' : '' %> >
                                                     <%= element.name %>
                                                 </option>
                                                 <% })
@@ -210,14 +210,14 @@
                                 <th>可用</th>
                                 <th>启用</th>
                                 <% if(DWYRequest.query.stairCatId){%>
-                                <th width="8%">采购价格</th>
-                                <th width="8%">出厂价格</th>
+                                <th width="5%">采购价格</th>
+                                <th width="5%">出厂价格</th>
                                 <% if(DWY_Helper.isCanLoop(theadList)){
                                 theadList.forEach(function (element) { %>
                                 <th><%= element.name %></th>
                                 <% })
                                 } %>
-                                <th width="220">操作</th>
+                                <th width="200">操作</th>
                                <% }%>
                             </tr>
                             </thead>
@@ -237,8 +237,8 @@
                                 <td><%= element.usable %></td>
                                 <td><%= element.stcode == 1 ? '是' : '否' %></td>
                                 <% if(DWYRequest.query.stairCatId){%>
-                                <td width="8%"><%= element.totalPrice %></td>
-                                <td width="8%"><%= element.totalUnitPrice %></td>
+                                <td width="5%"><%= element.totalPrice %></td>
+                                <td width="5%"><%= element.totalUnitPrice %></td>
                                 <% if(DWY_Helper.isCanLoop(element.valueList)){
                                 element.valueList.forEach(function (elementtab) { %>
                                 <td><%= elementtab.name %></td>
@@ -248,7 +248,7 @@
                                 <td></td>
                                 <% }
                                 } %>
-                                <td width="220">
+                                <td width="200">
                                     <a class="label label-primary display-none"
                                        href="/materialManage/add/<%= bid %>/<%= element.id %>">完善物料库存</a>
                                     <% if(element.id.slice(0, 2) == 90){ %>
