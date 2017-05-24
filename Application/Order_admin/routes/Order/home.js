@@ -86,7 +86,7 @@ var Middleware = {
             req.session.preventPath = req.url;
         }
         if (!req.session.auth) {
-            console.log('SESSION HAS NO AUTH');
+            //console.log('SESSION HAS NO AUTH');
             res.redirect('/login');
         } else {
             // 增加token失效验证. token存在但过期时,自动发送refresh_token并保存新的token到用户session
