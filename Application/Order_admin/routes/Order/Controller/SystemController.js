@@ -340,11 +340,12 @@ var SystemController = {
     printParts: function (req, res) {
         var packageLid = req.query.packageLid;
         request(Base.mergeRequestOptions({
-            method: 'post',
-            url: '/api/orders/package/print/packagelist',
-            form: {
-                packageList:packageLid
-            }
+            method: 'get',
+            // url: '/api/orders/package/print/packagelist',
+            url: '/api/orders/package/print/packagelist/1002',
+            // form: {
+            //     packageList:packageLid
+            // }
         }, req, res), function (error, response, body) {
             if (!error && response.statusCode == 200) {
                 // console.log('printOut',body)
