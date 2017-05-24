@@ -81,7 +81,9 @@
                             <tbody>
                             <%
                             if(DWY_Helper.isCanLoop(purchaseOrderList.reqMaters)){
-                            purchaseOrderList.reqMaters.forEach(function (element, index) { %>
+                            purchaseOrderList.reqMaters.forEach(function (element, index) {
+                                var count = (element.amount-element.inAmount)/element.amount*100;
+                            %>
                             <tr class="purList">
                                 <td>
                                     <label class="checkbox-inline">
@@ -101,14 +103,14 @@
                                 <td><%= element.inAmount %></td>
                                 <td>
                                     <%
-                                    if((element.amount-element.inAmount)/element.amount*100<0 || (element.amount-element.inAmount)/element.amount*100==100){%>
-                                        <span class="btn-danger">100%</span>
-                                    <%}else if(35<=((element.amount-element.inAmount)/element.amount*100)<70){%>
-                                        <span style="background: #fdcc9c "><%= (element.amount-element.inAmount)/element.amount*100 %>%</span>
-                                    <%}else if(0 <= ((element.amount-element.inAmount)/element.amount*100)<35){%>
-                                        <span class="label-success"><%= (element.amount-element.inAmount)/element.amount*100 %>%</span>
-                                    <%}else if(70 <= ((element.amount-element.inAmount)/element.amount*100)<100){%>
-                                        <span style="background: #fdcc9c "><%= (element.amount-element.inAmount)/element.amount*100 %>%</span>
+                                    if(count<0 ){%>
+                                        <span class="btn-success">0%</span>
+                                    <%}else if(0<=count && count<35){%>
+                                        <span class="btn-success"><%= count %>% </span>
+                                    <%}else if(35 <= count && count<70){%>
+                                        <span style="background:#fdcc9c"><%= count %>%</span>
+                                    <%}else if(70 <= count && count<=100){%>
+                                        <span class="btn-danger"><%= count %>%</span>
                                     <%}%>
                                 </td>
                                 <td><%= element.minAmount %></td>
