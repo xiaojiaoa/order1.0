@@ -198,13 +198,13 @@
             }
         })
 
-        $(".unitSelect").on('change',function(){
-            var index = $(this).attr('data-index');
-            var indexUnit = $(this).parents('td').siblings().find("input[name=price"+index+"]").attr("price");
-            var amount = $(this).find('option:selected').attr("amount");
-            var parse =  parseInt(indexUnit) * parseInt(amount);
-            $("input[name=price"+index+"]").val(parse);
-        })
+//        $(".unitSelect").on('change',function(){
+//            var index = $(this).attr('data-index');
+//            var indexUnit = $(this).parents('td').siblings().find("input[name=price"+index+"]").attr("price");
+//            var amount = $(this).find('option:selected').attr("amount");
+//            var parse =  parseInt(indexUnit) * parseInt(amount);
+//            $("input[name=price"+index+"]").val(parse);
+//        })
 
         //输入采购数量的时候自动填充最小数量
             $(".amountApply").on('keyup',function(){
