@@ -65,13 +65,13 @@ var MaterialController = {
             function (req, res, resultList) {
 
                 // stairCatId 不存在，从菜单栏点击进入页面时
-                if(resultList.stairCategory && resultList.stairCategory.length>0){
+             /*   if(resultList.stairCategory && resultList.stairCategory.length>0){
                     if(!stairCatId){
                         var searchId = resultList.stairCategory[0].id;
                         // console.log('searchId',searchId)
-                        return  res.redirect("/materialManage?stairCatId="+searchId);
+                       return  res.redirect("/materialManage?stairCatId="+searchId);
                     }
-                }
+                }*/
 
                 var paginationInfo =  resultList.mateList;
 
