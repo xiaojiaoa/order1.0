@@ -62,9 +62,9 @@
                                                     fileTypeIdFirst = element.id
                                                 } %>
                                             <label class="radio radio-inline">
-                                                <input type="radio" class="radiobox" value="<%= element.code %>"
+                                                <input type="radio" class="radiobox validate[required]" value="<%= element.code %>"
                                                        data-id="<%= element.id %>"
-                                                       name="type" <%= index == 0 ? 'checked' : '' %> >
+                                                       name="type" >
                                                 <span><%= element.name %></span>
                                             </label>
                                             <% })
