@@ -338,22 +338,14 @@ var SystemController = {
         })
     },
     printParts: function (req, res) {
-        var packageLid = req.query.packageLid;
+        var batchNumber = req.params.batchNumber;
         request(Base.mergeRequestOptions({
             method: 'get',
-            // url: '/api/orders/package/print/packagelist',
-            url: '/api/orders/package/print/packagelist/1002',
-            // form: {
-            //     packageList:packageLid
-            // }
+            url: '/api/orders/package/print/packagelist/'+batchNumber,
         }, req, res), function (error, response, body) {
             if (!error && response.statusCode == 200) {
-                // console.log('printOut',body)
-                // console.log('printOuttype',JSON.parse(body))
-                // res.status(200).json(body);
-                // var resultList = body;
                 var returnData = Base.mergeData(helper.mergeObject({
-                    id:packageLid,
+                    batchNumber:batchNumber,
                     type:'arry'
                 }, {printINfo:JSON.parse(body)}));
                 res.render('order/system/print', returnData);
