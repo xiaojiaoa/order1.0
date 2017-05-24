@@ -517,6 +517,10 @@
                                     <% if (DWY_Helper.hasPermission(Permission.orderApart.passOrder.id, permission) && orderInfo.receiveGid == user.id ){ %>
                                     <a class="label label-primary doGetTask" data-stcode="<%= orderInfo.stcode %>">重新提交</a>
                                     <% } %>
+                                    <% if (DWY_Helper.hasPermission(Permission.orderApart.sendBackOrder.id, permission) && orderInfo.receiveGid == user.id ){ %>
+                                    <a class="label label-primary margin-left-20 reject-modal"
+                                       data-stcode="<%= orderInfo.stcode %>">拆单退回</a>
+                                    <% } %>
                                 </td>
                                 <%         break;
                                     default: %>
@@ -552,8 +556,11 @@
                                 case 638: %>
                                 <td>
                                     排料退回
-                                    <% if (DWY_Helper.hasPermission(Permission.orderReviewApart.passOrder.id, permission ) ){ %>
+                                    <% if (DWY_Helper.hasPermission(Permission.orderReviewApart.passOrder.id, permission ) && orderInfo.receiveGid == user.id){ %>
                                     <a class="label label-primary doGetTask" data-stcode="<%= orderInfo.stcode %>">重新提交</a>
+                                    <% } %>
+                                    <% if (DWY_Helper.hasPermission(Permission.orderReviewApart.passOrder.id, permission) && orderInfo.receiveGid == user.id ){ %>
+                                    <a class="label label-primary margin-left-20 reject-modal">拆单审核退回</a>
                                     <% } %>
                                 </td>
                                 <%         break;
@@ -570,7 +577,7 @@
                                 <td>
                                 <% if(orderInfo.packeted==0){%>
                                 未包装
-                                <% if (DWY_Helper.hasPermission(Permission.orderPackage.create.id, permission ) ){ %>
+                                <% if (DWY_Helper.hasPermission(Permission.orderPackage.create.id, permission )){ %>
                                 <a class="label label-primary margin-left-20 crePackage" bid="<%= orderInfo.batchNumber %>" tid="<%= tid %>">生成包装</a>
                                 <% } %>
                                 <%}else{%>
