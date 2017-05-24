@@ -103,14 +103,14 @@
                                 <td><%= element.inAmount %></td>
                                 <td class="count<%= index %>">
                                     <%
-                                    if(count<0){%>
-                                        <span class="btn-success">0%</span>
-                                    <%}else if(0<=count && count<35){%>
-                                        <span class="btn-success"><%= count %>% </span>
+                                    if(count<=0){%>
+                                        <span class="btn-success">0</span>
+                                    <%}else if(0<count && count<35){%>
+                                        <span class="btn-success"><%= count %></span>
                                     <%}else if(35 <= count && count<70){%>
-                                        <span style="background:#fdcc9c"><%= count %>%</span>
+                                        <span style="background:#fdcc9c"><%= count %></span>
                                     <%}else if(70 <= count && count<=100){%>
-                                        <span class="btn-danger"><%= count %>%</span>
+                                        <span class="btn-danger"><%= count %></span>
                                     <%}%>
                                 </td>
                                 <td><%= element.minAmount %></td>
@@ -134,8 +134,10 @@
         var length = $(".purList").length;
         for(var i=0;i<length;i++){
             var count = $(".count"+i).find("span").html();
-            var result = count.substr(0,count.indexOf(".")+3);
+            var result = Math.round(count*100)/100;
             $(".count"+i).find("span").html(result+'%')
+
+
         }
     })
 </script>
