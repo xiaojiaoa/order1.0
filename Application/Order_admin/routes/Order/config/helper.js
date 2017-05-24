@@ -11,7 +11,9 @@ var helper = {
         var o = {};
 
         for (var i in arg) {
-            o = mergeTool(o, arg[i]);
+            if(arg.hasOwnProperty(i)){
+                o = mergeTool(o, arg[i]);
+            }
         }
 
         return o;

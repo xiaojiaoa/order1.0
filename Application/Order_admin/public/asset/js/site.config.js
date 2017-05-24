@@ -219,7 +219,9 @@ var DWY_area = {
                 // 多个选项
                 city_option_list.push(new Option('- 市 -',''));
                 for (var i in data) {
-                    city_option_list.push(new Option(data[i].name, data[i].id));
+                    if(data.hasOwnProperty(i)){
+                        city_option_list.push(new Option(data[i].name, data[i].id));
+                    }
                 }
                 $city.append($(city_option_list).clone());
 
@@ -252,7 +254,9 @@ var DWY_area = {
                 // 多个选项
                 district_option_list.push(new Option('- 区 -',''));
                 for (var i in data) {
-                    district_option_list.push(new Option(data[i].name, data[i].id));
+                    if(data.hasOwnProperty(i)){
+                        district_option_list.push(new Option(data[i].name, data[i].id));
+                    }
                 }
                 $district.append($(district_option_list).clone());
 
@@ -315,7 +319,9 @@ var DWY_area = {
             province_option_list.push(new Option('- 省 -',''));
 
             for (var i in data) {
-                province_option_list.push(new Option(data[i].name, data[i].id));
+                if(data.hasOwnProperty(i)){
+                    province_option_list.push(new Option(data[i].name, data[i].id));
+                }
             }
 
 
@@ -428,7 +434,9 @@ var DWY_fty_region = {
             var warehouse_option_list = [];
             warehouse_option_list.push(new Option('- 仓库 -',''));
             for (var i in data) {
-                warehouse_option_list.push(new Option(data[i].name, data[i].whseId));
+                if(data.hasOwnProperty(i)){
+                    warehouse_option_list.push(new Option(data[i].name, data[i].whseId));
+                }
             }
             $warehouse.append($(warehouse_option_list).clone());
 
@@ -450,7 +458,9 @@ var DWY_fty_region = {
             var region_option_list = [];
             region_option_list.push(new Option('- 区域 -',''));
             for (var i in data) {
-                region_option_list.push(new Option(data[i].name, data[i].regionId));
+                if(data.hasOwnProperty(i)){
+                    region_option_list.push(new Option(data[i].name, data[i].regionId));
+                }
             }
             $region.append($(region_option_list).clone());
 
@@ -521,7 +531,9 @@ var DWY_fty_region = {
             factory_option_list.push(new Option('- 工厂 -',''));
 
             for (var i in data) {
-                factory_option_list.push(new Option(data[i].name, data[i].ftyId));
+                if(data.hasOwnProperty(i)){
+                    factory_option_list.push(new Option(data[i].name, data[i].ftyId));
+                }
             }
 
 
