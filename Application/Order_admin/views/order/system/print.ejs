@@ -31,116 +31,22 @@
 
         <div class="prin-preview">
             <div id="printHtml">
-                <div class="printBody">
-                    <table class="table table-bordered table-print">
-                        <thead>
-                        <tr>
-                            <th class="font-blod" colspan="4" style="text-align: center">(板式)装 箱 清 单</th>
-                            <th class="font-blod">3厂X区(无)</th>
-                            <th class="font-blod">订单序号:1</th>
-                            <th class="font-blod" style="width: 50px;font-size: 12px;padding: 0">(留工厂)</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <tr>
-                            <td class="font-blod">批 次 号:</td><td class="font-blod">*WSZ170101J*</td>
-                            <td class="font-blod">订 单 号:</td><td colspan="2">WY88888161026-08-B9</td>
-                            <td class="font-blod" colspan="2">普通板1</td>
-                        </tr>
-                        <tr>
-                            <td class="font-blod">专 卖 店:</td><td>研发中心维意</td>
-                            <td class="font-blod">客户姓名:</td><td>研发中心维意</td>
-                            <td class="font-blod">第02包</td>
-                            <td class="font-blod" colspan="2">包装属性:</td>
-                        </tr>
-                        <tr>
-                            <td>包装条码:</td><td></td><td></td><td></td><td></td><td colspan="2"></td>
-                        </tr>
-                        </tbody>
-                    </table>
+                <% if(type == 'html'){ %>
+                <div class="printBody"><%- printINfo %></div>
+                <%  } %>
 
-                    <hr/>
-
-                    <table class="table table-bordered table-print">
-                        <thead>
-                        <tr>
-                            <th class="font-blod" colspan="4" style="text-align: center">(板式)装 箱 清 单</th>
-                            <th class="font-blod">3厂X区(无)</th>
-                            <th class="font-blod">2430216<br>订单序号:1</th>
-                            <th class="font-blod" style="width: 50px;font-size: 12px;padding: 0">(留客户)</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <tr>
-                            <td class="font-blod">批 次 号:</td><td class="font-blod"></td>
-                            <td class="font-blod" colspan="2">该订单共：2包</td>
-                            <td class="font-blod" colspan="3">普通板1</td>
-                        </tr>
-                        <tr>
-                            <td class="font-blod">包装条码</td><td class="font-blod" colspan="3"></td>
-                            <td class="font-blod">包号：</td>
-                            <td class="font-blod">包装属性:</td>
-                            <td rowspan="4"><span style="writing-mode: tb-rl;white-space: nowrap">*WY88888161026-08-B9-02*</span></td>
-                        </tr>
-                        <tr>
-                            <td class="font-blod">客户姓名:</td>
-                            <td class="font-blod"></td>
-                            <td class="font-blod" colspan="2"></td>
-                            <td class="font-blod"></td>
-                            <td></td>
-                        </tr>
-                        <tr>
-                            <td class="font-blod">订单号:</td>
-                            <td class="font-blod" colspan="3" style="font-size: 20px">WY88888161026-08-B9</td>
-                            <td></td><td></td>
-                        </tr>
-                        <tr>
-                            <td class="font-blod">专卖店:</td>
-                            <td class="font-blod" colspan="5" style="font-size: 30px">研发中心维意</td>
-                        </tr>
-                        <tr>
-                            <td>序号</td><td>板件名称</td><td>标签号</td><td>板件数量</td><td>板件材料</td><td>尺寸规格（mm）</td><td>包装层号</td>
-                        </tr>
-                        <#list packagelist as package>
-                            <tr>
-                                <td>序号</td><td>板件名称</td><td>标签号</td><td>板件数量</td><td>板件材料</td><td>尺寸规格（mm）</td><td>包装层号</td>
-                            </tr>
-                        </#list>
-                        <tr>
-                            <td>合计</td><td></td><td></td><td></td><td></td><td></td><td></td>
-                        </tr>
-                        <tr>
-                            <td></td><td></td><td></td><td></td><td></td><td></td><td></td>
-                        </tr>
-                        <tr>
-                            <td>工 序</td><td>分包</td><td> 分检</td><td>校对</td><td>异形组</td><td colspan="2">包装</td>
-                        </tr>
-                        <tr>
-                            <td>签名：</td><td></td><td></td><td></td><td></td><td colspan="2"></td>
-                        </tr>
-                        </tbody>
-                    </table>
-
-                    <hr/>
-
-                    <table class="table table-bordered font-blod">
-                        <tbody>
-                        <tr>
-                            <td>中转附联</td><td></td><td colspan="3"></td><td>普通板1</td>
-                        </tr>
-                        </tbody>
-                    </table>
-                    <hr/>
-
-                    <table class="table table-bordered font-blod">
-                        <tbody>
-                        <tr>
-                            <td>包装附联</td><td></td><td colspan="3"></td><td>普通板1</td>
-                        </tr>
-                        </tbody>
-                    </table>
-
-                   </div>
+                <% if(type == 'arry'){
+                if(DWY_Helper.isCanLoop(printINfo.W)){
+                printINfo.W.forEach(function (element) { %>
+                <div class="printBody"><%- element %></div>
+                <%  })
+                }
+                if(DWY_Helper.isCanLoop(printINfo.A)){
+                printINfo.A.forEach(function (element) { %>
+                <div class="printBody"><%- element %></div>
+                <%  })
+                }
+                } %>
 
             </div>
         </div>
