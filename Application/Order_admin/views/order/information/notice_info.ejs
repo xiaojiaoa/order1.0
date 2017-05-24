@@ -444,7 +444,7 @@
                         noticeScopes:myArray
                     };
 
-                    layer.confirm("确认提交？", {title:'提示'},function(index){
+                    layer.confirm("确认提交？",{icon: 3, title:'提示'},function(index){
                             console.log(date);
                             $.ajax({
                                 url: '/noticeInfo/doCreate',
@@ -545,7 +545,7 @@
                         noticeScopes:myArray
                     };
 
-                    layer.confirm("确认提交？", {title:'提示'},function(index){
+                    layer.confirm("确认提交？",{icon: 3, title:'提示'},function(index){
                             console.log(date);
                            $.ajax({
                              url: '/noticeInfo/doModify',
