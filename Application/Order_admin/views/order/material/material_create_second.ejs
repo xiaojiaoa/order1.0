@@ -190,11 +190,9 @@
                                                 <% getPackageTypes.forEach(function (element, index) {
                                                 if(element.data.length != 0){%>
                                                 <option value="<%= element.id %>"><%= element.name %></option>
-                                                <optgroup label="<%= element.name %>">
                                                     <% element.data.forEach(function (element) {  %>
-                                                    <option value="<%= element.id %>"><%= element.name %></option>
+                                                    <option value="<%= element.id %>">&nbsp;&nbsp;&nbsp;&nbsp;<%= element.name %></option>
                                                     <%  }) %>
-                                                </optgroup>
                                                 <%  }else{ %>
                                                 <option value="<%= element.id %>"><%= element.name %></option>
                                                 <%  }
