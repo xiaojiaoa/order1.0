@@ -3,10 +3,10 @@
             case 250:%>
                 action="/orders/notPass"
         <%    break;
-            case 450: %>
+            case 450,478: %>
                 action='/apart/notPass'
         <%       break;
-            case 475: %>
+            case 475,638: %>
                 action='/apartCheck/notPass'
         <%       break;
             case 635: %>
@@ -31,7 +31,7 @@
                 </label>
                 <%  })
                     break;
-                case 450:
+                case 450,478:
                 apartReason.forEach(function (element) { %>
                 <label class="checkbox-inline">
                     <input type="checkbox" class="checkbox validate[minCheckbox[1]]" name="causeStr" value="<%= element.id %>">
@@ -39,7 +39,7 @@
                 </label>
                 <%  })
                     break;
-                case 475:
+                case 475,638:
                 apartReviewReason.forEach(function (element) { %>
                 <label class="checkbox-inline">
                     <input type="checkbox" class="checkbox validate[minCheckbox[1]]" name="causeStr" value="<%= element.id %>">

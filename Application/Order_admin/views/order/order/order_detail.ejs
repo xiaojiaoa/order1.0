@@ -252,11 +252,8 @@
                         <a class="label label-primary" href="/file/order/create/<%= orderInfo.lid %>/<%= orderInfo.stcode %>/1/<%= tid %>">文件管理</a>
                         <% } %>
 
-                        <% if( orderInfo.stcode == 450 || orderInfo.stcode == 475
-                                || orderInfo.stcode == 550 || orderInfo.stcode == 650 || orderInfo.stcode == 635 || (orderInfo.stcode>=675 && orderInfo.stcode<729 && orderInfo.packeted==1)){ %>
                         <a class="label label-primary" href="/order/workpiece/<%= tid %>?type=order">订单物料</a>
-                        <% } %>
-
+                        
                     </legend>
 
                     <div class="table-responsive">
@@ -517,6 +514,10 @@
                                     <% if (DWY_Helper.hasPermission(Permission.orderApart.passOrder.id, permission) && orderInfo.receiveGid == user.id ){ %>
                                     <a class="label label-primary doGetTask" data-stcode="<%= orderInfo.stcode %>">重新提交</a>
                                     <% } %>
+                                    <% if (DWY_Helper.hasPermission(Permission.orderApart.sendBackOrder.id, permission) && orderInfo.receiveGid == user.id ){ %>
+                                    <a class="label label-primary margin-left-20 reject-modal"
+                                       data-stcode="<%= orderInfo.stcode %>">拆单退回</a>
+                                    <% } %>
                                 </td>
                                 <%         break;
                                     default: %>
@@ -552,8 +553,11 @@
                                 case 638: %>
                                 <td>
                                     排料退回
-                                    <% if (DWY_Helper.hasPermission(Permission.orderReviewApart.passOrder.id, permission ) ){ %>
+                                    <% if (DWY_Helper.hasPermission(Permission.orderReviewApart.passOrder.id, permission ) && orderInfo.receiveGid == user.id){ %>
                                     <a class="label label-primary doGetTask" data-stcode="<%= orderInfo.stcode %>">重新提交</a>
+                                    <% } %>
+                                    <% if (DWY_Helper.hasPermission(Permission.orderReviewApart.passOrder.id, permission) && orderInfo.receiveGid == user.id ){ %>
+                                    <a class="label label-primary margin-left-20 reject-modal">拆单审核退回</a>
                                     <% } %>
                                 </td>
                                 <%         break;
@@ -570,12 +574,12 @@
                                 <td>
                                 <% if(orderInfo.packeted==0){%>
                                 未包装
-                                <% if (DWY_Helper.hasPermission(Permission.orderPackage.create.id, permission ) ){ %>
+                                <% if (DWY_Helper.hasPermission(Permission.orderPackage.create.id, permission )&& orderInfo.stcode ==635 ){ %>
                                 <a class="label label-primary margin-left-20 crePackage" bid="<%= orderInfo.batchNumber %>" tid="<%= tid %>">生成包装</a>
                                 <% } %>
                                 <%}else{%>
                                 已包装
-                                <% if (DWY_Helper.hasPermission(Permission.orderPackage.queryDetail.id, permission ) ){ %>
+                                <% if (DWY_Helper.hasPermission(Permission.orderPackage.queryDetail.id, permission )){ %>
                                 <a class="label label-success margin-left-20 packageDetail" href="/orders/package/<%= tid %>">包装详情</a>
                                 <% } %>
                                 <%}%>
