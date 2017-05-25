@@ -59,10 +59,10 @@
         case 250:%>
       action="/resupplys/notPass"
         <%    break;
-        case 450: %>
+        case 450,478: %>
       action='/resupplys/apart/notPass'
         <%       break;
-        case 475: %>
+        case 475,638: %>
       action='/resupplys/apartCheck/notPass'
         <%       break;
         case 635: %>
@@ -91,7 +91,7 @@
                 <label class="pull-left control-label">-- 暂无可选项，请配置 --</label>
                 <%  }
                     break;
-                case 450:
+                case 450,478:
                 if(DWY_Helper.isCanLoop(apartReason)){
                 apartReason.forEach(function (element) { %>
                 <label class="checkbox-inline">
@@ -103,7 +103,7 @@
                 <label class="pull-left control-label">-- 暂无可选项，请配置 --</label>
                 <%  }
                     break;
-                case 475:
+                case 475,638:
                 if(DWY_Helper.isCanLoop(apartReviewReason)){
                 apartReviewReason.forEach(function (element) { %>
                 <label class="checkbox-inline">

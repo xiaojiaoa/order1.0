@@ -426,8 +426,11 @@
                                 case 478: %>
                                 <td>
                                     拆审退回
-                                    <% if (DWY_Helper.hasPermission(Permission.resupplyOrderApart.passOrder.id, permission) ){ %>
+                                    <% if (DWY_Helper.hasPermission(Permission.resupplyOrderApart.passOrder.id, permission)  && resupplyInfo.receiveGid == user.id ){ %>
                                     <a class="label label-primary doGetTask" data-stcode="<%= resupplyInfo.status %>">重新提交</a>
+                                    <% } %>
+                                    <% if (DWY_Helper.hasPermission(Permission.resupplyOrderApart.sendBackOrder.id, permission) && resupplyInfo.receiveGid == user.id ){ %>
+                                    <a class="label label-primary margin-left-20 reject-modal">拆单退回</a>
                                     <% } %>
                                 </td>
                                 <% break;
@@ -464,8 +467,11 @@
                                 case 638: %>
                                 <td>
                                     排料退回
-                                    <% if (DWY_Helper.hasPermission(Permission.orderReviewApart.passOrder.id, permission) ){ %>
+                                    <% if (DWY_Helper.hasPermission(Permission.orderReviewApart.passOrder.id, permission)  && resupplyInfo.receiveGid == user.id ){ %>
                                     <a class="label label-primary doGetTask" data-stcode="<%= resupplyInfo.status %>">重新提交</a>
+                                    <% } %>
+                                    <% if (DWY_Helper.hasPermission(Permission.resupplyOrderReviewApart.sendBackOrder.id, permission)   && resupplyInfo.receiveGid == user.id ){ %>
+                                    <a class="label label-primary margin-left-20 reject-modal">拆单审核退回</a>
                                     <% } %>
                                 </td>
                                 <% break;
