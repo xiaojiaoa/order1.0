@@ -100,7 +100,19 @@ var helper = {
 
     },
 
-
+    //将含有相同父节点的子数据放置到该父节点的data中
+    setChildDate:function(a,b) {
+    a.forEach(function(element,index){
+        if(element.parentId == 0){
+            b[element.id] = element;
+            b[element.id].data = [];
+        }else{
+            if(b[element.parentId]){
+                b[element.parentId].data.push(element);
+            }
+        }
+    })
+},
 };
 
 module.exports = helper;

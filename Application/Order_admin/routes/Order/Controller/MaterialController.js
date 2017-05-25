@@ -193,21 +193,15 @@ var MaterialController = {
              {url: '/api/assist/package/types', method: 'GET', resConfig: {keyName: 'getPackageTypes', is_must: true}},
          ], function (req, res, resultList) {
 
-             // console.log('resultList.materialInfo', resultList.materialInfo);
-             var unitsInfo = {};
-             resultList.unitsInfo.forEach(function(element,index){
-                 if(element.parentId == 0){
-                     unitsInfo[element.id] = element;
-                     unitsInfo[element.id].data = [];
-                 }else{
-                     if(unitsInfo[element.parentId]){
-                         unitsInfo[element.parentId].data.push(element);
-                     }
-                 }
-             });
+             var unitsInfo = {},getPackageTypes={};
 
+             helper.setChildDate( resultList.unitsInfo,unitsInfo);
              resultList.unitsInfo = _.orderBy(unitsInfo,['id'],['asc']);
 
+             helper.setChildDate(resultList.getPackageTypes,getPackageTypes);
+             resultList.getPackageTypes=_.orderBy(getPackageTypes,['id'],['asc']);
+
+            // console.log(' resultList.getPackageTypes', resultList.getPackageTypes);
 
              var returnData = Base.mergeData(helper.mergeObject({
                  title: ' ',
@@ -243,19 +237,13 @@ var MaterialController = {
 
              //console.log('resultList.mateInfo', resultList.mateInfo);
             // console.log('mateInfo',resultList.mateInfo);
-            var unitsInfo = {};
-            resultList.unitsInfo.forEach(function(element,index){
-                if(element.parentId == 0){
-                    unitsInfo[element.id] = element;
-                    unitsInfo[element.id].data = [];
-                }else{
-                    if(unitsInfo[element.parentId]){
-                        unitsInfo[element.parentId].data.push(element);
-                    }
-                }
-            });
+            var unitsInfo = {},getPackageTypes={};
 
+            helper.setChildDate( resultList.unitsInfo,unitsInfo);
             resultList.unitsInfo = _.orderBy(unitsInfo,['id'],['asc']);
+
+            helper.setChildDate(resultList.getPackageTypes,getPackageTypes);
+            resultList.getPackageTypes=_.orderBy(getPackageTypes,['id'],['asc']);
 
 
 
