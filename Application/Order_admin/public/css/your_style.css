@@ -1228,3 +1228,16 @@ table > tbody > tr > td a.label:first-child {
 .table-print tbody{
     border: 1px solid #ddd;
 }
+
+@media screen and (max-width: 980px){
+    .smart-style-2 .welcomes > :first-child > a.user-info{
+       display:inline-block;
+       width:180px !important;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 1;
+        overflow: hidden;
+    }
+    .smart-style-2 .checkout .checkout2,.smart-style-2 .editPwd .editPwd2{
+        display:none;
+    }
+}
