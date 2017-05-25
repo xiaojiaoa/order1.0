@@ -339,9 +339,6 @@
                                 case 280: %>
                                 <td>
                                     受理退回
-                                    <% if (DWY_Helper.hasPermission(Permission.resupplyOrderReview.takeOrder.id, permission)   && resupplyInfo.receiveGid == user.id ){ %>
-                                    <a class="label label-primary doGetTask" data-stcode="<%= resupplyInfo.status %>">重新提交</a>
-                                    <% } %>
                                 </td>
                                 <% break;
                                 default: %>
