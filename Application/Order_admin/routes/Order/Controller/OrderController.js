@@ -20,6 +20,7 @@ var Permissions = require('../config/permission');
 //引入文件处理系统
 var fs = require("fs");
 
+var _ = require('lodash');
 
 var OrderController = {
     listPage: function (req, res) {
@@ -1085,6 +1086,11 @@ var OrderController = {
             {url: '/api/orders/package/pcaketview/'+tid+"?"+(queryString.stringify(req.query)), method: 'GET', resConfig: {keyName: 'packedListDetail', is_must: true}},
             {url: '/api/assist/package/types', method: 'GET', resConfig: {keyName: 'packageTypeList', is_must: true}},
         ], function (req, res, resultList) {
+
+            var packageTypeList={};
+            helper.setChildDate(resultList.packageTypeList,packageTypeList);
+            resultList.packageTypeList=_.orderBy(packageTypeList,['id'],['asc']);
+
             var returnData = Base.mergeData(helper.mergeObject({
                 title: ' ',
                 tid:tid,
