@@ -145,7 +145,7 @@
                     data.levelType=3
                 }
             }
-            if(key=="assistantMaterialUnit"){
+            if(key=="assistantMaterialUnit" || key=='assistantPackageType'){
                 if(level=="level-1"){
                     data.parentId=0
                 }
@@ -641,8 +641,6 @@
                 }
             }
             else if (key=='assistantMaterialUnit'){
-
-
                 if(level=="level-1"){
                     ajaxFuncOne(key);
                     $(".basicDataThree").html("");
@@ -651,6 +649,19 @@
                 if(level=="level-2"){
                     var parentId=$(".level-2").find("input[name=parentId]").val();
                     ajaxAssistantMaterialUnitOne(parentId);
+                    $(".basicDataFour").html("");
+                    $(".level-2 input[name=listNum]").val('');
+                }
+            }
+            else if (key=='assistantPackageType'){
+                if(level=="level-1"){
+                    ajaxFuncOne(key);
+                    $(".basicDataThree").html("");
+                    $(".level-1 input[name=listNum]").val('');
+                }
+                if(level=="level-2"){
+                    var parentId=$(".level-2").find("input[name=parentId]").val();
+                    assistantPackageTypeOne(parentId);
                     $(".basicDataFour").html("");
                     $(".level-2 input[name=listNum]").val('');
                 }

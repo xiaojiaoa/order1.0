@@ -284,7 +284,7 @@
                $(".level-2").removeClass("display-none").addClass("col-xs-3");
                $(".level-3").removeClass("display-none").addClass("col-xs-3");
            }
-            else if(key=='assistantMaterialUnit')
+            else if(key=='assistantMaterialUnit'||key=='assistantPackageType')
             {
                 $(".level-0").removeClass("col-xs-3").addClass("col-xs-4");
                 $(".level-1").removeClass("col-xs-8").removeClass("col-xs-3").addClass("col-xs-4");
@@ -364,6 +364,9 @@
                 }
                 if(key=="assistantMaterialUnit"){
                     ajaxAssistantMaterialUnitOne(parentId);
+                }
+                if(key=='assistantPackageType'){
+                    assistantPackageTypeOne(parentId);
                 }
             }
             if($(this).attr("stcode")==0){
@@ -508,6 +511,24 @@
     function ajaxAssistantMaterialUnitOne(parentId){
         $.ajax({
             url: '/assistantMaterialUnitTwo/'+parentId,
+            method: 'put',
+            success: function (data) {
+                //console.log('物料单位2',data);
+                $(".basicDataThree").html(data);
+
+                //给禁用项目设置样式
+                disableStyleFuc(".basicDataThree")
+
+            },
+            error: function (response) {
+                layer.close(index);
+                errorLayout.normal(response);
+            }
+        });
+    }
+    function assistantPackageTypeOne(parentId){
+        $.ajax({
+            url: '/assistantPackageTypeTwo/'+parentId,
             method: 'put',
             success: function (data) {
                 //console.log('物料单位2',data);

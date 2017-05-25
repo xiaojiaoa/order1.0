@@ -80,6 +80,13 @@ if(element.parentId==0){%>
 </tr>
 <%}
     break;
+case 'assistantPackageType':
+if(element.parentId==0){%>
+<tr id="<%= element.id %>" stcode="<%= element.stcode %>" parentId="<%= element.parentId%>">
+    <td ><input class="border-0 text-align-center" type="text" value="<%= element.name %>" name="name" readonly/></td>
+</tr>
+<%}
+    break;
    default:
 %>
 <tr id="<%= element.id %>" stcode="<%= element.stcode %>">

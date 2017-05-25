@@ -67,7 +67,7 @@ var SystemController = {
         })
     },
     doCreate: function (req, res) {
-        // console.log( "新建",req.body);
+         console.log( "新建",req.body);
         request(Base.mergeRequestOptions({
             method: 'post',
             url: '/api/assist',
@@ -82,7 +82,7 @@ var SystemController = {
         })
     },
     doModify: function (req, res) {
-        // console.log("修改",req.body);
+         console.log("修改",req.body);
         request(Base.mergeRequestOptions({
             method: 'put',
             url: '/api/assist/update'+"?"+queryString.stringify(req.body)
@@ -187,6 +187,26 @@ var SystemController = {
                 var data = JSON.parse(body);
                 var basicDataTwo = template({result:data});
                 res.send(basicDataTwo);
+            } else {
+                Base.handlerError(res, req, error, response, body);
+            }
+        })
+    },
+    assistantPackageTypePage: function (req, res) {
+        var parentId = req.params.parentId;
+        //引入模板文件的路径
+        var path = req.app.get('views')+'/order/system/basicDataOne.ejs';
+        var template = require(path);
+        request(Base.mergeRequestOptions({
+            method: 'GET',
+            url: '/api/assist/package/types/'+parentId,
+        }, req, res), function (error, response, body) {
+            if (!error && response.statusCode == 200) {
+                // 编译模板
+                var data = JSON.parse(body);
+                // console.log('data是啥',data)
+                var basicDataOne = template({result:data});
+                res.send(basicDataOne);
             } else {
                 Base.handlerError(res, req, error, response, body);
             }

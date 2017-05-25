@@ -1312,6 +1312,9 @@ router.get('/api/clearCache', Middleware.AuthCheck, SystemController.doClearCach
 // 获取物料单位二的内容
 router.put('/assistantMaterialUnitTwo/:parentId', Middleware.AuthCheck, SystemController.assistantMaterialUnitPage);
 
+// 获取包装类型二的内容
+router.put('/assistantPackageTypeTwo/:parentId', Middleware.AuthCheck, SystemController.assistantPackageTypePage);
+
 // 预警时间设置
 router.get('/system/timeSet', Middleware.AuthCheck,SystemController.timeSetPage);
 
