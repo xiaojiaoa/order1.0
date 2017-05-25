@@ -1101,12 +1101,14 @@ table > tbody > tr > td a.label:first-child {
     margin-top: 100px;
 }
 .prin-preview{
-    width: 600px;
-    margin: 0 auto;
+    width: 800px;
+    margin-left: 200px;
+    /*margin: 0 auto;*/
     margin-top: 150px;
 }
 .printBody{
   /*padding:20px;*/
+
 }
 .printBody table {
     width: 100%;
