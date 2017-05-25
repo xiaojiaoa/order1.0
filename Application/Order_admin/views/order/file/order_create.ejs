@@ -56,24 +56,22 @@
                                         </label>
                                         <div class="col-xs-10">
                                             <% if(DWY_Helper.isCanLoop(fileTypeInfo)){
-                                                var fileTypeIdFirst
                                             fileTypeInfo.forEach(function (element, index) {
-                                                if (index == 0) {
-                                                    fileTypeIdFirst = element.id
-                                                } %>
+                                            if(element.code != 1004){ %>
                                             <label class="radio radio-inline">
                                                 <input type="radio" class="radiobox validate[required]" value="<%= element.code %>"
                                                        data-id="<%= element.id %>"
                                                        name="type" >
                                                 <span><%= element.name %></span>
                                             </label>
-                                            <% })
+                                            <% }
+                                            })
                                             }else{ var notUpload = true %>
                                             <label class="pull-left control-label ">--暂无可上传文件--</label>
                                             <% } %>
 
                                             <input type="hidden" name="fileTypeId" id="fileTypeId"
-                                                   value="<%= fileTypeIdFirst %>">
+                                                   value="">
                                         </div>
                                     </div>
                                 </div>
