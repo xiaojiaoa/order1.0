@@ -29,25 +29,38 @@
     <!-- MAIN CONTENT -->
     <div id="content">
 
+
         <div class="prin-preview">
+            <% if(type == 'arry'){ %>
+            <div class="orderItemLayerTit">
+                <ul class="orderItemMenu">
+                    <a href="/system/printParts/<%= batchNumber%>?type=A">
+                        <li class="padding-10 <%= (showTYpe=='A'|| !showTYpe)? 'materielBak':''%>">配件</li>
+                    </a>
+                    <a href="/system/printParts/<%= batchNumber%>?type=W">
+                        <li class="padding-10 <%= showTYpe=='W'? 'materielBak':''%> ">工件</li>
+                    </a>
+                </ul>
+            </div>
+            <% } %>
+
             <div id="printHtml">
                 <% if(type == 'html'){ %>
                 <div class="printBody"><%- printINfo %></div>
                 <%  } %>
 
                 <% if(type == 'arry'){
-                if(DWY_Helper.isCanLoop(printINfo.W)){
-                printINfo.W.forEach(function (element) { %>
-                <div class="printBody"><%- element %></div>
+                if(( showTYpe=='A' || !showTYpe ) && DWY_Helper.isCanLoop(printINfo.A)){
+                printINfo.A.forEach(function (element) { %>
+                <div class="printBody" id="tabDiv0"><%- element %></div>
                 <%  })
                 }
-                if(DWY_Helper.isCanLoop(printINfo.A)){
-                printINfo.A.forEach(function (element) { %>
-                <div class="printBody"><%- element %></div>
+                if(showTYpe=='W' && DWY_Helper.isCanLoop(printINfo.W)){
+                printINfo.W.forEach(function (element) { %>
+                <div class="printBody" id="tabDiv1"><%- element %></div>
                 <%  })
                 }
                 } %>
-
             </div>
         </div>
 
@@ -82,14 +95,15 @@
 
     $(document).ready(function () {
         $('body').on('click', '#print', function () {
-            var headstr = '<html><head><title></title></head><body>';  //打印头部
-            var footstr = "</body></html>";  //打印尾部
-            var printData = $("#printHtml").html(); //获得 div 里的所有 html 数据
+            var headstr = '<html><head><title></title></head><body>';  // 打印头部
+            var footstr = "</body></html>";  // 打印尾部
+            var printData = $("#printHtml").html(); // 获得 div 里的所有 html 数据
             var oldstr = document.body.innerHTML;
             document.body.innerHTML = headstr + printData + footstr;
             window.print();
-            document.body.innerHTML = oldstr;   //保持原页面格式
+            document.body.innerHTML = oldstr;   // 保持原页面格式
         })
+
     })
 
 </script>

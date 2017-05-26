@@ -359,6 +359,7 @@ var SystemController = {
     },
     printParts: function (req, res) {
         var batchNumber = req.params.batchNumber;
+        var type = req.query.type;
         request(Base.mergeRequestOptions({
             method: 'get',
             url: '/api/orders/package/print/packagelist/'+batchNumber,
@@ -366,7 +367,8 @@ var SystemController = {
             if (!error && response.statusCode == 200) {
                 var returnData = Base.mergeData(helper.mergeObject({
                     batchNumber:batchNumber,
-                    type:'arry'
+                    type:'arry',
+                    showTYpe:type
                 }, {printINfo:JSON.parse(body)}));
                 res.render('order/system/print', returnData);
             } else {
