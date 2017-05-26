@@ -107,6 +107,18 @@
                                         </div>
                                     </div>
                                 </div>
+                                <div class="col-xs-3">
+                                    <div class="form-group">
+                                        <label class="col-xs-4 control-label">付款状态:</label>
+                                        <div class="col-xs-8">
+                                            <select class="form-control" name="payCode">
+                                                <option value="">- 请选择 -</option>
+                                                <option value="10" <%= (DWYRequest.query.payCode == 10 )?"selected":"" %> >未付清</option>
+                                                <option value="30" <%= (DWYRequest.query.payCode == 30 )?"selected":"" %> >已付清</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                             <% } %>
                             <div class="col-xs-12">
@@ -159,9 +171,6 @@
                         <% if (DWY_Helper.hasPermission(Permission.purchase.createP.id, permission)){ %>
                         <a href="/purchase/create?mateType=10" class="btn btn-primary">新建采购单</a>
                         <% } %>
-
-                        <!--<button class="btn btn-primary" id="advanceCharge">标记为预付款</button>-->
-
                     </div>
             </div>
             <div class="row margin-top-10">
@@ -437,20 +446,6 @@
 
             })
 
-            $("#advanceCharge").click(function(){
-                layer.open({
-                    title: false,
-                    type: 1,
-                    area: '700px',
-                    content: $('#advanceChargeForm'),
-                    cancel: function () {
-                        //右上角关闭回调
-                    },
-
-                });
-            })
-
         })
     </script>
 <%- include('../layouts/foot'); %>
-<%- include('./purchase_modal'); %>

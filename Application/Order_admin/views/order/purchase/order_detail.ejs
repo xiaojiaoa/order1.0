@@ -71,11 +71,12 @@
                             <tr>
                                 <th>序号</th>
                                 <th>请购单号</th>
+                                <th>物料名称</th>
                                 <th>采购数量</th>
                                 <th>入库数量</th>
                                 <th>百分比</th>
                                 <th>最小数量</th>
-                                <th>物料名称</th>
+                                <th>操作</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -90,6 +91,9 @@
                                         <span><%= index+1 %></span>
                                     </label>
                                 </td>
+                                <td class="reqListId display-none"><input value="<%= element.id %>" /></td>
+                                <td class="deposit display-none"><input value="<%= element.deposit %>" /></td>
+                                <td class="balance display-none"><input value="<%= element.balance %>" /></td>
                                 <td>
                                     <a href="/purchase/applyDetail/<%= element.reqId %>">
                                         <%if(element.reqId==-1){%>
@@ -99,6 +103,7 @@
                                         <%}%>
                                     </a>
                                 </td>
+                                <td><%= element.mateName %></td>
                                 <td><%= element.amount %></td>
                                 <td><%= element.inAmount %></td>
                                 <td class="count<%= index %>">
@@ -114,7 +119,27 @@
                                     <%}%>
                                 </td>
                                 <td><%= element.minAmount %></td>
-                                <td><%= element.mateName %></td>
+                                <td>
+                                    <!--<label class="label label-primary advanceCharge">付款</label>-->
+                                    <% if(purchaseOrderList.stcode<50){%>
+                                         <%if(element.deposit>0){%>
+                                                <%if(element.isDeposit==1){%>
+                                                    <label class="label label-success">已预付款</label>
+                                                <%}else{%>
+                                                    <label class="label label-primary advanceCharge">预付款</label>
+                                                <%}%>
+                                            <%}else{%>
+                                                
+                                            <%}%>
+                                    <%}else{%>
+                                        <%if(element.balance>0){%>
+                                            <label class="label label-primary advanceCharge2">付款</label>
+                                        <%}else{%>
+                                            <label class="label label-success">已付清</label>
+                                        <%}%>
+                                    <%}%>
+                                </td>
+                                <input type="hidden" value="<%= purchaseOrderList.stcode %>" name="stcode" />
                             </tr>
                             <% }) }%>
                             </tbody>
@@ -136,9 +161,64 @@
             var count = $(".count"+i).find("span").html();
             var result = Math.round(count*100)/100;
             $(".count"+i).find("span").html(result+'%')
+        }
+        var stcode = $("input[name=stcode]").val();
+        if(stcode<50){
+            $("#advanceChargeForm2 input[name=remaId]").attr('name','');
+            $("#advanceChargeForm2 input[name=money]").attr('name','');
+            $("#advanceChargeForm2 input[name=path]").attr('name','');
+            $("#advanceChargeForm2 input[name=file_name]").attr('name','');
+            $("#advanceChargeForm input[name=remaId]").attr('name','remaId');
+            $("#advanceChargeForm input[name=money]").attr('name','money');
+            $("#advanceChargeForm input[name=path]").attr('name','path');
+            $("#advanceChargeForm input[name=file_name]").attr('name','file_name');
 
+
+        }else{
+            $("#advanceChargeForm input[name=remaId]").attr('name','');
+            $("#advanceChargeForm input[name=money]").attr('name','');
+            $("#advanceChargeForm input[name=path]").attr('name','');
+            $("#advanceChargeForm input[name=file_name]").attr('name','');
+            $("#advanceChargeForm2 input[name=remaId]").attr('name','remaId');
+            $("#advanceChargeForm2 input[name=money]").attr('name','money');
+            $("#advanceChargeForm2 input[name=path]").attr('name','path');
+            $("#advanceChargeForm2 input[name=file_name]").attr('name','file_name');
 
         }
+        $(".advanceCharge").click(function(){
+            var remaId = $(this).parents("td").siblings(".reqListId").find("input").val();
+            var deposit = $(this).parents("td").siblings(".deposit").find("input").val();
+            $("input[name=money]").val(deposit);
+            $("input[name=remaId]").val(remaId);
+            layer.open({
+                title: false,
+                type: 1,
+                area: '700px',
+                content: $('#advanceChargeForm'),
+                cancel: function () {
+                    //右上角关闭回调
+                },
+
+            });
+        })
+        $(".advanceCharge2").click(function(){
+            var remaId = $(this).parents("td").siblings(".reqListId").find("input").val();
+            var balance = $(this).parents("td").siblings(".balance").find("input").val();
+            $("input[name=money]").val(balance);
+            $("input[name=remaId]").val(remaId);
+            layer.open({
+                title: false,
+                type: 1,
+                area: '700px',
+                content: $('#advanceChargeForm2'),
+                cancel: function () {
+                    //右上角关闭回调
+                },
+
+            });
+        })
+
     })
 </script>
 <%- include('../layouts/foot'); %>
+<%- include('./purchase_modal'); %>

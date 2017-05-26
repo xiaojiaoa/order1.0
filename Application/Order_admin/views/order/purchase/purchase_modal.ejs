@@ -1,12 +1,28 @@
-<form class="form-horizontal  layer-template"  id="setDate">
+<form class="form-horizontal  layer-template" method="post" action="/purchase/uploadProof"  id="advanceChargeForm">
     <div class="col-xs-12">
         <!--输入字段-->
         <div class="col-xs-12">
             <div class="form-group">
-                <label class="col-xs-4 control-label "><span class="requird"></span>合同截止日期:
+                <label class="col-xs-4 control-label ">预付款金额:
                 </label>
-                <div class="col-xs-8">
-                    <input class="form-control validate[required] fg-date-picker" type="text" value="" name="endDate" data-prompt-position="bottomLeft:20,5">
+                <div class="col-xs-6 money" style="padding-top:7px;padding-left:18px;">
+                    <input name="money" value="" style="border:0;width:20%;color:#d9534f" />元
+                </div>
+                <input type="hidden" name="remaId" value="" />
+            </div>
+        </div>
+        <div class="col-xs-12">
+            <div class="form-group">
+                <div class="col-xs-12">
+                    <div class="col-xs-4" style="text-align: right">
+                        <label for="dwy_file_upload" class="btn btn-primary" id="label-upload-file">
+
+                            上传凭证 <i class="fa fa-upload"></i> </label>
+                        <input type="file" name="file_name" id="dwy_file_upload" style="display: none;">
+                    </div>
+                    <div class="col-xs-6">
+                        <input type="text" name="path" id="file_check" class="form-control validate[required] col-xs-8">
+                    </div>
                 </div>
             </div>
         </div>
@@ -14,58 +30,161 @@
     <div class="col-xs-12">
         <hr class="simple">
         <div class="col-xs-12 text-center">
-            <a class="btn btn-primary" id="btnSetDate">
+            <button class="btn btn-primary" id="btnPay">
                 <i class="fa fa-save"></i>
-                确定修改
-            </a>
+                确定付款
+            </button>
         </div>
     </div>
     <div class="dwy-clear"></div>
 </form>
 
-<!--<form action="form-horizontal  layer-template" id="advanceChargeForm">-->
-    <!--<div class="col-xs-12">-->
-        <!--&lt;!&ndash;输入字段&ndash;&gt;-->
-        <!--<div class="col-xs-12">-->
-            <!--<div class="form-group">-->
-                <!--<label class="col-xs-4 control-label "><span class="requird"></span>预付款百分比:-->
-                <!--</label>-->
-                <!--<div class="col-xs-8">-->
-                    <!--<input class="form-control validate[required] fg-date-picker" type="text" value="" name="endDate" data-prompt-position="bottomLeft:20,5">-->
-                <!--</div>-->
-            <!--</div>-->
-        <!--</div>-->
-    <!--</div>-->
-    <!--<div class="col-xs-12">-->
-        <!--<hr class="simple">-->
-        <!--<div class="col-xs-12 text-center">-->
-            <!--<a class="btn btn-primary" id="btnSetDate">-->
-                <!--<i class="fa fa-save"></i>-->
-                <!--确定修改-->
-            <!--</a>-->
-        <!--</div>-->
-    <!--</div>-->
-    <!--<div class="dwy-clear"></div>-->
-<!--</form>-->
+<form class="form-horizontal  layer-template" method="post" action="/purchase/uploadProof2"  id="advanceChargeForm2">
+    <div class="col-xs-12">
+        <!--输入字段-->
+        <div class="col-xs-12">
+            <div class="form-group">
+                <label class="col-xs-4 control-label ">待付款金额:
+                </label>
+                <div class="col-xs-6 money" style="padding-top:7px;padding-left:18px;">
+                    <input name="money" value="" style="border:0;width:20%;color:#d9534f" />元
+                </div>
+                <input type="hidden" name="remaId" value="" />
+            </div>
+        </div>
+        <div class="col-xs-12">
+            <div class="form-group">
+                <div class="col-xs-12">
+                    <div class="col-xs-4" style="text-align: right">
+                        <label for="dwy_file_upload2" class="btn btn-primary" id="label-upload-file2">
 
+                            上传凭证 <i class="fa fa-upload"></i> </label>
+                        <input type="file" name="file_name" id="dwy_file_upload2" style="display: none;">
+                    </div>
+                    <div class="col-xs-6">
+                        <input type="text" name="path" id="file_check2" class="form-control validate[required] col-xs-8">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-xs-12">
+        <hr class="simple">
+        <div class="col-xs-12 text-center">
+            <button class="btn btn-primary" id="btnPay">
+                <i class="fa fa-save"></i>
+                确定付款
+            </button>
+        </div>
+    </div>
+    <div class="dwy-clear"></div>
+</form>
 
 <script type="text/javascript">
     $(document).ready(function () {
-        $("#setDate").validationEngine({scroll: false});
-//        $("#advanceChargeForm").validationEngine({scroll: false});
-        $(".fg-date-picker").flatpickr(data_time_picker.data_picker);
-        $('#btnSetDate').on({
-            click:function () {
-                var dateLen=$(".date").length;
-                var dateVa =$("input[name=endDate]").val();
-                if(dateVa==null||dateVa==''){
-                    layer.alert('请填写合同截止日期！', {icon: 3})
-                    return false;
-                }
-                for(var i=0;i<dateLen;i++){
-                    $(".date").val(dateVa);
-                }
+        $("#advanceChargeForm").validationEngine({scroll: false});
+        $("#advanceChargeForm2").validationEngine({scroll: false});
+
+        $('#dwy_file_upload').on({
+            change: function (e) {
+                var _this = $(this);
+                var label = $("#label-upload-file");
+                var formData = new FormData();
+                formData.append('file_name', _this.prop('files')[0])
+                label.html('上传中 <i class="fa fa-circle-o-notch fa-spin">');
+                label.attr('disabled', true);
+
+                $.ajax({
+                    url: '/template/upload/single/share',
+                    data: formData,
+                    type: 'POST',
+                    // THIS MUST BE DONE FOR FILE UPLOADING
+                    processData: false, // 不处理发送的数据，因为data值是Formdata对象，不需要对数据做处理
+                    contentType: false, // 不设置Content-type请求头
+                    // ... Other options like success and et
+                    success: function (data) {
+                        label.attr('disabled', false);
+                        if (data.code == 200) {
+
+                            label.html('上传成功 <i class="fa fa-check">');
+                            $("#file_check").val(data.data.name);
+
+                            //将获取到的文件信息传递给后台
+                            var fileName =data.data.name;
+                            var fileSize =data.data.size;
+                            var savePath =data.data.url;
+
+                            mydata={
+                                name:fileName,
+                                size:fileSize,
+                                path:savePath
+                            }
+
+
+                            // 图片预览
+//                        $('#test-image-upload').attr('src', '/uploads/' + data.tmp_path);
+                        } else {
+                            label.html('上传失败 <i class="fa fa-times">');
+                        }
+                    },
+                    error: function () {
+                        label.attr('disabled', false);
+                        label.html('上传失败 <i class="fa fa-times">');
+                    }
+                })
             }
         })
+
+        $('#dwy_file_upload2').on({
+            change: function (e) {
+                var _this = $(this);
+                var label = $("#label-upload-file2");
+                var formData = new FormData();
+                formData.append('file_name', _this.prop('files')[0])
+                label.html('上传中 <i class="fa fa-circle-o-notch fa-spin">');
+                label.attr('disabled', true);
+
+                $.ajax({
+                    url: '/template/upload/single/share',
+                    data: formData,
+                    type: 'POST',
+                    // THIS MUST BE DONE FOR FILE UPLOADING
+                    processData: false, // 不处理发送的数据，因为data值是Formdata对象，不需要对数据做处理
+                    contentType: false, // 不设置Content-type请求头
+                    // ... Other options like success and et
+                    success: function (data) {
+                        label.attr('disabled', false);
+                        if (data.code == 200) {
+
+                            label.html('上传成功 <i class="fa fa-check">');
+                            $("#file_check2").val(data.data.name);
+
+                            //将获取到的文件信息传递给后台
+                            var fileName =data.data.name;
+                            var fileSize =data.data.size;
+                            var savePath =data.data.url;
+
+                            mydata={
+                                name:fileName,
+                                size:fileSize,
+                                path:savePath
+                            }
+
+
+                            // 图片预览
+//                        $('#test-image-upload').attr('src', '/uploads/' + data.tmp_path);
+                        } else {
+                            label.html('上传失败 <i class="fa fa-times">');
+                        }
+                    },
+                    error: function () {
+                        label.attr('disabled', false);
+                        label.html('上传失败 <i class="fa fa-times">');
+                    }
+                })
+            }
+        })
+
+
     })
 </script>
