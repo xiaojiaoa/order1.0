@@ -92,15 +92,22 @@
                                 <td><%= mateInfo.usable %></td>
                             </tr>
                             <tr>
+                                <td>采购价格</td>
+                                <td><%= mateInfo.totalPrice %></td>
                                 <td>出厂价格</td>
-                                <td><%= mateInfo.price %></td>
-                                <td>物料图片</td>
-                                <td>
-                                    <a class="fancybox dwy_image" href="<%= DWY_GLOBAL.Static %>/download?url=<%= mateInfo.image %>" data-fancybox-group="gallery" title="<%= mateInfo.image %>"><%= mateInfo.image %></a>
-                                </td>
-                                <td>工厂</td>
-                                <td><%= mateInfo.factoryName %></td>
+                                <td><%= mateInfo.totalUnitPrice %></td>
+                                <td></td>
+                                <td></td>
                             </tr>
+                            <td>工厂</td>
+                            <td><%= mateInfo.factoryName %></td>
+                            <td>物料图片</td>
+                            <td>
+                                <a class="fancybox dwy_image" href="<%= DWY_GLOBAL.Static %>/download?url=<%= mateInfo.image %>" data-fancybox-group="gallery" title="<%= mateInfo.image %>"><%= mateInfo.image %></a>
+                            </td>
+                            <td></td>
+                            <td></td>
+                            <tr>
                             <%
                             var isTr = true;
                             var attrsLength = mateInfo.attrs.length;
