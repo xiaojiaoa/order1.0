@@ -61,7 +61,7 @@
                                         <div class="col-xs-4">
                                             <input class="form-control fg-date-picker"
                                                    value="<%= DWYRequest.query.startDates %>"
-                                                   name="startDate">
+                                                   name="startDateS">
                                         </div>
                                         <label class="control-label " style="float: left"> 至 </label>
                                         <div class="col-xs-4">
@@ -86,7 +86,7 @@
                                         <div class="col-xs-4">
                                             <input class="form-control fg-date-picker"
                                                    value="<%= DWYRequest.query.endDate %>"
-                                                   name="endDates">
+                                                   name="endDate">
                                         </div>
                                     </div>
                                 </div>
@@ -139,6 +139,16 @@
                     <a href="/orderCount">
                         <li class="padding-10 ">
                             订单计数
+                        </li>
+                    </a>
+                    <a href="/pickMateRep">
+                        <li class="padding-10">
+                            领料单
+                        </li>
+                    </a>
+                    <a href="/outMateRep">
+                        <li class="padding-10">
+                            出库
                         </li>
                     </a>
                 </ul>
