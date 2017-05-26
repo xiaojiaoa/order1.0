@@ -119,7 +119,7 @@ var ReportController = {
 
         var paramObject = helper.genPaginationQuery(req);
         Base.multiDataRequest(req, res, [
-            {url: '/api/tasks/statement/pageMaterialRequisitionReport?'+ queryString.stringify(req.query), method: 'GET', resConfig: {keyName: 'outMateRepList', is_must: true}},
+            {url: '/api/tasks/statement/pageMateOutReportByCondition?'+ queryString.stringify(req.query), method: 'GET', resConfig: {keyName: 'outMateRepList', is_must: true}},
         ], function (req, res, resultList) {
 
             var paginationInfo = resultList.outMateRepList;
