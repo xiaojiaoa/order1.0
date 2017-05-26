@@ -475,6 +475,9 @@
                                     <% if (DWY_Helper.hasPermission(Permission.orderApart.takeOrder.id, permission)  ){ %>
                                     <a class="label label-primary doGetTask" data-stcode="<%= orderInfo.stcode %>">标记为拆单中</a>
                                     <% } %>
+                                    <% if (DWY_Helper.hasPermission(Permission.orderReview.sendBackOrder.id, permission) && orderInfo.sendGid == user.id ){ %>
+                                    <a class="label label-primary margin-left-20 reject-modal" id="check-reject-modal">审核退回</a>
+                                    <% } %>
                                 </td>
                                 <%         break;
 
@@ -505,6 +508,10 @@
                                     待拆单审核
                                     <% if (DWY_Helper.hasPermission(Permission.orderReviewApart.takeOrder.id, permission) ){ %>
                                     <a class="label label-primary doGetTask" data-stcode="<%= orderInfo.stcode %>">标记为拆单审核中</a>
+                                    <% } %>
+                                    <% if (DWY_Helper.hasPermission(Permission.orderApart.sendBackOrder.id, permission) && orderInfo.sendGid == user.id ){ %>
+                                    <a class="label label-primary margin-left-20 reject-modal"
+                                       data-stcode="<%= orderInfo.stcode %>">拆单退回</a>
                                     <% } %>
                                 </td>
                                 <%         break;
@@ -547,6 +554,9 @@
                                     待排料
                                     <% if (DWY_Helper.hasPermission(Permission.orderSchedule.takeOrder.id, permission) ){ %>
                                     <a class="label label-primary doGetTask" data-stcode="<%= orderInfo.stcode %>">标记为排料中</a>
+                                    <% } %>
+                                    <% if (DWY_Helper.hasPermission(Permission.orderReviewApart.sendBackOrder.id, permission) && orderInfo.sendGid == user.id ){ %>
+                                    <a class="label label-primary margin-left-20 reject-modal">拆单审核退回</a>
                                     <% } %>
                                 </td>
                                 <%        break;
