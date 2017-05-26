@@ -35,56 +35,11 @@
                     <div class="row search-form">
                         <form class="form-horizontal" method="get" id="search-customer">
 
-
                             <div class="col-xs-12">
 
-                                <!--输入字段-->
-                                <div class="col-xs-3">
-                                    <div class="form-group">
-                                        <label class="col-xs-4 control-label">物料号:</label>
-                                        <div class="col-xs-8">
-                                            <input class="form-control" placeholder="请输入物料号" value="<%= DWYRequest.query.mid %>" type="text" name="mid">
-                                        </div>
-                                    </div>
-                                </div>
-                                <!--输入字段-->
-                                <div class="col-xs-3">
-                                    <div class="form-group">
-                                        <label class="col-xs-4 control-label">订单号:</label>
-                                        <div class="col-xs-8">
-                                            <input class="form-control" placeholder="请输入订单号" value="<%= DWYRequest.query.tid %>" type="text" name="tid">
-                                        </div>
-                                    </div>
-                                </div>
                                 <div class="col-xs-6">
                                     <div class="form-group">
-                                        <label class="col-xs-2 control-label">排料日期范围:</label>
-                                        <div class="col-xs-4">
-                                            <input class="form-control fg-date-picker"
-                                                   value="<%= DWYRequest.query.startDates %>"
-                                                   name="startDates">
-                                        </div>
-                                        <label class="control-label " style="float: left"> 至 </label>
-                                        <div class="col-xs-4">
-                                            <input class="form-control fg-date-picker"
-                                                   value="<%= DWYRequest.query.endDates %>"
-                                                   name="endDates">
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-xs-12">
-                                <div class="col-xs-3">
-                                    <div class="form-group">
-                                        <label class="col-xs-4 control-label">批次号:</label>
-                                        <div class="col-xs-8">
-                                            <input class="form-control" placeholder="请输入批次号" value="<%= DWYRequest.query.batchNumber %>" type="text" name="batchNumber">
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-xs-6">
-                                    <div class="form-group">
-                                        <label class="col-xs-2 control-label">批次日期范围:</label>
+                                        <label class="col-xs-2 control-label">出库日期范围:</label>
                                         <div class="col-xs-4">
                                             <input class="form-control fg-date-picker"
                                                    value="<%= DWYRequest.query.startDate %>"
@@ -98,7 +53,12 @@
                                         </div>
                                     </div>
                                 </div>
+
+
                             </div>
+
+
+
                             <div class="col-xs-12">
                                 <hr class="simple">
                                 <div class="col-xs-12 text-center">
@@ -132,7 +92,7 @@
             <div class="orderItemLayerTit">
                 <ul class="orderItemMenu">
                     <a href="/orderMatPricing?mid=<%= DWYRequest.query.mid%>&tid=<%= DWYRequest.query.tid%>&startDate=<%= DWYRequest.query.startDate%>&endDate=<%= DWYRequest.query.endDate%>&batchNumber=<%= DWYRequest.query.batchNumber%>&startDates=<%= DWYRequest.query.startDates%>&endDates=<%= DWYRequest.query.endDates%>">
-                        <li class="padding-10 materielBak">
+                        <li class="padding-10 ">
                             订单物料计价
                         </li>
                     </a>
@@ -142,17 +102,17 @@
                         </li>
                     </a>
                     <a href="/orderCount">
-                        <li class="padding-10 ">
+                        <li class="padding-10">
                             订单计数
                         </li>
                     </a>
                     <a href="/pickMateRep">
-                        <li class="padding-10">
+                        <li class="padding-10 materielBak">
                             领料单
                         </li>
                     </a>
                     <a href="/outMateRep">
-                        <li class="padding-10">
+                        <li class="padding-10 ">
                             出库
                         </li>
                     </a>
@@ -167,38 +127,34 @@
                             <thead>
                             <tr>
                                 <th width="4%">序号</th>
-                                <th>批次号</th>
-                                <th>机构名称</th>
-                                <th>订单号</th>
-                                <th>物料名称</th>
-                                <th>采购总价 </th>
-                                <th>出厂总价 </th>
-                                <th>采购价格</th>
-                                <th>出厂价格</th>
-                                <th>物料总数</th>
-                                <th>批次日期</th>
-                                <th>排料日期</th>
-                                <th>流水号</th>
+                                <th>领料单号/出库单号</th>
+                                <th>领料人</th>
+                                <th>出库人姓名</th>
+                                <th>领料审核人</th>
+                                <th>领料审核人姓名</th>
+                                <th>物料编号</th>
+                                <th>物料名</th>
+                                <th>领用数量</th>
+                                <th>平均单价</th>
+                                <th>出库审核时间</th>
                             </tr>
                             </thead>
                             <tbody>
                             <%
-                            if(DWY_Helper.isCanLoop(orderMatPricingList.result)){
-                            orderMatPricingList.result.forEach(function (element,index) { %>
+                            if(DWY_Helper.isCanLoop(pickMateRepList.result)){
+                            pickMateRepList.result.forEach(function (element,index) { %>
                             <tr>
                                 <td width="4%"><%= index+1 %></td>
-                                <td><a href="/orderMatPricing?batchNumber=<%= element.batchNumber %>"><%= element.batchNumber %></a></td>
-                                <td><%= element.factoryName %></td>
-                                <td><%= element.tid %></td>
-                                <td><%= element.name %></td>
-                                <td><%= element.totalPrice %></td>
-                                <td><%= element.totalUnitprice %></td>
-                                <td><%= element.oneTotalPrice %></td>
-                                <td><%= element.oneTotalUnitPrice %></td>
-                                <td><%= element.amount %></td>
-                                <td><%= DWY_Helper.getLocalDateYMD(element.addTime) %></td>
-                                <td><%= DWY_Helper.getLocalDateYMD(element.createTime)%></td>
-                                <td><%= element.lid %></td>
+                                <td><%= element.outId %></td>
+                                <td><%= element.outEmp%></td>
+                                <td><%= element.outName %></td>
+                                <td><%= element.outReviewEmp %></td>
+                                <td><%= element.outReviewName %></td>
+                                <td><%= element.mateId%></td>
+                                <td><%= element.mateName %></td>
+                                <td><%= element.amount%></td>
+                                <td><%= element.price %></td>
+                                <td><%= DWY_Helper.getLocalDateYMD(element.outReviewDate) %></td>
                             </tr>
                             <%})
                             }else{ %>

@@ -1407,6 +1407,11 @@ router.get('/batchNumMatPricing', Middleware.AuthCheck,Middleware.FilterEmptyFie
 //分页查询订单计数
 router.get('/orderCount', Middleware.AuthCheck,Middleware.FilterEmptyField,ReportController.orderCountPage);
 
+//领料单
+router.get('/pickMateRep', Middleware.AuthCheck,Middleware.FilterEmptyField,ReportController.pickMateRepPage);
+
+//出库
+router.get('/outMateRep', Middleware.AuthCheck,Middleware.FilterEmptyField,ReportController.outMateRepPage);
 
 
 module.exports = router;
