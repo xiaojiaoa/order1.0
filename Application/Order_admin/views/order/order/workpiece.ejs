@@ -61,14 +61,12 @@
                             <a href="/order/workpiece/<%= tid %>"><li class="workpiece materielBak padding-10">非标件</li></a>
                             <a href="/order/materiel_modal/<%= tid %>"><li class="parts padding-10">配件</li></a>
                             <li class="padding-10">数量合计：<a><%= workpieceAmount.amount %></a></li>
-                            <% if(DWY_Helper.isCanLoop(workPieceHistory)){ %>
-                            <li class="padding-10 <%= workPieceHistory[1]?(workPieceHistory[0].amount == workPieceHistory[1].amount ?'':'text-danger'):''%>">
-                                <%= DWY_Helper.getAssistVal(workPieceHistory[0].stcode, stcodeInfo) %>上传：<%= workPieceHistory[0].amount %>
-                                <% if(workPieceHistory[1]){  %>
-                                ,<%= DWY_Helper.getAssistVal(workPieceHistory[1].stcode, stcodeInfo) %>上传：<%= workPieceHistory[1].amount %>
+                            <li class="padding-10 <%= workPieceHistory.scheduleWorkPieceNumber && workPieceHistory.apartWorkPieceNumber ?(workPieceHistory.apartWorkPieceNumber == workPieceHistory.scheduleWorkPieceNumber ?'':'text-danger'):''%>">
+                                 拆单中上传：<%= workPieceHistory.apartWorkPieceNumber %>
+                                <% if(workPieceHistory.scheduleWorkPieceNumber){  %>
+                                &nbsp排料中上传：<%= workPieceHistory.scheduleWorkPieceNumber %>
                                 <%  } %>
                             </li>
-                            <% } %>
                         </ul>
                     </div>
                     <div class="orderItemLayerTable">

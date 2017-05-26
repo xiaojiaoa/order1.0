@@ -27,7 +27,7 @@
         <!-- well -->
         <div class="well">
             <!-- row -->
-            <div class="row display-none">
+            <div class="row">
                 <!-- col -->
                 <div class="col-xs-12">
                     <!--<legend>客户搜索</legend>-->
@@ -37,21 +37,19 @@
 
                             <div class="col-xs-12">
 
-                                <!--输入字段-->
-                                <div class="col-xs-3">
-                                    <div class="form-group">
-                                        <label class="col-xs-4 control-label">物料号:</label>
-                                        <div class="col-xs-8">
-                                            <input class="form-control" placeholder="请输入物料号" value="<%= DWYRequest.query.mid %>" type="text" name="mid">
-                                        </div>
-                                    </div>
-                                </div>
                                 <div class="col-xs-6">
                                     <div class="form-group">
-                                        <label class="col-xs-2 control-label">排料时间:</label>
+                                        <label class="col-xs-2 control-label">出库日期范围:</label>
                                         <div class="col-xs-4">
-                                            <input class="form-control fg-date-picker" placeholder="" type="text"  value="<%= DWYRequest.query.scheduleTime %>"
-                                                   name="scheduleTime">
+                                            <input class="form-control fg-date-picker"
+                                                   value="<%= DWYRequest.query.startDate %>"
+                                                   name="startDate">
+                                        </div>
+                                        <label class="control-label " style="float: left"> 至 </label>
+                                        <div class="col-xs-4">
+                                            <input class="form-control fg-date-picker"
+                                                   value="<%= DWYRequest.query.endDate%>"
+                                                   name="endDate">
                                         </div>
                                     </div>
                                 </div>
@@ -93,28 +91,28 @@
             </div>
             <div class="orderItemLayerTit">
                 <ul class="orderItemMenu">
-                    <a href="/orderMatPricing">
+                    <a href="/orderMatPricing%>">
                         <li class="padding-10 ">
                             订单物料计价
                         </li>
                     </a>
-                    <a href="/batchNumMatPricing">
-                        <li class="padding-10 ">
+                    <a href="/batchNumMatPricing%>">
+                        <li class="padding-10">
                             批次物料计价
                         </li>
                     </a>
                     <a href="/orderCount">
-                        <li class="padding-10 materielBak">
+                        <li class="padding-10">
                             订单计数
                         </li>
                     </a>
                     <a href="/pickMateRep">
-                        <li class="padding-10">
+                        <li class="padding-10 ">
                             领料单
                         </li>
                     </a>
                     <a href="/outMateRep">
-                        <li class="padding-10">
+                        <li class="padding-10 materielBak">
                             出库
                         </li>
                     </a>
@@ -134,30 +132,28 @@
                             <thead>
                             <tr>
                                 <th width="4%">序号</th>
-                                <th>配件名称</th>
-                                <th>ID</th>
-                                <th>配件规格</th>
-                                <th>采购价格</th>
-                                <th>出厂价格</th>
-                                <th>配件总数</th>
-                                <th>物料号</th>
-                                <th>工厂所属机构号</th>
+                                <th>物料编号</th>
+                                <th>物料名</th>
+                                <th>物料类型</th>
+                                <th>物料类型名</th>
+                                <th>日出库数量</th>
+                                <th>单价</th>
+                                <th>总价</th>
                             </tr>
                             </thead>
                             <tbody>
                             <%
-                            if(DWY_Helper.isCanLoop(orderCountList.result)){
-                            orderCountList.result.forEach(function (element,index) { %>
+                            if(DWY_Helper.isCanLoop(outMateRepList.result)){
+                            outMateRepList.result.forEach(function (element,index) { %>
                             <tr>
                                 <td width="4%"><%= index+1 %></td>
-                                <td><a href="/orderCount/detail?name=<%= element.name%>"><%= element.name %></a></td>
-                                <td><%= element.id %></td>
-                                <td><%= element.standard %></td>
-                                <td><%= element.totalPrice %></td>
-                                <td><% element.totalUnitPrice%></td>
+                                <td><a href="/outMateRep/detail?mateId=<%= element.mateId %>&startDate=<%= DWYRequest.query.startDate%>&endDate=<%= DWYRequest.query.endDate%>"><%= element.mateId %></a></td>
+                                <td><%= element.mateName%></td>
+                                <td><%= element.catId %></td>
+                                <td><%= element.catName %></td>
                                 <td><%= element.amount %></td>
-                                <td><%= element.mid%></td>
-                                <td><%= element.factoryId%></td>
+                                <td><%= element.price%></td>
+                                <td><%= element.totalPrice %></td>
                             </tr>
                             <%})
                             }else{ %>

@@ -23,7 +23,7 @@ var ReportController = {
 
         var paramObject = helper.genPaginationQuery(req);
         Base.multiDataRequest(req, res, [
-            {url: '/api/orders/pageday?'+ queryString.stringify(req.query), method: 'GET', resConfig: {keyName: 'orderMatPricingList', is_must: true}},
+            {url: '/api/tasks/statement/pageday?'+ queryString.stringify(req.query), method: 'GET', resConfig: {keyName: 'orderMatPricingList', is_must: true}},
         ], function (req, res, resultList) {
 
             var paginationInfo = resultList.orderMatPricingList;
@@ -47,7 +47,7 @@ var ReportController = {
 
         var paramObject = helper.genPaginationQuery(req);
         Base.multiDataRequest(req, res, [
-            {url: '/api/orders/pagebatch?'+ queryString.stringify(req.query), method: 'GET', resConfig: {keyName: 'batchNumMatPricingList', is_must: true}},
+            {url: '/api/tasks/statement/pagebatch?'+ queryString.stringify(req.query), method: 'GET', resConfig: {keyName: 'batchNumMatPricingList', is_must: true}},
         ], function (req, res, resultList) {
 
             var paginationInfo = resultList.batchNumMatPricingList;
@@ -71,11 +71,9 @@ var ReportController = {
 
         var paramObject = helper.genPaginationQuery(req);
         Base.multiDataRequest(req, res, [
-            {url: '/api/orders/pageAccessoryAmount?'+ queryString.stringify(req.query), method: 'GET', resConfig: {keyName: 'orderCountList', is_must: true}},
+            {url: '/api/tasks/statement/pageAccessoryTotalAmount?'+ queryString.stringify(req.query), method: 'GET', resConfig: {keyName: 'orderCountList', is_must: true}},
         ], function (req, res, resultList) {
-
             var paginationInfo = resultList.orderCountList;
-
             var boostrapPaginator = new Pagination.TemplatePaginator(helper.genPageInfo({
                 prelink: paramObject.withoutPageNo,
                 current: paginationInfo.page,
@@ -88,6 +86,150 @@ var ReportController = {
                 pagination: boostrapPaginator.render()
             },resultList));
             res.render('order/report/orderCount', returnData);
+        });
+
+    },
+    orderCountDetailPage: function (req, res) {
+
+        var paramObject = helper.genPaginationQuery(req);
+        Base.multiDataRequest(req, res, [
+            {url: '/api/tasks/statement/pageAccessoryAmount?'+ queryString.stringify(req.query), method: 'GET', resConfig: {keyName: 'orderCountDetail', is_must: true}},
+        ], function (req, res, resultList) {
+
+            var paginationInfo = resultList.orderCountDetail;
+
+            var boostrapPaginator = new Pagination.TemplatePaginator(helper.genPageInfo({
+                prelink: paramObject.withoutPageNo,
+                current: paginationInfo.page,
+                rowsPerPage: paginationInfo.pageSize,
+                totalResult: paginationInfo.totalItems
+            }));
+
+            var returnData = Base.mergeData(helper.mergeObject({
+                title: ' ',
+                pagination: boostrapPaginator.render()
+            },resultList));
+            res.render('order/report/orderCountDetail', returnData);
+        });
+
+    },
+    pickMateRepPage: function (req, res) {
+
+        var paramObject = helper.genPaginationQuery(req);
+        Base.multiDataRequest(req, res, [
+            {url: '/api/tasks/statement/pageMaterialRequisitionReport?'+ queryString.stringify(req.query), method: 'GET', resConfig: {keyName: 'pickMateRepList', is_must: true}},
+        ], function (req, res, resultList) {
+
+            var paginationInfo = resultList.pickMateRepList;
+
+            var boostrapPaginator = new Pagination.TemplatePaginator(helper.genPageInfo({
+                prelink: paramObject.withoutPageNo,
+                current: paginationInfo.page,
+                rowsPerPage: paginationInfo.pageSize,
+                totalResult: paginationInfo.totalItems
+            }));
+
+            var returnData = Base.mergeData(helper.mergeObject({
+                title: ' ',
+                pagination: boostrapPaginator.render()
+            },resultList));
+            res.render('order/report/pickMateRep', returnData);
+        });
+
+    },
+    outMateRepPage: function (req, res) {
+
+        var paramObject = helper.genPaginationQuery(req);
+        Base.multiDataRequest(req, res, [
+            {url: '/api/tasks/statement/pageMateOutReportByCondition?'+ queryString.stringify(req.query), method: 'GET', resConfig: {keyName: 'outMateRepList', is_must: true}},
+        ], function (req, res, resultList) {
+
+            var paginationInfo = resultList.outMateRepList;
+
+            var boostrapPaginator = new Pagination.TemplatePaginator(helper.genPageInfo({
+                prelink: paramObject.withoutPageNo,
+                current: paginationInfo.page,
+                rowsPerPage: paginationInfo.pageSize,
+                totalResult: paginationInfo.totalItems
+            }));
+
+            var returnData = Base.mergeData(helper.mergeObject({
+                title: ' ',
+                pagination: boostrapPaginator.render()
+            },resultList));
+            res.render('order/report/outMateRep', returnData);
+        });
+
+    },
+    outMateRepDetailPage: function (req, res) {
+
+        var paramObject = helper.genPaginationQuery(req);
+        Base.multiDataRequest(req, res, [
+            {url: '/api/tasks/statement/pageMateInfoList?'+ queryString.stringify(req.query), method: 'GET', resConfig: {keyName: 'outMateDetail', is_must: true}},
+        ], function (req, res, resultList) {
+
+            var paginationInfo = resultList.outMateDetail;
+
+            var boostrapPaginator = new Pagination.TemplatePaginator(helper.genPageInfo({
+                prelink: paramObject.withoutPageNo,
+                current: paginationInfo.page,
+                rowsPerPage: paginationInfo.pageSize,
+                totalResult: paginationInfo.totalItems
+            }));
+
+            var returnData = Base.mergeData(helper.mergeObject({
+                title: ' ',
+                pagination: boostrapPaginator.render()
+            },resultList));
+            res.render('order/report/outMateRepDetail', returnData);
+        });
+
+    },
+    inMateRepPage: function (req, res) {
+
+        var paramObject = helper.genPaginationQuery(req);
+        Base.multiDataRequest(req, res, [
+            {url: '/api/tasks/statement/pageMateOutReportByCondition?'+ queryString.stringify(req.query), method: 'GET', resConfig: {keyName: 'outMateRepList', is_must: true}},
+        ], function (req, res, resultList) {
+
+            var paginationInfo = resultList.outMateRepList;
+
+            var boostrapPaginator = new Pagination.TemplatePaginator(helper.genPageInfo({
+                prelink: paramObject.withoutPageNo,
+                current: paginationInfo.page,
+                rowsPerPage: paginationInfo.pageSize,
+                totalResult: paginationInfo.totalItems
+            }));
+
+            var returnData = Base.mergeData(helper.mergeObject({
+                title: ' ',
+                pagination: boostrapPaginator.render()
+            },resultList));
+            res.render('order/report/inMateRep', returnData);
+        });
+
+    },
+    inMateRepDetailPage: function (req, res) {
+
+        var paramObject = helper.genPaginationQuery(req);
+        Base.multiDataRequest(req, res, [
+            {url: '/api/tasks/statement/pageMateInfoList?'+ queryString.stringify(req.query), method: 'GET', resConfig: {keyName: 'outMateDetail', is_must: true}},
+        ], function (req, res, resultList) {
+
+            var paginationInfo = resultList.outMateDetail;
+
+            var boostrapPaginator = new Pagination.TemplatePaginator(helper.genPageInfo({
+                prelink: paramObject.withoutPageNo,
+                current: paginationInfo.page,
+                rowsPerPage: paginationInfo.pageSize,
+                totalResult: paginationInfo.totalItems
+            }));
+
+            var returnData = Base.mergeData(helper.mergeObject({
+                title: ' ',
+                pagination: boostrapPaginator.render()
+            },resultList));
+            res.render('order/report/inMateRepDetail', returnData);
         });
 
     },
