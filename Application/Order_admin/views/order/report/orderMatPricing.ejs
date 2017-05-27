@@ -192,7 +192,7 @@
                             orderMatPricingList.result.forEach(function (element,index) { %>
                             <tr>
                                 <td width="4%"><%= index+1 %></td>
-                                <td><a href="/orderMatPricing?batchNumber=<%= element.batchNumber %>"><%= element.batchNumber %></a></td>
+                                <td><a href="/batchNumMatPricing?mid=<%= DWYRequest.query.mid%>&startDate=<%= DWYRequest.query.startDate%>&endDate=<%= DWYRequest.query.endDate%>&batchNumber=<%= DWYRequest.query.batchNumber%>&startDates=<%= DWYRequest.query.startDates%>&endDates=<%= DWYRequest.query.endDates%> %>"><%= element.batchNumber %></a></td>
                                 <td><%= element.factoryName %></td>
                                 <td><%= element.tid %></td>
                                 <td><%= element.name %></td>
