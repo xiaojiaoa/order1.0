@@ -1194,6 +1194,13 @@ router.get('/purchase/detail', Middleware.AuthCheck,PurchaseController.purchaseD
 router.post('/purchases/Order/:tid', Middleware.AuthCheck,PurchaseController.purchaseOrder);
 // 采购单详情
 router.get('/purchase/orderDetail/:tid', Middleware.AuthCheck,PurchaseController.purchaseOrderDetail);
+
+// 采购单详情--付款凭证上传type=10
+router.post('/purchase/uploadProof', Middleware.AuthCheck,PurchaseController.uploadProof);
+
+// 采购单详情--付款凭证上传type=30
+router.post('/purchase/uploadProof2', Middleware.AuthCheck,PurchaseController.uploadProof2);
+
 // 合并采购单
 router.post('/purchases/merge/:tid', Middleware.AuthCheck,PurchaseController.purchaseMerge);
 // 审核采购单

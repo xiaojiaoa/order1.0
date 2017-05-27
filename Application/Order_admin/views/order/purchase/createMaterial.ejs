@@ -44,11 +44,14 @@
                                         <th>物料名称</th>
                                         <th>供应商名称</th>
                                         <th>分类名称</th>
-                                        <th>单价</th>
+                                        <th width="price">单价</th>
                                         <th>单位</th>
-                                        <th>采购数量</th>
+                                        <th width="120px">请购数量</th>
+                                        <th>总价</th>
+                                        <th width="120px">预付款百分比(%)</th>
+                                        <th>预付款金额</th>
                                         <th>预计交期</th>
-                                        <th>最小数量</th>
+                                        <th width="120px">最小数量</th>
                                     </tr>
                                     </thead>
                                     <tbody class="purApplyTr">
@@ -100,11 +103,14 @@
                     + '<td style="line-height:32px" class="matName'+i+'">' + listArr[i].name + '</td>'
                     + '<td style="line-height:32px" class="suppName'+i+'">' + listArr[i].suppName + '</td>'
                     + '<td style="line-height:32px">' + listArr[i].class_name + '</td>'
-                    + '<td><input name="price'+i+'" class="form-control price validate[required]" price="' + listArr[i].price + '" value="' + listArr[i].price + '" /></td>'
+                    + '<td width="120px"><input name="price'+i+'" class="form-control price validate[required]" price="' + listArr[i].price + '" value="' + listArr[i].price + '" /></td>'
                     + '<td><select data-index="' + i + '" name="unit' + i + '" class="form-control unitSelect">'+options+'</select></td>'
-                    + '<td><input data-index="' + i + '" type="text" name="amount'+i+'" value="" class="form-control amountApply validate[required]" /> </td>'
-                    + '<td><div class="col-xs-12"><input class="form-control fg-date-picker deliveryDate validate[required]" type="text" value="" name="deliveryDate'+i+'" /></div> </td>'
-                    + '<td><input name="minAmount'+i+'" class="form-control minAmount validate[required]" value="" /></td>'
+                    + '<td width="120px"><input data-index="' + i + '" type="text" name="amount'+i+'" value="" class="form-control amountApply validate[required]" /> </td>'
+                    + '<td class="total'+i+'"></td>'
+                    + '<td width="120px"><input type="text" class="form-control percentage" /></td>'
+                    + '<td class="deposit'+i+'"></td>'
+                    + '<td><div class="col-xs-12"><input data-index="' + i + '" class="form-control fg-date-picker deliveryDate validate[required]" type="text" value="" name="deliveryDate'+i+'" /></div> </td>'
+                    + '<td width="120px"><input name="minAmount'+i+'" class="form-control minAmount validate[required]" value="" /></td>'
                     + '</tr>';
                 htmlStr += itemHtml;
                 // 判断是否是初始化 是的话保持下面列表状态同步
@@ -148,6 +154,8 @@
                     var suppId = $(".suppId" + i).text();
                     var mateName = $(".matName" + i).text();
                     var suppName = $(".suppName" + i).text();
+                    var total = $(".total" + i).text();
+                    var deposit = $(".deposit" + i).text();
                     var price = $("input[name=price" + i + "]").val();
                     var amount = $("input[name=amount" + i + "]").val();
                     var minAmount = $("input[name=minAmount" + i + "]").val();
@@ -162,6 +170,8 @@
                     a.suppId = suppId;
                     a.mateName = mateName;
                     a.suppName = suppName;
+                    a.deposit = deposit;
+                    a.total = total;
                     myArray.push(a);
                     console.log(a)
                 }
@@ -198,26 +208,31 @@
             }
         })
 
-//        $(".unitSelect").on('change',function(){
-//            var index = $(this).attr('data-index');
-//            var indexUnit = $(this).parents('td').siblings().find("input[name=price"+index+"]").attr("price");
-//            var amount = $(this).find('option:selected').attr("amount");
-//            var parse =  parseInt(indexUnit) * parseInt(amount);
-//            $("input[name=price"+index+"]").val(parse);
-//        })
+//输入请购数量的时候自动填充最小数量
+        $(".amountApply").on('keyup',function(){
+            var value=$(this).val();
+//                var val = $(this).parents("td").siblings().find(".price").val();
+            var val = $(this).parent().prev().prev().find(".price").val();
+//                $(this).parents("td").siblings().find(".minAmount").val(value);
+//                $(this).parents("td").siblings(".total").text(parseInt(val)*parseInt(value));
+            $(this).parent().next().next().next().next().next().find(".minAmount").val(value);
+            $(this).parent().next().text(parseInt(val)*parseInt(value))
 
-        //输入采购数量的时候自动填充最小数量
-            $(".amountApply").on('keyup',function(){
-                var value=$(this).val();
-                $(this).parent().next().next().children("input").val(value);
-            });
+        });
+        //输入预付款百分比 自动计算预付款金额
+        $(".percentage").on('keyup',function(){
+            var val = $(this).val();
+            var text = $(this).parent().prev().text();
+            var money = Math.round((val*0.01*parseInt(text))*100/100);
+            $(this).parent().next().text(money);
+        })
 
-        //最小数量的值应该小于采购数量
+        //最小数量的值应该小于请购数量
         $(".minAmount").on('change',function(){
             var valM=$(this).val();
             var valA= $(this).parent().prev().prev().children("input").val();
             if(valM>valA){
-                layer.alert('最小数量应小于采购数量，请重新输入',{icon:3})
+                layer.alert('最小数量应小于请购数量，请重新输入',{icon:3})
             }
         });
 

@@ -232,6 +232,36 @@ var PurchaseController = {
                 res.render('order/purchase/order_detail', returnData);
             });
     },
+    //采购单付款上传凭证 type=10
+    uploadProof: function (req, res) {
+        request(Base.mergeRequestOptions({
+            method: 'post',
+            url: '/api/purchase/reqmaterial/deposit',
+            form:req.body,
+        }, req, res), function (error, response, body) {
+            if (!error && response.statusCode == 201) {
+                Base.handlerSuccess(res, req);
+                res.redirect("/purchase/detail");
+            } else {
+                Base.handlerError(res, req, error, response, body);
+            }
+        })
+    },
+    //采购单付款上传凭证 type=30
+    uploadProof2: function (req, res) {
+        request(Base.mergeRequestOptions({
+            method: 'post',
+            url: '/api/purchase/reqmaterial/payment',
+            form:req.body,
+        }, req, res), function (error, response, body) {
+            if (!error && response.statusCode == 201) {
+                Base.handlerSuccess(res, req);
+                res.redirect("/purchase/detail");
+            } else {
+                Base.handlerError(res, req, error, response, body);
+            }
+        })
+    },
     //合并采购单
     purchaseMerge: function (req, res) {
         var tid = req.params.tid;
