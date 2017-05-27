@@ -80,11 +80,9 @@ var ReportController = {
                 rowsPerPage: paginationInfo.pageSize,
                 totalResult: paginationInfo.totalItems
             }));
-            var  currentTime=new Data().getTime();
             var returnData = Base.mergeData(helper.mergeObject({
                 title: ' ',
                 pagination: boostrapPaginator.render(),
-                currentTime:currentTime
             },resultList));
             res.render('order/report/orderCount', returnData);
         });
