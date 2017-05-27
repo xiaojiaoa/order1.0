@@ -112,9 +112,8 @@ var data_time_picker = {
         dateFormat: 'Y-m-d',
         locale: "zh",
         onChange: function (selectedDates, dateStr, instance) {
-            var $ele = $(instance.element);
             data_time_picker_changeData(selectedDates, dateStr, instance);
-            $ele.validationEngine("validate");
+            data_time_picker_validate(selectedDates, dateStr, instance);
         },
         onReady: function (selectedDates, dateStr, instance) {
             data_time_picker_changeData(selectedDates, dateStr, instance);
@@ -126,9 +125,8 @@ var data_time_picker = {
         enableTime: true,
         time_24hr: true,
         onChange: function (selectedDates, dateStr, instance) {
-            var $ele = $(instance.element);
             data_time_picker_changeData(selectedDates, dateStr, instance);
-            $ele.validationEngine("validate");
+            data_time_picker_validate(selectedDates, dateStr, instance);
         },
         onReady: function (selectedDates, dateStr, instance) {
             data_time_picker_changeData(selectedDates, dateStr, instance)
@@ -145,9 +143,8 @@ var data_time_picker = {
         locale: "zh",
         minDate: "today",
         onChange: function (selectedDates, dateStr, instance) {
-            var $ele = $(instance.element);
             data_time_picker_changeData(selectedDates, dateStr, instance);
-            $ele.validationEngine("validate");
+            data_time_picker_validate(selectedDates, dateStr, instance);
         },
         onReady: function (selectedDates, dateStr, instance) {
             data_time_picker_changeData(selectedDates, dateStr, instance)
@@ -170,7 +167,11 @@ var data_time_picker_changeData = function (selectedDates, dateStr, instance) {
     } else {
         $ele.next().remove();
     }
-}
+};
+var data_time_picker_validate = function (selectedDates, dateStr, instance) {
+    var $ele = $(instance.element);
+    $ele.validationEngine("validate");
+};
 var DWY_area = {
     area: {},
     getAreaList: function (id, callback) {
