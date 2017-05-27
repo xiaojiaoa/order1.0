@@ -52,14 +52,14 @@
                                         <label class="col-xs-2 control-label">批次日期范围:</label>
                                         <div class="col-xs-4">
                                             <input class="form-control fg-date-picker"
-                                                   value="<%= DWYRequest.query.startDate %>"
-                                                   name="startDate">
+                                                   value="<%= DWYRequest.query.startDates %>"
+                                                   name="startDates">
                                         </div>
                                         <label class="control-label " style="float: left"> 至 </label>
                                         <div class="col-xs-4">
                                             <input class="form-control fg-date-picker"
-                                                   value="<%= DWYRequest.query.endDate %>"
-                                                   name="endDate">
+                                                   value="<%= DWYRequest.query.endDates %>"
+                                                   name="endDates">
                                         </div>
                                     </div>
                                 </div>
@@ -158,7 +158,7 @@
                             orderCountList.result.forEach(function (element,index) { %>
                             <tr>
                                 <td width="4%"><%= index+1 %></td>
-                                <td><a href="/orderCount/detail?name=<%= element.name%>&startDate=<%= DWYRequest.query.startDate%>&endDate=<%= DWYRequest.query.endDate%>"><%= element.name %></a></td>
+                                <td><a href="/orderCount/detail?name=<%= element.name%>&startDates=<%= DWYRequest.query.startDates%>&endDates=<%= DWYRequest.query.endDates%>"><%= element.name %></a></td>
                                 <td><%= element.id %></td>
                                 <td><%= element.standard %></td>
                                 <td><%= element.totalPrice %></td>
