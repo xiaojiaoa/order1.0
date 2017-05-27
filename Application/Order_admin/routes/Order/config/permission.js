@@ -575,7 +575,11 @@ var permissions = {
       queryAll:{
           id:"583040",
           name:"查询所有机构供应商"
-      }
+      },
+       pay:{
+           id:"581033",
+           name:"采购单付款"
+       }
     },
     material:{
         creae:{

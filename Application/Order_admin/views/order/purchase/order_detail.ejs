@@ -76,7 +76,9 @@
                                 <th>入库数量</th>
                                 <th>百分比</th>
                                 <th>最小数量</th>
+                                <% if (DWY_Helper.hasPermission(Permission.supplier.pay.id, permission) ){ %>
                                 <th>操作</th>
+                                <% } %>
                             </tr>
                             </thead>
                             <tbody>
@@ -119,6 +121,7 @@
                                     <%}%>
                                 </td>
                                 <td><%= element.minAmount %></td>
+                                <% if (DWY_Helper.hasPermission(Permission.supplier.pay.id, permission) ){ %>
                                 <td>
                                     <!--<label class="label label-primary advanceCharge">付款</label>-->
                                     <% if(purchaseOrderList.stcode<50){%>
@@ -140,6 +143,7 @@
                                     <%}%>
                                 </td>
                                 <input type="hidden" value="<%= purchaseOrderList.stcode %>" name="stcode" />
+                                <% } %>
                             </tr>
                             <% }) }%>
                             </tbody>
