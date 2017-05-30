@@ -205,6 +205,8 @@
                             <thead>
                             <tr>
                                 <th width="4%">序号</th>
+                                <th>仓库名称</th>
+                                <th>区域名称</th>
                                 <th>货位号</th>
                                 <th>所在行/列/层</th>
                                 <th>最大承重</th>
@@ -221,7 +223,9 @@
                             cargospaceList.result.forEach(function (element, index) { %>
                             <tr>
                                 <td width="4%"><%= index+1 %></td>
-                                <td><a href="/cargospace/cargospace/detail/<%= element.spaceId %>"><%= element.spaceId %></a></td>
+                                <td><%= element.whseName %></td>
+                                <td><%= element.regionName %></td>
+                                <td><a href="/cargospace/cargospace/detail/<%= element.spaceId %>"><%= (element.spaceId).substring(6,12) %></a></td>
                                 <td><%= element.spaceRow %>行<%= element.spaceColumn %>列<%= element.spaceLayer %>层</td>
                                 <td><% if( element.maxWeight==0) {%>
                                     不限
