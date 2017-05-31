@@ -80,10 +80,9 @@ var ReportController = {
                 rowsPerPage: paginationInfo.pageSize,
                 totalResult: paginationInfo.totalItems
             }));
-
             var returnData = Base.mergeData(helper.mergeObject({
                 title: ' ',
-                pagination: boostrapPaginator.render()
+                pagination: boostrapPaginator.render(),
             },resultList));
             res.render('order/report/orderCount', returnData);
         });
@@ -189,7 +188,7 @@ var ReportController = {
 
         var paramObject = helper.genPaginationQuery(req);
         Base.multiDataRequest(req, res, [
-            {url: '/api/tasks/statement/pageMateOutReportByCondition?'+ queryString.stringify(req.query), method: 'GET', resConfig: {keyName: 'outMateRepList', is_must: true}},
+            {url: '/api/tasks/statement/materialSummary/page?'+ queryString.stringify(req.query), method: 'GET', resConfig: {keyName: 'outMateRepList', is_must: true}},
         ], function (req, res, resultList) {
 
             var paginationInfo = resultList.outMateRepList;
@@ -213,7 +212,7 @@ var ReportController = {
 
         var paramObject = helper.genPaginationQuery(req);
         Base.multiDataRequest(req, res, [
-            {url: '/api/tasks/statement/pageMateInfoList?'+ queryString.stringify(req.query), method: 'GET', resConfig: {keyName: 'outMateDetail', is_must: true}},
+            {url: '/api/tasks/statement//materialSummary/item?'+ queryString.stringify(req.query), method: 'GET', resConfig: {keyName: 'outMateDetail', is_must: true}},
         ], function (req, res, resultList) {
 
             var paginationInfo = resultList.outMateDetail;

@@ -131,19 +131,19 @@
             </div>
             <div class="orderItemLayerTit">
                 <ul class="orderItemMenu">
-                    <a href="/orderMatPricing?mid=<%= DWYRequest.query.mid%>&tid=<%= DWYRequest.query.tid%>&startDate=<%= DWYRequest.query.startDate%>&endDate=<%= DWYRequest.query.endDate%>&batchNumber=<%= DWYRequest.query.batchNumber%>&startDates=<%= DWYRequest.query.startDates%>&endDates=<%= DWYRequest.query.endDates%>">
-                        <li class="padding-10 materielBak">
-                            订单物料计价
-                        </li>
-                    </a>
                     <a href="/batchNumMatPricing?mid=<%= DWYRequest.query.mid%>&startDate=<%= DWYRequest.query.startDate%>&endDate=<%= DWYRequest.query.endDate%>&batchNumber=<%= DWYRequest.query.batchNumber%>&startDates=<%= DWYRequest.query.startDates%>&endDates=<%= DWYRequest.query.endDates%>">
                         <li class="padding-10">
                             批次物料计价
                         </li>
                     </a>
+                    <a href="/orderMatPricing?mid=<%= DWYRequest.query.mid%>&tid=<%= DWYRequest.query.tid%>&startDate=<%= DWYRequest.query.startDate%>&endDate=<%= DWYRequest.query.endDate%>&batchNumber=<%= DWYRequest.query.batchNumber%>&startDates=<%= DWYRequest.query.startDates%>&endDates=<%= DWYRequest.query.endDates%>">
+                        <li class="padding-10 materielBak">
+                            订单物料计价
+                        </li>
+                    </a>
                     <a href="/orderCount">
                         <li class="padding-10 ">
-                            订单计数
+                            五金汇总
                         </li>
                     </a>
                     <a href="/pickMateRep">
@@ -192,7 +192,7 @@
                             orderMatPricingList.result.forEach(function (element,index) { %>
                             <tr>
                                 <td width="4%"><%= index+1 %></td>
-                                <td><a href="/orderMatPricing?batchNumber=<%= element.batchNumber %>"><%= element.batchNumber %></a></td>
+                                <td><a href="/batchNumMatPricing?mid=<%= DWYRequest.query.mid%>&startDate=<%= DWYRequest.query.startDate%>&endDate=<%= DWYRequest.query.endDate%>&batchNumber=<%= DWYRequest.query.batchNumber%>&startDates=<%= DWYRequest.query.startDates%>&endDates=<%= DWYRequest.query.endDates%> %>"><%= element.batchNumber %></a></td>
                                 <td><%= element.factoryName %></td>
                                 <td><%= element.tid %></td>
                                 <td><%= element.name %></td>

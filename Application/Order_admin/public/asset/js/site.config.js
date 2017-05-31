@@ -111,47 +111,25 @@ var data_time_picker = {
     data_picker: {
         dateFormat: 'Y-m-d',
         locale: "zh",
-        onChange:function(selectedDates, dateStr, instance){
-
-            var $ele = $(instance.element);
-            if(dateStr != '' )
-            {   
-                if($ele.next().length == 0){
-                    $ele.parent().append("<i class = 'close-picker fa fa-times'></i>");
-
-                    $ele.next().on("click",function(){
-                        instance.clear();
-                    })
-                }
-               
-            }else{
-               $ele.next().remove(); 
-            }
+        onChange: function (selectedDates, dateStr, instance) {
+            data_time_picker_changeData(selectedDates, dateStr, instance);
+            data_time_picker_validate(selectedDates, dateStr, instance);
+        },
+        onReady: function (selectedDates, dateStr, instance) {
+            data_time_picker_changeData(selectedDates, dateStr, instance);
         }
     },
-
-
     data_time_picker: {
         dateFormat: 'Y-m-d H:i:S',
         locale: "zh",
         enableTime: true,
         time_24hr: true,
-        onChange:function(selectedDates, dateStr, instance){
-
-            var $ele = $(instance.element);
-            if(dateStr != '' )
-            {   
-                if($ele.next().length == 0){
-                    $ele.parent().append("<i class = 'close-picker fa fa-times'></i>");
-
-                    $ele.next().on("click",function(){
-                        instance.clear();
-                    })
-                }
-               
-            }else{
-               $ele.next().remove(); 
-            }
+        onChange: function (selectedDates, dateStr, instance) {
+            data_time_picker_changeData(selectedDates, dateStr, instance);
+            data_time_picker_validate(selectedDates, dateStr, instance);
+        },
+        onReady: function (selectedDates, dateStr, instance) {
+            data_time_picker_changeData(selectedDates, dateStr, instance)
         }
     },
     time_picker: {
@@ -164,28 +142,36 @@ var data_time_picker = {
         dateFormat: 'Y-m-d',
         locale: "zh",
         minDate: "today",
-        onChange:function(selectedDates, dateStr, instance){
-
-            var $ele = $(instance.element);
-            if(dateStr != '' )
-            {
-                if($ele.next().length == 0){
-                    $ele.parent().append("<i class = 'close-picker fa fa-times'></i>");
-
-                    $ele.next().on("click",function(){
-                        instance.clear();
-                    })
-                }
-
-            }else{
-                $ele.next().remove();
-            }
+        onChange: function (selectedDates, dateStr, instance) {
+            data_time_picker_changeData(selectedDates, dateStr, instance);
+            data_time_picker_validate(selectedDates, dateStr, instance);
+        },
+        onReady: function (selectedDates, dateStr, instance) {
+            data_time_picker_changeData(selectedDates, dateStr, instance)
         }
     },
 
 
 }
+var data_time_picker_changeData = function (selectedDates, dateStr, instance) {
+    var $ele = $(instance.element);
+    if (dateStr != '') {
+        if ($ele.next().length == 0) {
+            $ele.parent().append("<i class = 'close-picker fa fa-times'></i>");
 
+            $ele.next().on("click", function () {
+                instance.clear();
+            })
+        }
+
+    } else {
+        $ele.next().remove();
+    }
+};
+var data_time_picker_validate = function (selectedDates, dateStr, instance) {
+    var $ele = $(instance.element);
+    $ele.validationEngine("validate");
+};
 var DWY_area = {
     area: {},
     getAreaList: function (id, callback) {
@@ -656,19 +642,5 @@ $(document).ready(function () {
 
         localStorage.setItem('dwy_msg_sign', dwy_msg_sign.val());
     }
-
-
-
-
-    $('.fg-date-picker, .fg-date-time-picker').each(function () {
-        var _self = $(this);
-        if(_self.val()){
-            _self.parent().append("<i class = 'close-picker fa fa-times'></i>");
-            _self.next().on("click", function () {
-                _self.val('');
-                _self.next().remove();
-            })
-        }
-    })
 
 });

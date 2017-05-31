@@ -14,6 +14,7 @@
         <ol class="breadcrumb">
             <li>后台管理</li>
             <li>报表管理</li>
+            <li><a class="back-url" href="/inMateRep?startDate=<%= DWYRequest.query.startDate%>&endDate=<%= DWYRequest.query.endDate%>">入库</a></li>
             <li><a class="back-url" href="javascript:history.go(-1)"> <i class="fa fa-chevron-left"></i>返回</a></li>
         </ol>
 
@@ -98,16 +99,18 @@
                             <thead>
                             <tr>
                                 <th width="4%">序号</th>
-                                <th>出库单号</th>
-                                <th>出库时间</th>
-                                <th>出库类型id</th>
-                                <th>出库类型名称</th>
-                                <th>物料名</th>
-                                <th>物料ID</th>
-                                <th>长</th>
-                                <th>宽</th>
-                                <th>高</th>
+                                <th>物料入库id</th>
+                                <th>物料入库时间</th>
+                                <th>物料入库人</th>
+                                <th>货位号</th>
+                                <th>批次号</th>
+                                <th>物料号</th>
+                                <th>物料名称</th>
+                                <th>物料颜色</th>
+                                <th>规格大小</th>
+                                <th>单价</th>
                                 <th>数量</th>
+                                <th>总价</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -116,16 +119,18 @@
                             outMateDetail.result.forEach(function (element,index) { %>
                             <tr>
                                 <td width="4%"><%= index+1 %></td>
-                                <td><%= element.outId %></td>
-                                <td><%= DWY_Helper.getLocalDateYMD(element.outTime) %></td>
-                                <td><%= element.type%></td>
-                                <td><%= element.typeName %></td>
-                                <td><%= element.mateName %></td>
-                                <td><%= element.mateId%></td>
-                                <td><%= element.length %></td>
-                                <td><%= element.width%></td>
-                                <td><%= element.thickness%></td>
+                                <td><%= element.inId %></td>
+                                <td><%= element.intime%></td>
+                                <td><%= element.inEmpName %></td>
+                                <td><%= element.spaceId %></td>
+                                <td><%= element.batchId%></td>
+                                <td><%= element.mateId %></td>
+                                <td><%= element.mateName%></td>
+                                <td><%= element.colorName%></td>
+                                <td><%= element.size %></td>
+                                <td><%= element.price %></td>
                                 <td><%= element.amount %></td>
+                                <td><%= element.totalPrice %></td>
                             </tr>
                             <%})
                             }else{ %>

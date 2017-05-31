@@ -1426,10 +1426,10 @@ router.get('/outMateRep', Middleware.AuthCheck,Middleware.FilterEmptyField,Repor
 //出库详情
 router.get('/outMateRep/detail', Middleware.AuthCheck,Middleware.FilterEmptyField,ReportController.outMateRepDetailPage);
 
-//出库
+//入库
 router.get('/inMateRep', Middleware.AuthCheck,Middleware.FilterEmptyField,ReportController.inMateRepPage);
 
-//出库详情
+//入库详情
 router.get('/inMateRep/detail', Middleware.AuthCheck,Middleware.FilterEmptyField,ReportController.inMateRepDetailPage);
 
 

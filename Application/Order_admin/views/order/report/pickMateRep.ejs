@@ -91,19 +91,19 @@
             </div>
             <div class="orderItemLayerTit">
                 <ul class="orderItemMenu">
-                    <a href="/orderMatPricing%>">
-                        <li class="padding-10 ">
-                            订单物料计价
-                        </li>
-                    </a>
                     <a href="/batchNumMatPricing%>">
                         <li class="padding-10">
                             批次物料计价
                         </li>
                     </a>
+                    <a href="/orderMatPricing%>">
+                        <li class="padding-10 ">
+                            订单物料计价
+                        </li>
+                    </a>
                     <a href="/orderCount">
                         <li class="padding-10">
-                            订单计数
+                            五金汇总
                         </li>
                     </a>
                     <a href="/pickMateRep">
@@ -159,7 +159,7 @@
                                 <td><%= element.mateName %></td>
                                 <td><%= element.amount%></td>
                                 <td><%= element.price %></td>
-                                <td><%= DWY_Helper.getLocalDateYMD(element.outReviewDate) %></td>
+                                <td><%= element.outReviewDate %></td>
                             </tr>
                             <%})
                             }else{ %>
