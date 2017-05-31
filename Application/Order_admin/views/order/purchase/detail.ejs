@@ -67,8 +67,8 @@
                                     </div>
                                 </div>
                             </div>
-                            <% if (DWY_Helper.hasPermission(Permission.purchase.queryAll.id, permission) ){ %>
                             <div class="col-xs-12">
+                            <% if (DWY_Helper.hasPermission(Permission.purchase.queryAll.id, permission) ){ %>
                                 <div class="col-xs-3">
                                     <div class="form-group">
                                         <label class="col-xs-3 control-label">机构:</label>
@@ -107,9 +107,10 @@
                                         </div>
                                     </div>
                                 </div>
+                            <% } %>
                                 <div class="col-xs-3">
                                     <div class="form-group">
-                                        <label class="col-xs-4 control-label">付款状态:</label>
+                                        <label class="col-xs-3 control-label">付款状态:</label>
                                         <div class="col-xs-8">
                                             <select class="form-control" name="payCode">
                                                 <option value="">- 请选择 -</option>
@@ -120,7 +121,6 @@
                                     </div>
                                 </div>
                             </div>
-                            <% } %>
                             <div class="col-xs-12">
                                 <hr class="simple">
                                 <div class="col-xs-12 text-center">
@@ -197,6 +197,7 @@
                                 <th>采购人</th>
                                 <th>审核人</th>
                                 <th>采购状态</th>
+                                <th>付款状态</th>
                                 <!--<th>操作</th>-->
                             </tr>
                             </thead>
@@ -229,6 +230,8 @@
                                 <td><%= element.reviewName %></td>
 
                                 <td><%= element.stcodeName %></td>
+
+                                <td><%= (element.payCode==10)?'未付清':'已付清' %></td>
                             </tr>
                             <%  })
                             }else{ %>

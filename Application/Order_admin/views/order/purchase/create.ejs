@@ -341,6 +341,12 @@
         })
 
         var checkedValue=$("#checkedValue");
+        $(".selecMate").click(function(){
+            if(checkedValue.attr("class")==null||checkedValue.attr("class")==''){
+                layer.alert('请选择！', {icon: 3});
+                return false;
+            }
+        })
         $(".purApplyTr input[name='roles']:checked").each(function(){
             var val=$(this).val();
             checkedValue.addClass(val+',');

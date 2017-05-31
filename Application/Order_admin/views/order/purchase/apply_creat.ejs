@@ -214,6 +214,7 @@
 <script type="text/javascript">
     $(document).ready(function () {
         pageSetUp();
+
         //刷新选中列表 这个函数根据每个页面不同需自己填写
         function updateCheckedList(isInit) {
             var parentEle = '.purApplyTr';
@@ -322,6 +323,13 @@
         })
 
         var checkedValue=$("#checkedValue");
+        $(".selecMate").click(function(){
+            if(checkedValue.attr("class")==null||checkedValue.attr("class")==''){
+                layer.alert('请选择！', {icon: 3});
+                return false;
+            }
+        })
+
         $(".purApplyTr input[name='roles']:checked").each(function(){
             var val=$(this).val();
             checkedValue.addClass(val+',');

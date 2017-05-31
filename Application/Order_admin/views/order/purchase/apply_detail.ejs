@@ -226,11 +226,17 @@
 
 
         $("#edit-supp").click(function(){
+
             var reqId = $(".reqid").text();
             var tid = $("input[name=tid]").val();
             var leng = $(".reqTr").length;
             var arr = new Array();
             for(var i=0;i<leng;i++){
+                var selVal = $(".purchase-select-sec"+i).val();
+                if(selVal=='' || selVal==null){
+                    layer.alert('请选择！', {icon: 3});
+                    return false;
+                }
                 var obj = new Object();
                 var mateId = $(".mateId"+i).find("a").text();
                 var suppId = $(".purchase-select-sec"+i).find("option:selected").val();

@@ -73,7 +73,9 @@
                                 <th>请购单号</th>
                                 <th>物料名称</th>
                                 <th>采购数量</th>
+                                <th>采购单位</th>
                                 <th>入库数量</th>
+                                <th>入库单位</th>
                                 <th>百分比</th>
                                 <th>最小数量</th>
                                 <% if (DWY_Helper.hasPermission(Permission.supplier.pay.id, permission) ){ %>
@@ -107,7 +109,9 @@
                                 </td>
                                 <td><%= element.mateName %></td>
                                 <td><%= element.amount %></td>
+                                <td><%= element.unitName %></td>
                                 <td><%= element.inAmount %></td>
+                                <td><%= element.inUnit %></td>
                                 <td class="count<%= index %>">
                                     <%
                                     if(count<=0){%>
