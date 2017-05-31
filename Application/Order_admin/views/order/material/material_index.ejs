@@ -69,10 +69,19 @@
                                         <div class="col-xs-8">
                                             <% var initFtyId = DWY_Helper.getAssistInitFtyId(userFtyId, factoryList);
                                             if ( !DWY_Helper.hasPermission(Permission.material.queryByRegionAll.id, permission) ){ %>
-                                            <input class="form-control"
-                                                   value="<%= DWY_Helper.getAssistValFtyId(userFtyId, factoryList) %>"
-                                                   readonly>
-                                            <input type="hidden" name="ftyId" value="<%= userFtyId %>">
+                                            <select class="form-control" name="ftyId" id="ftyId">
+                                                <option value="">- 请选择 -</option>
+                                                <%
+                                                if(DWY_Helper.isCanLoop(factoryList)){
+                                                factoryList.forEach(function (element) {
+                                                if( userFtyId == element.ftyId ){%>
+                                                <option value="<%= element.ftyId %>" <%= DWYRequest.query.ftyId == element.ftyId ? 'selected' : '' %> >
+                                                    <%= element.name %>
+                                                </option>
+                                                <%  }
+                                                })
+                                                } %>
+                                            </select>
                                             <% }else{ %>
 
                                             <select class="form-control" name="ftyId" id="ftyId">
