@@ -21,13 +21,13 @@ var UserController = {
     indexPage: function (req, res) {
 
         Base.multiDataRequest(req, res, [
-                {url: '/api/notices/page?pageSize=6', method: 'GET', resConfig: {keyName: 'noticeInfo', is_mustBeSuccess: false}},
-                {url: '/api/share/page?pageSize=6', method: 'GET', resConfig: {keyName: 'fileInfo', is_mustBeSuccess: false}},
-                {url: '/api/orders/list?pageSize=5', method: 'GET', resConfig: {keyName: 'taskMeasureInfo', is_mustBeSuccess: false}},
-                {url: '/api/assist/order/stcodes', method: 'GET', resConfig: {keyName: 'statusInfo', is_mustBeSuccess: false}},
+                {url: '/api/notices/page?pageSize=6', method: 'GET', resConfig: {keyName: 'noticeInfo', is_canBePass: true}},
+                {url: '/api/share/page?pageSize=6', method: 'GET', resConfig: {keyName: 'fileInfo', is_canBePass: true}},
+                {url: '/api/orders/list?pageSize=5', method: 'GET', resConfig: {keyName: 'taskMeasureInfo', is_canBePass: true}},
+                {url: '/api/assist/order/stcodes', method: 'GET', resConfig: {keyName: 'statusInfo', is_canBePass: true}},
             ],
             function (req, res, resultList) {
-            console.log('taskMeasureInfo',JSON.stringify(resultList))
+
                 var returnData = Base.mergeData(helper.mergeObject({
                     title: '个人中心',
                     Permission :Permissions,

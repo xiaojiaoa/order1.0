@@ -145,7 +145,8 @@ var BaseController = {
                 // console.log('Expect to be ' + resultLength + ', Already got ' + count + '.');
 
                 //  接口报错处理
-                if ((!BaseController._checkResponseStatus(error, response)) && (resultList[response.request.resConfig.is_mustBeSuccess] == true)) {
+
+                if ((!BaseController._checkResponseStatus(error, response)) && (!element.resConfig.is_canBePass)) {
                     count--;
                     is_fail = true;
 
