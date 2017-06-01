@@ -215,12 +215,12 @@
                                 <!--输入字段-->
                                 <div class="col-xs-8">
                                     <div class="form-group">
-                                        <label class="col-xs-2 control-label"><span class="requird"></span> 所属区域:</label>
+                                        <label class="col-xs-2 control-label">所属区域:</label>
                                         <div class="col-xs-10">
 
                                             <% regionInfo.forEach(function (element, index) { %>
                                             <label class="checkbox-inline">
-                                                <input type="checkbox" class="checkbox style-0 validate[minCheckbox[1]]"
+                                                <input type="checkbox" class="checkbox style-0 "
                                                        name="regionTypes" value="<%= element.id %>"
                                                         <%= DWY_Helper.checkboxStatusStr(employeesInfo.regionTypes, element.id) %>
                                                 >
