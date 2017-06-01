@@ -143,13 +143,7 @@
                                     <div class="form-group">
                                         <label class="col-xs-4 control-label">附属单位:</label>
                                         <div class="col-xs-8">
-                                            <%
-                                            var bb='';
-                                            mateInfo.mateUnits.forEach(function (element) {
-                                                bb+=element.id+',';
-                                            });
-                                            bb.substring(0,bb.length-1);
-                                            %>
+
                                             <%  if(DWY_Helper.isCanLoop(unitsInfo)){
                                             unitsInfo.forEach(function (element, index) { %>
                                             <div class="unit-list" style="display: <%= (mateInfo.unit == element.name)?"block":"none" %>;"   data-id="<%= element.id %>" id="my-label">
@@ -159,7 +153,7 @@
                                                     <input type="checkbox" class="checkbox style-0"
                                                            name="mateUnit"
                                                            value="<%= element.id %>"
-                                                            <%= DWY_Helper.checkboxStatusStr(bb, element.id) %>
+                                                            <%= DWY_Helper.checkboxStatus(mateInfo.mateUnits, element.id) %>
                                                     >
                                                     <span><%= element.name %></span>
                                                 </label>
