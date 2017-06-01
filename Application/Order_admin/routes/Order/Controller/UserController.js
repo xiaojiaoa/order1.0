@@ -27,10 +27,13 @@ var UserController = {
                 {url: '/api/assist/order/stcodes', method: 'GET', resConfig: {keyName: 'statusInfo', is_canBePass: true}},
             ],
             function (req, res, resultList) {
-
+                 //console.log(1111,resultList);
                 var returnData = Base.mergeData(helper.mergeObject({
                     title: '个人中心',
                     Permission :Permissions,
+                    codeN:resultList.noticeInfo.code,
+                    codeF:resultList.fileInfo.code,
+                    codeT:resultList.taskMeasureInfo.code
                 }, resultList));
 
                 res.render('order/user/index', returnData);

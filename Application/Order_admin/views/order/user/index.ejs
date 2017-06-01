@@ -73,6 +73,7 @@
 
                 <!-- end col -->
                 <!--col-->
+                <% if(!codeN){%>
                 <div class="col-xs-4 well height01" style="margin-left:10px;">
                     <legend>公告信息 <a href="/noticeInfo" class="label label-primary">查看所有</a></legend>
                     <!-- row -->
@@ -82,8 +83,8 @@
                                 <table class="table table-bordered table-striped">
                                     <tbody>
                                     <%
-                                        if(DWY_Helper.isCanLoop(noticeInfo.result)){
-                                        noticeInfo.result.forEach(function(element,index){%>
+                                    if(DWY_Helper.isCanLoop(noticeInfo.result)){
+                                    noticeInfo.result.forEach(function(element,index){%>
                                     <tr>
                                         <td >
                                             <a href="/noticeInfo#<%= element.id%>" ><%= element.title %></a>
@@ -92,7 +93,7 @@
                                         <td ><%= DWY_Helper.getLocalDateYMD(element.addTime) %></td>
                                     </tr>
                                     <%})
-                                        }%>
+                                    }%>
 
                                     </tbody>
                                 </table>
@@ -103,6 +104,7 @@
                     </div>
                     <!-- end row -->
                 </div>
+                <%}%>
                 <!--end col-->
             </div>
             <!-- end row -->
@@ -113,6 +115,7 @@
             <!-- row -->
             <div class="row">
                 <!-- col -->
+                <% if(!codeT){%>
                 <div class="col-xs-7 well height01">
                     <legend>订单信息
                         <% if (DWY_Helper.hasPermission(Permission.order.queryAll.id, permission) ){ %>
@@ -153,8 +156,11 @@
                     </div>
                     <!-- end row -->
                 </div>
+                <%}%>
+
                 <!-- end col -->
                 <!--col-->
+                <% if(!codeF){%>
                 <div class="col-xs-4 well height01" style="margin-left:10px;">
                     <legend>资料信息     <a href="/fileInfo" class="label label-primary">查看所有</a></legend>
                     <!-- row -->
@@ -181,6 +187,7 @@
                     </div>
                     <!-- end row -->
                 </div>
+                <%}%>
                 <!--end col-->
             </div>
             <!-- end row -->
