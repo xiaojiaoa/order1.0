@@ -45,6 +45,9 @@ table {
   padding: 8px 10px;
   margin: 0;
 }
+.table-print table, .table-print table body{
+  border: none;
+}
 hr{
 
   border-top:3px  dotted #000 !important;

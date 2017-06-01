@@ -1228,6 +1228,9 @@ table > tbody > tr > td a.label:first-child {
 .table-print tbody{
     border: 1px solid #ddd;
 }
+.table-print table, .table-print table body{
+    border: none;
+}
 
 @media screen and (max-width: 980px){
     .smart-style-2 .welcomes > :first-child > a.user-info{
