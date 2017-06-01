@@ -76,26 +76,10 @@ var EmployeeController = {
     doCreate: function (req, res) {
         var type = req.body.type;
         var bid = req.body.bid;
-        var roles = req.body.roles;
-        var regionTypes=req.body.regionTypes;
-        var role ="",regionType="";
-        if(roles&&(typeof roles == 'object')){
-            for (var i=0;i<roles.length;i++)
-            {
-                role += roles[i] +","
-            }
-            role = role.substring(0,role.length-1);
-            req.body.roles = role;
-        }
-        if(regionTypes&&(typeof regionTypes == 'object')){
-            for (var i=0;i<regionTypes.length;i++)
-            {
-                regionType += regionTypes[i] +","
-            }
-            regionType = regionType.substring(0,regionType.length-1);
-            req.body.regionTypes = regionType;
-        }
-         //console.log('999'+ JSON.stringify(req.body));
+        req.body.roles=req.body.roles.toString(',');
+        req.body.regionTypes=req.body.regionTypes.toString(',');
+
+        //console.log('999'+ JSON.stringify(req.body));
         request(Base.mergeRequestOptions({
             method: 'post',
             url: '/api/employees',
@@ -177,25 +161,9 @@ var EmployeeController = {
         var urlType = req.body.urlType;
         var bid = req.body.bid;
         var cid = req.body.cid;
-        var roles = req.body.roles;
-        var regionTypes=req.body.regionTypes;
-        var role ="",regionType="";
-        if(roles&&(typeof roles == 'object')){
-            for (var i=0;i<roles.length;i++)
-            {
-                role += roles[i] +","
-            }
-            role = role.substring(0,role.length-1);
-            req.body.roles = role;
-        }
-        if(regionTypes&&(typeof regionTypes == 'object')){
-            for (var i=0;i<regionTypes.length;i++)
-            {
-                regionType += regionTypes[i] +","
-            }
-            regionType = regionType.substring(0,regionType.length-1);
-            req.body.regionTypes = regionType;
-        }
+         req.body.roles=req.body.roles.toString(',');
+         req.body.regionTypes=req.body.regionTypes.toString(',');
+
         request(Base.mergeRequestOptions({
             method: 'put',
             url: '/api/employees/'+cid+"?"+queryString.stringify(req.body),
