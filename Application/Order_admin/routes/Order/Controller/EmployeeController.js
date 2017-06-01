@@ -61,7 +61,9 @@ var EmployeeController = {
             {url: '/api/'+type+'/departments/'+bid, method: 'GET', resConfig: {keyName: 'departmentsInfo', is_must: true}},
             {url: '/api/roles/'+bid+'?scope='+scope, method: 'GET', resConfig: {keyName: 'rolesInfo', is_must: true}},
             {url: '/api/assist/education', method: 'GET', resConfig: {keyName: 'educationInfo', is_must: true}},
+            {url: '/api/assist/region/types', method: 'GET', resConfig: {keyName: 'regionInfo', is_must: true}},
         ], function (req, res, resultList) {
+            //console.log(11111,resultList.regionInfo);
             var returnData = Base.mergeData(helper.mergeObject({
                 title: ' ',
                 bid: bid,
@@ -75,7 +77,8 @@ var EmployeeController = {
         var type = req.body.type;
         var bid = req.body.bid;
         var roles = req.body.roles;
-        var role ="";
+        var regionTypes=req.body.regionTypes;
+        var role ="",regionType="";
         if(roles&&(typeof roles == 'object')){
             for (var i=0;i<roles.length;i++)
             {
@@ -84,8 +87,15 @@ var EmployeeController = {
             role = role.substring(0,role.length-1);
             req.body.roles = role;
         }
-
-        // console.log('999'+ JSON.stringify(req.body))
+        if(regionTypes&&(typeof regionTypes == 'object')){
+            for (var i=0;i<regionTypes.length;i++)
+            {
+                regionType += regionTypes[i] +","
+            }
+            regionType = regionType.substring(0,regionType.length-1);
+            req.body.regionTypes = regionType;
+        }
+         //console.log('999'+ JSON.stringify(req.body));
         request(Base.mergeRequestOptions({
             method: 'post',
             url: '/api/employees',
@@ -150,8 +160,9 @@ var EmployeeController = {
             // {url: '/api/roles/'+bid+'?scope='+scope, method: 'GET', resConfig: {keyName: 'rolesInfo', is_must: true}},
             {url: '/api/roles/current/'+bid, method: 'GET', resConfig: {keyName: 'rolesInfo', is_must: true}},
             {url: '/api/assist/education', method: 'GET', resConfig: {keyName: 'educationInfo', is_must: true}},
+            {url: '/api/assist/region/types', method: 'GET', resConfig: {keyName: 'regionInfo', is_must: true}},
         ], function (req, res, resultList) {
-
+           // console.log('8888', resultList);
             var returnData = Base.mergeData(helper.mergeObject({
                 title: ' ',
                 cid:cid,
@@ -167,7 +178,8 @@ var EmployeeController = {
         var bid = req.body.bid;
         var cid = req.body.cid;
         var roles = req.body.roles;
-        var role ="";
+        var regionTypes=req.body.regionTypes;
+        var role ="",regionType="";
         if(roles&&(typeof roles == 'object')){
             for (var i=0;i<roles.length;i++)
             {
@@ -176,7 +188,14 @@ var EmployeeController = {
             role = role.substring(0,role.length-1);
             req.body.roles = role;
         }
-
+        if(regionTypes&&(typeof regionTypes == 'object')){
+            for (var i=0;i<regionTypes.length;i++)
+            {
+                regionType += regionTypes[i] +","
+            }
+            regionType = regionType.substring(0,regionType.length-1);
+            req.body.regionTypes = regionType;
+        }
         request(Base.mergeRequestOptions({
             method: 'put',
             url: '/api/employees/'+cid+"?"+queryString.stringify(req.body),
