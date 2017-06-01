@@ -1241,3 +1241,7 @@ table > tbody > tr > td a.label:first-child {
         display:none;
     }
 }
+
+.nopadding-table table td{
+    padding: 0 !important;
+}

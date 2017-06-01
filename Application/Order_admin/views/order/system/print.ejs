@@ -52,12 +52,12 @@
                 <% if(type == 'arry'){
                 if(( showTYpe=='A' || !showTYpe ) && DWY_Helper.isCanLoop(printINfo.A)){
                 printINfo.A.forEach(function (element) { %>
-                <div class="printBody" id="tabDiv0"><%- element %></div>
+                <div class="printBody nopadding-table" id="tabDiv0"><%- element %></div>
                 <%  })
                 }
                 if(showTYpe=='W' && DWY_Helper.isCanLoop(printINfo.W)){
                 printINfo.W.forEach(function (element) { %>
-                <div class="printBody" id="tabDiv1"><%- element %></div>
+                <div class="printBody nopadding-table" id="tabDiv1"><%- element %></div>
                 <%  })
                 }
                 } %>

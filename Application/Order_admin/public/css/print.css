@@ -54,4 +54,7 @@ hr{
 .pri-a4 {
 
 }
+.nopadding-table table td{
+  padding: 0 !important;
+}
 
