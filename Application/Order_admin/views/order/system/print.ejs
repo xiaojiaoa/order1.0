@@ -75,7 +75,7 @@
                 </div>
             </div>
             <button class="btn btn-primary " id="print">
-                <i class="fa fa-print"></i>
+                <i class="fa fa-print"></i>&nbsp;
                 打印
             </button>
 
@@ -90,18 +90,15 @@
 
 <%- include('../layouts/footer'); %>
 <%- include('../layouts/footer_common_script'); %>
+<script src="/asset/js/jQuery.print.js"></script>
 
 <script type="text/javascript">
 
     $(document).ready(function () {
         $('body').on('click', '#print', function () {
-            var headstr = '<html><head><title></title></head><body>';  // 打印头部
-            var footstr = "</body></html>";  // 打印尾部
-            var printData = $("#printHtml").html(); // 获得 div 里的所有 html 数据
-            var oldstr = document.body.innerHTML;
-            document.body.innerHTML = headstr + printData + footstr;
-            window.print();
-            document.body.innerHTML = oldstr;   // 保持原页面格式
+            $("#printHtml").print({
+                stylesheet : "/css/print.css",
+            });
         })
 
     })
