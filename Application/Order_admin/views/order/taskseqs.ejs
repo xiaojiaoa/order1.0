@@ -129,6 +129,25 @@
                             </div>
 
                             <div class="col-xs-12">
+
+                                <div class="col-xs-4">
+                                    <div class="form-group">
+                                        <label class="col-xs-4 control-label">柜员所属区域:</label>
+                                        <div class="col-xs-8">
+                                            <select class="form-control" name="storeId">
+                                                <option value="">- 请选择 -</option>
+                                                <%
+                                                regionList.forEach(function (element) { %>
+                                                <option value="<%= element.stcode %>" <%= (DWYRequest.query.storeId == element.id)?"selected":"" %>><%= element.name %></option>
+                                                <%  }) %>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                            </div>
+                            <div class="col-xs-12">
                                 <hr class="simple">
                                 <div class="col-xs-12 text-center">
                                     <button class="btn btn-primary " type="submit">
