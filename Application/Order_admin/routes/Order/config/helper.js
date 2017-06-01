@@ -5,7 +5,7 @@ var queryString = require('qs');
 
 var helper = {
 
-    //合并对象,返回新对象
+    // 合并对象,返回新对象
     mergeObject: function (obj1, obj2) {
         var arg = arguments;
         var o = {};
@@ -19,7 +19,7 @@ var helper = {
         return o;
     },
 
-    //默认分页信息
+    // 默认分页信息
     genPageInfo: function (options) {
 
         var translations = {
@@ -67,7 +67,7 @@ var helper = {
             }, options)
     },
 
-    //生成分页请求query
+    // 生成分页请求query
     genPaginationQuery: function (req) {
 
         var res = {};
@@ -100,7 +100,7 @@ var helper = {
 
     },
 
-    //将含有相同父节点的子数据放置到该父节点的data中
+    // 将含有相同父节点的子数据放置到该父节点的data中
     setChildDate:function(a,b) {
     a.forEach(function(element,index){
         if(element.parentId == 0){
