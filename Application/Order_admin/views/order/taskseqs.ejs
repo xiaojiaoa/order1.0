@@ -138,7 +138,7 @@
                                                 <option value="">- 请选择 -</option>
                                                 <%
                                                 regionList.forEach(function (element) { %>
-                                                <option value="<%= element.stcode %>" <%= (DWYRequest.query.regionType == element.stcode)?"selected":"" %>><%= element.name %></option>
+                                                <option value="<%= element.id %>" <%= (DWYRequest.query.regionType == element.id)?"selected":"" %>><%= element.name %></option>
                                                 <%  }) %>
                                             </select>
                                         </div>
