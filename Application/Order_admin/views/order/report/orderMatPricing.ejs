@@ -131,12 +131,12 @@
             </div>
             <div class="orderItemLayerTit">
                 <ul class="orderItemMenu">
-                    <a href="/batchNumMatPricing?mid=<%= DWYRequest.query.mid%>&startDate=<%= DWYRequest.query.startDate%>&endDate=<%= DWYRequest.query.endDate%>&batchNumber=<%= DWYRequest.query.batchNumber%>&startDates=<%= DWYRequest.query.startDates%>&endDates=<%= DWYRequest.query.endDates%>">
+                    <a href="/batchNumMatPricing?name=<%= DWYRequest.query.name%>&startDate=<%= DWYRequest.query.startDate%>&endDate=<%= DWYRequest.query.endDate%>&batchNumber=<%= DWYRequest.query.batchNumber%>&startDates=<%= DWYRequest.query.startDates%>&endDates=<%= DWYRequest.query.endDates%>">
                         <li class="padding-10">
                             批次物料计价
                         </li>
                     </a>
-                    <a href="/orderMatPricing?mid=<%= DWYRequest.query.mid%>&tid=<%= DWYRequest.query.tid%>&startDate=<%= DWYRequest.query.startDate%>&endDate=<%= DWYRequest.query.endDate%>&batchNumber=<%= DWYRequest.query.batchNumber%>&startDates=<%= DWYRequest.query.startDates%>&endDates=<%= DWYRequest.query.endDates%>">
+                    <a href="/orderMatPricing?name=<%= DWYRequest.query.name%>&tid=<%= DWYRequest.query.tid%>&startDate=<%= DWYRequest.query.startDate%>&endDate=<%= DWYRequest.query.endDate%>&batchNumber=<%= DWYRequest.query.batchNumber%>&startDates=<%= DWYRequest.query.startDates%>&endDates=<%= DWYRequest.query.endDates%>">
                         <li class="padding-10 materielBak">
                             订单物料计价
                         </li>
@@ -176,10 +176,10 @@
                                 <th>机构名称</th>
                                 <th>订单号</th>
                                 <th>物料名称</th>
-                                <th>采购总价 </th>
-                                <th>出厂总价 </th>
-                                <th>采购价格</th>
-                                <th>出厂价格</th>
+                                <th width="5%">采购总价 </th>
+                                <th width="5%">出厂总价 </th>
+                                <th width="5%">采购价格</th>
+                                <th width="5%">出厂价格</th>
                                 <th>物料总数</th>
                                 <th>批次日期</th>
                                 <th>排料日期</th>
@@ -192,14 +192,14 @@
                             orderMatPricingList.result.forEach(function (element,index) { %>
                             <tr>
                                 <td width="4%"><%= index+1 %></td>
-                                <td><a href="/batchNumMatPricing?mid=<%= DWYRequest.query.mid%>&startDate=<%= DWYRequest.query.startDate%>&endDate=<%= DWYRequest.query.endDate%>&batchNumber=<%= DWYRequest.query.batchNumber%>&startDates=<%= DWYRequest.query.startDates%>&endDates=<%= DWYRequest.query.endDates%> %>"><%= element.batchNumber %></a></td>
+                                <td><a href="/batchNumMatPricing?name=<%= DWYRequest.query.name%>&startDate=<%= DWYRequest.query.startDate%>&endDate=<%= DWYRequest.query.endDate%>&batchNumber=<%=( DWYRequest.query.batchNumber)? DWYRequest.query.batchNumber:element.batchNumber%>&startDates=<%= DWYRequest.query.startDates%>&endDates=<%= DWYRequest.query.endDates%> %>"><%= element.batchNumber %></a></td>
                                 <td><%= element.factoryName %></td>
                                 <td><%= element.tid %></td>
                                 <td><%= element.name %></td>
-                                <td><%= element.totalPrice %></td>
-                                <td><%= element.totalUnitprice %></td>
-                                <td><%= element.oneTotalPrice %></td>
-                                <td><%= element.oneTotalUnitPrice %></td>
+                                <td width="5%"><%= element.totalPrice %></td>
+                                <td width="5%"><%= element.totalUnitprice %></td>
+                                <td width="5%"><%= element.oneTotalPrice %></td>
+                                <td width="5%"><%= element.oneTotalUnitPrice %></td>
                                 <td><%= element.amount %></td>
                                 <td><%= DWY_Helper.getLocalDateYMD(element.addTime) %></td>
                                 <td><%= DWY_Helper.getLocalDateYMD(element.createTime)%></td>
