@@ -211,6 +211,7 @@
         </div>
         <!-- end well -->
 
+
         <form action="/file/zipDownload" method="post" id="forListSubmit" style="display: none;">
            <textarea name="list" id="list"></textarea>
             <input type="hidden" name="fileName" id="fileNameDown" value="">
@@ -245,8 +246,7 @@
             change: function (e) {
                 var _this = $(this);
                 var choosedName =  _this.prop('files')[0].name;
-                <!--choosedName.indexOf('<%= tid %>') == 0-->
-                if(2>1){
+                if((choosedName.indexOf('<%= tid %>') == 0) ||( '<%= fileNameType %>' == 1 )){
                     var label = $("#label-upload-file");
                     var lid = $("[name=lid]");
                     var tid = $("[name=tid]");

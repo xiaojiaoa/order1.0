@@ -162,7 +162,7 @@ var EmployeeController = {
         var bid = req.body.bid;
         var cid = req.body.cid;
          req.body.roles=req.body.roles.toString(',');
-         req.body.regionTypes=req.body.regionTypes.toString(',');
+         req.body.regionTypes=req.body.regionTypes?req.body.regionTypes.toString(','):'';
 
         request(Base.mergeRequestOptions({
             method: 'put',

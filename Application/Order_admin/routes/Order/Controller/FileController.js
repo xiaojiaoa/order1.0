@@ -44,7 +44,8 @@ var FileController = {
 
         Base.multiDataRequest(req, res, [
                 {url: '/api/assist/orderfile/type?type='+stcode, method: 'GET', resConfig: {keyName: 'fileTypeInfo', is_must: true}},
-                {url: '/api/order/file/'+ lid+"?ordType="+ordType+"&tid="+tid, method: 'GET', resConfig: {keyName: 'fileInfo', is_must: false}}
+                {url: '/api/order/file/'+ lid+"?ordType="+ordType+"&tid="+tid, method: 'GET', resConfig: {keyName: 'fileInfo', is_must: false}},
+                {url: '/api/assist/order/fileNameType', method: 'GET', resConfig: {keyName: 'fileNameType', is_must: false}}
             ],
             function (req, res, resultList) {
                 var fileTypeList = {};
@@ -82,7 +83,7 @@ var FileController = {
         Base.multiDataRequest(req, res, [
                 {url: '/api/order/file/'+ lid+"?tid="+tid, method: 'GET', resConfig: {keyName: 'fileInfo', is_must: false}},
                 {url: '/api/assist/orderfile/type?type='+stcode, method: 'GET', resConfig: {keyName: 'fileTypeInfo', is_must: true}},
-                // {url: '/api/assist/orderfile/type', method: 'GET', resConfig: {keyName: 'allFileTypeInfo', is_must: true}}
+                {url: '/api/assist/order/fileNameType', method: 'GET', resConfig: {keyName: 'fileNameType', is_must: false}}
             ],
             function (req, res, resultList) {
                 var fileTypeList = {};

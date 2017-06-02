@@ -1342,6 +1342,7 @@ router.get('/system/printOut/:id', Middleware.AuthCheck,SystemController.printOu
 router.get('/system/printPackageLid/:packageLid', Middleware.AuthCheck,SystemController.printPackageLid);
 
 router.get('/system/printParts/:batchNumber', Middleware.AuthCheck,SystemController.printParts);
+
 /*
  * 页面范围: app接口
  * 控制器:   AppServiceController
@@ -1438,6 +1439,9 @@ router.get('/inMateRep', Middleware.AuthCheck,Middleware.FilterEmptyField,Report
 
 //入库详情
 router.get('/inMateRep/detail', Middleware.AuthCheck,Middleware.FilterEmptyField,ReportController.inMateRepDetailPage);
+
+
+
 
 
 module.exports = router;
