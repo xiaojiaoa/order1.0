@@ -21,9 +21,11 @@ var SystemController = {
     indexPage: function (req, res) {
         //res.render('order/system/index');
          Base.multiDataRequest(req, res, [
-               {url: '/api/assist', method: 'GET', resConfig: {keyName: 'basicDataList', is_must: true}},
+                 {url: '/api/assist', method: 'GET', resConfig: {keyName: 'basicDataList', is_must: true}},
+                 {url: '/api/assist/package/category', method: 'GET', resConfig: {keyName: 'packageCate', is_must: true}},
           ],
             function (req, res, resultList) {
+                //console.log(1111,resultList);
           var returnData = Base.mergeData(helper.mergeObject({
                  title: '个人中心',
                  Permission :Permissions,
@@ -67,7 +69,7 @@ var SystemController = {
         })
     },
     doCreate: function (req, res) {
-         console.log( "新建",req.body);
+        // console.log( "新建",req.body);
         request(Base.mergeRequestOptions({
             method: 'post',
             url: '/api/assist',
@@ -82,7 +84,7 @@ var SystemController = {
         })
     },
     doModify: function (req, res) {
-         console.log("修改",req.body);
+         // console.log("修改",req.body);
         request(Base.mergeRequestOptions({
             method: 'put',
             url: '/api/assist/update'+"?"+queryString.stringify(req.body)

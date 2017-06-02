@@ -7,7 +7,8 @@
         var createSubPackageDaoLayer;//新建分包类型-弹窗
         var modifySubPackageDaoLayer;//修改分包类型-弹窗
         var modifyHtml;//保存修改前的内容
-
+        var createAssistantPackageTypeLayer;//新建分包类型-弹窗
+        var modifyAssistantPackageTypeLayer;//修改分包类型-弹窗
 
         //点击"新建"，"修改"
         $(".create,.modify").on("click",function(e){
@@ -48,6 +49,17 @@
 
                    });
                }
+               else if(key=='assistantPackageType' &&  classDom.find('input[name=parentId]').length==0){
+                   status02(classDom);
+                   $(".desktop-detected *").css("pointer-events","auto");
+                    createAssistantPackageTypeLayer=layer.open({
+                        title:false,
+                        type:1,
+                        area:'700px',
+                        content:$("#create-assistantPackageType-form"),
+                        cancel:function(){},
+                    });
+               }
                else{
 
                   if(key=='assistantMaterialUnit' &&  classDom.find('input[name=parentId]').length>0 ){
@@ -80,6 +92,25 @@
                         type: 1,
                         area: '700px',
                         content: $('#modify-subPackageDao-form'),
+                        cancel: function () {
+                            //右上角关闭回调
+                        },
+
+                    });
+                }
+                else if(key=='assistantPackageType' &&  classDom.find('input[name=parentId]').length==0){
+                    status02(classDom);
+                    $(".desktop-detected *").css("pointer-events","auto");
+
+                    //给表单赋值
+                    $("#assistantPackageTypeType").val(classDom.find("tr").eq(listNum).attr("type"));
+                    $("#assistantPackageTypeName").val(classDom.find("tr").eq(listNum).find("input[name=name]").val());
+                    $("#assistantPackageTypeId").val(classDom.find("tr").eq(listNum).attr("id"));
+                    modifyAssistantPackageTypeLayer= layer.open({
+                        title: false,
+                        type: 1,
+                        area: '700px',
+                        content: $('#modify-assistantPackageType-form'),
                         cancel: function () {
                             //右上角关闭回调
                         },
@@ -300,7 +331,7 @@
                 $.each(t, function() {
                     data[this.name] = this.value;
                 });
-                console.log("分包类型修改"+JSON.stringify(data));
+              //  console.log("分包类型修改"+JSON.stringify(data));
                 //将数据提交到nodejs端
                 $.ajax({
                     url: '/system/doModify',
@@ -320,7 +351,65 @@
                 })
             }
         })
+        //物料包装类型--新建提交
+        $(".createBtn1").on("click",function(){
+            if ($("#create-assistantPackageType-form").validationEngine('validate')) {
+                //序列化表单中的每一个值，并且存储在对象中
+                var data = {};
+                var t = $('#create-assistantPackageType-form').serializeArray();
+                $.each(t, function() {
+                    data[this.name] = this.value;
+                });
+                //console.log("包装类型新建"+JSON.stringify(data));
+                //将数据提交到nodejs端
+                $.ajax({
+                    url: '/system/doCreate',
+                    method: 'post',
+                    data:data,
+                    success: function (data) {
+                        //刷新页面
+                        var key='assistantPackageType';
+                        var level="level-1";
+                        ajaxRefresh(key,level);
+                        layer.close(createAssistantPackageTypeLayer);
+                    },
+                    error: function (response) {
+                        layer.close(index)
+                        errorLayout.normal(response);
+                    }
+                })
+            }
+        })
 
+        //物料包装类型--修改提交
+        $(".modifyBtn1").on("click",function(){
+            if ($("#modify-assistantPackageType-form").validationEngine('validate')) {
+                //序列化表单中的每一个值，并且存储在对象中
+                var data = {};
+                var t = $('#modify-assistantPackageType-form').serializeArray();
+                $.each(t, function() {
+                    data[this.name] = this.value;
+                });
+                console.log("包装类型修改"+JSON.stringify(data));
+                //将数据提交到nodejs端
+                $.ajax({
+                    url: '/system/doModify',
+                    method: 'post',
+                    data:data,
+                    success: function (data) {
+                        //刷新页面
+                        var key='assistantPackageType';
+                        var level="level-1";
+                        ajaxRefresh(key,level);
+                        layer.close(modifyAssistantPackageTypeLayer);
+                    },
+                    error: function (response) {
+                        layer.close(index)
+                        errorLayout.normal(response);
+                    }
+                })
+            }
+        })
 
         //点击"删除"
         $(".delete").click(function () {
@@ -357,9 +446,6 @@
                 data.key="assistantSpaceProd";
                 data.spaceId=$(".level-3").find("input[name=parentId]").val();
                }
-
-
-
             console.log("这个是删除等操作"+JSON.stringify(data));
             //ajax提交
             layer.confirm('确定删除该项?', {icon: 3, title: '提示'}, function (index) {
