@@ -1398,6 +1398,13 @@ router.get('/app/packagetype', AppServiceController.packagetype);
 
 router.get('/app/package/page', AppServiceController.packagePage);
 
+// 已入库批次号
+router.get('/app/cargoin/batch', AppServiceController.cargoinBatch);
+
+// 已入库订单号
+router.get('/app/cargoin/order/page', AppServiceController.cargoinOrderPage);
+
+
 
 /*
 * 页面范围: 报表管理
