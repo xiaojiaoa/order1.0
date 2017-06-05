@@ -296,12 +296,8 @@
         $(".createBtn").on("click",function(){
             if ($("#create-subPackageDao-form").validationEngine('validate')) {
                 //序列化表单中的每一个值，并且存储在对象中
-                var data = {};
-                var t = $('#create-subPackageDao-form').serializeArray();
-                $.each(t, function() {
-                    data[this.name] = this.value;
-                });
-                console.log("分包类型新建"+JSON.stringify(data));
+                var data = serialLizeForm($('#create-subPackageDao-form'));
+               // console.log("分包类型新建"+JSON.stringify(data));
                 //将数据提交到nodejs端
                 $.ajax({
                     url: '/system/doCreate',
@@ -326,11 +322,7 @@
         $(".modifyBtn").on("click",function(){
             if ($("#modify-subPackageDao-form").validationEngine('validate')) {
                 //序列化表单中的每一个值，并且存储在对象中
-                var data = {};
-                var t = $('#modify-subPackageDao-form').serializeArray();
-                $.each(t, function() {
-                    data[this.name] = this.value;
-                });
+                var data = serialLizeForm($('#modify-subPackageDao-form'));
               //  console.log("分包类型修改"+JSON.stringify(data));
                 //将数据提交到nodejs端
                 $.ajax({
@@ -355,11 +347,7 @@
         $(".createBtn1").on("click",function(){
             if ($("#create-assistantPackageType-form").validationEngine('validate')) {
                 //序列化表单中的每一个值，并且存储在对象中
-                var data = {};
-                var t = $('#create-assistantPackageType-form').serializeArray();
-                $.each(t, function() {
-                    data[this.name] = this.value;
-                });
+                var data = serialLizeForm($('#create-assistantPackageType-form'));
                 //console.log("包装类型新建"+JSON.stringify(data));
                 //将数据提交到nodejs端
                 $.ajax({
@@ -385,12 +373,8 @@
         $(".modifyBtn1").on("click",function(){
             if ($("#modify-assistantPackageType-form").validationEngine('validate')) {
                 //序列化表单中的每一个值，并且存储在对象中
-                var data = {};
-                var t = $('#modify-assistantPackageType-form').serializeArray();
-                $.each(t, function() {
-                    data[this.name] = this.value;
-                });
-                console.log("包装类型修改"+JSON.stringify(data));
+                var data = serialLizeForm($('#modify-assistantPackageType-form'));
+               // console.log("包装类型修改"+JSON.stringify(data));
                 //将数据提交到nodejs端
                 $.ajax({
                     url: '/system/doModify',
@@ -625,6 +609,20 @@
                 dom.find('.open-all').hide();
             }*/
         }
+
+        /*
+         * 序列化表单中的每一个值，并且存储在对象中
+         * */
+        function serialLizeForm(form){
+            var data = {};
+            var t = form.serializeArray();
+            $.each(t, function() {
+                data[this.name] = this.value;
+            });
+
+            return data;
+        }
+
 
        /*
        * creFrag--新建的时候根据不同显示页面
