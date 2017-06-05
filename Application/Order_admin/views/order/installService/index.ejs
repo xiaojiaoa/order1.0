@@ -95,6 +95,7 @@
                                 <th>建单柜员名称</th>
                                 <th>流水编号</th>
                                 <th>订单状态</th>
+                                <th>所属门店</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -104,7 +105,7 @@
                             <tr>
                                 <td width="5%">
                                     <label  class="checkbox-inline">
-                                        <input type="checkbox" class="checkbox" value="<%= element.tid %>" stcode="<%= element.stcode %>" name="roles" />
+                                        <input type="checkbox" class="checkbox" value="<%= element.tid %>" stcode="<%= element.stcode %>" name="roles" bid="<%= element.bid %>" />
                                         <span><%= index+1 %></span>
                                     </label>
                                 </td>
@@ -117,6 +118,7 @@
                                 <td><%= element.gname %></td>
                                 <td><%= element.lid %></td>
                                 <td><%= element.stcode==749 ? '已发货':'已登记发货'%></td>
+                                <td><%= element.bname %></td>
                             </tr>
                             <%})}else{%>
                                <td colspan="12" class="text-align-center">暂无结果</td>
@@ -149,6 +151,15 @@
         $(".fg-date-picker").flatpickr(data_time_picker.data_picker); // jQuery
 
         $("input[name='roles']").change(function(){
+                var bidVal = $("input[name=roles]:checked:first-child").attr("bid");
+                $("input[name=roles]:checked").each(function(){
+                    var bidVala = $(this).attr("bid");
+                    if(bidVal != bidVala){
+                       $("input[name=succ]").attr("succ","false");
+                    }else{
+                        $("input[name=succ]").attr("succ","true");
+                    }
+                })
             var stcode = $(this).attr('stcode')
             if($(this).is(':checked')){
                 $("input[name='stcode']").addClass(stcode+'');
