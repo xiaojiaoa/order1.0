@@ -1406,7 +1406,14 @@ router.get('/app/cargoin/batch', AppServiceController.cargoinBatch);
 // 已入库订单号
 router.get('/app/cargoin/order/page', AppServiceController.cargoinOrderPage);
 
-
+// 备货-显示所有可备货的发货通知单
+router.get('/app/stock/delivery/all', AppServiceController.deliveryAll);
+// 备货-显示自己可备货发货清单
+router.get('/app/stock/delivery/own', AppServiceController.deliveryOwn);
+// 备货-解锁发货通知单
+router.post('/app/stock/unlock',AppServiceController.unlockStock);
+// 备货-领取发货通知单
+router.post('/app/stock/receive',AppServiceController.receiveStock);
 
 /*
 * 页面范围: 报表管理
