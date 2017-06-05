@@ -320,7 +320,7 @@
                                     <% if (DWY_Helper.hasPermission(Permission.resupplyOrderReview.passOrder.id, permission)  && resupplyInfo.receiveGid == user.id ){ %>
                                     <a class="label label-primary doPass"
                                        data-stcode="<%= resupplyInfo.status %>">确认受理</a>
-                                    <a class="label label-success" id="check-pass-modal"
+                                    <a class="label label-success" id="pass-modal"
                                        data-stcode="<%= resupplyInfo.status %>">补单原因</a>
                                     <% } %>
                                     <% if (DWY_Helper.hasPermission(Permission.resupplyOrderReview.sendBackOrder.id, permission) && resupplyInfo.receiveGid == user.id  ){ %>
@@ -377,7 +377,7 @@
                                 <td>
                                     拆单中
                                     <% if (DWY_Helper.hasPermission(Permission.resupplyOrderApart.passOrder.id, permission) && resupplyInfo.receiveGid == user.id  ){ %>
-                                    <a class="label label-primary doPass"
+                                    <a class="label label-primary" id="check-pass-modal"
                                        data-stcode="<%= resupplyInfo.status %>">确认拆单</a>
                                     <% } %>
                                     <% if (DWY_Helper.hasPermission(Permission.resupplyOrderApart.sendBackOrder.id, permission) && resupplyInfo.receiveGid == user.id ){ %>
@@ -394,7 +394,12 @@
                                 </td>
                                 <% break;
                                 default: %>
-                                <td><%= DWY_Helper.getLocalDate(orderStatusInfo.apartTime) %></td>
+                                <td>
+                                    <%= DWY_Helper.getLocalDate(orderStatusInfo.apartTime) %>
+                                    <% if (resupplyInfo.status == 472 && resupplyInfo.sendGid == user.id){ %>
+                                    <a class="label label-success" id="modifyMoney">修改总价</a>
+                                    <% } %>
+                                </td>
                                 <% } %>
 
                                 <td>拆单人</td>
@@ -633,7 +638,9 @@
                             <tbody>
                             <% if(DWY_Helper.isCanLoop(progressInfo)){
                             progressInfo.forEach(function (element, index) { %>
-                            <tr>
+                            <tr <% if(element.isRecent){  %>
+                                    class="mark-row"
+                                    <% } %>>
                                 <td><%= index + 1 %></td>
                                 <td><%= element.content %></td>
                                 <td><%= element.name %></td>
@@ -827,6 +834,7 @@
     })
 
 </script>
+<%- include('./check_pass'); %>
 
 <%- include('./crePackage_modal'); %>
 <%- include('../layouts/foot'); %>

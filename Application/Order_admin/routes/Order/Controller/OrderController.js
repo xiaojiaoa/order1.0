@@ -104,6 +104,7 @@ var OrderController = {
                     title: ' ',
                     tid:tid,
                     Permission :Permissions,
+                    orderType: 'order',
                     pagination: boostrapPaginator.render()
                 }, resultList));
                 res.render('order/order/order_detail', returnData);
@@ -292,7 +293,11 @@ var OrderController = {
         }, req, res), function (error, response, body) {
             if (!error && response.statusCode == 201) {
                 Base.handlerSuccess(res, req);
-                res.redirect("/apartPage/waitOrder");
+                if(req.body.orderType == 'order'){
+                    res.redirect("/apartPage/waitOrder");
+                }else{
+                    res.redirect("/orders/resupplys/apart");
+                }
             } else {
                 Base.handlerError(res, req, error, response, body);
             }
@@ -752,6 +757,7 @@ var OrderController = {
                 {url: '/api/assist/review/apartReason', method: 'GET', resConfig: {keyName: 'apartReason', is_must: true}},
                 {url: '/api/assist/review/apartReviewReason', method: 'GET', resConfig: {keyName: 'apartReviewReason', is_must: true}},
                 {url: '/api/assist/review/scheduleReason', method: 'GET', resConfig: {keyName: 'scheduleReason', is_must: true}},
+                {url: '/api/cofficient', method: 'GET', resConfig: {keyName: 'cofficientInfo', is_must: true}},
 
                 // {url: '/api/assist/orderfile/type', method: 'GET', resConfig: {keyName: 'allFileTypeInfo', is_must: true}},
                 {url: '/api/orders/chgback/'+tid, method: 'GET', resConfig: {keyName: 'chgbackInfo', is_must: true}},
@@ -799,7 +805,8 @@ var OrderController = {
                     title: ' ',
                     tid:tid,
                     Permission :Permissions,
-                    pagination: boostrapPaginator.render()
+                    pagination: boostrapPaginator.render(),
+                    orderType: 'resupply'
                 }, resultList));
                 res.render('order/order/resupply_detail', returnData);
             });

@@ -145,7 +145,12 @@ var ApartController = {
         }, req, res), function (error, response, body) {
             if (!error && response.statusCode == 201) {
                 Base.handlerSuccess(res, req);
-                res.redirect("/apartPage/getOrder");
+                if(req.body.orderType == 'order'){
+                    res.redirect("/apartPage/getOrder");
+                }else{
+                    res.redirect("/orders/resupplys/apart");
+                }
+
             } else {
                 Base.handlerError(res, req, error, response, body);
             }
