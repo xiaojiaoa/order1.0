@@ -210,16 +210,17 @@ var OrderController = {
 
     },
     doPass: function (req, res) {
+        var tid = req.params.tid;
         request(Base.mergeRequestOptions({
             method: 'put',
-            url: '/api/orders/review/pass?'+queryString.stringify(req.body),
+            url: '/api/orders/review/pass?tid='+tid,
         }, req, res), function (error, response, body) {
             if (!error && response.statusCode == 201) {
-                Base.handlerSuccess(res, req);
-                res.redirect("/order/check/waitOrder");
+                res.sendStatus(200);
             } else {
                 Base.handlerError(res, req, error, response, body);
             }
+
         })
 
     },
@@ -286,11 +287,12 @@ var OrderController = {
     modifyPriceInfo: function (req, res) {
         request(Base.mergeRequestOptions({
             method: 'put',
-            url: '/api/orders/review/updatePrice?'+queryString.stringify(req.body),
+            url: '/api/orders/apart/updatePrice?'+queryString.stringify(req.body),
+            // url: '/api/orders/review/updatePrice?'+queryString.stringify(req.body),
         }, req, res), function (error, response, body) {
             if (!error && response.statusCode == 201) {
                 Base.handlerSuccess(res, req);
-                res.redirect("/order/check/getOrder");
+                res.redirect("/apartPage/waitOrder");
             } else {
                 Base.handlerError(res, req, error, response, body);
             }

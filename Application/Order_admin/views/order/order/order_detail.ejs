@@ -417,7 +417,7 @@
                                 <td width="30%">
                                     审核中
                                     <% if (DWY_Helper.hasPermission(Permission.orderReview.passOrder.id, permission) && orderInfo.receiveGid == user.id ){ %>
-                                    <a class="label label-primary" id="check-pass-modal">提交审核</a>
+                                    <a class="label label-primary doPass" data-stcode="<%= orderInfo.stcode %>">提交审核</a>
                                     <% } %>
                                     <% if (DWY_Helper.hasPermission(Permission.orderReview.sendBackOrder.id, permission) && orderInfo.receiveGid == user.id ){ %>
                                     <a class="label label-primary margin-left-20 reject-modal" id="check-reject-modal">审核退回</a>
@@ -437,9 +437,7 @@
                                     default: %>
                                         <td>
                                             <%= DWY_Helper.getLocalDate(orderStatusInfo.reviewTime) %>
-                                            <% if (orderInfo.stcode == 290 && orderInfo.sendGid == user.id){ %>
-                                            <a class="label label-success" id="modifyMoney">修改总价</a>
-                                             <% } %>
+
                                         </td>
                                 <%  } %>
 
@@ -461,7 +459,7 @@
                                 <td>
                                     拆单中
                                     <% if (DWY_Helper.hasPermission(Permission.orderApart.passOrder.id, permission) && orderInfo.receiveGid == user.id ){ %>
-                                    <a class="label label-primary doPass" data-stcode="<%= orderInfo.stcode %>">确定拆单</a>
+                                    <a class="label label-primary" id="check-pass-modal"  >确定拆单</a>
                                     <% } %>
                                     <% if (DWY_Helper.hasPermission(Permission.orderApart.sendBackOrder.id, permission) && orderInfo.receiveGid == user.id ){ %>
                                     <a class="label label-primary margin-left-20 reject-modal"
@@ -482,7 +480,12 @@
                                 <%         break;
 
                                     default: %>
-                                <td><%= DWY_Helper.getLocalDate(orderStatusInfo.apartTime) %></td>
+                                <td>
+                                    <%= DWY_Helper.getLocalDate(orderStatusInfo.apartTime) %>
+                                    <% if (orderInfo.stcode == 472 && orderInfo.sendGid == user.id){ %>
+                                    <a class="label label-success" id="modifyMoney">修改总价</a>
+                                    <% } %>
+                                </td>
                                 <%  } %>
 
                                 <td>拆单人</td>
@@ -907,10 +910,10 @@
             var locationUrl = '';
             var text = '';
             switch (orderStcode){
-                case '450':
-                    ajaxUrl = '/apart/doPass/<%= tid %>';
-                    locationUrl = '/apartPage/getOrder';
-                    text = '确定拆单完毕吗?';
+                case '250':
+                    ajaxUrl = '/orders/doPass/<%= tid %>';
+                    locationUrl = '/order/check/waitOrder';
+                    text = '确定提交审核吗?';
                     break;
                 case '475':
                     ajaxUrl = '/apartCheck/doPass/<%= tid %>';

@@ -130,8 +130,22 @@ var ApartController = {
             url: '/api/orders/apart/pass?tid='+tid,
         }, req, res), function (error, response, body) {
             if (!error && response.statusCode == 201) {
-
+                Base.handlerSuccess(res, req);
                 res.sendStatus(200);
+            } else {
+                Base.handlerError(res, req, error, response, body);
+            }
+        })
+
+    },
+    doPassByMoney: function (req, res) {
+        request(Base.mergeRequestOptions({
+            method: 'put',
+            url: '/api/orders/apart/pass?'+ queryString.stringify(req.body),
+        }, req, res), function (error, response, body) {
+            if (!error && response.statusCode == 201) {
+                Base.handlerSuccess(res, req);
+                res.redirect("/apartPage/getOrder");
             } else {
                 Base.handlerError(res, req, error, response, body);
             }

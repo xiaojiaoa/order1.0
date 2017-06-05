@@ -271,7 +271,7 @@ router.put('/orders/returnOrder/:tid', Middleware.AuthCheck, OrderController.ret
 // 审核未通过（退单）
 router.post('/orders/notPass', Middleware.AuthCheck, OrderController.notPass);
 // 审核通过
-router.post('/orders/doPass', Middleware.AuthCheck, OrderController.doPass);
+router.put('/orders/doPass/:tid', Middleware.AuthCheck, OrderController.doPass);
 // 设置难度等级
 router.post('/orders/updateDifficultyLevel', Middleware.AuthCheck, OrderController.updateDifficultyLevel);
 
@@ -452,6 +452,8 @@ router.post('/apart/notPass', Middleware.AuthCheck, ApartController.notPass);
 
 // 审核通过
 router.put('/apart/doPass/:tid', Middleware.AuthCheck, ApartController.doPass);
+
+router.post('/apart/doPass/byMoney', Middleware.AuthCheck, ApartController.doPassByMoney);
 
 // 标记为审核中 (待拆单审核)
 router.put('/apartCheck/getTask/:tid', Middleware.AuthCheck, ApartController.getTaskCheck);
@@ -1414,6 +1416,9 @@ router.get('/app/stock/delivery/own', AppServiceController.deliveryOwn);
 router.post('/app/stock/unlock',AppServiceController.unlockStock);
 // 备货-领取发货通知单
 router.post('/app/stock/receive',AppServiceController.receiveStock);
+// 备货-App可备货货订单
+router.get('/app/stock/order', AppServiceController.orderStock);
+
 
 /*
 * 页面范围: 报表管理
