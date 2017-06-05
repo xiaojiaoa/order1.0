@@ -1444,6 +1444,14 @@ var OrderController = {
             });
 
     },
+    downloadPackage: function (req, res) {
+        var batchNumber =  req.params.batchNumber;
+        var factoryId =  req.params.factoryId;
+        request(Base.mergeRequestOptions({
+            method: 'get',
+            url: '/api/orders/batchNumber/export?batchNumber='+batchNumber+'&factoryId='+factoryId,
+        }, req, res)).pipe(res)
+    },
 };
 
 module.exports = OrderController;

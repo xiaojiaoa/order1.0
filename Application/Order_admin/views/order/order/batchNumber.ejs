@@ -127,7 +127,7 @@
                                 <th>生成时间</th>
                                 <th>包装柜员</th>
                                 <th>包装时间</th>
-                                <th width="320">操作</th>
+                                <th width="420">操作</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -149,7 +149,7 @@
                                 <td><%= DWY_Helper.getLocalDateYMD(element.addTime) %></td>
                                 <td><%= element.packetGname %></td>
                                 <td><%= DWY_Helper.getLocalDateYMD(element.packetTime) %></td>
-                                <td width="320">
+                                <td width="420">
                                     <% if (DWY_Helper.hasPermission(Permission.orderPackage.create.id, permission ) ){ %>
                                     <% if(element.stcode==0){%>
                                     <a class="label label-primary crePackage" batchNumber="<%= element.batchNumber %>" factoryId="<%= element.factoryId %>">生成包装</a>
@@ -159,6 +159,9 @@
                                     <a class="label label-danger undoPackingBtn" batchNumber="<%= element.batchNumber %>" factoryId="<%= element.factoryId %>">撤销包装</a>
                                     <a class="label label-primary schedule" batchNumber="<%= element.batchNumber %>" factoryId="<%= element.factoryId %>">确认排料</a>
                                     <a class="label label-warning" href="/system/printParts/<%= element.batchNumber %>">装箱清单</a>
+                                    <%}%>
+                                    <% if(element.stcode>=1){%>
+                                    <a class="label label-success" href="/orders/batchNumber/downloadPackage/<%= element.batchNumber %>/<%= element.factoryId %>">导出包装清单</a>
                                     <%}%>
                                     <%}%>
                                     <a class="label label-success" href="/orders/batchNumber/downloadZip/<%= element.batchNumber %>/<%= element.factoryId %>">下载文件</a>
