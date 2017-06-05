@@ -13,6 +13,7 @@
                 <%})}%>
             </select>
             <input type="hidden" value="" name="tidVal">
+            <input type="hidden"  name="succ" />
         </div>
     </div>
     <div class="col-xs-12 text-center margin-top-10">
@@ -25,14 +26,14 @@
         $(".fg-date-picker").flatpickr(data_time_picker.data_picker); // jQuery
         $("#assignInstallGroup").validationEngine({scroll: false});
         $("#confirmAssign").on({
-            click:function(){
-                var tid=$("input[name=tidVal]").val().replace(/[ ]/g,"");
-                tid = tid.substring(0,tid.length-1);
-                var did=$(".did option:selected").val();
-                layer.confirm('确认指定?',{icon: 3, title:'提示'},
-                    function(index){
+            click: function () {
+                var tid = $("input[name=tidVal]").val().replace(/[ ]/g, "");
+                tid = tid.substring(0, tid.length - 1);
+                var did = $(".did option:selected").val();
+                layer.confirm('确认指定?', {icon: 3, title: '提示'},
+                    function (index) {
                         $.ajax({
-                            url: '/installServiceTask/'+tid+'/'+did,
+                            url: '/installServiceTask/' + tid + '/' + did,
                             method: 'post',
                             success: function (data) {
                                 successLayout.hrefTo("/installService");
@@ -43,9 +44,23 @@
                             }
                         });
                     },
-                    function(index){layer.close(index)}
+                    function (index) {
+                        layer.close(index)
+                    }
                 )
             }
         })
+
+        $("input[name='roles']").change(function () {
+            if ($("input[name=succ]").attr("succ")=="false") {
+                $(".did option:first-child").attr("selected", "selected")
+                $(".did option:nth-of-type(2)").attr("selected", false)
+            }
+            if ($("input[name=succ]").attr("succ")=="true"){
+                $(".did option:first-child").attr("selected", false)
+                $(".did option:nth-of-type(2)").attr("selected", "selected")
+            }
+        })
+
     })
 </script>
