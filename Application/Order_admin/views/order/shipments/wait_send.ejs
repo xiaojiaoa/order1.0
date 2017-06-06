@@ -167,14 +167,14 @@
                                 <td><%=element.contNo %></td>
                                 <td><%=element.cName %></td>
                                 <td><%=element.mobile %></td>
-                                <td><%=element.address %></td>
+                                <td><%=element.storeAddress %></td>
                                 <td><%= DWY_Helper.getLocalDateYMD(element.deliveryTime) %></td>
                                 <td><%= element.stcodeName %></td>
                                 <td>
                                     <% if ( DWY_Helper.hasPermission(Permission.cargoManages.deliveryWrite.id, permission) ){ %>
                                     <a class="cursor-pointer deliverThis label label-primary" data-lid="<%=element.lid %>"
                                        data-contNo="<%=element.contNo %>" data-deliveryTime="<%=element.deliveryTime %>" data-cName="<%=element.cName %>"
-                                       data-mobile="<%=element.mobile %>" data-address="<%=element.address %>"
+                                       data-mobile="<%=element.mobile %>" data-storeAddress="<%=element.storeAddress %>" data-customerAddress="<%=element.customerAddress %>"
                                     >填写发货通知单</a>
                                     <% } %>
 

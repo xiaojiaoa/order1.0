@@ -3,38 +3,44 @@
         <!--<legend>客户搜索</legend>-->
         <!-- row -->
         <div class="form-horizontal">
-            <div class="col-xs-12">
-                <div class="col-xs-12">
-                    <div class="table-responsive">
-                        <table class="table table-bordered table-striped table-information">
-                            <tbody>
-                            <tr>
-                                <td width="25%">流水号</td>
-                                <td width="25%" id="lay-id"></td>
-                                <td width="25%">合同号</td>
-                                <td width="25%" id="lay-contNo"></td>
-                            </tr>
-                            <tr>
-                                <td>客户姓名</td>
-                                <td id="lay-cName"></td>
-                                <td>客户电话</td>
-                                <td id="lay-mobile"></td>
-                            </tr>
-                            <tr>
-                                <td>收货地址</td>
-                                <td id="lay-address" colspan="3"></td>
-                            </tr>
-
-                            </tbody>
-                        </table>
-
-                    </div>
-                </div>
-
-        </div>
 
         <div class="col-xs-12">
             <form class="form-horizontal" method="post" id="check_pass" action="/doDelivery" >
+                <div class="col-xs-12">
+                    <div class="col-xs-12">
+                        <div class="table-responsive">
+                            <table class="table table-bordered table-striped table-information">
+                                <tbody>
+                                <tr>
+                                    <td width="25%">流水号</td>
+                                    <td width="25%" id="lay-id"></td>
+                                    <td width="25%">合同号</td>
+                                    <td width="25%" id="lay-contNo"></td>
+                                </tr>
+                                <tr>
+                                    <td>客户姓名</td>
+                                    <td id="lay-cName"></td>
+                                    <td>客户电话</td>
+                                    <td id="lay-mobile"></td>
+                                </tr>
+                                <tr>
+                                    <td>收货地址</td>
+                                    <td id="lay-address" colspan="3">
+                                        <input class="form-control validate[required]" type="text" list="list" name="address" autocomplete="off">
+                                        <datalist id="list">
+
+                                        </datalist>
+                                    </td>
+                                </tr>
+
+                                </tbody>
+                            </table>
+
+                        </div>
+                    </div>
+
+                </div>
+
                 <div class="col-xs-12">
                     <div class="table-responsive">
                         <table class="table table-bordered table-striped">
@@ -87,7 +93,7 @@
                     <input name="deliveryTime" value="" id="input-deliveryTime"  type="hidden">
                     <input name="custName" value="" id="input-cName"  type="hidden">
                     <input name="mobile" value="" id="input-mobile"  type="hidden">
-                    <input name="address" value="" id="input-address"  type="hidden">
+                    <!--<input name="address" value="" id="input-address"  type="hidden">-->
                 </div>
                 <section></section>
                 <div class="col-xs-12">
@@ -155,20 +161,24 @@
                 var deliveryTime = $(this).attr('data-deliveryTime');
                 var cName = $(this).attr('data-cName');
                 var mobile = $(this).attr('data-mobile');
-                var address = $(this).attr('data-address');
+                var storeAddress = $(this).attr('data-storeAddress');
+                var customerAddress = $(this).attr('data-customerAddress');
 
                 $('#lay-id').text(id);
                 $('#lay-contNo').text(contNo);
                 $('#lay-cName').text(cName);
                 $('#lay-mobile').text(mobile);
-                $('#lay-address').text(address);
+//                $('#lay-address').text(address);
 
                 $('#input-lid').val(id);
                 $('#input-contNo').val(contNo);
                 $('#input-deliveryTime').val(deliveryTime);
                 $('#input-cName').val(cName);
                 $('#input-mobile').val(mobile);
-                $('#input-address').val(address);
+//                $('#input-address').val(address);
+
+                var list = '<option value="'+storeAddress+'">'+storeAddress+'</option><option value="'+customerAddress+'">'+customerAddress+'</option>';
+                $('#list').html(list);
 
                 layer.open({
                     title: '发货单',
