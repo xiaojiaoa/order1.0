@@ -158,10 +158,11 @@
                                     <% if(element.stcode==1){%>
                                     <a class="label label-danger undoPackingBtn" batchNumber="<%= element.batchNumber %>" factoryId="<%= element.factoryId %>">撤销包装</a>
                                     <a class="label label-primary schedule" batchNumber="<%= element.batchNumber %>" factoryId="<%= element.factoryId %>">确认排料</a>
-                                    <a class="label label-warning" href="/system/printParts/<%= element.batchNumber %>">装箱清单</a>
+
                                     <%}%>
                                     <% if(element.stcode>=1){%>
                                     <a class="label label-success" href="/orders/batchNumber/downloadPackage/<%= element.batchNumber %>/<%= element.factoryId %>">导出包装清单</a>
+                                    <a class="label label-warning" href="/system/printParts/<%= element.batchNumber %>">装箱清单</a>
                                     <%}%>
                                     <%}%>
                                     <a class="label label-success" href="/orders/batchNumber/downloadZip/<%= element.batchNumber %>/<%= element.factoryId %>">下载文件</a>

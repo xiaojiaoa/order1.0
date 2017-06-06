@@ -61,6 +61,14 @@
                 <%  })
                 }
                 } %>
+
+                <% if(type == 'delivery'){
+                if(DWY_Helper.isCanLoop(printINfo.delivery)){
+                printINfo.delivery.forEach(function (element) { %>
+                <div class="printBody"><%- element %></div>
+                <%  })
+                }
+                } %>
             </div>
         </div>
 

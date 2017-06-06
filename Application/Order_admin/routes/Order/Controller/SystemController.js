@@ -378,6 +378,23 @@ var SystemController = {
             }
         })
     },
+    printDelivery: function (req, res) {
+        var id = req.params.id;
+        request(Base.mergeRequestOptions({
+            method: 'get',
+            url: '/api/whse/cargout/delivery/print/delivery/'+id,
+        }, req, res), function (error, response, body) {
+            if (!error && response.statusCode == 200) {
+                var returnData = Base.mergeData(helper.mergeObject({
+                    id:id,
+                    type:'delivery',
+                }, {printINfo:JSON.parse(body)}));
+                res.render('order/system/print', returnData);
+            } else {
+                Base.handlerError(res, req, error, response, body);
+            }
+        })
+    },
 
 };
 

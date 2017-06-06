@@ -964,6 +964,9 @@ router.get('/deliveryNote', Middleware.AuthCheck, OutWarehouseController.deliver
 // 发货通知单-审核
 router.put('/deliveryNote/doChecked/:id/:stcode', Middleware.AuthCheck, OutWarehouseController.doDeliveryChecked);
 
+// 发货通知单-作废
+router.put('/deliveryNote/cancel/:id', Middleware.AuthCheck, OutWarehouseController.doDeliveryCancel);
+
 // 发货通知单-详情 页面
 router.get('/deliveryNote/deatil/:id', Middleware.AuthCheck, OutWarehouseController.deliveryNoteDeatil);
 
@@ -1358,6 +1361,8 @@ router.get('/system/printOut/:id', Middleware.AuthCheck,SystemController.printOu
 router.get('/system/printPackageLid/:packageLid', Middleware.AuthCheck,SystemController.printPackageLid);
 
 router.get('/system/printParts/:batchNumber', Middleware.AuthCheck,SystemController.printParts);
+
+router.get('/system/delivery/:id', Middleware.AuthCheck,SystemController.printDelivery);
 
 /*
  * 页面范围: app接口
