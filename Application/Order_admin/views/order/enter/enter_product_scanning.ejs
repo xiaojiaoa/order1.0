@@ -71,12 +71,14 @@
                 <div class="col-xs-12">
                     <div class="orderItemLayerTit">
                         <ul class="orderItemMenu">
-                            <a href="/enterProduct/notin?type=1001&tid=<%= DWYRequest.query.tid %>">
-                                <li class="padding-10 <%= DWYRequest.query.type == 1001 ? 'materielBak' : '' %>">配件</li>
+                            <% if(DWY_Helper.isCanLoop(packageType)){
+                                packageType.forEach(function (element) { %>
+                            <a href="/enterProduct/notin?type=<%= element.id %>&tid=<%= DWYRequest.query.tid %>">
+                                <li class="padding-10 <%= DWYRequest.query.type == element.id ? 'materielBak' : '' %>"><%= element.name %></li>
                             </a>
-                            <a href="/enterProduct/notin?type=1002&tid=<%= DWYRequest.query.tid %>">
-                                <li class="padding-10 <%= DWYRequest.query.type == 1002 ? 'materielBak' : '' %>">工件</li>
-                            </a>
+                            <% })
+                            } %>
+
                         </ul>
 
                     </div>
@@ -186,11 +188,9 @@
                     <div class="col-xs-1">
                         <label class="control-label" id="statusFa"></label>
                     </div>
-                    <% if( DWYRequest.query.type == 1001){  %>
                     <div class="col-xs-1">
                         <a class="btn btn-success" id="toRecommend">推荐货位</a>
                     </div>
-                    <% } %>
 
                 </div>
 
