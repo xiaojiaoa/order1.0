@@ -762,6 +762,69 @@
                 <!-- end col -->
             </div>
 
+            <% if (DWY_Helper.hasPermission(Permission.gathering.priceLogSee.id, permission )){ %>
+            <div class="row">
+                <!-- col -->
+                <div class="col-xs-12">
+                    <legend>修改价格记录
+                        <a class="label label-primary" href="/order/priceLog/<%= tid %>">
+                            查看所有修改价格记录
+                        </a>
+                    </legend>
+
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-striped">
+                            <thead>
+                            <tr>
+                                <th width="100">序号</th>
+                                <th>修改信息</th>
+                                <th>总价</th>
+                                <th>结算价</th>
+                                <th>出厂价</th>
+                                <th>修改柜员</th>
+                                <th>柜员角色</th>
+                                <th>柜员手机</th>
+                                <th>新增日期</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <% if(DWY_Helper.isCanLoop(priceLog)){
+                            priceLog.forEach(function (element, index) {  %>
+                            <tr <% if(element.isRecent){  %>
+                                    class="mark-row"
+                                    <% } %>>
+                                <td><%= index+1 %></td>
+                                <td><%= element.content %></td>
+                                <td><%= element.retailPrice %></td>
+                                <td><%= element.revFranchisePrice %></td>
+                                <td><%= element.factoryPrice %></td>
+                                <td><%= element.name %></td>
+                                <td>
+                                    <% if(element.roleList){
+                                    element.roleList.forEach(function (element) { %>
+                                    <span class="separation"><%= element.name %></span>
+                                    <%  })
+
+                                    } %>
+                                </td>
+                                <td><%= element.mobile %></td>
+                                <td><%= DWY_Helper.getLocalDate(element.createTime) %></td>
+                            </tr>
+                            <%  })
+                            } %>
+
+                            </tbody>
+                        </table>
+
+                    </div>
+
+
+                    <!-- end row -->
+                </div>
+                <!-- end col -->
+            </div>
+            <%  } %>
+
         </div>
         <!-- end row -->
     </div>

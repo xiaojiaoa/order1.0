@@ -425,6 +425,10 @@ var permissions = {
         finishGathering:{
             id:"533031",
             name:"完成收款"
+        },
+        priceLogSee:{
+            id:"531553",
+            name:"修改价格记录"
         }
     },
     stockUp :{

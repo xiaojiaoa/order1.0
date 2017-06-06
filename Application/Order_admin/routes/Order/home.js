@@ -279,6 +279,10 @@ router.post('/orders/updateDifficultyLevel', Middleware.AuthCheck, OrderControll
 router.put('/orders/getPriceInfo/:tid', Middleware.AuthCheck, OrderController.getPriceInfo);
 // 修改审核价格
 router.post('/orders/getPriceInfo/modify', Middleware.AuthCheck, OrderController.modifyPriceInfo);
+
+// 所有修改价格记录
+router.get('/:type/priceLog/:tid', Middleware.AuthCheck, OrderController.priceLogAllPage);
+
 // 所有退回信息页面
 router.get('/:type/chgback/:tid', Middleware.AuthCheck, OrderController.chgbackeAllPage);
 // 新增交流信息页面
