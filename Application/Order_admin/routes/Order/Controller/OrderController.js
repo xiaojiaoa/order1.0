@@ -277,7 +277,7 @@ var OrderController = {
         var tid = req.params.tid;
         request(Base.mergeRequestOptions({
             method: 'get',
-            url: '/api/orders/review/getPriceInfo/'+tid,
+            url: '/api/orders/apart/getPriceInfo/'+tid,
         }, req, res), function (error, response, body) {
             if (!error && response.statusCode == 200) {
                 res.status(200).json(body);
