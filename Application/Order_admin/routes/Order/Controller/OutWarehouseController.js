@@ -390,8 +390,68 @@ var OutWarehouseController = {
     productStock: function (req, res) {
         var paramObject = helper.genPaginationQuery(req);
         Base.multiDataRequest(req, res, [
-            // {url: '/api/whse/app/stock/order/list?'+ queryString.stringify(req.query), method: 'GET', resConfig: {keyName: 'stockList', is_must: true}},
-            {url: '/api/whse/app/stock/order/page?'+ queryString.stringify(req.query), method: 'GET', resConfig: {keyName: 'stockList', is_must: true}},
+            {url: '/api/whse/stock/delivery/all?'+ queryString.stringify(req.query), method: 'GET', resConfig: {keyName: 'deliveryAll', is_must: true}},
+            {url: '/api/whse/stock/delivery/own', method: 'GET', resConfig: {keyName: 'deliveryOwn', is_must: true}},
+        ], function (req, res, resultList) {
+            var paginationInfo =  resultList.deliveryAll;
+
+            var boostrapPaginator = new Pagination.TemplatePaginator(helper.genPageInfo({
+                prelink: paramObject.withoutPageNo,
+                current: paginationInfo.page,
+                rowsPerPage: paginationInfo.pageSize,
+                totalResult: paginationInfo.totalItems
+            }));
+
+            var returnData = Base.mergeData(helper.mergeObject({
+                title: ' ',
+                Permission :Permissions,
+                pagination: boostrapPaginator.render()
+            },resultList));
+            res.render('order/shipments/stock_delivery', returnData);
+        });
+
+    },
+    stockReceive: function (req, res) {
+        var diId = req.params.diId;
+        request(Base.mergeRequestOptions({
+            method: 'post',
+            url: '/api/whse/stock/receive',
+            form: {
+                diId: diId
+            }
+        }, req, res), function (error, response, body) {
+            if (!error && response.statusCode == 200) {
+                Base.handlerSuccess(res, req);
+                res.redirect("/productStock");
+            } else {
+                Base.handlerError(res, req, error, response, body);
+            }
+        })
+
+    },
+    stockUnlock: function (req, res) {
+        var diId = req.params.diId;
+        request(Base.mergeRequestOptions({
+            method: 'post',
+            url: '/api/whse/stock/unlock',
+            form: {
+                diId: diId
+            }
+        }, req, res), function (error, response, body) {
+            if (!error && response.statusCode == 200) {
+                Base.handlerSuccess(res, req);
+                res.redirect("/productStock");
+            } else {
+                Base.handlerError(res, req, error, response, body);
+            }
+        })
+
+    },
+    productStockOrder: function (req, res) {
+        var ifCanDo = req.query.ifCanDo;
+        var paramObject = helper.genPaginationQuery(req);
+        Base.multiDataRequest(req, res, [
+            {url: '/api/whse/stock/order/page?diId='+ (req.query.diId), method: 'GET', resConfig: {keyName: 'stockList', is_must: true}},
         ], function (req, res, resultList) {
             var paginationInfo =  resultList.stockList;
 
@@ -404,6 +464,7 @@ var OutWarehouseController = {
 
             var returnData = Base.mergeData(helper.mergeObject({
                 title: ' ',
+                ifCanDo: ifCanDo,
                 Permission :Permissions,
                 pagination: boostrapPaginator.render()
             },resultList));

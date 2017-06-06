@@ -1,0 +1,163 @@
+<%- include('../layouts/head_top'); %>
+<%- include('../layouts/head_bottom'); %>
+<%- include('../layouts/header'); %>
+<%- include('../layouts/nav'); %>
+
+
+<!-- MAIN PANEL -->
+<div id="main" role="main">
+
+    <!-- RIBBON -->
+    <div id="ribbon">
+
+        <!-- breadcrumb -->
+        <ol class="breadcrumb">
+            <li>后台管理</li>
+            <li>发货清单</li>
+        </ol>
+
+
+    </div>
+    <!-- END RIBBON -->
+
+
+    <!-- MAIN CONTENT -->
+    <div id="content">
+
+        <!-- well -->
+        <!-- end well -->
+
+        <div class="well">
+            <div class="row">
+                <div class="col-xs-12">
+                    <h6>已领取发货清单</h6>
+                    <hr class="simple">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-striped table-hover">
+                            <thead>
+                            <tr>
+                                <th width="5%">序号</th>
+                                <th>发货清单</th>
+                                <th>总订单数</th>
+                                <th>为备货订单数</th>
+                                <th>操作</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <%  if(DWY_Helper.isCanLoop(deliveryOwn.result) ){
+                            deliveryOwn.result.forEach(function (element, index) { %>
+                            <tr>
+                                <td width="5%"><%= ++index %></td>
+                                <td><a href="/productStock/order?diId=<%= element.diId %>&ifCanDo=2"><%= element.diId %></a></td>
+                                <td><%= element.totalOrderNum %></td>
+                                <td><%= element.notStockOrderNum %></td>
+                                <td>
+                                    <% if (element.stcode == 1 ){ %>
+                                    <a class="label label-primary doOption" href="/stock/receive/<%= element.diId %>" >领取发货清单</a>
+                                    <% } %>
+                                    <% if (element.stcode == 2 ){ %>
+                                    <a class="label label-danger doOption" href="/stock/unlock/<%= element.diId %>" >解锁发货清单</a>
+                                    <% } %>
+                                </td>
+                            </tr>
+                            <% })
+                            }else{ %>
+                            <tr>
+                                <td colspan="5" class="text-align-center">暂无数据</td>
+                            </tr>
+                            <% }  %>
+
+                            </tbody>
+                        </table>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="well">
+            <div class="row">
+                <div class="col-xs-12">
+                    <h6>待领取发货清单</h6>
+                    <hr class="simple">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-striped table-hover">
+                            <thead>
+                            <tr>
+                                <th width="5%">序号</th>
+                                <th>发货清单</th>
+                                <th>总订单数</th>
+                                <th>为备货订单数</th>
+                                <th>操作</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <%  if(DWY_Helper.isCanLoop(deliveryAll.result) ){
+                            deliveryAll.result.forEach(function (element, index) { %>
+                            <tr>
+                                <td width="5%"><%= ++index %></td>
+                                <td><a href="/productStock/order?diId=<%= element.diId %>&ifCanDo=1"><%= element.diId %></a></td>
+                                <td><%= element.totalOrderNum %></td>
+                                <td><%= element.notStockOrderNum %></td>
+                                <td>
+                                    <% if (element.stcode == 1 ){ %>
+                                    <a class="label label-primary doOption" href="/stock/receive/<%= element.diId %>" >领取发货清单</a>
+                                    <% } %>
+                                    <% if (element.stcode == 2 ){ %>
+                                    <a class="label label-danger doOption" href="/stock/unlock/<%= element.diId %>" >解锁发货清单</a>
+                                    <% } %>
+                                </td>
+                            </tr>
+                            <% })
+                            }else{ %>
+                            <tr>
+                                <td colspan="5" class="text-align-center">暂无数据</td>
+                            </tr>
+                            <% }  %>
+
+                            </tbody>
+                        </table>
+                        <%- pagination %>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <!-- END MAIN CONTENT -->
+
+</div>
+<!-- END MAIN PANEL -->
+
+<%- include('../layouts/footer'); %>
+<%- include('../layouts/footer_common_script'); %>
+
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+
+
+        pageSetUp();
+
+        $(".doOption").click(function (e) {
+            var href = $(this).attr('href');
+            e.preventDefault();
+            layer.confirm('确定操作？', {icon: 3, title: '提示'}, function (index) {
+                location.href = href
+            }, function (index) { layer.close(index) })
+        })
+
+    })
+
+</script>
+
+<%- include('../layouts/foot'); %>

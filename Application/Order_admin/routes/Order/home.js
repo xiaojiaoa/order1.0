@@ -999,6 +999,15 @@ router.post('/outProduct/doCargoout', Middleware.AuthCheck, OutWarehouseControll
 // 成品备货页面
 router.get('/productStock', Middleware.AuthCheck, OutWarehouseController.productStock);
 
+// 备货-领取发货通知单
+router.get('/stock/receive/:diId', Middleware.AuthCheck, OutWarehouseController.stockReceive);
+
+// 备货-解锁发货通知单
+router.get('/stock/unlock/:diId', Middleware.AuthCheck, OutWarehouseController.stockUnlock);
+
+// 备货-可备货货订单
+router.get('/productStock/order', Middleware.AuthCheck, OutWarehouseController.productStockOrder);
+
 router.get('/productStock/pakg/:tid', Middleware.AuthCheck, OutWarehouseController.productPakgList);
 
 router.get('/productOut/pakg/:tid', Middleware.AuthCheck, OutWarehouseController.productOutPakgList);
