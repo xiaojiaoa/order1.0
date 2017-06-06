@@ -1360,7 +1360,7 @@ router.get('/system/printOut/:id', Middleware.AuthCheck,SystemController.printOu
 // 包装流水打印接口
 router.get('/system/printPackageLid/:packageLid', Middleware.AuthCheck,SystemController.printPackageLid);
 
-router.get('/system/printParts/:batchNumber', Middleware.AuthCheck,SystemController.printParts);
+router.get('/system/printParts/:batchNumber/:factoryId', Middleware.AuthCheck,SystemController.printParts);
 
 router.get('/system/delivery/:id', Middleware.AuthCheck,SystemController.printDelivery);
 

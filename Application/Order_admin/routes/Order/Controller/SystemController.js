@@ -361,14 +361,16 @@ var SystemController = {
     },
     printParts: function (req, res) {
         var batchNumber = req.params.batchNumber;
+        var factoryId = req.params.factoryId;
         var type = req.query.type;
         request(Base.mergeRequestOptions({
             method: 'get',
-            url: '/api/orders/package/print/packagelist/'+batchNumber,
+            url: '/api/orders/package/print/packagelist/'+batchNumber+'/'+factoryId,
         }, req, res), function (error, response, body) {
             if (!error && response.statusCode == 200) {
                 var returnData = Base.mergeData(helper.mergeObject({
                     batchNumber:batchNumber,
+                    factoryId:factoryId,
                     type:'arry',
                     showTYpe:type
                 }, {printINfo:JSON.parse(body)}));

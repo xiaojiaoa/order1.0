@@ -34,10 +34,10 @@
             <% if(type == 'arry'){ %>
             <div class="orderItemLayerTit">
                 <ul class="orderItemMenu">
-                    <a href="/system/printParts/<%= batchNumber%>?type=A">
+                    <a href="/system/printParts/<%= batchNumber%>/<%= factoryId%>?type=A">
                         <li class="padding-10 <%= (showTYpe=='A'|| !showTYpe)? 'materielBak':''%>">配件</li>
                     </a>
-                    <a href="/system/printParts/<%= batchNumber%>?type=W">
+                    <a href="/system/printParts/<%= batchNumber%>/<%= factoryId%>?type=W">
                         <li class="padding-10 <%= showTYpe=='W'? 'materielBak':''%> ">工件</li>
                     </a>
                 </ul>

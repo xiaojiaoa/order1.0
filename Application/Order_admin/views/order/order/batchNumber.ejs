@@ -162,7 +162,7 @@
                                     <%}%>
                                     <% if(element.stcode>=1){%>
                                     <a class="label label-success" href="/orders/batchNumber/downloadPackage/<%= element.batchNumber %>/<%= element.factoryId %>">导出包装清单</a>
-                                    <a class="label label-warning" href="/system/printParts/<%= element.batchNumber %>">装箱清单</a>
+                                    <a class="label label-warning" href="/system/printParts/<%= element.batchNumber %>/<%= element.factoryId %>">装箱清单</a>
                                     <%}%>
                                     <%}%>
                                     <a class="label label-success" href="/orders/batchNumber/downloadZip/<%= element.batchNumber %>/<%= element.factoryId %>">下载文件</a>
