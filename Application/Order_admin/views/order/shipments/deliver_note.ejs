@@ -137,7 +137,7 @@
                                 <th>司机姓名</th>
                                 <th>物流车牌号</th>
                                 <th>入库包数/总包数</th>
-                                <th width="150px">操作</th>
+                                <th width="220px">操作</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -157,7 +157,7 @@
                                 <td><%=element.driverName %></td>
                                 <td><%=element.licensePlate %></td>
                                 <td><%= element.packageIsIn? element.packageIsIn: 0 %>/<%=element.packageTotal %></td>
-                                <td width="150px">
+                                <td width="220px">
                                     <% if(element.type == 2 && DWY_Helper.hasPermission(Permission.cargoManages.deliveryReview.id, permission)){ %>
                                     <a class="label label-primary checkThis" data-id="<%=element.diId %>" data-type="1">审核</a>
                                     <a class="label label-danger checkThis" data-id="<%=element.diId %>" data-type="2">审核驳回</a>
@@ -165,6 +165,7 @@
                                     <% if(element.type == 4 && DWY_Helper.hasPermission(Permission.cargoManages.deliveryReview.id, permission)){ %>
                                     <a class="label label-danger checkThis" data-id="<%=element.diId %>" data-type="4">作废</a>
                                     <% }%>
+                                    <a class="label label-success" href="/system/delivery/<%=element.diId %>" >发货清单</a>
                                 </td>
                             </tr>
                             <%})%>

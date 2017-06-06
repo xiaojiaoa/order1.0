@@ -1362,6 +1362,8 @@ router.get('/system/printPackageLid/:packageLid', Middleware.AuthCheck,SystemCon
 
 router.get('/system/printParts/:batchNumber', Middleware.AuthCheck,SystemController.printParts);
 
+router.get('/system/delivery/:id', Middleware.AuthCheck,SystemController.printDelivery);
+
 /*
  * 页面范围: app接口
  * 控制器:   AppServiceController
