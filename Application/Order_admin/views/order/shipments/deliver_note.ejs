@@ -137,7 +137,7 @@
                                 <th>司机姓名</th>
                                 <th>物流车牌号</th>
                                 <th>入库包数/总包数</th>
-                                <th width="130px">操作</th>
+                                <th width="150px">操作</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -157,10 +157,13 @@
                                 <td><%=element.driverName %></td>
                                 <td><%=element.licensePlate %></td>
                                 <td><%= element.packageIsIn? element.packageIsIn: 0 %>/<%=element.packageTotal %></td>
-                                <td width="130px">
+                                <td width="150px">
                                     <% if(element.type == 2 && DWY_Helper.hasPermission(Permission.cargoManages.deliveryReview.id, permission)){ %>
                                     <a class="label label-primary checkThis" data-id="<%=element.diId %>" data-type="1">审核</a>
-                                    <a class="label label-danger checkThis" data-id="<%=element.diId %>" data-type="2">作废</a>
+                                    <a class="label label-danger checkThis" data-id="<%=element.diId %>" data-type="2">审核驳回</a>
+                                    <% }%>
+                                    <% if(element.type == 4 && DWY_Helper.hasPermission(Permission.cargoManages.deliveryReview.id, permission)){ %>
+                                    <a class="label label-danger checkThis" data-id="<%=element.diId %>" data-type="4">作废</a>
                                     <% }%>
                                 </td>
                             </tr>
@@ -198,20 +201,46 @@
         $(".checkThis").click(function () {
             var id = $(this).attr('data-id');
             var type = $(this).attr('data-type');
-            var text = type== 1?'确定审核通过?':'确定退回?'
+            var text = '';
+            switch (type){
+                case '1':
+                    text =  '确定审核通过?';
+                    break;
+                case '2':
+                    text =  '确定审核退回?';
+                    break;
+                case '4':
+                    text =  '确定作废?';
+                    break;
+            }
 
             layer.confirm(text, {icon: 3, title: '提示'}, function (index) {
-                $.ajax({
-                    url: '/deliveryNote/doChecked/'+id+'/'+type,
-                    method: 'put',
-                    success: function (data) {
-                        successLayout.reload();
-                    },
-                    error: function (response) {
-                        layer.close(index)
-                        errorLayout.normal(response);
-                    }
-                });
+                if(type == 4){
+                    $.ajax({
+                        url: '/deliveryNote/cancel/'+id,
+                        method: 'put',
+                        success: function (data) {
+                            successLayout.reload();
+                        },
+                        error: function (response) {
+                            layer.close(index)
+                            errorLayout.normal(response);
+                        }
+                    });
+                }else{
+                    $.ajax({
+                        url: '/deliveryNote/doChecked/'+id+'/'+type,
+                        method: 'put',
+                        success: function (data) {
+                            successLayout.reload();
+                        },
+                        error: function (response) {
+                            layer.close(index)
+                            errorLayout.normal(response);
+                        }
+                    });
+                }
+
             }, function (index) { layer.close(index) })
         })
 

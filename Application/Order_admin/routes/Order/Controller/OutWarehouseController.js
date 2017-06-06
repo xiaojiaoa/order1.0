@@ -139,6 +139,19 @@ var OutWarehouseController = {
             }
         })
     },
+    doDeliveryCancel: function (req, res) {
+        var id = req.params.id;
+        request(Base.mergeRequestOptions({
+            method: 'post',
+            url: '/api/whse/cargout/delivery/notice/cancel/'+id,
+        }, req, res), function (error, response, body) {
+            if (!error && response.statusCode == 200) {
+                res.sendStatus(200);
+            } else {
+                Base.handlerError(res, req, error, response, body);
+            }
+        })
+    },
     deliveryNoteDeatil: function (req, res) {
         var id = req.params.id;
         var paramObject = helper.genPaginationQuery(req);
