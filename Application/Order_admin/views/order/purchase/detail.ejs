@@ -210,7 +210,7 @@
                                     <label class="checkbox-inline">
                                         <%
                                         if(element.stcode<=30){%>
-                                        <input type="checkbox" class="checkbox" name="roles" value="<%= element.id %>" stcode="<%= element.stcode %>" isDirect="<%= element.isDirect %>" gid="<%= element.empId %>" />
+                                        <input type="checkbox" class="checkbox" name="roles" value="<%= element.id %>" stcode="<%= element.stcode %>" isDirect="<%= element.isDirect %>" gid="<%= element.empId %>" payCodes="<%= element.payCode %>" />
                                        <% }else{%>
                                         <input type="checkbox" class="checkbox" name="roles" value="<%= element.id %>" stcode="<%= element.stcode %>" isDirect="<%= element.isDirect %>" disabled="disabled" />
                                         <%}%>
@@ -238,6 +238,7 @@
                             <td colspan="12" class="text-align-center">暂无结果</td>
                             <%  }%>
                             <input type="hidden" name="stcodeStr" />
+                            <input type="hidden" name="payCodes" />
                             <input type="hidden" name="isdirect" />
                             <input type="hidden" name="gid" />
                             <input type="hidden" name="gidHid" value="<%= user.id %>" />
@@ -270,20 +271,25 @@
             })
             $("input[name='roles']").change(function () {
                 var vids='',
+                    payCodes='',
                     isDirect='',
                     gid='';
                 $('input[name=roles]').each(function(){
 
                     if($(this).is(':checked')){
                         vids += $(this).attr('stcode') + ',';
+                        payCodes += $(this).attr('payCodes') + ',';
                         isDirect += $(this).attr('isDirect') + ',';
                         gid += $(this).attr('gid') + ',';
                         $("input[name='stcodeStr']").attr('stcode',vids);
+                        $("input[name='payCodes']").attr('payCodes',payCodes);
                         $("input[name='isdirect']").attr('isdirect',isDirect);
                         $("input[name='gid']").attr('gid',gid);
                     }
                 })
+
                 stcodeStr=vids;
+                paycode=payCodes;
                 isdirect=isDirect;
                 gidVali = gid;
 
@@ -380,6 +386,10 @@
                 }
                 if(stcodeStr.indexOf('10')>-1){
                     layer.alert('请先审核！', {icon: 3})
+                    return false;
+                }
+                if(paycode.indexOf('10')>-1){
+                    layer.alert('预付款未付清！', {icon: 3})
                     return false;
                 }
                 if(stcodeStr.indexOf('50')>-1){
