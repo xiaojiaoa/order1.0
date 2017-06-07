@@ -1248,6 +1248,11 @@ table > tbody > tr > td a.label:first-child {
 .nopadding-table table td{
     padding: 0 !important;
 }
+.dropdown-out{
+  position: absolute;
+  width: 640px;
+  top: 72px;
+}
 
 ul.dropdown{
     list-style: none;
