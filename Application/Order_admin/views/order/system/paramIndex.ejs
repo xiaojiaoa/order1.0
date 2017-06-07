@@ -1,0 +1,89 @@
+<%- include('../layouts/head_top'); %>
+<%- include('../layouts/head_bottom'); %>
+
+
+<%- include('../layouts/header'); %>
+<%- include('../layouts/nav'); %>
+
+
+<!-- MAIN PANEL -->
+<div id="main" role="main">
+
+    <!-- RIBBON -->
+    <div id="ribbon">
+
+        <!-- breadcrumb -->
+        <ol class="breadcrumb">
+            <li>后台管理</li>
+            <li>系数配置</li>
+        </ol>
+        <!-- end breadcrumb -->
+
+
+
+    </div>
+    <!-- END RIBBON -->
+
+
+    <!-- MAIN CONTENT -->
+    <div id="content">
+
+
+        <!-- well -->
+        <div class="well">
+            <!-- row -->
+            <div class="row">
+                <!-- col -->
+                <div class="col-xs-12">
+                    <legend>系数配置
+                        <a class="label label-primary" href="/param/set">
+                            设置
+                        </a>
+                    </legend>
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-striped table-information">
+                            <tbody>
+                            <tr>
+                                <td width="20%">结算价系数</td>
+                                <td width="30%"><%= paramInfo.purchaseCoefficient%></td>
+                                <td width="20%">零售价系数</td>
+                                <td width="30%"><%= paramInfo.retailCoefficient %></td>
+                            </tr>
+                            </tbody>
+                        </table>
+
+                    </div>
+
+                </div>
+                <!-- end col -->
+            </div>
+            <!-- end row -->
+        </div>
+        <!-- end well -->
+
+
+    </div>
+    <!-- END MAIN CONTENT -->
+
+</div>
+<!-- END MAIN PANEL -->
+
+<%- include('../layouts/footer'); %>
+<%- include('../layouts/footer_common_script'); %>
+
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+
+
+
+        pageSetUp();
+
+
+    })
+
+</script>
+
+
+<%- include('../layouts/foot'); %>

@@ -1364,6 +1364,16 @@ router.get('/system/printParts/:batchNumber/:factoryId', Middleware.AuthCheck,Sy
 
 router.get('/system/delivery/:id', Middleware.AuthCheck,SystemController.printDelivery);
 
+
+// 系数(用来计算零售价和出厂价)配置首页
+router.get('/param', Middleware.AuthCheck, SystemController.paramShowPage);
+
+// 系数配置页面
+router.get('/param/set', Middleware.AuthCheck, SystemController.paramSetPage);
+
+// 提交系数配置的数据接口
+router.post('/param/doParam', Middleware.AuthCheck, SystemController.doParam);
+
 /*
  * 页面范围: app接口
  * 控制器:   AppServiceController

@@ -397,6 +397,44 @@ var SystemController = {
             }
         })
     },
+    paramShowPage: function (req, res) {
+        Base.multiDataRequest(req, res, [
+                {url: '/api/materials/coefficient', method: 'GET', resConfig: {keyName: 'paramInfo', is_must: true}},
+            ],
+            function (req, res, resultList) {
+                var returnData = Base.mergeData(helper.mergeObject({
+                    title: ' ',
+                }, resultList));
+                res.render('order/system/paramIndex', returnData);
+            });
+    },
+    paramSetPage: function (req, res) {
+        var id=req.session.user.bid;
+        Base.multiDataRequest(req, res, [
+                {url: '/api/materials/coefficient', method: 'GET', resConfig: {keyName: 'paramInfo', is_must: true}},
+            ],
+            function (req, res, resultList) {
+                var returnData = Base.mergeData(helper.mergeObject({
+                    title: ' ',
+                    id:id,
+                }, resultList));
+
+                res.render('order/system/paramSet', returnData);
+            });
+    },
+    doParam: function (req, res) {
+        request(Base.mergeRequestOptions({
+            method: 'post',
+            url: '/api/materials/coefficient?'+queryString.stringify(req.body),
+            form: req.body
+        }, req, res), function (error, response, body) {
+            if (!error && response.statusCode == 201) {
+                res.redirect('/param');
+            } else {
+                Base.handlerError(res, req, error, response, body);
+            }
+        })
+    }
 
 };
 
