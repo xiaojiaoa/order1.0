@@ -65,10 +65,9 @@
                                         <label class="col-xs-4 control-label">收款类型:</label>
                                         <div class="col-xs-8">
                                             <select class="form-control" name="type">
-                                                <option value="0">全部</option>
-                                                <option value="10" <%= (!DWYRequest.query.type || (DWYRequest.query.type == 10))?"selected":"" %>>收款中</option>
-                                                <option value="20" <%= (DWYRequest.query.type == 20)?"selected":"" %>>资金转出</option>
-                                                <option value="30" <%= (DWYRequest.query.type == 30)?"selected":"" %>>资金解冻</option>
+                                                <option value="0">收款中</option>
+                                                <option value="1" <%= (DWYRequest.query.type == 1)?"selected":"" %>>已收款</option>
+                                                <option value="2" <%= (DWYRequest.query.type == 2)?"selected":"" %>>全部</option>
                                             </select>
                                         </div>
                                     </div>
@@ -155,10 +154,10 @@
                                 <!--<td><element.describe</td>-->
                                 <td><%= DWY_Helper.getLocalDate(element.addTime) %></td>
                                 <td width="100">
-                                    <!--<% if(element.type == 3){  %>-->
-                                    <!---->
-                                    <!--<% } %>-->
+                                    <% if(element.payed == 0){  %>
                                     <a class="label label-primary checkThis" data-tid="<%=element.tid %>" data-bid="<%=element.bid %>">收款</a>
+                                    <% } %>
+
                                 </td>
                             </tr>
                             <% })
