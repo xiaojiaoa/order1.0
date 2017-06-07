@@ -143,7 +143,9 @@
                         <% if (DWY_Helper.hasPermission(Permission.request.create.id, permission) ){ %>
                         <a class="label label-primary" href="/purchase/applyCreat?mateType=10">新建请购单</a>
                         <% } %>
+                        <% if (DWY_Helper.hasPermission(Permission.request.delete.id, permission)){ %>
                         <button class="label label-danger" id="DelOrder">删除</button>
+                        <%}%>
                         <input type="hidden" id="checkedValue"></input>
                     </legend>
                 </div>

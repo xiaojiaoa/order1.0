@@ -166,7 +166,9 @@
                         <% if (DWY_Helper.hasPermission(Permission.purchase.commit.id, permission)){ %>
                         <button class="btn btn-primary" id="purchaseSubmit">提交</button>
                         <% } %>
+                        <% if (DWY_Helper.hasPermission(Permission.purchase.delete.id, permission)){ %>
                         <button class="btn btn-danger" id="DelOrder">删除</button>
+                        <% } %>
                         <button class="btn btn-primary">打印</button>
                         <% if (DWY_Helper.hasPermission(Permission.purchase.createP.id, permission)){ %>
                         <a href="/purchase/create?mateType=10" class="btn btn-primary">新建采购单</a>
