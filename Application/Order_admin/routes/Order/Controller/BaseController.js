@@ -151,7 +151,8 @@ var BaseController = {
                     is_fail = true;
 
                     BaseController.handlerError(res, req, error, response, body);
-
+                    console.log('request',body)
+                    console.log('requestresConfig',element.resConfig.keyName)
                     return;
                 }
 

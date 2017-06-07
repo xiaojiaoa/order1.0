@@ -1323,6 +1323,11 @@ var OrderController = {
     },
     receiptMoneyPage: function (req, res) {
         var cid =  req.params.cid;
+
+        if(!req.query.type){
+            req.query.type = 0;
+        }
+
         var paramObject = helper.genPaginationQuery(req);
         Base.multiDataRequest(req, res, [
             {url: '/api/stores/money/page?'+queryString.stringify(req.query), method: 'GET', resConfig: {keyName: 'moneyList', is_must: true}},
