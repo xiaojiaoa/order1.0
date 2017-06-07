@@ -60,6 +60,19 @@
                                         </div>
                                     </div>
                                 </div>
+                                <div class="col-xs-3">
+                                    <div class="form-group">
+                                        <label class="col-xs-4 control-label">收款类型:</label>
+                                        <div class="col-xs-8">
+                                            <select class="form-control" name="type">
+                                                <option value="0">全部</option>
+                                                <option value="10" <%= (!DWYRequest.query.type || (DWYRequest.query.type == 10))?"selected":"" %>>收款中</option>
+                                                <option value="20" <%= (DWYRequest.query.type == 20)?"selected":"" %>>资金转出</option>
+                                                <option value="30" <%= (DWYRequest.query.type == 30)?"selected":"" %>>资金解冻</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
 
                                 <!--<div class="col-xs-3">-->
                                     <!--<div class="form-group">-->
