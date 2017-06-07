@@ -462,6 +462,10 @@ var permissions = {
             id:"582010",
             name:"新建请购"
         },
+        delete:{
+            id:"582010",
+            name:"删除请购"
+        },
         check:{
             id:"582012",
             name:"审核请购"
@@ -483,6 +487,10 @@ var permissions = {
         create:{
             id:"581010",
             name:"新建采购"
+        },
+        delete:{
+            id:"581010",
+            name:"删除采购"
         },
         merge:{
             id:"581011",
