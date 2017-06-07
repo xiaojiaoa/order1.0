@@ -26,13 +26,12 @@
                                 <tr>
                                     <td>收货地址</td>
                                     <td id="lay-address" colspan="3">
-                                        <input class="form-control validate[required]" type="text" list="list" name="address" autocomplete="off">
-                                        <datalist id="list">
+                                        <input class="form-control validate[required]" id="address" name="address" autocomplete="off">
+                                        <ul class="dropdown " id="addressList">
 
-                                        </datalist>
+                                        </ul>
                                     </td>
                                 </tr>
-
                                 </tbody>
                             </table>
 
@@ -138,6 +137,7 @@
         <!-- end row -->
     </div>
 </div>
+</div>
 
 <script src="/js/layout-open-initValue.js"></script>
 <script type="text/javascript">
@@ -175,10 +175,10 @@
                 $('#input-deliveryTime').val(deliveryTime);
                 $('#input-cName').val(cName);
                 $('#input-mobile').val(mobile);
-//                $('#input-address').val(address);
+                $('#address').val(customerAddress);
 
-                var list = '<option value="'+storeAddress+'">'+storeAddress+'</option><option value="'+customerAddress+'">'+customerAddress+'</option>';
-                $('#list').html(list);
+                var list = '<li>'+storeAddress+'</li><li >'+customerAddress+'</li>';
+                $('#addressList').html(list);
 
                 layer.open({
                     title: '发货单',
@@ -200,6 +200,23 @@
                 });
             }
         })
+        var AddressList = $('#addressList');
+        $('#address').focus(function () {
+            AddressList.slideDown();
+        })
+        AddressList.on('click','li',function () {
+            var text = $(this).text();
+            $('#address').val(text);
+            AddressList.hide();
+        })
+        $('#enter_pass').bind('click', function (e) {
+            var target = $(e.target);
+            if (!target.is('#address') && !target.is('#addressList *')) {
+                AddressList.hide();
+            }
+
+        })
+
 
         $("#checkAll").change(function () {
             if ($(this).is(":checked")) {

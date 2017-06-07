@@ -165,7 +165,10 @@
                                     <% if(element.type == 4 && DWY_Helper.hasPermission(Permission.cargoManages.deliveryReview.id, permission)){ %>
                                     <a class="label label-danger checkThis" data-id="<%=element.diId %>" data-type="4">作废</a>
                                     <% }%>
-                                    <!--<a class="label label-success" href="/system/delivery/<%=element.diId %>" >发货清单</a>-->
+                                    <% if(element.type == 8){ %>
+                                    <a class="label label-success" href="/system/delivery/<%=element.diId %>" >发货清单</a>
+                                    <% }%>
+
                                 </td>
                             </tr>
                             <%})%>
