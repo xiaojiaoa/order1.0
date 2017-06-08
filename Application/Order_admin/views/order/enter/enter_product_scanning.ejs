@@ -74,7 +74,7 @@
                             <% if(DWY_Helper.isCanLoop(packageType)){
                                 packageType.forEach(function (element) { %>
                             <a href="/enterProduct/notin?type=<%= element.id %>&tid=<%= DWYRequest.query.tid %>">
-                                <li class="padding-10 <%= DWYRequest.query.type == element.id ? 'materielBak' : '' %>"><%= element.name %></li>
+                                <li class="padding-10 <%= DWYRequest.query.type == element.id ? 'materielBak' : '' %>"><%= element.name %> (<%= element.amount %>)</li>
                             </a>
                             <% })
                             } %>
