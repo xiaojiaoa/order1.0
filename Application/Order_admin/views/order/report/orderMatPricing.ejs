@@ -180,6 +180,8 @@
                                 <th width="5%">出厂总价 </th>
                                 <th width="5%">采购价格</th>
                                 <th width="5%">出厂价格</th>
+                                <th width="5%">结算价</th>
+                                <th width="5%">零售价</th>
                                 <th>物料总数</th>
                                 <th>批次日期</th>
                                 <th>排料日期</th>
@@ -200,6 +202,8 @@
                                 <td width="5%"><%= element.totalUnitprice %></td>
                                 <td width="5%"><%= element.oneTotalPrice %></td>
                                 <td width="5%"><%= element.oneTotalUnitPrice %></td>
+                                <td width="5%"><%= element.purchasePrice %></td>
+                                <td width="5%"><%= element.retailPrice %></td>
                                 <td><%= element.amount %></td>
                                 <td><%= DWY_Helper.getLocalDateYMD(element.addTime) %></td>
                                 <td><%= DWY_Helper.getLocalDateYMD(element.createTime)%></td>

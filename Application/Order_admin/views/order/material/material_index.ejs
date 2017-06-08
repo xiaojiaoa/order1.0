@@ -221,6 +221,8 @@
                                 <% if(DWYRequest.query.stairCatId){%>
                                 <th width="5%">采购价格</th>
                                 <th width="5%">出厂价格</th>
+                                <th width="5%">结算价</th>
+                                <th width="5%">零售价</th>
                                 <% if(DWY_Helper.isCanLoop(theadList)){
                                 theadList.forEach(function (element) { %>
                                 <th><%= element.name %></th>
@@ -248,6 +250,8 @@
                                 <% if(DWYRequest.query.stairCatId){%>
                                 <td width="5%"><%= element.totalPrice %></td>
                                 <td width="5%"><%= element.totalUnitPrice %></td>
+                                <td width="5%"><%= element.purchasePrice %></td>
+                                <td width="5%"><%= element.retailPrice %></td>
                                 <% if(DWY_Helper.isCanLoop(element.valueList)){
                                 element.valueList.forEach(function (elementtab) { %>
                                 <td><%= elementtab.name %></td>
