@@ -212,13 +212,13 @@ var OrderController = {
 
     },
     doPass: function (req, res) {
-        var tid = req.params.tid;
         request(Base.mergeRequestOptions({
             method: 'put',
-            url: '/api/orders/review/pass?tid='+tid,
+            url: '/api/orders/review/pass?'+queryString.stringify(req.body),
         }, req, res), function (error, response, body) {
             if (!error && response.statusCode == 201) {
-                res.sendStatus(200);
+                Base.handlerSuccess(res, req);
+                res.redirect("/order/check/waitOrder");
             } else {
                 Base.handlerError(res, req, error, response, body);
             }
@@ -289,13 +289,13 @@ var OrderController = {
     modifyPriceInfo: function (req, res) {
         request(Base.mergeRequestOptions({
             method: 'put',
-            url: '/api/orders/apart/updatePrice?'+queryString.stringify(req.body),
-            // url: '/api/orders/review/updatePrice?'+queryString.stringify(req.body),
+            // url: '/api/orders/apart/updatePrice?'+queryString.stringify(req.body),
+            url: '/api/orders/review/updatePrice?'+queryString.stringify(req.body),
         }, req, res), function (error, response, body) {
             if (!error && response.statusCode == 201) {
                 Base.handlerSuccess(res, req);
                 if(req.body.orderType == 'order'){
-                    res.redirect("/apartPage/waitOrder");
+                    res.redirect("/order/check/getOrder");
                 }else{
                     res.redirect("/orders/resupplys/apart");
                 }
@@ -564,34 +564,53 @@ var OrderController = {
         })
 
     },
-    // getTaskReApart: function (req, res) {
-    //     var tid = req.params.tid;
-    //     request(Base.mergeRequestOptions({
-    //         method: 'put',
-    //         url: '/api/orders/apart/getTask/'+tid,
-    //     }, req, res), function (error, response, body) {
-    //         if (!error && response.statusCode == 201) {
-    //             res.sendStatus(200);
-    //         } else {
-    //             Base.handlerError(res, req, error, response, body);
-    //         }
-    //     })
-    //
-    // },
-    // doUnlockReApart: function (req, res) {
-    //     var tid = req.params.tid;
-    //     request(Base.mergeRequestOptions({
-    //         method: 'put',
-    //         url: '/api/orders/resupply/apart/unlock?tid='+tid,
-    //     }, req, res), function (error, response, body) {
-    //         if (!error && response.statusCode == 201) {
-    //             res.sendStatus(200);
-    //         } else {
-    //             Base.handlerError(res, req, error, response, body);
-    //         }
-    //     })
-    //
-    // },
+    reviewPage: function (req, res) {
+        var paramObject = helper.genPaginationQuery(req);
+        Base.multiDataRequest(req, res, [
+            {url: '/api/orders/review/gid?orderType=20', method: 'GET', resConfig: {keyName: 'apartingList', is_must: true}},
+            {url: '/api/orders/review/waitApart/gid?orderType=20', method: 'GET', resConfig: {keyName: 'waitReviewList', is_must: true}},
+            {url: '/api/orders/review?orderType=20&'+ (queryString.stringify(req.query)), method: 'GET', resConfig: {keyName: 'apartList', is_must: true}},
+            {url: '/api/assist/brandinfo' , method: 'GET', resConfig: {keyName: 'brandInfo', is_must: true}},
+            {url: '/api/assist/space/prod?spaceId=10', method: 'GET', resConfig: {keyName: 'prodList', is_must: true}},
+            {url: '/api/assist/order/difficulty', method: 'GET', resConfig: {keyName: 'difficultyList', is_must: true}},
+            {url: '/api/assist/deco/color', method: 'GET', resConfig: {keyName: 'colorList', is_must: true}},
+
+
+            // {url: '/api/orders/review/gid', method: 'GET', resConfig: {keyName: 'selfList', is_must: true}},
+            // {url: '/api/orders/review?'+ (queryString.stringify(req.query)), method: 'GET', resConfig: {keyName: 'orderList', is_must: true}},
+            // {url: '/api/orders/review/waitApart/gid', method: 'GET', resConfig: {keyName: 'waitApart', is_must: true}},
+            // {url: '/api/assist/brandinfo', method: 'GET', resConfig: {keyName: 'brandinfoList', is_must: true}},
+            // {url: '/api/assist/order/difficulty', method: 'GET', resConfig: {keyName: 'difficultyList', is_must: true}},
+            // {url: '/api/assist/space/prod', method: 'GET', resConfig: {keyName: 'prodList', is_must: true}},
+            // {url: '/api/orders/review/reviewNumber', method: 'GET', resConfig: {keyName: 'reviewNumber', is_must: true}},
+        ], function (req, res, resultList) {
+
+            var paginationInfoOne =  resultList.apartingList;
+            var paginationInfTwo =  resultList.apartList;
+
+            var boostrapPaginatorOne = new Pagination.TemplatePaginator(helper.genPageInfo({
+                prelink: paramObject.withoutPageNo,
+                current: paginationInfoOne.page,
+                rowsPerPage: paginationInfoOne.pageSize,
+                totalResult: paginationInfoOne.totalItems
+            }));
+            var boostrapPaginatorTwo = new Pagination.TemplatePaginator(helper.genPageInfo({
+                prelink: paramObject.withoutPageNo,
+                current: paginationInfTwo.page,
+                rowsPerPage: paginationInfTwo.pageSize,
+                totalResult: paginationInfTwo.totalItems
+            }));
+
+
+            var returnData = Base.mergeData(helper.mergeObject({
+                title: '补单审核 ',
+                paginationOne: boostrapPaginatorOne.render(),
+                paginationTwo: boostrapPaginatorTwo.render(),
+                Permission :Permissions,
+            },resultList));
+            res.render('order/order/resupplys_check', returnData);
+        });
+    },
     notPassReApart: function (req, res) {
         var cause =  req.body.causeStr;
         var causeStr = '';
@@ -1333,6 +1352,9 @@ var OrderController = {
             {url: '/api/stores/money/page?'+queryString.stringify(req.query), method: 'GET', resConfig: {keyName: 'moneyList', is_must: true}},
             {url: '/api/organizations/list', method: 'GET', resConfig: {keyName: 'organizationsList', is_must: true}},
             {url: '/api/assist/order/stcodes', method: 'GET', resConfig: {keyName: 'statusInfo', is_must: false}},
+            {url: '/api/assist/space/prod', method: 'GET', resConfig: {keyName: 'prodList', is_must: true}},
+            {url: '/api/assist/order/stcodes', method: 'GET', resConfig: {keyName: 'stcodeInfo', is_must: false}},
+
         ], function (req, res, resultList) {
             var paginationInfo =  resultList.moneyList;
 

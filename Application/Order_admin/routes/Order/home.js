@@ -271,7 +271,8 @@ router.put('/orders/returnOrder/:tid', Middleware.AuthCheck, OrderController.ret
 // 审核未通过（退单）
 router.post('/orders/notPass', Middleware.AuthCheck, OrderController.notPass);
 // 审核通过
-router.put('/orders/doPass/:tid', Middleware.AuthCheck, OrderController.doPass);
+router.post('/orders/doPass', Middleware.AuthCheck, OrderController.doPass);
+// router.put('/orders/doPass/:tid', Middleware.AuthCheck, OrderController.doPass);
 // 设置难度等级
 router.post('/orders/updateDifficultyLevel', Middleware.AuthCheck, OrderController.updateDifficultyLevel);
 
@@ -314,6 +315,9 @@ router.post('/resupplys/notPass', Middleware.AuthCheck, OrderController.notPassR
 router.put('/resupplys/doPass/:tid', Middleware.AuthCheck, OrderController.doPassResupplys);
 // 补单原因
 router.post('/resupplys/saveResupplyReason', Middleware.AuthCheck, OrderController.saveResupplyReason);
+
+// 补单审核页面
+router.get('/orders/resupplys/review', Middleware.AuthCheck, Middleware.FilterEmptyField, OrderController.reviewPage);
 
 // 补单拆单页面
 router.get('/orders/resupplys/apart', Middleware.AuthCheck, Middleware.FilterEmptyField, OrderController.apartPage);

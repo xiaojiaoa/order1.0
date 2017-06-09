@@ -1274,6 +1274,6 @@ ul.dropdown li{
     color:#3b9ff3;
 }
 
-#search-customer .col-xs-12:not(:first-child){
+.search-customer2 .col-xs-12:not(:first-child){
     display:none;
 }
