@@ -127,8 +127,8 @@
                         <table class="table table-bordered table-hover table-striped table-scroll dis-flex">
                             <thead>
                             <tr>
-                                <th width="80">序号</th>
-                                <th>订单号</th>
+                                <th width="50">序号</th>
+                                <th width="180">订单号</th>
                                 <th>订单状态</th>
                                 <th>所属机构</th>
                                 <th>所属门店</th>
@@ -148,8 +148,8 @@
                             if(DWY_Helper.isCanLoop(moneyList.result)){
                             moneyList.result.forEach(function (element, index) { %>
                             <tr>
-                                <td width="80"><%= index+1 %></td>
-                                <td><a href="/order/detail/<%= element.tid %>"><%= element.tid %></a></td>
+                                <td width="50"><%= index+1 %></td>
+                                <td width="180"><a href="/order/detail/<%= element.tid %>"><%= element.tid %></a></td>
                                 <td><%= DWY_Helper.getAssistVal(element.stcode,statusInfo) %></td>
                                 <td><%= element.orgName %></td>
                                 <td><%= element.storeName %></td>
@@ -164,6 +164,13 @@
                                 <td width="100">
                                     <% if(element.payed == 0){  %>
                                     <a class="label label-primary checkThis" data-tid="<%=element.tid %>" data-bid="<%=element.bid %>">收款</a>
+                                    <% } %>
+                                    <% if(element.payed == 4){  %>
+                                    <a class="label label-primary optionThis" data-type="pass" data-payed="<%=element.payed %>" data-tid="<%=element.tid %>" data-bid="<%=element.bid %>">确认收款</a>
+                                    <a class="label label-danger optionThis" data-type="notpass" data-payed="<%=element.payed %>" data-tid="<%=element.tid %>" data-bid="<%=element.bid %>">审核不通过</a>
+                                    <% } %>
+                                    <% if(element.payed == 1 || element.payed == 2){  %>
+                                    <a class="label label-success optionThis" data-payed="<%=element.payed %>" data-tid="<%=element.tid %>" data-bid="<%=element.bid %>">对账</a>
                                     <% } %>
 
                                 </td>
@@ -226,8 +233,9 @@
     $(document).ready(function () {
         $('#search-form').validationEngine();
         $(".checkThis").click(function () {
-            var tid = $(this).attr('data-tid');
-            var bid = $(this).attr('data-bid');
+            var _self = $(this);
+            var tid = _self.attr('data-tid');
+            var bid = _self.attr('data-bid');
             $('#tid').val(tid);
             $('#bid').val(bid);
             layer.open({
@@ -243,6 +251,55 @@
 
         })
 
+        $(".optionThis").click(function () {
+            var _self = $(this);
+            var tid = _self.attr('data-tid');
+            var bid = _self.attr('data-bid');
+
+            var ajaxUrl, text;
+            var payed = _self.attr('data-payed');
+            switch (payed){
+                case '4':
+                    var type = _self.attr('data-type');
+                    if(type = 'pass'){
+                        ajaxUrl = '/collection/receiptCheck/pass'
+                        text = '确认收款？'
+                    }else{
+                        ajaxUrl = '/collection/receiptCheck/notpass'
+                        text = '确认审核不通过？'
+                    }
+                    break;
+                case '1':
+                    ajaxUrl = '/collection/reconciliation'
+                    text = '确认对账？'
+                    break;
+                case '2':
+                    ajaxUrl = '/collection/reconciliation'
+                    text = '确认对账？'
+                    break;
+            }
+
+            layer.confirm(text, {icon: 3, title: '提示'}, function (index) {
+                $.ajax({
+                    url: ajaxUrl,
+                    method: 'post',
+                    data: {
+                        tid: tid,
+                        bid: bid,
+                    },
+                    success: function (data) {
+                        successLayout.hrefTo('/collection');
+
+                    },
+                    error: function (response) {
+                        layer.close(index)
+                        errorLayout.normal(response);
+                    }
+                });
+            }, function (index) { layer.close(index) })
+
+
+        })
 
 
 

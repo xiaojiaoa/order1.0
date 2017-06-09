@@ -418,8 +418,14 @@ router.get('/order/exportParts/:tid',Middleware.AuthCheck,OrderController.export
 
 // 收款页面
 router.get('/collection', Middleware.AuthCheck, OrderController.receiptMoneyPage);
-
+// 付款
 router.post('/collection/receiptCheck', Middleware.AuthCheck, OrderController.receiptCheck);
+// 确认收款
+router.post('/collection/receiptCheck/pass', Middleware.AuthCheck, OrderController.receiptCheckPass);
+// 审核不通过
+router.post('/collection/receiptCheck/notpass', Middleware.AuthCheck, OrderController.receiptCheckNotPass);
+// 对账
+router.post('/collection/reconciliation', Middleware.AuthCheck, OrderController.reconciliation);
 
 // 批次号管理
 router.get('/orders/batchNumber', Middleware.AuthCheck, OrderController.batchPage);
