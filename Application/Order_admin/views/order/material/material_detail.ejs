@@ -196,8 +196,13 @@
                                         </div>
                                     </form>
                                 </td>
+                                <% if(mateInfo.standardFlag==1){%>
+                                <td>物料规格</td>
+                                <td><%= mateInfo.standard%></td>
+                                <%} else{%>
                                 <td></td>
                                 <td></td>
+                                <%}%>
                                 <td></td>
                                 <td></td>
                             </tr>
