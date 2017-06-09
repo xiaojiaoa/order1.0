@@ -17,7 +17,11 @@ var request = require('request');
 var Permissions = require('../config/permission');
 
 var MaterialTypeController = {
+
     materialTypePage: function (req, res) {
+        if(!req.query.stcode){
+          req.query.stcode=1;
+        }
         var paramObject = helper.genPaginationQuery(req);
         Base.multiDataRequest(req, res, [
             {url: '/api/categories?'+ queryString.stringify(req.query), method: 'GET', resConfig: {keyName: 'mateTypeList', is_must: true}}

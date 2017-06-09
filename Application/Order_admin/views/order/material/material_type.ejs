@@ -57,6 +57,21 @@
                                         </div>
                                     </div>
                                 </div>
+                                <div class="col-xs-3">
+                                    <div class="form-group">
+                                        <label class="col-xs-4 control-label">状态:</label>
+                                        <div class="col-xs-8">
+                                            <select class="form-control" name="stcode">
+                                                <option value="1" <%= (DWYRequest.query.stcode == 1 ) ? "selected" : "" %>>
+                                                    启用
+                                                </option>
+                                                <option value="2" <%= (DWYRequest.query.stcode == 2 ) ? "selected" : "" %>>
+                                                    禁用
+                                                </option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
 
 
 
