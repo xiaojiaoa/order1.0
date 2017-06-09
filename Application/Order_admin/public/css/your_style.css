@@ -1270,3 +1270,10 @@ ul.dropdown li{
     padding: 3px;
     cursor: pointer;
 }
+#search-customer .search i.fa-chevron-up,.search i.fa-chevron-down{
+    color:#3b9ff3;
+}
+
+#search-customer .col-xs-12:not(:first-child){
+    display:none;
+}
