@@ -142,21 +142,25 @@
                                 <td><%= element.name %></td>
                                 <td></td>
                                 <td></td>
+                                <td ><%= element.parentId %></td>
+                                <td ><%= element.id.toString().slice(0,2)%></td>
                                 <%        break;
                                 case "二级": %>
                                 <td></td>
                                 <td><%= element.name %></td>
                                 <td></td>
+                                <td ><%= element.parentId.toString().slice(0,2) %></td>
+                                <td ><%= element.id.toString().slice(0,4) %></td>
                                 <%         break;
                                 default: %>
                                 <td></td>
                                 <td></td>
                                 <td><%= element.name %></td>
+                                <td ><%= element.parentId.toString().slice(0,4)%></td>
+                                <td ><%= element.id %></td>
                                 <%  } %>
                                 <!--END 判断物料分类级别-->
 
-                                <td ><%= element.parentId %></td>
-                                <td ><%= element.id %></td>
                                 <td><%= DWY_Helper.getLocalDate(element.addTime) %></td>
                                 <td><%= element.remark %></td>
 
