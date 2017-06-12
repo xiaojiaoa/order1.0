@@ -204,7 +204,11 @@ var OrderController = {
         }, req, res), function (error, response, body) {
             if (!error && response.statusCode == 201) {
                 Base.handlerSuccess(res, req);
-                res.redirect("/order/check/waitOrder");
+                if(req.body.orderType == 'resupply'){
+                    res.redirect("/orders/resupplys/review");
+                }else{
+                    res.redirect("/order/check/waitOrder");
+                }
             } else {
                 Base.handlerError(res, req, error, response, body);
             }
@@ -218,7 +222,11 @@ var OrderController = {
         }, req, res), function (error, response, body) {
             if (!error && response.statusCode == 201) {
                 Base.handlerSuccess(res, req);
-                res.redirect("/order/check/waitOrder");
+                if(req.body.orderType == 'order'){
+                    res.redirect("/order/check/waitOrder");
+                }else{
+                    res.redirect("/orders/resupplys/review");
+                }
             } else {
                 Base.handlerError(res, req, error, response, body);
             }
@@ -567,22 +575,14 @@ var OrderController = {
     reviewPage: function (req, res) {
         var paramObject = helper.genPaginationQuery(req);
         Base.multiDataRequest(req, res, [
-            {url: '/api/orders/review/gid?orderType=20', method: 'GET', resConfig: {keyName: 'apartingList', is_must: true}},
+            {url: '/api/orders/resupply/review/gid', method: 'GET', resConfig: {keyName: 'apartingList', is_must: true}},
             {url: '/api/orders/review/waitApart/gid?orderType=20', method: 'GET', resConfig: {keyName: 'waitReviewList', is_must: true}},
-            {url: '/api/orders/review?orderType=20&'+ (queryString.stringify(req.query)), method: 'GET', resConfig: {keyName: 'apartList', is_must: true}},
+            {url: '/api/orders/resupply/review?'+ (queryString.stringify(req.query)), method: 'GET', resConfig: {keyName: 'apartList', is_must: true}},
             {url: '/api/assist/brandinfo' , method: 'GET', resConfig: {keyName: 'brandInfo', is_must: true}},
             {url: '/api/assist/space/prod?spaceId=10', method: 'GET', resConfig: {keyName: 'prodList', is_must: true}},
             {url: '/api/assist/order/difficulty', method: 'GET', resConfig: {keyName: 'difficultyList', is_must: true}},
             {url: '/api/assist/deco/color', method: 'GET', resConfig: {keyName: 'colorList', is_must: true}},
 
-
-            // {url: '/api/orders/review/gid', method: 'GET', resConfig: {keyName: 'selfList', is_must: true}},
-            // {url: '/api/orders/review?'+ (queryString.stringify(req.query)), method: 'GET', resConfig: {keyName: 'orderList', is_must: true}},
-            // {url: '/api/orders/review/waitApart/gid', method: 'GET', resConfig: {keyName: 'waitApart', is_must: true}},
-            // {url: '/api/assist/brandinfo', method: 'GET', resConfig: {keyName: 'brandinfoList', is_must: true}},
-            // {url: '/api/assist/order/difficulty', method: 'GET', resConfig: {keyName: 'difficultyList', is_must: true}},
-            // {url: '/api/assist/space/prod', method: 'GET', resConfig: {keyName: 'prodList', is_must: true}},
-            // {url: '/api/orders/review/reviewNumber', method: 'GET', resConfig: {keyName: 'reviewNumber', is_must: true}},
         ], function (req, res, resultList) {
 
             var paginationInfoOne =  resultList.apartingList;
@@ -611,6 +611,34 @@ var OrderController = {
             res.render('order/order/resupplys_check', returnData);
         });
     },
+    getTaskResupplysCheck: function (req, res) {
+        var tid = req.params.tid;
+        request(Base.mergeRequestOptions({
+            method: 'put',
+            url: '/api/orders/resupply/review/getTask/'+tid,
+        }, req, res), function (error, response, body) {
+            if (!error && response.statusCode == 201) {
+                res.sendStatus(200);
+            } else {
+                Base.handlerError(res, req, error, response, body);
+            }
+        })
+
+    },
+    doUnlockResupplysCheck: function (req, res) {
+        var tid = req.params.tid;
+        request(Base.mergeRequestOptions({
+            method: 'put',
+            url: '/api/orders/resupply/review/unlock/'+tid,
+        }, req, res), function (error, response, body) {
+            if (!error && response.statusCode == 201) {
+                res.sendStatus(200);
+            } else {
+                Base.handlerError(res, req, error, response, body);
+            }
+        })
+
+    },
     notPassReApart: function (req, res) {
         var cause =  req.body.causeStr;
         var causeStr = '';
@@ -628,7 +656,7 @@ var OrderController = {
         }, req, res), function (error, response, body) {
             if (!error && response.statusCode == 201) {
                 Base.handlerSuccess(res, req);
-                res.redirect("/orders/resupplys/accept");
+                res.redirect("/orders/resupplys/review");
             } else {
                 Base.handlerError(res, req, error, response, body);
             }

@@ -318,6 +318,10 @@ router.post('/resupplys/saveResupplyReason', Middleware.AuthCheck, OrderControll
 
 // 补单审核页面
 router.get('/orders/resupplys/review', Middleware.AuthCheck, Middleware.FilterEmptyField, OrderController.reviewPage);
+// 补单审核-标记为审核中
+router.put('/resupplys/check/getTask/:tid', Middleware.AuthCheck, OrderController.getTaskResupplysCheck);
+//  补单审核-解锁补单
+router.put('/resupplys/check/unlock/:tid', Middleware.AuthCheck, OrderController.doUnlockResupplysCheck);
 
 // 补单拆单页面
 router.get('/orders/resupplys/apart', Middleware.AuthCheck, Middleware.FilterEmptyField, OrderController.apartPage);

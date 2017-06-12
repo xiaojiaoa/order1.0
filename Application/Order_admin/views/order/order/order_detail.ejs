@@ -420,7 +420,7 @@
                                     <a class="label label-primary" id="check-pass-modal">提交审核</a>
                                     <% } %>
                                     <% if (DWY_Helper.hasPermission(Permission.orderReview.sendBackOrder.id, permission) && orderInfo.receiveGid == user.id ){ %>
-                                    <a class="label label-primary margin-left-20 reject-modal" id="check-reject-modal">审核退回</a>
+                                    <a class="label label-primary margin-left-20 reject-modal">审核退回</a>
                                     <% } %>
                                 </td>
                                 <%        break;
@@ -476,7 +476,7 @@
                                     <a class="label label-primary doGetTask" data-stcode="<%= orderInfo.stcode %>">标记为拆单中</a>
                                     <% } %>
                                     <% if (DWY_Helper.hasPermission(Permission.orderReview.sendBackOrder.id, permission) && orderInfo.sendGid == user.id ){ %>
-                                    <a class="label label-primary margin-left-20 reject-modal" id="check-reject-modal">审核退回</a>
+                                    <a class="label label-primary margin-left-20 reject-modal">审核退回</a>
                                     <% } %>
                                 </td>
                                 <%         break;

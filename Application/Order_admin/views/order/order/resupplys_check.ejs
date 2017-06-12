@@ -36,8 +36,6 @@
                             <thead>
                             <tr>
                                 <th>序号</th>
-                                <th>品牌</th>
-                                <th>颜色</th>
                                 <th>类别</th>
                                 <th>难度</th>
                                 <th>补单号</th>
@@ -54,8 +52,6 @@
                             apartingList.result.forEach(function (element, index) { %>
                             <tr class="<%= (element.sign == 1) ? "mark-row":"" %>">
                                 <td><%= index+1 %></td>
-                                <td><%= element.brandName %></td>
-                                <td><%= element.colorStr %></td>
                                 <td><%= element.productTypeStr %></td>
                                 <td><%= element.difficultyStr %></td>
                                 <td><a href="/order/resupply/detail/<%= element.tid %>"><%= element.tid %></a></td>
@@ -68,7 +64,7 @@
                             </tr>
                             <% })
                             }else{ %>
-                            <td colspan="11" class="text-align-center">暂无数据</td>
+                            <td colspan="9" class="text-align-center">暂无数据</td>
                             <% }%>
 
                             </tbody>
@@ -97,8 +93,6 @@
                             <thead>
                             <tr>
                                 <th>序号</th>
-                                <th>品牌</th>
-                                <th>颜色</th>
                                 <th>类别</th>
                                 <th>难度</th>
                                 <th>订单号</th>
@@ -116,8 +110,6 @@
                             waitReviewList.result.forEach(function (element, index) { %>
                             <tr>
                                 <td><%= index+1 %></td>
-                                <td><%= element.brandName %></td>
-                                <td><%= element.colorStr %></td>
                                 <td><%= element.productTypeStr %></td>
                                 <td><%= element.difficultyStr %></td>
                                 <td><a href="/order/resupply/detail/<%= element.tid %>"><%= element.tid %></a></td>
@@ -129,7 +121,7 @@
                             </tr>
                             <% })
                             }else{ %>
-                            <td colspan="11" class="text-align-center">暂无数据</td>
+                            <td colspan="9" class="text-align-center">暂无数据</td>
                             <% }%>
                             </tbody>
                         </table>
@@ -237,8 +229,7 @@
                     <thead>
                     <tr>
                         <th>序号</th>
-                        <th>品牌</th>
-                        <th>颜色</th>
+
                         <th>类别</th>
                         <th>难度</th>
                         <th>补单号</th>
@@ -255,8 +246,7 @@
                     apartList.result.forEach(function (element, index) { %>
                     <tr>
                         <td><%= index+1 %></td>
-                        <td><%= element.brandName %></td>
-                        <td><%= element.colorStr %></td>
+
                         <td><%= element.productTypeStr %></td>
                         <td><%= element.difficultyStr %></td>
                         <td><a href="/order/resupply/detail/<%= element.tid %>"><%= element.tid %></a></td>
@@ -268,7 +258,7 @@
                     </tr>
                     <% })
                     }else{ %>
-                    <td colspan="11" class="text-align-center">暂无数据</td>
+                    <td colspan="9" class="text-align-center">暂无数据</td>
                     <% }%>
 
                     </tbody>
