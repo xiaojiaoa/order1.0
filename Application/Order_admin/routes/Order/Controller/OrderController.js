@@ -1,23 +1,23 @@
-//模板 供复制用
+// 模板 供复制用
 var Base = require('./BaseController');
 
-//分页
+// 分页
 var Pagination = require('pagination');
 
-//生成请求query
+// 生成请求query
 var queryString = require('qs');
 
-//自定义帮助函数
+// 自定义帮助函数
 var helper = require('../config/helper');
 var DWY_GLOBAL = require('../config/global');
 
-//请求模块
+// 请求模块
 var request = require('request');
 
-//引入权限
+// 引入权限
 var Permissions = require('../config/permission');
 
-//引入文件处理系统
+// 引入文件处理系统
 var fs = require("fs");
 
 var _ = require('lodash');
@@ -663,20 +663,7 @@ var OrderController = {
         })
 
     },
-    // doPassReApart: function (req, res) {
-    //     var tid = req.params.tid;
-    //     request(Base.mergeRequestOptions({
-    //         method: 'put',
-    //         url: '/api/orders/resupply/apart/pass?tid='+tid,
-    //     }, req, res), function (error, response, body) {
-    //         if (!error && response.statusCode == 201) {
-    //             res.sendStatus(200);
-    //         } else {
-    //             Base.handlerError(res, req, error, response, body);
-    //         }
-    //     })
-    //
-    // },
+
     apartCheckPage: function (req, res) {
         var paramObject = helper.genPaginationQuery(req);
         Base.multiDataRequest(req, res, [
@@ -715,34 +702,7 @@ var OrderController = {
             res.render('order/order/resupplys_apart_check', returnData);
         });
     },
-    // getTaskCheckReApart: function (req, res) {
-    //     var tid = req.params.tid;
-    //     request(Base.mergeRequestOptions({
-    //         method: 'put',
-    //         url: '/api/orders/resupply/apartReview/getTask?tid='+tid,
-    //     }, req, res), function (error, response, body) {
-    //         if (!error && response.statusCode == 201) {
-    //             res.sendStatus(200);
-    //         } else {
-    //             Base.handlerError(res, req, error, response, body);
-    //         }
-    //     })
-    //
-    // },
-    // doUnlockCheckReApart: function (req, res) {
-    //     var tid = req.params.tid;
-    //     request(Base.mergeRequestOptions({
-    //         method: 'put',
-    //         url: '/api/orders/resupply/apartReview/unlock?tid='+tid,
-    //     }, req, res), function (error, response, body) {
-    //         if (!error && response.statusCode == 201) {
-    //             res.sendStatus(200);
-    //         } else {
-    //             Base.handlerError(res, req, error, response, body);
-    //         }
-    //     })
-    //
-    // },
+
     notPassCheckReApart: function (req, res) {
         var cause =  req.body.causeStr;
         var causeStr = '';
@@ -766,20 +726,7 @@ var OrderController = {
             }
         })
     },
-    // doPassCheckReApart: function (req, res) {
-    //     var tid = req.params.tid;
-    //     request(Base.mergeRequestOptions({
-    //         method: 'put',
-    //         url: '/api/orders/resupply/apartReview/pass?tid='+tid,
-    //     }, req, res), function (error, response, body) {
-    //         if (!error && response.statusCode == 201) {
-    //             res.redirect("/order/check/waitOrder");
-    //         } else {
-    //             Base.handlerError(res, req, error, response, body);
-    //         }
-    //     })
-    //
-    // },
+
     apartPage: function (req, res) {
         var paramObject = helper.genPaginationQuery(req);
         Base.multiDataRequest(req, res, [
@@ -865,8 +812,6 @@ var OrderController = {
 
                 resultList.resupplyReason = resupplyReason;
 
-// console.log('resupplyReason',JSON.stringify(resupplyReason))
-// console.log('resupplyReason222',JSON.stringify(resultList.resupplyReason))
 
                 var paginationInfo =  resultList.deliveryInfo;
 
@@ -992,7 +937,7 @@ var OrderController = {
             res.render('order/order/order_permit', returnData);
         });
     },
-    //订单排料页面
+    // 订单排料页面
     nestingPage: function (req, res) {
         var paramObject = helper.genPaginationQuery(req);
         Base.multiDataRequest(req, res, [
@@ -1017,7 +962,7 @@ var OrderController = {
 
         });
     },
-    //标记为排料中
+    // 标记为排料中
     getNestingTask: function (req, res) {
         var ids = req.params.cid;
         request(Base.mergeRequestOptions({
@@ -1046,7 +991,7 @@ var OrderController = {
             }
         })
     },
-    //修改批次号
+    // 修改批次号
     editBatchNum: function (req, res) {
         var cid = req.params.cid;
         var bid = req.params.bid;
@@ -1163,7 +1108,6 @@ var OrderController = {
             },resultList));
             res.render('order/order/package', returnData);
         });
-        //res.render('order/order/package');
     },
     packedListPage:function(req,res){
         var tid=req.params.tid;
@@ -1211,7 +1155,6 @@ var OrderController = {
     },
     doPacket:function(req,res){
         var tid=req.params.tid;
-        //console.log("生成包装"+tid);
         request(Base.mergeRequestOptions({
             method: 'put',
             url: '/api/orders/package/batch/packet/'+tid,
@@ -1226,7 +1169,6 @@ var OrderController = {
     },
     unPacket:function(req,res){
         var tid=req.params.tid;
-        //console.log("撤销包装"+tid);
         request(Base.mergeRequestOptions({
             method: 'put',
             url: '/api/orders/package/batch/unpacket/'+tid,
@@ -1240,7 +1182,6 @@ var OrderController = {
         })
     },
     movePacket:function(req,res){
-        //console.log('移动包装'+ JSON.stringify(req.body));
         request(Base.mergeRequestOptions({
             method: 'put',
             url: '/api/orders/package/packet/move?'+queryString.stringify(req.body),
@@ -1256,7 +1197,6 @@ var OrderController = {
     deletePacket:function(req,res){
         var pid = req.params.pid;
         var type = req.params.type;
-        //console.log('删除空包装'+ JSON.stringify(req.params));
         request(Base.mergeRequestOptions({
             method: 'put',
             url: '/api/orders/package/packet/delete/'+pid+'?packageType='+type,
@@ -1271,7 +1211,7 @@ var OrderController = {
     },
     exportPacket: function (req, res) {
         var tid = req.params.tid;
-        //console.log("包装导出"+tid);
+        // console.log("包装导出"+tid);
         request(Base.mergeRequestOptions({
             method: 'post',
             url: '/api/orders/package/export/'+tid,
@@ -1299,7 +1239,7 @@ var OrderController = {
             }
         })
     },
-    //订单详情--订单物料--非标件
+    // 订单详情--订单物料--非标件
     workpiecePage:function (req, res) {
         var paramObject = helper.genPaginationQuery(req);
         var tid=req.params.tid;
@@ -1327,7 +1267,7 @@ var OrderController = {
             res.render('order/order/workpiece', returnData);
         });
     },
-    //订单详情--订单物料--配件
+    // 订单详情--订单物料--配件
     partsPage:function (req, res) {
         var paramObject = helper.genPaginationQuery(req);
         var tid=req.params.tid;
@@ -1351,7 +1291,7 @@ var OrderController = {
             res.render('order/order/materiel_modal', returnData);
         });
      },
-    //订单详情--订单物料--工件导出
+    // 订单详情--订单物料--工件导出
     exportWorkpiece: function (req, res) {
         var tid = req.params.tid;
         request(Base.mergeRequestOptions({
