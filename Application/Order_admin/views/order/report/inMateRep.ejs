@@ -132,12 +132,13 @@
                             <thead>
                             <tr>
                                 <th width="4%">序号</th>
-                                <th>物料入库汇总表id</th>
-                                <th>物料id</th>
+                                <th>物料编号</th>
                                 <th>物料名</th>
-                                <th>物料分类名</th>
+                                <th>物料类型</th>
+                                <th>物料类型名</th>
                                 <th>物料入库汇总数量</th>
-                                <th>物料入库ids</th>
+                                <th>单价</th>
+                                <th>总价</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -146,12 +147,13 @@
                             outMateRepList.result.forEach(function (element,index) { %>
                             <tr>
                                 <td width="4%"><%= index+1 %></td>
-                                <td><a href="/inMateRep/detail?smId=<%= element.smId %>&startDate=<%= DWYRequest.query.startDate%>&endDate=<%= DWYRequest.query.endDate%>"><%= element.smId %></a></td>
-                                <td><%= element.mId%></td>
-                                <td><%= element.mName %></td>
+                                <td><a href="/inMateRep/detail?mId=<%= element.mId %>&startDate=<%= DWYRequest.query.startDate%>&endDate=<%= DWYRequest.query.endDate%>"><%= element.mId %></a></td>
+                                <td><%= element.mName%></td>
+                                <td><%= element.catId %></td>
                                 <td><%= element.mcName %></td>
                                 <td><%= element.smAmount %></td>
-                                <td><%= element.inIds%></td>
+                                <td><%= element.unitPrice%></td>
+                                <td><%= element.totalPrice%></td>
                             </tr>
                             <%})
                             }else{ %>
