@@ -505,7 +505,8 @@ router.get('/storesManage/detail/:cid', Middleware.AuthCheck, StoresController.d
 router.post('/storesManage/doRecharge', Middleware.AuthCheck, StoresController.doRecharge);
 
 
-
+// 所有门店资金页面
+router.get('/storesManage/all/money', Middleware.AuthCheck, Middleware.FilterEmptyField, StoresController.allMoneyPage);
 
 // 新建门店页面
 router.get('/storesManage/create', Middleware.AuthCheck, StoresController.createPage);
