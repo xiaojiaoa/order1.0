@@ -108,6 +108,7 @@
                                 <th>预警资金</th>
                                 <th>门店最底保证金</th>
                                 <th>冻结资金</th>
+                                <th width="80">操作</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -122,6 +123,9 @@
                                 <td><%= DWY_Helper.outputmoney(JSON.stringify(element.warnFunds)) %></td>
                                 <td><%= DWY_Helper.outputmoney(JSON.stringify(element.minFunds)) %></td>
                                 <td><%= DWY_Helper.outputmoney(JSON.stringify(element.frozenFunds)) %></td>
+                                <td  width="80">
+                                    <a class="label label-primary recharge" id="<%= element.bid %>" data-type="list">充值</a>
+                                </td>
                             </tr>
                             <%  })
                             }else{ %>
@@ -161,3 +165,4 @@
 
 
 <%- include('../layouts/foot'); %>
+<%- include('./money_modal'); %>

@@ -132,6 +132,7 @@ var StoresController = {
     },
     doRecharge: function (req, res) {
         var cid = req.body.bid
+        var urltype = req.body.urltype
         request(Base.mergeRequestOptions({
             method: 'post',
             url: '/api/stores/money',
@@ -139,7 +140,12 @@ var StoresController = {
         }, req, res), function (error, response, body) {
             if (!error && response.statusCode == 201) {
                 Base.handlerSuccess(res, req);
-                res.redirect("/storesManage/detail/"+cid);
+                if(urltype == 'detail'){
+                    res.redirect("/storesManage/detail/"+cid);
+                }else{
+                    res.redirect("/storesManage/all/money");
+                }
+
             } else {
                 Base.handlerError(res, req, error, response, body);
             }

@@ -5,7 +5,8 @@
         <div class="form-group">
             <label class="col-xs-2 control-label"><span class="requird"></span> 充值金额:</label>
             <div class="col-xs-8">
-                <input type="hidden" name="bid" value="<%= storeInfo.bid %>">
+                <input type="hidden" name="bid" id="bid" value="">
+                <input type="hidden" name="urltype" id="urltype" value="">
                 <input class="form-control validate[required]" data-prompt-position="bottomLeft:20,5"
                        value="" name="account">
                 <span code-data="元" class="unit"></span>
@@ -14,20 +15,7 @@
         </div>
 
     </div>
-    <!--<div class="col-xs-12">-->
 
-        <!--<div class="form-group">-->
-            <!--<label class="col-xs-2 control-label"><span class="requird"></span> 资金类型:</label>-->
-            <!--<div class="col-xs-8">-->
-                <!--<select class="form-control validate[required]" name="type">-->
-                    <!--<option value="1">待收款类型资金</option>-->
-                    <!--<option value="2">已收款类型资金</option>-->
-                <!--</select>-->
-            <!--</div>-->
-
-        <!--</div>-->
-
-    <!--</div>-->
     <div class="col-xs-12">
 
         <div class="form-group">
@@ -57,8 +45,13 @@
         $("#rechargeArea").validationEngine();
 
         //弹出类
-        $('#recharge').on({
+        $('.recharge').on({
             click: function (e) {
+                var _self = $(this);
+                var id = _self.attr('id');
+                var type = _self.attr('data-type');
+                $('#rechargeArea #bid').val(id)
+                $('#rechargeArea #urltype').val(type)
                 layer.open({
                     title: false,
                     type: 1,
