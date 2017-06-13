@@ -1,0 +1,163 @@
+<%- include('../layouts/head_top'); %>
+<%- include('../layouts/head_bottom'); %>
+<%- include('../layouts/header'); %>
+<%- include('../layouts/nav'); %>
+
+<!-- MAIN PANEL -->
+<div id="main" role="main" class="mainFlex">
+
+    <!-- RIBBON -->
+    <div id="ribbon">
+
+        <!-- breadcrumb -->
+        <ol class="breadcrumb">
+            <li>后台管理</li>
+            <li>所有门店资金</li>
+        </ol>
+        <!-- end breadcrumb -->
+
+
+    </div>
+    <!-- END RIBBON -->
+
+
+    <!-- MAIN CONTENT -->
+    <div id="content" class="dis-flex">
+        <!-- well -->
+        <div class="well">
+            <!-- row -->
+            <div class="row">
+                <!-- col -->
+                <div class="col-xs-12">
+                    <!--<legend>订单搜索</legend>-->
+                    <!-- row -->
+                    <div class="row search-form">
+                        <form class="form-horizontal" method="get">
+
+                            <div class="col-xs-12">
+
+
+                                <!--输入字段-->
+                                <div class="col-xs-3">
+                                    <div class="form-group">
+                                        <label class="col-xs-4 control-label">门店编号:</label>
+                                        <div class="col-xs-8">
+                                            <input class="form-control"  type="text"
+                                                   value="<%= DWYRequest.query.bid %>"
+                                                   name="bid">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-xs-3">
+                                    <div class="form-group">
+                                        <label class="col-xs-4 control-label">类型:</label>
+                                        <div class="col-xs-8">
+                                            <select class="form-control" name="type">
+                                                <option value="0">全部</option>
+                                                <option value="1" <%= (DWYRequest.query.type == 1 )?"selected":"" %> >低于预警资金</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <div class="col-xs-12">
+                                <hr class="simple">
+                                <div class="col-xs-12 text-center">
+                                    <button class="btn btn-primary " type="submit">
+                                        <i class="fa fa-search"></i>
+                                        查询
+                                    </button>
+                                </div>
+                            </div>
+
+                        </form>
+                    </div>
+                    <!-- end row -->
+                </div>
+                <!-- end col -->
+            </div>
+            <!-- end row -->
+        </div>
+        <!-- end well -->
+
+        <div class="well dis-flex">
+
+            <!-- row -->
+            <div class="row">
+                <div class="col-xs-12">
+                    <h6>门店列表</h6>
+
+                    <hr class="simple">
+                </div>
+            </div>
+
+            <!-- row -->
+            <div class="row dis-flex">
+                <div class="col-xs-12 dis-flex">
+                    <div class="table-responsive dis-flex">
+                        <table class="table table-bordered table-hover table-striped table-scroll dis-flex">
+                            <thead>
+                            <tr>
+                                <th width="4%">序号</th>
+                                <th>门店编号</th>
+                                <th>门店名称</th>
+                                <th>门店实际可用资金</th>
+                                <th>预警资金</th>
+                                <th>门店最底保证金</th>
+                                <th>冻结资金</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <%
+                            if(DWY_Helper.isCanLoop(storeMoneyList.result) ){
+                            storeMoneyList.result.forEach(function (element, index) { %>
+                            <tr>
+                                <td width="4%"><%= index+1 %></td>
+                                <td><a href="/storesManage/detail/<%= element.bid %>"><%= element.bid %></a></td>
+                                <td><%= element.storeName %></td>
+                                <td><%= DWY_Helper.outputmoney(JSON.stringify(element.account)) %></td>
+                                <td><%= DWY_Helper.outputmoney(JSON.stringify(element.warnFunds)) %></td>
+                                <td><%= DWY_Helper.outputmoney(JSON.stringify(element.minFunds)) %></td>
+                                <td><%= DWY_Helper.outputmoney(JSON.stringify(element.frozenFunds)) %></td>
+                            </tr>
+                            <%  })
+                            }else{ %>
+                            <tr>
+                                <td colspan="7" align="center">暂无结果</td>
+                            </tr>
+                            <% } %>
+
+                            </tbody>
+                        </table>
+                        <%- pagination %>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- END MAIN CONTENT -->
+
+</div>
+<!-- END MAIN PANEL -->
+
+<%- include('../layouts/footer'); %>
+<%- include('../layouts/footer_common_script'); %>
+
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+
+
+        pageSetUp();
+
+    })
+
+</script>
+
+
+<%- include('../layouts/foot'); %>
