@@ -111,7 +111,7 @@ nav ul span.menu-item-parent {
 }
 
 .search-form {
-    width: 1200px;
+    width: 1400px;
     float: none;
     /*margin: auto;*/
     padding-top: 20px;
@@ -1274,6 +1274,6 @@ ul.dropdown li{
     color:#3b9ff3;
 }
 
-.search-customer2 .col-xs-12:not(:first-child){
+.slideToggle{
     display:none;
 }
