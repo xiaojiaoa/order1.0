@@ -77,7 +77,8 @@ var SupplierController = {
         }, req, res), function (error, response, body) {
             if (!error && response.statusCode == 201) {
                 Base.handlerSuccess(res, req);
-                res.redirect("/supplier");
+             //   res.redirect("/supplier");
+                res.redirect(req.session.backPath?req.session.backPath:"/supplier");
             } else {
                 Base.handlerError(res, req, error, response, body);
             }
@@ -104,7 +105,8 @@ var SupplierController = {
         }, req, res), function (error, response, body) {
             if (!error && response.statusCode == 201) {
                 Base.handlerSuccess(res, req);
-                res.redirect("/supplier");
+                //   res.redirect("/supplier");
+                res.redirect(req.session.backPath?req.session.backPath:"/supplier");
             } else {
                 Base.handlerError(res, req, error, response, body);
             }
@@ -254,7 +256,8 @@ var SupplierController = {
         }, req, res), function (error, response, body) {
             if (!error && response.statusCode == 201) {
                 Base.handlerSuccess(res, req);
-                res.redirect("/supplier/sort");
+                // res.redirect("/supplier/sort");
+                res.redirect(req.session.backPath?req.session.backPath:"/supplier/sort");
             } else {
                 Base.handlerError(res, req, error, response, body);
             }
@@ -270,7 +273,8 @@ var SupplierController = {
         }, req, res), function (error, response, body) {
             if (!error && response.statusCode == 201) {
                 Base.handlerSuccess(res, req);
-                res.redirect("/supplier/sort");
+                // res.redirect("/supplier/sort");
+                res.redirect(req.session.backPath?req.session.backPath:"/supplier/sort");
             } else {
                 Base.handlerError(res, req, error, response, body);
             }
@@ -285,7 +289,8 @@ var SupplierController = {
         }, req, res), function (error, response, body) {
             if (!error && response.statusCode == 201) {
                 Base.handlerSuccess(res, req);
-                res.redirect("/supplier/sort");
+                // res.redirect("/supplier/sort");
+                res.redirect(req.session.backPath?req.session.backPath:"/supplier/sort");
             } else {
                 Base.handlerError(res, req, error, response, body);
             }

@@ -159,6 +159,7 @@ var Middleware = {
             // next();
         },
     }),
+    // 保存路由路径
     SetBackPath: function (req, res, next) {
             req.session.backPath = req.url;
             next();
@@ -1154,7 +1155,7 @@ router.get('/cascade/*', TemplateController.getData);
 var SupplierController = require('./Controller/SupplierController');
 
 // 供应商列表
-router.get('/supplier', Middleware.AuthCheck,Middleware.FilterEmptyField,SupplierController.supplierPage);
+router.get('/supplier', Middleware.AuthCheck,Middleware.FilterEmptyField,Middleware.SetBackPath,SupplierController.supplierPage);
 // 供应商详情
 router.get('/supplier/detail/:tid', Middleware.AuthCheck,SupplierController.supplierDetailPage);
 // 供应商新增页面
@@ -1184,7 +1185,7 @@ router.post('/supplier/deleteRelate/:sid/:mid', Middleware.AuthCheck,SupplierCon
 router.post('/supplier/supDoDelete/:tid/:type', Middleware.AuthCheck, SupplierController.supplierdoDelete);
 
 // 供应商分类
-router.get('/supplier/sort', Middleware.AuthCheck,SupplierController.supplierSortPage);
+router.get('/supplier/sort', Middleware.AuthCheck,Middleware.FilterEmptyField,Middleware.SetBackPath,SupplierController.supplierSortPage);
 // 供应商一级分类添加
 router.post('/supplier/doCreat', Middleware.AuthCheck,SupplierController.doCreate);
 // 供应商分类禁用
