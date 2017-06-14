@@ -36,6 +36,9 @@ var MaterialTypeController = {
                 totalResult: paginationInfo.totalItems
             }));
 
+            // TODO 添加分页信息
+            req.session.paginationInfo = paramObject.withQuestionMark
+
             var returnData = Base.mergeData(helper.mergeObject({
                 title: ' ',
                 pagination: boostrapPaginator.render(),
@@ -140,7 +143,10 @@ var MaterialTypeController = {
         }, req, res), function (error, response, body) {
             if (!error && response.statusCode == 201) {
                 Base.handlerSuccess(res, req);
-                res.redirect("/materialManage/materialType");
+
+                //TODO withPaginationInfo
+                res.redirect(helper.withPaginationInfo("/materialManage/materialType",req.session));
+
             } else {
                 Base.handlerError(res, req, error, response, body);
             }

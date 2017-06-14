@@ -113,6 +113,17 @@ var helper = {
         }
     })
 },
+
+    // 表单提交后，如果以后分页信息，则按找分页信息跳转返回
+    withPaginationInfo:function (link,session) {
+        if(session.paginationInfo){
+            var result = link+session.paginationInfo;
+            delete session.paginationInfo;
+            return result;
+        }else{
+            return link;
+        }
+    }
 };
 
 module.exports = helper;
