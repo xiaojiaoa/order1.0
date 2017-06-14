@@ -218,6 +218,9 @@
                                 <th>预警</th>
                                 <th>可用</th>
                                 <th>启用</th>
+                                <th>欲扣数量</th>
+                                <th>包装类型</th>
+                                <th>销售码</th>
                                 <% if(DWYRequest.query.stairCatId){%>
                                 <th width="5%">采购价格</th>
                                 <th width="5%">出厂价格</th>
@@ -247,6 +250,9 @@
                                 <td><%= element.warning %></td>
                                 <td><%= element.usable %></td>
                                 <td><%= element.stcode == 1 ? '是' : '否' %></td>
+                                <td><%= element.subFrozen %></td>
+                                <td><%= element.type %></td>
+                                <td><%= element.code %></td>
                                 <% if(DWYRequest.query.stairCatId){%>
                                 <td width="5%"><%= element.totalPrice %></td>
                                 <td width="5%"><%= element.totalUnitPrice %></td>

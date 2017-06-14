@@ -92,13 +92,14 @@
                                 <td><%= mateInfo.usable %></td>
                             </tr>
                             <tr>
+                                <td>欲扣数量</td>
+                                <td><%= mateInfo.subFrozen %></td>
                                 <td>采购价格</td>
                                 <td><%= mateInfo.totalPrice %></td>
                                 <td>出厂价格</td>
                                 <td><%= mateInfo.totalUnitPrice %></td>
-                                <td></td>
-                                <td></td>
                             </tr>
+                            <tr>
                             <td>工厂</td>
                             <td><%= mateInfo.factoryName %></td>
                             <td>物料图片</td>
@@ -107,7 +108,9 @@
                             </td>
                             <td></td>
                             <td></td>
-                            <tr>
+                            </tr>
+
+                            <!--展示物料属性-->
                             <%
                             var isTr = true;
                             var attrsLength = mateInfo.attrs.length;
@@ -148,6 +151,7 @@
                             <% } }
                             }) %>
 
+                            <!--展示物料单位-->
                             <%
                             var mateUnit=mateInfo.mateUnits;
                             var result=[];
@@ -178,6 +182,8 @@
                             <%})
                             }%>
                             <tr>
+                                <td>包装类型</td>
+                                <td><%= mateInfo.type%></td>
                                 <td>是否为外协</td>
                                 <td>
                                     <form class="form-horizontal" method="post" action="/materials/outSourcing"  id="outSourcing-form">
@@ -203,12 +209,15 @@
                                 <td></td>
                                 <td></td>
                                 <%}%>
-                                <td></td>
-                                <td></td>
+
                             </tr>
                             <tr>
+                                <td>销售码</td>
+                                <td><%= mateInfo.code%></td>
                                 <td>备注</td>
-                                <td colspan="5"><%= mateInfo.remark%></td>
+                                <td><%= mateInfo.remark%></td>
+                                <td></td>
+                                <td></td>
                             </tr>
                             </tbody>
                         </table>

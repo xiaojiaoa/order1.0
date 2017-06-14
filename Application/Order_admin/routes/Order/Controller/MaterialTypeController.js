@@ -37,7 +37,7 @@ var MaterialTypeController = {
             }));
 
             // TODO 添加分页信息
-            req.session.paginationInfo = paramObject.withQuestionMark
+          //  req.session.paginationInfo = paramObject.withQuestionMark
 
             var returnData = Base.mergeData(helper.mergeObject({
                 title: ' ',
@@ -145,7 +145,8 @@ var MaterialTypeController = {
                 Base.handlerSuccess(res, req);
 
                 //TODO withPaginationInfo
-                res.redirect(helper.withPaginationInfo("/materialManage/materialType",req.session));
+                //res.redirect(helper.withPaginationInfo("/materialManage/materialType",req.session));
+                res.redirect(req.session.backPath?req.session.backPath:"/materialManage/materialType");
 
             } else {
                 Base.handlerError(res, req, error, response, body);
