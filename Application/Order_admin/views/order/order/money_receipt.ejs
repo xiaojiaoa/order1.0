@@ -30,13 +30,13 @@
                 <div class="col-xs-12">
                     <!--<legend>订单搜索</legend>-->
                     <!-- row -->
-                    <div class="row search-form">
+                    <div class="row ">
                         <form class="form-horizontal" method="get" id="search-form">
 
                             <div class="col-xs-12">
 
                                 <% if (DWY_Helper.hasPermission(Permission.gathering.queryAll.id, permission) ){ %>
-                                <div class="col-xs-3">
+                                <div class="col-xs-2">
                                     <div class="form-group">
                                         <label class="col-xs-4 control-label">机构号:</label>
                                         <div class="col-xs-8">
@@ -52,7 +52,7 @@
                                 </div>
                                 <% } %>
 
-                                <div class="col-xs-3">
+                                <div class="col-xs-2">
                                     <div class="form-group">
                                         <label class="col-xs-4 control-label">门店编号:</label>
                                         <div class="col-xs-8">
@@ -60,7 +60,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-xs-3">
+                                <div class="col-xs-2">
                                     <div class="form-group">
                                         <label class="col-xs-4 control-label">收款类型:</label>
                                         <div class="col-xs-8">
@@ -73,23 +73,112 @@
                                     </div>
                                 </div>
 
-                                <!--<div class="col-xs-3">-->
-                                    <!--<div class="form-group">-->
-                                        <!--<label class="col-xs-4 control-label">资金类型:</label>-->
-                                        <!--<div class="col-xs-8">-->
-                                            <!--<select class="form-control" name="type">-->
-                                                <!--<option value="">- 全部 -</option>-->
-                                                <!--<option value="0" <%= (DWYRequest.query.type == '0')?"selected":"" %>>付款</option>-->
-                                                <!--<option value="1" <%= (DWYRequest.query.type == '1')?"selected":"" %>>代收的款项</option>-->
-                                                <!--<option value="2" <%= (DWYRequest.query.type == '2')?"selected":"" %>>已收的款项</option>-->
-                                            <!--</select>-->
+                                <div class="col-xs-6">
+                                    <div class="form-group">
+                                        <label class="col-xs-2 control-label">订单状态:</label>
+                                        <div class="col-xs-4">
+                                            <select class="form-control" name="stcodeStart">
+                                                <option value="">- 起始 请选择 -</option>
+                                                <%
+                                                stcodeInfo.forEach(function (element) { %>
+                                                <option value="<%= element.id %>" <%= (DWYRequest.query.stcodeStart == element.id)?"selected":"" %>><%= element.name %></option>
+                                                <%  }) %>
+                                            </select>
+                                        </div>
+                                        <label class="from-to control-label "> 至 </label>
+                                        <div class="col-xs-4 ">
+                                            <select class="form-control" name="stcodeEnd">
+                                                <option value="">- 截止 请选择 -</option>
+                                                <%
+                                                stcodeInfo.forEach(function (element) { %>
+                                                <option value="<%= element.id %>" <%= (DWYRequest.query.stcodeEnd == element.id)?"selected":"" %>><%= element.name %></option>
+                                                <%  }) %>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xs-12">
 
-                                        <!--</div>-->
-                                    <!--</div>-->
-                                <!--</div>-->
+                                <div class="col-xs-2">
+                                    <div class="form-group">
+                                        <label class="col-xs-4 control-label">订单号:</label>
+                                        <div class="col-xs-8">
+                                            <input class="form-control" placeholder="请输入订单号" type="text" value="<%= DWYRequest.query.tid %>" name="tid">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xs-2">
+                                    <div class="form-group">
+                                        <label class="col-xs-4 control-label">批次号:</label>
+                                        <div class="col-xs-8">
+                                            <input class="form-control" placeholder="请输入订单号" type="text" value="<%= DWYRequest.query.batchNumber %>" name="batchNumber">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xs-2">
+                                    <div class="form-group">
+                                        <label class="col-xs-4 control-label">订单类型:</label>
+                                        <div class="col-xs-8">
+                                            <select class="form-control" name="orderType">
+                                                <option value="">- 类型 -</option>
+                                                <% prodList.forEach(function (element) {  %>
+                                                <option value="<%= element.id %>" <%= (DWYRequest.query.productType == element.id)?"selected":"" %>>
+                                                    <%= element.name %>
+                                                </option>
+                                                <% }) %>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <div class="col-xs-6">
+                                    <div class="form-group">
+                                        <label class="col-xs-2 control-label">下单日期:</label>
+                                        <div class="col-xs-4">
+                                            <input class="form-control fg-date-picker" placeholder="" type="text" value="<%= DWYRequest.query.startDate%>"
+                                                   name="startDate">
+                                        </div>
+                                        <label class="from-to control-label "> 至 </label>
+                                        <div class="col-xs-4">
+                                            <input class="form-control fg-date-picker" placeholder="" type="text" value="<%= DWYRequest.query.endDate%>"
+                                                   name="endDate">
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
 
+                            <div class="col-xs-12">
 
+                                <div class="col-xs-6">
+                                    <div class="form-group">
+                                        <label class="col-xs-2 control-label">确认时间:</label>
+                                        <div class="col-xs-4">
+                                            <input class="form-control fg-date-picker" placeholder="" type="text" value="<%= DWYRequest.query.startPayTime%>"
+                                                   name="startPayTime">
+                                        </div>
+                                        <label class="from-to control-label "> 至 </label>
+                                        <div class="col-xs-4">
+                                            <input class="form-control fg-date-picker" placeholder="" type="text" value="<%= DWYRequest.query.endPayTime%>"
+                                                   name="endPayTime">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xs-6">
+                                    <div class="form-group">
+                                        <label class="col-xs-2 control-label">发货时间:</label>
+                                        <div class="col-xs-4">
+                                            <input class="form-control fg-date-picker" placeholder="" type="text" value="<%= DWYRequest.query.startOutTime%>"
+                                                   name="startOutTime">
+                                        </div>
+                                        <label class="from-to control-label "> 至 </label>
+                                        <div class="col-xs-4">
+                                            <input class="form-control fg-date-picker" placeholder="" type="text" value="<%= DWYRequest.query.endOutTime%>"
+                                                   name="endOutTime">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
 
 
                             <div class="col-xs-12">
@@ -136,11 +225,11 @@
                                 <th>客户名称</th>
                                 <th>零售价（元）</th>
                                 <th>结算价（元）</th>
-                                <!--<th>类型</th>-->
+                                <th>收款类型</th>
                                 <!--<th>说明</th>-->
                                 <th>确认日期</th>
                                 <th>对账日期</th>
-                                <th width="100">操作</th>
+                                <th width="180">操作</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -157,17 +246,21 @@
                                 <td><%= element.custName %></td>
                                 <td><%= element.retailPrice %></td>
                                 <td><%= element.factoryPrice %></td>
-                                <!--<td>element.typeName</td>-->
+                                <td><% if(element.payed == 0 || element.payed == 4){ %>
+                                    未付款
+                                    <% }else{%>
+                                    已付款
+                                    <% } %></td>
                                 <!--<td><element.describe</td>-->
                                 <td><%= DWY_Helper.getLocalDate(element.payTime) %></td>
                                 <td><%= DWY_Helper.getLocalDate(element.reconciliationTime) %></td>
-                                <td width="100">
+                                <td width="180">
                                     <% if(element.payed == 0){  %>
-                                    <a class="label label-primary checkThis" data-tid="<%=element.tid %>" data-bid="<%=element.bid %>">收款</a>
+                                    <a class="label label-primary optionThis" data-payed="<%=element.payed %>" data-tid="<%=element.tid %>" data-bid="<%=element.bid %>">锁定</a>
                                     <% } %>
-                                    <% if(element.payed == 4){  %>
-                                    <a class="label label-primary optionThis" data-type="pass" data-payed="<%=element.payed %>" data-tid="<%=element.tid %>" data-bid="<%=element.bid %>">确认收款</a>
-                                    <a class="label label-danger optionThis" data-type="notpass" data-payed="<%=element.payed %>" data-tid="<%=element.tid %>" data-bid="<%=element.bid %>">审核不通过</a>
+                                    <% if(element.payed == 4 && element.payStcode == 1){  %>
+                                    <a class="label label-primary checkThis" data-type="pass" data-payed="<%=element.payed %>" data-tid="<%=element.tid %>" data-bid="<%=element.bid %>">确认收款</a>
+                                    <a class="label label-danger optionThis" data-type="notpass" data-payed="<%=element.payed %>" data-tid="<%=element.tid %>" data-bid="<%=element.bid %>">解锁</a>
                                     <% } %>
                                     <% if(element.payed == 1 || element.payed == 2){  %>
                                     <a class="label label-success optionThis" data-payed="<%=element.payed %>" data-tid="<%=element.tid %>" data-bid="<%=element.bid %>">对账</a>
@@ -177,7 +270,7 @@
                             </tr>
                             <% })
                             }else{ %>
-                            <td colspan="9" class="text-align-center">暂无结果</td>
+                            <td colspan="13" class="text-align-center">暂无结果</td>
                             <% } %>
 
                             </tbody>
@@ -231,6 +324,9 @@
 <script type="text/javascript">
 
     $(document).ready(function () {
+
+        $(".fg-date-picker").flatpickr(data_time_picker.data_picker);  // jQuery
+
         $('#search-form').validationEngine();
         $(".checkThis").click(function () {
             var _self = $(this);
@@ -261,7 +357,7 @@
             switch (payed){
                 case '4':
                     var type = _self.attr('data-type');
-                    if(type = 'pass'){
+                    if(type == 'pass'){
                         ajaxUrl = '/collection/receiptCheck/pass'
                         text = '确认收款？'
                     }else{
@@ -276,6 +372,10 @@
                 case '2':
                     ajaxUrl = '/collection/reconciliation'
                     text = '确认对账？'
+                    break;
+                case '0':
+                    ajaxUrl = '/collection/receiptCheck'
+                    text = '确认锁定？'
                     break;
             }
 

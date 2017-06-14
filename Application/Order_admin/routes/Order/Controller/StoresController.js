@@ -132,6 +132,7 @@ var StoresController = {
     },
     doRecharge: function (req, res) {
         var cid = req.body.bid
+        var urltype = req.body.urltype
         request(Base.mergeRequestOptions({
             method: 'post',
             url: '/api/stores/money',
@@ -139,7 +140,12 @@ var StoresController = {
         }, req, res), function (error, response, body) {
             if (!error && response.statusCode == 201) {
                 Base.handlerSuccess(res, req);
-                res.redirect("/storesManage/detail/"+cid);
+                if(urltype == 'detail'){
+                    res.redirect("/storesManage/detail/"+cid);
+                }else{
+                    res.redirect("/storesManage/all/money");
+                }
+
             } else {
                 Base.handlerError(res, req, error, response, body);
             }
@@ -148,7 +154,34 @@ var StoresController = {
 
     },
 
+    allMoneyPage: function (req, res) {
+        var paramObject = helper.genPaginationQuery(req);
+        Base.multiDataRequest(req, res, [
+            {url: '/api/stores/money/store/page?'+ queryString.stringify(req.query), method: 'GET', resConfig: {keyName: 'storeMoneyList', is_must: true}},
+            // {url: '/api/assist/store/types', method: 'GET', resConfig: {keyName: 'storeTypes', is_must: true}},
+            // {url: '/api/assist/store/addrTypes', method: 'GET', resConfig: {keyName: 'addrTypesList', is_must: true}},
+            // {url: '/api/assist/region/types', method: 'GET', resConfig: {keyName: 'TypesList', is_must: true}},
 
+        ], function (req, res, resultList) {
+
+            var paginationInfo =  resultList.storeMoneyList;
+
+            var boostrapPaginator = new Pagination.TemplatePaginator(helper.genPageInfo({
+                prelink: paramObject.withoutPageNo,
+                current: paginationInfo.page,
+                rowsPerPage: paginationInfo.pageSize,
+                totalResult: paginationInfo.totalItems
+            }));
+
+            var returnData = Base.mergeData(helper.mergeObject({
+                title: ' ',
+                pagination: boostrapPaginator.render(),
+                Permission :Permissions,
+            },resultList));
+            res.render('order/manages/all_store_money', returnData);
+        });
+
+    },
     setStatus: function (req, res) {
         var cid = req.params.cid;
         var type = req.params.type;

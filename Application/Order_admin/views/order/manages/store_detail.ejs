@@ -114,7 +114,7 @@
                         <span class="label label-success">预警资金 <%= DWY_Helper.outputmoney(JSON.stringify(moneyInfo.warnFunds)) %>元</span>
                         <span class="label label-success">最底保证金 <%= DWY_Helper.outputmoney(JSON.stringify(moneyInfo.minFunds)) %>元</span>
                         <span class="label label-success">冻结资金 <%= DWY_Helper.outputmoney(JSON.stringify(moneyInfo.frozenFunds)) %>元</span>
-                        <a class="label label-primary" id="recharge">充值</a>
+                        <a class="label label-primary recharge" id="<%= storeInfo.bid %>" data-type="detail">充值</a>
                         <!--<a class="label label-primary" href="/storesManage/receiptMoney/<%= storeInfo.bid %>">收款</a>-->
                         <% } %>
                     </h6>

@@ -53,7 +53,7 @@
                                     <div class="form-group">
                                         <label class="col-xs-4 control-label">名称:</label>
                                         <div class="col-xs-8">
-                                            <input class="form-control" placeholder="请输入名称" value="<%= DWYRequest.query.name %>" type="text" name="name">
+                                            <input class="form-control" placeholder="请输入名称" value="<%= DWYRequest.query.jianp %>" type="text" name="jianp">
                                         </div>
                                     </div>
                                 </div>
@@ -142,21 +142,25 @@
                                 <td><%= element.name %></td>
                                 <td></td>
                                 <td></td>
+                                <td ><%= element.parentId %></td>
+                                <td ><%= element.id.toString().slice(0,2)%></td>
                                 <%        break;
                                 case "二级": %>
                                 <td></td>
                                 <td><%= element.name %></td>
                                 <td></td>
+                                <td ><%= element.parentId.toString().slice(0,2) %></td>
+                                <td ><%= element.id.toString().slice(0,4) %></td>
                                 <%         break;
                                 default: %>
                                 <td></td>
                                 <td></td>
                                 <td><%= element.name %></td>
+                                <td ><%= element.parentId.toString().slice(0,4)%></td>
+                                <td ><%= element.id %></td>
                                 <%  } %>
                                 <!--END 判断物料分类级别-->
 
-                                <td ><%= element.parentId %></td>
-                                <td ><%= element.id %></td>
                                 <td><%= DWY_Helper.getLocalDate(element.addTime) %></td>
                                 <td><%= element.remark %></td>
 
