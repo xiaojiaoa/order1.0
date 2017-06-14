@@ -673,7 +673,7 @@ router.put('/materialType/setStatus/:id/:type', Middleware.AuthCheck, MaterialTy
 var AgencyController = require('./Controller/AgencyController');
 
 // 获取机构信息
-router.get('/agency', Middleware.AuthCheck, Middleware.FilterEmptyField, AgencyController.listPage);
+router.get('/agency', Middleware.AuthCheck, Middleware.FilterEmptyField,Middleware.SetBackPath, AgencyController.listPage);
 
 // 机构详情页面
 router.get('/agency/detail/:cid', Middleware.AuthCheck, AgencyController.detailPage);
