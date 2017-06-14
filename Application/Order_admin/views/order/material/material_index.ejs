@@ -189,6 +189,7 @@
                     <a href="/materialManage?materNo=<%= DWYRequest.query.materNo%>&name=<%= DWYRequest.query.name%>&ftyId=<%= DWYRequest.query.ftyId%>&whseId=<%= DWYRequest.query.whseId%>&regionId=&<%= DWYRequest.query.regionId%>">
                     <li class="padding-10 <%=(!DWYRequest.query.stairCatId)? 'materielBak' : '' %>">全部</li>
                     </a>
+                    <% var standardFlag%>
                     <% if(DWY_Helper.isCanLoop(stairCategory)){
                     stairCategory.forEach(function (element) { %>
                     <a href="/materialManage?stairCatId=<%= element.id %>&materNo=<%= DWYRequest.query.materNo%>&name=<%= DWYRequest.query.name%>&ftyId=<%= DWYRequest.query.ftyId%>&whseId=<%= DWYRequest.query.whseId%>&regionId=<%= DWYRequest.query.regionId%>">
@@ -196,6 +197,9 @@
                             <%= element.name %>
                         </li>
                     </a>
+                    <% if(DWYRequest.query.stairCatId == element.id){
+                        standardFlag=element.standardFlag;
+                    }%>
                     <% })
                     } %>
                 </ul>
@@ -213,6 +217,10 @@
                                 <th width="10%">物料编号</th>
                                 <th width="10%">物料名称</th>
                                 <th width="15%">分类</th>
+                                <!--显示规格-->
+                                 <% if(standardFlag==1){%>
+                                <th>规格</th>
+                                <%}%>
                                 <th>单位</th>
                                 <th>库存</th>
                                 <th>预警</th>
@@ -221,6 +229,7 @@
                                 <th>欲扣数量</th>
                                 <th>包装类型</th>
                                 <th>销售码</th>
+                                <!--跟全部展示不同的字段-->
                                 <% if(DWYRequest.query.stairCatId){%>
                                 <th width="5%">采购价格</th>
                                 <th width="5%">出厂价格</th>
@@ -245,6 +254,10 @@
                                                    class=" "><%= element.id %></a></td>
                                 <td width="10%"><%= element.name %></td>
                                 <td width="15%"><%= element.catName %></td>
+                                <!--显示规格-->
+                                <% if(standardFlag==1){%>
+                                <th><%= element.standard %></th>
+                                <%}%>
                                 <td><%= element.unit %></td>
                                 <td><%= element.stock %></td>
                                 <td><%= element.warning %></td>
@@ -253,6 +266,7 @@
                                 <td><%= element.subFrozen %></td>
                                 <td><%= element.type %></td>
                                 <td><%= element.code %></td>
+                                <!--跟全部展示不同的字段-->
                                 <% if(DWYRequest.query.stairCatId){%>
                                 <td width="5%"><%= element.totalPrice %></td>
                                 <td width="5%"><%= element.totalUnitPrice %></td>
