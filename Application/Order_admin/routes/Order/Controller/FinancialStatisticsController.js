@@ -21,6 +21,8 @@ var FinancialStatisticsController = {
     listPage:function(req,res){
         Base.multiDataRequest(req, res, [
                 {url: '/api/orders/financial/statistics?'+ queryString.stringify(req.query), method: 'GET', resConfig: {keyName: 'FinancialStatisticsList', is_must: true}},
+                {url: '/api/assist/order/stcodes', method: 'GET', resConfig: {keyName: 'stcodeInfo', is_must: false}},
+                {url: '/api/assist/deco/color', method: 'GET', resConfig: {keyName: 'colorList', is_must: true}},
             ],
             function (req, res, resultList) {
                 var returnData = Base.mergeData(helper.mergeObject({

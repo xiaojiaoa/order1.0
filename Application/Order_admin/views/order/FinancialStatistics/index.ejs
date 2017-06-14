@@ -47,12 +47,22 @@
                                                 <div class="col-xs-4">
                                                     <select class="form-control" name="orderStcodeStart">
                                                         <option value="">- 请选择 -</option>
+                                                        <%
+                                                        stcodeInfo.forEach(function (element) { %>
+                                                        <option value="<%= element.id %>" <%= (DWYRequest.query.orderStcodeStart == element.id)?"selected":"" %>><%= element.name %></option>
+                                                        <%  }) %>
                                                     </select>
+
+
                                                 </div>
                                                 <label class="from-to control-label "> 至 </label>
                                                 <div class="col-xs-4">
                                                     <select class="form-control" name="orderStcodeEnd">
                                                         <option value="">- 请选择 -</option>
+                                                        <%
+                                                        stcodeInfo.forEach(function (element) { %>
+                                                        <option value="<%= element.id %>" <%= (DWYRequest.query.orderStcodeEnd == element.id)?"selected":"" %>><%= element.name %></option>
+                                                        <%  }) %>
                                                     </select>
                                                 </div>
                                             </div>
@@ -81,33 +91,17 @@
                                         <div class="col-xs-8">
                                             <select class="form-control" name="color">
                                                 <option value="">- 请选择 -</option>
+                                                <% colorList.forEach(function (element) {  %>
+                                                <option value="<%= element.id %>" <%= (DWYRequest.query.color == element.id)?"selected":"" %>>
+                                                    <%= element.name %>
+                                                </option>
+                                                <% }) %>
                                             </select>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-xs-9">
-                                    <div class="col-xs-12">
-                                        <div class="col-xs-6">
-                                    <div class="form-group">
-                                        <label class="col-xs-3 control-label">订单类型:</label>
-                                        <div class="col-xs-8">
-                                            <select class="form-control" name="orderType">
-                                                <option value="">- 请选择 -</option>
 
-                                            </select>
-                                        </div>
-                                    </div>
-                                </div>
-                                    </div>
-                                </div>
-                                <!--<div class="col-xs-3">-->
-                                    <!--<div class="form-group">-->
-                                        <!--<label class="col-xs-4 control-label">:</label>-->
-                                        <!--<div class="col-xs-8">-->
-                                            <!--<input class="form-control" placeholder="请输入物料编号" type="text" value="<%= DWYRequest.query.mateId %>" name="">-->
-                                        <!--</div>-->
-                                    <!--</div>-->
-                                <!--</div>-->
+                                
                             </div>
 
 
@@ -257,5 +251,21 @@
     $(document).ready(function () {
         pageSetUp();
         $(".fg-date-picker").flatpickr(data_time_picker.data_picker); // jQuery
+
+        var date_ = new Date();
+        var year = date_.getFullYear();
+        var month = date_.getMonth() + 1;
+        var firstdate = year + '-' + month + '-01';
+        var day = new Date(year,month,0);
+        var lastdate = year + '-' + month + '-' + day.getDate();
+
+        var val1 = $("input[name=payTimeStart]").val();
+        var val2 = $("input[name=payTimeEnd]").val();
+        if(val1 == null ||val1==''||val1==undefined){
+            $("input[name=payTimeStart]").val(firstdate)
+        }
+        if(val2 == null ||val2==''||val2==undefined) {
+            $("input[name=payTimeEnd]").val(lastdate)
+        }
     })
 </script>
