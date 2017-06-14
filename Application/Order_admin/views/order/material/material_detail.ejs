@@ -183,7 +183,7 @@
                             }%>
                             <tr>
                                 <td>包装类型</td>
-                                <td><%= mateInfo.type%></td>
+                                <td><%= DWY_Helper.getAssistVal(mateInfo.type, getPackageTypes) %></td>
                                 <td>是否为外协</td>
                                 <td>
                                     <form class="form-horizontal" method="post" action="/materials/outSourcing"  id="outSourcing-form">
