@@ -212,9 +212,9 @@
                                     <label class="checkbox-inline">
                                         <%
                                         if(element.stcode<=30){%>
-                                        <input type="checkbox" class="checkbox" name="roles" value="<%= element.id %>" stcode="<%= element.stcode %>" isDirect="<%= element.isDirect %>" gid="<%= element.empId %>" payCodes="<%= element.payCode %>" />
+                                        <input type="checkbox" class="checkbox" name="roles" value="<%= element.id %>" stcode="<%= element.stcode %>" isDirect="<%= element.isDirect %>" gid="<%= element.empId %>" isImprest="<%= element.isImprest %>" />
                                        <% }else{%>
-                                        <input type="checkbox" class="checkbox" name="roles" value="<%= element.id %>" stcode="<%= element.stcode %>" isDirect="<%= element.isDirect %>" disabled="disabled" />
+                                        <input type="checkbox" class="checkbox" name="roles" value="<%= element.id %>" stcode="<%= element.stcode %>" isDirect="<%= element.isDirect %>"  disabled="disabled" />
                                         <%}%>
                                         <span><%= index+1 %></span>
                                     </label>
@@ -240,7 +240,7 @@
                             <td colspan="12" class="text-align-center">暂无结果</td>
                             <%  }%>
                             <input type="hidden" name="stcodeStr" />
-                            <input type="hidden" name="payCodes" />
+                            <input type="hidden" name="isImprest" />
                             <input type="hidden" name="isdirect" />
                             <input type="hidden" name="gid" />
                             <input type="hidden" name="gidHid" value="<%= user.id %>" />
@@ -273,25 +273,25 @@
             })
             $("input[name='roles']").change(function () {
                 var vids='',
-                    payCodes='',
+                    isImprest='',
                     isDirect='',
                     gid='';
                 $('input[name=roles]').each(function(){
 
                     if($(this).is(':checked')){
                         vids += $(this).attr('stcode') + ',';
-                        payCodes += $(this).attr('payCodes') + ',';
+                        isImprest += $(this).attr('isImprest') + ',';
                         isDirect += $(this).attr('isDirect') + ',';
                         gid += $(this).attr('gid') + ',';
                         $("input[name='stcodeStr']").attr('stcode',vids);
-                        $("input[name='payCodes']").attr('payCodes',payCodes);
+                        $("input[name='isImprest']").attr('isImprest',isImprest);
                         $("input[name='isdirect']").attr('isdirect',isDirect);
                         $("input[name='gid']").attr('gid',gid);
                     }
                 })
 
                 stcodeStr=vids;
-                paycode=payCodes;
+                isImprests=isImprest;
                 isdirect=isDirect;
                 gidVali = gid;
 
@@ -390,7 +390,7 @@
                     layer.alert('请先审核！', {icon: 3})
                     return false;
                 }
-                if(paycode.indexOf('10')>-1){
+                if(isImprests.indexOf('1')>-1){
                     layer.alert('预付款未付清！', {icon: 3})
                     return false;
                 }
