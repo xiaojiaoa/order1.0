@@ -157,8 +157,12 @@ var Middleware = {
             }
             // res.status(500).end('请勿重复提交数据');
             // next();
-        }
-    })
+        },
+    }),
+    SetBackPath: function (req, res, next) {
+            req.session.backPath = req.url;
+            next();
+    },
 };
 
 //
@@ -606,7 +610,7 @@ router.post('/materials/outSourcing', Middleware.AuthCheck, MaterialController.o
  * */
 var MaterialAttrController = require('./Controller/MaterialAttrController');
 // 物料属性页面
-router.get('/materialManage/materialAttribute', Middleware.AuthCheck,Middleware.FilterEmptyField, MaterialAttrController.materialAttributePage);
+router.get('/materialManage/materialAttribute', Middleware.AuthCheck,Middleware.FilterEmptyField,MaterialAttrController.materialAttributePage);
 
 // 新建物料属性接口
 router.post('/material/attrCreate', Middleware.AuthCheck, MaterialAttrController.attrCreate);
@@ -636,7 +640,7 @@ router.put('/mateAttrVal/setStatus/:code/:type/:aid', Middleware.AuthCheck, Mate
 var MaterialTypeController = require('./Controller/MaterialTypeController');
 
 // 物料分类页面
-router.get('/materialManage/materialType', Middleware.AuthCheck,Middleware.FilterEmptyField,MaterialTypeController.materialTypePage);
+router.get('/materialManage/materialType', Middleware.AuthCheck,Middleware.FilterEmptyField,Middleware.SetBackPath,MaterialTypeController.materialTypePage);
 
 // 物料分类-新建一级分类页面
 router.get('/materialManage/materialType/creOne', Middleware.AuthCheck, MaterialTypeController.materialTypeCreOnePage);
