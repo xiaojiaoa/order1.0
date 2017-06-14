@@ -214,12 +214,12 @@
                             <thead>
                             <tr>
                                 <th width="50">序号</th>
-                                <th width="10%">物料编号</th>
+                                <th width="8%">物料编号</th>
                                 <th width="10%">物料名称</th>
-                                <th width="15%">分类</th>
+                                <th width="10%">分类</th>
                                 <!--显示规格-->
                                  <% if(standardFlag==1){%>
-                                <th>规格</th>
+                                <th width="8%">规格</th>
                                 <%}%>
                                 <th>单位</th>
                                 <th>库存</th>
@@ -227,8 +227,6 @@
                                 <th>可用</th>
                                 <th>启用</th>
                                 <th>欲扣数量</th>
-                                <th>包装类型</th>
-                                <th>销售码</th>
                                 <!--跟全部展示不同的字段-->
                                 <% if(DWYRequest.query.stairCatId){%>
                                 <th width="5%">采购价格</th>
@@ -240,8 +238,10 @@
                                 <th><%= element.name %></th>
                                 <% })
                                 } %>
-                                <th width="200">操作</th>
                                <% }%>
+                                <% if(DWYRequest.query.stairCatId && DWYRequest.query.stairCatId.slice(0, 2) == 90){%>
+                                <th width="200">操作</th>
+                                <% }%>
                             </tr>
                             </thead>
                             <tbody>
@@ -250,13 +250,13 @@
                             mateList.result.forEach(function (element, index) { %>
                             <tr class="<%= ( element.stock < element.warning ) ? 'mark-row' : '' %>">
                                 <td width="50"><%= index + 1 %></td>
-                                <td width="10%"><a href="/materialManage/detail/<%= bid %>/<%= element.id %>"
+                                <td width="8%"><a href="/materialManage/detail/<%= bid %>/<%= element.id %>"
                                                    class=" "><%= element.id %></a></td>
                                 <td width="10%"><%= element.name %></td>
-                                <td width="15%"><%= element.catName %></td>
+                                <td width="10%"><%= element.catName %></td>
                                 <!--显示规格-->
                                 <% if(standardFlag==1){%>
-                                <th><%= element.standard %></th>
+                                <th width="8%"><%= element.standard %></th>
                                 <%}%>
                                 <td><%= element.unit %></td>
                                 <td><%= element.stock %></td>
@@ -264,8 +264,6 @@
                                 <td><%= element.usable %></td>
                                 <td><%= element.stcode == 1 ? '是' : '否' %></td>
                                 <td><%= element.subFrozen %></td>
-                                <td><%= element.type %></td>
-                                <td><%= element.code %></td>
                                 <!--跟全部展示不同的字段-->
                                 <% if(DWYRequest.query.stairCatId){%>
                                 <td width="5%"><%= element.totalPrice %></td>
@@ -281,6 +279,8 @@
                                 <td></td>
                                 <% }
                                 } %>
+
+                                <% if(DWYRequest.query.stairCatId && DWYRequest.query.stairCatId.slice(0, 2) == 90){%>
                                 <td width="200">
                                     <a class="label label-primary display-none"
                                        href="/materialManage/add/<%= bid %>/<%= element.id %>">完善物料库存</a>
@@ -290,6 +290,8 @@
                                     <% } %>
                                     <% } %>
                                 </td>
+                                <% }%>
+
                             </tr>
                             <%} })
 
