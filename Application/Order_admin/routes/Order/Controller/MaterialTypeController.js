@@ -146,7 +146,7 @@ var MaterialTypeController = {
 
                 //TODO withPaginationInfo
                 //res.redirect(helper.withPaginationInfo("/materialManage/materialType",req.session));
-                res.redirect(req.session.backPath);
+                res.redirect(req.session.backPath?req.session.backPath:"/materialManage/materialType");
 
             } else {
                 Base.handlerError(res, req, error, response, body);
