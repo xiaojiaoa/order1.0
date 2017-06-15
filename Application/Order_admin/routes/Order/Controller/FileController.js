@@ -185,7 +185,8 @@ var FileController = {
         }, req, res), function (error, response, body) {
             if (!error && response.statusCode == 201) {
                 Base.handlerSuccess(res, req);
-                res.redirect("/orders/batchNumber");
+                //res.redirect("/orders/batchNumber");
+                res.redirect(req.session.backPath?req.session.backPath:"/orders/batchNumber");
             } else {
                 Base.handlerError(res, req, error, response, body);
             }

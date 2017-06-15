@@ -441,7 +441,7 @@ router.post('/collection/receiptCheck/notpass', Middleware.AuthCheck, OrderContr
 router.post('/collection/reconciliation', Middleware.AuthCheck, OrderController.reconciliation);
 
 // 批次号管理
-router.get('/orders/batchNumber', Middleware.AuthCheck, OrderController.batchPage);
+router.get('/orders/batchNumber', Middleware.AuthCheck,Middleware.SetBackPath,OrderController.batchPage);
 router.get('/orders/batchNumber/detail/:batchNumber/:factoryId', Middleware.AuthCheck, OrderController.batchDetail);
 
 router.get('/orders/batchNumber/downloadZip/:batchNumber/:factoryId', Middleware.AuthCheck, OrderController.downloadZip);
