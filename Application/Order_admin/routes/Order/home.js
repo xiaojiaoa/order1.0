@@ -329,7 +329,7 @@ router.put('/resupplys/check/getTask/:tid', Middleware.AuthCheck, OrderControlle
 router.put('/resupplys/check/unlock/:tid', Middleware.AuthCheck, OrderController.doUnlockResupplysCheck);
 
 // 补单拆单页面
-router.get('/orders/resupplys/apart', Middleware.AuthCheck, Middleware.FilterEmptyField, OrderController.apartPage);
+router.get('/orders/resupplys/apart', Middleware.AuthCheck, Middleware.FilterEmptyField,Middleware.SetBackPath,OrderController.apartPage);
 
 // 标记为审核中 (待拆单)
 // router.put('/resupplys/apart/getTask/:tid', Middleware.AuthCheck, OrderController.getTaskReApart);
@@ -459,10 +459,10 @@ router.post('/orders/batchNumber/schedule', Middleware.apiLimiter,Middleware.Aut
 var ApartController = require('./Controller/ApartController');
 
 // 拆单页面
-router.get('/apartPage/:type', Middleware.AuthCheck, Middleware.FilterEmptyField, ApartController.listPage);
+router.get('/apartPage/:type', Middleware.AuthCheck, Middleware.FilterEmptyField,Middleware.SetBackPath, ApartController.listPage);
 
 // 拆单审核页面
-router.get('/apartCheckPage/:type', Middleware.AuthCheck, Middleware.FilterEmptyField, ApartController.checkPage);
+router.get('/apartCheckPage/:type', Middleware.AuthCheck, Middleware.FilterEmptyField,Middleware.SetBackPath, ApartController.checkPage);
 
 // 标记为审核中 (待拆单)
 router.put('/apart/getTask/:tid', Middleware.AuthCheck, ApartController.getTask);

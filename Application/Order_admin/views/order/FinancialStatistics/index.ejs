@@ -160,6 +160,7 @@
                         <table class="table table-bordered table-striped">
                             <thead>
                             <tr>
+                                <th>品牌名</th>
                                 <th>受理订单数</th>
                                 <th>出厂价合计</th>
                                 <th>加盟价合计</th>
@@ -171,6 +172,7 @@
                             if(DWY_Helper.isCanLoop(FinancialStatisticsList.todayPage.result)){
                             FinancialStatisticsList.todayPage.result.forEach(function (element, index) { %>
                             <tr>
+                                <td><%= element.brandName %></td>
                                 <td><%= element.orderNum %></td>
                                 <td><%= element.factoryPrice %></td>
                                 <td><%= element.frncPrice %></td>
@@ -207,6 +209,7 @@
                         <table class="table table-bordered table-striped">
                             <thead>
                             <tr>
+                                <th>品牌名</th>
                                 <th>受理订单数</th>
                                 <th>出厂价合计</th>
                                 <th>加盟价合计</th>
@@ -218,6 +221,7 @@
                             if(DWY_Helper.isCanLoop(FinancialStatisticsList.customPage.result)){
                                 FinancialStatisticsList.customPage.result.forEach(function (element, index) { %>
                             <tr>
+                                <td><%= element.brandName %></td>
                                 <td><%= element.orderNum %></td>
                                 <td><%= element.factoryPrice %></td>
                                 <td><%= element.frncPrice %></td>
