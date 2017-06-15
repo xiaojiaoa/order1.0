@@ -116,7 +116,8 @@ var ApartController = {
         }, req, res), function (error, response, body) {
             if (!error && response.statusCode == 201) {
                 Base.handlerSuccess(res, req);
-                res.redirect("/apartPage/getOrder");
+                //  res.redirect("/apartPage/getOrder");
+                res.redirect(req.session.backPath?req.session.backPath:"/apartPage/getOrder");
             } else {
                 Base.handlerError(res, req, error, response, body);
             }
@@ -146,9 +147,11 @@ var ApartController = {
             if (!error && response.statusCode == 201) {
                 Base.handlerSuccess(res, req);
                 if(req.body.orderType == 'order'){
-                    res.redirect("/apartPage/getOrder");
+                  //  res.redirect("/apartPage/getOrder");
+                    res.redirect(req.session.backPath?req.session.backPath:"/apartPage/getOrder");
                 }else{
-                    res.redirect("/orders/resupplys/apart");
+                   // res.redirect("/orders/resupplys/apart");
+                    res.redirect(req.session.backPath?req.session.backPath:"/orders/resupplys/apart");
                 }
 
             } else {
@@ -263,7 +266,8 @@ var ApartController = {
         }, req, res), function (error, response, body) {
             if (!error && response.statusCode == 201) {
                 Base.handlerSuccess(res, req);
-                res.redirect("/apartCheckPage/getOrder");
+               // res.redirect("/apartCheckPage/getOrder");
+                res.redirect(req.session.backPath?req.session.backPath:"/apartCheckPage/getOrder");
             } else {
                 Base.handlerError(res, req, error, response, body);
             }
