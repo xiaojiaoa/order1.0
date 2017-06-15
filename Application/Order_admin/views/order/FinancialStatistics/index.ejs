@@ -5,7 +5,7 @@
 
 
 <!-- MAIN PANEL -->
-<div id="main" role="main" class="mainFlex">
+<div id="main" role="main">
 
     <!-- RIBBON -->
     <div id="ribbon">
@@ -33,9 +33,15 @@
                                 <!--输入字段-->
                                 <div class="col-xs-3">
                                     <div class="form-group">
-                                        <label class="col-xs-4 control-label">门店号:</label>
+                                        <label class="col-xs-4 control-label">门店:</label>
                                         <div class="col-xs-8">
-                                            <input class="form-control" placeholder="请输入门店号" type="text" value="<%= DWYRequest.query.bid %>" name="bid">
+                                            <select class="form-control" name="bid">
+                                                <option value="">- 请选择 -</option>
+                                                <%
+                                                storesList.forEach(function (element) { %>
+                                                <option value="<%= element.id %>" <%= (DWYRequest.query.bid == element.id)?"selected":"" %>><%= element.storeName %></option>
+                                                <%  }) %>
+                                            </select>
                                         </div>
                                     </div>
                                 </div>
@@ -97,6 +103,24 @@
                                                 </option>
                                                 <% }) %>
                                             </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xs-9">
+                                    <div class="col-xs-12">
+                                        <div class="col-xs-6">
+                                                <div class="form-group">
+                                                    <label class="col-xs-3 control-label">机构:</label>
+                                                    <div class="col-xs-8">
+                                                        <select class="form-control" name="factoryId">
+                                                            <option value="">- 请选择 -</option>
+                                                            <%
+                                                            organizationsList.forEach(function (element) { %>
+                                                            <option value="<%= element.id %>" <%= (DWYRequest.query.factoryId == element.id)?"selected":"" %>><%= element.name %></option>
+                                                            <%  }) %>
+                                                        </select>
+                                                    </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
