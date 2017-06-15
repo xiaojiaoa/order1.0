@@ -926,9 +926,9 @@ tr > td .more-space:last-child {
 }
 
 .table-scroll thead, .table-scroll tbody tr {
-    /*display: table;*/
+    display: table;
     width: 100%;
-    /*table-layout: fixed;*/
+    table-layout: fixed;
 }
 .table-scroll thead{
     display: block;
@@ -937,7 +937,7 @@ tr > td .more-space:last-child {
 .table-scroll thead tr {
     display: table;
     width: 100%;
-    /*table-layout: fixed;*/
+    table-layout: fixed;
 }
 
 .table-scroll tr td {
