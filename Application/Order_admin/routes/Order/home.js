@@ -1228,7 +1228,7 @@ router.post('/applyPurchases/del/:purcIds', Middleware.AuthCheck,PurchaseControl
 
 
 // 采购详情
-router.get('/purchase/detail', Middleware.AuthCheck,PurchaseController.purchaseDetail);
+router.get('/purchase/detail', Middleware.AuthCheck,Middleware.FilterEmptyField,Middleware.SetBackPath,PurchaseController.purchaseDetail);
 // 生成采购单
 router.post('/purchases/Order/:tid', Middleware.AuthCheck,PurchaseController.purchaseOrder);
 // 采购单详情
