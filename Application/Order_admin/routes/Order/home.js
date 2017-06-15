@@ -979,7 +979,7 @@ router.get('/delivery/tidList/:lid',OutWarehouseController.deliveryTidList);
 router.post('/doDelivery', Middleware.AuthCheck, OutWarehouseController.doDelivery);
 
 // 发货通知单页面
-router.get('/deliveryNote', Middleware.AuthCheck, OutWarehouseController.deliveryNotePage);
+router.get('/deliveryNote', Middleware.AuthCheck,Middleware.FilterEmptyField,Middleware.SetBackPath, OutWarehouseController.deliveryNotePage);
 
 // 发货通知单-审核
 router.put('/deliveryNote/doChecked/:id/:stcode', Middleware.AuthCheck, OutWarehouseController.doDeliveryChecked);
@@ -1024,7 +1024,7 @@ router.get('/outProduct/deatil/:id', Middleware.AuthCheck, OutWarehouseControlle
 router.post('/outProduct/doCargoout', Middleware.AuthCheck, OutWarehouseController.outProducDoCargoout);
 
 // 成品备货页面
-router.get('/productStock', Middleware.AuthCheck, OutWarehouseController.productStock);
+router.get('/productStock', Middleware.AuthCheck,Middleware.FilterEmptyField,Middleware.SetBackPath, OutWarehouseController.productStock);
 
 // 备货-领取发货通知单
 router.get('/stock/receive/:diId', Middleware.AuthCheck, OutWarehouseController.stockReceive);

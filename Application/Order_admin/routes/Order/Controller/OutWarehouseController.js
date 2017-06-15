@@ -94,7 +94,8 @@ var OutWarehouseController = {
         }, req, res), function (error, response, body) {
             if (!error && response.statusCode == 201) {
                 Base.handlerSuccess(res, req);
-                res.redirect("/deliveryNote");
+               // res.redirect("/deliveryNote");
+                res.redirect(req.session.backPath?req.session.backPath:"/deliveryNote");
             } else {
                 Base.handlerError(res, req, error, response, body);
             }
@@ -435,7 +436,8 @@ var OutWarehouseController = {
         }, req, res), function (error, response, body) {
             if (!error && response.statusCode == 200) {
                 Base.handlerSuccess(res, req);
-                res.redirect("/productStock");
+               // res.redirect("/productStock");
+                res.redirect(req.session.backPath?req.session.backPath:"/productStock");
             } else {
                 Base.handlerError(res, req, error, response, body);
             }
@@ -453,7 +455,8 @@ var OutWarehouseController = {
         }, req, res), function (error, response, body) {
             if (!error && response.statusCode == 200) {
                 Base.handlerSuccess(res, req);
-                res.redirect("/productStock");
+                // res.redirect("/productStock");
+                res.redirect(req.session.backPath?req.session.backPath:"/productStock");
             } else {
                 Base.handlerError(res, req, error, response, body);
             }
