@@ -501,7 +501,7 @@ router.put('/apartCheck/doPass/:tid', Middleware.AuthCheck, ApartController.doPa
 var StoresController = require('./Controller/StoresController');
 
 // 门店管理页面
-router.get('/storesManage', Middleware.AuthCheck, Middleware.FilterEmptyField, StoresController.listPage);
+router.get('/storesManage', Middleware.AuthCheck, Middleware.FilterEmptyField,Middleware.SetBackPath, StoresController.listPage);
 
 // 门店详情页面
 router.get('/storesManage/detail/:cid', Middleware.AuthCheck, StoresController.detailPage);
@@ -511,7 +511,7 @@ router.post('/storesManage/doRecharge', Middleware.AuthCheck, StoresController.d
 
 
 // 所有门店资金页面
-router.get('/storesManage/all/money', Middleware.AuthCheck, Middleware.FilterEmptyField, StoresController.allMoneyPage);
+router.get('/storesManage/all/money', Middleware.AuthCheck, Middleware.FilterEmptyField,Middleware.SetBackPath, StoresController.allMoneyPage);
 
 // 新建门店页面
 router.get('/storesManage/create', Middleware.AuthCheck, StoresController.createPage);

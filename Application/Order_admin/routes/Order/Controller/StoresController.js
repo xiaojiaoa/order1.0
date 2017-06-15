@@ -106,7 +106,8 @@ var StoresController = {
         }, req, res), function (error, response, body) {
             if (!error && response.statusCode == 201) {
                 Base.handlerSuccess(res, req);
-                res.redirect("/storesManage");
+                // res.redirect("/storesManage");
+                res.redirect(req.session.backPath?req.session.backPath:"/storesManage");
             } else {
                 Base.handlerError(res, req, error, response, body);
             }
@@ -123,7 +124,8 @@ var StoresController = {
         }, req, res), function (error, response, body) {
             if (!error && response.statusCode == 201) {
                 Base.handlerSuccess(res, req);
-                res.redirect("/storesManage");
+               // res.redirect("/storesManage");
+                res.redirect(req.session.backPath?req.session.backPath:"/storesManage");
             } else {
                 Base.handlerError(res, req, error, response, body);
             }
@@ -143,7 +145,8 @@ var StoresController = {
                 if(urltype == 'detail'){
                     res.redirect("/storesManage/detail/"+cid);
                 }else{
-                    res.redirect("/storesManage/all/money");
+                  //  res.redirect("/storesManage/all/money");
+                    res.redirect(req.session.backPath?req.session.backPath:"/storesManage/all/money");
                 }
 
             } else {
