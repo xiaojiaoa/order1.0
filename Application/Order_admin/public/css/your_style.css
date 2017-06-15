@@ -926,9 +926,9 @@ tr > td .more-space:last-child {
 }
 
 .table-scroll thead, .table-scroll tbody tr {
-    display: table;
+    /*display: table;*/
     width: 100%;
-    table-layout: fixed;
+    /*table-layout: fixed;*/
 }
 .table-scroll thead{
     display: block;
@@ -937,7 +937,7 @@ tr > td .more-space:last-child {
 .table-scroll thead tr {
     display: table;
     width: 100%;
-    table-layout: fixed;
+    /*table-layout: fixed;*/
 }
 
 .table-scroll tr td {
@@ -956,6 +956,39 @@ tr > td .more-space:last-child {
     border-bottom: none;
     /*width: calc( 100% - 1em )*/
 }
+
+.table-scroll2 tfoot{
+    /*position: absolute;*/
+    /*top: 0;*/
+    left:13px;
+}
+.table-scroll2 tfoot tr{
+    background-color: #eee;
+    background-image: -webkit-gradient(linear,0 0,0 100%,from(#f2f2f2),to(#fafafa));
+    background-image: -webkit-linear-gradient(top,#f2f2f2 0,#fafafa 100%);
+    background-image: -moz-linear-gradient(top,#f2f2f2 0,#fafafa 100%);
+    background-image: -ms-linear-gradient(top,#f2f2f2 0,#fafafa 100%);
+    background-image: -o-linear-gradient(top,#f2f2f2 0,#fafafa 100%);
+    background-image: -linear-gradient(top,#f2f2f2 0,#fafafa 100%);
+    font-size: 12px;
+}
+.table-scroll2>thead:first-child>tr:first-child>th{
+    border-top: 0;
+}
+.table-scroll2 > thead > tr > th:first-child {
+    border-left: 0;
+}
+.table-scroll2>thead>tr>th {
+    border-width: 1px;
+}
+.table-scroll2>thead>tr>th {
+    padding: 8px 10px;
+}
+.table-scroll2>thead>tr>th {
+    border: 1px solid #ddd;
+}
+
+
 
 .well:last-child {
     margin-bottom: 0;
