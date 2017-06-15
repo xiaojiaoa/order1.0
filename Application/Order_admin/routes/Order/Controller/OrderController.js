@@ -119,7 +119,8 @@ var OrderController = {
         }, req, res), function (error, response, body) {
             if (!error && response.statusCode == 201) {
                 Base.handlerSuccess(res, req);
-                res.redirect("/order/check/waitOrder");
+                //res.redirect("/order/check/waitOrder");
+                res.redirect(req.session.backPath?req.session.backPath:"/order/check/waitOrder");
             } else {
                 Base.handlerError(res, req, error, response, body);
             }
@@ -205,9 +206,11 @@ var OrderController = {
             if (!error && response.statusCode == 201) {
                 Base.handlerSuccess(res, req);
                 if(req.body.orderType == 'resupply'){
-                    res.redirect("/orders/resupplys/review");
+                   // res.redirect("/orders/resupplys/review");
+                    res.redirect(req.session.backPath?req.session.backPath:"/orders/resupplys/review");
                 }else{
-                    res.redirect("/order/check/waitOrder");
+                    //res.redirect("/order/check/waitOrder");
+                    res.redirect(req.session.backPath?req.session.backPath:"/order/check/waitOrder");
                 }
             } else {
                 Base.handlerError(res, req, error, response, body);
@@ -223,9 +226,11 @@ var OrderController = {
             if (!error && response.statusCode == 201) {
                 Base.handlerSuccess(res, req);
                 if(req.body.orderType == 'order'){
-                    res.redirect("/order/check/waitOrder");
+                    //res.redirect("/order/check/waitOrder");
+                    res.redirect(req.session.backPath?req.session.backPath:"/order/check/waitOrder");
                 }else{
-                    res.redirect("/orders/resupplys/review");
+                    // res.redirect("/orders/resupplys/review");
+                    res.redirect(req.session.backPath?req.session.backPath:"/orders/resupplys/review");
                 }
             } else {
                 Base.handlerError(res, req, error, response, body);
@@ -244,7 +249,8 @@ var OrderController = {
             if (!error && response.statusCode == 201) {
                 if(rehref == 1){
                     Base.handlerSuccess(res, req);
-                    res.redirect("/order/permit");
+                   // res.redirect("/order/permit");
+                    res.redirect(req.session.backPath?req.session.backPath:"/order/permit");
                 }else{
                     res.sendStatus(200);
                 }
@@ -303,9 +309,11 @@ var OrderController = {
             if (!error && response.statusCode == 201) {
                 Base.handlerSuccess(res, req);
                 if(req.body.orderType == 'order'){
-                    res.redirect("/order/check/getOrder");
+                  //  res.redirect("/order/check/getOrder");
+                    res.redirect(req.session.backPath?req.session.backPath:"/order/check/getOrder");
                 }else{
-                    res.redirect("/orders/resupplys/apart");
+                   //  res.redirect("/orders/resupplys/apart");
+                    res.redirect(req.session.backPath?req.session.backPath:"/orders/resupplys/apart");
                 }
             } else {
                 Base.handlerError(res, req, error, response, body);
@@ -527,7 +535,8 @@ var OrderController = {
         }, req, res), function (error, response, body) {
             if (!error && response.statusCode == 201) {
                 Base.handlerSuccess(res, req);
-                res.redirect("/orders/resupplys/accept");
+                // res.redirect("/orders/resupplys/accept");
+                res.redirect(req.session.backPath?req.session.backPath:"/orders/resupplys/accept");
             } else {
                 Base.handlerError(res, req, error, response, body);
             }
@@ -656,7 +665,8 @@ var OrderController = {
         }, req, res), function (error, response, body) {
             if (!error && response.statusCode == 201) {
                 Base.handlerSuccess(res, req);
-                res.redirect("/orders/resupplys/review");
+                // res.redirect("/orders/resupplys/review");
+                res.redirect(req.session.backPath?req.session.backPath:"/orders/resupplys/review");
             } else {
                 Base.handlerError(res, req, error, response, body);
             }
@@ -720,7 +730,8 @@ var OrderController = {
         }, req, res), function (error, response, body) {
             if (!error && response.statusCode == 201) {
                 Base.handlerSuccess(res, req);
-                res.redirect("/orders/resupplys/apartCheck");
+                // res.redirect("/orders/resupplys/apartCheck");
+                res.redirect(req.session.backPath?req.session.backPath:"/orders/resupplys/apartCheck");
             } else {
                 Base.handlerError(res, req, error, response, body);
             }
@@ -1039,7 +1050,8 @@ var OrderController = {
             if (!error && response.statusCode == 201) {
                 Base.handlerSuccess(res, req);
                // console.log('statusCode')
-                res.redirect("/orders/nesting");
+                // res.redirect("/orders/nesting");
+                res.redirect(req.session.backPath?req.session.backPath:"/orders/nesting");
             } else {
                 Base.handlerError(res, req, error, response, body);
             }
@@ -1350,7 +1362,8 @@ var OrderController = {
         }, req, res), function (error, response, body) {
             if (!error && response.statusCode == 201) {
                 Base.handlerSuccess(res, req);
-                res.redirect('/collection')
+               // res.redirect('/collection')
+                res.redirect(req.session.backPath?req.session.backPath:'/collection');
             } else {
                 Base.handlerError(res, req, error, response, body);
             }

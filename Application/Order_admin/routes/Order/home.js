@@ -304,7 +304,7 @@ router.post('/:type/communicate/doCreate', Middleware.AuthCheck, OrderController
 router.get('/orders/resupplys', Middleware.AuthCheck, Middleware.FilterEmptyField, OrderController.resupplyPage);
 
 // 补单受理页面
-router.get('/orders/resupplys/accept', Middleware.AuthCheck, Middleware.FilterEmptyField, OrderController.acceptPage);
+router.get('/orders/resupplys/accept', Middleware.AuthCheck, Middleware.FilterEmptyField,Middleware.SetBackPath, OrderController.acceptPage);
 
 // 标记为审核中
 router.put('/resupplys/getTask/:tid', Middleware.AuthCheck, OrderController.getTaskResupplys);
@@ -322,7 +322,7 @@ router.put('/resupplys/doPass/:tid', Middleware.AuthCheck, OrderController.doPas
 router.post('/resupplys/saveResupplyReason', Middleware.AuthCheck, OrderController.saveResupplyReason);
 
 // 补单审核页面
-router.get('/orders/resupplys/review', Middleware.AuthCheck, Middleware.FilterEmptyField, OrderController.reviewPage);
+router.get('/orders/resupplys/review', Middleware.AuthCheck, Middleware.FilterEmptyField,Middleware.SetBackPath, OrderController.reviewPage);
 // 补单审核-标记为审核中
 router.put('/resupplys/check/getTask/:tid', Middleware.AuthCheck, OrderController.getTaskResupplysCheck);
 //  补单审核-解锁补单
@@ -344,7 +344,7 @@ router.post('/resupplys/apart/notPass', Middleware.AuthCheck, OrderController.no
 // router.put('/resupplys/apart/doPass/:tid', Middleware.AuthCheck, OrderController.doPassReApart);
 
 // 补单拆单审核页面
-router.get('/orders/resupplys/apartCheck', Middleware.AuthCheck, Middleware.FilterEmptyField, OrderController.apartCheckPage);
+router.get('/orders/resupplys/apartCheck', Middleware.AuthCheck, Middleware.FilterEmptyField,Middleware.SetBackPath, OrderController.apartCheckPage);
 
 // 标记为审核中 (待拆单审核)
 // router.put('/resupplys/apartCheck/getTask/:tid', Middleware.AuthCheck, OrderController.getTaskCheckReApart);
@@ -363,16 +363,16 @@ router.get('/order/resupply/detail/:tid', Middleware.AuthCheck, OrderController.
 
 
 //  订单审核页面
-router.get('/order/check/:type', Middleware.AuthCheck, OrderController.checkPage);
+router.get('/order/check/:type', Middleware.AuthCheck, Middleware.FilterEmptyField,Middleware.SetBackPath,OrderController.checkPage);
 
 //  订单流程记录页面
 router.get('/order/process', Middleware.AuthCheck, OrderController.processPage);
 
 //  订单许可页面
-router.get('/order/permit', Middleware.AuthCheck, OrderController.permitPage);
+router.get('/order/permit', Middleware.AuthCheck,Middleware.FilterEmptyField,Middleware.SetBackPath, OrderController.permitPage);
 
 // 订单排料页面
-router.get('/orders/nesting', Middleware.AuthCheck, OrderController.nestingPage);
+router.get('/orders/nesting', Middleware.AuthCheck,Middleware.FilterEmptyField,Middleware.SetBackPath, OrderController.nestingPage);
 // 标记排料中页面
 router.post('/orders/getNestingTask/:cid', Middleware.AuthCheck, OrderController.getNestingTask);
 // 修改批次页面
@@ -430,7 +430,7 @@ router.get('/order/exportWorkpiece/:tid',Middleware.AuthCheck,OrderController.ex
 router.get('/order/exportParts/:tid',Middleware.AuthCheck,OrderController.exportParts);
 
 // 收款页面
-router.get('/collection', Middleware.AuthCheck, OrderController.receiptMoneyPage);
+router.get('/collection', Middleware.AuthCheck,Middleware.FilterEmptyField,Middleware.SetBackPath, OrderController.receiptMoneyPage);
 // 付款
 router.post('/collection/receiptCheck', Middleware.AuthCheck, OrderController.receiptCheck);
 // 确认收款
