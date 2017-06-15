@@ -219,7 +219,6 @@
                             }else{ %>
                             <td colspan="11" class="text-align-center">暂无结果</td>
                             <%  }%>
-                            <input type="hidden" name="stcodeStr" />
                             </tbody>
                         </table>
                     </div>
@@ -237,19 +236,8 @@
     $(document).ready(function () {
         pageSetUp();
         $(".fg-date-picker").flatpickr(data_time_picker.data_picker); // jQuery
-
         var checkedValue = $('#checkedValue');
         $("input[name='roles']").change(function () {
-            var vids='';
-            $('input[name=roles]:checked').each(function(){
-                vids += $(this).attr('stcode') + ',';
-                if($(this).is(':checked')){
-                    $("input[name='stcodeStr']").attr('stcode',vids);
-                }else{
-                    $("input[name='stcodeStr']").attr('stcode','');
-                }
-                stcodeStr=$("input[name='stcodeStr']").attr('stcode');
-            })
             if($(this).is(':checked')){
                 checkedValue.addClass(this.value+',');
             }else{
@@ -257,7 +245,8 @@
             }
         });
         $("#DelOrder").click(function(){
-            if(checkedValue.attr('class')==null||checkedValue.attr('class')=='') {
+            var atClass = checkedValue.attr('class');
+            if(atClass==null || atClass=='' || atClass==undefined) {
                 layer.alert('请选择！', {icon: 3});
                 return false;
             }
@@ -278,11 +267,7 @@
                     });
                 },
                 function(index){layer.close(index)})
-
-
         })
-
-
         $(".PurchaseOrder").click(function(){
             var tid=$(this).data('purchaseId');
             layer.confirm('确认生成采购单?',{icon: 3, title:'提示'},

@@ -111,7 +111,7 @@ nav ul span.menu-item-parent {
 }
 
 .search-form {
-    width: 1400px;
+    min-width: 1400px;
     float: none;
     /*margin: auto;*/
     padding-top: 20px;
