@@ -536,7 +536,7 @@ router.put('/storesManage/setStatus/:cid/:type', Middleware.AuthCheck, StoresCon
 var  MaterialController = require('./Controller/MaterialController');
 
 // 物料管理首页
-router.get('/materialManage', Middleware.AuthCheck,Middleware.FilterEmptyField,MaterialController.indexPage);
+router.get('/materialManage', Middleware.AuthCheck,Middleware.FilterEmptyField,Middleware.SetBackPath,MaterialController.indexPage);
 
 // 物料详情页面
 router.get('/materialManage/detail/:bid/:mid', Middleware.AuthCheck, MaterialController.detailPage);

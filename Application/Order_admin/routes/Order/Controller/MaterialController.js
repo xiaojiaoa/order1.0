@@ -267,7 +267,8 @@ var MaterialController = {
         }, req, res), function (error, response, body) {
             if (!error && response.statusCode == 201) {
                 Base.handlerSuccess(res, req);
-                res.redirect("/materialManage");
+               // res.redirect("/materialManage");
+                res.redirect(req.session.backPath?req.session.backPath:"/materialManage");
             } else {
                 Base.handlerError(res, req, error, response, body);
             }
