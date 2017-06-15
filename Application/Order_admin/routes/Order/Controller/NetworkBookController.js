@@ -73,7 +73,8 @@ var NetworkBookController = {
                 Base.handlerSuccess(res, req);
                 // var lid = JSON.parse(body).lid;
                // console.log('success!!!')
-                res.redirect("/networkBook");
+               // res.redirect("/networkBook");
+                res.redirect(req.session.backPath?req.session.backPath:"/networkBook");
 
             } else {
                 Base.handlerError(res, req, error, response, body);

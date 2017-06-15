@@ -1266,7 +1266,7 @@ router.post('/purchase/materialCreate', Middleware.AuthCheck,PurchaseController.
 var NetworkBookController = require('./Controller/NetworkBookController');
 
 // 网络预约
-router.get('/networkBook', Middleware.AuthCheck, NetworkBookController.indexPage);
+router.get('/networkBook', Middleware.AuthCheck, Middleware.FilterEmptyField,Middleware.SetBackPath,NetworkBookController.indexPage);
 
 // 客户信息
 router.put('/measure/:mobile', Middleware.AuthCheck, NetworkBookController.measurePage);
