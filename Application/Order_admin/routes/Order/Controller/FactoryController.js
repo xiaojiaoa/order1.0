@@ -66,7 +66,8 @@ var FactoryController = {
         }, req, res), function (error, response, body) {
             if (!error && response.statusCode == 201) {
                 Base.handlerSuccess(res, req);
-                res.redirect("/factory");
+                // res.redirect("/factory");
+                res.redirect(req.session.backPath?req.session.backPath:"/factory");
             } else {
                 Base.handlerError(res, req, error, response, body);
             }

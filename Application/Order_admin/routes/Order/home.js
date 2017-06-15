@@ -787,7 +787,7 @@ router.put('/employees/openLogin/:cid', Middleware.AuthCheck, EmployeeController
 var FactoryController = require('./Controller/FactoryController');
 
 // 获取工厂列表
-router.get('/factory', Middleware.AuthCheck, Middleware.FilterEmptyField, FactoryController.listPage);
+router.get('/factory', Middleware.AuthCheck, Middleware.FilterEmptyField,Middleware.SetBackPath, FactoryController.listPage);
 
 // 工厂详情页面
 router.get('/factory/detail/:ftyId', Middleware.AuthCheck, FactoryController.detailPage);
