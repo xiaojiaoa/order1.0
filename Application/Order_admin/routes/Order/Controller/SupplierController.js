@@ -121,9 +121,7 @@ var SupplierController = {
             url: '/api/suppliers/isDeleted/'+tid+'?isDeleted='+type,
         }, req, res), function (error, response, body) {
             if (!error && response.statusCode == 201) {
-                Base.handlerSuccess(res, req);
-              // res.redirect("/supplier/sort");
-                res.redirect(req.session.backPath?req.session.backPath:"/supplier/sort");
+                res.sendStatus(200);
             } else {
                 Base.handlerError(res, req, error, response, body);
             }
