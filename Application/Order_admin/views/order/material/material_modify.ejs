@@ -348,22 +348,20 @@
 
 
         //拼接单位
-        $("input[name='mateUnit']").on("change",function () {
             var mateUnitCode=[];
             $("input[name='mateUnit']:checked").each(function(){
                 mateUnitCode.push($(this).val());
             });
             $("#mateUnitsId").val(mateUnitCode.join(','));
-        });
+
 
         //拼接属性
-        $("select[name='attrVal']").on("change",function () {
             var code=[];
             $("select[name='attrVal'] option:selected").each(function(){
                 code.push($(this).val());
             });
             $("#materialId").val(code.join(','));
-        });
+
 
         //初始化表单
         $("#material_modify_form").validationEngine();
