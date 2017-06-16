@@ -195,6 +195,7 @@ var MaterialController = {
              {url: '/api/materials/attributes/'+id, method: 'GET', resConfig: {keyName: 'materialInfo', is_must: true}},
              {url: '/api/assist/material/units', method: 'GET', resConfig: {keyName: 'unitsInfo', is_must: true}},
              {url: '/api/assist/package/types', method: 'GET', resConfig: {keyName: 'getPackageTypes', is_must: true}},
+             {url: '/api/assist/default/package/types', method: 'GET', resConfig: {keyName: 'defaultPackageTypes', is_must: true}},
          ], function (req, res, resultList) {
 
              var unitsInfo = {},getPackageTypes={};
@@ -205,7 +206,7 @@ var MaterialController = {
              helper.setChildDate(resultList.getPackageTypes,getPackageTypes);
              resultList.getPackageTypes=_.orderBy(getPackageTypes,['id'],['asc']);
 
-            // console.log(' resultList.getPackageTypes', resultList.getPackageTypes);
+           //  console.log(666666,resultList.defaultPackageTypes);
 
              var returnData = Base.mergeData(helper.mergeObject({
                  title: ' ',
