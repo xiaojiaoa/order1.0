@@ -121,43 +121,43 @@
             <div class="row dis-flex">
                 <div class="col-xs-12 dis-flex">
                     <div class="table-responsive dis-flex">
-                        <table class="table table-bordered table-striped table-hover table-scroll dis-flex">
+                        <table class="table table-bordered table-striped table-hover table-scroll2">
                             <thead>
                             <tr>
-                                <th width="4%">序号</th>
-                                <th width="100">发货通知单号</th>
-                                <th width="80">合同号</th>
-                                <th width="100">客户姓名</th>
-                                <th width="100">客户电话</th>
-                                <th width="18%">收货地址</th>
+                                <th>序号</th>
+                                <th>发货通知单号</th>
+                                <th>合同号</th>
+                                <th>客户姓名</th>
+                                <th>客户电话</th>
+                                <th>收货地址</th>
                                 <th>经销商</th>
                                 <th>状态</th>
                                 <th>审核人</th>
-                                <th width="150">审核时间</th>
+                                <th>审核时间</th>
                                 <th>司机姓名</th>
                                 <th>物流车牌号</th>
                                 <th>入库包数/总包数</th>
-                                <th width="220px">操作</th>
+                                <th>操作</th>
                             </tr>
                             </thead>
                             <tbody>
                             <% if(DWY_Helper.isCanLoop(deliveryNotice.result)){
                             deliveryNotice.result.forEach(function (element, index) {%>
                             <tr>
-                                <td width="4%"><%= index+1 %></td>
-                                <td width="100"><a href="/deliveryNote/deatil/<%=element.diId %>"><%=element.diId %></a></td>
-                                <td width="80"><%=element.contNo %></td>
-                                <td width="100"><%=element.cName %></td>
-                                <td width="100"><%=element.mobile %></td>
-                                <td width="18%"><%=element.address %></td>
+                                <td><%= index+1 %></td>
+                                <td><a href="/deliveryNote/deatil/<%=element.diId %>"><%=element.diId %></a></td>
+                                <td><%=element.contNo %></td>
+                                <td><%=element.cName %></td>
+                                <td><%=element.mobile %></td>
+                                <td><%=element.address %></td>
                                 <td><%=element.stoName %></td>
                                 <td><%=element.typeName%></td>
                                 <td><%=element.reviewName %></td>
-                                <td width="150"><%= DWY_Helper.getLocalDate(element.reviewDate) %></td>
+                                <td><%= DWY_Helper.getLocalDate(element.reviewDate) %></td>
                                 <td><%=element.driverName %></td>
                                 <td><%=element.licensePlate %></td>
                                 <td><%= element.packageIsIn? element.packageIsIn: 0 %>/<%=element.packageTotal %></td>
-                                <td width="220px">
+                                <td>
                                     <% if(element.type == 2 && DWY_Helper.hasPermission(Permission.cargoManages.deliveryReview.id, permission)){ %>
                                     <a class="label label-primary checkThis" data-id="<%=element.diId %>" data-type="1">审核</a>
                                     <a class="label label-danger checkThis" data-id="<%=element.diId %>" data-type="2">审核驳回</a>

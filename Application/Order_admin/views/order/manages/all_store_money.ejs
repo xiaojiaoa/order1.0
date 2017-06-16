@@ -98,17 +98,17 @@
             <div class="row dis-flex">
                 <div class="col-xs-12 dis-flex">
                     <div class="table-responsive dis-flex">
-                        <table class="table table-bordered table-hover table-striped table-scroll dis-flex">
+                        <table class="table table-bordered table-hover table-striped table-scroll2">
                             <thead>
                             <tr>
-                                <th width="4%">序号</th>
+                                <th>序号</th>
                                 <th>门店编号</th>
                                 <th>门店名称</th>
                                 <th>门店实际可用资金</th>
                                 <th>预警资金</th>
                                 <th>门店最底保证金</th>
                                 <th>冻结资金</th>
-                                <th width="80">操作</th>
+                                <th>操作</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -116,14 +116,14 @@
                             if(DWY_Helper.isCanLoop(storeMoneyList.result) ){
                             storeMoneyList.result.forEach(function (element, index) { %>
                             <tr>
-                                <td width="4%"><%= index+1 %></td>
+                                <td><%= index+1 %></td>
                                 <td><a href="/storesManage/detail/<%= element.bid %>"><%= element.bid %></a></td>
                                 <td><%= element.storeName %></td>
                                 <td><%= DWY_Helper.outputmoney(JSON.stringify(element.account)) %></td>
                                 <td><%= DWY_Helper.outputmoney(JSON.stringify(element.warnFunds)) %></td>
                                 <td><%= DWY_Helper.outputmoney(JSON.stringify(element.minFunds)) %></td>
                                 <td><%= DWY_Helper.outputmoney(JSON.stringify(element.frozenFunds)) %></td>
-                                <td  width="80">
+                                <td>
                                     <a class="label label-primary recharge" id="<%= element.bid %>" data-type="list">充值</a>
                                 </td>
                             </tr>

@@ -127,10 +127,10 @@
             <div class="row dis-flex">
                 <div class="col-xs-12 dis-flex">
                     <div class="table-responsive dis-flex">
-                        <table class="table table-bordered table-striped table-hover table-scroll dis-flex">
+                        <table class="table table-bordered table-striped table-hover table-scroll2">
                             <thead>
                             <tr>
-                                <th width="4%">序号</th>
+                                <th>序号</th>
                                 <th>客户号</th>
                                 <th>客户名</th>
                                 <th>客户电话</th>
@@ -147,7 +147,7 @@
                             if(customerList.result && (customerList.result instanceof Array) && customerList.result.length != 0  ){
                             customerList.result.forEach(function (element) { %>
                             <tr>
-                                <td width="4%"><%= num %></td>
+                                <td><%= num %></td>
                                 <td><a href="/customer/detail/<%= element.cid %>"><%= element.cid %></a></td>
                                 <td><%= element.name %></td>
                                 <td><%= element.mobile %></td>

@@ -196,18 +196,18 @@
             <div class="row dis-flex">
                 <div class="col-xs-12 dis-flex">
                     <div class="table-responsive dis-flex">
-                        <table class="table table-bordered table-striped table-hover table-scroll dis-flex">
+                        <table class="table table-bordered table-striped table-hover table-scroll2">
                             <thead>
                             <tr>
-                                <th width="4%">序号</th>
+                                <th>序号</th>
                                 <th>品牌</th>
                                 <th>产品类型</th>
-                                <th width="12%">补单号</th>
-                                <th width="12%">原订单号</th>
+                                <th>补单号</th>
+                                <th>原订单号</th>
                                 <th>产品信息</th>
                                 <th>补单建单人</th>
                                 <th>补单建单时间</th>
-                                <th width="15%">补单原因</th>
+                                <th>补单原因</th>
                                 <th>补单当前状态</th>
                             </tr>
                             </thead>
@@ -216,15 +216,15 @@
                             if(resupplyList.result && resupplyList.result.length>0 ){
                             resupplyList.result.forEach(function (element, index) { %>
                             <tr>
-                                <td width="4%"><%= index+1 %></td>
+                                <td><%= index+1 %></td>
                                 <td><%= element.brandStr %></td>
                                 <td><%= element.productTypeStr %></td>
-                                <td width="12%"><a href="/order/resupply/detail/<%= element.tid %>"><%= element.tid %></a></td>
-                                <td width="12%"><a href="/order/detail/<%= element.orgTid %>"><%= element.orgTid %></a></td>
+                                <td><a href="/order/resupply/detail/<%= element.tid %>"><%= element.tid %></a></td>
+                                <td><a href="/order/detail/<%= element.orgTid %>"><%= element.orgTid %></a></td>
                                 <td><%= element.productInfo %></td>
                                 <td><%= element.createOperator %></td>
                                 <td><%= element.addTime %></td>
-                                <td width="15%"><%= element.causeStr %></td>
+                                <td><%= element.causeStr %></td>
                                 <td><%= element.statusStr %></td>
                             </tr>
                             <% })

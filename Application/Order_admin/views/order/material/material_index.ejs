@@ -211,16 +211,16 @@
             <div class="row dis-flex">
                 <div class="col-xs-12 dis-flex">
                     <div class="table-responsive dis-flex">
-                        <table class="table table-bordered table-striped table-hover table-scroll dis-flex">
+                        <table class="table table-bordered table-striped table-hover table-scroll2">
                             <thead>
                             <tr>
-                                <th width="50">序号</th>
-                                <th width="10%">物料编号</th>
-                                <th width="10%">物料名称</th>
-                                <th width="10%">分类</th>
+                                <th>序号</th>
+                                <th>物料编号</th>
+                                <th>物料名称</th>
+                                <th>分类</th>
                                 <!--显示规格-->
                                  <% if(standardFlag==1){%>
-                                <th width="8%">规格</th>
+                                <th>规格</th>
                                 <%}%>
                                 <th>单位</th>
                                 <th>库存</th>
@@ -230,10 +230,10 @@
                                 <th>欲扣数量</th>
                                 <!--跟全部展示不同的字段-->
                                 <% if(DWYRequest.query.stairCatId){%>
-                                <th width="5%">采购价格</th>
-                                <th width="5%">出厂价格</th>
-                                <th width="5%">结算价</th>
-                                <th width="5%">零售价</th>
+                                <th>采购价格</th>
+                                <th>出厂价格</th>
+                                <th>结算价</th>
+                                <th>零售价</th>
                                 <% if(DWY_Helper.isCanLoop(theadList)){
                                 theadList.forEach(function (element) { %>
                                 <th><%= element.name %></th>
@@ -241,7 +241,7 @@
                                 } %>
                                <% }%>
                                 <% if(DWYRequest.query.stairCatId && DWYRequest.query.stairCatId.slice(0, 2) == 90){%>
-                                <th width="200">操作</th>
+                                <th>操作</th>
                                 <% }%>
                             </tr>
                             </thead>
@@ -250,14 +250,14 @@
                             if(mateList.totalItems != 0  ){
                             mateList.result.forEach(function (element, index) { %>
                             <tr class="<%= ( element.stock < element.warning ) ? 'mark-row' : '' %>">
-                                <td width="50"><%= index + 1 %></td>
-                                <td width="10%"><a href="/materialManage/detail/<%= bid %>/<%= element.id %>"
+                                <td><%= index + 1 %></td>
+                                <td><a href="/materialManage/detail/<%= bid %>/<%= element.id %>"
                                                    class=" "><%= element.id %></a></td>
-                                <td width="10%"><%= element.name %></td>
-                                <td width="10%"><%= element.catName %></td>
+                                <td><%= element.name %></td>
+                                <td><%= element.catName %></td>
                                 <!--显示规格-->
                                 <% if(standardFlag==1){%>
-                                <th width="8%"><%= element.standard %></th>
+                                <th><%= element.standard %></th>
                                 <%}%>
                                 <td><%= element.unit %></td>
                                 <td><%= element.stock %></td>
@@ -267,10 +267,10 @@
                                 <td><%= element.subFrozen %></td>
                                 <!--跟全部展示不同的字段-->
                                 <% if(DWYRequest.query.stairCatId){%>
-                                <td width="5%"><%= element.totalPrice %></td>
-                                <td width="5%"><%= element.totalUnitPrice %></td>
-                                <td width="5%"><%= element.purchasePrice %></td>
-                                <td width="5%"><%= element.retailPrice %></td>
+                                <td><%= element.totalPrice %></td>
+                                <td><%= element.totalUnitPrice %></td>
+                                <td><%= element.purchasePrice %></td>
+                                <td><%= element.retailPrice %></td>
                                 <% if(DWY_Helper.isCanLoop(element.valueList)){
                                 element.valueList.forEach(function (elementtab) { %>
                                 <td><%= elementtab.name %></td>
@@ -282,7 +282,7 @@
                                 } %>
 
                                 <% if(DWYRequest.query.stairCatId && DWYRequest.query.stairCatId.slice(0, 2) == 90){%>
-                                <td width="200">
+                                <td>
                                     <a class="label label-primary display-none"
                                        href="/materialManage/add/<%= bid %>/<%= element.id %>">完善物料库存</a>
                                     <% if(element.id.slice(0, 2) == 90){ %>

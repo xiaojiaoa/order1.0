@@ -137,10 +137,10 @@
             <div class="row dis-flex">
                 <div class="col-xs-12 dis-flex">
                     <div class="table-responsive dis-flex">
-                        <table class="table table-bordered table-striped table-hover table-scroll dis-flex">
+                        <table class="table table-bordered table-striped table-hover table-scroll2">
                             <thead>
                             <tr>
-                                <th width="4%">序号</th>
+                                <th>序号</th>
                                 <th>配件名称</th>
                                 <th>ID</th>
                                 <th>配件规格</th>
@@ -157,7 +157,7 @@
                             if(DWY_Helper.isCanLoop(orderCountList.result)){
                             orderCountList.result.forEach(function (element,index) { %>
                             <tr>
-                                <td width="4%"><%= index+1 %></td>
+                                <td><%= index+1 %></td>
                                 <td><a href="/orderCount/detail?name=<%= element.name%>&startDates=<%= DWYRequest.query.startDates%>&endDates=<%= DWYRequest.query.endDates%>"><%= element.name %></a></td>
                                 <td><%= element.id %></td>
                                 <td><%= element.standard %></td>

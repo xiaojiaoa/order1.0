@@ -41,10 +41,10 @@
             <div class="row dis-flex">
                 <div class="col-xs-12 dis-flex">
                     <div class="table-responsive dis-flex">
-                        <table class="table table-bordered table-striped table-hover table-scroll dis-flex">
+                        <table class="table table-bordered table-striped table-hover table-scroll2">
                             <thead>
                             <tr>
-                                <th width="6%"><label class="checkbox-inline">
+                                <th><label class="checkbox-inline">
                                         <input type="checkbox" class="checkbox"
                                                id="checkAll">
                                         <span>&nbsp;</span>
@@ -62,7 +62,7 @@
                             <% if(DWY_Helper.isCanLoop(stockPakgList.result)){
                             stockPakgList.result.forEach(function (element, index) {  %>
                             <tr>
-                                <td width="6%">
+                                <td>
                                     <label class="checkbox-inline">
                                         <input type="checkbox" class="checkbox"
                                                name="pakgs" value="<%= element.packageLid %>" <%= element.stcode!=2? 'disabled':''%>>

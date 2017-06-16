@@ -113,12 +113,12 @@
             <div class="row dis-flex">
                 <div class="col-xs-12 dis-flex">
                     <div class="table-responsive dis-flex">
-                        <table class="table table-bordered table-striped table-hover table-scroll dis-flex">
+                        <table class="table table-bordered table-striped table-hover table-scroll2">
                             <thead>
                             <tr>
-                                <th width="4%">序号</th>
-                                <th width="7%">批次号</th>
-                                <th width="7%">机构</th>
+                                <th>序号</th>
+                                <th>批次号</th>
+                                <th>机构</th>
                                 <th>订单数量</th>
                                 <th>包装数量</th>
 
@@ -127,7 +127,7 @@
                                 <th>生成时间</th>
                                 <th>包装柜员</th>
                                 <th>包装时间</th>
-                                <th width="420">操作</th>
+                                <th>操作</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -138,9 +138,9 @@
                             <% }else{
                             batchNumber.result.forEach(function (element, index) { %>
                             <tr>
-                                <td width="4%"><%= index+1 %></td>
-                                <td width="7%"><a href="/orders/batchNumber/detail/<%= element.batchNumber %>/<%= element.factoryId %>"><%= element.batchNumber %></a></td>
-                                <td width="7%"><%= element.factoryName %></td>
+                                <td><%= index+1 %></td>
+                                <td><a href="/orders/batchNumber/detail/<%= element.batchNumber %>/<%= element.factoryId %>"><%= element.batchNumber %></a></td>
+                                <td><%= element.factoryName %></td>
                                 <td><%= element.orderNumber %></td>
                                 <td><%= element.packetNumber %></td>
                                 <td><%= element.packageStr %></td>
@@ -149,7 +149,7 @@
                                 <td><%= DWY_Helper.getLocalDateYMD(element.addTime) %></td>
                                 <td><%= element.packetGname %></td>
                                 <td><%= DWY_Helper.getLocalDateYMD(element.packetTime) %></td>
-                                <td width="420">
+                                <td>
                                     <% if (DWY_Helper.hasPermission(Permission.orderPackage.create.id, permission ) ){ %>
                                     <% if(element.stcode==0){%>
                                     <a class="label label-primary crePackage" batchNumber="<%= element.batchNumber %>" factoryId="<%= element.factoryId %>">生成包装</a>

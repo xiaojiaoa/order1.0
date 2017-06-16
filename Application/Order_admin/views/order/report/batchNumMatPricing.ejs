@@ -163,18 +163,18 @@
             <div class="row dis-flex">
                 <div class="col-xs-12 dis-flex">
                     <div class="table-responsive dis-flex">
-                        <table class="table table-bordered table-striped table-hover table-scroll dis-flex">
+                        <table class="table table-bordered table-striped table-hover table-scroll2">
                             <thead>
                             <tr>
-                                <th width="4%">序号</th>
+                                <th>序号</th>
                                 <th>批次号</th>
                                 <th>物料名称</th>
-                                <th width="5%">采购总价 </th>
-                                <th width="5%">出厂总价 </th>
-                                <th width="5%">采购价格</th>
-                                <th width="5%">出厂价格</th>
-                                <th width="5%">结算价</th>
-                                <th width="5%">零售价</th>
+                                <th>采购总价 </th>
+                                <th>出厂总价 </th>
+                                <th>采购价格</th>
+                                <th>出厂价格</th>
+                                <th>结算价</th>
+                                <th>零售价</th>
                                 <th>物料总数</th>
                                 <th>批次日期</th>
                                 <th>排料日期</th>
@@ -185,15 +185,15 @@
                             if(DWY_Helper.isCanLoop(batchNumMatPricingList.result)){
                             batchNumMatPricingList.result.forEach(function (element,index) { %>
                             <tr>
-                                <td width="4%"><%= index+1 %></td>
+                                <td><%= index+1 %></td>
                                 <td><a href="/orderMatPricing?name=<%= DWYRequest.query.name%>&startDate=<%= DWYRequest.query.startDate%>&endDate=<%= DWYRequest.query.endDate%>&batchNumber=<%=( DWYRequest.query.batchNumber)? DWYRequest.query.batchNumber:element.batchNumber%>&startDates=<%= DWYRequest.query.startDates%>&endDates=<%= DWYRequest.query.endDates%> %>"><%= element.batchNumber %></a></td>
                                 <td><%= element.name %></td>
-                                <td width="5%"><%= element.totalPrice %></td>
-                                <td width="5%"><%= element.totalUnitprice %></td>
-                                <td width="5%"><%= element.oneTotalPrice %></td>
-                                <td width="5%"><%= element.oneTotalUnitPrice %></td>
-                                <td width="5%"><%= element.purchasePrice %></td>
-                                <td width="5%"><%= element.retailPrice %></td>
+                                <td><%= element.totalPrice %></td>
+                                <td><%= element.totalUnitprice %></td>
+                                <td><%= element.oneTotalPrice %></td>
+                                <td><%= element.oneTotalUnitPrice %></td>
+                                <td><%= element.purchasePrice %></td>
+                                <td><%= element.retailPrice %></td>
                                 <td><%= element.amount %></td>
                                 <td><%= DWY_Helper.getLocalDateYMD(element.addTime) %></td>
                                 <td><%= DWY_Helper.getLocalDateYMD(element.createTime)%></td>

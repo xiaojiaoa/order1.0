@@ -169,15 +169,15 @@
             <div class="row dis-flex">
                 <div class="col-xs-12 dis-flex">
                     <div class="table-responsive dis-flex">
-                        <table class="table table-bordered table-striped table-hover table-scroll dis-flex">
+                        <table class="table table-bordered table-striped table-hover table-scroll2">
                             <thead>
                             <tr>
-                                <th width="4%">序号</th>
+                                <th>序号</th>
                                 <th>入库单号</th>
                                 <th>工厂</th>
                                 <th>仓库</th>
                                 <th>区域</th>
-                                <th width="12%">订单号</th>
+                                <th>订单号</th>
                                 <th>客户名称</th>
                                 <th>日期</th>
                                 <th>交货日期</th>
@@ -188,12 +188,12 @@
                             <% if(prodList.result.length>0){%>
                             <% prodList.result.forEach(function (element, index) {%>
                             <tr>
-                                <td width="4%"><%= index+1 %></td>
+                                <td><%= index+1 %></td>
                                 <td><a href="/enterProduct/detail/<%=element.inId %>"><%=element.inId %></a></td>
                                 <td><%=element.ftyName%></td>
                                 <td><%=element.whseName%></td>
                                 <td><%=element.regionName%></td>
-                                <td width="12%"><a href="/order/detail/<%=element.tid %>"><%=element.tid %></a></td>
+                                <td><a href="/order/detail/<%=element.tid %>"><%=element.tid %></a></td>
                                 <td><%=element. cName%></td>
                                 <td><%= DWY_Helper.getLocalDate(element.editTime) %></td>
                                 <td><%= DWY_Helper.getLocalDate(element.deliveryTime) %></td>

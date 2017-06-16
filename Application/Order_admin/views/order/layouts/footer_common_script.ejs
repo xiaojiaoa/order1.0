@@ -113,6 +113,9 @@
             localStorage.setItem('menuScroll-height',innerHeight);
         });
 
-
+        //自适应固定表头
+        if($(".table-scroll2").length>0){
+            $(".table-scroll2").freezeHeader();
+        }
     })
 </script>

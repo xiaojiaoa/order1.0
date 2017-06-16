@@ -128,10 +128,10 @@
             <div class="row dis-flex">
                 <div class="col-xs-12 dis-flex">
                     <div class="table-responsive dis-flex">
-                        <table class="table table-bordered table-striped table-hover table-scroll dis-flex">
+                        <table class="table table-bordered table-striped table-hover table-scroll2">
                             <thead>
                             <tr>
-                                <th width="4%">序号</th>
+                                <th>序号</th>
                                 <th>物料编号</th>
                                 <th>物料名</th>
                                 <th>物料类型</th>
@@ -146,7 +146,7 @@
                             if(DWY_Helper.isCanLoop(outMateRepList.result)){
                             outMateRepList.result.forEach(function (element,index) { %>
                             <tr>
-                                <td width="4%"><%= index+1 %></td>
+                                <td><%= index+1 %></td>
                                 <td><a href="/outMateRep/detail?mateId=<%= element.mateId %>&startDate=<%= DWYRequest.query.startDate%>&endDate=<%= DWYRequest.query.endDate%>"><%= element.mateId %></a></td>
                                 <td><%= element.mateName%></td>
                                 <td><%= element.catId %></td>

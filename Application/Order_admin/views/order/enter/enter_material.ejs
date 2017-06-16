@@ -148,10 +148,10 @@
             <div class="row dis-flex">
                 <div class="col-xs-12 dis-flex">
                     <div class="table-responsive dis-flex">
-                        <table class="table table-bordered table-striped table-hover table-scroll dis-flex">
+                        <table class="table table-bordered table-striped table-hover table-scroll2">
                             <thead>
                             <tr>
-                                <th width="4%">序号</th>
+                                <th>序号</th>
                                 <th>入库单号</th>
                                 <th>日期</th>
                                 <th>工厂</th>
@@ -166,7 +166,7 @@
                             <% if(mateList.result.length > 0){ %>
                             <% mateList.result.forEach(function (element, index) { %>
                             <tr>
-                                <td width="4%"><%= index + 1 %></td>
+                                <td><%= index + 1 %></td>
                                 <td><a href="/enterMaterial/detail/<%= element.inId %>"><%= element.inId %></a></td>
                                 <td><%= DWY_Helper.getLocalDate(element.editTime) %></td>
                                 <td><%= element.ftyName %></td>

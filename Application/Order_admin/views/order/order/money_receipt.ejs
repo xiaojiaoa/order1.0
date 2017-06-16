@@ -161,11 +161,11 @@
             <div class="row dis-flex">
                 <div class="col-xs-12 dis-flex">
                     <div class="table-responsive dis-flex">
-                        <table class="table table-bordered table-hover table-striped table-scroll dis-flex">
+                        <table class="table table-bordered table-hover table-striped table-scroll2">
                             <thead>
                             <tr>
-                                <th width="50">序号</th>
-                                <th width="180">订单号</th>
+                                <th>序号</th>
+                                <th>订单号</th>
                                 <th>订单状态</th>
                                 <th>所属机构</th>
                                 <th>所属门店</th>
@@ -177,7 +177,7 @@
                                 <!--<th>说明</th>-->
                                 <th>确认日期</th>
                                 <th>对账日期</th>
-                                <th width="180">操作</th>
+                                <th>操作</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -185,8 +185,8 @@
                             if(DWY_Helper.isCanLoop(moneyList.result)){
                             moneyList.result.forEach(function (element, index) { %>
                             <tr>
-                                <td width="50"><%= index+1 %></td>
-                                <td width="180"><a href="/order/detail/<%= element.tid %>"><%= element.tid %></a></td>
+                                <td><%= index+1 %></td>
+                                <td><a href="/order/detail/<%= element.tid %>"><%= element.tid %></a></td>
                                 <td><%= DWY_Helper.getAssistVal(element.stcode,statusInfo) %></td>
                                 <td><%= element.orgName %></td>
                                 <td><%= element.storeName %></td>
@@ -202,7 +202,7 @@
                                 <!--<td><element.describe</td>-->
                                 <td><%= DWY_Helper.getLocalDate(element.payTime) %></td>
                                 <td><%= DWY_Helper.getLocalDate(element.reconciliationTime) %></td>
-                                <td width="180">
+                                <td>
                                     <% if(element.payed == 0){  %>
                                     <a class="label label-primary optionThis" data-payed="<%=element.payed %>" data-tid="<%=element.tid %>" data-bid="<%=element.bid %>">锁定</a>
                                     <% } %>

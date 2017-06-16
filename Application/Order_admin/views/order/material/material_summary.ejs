@@ -198,18 +198,18 @@
                 </div>
                 <div class="col-xs-12 dis-flex">
                     <div class="table-responsive dis-flex">
-                        <table class="table table-bordered table-striped table-hover table-scroll dis-flex">
+                        <table class="table table-bordered table-striped table-hover table-scroll2">
                             <thead>
                             <tr>
-                                <th width="3%">序号</th>
-                                <th width="4%">物料编号</th>
-                                <th width="5%">物料名称</th>
-                                <th width="10%">物料分类名</th>
-                                <th width="2%">供应商名称</th>
-                                <th width="3%">经手人</th>
-                                <th width="3%">出入库时间</th>
-                                <th width="3%">出入库数量</th>
-                                <th width="5%">出入库单号</th>
+                                <th>序号</th>
+                                <th>物料编号</th>
+                                <th>物料名称</th>
+                                <th>物料分类名</th>
+                                <th>供应商名称</th>
+                                <th>经手人</th>
+                                <th>出入库时间</th>
+                                <th>出入库数量</th>
+                                <th>出入库单号</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -217,15 +217,15 @@
                             if(DWY_Helper.isCanLoop(mateInAndOutList.result)){
                             mateInAndOutList.result.forEach(function (element, index) { %>
                             <tr>
-                                <td width="3%"><%= index+1 %></td>
-                                <td width="4%"><%= element.mateId %></td>
-                                <td width="5%"><%= element.mateName %></td>
-                                <td width="10%"><%= element.catName%></td>
-                                <td width="2%"><%= element.suppName%></td>
-                                <td width="3%"><%= element.empName %></td>
-                                <td width="3%"><%= DWY_Helper.getLocalDateYMD(element.time )%></td>
-                                <td width="3%"><%= element.amount %></td>
-                                <td width="5%"><%= element.id%></td>
+                                <td><%= index+1 %></td>
+                                <td><%= element.mateId %></td>
+                                <td><%= element.mateName %></td>
+                                <td><%= element.catName%></td>
+                                <td><%= element.suppName%></td>
+                                <td><%= element.empName %></td>
+                                <td><%= DWY_Helper.getLocalDateYMD(element.time )%></td>
+                                <td><%= element.amount %></td>
+                                <td><%= element.id%></td>
                             </tr>
                             <% })
 

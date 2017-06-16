@@ -95,10 +95,10 @@
             <div class="row dis-flex">
                 <div class="col-xs-12 dis-flex">
                     <div class="table-responsive dis-flex">
-                        <table class="table table-bordered table-striped table-hover table-scroll dis-flex">
+                        <table class="table table-bordered table-striped table-hover table-scroll2">
                             <thead>
                             <tr>
-                                <th width="4%">序号</th>
+                                <th>序号</th>
                                 <th>出库单号</th>
                                 <th>出库时间</th>
                                 <th>出库类型id</th>
@@ -116,7 +116,7 @@
                             if(DWY_Helper.isCanLoop(outMateDetail.result)){
                             outMateDetail.result.forEach(function (element,index) { %>
                             <tr>
-                                <td width="4%"><%= index+1 %></td>
+                                <td><%= index+1 %></td>
                                 <td><%= element.outId %></td>
                                 <td><%= DWY_Helper.getLocalDateYMD(element.outTime) %></td>
                                 <td><%= element.type%></td>

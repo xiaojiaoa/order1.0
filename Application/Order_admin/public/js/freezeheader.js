@@ -43,6 +43,10 @@
                 var tfoot = elem.find('tfoot')
                 tfoot.find('th').each(function (index) {
                     var cellWidth = obj.header.find('th').eq(index).css('width');
+                    $(window).resize(function() {
+                        cellWidth = obj.header.find('th').eq(index).css('width');
+                        window.location.reload();
+                    });
                     $(this).css('width', cellWidth);
                     tfoot.css('position','absolute').css('top',0);
                 });

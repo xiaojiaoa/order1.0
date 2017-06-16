@@ -115,19 +115,19 @@
             <div class="row dis-flex">
                 <div class="col-xs-12 dis-flex">
                     <div class="table-responsive dis-flex">
-                        <table class="table table-bordered table-hover table-scroll dis-flex">
+                        <table class="table table-bordered table-hover table-scroll2">
                             <thead>
                             <tr>
-                                <th width="5%">序号</th>
-                                <th width="7%">工厂仓储编号</th>
-                                <th width="15%">工厂仓储名称</th>
-                                <th width="7%">工厂仓储类型</th>
-                                <th width="15%">所属机构</th>
+                                <th>序号</th>
+                                <th>工厂仓储编号</th>
+                                <th>工厂仓储名称</th>
+                                <th>工厂仓储类型</th>
+                                <th>所属机构</th>
                                 <th >所在省市区</th>
-                                <th width="8%">物流约束标识</th>
-                                <th width="10%">新建时间</th>
-                                <th width="8%">状态</th>
-                                <th width="300px">操作</th>
+                                <th>物流约束标识</th>
+                                <th>新建时间</th>
+                                <th>状态</th>
+                                <th>操作</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -135,16 +135,16 @@
                             if(DWY_Helper.isCanLoop(factoryList.result)){
                             factoryList.result.forEach(function (element, index) { %>
                             <tr class="<%= element.stcode == 1 ? '' : 'disabletr' %>">
-                                <td width="5%"><%= index+1 %></td>
-                                <td width="7%"><%= element.ftyId %></td>
-                                <td  width="15%"><a href="/factory/detail/<%= element.ftyId %>"><%= element.name %></a></td>
-                                <td width="7%"><%= DWY_Helper.getFactoryType(element.type) %></td>
-                                <td  width="15%"> <%= element.bidName %></td>
+                                <td><%= index+1 %></td>
+                                <td><%= element.ftyId %></td>
+                                <td><a href="/factory/detail/<%= element.ftyId %>"><%= element.name %></a></td>
+                                <td><%= DWY_Helper.getFactoryType(element.type) %></td>
+                                <td> <%= element.bidName %></td>
                                 <td><%= element.provinceName %> <%= element.cityName %> <%= element.distName %></td>
-                                <td width="8%"><%= DWY_Helper.getWhether(element.areaFlag) %></td>
-                                <td width="10%"><%= DWY_Helper.getLocalDateYMD(element.addTime) %></td>
-                                <td width="8%"><%= element.stcode == 1?'正常':'禁用'%></td>
-                                <td width="300px">
+                                <td><%= DWY_Helper.getWhether(element.areaFlag) %></td>
+                                <td><%= DWY_Helper.getLocalDateYMD(element.addTime) %></td>
+                                <td><%= element.stcode == 1?'正常':'禁用'%></td>
+                                <td>
                                     <% if(element.stcode == 1){ %>
                                     <% if (DWY_Helper.hasPermission(Permission.storage.createStorage.id, permission) ){ %>
                                     <a href="/warehouse/create/<%= element.ftyId %>" class="label label-primary">新建仓库</a>

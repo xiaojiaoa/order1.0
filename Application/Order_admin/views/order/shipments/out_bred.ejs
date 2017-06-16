@@ -112,10 +112,10 @@
             <div class="row dis-flex">
                 <div class="col-xs-12 dis-flex">
                     <div class="table-responsive dis-flex">
-                        <table class="table table-bordered table-striped table-hover table-scroll dis-flex">
+                        <table class="table table-bordered table-striped table-hover table-scroll2">
                             <thead>
                             <tr>
-                                <th width="5%">序号</th>
+                                <th>序号</th>
                                 <th>出库单号</th>
                                 <th>领料日期</th>
                                 <th>领用人</th>
@@ -130,7 +130,7 @@
                             <%  if(DWY_Helper.isCanLoop(plateList.result) ){
                             plateList.result.forEach(function (element, index) { %>
                             <tr>
-                                <td width="5%"><%= ++index %></td>
+                                <td><%= ++index %></td>
                                 <td><a href="/outBred/deatil/<%= element.outId %>"><%= element.outId %></a></td>
                                 <td><%= DWY_Helper.getLocalDate(element.outDate) %></td>
                                 <td><%= element.outEmpName %></td>

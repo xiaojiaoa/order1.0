@@ -201,10 +201,10 @@
             <div class="row dis-flex">
                 <div class="col-xs-12 dis-flex">
                     <div class="table-responsive dis-flex">
-                        <table class="table table-bordered table-striped table-hover table-scroll dis-flex">
+                        <table class="table table-bordered table-striped table-hover table-scroll2">
                             <thead>
                             <tr>
-                                <th width="4%">序号</th>
+                                <th>序号</th>
                                 <th>仓库名称</th>
                                 <th>区域名称</th>
                                 <th>货位号</th>
@@ -214,7 +214,7 @@
                                 <th>剩余存货数</th>
                                 <th>货架长宽高</th>
                                 <th>货位状态</th>
-                                <th width="150">操作</th>
+                                <th>操作</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -222,7 +222,7 @@
                             if(cargospaceList.result && (cargospaceList.result.length > 0) ){
                             cargospaceList.result.forEach(function (element, index) { %>
                             <tr>
-                                <td width="4%"><%= index+1 %></td>
+                                <td><%= index+1 %></td>
                                 <td><%= element.whseName %></td>
                                 <td><%= element.regionName %></td>
                                 <td><a href="/cargospace/cargospace/detail/<%= element.spaceId %>"><%= (element.spaceId).substring(6,12) %></a></td>
@@ -244,7 +244,7 @@
 
                                 <td><%= element.sizeLength %>*<%= element.sizeWidth %>*<%= element.sizeHeight %></td>
                                 <td><%= element.usable ==1 ? '可用':'禁用' %></td>
-                                <td  width="150">
+                                <td>
                                     <% if( element.usable == 2 ){ %>
                                     <% if (DWY_Helper.hasPermission(Permission.goodsAllocation.delete.id, permission) ){ %>
                                     <a class="label label-primary openStore" data-id="<%= element.spaceId %>">启用</a>

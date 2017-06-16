@@ -154,10 +154,10 @@
             <div class="row dis-flex">
                 <div class="col-xs-12 dis-flex">
                     <div class="table-responsive dis-flex">
-                        <table class="table table-bordered table-striped table-hover table-scroll dis-flex">
+                        <table class="table table-bordered table-striped table-hover table-scroll2">
                             <thead>
                             <tr>
-                                <th width="80px">序号</th>
+                                <th>序号</th>
                                 <th>请购单号</th>
                                 <th>请购人</th>
                                 <th>请购人部门</th>
@@ -175,7 +175,7 @@
                             if(DWY_Helper.isCanLoop(purchasesList.result)){
                             purchasesList.result.forEach(function (element, index) { %>
                             <tr>
-                                <td width="80px">
+                                <td>
                                     <label class="checkbox-inline">
                                         <%
                                         if(element.stcode<30 && element.addEmp == user.id){%>

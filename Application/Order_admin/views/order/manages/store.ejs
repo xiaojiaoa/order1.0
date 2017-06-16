@@ -171,21 +171,21 @@
             <div class="row dis-flex">
                 <div class="col-xs-12 dis-flex">
                     <div class="table-responsive dis-flex">
-                        <table class="table table-bordered table-hover table-striped table-scroll dis-flex">
+                        <table class="table table-bordered table-hover table-striped table-scroll2">
                             <thead>
                             <tr>
-                                <th width="4%">序号</th>
+                                <th>序号</th>
                                 <th>门店编号</th>
                                 <th>门店名称</th>
-                                <th width="7%">店长姓名</th>
-                                <th width="105px">店长手机号</th>
-                                <th width="20%">门店地址</th>
-                                <th width="80px">门店类型</th>
-                                <th width="80px">经营类型</th>
-                                <th width="95px">是否自带仓库</th>
+                                <th>店长姓名</th>
+                                <th>店长手机号</th>
+                                <th>门店地址</th>
+                                <th>门店类型</th>
+                                <th>经营类型</th>
+                                <th>是否自带仓库</th>
                                 <th>新建日期</th>
                                 <th>最低保证金(元)</th>
-                                <th width="250px">查看</th>
+                                <th>查看</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -193,18 +193,18 @@
                             if(storeList.totalItems != 0  ){
                             storeList.result.forEach(function (element, index) { %>
                             <tr>
-                                <td width="4%"><%= index+1 %></td>
+                                <td><%= index+1 %></td>
                                 <td><a href="/storesManage/detail/<%= element.bid %>"><%= element.bid %></a></td>
                                 <td><%= element.storeName %></td>
-                                <td width="7%"><%= element.storeGid %></td>
-                                <td width="105px"><%= element.mobile %></td>
-                                <td  width="20%"><%= element.provinceStr %> <%= element.cityStr %> <%= element.areaStr %> <%= element.address %></td>
-                                <td width="80px"><%= DWY_Helper.getAssistVal(element.addrType, addrTypesList) %></td>
-                                <td width="80px"><%= DWY_Helper.getAssistVal(element.storeType, storeTypes) %></td>
-                                <td width="95px"><%= DWY_Helper.getWhether(element.isWarehouse) %></td>
+                                <td><%= element.storeGid %></td>
+                                <td><%= element.mobile %></td>
+                                <td><%= element.provinceStr %> <%= element.cityStr %> <%= element.areaStr %> <%= element.address %></td>
+                                <td><%= DWY_Helper.getAssistVal(element.addrType, addrTypesList) %></td>
+                                <td><%= DWY_Helper.getAssistVal(element.storeType, storeTypes) %></td>
+                                <td><%= DWY_Helper.getWhether(element.isWarehouse) %></td>
                                 <td><%= DWY_Helper.getLocalDate(element.addTime) %></td>
                                 <td><%= element.minFunds %></td>
-                                <td width="250px">
+                                <td>
                                     <% if (DWY_Helper.hasPermission(Permission.store.queryDept.id, permission) ){ %>
                                     <a href="/department/stores/<%= element.bid %>" class="label label-primary">部门信息</a>
                                     <% } %>
