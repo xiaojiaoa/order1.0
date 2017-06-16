@@ -232,15 +232,16 @@ var MaterialController = {
     },
     materialModifyPage: function (req, res) {
         var id = req.params.mid;
+        var bid = req.query.bid;
         // console.log(id);
         Base.multiDataRequest(req, res, [
-            {url: '/api/materials/'+id, method: 'GET', resConfig: {keyName: 'mateInfo', is_must: true}},
+            {url:'/api/materials/'+id+"?bid="+bid, method: 'GET', resConfig: {keyName: 'mateInfo', is_must: true}},
             {url: '/api/assist/material/units', method: 'GET', resConfig: {keyName: 'unitsInfo', is_must: true}},
             {url: '/api/assist/package/types', method: 'GET', resConfig: {keyName: 'getPackageTypes', is_must: true}},
         ], function (req, res, resultList) {
 
              //console.log('resultList.mateInfo', resultList.mateInfo);
-            // console.log('mateInfo',resultList.mateInfo);
+            console.log('mateInfo',resultList.mateInfo);
             var unitsInfo = {},getPackageTypes={};
 
             helper.setChildDate( resultList.unitsInfo,unitsInfo);

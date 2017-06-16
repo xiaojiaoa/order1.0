@@ -41,7 +41,7 @@
                         <% } %>
                         <% }else{ %>
                         <% if (DWY_Helper.hasPermission(Permission.material.update.id, permission) ){ %>
-                        <a class="label label-primary" href="/materialManage/material/modify/<%= mateInfo.id%>">修改</a>
+                        <a class="label label-primary" href="/materialManage/material/modify/<%= mateInfo.id%>?bid=<%= bid %>">修改</a>
                         <% } %>
                         <% if (DWY_Helper.hasPermission(Permission.material.delete.id, permission) ){ %>
                         <a class="label label-danger" id="closeStore">禁用</a>
