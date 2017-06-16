@@ -249,11 +249,10 @@ var MaterialController = {
             helper.setChildDate(resultList.getPackageTypes,getPackageTypes);
             resultList.getPackageTypes=_.orderBy(getPackageTypes,['id'],['asc']);
 
-
-
             var returnData = Base.mergeData(helper.mergeObject({
                 title: ' ',
                 id:id,
+                Permission :Permissions,
             },resultList));
 
 

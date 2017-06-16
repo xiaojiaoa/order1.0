@@ -657,6 +657,14 @@ var permissions = {
         queryByRegion:{
             id:"603044",
             name:"查看本人区域物料信息"
+        },
+        queryByPrice:{
+            id:"604045",
+            name:"查看物料相关价格"
+        },
+        queryByModifyPrice:{
+            id:"604045",
+            name:"修改物料相关价格"
         }
     },
     cargoManages :{

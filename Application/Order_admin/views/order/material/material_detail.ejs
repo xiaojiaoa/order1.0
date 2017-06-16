@@ -94,10 +94,17 @@
                             <tr>
                                 <td>欲扣数量</td>
                                 <td><%= mateInfo.subFrozen %></td>
+                                <% if(DWY_Helper.hasPermission(Permission.material.queryByPrice.id, permission)){%>
                                 <td>采购价格</td>
                                 <td><%= mateInfo.totalPrice %></td>
                                 <td>出厂价格</td>
                                 <td><%= mateInfo.totalUnitPrice %></td>
+                                <%} else{%>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <%}%>
                             </tr>
                             <tr>
                             <td>工厂</td>

@@ -230,10 +230,13 @@
                                 <th>欲扣数量</th>
                                 <!--跟全部展示不同的字段-->
                                 <% if(DWYRequest.query.stairCatId){%>
+                                <!--根据权限展示价格-->
+                                <% if(DWY_Helper.hasPermission(Permission.material.queryByPrice.id, permission)){%>
                                 <th>采购价格</th>
                                 <th>出厂价格</th>
                                 <th>结算价</th>
                                 <th>零售价</th>
+                                <%}%>
                                 <% if(DWY_Helper.isCanLoop(theadList)){
                                 theadList.forEach(function (element) { %>
                                 <th><%= element.name %></th>
@@ -267,10 +270,12 @@
                                 <td><%= element.subFrozen %></td>
                                 <!--跟全部展示不同的字段-->
                                 <% if(DWYRequest.query.stairCatId){%>
+                                <% if(DWY_Helper.hasPermission(Permission.material.queryByPrice.id, permission)){%>
                                 <td><%= element.totalPrice %></td>
                                 <td><%= element.totalUnitPrice %></td>
                                 <td><%= element.purchasePrice %></td>
                                 <td><%= element.retailPrice %></td>
+                                <%}%>
                                 <% if(DWY_Helper.isCanLoop(element.valueList)){
                                 element.valueList.forEach(function (elementtab) { %>
                                 <td><%= elementtab.name %></td>
