@@ -107,19 +107,22 @@ var MaterialController = {
         Base.multiDataRequest(req, res, [
             {url: '/api/materials/'+mid+"?bid="+bid, method: 'GET', resConfig: {keyName: 'mateInfo', is_must: true}},
             {url: '/api/organizations//factory', method: 'GET', resConfig: {keyName: 'factoryList', is_must: true}},
-            {url: '/api/purchases/mate?bid='+bid+"&mateId="+mid, method: 'GET', resConfig: {keyName: 'purchasesMateList', is_must: true}},
-            {url: '/api/whse/cargospace?mateId='+mid+"&isAll=1&xbid="+bid, method: 'GET', resConfig: {keyName: 'whseCargospaceList', is_must: true}},
+            {url: '/api/purchases/mate?bid='+bid+"&mateId="+mid, method: 'GET', resConfig: {keyName: 'purchasesMateList', is_canBePass: true}},
+            {url: '/api/whse/cargospace?mateId='+mid+"&isAll=1&xbid="+bid, method: 'GET', resConfig: {keyName: 'whseCargospaceList',is_canBePass: true}},
             {url: '/api/assist/stock/reasonTypes', method: 'GET', resConfig: {keyName: 'stockReasonTypes', is_must: true}},
-            {url: '/api/materials/stockOperation/page?pageSize=6&mateId='+mid+'&bid='+bid, method: 'GET', resConfig: {keyName: 'stockOperationList', is_must: true}},
+            {url: '/api/materials/stockOperation/page?pageSize=6&mateId='+mid+'&bid='+bid, method: 'GET', resConfig: {keyName: 'stockOperationList', is_canBePass: true}},
             {url: '/api/assist/package/types', method: 'GET', resConfig: {keyName: 'getPackageTypes', is_must: true}},
         ], function (req, res, resultList) {
-            //console.log("mate",resultList.mateInfo);
+           // console.log("mate",resultList.mateInfo);
             resultList.mateInfo.mateUnits = _.orderBy( resultList.mateInfo.mateUnits,['parentId'],['asc']);
             var returnData = Base.mergeData(helper.mergeObject({
                 title: ' ',
                 mid:mid,
                 bid:bid,
                 Permission :Permissions,
+                codeP:resultList.purchasesMateList.code,
+                codeW:resultList.whseCargospaceList.code,
+                codeS:resultList.stockOperationList.code
             },resultList));
             res.render('order/material/material_detail',returnData);
         });
