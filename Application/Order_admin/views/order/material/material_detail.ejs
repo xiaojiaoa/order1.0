@@ -96,9 +96,9 @@
                                 <td><%= mateInfo.subFrozen %></td>
                                 <% if(DWY_Helper.hasPermission(Permission.material.queryByPrice.id, permission)){%>
                                 <td>采购价格</td>
-                                <td><%= mateInfo.totalPrice %></td>
+                                <td><%= (mateInfo.totalPrice==0)?"":mateInfo.totalPrice %></td>
                                 <td>出厂价格</td>
-                                <td><%= mateInfo.totalUnitPrice %></td>
+                                <td><%= (mateInfo.totalUnitPrice==0)?"":mateInfo.totalUnitPrice %></td>
                                 <%} else{%>
                                 <td></td>
                                 <td></td>
@@ -190,7 +190,9 @@
                             }%>
                             <tr>
                                 <td>包装类型</td>
-                                <td><%= DWY_Helper.getAssistVal(mateInfo.type, getPackageTypes) %></td>
+                                <td>
+                                    <%= DWY_Helper.getAssistVal(mateInfo.type, getPackageTypes)%>
+                                </td>
                                 <td>是否为外协</td>
                                 <td>
                                     <form class="form-horizontal" method="post" action="/materials/outSourcing"  id="outSourcing-form">

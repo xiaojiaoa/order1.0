@@ -163,7 +163,7 @@
                             <div class="col-xs-12">
                              <div class="col-xs-6">
                                  <div class="form-group">
-                                     <label class="col-xs-4 control-label"><span class="requird"></span> 附属单位:</label>
+                                     <label class="col-xs-4 control-label">附属单位:</label>
                                      <div class="col-xs-8">
 
                                          <%  if(DWY_Helper.isCanLoop(unitsInfo)){
@@ -196,7 +196,7 @@
                                         <label class="col-xs-4 control-label">包装类型：</label>
                                         <div class="col-xs-8">
                                             <select class="form-control validate[required]" name="type">
-                                                <option value="">- 请选择 -</option>
+                                                <option value=1099>默认包装类型</option>
                                                 <% getPackageTypes.forEach(function (element, index) {
                                                 if(element.data.length != 0){%>
                                                 <option value="<%= element.id %>"><%= element.name %></option>

@@ -207,7 +207,7 @@
                                         <label class="col-xs-4 control-label">包装类型：</label>
                                         <div class="col-xs-8">
                                             <select class="form-control validate[required]" name="type" id="typeVal">
-                                                <option value="">- 请选择 -</option>
+                                                <option value=1099>默认包装类型</option>
                                                 <% getPackageTypes.forEach(function (element, index) {
                                                 if(element.data.length != 0){%>
                                                 <option value="<%= element.id %>"><%= element.name %></option>
