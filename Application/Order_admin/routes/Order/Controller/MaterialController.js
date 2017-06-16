@@ -238,6 +238,7 @@ var MaterialController = {
             {url:'/api/materials/'+id+"?bid="+bid, method: 'GET', resConfig: {keyName: 'mateInfo', is_must: true}},
             {url: '/api/assist/material/units', method: 'GET', resConfig: {keyName: 'unitsInfo', is_must: true}},
             {url: '/api/assist/package/types', method: 'GET', resConfig: {keyName: 'getPackageTypes', is_must: true}},
+            {url: '/api/materials/attributes/values/'+id, method: 'GET', resConfig: {keyName: 'attrList', is_must: true}},
         ], function (req, res, resultList) {
 
              //console.log('resultList.mateInfo', resultList.mateInfo);

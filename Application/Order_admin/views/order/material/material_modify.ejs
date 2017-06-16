@@ -69,8 +69,8 @@
                             </div>
 
 
-                            <!--输入字段-->
-                            <div class="col-xs-12 ">
+                            <!--属性-->
+                            <div class="col-xs-12  display-none">
                                 <div class="col-xs-1 width01"></div>
                                 <div class="col-xs-6 my-div-style01">
                                     <% mateInfo.attrs.forEach(function(element,index){%>
@@ -94,7 +94,29 @@
                                 <input type="hidden" name="flag" value="<%= (attrName.length==2)?1:0;%>">
                             </div>
 
+                            <div class="col-xs-12">
+                                <!--输入字段-->
+                                <div class="col-xs-6">
+                                    <% attrList.forEach(function(element, index){ %>
+                                    <% var id=element.code;%>
+                                    <div class="form-group">
+                                        <label class="col-xs-4 control-label text-danger"
+                                               type="<%= element.type %>"><span class="requird"></span>
+                                            <%= element.name %>:</label>
+                                        <div class="col-xs-8">
+                                            <select class="form-control validate[required] attrVal" name="attrVal">
+                                                <option value="">- 请选择 -</option>
+                                                <% element.attributeValueList.forEach(function(element, index){ %>
+                                                <option value="<%= element.code %>" <%= (element.code==id)?"selected":""%>><%= element.name %></option>
+                                                <% }) %>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <% }) %>
+                                    <input type="hidden" name="attributeValues" value="" id="materialId">
+                                </div>
 
+                            </div>
 
                             <div class="col-xs-12">
                                 <div class="col-xs-6">
@@ -324,12 +346,23 @@
         $("#unitVal").val('<%= mateInfo.unitId %>');
         $("#typeVal").val('<%= mateInfo.type %>');
 
+
+        //拼接单位
         $("input[name='mateUnit']").on("change",function () {
             var mateUnitCode=[];
             $("input[name='mateUnit']:checked").each(function(){
                 mateUnitCode.push($(this).val());
             });
             $("#mateUnitsId").val(mateUnitCode.join(','));
+        });
+
+        //拼接属性
+        $("select[name='attrVal']").on("change",function () {
+            var code=[];
+            $("select[name='attrVal']:selected").each(function(){
+                code.push($(this).val());
+            });
+            $("#materialId").val(code.join(','));
         });
 
         //初始化表单
