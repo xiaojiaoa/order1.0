@@ -359,7 +359,7 @@
         //拼接属性
         $("select[name='attrVal']").on("change",function () {
             var code=[];
-            $("select[name='attrVal']:selected").each(function(){
+            $("select[name='attrVal'] option:selected").each(function(){
                 code.push($(this).val());
             });
             $("#materialId").val(code.join(','));
