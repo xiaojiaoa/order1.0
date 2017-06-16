@@ -210,12 +210,12 @@
                                                 <option value="">- 请选择 -</option>
                                                 <% getPackageTypes.forEach(function (element, index) {
                                                 if(element.data.length != 0){%>
-                                                <option value="<%= element.id %>" <%= (element.id==1009)?"selected":""%>><%= element.name %></option>
+                                                <option value="<%= element.id %>"><%= element.name %></option>
                                                     <% element.data.forEach(function (element) {  %>
                                                     <option value="<%= element.id %>">&nbsp;&nbsp;&nbsp;&nbsp;<%= element.name %></option>
                                                     <%  }) %>
                                                 <%  }else{ %>
-                                                <option value="<%= element.id %>" <%= (element.id==1009)?"selected":""%>><%= element.name %></option>
+                                                <option value="<%= element.id %>"><%= element.name %></option>
                                                 <%  }
                                                 }) %>
                                             </select>
