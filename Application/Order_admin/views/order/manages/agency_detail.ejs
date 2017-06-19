@@ -34,12 +34,12 @@
                     <legend>基本信息
                         <% if( organizationsInfo.stcode == 2 ){ %>
                         <% if (DWY_Helper.hasPermission(Permission.organization.create.id, permission) ){ %>
-                        <a class="label label-primary" id="openStore">启用</a>
+                        <a class="label label-primary on-off-switch" id="openStore" data-type="1">启用</a>
                         <% }%>
                         <% }else{ %>
                         <% if (DWY_Helper.hasPermission(Permission.organization.create.id, permission) ){ %>
                         <a class="label label-primary" href="/agency/modify/<%= organizationsInfo.id %>">修改</a>
-                        <a class="label label-danger" id="closeStore">禁用</a>
+                        <a class="label label-danger on-off-switch" id="closeStore" data-type="2">禁用</a>
                         <% }%>
                         <% } %>
 
@@ -110,46 +110,37 @@
     $(document).ready(function () {
 
         var organizationsId = '<%= organizationsInfo.id %>';
-        $("#closeStore").on({
-            click: function () {
-                layer.confirm('确定禁用该机构？',{icon: 3, title:'提示'},
+
+        $(".on-off-switch").on({
+            click:function () {
+                var type=$(this).data("type");
+                var confirmMsg=(type==1)?"确定启用该机构？":"确定禁用该机构？";
+                layer.confirm(
+                    confirmMsg,
+                    {icon:3,title:'提示'},
                     function(index){
                         $.ajax({
-                            url: '/agency/setStatus/'+organizationsId+'/2',
+                            url: '/agency/setStatus/'+organizationsId+'/'+type,
                             method: 'put',
-                            success: function (data) {
+                            success:function (data) {
                                 successLayout.reload();
                             },
-                            error: function (response) {
-                                layer.close(index)
+                            error:function (response) {
+                                layer.close(index);
                                 errorLayout.normal(response);
-
                             }
-                        });
+                        })
                     },
-                    function(index){layer.close(index)})
-            }
-        });
-        $("#openStore").on({
-            click: function () {
-                layer.confirm('确定启用该机构？',{icon: 3, title:'提示'},
-                    function(index){
-                        $.ajax({
-                            url: '/agency/setStatus/'+organizationsId+'/1',
-                            method: 'put',
-                            success: function (data) {
-                                successLayout.reload();
-                            },
-                            error: function (response) {
-                                layer.close(index)
-                                errorLayout.normal(response);
+                    function (index) {
+                        layer.close(index);
+                    }
 
-                            }
-                        });
-                    },
-                    function(index){layer.close(index)})
+                )
+
             }
+
         })
+
     })
 
 </script>
