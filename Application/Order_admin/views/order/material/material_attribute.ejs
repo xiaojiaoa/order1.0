@@ -133,7 +133,10 @@
                                 <td>
                                     <% if( element.stcode == 2 ){ %>
                                     <% if (DWY_Helper.hasPermission(Permission.material.deleteAttribute.id, permission) ){ %>
-                                    <a href="javascript:void(0)" id="openStore" class="label label-primary openStore ">启用</a>
+                                    <a href="javascript:void(0)" id="openStore" class="label label-primary openStore on-off-switch"
+                                       data-id="<%= element.id%>"
+                                       data-type="1"
+                                    >启用</a>
                                     <% } %>
                                     <% }else{ %>
                                     <% if (DWY_Helper.hasPermission(Permission.material.updateAttribute.id, permission) ){ %>
@@ -143,7 +146,10 @@
                                        data-name="<%= element.name%>">修改</a>
                                     <% } %>
                                     <% if (DWY_Helper.hasPermission(Permission.material.deleteAttribute.id, permission) ){ %>
-                                    <a href="javascript:void(0)" class=" label label-danger closeStore" id="closeStore">禁用</a>
+                                    <a href="javascript:void(0)" class=" label label-danger closeStore on-off-switch" id="closeStore"
+                                       data-id="<%= element.id%>"
+                                       data-type="2"
+                                    >禁用</a>
                                     <% } %>
                                     <% if (DWY_Helper.hasPermission(Permission.material.createAttribute.id, permission) ){ %>
                                     <a href="javascript:void(0)" class="label label-primary creAttrVal attrValCreate"
@@ -224,56 +230,38 @@
 <%- include('../layouts/footer_common_script'); %>
 <script type="text/javascript">
     $(document).ready(function () {
+
         // 启用、禁用物料属性
-        $(".closeStore").on({
-            click: function () {
-                var attrId = $(this).parent().parent().children().eq(1).text();
-                console.log(attrId);
-                layer.confirm('确定禁用该属性？', {icon: 3, title: '提示'},
-                    function (index) {
+        $(".on-off-switch").on({
+            click:function () {
+                var attrId=$(this).data("id");
+                var type=$(this).data("type");
+                var confirmMsg=(type==1)?"确定启用该属性？":"确定禁用该属性？";
+                layer.confirm(
+                    confirmMsg,
+                    {icon:3,title:'提示'},
+                    function(index){
                         $.ajax({
-                            url: '/mateAttr/setStatus/' + attrId + '/2',
+                            url: '/mateAttr/setStatus/' + attrId + '/'+type,
                             method: 'put',
-                            success: function (data) {
+                            success:function (data) {
                                 successLayout.reload();
+                            },
+                            error:function (response) {
+                                layer.close(index);
+                                errorLayout.normal(response);
+                            }
+                        })
+                    },
+                    function (index) {
+                        layer.close(index);
+                    }
 
-                            },
-                            error: function (response) {
-                                layer.close(index)
-                                errorLayout.normal(response);
-                            }
-                        });
-                    },
-                    function (index) {
-                        layer.close(index)
-                    })
+                )
+
             }
-        });
-        $(".openStore").on({
-            click: function () {
-                var attrId = $(this).parent().parent().children().eq(1).text();
-                console.log(attrId);
-                layer.confirm('确定启用该属性？', {icon: 3, title: '提示'},
-                    function (index) {
-                        $.ajax({
-                            url: '/mateAttr/setStatus/' + attrId + '/1',
-                            method: 'put',
-                            success: function (data) {
-                                successLayout.reload();
-                            },
-                            error: function (response) {
-                                layer.close(index)
-                                errorLayout.normal(response);
-                            }
-                        });
-                    },
-                    function (index) {
-                        layer.close(index)
-                    })
-            }
+
         })
-
-
     })
 </script>
 

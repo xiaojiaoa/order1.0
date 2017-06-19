@@ -37,14 +37,16 @@
 
                         <% if( mateInfo.stcode == 2){ %>
                         <% if (DWY_Helper.hasPermission(Permission.material.delete.id, permission) ){ %>
-                        <a class="label label-primary" id="openStore">启用</a>
+                        <a class="label label-primary on-off-switch" id="openStore"
+                        data-type="1">启用</a>
                         <% } %>
                         <% }else{ %>
                         <% if (DWY_Helper.hasPermission(Permission.material.update.id, permission) ){ %>
                         <a class="label label-primary" href="/materialManage/material/modify/<%= mateInfo.id%>?bid=<%= bid %>">修改</a>
                         <% } %>
                         <% if (DWY_Helper.hasPermission(Permission.material.delete.id, permission) ){ %>
-                        <a class="label label-danger" id="closeStore">禁用</a>
+                        <a class="label label-danger  on-off-switch" id="closeStore"
+                        data-type="2">禁用</a>
                         <% } %>
                         <% if (DWY_Helper.hasPermission(Permission.material.queryAll.id, permission) ){ %>
                         <a class="label label-primary margin-left-10"  href="javascript:void(0)" id="choiceFac">
@@ -57,7 +59,7 @@
                     </legend>
 
                     <!-- row -->
-                    <div class="table-responsive <%= ( mateInfo.stcode == 2 )? 'close-info01':'' %>">
+                    <div class="table-responsive <%= ( mateInfo.stcode == 2 )? 'close-info':'' %>">
                         <table class="table table-bordered table-striped table-information ">
                             <tbody>
                             <tr class="table-tr01">
@@ -244,7 +246,7 @@
 
         <% if(!codeW){%>
         <!--well-->
-        <div class="well">
+        <div class="well <%= ( mateInfo.stcode == 2 )? 'close-info':'' %>">
             <!-- row -->
             <div class="row">
                 <!-- col -->
@@ -299,7 +301,7 @@
 
         <% if(!codeS){%>
         <!--well-->
-        <div class="well">
+        <div class="well <%= ( mateInfo.stcode == 2 )? 'close-info':'' %>">
             <!-- row -->
             <div class="row">
                 <!-- col -->
@@ -359,7 +361,7 @@
 
         <% if(!codeP){%>
         <!--well-->
-        <div class="well">
+        <div class="well <%= ( mateInfo.stcode == 2 )? 'close-info':'' %>">
             <!-- row -->
             <div class="row">
                 <!-- col -->
@@ -513,46 +515,32 @@
 
         // 启用、禁用物料详情页状态
         var mid='<%= mid %>';
-        console.log(mid);
-        $("#closeStore").on({
-            click: function () {
-                layer.confirm('确定禁用该属性？',{icon: 3, title:'提示'},
+        $(".on-off-switch").on({
+            click:function () {
+                var type=$(this).data("type");
+                var confirmMsg=(type==1)?"确定启用该物料？":"确定禁用该物料？";
+                layer.confirm(
+                    confirmMsg,
+                    {icon:3,title:'提示'},
                     function(index){
                         $.ajax({
-                            url: '/material/setStatus/'+mid+'/2',
+                            url: '/material/setStatus/'+mid+'/'+type,
                             method: 'put',
-                            success: function (data) {
+                            success:function (data) {
                                 successLayout.reload();
                             },
-                            error: function (response) {
-                                layer.close(index)
+                            error:function (response) {
+                                layer.close(index);
                                 errorLayout.normal(response);
                             }
-                        });
+                        })
                     },
-                    function(index){layer.close(index)})
-            }
-        });
-        $("#openStore").on({
-            click: function () {
-                layer.confirm('确定启用该属性？',{icon: 3, title:'提示'},
-                    function(index){
-                        $.ajax({
-                            url: '/material/setStatus/'+mid+'/1',
-                            method: 'put',
-                            success: function (data) {
-                                successLayout.reload();
-                            },
-                            error: function (response) {
-                                layer.close(index)
-                                errorLayout.normal(response);
-                            }
-                        });
-                    },
-                    function(index){layer.close(index)})
+                    function (index) {
+                        layer.close(index);
+                    }
+                )
             }
         })
-
 
 
         // 弹出选择工厂框

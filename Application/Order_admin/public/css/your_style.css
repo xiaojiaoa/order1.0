@@ -534,10 +534,12 @@ tr > td > .separation:last-child {
     float: left;
 }
 
-.close-info a {
+.close-info a,.close-info button  {
     pointer-events: none;
-    color: #999;
-    cursor: default
+    cursor: default;
+    border: 1px solid #DDD!important;
+    background-color: #F5F5F5!important;
+    color:#ACA899;
 }
 
 .close-info .level-1-title {

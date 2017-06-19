@@ -116,7 +116,9 @@
                                     <% if( element.stcode == 2 ){ %>
                                     <% if (DWY_Helper.hasPermission(Permission.material.deleteAttribute.id, permission) ){ %>
                                     <a href="javascript:void(0)" id="openStore"
-                                       class="label label-primary openStore">启用</a>
+                                       class="label label-primary openStore on-off-switch"
+                                    data-code="<%= element.code%>"
+                                       data-type="1">启用</a>
                                     <% } %>
                                     <% }else{ %>
                                     <% if (DWY_Helper.hasPermission(Permission.material.updateAttribute.id, permission) ){ %>
@@ -128,7 +130,9 @@
                                     修改</a>
                                     <% } %>
                                     <% if (DWY_Helper.hasPermission(Permission.material.deleteAttribute.id, permission) ){ %>
-                                    <a href="javascript:void(0)" class="label label-danger closeStore" id="closeStore">禁用</a>
+                                    <a href="javascript:void(0)" class="label label-danger closeStore on-off-switch" id="closeStore"
+                                       data-code="<%= element.code%>"
+                                       data-type="2">禁用</a>
                                     <% } %>
                                     <% } %>
                                 </td>
@@ -165,54 +169,36 @@
 
         var attrId = '<%= mid %>';
         // 启用、禁用物料属性值状态
-        $(".closeStore").on({
-            click: function () {
-                var code = $(this).parent().parent().children().eq(2).text();
-                console.log(code);
-                layer.confirm('确定禁用该属性？', {icon: 3, title: '提示'},
-                    function (index) {
+        $(".on-off-switch").on({
+            click:function () {
+                var code=$(this).data("code");
+                var type=$(this).data("type");
+                var confirmMsg=(type==1)?"确定启用该属性值？":"确定禁用该属性值？";
+                layer.confirm(
+                    confirmMsg,
+                    {icon:3,title:'提示'},
+                    function(index){
                         $.ajax({
-                            url: '/mateAttrVal/setStatus/' + code + '/2/' + attrId,
+                            url: '/mateAttrVal/setStatus/' + code + '/' + type+'/'+attrId,
                             method: 'put',
-                            success: function (data) {
+                            success:function (data) {
                                 successLayout.reload();
                             },
-                            error: function (response) {
-                                layer.close(index)
+                            error:function (response) {
+                                layer.close(index);
                                 errorLayout.normal(response);
                             }
-                        });
+                        })
                     },
                     function (index) {
-                        layer.close(index)
-                    })
-            }
-        });
-        $(".openStore").on({
-            click: function () {
-                var code = $(this).parent().parent().children().eq(2).text();
-                console.log(code);
-                layer.confirm('确定启用该属性？', {icon: 3, title: '提示'},
-                    function (index) {
-                        $.ajax({
-                            url: '/mateAttrVal/setStatus/' + code + '/1/' + attrId,
-                            method: 'put',
-                            success: function (data) {
-                                successLayout.reload();
-                            },
-                            error: function (response) {
-                                layer.close(index)
-                                errorLayout.normal(response);
-                            }
-                        });
-                    },
-                    function (index) {
-                        layer.close(index)
-                    })
-            }
-        })
-    })
+                        layer.close(index);
+                    }
 
+                )
+
+            }
+
+        })
 </script>
 
 

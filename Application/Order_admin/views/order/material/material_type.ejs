@@ -170,7 +170,9 @@
                                 <td>
                                     <% if( element.stcode == 2 ){ %>
                                     <% if (DWY_Helper.hasPermission(Permission.material.deleteCategory.id, permission) ){ %>
-                                    <a href="javascript:void(0)"  class="openStore label label-primary">启用</a>
+                                    <a href="javascript:void(0)"  class="openStore label label-primary on-off-switch"
+                                       data-type="1"
+                                       data-id="<%= element.id%>">启用</a>
                                     <% } %>
                                     <% }else{ %>
                                     <% if (DWY_Helper.hasPermission(Permission.material.createCategory.id, permission) ){ %>
@@ -180,7 +182,9 @@
                                     <a href="/materialManage/materialType/modify/<%= element.id %>" class="label label-primary">修改</a>
                                     <% } %>
                                     <% if (DWY_Helper.hasPermission(Permission.material.deleteCategory.id, permission) ){ %>
-                                    <a href="javascript:void(0)" class="closeStore label label-danger" >禁用</a>
+                                    <a href="javascript:void(0)" class="closeStore label label-danger on-off-switch"
+                                       data-type="2"
+                                       data-id="<%= element.id%>">禁用</a>
                                     <% } %>
                                     <% } %>
                                 </td>
@@ -189,7 +193,9 @@
                                 <td>
                                     <% if( element.stcode == 2 ){ %>
                                     <% if (DWY_Helper.hasPermission(Permission.material.deleteCategory.id, permission) ){ %>
-                                    <a href="javascript:void(0)" class="openStore label label-primary">启用</a>
+                                    <a href="javascript:void(0)" class="openStore label label-primary on-off-switch"
+                                       data-type="1"
+                                       data-id="<%= element.id%>">启用</a>
                                     <% } %>
                                     <% }else{ %>
                                     <% if (DWY_Helper.hasPermission(Permission.material.createCategory.id, permission) ){ %>
@@ -199,7 +205,9 @@
                                     <a href="/materialManage/materialType/modify/<%= element.id %>"  class="label label-primary">修改</a>
                                     <% } %>
                                     <% if (DWY_Helper.hasPermission(Permission.material.deleteCategory.id, permission) ){ %>
-                                    <a href="javascript:void(0)" class="closeStore label label-danger">禁用</a>
+                                    <a href="javascript:void(0)" class="closeStore label label-danger on-off-switch"
+                                       data-type="2"
+                                       data-id="<%= element.id%>">禁用</a>
                                     <% } %>
                                     <% } %>
                                 </td>
@@ -208,14 +216,18 @@
                                 <td>
                                     <% if( element.stcode == 2){ %>
                                     <% if (DWY_Helper.hasPermission(Permission.material.deleteCategory.id, permission) ){ %>
-                                    <a href="javascript:void(0)" class="openStore label label-primary">启用</a>
+                                    <a href="javascript:void(0)" class="openStore label label-primary on-off-switch"
+                                       data-type="1"
+                                       data-id="<%= element.id%>">启用</a>
                                     <% } %>
                                     <% }else{ %>
                                     <% if (DWY_Helper.hasPermission(Permission.material.updateCategory.id, permission) ){ %>
                                     <a href="/materialManage/materialType/modify/<%= element.id %>" class="label label-danger margin-left-85">修改</a>
                                     <% } %>
                                     <% if (DWY_Helper.hasPermission(Permission.material.deleteCategory.id, permission) ){ %>
-                                    <a href="javascript:void(0)" class="closeStore label label-danger" >禁用</a>
+                                    <a href="javascript:void(0)" class="closeStore label label-danger on-off-switch"
+                                       data-type="2"
+                                       data-id="<%= element.id%>">禁用</a>
                                     <% } %>
                                     <% if (DWY_Helper.hasPermission(Permission.material.createCategory.id, permission) ){ %>
                                     <a href="/materialManage/material/<%= element.id %>/creStepO"  class="label label-primary">新建物料</a>
@@ -262,49 +274,37 @@
         pageSetUp();
 
         $(".fg-date-time-picker").flatpickr(data_time_picker.data_picker); // jQuery
+
         // 启用、禁用物料分类属性
-        $(".closeStore").on({
-            click: function () {
-                var id= $(this).parent().parent().children().eq(4).text();
-                console.log(id);
-                layer.confirm('确定禁用该属性？',{icon: 3, title:'提示'},
+        $(".on-off-switch").on({
+            click:function () {
+                var id=$(this).data("id");
+                var type=$(this).data("type");
+                var confirmMsg=(type==1)?"确定启用该分类？":"确定禁用该分类？";
+                layer.confirm(
+                    confirmMsg,
+                    {icon:3,title:'提示'},
                     function(index){
                         $.ajax({
-                            url: '/materialType/setStatus/'+id+'/2',
+                            url: '/materialType/setStatus/'+id+'/' + type,
                             method: 'put',
-                            success: function (data) {
+                            success:function (data) {
                                 successLayout.reload();
                             },
-                            error: function (response) {
-                                layer.close(index)
+                            error:function (response) {
+                                layer.close(index);
                                 errorLayout.normal(response);
                             }
-                        });
+                        })
                     },
-                    function(index){layer.close(index)})
-            }
-        });
-        $(".openStore").on({
-            click: function () {
-                var id= $(this).parent().parent().children().eq(4).text();
-                console.log(id);
-                layer.confirm('确定启用该属性？',{icon: 3, title:'提示'},
-                    function(index){
-                        $.ajax({
-                            url: '/materialType/setStatus/'+id+'/1',
-                            method: 'put',
-                            success: function (data) {
-                                successLayout.reload();
-                            },
-                            error: function (response) {
-                                layer.close(index)
-                                errorLayout.normal(response);
-                            }
-                        });
-                    },
-                    function(index){layer.close(index)})
+                    function (index) {
+                        layer.close(index);
+                    }
+                )
             }
         })
+
+
 
     })
 
