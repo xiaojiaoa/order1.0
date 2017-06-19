@@ -166,61 +166,7 @@
 
                             <div class="col-xs-12">
 
-                                <div class="col-xs-12">
-                                    <div class="form-group">
-                                        <div class="col-xs-2">
-                                            <select class="form-control" name="brandId">
-                                                <option value="">- 品牌 -</option>
-                                                <% brandinfoList.forEach(function (element) {  %>
-                                                <option value="<%= element.id %>" <%= (DWYRequest.query.brandId == element.id)?"selected":"" %> >
-                                                    <%= element.name %>
-                                                </option>
-                                                <% }) %>
-                                            </select>
-                                        </div>
-                                        <div class="col-xs-2">
-                                            <select class="form-control" name="difficulty">
-                                                <option value="">- 难度 -</option>
-                                                <% difficultyList.forEach(function (element) {  %>
-                                                <option value="<%= element.id %>" <%= (DWYRequest.query.difficulty == element.id)?"selected":"" %>>
-                                                    <%= element.name %>
-                                                </option>
-                                                <% }) %>
-                                            </select>
-                                        </div>
-                                        <div class="col-xs-2">
-                                            <select class="form-control" name="productType">
-                                                <option value="">- 类型 -</option>
-                                                <% prodList.forEach(function (element) {  %>
-                                                <option value="<%= element.id %>" <%= (DWYRequest.query.productType == element.id)?"selected":"" %> >
-                                                    <%= element.name %>
-                                                </option>
-                                                <% }) %>
-                                            </select>
-                                        </div>
-
-                                        <div class="col-xs-2">
-                                            <select class="form-control" name="color">
-                                                <option value="">- 颜色 -</option>
-                                                <% colorList.forEach(function (element) {  %>
-                                                <option value="<%= element.id %>" <%= (DWYRequest.query.color == element.id)?"selected":"" %> >
-                                                    <%= element.name %>
-                                                </option>
-                                                <% }) %>
-                                            </select>
-                                        </div>
-
-                                    </div>
-                                </div>
-
-
-
-
-                            </div>
-
-                            <div class="col-xs-12">
-
-                                <div class="col-xs-4">
+                                <div class="col-xs-3">
                                     <div class="form-group">
                                         <label class="col-xs-4 control-label">门店名称:</label>
                                         <div class="col-xs-8">
@@ -229,16 +175,7 @@
                                         </div>
                                     </div>
                                 </div>
-
-
-
-
-                            </div>
-
-
-                            <div class="col-xs-12">
-
-                                <div class="col-xs-4">
+                                <div class="col-xs-3">
                                     <div class="form-group">
                                         <label class="col-xs-4 control-label">是否下单完毕:</label>
                                         <div class="col-xs-8">
@@ -250,8 +187,7 @@
                                         </div>
                                     </div>
                                 </div>
-
-                                <div class="col-xs-8">
+                                <div class="col-xs-6">
                                     <div class="form-group">
                                         <label class="col-xs-2 control-label">&nbsp;提交日期:</label>
                                         <div class="col-xs-4">
@@ -265,9 +201,55 @@
                                         </div>
                                     </div>
                                 </div>
-
                             </div>
+                            <div class="col-xs-12">
+                                <div class="form-group">
+                                    <div class="col-xs-2">
+                                        <select class="form-control" name="brandId">
+                                            <option value="">- 品牌 -</option>
+                                            <% brandinfoList.forEach(function (element) {  %>
+                                            <option value="<%= element.id %>" <%= (DWYRequest.query.brandId == element.id)?"selected":"" %> >
+                                                <%= element.name %>
+                                            </option>
+                                            <% }) %>
+                                        </select>
+                                    </div>
+                                    <div class="col-xs-2">
+                                        <select class="form-control" name="difficulty">
+                                            <option value="">- 难度 -</option>
+                                            <% difficultyList.forEach(function (element) {  %>
+                                            <option value="<%= element.id %>" <%= (DWYRequest.query.difficulty == element.id)?"selected":"" %>>
+                                                <%= element.name %>
+                                            </option>
+                                            <% }) %>
+                                        </select>
+                                    </div>
+                                    <div class="col-xs-2">
+                                        <select class="form-control" name="productType">
+                                            <option value="">- 类型 -</option>
+                                            <% prodList.forEach(function (element) {  %>
+                                            <option value="<%= element.id %>" <%= (DWYRequest.query.productType == element.id)?"selected":"" %> >
+                                                <%= element.name %>
+                                            </option>
+                                            <% }) %>
+                                        </select>
+                                    </div>
 
+                                    <div class="col-xs-2">
+                                        <select class="form-control" name="color">
+                                            <option value="">- 颜色 -</option>
+                                            <% colorList.forEach(function (element) {  %>
+                                            <option value="<%= element.id %>" <%= (DWYRequest.query.color == element.id)?"selected":"" %> >
+                                                <%= element.name %>
+                                            </option>
+                                            <% }) %>
+                                        </select>
+                                    </div>
+
+
+
+                                </div>
+                            </div>
 
                             <div class="col-xs-12">
                                 <hr class="simple">
@@ -332,7 +314,6 @@
                 <%- paginationTwo %>
             </div>
 
-            <!-- end row -->
         </div>
 
 
@@ -353,13 +334,8 @@
 <script type="text/javascript">
 
     $(document).ready(function () {
-
-
-
         pageSetUp();
         $(".fg-date-picker").flatpickr(data_time_picker.data_picker); // jQuery
-
-
     })
 
 </script>

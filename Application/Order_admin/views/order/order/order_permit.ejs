@@ -37,7 +37,7 @@
 
                             <div class="col-xs-12">
 
-                                <div class="col-xs-6">
+                                <div class="col-xs-3">
                                     <div class="form-group">
                                         <label class="col-xs-3 control-label">专卖店名称:</label>
                                         <div class="col-xs-8">
@@ -47,9 +47,9 @@
                                     </div>
                                 </div>
 
-                                <div class="col-xs-6">
+                                <div class="col-xs-3">
                                     <div class="form-group">
-                                        <div class="col-xs-3">
+                                        <div class="col-xs-6">
                                             <select class="form-control" name="brandId">
                                                 <option value="">- 品牌 -</option>
                                                 <% brandinfoList.forEach(function (element) {  %>
@@ -59,7 +59,7 @@
                                                 <% }) %>
                                             </select>
                                         </div>
-                                        <div class="col-xs-3">
+                                        <div class="col-xs-6">
                                             <select class="form-control" name="productType">
                                                 <option value="">- 类型 -</option>
                                                 <% prodList.forEach(function (element) {  %>
@@ -71,11 +71,7 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-
-                            <div class="col-xs-12">
-
-                                <div class="col-xs-6">
+                                <div class="col-xs-5">
 
                                     <div class="form-group">
                                         <label class="col-xs-3 control-label">&nbsp;提交日期:</label>
@@ -90,7 +86,6 @@
                                         </div>
                                     </div>
                                 </div>
-
                             </div>
 
 
@@ -171,7 +166,7 @@
                             <%    })
 
                             }else{ %>
-                            <td colspan="9" class="text-align-center">暂无数据</td>
+                            <td colspan="10" class="text-align-center">暂无数据</td>
                             <%  } %>
 
 
