@@ -75,17 +75,19 @@ var RolesController = {
 
         var bid = req.body.bidUrl;
         var scope = req.body.scope;
-        var permissions = req.body.permission;
-        var permission ="";
-        if(permissions&&(typeof permissions == 'object')){
-            for (var i=0;i<permissions.length;i++)
-            {
-                permission += permissions[i] +","
-            }
-            permission = permission.substring(0,permission.length-1);
-            req.body.permission = permission;
-        }
-        //console.log('doCreate',JSON.stringify(req.body))
+        // var permissions = req.body.permission;
+        req.body.permission = req.body.permission.toString(',');
+
+        // var permission ="";
+        // if(permissions&&(typeof permissions == 'object')){
+        //     for (var i=0;i<permissions.length;i++)
+        //     {
+        //         permission += permissions[i] +","
+        //     }
+        //     permission = permission.substring(0,permission.length-1);
+        //     req.body.permission = permission;
+        // }
+        // console.log('doCreate',JSON.stringify(req.body))
         request(Base.mergeRequestOptions({
             method: 'post',
             url: '/api/roles',
@@ -106,16 +108,8 @@ var RolesController = {
         var bidUrl = req.body.bidUrl;
         var scope = req.body.scope;
 
-        var permissions = req.body.permission;
-        var permission ="";
-        if(permissions&&(typeof permissions == 'object')){
-            for (var i=0;i<permissions.length;i++)
-            {
-                permission += permissions[i] +","
-            }
-            permission = permission.substring(0,permission.length-1);
-            req.body.permission = permission;
-        }
+        req.body.permission = req.body.permission.toString(',');
+
         request(Base.mergeRequestOptions({
             method: 'put',
             url: '/api/roles/'+cid+"?"+queryString.stringify(req.body),

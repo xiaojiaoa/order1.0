@@ -13,11 +13,11 @@
         <!-- breadcrumb -->
         <ol class="breadcrumb">
             <li>后台管理</li>
-            <% if(type=='stores'){%>
+            <% if(type == 'stores'){ %>
             <li><a class="back-url" href="/storesManage">门店管理</a></li>
-            <%}else{%>
+            <% }else{ %>
             <li><a class="back-url" href="/agency">机构管理</a></li>
-            <%}%>
+            <% } %>
             <li><a class="back-url" href="/roles/<%= bid %>/<%= scope %>"> 角色信息</a></li>
             <li>修改角色信息</li>
             <li><a class="back-url" href="javascript:history.go(-1)"> <i class="fa fa-chevron-left"></i>返回</a></li>
@@ -67,13 +67,13 @@
                                         <div class="col-xs-10 no-padding dis-flex-row">
                                             <div class="col-xs-6 dis-flex">
                                                 <div class="table-responsive dis-flex">
-                                                    <table class="table table-bordered table-striped table-scroll table-role dis-flex" id="tableOne">
+                                                    <table class="table table-bordered table-striped table-scroll table-role dis-flex"
+                                                           id="tableOne">
                                                         <thead>
                                                         <tr>
                                                             <th>
                                                                 <label>
-                                                                    <input type="checkbox" class="checkbox"
-                                                                           id="checkAllOne" >
+                                                                    <input type="checkbox" class="checkbox" id="checkAllOne">
                                                                     <span>全选</span>
                                                                 </label>
                                                             </th>
@@ -84,20 +84,24 @@
                                                         var initTwo;
                                                         var permissionStr = '';
                                                         rolesInfo.permissionList.forEach(function (element) {
-                                                            permissionStr += element.id+','
+                                                            permissionStr += element.id + ','
                                                         })
-                                                        permissionStr = permissionStr.substring(0,permissionStr.length-1);
+                                                        permissionStr = permissionStr.substring(0, permissionStr.length - 1);
 
                                                         permissionsAllList.forEach(function (element, index) {
-                                                            if(index == 0){ initTwo = element.id } %>
-                                                        <tr class="level-0 <%= index==0?'active':'' %>" data-id="<%= element.id%>">
+                                                            if (index == 0) {
+                                                                initTwo = element.id
+                                                            } %>
+                                                        <tr class="level-0 <%= index == 0 ? 'active' : '' %>"
+                                                            data-id="<%= element.id %>">
                                                             <td>
                                                                 <label>
-                                                                    <input type="checkbox" class="checkbox validate[minCheckbox[1]]"
-                                                                           name="permission" value="<%= element.id%>"
+                                                                    <input type="checkbox"
+                                                                           class="checkbox validate[minCheckbox[1]]"
+                                                                           name="permission" value="<%= element.id %>"
                                                                             <%= DWY_Helper.checkboxStatusStr(permissionStr, element.id) %>
                                                                     >
-                                                                    <span><%= element.name%></span>
+                                                                    <span><%= element.name %></span>
                                                                 </label>
                                                             </td>
                                                         </tr>
@@ -110,12 +114,13 @@
                                             </div>
                                             <div class="col-xs-6 dis-flex">
                                                 <div class="table-responsive dis-flex">
-                                                    <table class="table table-bordered table-striped table-scroll table-role dis-flex" id="tableTwo">
+                                                    <table class="table table-bordered table-striped table-scroll table-role dis-flex"
+                                                           id="tableTwo">
                                                         <thead>
                                                         <tr>
                                                             <th>
                                                                 <label>
-                                                                    <input type="checkbox" class="checkbox" id="checkAllTwo" >
+                                                                    <input type="checkbox" class="checkbox" id="checkAllTwo">
                                                                     <span>全选</span>
                                                                 </label>
                                                             </th>
@@ -125,29 +130,33 @@
                                                         <%
                                                         var permissionStr = '';
                                                         rolesInfo.permissionList.forEach(function (elements) {
-                                                            permissionStr += elements.id+','
+                                                            permissionStr += elements.id + ','
                                                         })
-                                                        permissionStr = permissionStr.substring(0,permissionStr.length-1);
+                                                        permissionStr = permissionStr.substring(0, permissionStr.length - 1);
 
                                                         permissionsAllList.forEach(function (elementa, index) {
                                                             var parentId = elementa.id;
-                                                            if(DWY_Helper.isCanLoop(elementa.subPermission)){
+                                                        if(DWY_Helper.isCanLoop(elementa.subPermission)){
 
                                                         elementa.subPermission.forEach(function (element) { %>
-                                                        <tr class="level-1 <%= parentId==initTwo?'show-this':'' %>" data-parentId="<%= parentId %>">
+                                                        <tr class="level-1 <%= parentId == initTwo ? 'show-this' : '' %>"
+                                                            data-parentId="<%= parentId %>">
                                                             <td class="level-1-title">
                                                                 <label>
-                                                                    <input type="checkbox" class="checkbox validate[minCheckbox[1]]"
-                                                                           name="permission" value="<%= element.id%>" parentId="<%= parentId %>"
+                                                                    <input type="checkbox"
+                                                                           class="checkbox validate[minCheckbox[1]]"
+                                                                           name="permission" value="<%= element.id %>"
+                                                                           parentId="<%= parentId %>"
                                                                             <%= DWY_Helper.checkboxStatusStr(permissionStr, element.id) %>
                                                                     >
-                                                                    <span><%= element.name%></span>
+                                                                    <span><%= element.name %></span>
                                                                 </label>
                                                             </td>
                                                         </tr>
-                                                        <%   })
+                                                        <% })
                                                         }else{ %>
-                                                        <tr class="level-1 <%= parentId==initTwo?'show-this':'' %> " data-parentId="<%= parentId %>">
+                                                        <tr class="level-1 <%= parentId == initTwo ? 'show-this' : '' %> "
+                                                            data-parentId="<%= parentId %>">
                                                             <td>该权限无子权限</td>
                                                         </tr>
                                                         <% }
@@ -207,46 +216,43 @@
 
         $("#create-store").validationEngine();
 
-      $("#checkAllOne").change(function () {
-        if($(this).is(":checked")){
-          $(":checkbox").prop('checked',true);
+        $("#checkAllOne").change(function () {
+            if ($(this).is(":checked")) {
+                $(":checkbox").prop('checked', true);
 
-        }else{
-          $(":checkbox").prop('checked',false);
-        }
-      })
-        $("#checkAllTwo").change(function () {
-            if($(this).is(":checked")){
-                $("#tableTwo :checkbox").prop('checked',true);
-
-            }else{
-                $("#tableTwo :checkbox").prop('checked',false);
+            } else {
+                $(":checkbox").prop('checked', false);
             }
         })
 
-      $(':checkbox').change(function () {
-        var parentId = $(this).attr('parentId');
-        if(parentId){
-          $("input[value="+parentId+"]").prop('checked',true);
-        }else{
-          var value = $(this).val();
-          if($(this).is(":checked")){
-            $("input[parentId="+value+"]").prop('checked',true);
+        $("#checkAllTwo").change(function () {
+            $("#tableTwo :checkbox:visible").prop('checked', this.checked);
+            var parentId = $("#tableTwo tbody :checkbox:visible:first-child").attr('parentId');
+            $("input[value=" + parentId + "]").prop('checked', true);
+        })
+        $(':checkbox').change(function () {
+            var parentId = $(this).attr('parentId');
+            if (parentId) {
+                $("input[value=" + parentId + "]").prop('checked', true);
+            } else {
+                var value = $(this).val();
+                if ($(this).is(":checked")) {
+                    $("input[parentId=" + value + "]").prop('checked', true);
 
-          }else{
-            $("input[parentId="+value+"]").prop('checked',false);
-          }
-        }
+                } else {
+                    $("input[parentId=" + value + "]").prop('checked', false);
+                }
+            }
 
-      })
+        })
 
-        $("#tableOne tbody tr").on('click',function () {
+        $("#tableOne tbody tr").on('click', function () {
             var id = $(this).attr('data-id')
             $("#tableOne tr").removeClass('active')
             $(this).addClass('active')
 
             $("#tableTwo tr").removeClass('show-this')
-            $("#tableTwo tr[data-parentId="+id+"]").addClass('show-this')
+            $("#tableTwo tr[data-parentId=" + id + "]").addClass('show-this')
         })
 
     })

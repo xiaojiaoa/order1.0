@@ -100,16 +100,8 @@ var ApartController = {
 
     },
     notPass: function (req, res) {
-        var cause =  req.body.causeStr;
-        var causeStr = '';
-        if(cause && typeof cause == 'object'){
-            for (var i=0;i<cause.length;i++)
-            {
-                causeStr += cause[i] +","
-            }
-            causeStr = causeStr.substring(0,causeStr.length-1);
-            req.body.causeStr =  causeStr;
-        }
+        req.body.causeStr =  req.body.causeStr.toString(',');
+
         request(Base.mergeRequestOptions({
             method: 'put',
             url: '/api/orders/apart/notPass?'+queryString.stringify(req.body),
@@ -250,16 +242,8 @@ var ApartController = {
 
     },
     notPassCheck: function (req, res) {
-        var cause =  req.body.causeStr;
-        var causeStr = '';
-        if(cause && typeof cause == 'object'){
-            for (var i=0;i<cause.length;i++)
-            {
-                causeStr += cause[i] +","
-            }
-            causeStr = causeStr.substring(0,causeStr.length-1);
-            req.body.causeStr =  causeStr;
-        }
+        req.body.causeStr =  req.body.causeStr.toString(',');
+
         request(Base.mergeRequestOptions({
             method: 'put',
             url: '/api/orders/apartReview/notPass?'+queryString.stringify(req.body),

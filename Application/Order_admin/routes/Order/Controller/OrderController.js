@@ -189,16 +189,8 @@ var OrderController = {
 
     },
     notPass: function (req, res) {
-        var cause =  req.body.causeStr;
-        var causeStr = '';
-        if(cause && typeof cause == 'object'){
-            for (var i=0;i<cause.length;i++)
-            {
-                causeStr += cause[i] +","
-            }
-            causeStr = causeStr.substring(0,causeStr.length-1);
-            req.body.causeStr =  causeStr;
-        }
+        req.body.causeStr =  req.body.causeStr.toString(',');
+
         request(Base.mergeRequestOptions({
             method: 'put',
             url: '/api/orders/review/notPass?'+queryString.stringify(req.body),
@@ -519,16 +511,8 @@ var OrderController = {
 
     },
     notPassResupplys: function (req, res) {
-        var cause =  req.body.causeStr;
-        var causeStr = '';
-        if(cause && typeof cause == 'object'){
-            for (var i=0;i<cause.length;i++)
-            {
-                causeStr += cause[i] +","
-            }
-            causeStr = causeStr.substring(0,causeStr.length-1);
-            req.body.causeStr =  causeStr;
-        }
+        req.body.causeStr =  req.body.causeStr.toString(',');
+
         request(Base.mergeRequestOptions({
             method: 'put',
             url: '/api/orders/resupply/accept/notPass?'+queryString.stringify(req.body),
@@ -558,16 +542,8 @@ var OrderController = {
     },
     saveResupplyReason: function (req, res) {
         var tid =  req.body.tid;
-        var cause =  req.body.causeStr;
-        var causeStr = '';
-        if(cause && typeof cause == 'object'){
-            for (var i=0;i<cause.length;i++)
-            {
-                causeStr += cause[i] +","
-            }
-            causeStr = causeStr.substring(0,causeStr.length-1);
-            req.body.causeStr =  causeStr;
-        }
+        req.body.causeStr =  req.body.causeStr.toString(',');
+
         request(Base.mergeRequestOptions({
             method: 'put',
             url: '/api/orders/resupply/accept/saveResupplyReason?'+queryString.stringify(req.body),
@@ -649,16 +625,8 @@ var OrderController = {
 
     },
     notPassReApart: function (req, res) {
-        var cause =  req.body.causeStr;
-        var causeStr = '';
-        if(cause && typeof cause == 'object'){
-            for (var i=0;i<cause.length;i++)
-            {
-                causeStr += cause[i] +","
-            }
-            causeStr = causeStr.substring(0,causeStr.length-1);
-            req.body.causeStr =  causeStr;
-        }
+        req.body.causeStr =  req.body.causeStr.toString(',');
+
         request(Base.mergeRequestOptions({
             method: 'put',
             url: '/api/orders/apart/notPass?'+queryString.stringify(req.body),
@@ -714,16 +682,8 @@ var OrderController = {
     },
 
     notPassCheckReApart: function (req, res) {
-        var cause =  req.body.causeStr;
-        var causeStr = '';
-        if(cause && typeof cause == 'object'){
-            for (var i=0;i<cause.length;i++)
-            {
-                causeStr += cause[i] +","
-            }
-            causeStr = causeStr.substring(0,causeStr.length-1);
-            req.body.causeStr =  causeStr;
-        }
+        req.body.causeStr =  req.body.causeStr.toString(',');
+
         request(Base.mergeRequestOptions({
             method: 'put',
             url: '/api/orders/apartReview/notPass?'+queryString.stringify(req.body),
@@ -1033,16 +993,8 @@ var OrderController = {
         })
     },
     notPassSchedule: function (req, res) {
-        var cause =  req.body.causeStr;
-        var causeStr = '';
-        if(cause && typeof cause == 'object'){
-            for (var i=0;i<cause.length;i++)
-            {
-                causeStr += cause[i] +","
-            }
-            causeStr = causeStr.substring(0,causeStr.length-1);
-            req.body.causeStr =  causeStr;
-        }
+        req.body.causeStr =  req.body.causeStr.toString(',');
+
         request(Base.mergeRequestOptions({
             method: 'put',
             url: '/api/orders/schedule/notPass?'+queryString.stringify(req.body),

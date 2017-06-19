@@ -184,12 +184,9 @@
         }
       })
         $("#checkAllTwo").change(function () {
-            if($(this).is(":checked")){
-                $("#tableTwo :checkbox").prop('checked',true);
-
-            }else{
-                $("#tableTwo :checkbox").prop('checked',false);
-            }
+            $("#tableTwo :checkbox:visible").prop('checked',this.checked);
+            var parentId = $("#tableTwo tbody :checkbox:visible:first-child").attr('parentId');
+            $("input[value="+parentId+"]").prop('checked',true);
         })
       
       $(':checkbox').change(function () {
