@@ -347,7 +347,7 @@
         $("#typeVal").val('<%= mateInfo.type %>');
 
 
-        //拼接单位
+        // 拼接单位
             var mateUnitCode=[];
             $("input[name='mateUnit']:checked").each(function(){
                 mateUnitCode.push($(this).val());
@@ -355,7 +355,7 @@
             $("#mateUnitsId").val(mateUnitCode.join(','));
 
 
-        //拼接属性
+        // 拼接属性
             var code=[];
             $("select[name='attrVal'] option:selected").each(function(){
                 code.push($(this).val());
@@ -363,10 +363,10 @@
             $("#materialId").val(code.join(','));
 
 
-        //初始化表单
+        // 初始化表单
         $("#material_modify_form").validationEngine();
 
-        //上传图片
+        // 上传图片
         DWY_area.init({});
 
         var idPhotoNum = 1;
@@ -433,7 +433,7 @@
 
         }
 
-        //图片浏览
+        // 图片浏览
         $('.fancybox').fancybox();
 
         $('#unit-select').on({

@@ -505,13 +505,13 @@
 
         $(".fg-date-time-picker").flatpickr(data_time_picker.data_picker); // jQuery
 
-        //初始化表单
+        // 初始化表单
         $("#choiceFac-form").validationEngine();
         $("#doWarning-form").validationEngine();
         $("#modifyStock-form").validationEngine();
         $("#outSourcing-form").validationEngine();
 
-        //启用、禁用物料详情页状态
+        // 启用、禁用物料详情页状态
         var mid='<%= mid %>';
         console.log(mid);
         $("#closeStore").on({
@@ -555,7 +555,7 @@
 
 
 
-        //弹出选择工厂框
+        // 弹出选择工厂框
         $('#choiceFac').on({
             click: function (e) {
                 layer.open({
@@ -564,19 +564,19 @@
                     area: '800px',
                     content: $('#choiceFac-form'),
                     cancel: function () {
-                        //右上角关闭回调
+                        // 右上角关闭回调
                     },
 
                 });
             }
         })
-        //图片浏览
+        // 图片浏览
         $('.fancybox').fancybox();
 
-        //采购物料总计
+        // 采购物料总计
         $(".purchasesMateListAll").text(DWY_Utils.CommonMethods.calcTotal(document.getElementById('purchasesMateList'),4,1));
 
-        //弹出修改库存框
+        // 弹出修改库存框
         $('.modifyStock').on({
             click: function (e) {
                 var spaceId=$(this).attr("spaceId");
@@ -587,7 +587,7 @@
                     area: '800px',
                     content: $('#modifyStock-form'),
                     cancel: function () {
-                        //右上角关闭回调
+                        // 右上角关闭回调
                     },
 
                 });

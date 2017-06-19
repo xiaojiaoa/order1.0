@@ -31,7 +31,7 @@
                             if (!idPhotoOne.val() && idPhotoTwo.val()==undefined) {
                                 idPhotoOneFuc(data);
                                 label.html('上传成功 <i class="fa fa-check">');
-                                //将获取到的文件信息传递给后台
+                                // 将获取到的文件信息传递给后台
                                 var fileName =data.data.name;
                                 var fileSize =data.data.size;
                                 var savePath =data.data.url;
@@ -62,7 +62,7 @@
                             if (!idPhotoTwo.val() && idPhotoOne.val()==undefined) {
                                 idPhotoTwoFuc(data);
                                 label.html('上传成功 <i class="fa fa-check">');
-                                //将获取到的文件信息传递给后台
+                                // 将获取到的文件信息传递给后台
                                 var fileName =data.data.name;
                                 var fileSize =data.data.size;
                                 var savePath =data.data.url;
@@ -129,7 +129,7 @@
 //            idPhotoTwoName.attr("title",data.data.name);
         }
 
-        //图片浏览
+        // 图片浏览
         $('.fancybox').fancybox();
 
 

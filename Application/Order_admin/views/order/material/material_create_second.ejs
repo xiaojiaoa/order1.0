@@ -335,7 +335,7 @@
         $(".fg-date-time-picker").flatpickr(data_time_picker.data_picker); // jQuery
 
 
-             //初始化表单
+             // 初始化表单
         $("#create-material_step2").validationEngine();
 
       /*  //新增流水号
@@ -354,7 +354,7 @@
                 }
             });
         });*/
-      //用于属性的展示与隐藏
+      // 用于属性的展示与隐藏
         $("#attributeViewListBtn").on('click',function () {
 //            $("#attributeViewList").toggleClass("display-none")
             if($("#attributeViewList").hasClass("display-none")){
@@ -366,11 +366,11 @@
 
         });
 
-        //用于获取code和addCode
+        // 用于获取code和addCode
         function getCode(){
-            var code=[];//存放属性的数组
-            var addCode=[];//存放属性长度的数组
-            var mateUnitCode=[];//存放附属单位的数组
+            var code=[];// 存放属性的数组
+            var addCode=[];// 存放属性长度的数组
+            var mateUnitCode=[];// 存放附属单位的数组
 
             var attrName=<%- JSON.stringify(attrName)%>;
 
@@ -399,18 +399,18 @@
             $("#mateUnitsId").val(mateUnitCode.join(','));
         }
 
-        //直接提交
+        // 直接提交
         $("#new").click(function () {
             getCode();
 
              if ($("#create-material_step2").validationEngine('validate')) {
-                  //序列化表单中的每一个值，并且存储在对象中
+                  // 序列化表单中的每一个值，并且存储在对象中
                    var craMateList = {};
                     var t = $('#create-material_step2').serializeArray();
                     $.each(t, function() {
                         craMateList[this.name] = this.value;
                     });
-                   //将数据提交到nodejs端
+                   // 将数据提交到nodejs端
                     $.ajax({
                         url: '/materialManage/material/doCreate',
                         method: 'post',
@@ -427,17 +427,17 @@
             }
         });
 
-        //提交之后再重新创建
+        // 提交之后再重新创建
         $("#newAgain").click(function () {
             getCode();
             if ($("#create-material_step2").validationEngine('validate')) {
-                //序列化表单中的每一个值，并且存储在对象中
+                // 序列化表单中的每一个值，并且存储在对象中
                 var craMateList = {};
                 var t = $('form').serializeArray();
                 $.each(t, function() {
                     craMateList[this.name] = this.value;
                 });
-                //将数据提交到nodejs端
+                // 将数据提交到nodejs端
                 $.ajax({
                     url: '/materialManage/material/doCreate',
                     method: 'post',
@@ -488,7 +488,7 @@
 
 
 
-        //图片浏览
+        // 图片浏览
         $('.fancybox').fancybox();
 
         $('#unit-select').on({

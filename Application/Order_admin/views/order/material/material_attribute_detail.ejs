@@ -64,7 +64,9 @@
                                     </button>
 
                                     <% if (DWY_Helper.hasPermission(Permission.material.createAttribute.id, permission) ){ %>
-                                    <a class="btn btn-primary attrValCreate" href="javascript:void(0)">
+                                    <a class="btn btn-primary attrValCreate" href="javascript:void(0)"
+                                       data-name="<%= attributeDetail.name %>"
+                                       data-id="<%= mid %>">
                                         <i class="fa fa-save"></i>
                                         新建属性值
                                     </a>
@@ -118,7 +120,12 @@
                                     <% } %>
                                     <% }else{ %>
                                     <% if (DWY_Helper.hasPermission(Permission.material.updateAttribute.id, permission) ){ %>
-                                    <a href="javascript:void(0)" class="label label-primary attrValChange">修改</a>
+                                    <a href="javascript:void(0)" class="label label-primary attrValChange"
+                                       data-pname="<%= attributeDetail.name %>"
+                                       data-name="<%=  element.name %>"
+                                       data-code="<%= element.code%>"
+                                       data-id="<%= mid %>">
+                                    修改</a>
                                     <% } %>
                                     <% if (DWY_Helper.hasPermission(Permission.material.deleteAttribute.id, permission) ){ %>
                                     <a href="javascript:void(0)" class="label label-danger closeStore" id="closeStore">禁用</a>
@@ -137,7 +144,6 @@
                     </div>
                 </div>
             </div>
-            <input name="attrId1" value='<%= mid %>' type="hidden" id="attrId1">
         </div>
         <!--end well-->
     </div>
@@ -158,7 +164,7 @@
         pageSetUp();
 
         var attrId = '<%= mid %>';
-        //启用、禁用物料属性值状态
+        // 启用、禁用物料属性值状态
         $(".closeStore").on({
             click: function () {
                 var code = $(this).parent().parent().children().eq(2).text();

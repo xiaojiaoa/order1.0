@@ -1,11 +1,11 @@
 
 <!--修改属性-->
-<form class="form-horizontal  layer-template" method="post" id="attrChange-form" action="/material/attrChange" >
+<form class="form-horizontal  layer-template" method="post" id="attrChange-form" action="/material/attrChange" style="padding-top: 40px;">
     <div class="col-xs-12">
         <div class="form-group">
             <label class="col-xs-2 control-label"><span class="requird"></span>名称:</label>
             <div class="col-xs-6">
-                <input class="form-control validate[required]" type="text"  value="" name="name" data-prompt-position="bottomLeft:20,5" id="attrChangeName">
+                <input class="form-control validate[required]" type="text"  value="" name="name"  id="attrChangeName">
             </div>
 
         </div>
@@ -14,7 +14,7 @@
         <div class="form-group">
             <label class="col-xs-2 control-label"><span class="requird"></span>长度:</label>
             <div class="col-xs-6">
-                <input class="form-control validate[required,custom[onlyNumberSp]]" type="text"  value="" name="length" data-prompt-position="bottomLeft:20,5"id="attrChangeVal">
+                <input class="form-control validate[required,custom[onlyNumberSp]]" type="text"  value="" name="length" id="attrChangeVal">
             </div>
             <input name="aid" value="" type="hidden" id="attrChangeId">
         </div>
@@ -35,10 +35,10 @@
 
     $(document).ready(function () {
 
-        $("#attrCreate-form").validationEngine({scroll: false});
-        $("#attrChange-form").validationEngine({scroll: false});
+        $("#attrCreate-form").validationEngine();
+        $("#attrChange-form").validationEngine();
 
-        //新建属性
+        // 新建属性
         $('.attrCreate').on({
             click: function (e) {
                 layer.open({
@@ -47,26 +47,26 @@
                     area: '500px',
                     content: $('#attrCreate-form'),
                     cancel: function () {
-                        //右上角关闭回调
+                        // 右上角关闭回调
                     },
 
                 });
             }
         })
 
-        //修改属性
+        // 修改属性
         $('.attrChange').on({
             click: function (e) {
-                $("#attrChangeName").val($.trim($(this).parent().parent().children().eq(2).text()));//显示名称
-                $("#attrChangeVal").val($(this).parent().parent().children().eq(3).text());//显示长度
-                $("#attrChangeId").val($(this).parent().parent().children().eq(1).text());//获取属性ID
+                $("#attrChangeName").val($(this).data("name"));// 显示名称
+                $("#attrChangeVal").val($(this).data("length"));//显示长度
+                $("#attrChangeId").val($(this).data("id"));//获取属性ID
                 layer.open({
                     title: false,
                     type: 1,
                     area: '500px',
                     content: $('#attrChange-form'),
                     cancel: function () {
-                        //右上角关闭回调
+                        // 右上角关闭回调
                     },
 
                 });

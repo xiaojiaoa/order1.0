@@ -165,7 +165,7 @@
         pageSetUp();
 
         $(".fg-date-time-picker").flatpickr(data_time_picker.data_picker); // jQuery
-        //初始化表单
+        // 初始化表单
         $("#material_type_creOne").validationEngine('');
         //确认选中的物料属性
         Array.prototype.indexOf = function(val) {
@@ -186,9 +186,9 @@
         var sum=0;
         for(var i=0;i<inputs.length;i++)
         {
-            var attrId=[];//选中属性的id
-            var attrName=[];//选中属性的name
-            var attrLength=[];//选中属性的length
+            var attrId=[];// 选中属性的id
+            var attrName=[];// 选中属性的name
+            var attrLength=[];// 选中属性的length
             inputs[i].onclick=function(){
                 console.log(sum);
                 if(this.checked){
