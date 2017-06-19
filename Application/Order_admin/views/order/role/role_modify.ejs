@@ -236,12 +236,8 @@
                 $("input[value=" + parentId + "]").prop('checked', true);
             } else {
                 var value = $(this).val();
-                if ($(this).is(":checked")) {
-                    $("input[parentId=" + value + "]").prop('checked', true);
+                $("input[parentId="+value+"]").prop('checked',this.checked);
 
-                } else {
-                    $("input[parentId=" + value + "]").prop('checked', false);
-                }
             }
 
         })

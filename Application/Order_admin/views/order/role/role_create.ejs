@@ -195,12 +195,7 @@
           $("input[value="+parentId+"]").prop('checked',true);
         }else{
           var value = $(this).val();
-          if($(this).is(":checked")){
-            $("input[parentId="+value+"]").prop('checked',true);
-
-          }else{
-            $("input[parentId="+value+"]").prop('checked',false);
-          }
+            $("input[parentId="+value+"]").prop('checked',this.checked);
         }
         
       })

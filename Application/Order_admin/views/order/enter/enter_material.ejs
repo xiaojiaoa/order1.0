@@ -37,8 +37,7 @@
 
                             <div class="col-xs-12">
 
-                                <!--输入字段-->
-                                <div class="col-xs-3">
+                                <div class="col-xs-2">
                                     <div class="form-group">
                                         <label class="col-xs-4 control-label">入库单号:</label>
                                         <div class="col-xs-8">
@@ -47,7 +46,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-xs-3">
+                                <div class="col-xs-2">
                                     <div class="form-group">
                                         <label class="col-xs-4 control-label">工厂:</label>
                                         <div class="col-xs-8">
@@ -75,26 +74,8 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-xs-6">
-                                    <div class="form-group">
-                                        <label class="col-xs-2 control-label">日期:</label>
-                                        <div class="col-xs-4">
-                                            <input class="form-control fg-date-time-picker"
-                                                   value="<%= DWYRequest.query.startTime %>"
-                                                   name="startTime">
-                                        </div>
-                                        <label class="control-label " style="float: left"> 至 </label>
-                                        <div class="col-xs-4">
-                                            <input class="form-control fg-date-time-picker"
-                                                   value="<%= DWYRequest.query.endTime %>"
-                                                   name="endTime">
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
 
-                            <div class="col-xs-12">
-                                <div class="col-xs-3">
+                                <div class="col-xs-2">
                                     <div class="form-group">
                                         <label class="col-xs-4 control-label">状态:</label>
                                         <div class="col-xs-8">
@@ -115,9 +96,23 @@
                                     </div>
                                 </div>
 
-
+                                <div class="col-xs-4">
+                                    <div class="form-group">
+                                        <label class="col-xs-2 control-label">日期:</label>
+                                        <div class="col-xs-4">
+                                            <input class="form-control fg-date-time-picker"
+                                                   value="<%= DWYRequest.query.startTime %>"
+                                                   name="startTime">
+                                        </div>
+                                        <label class="control-label " style="float: left"> 至 </label>
+                                        <div class="col-xs-4">
+                                            <input class="form-control fg-date-time-picker"
+                                                   value="<%= DWYRequest.query.endTime %>"
+                                                   name="endTime">
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
-
                             <div class="col-xs-12">
                                 <hr class="simple">
                                 <div class="col-xs-12 text-center">

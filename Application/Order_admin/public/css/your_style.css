@@ -962,6 +962,9 @@ tr > td .more-space:last-child {
     /*top: 0;*/
     left:13px;
 }
+.table-scroll2 {
+    border-bottom: none;
+}
 .table-scroll2 tfoot tr{
     background-color: #eee;
     background-image: -webkit-gradient(linear,0 0,0 100%,from(#f2f2f2),to(#fafafa));
@@ -989,7 +992,10 @@ tr > td .more-space:last-child {
 }
 
 
-
+.table-scroll2>tbody>tr>td, .table-scroll2>tbody>tr>th{
+    border-bottom: 1px solid #ddd;
+    border-top: none;
+}
 .well:last-child {
     margin-bottom: 0;
 }
