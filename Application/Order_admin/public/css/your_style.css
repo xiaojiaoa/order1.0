@@ -534,7 +534,7 @@ tr > td > .separation:last-child {
     float: left;
 }
 
-.close-info a,.close-info button  {
+.close-info a {
     pointer-events: none;
     cursor: default;
     border: 1px solid #DDD!important;

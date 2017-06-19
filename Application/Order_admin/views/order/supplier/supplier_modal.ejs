@@ -197,12 +197,16 @@
                 });
             }
         })
-        //禁用分类
-        $(".delete-supplier").on({
+
+        //启用/禁用供应商
+        $(".on-off-switch").on({
             click: function () {
                 var tid = $(this).attr('selfId');
-                var type= $("#urlType2").val();
-                layer.confirm('确定禁用?',{icon: 3, title:'提示'},
+                var type= $(this).data("type");
+                var confirmMsg=(type==1)?"确定启用供应商分类？":"确定禁用该供应商分类？";
+                layer.confirm(
+                    confirmMsg,
+                    {icon: 3, title:'提示'},
                     function(index){
                         $.ajax({
                             url: '/supplier/doDelete/'+tid+'/'+type,
@@ -219,28 +223,7 @@
                     function(index){layer.close(index)})
             }
         })
-        //启用分类
-        $(".openSupplierSort").on({
-            click: function () {
-                var tid = $(this).attr('selfId');
-                var type= $("#urlType").val();
-                layer.confirm('确定启用?',{icon: 3, title:'提示'},
-                    function(index){
-                        $.ajax({
-                            url: '/supplier/doDelete/'+tid+'/'+type,
-                            method: 'post',
-                            success: function (data) {
-                                successLayout.reload();
-                            },
-                            error: function (response) {
-                                layer.close(index);
-                                errorLayout.normal(response);
-                            }
-                        });
-                    },
-                    function(index){layer.close(index)})
-            }
-        })
+
         //修改分类
         $('.supplierModify-modal').on({
             click: function (e) {

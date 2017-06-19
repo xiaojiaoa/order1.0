@@ -140,14 +140,18 @@
                                     <%
                                     if(element.isDeleted==2){%>
                                         <% if (DWY_Helper.hasPermission(Permission.supplier.delete.id, permission) ){ %>
-                                        <button class="label label-primary delete-supplier" selfId="<%= element.id %>">启用</button>
+                                        <button class="label label-primary delete-supplier on-off-switch"
+                                                selfId="<%= element.id %>"
+                                                data-type="1">启用</button>
                                          <% } %>
                                     <% }else{%>
                                         <% if (DWY_Helper.hasPermission(Permission.supplier.update.id, permission) ){ %>
                                         <a class="label label-primary" href="/supplier/modify/<%= element.id %>">修改</a>
                                         <% } %>
                                          <% if (DWY_Helper.hasPermission(Permission.supplier.delete.id, permission) ){ %>
-                                        <button class="label label-danger openSupplierSort" selfId="<%= element.id %>">禁用</button>
+                                        <button class="label label-danger openSupplierSort on-off-switch"
+                                                selfId="<%= element.id %>"
+                                        data-type="2">禁用</button>
                                          <% } %>
                                     <%  }%>
                                     <input value="1" id="urlType" type="hidden">

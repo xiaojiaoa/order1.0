@@ -18,7 +18,7 @@ var Permissions = require('../config/permission');
 
 
 var SupplierController = {
-    //供应商列表
+    // 供应商列表
     supplierPage: function (req, res) {
         var paramObject = helper.genPaginationQuery(req);
         Base.multiDataRequest(req, res, [
@@ -40,7 +40,7 @@ var SupplierController = {
             res.render('order/supplier/index', returnData);
         });
     },
-    //供应商详情
+    // 供应商详情
     supplierDetailPage: function (req, res) {
         var tid = req.params.tid;
         var bid = req.query.bid? req.query.bid: req.session.user.bid;
@@ -57,7 +57,7 @@ var SupplierController = {
                 res.render('order/supplier/detail', returnData);
             });
     },
-    //供应商新增页面
+    // 供应商新增页面
     supplierCreatPage: function (req, res) {
         Base.multiDataRequest(req, res, [
             {url: '/api/suppliers/categories/list?parentId=0', method: 'GET', resConfig: {keyName: 'supplierParentSort', is_must: true}},
@@ -68,7 +68,7 @@ var SupplierController = {
             res.render('order/supplier/creat', returnData);
         });
     },
-    //供应商新增
+    // 供应商新增
     supplierDoCreate: function (req, res) {
         request(Base.mergeRequestOptions({
             method: 'post',
@@ -84,7 +84,7 @@ var SupplierController = {
             }
         })
     },
-    //供应商修改页面
+    // 供应商修改页面
     supplierModifyPage: function (req, res) {
         var tid = req.params.tid;
         Base.multiDataRequest(req, res, [
@@ -96,7 +96,7 @@ var SupplierController = {
             res.render('order/supplier/modify', returnData);
         });
     },
-    //供应商修改
+    // 供应商修改
     supplierDoModify: function (req, res) {
         var tid = req.body.tid;
         request(Base.mergeRequestOptions({
@@ -112,10 +112,11 @@ var SupplierController = {
             }
         })
     },
-    //供应商启用+禁用
+    // 供应商启用+禁用
     supplierdoDelete: function (req, res) {
         var tid = req.params.tid;
         var type = req.params.type;
+      //  console.log(2222,'/api/suppliers/isDeleted/'+tid+'?isDeleted='+type);
         request(Base.mergeRequestOptions({
             method: 'put',
             url: '/api/suppliers/isDeleted/'+tid+'?isDeleted='+type,
@@ -127,7 +128,7 @@ var SupplierController = {
             }
         })
     },
-    //供应商物料关联
+    // 供应商物料关联
     supplierOfferProductPage: function (req, res) {
         var paramObject = helper.genPaginationQuery(req);
         var bid = req.query.bid? req.query.bid: req.session.user.bid;
@@ -155,7 +156,7 @@ var SupplierController = {
             res.render('order/supplier/offer_product', returnData);
         });
     },
-    //新增供应商物料关联
+    // 新增供应商物料关联
     createMaterialSupplier: function (req, res) {
         request(Base.mergeRequestOptions({
             method: 'post',
@@ -171,7 +172,7 @@ var SupplierController = {
             }
         })
     },
-    //修改供应商物料关联有效期
+    // 修改供应商物料关联有效期
     updateDate:function(req,res){
         var sid = req.body.suppId;
         // var mid = req.body.mateId;
@@ -188,7 +189,7 @@ var SupplierController = {
             }
         })
     },
-    //解除供应商物料关联
+    // 解除供应商物料关联
     deleteRelate:function(req,res){
         var sid=req.params.sid;
         var mid=req.params.mid;
@@ -208,7 +209,7 @@ var SupplierController = {
     },
 
 
-    //根据父类id获取供应商分类
+    // 根据父类id获取供应商分类
     supSortParentId: function (req, res) {
         var tid=req.params.tid;
         request(Base.mergeRequestOptions({
@@ -225,7 +226,7 @@ var SupplierController = {
     },
 
 
-    //供应商分类列表
+    // 供应商分类列表
     supplierSortPage: function (req, res) {
         var paramObject = helper.genPaginationQuery(req);
         Base.multiDataRequest(req, res, [
@@ -246,7 +247,7 @@ var SupplierController = {
             res.render('order/supplier/sort', returnData);
         });
     },
-    //供应商分类新增
+    // 供应商分类新增
     doCreate: function (req, res) {
         request(Base.mergeRequestOptions({
             method: 'post',
@@ -262,7 +263,7 @@ var SupplierController = {
             }
         })
     },
-    //供应商分类禁用+启用
+    // 供应商分类禁用+启用
     doDelete: function (req, res) {
         var tid = req.params.tid;
         var type = req.params.type;
@@ -279,7 +280,7 @@ var SupplierController = {
             }
         })
     },
-    //供应商分类修改
+    // 供应商分类修改
     doModify: function (req, res) {
         var tid = req.body.tid;
         request(Base.mergeRequestOptions({

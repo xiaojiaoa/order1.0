@@ -94,7 +94,8 @@
                                             <td>
                                                 <% if(element.isDeleted == 2) {%>
                                                 <% if (DWY_Helper.hasPermission(Permission.supplier.deleteCategory.id, permission) ){ %>
-                                                <button class="label label-primary openSupplierSort" selfId="<%= element.id %>">启用</button>
+                                                <button class="label label-primary openSupplierSort on-off-switch" selfId="<%= element.id %>"
+                                                data-type="1">启用</button>
                                                 <% } %>
                                                 <% }else{%>
                                                 <% if (DWY_Helper.hasPermission(Permission.supplier.createCategory.id, permission) ){ %>
@@ -104,7 +105,8 @@
                                                 <button class="label label-primary supplierModify-modal" name="<%= element.name %>" selfId="<%= element.id %>" selfType="<%= element.type %>">修改</button>
                                                 <% } %>
                                                 <% if (DWY_Helper.hasPermission(Permission.supplier.deleteCategory.id, permission) ){ %>
-                                                <button class="label label-danger delete-supplier" selfId="<%= element.id %>" >禁用</button>
+                                                <button class="label label-danger delete-supplier on-off-switch" selfId="<%= element.id %>"
+                                                data-type="2">禁用</button>
                                                 <% } %>
                                                 <% } %>
                                             </td>
@@ -118,14 +120,16 @@
                                             <td>
                                                 <% if(element.isDeleted == 2) {%>
                                                 <% if (DWY_Helper.hasPermission(Permission.supplier.deleteCategory.id, permission) ){ %>
-                                                <button class="label label-primary openSupplierSort" id="openStore" selfId="<%= element.id %>">启用</button>
+                                                <button class="label label-primary openSupplierSort on-off-switch" id="openStore" selfId="<%= element.id %>"
+                                                data-type="1">启用</button>
                                                 <% } %>
                                                 <% }else{%>
                                                 <% if (DWY_Helper.hasPermission(Permission.supplier.updateCategory.id, permission) ){ %>
                                                 <button class="label label-primary supplierModify-modal margin-left-85" name="<%= element.name %>" selfId="<%= element.id %>" selfType="<%= element.type %>">修改</button>
                                                 <% } %>
                                                 <% if (DWY_Helper.hasPermission(Permission.supplier.deleteCategory.id, permission) ){ %>
-                                                <button class="label label-danger delete-supplier" selfId="<%= element.id %>">禁用</button>
+                                                <button class="label label-danger delete-supplier on-off-switch" selfId="<%= element.id %>"
+                                                data-type="2">禁用</button>
                                                 <% } %>
                                                 <% } %>
                                             </td>
