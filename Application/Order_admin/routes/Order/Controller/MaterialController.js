@@ -217,15 +217,24 @@ var MaterialController = {
        // res.render('order/material/material_create_second');
     },
     doCreate: function (req, res) {
+        req.body.attributeValues=( helper.trimEmpty(req.body.attributeValues))?req.body.attributeValues.toString(','):'';
+        req.body.mateUnits=req.body.mateUnits?req.body.mateUnits.toString(','):'';
+        var subType=req.body.subType;
+        var catId=req.body.catId;
         // console.log('新建物料'+ JSON.stringify(req.body));
         request(Base.mergeRequestOptions({
             method: 'post',
             url: '/api/materials',
             form:req.body,
         }, req, res), function (error, response, body) {
-            //console.log(response.statusCode)
             if (!error && response.statusCode == 201) {
-                res.sendStatus(200);
+                Base.handlerSuccess(res,req);
+                if(subType=="new"){
+                    res.redirect("/materialManage");
+                }
+                else{
+                    res.redirect("/materialManage/material/creStepS/"+catId);
+                }
             } else {
                 Base.handlerError(res, req, error, response, body);
             }

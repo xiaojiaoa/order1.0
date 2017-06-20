@@ -113,6 +113,19 @@ var helper = {
         }
     })
 },
+    // js 去除数组中的空格元素
+    trimEmpty:function(array) {
+        for(var i = 0 ;i<array.length;i++)
+        {
+            if(array[i] == "" || typeof(array[i]) == "undefined")
+            {
+                array.splice(i,1);
+                i= i-1;
+
+            }
+        }
+        return array;
+    },
 
     // 表单提交后，如果以后分页信息，则按找分页信息跳转返回
     withPaginationInfo:function (link,session) {
