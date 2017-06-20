@@ -241,12 +241,13 @@ nav ul span.menu-item-parent {
 
 .label {
     font-size: 12px;
-    padding: 4px 6px;
+    padding: 6px;
     border: none;
     text-shadow: none;
     border-radius: 3px;
     font-weight: 200;
-    margin-left: 10px;
+    margin-right: 10px;
+    display: inline-block;
 }
 
 .label-primary {
@@ -963,6 +964,7 @@ tr > td .more-space:last-child {
     /*position: absolute;*/
     /*top: 0;*/
     left:13px;
+    z-index: 19;
 }
 .table-scroll2 {
     border-bottom: none;
@@ -1002,8 +1004,8 @@ tr > td .more-space:last-child {
     margin-bottom: 0;
 }
 
-table > tbody > tr > td a.label:first-child {
-    margin-left: 0;
+table > tbody > tr > td a.label:last-child {
+    margin-right: 0;
 }
 
 .margin-bottom-20 {
