@@ -217,7 +217,7 @@ var MaterialController = {
        // res.render('order/material/material_create_second');
     },
     doCreate: function (req, res) {
-        // console.log( req.body);
+        // console.log('新建物料'+ JSON.stringify(req.body));
         request(Base.mergeRequestOptions({
             method: 'post',
             url: '/api/materials',
@@ -241,12 +241,11 @@ var MaterialController = {
             {url: '/api/assist/package/types', method: 'GET', resConfig: {keyName: 'getPackageTypes', is_must: true}},
             {url: '/api/materials/attributes/values/'+id, method: 'GET', resConfig: {keyName: 'attrList', is_must: true}},
         ], function (req, res, resultList) {
-
-             //console.log('resultList.mateInfo', resultList.mateInfo);
-            console.log('mateInfo',resultList.mateInfo);
+            // console.log('resultList.mateInfo', resultList.mateInfo);
+           // console.log('mateInfo',resultList.mateInfo);
             var unitsInfo = {},getPackageTypes={};
 
-            helper.setChildDate( resultList.unitsInfo,unitsInfo);
+             helper.setChildDate( resultList.unitsInfo,unitsInfo);
             resultList.unitsInfo = _.orderBy(unitsInfo,['id'],['asc']);
 
             helper.setChildDate(resultList.getPackageTypes,getPackageTypes);
@@ -263,6 +262,8 @@ var MaterialController = {
         });
     },
     doModify: function (req, res) {
+         req.body.attributeValues=req.body.attributeValues?req.body.attributeValues.toString(','):'';
+         req.body.mateUnits=req.body.mateUnits?req.body.mateUnits.toString(','):'';
         // console.log('物料修改'+ JSON.stringify(req.body));
         var mid = req.body.id;
         request(Base.mergeRequestOptions({
