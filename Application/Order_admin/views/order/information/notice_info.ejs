@@ -345,15 +345,25 @@
         })
         // 提交新建/修改公告信息
         $(".subBtn").on({
-            click:function(){
+            click:function(e){
                 var  subType= $("input[name=subType]").val();
                 getCode();
+                var length=$("#noticeInfo-form input[type='checkbox']:checked").length;
+                if(length>0) {
                     if (subType == "modify") {
                         $("#noticeInfo-form").attr("action", "/noticeInfo/doModify").submit();
                     } else {
                         $("#noticeInfo-form").attr("action", "/noticeInfo/doCreate").submit();
                     }
                 }
+                else{
+                    e = e || window.event;
+                    e.preventDefault();
+                    layer.alert('请至少选中一项发布范围', {
+                        icon: 1,
+                    });
+                }
+            }
         });
         //删除公告信息
         $(".delete-noticeInfo").on({
