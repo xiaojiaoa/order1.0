@@ -62,49 +62,43 @@
        function setList(data){
 
            //初始化复选框--均为未选中状态
-           $("#checkAll04").prop("checked", false);
-           $("input[name=storeTypeM]:checkbox").prop("checked",false);
-           $("#checkAll05").prop("checked",false);
-           $("input[name=addrTypeM]:checkbox").prop("checked",false);
-           $("#checkAll06").prop("checked",false);
-           $("input[name=organizationTypeM]:checkbox").prop("checked",false);
-
+           $("input[type=checkbox]").prop("checked",false);
            //根据后台传过来的值设置checkbox的状态
            for(var i in data){
                if(data[i].sendValue==-1){
                    switch (data[i].sendType) {
                        case 1:
-                           $("#checkAll04").prop("checked", true);
-                           $("input[name=storeTypeM]:checkbox").prop("checked",true);
+                           $("#checkAll01").prop("checked", true);
+                           $("input[name=storeType]:checkbox").prop("checked",true);
                            break;
                        case 2:
-                           $("#checkAll05").prop("checked",true);
-                           $("input[name=addrTypeM]:checkbox").prop("checked",true);
+                           $("#checkAll02").prop("checked",true);
+                           $("input[name=addrType]:checkbox").prop("checked",true);
                            break;
                        case 3:
-                           $("#checkAll06").prop("checked",true);
-                           $("input[name=organizationTypeM]:checkbox").prop("checked",true);
+                           $("#checkAll03").prop("checked",true);
+                           $("input[name=organizationType]:checkbox").prop("checked",true);
                            break;
                    }
                }
                else {
                    switch (data[i].sendType) {
                        case 1:
-                           $("input[name=storeTypeM]:checkbox").each(function(){
+                           $("input[name=storeType]:checkbox").each(function(){
                                if(data[i].sendValue==$(this).val()){
                                    $(this).prop("checked",true);
                                }
                            });
                            break;
                        case 2:
-                           $("input[name=addrTypeM]:checkbox").each(function(){
+                           $("input[name=addrType]:checkbox").each(function(){
                                if(data[i].sendValue==$(this).val()){
                                    $(this).prop("checked",true);
                                }
                            });
                            break;
                        case 3:
-                           $("input[name=organizationTypeM]:checkbox").each(function(){
+                           $("input[name=organizationType]:checkbox").each(function(){
                                if(data[i].sendValue==$(this).val()){
                                    $(this).prop("checked",true);
                                }
@@ -121,8 +115,6 @@
            var scopesList=eval($("#scopesList").val());
            var sendType=$("#sendType")
            var sendValue=$("#sendValue");
-
-           console.log(scopesList)
            $("select[name=sendType]").change(function () {
                var sendTypeVal=$(this).val();
 
