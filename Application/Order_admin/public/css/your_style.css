@@ -1320,3 +1320,9 @@ ul.dropdown li{
 .slideToggle{
     display:none;
 }
+
+.paginator-info{
+    padding: 6px 12px;
+    line-height: 2.5;
+    color: #3276b1;
+}

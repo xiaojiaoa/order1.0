@@ -34,7 +34,6 @@ var OrderController = {
             {url: '/api/organizations/list', method: 'GET', resConfig: {keyName: 'organizationsList', is_must: false}},
             {url: '/api/stores/list', method: 'GET', resConfig: {keyName: 'storesList', is_must: false}}
         ], function (req, res, resultList) {
-            // console.log('orderList',JSON.stringify(resultList.orderList))
 
             var paginationInfo =  resultList.orderList;
 
