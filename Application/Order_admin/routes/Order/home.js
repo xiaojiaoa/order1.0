@@ -539,7 +539,7 @@ var  MaterialController = require('./Controller/MaterialController');
 router.get('/materialManage', Middleware.AuthCheck,Middleware.FilterEmptyField,Middleware.SetBackPath,MaterialController.indexPage);
 
 // 物料详情页面
-router.get('/materialManage/detail/:bid/:mid', Middleware.AuthCheck, MaterialController.detailPage);
+router.get('/materialManage/detail/:bid/:mid', Middleware.AuthCheck, Middleware.SetBackPath,MaterialController.detailPage);
 
 // 根据工厂选择物料详情页面
 router.post('/materialManage/choiceFactory', Middleware.AuthCheck, MaterialController.choiceFactory);
