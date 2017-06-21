@@ -238,16 +238,15 @@
                                     </div>
                                     <div class="pull-left padding-right-10">
                                         <p id="idPhotoOneName">
-                                            <input class="upimg-input display-none" placeholder="请上传图片1"
-                                                   data-errormessage-value-missing="请上传图片1" readonly >
+                                            <% if(mateInfo.image){%>
                                             <a class="fancybox dwy_image" href="<%= DWY_GLOBAL.Static %>/download?url=<%= mateInfo.image %>" data-fancybox-group="gallery" title="<%= mateInfo.image %>"><%= mateInfo.image %></a>
-                                        </p>
-                                        <!--  <p id="idPhotoTwoName">
-                                              <input class="upimg-input validate[required]" placeholder="请上传图片2"
-                                                     data-errormessage-value-missing="请上传图片2" readonly>
-                                          </p>-->
+                                            <%} else{%>
+                                            <input class="upimg-input" placeholder="请上传图片"
+                                                   data-errormessage-value-missing="请上传图片" readonly >
+                                            <%}%>
+                                         </p>
+
                                         <input type="hidden" name="image" id="idPhotoOne" value="">
-                                        <!--    <input type="hidden" name="image" id="idPhotoTwo" value="">-->
                                     </div>
 
                                 </div>
@@ -310,71 +309,21 @@
         $("#material_modify_form").validationEngine();
 
         // 上传图片
-        DWY_area.init({});
-
-        var idPhotoNum = 1;
-        var idPhotoOneName = $("#idPhotoOneName");
-        var idPhotoTwoName = $("#idPhotoTwoName");
-        var idPhotoOne = $("#idPhotoOne");
-        var idPhotoTwo = $("#idPhotoTwo");
-
-        $('#dwy_file_upload').on({
-            change: function (e) {
-                var _this = $(this);
-                var label = $("#label-upload-file");
-
-                var formData = new FormData();
-                formData.append('file_name', _this.prop('files')[0])
-
-                $.ajax({
-                    url: '/template/upload/img',
-                    data: formData,
-                    type: 'POST',
-                    processData: false, // 不处理发送的数据，因为data值是Formdata对象，不需要对数据做处理
-                    contentType: false, // 不设置Content-type请求头
-                    success: function (data) {
-                        if (data.code == 200) {
-                            if(!idPhotoOne.val()){
-                                idPhotoOneFuc(data);
-                                label.html('上传成功 <i class="fa fa-check">');
-                                return;
-                            }
-                            if(!idPhotoTwo.val()){
-                                idPhotoTwoFuc(data);
-                                label.html('上传成功 <i class="fa fa-check">');
-                                return;
-                            }
-                            switch(idPhotoNum%2){
-                                case 1:
-                                    idPhotoOneFuc(data);
-                                    break;
-                                case 0:
-                                    idPhotoTwoFuc(data);
-                                    break;
-                            }
-                            idPhotoNum++;
-                            label.html('上传成功 <i class="fa fa-check">');
-                        } else {
-                            label.html('上传失败 <i class="fa fa-times">');
-                        }
-                    },
-                    error: function (error) {
-                        label.html('上传失败 <i class="fa fa-times">');
+        //上传图片
+        $("#dwy_file_upload").on(
+            {
+                change: function (e) {
+                    var _this = $(this);
+                    var congig = {
+                        'file_name': _this.prop('files')[0],
                     }
-                })
+                    uploadFuc.uploadSingleFile('/template/upload/single/materiel', congig, function (data) {
+                        $("#idPhotoOne").val(data.data.url);
+                        $("#idPhotoOneName").html('<a  class="fancybox dwy_image" href="<%= DWY_GLOBAL.Static %>/preview?url=' + data.data.url + '" data-fancybox-group="gallery" title="'+data.data.name+'">'+data.data.name+'</a>')
+                    });
+                },
             }
-        })
-
-        function idPhotoOneFuc(data) {
-            idPhotoOne.val(data.data.url);
-            idPhotoOneName.html('<a  class="fancybox dwy_image" href="<%= DWY_GLOBAL.Static %>/preview?url=' + data.data.url + '" data-fancybox-group="gallery" title="'+data.data.name+'">'+data.data.name+'</a>')
-
-        }
-        function idPhotoTwoFuc(data) {
-            idPhotoTwo.val(data.data.url);
-            idPhotoTwoName.html('<a  class="fancybox dwy_image" href="<%= DWY_GLOBAL.Static %>/preview?url=' + data.data.url + '" data-fancybox-group="gallery" title="'+data.data.name+'">'+data.data.name+'</a>')
-
-        }
+        );
 
         // 图片浏览
         $('.fancybox').fancybox();
