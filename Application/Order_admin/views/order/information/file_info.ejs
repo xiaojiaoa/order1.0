@@ -154,7 +154,7 @@
 <%- include('../layouts/footer'); %>
 <%- include('../layouts/footer_common_script'); %>
 <!--新建资料信息-->
-<form class="form-horizontal  layer-template" method="post" id="create-fileInfo-form">
+<form class="form-horizontal  layer-template" method="post" id="create-fileInfo-form" action="/fileInfo/share">
 
     <div class="row" style="padding: 30px 40px 0 0;">
 
@@ -209,35 +209,46 @@
             </div>
         </div>
 
-        <div class="col-xs-12">
-            <div class="col-xs-6">
-                <div class="form-group">
+
                     <% if (DWY_Helper.hasPermission(Permission.information.upload.id, permission) ){ %>
-                    <div class="col-xs-4">
-                        <label for="dwy_file_upload" class="btn btn-primary" id="label-upload-file">
 
-                            点击上传 <i class="fa fa-upload"></i> </label>
-                        <input type="file" name="file_name" id="dwy_file_upload" style="display: none;">
+                    <div class="col-xs-12">
+
+                        <!--输入字段-->
+                        <div class="col-xs-8">
+                            <div class="form-group">
+                                <div class="col-xs-1"></div>
+                                <label class="col-xs-2 control-label"><span class="requird"></span> 文件地址:</label>
+                                <div class="col-xs-9">
+                                    <input class="form-control validate[required]" readonly value=""
+                                           name="name">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xs-4">
+                            <div class="col-xs-12 text-left">
+                                <label for="dwy_file_upload" class="btn btn-primary" id="label-upload-file">
+
+                                    点击上传 <i class="fa fa-upload"></i> </label>
+                                <input type="file" name="file_name" id="dwy_file_upload" style="display: none;">
+                            </div>
+                        </div>
+
+                        <input type="hidden" name="path" value="">
+
                     </div>
-                     <div class="col-xs-8">
-                         <input type="text" name="file_check" id="file_check" class="form-control validate[required] col-xs-8">
-                     </div>
-
-                    <% } %>
-                </div>
-            </div>
-        </div>
-    </div>
+    <% } %>
 
 
     <div class="row">
         <div class="col-xs-12">
             <hr class="simple">
             <div class="col-xs-12 text-center">
-                <a class="btn btn-primary  margin-right-5" type="submit" id="doCreate">
+                <input type="hidden" value="" name="shareScopes">
+                <button class="btn btn-primary  margin-right-5 subBtn">
                     <i class="fa fa-save"></i>
                     提交
-                </a>
+                </button>
             </div>
         </div>
     </div>
@@ -250,12 +261,29 @@
     $(document).ready(function () {
 
         pageSetUp();
-
-        var pageFunction = function () {
-
-        }
-        var mydata;
         $("#create-fileInfo-form").validationEngine();
+
+        // 复选框全选全不选功能
+        checkFuc("#checkAll01","input[name=storeType]:checkbox");
+        checkFuc("#checkAll02","input[name=addrType]:checkbox");
+        checkFuc("#checkAll03","input[name=organizationType]:checkbox");
+
+        // 上传文件
+        $("#dwy_file_upload").on(
+            {
+                change: function (e) {
+                    var _this = $(this);
+                    var congig = {
+                        'file_name': _this.prop('files')[0],
+                    }
+                    uploadFuc.uploadSingleFile('/template/upload/single/share', congig, function (data) {
+                        $('input[name=path]').val(data.data.url);
+                        $('#create-fileInfo-form input[name=name]').val(data.data.name);
+                    });
+                },
+            }
+        );
+
         //新建文件信息
         $(".create-fileInfo").on({
             click: function () {
@@ -269,125 +297,34 @@
                     },
                 });
             }
-        })
-        pageFunction();
+        });
 
-        checkFuc("#checkAll01","input[name=storeType]:checkbox");
-        checkFuc("#checkAll02","input[name=addrType]:checkbox");
-        checkFuc("#checkAll03","input[name=organizationType]:checkbox");
-
-
-        $('#doCreate').click(function () {
-            var length=$("input[type='checkbox']:checked").length;
-            if(length>0){
-        if( $("#create-fileInfo-form").validationEngine('validate')){
-
-
+        // 获取发布范围的值
+        function getCode() {
             var a=getList("#checkAll01","input[name=storeType]:checked");
             var b=getList("#checkAll02","input[name=addrType]:checked");
             var c=getList("#checkAll03","input[name=organizationType]:checked");
-
             var myArray=a.concat(b,c);
-            console.log(myArray);
-
-            var date={
-                name:mydata.name,
-                path:mydata.path,
-            shareScopes:myArray
-            };
-
-            layer.confirm("确认提交？", {title:'提示'},function(index){
-                    console.log(date);
-                    $.ajax({
-                        url:'/fileInfo/share',
-                        data:JSON.stringify(date),
-                        method: 'post',
-                        dataType: 'json',
-                        contentType:"application/json",
-                        success: function (data) {
-                            var href='/fileInfo';
-                            successLayout.hrefTo(href);
-                        },
-                        error: function (response) {
-                            layer.close(index)
-                            var status = response.status;
-                            if(status == 200){
-                                var href='/fileInfo';
-                                successLayout.hrefTo(href);
-                                return;
-                            }
-                            errorLayout.normal(response);
-
-                        }
-                    });
-                },function(index){
-                    layer.close(index)}
-            )
+            $("input[name=shareScopes]").val(JSON.stringify(myArray));
         }
+
+        // 提交信息
+        $(".subBtn").on({
+            click:function(e){
+                getCode();
+                var length=$("#create-fileInfo-form input[type='checkbox']:checked").length;
+                if(length>0) {
+                   $("#create-fileInfo-form").submit();
+                }
+                else{
+                    e = e || window.event;
+                    e.preventDefault();
+                    layer.alert('请至少选中一项发布范围', {
+                        icon: 1,
+                    });
+                }
             }
-            else{
-                layer.alert('请至少选中一项复选框', {
-                    icon: 1,
-                });
-            }
-
-        })
-
-        //资料上传
-        $('#dwy_file_upload').on({
-            change: function (e) {
-                var _this = $(this);
-                var label = $("#label-upload-file");
-                var formData = new FormData();
-
-                formData.append('file_name', _this.prop('files')[0])
-
-
-//            console.log(window.aaa = formData);
-                label.html('上传中 <i class="fa fa-circle-o-notch fa-spin">');
-                label.attr('disabled', true);
-
-
-                $.ajax({
-                    url: '/template/upload/single/share',
-                    data: formData,
-                    type: 'POST',
-                    // THIS MUST BE DONE FOR FILE UPLOADING
-                    processData: false, // 不处理发送的数据，因为data值是Formdata对象，不需要对数据做处理
-                    contentType: false, // 不设置Content-type请求头
-                    // ... Other options like success and et
-                    success: function (data) {
-                        label.attr('disabled', false);
-                        if (data.code == 200) {
-
-                            label.html('上传成功 <i class="fa fa-check">');
-                            $("#file_check").val(data.data.name);
-
-                            //将获取到的文件信息传递给后台
-                            var fileName =data.data.name;
-                            var fileSize =data.data.size;
-                            var savePath =data.data.url;
-
-                            mydata={
-                                name:fileName,
-                                size:fileSize,
-                                path:savePath
-                            }
-
-
-                            // 图片预览
-//                        $('#test-image-upload').attr('src', '/uploads/' + data.tmp_path);
-                        } else {
-                            label.html('上传失败 <i class="fa fa-times">');
-                        }
-                    },
-                    error: function () {
-                        label.attr('disabled', false);
-                        label.html('上传失败 <i class="fa fa-times">');
-                    }
-                })
-            }
-        })
+        });
 
         //删除文件信息
         $(".delete-fileInfo").on({
