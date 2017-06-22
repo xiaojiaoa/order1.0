@@ -1329,7 +1329,7 @@ var OrderController = {
             form: req.body,
         }, req, res), function (error, response, body) {
             if (!error && response.statusCode == 201) {
-                res.sendStatus(200);
+                res.redirect(req.session.backPath?req.session.backPath:'/collection');
             } else {
                 Base.handlerError(res, req, error, response, body);
             }
