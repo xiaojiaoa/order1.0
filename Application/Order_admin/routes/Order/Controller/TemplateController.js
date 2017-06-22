@@ -120,17 +120,17 @@ var TemplateController = {
             {url: '/api/employees/current', method: 'GET', resConfig: {keyName: 'user', is_must: false}},
             {url: '/api/employees/current', method: 'GET', resConfig: {keyName: 'userInfo', is_must: true}}
         ], function (req, res, resultList) {
-            res.render('order/index', Base.mergeData(helper.mergeObject({title: '门店登录系统'}, resultList)));
+            res.render('order/index', Base.mergeData(helper.mergeObject({title: '布兰莎订单数据系统'}, resultList)));
         });
     },
 
 
-    //resource page
+    // resource page
     listPage: function (req, res) {
     },
 
     createPage: function (req, res) {
-        res.render('order/template/template', Base.mergeData(helper.mergeObject({title: '门店登录系统'}, {})));
+        res.render('order/template/template', Base.mergeData(helper.mergeObject({title: '布兰莎订单数据系统'}, {})));
     },
     doCreate: function (req, res) {
 

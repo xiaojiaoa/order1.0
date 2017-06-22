@@ -9,7 +9,7 @@ var PassportController = {
     // 显示登录页面
     loginPage: function (req, res, next) {
 
-        res.render('passport/login', Base.mergeData(helper.mergeObject({title: '订单登录系统'}, {})));
+        res.render('passport/login', Base.mergeData(helper.mergeObject({title: '布兰莎订单数据系统'}, {})));
     },
 
     // 登录

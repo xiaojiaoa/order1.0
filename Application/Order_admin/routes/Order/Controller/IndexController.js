@@ -16,7 +16,7 @@ var IndexController = {
 
     indexPage: function (req, res) {
         res.redirect('/userCenter')
-        // res.render('order/index', Base.mergeData(helper.mergeObject({title: '订单登录系统'}, {})));
+        // res.render('order/index', Base.mergeData(helper.mergeObject({title: '布兰莎订单数据系统'}, {})));
     },
     countCustomerPage: function (req, res) {
 
