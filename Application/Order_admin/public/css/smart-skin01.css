@@ -1,0 +1,156 @@
+/*订单系统登录页样式S*/
+#smart-skin{
+    background: url("../img/order-loginBg01.png") no-repeat center top;
+    width:100%;
+    height:100%;
+    color: #000000;
+    box-sizing: border-box;
+}
+#smart-skin #main{
+  background-color: transparent!important;
+    padding-top: 0px!important;
+    padding-bottom: 0px!important;
+}
+#smart-skin #header{
+    background-color: transparent!important;
+    border-bottom:none!important;
+    float: left;
+    margin-top:50px;
+    margin-left:66px;
+}
+#smart-skin #logo-group{
+    background: url("../img/logo-white01.png") no-repeat center top;
+    width:169px;
+    height:82px;
+}
+#smart-skin #logo-group p{
+    display: none;
+}
+#smart-skin #content {
+    padding: 0px 8px;
+    width: 100%;
+}
+#smart-skin-row{
+    background: rgba(255,255,255,1);
+    width: 900px;
+    min-height: 974px;
+    float: right;
+    margin-right: 0px;
+    padding-left: 125px;
+    box-sizing: border-box;
+}
+#smart-skin-row>div{
+    width:100%;
+}
+#smart-skin-row  .login-header-big{
+    height: 60px;
+    line-height: 60px;
+    font-size: 36px;
+    letter-spacing: 0;
+    font-weight: bold!important;
+    color: #010101!important;
+    text-align: left;
+    margin-top: 243px;
+}
+#smart-skin-row  .login-header-big:before{
+    content: '';
+    width:64px;
+    height:4px;
+    background-color: #000000;
+    position: absolute;
+    top: 122px;
+    right:100px;
+}
+#smart-skin-row  .login-header-big span{
+    display: none;
+}
+#smart-skin-row .login-desc-box-l{
+    position: absolute;
+    top: 820px;
+    min-height: 100px;
+    width: 70%;
+}
+#smart-skin-row .login-desc-box-l:after{
+    content: '';
+    width: 4px;
+    height: 64px;
+    background-color: #000000;
+    position: absolute;
+    bottom: 48px;
+    right: -140px;
+}
+#smart-skin-row .login-desc-box-l span{
+    float: left;
+    font-size:12px;
+    color: #000;
+}
+#smart-skin-row .login-desc-box-l span:last-of-type{
+    display: none;
+}
+#smart-skin-row .paragraph-header{
+    text-align: center;
+    width: 100%!important;
+}
+#smart-skin-row .paragraph-header span{
+    display: block;
+}
+#smart-skin-row .well{
+    border: 0px solid #F6A623;
+    width: 360px
+}
+#smart-skin-row .well header{
+    display: none;
+}
+#smart-skin-row .well fieldset section .label{
+    display: none;
+}
+#smart-skin-row .well fieldset section i{
+    display: none;
+}
+#smart-skin-row .well fieldset section .input input{
+    font-size:16px;
+    color: #000!important;
+    height:48px;
+    line-height:48px;
+    margin-bottom:16px;
+    background-color: #f9f8f4!important;
+    border: 0px;
+}
+#smart-skin-row .well fieldset section .input input:hover{
+    border:1px solid #ebebeb;
+}
+#smart-skin-row .well fieldset section .input input:focus{
+    border:2px solid #333333;
+    box-shadow: 0 0 50px 50px #f9f8f4 inset;
+}
+#smart-skin-row  #validate-img{
+    height:95%;
+}
+#smart-skin-row .well footer{
+     padding: 0px;
+    border:0px;
+    background:transparent;
+}
+#smart-skin-row .well .btn,#smart-skin-row .well .btn:hover{
+    width:160px;
+    height:48px;
+    background-color: #f5cf5c;
+    border:0px;
+    -webkit-border-radius:4px;
+    -moz-border-radius:4px;
+    border-radius:4px;
+    text-align: center;
+    font-size:20px;
+    font-weight:bold;
+    color: #000;
+    float: left;
+    margin-top:60px;
+}
+#smart-skin-row .well .btn span{
+    width:20px;
+    display: inline-block;
+}
+:root input:-webkit-autofill, textarea:-webkit-autofill, select:-webkit-autofill {
+    box-shadow: 0 0 50px 50px #f9f8f4 inset;/*修改谷歌浏览器记住密码之后的样式*/
+}
+/*订单系统登录页样式E*/
