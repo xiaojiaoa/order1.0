@@ -1315,6 +1315,9 @@ ul.dropdown li{
     color:#3b9ff3;
 }
 
-.slideToggle{
+/*.slideToggle{*/
+    /*display:none;*/
+/*}*/
+.searchBut{
     display:none;
 }

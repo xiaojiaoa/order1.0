@@ -45,8 +45,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-xs-9">
-                                    <div class="col-xs-12">
+                                <div class="col-xs-9 addHtml">
                                         <div class="col-xs-6">
                                             <div class="form-group">
                                                 <label class="col-xs-3 control-label">客户手机:</label>
@@ -56,7 +55,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="col-xs-6">
+                                        <div class="col-xs-6 searchBut">
                                             <button class="btn btn-primary " type="submit">
                                                 <i class="fa fa-search"></i>
                                                 查询
@@ -69,7 +68,6 @@
                                                 <i class="fa fa-chevron-down"></i>
                                             </label>
                                         </div>
-                                    </div>
                                 </div>
 
                             </div>
@@ -84,7 +82,6 @@
                                         </div>
                                     </div>
                                     <div class="col-xs-9">
-                                        <div class="col-xs-12">
                                             <div class="col-xs-6">
                                                 <div class="form-group">
                                                     <label class="col-xs-3 control-label">门店:</label>
@@ -101,7 +98,7 @@
                                             </div>
                                             <div class="col-xs-6">
                                                 <div class="form-group">
-                                                    <label class="col-xs-2 control-label">流水状态:</label>
+                                                    <label class="col-xs-3 control-label">流水状态:</label>
                                                     <div class="col-xs-4 ">
                                                         <select class="form-control" name="stcodeStart">
                                                             <option value="">- 起始 请选择 -</option>
@@ -123,7 +120,6 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div>
                                     </div>
                                 </div>
                                 <div class="col-xs-12">
@@ -142,7 +138,7 @@
                                         </div>
                                     </div>
                                     <div class="col-xs-9">
-                                        <div class="col-xs-12">
+                                        <div class="lastEl">
                                             <div class="col-xs-6">
                                                 <div class="form-group">
                                                     <label class="col-xs-3 control-label">流水创建日期:</label>
@@ -161,16 +157,15 @@
                                     </div>
                                 </div>
                             </div>
-
-                            <!--<div class="col-xs-12">-->
-                                <!--<hr class="simple">-->
-                                <!--<div class="col-xs-12 text-center">-->
-                                    <!--<button class="btn btn-primary " type="submit">-->
-                                        <!--<i class="fa fa-search"></i>-->
-                                        <!--查询-->
-                                    <!--</button>-->
-                                <!--</div>-->
-                            <!--</div>-->
+                            <div class="col-xs-12 oldButton">
+                                <hr class="simple">
+                                <div class="col-xs-12 text-center">
+                                    <button class="btn btn-primary " type="submit">
+                                        <i class="fa fa-search"></i>
+                                        查询
+                                    </button>
+                                </div>
+                            </div>
 
                         </form>
                     </div>
@@ -263,20 +258,16 @@
 
         $("#search-customer").validationEngine({scroll: false});
         $(".fg-date-time-picker").flatpickr(data_time_picker.data_picker); // jQuery
+
+        DWY_Utils.ButtonExit.judge();
         //重置
         $(".reset").click(function(){
             $("#search-customer input,#search-customer select").val('');
         })
 
         $(".search").click(function(){
-            var col = $(".slideToggle");
-            col.fadeToggle(200).toggleClass("cont");
-            if(col.hasClass("cont")){
-                $(this).find("i").removeClass("fa-chevron-down").addClass("fa-chevron-up");
-            }else{
-                $(this).find("i").removeClass("fa-chevron-up").addClass("fa-chevron-down");
-            }
-        })
+            DWY_Utils.Clicks.clicks();
+        });
 
 
     })

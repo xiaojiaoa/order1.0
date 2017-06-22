@@ -142,6 +142,37 @@ var DWY_Utils = DWY_Utils || {
                 return total;
             },
         },
+        Clicks:{
+          clicks:function(){
+              var _this = $(this);
+              var col = $(".slideToggle");
+              col.fadeToggle(200).toggleClass("cont");
+              if(col.hasClass("cont")){
+                  $(_this).find("i").removeClass("fa-chevron-down").addClass("fa-chevron-up");
+              }else{
+                  $(_this).find("i").removeClass("fa-chevron-up").addClass("fa-chevron-down");
+              }
+          },
+        },
+        ButtonExit:{
+            judge:function(){
+                $(".searchBut").addClass("exitClass");
+                var html = " <div class='col-xs-12'>"
+                    +"<hr class='simple'>"
+                    +"<div class='col-xs-12 text-center'>"
+                    +"<button class='btn btn-primary ' type='submit'>"
+                    + "<i class='fa fa-search'></i>查询"
+                    +"</button>"
+                    +"</div>"
+                    +"</div>"
+                if($(".searchBut").hasClass("exitClass")){
+                    $(".addHtml").append($(".lastEl").html());
+                    $(".lastEl").empty();
+                    $(".slideToggle").append(html);
+                }else{
+                }
+            }
+        },
 
 
     }
