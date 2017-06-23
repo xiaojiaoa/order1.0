@@ -154,26 +154,5 @@ var DWY_Utils = DWY_Utils || {
               }
           },
         },
-        ButtonExit:{
-            judge:function(){
-                $(".searchBut").addClass("exitClass");
-                var html = " <div class='col-xs-12'>"
-                    +"<hr class='simple'>"
-                    +"<div class='col-xs-12 text-center'>"
-                    +"<button class='btn btn-primary ' type='submit'>"
-                    + "<i class='fa fa-search'></i>查询"
-                    +"</button>"
-                    +"</div>"
-                    +"</div>"
-                if($(".searchBut").hasClass("exitClass")){
-                    $(".addHtml").append($(".lastEl").html());
-                    $(".lastEl").empty();
-                    $(".slideToggle").append(html);
-                }else{
-                }
-            }
-        },
-
-
     }
 

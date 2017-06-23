@@ -84,6 +84,7 @@ var DWY_GLOBAL = require('./routes/Order/config/global');
 // 大王椰全局变量
 app.locals.DWY_GLOBAL = {
     Static: DWY_GLOBAL.server.Static.remote_server(),
+    ButtonOpen:2,
 }
 
 // 格式化金额

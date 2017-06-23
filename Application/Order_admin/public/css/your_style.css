@@ -1317,12 +1317,10 @@ ul.dropdown li{
     color:#3b9ff3;
 }
 
-/*.slideToggle{*/
-    /*display:none;*/
-/*}*/
-.searchBut{
+.slideToggle{
     display:none;
 }
+
 
 .paginator-info{
     padding: 6px 12px;

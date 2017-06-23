@@ -163,7 +163,6 @@
                     <!--<legend>客户搜索</legend>-->
                     <div class="row search-form">
                         <form class="form-horizontal" method="get">
-
                             <div class="col-xs-12">
 
                                 <div class="col-xs-3">
@@ -175,20 +174,20 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-xs-9 addHtml">
-                                    <div class="col-xs-6">
-                                        <div class="form-group">
-                                            <label class="col-xs-4 control-label">是否下单完毕:</label>
-                                            <div class="col-xs-6">
-                                                <select class="form-control" name="type">
-                                                    <option value="">- 请选择 -</option>
-                                                    <option value="1" <%= (DWYRequest.query.type == 1)?"selected":"" %>>完毕</option>
-                                                    <option value="2" <%= (DWYRequest.query.type == 2)?"selected":"" %>>未完</option>
-                                                </select>
-                                            </div>
+                                <div class="col-xs-3">
+                                    <div class="form-group">
+                                        <label class="col-xs-4 control-label">是否下单完毕:</label>
+                                        <div class="col-xs-8">
+                                            <select class="form-control" name="type">
+                                                <option value="">- 请选择 -</option>
+                                                <option value="1" <%= (DWYRequest.query.type == 1)?"selected":"" %>>完毕</option>
+                                                <option value="2" <%= (DWYRequest.query.type == 2)?"selected":"" %>>未完</option>
+                                            </select>
                                         </div>
                                     </div>
-                                    <div class="col-xs-6 searchBut">
+                                </div>
+                                <% if(DWY_GLOBAL.ButtonOpen!=1){ %>
+                                <div class="col-xs-3 text-center">
                                     <button class="btn btn-primary " type="submit">
                                         <i class="fa fa-search"></i>
                                         查询
@@ -201,8 +200,23 @@
                                         <i class="fa fa-chevron-down"></i>
                                     </label>
                                 </div>
+                                <%}%>
+                                <% if(DWY_GLOBAL.ButtonOpen==1){ %>
+                                <div class="col-xs-4">
+                                    <div class="form-group">
+                                        <label class="col-xs-3 control-label">&nbsp;提交日期:</label>
+                                        <div class="col-xs-4">
+                                            <input class="form-control fg-date-picker" type="text"
+                                                   value="<%= DWYRequest.query.startTime %>" name="startTime">
+                                        </div>
+                                        <label class="control-label " style="float: left"> 至 </label>
+                                        <div class="col-xs-4">
+                                            <input class="form-control fg-date-picker" type="text"
+                                                   value="<%= DWYRequest.query.endTime %>" name="endTime">
+                                        </div>
+                                    </div>
                                 </div>
-
+                                <%}%>
                             </div>
                             <div class="slideToggle">
                                 <div class="col-xs-12">
@@ -217,39 +231,38 @@
                                                 <% }) %>
                                             </select>
                                         </div>
-                                        <div class="col-xs-10">
-                                            <div class="col-xs-2">
-                                                <select class="form-control" name="difficulty">
-                                                    <option value="">- 难度 -</option>
-                                                    <% difficultyList.forEach(function (element) {  %>
-                                                    <option value="<%= element.id %>" <%= (DWYRequest.query.difficulty == element.id)?"selected":"" %>>
-                                                        <%= element.name %>
-                                                    </option>
-                                                    <% }) %>
-                                                </select>
-                                            </div>
-                                            <div class="col-xs-2">
-                                                <select class="form-control" name="productType">
-                                                    <option value="">- 类型 -</option>
-                                                    <% prodList.forEach(function (element) {  %>
-                                                    <option value="<%= element.id %>" <%= (DWYRequest.query.productType == element.id)?"selected":"" %> >
-                                                        <%= element.name %>
-                                                    </option>
-                                                    <% }) %>
-                                                </select>
-                                            </div>
-                                            <div class="col-xs-2">
-                                                <select class="form-control" name="color">
-                                                    <option value="">- 颜色 -</option>
-                                                    <% colorList.forEach(function (element) {  %>
-                                                    <option value="<%= element.id %>" <%= (DWYRequest.query.color == element.id)?"selected":"" %> >
-                                                        <%= element.name %>
-                                                    </option>
-                                                    <% }) %>
-                                                </select>
-                                            </div>
-                                            <div class="lastEl">
-                                                <div class="col-xs-6">
+                                        <div class="col-xs-2">
+                                            <select class="form-control" name="difficulty">
+                                                <option value="">- 难度 -</option>
+                                                <% difficultyList.forEach(function (element) {  %>
+                                                <option value="<%= element.id %>" <%= (DWYRequest.query.difficulty == element.id)?"selected":"" %>>
+                                                    <%= element.name %>
+                                                </option>
+                                                <% }) %>
+                                            </select>
+                                        </div>
+                                        <div class="col-xs-2">
+                                            <select class="form-control" name="productType">
+                                                <option value="">- 类型 -</option>
+                                                <% prodList.forEach(function (element) {  %>
+                                                <option value="<%= element.id %>" <%= (DWYRequest.query.productType == element.id)?"selected":"" %> >
+                                                    <%= element.name %>
+                                                </option>
+                                                <% }) %>
+                                            </select>
+                                        </div>
+                                        <div class="col-xs-2">
+                                            <select class="form-control" name="color">
+                                                <option value="">- 颜色 -</option>
+                                                <% colorList.forEach(function (element) {  %>
+                                                <option value="<%= element.id %>" <%= (DWYRequest.query.color == element.id)?"selected":"" %> >
+                                                    <%= element.name %>
+                                                </option>
+                                                <% }) %>
+                                            </select>
+                                        </div>
+                                        <% if(DWY_GLOBAL.ButtonOpen!=1){ %>
+                                        <div class="col-xs-4">
                                                 <div class="form-group">
                                                     <label class="col-xs-2 control-label">&nbsp;提交日期:</label>
                                                     <div class="col-xs-4">
@@ -263,13 +276,12 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            </div>
-                                        </div>
+                                        <%}%>
                                     </div>
                                 </div>
                             </div>
-
-                            <div class="col-xs-12 oldButton">
+                            <% if(DWY_GLOBAL.ButtonOpen==1){ %>
+                            <div class="col-xs-12">
                                 <hr class="simple">
                                 <div class="col-xs-12 text-center">
                                     <button class="btn btn-primary " type="submit">
@@ -278,7 +290,7 @@
                                     </button>
                                 </div>
                             </div>
-
+                            <%}%>
                         </form>
                     </div>
                 </div>
@@ -354,7 +366,6 @@
     $(document).ready(function () {
         pageSetUp();
         $(".fg-date-picker").flatpickr(data_time_picker.data_picker); // jQuery
-        DWY_Utils.ButtonExit.judge();
 
         //重置
         $(".reset").click(function(){
