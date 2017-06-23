@@ -142,7 +142,17 @@ var DWY_Utils = DWY_Utils || {
                 return total;
             },
         },
-
-
+        Clicks:{
+          clicks:function(){
+              var _this = $(this);
+              var col = $(".slideToggle");
+              col.fadeToggle(200).toggleClass("cont");
+              if(col.hasClass("cont")){
+                  $(_this).find("i").removeClass("fa-chevron-down").addClass("fa-chevron-up");
+              }else{
+                  $(_this).find("i").removeClass("fa-chevron-up").addClass("fa-chevron-down");
+              }
+          },
+        },
     }
 

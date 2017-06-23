@@ -44,15 +44,16 @@
                                     </div>
                                 </div>
                                 <div class="col-xs-3">
-                                    <div class="form-group">
-                                        <label class="col-xs-4 control-label">客户手机:</label>
-                                        <div class="col-xs-8">
-                                            <input class="form-control validate[funcCall[custom_validate_fn.isMobile]]"
-                                                   placeholder="请输入客户手机" type="text" value="<%= DWYRequest.query.mobile %>" name="mobile">
-                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-xs-4 control-label">客户手机:</label>
+                                            <div class="col-xs-8">
+                                                <input class="form-control validate[funcCall[custom_validate_fn.isMobile]]"
+                                                       placeholder="请输入客户手机" type="text" value="<%= DWYRequest.query.mobile %>" name="mobile">
+                                            </div>
                                     </div>
                                 </div>
-                                <div class="col-xs-3 text-right">
+                                <% if(DWY_GLOBAL.ButtonOpen!=1){ %>
+                                <div class="col-xs-3 text-center">
                                     <button class="btn btn-primary " type="submit">
                                         <i class="fa fa-search"></i>
                                         查询
@@ -65,6 +66,25 @@
                                         <i class="fa fa-chevron-down"></i>
                                     </label>
                                 </div>
+                                <%}%>
+                                <% if(DWY_GLOBAL.ButtonOpen==1){ %>
+                                <div class="col-xs-1"></div>
+                                <div class="col-xs-4">
+                                    <div class="form-group">
+                                        <label class="col-xs-3 control-label">建单日期:</label>
+                                        <div class="col-xs-4">
+                                            <input class="form-control fg-date-picker" placeholder="" type="text" value="<%= DWYRequest.query.startDate%>"
+                                                   name="startDate">
+                                        </div>
+                                        <label class="from-to control-label "> 至 </label>
+                                        <div class="col-xs-4">
+                                            <input class="form-control fg-date-picker" placeholder="" type="text" value="<%= DWYRequest.query.endDate%>"
+                                                   name="endDate">
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <%}%>
                             </div>
                             <div class="slideToggle">
                                 <div class="col-xs-12">
@@ -84,7 +104,6 @@
                                         </div>
                                     </div>
                                     <% } %>
-
                                     <div class="col-xs-3">
                                         <div class="form-group">
                                             <label class="col-xs-4 control-label">门店:</label>
@@ -117,6 +136,7 @@
                                                        name="endDeliveryDate">
                                             </div>
                                         </div>
+
                                     </div>
                                 </div>
                                 <div class="col-xs-12">
@@ -135,6 +155,7 @@
                                             </div>
                                         </div>
                                     </div>
+
                                     <div class="col-xs-4">
                                         <div class="form-group">
                                             <label class="col-xs-3 control-label">订单状态:</label>
@@ -159,6 +180,7 @@
                                             </div>
                                         </div>
                                     </div>
+                                    <% if(DWY_GLOBAL.ButtonOpen!=1){ %>
                                     <div class="col-xs-4">
                                         <div class="form-group">
                                             <label class="col-xs-3 control-label">建单日期:</label>
@@ -170,11 +192,24 @@
                                             <div class="col-xs-4">
                                                 <input class="form-control fg-date-picker" placeholder="" type="text" value="<%= DWYRequest.query.endDate%>"
                                                        name="endDate">
+
                                             </div>
                                         </div>
                                     </div>
+                                    <%}%>
                                 </div>
                             </div>
+                            <% if(DWY_GLOBAL.ButtonOpen==1){ %>
+                            <div class="col-xs-12">
+                                <hr class="simple">
+                                <div class="col-xs-12 text-center">
+                                    <button class="btn btn-primary " type="submit">
+                                    <i class="fa fa-search"></i>
+                                    查询
+                                    </button>
+                                </div>
+                            </div>
+                            <%}%>
                         </form>
                     </div>
                     <!-- end row -->
@@ -271,16 +306,10 @@
         $(".reset").click(function(){
             $("#search-customer input,#search-customer select").val('');
         })
-
         $(".search").click(function(){
-            var col = $(".slideToggle");
-            col.fadeToggle(200).toggleClass("cont");
-            if(col.hasClass("cont")){
-                $(this).find("i").removeClass("fa-chevron-down").addClass("fa-chevron-up");
-            }else{
-                $(this).find("i").removeClass("fa-chevron-up").addClass("fa-chevron-down");
-            }
-        })
+            DWY_Utils.Clicks.clicks();
+        });
+
     })
 
 </script>

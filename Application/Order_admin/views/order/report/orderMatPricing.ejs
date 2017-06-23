@@ -56,6 +56,22 @@
                                         </div>
                                     </div>
                                 </div>
+                                <% if(DWY_GLOBAL.ButtonOpen!=1){ %>
+                                <div class="col-xs-3 text-center">
+                                    <button class="btn btn-primary " type="submit">
+                                        <i class="fa fa-search"></i>
+                                        查询
+                                    </button>
+                                    <label class="btn btn-default reset margin-left-20">
+                                        重置
+                                    </label>
+                                    <label class="search margin-left-20">
+                                        高级查询
+                                        <i class="fa fa-chevron-down"></i>
+                                    </label>
+                                </div>
+                                <%}%>
+                                <% if(DWY_GLOBAL.ButtonOpen==1){ %>
                                 <div class="col-xs-6">
                                     <div class="form-group">
                                         <label class="col-xs-2 control-label">排料日期范围:</label>
@@ -72,8 +88,9 @@
                                         </div>
                                     </div>
                                 </div>
+                                <%}%>
                             </div>
-                            <div class="col-xs-12">
+                            <div class="col-xs-12 slideToggle">
                                 <div class="col-xs-3">
                                     <div class="form-group">
                                         <label class="col-xs-4 control-label">批次号:</label>
@@ -82,9 +99,9 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-xs-6">
+                                <div class="col-xs-4">
                                     <div class="form-group">
-                                        <label class="col-xs-2 control-label">批次日期范围:</label>
+                                        <label class="col-xs-3 control-label">批次日期范围:</label>
                                         <div class="col-xs-4">
                                             <input class="form-control fg-date-picker"
                                                    value="<%= DWYRequest.query.startDate %>"
@@ -98,7 +115,26 @@
                                         </div>
                                     </div>
                                 </div>
+                                <% if(DWY_GLOBAL.ButtonOpen!=1){ %>
+                                <div class="col-xs-4">
+                                    <div class="form-group">
+                                        <label class="col-xs-3 control-label">排料日期范围:</label>
+                                        <div class="col-xs-4">
+                                            <input class="form-control fg-date-picker"
+                                                   value="<%= DWYRequest.query.startDates %>"
+                                                   name="startDates">
+                                        </div>
+                                        <label class="control-label " style="float: left"> 至 </label>
+                                        <div class="col-xs-4">
+                                            <input class="form-control fg-date-picker"
+                                                   value="<%= DWYRequest.query.endDates %>"
+                                                   name="endDates">
+                                        </div>
+                                    </div>
+                                </div>
+                                <%}%>
                             </div>
+                            <% if(DWY_GLOBAL.ButtonOpen==1){ %>
                             <div class="col-xs-12">
                                 <hr class="simple">
                                 <div class="col-xs-12 text-center">
@@ -109,7 +145,7 @@
                                     </button>
                                 </div>
                             </div>
-
+                            <%}%>
                         </form>
                     </div>
                     <!-- end row -->
@@ -238,6 +274,14 @@
     $(document).ready(function () {
         $("#search-customer").validationEngine();
         $(".fg-date-picker").flatpickr(data_time_picker.data_picker); // jQuery
+
+        //重置
+        $(".reset").click(function(){
+            $("#search-customer input,#search-customer select").val('');
+        })
+        $(".search").click(function(){
+            DWY_Utils.Clicks.clicks();
+        });
     })
 
 </script>
