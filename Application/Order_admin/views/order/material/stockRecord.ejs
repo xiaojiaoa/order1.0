@@ -34,47 +34,61 @@
                     <!--<legend>物料搜索</legend>-->
                     <!-- row -->
                     <div class="row search-form">
-                        <form class="form-horizontal" method="get">
-
+                        <form class="form-horizontal" method="get" id="search-customer">
                             <div class="col-xs-12">
-
                                 <div class="col-xs-3">
                                     <div class="form-group">
-                                        <label class="col-xs-4 control-label">物料编号:</label>
+                                        <label class="col-xs-3 control-label">物料编号:</label>
                                         <div class="col-xs-8">
                                             <input class="form-control" placeholder="请输入物料编号" value="<%= DWYRequest.query.mateId %>" type="text" name="mateId">
                                         </div>
                                     </div>
                                 </div>
-
                                 <div class="col-xs-3">
                                     <div class="form-group">
-                                        <label class="col-xs-4 control-label">物料名称:</label>
+                                        <label class="col-xs-3 control-label">物料名称:</label>
                                         <div class="col-xs-8">
                                             <input class="form-control" placeholder="请输入物料名称" value="<%= DWYRequest.query.mateName %>" type="text" name="mateName">
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-xs-3">
+                                <% if(DWY_GLOBAL.ButtonOpen!=1){ %>
+                                <div class="col-xs-3 text-center">
+                                    <button class="btn btn-primary " type="submit">
+                                        <i class="fa fa-search"></i>
+                                        查询
+                                    </button>
+                                    <label class="btn btn-default reset margin-left-20">
+                                        重置
+                                    </label>
+                                    <label class="search margin-left-20">
+                                        高级查询
+                                        <i class="fa fa-chevron-down"></i>
+                                    </label>
+                                </div>
+                                <%}%>
+                                <% if(DWY_GLOBAL.ButtonOpen==1){ %>
+                                <div class="col-xs-6">
                                     <div class="form-group">
-                                        <label class="col-xs-4 control-label">类别:</label>
-                                        <div class="col-xs-8">
-                                            <select class="form-control" name="inType">
-                                                <option value="">- 请选择 -</option>
-                                                <option value="1" <%= (DWYRequest.query.inType == 1) ? "selected" : "" %> >
-                                                    物料
-                                                </option>
-                                                <option value="2" <%= (DWYRequest.query.inType == 2) ? "selected" : "" %> >
-                                                    成品
-                                                </option>
-                                            </select>
-
+                                        <label class="col-xs-2 control-label">日期:</label>
+                                        <div class="col-xs-4">
+                                            <input class="form-control fg-date-time-picker"
+                                                   value="<%= DWYRequest.query.startTime %>"
+                                                   name="startTime">
+                                        </div>
+                                        <label class="control-label " style="float: left"> 至 </label>
+                                        <div class="col-xs-4">
+                                            <input class="form-control fg-date-time-picker"
+                                                   value="<%= DWYRequest.query.endTime %>"
+                                                   name="endTime">
                                         </div>
                                     </div>
                                 </div>
+                                <%}%>
                             </div>
-                            <div class="col-xs-12">
-                                <div class="col-xs-3">
+                            <div class="slideToggle">
+                                <div class="col-xs-12">
+                                <div class="col-xs-2">
                                     <div class="form-group">
                                         <label class="col-xs-4 control-label">工厂:</label>
                                         <div class="col-xs-8">
@@ -104,7 +118,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-xs-3">
+                                <div class="col-xs-2">
                                     <div class="form-group">
                                         <label class="col-xs-4 control-label">仓库:</label>
                                         <div class="col-xs-8">
@@ -122,7 +136,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-xs-3">
+                                <div class="col-xs-2">
                                     <div class="form-group">
                                         <label class="col-xs-4 control-label">区域:</label>
                                         <div class="col-xs-8">
@@ -137,9 +151,25 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="col-xs-12">
-                                <div class="col-xs-6">
+                                <div class="col-xs-2">
+                                    <div class="form-group">
+                                        <label class="col-xs-4 control-label">类别:</label>
+                                        <div class="col-xs-8">
+                                            <select class="form-control" name="inType">
+                                                <option value="">- 请选择 -</option>
+                                                <option value="1" <%= (DWYRequest.query.inType == 1) ? "selected" : "" %> >
+                                                    物料
+                                                </option>
+                                                <option value="2" <%= (DWYRequest.query.inType == 2) ? "selected" : "" %> >
+                                                    成品
+                                                </option>
+                                            </select>
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <% if(DWY_GLOBAL.ButtonOpen!=1){ %>
+                                <div class="col-xs-4">
                                     <div class="form-group">
                                         <label class="col-xs-2 control-label">日期:</label>
                                         <div class="col-xs-4">
@@ -155,7 +185,10 @@
                                         </div>
                                     </div>
                                 </div>
+                                <%}%>
                             </div>
+                            </div>
+                            <% if(DWY_GLOBAL.ButtonOpen==1){ %>
                             <div class="col-xs-12 ">
                                 <hr class="simple">
                                 <div class="col-xs-12 text-center">
@@ -165,6 +198,7 @@
                                     </button>
                                 </div>
                             </div>
+                            <%}%>
                         </form>
                     </div>
                     <!-- end row -->
@@ -255,6 +289,14 @@
         pageSetUp();
       // 日期组件
         $(".fg-date-time-picker").flatpickr(data_time_picker.data_picker); // jQuery
+
+        //重置
+        $(".reset").click(function(){
+            $("#search-customer input,#search-customer select").val('');
+        })
+        $(".search").click(function(){
+            DWY_Utils.Clicks.clicks();
+        });
 
     })
 
