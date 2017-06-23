@@ -156,8 +156,7 @@ var BaseController = {
                     return;
                 }
 
-                resultList[response.request.resConfig.keyName] = body ? JSON.parse(body) : '';
-
+                resultList[response.request.resConfig.keyName] = (body ? JSON.parse(body) : '');
                 if (count != resultLength) {
 
                 } else {
