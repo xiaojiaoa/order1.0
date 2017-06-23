@@ -194,7 +194,7 @@
                                 <td><%= element.custName %></td>
                                 <td><%= element.retailPrice %></td>
                                 <td><%= element.factoryPrice %></td>
-                                <td><% if(element.payed == 0 || element.payed == 4){ %>
+                                <td><% if(element.payed < 20){ %>
                                     未付款
                                     <% }else{%>
                                     已付款
@@ -203,14 +203,14 @@
                                 <td><%= DWY_Helper.getLocalDate(element.payTime) %></td>
                                 <td><%= DWY_Helper.getLocalDate(element.reconciliationTime) %></td>
                                 <td>
-                                    <% if(element.payed == 0){  %>
+                                    <% if(element.payed == 10){  %>
                                     <a class="label label-primary optionThis" data-payed="<%=element.payed %>" data-tid="<%=element.tid %>" data-bid="<%=element.bid %>">锁定</a>
                                     <% } %>
-                                    <% if(element.payed == 4 && element.payStcode == 1){  %>
+                                    <% if(element.payed == 12 && element.payStcode == 0){  %>
                                     <a class="label label-primary checkThis" data-type="pass" data-payed="<%=element.payed %>" data-tid="<%=element.tid %>" data-bid="<%=element.bid %>">确认收款</a>
                                     <a class="label label-danger optionThis" data-type="notpass" data-payed="<%=element.payed %>" data-tid="<%=element.tid %>" data-bid="<%=element.bid %>">解锁</a>
                                     <% } %>
-                                    <% if(element.payed == 1 || element.payed == 2){  %>
+                                    <% if(element.payed == 21){  %>
                                     <a class="label label-success optionThis" data-payed="<%=element.payed %>" data-tid="<%=element.tid %>" data-bid="<%=element.bid %>">对账</a>
                                     <% } %>
 
@@ -238,15 +238,15 @@
 <%- include('../layouts/footer'); %>
 <%- include('../layouts/footer_common_script'); %>
 
-<form class="form-horizontal  layer-template" method="post" id="order_reject"  action="/collection/receiptCheck">
+<form class="form-horizontal  layer-template" method="post" id="order_reject"  action="/collection/receiptCheck/pass">
     <div class="col-xs-12">
 
         <div class="form-group">
             <label class="col-xs-2 control-label"><span class="requird"></span> 类型:</label>
             <div class="col-xs-8">
                 <select class="form-control" name="moneyType" >
-                    <option value="5">已收款</option>
-                    <option value="4">待收款</option>
+                    <option value="22">已收款</option>
+                    <option value="12">待收款</option>
                 </select>
             </div>
 
@@ -303,7 +303,7 @@
             var ajaxUrl, text;
             var payed = _self.attr('data-payed');
             switch (payed){
-                case '4':
+                case '12':
                     var type = _self.attr('data-type');
                     if(type == 'pass'){
                         ajaxUrl = '/collection/receiptCheck/pass'
@@ -313,15 +313,11 @@
                         text = '确认审核不通过？'
                     }
                     break;
-                case '1':
+                case '21':
                     ajaxUrl = '/collection/reconciliation'
                     text = '确认对账？'
                     break;
-                case '2':
-                    ajaxUrl = '/collection/reconciliation'
-                    text = '确认对账？'
-                    break;
-                case '0':
+                case '10':
                     ajaxUrl = '/collection/receiptCheck'
                     text = '确认锁定？'
                     break;
