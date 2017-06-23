@@ -1503,11 +1503,11 @@ router.get('/inMateRep/detail', Middleware.AuthCheck,Middleware.FilterEmptyField
 
 
 /*
- * 页面范围: 报表统计
+ * 页面范围: 财务统计
  * 控制器:   FinancialStatisticsController
  * */
 var FinancialStatisticsController = require('./Controller/FinancialStatisticsController');
-//报表统计
+//财务统计
 router.get('/FinancialStatistics/index', Middleware.AuthCheck,Middleware.FilterEmptyField,FinancialStatisticsController.listPage);
 
 
