@@ -23,8 +23,8 @@ var helper = {
     genPageInfo: function (options) {
 
         var translations = {
-            'PREVIOUS' : '上一页',
-            'NEXT' : '下一页',
+            'PREVIOUS' : '<',
+            'NEXT' : '>',
             'FIRST' : '第一页',
             'LAST' : '最后一页',
             'CURRENT_PAGE_REPORT' : '搜索结果 {FromResult} - {ToResult} 共 {TotalResult}'
@@ -44,7 +44,8 @@ var helper = {
                     }
                     prelink = this.preparePreLink(result.prelink);
                     if (result.previous) {
-                        html += '<li><a href="' + prelink + result.previous + '">' + this.options.translator('PREVIOUS') + '</a></li>';
+                        html += '<li><a href="' + prelink + result.first + '"  class="paginator-first">' + this.options.translator('FIRST') + '</a></li>'+
+                                '<li><a href="' + prelink + result.previous + '" title="上一页">' + this.options.translator('PREVIOUS') + '</a></li>';
                     }
                     if (result.range.length) {
                         for (i = 0, len = result.range.length; i < len; i++) {
@@ -56,8 +57,10 @@ var helper = {
                         }
                     }
                     if (result.next) {
-                        html += '<li><a href="' + prelink + result.next + '" class="paginator-next">' + this.options.translator('NEXT') + '</a></li>';
+                        html += '<li><a href="' + prelink + result.next + '" class="paginator-next" title="下一页">' + this.options.translator('NEXT') + '</a></li>'+
+                                '<li><a href="' + prelink + result.last + '" class="paginator-last">' + this.options.translator('LAST') + '</a></li>';
                     }
+                    html += '<span class="paginator-info">共'+result.pageCount+'页</span>';
                     html += '</ul></div>';
                     return html;
                 },
@@ -113,6 +116,19 @@ var helper = {
         }
     })
 },
+    // js 去除数组中的空格元素
+    trimEmpty:function(array) {
+        for(var i = 0 ;i<array.length;i++)
+        {
+            if(array[i] == "" || typeof(array[i]) == "undefined")
+            {
+                array.splice(i,1);
+                i= i-1;
+
+            }
+        }
+        return array;
+    },
 
     // 表单提交后，如果以后分页信息，则按找分页信息跳转返回
     withPaginationInfo:function (link,session) {

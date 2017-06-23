@@ -539,7 +539,7 @@ var  MaterialController = require('./Controller/MaterialController');
 router.get('/materialManage', Middleware.AuthCheck,Middleware.FilterEmptyField,Middleware.SetBackPath,MaterialController.indexPage);
 
 // 物料详情页面
-router.get('/materialManage/detail/:bid/:mid', Middleware.AuthCheck, MaterialController.detailPage);
+router.get('/materialManage/detail/:bid/:mid', Middleware.AuthCheck, Middleware.SetBackPath,MaterialController.detailPage);
 
 // 根据工厂选择物料详情页面
 router.post('/materialManage/choiceFactory', Middleware.AuthCheck, MaterialController.choiceFactory);
@@ -1284,7 +1284,7 @@ router.put('/networkBook/doClose/:measureId', Middleware.AuthCheck, NetworkBookC
 var InformationController = require('./Controller/InformationController');
 
 // 公告信息详情页面
-router.get('/noticeInfo', Middleware.AuthCheck,Middleware.FilterEmptyField,InformationController.noticeInfoPage);
+router.get('/noticeInfo', Middleware.AuthCheck,Middleware.FilterEmptyField,Middleware.SetBackPath,InformationController.noticeInfoPage);
 
 // 公告信息-新建
 router.post('/noticeInfo/doCreate', Middleware.AuthCheck,InformationController.noticeDoCreate);
@@ -1296,7 +1296,7 @@ router.post('/noticeInfo/doModify', Middleware.AuthCheck, InformationController.
 router.put('/noticeInfo/doDelete/:nid', Middleware.AuthCheck, InformationController.noticeDoDelete);
 
 // 资料信息详情页面
-router.get('/fileInfo', Middleware.AuthCheck,Middleware.FilterEmptyField, InformationController.fileInfoPage);
+router.get('/fileInfo', Middleware.AuthCheck,Middleware.FilterEmptyField,Middleware.SetBackPath, InformationController.fileInfoPage);
 
 // 资料上传接口
 router.post('/fileInfo/share', Middleware.AuthCheck,InformationController.fileDoCreate);

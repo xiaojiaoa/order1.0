@@ -69,33 +69,9 @@
                             </div>
 
 
-                            <!--属性-->
-                            <div class="col-xs-12  display-none">
-                                <div class="col-xs-1 width01"></div>
-                                <div class="col-xs-6 my-div-style01">
-                                    <% mateInfo.attrs.forEach(function(element,index){%>
-                                    <div class="form-group">
-                                        <label class="col-xs-4 control-label" type="<%= element.type%>"><span class="requird"></span>
-                                            <%= element.attrName%>:
-                                        </label>
-                                        <div class="col-xs-5 ">
-                                            <strong class="form-control border-0"><%= element.attrValue %></strong>
-                                        </div>
-                                    </div>
-                                    <%})%>
-                                </div>
-                                <%
-                                var attrName=[];
-                                mateInfo.attrs.forEach(function(element,index){
-                                if(element.type==1003 || element.type==1004){%>
-                                <% attrName.push(1);%>
-                                <%}})%>
-
-                                <input type="hidden" name="flag" value="<%= (attrName.length==2)?1:0;%>">
-                            </div>
 
                             <div class="col-xs-12">
-                                <!--输入字段-->
+                                <!--展示物料属性-->
                                 <div class="col-xs-6">
                                     <% attrList.forEach(function(element, index){ %>
                                     <% var id=element.code;%>
@@ -104,7 +80,7 @@
                                                type="<%= element.type %>"><span class="requird"></span>
                                             <%= element.name %>:</label>
                                         <div class="col-xs-8">
-                                            <select class="form-control validate[required] attrVal" name="attrVal">
+                                            <select class="form-control validate[required] attrVal" name="attributeValues">
                                                 <option value="">- 请选择 -</option>
                                                 <% element.attributeValueList.forEach(function(element, index){ %>
                                                 <option value="<%= element.code %>" <%= (element.code==id)?"selected":""%>><%= element.name %></option>
@@ -113,9 +89,15 @@
                                         </div>
                                     </div>
                                     <% }) %>
-                                    <input type="hidden" name="attributeValues" value="" id="materialId">
-                                </div>
+                                    <%
+                                    var attrName=[];
+                                    mateInfo.attrs.forEach(function(element,index){
+                                    if(element.type==1003 || element.type==1004){%>
+                                    <% attrName.push(1);%>
+                                    <%}})%>
 
+                                    <input type="hidden" name="flag" value="<%= (attrName.length==2)?1:0;%>">
+                                </div>
                             </div>
 
                             <div class="col-xs-12">
@@ -134,16 +116,6 @@
                                         <label class="col-xs-4 control-label">物料规格:</label>
                                         <div class="col-xs-8">
                                             <input class="form-control" placeholder="请输入物料规格" value="<%= mateInfo.standard%>" type="text" name="standard">
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-xs-12 display-none">
-                                <div class="col-xs-6">
-                                    <div class="form-group">
-                                        <label class="col-xs-4 control-label"><span class="requird"></span>单位物料重量:</label>
-                                        <div class="col-xs-8">
-                                            <input class="form-control validate[custom[onlyNumberSp]]" placeholder="请输入单位物料重量" value="" type="text" name="unitWeight">
                                         </div>
                                     </div>
                                 </div>
@@ -183,7 +155,7 @@
                                                 element.data.forEach(function (element) { %>
                                                 <label class="checkbox-inline">
                                                     <input type="checkbox" class="checkbox style-0"
-                                                           name="mateUnit"
+                                                           name="mateUnits"
                                                            value="<%= element.id %>"
                                                             <%= DWY_Helper.checkboxStatus(mateInfo.mateUnits, element.id) %>
                                                     >
@@ -196,7 +168,6 @@
                                             </div>
                                             <% })
                                             }%>
-
                                         </div>
                                     </div>
                                 </div>
@@ -219,23 +190,12 @@
                                                 <%  }
                                                 }) %>
                                             </select>
-
-                                            </select>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                             <% if(DWY_Helper.hasPermission(Permission.material.queryByModifyPrice.id, permission)){%>
-                            <div class="col-xs-12 display-none">
-                                <div class="col-xs-6">
-                                    <div class="form-group">
-                                        <label class="col-xs-4 control-label"><span class="requird"></span>价格:</label>
-                                        <div class="col-xs-8">
-                                            <input class="form-control validate[required]" placeholder="请输入价格" value="" type="text" name="price">
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+
                             <div class="col-xs-12">
                                 <div class="col-xs-6">
                                     <div class="form-group">
@@ -267,6 +227,16 @@
                                     </div>
                                 </div>
                             </div>
+                            <div class="col-xs-12">
+                                <div class="col-xs-6">
+                                    <div class="form-group">
+                                        <label class="col-xs-4 control-label">识别码:</label>
+                                        <div class="col-xs-8">
+                                            <input class="form-control" placeholder="请输入识别码" value="<%= mateInfo.scode%>" type="text" name="scode">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                             <div class="col-xs-12 margin-bottom-10">
                                 <label class="col-xs-2 control-label">上传物料图片:</label>
                                 <div class="col-xs-6">
@@ -278,16 +248,15 @@
                                     </div>
                                     <div class="pull-left padding-right-10">
                                         <p id="idPhotoOneName">
-                                            <input class="upimg-input display-none" placeholder="请上传图片1"
-                                                   data-errormessage-value-missing="请上传图片1" readonly >
+                                            <% if(mateInfo.image){%>
                                             <a class="fancybox dwy_image" href="<%= DWY_GLOBAL.Static %>/download?url=<%= mateInfo.image %>" data-fancybox-group="gallery" title="<%= mateInfo.image %>"><%= mateInfo.image %></a>
-                                        </p>
-                                        <!--  <p id="idPhotoTwoName">
-                                              <input class="upimg-input validate[required]" placeholder="请上传图片2"
-                                                     data-errormessage-value-missing="请上传图片2" readonly>
-                                          </p>-->
+                                            <%} else{%>
+                                            <input class="upimg-input" placeholder="请上传图片"
+                                                   data-errormessage-value-missing="请上传图片" readonly >
+                                            <%}%>
+                                         </p>
+
                                         <input type="hidden" name="image" id="idPhotoOne" value="">
-                                        <!--    <input type="hidden" name="image" id="idPhotoTwo" value="">-->
                                     </div>
 
                                 </div>
@@ -302,12 +271,12 @@
                                     </div>
                                 </div>
                             </div>
-                            <input type="hidden" name="mateUnits" value="" id="mateUnitsId">
+
                             <input type="hidden" value="<%= id%>" name="id"/>
                             <div class="col-xs-8">
                                 <hr class="simple">
                                 <div class="col-xs-12 text-center">
-                                    <button class="btn btn-primary"  id="sub">
+                                    <button class="btn btn-primary">
                                         <i class="fa fa-save"></i>
                                         提交
                                     </button>
@@ -346,92 +315,25 @@
         $("#unitVal").val('<%= mateInfo.unitId %>');
         $("#typeVal").val('<%= mateInfo.type %>');
 
-
-        // 拼接单位
-            var mateUnitCode=[];
-            $("input[name='mateUnit']:checked").each(function(){
-                mateUnitCode.push($(this).val());
-            });
-            $("#mateUnitsId").val(mateUnitCode.join(','));
-
-
-        // 拼接属性
-            var code=[];
-            $("select[name='attrVal'] option:selected").each(function(){
-                code.push($(this).val());
-            });
-            $("#materialId").val(code.join(','));
-
-
         // 初始化表单
         $("#material_modify_form").validationEngine();
 
         // 上传图片
-        DWY_area.init({});
-
-        var idPhotoNum = 1;
-        var idPhotoOneName = $("#idPhotoOneName");
-        var idPhotoTwoName = $("#idPhotoTwoName");
-        var idPhotoOne = $("#idPhotoOne");
-        var idPhotoTwo = $("#idPhotoTwo");
-
-        $('#dwy_file_upload').on({
-            change: function (e) {
-                var _this = $(this);
-                var label = $("#label-upload-file");
-
-                var formData = new FormData();
-                formData.append('file_name', _this.prop('files')[0])
-
-                $.ajax({
-                    url: '/template/upload/img',
-                    data: formData,
-                    type: 'POST',
-                    processData: false, // 不处理发送的数据，因为data值是Formdata对象，不需要对数据做处理
-                    contentType: false, // 不设置Content-type请求头
-                    success: function (data) {
-                        if (data.code == 200) {
-                            if(!idPhotoOne.val()){
-                                idPhotoOneFuc(data);
-                                label.html('上传成功 <i class="fa fa-check">');
-                                return;
-                            }
-                            if(!idPhotoTwo.val()){
-                                idPhotoTwoFuc(data);
-                                label.html('上传成功 <i class="fa fa-check">');
-                                return;
-                            }
-                            switch(idPhotoNum%2){
-                                case 1:
-                                    idPhotoOneFuc(data);
-                                    break;
-                                case 0:
-                                    idPhotoTwoFuc(data);
-                                    break;
-                            }
-                            idPhotoNum++;
-                            label.html('上传成功 <i class="fa fa-check">');
-                        } else {
-                            label.html('上传失败 <i class="fa fa-times">');
-                        }
-                    },
-                    error: function (error) {
-                        label.html('上传失败 <i class="fa fa-times">');
+        //上传图片
+        $("#dwy_file_upload").on(
+            {
+                change: function (e) {
+                    var _this = $(this);
+                    var congig = {
+                        'file_name': _this.prop('files')[0],
                     }
-                })
+                    uploadFuc.uploadSingleFile('/template/upload/single/materiel', congig, function (data) {
+                        $("#idPhotoOne").val(data.data.url);
+                        $("#idPhotoOneName").html('<a  class="fancybox dwy_image" href="<%= DWY_GLOBAL.Static %>/preview?url=' + data.data.url + '" data-fancybox-group="gallery" title="'+data.data.name+'">'+data.data.name+'</a>')
+                    });
+                },
             }
-        })
-
-        function idPhotoOneFuc(data) {
-            idPhotoOne.val(data.data.url);
-            idPhotoOneName.html('<a  class="fancybox dwy_image" href="<%= DWY_GLOBAL.Static %>/preview?url=' + data.data.url + '" data-fancybox-group="gallery" title="'+data.data.name+'">'+data.data.name+'</a>')
-
-        }
-        function idPhotoTwoFuc(data) {
-            idPhotoTwo.val(data.data.url);
-            idPhotoTwoName.html('<a  class="fancybox dwy_image" href="<%= DWY_GLOBAL.Static %>/preview?url=' + data.data.url + '" data-fancybox-group="gallery" title="'+data.data.name+'">'+data.data.name+'</a>')
-
-        }
+        );
 
         // 图片浏览
         $('.fancybox').fancybox();

@@ -49,7 +49,8 @@ var InformationController = {
         // res.render('order/information/notice_info');
     },
     noticeDoCreate: function (req, res) {
-         //console.log('公告信息创建',JSON.stringify(req.body));
+        req.body.noticeScopes=JSON.parse(req.body.noticeScopes);
+        // console.log('创建公告信息'+ JSON.stringify(req.body));
         request(Base.mergeRequestOptions({
             method: 'post',
             url: '/api/notices',
@@ -57,15 +58,16 @@ var InformationController = {
             body:JSON.stringify(req.body),
         }, req, res), function (error, response, body) {
             if (!error && response.statusCode == 201) {
-
-                res.sendStatus(200);
+                Base.handlerSuccess(res,req);
+                res.redirect(req.session.backPath?req.session.backPath:"/noticeInfo");
             } else {
                 Base.handlerError(res, req, error, response, body);
             }
         })
     },
     noticeDoModify: function (req, res) {
-        //console.log('公告信息修改'+ JSON.stringify(req.body));
+        req.body.noticeScopes=JSON.parse(req.body.noticeScopes);
+        // console.log('公告信息修改'+ JSON.stringify(req.body));
         request(Base.mergeRequestOptions({
             method: 'post',
             url: '/api/notices/update',
@@ -73,8 +75,8 @@ var InformationController = {
             body:JSON.stringify(req.body),
         }, req, res), function (error, response, body) {
             if (!error && response.statusCode == 201) {
-
-                res.sendStatus(200);
+                Base.handlerSuccess(res,req);
+                res.redirect(req.session.backPath?req.session.backPath:"/noticeInfo");
             } else {
                 Base.handlerError(res, req, error, response, body);
             }
@@ -126,7 +128,8 @@ var InformationController = {
         // res.render('order/information/file_info');
     },
     fileDoCreate: function (req, res) {
-        //console.log(req.body);
+         req.body.shareScopes=JSON.parse(req.body.shareScopes);
+        // console.log('上传文件'+ JSON.stringify(req.body));
         request(Base.mergeRequestOptions({
             method: 'post',
             url: '/api/share',
@@ -134,8 +137,8 @@ var InformationController = {
             body:JSON.stringify(req.body),
         }, req, res), function (error, response, body) {
             if (!error && response.statusCode == 201) {
-
-                res.sendStatus(200);
+                Base.handlerSuccess(res,req);
+                res.redirect(req.session.backPath?req.session.backPath:"/fileInfo");
             } else {
                 Base.handlerError(res, req, error, response, body);
             }

@@ -134,7 +134,7 @@
                         <table class="table table-bordered table-hover table-striped table-scroll2">
                             <thead>
                             <tr>
-                                <th>序号</th>
+                                <th width="50">序号</th>
                                 <th>机构编号</th>
                                 <th>机构名称</th>
                                 <th>负责人号码</th>
@@ -143,12 +143,12 @@
                                 <th>是否自带仓库</th>
                                 <th>新建日期</th>
                                 <!--<th>最低保证金</th>-->
-                                <th>查看</th>
+                                <th width="230">查看</th>
                             </tr>
                             </thead>
                             <tbody>
                             <%
-                            if(organizationsList.totalItems != 0  ){
+                            if(DWY_Helper.isCanLoop(organizationsList.result)  ){
                             organizationsList.result.forEach(function (element, index) { %>
                             <tr>
                                 <td><%= index+1 %></td>

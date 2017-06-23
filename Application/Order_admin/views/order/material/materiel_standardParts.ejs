@@ -3,136 +3,39 @@
 
     $(document).ready(function () {
 
-
-        var idPhotoNum = 1;
-        var idPhotoOneName = $("#idPhotoOneName");
-        var idPhotoTwoName = $("#idPhotoTwoName");
-        var idPhotoOne = $("#idPhotoOne");
-        var idPhotoTwo = $("#idPhotoTwo");
-
-
-        $('#dwy_file_upload').on({
-            change: function (e) {
-                var _this = $(this);
-                var label = $("#label-upload-file");
-
-                var formData = new FormData();
-                formData.append('file_name', _this.prop('files')[0])
-
-                var mid=$("input[name=mid]").val();
-                $.ajax({
-                    url: '/template/upload/single/temporary',
-                    data: formData,
-                    type: 'POST',
-                    processData: false, // 不处理发送的数据，因为data值是Formdata对象，不需要对数据做处理
-                    contentType: false, // 不设置Content-type请求头
-                    success: function (data) {
-                        if (data.code == 200) {
-                            if (!idPhotoOne.val() && idPhotoTwo.val()==undefined) {
-                                idPhotoOneFuc(data);
-                                label.html('上传成功 <i class="fa fa-check">');
-                                // 将获取到的文件信息传递给后台
-                                var fileName =data.data.name;
-                                var fileSize =data.data.size;
-                                var savePath =data.data.url;
-
-                                var mydata={
-                                    name:fileName,
-                                    size:fileSize,
-                                    savePath :savePath,
-                                    type:1002,
-                                    mid:mid
-                                }
-                                $.ajax({
-                                    url: '/api/materials/accessory/workpiece',
-                                    data:mydata,
-                                    type: 'post',
-                                    success: function (data) {
-                                        if (data=="OK") {
-                                            successLayout.reload();
-                                        }
-                                    },
-                                    error: function (response) {
-                                        layer.close(index)
-                                        errorLayout.normal(response);
-                                    }
-                                });
-                                return;
-                            }
-                            if (!idPhotoTwo.val() && idPhotoOne.val()==undefined) {
-                                idPhotoTwoFuc(data);
-                                label.html('上传成功 <i class="fa fa-check">');
-                                // 将获取到的文件信息传递给后台
-                                var fileName =data.data.name;
-                                var fileSize =data.data.size;
-                                var savePath =data.data.url;
-
-                                var mydata={
-                                    name:fileName,
-                                    size:fileSize,
-                                    savePath :savePath,
-                                    type:1001,
-                                    mid:mid
-                                }
-                                $.ajax({
-                                    url: '/api/materials/accessory/workpiece',
-                                    data:mydata,
-                                    type: 'post',
-                                    success: function (data) {
-                                        if (data=="OK") {
-                                            successLayout.reload();
-                                        }
-                                    },
-                                    error: function (response) {
-                                        layer.close(index)
-                                        errorLayout.normal(response);
-                                    }
-                                });
-                                return;
-                            }
-                            switch (idPhotoNum % 2) {
-                                case 1:
-                                    idPhotoOneFuc(data);
-                                    break;
-                                case 0:
-                                    idPhotoTwoFuc(data);
-                                    break;
-                            }
-                            idPhotoNum++;
-                            label.html('上传成功 <i class="fa fa-check">');
-                        } else {
-                            label.html('上传失败 <i class="fa fa-times">');
-                        }
-                    },
-                    error: function (error) {
-                        label.html('上传失败 <i class="fa fa-times">');
+        var mid=$("input[name=mid]").val();
+        var type=$("input[name=type]").val();
+        // 成品关联物料
+        $("#dwy_file_upload").on(
+            {
+                change: function (e) {
+                    var _this = $(this);
+                    var congig = {
+                        'file_name': _this.prop('files')[0],
                     }
-                })
+                    uploadFuc.uploadSingleFile('/template/upload/single/temporary', congig, function (data) {
+                        var mydata={
+                            name:data.data.name,
+                            size:data.data.size,
+                            savePath:data.data.url,
+                            type:type,
+                            mid:mid
+                        }
+                        $.ajax({
+                            url: '/api/materials/accessory/workpiece',
+                            data:mydata,
+                            type: 'post',
+                            success: function (data) {
+                                    successLayout.reload();
+                            },
+                            error: function (response) {
+                                errorLayout.normal(response);
+                            }
+                        });
+                     });
+                },
             }
-        })
-
-        function idPhotoOneFuc(data) {
-            idPhotoOne.val(data.data.url);
-            idPhotoOneName.html('<a  class="fancybox dwy_image" href="/uploads/'
-                + data.data.name + '" data-fancybox-group="gallery" title="' + data.data.name + '">'
-                + data.data.name + '</a>')
-
-        }
-
-        function idPhotoTwoFuc(data) {
-            idPhotoTwo.val(data.data.url);
-            idPhotoTwoName.html('<a  class="fancybox dwy_image" href="/uploads/'
-                + data.data.name + '" data-fancybox-group="gallery" title="' + data.data.name + '">'
-                + data.data.name + '</a>')
-//            idPhotoTwoName.text(data.data.name);
-//            idPhotoTwoName.attr("href","/uploads/"+data.data.name);
-//            idPhotoTwoName.attr("title",data.data.name);
-        }
-
-        // 图片浏览
-        $('.fancybox').fancybox();
-
-
+        );
 
     })
 

@@ -172,6 +172,43 @@ var data_time_picker_validate = function (selectedDates, dateStr, instance) {
     var $ele = $(instance.element);
     $ele.validationEngine("validate");
 };
+var uploadFuc = {
+
+    uploadSingleFile: function (ajaxUrl,config,callBack) {
+        var _config = config || {};
+
+        var label = $("#label-upload-file");
+        label.html('上传中<i class="fa fa-circle-o-notch fa-spin">');
+        label.attr('disabled', true);
+
+        var formData = new FormData();
+        for (var i in _config) {
+            if (_config.hasOwnProperty(i)) {
+                formData.append(i, _config[i]);
+            }
+        }
+        $.ajax({
+            url: ajaxUrl,
+            data: formData,
+            type: 'POST',
+            processData: false, // 不处理发送的数据，因为data值是Formdata对象，不需要对数据做处理
+            contentType: false, // 不设置Content-type请求头
+            success: function (data) {
+                label.attr('disabled', false);
+                if (data.code == 200) {
+                    callBack(data);
+                    label.html('上传成功 <i class="fa fa-check">');
+                } else {
+                    label.html('上传失败 <i class="fa fa-times">');
+                }
+            },
+            error: function () {
+                label.attr('disabled', false);
+                label.html('上传失败 <i class="fa fa-times">');
+            }
+        })
+    }
+};
 var DWY_area = {
     area: {},
     getAreaList: function (id, callback) {

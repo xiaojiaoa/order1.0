@@ -66,7 +66,7 @@
                     <section>
                         <label class="label">用户名:</label>
                         <label class="input"> <i class="icon-append fa fa-user"></i>
-                            <input type="text" name="userNo" autocomplete="off"  >
+                            <input type="text" name="userNo" autocomplete="off" placeholder="用户名" >
                             <b class="tooltip tooltip-top-right"><i class="fa fa-user txt-color-teal"></i>
                                 请输入您的用户名</b></label>
                     </section>
@@ -74,7 +74,7 @@
                     <section>
                         <label class="label">密码:</label>
                         <label class="input"> <i class="icon-append fa fa-lock"></i>
-                            <input type="password" name="password" autocomplete="off" >
+                            <input type="password" name="password" autocomplete="off"   placeholder="密码">
                             <b class="tooltip tooltip-top-right"><i class="fa fa-lock txt-color-teal"></i> 请输入密码</b>
                         </label>
                     </section>
@@ -83,8 +83,8 @@
                         <label class="label">验证码:</label>
                         <label class="input"> <img id="validate-img" src=""
                                                    alt="">
-                            <input type="text" name="code" autocomplete="off">
-                            <input type="hidden" name="baseId" autocomplete="off" value="{{baseId}}">
+                            <input type="text" name="code" autocomplete="off"  placeholder="验证码">
+                            <input type="hidden" name="baseId" autocomplete="off"   value="{{baseId}}" >
                             <b class="tooltip tooltip-top-right"> 请输入验证码</b>
                         </label>
                     </section>
@@ -107,7 +107,7 @@
                 </fieldset>
                 <footer>
                     <button type="submit" class="btn btn-primary">
-                        登录
+                        登<span></span>录
                     </button>
                 </footer>
             </form>
@@ -228,6 +228,8 @@
         $('#validate-img').on('click', function (e) {
             getValidateInfo();
         })
+
+
 
 
     });
