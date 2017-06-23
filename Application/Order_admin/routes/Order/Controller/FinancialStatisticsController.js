@@ -45,7 +45,7 @@ var FinancialStatisticsController = {
                     title: ' ',
                 }, resultList));
 
-                res.render('order/FinancialStatistics/index', returnData);
+                res.render('order/financialStatistics/index', returnData);
             });
     }
 };
