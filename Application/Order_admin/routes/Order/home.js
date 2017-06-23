@@ -1329,7 +1329,9 @@ router.post('/registerDeliver/:tid', Middleware.AuthCheck,InstallserviceControll
  * */
 var SystemController = require('./Controller/SystemController');
 // 首页
-router.get('/system', Middleware.AuthCheck,SystemController.indexPage);
+ router.get('/system', Middleware.AuthCheck,Middleware.SetBackPath,SystemController.indexPage);
+ //与上面路由的区别是，三级菜单是用ejs来实现的
+router.get('/systems', Middleware.AuthCheck,Middleware.SetBackPath,SystemController.indexPageO);
 
 // 获取第二栏的可用内容
 router.put('/systemEnabled/:key', Middleware.AuthCheck, SystemController.keyFirstPage);

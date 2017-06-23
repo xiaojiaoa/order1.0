@@ -1,0 +1,535 @@
+<%- include('../layouts/head_top'); %>
+<%- include('../layouts/head_bottom'); %>
+<%- include('../layouts/header'); %>
+<%- include('../layouts/nav'); %>
+
+
+<!-- MAIN PANEL -->
+<div id="main" role="main">
+
+    <!-- RIBBON -->
+    <div id="ribbon">
+
+        <!-- breadcrumb -->
+        <ol class="breadcrumb">
+            <li>后台管理</li>
+            <li>基础数据设置</li>
+             <a class="label label-primary"  href="/api/clearCache" style="color:white!important;">清除缓存</a>
+        </ol>
+        <!-- end breadcrumb -->
+
+
+    </div>
+    <!-- END RIBBON -->
+
+    <!-- MAIN CONTENT -->
+    <div id="content">
+        <!-- well -->
+        <div class="well no-border no-box-shadow basicDataSet">
+            <!-- row -->
+            <div class="row">
+                <!-- col -->
+                <div class="col-xs-4 table-responsive level-0
+                       <%= (key=='assistantResupplyReason'|| key=='assistantOrderSpaceinfo')?"col-xs-3 ":''%>">
+                    <div data-level="level-1" class="text-align-center basicDataTit01 fixed-header">
+                     &nbsp;
+                    </div>
+                    <div class="basicDataTit text-align-center basicDataTit01 fixed-header">
+                        类别
+                    </div>
+                    <table class="table table-bordered table-linkage basicDataFirst ">
+                        <tbody class="scrollTbody">
+                        <%
+                        if(DWY_Helper.isCanLoop(basicDataList)){
+                        basicDataList.forEach(function (element, index) { %>
+                        <tr key="<%= element.key%>" onclick="location.href='/systems?key=<%= element.key%>';"
+                            class="<%= (element.key == "assistantSpaceProd")?"display-none":'' %> <%= (element.key==DWYRequest.query.key)?"active":''%>">
+                            <td><%= element.name %></td>
+                        </tr>
+                        <%  })
+                        }else{ %>
+                        <tr>
+                            <td  align="center">暂无数据</td>
+                        </tr>
+                        <% } %>
+
+                        </tbody>
+                    </table>
+
+                </div>
+
+                <div class="col-xs-8 table-responsive level-1
+                        <%= (key=='assistantResupplyReason'|| key=='assistantOrderSpaceinfo')?"col-xs-3 ":''%>
+                       <%= (key=='assistantMaterialUnit'||key=='assistantPackageType')?"col-xs-4 ":''%>">
+                        <div data-level="level-1" class="text-align-center basicDataTit01 fixed-header">
+                            <a class="label label-primary create status01 <%= (key == "assistantConfig")?"display-none":'' %>">新建</a>
+                            <a class="label label-primary modify status01 ">修改</a>
+                            <a class="label label-primary open-this status03">启用</a>
+                            <a class="label label-danger delete status01 <%= (key == "assistantConfig")?"display-none":'' %>">删除</a>
+                            <a class="label label-primary see-all status01">查看所有</a>
+                            <a class="label label-primary open-all display-none">启用所有</a>
+                            <a class="label label-primary revoke status02">撤销</a>
+                            <a class="label label-primary save status02">保存</a>
+                            <input type="hidden" name="listNum" value="" class="listNum"  type='text'/>
+                            <input type="hidden" name="key" value="<%= key%>" class="key"  type='text'/>
+                        </div>
+                        <div class="basicDataTit text-align-center basicDataTit01 fixed-header">
+                            类别1
+                            <%if(key=="assistantReviewReson"){%>
+                            <p>22:加盟退回原因 21:受理退回原因 60:排料退回原因 50:拆审退回原因 40:拆单退回原因 20:审单退回原因<p>
+                            <%}%>
+                        </div>
+                        <table class="table table-bordered table-linkage ">
+                            <tbody class="basicDataSec scrollTbody">
+                            <!--展示类别1-->
+                            <%if(key){
+                            if( DWY_Helper.isCanLoop(keyInfo)){
+                            keyInfo.forEach(function (element, index) { %>
+                            <% switch(key){
+                            case 'assistantConfig': %>
+                            <tr id="<%= element.id %>" stcode="<%= element.status %>" class="<%= (element.status==0)?"disable display-none":''%>">
+                                <td width="30%"><input class="border-0 text-align-center" type="text" value="<%= element.code %>" name="code" readonly/></td>
+                                <td width="30%"><input class="border-0 text-align-center" type="text" value="<%= element.value %>" name="value" readonly/></td>
+                                <td width="40%"><textarea class="border-0 text-align-center" name="remark" row="6"><%= element.remark %></textarea></td>
+                            </tr>
+                            <%
+                                break;
+                            case 'assistantBrandInfo':
+                            %>
+                            <tr id="<%= element.id %>" stcode="<%= element.stcode %>" class="<%= (element.stcode==0)?"disable display-none":''%>">
+                                <td ><input class="border-0 text-align-center" type="text" value="<%= element.name %>" name="name" readonly/></td>
+                            </tr>
+                            <%
+                                break;
+                            case 'assistantOrderSpaceinfo':
+                            if(element.parentId==0){%>
+                            <tr id="<%= element.id %>"
+                                stcode="<%= element.stcode %>"
+                                parentId="<%= element.parentId%>"
+                                class="<%= (element.stcode==0)?"disable display-none":''%> <%= (element.id==DWYRequest.query.classone)?"active":''%>"
+                                <% if(element.stcode==1){ %>
+                                onclick="location.href='/systems?key=<%= key%>&classone=<%= element.id %>'"
+                                    <%  } %>
+                            >
+                                <td ><input class="border-0 text-align-center" type="text" value="<%= element.name %>" name="name" readonly/></td>
+                            </tr>
+                            <%}
+                                break;
+                            case 'assistantSpaceProd':
+                            %>
+                            <tr id="<%= element.id %>" stcode="<%= element.stcode %>" class="<%= (element.stcode==0)?"disable display-none":''%>">
+                                <td ><input class="border-0 text-align-center" type="text" value="<%= element.name %>" name="name" readonly/></td>
+                                <td ><input class="border-0 text-align-center" type="text" value="<%= element.spaceId %>" name="spaceId" readonly/></td>
+                            </tr>
+                            <%
+                                break;
+                            case 'assistantResupplyReason':
+                            if(element.levelType==1){%>
+                            <tr id="<%= element.id %>"
+                                stcode="<%= element.stcode %>"
+                                parentId="<%= element.parentId%>"
+                                class="<%= (element.stcode==0)?"disable display-none":''%> <%= (element.id==DWYRequest.query.classone)?"active":''%>"
+                                <%　if(element.stcode==1){%>
+                                onclick="location.href='/systems?key=<%= key%>&classone=<%= element.id %>';"
+                                <%}%>
+                            >
+                                <td ><input class="border-0 text-align-center" type="text" value="<%= element.name %>" name="name" readonly/></td>
+                            </tr>
+                            <%}
+                                break;
+                            case 'assistantReviewReson':
+                            %>
+                            <tr id="<%= element.id %>" stcode="<%= element.stcode %>" class="<%= (element.stcode==0)?"disable display-none":''%>">
+                                <td ><input class="border-0 text-align-center" type="text" value="<%= element.name %>" name="name" readonly/></td>
+                                <td ><input class="border-0 text-align-center" type="text" value="<%= element.reasonType %>" name="reasonType" readonly/></td>
+                            </tr>
+                            <%
+                                break;
+                            case 'assistantTaskseqFileType':
+                            %>
+                            <tr id="<%= element.id %>" stcode="<%= element.stcode %>" class="<%= (element.stcode==0)?"disable display-none":''%>">
+                                <td ><input class="border-0 text-align-center" type="text" value="<%= element.type %>" name="type" readonly/></td>
+                                <td ><input class="border-0 text-align-center" type="text" value="<%= element.name %>" name="name" readonly/></td>
+                                <td ><input class="border-0 text-align-center" type="text" value="<%= element.fileExt %>" name="fileExt" readonly/></td>
+                            </tr>
+                            <%
+                                break;
+                            case 'assistantOrderFileType':
+                            %>
+                            <tr id="<%= element.id %>" stcode="<%= element.stcode %>" class="<%= (element.stcode==0)?"disable display-none":''%>">
+                                <td ><input class="border-0 text-align-center" type="text" value="<%= element.code %>" name="code" readonly/></td>
+                                <td ><input class="border-0 text-align-center" type="text" value="<%= element.name %>" name="name" readonly/></td>
+                                <td ><input class="border-0 text-align-center" type="text" value="<%= element.fileExt %>" name="fileExt" readonly/></td>
+                            </tr>
+                            <%
+                                break;
+                            case 'subPackageDao':
+                            %>
+                            <tr id="<%= element.id %>" stcode="<%= element.stcode %>" code="<%= element.code%>" class="<%= (element.stcode==0)?"disable display-none":''%>">
+                                <td ><input class="border-0 text-align-center" type="text" value="<%= element.name %>" name="name" readonly/></td>
+                                <td ><input class="border-0 text-align-center" type="text" value="<%= element.type %>" name="type" readonly/></td>
+                            </tr>
+                            <%
+                                break;
+                            case 'assistantMaterialUnit':
+                            if(element.parentId==0){%>
+                            <tr id="<%= element.id %>"
+                                stcode="<%= element.stcode %>"
+                                parentId="<%= element.parentId%>"
+                                class="<%= (element.stcode==0)?"disable display-none":''%> <%= (element.id==DWYRequest.query.classone)?"active":''%>"
+                                    <%　if(element.stcode==1){%>
+                                onclick="location.href='/systems?key=<%= key%>&classone=<%= element.id %>';"
+                                <%}%>
+                            >
+                                <td ><input class="border-0 text-align-center" type="text" value="<%= element.name %>" name="name" readonly/></td>
+                            </tr>
+                            <%}
+                                break;
+                            case 'assistantPackageType':
+                            if(element.parentId==0){%>
+                            <tr id="<%= element.id %>"
+                                stcode="<%= element.stcode %>"
+                                parentId="<%= element.parentId%>"
+                                type="<%= element.type%>"
+                                class="<%= (element.stcode==0)?"disable display-none":''%> <%= (element.id==DWYRequest.query.classone)?"active":''%>"
+                                    <%　if(element.stcode==1){%>
+                                onclick="location.href='/systems?key=<%= key%>&classone=<%= element.id %>';"
+                                <%}%>
+                            >
+                                <td ><input class="border-0 text-align-center" type="text" value="<%= element.name %>" name="name" readonly/></td>
+                            </tr>
+                            <%}
+                                break;
+                            default:
+                            %>
+                            <tr id="<%= element.id %>" stcode="<%= element.stcode %>" class="<%= (element.stcode==0)?"disable display-none":''%>">
+                                <td ><input class="border-0 text-align-center" type="text" value="<%= element.name %>" name="name" readonly/></td>
+                            </tr>
+                            <% } })
+                            }else{ %>
+                            <tr class="noData">
+                                <td>暂无数据，请选择新建</td>
+                            </tr>
+                            <% }} else{%>
+                            <tr>
+                                <td>请点击左侧进行查看</td>
+                            </tr>
+                            <%}%>
+                            </tbody>
+                        </table>
+
+                </div>
+
+                <div class="table-responsive level-2 display-none
+                      <%= (key=='assistantResupplyReason'|| key=='assistantOrderSpaceinfo')?"display-block col-xs-3 ":''%>
+                       <%= (key=='assistantMaterialUnit'||key=='assistantPackageType')?"display-block col-xs-4 ":''%>">
+                    <div data-level="level-2" class="text-align-center basicDataTit01 fixed-header">
+                        <a class="label label-primary create status01">新建</a>
+                        <a class="label label-primary modify status01">修改</a>
+                        <a class="label label-primary open-this status03">启用</a>
+                        <a class="label label-danger delete status01">删除</a>
+                        <a class="label label-primary see-all status01">查看所有</a>
+                        <a class="label label-primary revoke status02">撤销</a>
+                        <a class="label label-primary save status02">保存</a>
+                        <input type="hidden" name="listNum" value="" class="listNum"  type='text'/>
+                        <input type="hidden" name="key" value="<%= key%>" class="key"  type='text'/>
+                        <input type="hidden" name="parentId" value="<%= DWYRequest.query.classone%>" class="parentId"  type='text'/>
+                    </div>
+                    <div class="basicDataTit text-align-center basicDataTit01 fixed-header">
+                        类别2
+                    </div>
+                    <table class="table table-bordered table-linkage ">
+                        <tbody class="basicDataThree scrollTbody">
+                        <!--展示流水空间信息类别2-->
+                            <% if(key== "assistantOrderSpaceinfo" && DWYRequest.query.classone){
+                                if(DWY_Helper.isCanLoop(orderSpaceInfo)){
+                                    orderSpaceInfo.forEach(function (element,index) {%>
+                            <tr id="<%= element.id%>"
+                                stcode="<%= element.stcode%>"
+                                parentId="<%= element.parentId%>"
+                                class="<%= (element.stcode==0)?"disable display-none":''%> <%= (element.id==DWYRequest.query.classtwo)?"active":''%>"
+                                    <%　if(element.stcode==1){%>
+                                onclick="location.href='/systems?key=<%= key%>&classone=<%= element.parentId %>&classtwo=<%= element.id %>';"
+                            <%}%>
+                            >
+                                <td ><input class="border-0 text-align-center" type="text" value="<%= element.name%>" name="name" readonly/></td>
+                            </tr>
+                                <%    })
+                                } else{%>
+                            <tr class="noData"><td>暂无数据，请选择新建</td></tr>
+                           <% }}  %>
+
+                        <!--展示订单补单原因类别2-->
+                        <% if(key=='assistantResupplyReason'&& DWYRequest.query.classone){
+                        if(DWY_Helper.isCanLoop(resupplyReasonOne)){
+                        resupplyReasonOne.forEach(function (element,index) {%>
+                        <tr id="<%= element.id%>"
+                            stcode="<%= element.stcode%>"
+                            parentId="<%= element.parentId%>"
+                            class="<%= (element.stcode==0)?"disable display-none":''%> <%= (element.id==DWYRequest.query.classtwo)?"active":''%>"
+                                <%　if(element.stcode==1){%>
+                            onclick="location.href='/systems?key=<%= key%>&classone=<%= element.parentId %>&classtwo=<%= element.id %>';"
+                            <%}%>
+                        >
+                            <td ><input class="border-0 text-align-center" type="text" value="<%= element.name%>" name="name" readonly/></td>
+                        </tr>
+                        <%    })
+                        } else{%>
+                        <tr class="noData"><td>暂无数据，请选择新建</td></tr>
+                        <% }}  %>
+
+                        <!--展示物料单位类别2-->
+                        <% if(key=='assistantMaterialUnit' && DWYRequest.query.classone){
+                        if(DWY_Helper.isCanLoop(unitInfo)){
+                        unitInfo.forEach(function (element,index) {%>
+                        <tr id="<%= element.id%>"
+                            stcode="<%= element.stcode%>"
+                            parentId="<%= element.parentId%>"
+                            class="<%= (element.stcode==0)?"disable display-none":''%>">
+                            <td ><input class="border-0 text-align-center" type="text" value="<%= element.name%>" name="name" readonly/></td>
+                            <td ><input class="border-0 text-align-center" type="text" value="<%= element.amount%>" name="amount" readonly/></td>
+                        </tr>
+                        <%    })
+                        } else{%>
+                        <tr class="noData"><td>暂无数据，请选择新建</td></tr>
+                        <% }} %>
+
+                        <!--展示物料包装类型类别2-->
+                        <% if(key=='assistantPackageType' && DWYRequest.query.classone){
+                        if(DWY_Helper.isCanLoop(packageTypeInfo)){
+                        packageTypeInfo.forEach(function (element,index) {%>
+                        <tr id="<%= element.id%>"
+                            stcode="<%= element.stcode%>"
+                            parentId="<%= element.parentId%>"
+                            class="<%= (element.stcode==0)?"disable display-none":''%>">
+                            <td ><input class="border-0 text-align-center" type="text" value="<%= element.name%>" name="name" readonly/></td>
+                        </tr>
+                        <%    })
+                        } else{%>
+                        <tr class="noData"><td>暂无数据，请选择新建</td></tr>
+                        <% }}  %>
+                        </tbody>
+                    </table>
+
+                </div>
+
+                <div class="table-responsive level-3 display-none
+                         <%= (key=='assistantResupplyReason'|| key=='assistantOrderSpaceinfo')?"display-block col-xs-3 ":''%>">
+                    <div data-level="level-3" class="text-align-center basicDataTit01 fixed-header">
+                        <a class="label label-primary create status01">新建</a>
+                        <a class="label label-primary modify status01">修改</a>
+                        <a class="label label-primary open-this status03">启用</a>
+                        <a class="label label-danger delete status01">删除</a>
+                        <a class="label label-primary see-all status01">查看所有</a>
+                        <a class="label label-primary revoke status02">撤销</a>
+                        <a class="label label-primary save status02">保存</a>
+                        <input type="hidden" name="listNum" value="" class="listNum"  type='text'/>
+                        <input type="hidden" name="key" value="<%= key%>" class="key"  type='text'/>
+                        <input type="hidden" name="parentId" value="<%= DWYRequest.query.classtwo%>" class="parentId"   type='text'/>
+                        <input type="hidden" name="spaceId" value="<%= DWYRequest.query.classtwo%>" class="spaceId"   type='text'/>
+                    </div>
+                    <div class="basicDataTit text-align-center basicDataTit01 fixed-header">
+                        类别3
+                        <%if(key=="assistantOrderSpaceinfo"){%>
+                        流水空间产品信息
+                            <%}%>
+                    </div>
+                    <table class="table table-bordered table-linkage ">
+                        <tbody class="basicDataFour scrollTbody">
+                        <!--展示流水空间信息类别3-->
+                        <% if(key=='assistantOrderSpaceinfo' && DWYRequest.query.classtwo){
+                        if(DWY_Helper.isCanLoop(orderSpaceInfoTwo)){
+                        orderSpaceInfoTwo.forEach(function (element,index) {%>
+                        <tr
+                                id="<%= element.id%>"
+                                stcode="<%= element.stcode%>"
+                                parentId="<%= element.parentId%>"
+                                class="<%= (element.stcode==0)?"disable display-none":''%>">
+                            <td ><input class="border-0 text-align-center" type="text" value="<%= element.name%>" name="name" readonly/></td>
+                        </tr>
+                        <%    })
+                        } else{%>
+                        <tr class="noData"><td>暂无数据，请选择新建</td></tr>
+                        <% }}  %>
+
+                        <!--展示订单补单原因类别3-->
+                        <% if(key=='assistantResupplyReason' && DWYRequest.query.classtwo){
+                        if(DWY_Helper.isCanLoop(resupplyReasonTwo)){
+                        resupplyReasonTwo.forEach(function (element,index) {%>
+                        <tr id="<%= element.id%>"
+                            stcode="<%= element.stcode%>"
+                            parentId="<%= element.parentId%>"
+                            class="<%= (element.stcode==0)?"disable display-none":''%>">
+                            <td ><input class="border-0 text-align-center" type="text" value="<%= element.name%>" name="name" readonly/></td>
+                        </tr>
+                        <%    })
+                        } else{%>
+                        <tr class="noData"><td>暂无数据，请选择新建</td></tr>
+                        <% }}%>
+
+                        </tbody>
+                    </table>
+
+                </div>
+                <!-- end col -->
+                <!--col-->
+                <!--end col-->
+            </div>
+            <!-- end row -->
+        </div>
+        <!-- end well -->
+        <!-- well -->
+        <!-- end well -->
+
+
+    </div>
+    <!-- END MAIN CONTENT -->
+
+</div>
+<!-- END MAIN PANEL -->
+
+<!--分包类型模板-->
+<form class="form-horizontal  layer-template" method="post" id="subPackageDao-form" action="">
+
+    <div class="row" style="padding-top: 30px;">
+
+        <div class="col-xs-12">
+            <div class="col-xs-8">
+                <div class="form-group">
+                    <label class="col-xs-4 control-label"><span class="requird"></span>分包类型:</label>
+                    <div class="col-xs-8">
+                        <select class="form-control validate[required]" name="code" id="subPackageDaoCode" >
+                            <option value="">- 请选择 -</option>
+                            <option value="1003">导轨</option>
+                            <option value="1004">趟门</option>
+                            <option value="1005">功能部件</option>
+                            <option value="1006">背面板件</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="col-xs-8">
+                <div class="form-group">
+                    <label class="col-xs-4 control-label" ><span class="requird"></span> 输入值:</label>
+                    <div class="col-xs-8">
+                        <input class="form-control validate[required]" value="" name="name" id="subPackageDaoName">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <input type="hidden" name="key" value="subPackageDao"/>
+    <input type="hidden" name="id" value="" id="subPackageDaoId"/>
+    <div class="row">
+        <div class="col-xs-12">
+            <hr class="simple">
+            <div class="col-xs-12 text-center">
+                <button  class="btn btn-primary  margin-right-5 modifyBtn" >
+                    <i class="fa fa-save"></i>
+                    提交
+                </button>
+            </div>
+        </div>
+    </div>
+    <div class="dwy-clear"></div>
+</form>
+<!--END 分包类型模板-->
+<!--物料包装类型模板-->
+<form class="form-horizontal  layer-template" method="post" id="assistantPackageType-form" action="" >
+
+    <div class="row" style="padding-top: 30px;">
+
+        <div class="col-xs-12">
+            <div class="col-xs-8">
+                <div class="form-group">
+                    <label class="col-xs-4 control-label"><span class="requird"></span>包装分类:</label>
+                    <div class="col-xs-8">
+                        <select class="form-control validate[required]" name="type"  id="assistantPackageTypeType">
+                            <option value=""> -请选择- </option>
+                            <%if(key=="assistantPackageType" && DWY_Helper.isCanLoop(packageCate)){
+                            packageCate.forEach(function(element,index){%>
+                            <option value="<%= element.id%>"><%= element.name%></option>
+                            <%})
+                            }%>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="col-xs-8">
+                <div class="form-group">
+                    <label class="col-xs-4 control-label" ><span class="requird"></span> 输入值:</label>
+                    <div class="col-xs-8">
+                        <input class="form-control validate[required]" value="" name="name" id="assistantPackageTypeName">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <input type="hidden" name="id" value="" id="assistantPackageTypeId"/>
+    <input type="hidden" name="parentId" value=0 />
+    <input type="hidden" name="key" value="assistantPackageType"/>
+    <div class="row">
+        <div class="col-xs-12">
+            <hr class="simple">
+            <div class="col-xs-12 text-center">
+                <button  class="btn btn-primary  margin-right-5 modifyBtn" >
+                    <i class="fa fa-save"></i>
+                    提交
+                </button>
+            </div>
+        </div>
+    </div>
+    <div class="dwy-clear"></div>
+</form>
+<!--END 物料包装类型模板-->
+<%- include('../layouts/footer'); %>
+<%- include('../layouts/footer_common_script'); %>
+<script type="text/javascript">
+
+    $(document).ready(function () {
+
+        //表单初始验证
+        $("#subPackageDao-form").validationEngine();
+        $("#assistantPackageType-form").validationEngine();
+
+        //给input为listNum赋值
+        $("table>tbody>tr").each(function(){
+            var classDom = $(this).parent().parent().parent();
+            if($(this).hasClass("active")){
+                classDom.find("input[name=listNum]").val($(this).index());
+            }
+        });
+
+        //点击类别1
+        $(document).on("click",".basicDataSec>tr",function(){
+            if($(this).attr("stcode")==0){
+                $(".basicDataThree").html('请先启用该项');
+            }
+        });
+        //点击类别2
+        $(document).on("click",".basicDataThree>tr",function(){
+            if($(this).attr("stcode")==0){
+                $(".basicDataFour").html('请先启用该项');
+            }
+
+        });
+    })
+
+
+
+</script>
+
+<%- include('./system-model'); %>
+<%- include('../layouts/foot'); %>

@@ -19,13 +19,13 @@ var Permissions = require('../config/permission');
 
 var SystemController = {
     indexPage: function (req, res) {
-        //res.render('order/system/index');
+        // res.render('order/system/index');
          Base.multiDataRequest(req, res, [
                  {url: '/api/assist', method: 'GET', resConfig: {keyName: 'basicDataList', is_must: true}},
                  {url: '/api/assist/package/category', method: 'GET', resConfig: {keyName: 'packageCate', is_must: true}},
           ],
             function (req, res, resultList) {
-                //console.log(1111,resultList);
+                // console.log(1111,resultList);
           var returnData = Base.mergeData(helper.mergeObject({
                  title: '个人中心',
                  Permission :Permissions,
@@ -33,6 +33,82 @@ var SystemController = {
 
                 res.render('order/system/index', returnData);
              });
+
+    },
+    indexPageO: function (req, res) {
+        var key=req.query.key;
+        var classone=req.query.classone;
+        var classtwo=req.query.classtwo;
+
+        var multiDataRequest= [
+            {url: '/api/assist', method: 'GET', resConfig: {keyName: 'basicDataList', is_must: true}},
+            {url: '/api/assist/package/category', method: 'GET', resConfig: {keyName: 'packageCate', is_must: true}},
+        ];
+
+        if(key){
+            multiDataRequest= [
+                {url: '/api/assist', method: 'GET', resConfig: {keyName: 'basicDataList', is_must: true}},
+                {url: '/api/assist/list?key='+key, method: 'GET', resConfig: {keyName: 'keyInfo', is_must: true}},
+                {url: '/api/assist/package/category', method: 'GET', resConfig: {keyName: 'packageCate', is_must: true}},
+            ];
+        }
+
+        if(key =="assistantOrderSpaceinfo" && classone){
+            multiDataRequest= [
+                {url: '/api/assist', method: 'GET', resConfig: {keyName: 'basicDataList', is_must: true}},
+                {url: '/api/assist/list?key='+key, method: 'GET', resConfig: {keyName: 'keyInfo', is_must: true}},
+                {url:  '/api/assist/orderSpaceinfo/subclass?parentId='+classone, method: 'GET', resConfig: {keyName: 'orderSpaceInfo', is_must: true}},
+            ];
+        }
+        if(key =="assistantOrderSpaceinfo" && classtwo){
+            multiDataRequest= [
+                {url: '/api/assist', method: 'GET', resConfig: {keyName: 'basicDataList', is_must: true}},
+                {url: '/api/assist/list?key='+key, method: 'GET', resConfig: {keyName: 'keyInfo', is_must: true}},
+                {url:  '/api/assist/orderSpaceinfo/subclass?parentId='+classone, method: 'GET', resConfig: {keyName: 'orderSpaceInfo', is_must: true}},
+                {url:'/api/assist/space/allprod?spaceId='+classtwo, method: 'GET', resConfig: {keyName: 'orderSpaceInfoTwo', is_must: true}},
+            ];
+        }
+        if(key =="assistantResupplyReason" && classone){
+            multiDataRequest= [
+                {url: '/api/assist', method: 'GET', resConfig: {keyName: 'basicDataList', is_must: true}},
+                {url: '/api/assist/list?key='+key, method: 'GET', resConfig: {keyName: 'keyInfo', is_must: true}},
+                {url: '/api/assist/resupplyReason/subclass?parentId='+classone,method: 'GET', resConfig: {keyName: 'resupplyReasonOne', is_must: true}},
+            ];
+        }
+        if(key =="assistantResupplyReason" && classtwo){
+            multiDataRequest= [
+                {url: '/api/assist', method: 'GET', resConfig: {keyName: 'basicDataList', is_must: true}},
+                {url: '/api/assist/list?key='+key, method: 'GET', resConfig: {keyName: 'keyInfo', is_must: true}},
+                {url: '/api/assist/resupplyReason/subclass?parentId='+classone,method: 'GET', resConfig: {keyName: 'resupplyReasonOne', is_must: true}},
+                {url: '/api/assist/resupplyReason/subclass?parentId='+classtwo,method: 'GET', resConfig: {keyName: 'resupplyReasonTwo', is_must: true}},
+            ];
+        }
+        if(key =="assistantMaterialUnit" && classone){
+            multiDataRequest= [
+                {url: '/api/assist', method: 'GET', resConfig: {keyName: 'basicDataList', is_must: true}},
+                {url: '/api/assist/list?key='+key, method: 'GET', resConfig: {keyName: 'keyInfo', is_must: true}},
+                {url:  '/api/assist/material/units/'+classone, method: 'GET', resConfig: {keyName: 'unitInfo', is_must: true}},
+            ];
+        }
+        if(key =="assistantPackageType" && classone){
+            multiDataRequest= [
+                {url: '/api/assist', method: 'GET', resConfig: {keyName: 'basicDataList', is_must: true}},
+                {url: '/api/assist/list?key='+key, method: 'GET', resConfig: {keyName: 'keyInfo', is_must: true}},
+                {url: '/api/assist/package/types/'+classone,method: 'GET', resConfig: {keyName: 'packageTypeInfo', is_must: true}},
+                {url: '/api/assist/package/category', method: 'GET', resConfig: {keyName: 'packageCate', is_must: true}},
+            ];
+        }
+
+        Base.multiDataRequest(req, res, multiDataRequest, function (req, res, resultList) {
+             console.log(66666,resultList);
+                var returnData = Base.mergeData(helper.mergeObject({
+                    title: ' ',
+                    Permission: Permissions,
+                    key: key,
+                },resultList));
+                res.render('order/system/system', returnData);
+
+            });
 
     },
     keyFirstPage: function (req, res) {
@@ -61,6 +137,7 @@ var SystemController = {
             if (!error && response.statusCode == 200) {
                 // 编译模板
                 var data = JSON.parse(body);
+                 // console.log(1111,data);
                 var basicDataThree = template({result:data,key:key});
                 res.send(basicDataThree);
             } else {
@@ -77,6 +154,9 @@ var SystemController = {
         }, req, res), function (error, response, body) {
             if (!error && response.statusCode == 201) {
                 Base.handlerSuccess(res, req);
+                if((req.session.backPath).indexOf("systems")>0){
+                 return  res.redirect(req.session.backPath?req.session.backPath:"/systems");
+                }
                 res.redirect("/system");
             } else {
                 Base.handlerError(res, req, error, response, body);
@@ -91,6 +171,9 @@ var SystemController = {
         }, req, res), function (error, response, body) {
             if (!error && response.statusCode == 201) {
                 Base.handlerSuccess(res, req);
+                if((req.session.backPath).indexOf("systems")>0){
+               return  res.redirect(req.session.backPath?req.session.backPath:"/systems");
+                }
                 res.redirect("/system");
             } else {
                 Base.handlerError(res, req, error, response, body);
@@ -167,8 +250,11 @@ var SystemController = {
             method: 'put',
             url: '/api/clearCache',
         }, req, res), function (error, response, body) {
+            Base.handlerSuccess(res, req);
             if (!error && response.statusCode == 201) {
-                Base.handlerSuccess(res, req);
+                if((req.session.backPath).indexOf("systems")>0){
+                    return  res.redirect(req.session.backPath?req.session.backPath:"/systems");
+                }
                 res.redirect("/system");
             } else {
                 Base.handlerError(res, req, error, response, body);
@@ -277,7 +363,7 @@ var SystemController = {
         request(Base.mergeRequestOptions({
             method: 'post',
             url: '/api/whse/freemarker',
-            form:req.body,
+            form: req.body,
         }, req, res), function (error, response, body) {
             if (!error && response.statusCode == 201) {
                 Base.handlerSuccess(res, req);
@@ -295,11 +381,11 @@ var SystemController = {
 
         request(Base.mergeRequestOptions({
             method: 'put',
-            url: '/api/whse/freemarker/'+id+'?'+queryString.stringify(req.body),
+            url: '/api/whse/freemarker/' + id + '?' + queryString.stringify(req.body),
         }, req, res), function (error, response, body) {
             if (!error && response.statusCode == 201) {
                 Base.handlerSuccess(res, req);
-                res.redirect("/system/template/modify/"+paramsType+"/"+id);
+                res.redirect("/system/template/modify/" + paramsType + "/" + id);
             } else {
                 Base.handlerError(res, req, error, response, body);
             }
@@ -310,7 +396,7 @@ var SystemController = {
         // console.log('/api/whse/freemarker/status/'+id+'?stcode=0')
         request(Base.mergeRequestOptions({
             method: 'put',
-            url: '/api/whse/freemarker/status/'+id+'?stcode=0',
+            url: '/api/whse/freemarker/status/' + id + '?stcode=0',
         }, req, res), function (error, response, body) {
             if (!error && response.statusCode == 201) {
                 res.sendStatus(200);
@@ -324,14 +410,14 @@ var SystemController = {
         var id = req.params.id;
         request(Base.mergeRequestOptions({
             method: 'get',
-            url: '/api/whse/freemarker/print/'+id,
+            url: '/api/whse/freemarker/print/' + id,
         }, req, res), function (error, response, body) {
             if (!error && response.statusCode == 200) {
                 // console.log('printOut',body)
                 // res.status(200).json(body);
                 var returnData = Base.mergeData(helper.mergeObject({
-                    id:id,
-                }, {printINfo:body}));
+                    id: id,
+                }, {printINfo: body}));
                 res.render('order/system/print', returnData);
             } else {
                 Base.handlerError(res, req, error, response, body);
@@ -342,7 +428,7 @@ var SystemController = {
         var packageLid = req.params.packageLid;
         request(Base.mergeRequestOptions({
             method: 'get',
-            url: '/api/orders/package/inventory/'+packageLid,
+            url: '/api/orders/package/inventory/' + packageLid,
         }, req, res), function (error, response, body) {
             if (!error && response.statusCode == 200) {
                 // console.log('printOut',body)
@@ -350,9 +436,9 @@ var SystemController = {
                 // res.status(200).json(body);
                 // var resultList = body;
                 var returnData = Base.mergeData(helper.mergeObject({
-                    id:packageLid,
-                    type:'html'
-                }, {printINfo:body}));
+                    id: packageLid,
+                    type: 'html'
+                }, {printINfo: body}));
                 res.render('order/system/print', returnData);
             } else {
                 Base.handlerError(res, req, error, response, body);
@@ -365,15 +451,15 @@ var SystemController = {
         var type = req.query.type;
         request(Base.mergeRequestOptions({
             method: 'get',
-            url: '/api/orders/package/print/packagelist/'+batchNumber+'/'+factoryId,
+            url: '/api/orders/package/print/packagelist/' + batchNumber + '/' + factoryId,
         }, req, res), function (error, response, body) {
             if (!error && response.statusCode == 200) {
                 var returnData = Base.mergeData(helper.mergeObject({
-                    batchNumber:batchNumber,
-                    factoryId:factoryId,
-                    type:'arry',
-                    showTYpe:type
-                }, {printINfo:JSON.parse(body)}));
+                    batchNumber: batchNumber,
+                    factoryId: factoryId,
+                    type: 'arry',
+                    showTYpe: type
+                }, {printINfo: JSON.parse(body)}));
                 res.render('order/system/print', returnData);
             } else {
                 Base.handlerError(res, req, error, response, body);
@@ -384,13 +470,13 @@ var SystemController = {
         var id = req.params.id;
         request(Base.mergeRequestOptions({
             method: 'get',
-            url: '/api/whse/cargout/delivery/print/delivery/'+id,
+            url: '/api/whse/cargout/delivery/print/delivery/' + id,
         }, req, res), function (error, response, body) {
             if (!error && response.statusCode == 200) {
                 var returnData = Base.mergeData(helper.mergeObject({
-                    id:id,
-                    type:'delivery',
-                }, {printINfo:JSON.parse(body)}));
+                    id: id,
+                    type: 'delivery',
+                }, {printINfo: JSON.parse(body)}));
                 res.render('order/system/print', returnData);
             } else {
                 Base.handlerError(res, req, error, response, body);
@@ -409,14 +495,14 @@ var SystemController = {
             });
     },
     paramSetPage: function (req, res) {
-        var id=req.session.user.bid;
+        var id = req.session.user.bid;
         Base.multiDataRequest(req, res, [
                 {url: '/api/materials/coefficient', method: 'GET', resConfig: {keyName: 'paramInfo', is_must: true}},
             ],
             function (req, res, resultList) {
                 var returnData = Base.mergeData(helper.mergeObject({
                     title: ' ',
-                    id:id,
+                    id: id,
                 }, resultList));
 
                 res.render('order/system/paramSet', returnData);
@@ -425,7 +511,7 @@ var SystemController = {
     doParam: function (req, res) {
         request(Base.mergeRequestOptions({
             method: 'post',
-            url: '/api/materials/coefficient?'+queryString.stringify(req.body),
+            url: '/api/materials/coefficient?' + queryString.stringify(req.body),
             form: req.body
         }, req, res), function (error, response, body) {
             if (!error && response.statusCode == 201) {

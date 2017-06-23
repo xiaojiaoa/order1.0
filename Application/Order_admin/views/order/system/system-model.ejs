@@ -1,0 +1,495 @@
+<script type="text/javascript">
+
+    $(document).ready(function () {
+
+        var modifyHtml;//保存修改前的内容
+
+        //点击"新建"，"修改"
+        $(".create,.modify").on("click",function(e){
+
+            var level = $(this).parent().attr('data-level');
+            var classDom=$('.'+level);
+            classDom.find('.status01,.status03').hide();
+            classDom.find('.status02').show();
+            var listNum=classDom.find('.listNum').val();
+
+            //获取key值
+            var key=$("input[name=key]").val();
+
+            //禁用所有的点击事件
+            $(".desktop-detected *").css("pointer-events","none");
+
+            //点击"新建"
+            if (e.target == $('.'+level+" .create")[0]) {
+
+                classDom.find(".save").attr("change",1);
+                classDom.find(".revoke").attr("change",1);
+
+                if(classDom.find(".noData").length>0){
+                    classDom.find(".noData").remove();
+                }
+
+               if(key=='subPackageDao'){
+                   status02(classDom);
+                   $(".desktop-detected *").css("pointer-events","auto");
+                 layer.open({
+                       title: false,
+                       type: 1,
+                       area: '700px',
+                       content: $('#subPackageDao-form'),
+                       cancel: function () {
+                           //右上角关闭回调
+                       },
+
+                   });
+               }
+               else if(key=='assistantPackageType' &&  classDom.find('input[name=parentId]').length==0){
+                   status02(classDom);
+                   $(".desktop-detected *").css("pointer-events","auto");
+                   layer.open({
+                        title:false,
+                        type:1,
+                        area:'700px',
+                        content:$("#assistantPackageType-form"),
+                        cancel:function(){},
+                    });
+               }
+               else{
+                  if(key=='assistantMaterialUnit' &&  classDom.find('input[name=parentId]').length>0 ){
+                      key='assistantMaterialUnitChild';
+                  }
+                   classDom.find("tbody").append(creFrag(key)).find("input").focus();
+
+                   //启用'保存''撤销''输入框' '滚动条'的点击事件
+                   classDom.find(".save,.revoke,.add-input,.scrollTbody,.fixed-header").css("pointer-events","auto");
+               }
+
+            }
+
+            //点击"修改"
+            if (e.target == $('.'+level+" .modify")[0]) {
+
+                classDom.find(".save").attr("change",0);
+                classDom.find(".revoke").attr("change",0);
+
+                if(key=='subPackageDao'){
+                    status02(classDom);
+                    $(".desktop-detected *").css("pointer-events","auto");
+                    //给表单赋值
+                    $("#subPackageDaoCode").val(classDom.find("tr").eq(listNum).attr("code"));
+                    $("#subPackageDaoName").val(classDom.find("tr").eq(listNum).find("input[name=name]").val());
+                    $("#subPackageDaoId").val(classDom.find("tr").eq(listNum).attr("id"));
+                   layer.open({
+                        title: false,
+                        type: 1,
+                        area: '700px',
+                        content: $('#subPackageDao-form'),
+                        cancel: function () {
+                            //右上角关闭回调
+                        },
+
+                    });
+                }
+                else if(key=='assistantPackageType' &&  classDom.find('input[name=parentId]').length==0){
+                    status02(classDom);
+                    $(".desktop-detected *").css("pointer-events","auto");
+                    //给表单赋值
+                    $("#assistantPackageTypeType").val(classDom.find("tr").eq(listNum).attr("type"));
+                    $("#assistantPackageTypeName").val(classDom.find("tr").eq(listNum).find("input[name=name]").val());
+                    $("#assistantPackageTypeId").val(classDom.find("tr").eq(listNum).attr("id"));
+                   layer.open({
+                        title: false,
+                        type: 1,
+                        area: '700px',
+                        content: $('#assistantPackageType-form'),
+                        cancel: function () {
+                            //右上角关闭回调
+                        },
+
+                    });
+                }
+              else{
+                    //保存修改前的内容
+                    modifyHtml= classDom.find("tr").eq(listNum).html();
+                  //根据有无点击tr执行取消readonly属性
+                    if(key=="assistantConfig"){
+                      classDom.find("tr").eq(listNum).addClass("add-input").find("input[name=code],input[name=value]").removeAttr('readonly').focus();
+                  }
+                  else{
+                      classDom.find("tr").eq(listNum).addClass("add-input").find("input").removeAttr('readonly').focus();
+                  }
+
+                  //启用'保存''撤销''输入框' '滚动条'的点击事件
+                  classDom.find(".save,.revoke,.add-input *,.scrollTbody,.fixed-header").css("pointer-events","auto");
+
+              }
+
+            }
+        });
+
+        //保存按钮
+        $(".save").on("click",function(){
+
+            var level = $(this).parent().attr('data-level');
+            var classDom=$('.'+level);
+            var listNum=classDom.find('.listNum').val();
+            //获取key值
+            var key=$("input[name=key]").val();
+            //设置data
+            var data={};
+            classDom.find("input").each(function(){
+                if(!$(this).attr("readonly")){
+                    data[$(this).attr("name")]=$(this).val();
+                }
+            });
+
+            if(key=="assistantOrderSpaceinfo"){
+                if(level=="level-1"){
+                    data.parentId=0
+                }
+                if(level=="level-3"){
+                    data.key="assistantSpaceProd";
+                    data.spaceId=$(".level-3").find("input[name=parentId]").val();
+                }
+            }
+
+            if(key=="assistantResupplyReason"){
+                if(level=="level-1"){
+                    data.levelType=1
+                    data.parentId=0
+                }
+                if(level=="level-2"){
+                    data.levelType=2
+                }
+                if(level=="level-3"){
+                    data.levelType=3
+                }
+            }
+            if(key=="assistantMaterialUnit" || key=='assistantPackageType'){
+                if(level=="level-1"){
+                    data.parentId=0
+                }
+            }
+
+            //新建--保存
+            if( classDom.find(".save").attr('change')==1){
+                delete data.undefined;
+                console.log("这个是新建data"+JSON.stringify(data));
+                $.ajax({
+                    url: '/system/doCreate',
+                    data:data,
+                    method: 'post',
+                    success: function (data) {
+                        successLayout.reload();
+                    },
+                    error: function (response) {
+                        errorLayout.normal(response);
+                    }
+                });
+            }
+            //修改--保存
+            if( classDom.find(".save").attr('change')==0){
+                if(listNum!=''){
+                    var id=classDom.find("tr").eq(listNum).attr("id");
+                    data.id=id;
+                }
+                delete data.undefined;
+                console.log("这个是修改data"+JSON.stringify(data));
+                $.ajax({
+                    url: '/system/doModify',
+                    data:data,
+                    method: 'post',
+                    success: function (data) {
+                        successLayout.reload();
+                    },
+                    error: function (response) {
+                        errorLayout.normal(response);
+                    }
+                });
+            }
+
+        });
+
+        //撤销按钮
+        $(".revoke").on("click",function(){
+            var level = $(this).parent().attr('data-level');
+            var classDom=$('.'+level);
+            var listNum=classDom.find('.listNum').val();
+
+            //新建--撤销
+            if( classDom.find(".revoke").attr('change')==1){
+
+                //移除新增的元素
+                classDom.find(".add-input").remove();
+
+                //重置按钮
+                status02(classDom);
+                //启用所有的点击事件
+                $(".desktop-detected *").css("pointer-events","auto");
+                classDom.find(".save").removeAttr("change");
+            }
+
+            //修改--撤销
+            if(classDom.find(".revoke").attr('change')==0){
+
+                //回到原来的页面
+                classDom.find("tr").eq(listNum).removeClass('add-input').html(modifyHtml);
+
+                //重置按钮
+                status02(classDom);
+                //启用所有的点击事件
+                $(".desktop-detected *").css("pointer-events","auto");
+                classDom.find(".save").removeAttr("change");
+            }
+
+        });
+
+        // 分包类型提交
+        $("#subPackageDao-form .modifyBtn").on({
+            click:function () {
+                if($(".save ").attr("change")==1){
+                    $("#subPackageDao-form").attr("action","/system/doCreate").submit();
+                }
+                else{
+                    $("#subPackageDao-form").attr("action","/system/doModify").submit();
+                }
+            }
+        });
+        // 物料包装类型提交
+        $("#assistantPackageType-form .modifyBtn").on({
+            click:function () {
+                if($(".save ").attr("change")==1){
+                    $("#assistantPackageType-form").attr("action","/system/doCreate").submit();
+                }
+                else{
+                    $("#assistantPackageType-form").attr("action","/system/doModify").submit();
+                }
+            }
+        });
+        //点击"删除"
+        $(".delete").click(function () {
+
+            var level = $(this).parent().attr('data-level');
+            var classDom=$('.'+level);
+            var listNum=classDom.find('.listNum').val();
+            //获取key值
+            var key=$("input[name=key]").val();
+            //设置data
+
+
+            var data={};
+            classDom.find("input").each(function(){
+                if(!$(this).attr("readonly")){
+                    data[$(this).attr("name")]=$(this).val();
+                }
+            });
+            if(listNum!='') {
+                var id = classDom.find("tr").eq(listNum).attr("id");
+                data.id = id;
+            }
+            if(key=="assistantConfig"){
+                data.status=0;
+            }
+            else{
+                data.stcode=0;
+            }
+
+            delete data.undefined;
+
+            var spaceId=classDom.find("input[name=spaceId]").val();
+               if(spaceId=="" && key=='assistantOrderSpaceinfo'){
+                data.key="assistantSpaceProd";
+                data.spaceId=$(".level-3").find("input[name=parentId]").val();
+               }
+            console.log("这个是删除等操作"+JSON.stringify(data));
+            //ajax提交
+            layer.confirm('确定删除该项?', {icon: 3, title: '提示'}, function (index) {
+                $.ajax({
+                    url: '/system/doModify',
+                    data: data,
+                    method: 'post',
+                    success: function (data) {
+                        successLayout.reload();
+                    },
+                    error: function (response) {
+                        layer.close(index)
+                        errorLayout.normal(response);
+                    }
+                });
+
+         }, function (index) { layer.close(index) })
+    })
+
+        //点击"启用"
+        $('.open-this').click(function(){
+
+            var level = $(this).parent().attr('data-level');
+            var classDom=$('.'+level);
+            var listNum=classDom.find('.listNum').val();
+            classDom.find('.modify').show();
+            $(this).hide();
+
+            //获取key值
+            var key=$("input[name=key]").val();
+            //设置data
+            var data={};
+            classDom.find("input").each(function(){
+                if(!$(this).attr("readonly")){
+                    data[$(this).attr("name")]=$(this).val();
+                }
+            });
+            if(listNum!='') {
+                var id = classDom.find("tr").eq(listNum).attr("id");
+                data.id = id;
+            }
+            if(key=="assistantConfig"){
+                data.status=1;
+            }
+            else{
+                data.stcode=1;
+            }
+
+
+            var spaceId=classDom.find("input[name=spaceId]").val();
+            if(spaceId==""&& key=='assistantOrderSpaceinfo'){
+                data.key="assistantSpaceProd";
+                data.spaceId=$(".level-3").find("input[name=parentId]").val();
+            }
+
+
+            console.log("这个是启用等操作"+JSON.stringify(data));
+            //ajax提交
+            layer.confirm('确定启用该项?', {icon: 3, title: '提示'}, function (index) {
+                $.ajax({
+                    url: '/system/doModify',
+                    data:data,
+                    method: 'post',
+                    success: function (data) {
+                        successLayout.reload();
+                    },
+                    error: function (response) {
+                        layer.close(index)
+                        errorLayout.normal(response);
+                    }
+                });
+            }, function (index) { layer.close(index) })
+        });
+
+        //点击tr
+        $(document).on("click","table>tbody>tr",function(){
+            var classDom = $(this).parent().parent().parent();
+
+            //给input listNum赋值
+            classDom.find("input[name=listNum]").val($(this).index());
+
+            //除了新增的tr之外，点击tr切换样式active
+            if(!$(this).hasClass('add-input')){
+                $(this).addClass("active").siblings("tr").removeClass("active");
+            }
+
+            //点击的是"disable"
+            if($(this).hasClass('disable')){
+                classDom.find('.modify').hide();
+                classDom.find('.open-this').show();
+            }
+        });
+
+        //点击"查看所有"
+        $('.see-all').click(function () {
+
+            var level = $(this).parent().attr('data-level');
+            var classDom=$('.'+level);
+
+            layer.confirm('确定查看所有?', {icon: 3, title: '提示'}, function (index) {
+                 classDom.find('.see-all').hide();
+                 classDom.find('.disable').removeClass('display-none');
+                layer.close(index)
+            }, function (index) { layer.close(index) })
+        })
+
+
+        /*
+         * status02--用于点击"撤销"、"保存"之后返回的三个状态
+         * */
+        function status02(dom){
+            dom.find('.status01').show();
+            dom.find('.status02,.status03').hide();
+        }
+
+        /*
+         * 序列化表单中的每一个值，并且存储在对象中
+         * */
+        function serialLizeForm(form){
+            var data = {};
+            var t = form.serializeArray();
+            $.each(t, function() {
+                data[this.name] = this.value;
+            });
+
+            return data;
+        }
+
+
+       /*
+       * creFrag--新建的时候根据不同显示页面
+       * */
+        function creFrag(key){
+            var string;
+            if(key=="assistantConfig"){
+                string="<tr class='add-input'>" +
+                    "<td><input class='border-0 text-align-center' type='text' value='' name='code'/></td>" +
+                    "<td><input class='border-0 text-align-center' type='text' value='' name='value'/></td>" +
+                    "<td><input class='border-0 text-align-center' type='text' value='' name='remark'/></td>" +
+                    "</tr>"
+        }
+            else  if(key=="assistantBrandInfo"){
+                string="<tr class='add-input'>" +
+                    "<td><input class='border-0 text-align-center' type='text' value='' name='name'/></td>" +
+                    "</tr>"
+            }
+            else  if(key=="assistantOrderSpaceinfo"){
+                string="<tr class='add-input'>" +
+                    "<td><input class='border-0 text-align-center' type='text' value='' name='name'/></td>" +
+                    "</tr>"
+            }
+            else  if(key=="assistantSpaceProd"){
+                string="<tr class='add-input'>" +
+                    "<td><input class='border-0 text-align-center' type='text' value='' name='name'/></td>" +
+                    "<td><input class='border-0 text-align-center' type='text' value='' name='spaceId'/></td>" +
+                    "</tr>"
+            }
+            else  if(key=="assistantResupplyReason"){
+                string="<tr class='add-input'>" +
+                    "<td><input class='border-0 text-align-center' type='text' value='' name='name'/></td>" +
+                    "</tr>"
+            }
+            else  if(key=="assistantReviewReson"){
+                string="<tr class='add-input'>" +
+                    "<td><input class='border-0 text-align-center' type='text' value='' name='name' placeholder='请输入原因'/></td>" +
+                    "<td><input class='border-0 text-align-center' type='text' value='' name='reasonType' placeholder='请输入编码'/></td>" +
+                    "</tr>"
+            }
+            else  if(key=="assistantTaskseqFileType"){
+                string="<tr class='add-input'>" +
+                    "<td><input class='border-0 text-align-center' type='text' value='' name='type'/></td>" +
+                    "<td><input class='border-0 text-align-center' type='text' value='' name='fileExt'/></td>" +
+                    "<td><input class='border-0 text-align-center' type='text' value='' name='name'/></td>" +
+                    "</tr>"
+            }
+            else if(key=='assistantMaterialUnitChild'){
+                string="<tr class='add-input'>" +
+                    "<td><input class='border-0 text-align-center' type='text' value='' name='name' placeholder='请输入名称'/></td>" +
+                    "<td><input class='border-0 text-align-center' type='text' value='' name='amount' placeholder='请输入换算数量'/></td>" +
+                    "</tr>"
+            }
+            else{
+                string="<tr class='add-input'>" +
+                    "<td><input class='border-0 text-align-center' type='text' value='' name='name'/></td>" +
+                    "</tr>"
+            }
+            //console.log(string);
+            return string;
+        }
+
+    })
+</script>
