@@ -379,6 +379,19 @@ var AppServiceController = {
             }
         })
     },
+    batchNumberCode: function (req, res) {
+        request(Base.mergeRequestOptions({
+            method: 'get',
+            url: '/api/orders/batchNumber/code?'+queryString.stringify(req.query),
+            headers:req.headers,
+        }, req, res), function (error, response, body) {
+            if (!error) {
+                res.send(JSON.parse(body));
+            } else {
+                res.send(AppServiceController.error);
+            }
+        })
+    },
 };
 module.exports = AppServiceController;
 

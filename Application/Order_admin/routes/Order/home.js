@@ -1469,6 +1469,8 @@ router.post('/app/stock/receive',AppServiceController.receiveStock);
 // 备货-App可备货货订单
 router.get('/app/stock/order', AppServiceController.orderStock);
 
+router.get('/app/batchNumber/code', AppServiceController.batchNumberCode);
+
 
 /*
 * 页面范围: 报表管理
