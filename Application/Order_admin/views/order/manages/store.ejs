@@ -215,7 +215,7 @@
                                 <th>是否自带仓库</th>
                                 <th>新建日期</th>
                                 <th>最低资金(元)</th>
-                                <th>查看</th>
+                                <th width="230">查看</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -234,7 +234,7 @@
                                 <td><%= DWY_Helper.getWhether(element.isWarehouse) %></td>
                                 <td><%= DWY_Helper.getLocalDate(element.addTime) %></td>
                                 <td><%= element.minFunds %></td>
-                                <td>
+                                <td width="230">
                                     <% if (DWY_Helper.hasPermission(Permission.store.queryDept.id, permission) ){ %>
                                     <a href="/department/stores/<%= element.bid %>" class="label label-primary">部门信息</a>
                                     <% } %>
