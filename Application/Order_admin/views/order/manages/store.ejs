@@ -213,6 +213,7 @@
                                 <th>门店类型</th>
                                 <th>经营类型</th>
                                 <th>是否自带仓库</th>
+                                <th>门店状态</th>
                                 <th>新建日期</th>
                                 <th>最低资金(元)</th>
                                 <th width="230">查看</th>
@@ -232,6 +233,7 @@
                                 <td><%= DWY_Helper.getAssistVal(element.addrType, addrTypesList) %></td>
                                 <td><%= DWY_Helper.getAssistVal(element.storeType, storeTypes) %></td>
                                 <td><%= DWY_Helper.getWhether(element.isWarehouse) %></td>
+                                <td><%= (element.stcode==40)?"禁用":"启用"%></td>
                                 <td><%= DWY_Helper.getLocalDate(element.addTime) %></td>
                                 <td><%= element.minFunds %></td>
                                 <td width="230">

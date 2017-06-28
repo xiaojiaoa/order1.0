@@ -141,6 +141,7 @@
                                 <th>机构地址</th>
                                 <th>机构类型</th>
                                 <th>是否自带仓库</th>
+                                <th>机构状态</th>
                                 <th>新建日期</th>
                                 <!--<th>最低保证金</th>-->
                                 <th  width="230">查看</th>
@@ -158,6 +159,7 @@
                                 <td><%= element.address %></td>
                                 <td><%= DWY_Helper.getAssistVal(element.orgType, organTypes) %></td>
                                 <td><%= DWY_Helper.getWhether(element.isWareh) %></td>
+                                <td><%= (element.stcode==1)?"启用":"禁用"%></td>
                                 <td><%= DWY_Helper.getLocalDate(element.addTime) %></td>
                                 <!--<td>最低保证金</td>-->
                                 <td width="230">
