@@ -148,26 +148,29 @@
         $(".fg-date-picker").flatpickr(data_time_picker.data_picker); // jQuery
 
         $("input[name='roles']").change(function(){
-                var bidVal = $("input[name=roles]:checked:first-child").attr("bid");
-                $("input[name=roles]:checked").each(function(){
-                    var bidVala = $(this).attr("bid");
-                    if(bidVal != bidVala){
-                       $("input[name=succ]").attr("succ","false");
-                    }else{
-                        $("input[name=succ]").attr("succ","true");
-                    }
-                })
-            var stcode = $(this).attr('stcode')
-            if($(this).is(':checked')){
-                $("input[name='stcode']").addClass(stcode+'');
-            }else{
-                $("input[name='stcode']").removeClass(stcode+'');
-            }
+            var bidVal = $("input[name=roles]:checked:first-child").attr("bid");
+            $("input[name=roles]:checked").each(function(){
+                var bidVala = $(this).attr("bid");
+                if(bidVal != bidVala){
+                   $("input[name=succ]").attr("succ","false");
+                }else{
+                    $("input[name=succ]").attr("succ","true");
+                }
+            })
+
+            var stcode='';
+            $("input[name=roles]").each(function(){
+                if($(this).is(':checked')){
+                    stcode += $(this).attr("stcode")+',';
+                }
+            })
+            $("input[name=stcode]").attr("class",stcode);
             if($(this).is(':checked')){
                 $("input[name='vals']").addClass(this.value+',');
             }else{
                 $("input[name='vals']").removeClass(this.value+',');
             }
+
         })
         $(".installGroup").on(
             {
@@ -202,7 +205,6 @@
                     var stcodeStr=$("input[name='stcode']").attr('class');
                     var tids=$("input[name='vals']").attr('class').replace(/[ ]/g,"");
                     tids = tids.substring(0,tids.length-1);
-                    var did=$(".did option:selected").val();
                     if(tids==null||tids=='') {
                         layer.alert('请选择！', {icon: 3})
                         return false;

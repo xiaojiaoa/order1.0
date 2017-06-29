@@ -92,10 +92,7 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="col-xs-12">
-                                <hr class="simple">
-                                <div class="col-xs-12 text-center">
+                                <div class="col-xs-3 text-center">
                                     <button class="btn btn-primary " type="submit">
                                         <i class="fa fa-search"></i>
                                         查询
@@ -105,62 +102,58 @@
                         </form>
                     </div>
                     <!---供应商可供物料---->
+                    <div class="col-xs-12">
+                        <div class="form-group">
 
-                    <form class="form-horizontal margin-top-10" method="post" id="orderItemCon" action="" >
-                        <div class="col-xs-12">
-                            <div class="form-group">
-
-                                    <div class="row">
-                                        <div class="col-xs-12">
-                                            <legend>
-                                                供应商物料关联
-                                            </legend>
-                                        </div>
+                                <div class="row">
+                                    <div class="col-xs-12">
+                                        <legend>
+                                            供应商物料关联
+                                        </legend>
                                     </div>
-                                    <div class="orderItemLayerTable">
-                                        <table class="table table-bordered table-hover">
-                                            <thead>
-                                            <tr>
-                                                <th>序号</th>
-                                                <th>物料编号</th>
-                                                <th>物料名称</th>
-                                                <th>分类名称</th>
-                                                <th>真实库存</th>
-                                                <th>预警数量</th>
-                                            </tr>
-                                            </thead>
-                                            <tbody>
-                                            <%
-                                            if(DWY_Helper.isCanLoop(supMaterialList.result)){
-                                            supMaterialList.result.forEach(function (element, index) { %>
-                                            <tr>
-                                                <td>
-                                                    <label class="checkbox-inline">
-                                                        <input type="checkbox" class="checkbox"
-                                                               name="roles" value="<%= element.id %>">
-                                                        <span><%= index+1 %></span>
-                                                    </label>
-                                                </td>
-                                                <td><a href="/materialManage/detail/<%= bid %>/<%= element.id %>"><%= element.id %></a></td>
-                                                <td><%= element.name %></td>
-                                                <td><%= element.catName %></td>
-                                                <td><%= element.stock %></td>
-                                                <td><%= element.warning %></td>
-                                                <%  })}else{%>
-                                                <td colspan="6" class="text-align-center">暂无结果</td>
-                                                <% }%>
-                                            </tr>
-                                            </tbody>
-                                        </table>
-                                        <%- pagination %>
-                                        <input type="hidden" class="" id="checkedValue">
-                                        <input type="hidden"  id="gid" value="<%= tid %>">
-                                    </div>
+                                </div>
+                                <div class="orderItemLayerTable">
+                                    <table class="table table-bordered table-hover">
+                                        <thead>
+                                        <tr>
+                                            <th>序号</th>
+                                            <th>物料编号</th>
+                                            <th>物料名称</th>
+                                            <th>分类名称</th>
+                                            <th>真实库存</th>
+                                            <th>预警数量</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <%
+                                        if(DWY_Helper.isCanLoop(supMaterialList.result)){
+                                        supMaterialList.result.forEach(function (element, index) { %>
+                                        <tr>
+                                            <td>
+                                                <label class="checkbox-inline">
+                                                    <input type="checkbox" class="checkbox"
+                                                           name="roles" value="<%= element.id %>">
+                                                    <span><%= index+1 %></span>
+                                                </label>
+                                            </td>
+                                            <td><a href="/materialManage/detail/<%= bid %>/<%= element.id %>"><%= element.id %></a></td>
+                                            <td><%= element.name %></td>
+                                            <td><%= element.catName %></td>
+                                            <td><%= element.stock %></td>
+                                            <td><%= element.warning %></td>
+                                            <%  })}else{%>
+                                            <td colspan="6" class="text-align-center">暂无结果</td>
+                                            <% }%>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                    <%- pagination %>
+                                    <input type="hidden" class="" id="checkedValue">
+                                    <input type="hidden"  id="gid" value="<%= tid %>">
+                                </div>
 
-                            </div>
                         </div>
-                        <div class="dwy-clear"></div>
-                    </form>
+                    </div>
                 </div>
             </div>
         </div>
@@ -234,7 +227,7 @@
         // 页面一加载先刷新一次读取localstorage
         updateCheckedList(true);
         $(".orderItemLayerTable input[name='roles']").on("change",function () {
-            var $tds = $(this).parent().parent().parent().children("td");
+            var $tds = $(this).parents("tr").children("td");
             // 获取整个条目数据
             var item = {
                 id : $(this).val(),

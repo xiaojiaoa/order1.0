@@ -283,6 +283,7 @@
             DWY_Utils.Clicks.clicks();
         })
         var checkedValue = $('#checkedValue');
+        var tid;
         $("input[name='roles']").change(function () {
             if($(this).is(':checked')){
                 checkedValue.addClass(this.value+',');
@@ -296,52 +297,31 @@
                 layer.alert('请选择！', {icon: 3});
                 return false;
             }
-            var purcIds = checkedValue.attr('class').replace(/[ ]/g,"");
-            purcIds = purcIds.substring(0,purcIds.length-1);
-            layer.confirm('确认删除?',{icon: 3, title:'提示'},
-                function(index){
-                    $.ajax({
-                        url: '/applyPurchases/del/'+purcIds,
-                        method: 'post',
-                        success: function (data) {
-                            successLayout.reload();
-                        },
-                        error: function (response) {
-                            layer.close(index);
-                            errorLayout.normal(response);
-                        }
-                    });
-                },
-                function(index){layer.close(index)})
+            var tid = checkedValue.attr('class').replace(/[ ]/g,"");
+            tid = tid.substring(0,tid.length-1);
+            doAjax('确认删除?','/applyPurchases/del/'+tid);
         })
         $(".PurchaseOrder").click(function(){
             var tid=$(this).data('purchaseId');
-            layer.confirm('确认生成采购单?',{icon: 3, title:'提示'},
-                function(index){
-                    $.ajax({
-                        url: '/purchases/Order/'+tid,
-                        method: 'post',
-                        success: function (data) {
-                            successLayout.hrefTo("/purchase");
-                        },
-                        error: function (response) {
-                            layer.close(index);
-                            errorLayout.normal(response);
-                        }
-                    });
-                },
-                function(index){layer.close(index)})
+            doAjax('确认生成采购单?','/purchases/Order/'+tid);
         })
         //请购单审核
         $(".purchaseReview").click(function(){
             var tid=$(this).data('purchaseId');
-            layer.confirm('确认审核?',{icon: 3, title:'提示'},
+            doAjax('确认审核?','/purchase/applyReview/'+tid);
+        })
+
+        var doAjax = function (text,url) {
+            layer.confirm(text,{icon: 3, title:'提示'},
                 function(index){
                     $.ajax({
-                        url: '/purchase/applyReview/'+tid,
+                        url: url,
                         method: 'post',
+                        data:{
+                            tid:tid,
+                        },
                         success: function (data) {
-                            successLayout.reload();
+                                successLayout.reload();
                         },
                         error: function (response) {
                             layer.close(index)
@@ -349,10 +329,8 @@
                         }
                     });
                 },
-                function(index){layer.close(index)})
-        })
-
-
+                function(index){layer.close(index)});
+        };
     })
 </script>
 <%- include('../layouts/foot'); %>

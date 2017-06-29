@@ -31,7 +31,7 @@
                         <form class="form-horizontal" method="get" id="search-customer">
                             <div class="col-xs-12">
                                 <!--输入字段-->
-                                <div class="col-xs-3">
+                                <div class="col-xs-2">
                                     <div class="form-group">
                                         <label class="col-xs-3 control-label">采购单号:</label>
                                         <div class="col-xs-9">
@@ -39,7 +39,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-xs-3">
+                                <div class="col-xs-2">
                                     <div class="form-group">
                                         <label class="col-xs-4 control-label">采购状态:</label>
                                         <div class="col-xs-8">
@@ -127,7 +127,7 @@
                             <% } %>
                                 <div class="col-xs-2">
                                     <div class="form-group">
-                                        <label class="col-xs-3 control-label">付款状态:</label>
+                                        <label class="col-xs-4 control-label">付款状态:</label>
                                         <div class="col-xs-8">
                                             <select class="form-control" name="payCode">
                                                 <option value="">- 请选择 -</option>
@@ -217,11 +217,11 @@
                             <thead>
                             <tr>
                                 <th>
-                                    <label class="checkbox-inline">
-                                        <input type="checkbox" class="checkbox"
-                                               id="checkAll"  />
-                                        <span>序号</span>
-                                    </label>
+                                    <!--<label class="checkbox-inline">-->
+                                        <!--<input type="checkbox" class="checkbox"-->
+                                               <!--id="checkAll"  />-->
+                                        <!--<span>序号</span>-->
+                                    <!--</label>-->序号
                                 </th>
                                 <th>采购单编号</th>
                                 <th>供应商编号</th>
@@ -247,9 +247,9 @@
                                     <label class="checkbox-inline">
                                         <%
                                         if(element.stcode<=30){%>
-                                        <input type="checkbox" class="checkbox" name="roles" value="<%= element.id %>" stcode="<%= element.stcode %>" isDirect="<%= element.isDirect %>" gid="<%= element.empId %>" isImprest="<%= element.isImprest %>" />
+                                        <input type="checkbox" class="checkbox" name="roles" value="<%= element.id %>" stcode="<%= element.stcode %>" isdirect="<%= element.isDirect %>" gid="<%= element.empId %>" isimprest="<%= element.isImprest %>" suppid="<%= element.suppId %>" />
                                        <% }else{%>
-                                        <input type="checkbox" class="checkbox" name="roles" value="<%= element.id %>" stcode="<%= element.stcode %>" isDirect="<%= element.isDirect %>"  disabled="disabled" />
+                                        <input type="checkbox" class="checkbox" name="roles" value="<%= element.id %>" stcode="<%= element.stcode %>" isdirect="<%= element.isDirect %>"  disabled="disabled" />
                                         <%}%>
                                         <span><%= index+1 %></span>
                                     </label>
@@ -262,23 +262,17 @@
                                 <td><%= (element.type==10)?'普通采购':'成品采购' %></td>
                                 <td><%= DWY_Helper.getLocalDate(element.deliveryDate) %></td>
                                 <td><%= DWY_Helper.getLocalDate(element.addTime) %></td>
-
                                 <td><%= element.empName %></td>
                                 <td><%= element.reviewName %></td>
-
                                 <td><%= element.stcodeName %></td>
-
                                 <td><%= (element.payCode==10)?'未付清':'已付清' %></td>
                             </tr>
                             <%  })
                             }else{ %>
                             <td colspan="12" class="text-align-center">暂无结果</td>
                             <%  }%>
-                            <input type="hidden" name="stcodeStr" />
-                            <input type="hidden" name="isImprest" />
-                            <input type="hidden" name="isdirect" />
-                            <input type="hidden" name="gid" />
                             <input type="hidden" name="gidHid" value="<%= user.id %>" />
+                            <input type="hidden" name="hids"  />
                             </tbody>
                         </table>
                         <%- pagination %>
@@ -303,42 +297,35 @@
                 DWY_Utils.Clicks.clicks();
             })
             var checkedValue = $('#checkedValue');
-            $("#checkAll").change(function () {
-                if($(this).is(":checked")){
-                    $(":checkbox:not(:disabled)").prop('checked',true);
-                    $("input[name='roles']:checked").each(function (i) {
-                        checkedValue.addClass(this.value+',');
-                    });
-                }else{
-                    $(":checkbox").prop('checked',false);
-                    checkedValue.removeClass();
-                }
-            })
+            var tid;
+//            $("#checkAll").change(function () {
+//                if($(this).is(":checked")){
+//                    $(":checkbox:not(:disabled)").prop('checked',true);
+//                    $("input[name='roles']:checked").each(function (i) {
+//                        checkedValue.addClass(this.value+',');
+//                    });
+//                }else{
+//                    $(":checkbox").prop('checked',false);
+//                    checkedValue.removeClass();
+//                }
+//            })
             $("input[name='roles']").change(function () {
                 var vids='',
                     isImprest='',
                     isDirect='',
                     gid='';
                 $('input[name=roles]').each(function(){
-
                     if($(this).is(':checked')){
                         vids += $(this).attr('stcode') + ',';
-                        isImprest += $(this).attr('isImprest') + ',';
-                        isDirect += $(this).attr('isDirect') + ',';
+                        isImprest += $(this).attr('isimprest') + ',';
+                        isDirect += $(this).attr('isdirect') + ',';
                         gid += $(this).attr('gid') + ',';
-                        $("input[name='stcodeStr']").attr('stcode',vids);
-                        $("input[name='isImprest']").attr('isImprest',isImprest);
-                        $("input[name='isdirect']").attr('isdirect',isDirect);
-                        $("input[name='gid']").attr('gid',gid);
                     }
                 })
-
-                stcodeStr=vids;
-                isImprests=isImprest;
-                isdirect=isDirect;
-                gidVali = gid;
-
-
+                $("input[name=hids]").attr("stcodestr",vids);
+                $("input[name=hids]").attr("isimprests",isImprest);
+                $("input[name=hids]").attr("isdirect",isDirect);
+                $("input[name=hids]").attr("gidvali",gid);
                 if($(this).is(':checked')){
                     checkedValue.addClass(this.value+',');
                 }else{
@@ -347,84 +334,51 @@
             });
             //合并采购单
             $("#purchaseMerge").click(function(){
+                var stcodeStr = $("input[name=hids]").attr("stcodestr");
                 if(checkedValue.attr('class')==null||checkedValue.attr('class')=='') {
                     layer.alert('请选择！', {icon: 3});
                     return false;
                 }
                var lenCheck =  $('input[name=roles]:checked').length;
-
                 if(lenCheck<=1){
                     layer.alert('请至少选择两条合并！', {icon: 3})
                     return false;
                 }
+                var val1 = $("input[name=roles]:checked:first-child").attr("suppid");
+                $("input[name=roles]:checked:not(:first)").each(function(){
+                    var val2 = $(this).attr("suppid");
+                    if(val1 != val2){
+                        layer.alert('供应商不同无法合并！', {icon: 3});
+                        throw("供应商不同无法合并！");
+                    }
+                })
                 if(stcodeStr.indexOf('30')>-1){
                     layer.alert('已审核订单无法合并！', {icon: 3})
                     return false;
                 }
-                if(stcodeStr.indexOf('50')>-1){
-                    layer.alert('已提交订单无法合并！', {icon: 3})
-                    return false;
-                }
-                if(stcodeStr.indexOf('70')>-1){
-                    layer.alert('已入库订单无法合并！', {icon: 3})
-                    return false;
-                }
                 var tid = checkedValue.attr('class').replace(/[ ]/g,"");
                 tid = tid.substring(0,tid.length-1);
-                layer.confirm('确认合并?',{icon: 3, title:'提示'},
-                    function(index){
-                        $.ajax({
-                            url: '/purchases/merge/'+tid,
-                            method: 'post',
-                            success: function (data) {
-                                successLayout.reload();
-                            },
-                            error: function (response) {
-                                layer.close(index)
-                                errorLayout.normal(response);
-                            }
-                        });
-                    },
-                    function(index){layer.close(index)})
+                doAjax('确认合并?','/purchases/merge/'+tid);
             })
-
+            //审核采购单
             $("#purchaseReview").click(function(){
+                var stcodeStr = $("input[name=hids]").attr("stcodestr");
                 if(checkedValue.attr('class')==null||checkedValue.attr('class')=='') {
-                    layer.alert('请选择！', {icon: 3})
+                    layer.alert('请选择！', {icon: 3});
                     return false;
                 }
                 if(stcodeStr.indexOf('30')>-1){
                     layer.alert('该订单已审核！', {icon: 3})
                     return false;
                 }
-                if(stcodeStr.indexOf('50')>-1){
-                    layer.alert('该订单已提交！', {icon: 3})
-                    return false;
-                }
-                if(stcodeStr.indexOf('70')>-1){
-                    layer.alert('该订单已入库！', {icon: 3})
-                    return false;
-                }
                 var tid = checkedValue.attr('class').replace(/[ ]/g,"");
                 tid = tid.substring(0,tid.length-1);
-                layer.confirm('确认审核?',{icon: 3, title:'提示'},
-                    function(index){
-                        $.ajax({
-                            url: '/purchases/review/'+tid,
-                            method: 'post',
-                            success: function (data) {
-                                successLayout.reload();
-                            },
-                            error: function (response) {
-                                layer.close(index)
-                                errorLayout.normal(response);
-                            }
-                        });
-                    },
-                    function(index){layer.close(index)})
+                doAjax('确认审核?',  '/purchases/review/'+tid);
             })
             //提交采购单
             $("#purchaseSubmit").click(function(){
+                var stcodeStr = $("input[name=hids]").attr("stcodeStr");
+                var isImprests = $("input[name=hids]").attr("isImprests");
                 if(checkedValue.attr('class')==null||checkedValue.attr('class')=='') {
                     layer.alert('请选择！', {icon: 3});
                     return false;
@@ -437,40 +391,21 @@
                     layer.alert('预付款未付清！', {icon: 3})
                     return false;
                 }
-                if(stcodeStr.indexOf('50')>-1){
-                    layer.alert('该订单已提交！', {icon: 3})
-                    return false;
-                }
-                if(stcodeStr.indexOf('70')>-1){
-                    layer.alert('该订单已入库！', {icon: 3})
-                    return false;
-                }
                 var tid = checkedValue.attr('class').replace(/[ ]/g,"");
                 tid = tid.substring(0,tid.length-1);
-                layer.confirm('确认提交?',{icon: 3, title:'提示'},
-                    function(index){
-                        $.ajax({
-                            url: '/purchases/submit/'+tid,
-                            method: 'post',
-                            success: function (data) {
-                                successLayout.reload();
-                            },
-                            error: function (response) {
-                                layer.close(index);
-                                errorLayout.normal(response);
-                            }
-                        });
-                    },
-                    function(index){layer.close(index)})
+                doAjax('确认提交?',  '/purchases/submit/'+tid);
             })
-
+            //删除采购单
             $("#DelOrder").click(function(){
-                var val= $("input[name=gidHid]").val();
+                var stcodeStr = $("input[name=hids]").attr("stcodestr");
+                var isdirect = $("input[name=hids]").attr("isdirect");
+                var gidVali = $("input[name=hids]").attr("gidvali");
                 if(checkedValue.attr('class')==null||checkedValue.attr('class')=='') {
                     layer.alert('请选择！', {icon: 3});
                     return false;
                 }
-                if(stcodeStr.indexOf('30')>-1 || stcodeStr.indexOf('50')>-1 || stcodeStr.indexOf('70')>-1){
+                var val= $("input[name=gidHid]").val();
+                if(stcodeStr.indexOf('30')>-1){  //|| stcodeStr.indexOf('50')>-1 || stcodeStr.indexOf('70')>-1
                     layer.alert('仅能删除未审核订单！', {icon: 3})
                     return false;
                 }
@@ -482,27 +417,31 @@
                     layer.alert('仅能删除自己创建的采购单！', {icon: 3})
                     return false;
                 }
+                var tid = checkedValue.attr('class').replace(/[ ]/g,"");
+                tid = tid.substring(0,tid.length-1);
+                doAjax('确认删除?', '/purchases/del/'+tid);
+            })
 
-                var purcIds = checkedValue.attr('class').replace(/[ ]/g,"");
-                purcIds = purcIds.substring(0,purcIds.length-1);
-                layer.confirm('确认删除?',{icon: 3, title:'提示'},
+            var doAjax = function (text,url) {
+                layer.confirm(text,{icon: 3, title:'提示'},
                     function(index){
                         $.ajax({
-                            url: '/purchases/del/'+purcIds,
+                            url: url,
                             method: 'post',
+                            data:{
+                                tid:tid,
+                            },
                             success: function (data) {
                                 successLayout.reload();
                             },
                             error: function (response) {
-                                layer.close(index);
+                                layer.close(index)
                                 errorLayout.normal(response);
                             }
                         });
                     },
-                    function(index){layer.close(index)})
-
-
-            })
+                    function(index){layer.close(index)});
+            };
 
         })
     </script>

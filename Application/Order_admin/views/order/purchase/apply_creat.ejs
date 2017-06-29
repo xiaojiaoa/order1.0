@@ -260,7 +260,7 @@
         updateCheckedList(true);
         $(".orderItemLayerTable input[name='roles']").on("change",function () {
 
-            var $tds = $(this).parent().parent().parent().children("td");
+            var $tds = $(this).parents("tr").children("td");
             var unique=$(this).attr("uniqueId");
             var unit='';
             var unitId='';
