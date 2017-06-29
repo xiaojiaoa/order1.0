@@ -107,12 +107,12 @@
                         <% if( storeInfo.stcode == 40 ){ %>
                         <span class="label label-default">实际可用资金 <%= DWY_Helper.outputmoney(JSON.stringify(moneyInfo.account)) %>元</span>
                         <span class="label label-default">预警资金 <%= DWY_Helper.outputmoney(JSON.stringify(moneyInfo.warnFunds)) %>元</span>
-                        <span class="label label-default">最底保证金 <%= DWY_Helper.outputmoney(JSON.stringify(moneyInfo.minFunds)) %>元</span>
+                        <span class="label label-default">最底资金 <%= DWY_Helper.outputmoney(JSON.stringify(moneyInfo.minFunds)) %>元</span>
                         <span class="label label-default">冻结资金 <%= DWY_Helper.outputmoney(JSON.stringify(moneyInfo.frozenFunds)) %>元</span>
                         <% }else{ %>
                         <span class="label label-success">实际可用资金 <%= DWY_Helper.outputmoney(JSON.stringify(moneyInfo.account)) %>元</span>
                         <span class="label label-success">预警资金 <%= DWY_Helper.outputmoney(JSON.stringify(moneyInfo.warnFunds)) %>元</span>
-                        <span class="label label-success">最底保证金 <%= DWY_Helper.outputmoney(JSON.stringify(moneyInfo.minFunds)) %>元</span>
+                        <span class="label label-success">最底资金 <%= DWY_Helper.outputmoney(JSON.stringify(moneyInfo.minFunds)) %>元</span>
                         <span class="label label-success">冻结资金 <%= DWY_Helper.outputmoney(JSON.stringify(moneyInfo.frozenFunds)) %>元</span>
                         <a class="label label-primary recharge" id="<%= storeInfo.bid %>" data-type="detail">充值</a>
                         <!--<a class="label label-primary" href="/storesManage/receiptMoney/<%= storeInfo.bid %>">收款</a>-->

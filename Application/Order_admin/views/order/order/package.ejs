@@ -167,7 +167,7 @@
                                 <td><%= element.deliveryTimeStr%></td>
                                 <td><%= element.remark %></td>
                                 <td><%= element.packageStatusStr %></td>
-                                <td width="160">
+                                <td>
                                     <% if(element.packageStatus==0 && DWY_Helper.hasPermission(Permission.orderPackage.create.id, permission) ){%>
                                     <a class="label label-primary crePackage" tid="<%= element.tid %>" bid="<%= element.batchNumber %>">生成包装</a>
                                     <%}%>
