@@ -100,13 +100,13 @@
                             if(DWY_Helper.isCanLoop(installServiceList.result)){
                             installServiceList.result.forEach(function (element, index) { %>
                             <tr>
-                                <td>
+                                <td width="5%">
                                     <label  class="checkbox-inline">
                                         <input type="checkbox" class="checkbox" value="<%= element.tid %>" stcode="<%= element.stcode %>" name="roles" bid="<%= element.bid %>" />
                                         <span><%= index+1 %></span>
                                     </label>
                                 </td>
-                                <td><a href="/order/detail/<%= element.tid %>"><%= element.tid %></a></td>
+                                <td width="13%"><a href="/order/detail/<%= element.tid %>"><%= element.tid %></a></td>
                                 <td><%= element.cid %></td>
                                 <td><%= element.name %></td>
                                 <td><%= element.spaceName %>(<%= element.parentSpaceinfoName %>)</td>
