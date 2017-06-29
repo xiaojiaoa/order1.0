@@ -233,7 +233,18 @@
                                 <td><%= DWY_Helper.getAssistVal(element.addrType, addrTypesList) %></td>
                                 <td><%= DWY_Helper.getAssistVal(element.storeType, storeTypes) %></td>
                                 <td><%= DWY_Helper.getWhether(element.isWarehouse) %></td>
-                                <td><%= (element.stcode==40)?"禁用":"启用"%></td>
+                                <td>
+                                    <% switch(element.stcode){
+                                    case 10:%>
+                                       启用
+                                    <% break;
+                                       case 20: %>
+                                        资金短缺
+                                    <%  break;
+                                        default:%>
+                                        禁用
+                                    <%   break;}%>
+                                </td>
                                 <td><%= DWY_Helper.getLocalDate(element.addTime) %></td>
                                 <td><%= element.minFunds %></td>
                                 <td width="230">
