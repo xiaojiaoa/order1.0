@@ -207,10 +207,13 @@
                                             </select>
                                         </div>
                                         <div class="col-xs-2">
+                                            <% if (DWY_Helper.hasPermission(Permission.material.update.id, permission) ){ %>
                                             <button class="btn btn-primary " type="submit">
                                                 确认
                                             </button>
+                                            <%}%>
                                         </div>
+
                                     </form>
                                 </td>
                                 <% if(mateInfo.standardFlag==1){%>
