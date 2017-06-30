@@ -516,6 +516,13 @@ router.get('/storesManage/all/money', Middleware.AuthCheck, Middleware.FilterEmp
 // 新建门店页面
 router.get('/storesManage/create', Middleware.AuthCheck, StoresController.createPage);
 
+// 门店资金预充值页面
+router.get('/storesManage/preRecharge/:bid', Middleware.AuthCheck, StoresController.preRechargePage);
+// 门店预充值通过
+router.post('/storesManage/passPrerecharge', Middleware.AuthCheck, StoresController.passPrerecharge);
+// 门店预充值退回
+router.post('/storesManage/backPrerecharge', Middleware.AuthCheck, StoresController.backPrerecharge);
+
 // 新建门店
 router.post('/storesManage/doCreate', Middleware.AuthCheck, StoresController.doCreate);
 

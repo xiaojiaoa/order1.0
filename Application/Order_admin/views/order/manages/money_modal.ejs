@@ -37,6 +37,32 @@
     <div class="dwy-clear"></div>
 </form>
 
+<form id="rechargeForm" class="col-xs-12 layer-template" method="post" action="/storesManage/passPrerecharge">
+    <div class="col-xs-12 moneyAmount" style="margin-top:20px;">
+        <div class="col-xs-2 margin-top-10 text-right">
+            <span class="requird money"></span>
+            金额:
+        </div>
+        <div class="col-xs-6">
+            <input class="form-control" type="text" value="" name="amount" />
+        </div>
+    </div>
+    <div class="col-xs-12" style="margin-top:20px;">
+        <div class="col-xs-2 margin-top-10 text-right">
+            备注:
+        </div>
+        <div class="col-xs-6">
+            <textarea class="form-control" name="remark" cols="30" rows="5"></textarea>
+        </div>
+    </div>
+    <div class="col-xs-12 text-center margin-top-10">
+        <button class="btn btn-primary">确定通过</button>
+        <input type="hidden" name="tid" value="" />
+        <input type="hidden" name="bidRecharge" value="" />
+
+    </div>
+</form>
+
 
 <script type="text/javascript">
 
@@ -62,6 +88,47 @@
                     },
 
                 });
+            }
+        })
+
+        $(".rechargeModify").on({
+            click:function(){
+                var $tds = $(this).parents("tr").children("td");
+                $("#rechargeForm").attr("action","/storesManage/passPrerecharge");
+                $("input[name=tid]").val($tds.eq(13).html());
+                $("input[name=bidRecharge]").val($tds.eq(1).find("a").html());
+                $("#rechargeForm button").text("确定通过");
+                $(".moneyAmount").removeClass("display-none");
+                layer.open({title:false,
+                    type:1,
+                    area:'700px',
+                    content:$('#rechargeForm'),
+                    cancel: function () {
+                        //右上角关闭回调
+                    },
+                })
+            }
+        })
+        $(".rechargeBack").on({
+            click:function(){
+                var $tds = $(this).parents("tr").children("td");
+                $("input[name=amount]").val($tds.eq(3).html());
+                $("input[name=voucherPath]").val($tds.eq(10).html());
+                $("#rechargeForm textarea").text($tds.eq(11).html());
+                $("input[name=tid]").val($tds.eq(13).html());
+                $("input[name=bidRecharge]").val($tds.eq(1).find("a").html());
+                $("#rechargeForm button").text("确定退回");
+                $(".money").removeClass("requird");
+                $(".moneyAmount").addClass("display-none");
+                $("#rechargeForm").attr("action","/storesManage/backPrerecharge");
+                layer.open({title:false,
+                    type:1,
+                    area:'700px',
+                    content:$('#rechargeForm'),
+                    cancel: function () {
+                        //右上角关闭回调
+                    },
+                })
             }
         })
 

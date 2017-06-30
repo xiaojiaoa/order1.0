@@ -185,6 +185,62 @@ var StoresController = {
         });
 
     },
+
+    preRechargePage: function (req, res) {
+        var bid = req.params.bid;
+        var paramObject = helper.genPaginationQuery(req);
+        Base.multiDataRequest(req, res, [
+            {url: '/api/stores/money/recharge/page?bid='+bid+'&'+ queryString.stringify(req.query), method: 'GET', resConfig: {keyName: 'preRechargeList', is_must: true}},
+        ], function (req, res, resultList) {
+            var paginationInfo =  resultList.preRechargeList;
+            var boostrapPaginator = new Pagination.TemplatePaginator(helper.genPageInfo({
+                prelink: paramObject.withoutPageNo,
+                current: paginationInfo.page,
+                rowsPerPage: paginationInfo.pageSize,
+                totalResult: paginationInfo.totalItems
+            }));
+            var returnData = Base.mergeData(helper.mergeObject({
+                title: ' ',
+                pagination: boostrapPaginator.render(),
+                Permission :Permissions,
+            },resultList));
+            res.render('order/manages/store_prerecharge', returnData);
+        });
+    },
+
+    passPrerecharge:function(req,res){
+        var tid = req.body.tid;
+        var bidRecharge = req.body.bidRecharge;
+        request(Base.mergeRequestOptions({
+            method: 'post',
+            url: '/api/stores/money/recharge/pass/' + tid+'?'+queryString.stringify(req.body),
+        }, req, res), function (error, response, body) {
+            if (!error && response.statusCode == 201) {
+                Base.handlerSuccess(res, req);
+                res.redirect("/storesManage/preRecharge/"+bidRecharge);
+            } else {
+                Base.handlerError(res, req, error, response, body);
+            }
+        })
+    },
+
+    backPrerecharge:function(req,res){
+        var tid = req.body.tid;
+        var bidRecharge = req.body.bidRecharge;
+        request(Base.mergeRequestOptions({
+            method: 'post',
+            url: '/api/stores/money/recharge/back/' + tid+'?'+queryString.stringify(req.body),
+        }, req, res), function (error, response, body) {
+            if (!error && response.statusCode == 201) {
+                Base.handlerSuccess(res, req);
+                res.redirect("/storesManage/preRecharge/"+bidRecharge);
+            } else {
+                Base.handlerError(res, req, error, response, body);
+            }
+        })
+
+    },
+
     setStatus: function (req, res) {
         var cid = req.params.cid;
         var type = req.params.type;
