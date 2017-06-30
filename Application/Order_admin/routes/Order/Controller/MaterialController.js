@@ -107,6 +107,7 @@ var MaterialController = {
         Base.multiDataRequest(req, res, [
             {url: '/api/materials/'+mid+"?bid="+bid, method: 'GET', resConfig: {keyName: 'mateInfo', is_must: true}},
             {url: '/api/organizations//factory', method: 'GET', resConfig: {keyName: 'factoryList', is_must: true}},
+            {url: '/api/whse/factory/list', method: 'GET', resConfig: {keyName: 'factoryLists', is_must: true}},
             {url: '/api/purchases/mate?bid='+bid+"&mateId="+mid, method: 'GET', resConfig: {keyName: 'purchasesMateList', is_canBePass: true}},
             {url: '/api/whse/cargospace?mateId='+mid+"&isAll=1&xbid="+bid, method: 'GET', resConfig: {keyName: 'whseCargospaceList',is_canBePass: true}},
             {url: '/api/assist/stock/reasonTypes', method: 'GET', resConfig: {keyName: 'stockReasonTypes', is_must: true}},
@@ -451,6 +452,22 @@ var MaterialController = {
         request(Base.mergeRequestOptions({
             method: 'post',
             url: '/api/materials/stockOperation',
+            form:req.body,
+        }, req, res), function (error, response, body) {
+            if (!error && response.statusCode == 201) {
+                Base.handlerSuccess(res, req);
+                res.redirect("/materialManage/detail/"+bid+"/"+mid);
+            } else {
+                Base.handlerError(res, req, error, response, body);
+            }
+        })
+    },
+    materialDoCreate: function (req, res) {
+        var mid=req.body.mateId;
+        var bid=req.body.bid;
+        request(Base.mergeRequestOptions({
+            method: 'post',
+            url: '/api/materials/addOperation',
             form:req.body,
         }, req, res), function (error, response, body) {
             if (!error && response.statusCode == 201) {

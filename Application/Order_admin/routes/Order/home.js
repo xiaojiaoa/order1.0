@@ -605,6 +605,9 @@ router.post('/materials/doWarning', Middleware.AuthCheck, MaterialController.war
 // 物料管理--修改库存
 router.post('/materials/doStock', Middleware.AuthCheck, MaterialController.stockDoCreate);
 
+// 物料管理--新增物料
+router.post('/materials/doCreate', Middleware.AuthCheck, MaterialController.materialDoCreate);
+
 // 物料管理--库存记录
 router.get('/stockRecord', Middleware.AuthCheck,Middleware.FilterEmptyField,MaterialController.stockRecordPage);
 
