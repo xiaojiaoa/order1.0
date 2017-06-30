@@ -185,7 +185,7 @@
                                         </div>
                                         <div class="col-xs-4">
                                             <select class="form-control" name="productType">
-                                                <option value="">- 类型 -</option>
+                                                <option value="">- 类别 -</option>
                                                 <% prodList.forEach(function (element) {  %>
                                                 <option value="<%= element.id %>" <%= (DWYRequest.query.productType == element.id)?"selected":"" %>>
                                                     <%= element.name %>
