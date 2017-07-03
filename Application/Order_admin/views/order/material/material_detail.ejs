@@ -256,6 +256,7 @@
                 <div class="col-xs-12">
                     <legend>库存数量状况
                         <a href="/materialManage/summary?mateId=<%= mateInfo.id %>&mateName=<%= mateInfo.name %>" class="label label-primary">出入仓明细</a>
+                        <button class="label label-primary" id="addMaterial">新增库存</button>
                         <!--<span class="spanStyle01">剩余3160000支</span>-->
                     </legend>
 
@@ -500,6 +501,113 @@
     </div>
     <div class="dwy-clear"></div>
 </form>
+
+<form class="form-horizontal  layer-template" method="post" action="/materials/doCreate"  id="addMaterial-form"  style="display: none;padding-top: 50px;" >
+    <div class="col-xs-12">
+        <div class="form-group">
+            <label class="col-xs-2 control-label"><span class="requird"></span>修改原因:</label>
+            <div class="col-xs-6">
+                <select  class="form-control validate[required]" name="reason">
+                    <option value="">- 请选择 -</option>
+                    <% stockReasonTypes.forEach(function (element,index) {%>
+                    <option value="<%= element.id%>"><%= element.name%></option>
+                    <%})%>
+                </select>
+            </div>
+        </div>
+    </div>
+    <div class="col-xs-12">
+        <div class="form-group">
+            <label class="col-xs-2 control-label"><span class="requird"></span>库存数量:</label>
+            <div class="col-xs-6">
+                <input  class="form-control validate[required]" type="text" value="" name="newStock"  placeholder="请输入库存数量"/>
+            </div>
+        </div>
+    </div>
+    <div class="col-xs-12">
+        <div class="form-group target">
+            <!--输入字段-->
+            <div class="col-xs-6">
+                <div class="form-group">
+                    <label class="col-xs-4 control-label"><span class="requird"></span> 工厂仓储:</label>
+                    <div class="col-xs-8">
+                        <% if ( !DWY_Helper.hasPermission(Permission.storage.queryAll.id, permission) ){ %>
+                        <input class="form-control"  value="<%= DWY_Helper.getAssistValFtyId(user.ftyId,factoryLists) %>" readonly>
+                        <input type="hidden" name="ftyId" value="<%= user.ftyId %>">
+                        <% }else{  %>
+                        <select class="form-control ftyId validate[required]" name="ftyId" id="ftyId" disabled>
+                            <option value="">- 请选择 -</option>
+                        </select>
+                        <% }
+
+                        var initFtyId = DWY_Helper.getAssistInitFtyId(user.ftyId,factoryLists)
+                        %>
+
+                    </div>
+                </div>
+            </div>
+            <!--输入字段-->
+            <div class="col-xs-6">
+                <div class="form-group">
+                    <label class="col-xs-4 control-label"><span class="requird"></span> 仓库:</label>
+                    <div class="col-xs-8">
+                        <select class="form-control whseId validate[required]" name="whseId" id="whseId">
+                            <option value="">- 请选择 -</option>
+
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-6">
+                <div class="form-group">
+                    <label class="col-xs-4 control-label"><span class="requird"></span> 仓库区域:</label>
+                    <div class="col-xs-8">
+                        <select class="form-control regionId validate[required]" name="regionId" id="regionId">
+                            <option value="">- 请选择 -</option>
+
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-xs-12">
+        <div class="form-group">
+            <label class="col-xs-2 control-label"><span class="requird"></span>货位号:</label>
+            <div class="col-xs-6">
+                <input  class="form-control validate[required]" type="text" name="spaceId" value="">
+            </div>
+        </div>
+    </div>
+    <div class="col-xs-12">
+        <div class="form-group">
+            <label class="col-xs-2 control-label"><span class="requird"></span>物料批次号:</label>
+            <div class="col-xs-6">
+                <input  class="form-control validate[required]" type="text" name="mateBatchId" value="">
+            </div>
+        </div>
+    </div>
+    <div class="col-xs-12">
+        <div class="form-group">
+            <label class="col-xs-2 control-label">备注:</label>
+            <div class="col-xs-6">
+                <input  class="form-control" type="text" value="" name="remark" placeholder="请输入备注"/>
+            </div>
+        </div>
+    </div>
+    <input type="hidden" name="mateId" value="<%= mid %>">
+    <input type="hidden" name="bid" value="<%= bid %>">
+    <div class="col-xs-12">
+        <hr class="simple">
+        <div class="col-xs-12 text-center">
+            <button class="btn btn-primary " type="submit">
+                <i class="fa fa-save"></i>
+                确认
+            </button>
+        </div>
+    </div>
+    <div class="dwy-clear"></div>
+</form>
 <!-- END 修改库存-->
 <script type="text/javascript">
 
@@ -515,6 +623,13 @@
         $("#doWarning-form").validationEngine();
         $("#modifyStock-form").validationEngine();
         $("#outSourcing-form").validationEngine();
+        $("#addMaterial-form").validationEngine();
+
+        DWY_fty_region.init({
+            target: '.target',
+            factoryValue: '<%= DWYRequest.query.ftyId? DWYRequest.query.ftyId : initFtyId %>',
+
+        });
 
         // 启用、禁用物料详情页状态
         var mid='<%= mid %>';
@@ -577,6 +692,22 @@
                     type: 1,
                     area: '800px',
                     content: $('#modifyStock-form'),
+                    cancel: function () {
+                        // 右上角关闭回调
+                    },
+
+                });
+            }
+        })
+
+        // 弹出修改库存框
+        $('#addMaterial').on({
+            click: function (e) {
+                layer.open({
+                    title: false,
+                    type: 1,
+                    area: '800px',
+                    content: $('#addMaterial-form'),
                     cancel: function () {
                         // 右上角关闭回调
                     },
