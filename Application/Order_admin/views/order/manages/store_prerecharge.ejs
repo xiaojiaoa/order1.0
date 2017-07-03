@@ -35,7 +35,15 @@
                         <form class="form-horizontal" method="get" id="search-customer">
                             <div class="col-xs-12">
                                 <!--输入字段-->
-                                <div class="col-xs-3">
+                                <div class="col-xs-2">
+                                    <div class="form-group">
+                                        <label class="col-xs-4 control-label">门店名:</label>
+                                        <div class="col-xs-8">
+                                            <input type="text" class="form-control" name="storeName" value="<%= DWYRequest.query.storeName %>" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xs-2">
                                     <div class="form-group">
                                         <label class="col-xs-4 control-label">状态:</label>
                                         <div class="col-xs-8">
@@ -50,13 +58,44 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-xs-3">
+                                <div class="col-xs-4">
+                                    <div class="form-group">
+                                        <label class="col-xs-2 control-label">提交时间:</label>
+                                        <div class="col-xs-4">
+                                            <input class="form-control fg-date-picker" placeholder="" type="text" value="<%= DWYRequest.query.submitStartDate%>"
+                                                   name="submitStartDate">
+                                        </div>
+                                        <label class="from-to  control-label "> 至 </label>
+                                        <div class="col-xs-4">
+                                            <input class="form-control fg-date-picker" placeholder="" type="text" value="<%= DWYRequest.query.submitEndDate%>"
+                                                   name="submitEndDate">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xs-4">
+                                    <div class="form-group">
+                                        <label class="col-xs-2 control-label">通过时间:</label>
+                                        <div class="col-xs-4">
+                                            <input class="form-control fg-date-picker" placeholder="" type="text" value="<%= DWYRequest.query.passStartDate%>"
+                                                   name="passStartDate">
+                                        </div>
+                                        <label class="from-to  control-label "> 至 </label>
+                                        <div class="col-xs-4">
+                                            <input class="form-control fg-date-picker" placeholder="" type="text" value="<%= DWYRequest.query.passEndDate%>"
+                                                   name="passEndDate">
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--输入字段-->
+                            </div>
+                            <div class="col-xs-12">
+                                <hr class="simple" />
+                                <div class="col-xs-12 text-center">
                                     <button class="btn btn-primary " type="submit">
                                         <i class="fa fa-search"></i>
                                         查询
                                     </button>
                                 </div>
-                                <!--输入字段-->
                             </div>
                         </form>
                     </div>
@@ -157,7 +196,7 @@
 
         pageSetUp();
 
-        $(".fg-date-time-picker").flatpickr(data_time_picker.data_picker); // jQuery
+        $(".fg-date-picker").flatpickr(data_time_picker.data_picker); // jQuery
 
         //重置
         $(".reset").click(function(){
