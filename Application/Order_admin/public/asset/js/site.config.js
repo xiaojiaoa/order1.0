@@ -3,7 +3,7 @@ var custom_validate_fn = {
     // 手机验证
     isMobile: function (field, rules, i, options) {
         var value = field.val();
-        return (value.length == 11 && /^1[3578]\d{9}$/.test(value)) ? true : '请输入有效的手机号码';
+        return (value.length == 11 && /^1[34578]\d{9}$/.test(value)) ? true : '请输入有效的手机号码';
     },
 
     // 密码验证
