@@ -114,5 +114,39 @@
 
             $(".table-scroll2").freezeHeader();
         }
+
+        //列表查询--高级查询
+        if($(".topFindBtn").length>0){
+            $(".topFindBtn").on({
+                click:function () {
+//                    查询内容的展示与隐藏
+                  $(".topFindShow").toggleClass("display-block");
+//                  高级查询的样式切换
+                   if($(".fa-chevron-up").length>0){
+                       $(this).find("i").removeClass("fa-chevron-up").addClass('fa-chevron-down');
+                   }
+                   else{
+                       $(this).find("i").removeClass("fa-chevron-down").addClass('fa-chevron-up');
+                   }
+                }
+            });
+        }
+        // 列表查询--重置表单
+        if($(".resetForm").length>0){
+            $(".resetForm").on({
+                click:function () {
+                    var formId=$(this).data("form");
+                    //请空表单内容
+                    $(':input','#'+formId)
+                        .not(':button, :submit, :reset, :hidden')
+                        .val('')
+                        .removeAttr('checked')
+                        .removeAttr('selected');
+                    //再次提交表单
+//                    $("#"+formId).submit();
+                }
+            });
+        }
+
     })
 </script>
