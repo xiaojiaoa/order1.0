@@ -37,8 +37,8 @@
                     <div class="basicDataTit text-align-center basicDataTit01 fixed-header">
                         类别
                     </div>
-                    <table class="table table-bordered table-linkage basicDataFirst ">
-                        <tbody class="scrollTbody">
+                    <table class="table table-bordered table-linkage">
+                        <tbody class="basicDataFirst scrollTbody">
                         <%
                         if(DWY_Helper.isCanLoop(basicDataList)){
                         basicDataList.forEach(function (element, index) { %>
@@ -512,14 +512,32 @@
             }
         });
 
+        //获取保存的滚动条位置--并显示在当前页面
+        $('.basicDataFirst').scrollTop(localStorage.getItem('systemKey'));
+        $('.basicDataSec').scrollTop(localStorage.getItem('systemClassOne'));
+        $('.basicDataThree').scrollTop(localStorage.getItem('systemClassTwo'));
+
+        //点击类别
+        $(document).on("click",".basicDataFirst>tr",function () {
+            //保存滚动条位置
+            var innerHeight=$(".basicDataFirst").scrollTop();
+            localStorage.setItem('systemKey',innerHeight);
+        })
+
         //点击类别1
         $(document).on("click",".basicDataSec>tr",function(){
+            //保存滚动条位置
+            var innerHeight=$(".basicDataSec").scrollTop();
+            localStorage.setItem('systemClassOne',innerHeight);
             if($(this).attr("stcode")==0){
                 $(".basicDataThree").html('请先启用该项');
             }
         });
         //点击类别2
         $(document).on("click",".basicDataThree>tr",function(){
+            //保存滚动条位置
+             var innerHeight=$(".basicDataThree").scrollTop();
+            localStorage.setItem('systemClassTwo',innerHeight);
             if($(this).attr("stcode")==0){
                 $(".basicDataFour").html('请先启用该项');
             }
