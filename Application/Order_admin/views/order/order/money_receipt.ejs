@@ -190,7 +190,7 @@
                         <table class="table table-bordered table-hover table-striped table-scroll2">
                             <thead>
                             <tr>
-                                <th>序号</th>
+                                <th width="84px">序号</th>
                                 <th>订单号</th>
                                 <th>订单状态</th>
                                 <th>所属机构</th>
@@ -211,7 +211,7 @@
                             if(DWY_Helper.isCanLoop(moneyList.result)){
                             moneyList.result.forEach(function (element, index) { %>
                             <tr>
-                                <td><%= index+1 %></td>
+                                <td width="84px"><%= index+1 %></td>
                                 <td><a href="/order/detail/<%= element.tid %>"><%= element.tid %></a></td>
                                 <td><%= DWY_Helper.getAssistVal(element.stcode,statusInfo) %></td>
                                 <td><%= element.orgName %></td>
