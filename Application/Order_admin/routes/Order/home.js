@@ -1254,6 +1254,8 @@ router.post('/purchase/uploadProof2', Middleware.AuthCheck,PurchaseController.up
 router.post('/purchases/merge/:tid', Middleware.AuthCheck,PurchaseController.purchaseMerge);
 // 审核采购单
 router.post('/purchases/review/:tid', Middleware.AuthCheck,PurchaseController.purchaseReview);
+// 撤回采购单
+router.post('/purchases/recall/:tid', Middleware.AuthCheck,PurchaseController.purchaseRecall);
 // 提交采购单
 router.post('/purchases/submit/:tid', Middleware.AuthCheck,PurchaseController.purchaseSubmit);
 //删除未审核采购单

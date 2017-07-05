@@ -294,6 +294,20 @@ var PurchaseController = {
             }
         })
     },
+    //撤回采购单
+    purchaseRecall: function (req, res) {
+        var tid = req.params.tid;
+        request(Base.mergeRequestOptions({
+            method: 'put',
+            url: '/api/purchases/review/cancel?purcIds='+tid,
+        }, req, res), function (error, response, body) {
+            if (!error && response.statusCode == 201) {
+                res.sendStatus(200)
+            }else{
+                Base.handlerError(res, req, error, response, body);
+            }
+        })
+    },
     //提交采购单
     purchaseSubmit: function (req, res) {
         var tid = req.params.tid;
