@@ -38,8 +38,11 @@
                 var tfoot = elem.find('tfoot')
                 tfoot.find('th').each(function (index) {
                     var cellWidth = obj.header.find('th').eq(index).css('width');
+                    var cellHeight = obj.header.find('th').eq(index).css('height');
                     $(this).css('width', cellWidth);
+                    $(this).css('height', cellHeight);
                     tfoot.css('position','absolute').css('top',0);
+                    obj.header.find('th').css('height',$(this).css('height'));
                 });
                 // elem.append(footer)
                 $(window).resize(function() {
