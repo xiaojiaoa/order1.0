@@ -204,11 +204,11 @@
                                     <div class="form-group">
                                         <label class="col-xs-4 control-label">订单类别:</label>
                                         <div class="col-xs-8">
-                                            <select class="form-control" name="orderType">
+                                            <select class="form-control" name="type">
                                                 <option value="">-  请选择 -</option>
                                                 <% if(DWY_Helper.isCanLoop(orderTypeList)){
                                                 orderTypeList.forEach(function (element) {  %>
-                                                <option value="<%= element.id %>" <%= (DWYRequest.query.orderType == element.id )?"selected":"" %> ><%= element.name %></option>
+                                                <option value="<%= element.id %>" <%= (DWYRequest.query.type == element.id )?"selected":"" %> ><%= element.name %></option>
                                                 <%  })
                                                 } %>
                                             </select>
