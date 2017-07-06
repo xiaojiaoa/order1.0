@@ -915,6 +915,7 @@ var OrderController = {
             {url: '/api/orders/schedule/gid', method: 'GET', resConfig: {keyName: 'scheduleList', is_must: true}},
             {url: '/api/assist/deco/color', method: 'GET', resConfig: {keyName: 'colorList', is_must: true}},
             {url: '/api/assist/space/prod?spaceId=10', method: 'GET', resConfig: {keyName: 'prodList', is_must: true}},
+            {url: '/api/assist/order/orderType', method: 'GET', resConfig: {keyName: 'orderTypeList', is_must: true}},
         ], function (req, res, resultList) {
             var paginationInfo =  resultList.scheduleAllList;
             var boostrapPaginator = new Pagination.TemplatePaginator(helper.genPageInfo({
