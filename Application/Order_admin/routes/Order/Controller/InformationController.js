@@ -50,7 +50,8 @@ var InformationController = {
     },
     noticeDoCreate: function (req, res) {
         req.body.noticeScopes=JSON.parse(req.body.noticeScopes);
-        // console.log('创建公告信息'+ JSON.stringify(req.body));
+        req.body.dataShares=JSON.parse(req.body.dataShares);
+         console.log('创建公告信息'+ JSON.stringify(req.body));
         request(Base.mergeRequestOptions({
             method: 'post',
             url: '/api/notices',

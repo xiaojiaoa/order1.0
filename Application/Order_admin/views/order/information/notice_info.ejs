@@ -136,7 +136,16 @@
                                 <span>日期<i></i><%= DWY_Helper.getLocalDateYMD(element.addTime)%></span>
                                 <span>公告类型<i></i><%= element.typeName%></span></dd>
                             <dd class="dl-content">
-                                <%= element.content%>
+                                <div class="margin-bottom-10">
+                                    <%= element.content%>
+                                </div>
+                                <div class="margin-top-10">
+                                    文件列表：
+                                    <% if(DWY_Helper.isCanLoop(element)){
+                                    element.forEach(function (element, index) { %>
+                                    <a href="<%= DWY_GLOBAL.Static %>/download?originalFileName=<%= element.name%>&url=<%= element.path %>"><%= element.name%></a>
+                               <%})}%>
+                                </div>
                             </dd>
                         </dl>
                         <%})} else{%>
@@ -249,6 +258,32 @@
                 </div>
             </div>
         </div>
+        <div class="col-xs-12">
+
+            <!--输入字段-->
+            <div class="col-xs-12">
+                <div class="form-group">
+                    <label class="col-xs-2 control-label">文件集合:</label>
+                    <div class="col-xs-8" id="addFileSet">
+                        <div class="margin-bottom-10" id="fileSet0">
+                            <div class="col-xs-10">
+                                <input class="form-control margin-bottom-10" readonly="" value=""  name="fileName">
+                            </div>
+                            <a class="deleteInco" data-code="0"><i class="fa fa-trash-o"></i></a>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <div class="col-xs-12 margin-top-10">
+                <div class="col-xs-2"></div>
+                <div class="col-xs-8 text-left">
+                    <label for="dwy_file_upload" class="btn btn-primary" id="label-upload-file">
+                        点击上传 <i class="fa fa-upload"></i> </label>
+                    <input type="file" name="file_name" id="dwy_file_upload" style="display: none;">
+                </div>
+            </div>
+        </div>
     </div>
 
 
@@ -259,6 +294,7 @@
                 <input type="hidden" value="" name="id" id="noticeId"/>
                 <input type="hidden" value="" name="noticeScopes">
                 <input type="hidden" value="" name="subType"/>
+                <input type="hidden" value="" name="dataShares"/>
                 <button class="btn btn-primary  margin-right-5 subBtn" >
                     <i class="fa fa-save"></i>
                     提交
@@ -387,6 +423,53 @@
 
         //设置范围筛选
         scopeFunc();
+
+
+        // 上传文件
+        var dataShares=[];
+        var num=0;
+        var addFileSet=$("#addFileSet");
+        $("#dwy_file_upload").on(
+        {
+            change: function (e) {
+                var _this = $(this);
+                var congig = {
+                    'file_name': _this.prop('files')[0],
+                }
+                uploadFuc.uploadSingleFile('/template/upload/single/share', congig, function (data) {
+
+                    var aaa={};
+                    aaa.name=data.data.name;
+                    aaa.path=data.data.url;
+                    dataShares.push(aaa);
+
+                    console.log("你大爷我",JSON.stringify(dataShares));
+                    if(num>0){
+                        var html = '<div class="margin-bottom-10" id="fileSet'+num+'">'+
+                            '<div class="col-xs-10">'+
+                            '<input class="form-control margin-bottom-10" readonly value="" name="fileName">'+
+                            '</div>'+
+                            '<a class="deleteInco" data-code="'+num+'"><i class="fa fa-trash-o"></i></a><div class="dwy-clear"></div>'+
+                            '</div>';
+                        addFileSet.append(html);
+                    }
+                    $("input[name=dataShares]").val(JSON.stringify(dataShares));
+                    $("input[name=fileName]").eq(num).val(data.data.name);
+                    num++;
+                });
+            },
+        }
+        );
+
+        $("#addFileSet").on("click",".deleteInco",function(){
+            var index = $(this).attr('data-code');
+            dataShares[index] = '';
+            $('#fileSet'+index).remove();
+            var areaArry = dataShares.filter(function (item, index) {
+                return item != '';
+            })
+            $("input[name=dataShares]").val(JSON.stringify(areaArry));
+        });
     })
 
 </script>
