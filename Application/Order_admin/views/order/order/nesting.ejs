@@ -390,13 +390,7 @@
     $(document).ready(function () {
         pageSetUp();
         $(".fg-date-picker").flatpickr(data_time_picker.data_picker); // jQuery
-        //重置
-        $(".reset").click(function(){
-            $("#search-customer input,#search-customer select").val('');
-        })
-        $(".search").click(function(){
-            DWY_Utils.Clicks.clicks();
-        })
+
         //修改批次号
         var editBatchNum = $('#editBatchNum');
         $("input[name='role']").change(function () {
