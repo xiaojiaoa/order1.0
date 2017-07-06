@@ -33,6 +33,7 @@ var MaterialController = {
             {url: '/api/attributes/categories?categoryId='+stairCatId, method: 'GET', resConfig: {keyName: 'theadList', is_must: true}},
             {url: '/api/organizations/factory', method: 'GET', resConfig: {keyName: 'organizationsList', is_must: true}},
             {url: '/api/whse/factory/list', method: 'GET', resConfig: {keyName: 'factoryList', is_must: true}},
+            {url: '/api/assist/package/types', method: 'GET', resConfig: {keyName: 'getPackageTypes', is_must: true}},
         ];
         if(ftyId){
             //console.log('有whseId');
@@ -43,6 +44,7 @@ var MaterialController = {
                 {url: '/api/organizations/factory', method: 'GET', resConfig: {keyName: 'organizationsList', is_must: true}},
                 {url: '/api/whse/factory/list', method: 'GET', resConfig: {keyName: 'factoryList', is_must: true}},
                 {url: '/api/whse/warehouse/list/perm/'+ftyId, method: 'GET', resConfig: {keyName: 'warehouseList', is_must: true}},
+                {url: '/api/assist/package/types', method: 'GET', resConfig: {keyName: 'getPackageTypes', is_must: true}},
             ];
         }
         if(whseId){
@@ -55,6 +57,7 @@ var MaterialController = {
                 {url: '/api/whse/factory/list', method: 'GET', resConfig: {keyName: 'factoryList', is_must: true}},
                 {url: '/api/whse/warehouse/list/perm/'+ftyId, method: 'GET', resConfig: {keyName: 'warehouseList', is_must: true}},
                 {url: '/api/whse/region/list/perm/'+whseId, method: 'GET', resConfig: {keyName: 'regionList', is_must: true}},
+                {url: '/api/assist/package/types', method: 'GET', resConfig: {keyName: 'getPackageTypes', is_must: true}},
             ];
         }
 
