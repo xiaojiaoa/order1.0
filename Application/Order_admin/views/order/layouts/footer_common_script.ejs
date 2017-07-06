@@ -84,6 +84,15 @@
     $(function () {
         $('ul.menu-list').scrollTop(localStorage.getItem('menuScroll-height'));
 
+        <% if(DWY_GLOBAL.ButtonOpen!=1){ %>
+        //重置
+        $(".reset").click(function(){
+            $("#search-customer input,#search-customer select").val('');
+        })
+        $(".search").click(function(){
+            DWY_Utils.Clicks.clicks();
+        })
+        <%}%>
 
 //      $('.mainFlex').css('height',window.innerHeight-80);
 
