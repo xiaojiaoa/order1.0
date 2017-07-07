@@ -1,0 +1,137 @@
+<%- include('../layouts/head_top'); %>
+<%- include('../layouts/head_bottom'); %>
+<%- include('../layouts/header'); %>
+<%- include('../layouts/nav'); %>
+
+<!-- MAIN PANEL -->
+<div id="main" role="main">
+
+    <!-- RIBBON -->
+    <div id="ribbon">
+
+        <!-- breadcrumb -->
+        <ol class="breadcrumb">
+            <li>后台管理</li>
+            <li><a class="back-url" href="/noticeInfo">公告管理</a></li>
+            <li>公告信息</li>
+            <li><a class="back-url" href="javascript:history.go(-1)"> <i class="fa fa-chevron-left"></i>返回</a></li>
+        </ol>
+        <!-- end breadcrumb -->
+
+
+    </div>
+    <!-- END RIBBON -->
+
+
+    <!-- MAIN CONTENT -->
+    <div id="content">
+
+
+        <!--well-->
+        <div class="well">
+            <!-- row -->
+            <div class="row">
+                <!-- col -->
+                <div class="col-xs-12">
+                    <legend>公告信息
+
+                        <% if (DWY_Helper.hasPermission(Permission.notice.update.id, permission) ){ %>
+                        <a class=" label label-primary modify-noticeInfo margin-left-20 "
+                           selfId="<%= id%>"
+                          >修改</a>
+                        <% } %>
+                        <% if (DWY_Helper.hasPermission(Permission.notice.create.id, permission) ){ %>
+                        <a class="label label-danger delete-noticeInfo" selfId="<%= id%>">删除</a>
+                        <% } %>
+
+                    </legend>
+
+                    <!-- row -->
+                    <div class="table-responsive ">
+                        <table class="table table-bordered table-striped table-information ">
+                            <tbody>
+                            <tr class="table-tr01">
+                                <td>发表人：</td>
+                                <td><%= noticeInfo.empName %></td>
+                                <td>发表日期：</td>
+                                <td><%= DWY_Helper.getLocalDateYMD(noticeInfo.addTime)%></td>
+                                <td>公告类型：</td>
+                                <td><%= noticeInfo.typeName %></td>
+                            </tr>
+                            <tr>
+                                <td>发表标题：</td>
+                                <td colspan="5"><%= noticeInfo.title%></td>
+                            </tr>
+                            <tr>
+                                <td>发表内容：</td>
+                                <td colspan="5"><%= noticeInfo.content%></td>
+                            </tr>
+
+                            <% if(DWY_Helper.isCanLoop(noticeInfo.dataShares)){
+                            noticeInfo.dataShares.forEach(function (element,index) {%>
+                            <tr>
+                                <td>发表文件<%= index+1%>：</td>
+                                <td colspan="5"> <a href="<%= DWY_GLOBAL.Static %>/download?originalFileName=<%= element.name%>&url=<%= element.path %>"><%= element.name%></a></td>
+                            </tr>
+                            <%  }) %>
+
+                            <% } %>
+                            </tbody>
+                        </table>
+
+                    </div>
+
+                    <!-- end row -->
+                </div>
+
+                <!-- end col -->
+            </div>
+            <!-- end row -->
+        </div>
+        <!--end well-->
+
+
+
+
+         </div>
+    <!-- END MAIN CONTENT -->
+
+</div>
+<!-- END MAIN PANEL -->
+
+<%- include('../layouts/footer'); %>
+<%- include('../layouts/footer_common_script'); %>
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+        pageSetUp();
+
+        //删除公告信息
+        $(".delete-noticeInfo").on({
+            click: function () {
+                var id = $(this).attr('selfId');
+                layer.confirm('确认删除?',{icon: 3, title:'提示'},
+                    function(index){
+                        $.ajax({
+                            url: '/noticeInfo/doDelete/'+id,
+                            method: 'put',
+                            success: function (data) {
+                                successLayout.hrefTo("/noticeInfo");
+                            },
+                            error: function (response) {
+                                layer.close(index)
+                                errorLayout.normal(response);
+                            }
+                        });
+                    },
+                    function(index){layer.close(index)})
+            }
+        })
+
+    })
+
+</script>
+
+
+<%- include('../layouts/foot'); %>

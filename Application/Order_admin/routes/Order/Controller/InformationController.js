@@ -18,12 +18,10 @@ var Permissions = require('../config/permission');
 
 
 var InformationController = {
-    noticeInfoPage: function (req, res) {
-       //console.log(66666666666666);
+    noticeListPage: function (req, res) {
         var paramObject = helper.genPaginationQuery(req);
-        //console.log( '公告列表','/api/notices/page?pageSize=5&'+queryString.stringify(req.query))
         Base.multiDataRequest(req, res, [
-            {url: '/api/notices/page?pageSize=5&'+queryString.stringify(req.query), method: 'GET', resConfig: {keyName: 'noticeInfoList', is_must: true}},
+            {url: '/api/notices/page'+queryString.stringify(req.query), method: 'GET', resConfig: {keyName: 'noticeInfoList', is_must: true}},
             {url: '/api/assist/notice/types', method: 'GET', resConfig: {keyName: 'noticeType', is_must: true}},
             {url: '/api/assist/store/types', method: 'GET', resConfig: {keyName: 'storeType', is_must: true}},
             {url: '/api/assist/store/addrTypes', method: 'GET', resConfig: {keyName: 'storeAttrType', is_must: true}},
@@ -44,9 +42,33 @@ var InformationController = {
                 pagination: boostrapPaginator.render(),
                 Permission :Permissions,
             },resultList));
-            res.render('order/information/notice_info',returnData);
+            res.render('order/information/notice_index',returnData);
         });
-        // res.render('order/information/notice_info');
+    },
+    noticeDetailPage: function (req, res) {
+        var id =req.params.id;
+        Base.multiDataRequest(req, res, [
+            {url:'/api/notices/'+id, method: 'GET', resConfig: {keyName: 'noticeInfo', is_must: true}},
+        ], function (req, res, resultList) {
+            var returnData = Base.mergeData(helper.mergeObject({
+                title: ' ',
+                id:id,
+                Permission :Permissions,
+            },resultList));
+            res.render('order/information/notice_detail', returnData);
+        });
+    },
+    noticeModifyPage: function (req, res) {
+        var id =req.params.id;
+        Base.multiDataRequest(req, res, [
+            {url: '/api/notices/'+id, method: 'GET', resConfig: {keyName: 'noticeInfo', is_must: true}},
+        ], function (req, res, resultList) {
+            var returnData = Base.mergeData(helper.mergeObject({
+                title: ' ',
+                id:id,
+            },resultList));
+            res.render('order/information/notice_modify',returnData);
+        });
     },
     noticeDoCreate: function (req, res) {
         req.body.noticeScopes=JSON.parse(req.body.noticeScopes);

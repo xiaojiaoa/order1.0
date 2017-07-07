@@ -1,0 +1,56 @@
+<script type="text/javascript">
+
+    // 获取发布范围的值
+    function getCode() {
+        var a=getList("#checkAll01","input[name=storeType]:checked");
+        var b=getList("#checkAll02","input[name=addrType]:checked");
+        var c=getList("#checkAll03","input[name=organizationType]:checked");
+        var myArray=a.concat(b,c);
+        $("input[name=noticeScopes]").val(JSON.stringify(myArray));
+    }
+
+    // 公告--上传文件
+    var dataShares=[];
+    var num=0;
+    var addFileSet=$("#addFileSet");
+    $("#dwy_file_upload").on(
+        {
+            change: function (e) {
+                var _this = $(this);
+                var congig = {
+                    'file_name': _this.prop('files')[0],
+                }
+                uploadFuc.uploadSingleFile('/template/upload/single/share', congig, function (data) {
+
+                    var aaa={};
+                    aaa.name=data.data.name;
+                    aaa.path=data.data.url;
+                    dataShares.push(aaa);
+                    if(num>0){
+                        var html = '<div class="margin-bottom-10" id="fileSet'+num+'">'+
+                            '<div class="col-xs-10">'+
+                            '<input class="form-control margin-bottom-10" readonly value="" name="fileName">'+
+                            '</div>'+
+                            '<a class="deleteInco" data-code="'+num+'"><i class="fa fa-trash-o"></i></a><div class="dwy-clear"></div>'+
+                            '</div>';
+                        addFileSet.append(html);
+                    }
+                    $("input[name=dataShares]").val(JSON.stringify(dataShares));
+                    $("input[name=fileName]").eq(num).val(data.data.name);
+                    num++;
+                });
+            },
+        }
+    );
+    $("#addFileSet").on("click",".deleteInco",function(){
+        var index = $(this).attr('data-code');
+        dataShares[index] = '';
+        $('#fileSet'+index).remove();
+        var areaArry = dataShares.filter(function (item, index) {
+            return item != '';
+        })
+        $("input[name=dataShares]").val(JSON.stringify(areaArry));
+    });
+
+
+</script>

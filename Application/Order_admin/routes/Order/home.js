@@ -1295,8 +1295,14 @@ router.put('/networkBook/doClose/:measureId', Middleware.AuthCheck, NetworkBookC
  * */
 var InformationController = require('./Controller/InformationController');
 
-// 公告信息详情页面
-router.get('/noticeInfo', Middleware.AuthCheck,Middleware.FilterEmptyField,Middleware.SetBackPath,InformationController.noticeInfoPage);
+// 公告信息-列表页面
+router.get('/noticeInfo', Middleware.AuthCheck,Middleware.FilterEmptyField,Middleware.SetBackPath,InformationController.noticeListPage);
+
+// 公告信息--详情页面
+router.get('/noticeInfo/detail/:id', Middleware.AuthCheck,Middleware.SetBackPath,InformationController.noticeDetailPage);
+
+// 公告信息--修改页面
+router.get('/noticeInfo/modify/:id', Middleware.AuthCheck,InformationController.noticeModifyPage);
 
 // 公告信息-新建
 router.post('/noticeInfo/doCreate', Middleware.AuthCheck,InformationController.noticeDoCreate);
