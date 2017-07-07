@@ -37,7 +37,7 @@
 
                         <% if (DWY_Helper.hasPermission(Permission.notice.update.id, permission) ){ %>
                         <a class=" label label-primary modify-noticeInfo margin-left-20 "
-                           selfId="<%= id%>"
+                          href="/noticeInfo/modify/<%= id%>"
                           >修改</a>
                         <% } %>
                         <% if (DWY_Helper.hasPermission(Permission.notice.create.id, permission) ){ %>

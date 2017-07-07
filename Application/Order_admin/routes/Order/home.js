@@ -1302,7 +1302,7 @@ router.get('/noticeInfo', Middleware.AuthCheck,Middleware.FilterEmptyField,Middl
 router.get('/noticeInfo/detail/:id', Middleware.AuthCheck,Middleware.SetBackPath,InformationController.noticeDetailPage);
 
 // 公告信息--修改页面
-router.get('/noticeInfo/modify/:id', Middleware.AuthCheck,InformationController.noticeModifyPage);
+router.get('/noticeInfo/modify/:id', Middleware.AuthCheck,Middleware.SetBackPath,InformationController.noticeModifyPage);
 
 // 公告信息-新建
 router.post('/noticeInfo/doCreate', Middleware.AuthCheck,InformationController.noticeDoCreate);
@@ -1322,7 +1322,7 @@ router.post('/fileInfo/share', Middleware.AuthCheck,InformationController.fileDo
 // 资料删除接口
 router.put('/fileInfo/doDelete/:fid', Middleware.AuthCheck, InformationController.fileDoDelete);
 
-// 获取发布范围的下拉列表
+
 
 
 

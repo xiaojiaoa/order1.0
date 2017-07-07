@@ -34,8 +34,8 @@
                     <legend>修改公告</legend>
 
                     <!-- row -->
-                    <div class="row">
-                        <form class="form-horizontal  layer-template" method="post" id="noticeInfo-form" action="" name="noticeInfoForm">
+                    <div class="row col-xs-6">
+                        <form class="form-horizontal" method="post" id="noticeInfo-form" action="" name="noticeInfoForm">
 
                             <div class="row" style="padding: 30px 40px 0 0;">
 
@@ -45,7 +45,7 @@
                                             <label class="col-xs-4 control-label" id="whiceName"><span class="requird"></span> 标题:</label>
                                             <div class="col-xs-8">
                                                 <input class="form-control validate[required]"
-                                                       value="" name="title" id="title">
+                                                       value="<%= noticeInfo.title%>" name="title" id="title">
                                             </div>
                                         </div>
                                     </div>
@@ -56,7 +56,7 @@
                                                 <select class="form-control validate[required]" name="typeId" id="typeId" >
                                                     <option value="">- 请选择 -</option>
                                                     <% noticeType.forEach(function(element,index){%>
-                                                    <option value="<%= element.id%>"> <%= element.name%></option>
+                                                    <option value="<%= element.id%>"  <%= ( noticeInfo.typeName==element.name)?'selected':''%>> <%= element.name%></option>
                                                     <%})%>
                                                 </select>
                                             </div>
@@ -121,6 +121,7 @@
                                             <label class="col-xs-2 control-label"><span class="requird"></span> 内容:</label>
                                             <div class="col-xs-10">
                         <textarea rows="10" cols="30" class="form-control validate[required]" name="content" id="noticeContent">
+                            <%= noticeInfo.content%>
                         </textarea>
                                             </div>
                                         </div>
@@ -131,14 +132,26 @@
                                     <!--输入字段-->
                                     <div class="col-xs-12">
                                         <div class="form-group">
-                                            <label class="col-xs-2 control-label">文件集合:</label>
+                                            <label class="col-xs-2 control-label">附件:</label>
                                             <div class="col-xs-8" id="addFileSet">
+
+                                                    <% if(DWY_Helper.isCanLoop(noticeInfo.dataShares)){
+                                                    noticeInfo.dataShares.forEach(function (element,index) {%>
+                                                <div class="margin-bottom-10" id="fileSet<%= index%>">
+                                                    <div class="col-xs-10">
+                                                        <input class="form-control margin-bottom-10" readonly="" value="<%= element.name%>"  name="fileName<%= index%>">
+                                                    </div>
+                                                    <a class="deleteInco" data-code="<%= index%>"><i class="fa fa-trash-o"></i></a>
+                                                </div>
+                                                    <%  }) %>
+                                                    <% } else{ %>
                                                 <div class="margin-bottom-10" id="fileSet0">
                                                     <div class="col-xs-10">
-                                                        <input class="form-control margin-bottom-10" readonly="" value=""  name="fileName">
+                                                        <input class="form-control margin-bottom-10" readonly="" value=""  name="fileName0">
                                                     </div>
                                                     <a class="deleteInco" data-code="0"><i class="fa fa-trash-o"></i></a>
                                                 </div>
+                                                <%}%>
                                             </div>
 
                                         </div>
@@ -159,9 +172,10 @@
                                 <div class="col-xs-12">
                                     <hr class="simple">
                                     <div class="col-xs-12 text-center">
-                                        <input type="hidden" value="" name="id" id="noticeId"/>
-                                        <input type="hidden" value="" name="noticeScopes">
-                                        <input type="hidden" value="" name="dataShares"/>
+                                        <input type="hidden" value="<%= id%>" name="id" />
+                                        <input type="hidden" value="<%= JSON.stringify(noticeInfo.noticeScopes)%>" name="noticeScopes">
+                                        <input type="hidden" value="<%= JSON.stringify(noticeInfo.dataShares)%>" name="dataShares"/>
+                                        <input type="hidden" value="modify" name="subType"/>
                                         <button class="btn btn-primary  margin-right-5 subBtn" >
                                             <i class="fa fa-save"></i>
                                             提交
@@ -188,8 +202,8 @@
 
 <%- include('../layouts/footer'); %>
 <%- include('../layouts/footer_common_script'); %>
-
-
+<%- include('./information_model'); %>
+<%- include('./notice_model'); %>
 <script type="text/javascript">
 
     $(document).ready(function () {
@@ -199,6 +213,14 @@
         // 初始化表单
         $("#noticeInfo-form").validationEngine();
 
+        //复选框全选、全不选功能
+        checkFuc("#checkAll01","input[name=storeType]:checkbox");
+        checkFuc("#checkAll02","input[name=addrType]:checkbox");
+        checkFuc("#checkAll03","input[name=organizationType]:checkbox");
+
+        var noticeScopes=$("input[name=noticeScopes]").val();
+        var data=eval(noticeScopes);
+        setList(data);//设置checkbox的状态
 
     })
 
