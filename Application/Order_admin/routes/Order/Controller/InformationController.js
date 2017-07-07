@@ -19,7 +19,7 @@ var Permissions = require('../config/permission');
 
 var InformationController = {
     noticeListPage: function (req, res) {
-        console.log("测试路径", '/api/notices/page'+queryString.stringify(req.query));
+        // console.log("测试路径", '/api/notices/page'+queryString.stringify(req.query));
         var paramObject = helper.genPaginationQuery(req);
         Base.multiDataRequest(req, res, [
             {url: '/api/notices/page?'+queryString.stringify(req.query), method: 'GET', resConfig: {keyName: 'noticeInfoList', is_must: true}},
@@ -83,7 +83,7 @@ var InformationController = {
         else{
             req.body.dataShares = JSON.parse(req.body.dataShares);
         }
-          console.log('创建公告信息'+ JSON.stringify(req.body));
+          // console.log('创建公告信息'+ JSON.stringify(req.body));
         request(Base.mergeRequestOptions({
             method: 'post',
             url: '/api/notices',
@@ -107,7 +107,7 @@ var InformationController = {
         else{
             req.body.dataShares = JSON.parse(req.body.dataShares);
         }
-        console.log('公告信息修改'+ JSON.stringify(req.body));
+        // console.log('公告信息修改'+ JSON.stringify(req.body));
         request(Base.mergeRequestOptions({
             method: 'post',
             url: '/api/notices/update',
@@ -124,7 +124,7 @@ var InformationController = {
     },
     noticeDoDelete: function (req, res) {
         var id = req.params.nid;
-        //console.log(req.params);
+        // console.log(req.params);
         request(Base.mergeRequestOptions({
             method: 'put',
             url: '/api/notices/'+id,
@@ -141,7 +141,7 @@ var InformationController = {
     fileInfoPage: function (req, res) {
 
         var paramObject = helper.genPaginationQuery(req);
-        //console.log( '文件列表','/api/share/page?'+queryString.stringify(req.query));
+        // console.log( '文件列表','/api/share/page?'+queryString.stringify(req.query));
         Base.multiDataRequest(req, res, [
             {url: '/api/share/page?'+queryString.stringify(req.query), method: 'GET', resConfig: {keyName: 'fileInfoList', is_must: true}},
             {url: '/api/assist/store/types', method: 'GET', resConfig: {keyName: 'storeType', is_must: true}},
@@ -186,7 +186,7 @@ var InformationController = {
     },
     fileDoDelete: function (req, res) {
         var id = req.params.fid;
-        //console.log(req.params);
+        // console.log(req.params);
         request(Base.mergeRequestOptions({
             method: 'put',
             url: '/api/share/'+id,
