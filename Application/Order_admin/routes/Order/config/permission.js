@@ -484,6 +484,10 @@ var permissions = {
             id:"581043",
             name:"采购查询自己"
         },
+        querySupplier:{
+            id:"581054",
+            name:"当前供应商相关采购单"
+        },
         create:{
             id:"581010",
             name:"新建采购"
