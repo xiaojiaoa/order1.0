@@ -280,7 +280,7 @@
                                 <td><%= index+1 %></td>
                                 <td><%= element.regionName%></td>
                                 <td><%= element.whseName%></td>
-                                <td><%= element.spaceId%></td>
+                                <td><%= element.spaceId.substr(element.spaceId.length - 6)%></td>
                                 <td><%= element.amount%></td>
                                 <td><a class="label label-primary modifyStock" href="javascript:void(0)" spaceId="<%= element.spaceId%>">修改库存</a></td>
                             </tr>
@@ -337,7 +337,7 @@
                                 <td><%= index+1 %></td>
                                 <td><%= element.regionName%></td>
                                 <td><%= element.whseName%></td>
-                                <td><%= element.spaceId%></td>
+                                <td><%= element.spaceId.substr(element.spaceId.length - 6)%></td>
                                 <td><%= element.newStock%></td>
                                 <td><%= element.reasonName%></td>
                                 <td><%= DWY_Helper.getLocalDateYMD(element.operateTime)%></td>
