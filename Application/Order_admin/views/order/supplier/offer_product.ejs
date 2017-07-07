@@ -216,7 +216,7 @@
                         + '<td><a href="/materialManage/detail/' + listArr[i].id + '">' + listArr[i].id + '</a></td>'
                         + '<td>' + listArr[i].name + '</td>'
                         + '<td>' + listArr[i].class_name + '</td>'
-                        + '<td><input class="form-control fg-date-picker validate[required] date" type="text" value="" name="date'+i+'"  /></td>'
+                        + '<td><input class="form-control fg-date-picker  date" type="text" value="" name="date'+i+'"  /></td>'
                         + '<td><input  class="form-control validate[custom[integer]] code" value="" maxlength="32" name="code'+i+'" /></td>'
                         + '</tr>';
                     htmlStr += itemHtml;
@@ -296,11 +296,6 @@
             click:function(){
                 if(checkedValue.attr('class')==null||checkedValue.attr('class')==''){
                     layer.alert('请选择！', {icon: 3})
-                    return false;
-                }
-                var dateVal = $(".date").val();
-                if(dateVal==null||dateVal==''){
-                    layer.alert('请填写合同截止日期！', {icon: 3})
                     return false;
                 }
                 var len= $('.topTr').length;
