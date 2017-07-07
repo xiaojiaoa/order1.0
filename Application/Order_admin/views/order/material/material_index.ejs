@@ -34,7 +34,7 @@
                     <!--<legend>物料搜索</legend>-->
                     <!-- row -->
                     <div class="row search-form">
-                        <form class="form-horizontal clearfix" method="get">
+                        <form class="form-horizontal clearfix" method="get" id="search-customer">
 
                             <div class="col-xs-12">
 
@@ -57,7 +57,34 @@
                                         </div>
                                     </div>
                                 </div>
-
+                                <% if(DWY_GLOBAL.ButtonOpen!=1){ %>
+                                <div class="col-xs-4 text-center">
+                                    <button class="btn btn-primary " type="submit">
+                                        <i class="fa fa-search"></i>
+                                        查询
+                                    </button>
+                                    <% if (DWY_Helper.hasPermission(Permission.material.queryCategory.id, permission) ){ %>
+                                    <a class="btn btn-primary margin-left-10" href="/materialManage/materialType">
+                                        查看物料分类
+                                    </a>
+                                    <% } %>
+                                    <% if (DWY_Helper.hasPermission(Permission.material.queryAttribute.id, permission) ){ %>
+                                    <a class="btn btn-primary margin-left-10" href="/materialManage/materialAttribute">
+                                        查看物料属性
+                                    </a>
+                                    <% } %>
+                                    <label class="btn btn-default reset margin-left-20">
+                                        重置
+                                    </label>
+                                    <label class="search margin-left-20">
+                                        高级查询
+                                        <i class="fa fa-chevron-down"></i>
+                                    </label>
+                                </div>
+                                <%}%>
+                                <% if(DWY_GLOBAL.ButtonOpen!=1){ %>
+                                <div class="slideToggle display-none">
+                                    <%}%>
                                 <% if(DWY_Helper.hasPermission(Permission.material.queryByRegionAll.id, permission) ||
                                         DWY_Helper.hasPermission(Permission.material.queryByRegionOrganization.id, permission) ||
                                         DWY_Helper.hasPermission(Permission.material.queryByRegion.id, permission)){ %>
@@ -139,6 +166,9 @@
                                         <label class="col-xs-4 control-label">状态:</label>
                                         <div class="col-xs-8">
                                             <select class="form-control" name="stcode">
+                                                <option value="" >
+                                                   全部
+                                                </option>
                                                 <option value="1" <%= (DWYRequest.query.stcode == 1) ? "selected" : "" %>>
                                                     启用
                                                 </option>
@@ -168,13 +198,13 @@
                                     </div>
                                 </div>
                             </div>
-
-
-
                             <input type="hidden" name="stairCatId" value="<%= DWYRequest.query.stairCatId %>">
+                              <% if(DWY_GLOBAL.ButtonOpen!=1){ %>
+                    </div>
+                    <%}%>
 
+                        <% if(DWY_GLOBAL.ButtonOpen==1){ %>
                             <div class="col-xs-12 ">
-                                <hr class="simple">
                                 <div class="col-xs-12 text-center">
                                     <button class="btn btn-primary " type="submit">
                                         <i class="fa fa-search"></i>
@@ -193,6 +223,7 @@
                                     <% } %>
                                 </div>
                             </div>
+                <%}%>
                         </form>
                     </div>
                     <!-- end row -->
