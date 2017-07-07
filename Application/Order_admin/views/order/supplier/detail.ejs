@@ -93,7 +93,9 @@
                             添加可提供物料
                         </a>
                         <% } %>
+                        <% if (DWY_Helper.hasPermission(Permission.purchase.queryAll.id, permission)|| DWY_Helper.hasPermission(Permission.purchase.queryOrganization.id, permission) || DWY_Helper.hasPermission(Permission.purchase.query.id, permission) ||DWY_Helper.hasPermission(Permission.purchase.querySupplier.id, permission) ){ %>
                         <a class="label label-primary" href="/purchase/detail?suppId=<%= suppliersDetail.id  %>">查看采购单</a>
+                        <%}%>
                     </legend>
                     <div class="table-responsive">
                         <table class="table table-bordered table-striped table-hover">
