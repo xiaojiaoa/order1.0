@@ -20,6 +20,10 @@ var _ = require('lodash');
 
 var MaterialController = {
     indexPage: function (req, res) {
+
+        if(!req.query.stcode){
+            req.query.stcode=1;
+        }
         var ftyId = req.query.ftyId ? req.query.ftyId: req.session.user.ftyId;
         var whseId = req.query.whseId?req.query.whseId: '';
 
