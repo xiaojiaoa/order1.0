@@ -1260,6 +1260,8 @@ router.post('/purchases/recall/:tid', Middleware.AuthCheck,PurchaseController.pu
 router.post('/purchases/submit/:tid', Middleware.AuthCheck,PurchaseController.purchaseSubmit);
 //删除未审核采购单
 router.post('/purchases/del/:purcIds', Middleware.AuthCheck,PurchaseController.purchaseDel);
+//打印采购单
+router.get('/purchases/print', Middleware.AuthCheck,PurchaseController.printPurchase);
 
 //新建采购单页面
 router.get('/purchase/create', Middleware.AuthCheck,Middleware.FilterEmptyField,PurchaseController.purchaseCreatePage);
