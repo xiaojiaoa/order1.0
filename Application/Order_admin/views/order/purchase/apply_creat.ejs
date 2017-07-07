@@ -103,17 +103,17 @@
                                                 suppliersMaterialList.forEach(function (element, index) { %>
                                                 <% switch (DWY_Helper.judgeMateType(element.id)){
                                                 case "一级": %>
-                                                <option value="<%= element.id %>" <%= (DWYRequest.query.stairCatId == element.id)?"selected":"" %>>
+                                                <option value="<%= element.id %>" <%= (DWYRequest.query.catId == element.id)?"selected":"" %>>
                                                     <%= element.name %>
                                                 </option>
                                                 <%        break;
                                                 case "二级": %>
-                                                <option value="<%= element.id %>" <%= (DWYRequest.query.stairCatId == element.id)?"selected":"" %>>
+                                                <option value="<%= element.id %>" <%= (DWYRequest.query.catId == element.id)?"selected":"" %>>
                                                     &nbsp;&nbsp; &nbsp;&nbsp;<%= element.name %>
                                                 </option>
                                                 <%         break;
                                                 default: %>
-                                                <option value="<%= element.id %>" <%= (DWYRequest.query.stairCatId == element.id)?"selected":"" %>>
+                                                <option value="<%= element.id %>" <%= (DWYRequest.query.catId == element.id)?"selected":"" %>>
                                                     &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;  &nbsp;&nbsp; <%= element.name %>
                                                 </option>
 
