@@ -33,7 +33,7 @@
                                 <!--输入字段-->
                                 <div class="col-xs-3">
                                     <div class="form-group">
-                                        <label class="col-xs-4 control-label">门店:</label>
+                                        <label class="col-xs-3 control-label">门店:</label>
                                         <div class="col-xs-8">
                                             <select class="form-control" name="bid">
                                                 <option value="">- 请选择 -</option>
@@ -75,87 +75,63 @@
                                     <input type="hidden" value="<%= DWYRequest.query.ifInitTime?DWYRequest.query.ifInitTime:'' %>" name="ifInitTime">
                                 </div>
                                 <%}%>
-                                <% if(DWY_GLOBAL.ButtonOpen==1){ %>
-                                <div class="col-xs-4">
-                                    <div class="form-group">
-                                        <label class="col-xs-3 control-label">订单状态:</label>
-                                        <div class="col-xs-4">
-                                            <select class="form-control" name="orderStcodeStart">
-                                                <option value="">- 请选择 -</option>
-                                                <%
-                                                stcodeInfo.forEach(function (element) { %>
-                                                <option value="<%= element.id %>" <%= (DWYRequest.query.orderStcodeStart == element.id)?"selected":"" %>><%= element.name %></option>
-                                                <%  }) %>
-                                            </select>
-                                        </div>
-                                        <label class="from-to control-label "> 至 </label>
-                                        <div class="col-xs-4">
-                                            <select class="form-control" name="orderStcodeEnd">
-                                                <option value="">- 请选择 -</option>
-                                                <%
-                                                stcodeInfo.forEach(function (element) { %>
-                                                <option value="<%= element.id %>" <%= (DWYRequest.query.orderStcodeEnd == element.id)?"selected":"" %>><%= element.name %></option>
-                                                <%  }) %>
-                                            </select>
-                                        </div>
-                                    </div>
-                                </div>
-                                <%}%>
-                            </div>
-                            <div class="col-xs-12 slideToggle">
-                                <div class="col-xs-3">
-                                    <div class="form-group">
-                                        <label class="col-xs-4 control-label">主材颜色:</label>
-                                        <div class="col-xs-8">
-                                            <select class="form-control" name="color">
-                                                <option value="">- 请选择 -</option>
-                                                <% colorList.forEach(function (element) {  %>
-                                                <option value="<%= element.id %>" <%= (DWYRequest.query.color == element.id)?"selected":"" %>>
-                                                    <%= element.name %>
-                                                </option>
-                                                <% }) %>
-                                            </select>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-xs-4">
-                                    <div class="form-group">
-                                        <label class="col-xs-3 control-label">订单付款时间:</label>
-                                        <div class="col-xs-4">
-                                            <input class="form-control fg-date-picker" placeholder="" type="text" value="<%= DWYRequest.query.payTimeStart%>"
-                                                   name="payTimeStart">
-                                        </div>
-                                        <label class="from-to control-label "> 至 </label>
-                                        <div class="col-xs-4">
-                                            <input class="form-control fg-date-picker" placeholder="" type="text" value="<%= DWYRequest.query.payTimeEnd%>"
-                                                   name="payTimeEnd">
-                                        </div>
-                                    </div>
-                                </div>
                                 <% if(DWY_GLOBAL.ButtonOpen!=1){ %>
-                                <div class="col-xs-4">
-                                    <div class="form-group">
-                                        <label class="col-xs-3 control-label">订单状态:</label>
-                                        <div class="col-xs-4">
-                                            <select class="form-control" name="orderStcodeStart">
-                                                <option value="">- 请选择 -</option>
-                                                <%
-                                                stcodeInfo.forEach(function (element) { %>
-                                                <option value="<%= element.id %>" <%= (DWYRequest.query.orderStcodeStart == element.id)?"selected":"" %>><%= element.name %></option>
-                                                <%  }) %>
-                                            </select>
-                                        </div>
-                                        <label class="from-to control-label "> 至 </label>
-                                        <div class="col-xs-4">
-                                            <select class="form-control" name="orderStcodeEnd">
-                                                <option value="">- 请选择 -</option>
-                                                <%
-                                                stcodeInfo.forEach(function (element) { %>
-                                                <option value="<%= element.id %>" <%= (DWYRequest.query.orderStcodeEnd == element.id)?"selected":"" %>><%= element.name %></option>
-                                                <%  }) %>
-                                            </select>
+                                <div class="slideToggle display-none">
+                                <%}%>
+                                    <div class="col-xs-3">
+                                        <div class="form-group">
+                                            <label class="col-xs-3 control-label">主材颜色:</label>
+                                            <div class="col-xs-8">
+                                                <select class="form-control" name="color">
+                                                    <option value="">- 请选择 -</option>
+                                                    <% colorList.forEach(function (element) {  %>
+                                                    <option value="<%= element.id %>" <%= (DWYRequest.query.color == element.id)?"selected":"" %>>
+                                                        <%= element.name %>
+                                                    </option>
+                                                    <% }) %>
+                                                </select>
+                                            </div>
                                         </div>
                                     </div>
+                                    <div class="col-xs-4">
+                                        <div class="form-group">
+                                            <label class="col-xs-3 control-label">订单付款时间:</label>
+                                            <div class="col-xs-4">
+                                                <input class="form-control fg-date-picker" placeholder="" type="text" value="<%= DWYRequest.query.payTimeStart%>"
+                                                       name="payTimeStart">
+                                            </div>
+                                            <label class="from-to control-label "> 至 </label>
+                                            <div class="col-xs-4">
+                                                <input class="form-control fg-date-picker" placeholder="" type="text" value="<%= DWYRequest.query.payTimeEnd%>"
+                                                       name="payTimeEnd">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-4">
+                                        <div class="form-group">
+                                            <label class="col-xs-3 control-label">订单状态:</label>
+                                            <div class="col-xs-4">
+                                                <select class="form-control" name="orderStcodeStart">
+                                                    <option value="">- 请选择 -</option>
+                                                    <%
+                                                    stcodeInfo.forEach(function (element) { %>
+                                                    <option value="<%= element.id %>" <%= (DWYRequest.query.orderStcodeStart == element.id)?"selected":"" %>><%= element.name %></option>
+                                                    <%  }) %>
+                                                </select>
+                                            </div>
+                                            <label class="from-to control-label "> 至 </label>
+                                            <div class="col-xs-4">
+                                                <select class="form-control" name="orderStcodeEnd">
+                                                    <option value="">- 请选择 -</option>
+                                                    <%
+                                                    stcodeInfo.forEach(function (element) { %>
+                                                    <option value="<%= element.id %>" <%= (DWYRequest.query.orderStcodeEnd == element.id)?"selected":"" %>><%= element.name %></option>
+                                                    <%  }) %>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                <% if(DWY_GLOBAL.ButtonOpen!=1){ %>
                                 </div>
                                 <%}%>
                             </div>
@@ -312,13 +288,6 @@
     $(document).ready(function () {
         pageSetUp();
         $(".fg-date-picker").flatpickr(data_time_picker.data_picker); // jQuery
-        //重置
-        $(".reset").click(function(){
-            $("#search-customer input,#search-customer select").val('');
-        })
-        $(".search").click(function(){
-            DWY_Utils.Clicks.clicks();
-        });
 
     })
 </script>

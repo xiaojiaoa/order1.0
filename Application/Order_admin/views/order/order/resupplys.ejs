@@ -76,7 +76,74 @@
                                     </label>
                                 </div>
                                 <%}%>
-                                <% if(DWY_GLOBAL.ButtonOpen==1){ %>
+                            <% if(DWY_GLOBAL.ButtonOpen!=1){ %>
+                            <div class="slideToggle display-none">
+                            <%}%>
+                                <div class="col-xs-3">
+                                    <div class="form-group">
+                                        <label class="col-xs-4 control-label">流水号:</label>
+                                        <div class="col-xs-8">
+                                            <input class="form-control" value="<%= DWYRequest.query.lid %>"
+                                                   name="lid">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xs-3">
+                                    <div class="form-group">
+                                        <label class="col-xs-4 control-label">产品类型:</label>
+                                        <div class="col-xs-8">
+                                            <select class="form-control" name="productType">
+                                                <option value="">- 请选择 -</option>
+                                                <% prodList.forEach(function (element) {  %>
+                                                <option value="<%= element.id %>" <%= (DWYRequest.query.productType == element.id)?"selected":"" %> >
+                                                    <%= element.name %>
+                                                </option>
+                                                <% }) %>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xs-6">
+                                    <div class="form-group">
+                                        <label class="col-xs-2 control-label">补单状态:</label>
+                                        <div class="col-xs-4">
+                                            <select class="form-control" name="startStatus">
+                                                <option value="">- 请选择 -</option>
+                                                <% stcodesList.forEach(function (element) {  %>
+                                                <option value="<%= element.id %>" <%= (DWYRequest.query.startStatus == element.id)?"selected":"" %> >
+                                                    <%= element.name %>
+                                                </option>
+                                                <% }) %>
+                                            </select>
+                                        </div>
+                                        <label class="control-label " style="float: left"> 至 </label>
+                                        <div class="col-xs-4">
+                                            <select class="form-control" name="endStatus">
+                                                <option value="">- 请选择 -</option>
+                                                <% stcodesList.forEach(function (element) {  %>
+                                                <option value="<%= element.id %>" <%= (DWYRequest.query.endStatus == element.id)?"selected":"" %> >
+                                                    <%= element.name %>
+                                                </option>
+                                                <% }) %>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xs-3">
+                                    <div class="form-group">
+                                        <label class="col-xs-4 control-label">补单原因:</label>
+                                        <div class="col-xs-8">
+                                            <select class="form-control" name="cause">
+                                                <option value="">- 请选择 -</option>
+                                                <% reasonList.forEach(function (element) {  %>
+                                                <option value="<%= element.id %>" <%= (DWYRequest.query.cause == element.id)?"selected":"" %> >
+                                                    <%= element.name %>
+                                                </option>
+                                                <% }) %>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
                                 <div class="col-xs-6">
                                     <div class="form-group">
                                         <label class="col-xs-2 control-label">补单建单日期:</label>
@@ -91,94 +158,9 @@
                                         </div>
                                     </div>
                                 </div>
-                                <%}%>
+                            <% if(DWY_GLOBAL.ButtonOpen!=1){ %>
                             </div>
-                            <div class="slideToggle">
-                                <div class="col-xs-12">
-                                    <div class="col-xs-3">
-                                        <div class="form-group">
-                                            <label class="col-xs-4 control-label">流水号:</label>
-                                            <div class="col-xs-8">
-                                                <input class="form-control" value="<%= DWYRequest.query.lid %>"
-                                                       name="lid">
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-xs-3">
-                                        <div class="form-group">
-                                            <label class="col-xs-4 control-label">产品类型:</label>
-                                            <div class="col-xs-8">
-                                                <select class="form-control" name="productType">
-                                                    <option value="">- 请选择 -</option>
-                                                    <% prodList.forEach(function (element) {  %>
-                                                    <option value="<%= element.id %>" <%= (DWYRequest.query.productType == element.id)?"selected":"" %> >
-                                                        <%= element.name %>
-                                                    </option>
-                                                    <% }) %>
-                                                </select>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-xs-6">
-                                        <div class="form-group">
-                                            <label class="col-xs-2 control-label">补单状态:</label>
-                                            <div class="col-xs-4">
-                                                <select class="form-control" name="startStatus">
-                                                    <option value="">- 请选择 -</option>
-                                                    <% stcodesList.forEach(function (element) {  %>
-                                                    <option value="<%= element.id %>" <%= (DWYRequest.query.startStatus == element.id)?"selected":"" %> >
-                                                        <%= element.name %>
-                                                    </option>
-                                                    <% }) %>
-                                                </select>
-                                            </div>
-                                            <label class="control-label " style="float: left"> 至 </label>
-                                            <div class="col-xs-4">
-                                                <select class="form-control" name="endStatus">
-                                                    <option value="">- 请选择 -</option>
-                                                    <% stcodesList.forEach(function (element) {  %>
-                                                    <option value="<%= element.id %>" <%= (DWYRequest.query.endStatus == element.id)?"selected":"" %> >
-                                                        <%= element.name %>
-                                                    </option>
-                                                    <% }) %>
-                                                </select>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-xs-12">
-                                    <div class="col-xs-3">
-                                        <div class="form-group">
-                                            <label class="col-xs-4 control-label">补单原因:</label>
-                                            <div class="col-xs-8">
-                                                <select class="form-control" name="cause">
-                                                    <option value="">- 请选择 -</option>
-                                                    <% reasonList.forEach(function (element) {  %>
-                                                    <option value="<%= element.id %>" <%= (DWYRequest.query.cause == element.id)?"selected":"" %> >
-                                                        <%= element.name %>
-                                                    </option>
-                                                    <% }) %>
-                                                </select>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <% if(DWY_GLOBAL.ButtonOpen!=1){ %>
-                                    <div class="col-xs-6">
-                                        <div class="form-group">
-                                            <label class="col-xs-2 control-label">补单建单日期:</label>
-                                            <div class="col-xs-4">
-                                                <input class="form-control fg-date-picker" type="text"
-                                                       value="<%= DWYRequest.query.startTime %>" name="startTime" >
-                                            </div>
-                                            <label class="control-label " style="float: left"> 至 </label>
-                                            <div class="col-xs-4">
-                                                <input class="form-control fg-date-picker" type="text"
-                                                       value="<%= DWYRequest.query.endTime %>" name="endTime" >
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <%}%>
-                                </div>
+                            <%}%>
                             </div>
                             <% if(DWY_GLOBAL.ButtonOpen==1){ %>
                             <div class="col-xs-12">
@@ -277,13 +259,6 @@
         pageSetUp();
         $(".fg-date-picker").flatpickr(data_time_picker.data_picker); // jQuery
 
-        //重置
-        $(".reset").click(function(){
-            $("#search-customer input,#search-customer select").val('');
-        })
-        $(".search").click(function(){
-            DWY_Utils.Clicks.clicks();
-        })
 
     })
 

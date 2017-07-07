@@ -135,9 +135,7 @@ nav ul span.menu-item-parent {
     padding-right: 5px;
 }
 
-.search-form > form > div > div {
 
-}
 
 #content {
     /*min-height: 800px;*/
@@ -1318,7 +1316,7 @@ ul.dropdown li{
 }
 
 .slideToggle{
-    display:none;
+    clear: both;
 }
 
 

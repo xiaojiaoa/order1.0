@@ -33,7 +33,7 @@
                                 <!--输入字段-->
                                 <div class="col-xs-3">
                                     <div class="form-group">
-                                        <label class="col-xs-4 control-label">请购单号:</label>
+                                        <label class="col-xs-3 control-label">请购单号:</label>
                                         <div class="col-xs-8">
                                             <input class="form-control" placeholder="请输入订单号" type="text" value="<%= DWYRequest.query.id %>" name="id">
                                         </div>
@@ -41,7 +41,7 @@
                                 </div>
                                 <div class="col-xs-3">
                                     <div class="form-group">
-                                        <label class="col-xs-4 control-label">请购状态:</label>
+                                        <label class="col-xs-3 control-label">请购状态:</label>
                                         <div class="col-xs-8">
                                             <select class="form-control" name="stcode">
                                                 <option value="">- 请选择 -</option>
@@ -53,7 +53,7 @@
                                     </div>
                                 </div>
                                 <% if(DWY_GLOBAL.ButtonOpen!=1){ %>
-                                <div class="col-xs-4 text-center">
+                                <div class="col-xs-3 text-center">
                                     <button class="btn btn-primary " type="submit">
                                         <i class="fa fa-search"></i>
                                         查询
@@ -72,82 +72,67 @@
                                     </label>
                                 </div>
                                 <%}%>
-                                <% if(DWY_GLOBAL.ButtonOpen==1){ %>
-                                <div class="col-xs-6">
-                                    <div class="form-group">
-                                        <label class="col-xs-2 control-label">起止日期:</label>
-                                        <div class="col-xs-4">
-                                            <input class="form-control fg-date-picker" placeholder="" type="text" value="<%= DWYRequest.query.startDate%>"
-                                                   name="startDate">
-                                        </div>
-                                        <label class="from-to control-label "> 至 </label>
-                                        <div class="col-xs-4">
-                                            <input class="form-control fg-date-picker" placeholder="" type="text" value="<%= DWYRequest.query.endDate%>"
-                                                   name="endDate">
-                                        </div>
-                                    </div>
-                                </div>
+                                <% if (DWY_Helper.hasPermission(Permission.request.queryAll.id, permission) ){ %>
+                                <% if(DWY_GLOBAL.ButtonOpen!=1){ %>
+                                <div class="slideToggle display-none">
                                 <%}%>
-                            </div>
-
-                            <% if (DWY_Helper.hasPermission(Permission.request.queryAll.id, permission) ){ %>
-                            <div class="col-xs-12 slideToggle">
-                                <div class="col-xs-3">
+                                    <div class="col-xs-3">
+                                            <div class="form-group">
+                                                <label class="col-xs-3 control-label">机构:</label>
+                                                <div class="col-xs-8">
+                                                    <select class="form-control" name="bid">
+                                                        <option value="">- 请选择 -</option>
+                                                        <%
+                                                        if(DWY_Helper.isCanLoop(factoryLists)){
+                                                        factoryLists.forEach(function (element, index) { %>
+                                                        <option value="<%= element.id %>" <%= (DWYRequest.query.bid == element.id)?"selected":"" %>><%= element.name %></option>
+                                                        <%})}%>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    <div class="col-xs-3">
                                         <div class="form-group">
-                                            <label class="col-xs-4 control-label">机构:</label>
+                                            <label class="col-xs-3 control-label">供应商:</label>
                                             <div class="col-xs-8">
-                                                <select class="form-control" name="bid">
+                                                <select class="form-control" name="suppId">
                                                     <option value="">- 请选择 -</option>
                                                     <%
-                                                    if(DWY_Helper.isCanLoop(factoryLists)){
-                                                    factoryLists.forEach(function (element, index) { %>
-                                                    <option value="<%= element.id %>" <%= (DWYRequest.query.bid == element.id)?"selected":"" %>><%= element.name %></option>
+                                                    if(DWY_Helper.isCanLoop(suppLists)){
+                                                    suppLists.forEach(function (element, index) { %>
+                                                    <option value="<%= element.id %>" <%= (DWYRequest.query.suppId == element.id)?"selected":"" %>><%= element.name %></option>
                                                     <%})}%>
                                                 </select>
                                             </div>
                                         </div>
                                     </div>
-                                <div class="col-xs-3">
-                                    <div class="form-group">
-                                        <label class="col-xs-4 control-label">供应商:</label>
-                                        <div class="col-xs-8">
-                                            <select class="form-control" name="suppId">
-                                                <option value="">- 请选择 -</option>
-                                                <%
-                                                if(DWY_Helper.isCanLoop(suppLists)){
-                                                suppLists.forEach(function (element, index) { %>
-                                                <option value="<%= element.id %>" <%= (DWYRequest.query.suppId == element.id)?"selected":"" %>><%= element.name %></option>
-                                                <%})}%>
-                                            </select>
+                                    <div class="col-xs-3">
+                                        <div class="form-group">
+                                            <label class="col-xs-3 control-label">物料编号:</label>
+                                            <div class="col-xs-8">
+                                                <input class="form-control" placeholder="请输入物料编号" type="text" value="<%= DWYRequest.query.mateId %>" name="mateId">
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="col-xs-3">
-                                    <div class="form-group">
-                                        <label class="col-xs-4 control-label">物料编号:</label>
-                                        <div class="col-xs-8">
-                                            <input class="form-control" placeholder="请输入物料编号" type="text" value="<%= DWYRequest.query.mateId %>" name="mateId">
+                                    <div class="col-xs-3">
+                                        <div class="form-group">
+                                            <label class="col-xs-3 control-label">起止日期:</label>
+                                            <div class="col-xs-4">
+                                                <input class="form-control fg-date-picker" placeholder="" type="text" value="<%= DWYRequest.query.startDate%>"
+                                                       name="startDate">
+                                            </div>
+                                            <label class="from-to control-label "> 至 </label>
+                                            <div class="col-xs-4">
+                                                <input class="form-control fg-date-picker" placeholder="" type="text" value="<%= DWYRequest.query.endDate%>"
+                                                       name="endDate">
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
                                 <% if(DWY_GLOBAL.ButtonOpen!=1){ %>
-                                <div class="col-xs-3">
-                                    <div class="form-group">
-                                        <label class="col-xs-2 control-label">起止日期:</label>
-                                        <div class="col-xs-4">
-                                            <input class="form-control fg-date-picker" placeholder="" type="text" value="<%= DWYRequest.query.startDate%>"
-                                                   name="startDate">
-                                        </div>
-                                        <label class="from-to control-label "> 至 </label>
-                                        <div class="col-xs-4">
-                                            <input class="form-control fg-date-picker" placeholder="" type="text" value="<%= DWYRequest.query.endDate%>"
-                                                   name="endDate">
-                                        </div>
-                                    </div>
                                 </div>
                                 <%}%>
+                                <% } %>
                             </div>
-                            <% } %>
                             <% if(DWY_GLOBAL.ButtonOpen==1){ %>
                             <div class="col-xs-12">
                                 <hr class="simple">
@@ -275,13 +260,6 @@
     $(document).ready(function () {
         pageSetUp();
         $(".fg-date-picker").flatpickr(data_time_picker.data_picker); // jQuery
-        //重置
-        $(".reset").click(function(){
-            $("#search-customer input,#search-customer select").val('');
-        })
-        $(".search").click(function(){
-            DWY_Utils.Clicks.clicks();
-        })
         var checkedValue = $('#checkedValue');
         var tid;
         $("input[name='roles']").change(function () {

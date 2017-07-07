@@ -73,25 +73,9 @@
                                     </label>
                                 </div>
                                 <%}%>
-                                <% if(DWY_GLOBAL.ButtonOpen==1){ %>
-                                <div class="col-xs-3">
-                                    <div class="form-group">
-                                        <label class="col-xs-3 control-label">确认时间:</label>
-                                        <div class="col-xs-4">
-                                            <input class="form-control fg-date-picker" placeholder="" type="text" value="<%= DWYRequest.query.startPayTime%>"
-                                                   name="startPayTime">
-                                        </div>
-                                        <label class="from-to control-label "> 至 </label>
-                                        <div class="col-xs-4">
-                                            <input class="form-control fg-date-picker" placeholder="" type="text" value="<%= DWYRequest.query.endPayTime%>"
-                                                   name="endPayTime">
-                                        </div>
-                                    </div>
-                                </div>
+                                <% if(DWY_GLOBAL.ButtonOpen!=1){  %>
+                                <div class="slideToggle display-none">
                                 <%}%>
-                            </div>
-                            <div class="slideToggle">
-                                <div class="col-xs-12">
                                     <div class="col-xs-3">
                                         <div class="form-group">
                                             <label class="col-xs-3 control-label">门店名:</label>
@@ -121,38 +105,36 @@
                                         </div>
                                     </div>
                                     <div class="col-xs-3">
+                                            <div class="form-group">
+                                                <label class="col-xs-3 control-label">下单日期:</label>
+                                                <div class="col-xs-4">
+                                                    <input class="form-control fg-date-picker" placeholder="" type="text" value="<%= DWYRequest.query.startDate%>"
+                                                           name="startDate">
+                                                </div>
+                                                <label class="from-to control-label "> 至 </label>
+                                                <div class="col-xs-4">
+                                                    <input class="form-control fg-date-picker" placeholder="" type="text" value="<%= DWYRequest.query.endDate%>"
+                                                           name="endDate">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    <div class="col-xs-3">
                                         <div class="form-group">
-                                            <label class="col-xs-3 control-label">下单日期:</label>
+                                            <label class="col-xs-3 control-label">确认时间:</label>
                                             <div class="col-xs-4">
-                                                <input class="form-control fg-date-picker" placeholder="" type="text" value="<%= DWYRequest.query.startDate%>"
-                                                       name="startDate">
+                                                <input class="form-control fg-date-picker" placeholder="" type="text" value="<%= DWYRequest.query.startPayTime%>"
+                                                       name="startPayTime">
                                             </div>
                                             <label class="from-to control-label "> 至 </label>
                                             <div class="col-xs-4">
-                                                <input class="form-control fg-date-picker" placeholder="" type="text" value="<%= DWYRequest.query.endDate%>"
-                                                       name="endDate">
+                                                <input class="form-control fg-date-picker" placeholder="" type="text" value="<%= DWYRequest.query.endPayTime%>"
+                                                       name="endPayTime">
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="col-xs-12">
-                                <% if(DWY_GLOBAL.ButtonOpen!=1){ %>
-                                <div class="col-xs-3">
-                                    <div class="form-group">
-                                        <label class="col-xs-3 control-label">确认时间:</label>
-                                        <div class="col-xs-4">
-                                            <input class="form-control fg-date-picker" placeholder="" type="text" value="<%= DWYRequest.query.startPayTime%>"
-                                                   name="startPayTime">
-                                        </div>
-                                        <label class="from-to control-label "> 至 </label>
-                                        <div class="col-xs-4">
-                                            <input class="form-control fg-date-picker" placeholder="" type="text" value="<%= DWYRequest.query.endPayTime%>"
-                                                   name="endPayTime">
-                                        </div>
-                                    </div>
+                                <% if(DWY_GLOBAL.ButtonOpen!=1){  %>
                                 </div>
                                 <%}%>
-                            </div>
                             </div>
                             <% if(DWY_GLOBAL.ButtonOpen==1){ %>
                             <div class="col-xs-12">
@@ -305,9 +287,6 @@
         $(".reset").click(function(){
             $("#search-form input,#search-form select").val('');
         })
-        $(".search").click(function(){
-            DWY_Utils.Clicks.clicks();
-        });
 
         $('#search-form').validationEngine();
         $(".checkThis").click(function () {

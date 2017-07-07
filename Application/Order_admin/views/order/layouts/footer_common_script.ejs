@@ -90,7 +90,16 @@
             $("#search-customer input,#search-customer select").val('');
         })
         $(".search").click(function(){
-            DWY_Utils.Clicks.clicks();
+             var _this = $(this);
+             var col = $(".slideToggle");
+             col.fadeToggle(200).toggleClass("cont display-block");
+             if(col.hasClass("cont")){
+                 _this.find("i").removeClass("fa-chevron-down").addClass("fa-chevron-up");
+                 col.removeClass("display-none");
+             }else{
+                 _this.find("i").removeClass("fa-chevron-up").addClass("fa-chevron-down");
+                 col.addClass("display-none");
+             }
         })
         <%}%>
 

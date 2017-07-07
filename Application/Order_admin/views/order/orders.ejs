@@ -67,27 +67,9 @@
                                     </label>
                                 </div>
                                 <%}%>
-                                <% if(DWY_GLOBAL.ButtonOpen==1){ %>
-                                <div class="col-xs-1"></div>
-                                <div class="col-xs-4">
-                                    <div class="form-group">
-                                        <label class="col-xs-3 control-label">建单日期:</label>
-                                        <div class="col-xs-4">
-                                            <input class="form-control fg-date-picker" placeholder="" type="text" value="<%= DWYRequest.query.startDate%>"
-                                                   name="startDate">
-                                        </div>
-                                        <label class="from-to control-label "> 至 </label>
-                                        <div class="col-xs-4">
-                                            <input class="form-control fg-date-picker" placeholder="" type="text" value="<%= DWYRequest.query.endDate%>"
-                                                   name="endDate">
-
-                                        </div>
-                                    </div>
-                                </div>
-                                <%}%>
-                            </div>
-                            <div class="slideToggle">
-                                <div class="col-xs-12">
+                            <% if(DWY_GLOBAL.ButtonOpen!=1){ %>
+                            <div class="slideToggle display-none">
+                            <%}%>
                                     <% if(user.bid == 9999){  %>
                                     <div class="col-xs-3">
                                         <div class="form-group">
@@ -138,8 +120,6 @@
                                         </div>
 
                                     </div>
-                                </div>
-                                <div class="col-xs-12">
                                     <div class="col-xs-3">
                                         <div class="form-group">
                                             <label class="col-xs-4 control-label">订单品牌:</label>
@@ -155,7 +135,6 @@
                                             </div>
                                         </div>
                                     </div>
-
                                     <div class="col-xs-4">
                                         <div class="form-group">
                                             <label class="col-xs-3 control-label">订单状态:</label>
@@ -180,7 +159,6 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <% if(DWY_GLOBAL.ButtonOpen!=1){ %>
                                     <div class="col-xs-4">
                                         <div class="form-group">
                                             <label class="col-xs-3 control-label">建单日期:</label>
@@ -196,8 +174,9 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <%}%>
-                                </div>
+                            <% if(DWY_GLOBAL.ButtonOpen!=1){ %>
+                            </div>
+                            <%}%>
                             </div>
                             <% if(DWY_GLOBAL.ButtonOpen==1){ %>
                             <div class="col-xs-12">
@@ -302,13 +281,6 @@
 
         $(".fg-date-picker").flatpickr(data_time_picker.data_picker);  // jQuery
 
-        //重置
-        $(".reset").click(function(){
-            $("#search-customer input,#search-customer select").val('');
-        })
-        $(".search").click(function(){
-            DWY_Utils.Clicks.clicks();
-        });
 
     })
 
