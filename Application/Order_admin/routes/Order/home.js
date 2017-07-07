@@ -1301,7 +1301,7 @@ var InformationController = require('./Controller/InformationController');
 router.get('/noticeInfo', Middleware.AuthCheck,Middleware.FilterEmptyField,Middleware.SetBackPath,InformationController.noticeListPage);
 
 // 公告信息--详情页面
-router.get('/noticeInfo/detail/:id', Middleware.AuthCheck,Middleware.SetBackPath,InformationController.noticeDetailPage);
+router.get('/noticeInfo/detail/:id', Middleware.AuthCheck,InformationController.noticeDetailPage);
 
 // 公告信息--修改页面
 router.get('/noticeInfo/modify/:id', Middleware.AuthCheck,InformationController.noticeModifyPage);
@@ -1324,7 +1324,7 @@ router.post('/fileInfo/share', Middleware.AuthCheck,InformationController.fileDo
 // 资料删除接口
 router.put('/fileInfo/doDelete/:fid', Middleware.AuthCheck, InformationController.fileDoDelete);
 
-// 获取发布范围的下拉列表
+
 
 
 

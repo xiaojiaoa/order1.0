@@ -19,9 +19,10 @@ var Permissions = require('../config/permission');
 
 var InformationController = {
     noticeListPage: function (req, res) {
+        // console.log("测试路径", '/api/notices/page'+queryString.stringify(req.query));
         var paramObject = helper.genPaginationQuery(req);
         Base.multiDataRequest(req, res, [
-            {url: '/api/notices/page'+queryString.stringify(req.query), method: 'GET', resConfig: {keyName: 'noticeInfoList', is_must: true}},
+            {url: '/api/notices/page?'+queryString.stringify(req.query), method: 'GET', resConfig: {keyName: 'noticeInfoList', is_must: true}},
             {url: '/api/assist/notice/types', method: 'GET', resConfig: {keyName: 'noticeType', is_must: true}},
             {url: '/api/assist/store/types', method: 'GET', resConfig: {keyName: 'storeType', is_must: true}},
             {url: '/api/assist/store/addrTypes', method: 'GET', resConfig: {keyName: 'storeAttrType', is_must: true}},
@@ -62,6 +63,10 @@ var InformationController = {
         var id =req.params.id;
         Base.multiDataRequest(req, res, [
             {url: '/api/notices/'+id, method: 'GET', resConfig: {keyName: 'noticeInfo', is_must: true}},
+            {url: '/api/assist/notice/types', method: 'GET', resConfig: {keyName: 'noticeType', is_must: true}},
+            {url: '/api/assist/store/types', method: 'GET', resConfig: {keyName: 'storeType', is_must: true}},
+            {url: '/api/assist/store/addrTypes', method: 'GET', resConfig: {keyName: 'storeAttrType', is_must: true}},
+            {url: '/api/notices/scopes', method: 'GET', resConfig: {keyName: 'scopesList', is_must: true}},
         ], function (req, res, resultList) {
             var returnData = Base.mergeData(helper.mergeObject({
                 title: ' ',
@@ -72,8 +77,13 @@ var InformationController = {
     },
     noticeDoCreate: function (req, res) {
         req.body.noticeScopes=JSON.parse(req.body.noticeScopes);
-        req.body.dataShares=JSON.parse(req.body.dataShares);
-         console.log('创建公告信息'+ JSON.stringify(req.body));
+        if( req.body.dataShares =="") {
+          delete  req.body.dataShares
+        }
+        else{
+            req.body.dataShares = JSON.parse(req.body.dataShares);
+        }
+          // console.log('创建公告信息'+ JSON.stringify(req.body));
         request(Base.mergeRequestOptions({
             method: 'post',
             url: '/api/notices',
@@ -89,7 +99,14 @@ var InformationController = {
         })
     },
     noticeDoModify: function (req, res) {
+        var id=req.body.id;
         req.body.noticeScopes=JSON.parse(req.body.noticeScopes);
+        if( req.body.dataShares =="") {
+            delete  req.body.dataShares
+        }
+        else{
+            req.body.dataShares = JSON.parse(req.body.dataShares);
+        }
         // console.log('公告信息修改'+ JSON.stringify(req.body));
         request(Base.mergeRequestOptions({
             method: 'post',
@@ -99,7 +116,7 @@ var InformationController = {
         }, req, res), function (error, response, body) {
             if (!error && response.statusCode == 201) {
                 Base.handlerSuccess(res,req);
-                res.redirect(req.session.backPath?req.session.backPath:"/noticeInfo");
+                res.redirect("/noticeInfo/detail/"+id);
             } else {
                 Base.handlerError(res, req, error, response, body);
             }
@@ -107,7 +124,7 @@ var InformationController = {
     },
     noticeDoDelete: function (req, res) {
         var id = req.params.nid;
-        //console.log(req.params);
+        // console.log(req.params);
         request(Base.mergeRequestOptions({
             method: 'put',
             url: '/api/notices/'+id,
@@ -124,7 +141,7 @@ var InformationController = {
     fileInfoPage: function (req, res) {
 
         var paramObject = helper.genPaginationQuery(req);
-        //console.log( '文件列表','/api/share/page?'+queryString.stringify(req.query));
+        // console.log( '文件列表','/api/share/page?'+queryString.stringify(req.query));
         Base.multiDataRequest(req, res, [
             {url: '/api/share/page?'+queryString.stringify(req.query), method: 'GET', resConfig: {keyName: 'fileInfoList', is_must: true}},
             {url: '/api/assist/store/types', method: 'GET', resConfig: {keyName: 'storeType', is_must: true}},
@@ -169,7 +186,7 @@ var InformationController = {
     },
     fileDoDelete: function (req, res) {
         var id = req.params.fid;
-        //console.log(req.params);
+        // console.log(req.params);
         request(Base.mergeRequestOptions({
             method: 'put',
             url: '/api/share/'+id,
