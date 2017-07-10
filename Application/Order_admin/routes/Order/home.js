@@ -1303,6 +1303,9 @@ router.get('/noticeInfo', Middleware.AuthCheck,Middleware.FilterEmptyField,Middl
 // 公告信息--详情页面
 router.get('/noticeInfo/detail/:id', Middleware.AuthCheck,InformationController.noticeDetailPage);
 
+// 公告信息--新建公告页面
+router.get('/noticeInfo/create', Middleware.AuthCheck,InformationController.noticeCreatePage);
+
 // 公告信息--修改页面
 router.get('/noticeInfo/modify/:id', Middleware.AuthCheck,InformationController.noticeModifyPage);
 

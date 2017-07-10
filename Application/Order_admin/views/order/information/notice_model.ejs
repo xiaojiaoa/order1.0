@@ -9,7 +9,69 @@
         $("input[name=noticeScopes]").val(JSON.stringify(myArray));
     }
 
-    // 提交新建公告信息
+
+    // 公告--上传文件
+    if($("input[name=subType]").length>0){
+        var dataShares=JSON.parse($("input[name=dataShares]").val());
+        var num=dataShares.length;
+    }
+    else{
+        var dataShares=[];
+        var num=0;
+    }
+
+    var addFileSet=$("#addFileSet");
+    $("#dwy_file_upload").on(
+        {
+            change: function (e) {
+                var _this = $(this);
+                var congig = {
+                    'file_name': _this.prop('files')[0],
+                }
+                uploadFuc.uploadSingleFile('/template/upload/single/share', congig, function (data) {
+
+                    var aaa = {};
+                    aaa.name = data.data.name;
+                    aaa.path = data.data.url;
+                    dataShares.push(aaa);
+                    console.log("测试", JSON.stringify(dataShares))
+
+                    if (num>0) {
+                    var html = '<div class="margin-bottom-10" id="fileSet' + num + '">' +
+                        '<div class="col-xs-10">' +
+                        '<input class="form-control margin-bottom-10" readonly value="" name="fileName' + num + '">' +
+                        '</div>' +
+                        '<a class="deleteInco" data-code="' + num + '"><i class="fa fa-trash-o"></i></a><div class="dwy-clear"></div>' +
+                        '</div>';
+                    addFileSet.append(html);
+                }
+
+                    $("input[name=dataShares]").val(JSON.stringify(dataShares));
+
+                    $(`input[name=fileName${num}]`).val(data.data.name);
+
+                    num++;
+                });
+            },
+        }
+    );
+    $("#addFileSet").on("click",".deleteInco",function(){
+        var index = $(this).attr('data-code');
+        if($(`input[name=fileName${index}]`).val()){
+            dataShares[index] = '';
+            $('#fileSet'+index).remove();
+            $("input[name=dataShares]").val(JSON.stringify(dataShares));
+            console.log("测试哦ho",JSON.stringify(dataShares))
+        }
+        else{
+            layer.alert("不能删除没有值的组件",{
+                icon:1,
+            });
+        }
+
+    });
+
+    // 提交公告信息
     $(".subBtn").on({
         click:function(e){
             var  subType= $("input[name=subType]").val();
@@ -31,60 +93,4 @@
             }
         }
     });
-    // 公告--上传文件
-    if($("input[name=subType]").length>0){
-        var dataShares=JSON.parse($("input[name=dataShares]").val());
-        var num=dataShares.length;
-    }
-    else{
-        var dataShares=[];
-        var num=0;
-    }
-
-    var addFileSet=$("#addFileSet");
-    $("#dwy_file_upload").on(
-        {
-            change: function (e) {
-                var _this = $(this);
-                var congig = {
-                    'file_name': _this.prop('files')[0],
-                }
-                uploadFuc.uploadSingleFile('/template/upload/single/share', congig, function (data) {
-
-                    var aaa={};
-                    aaa.name=data.data.name;
-                    aaa.path=data.data.url;
-                    dataShares.push(aaa);
-//                    console.log("测试",JSON.stringify(dataShares))
-                    if(num>0){
-                        var html = '<div class="margin-bottom-10" id="fileSet'+num+'">'+
-                            '<div class="col-xs-10">'+
-                            '<input class="form-control margin-bottom-10" readonly value="" name="fileName'+num+'">'+
-                            '</div>'+
-                            '<a class="deleteInco" data-code="'+num+'"><i class="fa fa-trash-o"></i></a><div class="dwy-clear"></div>'+
-                            '</div>';
-                        addFileSet.append(html);
-                    }
-                    $("input[name=dataShares]").val(JSON.stringify(dataShares));
-
-                    $(`input[name=fileName${num}]`).val(data.data.name);
-
-                    $("#label-upload-file").html('上传你大爷 <i class="fa fa-check">');
-                    num++;
-                });
-            },
-        }
-    );
-    $("#addFileSet").on("click",".deleteInco",function(){
-        var index = $(this).attr('data-code');
-        dataShares[index] = '';
-        $('#fileSet'+index).remove();
-         dataShares = dataShares.filter(function (item, index) {
-            return item != '';
-        })
-        $("input[name=dataShares]").val(JSON.stringify(dataShares));
-//        console.log("测试哦ho",JSON.stringify(dataShares))
-    });
-
-
 </script>

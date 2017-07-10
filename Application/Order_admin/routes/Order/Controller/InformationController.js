@@ -59,6 +59,18 @@ var InformationController = {
             res.render('order/information/notice_detail', returnData);
         });
     },
+    noticeCreatePage: function (req, res) {
+        Base.multiDataRequest(req, res, [
+            {url: '/api/assist/notice/types', method: 'GET', resConfig: {keyName: 'noticeType', is_must: true}},
+            {url: '/api/assist/store/types', method: 'GET', resConfig: {keyName: 'storeType', is_must: true}},
+            {url: '/api/assist/store/addrTypes', method: 'GET', resConfig: {keyName: 'storeAttrType', is_must: true}},
+        ], function (req, res, resultList) {
+            var returnData = Base.mergeData(helper.mergeObject({
+                title: ' ',
+            },resultList));
+            res.render('order/information/notice_create',returnData);
+        });
+    },
     noticeModifyPage: function (req, res) {
         var id =req.params.id;
         Base.multiDataRequest(req, res, [
@@ -78,12 +90,17 @@ var InformationController = {
     noticeDoCreate: function (req, res) {
         req.body.noticeScopes=JSON.parse(req.body.noticeScopes);
         if( req.body.dataShares =="") {
-          delete  req.body.dataShares
+            delete  req.body.dataShares
         }
         else{
-            req.body.dataShares = JSON.parse(req.body.dataShares);
+            req.body.dataShares = (JSON.parse(req.body.dataShares)).filter(function(item,index){
+                return item !="";
+            });
+            if((req.body.dataShares).length==0){
+                delete  req.body.dataShares;
+            }
         }
-          // console.log('创建公告信息'+ JSON.stringify(req.body));
+           console.log('创建公告信息'+ JSON.stringify(req.body));
         request(Base.mergeRequestOptions({
             method: 'post',
             url: '/api/notices',
@@ -101,13 +118,20 @@ var InformationController = {
     noticeDoModify: function (req, res) {
         var id=req.body.id;
         req.body.noticeScopes=JSON.parse(req.body.noticeScopes);
+
         if( req.body.dataShares =="") {
             delete  req.body.dataShares
         }
         else{
-            req.body.dataShares = JSON.parse(req.body.dataShares);
+            req.body.dataShares = (JSON.parse(req.body.dataShares)).filter(function(item,index){
+                return item !="";
+            });
+            if((req.body.dataShares).length==0){
+                delete  req.body.dataShares;
+            }
         }
-        // console.log('公告信息修改'+ JSON.stringify(req.body));
+
+         console.log('公告信息修改'+ JSON.stringify(req.body));
         request(Base.mergeRequestOptions({
             method: 'post',
             url: '/api/notices/update',
