@@ -73,8 +73,8 @@
                             <a class="label label-primary open-all display-none">启用所有</a>
                             <a class="label label-primary revoke status02">撤销</a>
                             <a class="label label-primary save status02">保存</a>
-                            <input type="hidden" name="listNum" value="" class="listNum"  type='text'/>
-                            <input type="hidden" name="key" value="" class="key"  type='text'/>
+                            <input type="hidden" name="listNum" value="" class="listNum" />
+                            <input type="hidden" name="key" value="" class="key"/>
                         </div>
                         <div class="basicDataTit text-align-center basicDataTit01 fixed-header">
                             类别1
@@ -90,7 +90,7 @@
                 </div>
 
                 <div class="col-xs-4 table-responsive level-2  display-none">
-                    <div data-level="level-2" class="text-align-center basicDataTit01 fixed-header">
+                    <div data-level="level-2" class="text-align-center basicDataTit01 fixed-header addField">
                         <a class="label label-primary create status01">新建</a>
                         <a class="label label-primary modify status01">修改</a>
                         <a class="label label-primary open-this status03">启用</a>
@@ -98,9 +98,9 @@
                         <a class="label label-primary see-all status01">查看所有</a>
                         <a class="label label-primary revoke status02">撤销</a>
                         <a class="label label-primary save status02">保存</a>
-                        <input type="hidden" name="listNum" value="" class="listNum"  type='text'/>
-                        <input type="hidden" name="key" value="" class="key"  type='text'/>
-                        <input type="hidden" name="parentId" value="" class="parentId"  type='text'/>
+                        <input type="hidden" name="listNum" value="" class="listNum"/>
+                        <input type="hidden" name="key" value="" class="key"/>
+                        <input type="hidden" name="parentId" value="" class="parentId" />
                     </div>
                     <div class="basicDataTit text-align-center basicDataTit01 fixed-header">
                         类别2
@@ -122,10 +122,10 @@
                         <a class="label label-primary see-all status01">查看所有</a>
                         <a class="label label-primary revoke status02">撤销</a>
                         <a class="label label-primary save status02">保存</a>
-                        <input type="hidden" name="listNum" value="" class="listNum"  type='text'/>
-                        <input type="hidden" name="key" value="" class="key"  type='text'/>
-                        <input type="hidden" name="parentId" value="" class="parentId"   type='text'/>
-                        <input type="hidden" name="spaceId" value="" class="spaceId"   type='text'/>
+                        <input type="hidden" name="listNum" value="" class="listNum"/>
+                        <input type="hidden" name="key" value="" class="key" />
+                        <input type="hidden" name="parentId" value="" class="parentId"  />
+                        <input type="hidden" name="spaceId" value="" class="spaceId"  />
                     </div>
                     <div class="basicDataTit text-align-center basicDataTit01 fixed-header">
                         类别3
@@ -476,7 +476,18 @@
                     ajaxAssistantMaterialUnitOne(parentId);
                 }
                 if(key=='assistantPackageType'){
+                    var typeValue=$(this).attr("type");
+                    if($(".level-2").find("input[name=type]").length==0){
+                        $(".level-2 .addField").append("<input type='hidden' name='type' value=''/>");
+                    }
+                    $("input[name=type]").val(typeValue);
+
                     assistantPackageTypeOne(parentId);
+                }
+                else{
+                    if($(".level-2").find("input[name=type]").length>0){
+                        $(".level-2 .addField").find("input[name=type]").remove();
+                    }
                 }
             }
             if($(this).attr("stcode")==0){
