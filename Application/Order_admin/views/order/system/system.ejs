@@ -193,7 +193,7 @@
                                 type="<%= element.type%>"
                                 class="<%= (element.stcode==0)?"disable display-none":''%> <%= (element.id==DWYRequest.query.classone)?"active":''%>"
                                     <%　if(element.stcode==1){%>
-                                onclick="location.href='/systems?key=<%= key%>&classone=<%= element.id %>';"
+                                onclick="location.href='/systems?key=<%= key%>&classone=<%= element.id %>&type=<%= element.type%>';"
                                 <%}%>
                             >
                                 <td ><input class="border-0 text-align-center" type="text" value="<%= element.name %>" name="name" readonly/><span><%= element.id%></span></td>
@@ -234,6 +234,9 @@
                         <input type="hidden" name="listNum" value="" class="listNum"  type='text'/>
                         <input type="hidden" name="key" value="<%= key%>" class="key"  type='text'/>
                         <input type="hidden" name="parentId" value="<%= DWYRequest.query.classone%>" class="parentId"  type='text'/>
+                        <% if(key=='assistantPackageType' &&    DWYRequest.query.type){%>
+                        <input type="hidden" name="type" value="<%= DWYRequest.query.type%>"/>
+                        <%}%>
                     </div>
                     <div class="basicDataTit text-align-center basicDataTit01 fixed-header">
                         类别2

@@ -100,7 +100,7 @@ var SystemController = {
         }
 
         Base.multiDataRequest(req, res, multiDataRequest, function (req, res, resultList) {
-             console.log(66666,resultList);
+             //  console.log(66666,resultList);
                 var returnData = Base.mergeData(helper.mergeObject({
                     title: ' ',
                     Permission: Permissions,
