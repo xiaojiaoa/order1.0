@@ -283,7 +283,7 @@ var SystemController = {
     assistantPackageTypePage: function (req, res) {
         var parentId = req.params.parentId;
         //引入模板文件的路径
-        var path = req.app.get('views')+'/order/system/basicDataOne.ejs';
+        var path = req.app.get('views')+'/order/system/basicDataFour.ejs';
         var template = require(path);
         request(Base.mergeRequestOptions({
             method: 'GET',
@@ -293,8 +293,8 @@ var SystemController = {
                 // 编译模板
                 var data = JSON.parse(body);
                 // console.log('data是啥',data)
-                var basicDataOne = template({result:data});
-                res.send(basicDataOne);
+                var basicDataFour = template({result:data});
+                res.send(basicDataFour);
             } else {
                 Base.handlerError(res, req, error, response, body);
             }
