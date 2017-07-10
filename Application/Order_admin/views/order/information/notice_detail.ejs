@@ -70,7 +70,7 @@
                             <% if(DWY_Helper.isCanLoop(noticeInfo.dataShares)){
                             noticeInfo.dataShares.forEach(function (element,index) {%>
                             <tr>
-                                <td>发表文件<%= index+1%>：</td>
+                                <td>附件<%= index+1%>：</td>
                                 <td colspan="5"> <a href="<%= DWY_GLOBAL.Static %>/download?originalFileName=<%= element.name%>&url=<%= element.path %>"><%= element.name%></a></td>
                             </tr>
                             <%  }) %>

@@ -87,7 +87,7 @@
                                     noticeInfo.result.forEach(function(element,index){%>
                                     <tr>
                                         <td >
-                                            <a href="/noticeInfo#<%= element.id%>" ><%= element.title %></a>
+                                            <a href="/noticeInfo/detail/<%= element.id%>" ><%= element.title %></a>
                                         </td>
 
                                         <td ><%= DWY_Helper.getLocalDateYMD(element.addTime) %></td>

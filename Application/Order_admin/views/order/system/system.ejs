@@ -301,6 +301,7 @@
                         <tr id="<%= element.id%>"
                             stcode="<%= element.stcode%>"
                             parentId="<%= element.parentId%>"
+                            type="<%= element.type%>"
                             class="<%= (element.stcode==0)?"disable display-none":''%>">
                             <td ><input class="border-0 text-align-center" type="text" value="<%= element.name%>" name="name" readonly/></td>
                         </tr>
@@ -478,7 +479,7 @@
         </div>
     </div>
     <input type="hidden" name="id" value="" id="assistantPackageTypeId"/>
-    <input type="hidden" name="parentId" value=0 />
+    <input type="hidden" name="parentId" value=0 id="assistantPackageTypeParent" />
     <input type="hidden" name="key" value="assistantPackageType"/>
     <div class="row">
         <div class="col-xs-12">

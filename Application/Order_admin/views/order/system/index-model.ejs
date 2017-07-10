@@ -49,9 +49,13 @@
 
                    });
                }
-               else if(key=='assistantPackageType' &&  classDom.find('input[name=parentId]').length==0){
+               else if(key=='assistantPackageType'){
                    status02(classDom);
                    $(".desktop-detected *").css("pointer-events","auto");
+                   //区别类别1和类别2
+                   if(classDom.find("input[name=parentId]").length!=0){
+                       $("#create-assistantPackageType-form #assistantPackageTypeParent").val(classDom.find("input[name=parentId]").val());
+                   }
                     createAssistantPackageTypeLayer=layer.open({
                         title:false,
                         type:1,
@@ -98,7 +102,7 @@
 
                     });
                 }
-                else if(key=='assistantPackageType' &&  classDom.find('input[name=parentId]').length==0){
+                else if(key=='assistantPackageType'){
                     status02(classDom);
                     $(".desktop-detected *").css("pointer-events","auto");
 
@@ -106,6 +110,11 @@
                     $("#assistantPackageTypeType").val(classDom.find("tr").eq(listNum).attr("type"));
                     $("#assistantPackageTypeName").val(classDom.find("tr").eq(listNum).find("input[name=name]").val());
                     $("#assistantPackageTypeId").val(classDom.find("tr").eq(listNum).attr("id"));
+                    //区别类别1和类别2
+                    if(classDom.find("input[name=parentId]").length!=0){
+                        $("#modify-assistantPackageType-form #assistantPackageTypeParent").val(classDom.find("input[name=parentId]").val());
+                    }
+
                     modifyAssistantPackageTypeLayer= layer.open({
                         title: false,
                         type: 1,
@@ -305,6 +314,7 @@
                     data:data,
                     success: function (data) {
                         //刷新页面
+
                         var key='subPackageDao';
                         var level="level-1";
                         ajaxRefresh(key,level);
@@ -349,6 +359,7 @@
                 //序列化表单中的每一个值，并且存储在对象中
                 var data = serialLizeForm($('#create-assistantPackageType-form'));
                 //console.log("包装类型新建"+JSON.stringify(data));
+                var parentId=data.parentId;
                 //将数据提交到nodejs端
                 $.ajax({
                     url: '/system/doCreate',
@@ -359,6 +370,9 @@
                         var key='assistantPackageType';
                         var level="level-1";
                         ajaxRefresh(key,level);
+                        if(data.parentId !=0){
+                            assistantPackageTypeOne(parentId);
+                        }
                         layer.close(createAssistantPackageTypeLayer);
                     },
                     error: function (response) {
@@ -374,8 +388,9 @@
             if ($("#modify-assistantPackageType-form").validationEngine('validate')) {
                 //序列化表单中的每一个值，并且存储在对象中
                 var data = serialLizeForm($('#modify-assistantPackageType-form'));
-               // console.log("包装类型修改"+JSON.stringify(data));
+               console.log("包装类型修改"+JSON.stringify(data));
                 //将数据提交到nodejs端
+                var parentId=data.parentId;
                 $.ajax({
                     url: '/system/doModify',
                     method: 'post',
@@ -385,6 +400,9 @@
                         var key='assistantPackageType';
                         var level="level-1";
                         ajaxRefresh(key,level);
+                        if(data.parentId !=0){
+                            assistantPackageTypeOne(parentId);
+                        }
                         layer.close(modifyAssistantPackageTypeLayer);
                     },
                     error: function (response) {

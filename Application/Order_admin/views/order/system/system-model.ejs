@@ -43,9 +43,13 @@
 
                    });
                }
-               else if(key=='assistantPackageType' &&  classDom.find('input[name=parentId]').length==0){
+               else if(key=='assistantPackageType' ){
                    status02(classDom);
                    $(".desktop-detected *").css("pointer-events","auto");
+                   //区别类别1和类别2
+                   if(classDom.find("input[name=parentId]").length!=0){
+                       $("#assistantPackageTypeParent").val(classDom.find("input[name=parentId]").val());
+                   }
                    layer.open({
                         title:false,
                         type:1,
@@ -90,13 +94,16 @@
 
                     });
                 }
-                else if(key=='assistantPackageType' &&  classDom.find('input[name=parentId]').length==0){
+                else if(key=='assistantPackageType'){
                     status02(classDom);
                     $(".desktop-detected *").css("pointer-events","auto");
                     //给表单赋值
                     $("#assistantPackageTypeType").val(classDom.find("tr").eq(listNum).attr("type"));
                     $("#assistantPackageTypeName").val(classDom.find("tr").eq(listNum).find("input[name=name]").val());
                     $("#assistantPackageTypeId").val(classDom.find("tr").eq(listNum).attr("id"));
+                    if(classDom.find("input[name=parentId]").length!=0){
+                        $("#assistantPackageTypeParent").val(classDom.find("input[name=parentId]").val());
+                    }
                    layer.open({
                         title: false,
                         type: 1,

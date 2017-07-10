@@ -48,6 +48,15 @@
                                 </div>
                                 <div class="col-xs-3">
                                     <div class="form-group">
+                                        <label class="col-xs-3 control-label">批次号:</label>
+                                        <div class="col-xs-8">
+                                            <input class="form-control" value="<%= DWYRequest.query.batchNumber %>" type="text"
+                                                   name="batchNumber">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xs-3">
+                                    <div class="form-group">
                                         <label class="col-xs-3 control-label">工厂:</label>
                                         <div class="col-xs-8">
                                             <% var initFtyId = DWY_Helper.getAssistInitFtyId(userFtyId,factoryList);
@@ -193,6 +202,7 @@
                             <thead>
                             <tr>
                                 <th>序号</th>
+                                <th>批次号</th>
                                 <th>入库单号</th>
                                 <th>工厂</th>
                                 <th>仓库</th>
@@ -209,6 +219,7 @@
                             <% prodList.result.forEach(function (element, index) {%>
                             <tr>
                                 <td><%= index+1 %></td>
+                                <td><%=element.batchNumber%></td>
                                 <td><a href="/enterProduct/detail/<%=element.inId %>"><%=element.inId %></a></td>
                                 <td><%=element.ftyName%></td>
                                 <td><%=element.whseName%></td>
