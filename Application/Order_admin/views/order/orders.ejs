@@ -90,13 +90,14 @@
                                         <div class="form-group">
                                             <label class="col-xs-4 control-label">门店:</label>
                                             <div class="col-xs-8">
-                                                <select class="form-control" name="bid">
+                                                <select class="form-control display-none" name="bid">
                                                     <option value="">- 请选择 -</option>
                                                     <%
                                                     storesList.forEach(function (element) { %>
                                                     <option value="<%= element.id %>" <%= (DWYRequest.query.bid == element.id)?"selected":"" %>><%= element.storeName %></option>
                                                     <%  }) %>
                                                 </select>
+                                                <input class="form-control" placeholder="请输入门店" type="text" value="<%= DWYRequest.query.storeName %>" name="storeName">
                                             </div>
                                         </div>
                                     </div>
