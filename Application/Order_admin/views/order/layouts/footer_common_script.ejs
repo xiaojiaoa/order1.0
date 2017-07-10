@@ -92,7 +92,7 @@
         $(".search").click(function(){
              var _this = $(this);
              var col = $(".slideToggle");
-             col.fadeToggle(200).toggleClass("cont display-block");
+             col.fadeToggle(200).toggleClass("cont");
              if(col.hasClass("cont")){
                  _this.find("i").removeClass("fa-chevron-down").addClass("fa-chevron-up");
                  col.removeClass("display-none");
@@ -101,6 +101,9 @@
                  col.addClass("display-none");
              }
         })
+        if($(".slideToggle").length<=0){
+            $(".search").hide();
+        }
         <%}%>
 
 //      $('.mainFlex').css('height',window.innerHeight-80);
