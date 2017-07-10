@@ -1325,3 +1325,9 @@ ul.dropdown li{
     line-height: 2.5;
     color: #3276b1;
 }
+
+.nesting-num{
+    cursor: help;
+    padding: 0 5px;
+
+}

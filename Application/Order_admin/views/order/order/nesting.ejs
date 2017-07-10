@@ -309,6 +309,7 @@
                                 <th>下单日期</th>
                                 <th>零售价</th>
                                 <th>交货日期</th>
+                                <th>最近下单日期</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -350,10 +351,12 @@
                                 <td><%= element.storeName %></td>
                                 <td>
                                     <a href="/customer/detail/<%= element.cid %>"><%= element.cName %></a>
+                                    <span class="nesting-num" title="尚未到达待排料订单数量"><%= element.orderScheduleNumber %></span>
                                 </td>
                                 <td><%= DWY_Helper.getLocalDate(element.orderTime) %></td>
                                 <td><%= element.retailPrice %></td>
                                 <td><%= DWY_Helper.getLocalDate(element.deliveryTime) %></td>
+                                <td><%= element.recentlyAddTimeStr %></td>
                             </tr>
                             <%  })
                             }else{ %>
