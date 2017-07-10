@@ -339,6 +339,30 @@ var PurchaseController = {
         })
     },
 
+    //打印采购单
+    printPurchase: function (req, res) {
+        // var batchNumber = req.params.batchNumber;
+        // var factoryId = req.params.factoryId;
+        // var type = req.query.type;
+        // request(Base.mergeRequestOptions({
+        //     method: 'get',
+        //     url: '/api/orders/package/print/packagelist/' + batchNumber + '/' + factoryId,
+        // }, req, res), function (error, response, body) {
+        //     if (!error && response.statusCode == 200) {
+        //         var returnData = Base.mergeData(helper.mergeObject({
+        //             batchNumber: batchNumber,
+        //             factoryId: factoryId,
+        //             type: 'arry',
+        //             showTYpe: type
+        //         }, {printINfo: JSON.parse(body)}));
+        //         res.render('order/system/print', returnData);
+        //     } else {
+        //         Base.handlerError(res, req, error, response, body);
+        //     }
+        // })
+        res.render('order/purchase/print');
+    },
+
     //新建采购单页面
     purchaseCreatePage: function (req, res) {
         var paramObject = helper.genPaginationQuery(req);
