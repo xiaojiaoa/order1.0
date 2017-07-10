@@ -49,6 +49,7 @@
                    //区别类别1和类别2
                    if(classDom.find("input[name=parentId]").length!=0){
                        $("#assistantPackageTypeParent").val(classDom.find("input[name=parentId]").val());
+                       $("#assistantPackageType-form .modifyBtn").data("class","level-2");
                    }
                    layer.open({
                         title:false,
@@ -103,6 +104,7 @@
                     $("#assistantPackageTypeId").val(classDom.find("tr").eq(listNum).attr("id"));
                     if(classDom.find("input[name=parentId]").length!=0){
                         $("#assistantPackageTypeParent").val(classDom.find("input[name=parentId]").val());
+                        $("#assistantPackageType-form .modifyBtn").data("class","level-2");
                     }
                    layer.open({
                         title: false,
@@ -265,7 +267,8 @@
         // 物料包装类型提交
         $("#assistantPackageType-form .modifyBtn").on({
             click:function () {
-                if($(".save ").attr("change")==1){
+                var classDom=$(this).data("class");
+                if($("."+classDom).find(".save").attr("change")==1){
                     $("#assistantPackageType-form").attr("action","/system/doCreate").submit();
                 }
                 else{
