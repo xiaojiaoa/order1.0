@@ -58,6 +58,11 @@
                                         <i class="fa fa-search"></i>
                                         查询
                                     </button>
+                                    <% if (DWY_Helper.hasPermission(Permission.request.queryAll.id, permission)|| DWY_Helper.hasPermission(Permission.request.queryOrganization.id, permission)){ %>
+                                    <a class="btn btn-primary" href="/purchase?stcode=30">
+                                        已审核请购列表
+                                    </a>
+                                    <% } %>
                                     <label class="btn btn-default reset margin-left-20">
                                         重置
                                     </label>
