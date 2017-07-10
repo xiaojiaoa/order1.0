@@ -322,12 +322,11 @@ var EnterController = {
     enterNotinPage: function (req, res){
         var type = req.query.type;
         if(!type){type='';}
-
         var paramObject = helper.genPaginationQuery(req);
         Base.multiDataRequest(req, res, [
                 {url: '/api/whse/cargoin/prod/notin/page?'+queryString.stringify(req.query), method: 'GET', resConfig: {keyName: 'cargoinList', is_must: false}},
                 {url: '/api/whse/factory/list', method: 'GET', resConfig: {keyName: 'factoryList', is_must: true}},
-                {url: '/api/whse/cargoin/prod/packagetype', method: 'GET', resConfig: {keyName: 'packageType', is_must: true}},
+                {url: '/api/whse/cargoin/prod/packagetype?'+queryString.stringify(req.query), method: 'GET', resConfig: {keyName: 'packageType', is_must: true}},
             ],
             function (req, res, resultList) {
                 // typeId 不存在，从菜单栏点击进入页面时
