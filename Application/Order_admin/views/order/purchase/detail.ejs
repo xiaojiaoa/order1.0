@@ -35,20 +35,15 @@
                                     <div class="form-group">
                                         <label class="col-xs-3 control-label">采购单号:</label>
                                         <div class="col-xs-8">
-                                            <input class="form-control" placeholder="请输入订单号" type="text" value="<%= DWYRequest.query.purcNo %>" name="purcNo">
+                                            <input class="form-control" placeholder="请输入采购单号" type="text" value="<%= DWYRequest.query.purcNo %>" name="purcNo">
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-xs-3">
                                     <div class="form-group">
-                                        <label class="col-xs-3 control-label">采购状态:</label>
+                                        <label class="col-xs-3 control-label">请购单号:</label>
                                         <div class="col-xs-8">
-                                            <select class="form-control" name="stcode">
-                                                <option value="">- 请选择 -</option>
-                                                <option value="10" <%= (DWYRequest.query.stcode == 10 )?"selected":"" %> >未提交</option>
-                                                <option value="30" <%= (DWYRequest.query.stcode == 30 )?"selected":"" %> >已审核</option>
-                                                <option value="50" <%= (DWYRequest.query.stcode == 50 )?"selected":"" %> >已提交</option>
-                                            </select>
+                                            <input class="form-control" placeholder="请输入请购单号" type="text" value="<%= DWYRequest.query.reqId %>" name="reqId">
                                         </div>
                                     </div>
                                 </div>
@@ -75,6 +70,19 @@
                                 <% if(DWY_GLOBAL.ButtonOpen!=1){ %>
                                 <div class="slideToggle display-none">
                                 <%}%>
+                                <div class="col-xs-3">
+                                    <div class="form-group">
+                                        <label class="col-xs-3 control-label">采购状态:</label>
+                                        <div class="col-xs-8">
+                                            <select class="form-control" name="stcode">
+                                                <option value="">- 请选择 -</option>
+                                                <option value="10" <%= (DWYRequest.query.stcode == 10 )?"selected":"" %> >未提交</option>
+                                                <option value="30" <%= (DWYRequest.query.stcode == 30 )?"selected":"" %> >已审核</option>
+                                                <option value="50" <%= (DWYRequest.query.stcode == 50 )?"selected":"" %> >已提交</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
                                 <% if (DWY_Helper.hasPermission(Permission.purchase.queryAll.id, permission) ){ %>
                                     <div class="col-xs-3">
                                         <div class="form-group">
