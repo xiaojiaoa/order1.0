@@ -17,16 +17,16 @@
         border-radius: 2px
     }
     .tooltip.top .tooltip-arrow{bottom:0;left:50%;margin-left:-5px;border-width:5px 5px 0;border-top-color:#ee0101}
-    .table thead .tip{
-        background: #fbfbfb;
+   .tip{
+        width:100%;
     }
-    .table thead .tip td{
-        border:none;
+    .tip p{
         padding-right:32%;
         color:#f00;
+        font-size:12px;
     }
     @media screen and (max-width: 1600px){
-        .table thead .tip td{
+        .tip p{
             padding-right:23%;
         }
     }
@@ -64,12 +64,12 @@
 
                     <div class="col-xs-12">
                         <div class="table-responsive">
+                            <div class="tip">
+                                <p class="text-right">(点击此列单选框即可获取货位)</p>
+                            </div>
                             <table class="table table-bordered table-striped table-hover table-editinput"
                                    id="contentArea">
                                 <thead>
-                                <tr class="tip">
-                                    <td colspan="13" class="text-right" style="border-left:0;border-top:0">(点击此列单选框即可获取货位)</td>
-                                </tr>
                                 <tr>
                                     <th width="50">序号</th>
                                     <th width="80">请购单号</th>
