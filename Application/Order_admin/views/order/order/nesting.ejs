@@ -351,7 +351,7 @@
                                 <td><%= element.storeName %></td>
                                 <td>
                                     <a href="/customer/detail/<%= element.cid %>"><%= element.cName %></a>
-                                    <span class="nesting-num" title="尚未到达待排料订单数量"><%= element.orderScheduleNumber %></span>
+                                    <span class="nesting-num" title="尚未到达待排料订单数量">(<%= element.orderScheduleNumber %>)</span>
                                 </td>
                                 <td><%= DWY_Helper.getLocalDate(element.orderTime) %></td>
                                 <td><%= element.retailPrice %></td>
