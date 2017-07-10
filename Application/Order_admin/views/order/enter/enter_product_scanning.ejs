@@ -47,6 +47,15 @@
                                     <input name="type" type="hidden" value="<%= DWYRequest.query.type %>">
                                 </div>
                                 <div class="col-xs-3">
+                                    <div class="form-group">
+                                        <label class="col-xs-4 control-label">批次号:</label>
+                                        <div class="col-xs-8">
+                                            <input class="form-control" value="<%= DWYRequest.query.batchNumber %>" type="text"
+                                                   name="batchNumber">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xs-3">
                                     <button class="btn btn-primary " type="submit">
                                         <i class="fa fa-search"></i>
                                         查询
@@ -101,6 +110,7 @@
                                 <th>包装名</th>
                                 <th>包装类型</th>
                                 <th>包装产品</th>
+                                <th>批次号</th>
                                 <th>订单号</th>
                                 <th>包装状态</th>
                                 <!--<th>操作</th>-->
@@ -122,6 +132,7 @@
                                 <td><%= element.packageName %></td>
                                 <td><%= element.packageTypeName %></td>
                                 <td><%= element.packageProduct %></td>
+                                <td><%= element.batchNumber %></td>
                                 <td class="tid-td"><%= element.tid %></td>
                                 <td><%= DWY_Helper.getPackageType(element.stcode) %></td>
                             </tr>
