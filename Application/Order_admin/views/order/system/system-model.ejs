@@ -174,7 +174,7 @@
                     data.levelType=3
                 }
             }
-            if(key=="assistantMaterialUnit" || key=='assistantPackageType'){
+            if(key=="assistantMaterialUnit" || key=='assistantPackageType' ||  key=='regionType'){
                 if(level=="level-1"){
                     data.parentId=0
                 }
@@ -319,7 +319,7 @@
                     data: data,
                     method: 'post',
                     success: function (data) {
-                        successLayout.reload();
+                        refreshPage();
                     },
                     error: function (response) {
                         layer.close(index)
@@ -439,6 +439,50 @@
             return data;
         }
 
+        /*
+         * getQueryString 获取地址栏参数
+         * */
+        function getQueryString(name)
+        {
+            var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
+            var r = window.location.search.substr(1).match(reg);
+            if(r!=null)return  unescape(r[2]); return null;
+        }
+
+        /*
+        * urlDel--删除url中的某个查询参数并返回删除后的url
+        * */
+        function urlDel(name){
+            var loca = window.location;
+            var baseUrl = loca.origin + loca.pathname + "?";
+            var query = loca.search.substr(1);
+            if (query.indexOf(name)>-1) {
+                var obj = {}
+                var arr = query.split("&");
+                for (var i = 0; i < arr.length; i++) {
+                    arr[i] = arr[i].split("=");
+                    obj[arr[i][0]] = arr[i][1];
+                }
+                delete obj[name];
+                var url = baseUrl + JSON.stringify(obj).replace(/[\"\{\}]/g,"").replace(/\:/g,"=").replace(/\,/g,"&");
+                return url
+            }
+        }
+
+        /*
+        * refreshPage
+        * */
+        function refreshPage() {
+            if(getQueryString("classone") && getQueryString("classtwo")){
+                successLayout.hrefTo(urlDel("classtwo"));
+            }
+            else if(getQueryString("classone")){
+                successLayout.hrefTo(urlDel("classone"));
+            }
+            else{
+                successLayout.reload();
+            }
+        }
 
        /*
        * creFrag--新建的时候根据不同显示页面
