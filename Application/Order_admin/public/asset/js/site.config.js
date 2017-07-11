@@ -196,8 +196,8 @@ var uploadFuc = {
             success: function (data) {
                 label.attr('disabled', false);
                 if (data.code == 200) {
-                    callBack(data);
                     label.html('上传成功 <i class="fa fa-check">');
+                    callBack(data);
                 } else {
                     label.html('上传失败 <i class="fa fa-times">');
                 }
