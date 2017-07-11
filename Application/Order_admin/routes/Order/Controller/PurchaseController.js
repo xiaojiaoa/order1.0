@@ -217,6 +217,11 @@ var PurchaseController = {
             res.render('order/purchase/detail', returnData);
         });
     },
+    //财务查看采购
+    financePurchase:function(req,res){
+        res.redirect("/purchase/detail?payCode=10");
+        res.render('order/purchase/detail');
+    },
     //采购单详情
     purchaseOrderDetail: function (req, res) {
         var tid = req.params.tid;
@@ -341,19 +346,15 @@ var PurchaseController = {
 
     //打印采购单
     printPurchase: function (req, res) {
-        // var batchNumber = req.params.batchNumber;
-        // var factoryId = req.params.factoryId;
-        // var type = req.query.type;
+        // var id = req.params.id;
         // request(Base.mergeRequestOptions({
         //     method: 'get',
-        //     url: '/api/orders/package/print/packagelist/' + batchNumber + '/' + factoryId,
+        //     url: '/api/whse/cargout/delivery/print/delivery/' + id,
         // }, req, res), function (error, response, body) {
         //     if (!error && response.statusCode == 200) {
         //         var returnData = Base.mergeData(helper.mergeObject({
-        //             batchNumber: batchNumber,
-        //             factoryId: factoryId,
-        //             type: 'arry',
-        //             showTYpe: type
+        //             id: id,
+        //             type: 'delivery',
         //         }, {printINfo: JSON.parse(body)}));
         //         res.render('order/system/print', returnData);
         //     } else {
