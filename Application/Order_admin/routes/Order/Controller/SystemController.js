@@ -484,12 +484,15 @@ var SystemController = {
         })
     },
     paramShowPage: function (req, res) {
+        var bid = req.session.user.bid;
         Base.multiDataRequest(req, res, [
                 {url: '/api/materials/coefficient', method: 'GET', resConfig: {keyName: 'paramInfo', is_must: true}},
+                {url: '/api/assist/date/coefficient/'+bid, method: 'GET', resConfig: {keyName: 'paramDateInfo', is_must: true}},
             ],
             function (req, res, resultList) {
                 var returnData = Base.mergeData(helper.mergeObject({
                     title: ' ',
+                    bid:bid,
                 }, resultList));
                 res.render('order/system/paramIndex', returnData);
             });
@@ -512,6 +515,19 @@ var SystemController = {
         request(Base.mergeRequestOptions({
             method: 'post',
             url: '/api/materials/coefficient?' + queryString.stringify(req.body),
+            form: req.body
+        }, req, res), function (error, response, body) {
+            if (!error && response.statusCode == 201) {
+                res.redirect('/param');
+            } else {
+                Base.handlerError(res, req, error, response, body);
+            }
+        })
+    },
+    doParamCreate: function (req, res) {
+        request(Base.mergeRequestOptions({
+            method: 'post',
+            url: '/api/assist/date/coefficient?' + queryString.stringify(req.body),
             form: req.body
         }, req, res), function (error, response, body) {
             if (!error && response.statusCode == 201) {

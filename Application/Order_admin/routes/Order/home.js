@@ -1421,6 +1421,9 @@ router.get('/param/set', Middleware.AuthCheck, SystemController.paramSetPage);
 // 提交系数配置的数据接口
 router.post('/param/doParam', Middleware.AuthCheck, SystemController.doParam);
 
+//查询间隔天数添加
+router.post('/param/doCreate', Middleware.AuthCheck, SystemController.doParamCreate);
+
 /*
  * 页面范围: app接口
  * 控制器:   AppServiceController

@@ -60,11 +60,54 @@
             <!-- end row -->
         </div>
         <!-- end well -->
+        <!-- well -->
+        <div class="well">
+            <!-- row -->
+            <div class="row">
+                <!-- col -->
+                <div class="col-xs-12">
+                    <legend>系数配置
+                        <button class="label label-primary" id="setDate">
+                            设置
+                        </button>
+                        <span style="color:#f00;font-size:14px;">为 -1 时说明未限制</span>
+                    </legend>
+                    <div class="table-responsive col-xs-6">
+                        <table class="table table-bordered table-striped table-information">
+                            <tbody>
+                            <tr>
+                                <td width="20%">备货查询间隔天数</td>
+                                <td width="30%"><%= paramDateInfo.stockTime%></td>
+                            </tr>
+                            </tbody>
+                        </table>
+
+                    </div>
+
+                </div>
+                <!-- end col -->
+            </div>
+            <!-- end row -->
+        </div>
+        <!-- end well -->
 
 
     </div>
     <!-- END MAIN CONTENT -->
-
+    <form id="setDateForm" class="col-xs-12 layer-template" action="/param/doCreate" method="post">
+        <div class="col-xs-12" style="margin-top:20px;">
+            <div class="col-xs-2 margin-top-10 text-center">
+                <span class="requird"></span>天数:
+            </div>
+            <div class="col-xs-6">
+                <input class="form-control validate[required]" type="text" name="stockTime" value="<%= paramDateInfo.stockTime%>">
+                <input type="hidden" value="<%= bid %>" name="factoryId">
+            </div>
+        </div>
+        <div class="col-xs-12 text-center margin-top-10">
+            <button class="btn btn-primary margin-top-10">确定</button>
+        </div>
+    </form>
 </div>
 <!-- END MAIN PANEL -->
 
@@ -76,10 +119,20 @@
 
     $(document).ready(function () {
 
-
-
         pageSetUp();
+        $("#setDateForm").validationEngine({scroll: false});
+        $("#setDate").click(function(){
+            layer.open({
+                title: false,
+                type: 1,
+                area: '700px',
+                content: $('#setDateForm'),
+                cancel: function () {
+                    //右上角关闭回调
+                },
 
+            });
+        })
 
     })
 
