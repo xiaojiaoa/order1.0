@@ -51,6 +51,7 @@ var InformationController = {
         Base.multiDataRequest(req, res, [
             {url:'/api/notices/'+id, method: 'GET', resConfig: {keyName: 'noticeInfo', is_must: true}},
         ], function (req, res, resultList) {
+            // console.log(2525,resultList);
             var returnData = Base.mergeData(helper.mergeObject({
                 title: ' ',
                 id:id,
@@ -131,7 +132,7 @@ var InformationController = {
             }
         }
 
-         console.log('公告信息修改'+ JSON.stringify(req.body));
+         // console.log('公告信息修改'+ JSON.stringify(req.body));
         request(Base.mergeRequestOptions({
             method: 'post',
             url: '/api/notices/update',

@@ -67,15 +67,23 @@
                                 <td colspan="5"><%= noticeInfo.content%></td>
                             </tr>
 
-                            <% if(DWY_Helper.isCanLoop(noticeInfo.dataShares)){
+                            <%
+                                var num=1;
+                            if(DWY_Helper.isCanLoop(noticeInfo.dataShares)){
                             noticeInfo.dataShares.forEach(function (element,index) {%>
+                            <% if( noticeInfo.dataShares.length==0){%>
                             <tr>
-                                <td>附件<%= index+1%>：</td>
+                                <td>附件：</td>
                                 <td colspan="5"> <a href="<%= DWY_GLOBAL.Static %>/download?originalFileName=<%= element.name%>&url=<%= element.path %>"><%= element.name%></a></td>
                             </tr>
-                            <%  }) %>
-
-                            <% } %>
+                            <%  } else{%>
+                            <tr>
+                                <% if(num==1){%>
+                                <td rowspan="<%= noticeInfo.dataShares.length%>">附件：</td>
+                                <%}%>
+                                <td colspan="5" style="background-color: white;"> <a href="<%= DWY_GLOBAL.Static %>/download?originalFileName=<%= element.name%>&url=<%= element.path %>"><%= element.name%></a></td>
+                            </tr>
+                            <% num++;}})} %>
                             </tbody>
                         </table>
 
