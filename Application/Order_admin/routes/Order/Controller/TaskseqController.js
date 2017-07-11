@@ -20,7 +20,6 @@ var Permissions = require('../config/permission');
 var TaskseqController = {
 
     indexPage: function (req, res) {
-
         var lid =  req.params.lid;
         Base.multiDataRequest(req, res, [
                 {url: '/api/taskseqs/basic/'+lid, method: 'GET', resConfig: {keyName: 'taskseqInfo', is_must: true}},

@@ -1081,10 +1081,10 @@ router.get('/taskseqs', Middleware.AuthCheck, Middleware.FilterEmptyField, Tasks
 router.get('/taskseq/index/:lid', Middleware.AuthCheck, TaskseqController.indexPage);
 
 // 新增交流信息页面
-router.get('/taskseq/communicate/create/:lid', Middleware.AuthCheck,TaskseqController.communicatePage);
+router.get('/taskseq/communicate/creates/:lid', Middleware.AuthCheck,TaskseqController.communicatePage);
 
 // 所有交流信息页面
-router.get('/taskseq/communicateAll/:lid', Middleware.AuthCheck,TaskseqController.communicateAllPage);
+router.get('/taskseq/communicatesAll/:lid', Middleware.AuthCheck,TaskseqController.communicateAllPage);
 
 // 新增交流信息
 router.post('/taskseq/communicate/doCreate', Middleware.AuthCheck,TaskseqController.doCreateCommunicate);
