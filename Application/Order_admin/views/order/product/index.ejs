@@ -1,0 +1,174 @@
+<%- include('../layouts/head_top'); %>
+<%- include('../layouts/head_bottom'); %>
+<%- include('../layouts/header'); %>
+<%- include('../layouts/nav'); %>
+
+<!-- MAIN PANEL -->
+<div id="main" role="main" class="mainFlex">
+
+    <!-- RIBBON -->
+    <div id="ribbon">
+
+        <!-- breadcrumb -->
+        <ol class="breadcrumb">
+            <li>后台管理</li>
+            <li>客户产品</li>
+        </ol>
+        <!-- end breadcrumb -->
+
+
+    </div>
+    <!-- END RIBBON -->
+
+
+    <!-- MAIN CONTENT -->
+    <div id="content" class="dis-flex">
+        <!-- well -->
+        <div class="well">
+            <!-- row -->
+            <div class="row">
+                <!-- col -->
+                <div class="col-xs-12">
+                    <!--<legend>订单搜索</legend>-->
+                    <!-- row -->
+                    <div class="row search-form">
+                        <form class="form-horizontal clearfix" method="get" id="search-customer" action="orders/completeSet">
+
+                            <div class="col-xs-12">
+                                <div class="col-xs-3">
+                                    <div class="form-group">
+                                        <label class="col-xs-4 control-label">客服姓名:</label>
+                                        <div class="col-xs-8">
+                                            <input class="form-control validate[groupRequired[someName]]" placeholder="请输入客服姓名"
+                                                   value="<%= DWYRequest.query.name %>" type="text" name="name">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-xs-3">
+                                    <div class="form-group">
+                                        <label class="col-xs-4 control-label">手机号:</label>
+                                        <div class="col-xs-8">
+                                            <input class="form-control validate[groupRequired[someName]]" placeholder="请输入手机号"
+                                                   value="<%= DWYRequest.query.mobile %>" type="text" name="mobile">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xs-3">
+                                    <div class="form-group">
+                                        <label class="col-xs-4 control-label">流水号:</label>
+                                        <div class="col-xs-8">
+                                            <input class="form-control validate[groupRequired[someName]]" placeholder="请输入流水号"
+                                                   value="<%= DWYRequest.query.lid %>" type="text" name="lid">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xs-2 text-center">
+                                    <button class="btn btn-primary " type="submit">
+                                        <i class="fa fa-search"></i>
+                                        查询
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <!-- end row -->
+                </div>
+                <!-- end col -->
+            </div>
+            <!-- end row -->
+        </div>
+        <!-- end well -->
+
+        <div class="well dis-flex">
+
+            <!-- row -->
+            <div class="row">
+                <div class="col-xs-12">
+                    <h6>客户产品列表</h6>
+
+                    <hr class="simple">
+                </div>
+            </div>
+
+            <!-- row -->
+            <div class="row dis-flex">
+                <div class="col-xs-12 dis-flex">
+                    <div class="table-responsive dis-flex">
+                        <table class="table table-bordered table-striped table-scroll2">
+                            <thead>
+                            <tr>
+                                <th>序号</th>
+                                <th>客服姓名</th>
+                                <th>手机号</th>
+                                <th>流水号</th>
+                                <th>订单类型</th>
+                                <th>总包数</th>
+                                <th>未入库</th>
+                                <th>已入库</th>
+                                <th>已备货</th>
+                                <th>已发货</th>
+                            </tr>
+                            </thead>
+
+                            <tbody>
+
+                            <%if(DWY_Helper.isCanLoop(completeSetList)){
+                            completeSetList.forEach(function (element,index) {
+                                var num = 1;
+                            if(element.detailList.length ==0) { %>
+                            <tr>
+                                <td colspan="100">暂无结果</td>
+                            </tr>
+                            <% }else{
+                            element.detailList.forEach(function (detaelement) { %>
+                            <tr>
+                                <% if (num == 1){ %>
+                                <td rowspan="<%= element.detailList.length  %>"><%= index+1 %></td>
+                                <td rowspan="<%= element.detailList.length  %>"><%=element.name %></td>
+                                <td rowspan="<%= element.detailList.length  %>"><%= element.mobile%></td>
+                                <td rowspan="<%= element.detailList.length  %>"><%= element.lid%></td>
+                                <% } %>
+                                <td><%= detaelement.typeName %></td>
+                                <td><%= detaelement.packageNum%></td>
+                                <td><%= detaelement.notInHouse%></td>
+                                <td><%= detaelement.inHouse %></td>
+                                <td><%= detaelement.stock%></td>
+                                <td><%= detaelement.send %></td>
+
+                            </tr>
+                            <% num++ }) %>
+                            <% } %>
+                            <% })} else{ %>
+                            <tr>
+                                <td colspan="100">暂无结果</td>
+                            </tr>
+                            <%}%>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- END MAIN CONTENT -->
+
+</div>
+<!-- END MAIN PANEL -->
+
+<%- include('../layouts/footer'); %>
+<%- include('../layouts/footer_common_script'); %>
+<!--include('./js_function');-->
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+        pageSetUp();
+        $("#search-customer").validationEngine({scroll: false});
+
+    })
+
+</script>
+
+
+<%- include('../layouts/foot'); %>

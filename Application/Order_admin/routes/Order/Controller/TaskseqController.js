@@ -30,9 +30,11 @@ var TaskseqController = {
                 {url: '/api/files/'+ lid, method: 'GET', resConfig: {keyName: 'fileInfo', is_must: false}},
                 {url: '/api/contracts/'+ lid, method: 'GET', resConfig: {keyName: 'contractInfo', is_must: false}},
                 {url: '/api/taskseqs/space/'+ lid, method: 'GET', resConfig: {keyName: 'seqSpaceInfo', is_must: false}},
-                {url: '/api/assist/taskseq/status', method: 'GET', resConfig: {keyName: 'statusInfo', is_must: false}}
+                {url: '/api/assist/taskseq/status', method: 'GET', resConfig: {keyName: 'statusInfo', is_must: false}},
+                {url: '/api/taskseqs/progress/' + lid, method: 'GET', resConfig: {keyName: 'progressInfo', is_must: true}},
             ],
             function (req, res, resultList) {
+            console.log(8888,resultList.progressInfo);
                 var returnData = Base.mergeData(helper.mergeObject({
                     title: ' ',
                     lid:lid,
@@ -41,6 +43,56 @@ var TaskseqController = {
 
                 res.render('order/taskseq/index', returnData);
             });
+    },
+    communicatePage: function (req, res) {
+        console.log('44556968',req.params);
+        var lid = req.params.lid;
+        var returnData = {
+            title: ' ',
+            lid: lid,
+        }
+        res.render('order/taskseq/communicate_create', returnData);
+    },
+    doCreateCommunicate: function (req, res) {
+        console.log('44556968'+JSON.stringify(req.body))
+        var lid = req.body.lid;
+        request(Base.mergeRequestOptions({
+            method: 'post',
+            url: '/api/taskseqs/progress',
+            form: req.body,
+        }, req, res), function (error, response, body) {
+            if (!error && response.statusCode == 201) {
+                Base.handlerSuccess(res,req);
+                res.redirect("/taskseq/index/" + lid);
+            } else {
+                Base.handlerError(res, req, error, response, body);
+            }
+        })
+    },
+    communicateAllPage: function (req, res) {
+        var lid = req.params.lid;
+        var paramObject = helper.genPaginationQuery(req);
+        Base.multiDataRequest(req, res, [
+            {url: '/api/taskseqs/progress?lid='+lid, method: 'GET', resConfig: {keyName: 'progressList', is_must: true}},
+        ], function (req, res, resultList) {
+
+            var paginationInfo = resultList.progressList;
+
+            var boostrapPaginator = new Pagination.TemplatePaginator(helper.genPageInfo({
+                prelink: paramObject.withoutPageNo,
+                current: paginationInfo.page,
+                rowsPerPage: paginationInfo.pageSize,
+                totalResult: paginationInfo.totalItems
+            }));
+
+            var returnData = Base.mergeData(helper.mergeObject({
+                title: ' ',
+                lid: lid,
+                pagination: boostrapPaginator.render()
+            }, resultList));
+            res.render('order/taskseq/communicate', returnData);
+        });
+
     },
 
     listPage: function (req, res) {
