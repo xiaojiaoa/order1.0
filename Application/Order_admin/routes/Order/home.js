@@ -1069,7 +1069,7 @@ router.post('/outBred/accessoryOut', Middleware.AuthCheck, OutWarehouseControlle
 router.post('/outBred/batchnumber/ifCan', Middleware.AuthCheck, OutWarehouseController.ifCanBatchnumber);
 
 /*
- * 页面范围: 任务序列相关
+ * 页面范围: 流水相关
  * 控制器:   TaskseqController
  * */
 var TaskseqController = require('./Controller/TaskseqController');
@@ -1079,6 +1079,15 @@ router.get('/taskseqs', Middleware.AuthCheck, Middleware.FilterEmptyField, Tasks
 
 // 流水详情
 router.get('/taskseq/index/:lid', Middleware.AuthCheck, TaskseqController.indexPage);
+
+// 新增交流信息页面
+router.get('/taskseq/communicates/create/:lid', Middleware.AuthCheck,TaskseqController.communicatePage);
+
+// 所有交流信息页面
+router.get('/taskseq/communicatesAll/:lid', Middleware.AuthCheck,TaskseqController.communicateAllPage);
+
+// 新增交流信息
+router.post('/taskseq/communicates/doCreate', Middleware.AuthCheck,TaskseqController.doCreateCommunicate);
 
 
 
@@ -1330,7 +1339,17 @@ router.post('/fileInfo/share', Middleware.AuthCheck,InformationController.fileDo
 router.put('/fileInfo/doDelete/:fid', Middleware.AuthCheck, InformationController.fileDoDelete);
 
 
+/*
+ * 页面范围: 客户产品查询
+ * 控制器:   CustomerProductController
+ * */
+var CustomerProductController = require('./Controller/CustomerProductController');
 
+// 客户产品列表-菜单栏进入--不执行查询
+router.get('/completeSet', Middleware.AuthCheck,CustomerProductController.customerProPage);
+
+// 客户产品列表-执行查询
+router.get('/orders/completeSet', Middleware.AuthCheck,Middleware.FilterEmptyField,CustomerProductController.customerProListPage);
 
 
 

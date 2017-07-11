@@ -98,6 +98,13 @@ var SystemController = {
                 {url: '/api/assist/package/category', method: 'GET', resConfig: {keyName: 'packageCate', is_must: true}},
             ];
         }
+        if(key =="regionType" && classone){
+            multiDataRequest= [
+                {url: '/api/assist', method: 'GET', resConfig: {keyName: 'basicDataList', is_must: true}},
+                {url: '/api/assist/list?key='+key, method: 'GET', resConfig: {keyName: 'keyInfo', is_must: true}},
+                {url:  '/api/assist/region/types?parentId='+classone, method: 'GET', resConfig: {keyName: 'regionTypeInfo', is_must: true}},
+            ];
+        }
 
         Base.multiDataRequest(req, res, multiDataRequest, function (req, res, resultList) {
              //  console.log(66666,resultList);

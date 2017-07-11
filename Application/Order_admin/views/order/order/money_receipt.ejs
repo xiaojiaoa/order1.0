@@ -181,6 +181,7 @@
                                 <th>客户名称</th>
                                 <th>零售价（元）</th>
                                 <th>结算价（元）</th>
+                                <th>出厂价（元）</th>
                                 <th>收款类型</th>
                                 <!--<th>说明</th>-->
                                 <th>确认日期</th>
@@ -202,6 +203,7 @@
                                 <td><%= element.custName %></td>
                                 <td><%= element.retailPrice %></td>
                                 <td><%= element.factoryPrice %></td>
+                                <td><%= element.revFranchisePrice %></td>
                                 <td><% if(element.payed < 20){ %>
                                     未付款
                                     <% }else{%>
