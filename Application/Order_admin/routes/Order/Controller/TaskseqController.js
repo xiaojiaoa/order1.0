@@ -33,7 +33,7 @@ var TaskseqController = {
                 {url: '/api/taskseqs/progress/' + lid, method: 'GET', resConfig: {keyName: 'progressInfo', is_must: true}},
             ],
             function (req, res, resultList) {
-            console.log(8888,resultList.progressInfo);
+            // console.log(8888,resultList.progressInfo);
                 var returnData = Base.mergeData(helper.mergeObject({
                     title: ' ',
                     lid:lid,
@@ -44,7 +44,7 @@ var TaskseqController = {
             });
     },
     communicatePage: function (req, res) {
-        console.log('44556968',req.params);
+        // console.log('44556968',req.params);
         var lid = req.params.lid;
         var returnData = {
             title: ' ',
@@ -53,7 +53,7 @@ var TaskseqController = {
         res.render('order/taskseq/communicate_create', returnData);
     },
     doCreateCommunicate: function (req, res) {
-        console.log('44556968'+JSON.stringify(req.body))
+        // console.log('44556968'+JSON.stringify(req.body))
         var lid = req.body.lid;
         request(Base.mergeRequestOptions({
             method: 'post',

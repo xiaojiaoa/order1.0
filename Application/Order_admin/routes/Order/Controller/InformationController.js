@@ -100,7 +100,7 @@ var InformationController = {
                 delete  req.body.dataShares;
             }
         }
-           console.log('创建公告信息'+ JSON.stringify(req.body));
+           // console.log('创建公告信息'+ JSON.stringify(req.body));
         request(Base.mergeRequestOptions({
             method: 'post',
             url: '/api/notices',

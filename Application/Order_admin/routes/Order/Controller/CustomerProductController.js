@@ -23,7 +23,7 @@ var CustomerProductController = {
 
     },
     customerProListPage: function (req, res) {
-        console.log("查询路径是什么", '/api/orders/completeSet?'+queryString.stringify(req.query));
+        // console.log("查询路径是什么", '/api/orders/completeSet?'+queryString.stringify(req.query));
         Base.multiDataRequest(req, res, [
             {url: '/api/orders/completeSet?'+queryString.stringify(req.query), method: 'GET', resConfig: {keyName: 'completeSetList', is_must: true}},
         ], function (req, res, resultList) {
