@@ -218,15 +218,24 @@
                                         <label class="col-xs-2 control-label">所属区域:</label>
                                         <div class="col-xs-10">
 
-                                            <% regionInfo.forEach(function (element, index) { %>
+                                            <%
+                                            if(DWY_Helper.isCanLoop(regionInfo[0])){
+                                            regionInfo[0].forEach(function (element, index) { %>
                                             <label class="checkbox-inline">
-                                                <input type="checkbox" class="checkbox style-0 "
-                                                       name="regionTypes" value="<%= element.id %>"
-                                                        <%= DWY_Helper.checkboxStatusStr(employeesInfo.regionTypes, element.id) %>
-                                                >
+                                                <input type="checkbox" class="checkbox style-0 areaParentId"
+                                                       name="regionTypes" value="<%= element.id %>" <%= DWY_Helper.checkboxStatusStr(employeesInfo.regionTypes, element.id) %>>
                                                 <span><%= element.name %></span>
                                             </label>
-                                            <% }) %>
+                                            <%
+                                            })} %>
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xs-8">
+                                    <div class="form-group">
+                                        <label class="col-xs-2"></label>
+                                        <div class="col-xs-10 areaChilId">
 
                                         </div>
                                     </div>
@@ -549,3 +558,4 @@
 
 
 <%- include('../layouts/foot'); %>
+<%- include('./js_function'); %>
