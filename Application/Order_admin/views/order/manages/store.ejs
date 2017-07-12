@@ -292,13 +292,13 @@
         var areaChilId = $('#areaChidId');
         areaParentId.change(function () {
             var ftyId = $(this).val();
-            if (!ftyId) {
-                areaChilId.html('<option value="">- 请选择 -</option>');
-                return
-            }
+//            if (!ftyId) {
+//                areaChilId.html('<option value="">- 请选择 -</option>');
+//                return
+//            }
             var TypesList = <%-  JSON.stringify(TypesList) %>;
             areaChilId.empty();
-            var html = '';
+            var html = '<option value="">- 请选择 -</option>';
             if (TypesList[ftyId]) {
                 var child = TypesList[ftyId];
                 if(child.length == 0){
@@ -309,6 +309,9 @@
                     }
                 }
                 areaChilId.html(html);
+            }else{
+                areaChilId.html('<option value="">- 请选择 -</option>');
+                return
             }
 
 
