@@ -1272,7 +1272,7 @@ router.post('/purchases/submit/:tid', Middleware.AuthCheck,PurchaseController.pu
 //删除未审核采购单
 router.post('/purchases/del/:purcIds', Middleware.AuthCheck,PurchaseController.purchaseDel);
 //打印采购单
-// router.get('/purchases/print', Middleware.AuthCheck,PurchaseController.printPurchase);
+// router.get('/purchases/print/:purcIds', Middleware.AuthCheck,PurchaseController.printPurchase);
 
 //新建采购单页面
 router.get('/purchase/create', Middleware.AuthCheck,Middleware.FilterEmptyField,PurchaseController.purchaseCreatePage);
@@ -1460,6 +1460,8 @@ router.get('/app/cargoout/:tid',AppServiceController.cargooutPage);
 
 // 出库-获取所有可出库的订单列表
 router.get('/app/cargooutOrder',AppServiceController.cargooutOrder);
+//包装出入库情况查询
+router.get('/app/cargoout/find',AppServiceController.getWhseSel);
 
 // 出库-已入库包装
 router.get('/app/cargoin/package',AppServiceController.cargoinPackage);
