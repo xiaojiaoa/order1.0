@@ -223,7 +223,7 @@
                                             regionInfo[0].forEach(function (element, index) { %>
                                             <label class="checkbox-inline">
                                                 <input type="checkbox" class="checkbox style-0 areaParentId"
-                                                       name="regionTypes" value="<%= element.id %>" <%= DWY_Helper.checkboxStatusStr(employeesInfo.regionTypes, element.id) %>>
+                                                       name="regionTypes" value="<%= element.id %>" <%= (DWYRequest.query.id == element.id  )?"checked":"" %> <%= DWY_Helper.checkboxStatusStr(employeesInfo.regionTypes, element.id) %>>
                                                 <span><%= element.name %></span>
                                             </label>
                                             <%

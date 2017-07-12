@@ -144,7 +144,7 @@ var EmployeeController = {
             // {url: '/api/roles/'+bid+'?scope='+scope, method: 'GET', resConfig: {keyName: 'rolesInfo', is_must: true}},
             {url: '/api/roles/current/'+bid, method: 'GET', resConfig: {keyName: 'rolesInfo', is_must: true}},
             {url: '/api/assist/education', method: 'GET', resConfig: {keyName: 'educationInfo', is_must: true}},
-            {url: '/api/assist/region/types', method: 'GET', resConfig: {keyName: 'regionInfo', is_must: true}},
+            {url: '/api/assist/region/types/all', method: 'GET', resConfig: {keyName: 'regionInfo', is_must: true}},
         ], function (req, res, resultList) {
            // console.log('8888', resultList);
             var returnData = Base.mergeData(helper.mergeObject({
