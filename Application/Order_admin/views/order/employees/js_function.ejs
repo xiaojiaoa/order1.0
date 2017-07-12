@@ -1,0 +1,31 @@
+<script type="text/javascript">
+
+    $(document).ready(function () {
+        var areaParentId = $('.areaParentId');
+        var areaChilId = $('.areaChilId');
+        areaParentId.change(function () {
+                var ftyId = $(this).val();
+                console.log(ftyId)
+                if (!ftyId) {
+                    areaChilId.html('无结果1');
+                    return
+                }
+            var regionInfo = <%-  JSON.stringify(regionInfo) %>
+                var html ='';
+                if (regionInfo[ftyId]) {
+                        var child = regionInfo[ftyId];
+                        for (var i = 0; i < child.length; i++) {
+                            html += '<label class="checkbox-inline"><input type="checkbox" class="checkbox style-0 areaParentId" name="regionTypes" value="' + child[i].id + '"><span>' + child[i].name + '</span></label>'
+                        }
+                        if($(this).is(':checked')) {
+                            areaChilId.html(html);
+                        }else{
+                            areaChilId.html('');
+                        }
+            }
+
+
+        })
+
+    })
+</script>
