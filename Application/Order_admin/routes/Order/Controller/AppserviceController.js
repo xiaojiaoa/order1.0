@@ -77,6 +77,21 @@ var AppServiceController = {
             }
         })
     },
+
+    getWhseSel: function (req, res) {
+        request(Base.mergeRequestOptions({
+            method: 'get',
+            url: '/api/whse/app/find/info?'+queryString.stringify(req.query),
+            headers:req.headers,
+        }, req, res), function (error, response, body) {
+            if (!error ) {
+                var $data = JSON.parse(body);
+                res.send($data);
+            }else{
+                res.send(AppServiceController.error);
+            }
+        })
+    },
     cargoinPackage: function (req, res) {
         request(Base.mergeRequestOptions({
             method: 'get',
