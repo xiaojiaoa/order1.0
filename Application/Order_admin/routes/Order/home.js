@@ -1461,7 +1461,7 @@ router.get('/app/cargoout/:tid',AppServiceController.cargooutPage);
 // 出库-获取所有可出库的订单列表
 router.get('/app/cargooutOrder',AppServiceController.cargooutOrder);
 //包装出入库情况查询
-router.get('/app/cargoout/find',AppServiceController.getWhseSel);
+router.get('/app/cargooutFind',AppServiceController.getWhseSel);
 
 // 出库-已入库包装
 router.get('/app/cargoin/package',AppServiceController.cargoinPackage);
