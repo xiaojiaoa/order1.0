@@ -203,7 +203,7 @@
                                             <select class="form-control" style="width:100%"  id="areaChidId" name="subrangeTypeId">
                                                 <% if(DWY_Helper.isCanLoop(TypesList[storeInfo.regionTypeId])){
                                                 TypesList[storeInfo.regionTypeId].forEach(function (element) { %>
-                                                <option value="<%= element.id %>" <%=(storeInfo.subrangeTypeId == element.id )?"selected":"" %>><%= element.name %></option>
+                                                <option value="<%= element.id %>" <%= (storeInfo.subrangeTypeId == element.id )?"selected":"" %>><%= element.name %></option>
                                                 <%  }) }  %>
                                             </select>
                                         </div>
