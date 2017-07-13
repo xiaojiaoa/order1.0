@@ -280,15 +280,11 @@
 
             var TypesList = <%-  JSON.stringify(TypesList) %>;
             areaChilId.empty();
-            $(".select2-container ul li").empty();
 
-            var htmls = $(".select2-container ul li").html();
-            if(htmls=='undefined'||htmls==''||htmls==null){
-                $(".select2-search-choice").removeClass("select2-search-choice");
-                $(".select2-choices li").css("height","30px")
-            }
             var html = '';
             if (TypesList[ftyId]) {
+                var seeData = []
+
                 var child = TypesList[ftyId];
                 if(child.length == 0){
                     html = '<option value="">暂无分类</option>'
@@ -296,19 +292,23 @@
 
                     for (var i = 0; i < child.length; i++) {
 
-                            html += '<option value="' + child[i].id + '"  selected="selected">' + child[i].name + '</option>'
-
+                        html += '<option value="' + child[i].id + '">' + child[i].name + '</option>';
+                        seeData.push({
+                            id: child[i].id,
+                            text: child[i].name
+                        })
                     }
                 }
                 areaChilId.html(html);
+
+                $('#areaChidId').select2('data', seeData)
             }else{
                 areaChilId.html('<option value="">- 请选择 -</option>');
                 return
             }
 
 
-        })
-    })
+        }) })
 
 </script>
 
