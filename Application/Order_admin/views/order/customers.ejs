@@ -88,24 +88,24 @@
 
                                 <% if(DWY_GLOBAL.ButtonOpen!=1){ %>
                                 <div class="slideToggle display-none">
-                                <%}%>
-                                <div class="col-xs-4">
-                                    <div class="form-group">
-                                        <label class="col-xs-3 control-label">建客日期:</label>
-                                        <div class="col-xs-4">
-                                            <input class="form-control fg-date-picker" placeholder="" type="text"  value="<%= DWYRequest.query.startDate %>"
-                                                   name="startDate">
-                                        </div>
-                                        <label class="control-label " style="float: left"> 至 </label>
-                                        <div class="col-xs-4">
-                                            <input class="form-control fg-date-picker" placeholder="" type="text"  value="<%= DWYRequest.query.endDate %>"
-                                                   name="endDate">
+                                    <%}%>
+                                    <div class="col-xs-4">
+                                        <div class="form-group">
+                                            <label class="col-xs-3 control-label">建客日期:</label>
+                                            <div class="col-xs-4">
+                                                <input class="form-control fg-date-picker" placeholder="" type="text"  value="<%= DWYRequest.query.startDate %>"
+                                                       name="startDate">
+                                            </div>
+                                            <label class="control-label " style="float: left"> 至 </label>
+                                            <div class="col-xs-4">
+                                                <input class="form-control fg-date-picker" placeholder="" type="text"  value="<%= DWYRequest.query.endDate %>"
+                                                       name="endDate">
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="col-xs-6">
+                                    <div class="col-xs-6">
                                         <div class="form-group">
-                                            <label class="col-xs-3 control-label">大区类型:</label>
+                                            <label class="col-xs-2 control-label">大区类型:</label>
                                             <div class="col-xs-4">
                                                 <select class="form-control" id="areaParentId" name="regionTypeId">
                                                     <option value="">- 请选择 -</option>
@@ -119,10 +119,11 @@
                                                     }%>
 
                                                 </select>
+
                                             </div>
                                             <div class="col-xs-4">
                                                 <% var desName = DWYRequest.query.regionTypes?(DWYRequest.query.regionTypes).split(','):[] %>
-                                                <select multiple style="width:100%;" class="select2 select2-offscreen" id="areaChidId" name="regionTypes">
+                                                <select multiple style="width:100%" class="select2 select2-offscreen" id="areaChidId" name="regionTypes">
                                                     <% if(DWY_Helper.isCanLoop(TypesList[DWYRequest.query.regionTypeId])){
                                                     TypesList[DWYRequest.query.regionTypeId].forEach(function (element) { %>
                                                     <option value="<%= element.id %>" <%= DWY_Helper.getAssistMultiple( element.id,desName)?"selected":"" %>><%= element.name %></option>
@@ -131,7 +132,8 @@
                                             </div>
                                         </div>
                                     </div>
-                                <% if(DWY_GLOBAL.ButtonOpen!=1){ %>
+
+                                    <% if(DWY_GLOBAL.ButtonOpen!=1){ %>
                                 </div>
                                 <%}%>
                             </div>
@@ -251,6 +253,8 @@
 <script type="text/javascript">
 
     $(document).ready(function () {
+
+        pageSetUp();
         $("#search-customer").validationEngine();
         $(".fg-date-picker").flatpickr(data_time_picker.data_picker); // jQuery
 
@@ -267,15 +271,11 @@
 
             var TypesList = <%-  JSON.stringify(TypesList) %>;
             areaChilId.empty();
-            $(".select2-container ul li").empty();
 
-            var htmls = $(".select2-container ul li").html();
-            if(htmls=='undefined'||htmls==''||htmls==null){
-                $(".select2-search-choice").removeClass("select2-search-choice");
-                $(".select2-choices li").css("height","30px")
-            }
             var html = '';
             if (TypesList[ftyId]) {
+                var seeData = []
+
                 var child = TypesList[ftyId];
                 if(child.length == 0){
                     html = '<option value="">暂无分类</option>'
@@ -283,10 +283,16 @@
 
                     for (var i = 0; i < child.length; i++) {
 
-                        html += '<option value="' + child[i].id + '"  selected="selected">' + child[i].name + '</option>'
+                        html += '<option value="' + child[i].id + '">' + child[i].name + '</option>';
+                        seeData.push({
+                            id: child[i].id,
+                            text: child[i].name
+                        })
                     }
                 }
                 areaChilId.html(html);
+
+                $('#areaChidId').select2('data', seeData)
             }else{
                 areaChilId.html('<option value="">- 请选择 -</option>');
                 return
