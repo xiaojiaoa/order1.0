@@ -244,7 +244,7 @@ router.post('/user/doPassword', Middleware.AuthCheck, UserController.doPassword)
 var CustomerController = require('./Controller/CustomerController');
 
 // 获取客户列表
-router.get('/customers', Middleware.AuthCheck, Middleware.FilterEmptyField, CustomerController.listPage);
+router.get('/customers', Middleware.AuthCheck, CustomerController.listPage);
 router.get('/companyCustomers', Middleware.AuthCheck, Middleware.FilterEmptyField, CustomerController.companyCustomersPage);
 
 // 获取客户详情页面

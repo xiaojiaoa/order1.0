@@ -119,11 +119,10 @@
                                                     }%>
 
                                                 </select>
-
                                             </div>
                                             <div class="col-xs-4">
                                                 <% var desName = DWYRequest.query.regionTypes?(DWYRequest.query.regionTypes).split(','):[] %>
-                                                <select multiple style="width:100%" class="select2 select2-offscreen" id="areaChidId" name="regionTypes">
+                                                <select multiple style="width:100%;" class="select2 select2-offscreen" id="areaChidId" name="regionTypes">
                                                     <% if(DWY_Helper.isCanLoop(TypesList[DWYRequest.query.regionTypeId])){
                                                     TypesList[DWYRequest.query.regionTypeId].forEach(function (element) { %>
                                                     <option value="<%= element.id %>" <%= DWY_Helper.getAssistMultiple( element.id,desName)?"selected":"" %>><%= element.name %></option>

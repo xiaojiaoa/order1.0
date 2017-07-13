@@ -181,18 +181,24 @@
                                     <div class="form-group">
                                         <label class="col-xs-4 control-label"><span class="requird"></span>
                                             大区类型:</label>
-                                        <div class="col-xs-8">
-                                            <select class="form-control validate[required]" name="regionTypeId">
+                                        <div class="col-xs-4">
+                                            <select class="form-control validate[required]" name="regionTypeId" id="areaParentId">
                                                 <option value="">- 请选择 -</option>
                                                 <%
-                                                if(DWY_Helper.isCanLoop(TypesList)){
-                                                TypesList.forEach(function (element) { %>
+                                                if(DWY_Helper.isCanLoop(TypesList[0])){
+                                                TypesList[0].forEach(function (element) { %>
                                                 <option value="<%= element.id %>" <%= (DWY_last_request_param.regionTypeId == element.id )?"selected":"" %> >
                                                     <%= element.name %>
                                                 </option>
                                                 <% })
                                                 }%>
 
+                                            </select>
+                                        </div>
+                                        <div class="col-xs-4">
+
+                                            <select class="form-control" style="width:100%"  id="areaChidId" name="subrangeTypeId">
+                                                <option value="">- 请选择 -</option>
                                             </select>
                                         </div>
                                     </div>
@@ -334,6 +340,48 @@
 
         $(".fg-date-picker").flatpickr(data_time_picker.data_picker); // jQuery
         DWY_area.init({});
+
+
+        var areaParentId = $('#areaParentId');
+        var areaChilId = $('#areaChidId');
+        areaParentId.change(function () {
+            var ftyId = $(this).val();
+            if (!ftyId) {
+                areaChilId.html('<option value="">- 请选择 -</option>');
+                return
+            }
+
+            var TypesList = <%-  JSON.stringify(TypesList) %>;
+            areaChilId.empty();
+            $(".select2-container ul li").empty();
+
+            var htmls = $(".select2-container ul li").html();
+            if(htmls=='undefined'||htmls==''||htmls==null){
+                $(".select2-search-choice").removeClass("select2-search-choice");
+                $(".select2-choices li").css("height","30px")
+            }
+            var html = '';
+            if (TypesList[ftyId]) {
+                var child = TypesList[ftyId];
+                if(child.length == 0){
+                    html = '<option value="">暂无分类</option>'
+                }else {
+
+                    for (var i = 0; i < child.length; i++) {
+
+                        html += '<option value="' + child[i].id + '"  selected="selected">' + child[i].name + '</option>'
+
+                    }
+                }
+                areaChilId.html(html);
+            }else{
+                areaChilId.html('<option value="">- 请选择 -</option>');
+                return
+            }
+
+
+        })
+
 
     })
 
