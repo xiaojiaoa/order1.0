@@ -322,6 +322,13 @@
 
             var TypesList = <%-  JSON.stringify(TypesList) %>;
             areaChilId.empty();
+            $(".select2-container ul li").empty();
+
+            var htmls = $(".select2-container ul li").html();
+            if(htmls=='undefined'||htmls==''||htmls==null){
+                $(".select2-search-choice").removeClass("select2-search-choice");
+                $(".select2-choices li").css("height","30px")
+            }
             var html = '';
             if (TypesList[ftyId]) {
                 var child = TypesList[ftyId];
