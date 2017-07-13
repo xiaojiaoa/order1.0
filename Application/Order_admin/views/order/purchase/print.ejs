@@ -1,0 +1,93 @@
+<%- include('../layouts/head_top'); %>
+<%- include('../layouts/head_bottom'); %>
+<%- include('../layouts/header'); %>
+<%- include('../layouts/nav'); %>
+
+<style>
+    .table-print2,.table-print2 tbody,.table-print2>tbody>tr>td{
+        border:none;
+    }
+    .contract-title{
+        width:100%;
+    }
+    .priceLine{
+        border-bottom:1px solid #000;
+    }
+</style>
+<!-- MAIN PANEL -->
+<div id="main" role="main">
+
+    <!-- RIBBON -->
+    <div id="ribbon">
+
+        <!-- breadcrumb -->
+        <ol class="breadcrumb">
+            <li>后台管理</li>
+            <li><a class="back-url" href="javascript:history.go(-1)"> <i class="fa fa-chevron-left"></i>返回</a></li>
+            <li>打印预览</li>
+        </ol>
+        <!-- end breadcrumb -->
+
+
+    </div>
+    <!-- END RIBBON -->
+
+    <!-- MAIN CONTENT -->
+    <div id="content">
+
+
+        <div class="prin-preview">
+            <div id="printHtml">
+                <% if(type == 'delivery'){
+                if(DWY_Helper.isCanLoop(printINfo.delivery)){
+                printINfo.delivery.forEach(function (element) { %>
+                <div class="printBody"><%- element %></div>
+                <%  })
+                }
+                } %>
+            </div>
+        </div>
+
+        <div class="form-horizontal fix-print">
+            <div class="form-group">
+                <label class="pull-left control-label">纸张大小:</label>
+                <div class="col-xs-8">
+                    <select class="form-control" name="stcode">
+                        <option value="0">A4</option>
+                        <option value="1">小票</option>
+                    </select>
+                </div>
+            </div>
+            <button class="btn btn-primary " id="print">
+                <i class="fa fa-print"></i>&nbsp;
+                打印
+            </button>
+
+        </div>
+
+    </div>
+    <!-- END MAIN CONTENT -->
+
+</div>
+<!-- END MAIN PANEL -->
+
+
+<%- include('../layouts/footer'); %>
+<%- include('../layouts/footer_common_script'); %>
+<script src="/asset/js/jQuery.print.js"></script>
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+        $('body').on('click', '#print', function () {
+            $("#printHtml").print({
+                stylesheet: "/css/print.css",
+            });
+        })
+
+    })
+
+</script>
+
+
+<%- include('../layouts/foot'); %>

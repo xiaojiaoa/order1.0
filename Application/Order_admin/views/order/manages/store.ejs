@@ -108,16 +108,16 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-xs-3">
+                                    <div class="col-xs-6">
                                         <div class="form-group">
                                             <label class="col-xs-3 control-label">大区类型:</label>
                                             <div class="col-xs-4">
-                                                <select class="form-control" name="" id="areaParentId">
+                                                <select class="form-control" id="areaParentId" name="regionTypeId">
                                                     <option value="">- 请选择 -</option>
                                                     <%
                                                     if(DWY_Helper.isCanLoop(TypesList[0])){
                                                     TypesList[0].forEach(function (element) { %>
-                                                    <option value="<%= element.id %>"  >
+                                                    <option value="<%= element.id %>"  <%= (DWYRequest.query.regionTypeId == element.id )?"selected":"" %>>
                                                         <%= element.name %>
                                                     </option>
                                                     <% })
@@ -127,7 +127,7 @@
 
                                             </div>
                                             <div class="col-xs-4">
-                                                <select class="form-control validate[required]" name="regionTypeId" id="areaChidId">
+                                                <select class="form-control select2 select2-offscreen" name="regionTypes" id="areaChidId" multiple style="padding:0;border:0">
                                                     <option value="">- 请选择 -</option>
                                                 </select>
                                             </div>
@@ -283,28 +283,31 @@
 
 
         pageSetUp();
-
+        $("#search-customer").validationEngine();
         $(".fg-date-time-picker").flatpickr(data_time_picker.data_picker); // jQuery
 
 
-
+//区域查询
         var areaParentId = $('#areaParentId');
         var areaChilId = $('#areaChidId');
         areaParentId.change(function () {
             var ftyId = $(this).val();
-//            if (!ftyId) {
-//                areaChilId.html('<option value="">- 请选择 -</option>');
-//                return
-//            }
+            if (!ftyId) {
+                areaChilId.html('<option value="">- 请选择 -</option>');
+                return
+            }
+
             var TypesList = <%-  JSON.stringify(TypesList) %>;
             areaChilId.empty();
-            var html = '<option value="">- 请选择 -</option>';
+            var html = '';
             if (TypesList[ftyId]) {
                 var child = TypesList[ftyId];
                 if(child.length == 0){
                     html = '<option value="">暂无分类</option>'
                 }else {
+
                     for (var i = 0; i < child.length; i++) {
+
                         html += '<option value="' + child[i].id + '">' + child[i].name + '</option>'
                     }
                 }
@@ -316,7 +319,6 @@
 
 
         })
-
     })
 
 </script>

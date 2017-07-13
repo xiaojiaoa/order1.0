@@ -14,6 +14,7 @@ var Permissions = require('../config/permission');
 var StoresController = {
     listPage: function (req, res) {
         var paramObject = helper.genPaginationQuery(req);
+        req.query.regionTypes=req.query.regionTypes?req.query.regionTypes.toString(','):'';
         Base.multiDataRequest(req, res, [
             {url: '/api/stores?'+ queryString.stringify(req.query), method: 'GET', resConfig: {keyName: 'storeList', is_must: true}},
             {url: '/api/assist/store/types', method: 'GET', resConfig: {keyName: 'storeTypes', is_must: true}},

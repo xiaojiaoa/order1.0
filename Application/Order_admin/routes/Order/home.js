@@ -258,7 +258,7 @@ var OrderController = require('./Controller/OrderController');
 
 
 // 订单页面
-router.get('/orders', Middleware.AuthCheck, Middleware.FilterEmptyField, OrderController.listPage);
+router.get('/orders', Middleware.AuthCheck, OrderController.listPage);
 
 // 订单详情页面   订单信息（认领订单）
 router.get('/order/detail/:tid', Middleware.AuthCheck, OrderController.detailPage);
@@ -301,7 +301,7 @@ router.get('/:type/communicateAll/:tid', Middleware.AuthCheck, OrderController.c
 router.post('/:type/communicate/doCreate', Middleware.AuthCheck, OrderController.doCreateCommunicate);
 
 // 补单页面
-router.get('/orders/resupplys', Middleware.AuthCheck, Middleware.FilterEmptyField, OrderController.resupplyPage);
+router.get('/orders/resupplys', Middleware.AuthCheck, OrderController.resupplyPage);
 
 // 补单受理页面
 router.get('/orders/resupplys/accept', Middleware.AuthCheck, Middleware.FilterEmptyField,Middleware.SetBackPath, OrderController.acceptPage);
@@ -501,7 +501,7 @@ router.put('/apartCheck/doPass/:tid', Middleware.AuthCheck, ApartController.doPa
 var StoresController = require('./Controller/StoresController');
 
 // 门店管理页面
-router.get('/storesManage', Middleware.AuthCheck, Middleware.FilterEmptyField,Middleware.SetBackPath, StoresController.listPage);
+router.get('/storesManage', Middleware.AuthCheck,Middleware.SetBackPath, StoresController.listPage);
 
 // 门店详情页面
 router.get('/storesManage/detail/:cid', Middleware.AuthCheck, StoresController.detailPage);
@@ -1075,7 +1075,7 @@ router.post('/outBred/batchnumber/ifCan', Middleware.AuthCheck, OutWarehouseCont
 var TaskseqController = require('./Controller/TaskseqController');
 
 // 获取登记流水记录
-router.get('/taskseqs', Middleware.AuthCheck, Middleware.FilterEmptyField, TaskseqController.listPage);
+router.get('/taskseqs', Middleware.AuthCheck, TaskseqController.listPage);
 
 // 流水详情
 router.get('/taskseq/index/:lid', Middleware.AuthCheck, TaskseqController.indexPage);

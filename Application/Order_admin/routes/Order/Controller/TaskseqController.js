@@ -97,11 +97,13 @@ var TaskseqController = {
     listPage: function (req, res) {
 
     var paramObject = helper.genPaginationQuery(req);
+        req.query.regionTypes=req.query.regionTypes?req.query.regionTypes.toString(','):'';
     Base.multiDataRequest(req, res, [
         {url: '/api/ebis/measure/page?'+ queryString.stringify(req.query), method: 'GET', resConfig: {keyName: 'taskseqList', is_must: true}},
         {url: '/api/assist/taskseq/status', method: 'GET', resConfig: {keyName: 'statusInfo', is_must: false}},
         {url: '/api/stores/list', method: 'GET', resConfig: {keyName: 'storesList', is_must: false}},
-        {url: '/api/employees/getRegionTypeByGid ', method: 'GET', resConfig: {keyName: 'regionList', is_must: false}}
+        {url: '/api/employees/getRegionTypeByGid ', method: 'GET', resConfig: {keyName: 'regionList', is_must: false}},
+        {url: '/api/taskseqs/getRegionTypeByGid', method: 'GET', resConfig: {keyName: 'TypesList', is_must: true}},
     ], function (req, res, resultList) {
         // console.log('communicate','/api/tasks/measure?'+ queryString.stringify(req.query))
          // console.log('communicate',JSON.stringify(resultList))

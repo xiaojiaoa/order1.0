@@ -26,13 +26,15 @@ var OrderController = {
     listPage: function (req, res) {
 
         var paramObject = helper.genPaginationQuery(req);
+        req.query.regionTypes=req.query.regionTypes?req.query.regionTypes.toString(','):'';
         Base.multiDataRequest(req, res, [
             {url: '/api/orders?'+ queryString.stringify(req.query), method: 'GET', resConfig: {keyName: 'orderList', is_must: true}},
             {url: '/api/assist/order/stcodes', method: 'GET', resConfig: {keyName: 'stcodeInfo', is_must: false}},
             {url: '/api/assist/brandinfo', method: 'GET', resConfig: {keyName: 'brandInfo', is_must: false}},
             // {url: '/api/assist/space/prod', method: 'GET', resConfig: {keyName: 'prodInfo', is_must: false}},
             {url: '/api/organizations/list', method: 'GET', resConfig: {keyName: 'organizationsList', is_must: false}},
-            {url: '/api/stores/list', method: 'GET', resConfig: {keyName: 'storesList', is_must: false}}
+            {url: '/api/stores/list', method: 'GET', resConfig: {keyName: 'storesList', is_must: false}},
+            {url: '/api/orders/getRegionTypeByGid', method: 'GET', resConfig: {keyName: 'TypesList', is_must: true}},
         ], function (req, res, resultList) {
 
             var paginationInfo =  resultList.orderList;
@@ -405,12 +407,14 @@ var OrderController = {
     },
     resupplyPage: function (req, res) {
         var paramObject = helper.genPaginationQuery(req);
+        req.query.regionTypes=req.query.regionTypes?req.query.regionTypes.toString(','):'';
         Base.multiDataRequest(req, res, [
                 {url: '/api/orders/resupply?'+queryString.stringify(req.query), method: 'GET', resConfig: {keyName: 'resupplyList', is_must: false}},
                 {url: '/api/assist/brandinfo' , method: 'GET', resConfig: {keyName: 'brandInfo', is_must: true}},
                 {url: '/api/assist/space/prod?spaceId=10', method: 'GET', resConfig: {keyName: 'prodList', is_must: true}},
                 {url: '/api/assist/resupply/reason', method: 'GET', resConfig: {keyName: 'reasonList', is_must: true}},
                 {url: '/api/assist/order/stcodes', method: 'GET', resConfig: {keyName: 'stcodesList', is_must: true}},
+                {url: '/api/resupplys/getRegionTypeByGid', method: 'GET', resConfig: {keyName: 'TypesList', is_must: true}},
             ],
             function (req, res, resultList) {
                 var paginationInfo =  resultList.resupplyList;
