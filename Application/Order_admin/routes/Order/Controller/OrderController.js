@@ -414,7 +414,7 @@ var OrderController = {
                 {url: '/api/assist/space/prod?spaceId=10', method: 'GET', resConfig: {keyName: 'prodList', is_must: true}},
                 {url: '/api/assist/resupply/reason', method: 'GET', resConfig: {keyName: 'reasonList', is_must: true}},
                 {url: '/api/assist/order/stcodes', method: 'GET', resConfig: {keyName: 'stcodesList', is_must: true}},
-                {url: '/api/resupplys/getRegionTypeByGid', method: 'GET', resConfig: {keyName: 'TypesList', is_must: true}},
+                {url: '/api/orders/resupply/getRegionTypeByGid', method: 'GET', resConfig: {keyName: 'TypesList', is_must: true}},
             ],
             function (req, res, resultList) {
                 var paginationInfo =  resultList.resupplyList;
