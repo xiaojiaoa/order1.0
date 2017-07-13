@@ -346,22 +346,21 @@ var PurchaseController = {
 
     //打印采购单
     printPurchase: function (req, res) {
-        // var id = req.params.id;
-        // request(Base.mergeRequestOptions({
-        //     method: 'get',
-        //     url: '/api/whse/cargout/delivery/print/delivery/' + id,
-        // }, req, res), function (error, response, body) {
-        //     if (!error && response.statusCode == 200) {
-        //         var returnData = Base.mergeData(helper.mergeObject({
-        //             id: id,
-        //             type: 'delivery',
-        //         }, {printINfo: JSON.parse(body)}));
-        //         res.render('order/system/print', returnData);
-        //     } else {
-        //         Base.handlerError(res, req, error, response, body);
-        //     }
-        // })
-        res.render('order/purchase/print');
+        var purcIds = req.params.purcIds;
+        request(Base.mergeRequestOptions({
+            method: 'get',
+            url: '/api/purchases/print?purcIds=' + purcIds,
+        }, req, res), function (error, response, body) {
+            if (!error && response.statusCode == 201) {
+                var returnData = Base.mergeData(helper.mergeObject({
+                    purcIds: purcIds,
+                    type: 'delivery',
+                }, {printINfo: JSON.parse(body)}));
+                res.render('order/purchase/print', returnData);
+            } else {
+                Base.handlerError(res, req, error, response, body);
+            }
+        })
     },
 
     //新建采购单页面

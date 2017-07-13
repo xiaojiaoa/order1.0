@@ -451,6 +451,17 @@ app.locals.DWY_Helper = {
         }
         return code;
     },
+//区域小区多选
+    getAssistMultiple: function (code, list) {
+        if (list && code) {
+            for (var j = 0; j < list.length; j++) {
+                if (code == list[j]) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    },
     // 判断登录用户信息里的ftyId是否可用
     getAssistInitFtyId: function (code, list) {
         var usableFtyId = '';

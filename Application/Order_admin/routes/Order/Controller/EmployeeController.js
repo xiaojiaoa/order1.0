@@ -78,7 +78,6 @@ var EmployeeController = {
         var bid = req.body.bid;
         req.body.roles=req.body.roles.toString(',');
         req.body.regionTypes=req.body.regionTypes?req.body.regionTypes.toString(','):'';
-
         //console.log('999'+ JSON.stringify(req.body));
         request(Base.mergeRequestOptions({
             method: 'post',
@@ -161,9 +160,8 @@ var EmployeeController = {
         var urlType = req.body.urlType;
         var bid = req.body.bid;
         var cid = req.body.cid;
-         req.body.roles=req.body.roles.toString(',');
+         req.body.roles=req.body.roles?req.body.roles.toString(','):'';
          req.body.regionTypes=req.body.regionTypes?req.body.regionTypes.toString(','):'';
-
         request(Base.mergeRequestOptions({
             method: 'put',
             url: '/api/employees/'+cid+"?"+queryString.stringify(req.body),
