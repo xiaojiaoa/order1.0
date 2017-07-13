@@ -39,8 +39,8 @@
         <div class="prin-preview">
             <div id="printHtml">
                 <% if(type == 'delivery'){
-                if(DWY_Helper.isCanLoop(printINfo.delivery)){
-                printINfo.delivery.forEach(function (element) { %>
+                if(DWY_Helper.isCanLoop(printINfo)){
+                printINfo.forEach(function (element) { %>
                 <div class="printBody"><%- element %></div>
                 <%  })
                 }

@@ -352,10 +352,17 @@ var PurchaseController = {
             url: '/api/purchases/print?purcIds=' + purcIds,
         }, req, res), function (error, response, body) {
             if (!error && response.statusCode == 201) {
+
+                var bodyData =JSON.parse(body);
+                for(var i =0;i<bodyData.length;i++) {
+                      bodyData[i] = bodyData[i].replace(/\w+(,)/g, function (string, code, str) {
+                          return string.slice(0, -1);
+                      });
+                }
                 var returnData = Base.mergeData(helper.mergeObject({
                     purcIds: purcIds,
                     type: 'delivery',
-                }, {printINfo: JSON.parse(body)}));
+                }, {printINfo: bodyData}));
                 res.render('order/purchase/print', returnData);
             } else {
                 Base.handlerError(res, req, error, response, body);
