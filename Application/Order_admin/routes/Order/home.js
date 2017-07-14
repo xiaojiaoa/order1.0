@@ -45,7 +45,7 @@ router.use(function (req, res, next) {
 // 错误或者正确信息处理
 router.use(function (req, res, next) {
 
-    if (req.session.DWY_message) {
+    if (req.session.DWY_message && ((new Date().getTime() - req.session.DWY_message.time) < 6000)) {
         res.locals.DWY_message = req.session.DWY_message;
         req.session.DWY_message = '';
     } else {
