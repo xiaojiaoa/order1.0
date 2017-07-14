@@ -130,8 +130,6 @@
                                 <%}%>
                                 <% if(DWY_GLOBAL.ButtonOpen!=1){ %>
                                 <div class="col-xs-3 text-center">
-                                    <input name="type" value="<%= type%>" type="hidden"/>
-                                    <input name="regionId" value="" type="hidden" id="regionId"/>
                                     <button class="btn btn-primary " type="submit" id="subBtn">
                                         <i class="fa fa-search"></i>
                                         查询
@@ -151,28 +149,26 @@
                                     <%}%>
                                     <div class="col-xs-8">
                                         <div class="form-group">
-
+                                            <input name="type" value="<%= type%>" type="hidden"/>
+                                            <input name="regionId" value="" type="hidden" id="regionId"/>
                                             <label class="col-xs-2 control-label">区域范围:</label>
                                             <div class="col-xs-2">
                                                 <select class="form-control" name="regionTypeId" id="sendType">
                                                     <option value="">- 请选择 -</option>
-                                                    <%  if(DWY_Helper.isCanLoop(regionList)){regionList.forEach(function(element,index){%>
+                                                    <%  if(DWY_Helper.isCanLoop(regionList[0])){
+                                                        regionList[0].forEach(function(element,index){%>
                                                     <option value="<%= element.id　%>" <%= (DWYRequest.query.regionTypeId == element.id)?"selected":"" %>> <%= element.name%></option>
                                                     <%})}%>
                                                 </select>
                                             </div>
 
-                                            <div class="col-xs-8">
-                                                <select class="col-xs-12 select select2-offscreen" name="sendValue"  id="sendValue" multiple >
-                                                    <option value="" >-请选择-</option>
-                                                    <% var regionName = DWYRequest.query.regionId?(DWYRequest.query.regionId).split(','):[] %>
-                                                    <% if(DWY_Helper.isCanLoop(regionList)){
-                                                    regionList.forEach(function(element,index){
-                                                    if(element.id==DWYRequest.query.regionTypeId){
-                                                    element.data.forEach(function(element,index){%>
-                                                    <option value="<%= element.id　%>" <%= DWY_Helper.getAssistMultiple( element.id,regionName)?"selected":"" %>> <%= element.name%></option>
-                                                    <%})}
-                                                    })}%>
+                                            <div class="col-xs-6">
+                                                <% var sendValue=DWYRequest.query.regionId?(DWYRequest.query.regionId.split(',')):[]%>
+                                                <select class="select2 select2-offscreen" name="sendValue"  id="sendValue" multiple style="width: 100%;">
+                                                  <% if(DWY_Helper.isCanLoop( regionList[DWYRequest.query.regionTypeId])){
+                                                  regionList[DWYRequest.query.regionTypeId].forEach(function (element,index) {%>
+                                                    <option value="<%= element.id　%>" <%= DWY_Helper.getAssistMultiple(element.id,sendValue)?"selected":""%> > <%= element.name%></option>
+                                                    <%})}%>
                                                 </select>
                                             </div>
 
@@ -397,64 +393,58 @@
         $("#search-customer").validationEngine();
         $(".fg-date-picker").flatpickr(data_time_picker.data_picker); // jQuery
 
-$('#sendValue').select2();
 
-        function scopeFunc() {
-            var scopesList=<%- JSON.stringify(regionList)%>;
 
+        function regionFunc(data) {
+            var scopesList=data;
             var sendType=$("#sendType")
             var sendValue=$("#sendValue");
+
+            //初始化select2
+            sendValue.select2();
+            $("#regionId").val(sendValue.select2('val').toString(','));
+
             $("select[name=regionTypeId]").change(function () {
-                $('#sendValue').empty();
-                $('#sendValue').select2();
                 var sendTypeVal=$(this).val();
                 if(!sendTypeVal){
                     sendValue.html("<option value=''>-请选择-</option>");
                 }
-                for(var i=0;i<scopesList.length;i++){
-                    if(sendTypeVal==scopesList[i].id){
-                        sendValue.empty();
-                        var  html = ''
-                        var newArray=[];
-                        for(var j=0;j<scopesList[i].data.length;j++){
-                            html +='<option value="'+scopesList[i].data[j].id+'">'+scopesList[i].data[j].name+'</option>'
-                            newArray.push(scopesList[i].data[j].id);
-                        }
-                        sendValue.html(html);
-                        $("#regionId").val(newArray.toString(","));
-                    }
+                var html="<option value=''>-请选择-</option>";
+                var arry=[];
+                for(var i=0;i<scopesList[sendTypeVal].length;i++){
+                    html +='<option value="'+scopesList[sendTypeVal][i].id+'" >'+scopesList[sendTypeVal][i].name+'</option>'
+                    arry.push(scopesList[sendTypeVal][i].id)
                 }
+                sendValue.html(html);
+                sendValue.val(arry).trigger("change");//选择大区的时候，小区所有值自动出现
+                $("#regionId").val(arry.toString(','));
+            });
+            sendValue.on({
+                change:function () {
+                    var value=sendValue.select2('val').toString(',');
+                    if(value==""){
+                        var array=[];
+                        sendValue.find("option").each(function () {
+                            array.push($(this).attr("value"));
+                        });
+                        $("#regionId").val(array.toString(','));
+                    }
+                    else{
+                        $("#regionId").val(value);
+                    }
+
+                }
+            });
 
 
+            //移除sendValue
+            $("#subBtn").on({
+                click:function () {
+                    $("#sendValue").remove();
+                }
             });
         }
-        scopeFunc();
-        $("#sendValue").on({
-            click:function () {
-                var arr=$("#sendValue").select2('val').toString();
-                if(arr==""){
-                    var scopesList=<%- JSON.stringify(regionList)%>;
-                    var sendTypeVal=  $("select[name=regionTypeId]").val();
-                    for(var i=0;i<scopesList.length;i++){
-                        if(sendTypeVal==scopesList[i].id){
-                            var newArray=[];
-                            for(var j=0;j<scopesList[i].data.length;j++){
-                                newArray.push(scopesList[i].data[j].id);
-                            }
-                            $("#regionId").val(newArray.toString(","));
-                        }
-                    }
-                }
-                else{
-                    $("#regionId").val(arr);
-                }
-            }
-        });
-        $("#subBtn").on({
-            click:function(){
-                $("#sendValue").remove();
-            }
-        });
+        regionFunc(<%- JSON.stringify(regionList)%>);
 
 
     })

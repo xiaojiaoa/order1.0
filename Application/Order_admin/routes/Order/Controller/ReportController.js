@@ -245,21 +245,6 @@ var ReportController = {
             {url: '/api/stores/list', method: 'GET', resConfig: {keyName: 'storesList', is_must: false}},
             {url: '/api/stores/report/getRegionTypeByGid', method: 'GET', resConfig: {keyName: 'regionList', is_must: true}},
         ], function (req, res, resultList) {
-
-           var aaa=resultList.regionList;
-           var bbb=[];
-           for(var i in aaa){
-               if(aaa.hasOwnProperty(i)){
-                   for(var j=0;j<aaa[i].length;j++){
-                    bbb.push(aaa[i][j]);
-                   }
-               }
-           }
-           resultList.regionList=bbb;
-
-            var regionList={};
-            helper.setChildDate(resultList.regionList,regionList);
-            resultList.regionList=_.orderBy(regionList,['id'],['asc']);
             var paginationInfo = resultList.storeRepList;
             var boostrapPaginator = new Pagination.TemplatePaginator(helper.genPageInfo({
                 prelink: paramObject.withoutPageNo,
