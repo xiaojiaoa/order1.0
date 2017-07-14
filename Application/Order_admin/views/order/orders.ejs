@@ -311,45 +311,9 @@
 
 
 //区域查询
-        var areaParentId = $('#areaParentId');
-        var areaChilId = $('#areaChidId');
-        areaParentId.change(function () {
-            var ftyId = $(this).val();
-            if (ftyId=='') {
-                $('#areaChidId').select2( "val","")
-                return
-            }
-
-            var TypesList = <%-  JSON.stringify(TypesList) %>;
-            areaChilId.empty();
-
-            var html = '';
-            if (TypesList[ftyId]) {
-                var seeData = []
-
-                var child = TypesList[ftyId];
-                if(child.length == 0){
-                    html = '<option value="">暂无分类</option>'
-                }else {
-
-                    for (var i = 0; i < child.length; i++) {
-
-                        html += '<option value="' + child[i].id + '">' + child[i].name + '</option>';
-                        seeData.push({
-                            id: child[i].id,
-                            text: child[i].name
-                        })
-                    }
-                }
-                areaChilId.html(html);
-
-                $('#areaChidId').select2('data', seeData)
-            }else{
-                areaChilId.html('<option value="">- 请选择 -</option>');
-                return
-            }
-
-
+        var TypesList = <%-  JSON.stringify(TypesList) %>;
+        $(".search").click(function(){
+            DWY_Utils.AreaSelect.find("#areaParentId","#areaChidId",TypesList);
         })
     })
 
