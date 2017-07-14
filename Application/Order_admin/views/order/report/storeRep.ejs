@@ -432,8 +432,22 @@ $('#sendValue').select2();
         $("#sendValue").on({
             click:function () {
                 var arr=$("#sendValue").select2('val').toString();
-                console.log(5555,arr);
-                $("#regionId").val($(this).select2('val').toString());
+                if(arr==""){
+                    var scopesList=<%- JSON.stringify(regionList)%>;
+                    var sendTypeVal=  $("select[name=regionTypeId]").val();
+                    for(var i=0;i<scopesList.length;i++){
+                        if(sendTypeVal==scopesList[i].id){
+                            var newArray=[];
+                            for(var j=0;j<scopesList[i].data.length;j++){
+                                newArray.push(scopesList[i].data[j].id);
+                            }
+                            $("#regionId").val(newArray.toString(","));
+                        }
+                    }
+                }
+                else{
+                    $("#regionId").val(arr);
+                }
             }
         });
         $("#subBtn").on({
