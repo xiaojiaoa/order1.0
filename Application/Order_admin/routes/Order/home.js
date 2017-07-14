@@ -1554,6 +1554,12 @@ router.get('/inMateRep', Middleware.AuthCheck,Middleware.FilterEmptyField,Report
 //入库详情
 router.get('/inMateRep/detail', Middleware.AuthCheck,Middleware.FilterEmptyField,ReportController.inMateRepDetailPage);
 
+// 分页查询--报表管理列表
+router.get('/storeRep', Middleware.AuthCheck,Middleware.FilterEmptyField,ReportController.storeRepPage);
+
+//展示成交客户的流水号
+router.get('/showTaskseq/:worker/:type/:gid', Middleware.AuthCheck,ReportController.showTaskseqPage);
+
 
 /*
  * 页面范围: 财务统计

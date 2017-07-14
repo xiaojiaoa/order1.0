@@ -232,6 +232,75 @@ var ReportController = {
         });
 
     },
+    storeRepPage: function (req, res) {
+        console.log(4545,JSON.stringify(req.query));
+        var type=req.query.type;
+        if(!type){
+            type=99999996;
+        }
+
+        var paramObject = helper.genPaginationQuery(req);
+        Base.multiDataRequest(req, res, [
+            {url:  '/api/stores/report?roleId='+type+'&'+queryString.stringify(req.query), method: 'GET', resConfig: {keyName: 'storeRepList', is_must: true}},
+            {url: '/api/stores/list', method: 'GET', resConfig: {keyName: 'storesList', is_must: false}},
+            {url: '/api/stores/report/getRegionTypeByGid', method: 'GET', resConfig: {keyName: 'regionList', is_must: true}},
+        ], function (req, res, resultList) {
+
+           var aaa=resultList.regionList;
+           var bbb=[];
+           for(var i in aaa){
+               if(aaa.hasOwnProperty(i)){
+                   for(var j=0;j<aaa[i].length;j++){
+                    bbb.push(aaa[i][j]);
+                   }
+               }
+           }
+           resultList.regionList=bbb;
+
+            var regionList={};
+            helper.setChildDate(resultList.regionList,regionList);
+            resultList.regionList=_.orderBy(regionList,['id'],['asc']);
+            var paginationInfo = resultList.storeRepList;
+            var boostrapPaginator = new Pagination.TemplatePaginator(helper.genPageInfo({
+                prelink: paramObject.withoutPageNo,
+                current: paginationInfo.page,
+                rowsPerPage: paginationInfo.pageSize,
+                totalResult: paginationInfo.totalItems
+            }));
+            var returnData = Base.mergeData(helper.mergeObject({
+                title: ' ',
+                type:type,
+                pagination: boostrapPaginator.render(),
+            },resultList));
+            res.render('order/report/storeRep', returnData);
+        });
+    },
+    showTaskseqPage:function (req, res) {
+        var worker=req.params.worker;
+        var type=req.params.type;
+        var gid=req.params.gid;
+
+        var paramObject = helper.genPaginationQuery(req);
+        Base.multiDataRequest(req, res, [
+                {url:'/api/stores/report/'+worker+'/'+type+'/'+gid+'?'+queryString.stringify(req.query), method: 'GET', resConfig: {keyName: 'showTaskseqList', is_must: true}},
+            ],
+            function (req, res, resultList) {
+                var paginationInfo = resultList.showTaskseqList;
+                var boostrapPaginator = new Pagination.TemplatePaginator(helper.genPageInfo({
+                    prelink: paramObject.withoutPageNo,
+                    current: paginationInfo.page,
+                    rowsPerPage: paginationInfo.pageSize,
+                    totalResult: paginationInfo.totalItems
+                }));
+                var returnData = Base.mergeData(helper.mergeObject({
+                    title: ' ',
+                    type:worker,
+                    pagination: boostrapPaginator.render(),
+                },resultList));
+                res.render('order/report/showTaskseqLids', returnData);
+
+            });
+    },
 
 
 };
