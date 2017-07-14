@@ -128,11 +128,16 @@ var Middleware = {
             if (!_.isEmpty(value)) {
 
                 for (var i in req[key]) {
-
                     if (req[key][i] === "") {
                         delete req[key][i];
                     } else{
-                        if(req[key][i] instanceof Array) return;
+                        if(req[key][i] instanceof Array) {
+                            if (req[key][i] === "") {
+                                delete req[key][i];
+                            }else{
+                                return;
+                            }
+                        }
                         //  去掉首尾空字符 包括空格，制表符(Tab)，换行符，中文全角空格等
                         req[key][i] =  req[key][i].replace(/\s*$|^\s*/g,"")
                     }
