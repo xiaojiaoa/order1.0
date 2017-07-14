@@ -142,5 +142,41 @@ var DWY_Utils = DWY_Utils || {
                 return total;
             },
         },
+        AreaSelect:{
+            find:function(id1,id2,areaData){
+                var areaParentId = $(id1);
+                var areaChilId = $(id2);
+                areaParentId.change(function () {
+                    var ftyId = $(this).val();
+                    if (ftyId=='') {
+                        $(id2).select2( "val","")
+                        return
+                    }
+                    var TypesList = areaData;
+                    areaChilId.empty();
+                    var html = '';
+                    if (TypesList[ftyId]) {
+                        var seeData = []
+                        var child = TypesList[ftyId];
+                        if(child.length == 0){
+                            html = '<option value="">暂无分类</option>'
+                        }else {
+                            for (var i = 0; i < child.length; i++) {
+                                html += '<option value="' + child[i].id + '">' + child[i].name + '</option>';
+                                seeData.push({
+                                    id: child[i].id,
+                                    text: child[i].name
+                                })
+                            }
+                        }
+                        areaChilId.html(html);
+                        $(id2).select2('data', seeData)
+                    }else{
+                        areaChilId.html('<option value="">- 请选择 -</option>');
+                        return
+                    }
+                })
+            }
+        },
     }
 
