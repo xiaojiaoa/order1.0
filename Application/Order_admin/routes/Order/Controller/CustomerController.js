@@ -51,9 +51,12 @@ var CustomerController = {
     companyCustomersPage: function (req, res) {
 
         var paramObject = helper.genPaginationQuery(req);
+        req.query.regionTypes=req.query.regionTypes?req.query.regionTypes.toString(','):'';
         Base.multiDataRequest(req, res, [
             {url: '/api/customers/company?'+ queryString.stringify(req.query), method: 'GET', resConfig: {keyName: 'customerList', is_must: true}},
-            {url: '/api/assist/taskseq/status', method: 'GET', resConfig: {keyName: 'statusInfo', is_must: false}}
+            {url: '/api/assist/taskseq/status', method: 'GET', resConfig: {keyName: 'statusInfo', is_must: false}},
+            {url: '/api/customers/getRegionTypeByGid', method: 'GET', resConfig: {keyName: 'TypesList', is_must: true}},
+
         ], function (req, res, resultList) {
 
             var paginationInfo =  resultList.customerList;
