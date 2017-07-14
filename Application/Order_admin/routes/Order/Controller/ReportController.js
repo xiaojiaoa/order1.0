@@ -233,12 +233,12 @@ var ReportController = {
 
     },
     storeRepPage: function (req, res) {
-        console.log(4545,JSON.stringify(req.query));
+
         var type=req.query.type;
         if(!type){
             type=99999996;
         }
-
+       //  console.log(4545,'/api/stores/report?roleId='+type+'&'+queryString.stringify(req.query));
         var paramObject = helper.genPaginationQuery(req);
         Base.multiDataRequest(req, res, [
             {url:  '/api/stores/report?roleId='+type+'&'+queryString.stringify(req.query), method: 'GET', resConfig: {keyName: 'storeRepList', is_must: true}},
