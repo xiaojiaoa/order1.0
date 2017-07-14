@@ -294,8 +294,8 @@
         var areaChilId = $('#areaChidId');
         areaParentId.change(function () {
             var ftyId = $(this).val();
-            if (!ftyId) {
-                areaChilId.html('<option value="">- 请选择 -</option>');
+            if (ftyId=='') {
+                $('#areaChidId').select2( "val","")
                 return
             }
 
