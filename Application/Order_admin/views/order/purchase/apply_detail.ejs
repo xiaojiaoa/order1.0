@@ -124,6 +124,12 @@
                                 <th>最小数量</th>
                                 <th>预计交付时间</th>
                                 <th>采购单编号</th>
+                                <%
+                                if(purchaseRequestDetail.reqType==30){
+                                %>
+                                <th>订单编号</th>
+                                <th>批次号</th>
+                                <%}%>
                             </tr>
                             </thead>
                             <tbody>
@@ -161,6 +167,12 @@
                                 <td><%= element.minAmount %></td>
                                 <td><%= DWY_Helper.getLocalDate(element.deliveryDate) %></td>
                                 <td><%= element.orderId %></td>
+                                <%
+                                if(purchaseRequestDetail.reqType==30){
+                                %>
+                                <td><%= element.tid %></td>
+                                <td><%= element.batchNumber %></td>
+                                <%}%>
                                 <input type="hidden" name="tid" value="<%= element.tid %>" />
                             </tr>
                             <%
