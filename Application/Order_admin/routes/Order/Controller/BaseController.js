@@ -71,6 +71,7 @@ var BaseController = {
                     type: 'error',
                     msg: '网络错误',
                     sign: parseInt(Math.random() * 1000),
+                    time: (new Date().getTime())
                 };
 
                 //如果有请求参数,参数放入到 DWY_last_request_param 结合入口文件使用
@@ -88,6 +89,7 @@ var BaseController = {
                 type: 'error',
                 msg: $res.msg,
                 sign: parseInt(Math.random() * 1000),
+                time: (new Date().getTime())
             };
         }
 
@@ -117,6 +119,7 @@ var BaseController = {
                 type: 'info',
                 msg: '操作成功',
                 sign: parseInt(Math.random() * 1000),
+                time: (new Date().getTime())
             };
         }
     },
