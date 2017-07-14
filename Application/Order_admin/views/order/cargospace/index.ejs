@@ -95,6 +95,12 @@
                                         <i class="fa fa-search"></i>
                                         查询
                                     </button>
+                                    <% if (DWY_Helper.hasPermission(Permission.goodsAllocation.create.id, permission) ){ %>
+                                    <a class="btn btn-primary margin-right-5" href="/cargospace/createNext/<%= ftyId %>/<%= whseId %>/<%= regionId %>">
+                                        <i class="fa fa-save"></i>
+                                        新建货位
+                                    </a>
+                                    <% } %>
                                     <label class="btn btn-default reset margin-left-20">
                                         重置
                                     </label>
@@ -104,65 +110,54 @@
                                     </label>
                                 </div>
                                 <%}%>
-                                <% if(DWY_GLOBAL.ButtonOpen==1){ %>
-                                <div class="col-xs-3">
-                                    <div class="form-group">
-                                        <label class="col-xs-4 control-label">显示方式:</label>
-                                        <div class="col-xs-8">
-                                            <select class="form-control" name="isAll">
-                                                <option value="2" <%= (DWYRequest.query.isAll == 2 )?"selected":"" %>>不显示已排满</option>
-                                                <option value="1" <%= (DWYRequest.query.isAll == 1 )?"selected":"" %>>显示所有</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                </div>
-                                <%}%>
-                            </div>
-                            <div class="col-xs-12 slideToggle">
-                                <!--输入字段-->
-                                <div class="col-xs-3">
-                                    <div class="form-group">
-                                        <label class="col-xs-4 control-label">货位号:</label>
-                                        <div class="col-xs-8">
-                                            <input class="form-control"  type="text"
-                                                   value="<%= DWYRequest.query.spaceId %>"
-                                                   name="spaceId">
-                                        </div>
-                                    </div>
-                                </div>
-                                <!--输入字段-->
-                                <div class="col-xs-4">
-                                    <div class="form-group">
-                                        <label class="col-xs-3 control-label">显示部分:</label>
-                                        <div class="col-xs-8">
-                                            <div class="col-xs-6 no-padding">
-                                                <div class="col-xs-8 no-padding">
-                                                    <input class="form-control validate[custom[onlyNumberSp]]" placeholder="行" type="text"
-                                                           name="spaceRow" value="<%= DWYRequest.query.spaceRow %>">
-                                                </div>
-                                                <label class="control-label ">行 </label>
-                                            </div>
-                                            <div class="col-xs-6 no-padding">
-                                                <div class="col-xs-8 no-padding">
-                                                    <input class="form-control validate[custom[onlyNumberSp]]" placeholder="列" type="text"
-                                                           name="spaceColumn" value="<%= DWYRequest.query.spaceColumn %>">
-                                                </div>
-                                                <label class="control-label ">列 </label>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
                                 <% if(DWY_GLOBAL.ButtonOpen!=1){ %>
-                                <div class="col-xs-3">
-                                    <div class="form-group">
-                                        <label class="col-xs-4 control-label">显示方式:</label>
-                                        <div class="col-xs-8">
-                                            <select class="form-control" name="isAll">
-                                                <option value="2" <%= (DWYRequest.query.isAll == 2 )?"selected":"" %>>不显示已排满</option>
-                                                <option value="1" <%= (DWYRequest.query.isAll == 1 )?"selected":"" %>>显示所有</option>
-                                            </select>
+                                <div class="slideToggle display-none">
+                                <%}%>
+                                    <!--输入字段-->
+                                    <div class="col-xs-3">
+                                        <div class="form-group">
+                                            <label class="col-xs-4 control-label">货位号:</label>
+                                            <div class="col-xs-8">
+                                                <input class="form-control"  type="text"
+                                                       value="<%= DWYRequest.query.spaceId %>"
+                                                       name="spaceId">
+                                            </div>
                                         </div>
                                     </div>
+                                    <!--输入字段-->
+                                    <div class="col-xs-4">
+                                        <div class="form-group">
+                                            <label class="col-xs-3 control-label">显示部分:</label>
+                                            <div class="col-xs-8">
+                                                <div class="col-xs-6 no-padding">
+                                                    <div class="col-xs-8 no-padding">
+                                                        <input class="form-control validate[custom[onlyNumberSp]]" placeholder="行" type="text"
+                                                               name="spaceRow" value="<%= DWYRequest.query.spaceRow %>">
+                                                    </div>
+                                                    <label class="control-label ">行 </label>
+                                                </div>
+                                                <div class="col-xs-6 no-padding">
+                                                    <div class="col-xs-8 no-padding">
+                                                        <input class="form-control validate[custom[onlyNumberSp]]" placeholder="列" type="text"
+                                                               name="spaceColumn" value="<%= DWYRequest.query.spaceColumn %>">
+                                                    </div>
+                                                    <label class="control-label ">列 </label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-3">
+                                        <div class="form-group">
+                                            <label class="col-xs-4 control-label">显示方式:</label>
+                                            <div class="col-xs-8">
+                                                <select class="form-control" name="isAll">
+                                                    <option value="2" <%= (DWYRequest.query.isAll == 2 )?"selected":"" %>>不显示已排满</option>
+                                                    <option value="1" <%= (DWYRequest.query.isAll == 1 )?"selected":"" %>>显示所有</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                <% if(DWY_GLOBAL.ButtonOpen!=1){ %>
                                 </div>
                                 <%}%>
                             </div>
@@ -312,13 +307,6 @@
         $("#create-store").validationEngine({scroll: false});
         pageSetUp();
 
-        //重置
-        $(".reset").click(function(){
-            $("#create-store input,#create-store select").val('');
-        })
-        $(".search").click(function(){
-            DWY_Utils.Clicks.clicks();
-        });
 
         $(".openStore").click(function () {
             var id = $(this).attr('data-id');
