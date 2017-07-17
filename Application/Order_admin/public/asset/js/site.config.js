@@ -8,7 +8,7 @@ var custom_validate_fn = {
     // 验证正整数和正的小数和0--非负浮点数
     isNotNFPN: function (field, rules, i, options) {
         var value = field.val();
-        return (/^\d+(\.\d+)?$/gi.test(value)) ? true : '请输入正整数，正小数或者0';
+        return (/^\d+(\.\d+)?$/gi.test(value)) ? true : '请输入正确的折扣率';
     },
     // 密码验证
     regexPassword: function (field, rules, i, options) {
