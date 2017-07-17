@@ -200,7 +200,8 @@
                                         </div>
                                         <div class="col-xs-4">
 
-                                            <select class="form-control" style="width:100%"  id="areaChidId" name="subrangeTypeId">
+                                            <select class="form-control validate[required]" style="width:100%"  id="areaChidId" name="subrangeTypeId">
+                                                <option value="">- 请选择 -</option>
                                                 <% if(DWY_Helper.isCanLoop(TypesList[storeInfo.regionTypeId])){
                                                 TypesList[storeInfo.regionTypeId].forEach(function (element) { %>
                                                 <option value="<%= element.id %>" <%= (storeInfo.subrangeTypeId == element.id )?"selected":"" %>><%= element.name %></option>
