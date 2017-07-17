@@ -115,7 +115,11 @@ var permissions = {
         unlock:{
             id:"531000",
             name:"订单解锁"
-        }
+        },
+        queryByPrice:{
+            id:"531555",
+            name:"查看相关价格"
+        },
     },
     orderAssess:{
       query:{
