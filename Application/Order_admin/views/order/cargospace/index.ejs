@@ -230,6 +230,7 @@
                                 <th>剩余存货数</th>
                                 <th>货架长宽高</th>
                                 <th>货位状态</th>
+                                <th>已用</th>
                                 <th>操作</th>
                             </tr>
                             </thead>
@@ -260,6 +261,7 @@
 
                                 <td><%= element.sizeLength %>*<%= element.sizeWidth %>*<%= element.sizeHeight %></td>
                                 <td><%= element.usable ==1 ? '可用':'禁用' %></td>
+                                <td><%= element.useAmount%></td>
                                 <td>
                                     <% if( element.usable == 2 ){ %>
                                     <% if (DWY_Helper.hasPermission(Permission.goodsAllocation.delete.id, permission) ){ %>
