@@ -293,7 +293,7 @@
                     var options = '';
                     var selectList = listArr[i].selectData
                     for(var j=0;j<selectList.length;j++){
-
+                       if(selectList[j].mateBatchId==null)  selectList[j].mateBatchId ='';
                         options += '<option value="'+selectList[j].spaceId+'" data-nowAmount="'+selectList[j].nowAmount+'" data-mateBatchId="'+selectList[j].mateBatchId+'">'
                             +selectList[j].spaceId+'(库存数量 '+selectList[j].nowAmount+' , 物料批次号 '+selectList[j].mateBatchId+' )</option>'
                     }
