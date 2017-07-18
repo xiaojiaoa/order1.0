@@ -31,15 +31,15 @@
                         <div class="form-group">
                             <label class="col-xs-4 control-label"><span class="requird"></span> 领料人编号:</label>
                             <div class="col-xs-8">
-                                <input class="form-control validate[required]" value="" name="mateEmp" id="mateEmp">
+                                <input class="form-control validate[required,custom[number],min[1]]" value="" name="mateEmp" id="mateEmp">
                             </div>
                         </div>
                     </div>
                     <div class="col-xs-2">
                         <div class="form-group">
-                            <label class="col-xs-4 control-label"><span class="requird"></span> 出库人:</label>
+                            <label class="col-xs-4 control-label"><span class="requird"></span> 出库人编号:</label>
                             <div class="col-xs-8">
-                                <input class="form-control validate[required]" value="" name="outEmp" id="outEmp">
+                                <input class="form-control validate[required,custom[number],min[1]]" value="" name="outEmp" id="outEmp">
                             </div>
                         </div>
                     </div>
@@ -378,7 +378,7 @@
                     mateId: mateId,
                 },
                 success: function (data) {
-                    console.log(data)
+//                    console.log(data)
                     var selectListData = JSON.parse(data)
                     if(selectListData.length<1){
                         layer.alert('仓库中无此物料库存！', {icon: 3});
@@ -476,7 +476,7 @@
                         batchNumber: batchId,
                     },
                     success: function (data) {
-                        console.log('data', data)
+//                        console.log('data', data)
                         if (data == 'true') {
                             toEnter.attr('disabled',false);
                             status.html('<span class="text-success"><i class="fa fa-check font-lg"></i> 批次号可用</span>');
@@ -619,9 +619,9 @@
                     plateList: plateList
                 };
 
-                console.log(date)
+//                console.log(date)
                 layer.confirm("确认提交？", {title: '提示'}, function (index) {
-                        console.log(myArray);
+//                        console.log(myArray);
                         $.ajax({
                             url: "/outBred/plateOut",
                             data: JSON.stringify(date),
@@ -630,7 +630,7 @@
                             contentType: "application/json",
                             success: function (data) {
                                 successLayout.hrefTo("/outBred");
-
+                                localStorage.clear();
                             },
                             error: function (response) {
                                 layer.close(index)
