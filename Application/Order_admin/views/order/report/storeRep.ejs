@@ -408,6 +408,7 @@
                 var sendTypeVal=$(this).val();
                 if(!sendTypeVal){
                     sendValue.html("<option value=''>-请选择-</option>");
+                    sendValue.val([]).trigger("change");
                 }
                 var html="<option value=''>-请选择-</option>";
                 var arry=[];

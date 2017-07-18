@@ -115,7 +115,19 @@ var permissions = {
         unlock:{
             id:"531000",
             name:"订单解锁"
-        }
+        },
+        queryByRevFranchisePrice:{
+            id:"531555",
+            name:"查看结算价"
+        },
+        queryByRetailPrice:{
+            id:"531556",
+            name:"查看零售价"
+        },
+        queryByFactoryPrice:{
+            id:"531557",
+            name:"查看出厂价"
+        },
     },
     orderAssess:{
       query:{
