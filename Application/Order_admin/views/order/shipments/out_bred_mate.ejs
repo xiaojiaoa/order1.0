@@ -560,7 +560,7 @@
                         var index = _element.attr('data-index');
 
                         var spaceId=$("select[name=spaceId"+index+"]").val();
-//                        var mateBatchId = $("select[name=spaceId"+index+"]").find('option:selected').attr('data-mateBatchId');
+                        var mateBatchId = $("select[name=spaceId"+index+"]").find('option:selected').attr('data-mateBatchId');
                         var amount=$("input[name=amount"+index+"]").val();
 
                         var price=$(".price"+index).text();
@@ -577,7 +577,7 @@
                             amount: amount,
                             price:price,
 
-//                            mateBatchId: mateBatchId,
+                            mateBatchId: mateBatchId,
                         }
 
                         plateList_mateList.push(a);
