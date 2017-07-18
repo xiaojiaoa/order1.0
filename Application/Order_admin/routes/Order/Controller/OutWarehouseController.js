@@ -552,6 +552,7 @@ var OutWarehouseController = {
     },
     outBredUpload: function (req, res) {
         var type = req.body.type;
+        // console.log("type",type)
       Base.multiDataRequest(req, res, [
           {url: '/api/whse/cargout/mate/file', method: 'post', form:req.body,resConfig: {keyName: 'plateList', is_must: false}},
           {url: '/api/whse/factory/list', method: 'GET', resConfig: {keyName: 'factoryList', is_must: true}},
@@ -565,6 +566,33 @@ var OutWarehouseController = {
           res.render('order/shipments/out_bred_doOut', returnData);
         });
 
+
+    },
+    outBredMate: function (req, res) {
+        var paramObject = helper.genPaginationQuery(req);
+        var bid = req.query.bid? req.query.bid: req.session.user.bid;
+        Base.multiDataRequest(req, res, [
+                {url: '/api/categories/list/usable', method: 'GET', resConfig: {keyName: 'suppliersMaterialList', is_must: true}},
+                {url: '/api/purchase/request/mates?'+(queryString.stringify(req.query)), method: 'GET', resConfig: {keyName: 'supMaterialList', is_must: true}},
+                {url: '/api/whse/factory/list', method: 'GET', resConfig: {keyName: 'factoryList', is_must: true}},
+            ],
+            function (req, res, resultList) {
+                var paginationInfo =  resultList.supMaterialList;
+                var boostrapPaginator = new Pagination.TemplatePaginator(helper.genPageInfo({
+                    prelink: paramObject.withoutPageNo,
+                    current: paginationInfo.page,
+                    rowsPerPage: paginationInfo.pageSize,
+                    totalResult: paginationInfo.totalItems
+                }));
+
+                var returnData = Base.mergeData(helper.mergeObject({
+                    title: ' ',
+                    Permission :Permissions,
+                    pagination: boostrapPaginator.render(),
+                    bid:bid,
+                }, resultList));
+                res.render('order/shipments/out_bred_mate', returnData);
+            });
 
     },
     outBredDeatil: function (req, res) {
@@ -646,6 +674,20 @@ var OutWarehouseController = {
         request(Base.mergeRequestOptions({
             method: 'get',
             url: '/api/whse/cargout/batchnumber?'+queryString.stringify(req.body),
+        }, req, res), function (error, response, body) {
+            if (!error && response.statusCode == 200) {
+                res.status(200).json(body);
+            } else {
+                res.status(500).json(body)
+            }
+        })
+
+    },
+
+    getCargo: function (req, res) {
+        request(Base.mergeRequestOptions({
+            method: 'get',
+            url: '/api/whse/cargout/mate/space?'+queryString.stringify(req.body),
         }, req, res), function (error, response, body) {
             if (!error && response.statusCode == 200) {
                 res.status(200).json(body);

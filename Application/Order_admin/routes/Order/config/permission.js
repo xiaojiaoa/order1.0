@@ -718,7 +718,7 @@ var permissions = {
             name:"成品确定出库按钮"
         },
         mateOutList:{
-            id:"703011",
+            id:"706010",
             name:"领料单导入"
         },
         mateOut:{

@@ -5,98 +5,179 @@
 
 
 <!-- MAIN PANEL -->
-<div id="main" role="main" class="mainFlex">
-
+<div id="main" role="main">
+    <div class="loading" id="loading"><i class="fa fa-circle-o-notch fa-spin text-primary"></i></div>
     <!-- RIBBON -->
     <div id="ribbon">
 
         <!-- breadcrumb -->
         <ol class="breadcrumb">
             <li>后台管理</li>
-            <li>原料领料</li>
+            <li><a href="/purchase" class="back-url">原料领料</a></li>
+            <li>原料领料--选择物料</li>
+            <li><a class="back-url" href="javascript:history.go(-1)"> <i class="fa fa-chevron-left"></i>返回</a></li>
         </ol>
-
-
+        <!-- end breadcrumb -->
     </div>
     <!-- END RIBBON -->
-
-
     <!-- MAIN CONTENT -->
-    <div id="content" class="dis-flex">
+    <div id="content">
+        <!-- start well -->
+        <div class="well">
+            <!-- row -->
+            <form class="form-horizontal" id="search-customer">
+            <div class="row">
+                    <div class="col-xs-2">
+                        <div class="form-group">
+                            <label class="col-xs-4 control-label"><span class="requird"></span> 领料人编号:</label>
+                            <div class="col-xs-8">
+                                <input class="form-control validate[required]" value="" name="mateEmp" id="mateEmp">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-2">
+                        <div class="form-group">
+                            <label class="col-xs-4 control-label"><span class="requird"></span> 出库人:</label>
+                            <div class="col-xs-8">
+                                <input class="form-control validate[required]" value="" name="outEmp" id="outEmp">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-2">
+                        <div class="form-group">
+                            <label class="col-xs-4 control-label"><span class="requird"></span>出库时间:</label>
+                            <div class="col-xs-8">
+                                <input class="form-control fg-date-time-picker validate[required]" value=""
+                                       name="outTime" id="outTime">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-2">
+                        <div class="form-group">
+                            <label class="col-xs-4 control-label"><span class="requird"></span> 批次号:</label>
+                            <div class="col-xs-8">
+                                <input class="form-control validate[required]" value="" name="batchId" id="batchId">
+                            </div>
 
-        <!-- well -->
+                        </div>
+                    </div>
+                    <div class="col-xs-2">
+                        <div class="form-group">
+                            <label class="control-label" id="statusFa" style="white-space: nowrap"></label>
+                        </div>
+                    </div>
+                    <div class="col-xs-12">
+                        <h6>已选中物料(请点击查询下方的物料来选中)</h6>
+                        <hr class="simple">
+                    </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-striped localstorage table-hover table-editinput" id="contentArea">
+                            <thead>
+                            <tr class="len">
+                                <th>
+                                    <label class="checkbox-inline">
+                                        <span class="0">序号</span>
+                                    </label>
+                                </th>
+                                <th>物料编号</th>
+                                <th>物料名称</th>
+                                <!--<th>供应商名称</th>-->
+                                <!--<th>分类名称</th>-->
+                                <!--<th>真实库存</th>-->
+                                <!--<th>预警数量</th>-->
+                                <!--<th>可用库存</th>-->
+                                <th>实际领料</th>
+                                <th>实际用料</th>
+                                <th>预计用料</th>
+                                <th class="display-none">单价</th>
+                                <!--<th>实际出库数</th>-->
+                                <!--<th>区域</th>-->
+                                <th>货位号</th>
+                                <th>数量</th>
+                                <th>操作</th>
+                            </tr>
+                            </thead>
+                            <tbody id="moreAddTR" class="purApplyTr">
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            </form>
+            <div class="row">
+                <div class="col-xs-12">
+                    <!--<a href="/purchase/applyOrderMaterial" class="btn btn-primary selecMate">确认出库</a>-->
+                    <!--<button class="btn btn-primary delAll">删除选中物料</button>-->
+                    <button class="btn btn-primary" id="toEnter">确认出库</button>
+                </div>
+            </div>
+        </div>
         <div class="well">
             <!-- row -->
             <div class="row">
                 <!-- col -->
                 <div class="col-xs-12">
                     <!--<legend>客户搜索</legend>-->
-                    <!-- row -->
                     <div class="row search-form">
-                        <form class="form-horizontal" method="get" id="search-customer">
-
+                        <form class="form-horizontal" method="get">
                             <div class="col-xs-12">
-
                                 <!--输入字段-->
-                                <div class="col-xs-2">
+                                <div class="col-xs-3">
                                     <div class="form-group">
-                                        <label class="col-xs-4 control-label">出库单号:</label>
+                                        <label class="col-xs-4 control-label">物料编号:</label>
                                         <div class="col-xs-8">
-                                            <input class="form-control" value="<%= DWYRequest.query.outId %>" type="text"
-                                                   name="outId">
+                                            <input class="form-control" placeholder="请输入物料编号" type="text" value="<%= DWYRequest.query.materNo %>" name="materNo" />
                                         </div>
                                     </div>
                                 </div>
-
-                                <div class="col-xs-2">
+                                <div class="col-xs-3">
                                     <div class="form-group">
-                                        <label class="col-xs-4 control-label">状态:</label>
+                                        <label class="col-xs-4 control-label">物料名称:</label>
                                         <div class="col-xs-8">
-                                            <select class="form-control" name="stcode">
+                                            <input class="form-control" placeholder="请输入物料名称" type="text" value="<%= DWYRequest.query.name %>" name="name">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xs-3">
+                                    <div class="form-group">
+                                        <label class="col-xs-4 control-label">物料分类:</label>
+                                        <div class="col-xs-8">
+                                            <select class="form-control" name="catId">
                                                 <option value="">- 请选择 -</option>
-                                                <option value="2" <%= (DWYRequest.query.stcode == 2)?"selected":"" %>>待审核</option>
-                                                <option value="4" <%= (DWYRequest.query.stcode == 4)?"selected":"" %>>已审核</option>
+                                                <%
+                                                if(DWY_Helper.isCanLoop(suppliersMaterialList)){
+                                                suppliersMaterialList.forEach(function (element, index) { %>
+                                                <% switch (DWY_Helper.judgeMateType(element.id)){
+                                                case "一级": %>
+                                                <option value="<%= element.id %>" <%= (DWYRequest.query.catId == element.id)?"selected":"" %>>
+                                                    <%= element.name %>
+                                                </option>
+                                                <%        break;
+                                                case "二级": %>
+                                                <option value="<%= element.id %>" <%= (DWYRequest.query.catId == element.id)?"selected":"" %>>
+                                                    &nbsp;&nbsp; &nbsp;&nbsp;<%= element.name %>
+                                                </option>
+                                                <%         break;
+                                                default: %>
+                                                <option value="<%= element.id %>" <%= (DWYRequest.query.catId == element.id)?"selected":"" %>>
+                                                    &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;  &nbsp;&nbsp; <%= element.name %>
+                                                </option>
+
+                                                <% } })}%>
                                             </select>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-xs-5">
-                                    <div class="form-group">
-                                        <label class="col-xs-2 control-label">日期:</label>
-                                        <div class="col-xs-4">
-                                            <input class="form-control fg-date-time-picker"
-                                                   value="<%= DWYRequest.query.startDate %>"
-                                                   name="startDate">
-                                        </div>
-                                        <label class="control-label " style="float: left"> 至 </label>
-                                        <div class="col-xs-4">
-                                            <input class="form-control fg-date-time-picker"
-                                                   value="<%= DWYRequest.query.endDate %>"
-                                                   name="endDate">
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-xs-2 text-center">
-
+                                <div class="col-xs-3 text-left">
                                     <button class="btn btn-primary " type="submit">
                                         <i class="fa fa-search"></i>
                                         查询
                                     </button>
-
-                                    <% if ( DWY_Helper.hasPermission(Permission.cargoManages.mateOutList.id, permission) ){ %>
-                                    <a class="btn btn-primary" id="import">
-                                        领料单导入
-                                    </a>
-                                    <% } %>
-
-                                    <a href="" class="btn btn-primary">
-                                        选取物料
-                                    </a>
-
                                 </div>
-
                             </div>
-
                         </form>
                     </div>
                     <!-- end row -->
@@ -104,103 +185,475 @@
                 <!-- end col -->
             </div>
             <!-- end row -->
-        </div>
-        <!-- end well -->
-
-        <div class="well dis-flex">
-            <div class="row dis-flex">
-                <div class="col-xs-12 dis-flex">
-                    <div class="table-responsive dis-flex">
-                        <table class="table table-bordered table-striped table-hover table-scroll2">
+            <!-- end well -->
+            <form class="form-horizontal" method="post" id="creat-supplier" action="/purchase/applyCreat" >
+                <div class="col-xs-12">
+                    <legend>
+                    </legend>
+                </div>
+                <div class="col-xs-12">
+                    <ul class="orderItemLayerTit clearfix orderItemMenu">
+                        <a href=""><li class="<%= DWYRequest.query.mateType == 10 ? 'selected' : '' %>">预警物料</li></a>
+                        <a href=""><li class="<%= DWYRequest.query.mateType == 20 ? 'selected' : '' %>">未设置库存物料</li></a>
+                        <a href=""><li class="<%= DWYRequest.query.mateType == 30 ? 'selected' : '' %>">正常物料</li></a>
+                    </ul>
+                    <div class="orderItemLayerTable">
+                        <table class="table table-bordered table-hover">
                             <thead>
                             <tr>
                                 <th>序号</th>
-                                <th>出库单号</th>
-                                <th>领料日期</th>
-                                <th>领用人</th>
-                                <th>部门</th>
-                                <th>类型</th>
-                                <th>状态</th>
-                                <th>审核人</th>
-                                <th>操作</th>
+                                <th>物料编号</th>
+                                <th>物料名称</th>
+                                <th>供应商名称</th>
+                                <th>分类名称</th>
+                                <th>真实库存</th>
+                                <th>预警数量</th>
+                                <th>可用库存</th>
+                                <th>单价</th>
                             </tr>
                             </thead>
                             <tbody>
-                            <%  if(DWY_Helper.isCanLoop(plateList.result) ){
-                            plateList.result.forEach(function (element, index) { %>
-                            <tr>
-                                <td><%= ++index %></td>
-                                <td><a href="/outBred/deatil/<%= element.outId %>"><%= element.outId %></a></td>
-                                <td><%= DWY_Helper.getLocalDate(element.outDate) %></td>
-                                <td><%= element.outEmpName %></td>
-                                <td><%= element.did %></td>
-                                <td><%=DWY_Helper.getEnterType(element.type)%></td>
-                                <td><%= element.stcodeName %></td>
-                                <td><%= element.reviewName %></td>
+                            <%
+                            if(DWY_Helper.isCanLoop(supMaterialList.result)){
+                            supMaterialList.result.forEach(function (element, index) { %>
+                            <tr class="len botTr">
                                 <td>
-                                    <% if(element.stcode == 2 && DWY_Helper.hasPermission(Permission.cargoManages.mateOutReview.id, permission)){ %>
-                                    <a class="label label-primary checkThis" data-id="<%= element.outId %>" data-type="1">审核</a>
-                                    <a class="label label-danger checkThis" data-id="<%= element.outId %>" data-type="2">作废</a>
-                                    <% }%>
-                                    </td>
+                                    <label class="checkbox-inline">
+                                        <input type="checkbox" class="checkbox"
+                                               name="roles" value="<%= element.id %>" uniqueId="<%= element.uniqueCode %>" mateId="<%= element.id %>">
+                                        <span><%= index+1 %></span>
+                                    </label>
+                                </td>
+                                <td><a href="/materialManage/detail/<%= bid %>/<%= element.id %>"><%= element.id %></a></td>
+                                <td><%= element.name %></td>
+                                <td><%= element.suppName %></td>
+                                <td><%= element.catName %></td>
+                                <td><%= element.stock %></td>
+                                <td><%= element.warning %></td>
+                                <td><%= element.usable %></td>
+                                <td><%= element.price %></td>
+                                <td style="display:none"><%= element.suppId %></td>
+                                <%
+                                if(DWY_Helper.isCanLoop(element.mateUnitList)){
+                                element.mateUnitList.forEach(function(elementa,indexa){%>
+                                <td class="unitsId" style="display:none"><%= elementa.id %></td>
+                                <%
+                                })}%>
+                                <%
+                                if(DWY_Helper.isCanLoop(element.mateUnitList)){
+                                element.mateUnitList.forEach(function(elementa,indexa){%>
+                                <td class="units" style="display:none"><%= elementa.name %></td>
+                                <%
+                                })}%>
+                                <%
+                                if(DWY_Helper.isCanLoop(element.mateUnitList)){
+                                element.mateUnitList.forEach(function(elementa,indexa){%>
+                                <td class="unitsAmount" style="display:none"><%= elementa.amount %></td>
+                                <%
+                                })}%>
+                                <%  }) }else{%>
+                                <td colspan="9" class="text-align-center">暂无结果</td>
+                                <%}%>
                             </tr>
-                            <% })
-                            }else{ %>
-                            <tr>
-                                <td colspan="8" class="text-align-center">暂无数据</td>
-                            </tr>
-                            <% }  %>
-
+                            <input type="hidden" class="" id="checkedValue">
                             </tbody>
                         </table>
+
                     </div>
                     <%- pagination %>
                 </div>
-            </div>
+                <div class="dwy-clear"></div>
+            </form>
         </div>
     </div>
-    <!-- END MAIN CONTENT -->
-
 </div>
-<!-- END MAIN PANEL -->
 
 <%- include('../layouts/footer'); %>
 <%- include('../layouts/footer_common_script'); %>
-
-
 <script type="text/javascript">
-
     $(document).ready(function () {
-
-        $("#search-customer").validationEngine();
-
         pageSetUp();
-
+        $("#search-customer").validationEngine();
         $(".fg-date-time-picker").flatpickr(data_time_picker.data_picker); // jQuery
+        var cargoinList_result =$(".topTr").length;
+        var contentArea = $('#moreAddTR');
+        var status = $('#statusFa');
+        var toEnter = $('#toEnter');
+        var checkedValue=$("#checkedValue");
 
-        $(".checkThis").click(function () {
-            var id = $(this).attr('data-id');
-            var type = $(this).attr('data-type');
-            var text = type== 1?'确定审核通过?':'确定退回?'
+        //刷新选中列表 这个函数根据每个页面不同需自己填写
+        function updateCheckedList(isInit) {
+            var parentEle = '.purApplyTr';
+            var storageKey = 'LIST_DATA_MATESELECT';
+            var listArr = DWY_Utils.StorageUtils.getListArr(storageKey);
+            var htmlStr = '';
+            if (listArr instanceof Array && listArr.length != 0) {
+                var len = listArr.length;
 
-            layer.confirm(text, {icon: 3, title: '提示'}, function (index) {
+                for (var i = 0; i < len; i++) {
+
+                    var options = '';
+                    var selectList = listArr[i].selectData
+                    for(var j=0;j<selectList.length;j++){
+
+                        options += '<option value="'+selectList[j].spaceId+'" data-nowAmount="'+selectList[j].nowAmount+'" data-mateBatchId="'+selectList[j].mateBatchId+'">'
+                            +selectList[j].spaceId+'(库存数量 '+selectList[j].nowAmount+' , 物料批次号 '+selectList[j].mateBatchId+' )</option>'
+                    }
+
+
+                    var itemHtml = ''
+                        + '<tr class="topTr cargoinDo" data-index="'+i+'">'
+                        + '<td>'
+                        + '<label class="checkbox-inline">'
+                        + '<input type="checkbox" class="checkbox" name="roles" value="' + listArr[i].id + '" uniqueId="'+ listArr[i].uniqueId + '" checked>'
+                        + '<span>' + (i+1) + '</span>'
+                        + '</label>'
+                        + '</td>'
+                        + '<td><a href="/materialManage/detail/<%= bid %>/' + listArr[i].id + '">' + listArr[i].id + '</a></td>'
+                        + '<td>' + listArr[i].name + '</td>'
+//                        + '<td>' + listArr[i].suppName + '</td>'
+//                        + '<td>' + listArr[i].class_name + '</td>'
+                        + '<td><input class="form-control validate[required,custom[number],min[1]]" name="actualOut'+i+'"  value="" data-index="'+i+'"></td>'
+                        + '<td><input class="form-control validate[required,custom[number],min[1]]" name="actualUse'+i+'"  value="" data-index="'+i+'"></td>'
+                        + '<td><input class="form-control validate[custom[number]]" name="expectedUse'+i+'"  value="" data-index="'+i+'"></td>'
+                        + '<td class="display-none price'+i+'">' + listArr[i].price + '</td>'
+//                        + '<td><input class="form-control actualAmount validate[required,custom[number]]" name="actualAmount"'+i+' id="actualAmount"'+i+' value="" data-index="'+i+'"></td>'
+//                        + '<td class="no-padding" id="regionIdArea'+i+'"> <div class="target more-space newtarget'+i+'" data-index="'+i+'"> <select class="form-control ftyId validate[required]"name="ftyId'+i+'" data-index="'+i+'" disabled> <option value="">- 工厂 -</option> </select> <select class="form-control whseId validate[required]"name="whseId'+i+'" data-index="'+i+'"> <option value="">- 仓库 -</option> </select> <select class="form-control regionId validate[required]"name="regionId'+i+'" data-index="'+i+'"> <option value="">- 区域 -</option> </select> </div> </td>'
+//                        + '<td class="no-padding" id="spaceIdArea'+i+'"> <input name="cargoId'+i+'" value="' + listArr[i].id + '" type="hidden"><input name="price'+i+'" value="' + listArr[i].price + '" type="hidden"> <input name="amountTotal'+i+'" value="' + listArr[i].amount + '" type="hidden"> <ul class="position-ulselect spaceId-tip'+i+'"> <strong>推荐货位 <a class="label label-primary getEmptyOne">获取空货位</a></strong><li data-ftyId="" data-whseId=""data-regionId=""data-value=""> (剩余可用  ) </li></ul> <div class="more-space"> <input class="form-control spaceIdInput validate[required,custom[number],minSize[6],maxSize[6]]"name="spaceId'+i+'" placeholder="行列层，6位数字" id="spaceId'+i+'" data-index="'+i+'"> <input name="statusThis'+i+'" value="0" type="hidden"> </div> </td>'
+                        + '<td class="no-padding" id="selectTD'+i+'"><input name="cargoId'+i+'" value="' + listArr[i].id + '" type="hidden"><input name="amountAll'+i+'" value="" type="hidden"><div class="more-space" data-index="'+i+'"><select class="form-control spaceIdSelect validate[required]" name="spaceId'+i+'" id="spaceId'+i+'" data-index="'+i+'" data-for="' + listArr[i].id + '"> <option value="">-- 请选择 --</option>'+options+'</select></div></td>'
+                        + '<td class="no-padding" id="amountTD'+i+'"> <div class="more-space"> <input class="form-control validate[required,custom[number],min[1]]" value="" name="amount'+i+'" id="amount'+i+'" data-index="'+i+'"></div></td>'
+                        + '<td class="no-padding" id="operationArea'+i+'"><div class="more-space"> <a class="add-spaceid" data-index="'+i+'"><i class="fa fa-plus"></i></a> </div> </td>'
+                        + '</tr>';
+                    htmlStr += itemHtml;
+                    // 判断是否是初始化 是的话保持下面列表状态同步
+                    if(isInit){
+                        var $ipts = $(".orderItemLayerTable input[name='roles']");
+                        var id = listArr[i].uniqueId;
+                        var iptslen = $ipts.length;
+                        for (var j = 0; j < iptslen; j++) {
+                            if(id == $ipts.eq(j).attr('uniqueId')){
+                                $ipts.eq(j).attr('checked',true);
+                            }
+                        }
+                    }
+
+
+                }
+                $(parentEle).html(htmlStr);
+
+
+
+//                $(".spaceIdSelect[data-for="+mateId+"]").append(options);
+//                $(this).parents("td").siblings().find(".spaceIdSelect").append(options)
+
+            }else{
+                $(parentEle).html("");
+            }
+        }
+        // 页面一加载先刷新一次读取localstorage
+        updateCheckedList(true);
+        $(".orderItemLayerTable input[name='roles']").on("change",function () {
+            var _self = $(this);
+
+            var $tds = $(this).parents("tr").children("td");
+            var unique=$(this).attr("uniqueId");
+//            var unit='';
+//            var unitId='';
+//            var unitAmount='';
+//            $(this).parents(".botTr").find(".units").each(function(){
+//                unit += $(this).html()+',';
+//            })
+//            $(this).parents(".botTr").find(".unitsId").each(function(){
+//                unitId += $(this).html()+',';
+//            })
+//            $(this).parents(".botTr").find(".unitsAmount").each(function(){
+//                unitAmount += $(this).html()+',';
+//            })
+
+            var mateId = $(this).val();
+            $.ajax({
+                url: '/outBred/cargo',
+                method: 'post',
+                data: {
+                    mateId: mateId,
+                },
+                success: function (data) {
+                    console.log(data)
+                    var selectListData = JSON.parse(data)
+                    if(selectListData.length<1){
+                        layer.alert('仓库中无此物料库存！', {icon: 3});
+                        _self.prop('checked',false)
+                        return
+                    }
+
+                    // 获取整个条目数据
+                    var item = {
+                        uniqueId:unique,
+                        id : mateId,
+                        name : $tds.eq(2).html(),
+                        suppName: $tds.eq(3).html(),
+                        class_name : $tds.eq(4).html(),
+                        real_stock: $tds.eq(5).html(),
+                        warning_num : $tds.eq(6).html(),
+                        usable_stock : $tds.eq(7).html(),
+                        price : $tds.eq(8).html(),
+                        suppId : $tds.eq(9).html(),
+//                        unit : unit,
+//                        unitId : unitId,
+//                        unitAmount : unitAmount,
+                        selectData: selectListData
+                    }
+                    // 选中添加  取消选中则删除
+                    if(_self.is(':checked')){
+
+                        DWY_Utils.StorageUtils.addItem(item,'uniqueId','LIST_DATA_MATESELECT',updateCheckedList)
+                    }else{
+                        DWY_Utils.StorageUtils.deletItem({
+                            uniqueId:unique
+                        },'uniqueId','LIST_DATA_MATESELECT',updateCheckedList)
+                    }
+
+
+
+                },
+                error: function (response) {
+                    console.log('response', response)
+
+                }
+            });
+
+
+
+        })
+
+
+        $(".purApplyTr").on("change","input",function () {
+            var unique=$(this).attr("uniqueId");
+            // 点中删除
+            DWY_Utils.StorageUtils.deletItem({
+                uniqueId:unique
+            }, 'uniqueId','LIST_DATA_MATESELECT',function(){
+                // 与下面列表的选中状态保持一致
+                var $ipts = $(".orderItemLayerTable input[name='roles']");
+                var len = $ipts.length;
+                for (var i = 0; i < len; i++) {
+                    if(unique == $ipts.eq(i).attr('uniqueId')){
+                        $ipts.eq(i).attr('checked',false);
+                        updateCheckedList();
+                        return;
+                    }
+                }
+            })
+        })
+
+
+        $(".purApplyTr input[name='roles']:checked").each(function(){
+            var val=$(this).val();
+            checkedValue.addClass(val+',');
+        });
+        $("input[name='roles']").change(function () {
+            if($(this).is(':checked')){
+                checkedValue.addClass(this.value+',');
+            }else{
+                checkedValue.removeClass(this.value+',');
+            }
+        });
+        contentArea.on('change','.spaceIdSelect',function () {
+            var _self = $(this);
+            var index = _self.attr('data-index');
+            var option = _self.find('option:selected').attr('data-nowAmount');
+            $("#amount"+index).attr('class','form-control validate[required,custom[number],min[1],max['+option+']]');
+
+        })
+        $("#batchId").on('input propertychange', function () {
+            status.empty();
+            var batchId = $(this).val();
+            if (batchId) {
                 $.ajax({
-                    url: '/outBred/doCheck/'+id+'/'+type,
-                    method: 'put',
+                    url: '/outBred/batchnumber/ifCan',
+                    method: 'post',
+                    data: {
+                        batchNumber: batchId,
+                    },
                     success: function (data) {
-                        successLayout.reload();
+                        console.log('data', data)
+                        if (data == 'true') {
+                            toEnter.attr('disabled',false);
+                            status.html('<span class="text-success"><i class="fa fa-check font-lg"></i> 批次号可用</span>');
+                        } else {
+                            toEnter.attr('disabled',true);
+                            status.html('<span class="text-danger"><i class="fa fa-times font-lg"></i> 批次号不可用</span>');
+                        }
                     },
                     error: function (response) {
-                        layer.close(index)
-                        errorLayout.normal(response);
-
+                        console.log('response', response)
+                        toEnter.attr('disabled',true);
+                        status.html('<span class="text-danger"><i class="fa fa-times font-lg"></i> 批次号不可用</span>');
                     }
                 });
-            }, function (index) { layer.close(index) })
+            }
+        });
+
+
+
+        //增加货位
+        $('.add-spaceid').on('click',function () {
+            var _self = $(this);
+            var index = _self.attr('data-index');
+            var select = $("#spaceId"+index).html();
+
+            var selectHtml = '<div class="more-space newtarget'+cargoinList_result+'" data-index="'+cargoinList_result+'">'
+                + '<select class="form-control spaceIdSelect validate[required]" name="spaceId'+cargoinList_result+'" id="spaceId'+cargoinList_result+'" data-index="'+cargoinList_result+'">'
+                +select
+                + '</select>'
+                + '</div>';
+            $("#selectTD"+index).append(selectHtml);
+            var amountHtml = '<div class="more-space newtarget'+cargoinList_result+'">'
+                +'<input class="form-control validate[required,custom[number]]"'
+                +'value="" name="amount'+cargoinList_result+'"'
+                +'id="amount'+cargoinList_result+'" data-index="'+cargoinList_result+'">'
+                +'</div>';
+            $("#amountTD"+index).append(amountHtml);
+            $('#operationArea'+index).append(' <div class="more-space newtarget'+cargoinList_result+'"> <a class="less-spaceid" data-index="'+cargoinList_result+'"><i class="fa fa-minus"></i></a> </div>');
+
+            ++cargoinList_result;
+
         })
+
+        //删除货位
+        contentArea.on('click','.less-spaceid',function () {
+            var _self = $(this);
+            var index = _self.attr('data-index');
+            $('.newtarget'+index).remove();
+        })
+
+        $('#toEnter').click(function () {
+            if ($("#search-customer").validationEngine('validate')) {
+                var mateEmp = $("#mateEmp").val();
+                var outEmp = $("#outEmp").val();
+                var outTime = $("#outTime").val();
+                var batchId = $("#batchId").val();
+
+
+                var myArray = new Array();
+                var ifAmount = true;//主要判断入库数量是否正确
+                var cargoIdNotIn = '';
+
+                var plateList = new Array();
+                $('.cargoinDo').each(function () {
+                    var _self = $(this);
+                    var indexTR = _self.attr('data-index');
+
+                    var actualOut=$("input[name=actualOut"+indexTR+"]").val();
+                    var actualUse=$("input[name=actualUse"+indexTR+"]").val();
+                    var expectedUse=$("input[name=expectedUse"+indexTR+"]").val();
+
+                    var cargoId = $("input[name=cargoId" + indexTR + "]").val();
+                    //实际领料数量
+                    var amountTotal=Number($("input[name=actualOut"+indexTR+"]").val());
+                    //出库数量
+                    var amountActually = 0;
+
+
+                    var plateList_mateList = new Array();
+
+                    $('#selectTD'+indexTR).find('.more-space').each(function () {
+                        var _element = $(this);
+                        var index = _element.attr('data-index');
+
+                        var spaceId=$("select[name=spaceId"+index+"]").val();
+//                        var mateBatchId = $("select[name=spaceId"+index+"]").find('option:selected').attr('data-mateBatchId');
+                        var amount=$("input[name=amount"+index+"]").val();
+
+                        var price=$(".price"+index).text();
+
+
+                        amountActually += Number(amount);
+
+
+
+                        var a = new Object();
+                        a = {
+                            spaceId: spaceId,
+                            cargoId: cargoId,
+                            amount: amount,
+                            price:price,
+
+//                            mateBatchId: mateBatchId,
+                        }
+
+                        plateList_mateList.push(a);
+                    })
+
+                    var b = new Object();
+                    b = {
+                        actualOut:actualOut,
+                        actualUse:actualUse,
+                        expectedUse:expectedUse,
+                        mateId: cargoId,
+                        plateSpaceList: plateList_mateList
+                    }
+
+                    plateList.push(b);
+
+
+//                    console.log('amountTotal',amountTotal)
+//                    console.log('amountActually',amountActually)
+                    if(amountTotal != amountActually){
+                        ifAmount = false;
+                        cargoIdNotIn += cargoId+'</br>'
+                        return false
+                    }
+//                    console.log('ifAmount',ifAmount)
+                })
+
+                if(!ifAmount){
+                    layer.msg('以下物料号出库数量不正确，填写的总出库数需要与该单号要求出库数量保持一致！</br>'+cargoIdNotIn, {icon: 2, time: 3000});
+                    return;
+                }
+                var date = {
+                    mateEmp: mateEmp,
+                    outEmp: outEmp,
+                    outTime: outTime,
+                    batchId: batchId,
+                    plateList: plateList
+                };
+
+                console.log(date)
+                layer.confirm("确认提交？", {title: '提示'}, function (index) {
+                        console.log(myArray);
+                        $.ajax({
+                            url: "/outBred/plateOut",
+                            data: JSON.stringify(date),
+                            method: 'post',
+                            dataType: 'json',
+                            contentType: "application/json",
+                            success: function (data) {
+                                successLayout.hrefTo("/outBred");
+
+                            },
+                            error: function (response) {
+                                layer.close(index)
+                                var status = response.status;
+                                if(status == 200){
+                                    successLayout.hrefTo("/outBred");
+
+                                    return;
+                                }
+                                errorLayout.normal(response);
+
+
+                            }
+                        });
+                    }, function (index) {
+                        layer.close(index)
+                    }
+                )
+            }
+
+        })
+
     })
-
 </script>
-
-<%- include('./bred_upload'); %>
 <%- include('../layouts/foot'); %>
+

@@ -1057,7 +1057,7 @@ router.get('/outBred', Middleware.AuthCheck, OutWarehouseController.outBredPage)
 router.post('/outBred/upload', Middleware.AuthCheck, OutWarehouseController.outBredUpload);
 
 // 领料单--选取物料
-// router.get('/outBred/mateSelect', Middleware.AuthCheck, OutWarehouseController.outBredMate);
+router.get('/outBred/mateSelect', Middleware.AuthCheck, OutWarehouseController.outBredMate);
 
 // 大板领料详情单页面
 router.get('/outBred/deatil/:id', Middleware.AuthCheck, OutWarehouseController.outBredDeatil);
@@ -1071,6 +1071,7 @@ router.post('/outBred/accessoryOut', Middleware.AuthCheck, OutWarehouseControlle
 
 
 router.post('/outBred/batchnumber/ifCan', Middleware.AuthCheck, OutWarehouseController.ifCanBatchnumber);
+router.post('/outBred/cargo', Middleware.AuthCheck, OutWarehouseController.getCargo);
 
 /*
  * 页面范围: 流水相关
