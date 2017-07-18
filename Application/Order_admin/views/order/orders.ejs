@@ -258,12 +258,16 @@
                                 <th>订单状态</th>
                                 <th>货位号</th>
                                 <!--根据权限展示价格-->
-                                <% if(DWY_Helper.hasPermission(Permission.order.queryByPrice.id, permission)){%>
-                                <th>零售价</th>
+                                <% if(DWY_Helper.hasPermission(Permission.order.queryByRevFranchisePrice.id, permission)){%>
                                 <th>结算价</th>
-                                <th>出厂价</th>
                                 <th>折后价</th>
                                 <th>折扣率</th>
+                                <%}%>
+                                <% if(DWY_Helper.hasPermission(Permission.order.queryByRetailPrice.id, permission)){%>
+                                <th>零售价</th>
+                                <%}%>
+                                <% if(DWY_Helper.hasPermission(Permission.order.queryByFactoryPrice.id, permission)){%>
+                                <th>出厂价</th>
                                 <%}%>
                             </tr>
                             </thead>
@@ -288,14 +292,21 @@
                                 <td><%= DWY_Helper.getLocalDateYMD(element.deliveryDate) %></td>
                                 <td><%= DWY_Helper.getAssistVal(element.stcode,stcodeInfo) %></td>
                                 <td><%= element.cargoSpaceIds %></td>
-                                <!--根据权限展示价格-->
-                                <% if(DWY_Helper.hasPermission(Permission.order.queryByPrice.id, permission)){%>
-                                <td><%= element.retailPrice %></td>
+                                <!--根据权限展示结算价-->
+                                <% if(DWY_Helper.hasPermission(Permission.order.queryByRevFranchisePrice.id, permission)){%>
                                 <td><%= element.revFranchisePrice %></td>
-                                <td><%= element.factoryPrice %></td>
                                 <td><%= element.priceAfterDiscount %></td>
                                 <td><%= element.discount %></td>
                                 <%}%>
+                                <!--根据权限展示零售价-->
+                                <% if(DWY_Helper.hasPermission(Permission.order.queryByRetailPrice.id, permission)){%>
+                                <td><%= element.retailPrice %></td>
+                                <%}%>
+                                <!--根据权限展示出厂价-->
+                                <% if(DWY_Helper.hasPermission(Permission.order.queryByFactoryPrice.id, permission)){%>
+                                <td><%= element.factoryPrice %></td>
+                                <%}%>
+
                             </tr>
                             <%  })
                             } %>
