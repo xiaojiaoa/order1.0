@@ -216,7 +216,7 @@
                                     <% if(element.payed == 10){  %>
                                     <a class="label label-primary optionThis" data-payed="<%=element.payed %>" data-tid="<%=element.tid %>" data-bid="<%=element.bid %>">锁定</a>
                                     <% } %>
-                                    <% if(element.payed == 12 && element.payStcode == 0){  %>
+                                    <% if(element.payed == 12 && element.payStcode == 1){  %>
                                     <a class="label label-primary checkThis" data-type="pass" data-payed="<%=element.payed %>" data-tid="<%=element.tid %>" data-bid="<%=element.bid %>">确认收款</a>
                                     <a class="label label-danger optionThis" data-type="notpass" data-payed="<%=element.payed %>" data-tid="<%=element.tid %>" data-bid="<%=element.bid %>">解锁</a>
                                     <% } %>
