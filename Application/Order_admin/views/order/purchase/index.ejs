@@ -187,6 +187,7 @@
                                 <th>请购人部门</th>
                                 <th>请购时间</th>
                                 <th>请购类型</th>
+                                <th>批次号</th>
                                 <th>审核人</th>
                                 <th>审核人部门</th>
                                 <th>审核时间</th>
@@ -215,6 +216,7 @@
                                 <td><%= element.addDeptName %></td>
                                 <td><%= DWY_Helper.getLocalDate(element.addTime) %></td>
                                 <td><%= (element.reqType==10)?'普通请购':'外协请购' %></td>
+                                <td><%= element.batchNumber %></td>
                                 <td><%= element.reviewEmpName %></td>
                                 <td><%= element.reviewDeptName %></td>
                                 <td><%= DWY_Helper.getLocalDate(element.reviewTime) %></td>
@@ -241,7 +243,7 @@
                             </tr>
                             <%  })
                             }else{ %>
-                            <td colspan="11" class="text-align-center">暂无结果</td>
+                            <td colspan="12" class="text-align-center">暂无结果</td>
                             <%  }%>
                             </tbody>
                         </table>

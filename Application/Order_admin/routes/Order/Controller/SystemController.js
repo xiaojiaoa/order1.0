@@ -490,6 +490,25 @@ var SystemController = {
             }
         })
     },
+    printPurcPackagelist: function (req, res) {
+        var purcId = req.params.purcId;
+        var type = req.query.type;
+        request(Base.mergeRequestOptions({
+            method: 'get',
+            url: '/api/orders/package/print/purcPackagelist/' + purcId ,
+        }, req, res), function (error, response, body) {
+            if (!error && response.statusCode == 200) {
+                var returnData = Base.mergeData(helper.mergeObject({
+                    purcId: purcId,
+                    type: 'arry',
+                    showTYpe: type
+                }, {printINfo: JSON.parse(body)}));
+                res.render('order/system/print', returnData);
+            } else {
+                Base.handlerError(res, req, error, response, body);
+            }
+        })
+    },
     paramShowPage: function (req, res) {
         var bid = req.session.user.bid;
         Base.multiDataRequest(req, res, [

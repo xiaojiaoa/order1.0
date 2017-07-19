@@ -159,7 +159,7 @@ var BaseController = {
                     return;
                 }
 
-                resultList[response.request.resConfig.keyName] = (body ? JSON.parse(body) : '');
+                resultList[element.resConfig.keyName] = (body ? JSON.parse(body) : '');
                 if (count != resultLength) {
 
                 } else {

@@ -418,6 +418,37 @@ var PurchaseController = {
             }
         })
     },
+
+    exportOutsource: function (req, res) {
+        request(Base.mergeRequestOptions({
+            method: 'get',
+            url: '/api/orders/batchNumber/export/outsource',
+        }, req, res)).pipe(res)
+    },
+    exportPurchase: function (req, res) {
+
+        request(Base.mergeRequestOptions({
+            method: 'get',
+            url: '/api/orders/batchNumber/export/purchase?'+queryString.stringify(req.query),
+        }, req, res)).pipe(res)
+    },
+    suppliersOutsource: function (req, res) {
+
+        var id = req.params.id;
+        request(Base.mergeRequestOptions({
+            method: 'get',
+            url: '/api/suppliers/organ/'+id,
+        }, req, res), function (error, response, body) {
+            if (!error && response.statusCode == 200) {
+                res.status(200).json(body);
+
+            }else{
+
+                res.status(500).json(body)
+                // Base.handlerError(res, req, error, response, body);
+            }
+        })
+    },
 };
 
 module.exports = PurchaseController;

@@ -1288,6 +1288,14 @@ router.get('/purchase/orderMaterial', Middleware.AuthCheck,PurchaseController.pu
 // 新建采购单 添加物料数量+预计交期
 router.post('/purchase/materialCreate', Middleware.AuthCheck,PurchaseController.materialCreate);
 
+// 请购——外协——导出
+router.get('/outsource/export', Middleware.AuthCheck,PurchaseController.exportOutsource);
+
+// 请购——外协——导出——获取供应商列表
+router.get('/outsource/suppliers/:id', Middleware.AuthCheck,PurchaseController.suppliersOutsource);
+
+// 采购——外协——导出
+router.get('/purchase/export', Middleware.AuthCheck,PurchaseController.exportPurchase);
 
 /*
  * 页面范围: 网络预约相关
@@ -1434,6 +1442,9 @@ router.get('/system/printPackageLid/:packageLid', Middleware.AuthCheck,SystemCon
 router.get('/system/printParts/:batchNumber/:factoryId', Middleware.AuthCheck,SystemController.printParts);
 
 router.get('/system/delivery/:id', Middleware.AuthCheck,SystemController.printDelivery);
+
+
+router.get('/system/purcPackagelist/:purcId', Middleware.AuthCheck,SystemController.printPurcPackagelist);
 
 
 // 系数(用来计算零售价和出厂价)配置首页
