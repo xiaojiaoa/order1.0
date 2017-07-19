@@ -573,7 +573,7 @@ var OutWarehouseController = {
         var bid = req.query.bid? req.query.bid: req.session.user.bid;
         Base.multiDataRequest(req, res, [
                 {url: '/api/categories/list/usable', method: 'GET', resConfig: {keyName: 'suppliersMaterialList', is_must: true}},
-                {url: '/api/purchase/request/mates?'+(queryString.stringify(req.query)), method: 'GET', resConfig: {keyName: 'supMaterialList', is_must: true}},
+                {url: '/api/materials?'+(queryString.stringify(req.query)), method: 'GET', resConfig: {keyName: 'supMaterialList', is_must: true}},
                 {url: '/api/whse/factory/list', method: 'GET', resConfig: {keyName: 'factoryList', is_must: true}},
             ],
             function (req, res, resultList) {
