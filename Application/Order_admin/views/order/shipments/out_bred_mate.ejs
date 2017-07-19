@@ -218,7 +218,8 @@
                                 <td>
                                     <label class="checkbox-inline">
                                         <input type="checkbox" class="checkbox"
-                                               name="roles" value="<%= element.id %>" uniqueId="<%= element.uniqueCode %>" mateId="<%= element.id %>">
+                                               name="roles" value="<%= element.id %>" uniqueId="<%= element.uniqueCode %>" mateId="<%= element.id %>"
+                                        <%= element.usable==0? 'disabled':''%> >
                                         <span><%= index+1 %></span>
                                     </label>
                                 </td>
