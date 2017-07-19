@@ -270,6 +270,7 @@
                                 <th>所属仓库名</th>
                                 <th>货位号</th>
                                 <th>库存数量</th>
+                                <th>批次号</th>
                                 <th>操作</th>
                             </tr>
                             </thead>
@@ -282,11 +283,13 @@
                                 <td><%= element.whseName%></td>
                                 <td><%= element.spaceId.substr(element.spaceId.length - 6)%></td>
                                 <td><%= element.amount%></td>
-                                <td><a class="label label-primary modifyStock" href="javascript:void(0)" spaceId="<%= element.spaceId%>">修改库存</a></td>
+                                <td><%= element.mateBatchId%></td>
+                                <td><a class="label label-primary modifyStock" href="javascript:void(0)"
+                                       spaceId="<%= element.spaceId%>" mateBatchId="<%= element.mateBatchId%>">修改库存</a></td>
                             </tr>
                             <% })}else{ %>
                             <tr>
-                                <td colspan="6" align="center">暂无数据</td>
+                                <td colspan="7" align="center">暂无数据</td>
                             </tr>
                             <% } %>
                             </tbody>
@@ -490,6 +493,7 @@
     <input type="hidden" name="mateId" value="<%= mid %>">
     <input type="hidden" name="bid" value="<%= bid %>">
     <input type="hidden" name="spaceId" value="">
+    <input type="hidden" name="mateBatchId" value="">
     <div class="col-xs-12">
         <hr class="simple">
         <div class="col-xs-12 text-center">
@@ -686,7 +690,9 @@
         $('.modifyStock').on({
             click: function (e) {
                 var spaceId=$(this).attr("spaceId");
+                var mateBatchId=$(this).attr("mateBatchId");
                 $("input[name=spaceId]").val(spaceId);
+                $("input[name=mateBatchId]").val(mateBatchId);
                 layer.open({
                     title: false,
                     type: 1,
