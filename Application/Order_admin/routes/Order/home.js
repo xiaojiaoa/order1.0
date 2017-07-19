@@ -39,6 +39,8 @@ router.use(function (req, res, next) {
     res.locals.permission = req.session.permission;
     // 请求本身
     res.locals.DWYRequest = req;
+
+    res.locals.backPath = req.session.backPath;
     next();
 });
 
@@ -396,7 +398,7 @@ router.put('/schedule/getTaskAgain/:tid', Middleware.AuthCheck, OrderController.
 
 // 订单包装页面
 router.get('/orders/package', Middleware.AuthCheck,Middleware.FilterEmptyField,OrderController.packagePage);
-router.get('/orders/package/allInfo', Middleware.AuthCheck,Middleware.FilterEmptyField,OrderController.allInfoPage);
+router.get('/orders/package/allInfo', Middleware.AuthCheck,Middleware.FilterEmptyField,Middleware.SetBackPath, OrderController.allInfoPage);
 
 // 查询订单生成包装后的包装详情
 router.get('/orders/package/:tid', Middleware.AuthCheck,OrderController.packedListPage);
@@ -1276,6 +1278,7 @@ router.post('/purchases/recall/:tid', Middleware.AuthCheck,PurchaseController.pu
 router.post('/purchases/submit/:tid', Middleware.AuthCheck,PurchaseController.purchaseSubmit);
 //删除未审核采购单
 router.post('/purchases/del/:purcIds', Middleware.AuthCheck,PurchaseController.purchaseDel);
+
 //打印采购单
 router.get('/purchases/print/:purcIds', Middleware.AuthCheck,PurchaseController.printPurchase);
 
