@@ -46,7 +46,7 @@
                             <tr>
                                 <th><label class="checkbox-inline">
                                         <input type="checkbox" class="checkbox"
-                                               id="checkAll">
+                                               name="checkAll" id="checkAll">
                                         <span>&nbsp;</span>
                                     </label>序号</th>
                                 <th>包装流水号</th>
@@ -116,7 +116,8 @@
 
 
         var checkedValue = $('#checkedValue');
-        $("#checkAll").change(function () {
+
+        $("input[name='checkAll']").click(function () {
             if($(this).is(":checked")){
                 $(":checkbox:not(:disabled)").prop('checked',true);
                 $("input[name='pakgs']:checked").each(function (i) {
@@ -127,6 +128,7 @@
                 checkedValue.removeClass()
             }
         })
+
         $("input[name='pakgs']").change(function () {
             if($(this).is(':checked')){
                 checkedValue.addClass(this.value+',')
