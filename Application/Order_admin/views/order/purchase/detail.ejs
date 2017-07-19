@@ -267,7 +267,7 @@
                                     <% if(element.type==30){ %>
                                     外协请购
                                     <a class="label label-success margin-left-10" href="/purchase/export?purcId=<%= element.id %>">导出</a>
-                                    <a class="label label-primary" href="/system/printParts/?purcId=<%= element.id %>">包装</a>
+                                    <a class="label label-primary" href="/system/purcPackagelist/<%= element.id %>">包装</a>
                                     <% }%></td>
                                 <td><%= DWY_Helper.getLocalDate(element.deliveryDate) %></td>
                                 <td><%= DWY_Helper.getLocalDate(element.addTime) %></td>
