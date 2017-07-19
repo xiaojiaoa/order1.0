@@ -500,7 +500,7 @@ var SystemController = {
             if (!error && response.statusCode == 200) {
                 var returnData = Base.mergeData(helper.mergeObject({
                     purcId: purcId,
-                    type: 'arry',
+                    type: 'purcPackagelist',
                     showTYpe: type
                 }, {printINfo: JSON.parse(body)}));
                 res.render('order/system/print', returnData);

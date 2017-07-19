@@ -44,12 +44,25 @@
             </div>
             <% } %>
 
+            <% if(type == 'purcPackagelist'){ %>
+            <div class="orderItemLayerTit">
+                <ul class="orderItemMenu">
+                    <a href="/system/purcPackagelist/<%= purcId%>?type=A">
+                        <li class="padding-10 <%= (showTYpe=='A'|| !showTYpe)? 'materielBak':''%>">配件</li>
+                    </a>
+                    <a href="/system/purcPackagelist/<%= purcId%>?type=W">
+                        <li class="padding-10 <%= showTYpe=='W'? 'materielBak':''%> ">工件</li>
+                    </a>
+                </ul>
+            </div>
+            <% } %>
+
             <div id="printHtml">
                 <% if(type == 'html'){ %>
                 <div class="printBody"><%- printINfo %></div>
                 <%  } %>
 
-                <% if(type == 'arry'){
+                <% if(type == 'arry' || type == 'purcPackagelist'){
                 if(( showTYpe=='A' || !showTYpe ) && DWY_Helper.isCanLoop(printINfo.A)){
                 printINfo.A.forEach(function (element) { %>
                 <div class="printBody nopadding-table" id="tabDiv0"><%- element %></div>
