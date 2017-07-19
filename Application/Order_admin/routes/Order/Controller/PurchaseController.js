@@ -422,7 +422,7 @@ var PurchaseController = {
     exportOutsource: function (req, res) {
         request(Base.mergeRequestOptions({
             method: 'get',
-            url: '/api/orders/batchNumber/export/outsource',
+            url: '/api/orders/batchNumber/export/outsource?'+queryString.stringify(req.body),
         }, req, res)).pipe(res)
     },
     exportPurchase: function (req, res) {

@@ -1289,7 +1289,7 @@ router.get('/purchase/orderMaterial', Middleware.AuthCheck,PurchaseController.pu
 router.post('/purchase/materialCreate', Middleware.AuthCheck,PurchaseController.materialCreate);
 
 // 请购——外协——导出
-router.get('/outsource/export', Middleware.AuthCheck,PurchaseController.exportOutsource);
+router.post('/outsource/export', Middleware.AuthCheck,PurchaseController.exportOutsource);
 
 // 请购——外协——导出——获取供应商列表
 router.get('/outsource/suppliers/:id', Middleware.AuthCheck,PurchaseController.suppliersOutsource);
