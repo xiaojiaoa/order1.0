@@ -96,7 +96,7 @@
                             <%  }%>
                             </tbody>
                         </table>
-                        <%- pagination %>
+                        <%- paginationForGet %>
                     </div>
 
                 </div>
@@ -128,6 +128,7 @@
                     <div class="row search-form">
                         <form class="form-horizontal" method="get" id="search-customer">
                             <div class="col-xs-12">
+                                <input type="hidden" name="searchDown" value="1">
                                     <div class="col-xs-2">
                                         <select class="form-control" name="productType">
                                             <option value="">- 产品类型 -</option>
@@ -473,6 +474,16 @@
                     });
                 },
                 function(index){layer.close(index)})
+        })
+
+
+        DWY_Utils.pagination({
+            dataContainer:'#layer-form-wrapper',
+            pagination :'#pagination',
+            method:'GET',
+            url:'/template/pagination',
+            pageSize:10
+
         })
     })
 </script>

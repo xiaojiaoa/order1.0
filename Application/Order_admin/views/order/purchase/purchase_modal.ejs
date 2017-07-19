@@ -44,12 +44,12 @@
         <!--输入字段-->
         <div class="col-xs-12">
             <div class="form-group">
-                <label class="col-xs-4 control-label ">待付款金额:
-                </label>
+                <label class="col-xs-4 control-label ">待付款金额:</label>
                 <div class="col-xs-6 money" style="padding-top:7px;padding-left:18px;">
                     <input name="money" value="" style="border:0;width:20%;color:#d9534f" />元
                 </div>
                 <input type="hidden" name="remaId" value="" />
+                <input type="hidden" name="purchaseId" value="<%= purchaseOrderList.id  %>" />
             </div>
         </div>
         <div class="col-xs-12">

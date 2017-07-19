@@ -219,8 +219,30 @@ var PurchaseController = {
     },
     //财务查看采购
     financePurchase:function(req,res){
-        res.redirect("/purchase/detail?payCode=10");
-        res.render('order/purchase/detail');
+        // res.redirect("/purchase/detail?payCode=10");
+        var paramObject = helper.genPaginationQuery(req);
+        if(!req.query.payCode){
+            req.query.payCode = 10
+        }
+        Base.multiDataRequest(req, res, [
+            {url: '/api/purchases?'+(queryString.stringify(req.query)), method: 'GET', resConfig: {keyName: 'purchasesLists', is_must: true}},
+            {url: '/api/organizations//list?'+(queryString.stringify(req.query)), method: 'GET', resConfig: {keyName: 'factoryLists', is_must: true}},
+            {url: '/api/suppliers/organ?'+(queryString.stringify(req.query)), method: 'GET', resConfig: {keyName: 'suppLists', is_must: true}},
+        ], function (req, res, resultList) {
+            var paginationInfo =  resultList.purchasesLists;
+            var boostrapPaginator = new Pagination.TemplatePaginator(helper.genPageInfo({
+                prelink: paramObject.withoutPageNo,
+                current: paginationInfo.page,
+                rowsPerPage: paginationInfo.pageSize,
+                totalResult: paginationInfo.totalItems
+            }));
+            var returnData = Base.mergeData(helper.mergeObject({
+                title: ' ',
+                pagination: boostrapPaginator.render(),
+                Permission :Permissions,
+            },resultList));
+            res.render('order/purchase/detail', returnData);
+        });
     },
     //采购单详情
     purchaseOrderDetail: function (req, res) {
@@ -255,6 +277,7 @@ var PurchaseController = {
     },
     //采购单付款上传凭证 type=30
     uploadProof2: function (req, res) {
+        var purchaseId = req.body.purchaseId
         request(Base.mergeRequestOptions({
             method: 'post',
             url: '/api/purchase/reqmaterial/payment',
@@ -263,7 +286,7 @@ var PurchaseController = {
             if (!error && response.statusCode == 201) {
                 Base.handlerSuccess(res, req);
                 //  res.redirect("/purchase/detail");
-                res.redirect(req.session.backPath?req.session.backPath:"/purchase/detail");
+                res.redirect("/purchase/orderDetail/"+purchaseId);
             } else {
                 Base.handlerError(res, req, error, response, body);
             }

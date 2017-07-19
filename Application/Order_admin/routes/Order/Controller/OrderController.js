@@ -914,27 +914,43 @@ var OrderController = {
     },
     // 订单排料页面
     nestingPage: function (req, res) {
+        var searchDown = req.query.searchDown
+        if( req.query.searchDown){
+
+        }
         var paramObject = helper.genPaginationQuery(req);
         Base.multiDataRequest(req, res, [
             {url: '/api/orders/schedule?'+(queryString.stringify(req.query)), method: 'GET', resConfig: {keyName: 'scheduleAllList', is_must: true}},
-            {url: '/api/orders/schedule/gid', method: 'GET', resConfig: {keyName: 'scheduleList', is_must: true}},
+            {url: '/api/orders/schedule/gid?'+(queryString.stringify(req.query)), method: 'GET', resConfig: {keyName: 'scheduleList', is_must: true}},
             {url: '/api/assist/deco/color', method: 'GET', resConfig: {keyName: 'colorList', is_must: true}},
             {url: '/api/assist/space/prod?spaceId=10', method: 'GET', resConfig: {keyName: 'prodList', is_must: true}},
             {url: '/api/assist/order/orderType', method: 'GET', resConfig: {keyName: 'orderTypeList', is_must: true}},
         ], function (req, res, resultList) {
             var paginationInfo =  resultList.scheduleAllList;
+            var paginationInfoForGet =  resultList.scheduleList;
+
             var boostrapPaginator = new Pagination.TemplatePaginator(helper.genPageInfo({
                 prelink: paramObject.withoutPageNo,
                 current: paginationInfo.page,
                 rowsPerPage: paginationInfo.pageSize,
                 totalResult: paginationInfo.totalItems
             }));
+            var boostrapPaginatorForGet = new Pagination.TemplatePaginator(helper.genPageInfo({
+                prelink: paramObject.withoutPageNo,
+                current: paginationInfoForGet.page,
+                rowsPerPage: paginationInfoForGet.pageSize,
+                totalResult: paginationInfoForGet.totalItems
+            }));
+
             var returnData = Base.mergeData(helper.mergeObject({
                 title: ' ',
                 pagination: boostrapPaginator.render(),
+                paginationForGet: boostrapPaginatorForGet.render(),
                 Permission :Permissions,
             },resultList));
             res.render('order/order/nesting', returnData);
+
+
 
         });
     },
