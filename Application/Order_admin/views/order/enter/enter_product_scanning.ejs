@@ -124,7 +124,7 @@
                                 <td>
                                     <label class="checkbox-inline">
                                         <input type="checkbox" class="checkbox" autocomplete="off"
-                                               name="pakgs" value="<%= element.packageLid %>" data-tid="<%= element.tid %>">
+                                               name="pakgs" value="<%= element.packageLid %>" data-tid="<%= element.tid %>" <%= element.inScanType==1 ?"disabled":"" %>>
                                         <span><%= index + 1 %></span>
                                     </label>
                                 </td>
@@ -134,7 +134,7 @@
                                 <td><%= element.packageProduct %></td>
                                 <td><%= element.batchNumber %></td>
                                 <td class="tid-td"><%= element.tid %></td>
-                                <td><%= DWY_Helper.getPackageType(element.stcode) %></td>
+                                <td><%= element.stcodeName %></td>
                             </tr>
                             <%
                             })}else{ %>
