@@ -21,10 +21,18 @@ var ApartController = {
 
     listPage: function (req, res) {
         var type = req.params.type;
-        var paramObject = helper.genPaginationQuery(req);
+        var paramObjectOne = helper.genPaginationQuery(req, 'pageNoGid');
+        var paramObjectTwo = helper.genPaginationQuery(req, 'pageNoNext');
+        var paramObjectThr = helper.genPaginationQuery(req);
+
+        var pageNoGid = req.query.pageNoGid?req.query.pageNoGid:'1';
+        delete req.query.pageNoGid
+        var pageNoNext = req.query.pageNoNext?req.query.pageNoNext:'1';
+        delete req.query.pageNoNext
+
         Base.multiDataRequest(req, res, [
-            {url: '/api/orders/apart/gid', method: 'GET', resConfig: {keyName: 'apartingList', is_must: true}},
-            {url: '/api/orders/apart/waitReview/gid', method: 'GET', resConfig: {keyName: 'waitReviewList', is_must: true}},
+            {url: '/api/orders/apart/gid?pageNo='+pageNoGid, method: 'GET', resConfig: {keyName: 'apartingList', is_must: true}},
+            {url: '/api/orders/apart/waitReview/gid?pageNo='+pageNoNext, method: 'GET', resConfig: {keyName: 'waitReviewList', is_must: true}},
             {url: '/api/orders/apart?'+ (queryString.stringify(req.query)), method: 'GET', resConfig: {keyName: 'apartList', is_must: true}},
             {url: '/api/assist/brandinfo', method: 'GET', resConfig: {keyName: 'brandinfoList', is_must: true}},
             {url: '/api/assist/space/prod', method: 'GET', resConfig: {keyName: 'prodList', is_must: true}},
@@ -38,19 +46,21 @@ var ApartController = {
             var paginationInfThr =  resultList.apartList;
 
             var boostrapPaginatorOne = new Pagination.TemplatePaginator(helper.genPageInfo({
-                prelink: paramObject.withoutPageNo,
+                prelink: paramObjectOne.withoutPageNo,
                 current: paginationInfoOne.page,
                 rowsPerPage: paginationInfoOne.pageSize,
-                totalResult: paginationInfoOne.totalItems
+                totalResult: paginationInfoOne.totalItems,
+                pageNoName: paramObjectOne.pageNoName
             }));
             var boostrapPaginatorTwo = new Pagination.TemplatePaginator(helper.genPageInfo({
-                prelink: paramObject.withoutPageNo,
+                prelink: paramObjectTwo.withoutPageNo,
                 current: paginationInfTwo.page,
                 rowsPerPage: paginationInfTwo.pageSize,
-                totalResult: paginationInfTwo.totalItems
+                totalResult: paginationInfTwo.totalItems,
+                pageNoName: paramObjectTwo.pageNoName
             }));
             var boostrapPaginatorThr = new Pagination.TemplatePaginator(helper.genPageInfo({
-                prelink: paramObject.withoutPageNo,
+                prelink: paramObjectThr.withoutPageNo,
                 current: paginationInfThr.page,
                 rowsPerPage: paginationInfThr.pageSize,
                 totalResult: paginationInfThr.totalItems
@@ -155,9 +165,18 @@ var ApartController = {
     checkPage: function (req, res) {
         var type = req.params.type;
         var paramObject = helper.genPaginationQuery(req);
+        var paramObjectOne = helper.genPaginationQuery(req, 'pageNoGid');
+        var paramObjectTwo = helper.genPaginationQuery(req, 'pageNoNext');
+
+        var pageNoGid = req.query.pageNoGid?req.query.pageNoGid:'1';
+        delete req.query.pageNoGid
+        var pageNoNext = req.query.pageNoNext?req.query.pageNoNext:'1';
+        delete req.query.pageNoNext
+
+
         Base.multiDataRequest(req, res, [
-            {url: '/api/orders/apartReview/gid', method: 'GET', resConfig: {keyName: 'doingList', is_must: true}},
-            {url: '/api/orders/apartReview/waitApartReview/gid', method: 'GET', resConfig: {keyName: 'waitApartReview', is_must: true}},
+            {url: '/api/orders/apartReview/gid?pageNo='+pageNoGid, method: 'GET', resConfig: {keyName: 'doingList', is_must: true}},
+            {url: '/api/orders/apartReview/waitApartReview/gid?pageNo='+pageNoNext, method: 'GET', resConfig: {keyName: 'waitApartReview', is_must: true}},
             {url: '/api/orders/apartReview?'+ (queryString.stringify(req.query)), method: 'GET', resConfig: {keyName: 'apartReviewList', is_must: true}},
             {url: '/api/assist/brandinfo', method: 'GET', resConfig: {keyName: 'brandinfoList', is_must: true}},
             {url: '/api/assist/deco/color', method: 'GET', resConfig: {keyName: 'colorList', is_must: true}},
@@ -168,19 +187,28 @@ var ApartController = {
         ], function (req, res, resultList) {
 
             var paginationInfoOne =  resultList.doingList;
-            var paginationInfTwo =  resultList.apartReviewList;
+            var paginationInfTwo =  resultList.waitApartReview;
+            var paginationInf =  resultList.apartReviewList;
 
             var boostrapPaginatorOne = new Pagination.TemplatePaginator(helper.genPageInfo({
-                prelink: paramObject.withoutPageNo,
+                prelink: paramObjectOne.withoutPageNo,
                 current: paginationInfoOne.page,
                 rowsPerPage: paginationInfoOne.pageSize,
-                totalResult: paginationInfoOne.totalItems
+                totalResult: paginationInfoOne.totalItems,
+                pageNoName: paramObjectOne.pageNoName
             }));
             var boostrapPaginatorTwo = new Pagination.TemplatePaginator(helper.genPageInfo({
-                prelink: paramObject.withoutPageNo,
+                prelink: paramObjectTwo.withoutPageNo,
                 current: paginationInfTwo.page,
                 rowsPerPage: paginationInfTwo.pageSize,
-                totalResult: paginationInfTwo.totalItems
+                totalResult: paginationInfTwo.totalItems,
+                pageNoName: paramObjectTwo.pageNoName
+            }));
+            var boostrapPaginator = new Pagination.TemplatePaginator(helper.genPageInfo({
+                prelink: paramObject.withoutPageNo,
+                current: paginationInf.page,
+                rowsPerPage: paginationInf.pageSize,
+                totalResult: paginationInf.totalItems
             }));
 
 
@@ -189,6 +217,7 @@ var ApartController = {
                 type :type,
                 paginationOne: boostrapPaginatorOne.render(),
                 paginationTwo: boostrapPaginatorTwo.render(),
+                pagination: boostrapPaginator.render(),
                 Permission :Permissions,
             },resultList));
             res.render('order/order/apart_check', returnData);

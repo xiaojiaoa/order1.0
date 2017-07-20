@@ -436,9 +436,14 @@ var OrderController = {
             });
     },
     acceptPage: function (req, res) {
+        var paramObjectOne = helper.genPaginationQuery(req, 'pageNoGid');
         var paramObject = helper.genPaginationQuery(req);
+
+        var pageNoGid = req.query.pageNoGid?req.query.pageNoGid:'1';
+        delete req.query.pageNoGid
+
         Base.multiDataRequest(req, res, [
-            {url: '/api/orders/resupply/accept/gid', method: 'GET', resConfig: {keyName: 'acceptingList', is_must: true}},
+            {url: '/api/orders/resupply/accept/gid?pageNo='+pageNoGid, method: 'GET', resConfig: {keyName: 'acceptingList', is_must: true}},
             {url: '/api/orders/resupply/accept?'+ (queryString.stringify(req.query)), method: 'GET', resConfig: {keyName: 'acceptList', is_must: true}},
             {url: '/api/assist/order/difficulty', method: 'GET', resConfig: {keyName: 'difficultyList', is_must: true}},
         ], function (req, res, resultList) {
@@ -447,10 +452,11 @@ var OrderController = {
             var paginationInfTwo =  resultList.acceptList;
 
             var boostrapPaginatorOne = new Pagination.TemplatePaginator(helper.genPageInfo({
-                prelink: paramObject.withoutPageNo,
+                prelink: paramObjectOne.withoutPageNo,
                 current: paginationInfoOne.page,
                 rowsPerPage: paginationInfoOne.pageSize,
-                totalResult: paginationInfoOne.totalItems
+                totalResult: paginationInfoOne.totalItems,
+                pageNoName: paramObjectOne.pageNoName
             }));
             var boostrapPaginatorTwo = new Pagination.TemplatePaginator(helper.genPageInfo({
                 prelink: paramObject.withoutPageNo,
@@ -563,9 +569,17 @@ var OrderController = {
     },
     reviewPage: function (req, res) {
         var paramObject = helper.genPaginationQuery(req);
+        var paramObjectOne = helper.genPaginationQuery(req, 'pageNoGid');
+        var paramObjectTwo = helper.genPaginationQuery(req, 'pageNoNext');
+
+        var pageNoGid = req.query.pageNoGid?req.query.pageNoGid:'1';
+        delete req.query.pageNoGid
+        var pageNoNext = req.query.pageNoNext?req.query.pageNoNext:'1';
+        delete req.query.pageNoNext
+
         Base.multiDataRequest(req, res, [
-            {url: '/api/orders/resupply/review/gid', method: 'GET', resConfig: {keyName: 'apartingList', is_must: true}},
-            {url: '/api/orders/review/waitApart/gid?orderType=20', method: 'GET', resConfig: {keyName: 'waitReviewList', is_must: true}},
+            {url: '/api/orders/resupply/review/gid?pageNo='+pageNoGid, method: 'GET', resConfig: {keyName: 'apartingList', is_must: true}},
+            {url: '/api/orders/review/waitApart/gid?orderType=20&pageNo='+pageNoNext, method: 'GET', resConfig: {keyName: 'waitReviewList', is_must: true}},
             {url: '/api/orders/resupply/review?'+ (queryString.stringify(req.query)), method: 'GET', resConfig: {keyName: 'apartList', is_must: true}},
             {url: '/api/assist/brandinfo' , method: 'GET', resConfig: {keyName: 'brandInfo', is_must: true}},
             {url: '/api/assist/space/prod?spaceId=10', method: 'GET', resConfig: {keyName: 'prodList', is_must: true}},
@@ -573,28 +587,39 @@ var OrderController = {
             {url: '/api/assist/deco/color', method: 'GET', resConfig: {keyName: 'colorList', is_must: true}},
 
         ], function (req, res, resultList) {
-
             var paginationInfoOne =  resultList.apartingList;
-            var paginationInfTwo =  resultList.apartList;
+            var paginationInfTwo =  resultList.waitReviewList;
+            var paginationInf =  resultList.apartList;
 
             var boostrapPaginatorOne = new Pagination.TemplatePaginator(helper.genPageInfo({
-                prelink: paramObject.withoutPageNo,
+                prelink: paramObjectOne.withoutPageNo,
                 current: paginationInfoOne.page,
                 rowsPerPage: paginationInfoOne.pageSize,
-                totalResult: paginationInfoOne.totalItems
+                totalResult: paginationInfoOne.totalItems,
+                pageNoName: paramObjectOne.pageNoName
             }));
             var boostrapPaginatorTwo = new Pagination.TemplatePaginator(helper.genPageInfo({
-                prelink: paramObject.withoutPageNo,
+                prelink: paramObjectTwo.withoutPageNo,
                 current: paginationInfTwo.page,
                 rowsPerPage: paginationInfTwo.pageSize,
-                totalResult: paginationInfTwo.totalItems
+                totalResult: paginationInfTwo.totalItems,
+                pageNoName: paramObjectTwo.pageNoName
             }));
+            var boostrapPaginator = new Pagination.TemplatePaginator(helper.genPageInfo({
+                prelink: paramObject.withoutPageNo,
+                current: paginationInf.page,
+                rowsPerPage: paginationInf.pageSize,
+                totalResult: paginationInf.totalItems
+            }));
+
+
 
 
             var returnData = Base.mergeData(helper.mergeObject({
                 title: '补单审核 ',
                 paginationOne: boostrapPaginatorOne.render(),
                 paginationTwo: boostrapPaginatorTwo.render(),
+                pagination: boostrapPaginator.render(),
                 Permission :Permissions,
             },resultList));
             res.render('order/order/resupplys_check', returnData);
@@ -648,9 +673,16 @@ var OrderController = {
 
     apartCheckPage: function (req, res) {
         var paramObject = helper.genPaginationQuery(req);
+        var paramObjectOne = helper.genPaginationQuery(req, 'pageNoGid');
+        var paramObjectTwo = helper.genPaginationQuery(req, 'pageNoNext');
+        var pageNoGid = req.query.pageNoGid?req.query.pageNoGid:'1';
+        delete req.query.pageNoGid
+        var pageNoNext = req.query.pageNoNext?req.query.pageNoNext:'1';
+        delete req.query.pageNoNext
+
         Base.multiDataRequest(req, res, [
-            {url: '/api/orders/apartReview/gid?orderType=20', method: 'GET', resConfig: {keyName: 'apartReviewingList', is_must: true}},
-            {url: '/api/orders/apartReview/waitApartReview/gid?orderType=20', method: 'GET', resConfig: {keyName: 'waitApartReview', is_must: true}},
+            {url: '/api/orders/apartReview/gid?orderType=20&pageNo='+pageNoGid, method: 'GET', resConfig: {keyName: 'apartReviewingList', is_must: true}},
+            {url: '/api/orders/apartReview/waitApartReview/gid?orderType=20&pageNo='+pageNoNext, method: 'GET', resConfig: {keyName: 'waitApartReview', is_must: true}},
             {url: '/api/orders/apartReview?orderType=20&'+ (queryString.stringify(req.query)), method: 'GET', resConfig: {keyName: 'apartReviewList', is_must: true}},
             {url: '/api/assist/brandinfo' , method: 'GET', resConfig: {keyName: 'brandInfo', is_must: true}},
             {url: '/api/assist/space/prod?spaceId=10', method: 'GET', resConfig: {keyName: 'prodList', is_must: true}},
@@ -659,19 +691,28 @@ var OrderController = {
         ], function (req, res, resultList) {
 
             var paginationInfoOne =  resultList.apartReviewingList;
-            var paginationInfTwo =  resultList.apartReviewList;
+            var paginationInfTwo =  resultList.waitApartReview;
+            var paginationInf =  resultList.apartReviewList;
 
             var boostrapPaginatorOne = new Pagination.TemplatePaginator(helper.genPageInfo({
-                prelink: paramObject.withoutPageNo,
+                prelink: paramObjectOne.withoutPageNo,
                 current: paginationInfoOne.page,
                 rowsPerPage: paginationInfoOne.pageSize,
-                totalResult: paginationInfoOne.totalItems
+                totalResult: paginationInfoOne.totalItems,
+                pageNoName: paramObjectOne.pageNoName
             }));
             var boostrapPaginatorTwo = new Pagination.TemplatePaginator(helper.genPageInfo({
-                prelink: paramObject.withoutPageNo,
+                prelink: paramObjectTwo.withoutPageNo,
                 current: paginationInfTwo.page,
                 rowsPerPage: paginationInfTwo.pageSize,
-                totalResult: paginationInfTwo.totalItems
+                totalResult: paginationInfTwo.totalItems,
+                pageNoName: paramObjectTwo.pageNoName
+            }));
+            var boostrapPaginator = new Pagination.TemplatePaginator(helper.genPageInfo({
+                prelink: paramObject.withoutPageNo,
+                current: paginationInf.page,
+                rowsPerPage: paginationInf.pageSize,
+                totalResult: paginationInf.totalItems
             }));
 
 
@@ -679,6 +720,7 @@ var OrderController = {
                 title: '补单拆单审核 ',
                 paginationOne: boostrapPaginatorOne.render(),
                 paginationTwo: boostrapPaginatorTwo.render(),
+                pagination: boostrapPaginator.render(),
                 Permission :Permissions,
             },resultList));
             res.render('order/order/resupplys_apart_check', returnData);
@@ -704,9 +746,17 @@ var OrderController = {
 
     apartPage: function (req, res) {
         var paramObject = helper.genPaginationQuery(req);
+        var paramObjectOne = helper.genPaginationQuery(req, 'pageNoGid');
+        var paramObjectTwo = helper.genPaginationQuery(req, 'pageNoNext');
+
+        var pageNoGid = req.query.pageNoGid?req.query.pageNoGid:'1';
+        delete req.query.pageNoGid
+        var pageNoNext = req.query.pageNoNext?req.query.pageNoNext:'1';
+        delete req.query.pageNoNext
+
         Base.multiDataRequest(req, res, [
-            {url: '/api/orders/apart/gid?orderType=20', method: 'GET', resConfig: {keyName: 'apartingList', is_must: true}},
-            {url: '/api/orders/apart/waitReview/gid?orderType=20', method: 'GET', resConfig: {keyName: 'waitReviewList', is_must: true}},
+            {url: '/api/orders/apart/gid?orderType=20&pageNo='+pageNoGid, method: 'GET', resConfig: {keyName: 'apartingList', is_must: true}},
+            {url: '/api/orders/apart/waitReview/gid?orderType=20&pageNo='+pageNoNext, method: 'GET', resConfig: {keyName: 'waitReviewList', is_must: true}},
             {url: '/api/orders/resupply/apart?orderType=20&'+ (queryString.stringify(req.query)), method: 'GET', resConfig: {keyName: 'apartList', is_must: true}},
             {url: '/api/assist/brandinfo' , method: 'GET', resConfig: {keyName: 'brandInfo', is_must: true}},
             {url: '/api/assist/space/prod?spaceId=10', method: 'GET', resConfig: {keyName: 'prodList', is_must: true}},
@@ -715,26 +765,38 @@ var OrderController = {
         ], function (req, res, resultList) {
 
             var paginationInfoOne =  resultList.apartingList;
-            var paginationInfTwo =  resultList.apartList;
+            var paginationInfTwo =  resultList.waitReviewList;
+            var paginationInf =  resultList.apartList;
 
             var boostrapPaginatorOne = new Pagination.TemplatePaginator(helper.genPageInfo({
-                prelink: paramObject.withoutPageNo,
+                prelink: paramObjectOne.withoutPageNo,
                 current: paginationInfoOne.page,
                 rowsPerPage: paginationInfoOne.pageSize,
-                totalResult: paginationInfoOne.totalItems
+                totalResult: paginationInfoOne.totalItems,
+                pageNoName: paramObjectOne.pageNoName
             }));
             var boostrapPaginatorTwo = new Pagination.TemplatePaginator(helper.genPageInfo({
-                prelink: paramObject.withoutPageNo,
+                prelink: paramObjectTwo.withoutPageNo,
                 current: paginationInfTwo.page,
                 rowsPerPage: paginationInfTwo.pageSize,
-                totalResult: paginationInfTwo.totalItems
+                totalResult: paginationInfTwo.totalItems,
+                pageNoName: paramObjectTwo.pageNoName
             }));
+            var boostrapPaginator = new Pagination.TemplatePaginator(helper.genPageInfo({
+                prelink: paramObject.withoutPageNo,
+                current: paginationInf.page,
+                rowsPerPage: paginationInf.pageSize,
+                totalResult: paginationInf.totalItems
+            }));
+
+
 
 
             var returnData = Base.mergeData(helper.mergeObject({
                 title: '补单拆单 ',
                 paginationOne: boostrapPaginatorOne.render(),
                 paginationTwo: boostrapPaginatorTwo.render(),
+                pagination: boostrapPaginator.render(),
                 Permission :Permissions,
             },resultList));
             res.render('order/order/resupplys_apart', returnData);
@@ -809,45 +871,61 @@ var OrderController = {
     },
     checkPage: function (req, res) {
         var type = req.params.type;
-        // var apiRequest = {};
-        // if(type == 'getOrder'){
-        //     apiRequest = {url: '/api/orders/review?'+ (queryString.stringify(req.query)), method: 'GET', resConfig: {keyName: 'orderList', is_must: true}}
-        // }else{
-        //     apiRequest = {url: '/api/assist/order/difficulty', method: 'GET', resConfig: {keyName: 'difficultyList', is_must: true}}
-        // }
-        var paramObject = helper.genPaginationQuery(req);
+
+
+        var paramObjectOne = helper.genPaginationQuery(req, 'pageNoGid');
+        var paramObjectTwo = helper.genPaginationQuery(req, 'pageNoNext');
+        var paramObjectThr = helper.genPaginationQuery(req);
+
+        var pageNoGid = req.query.pageNoGid?req.query.pageNoGid:'1';
+        delete req.query.pageNoGid
+        var pageNoNext = req.query.pageNoNext?req.query.pageNoNext:'1';
+        delete req.query.pageNoNext
+
 
         if(type == 'getOrder'){
             Base.multiDataRequest(req, res, [
-                {url: '/api/orders/review/gid', method: 'GET', resConfig: {keyName: 'selfList', is_must: true}},
+                {url: '/api/orders/review/gid?pageNo='+pageNoGid, method: 'GET', resConfig: {keyName: 'selfList', is_must: true}},
                 {url: '/api/orders/review?'+ (queryString.stringify(req.query)), method: 'GET', resConfig: {keyName: 'orderList', is_must: true}},
-                {url: '/api/orders/review/waitApart/gid', method: 'GET', resConfig: {keyName: 'waitApart', is_must: true}},
+                {url: '/api/orders/review/waitApart/gid?pageNo='+pageNoNext, method: 'GET', resConfig: {keyName: 'waitApart', is_must: true}},
                 {url: '/api/assist/brandinfo', method: 'GET', resConfig: {keyName: 'brandinfoList', is_must: true}},
                 {url: '/api/assist/order/difficulty', method: 'GET', resConfig: {keyName: 'difficultyList', is_must: true}},
                 {url: '/api/assist/space/prod', method: 'GET', resConfig: {keyName: 'prodList', is_must: true}},
                 {url: '/api/orders/review/reviewNumber', method: 'GET', resConfig: {keyName: 'reviewNumber', is_must: true}},
             ], function (req, res, resultList) {
 
-                var paginationInfo =  resultList.selfList;
-                var paginationInfoForGet =  resultList.orderList;
+                var paginationOne =  resultList.selfList;
+                var paginationTwo =  resultList.waitApart;
+                var paginationThr =  resultList.orderList;
 
-                var boostrapPaginator = new Pagination.TemplatePaginator(helper.genPageInfo({
-                    prelink: paramObject.withoutPageNo,
-                    current: paginationInfo.page,
-                    rowsPerPage: paginationInfo.pageSize,
-                    totalResult: paginationInfo.totalItems
+
+                var boostrapPaginatorOne = new Pagination.TemplatePaginator(helper.genPageInfo({
+                    prelink: paramObjectOne.withoutPageNo,
+                    current: paginationOne.page,
+                    rowsPerPage: paginationOne.pageSize,
+                    totalResult: paginationOne.totalItems,
+                    pageNoName: paramObjectOne.pageNoName
                 }));
-                var boostrapPaginatorForGet = new Pagination.TemplatePaginator(helper.genPageInfo({
-                    prelink: paramObject.withoutPageNo,
-                    current: paginationInfoForGet.page,
-                    rowsPerPage: paginationInfoForGet.pageSize,
-                    totalResult: paginationInfoForGet.totalItems
+                var boostrapPaginatorTwo = new Pagination.TemplatePaginator(helper.genPageInfo({
+                    prelink: paramObjectTwo.withoutPageNo,
+                    current: paginationTwo.page,
+                    rowsPerPage: paginationTwo.pageSize,
+                    totalResult: paginationTwo.totalItems,
+                    pageNoName: paramObjectTwo.pageNoName
                 }));
+                var boostrapPaginatorThr = new Pagination.TemplatePaginator(helper.genPageInfo({
+                    prelink: paramObjectThr.withoutPageNo,
+                    current: paginationThr.page,
+                    rowsPerPage: paginationThr.pageSize,
+                    totalResult: paginationThr.totalItems,
+                }));
+
 
                 var returnData = Base.mergeData(helper.mergeObject({
                     title: '订单审核 ',
-                    pagination: boostrapPaginator.render(),
-                    paginationForGet: boostrapPaginatorForGet.render(),
+                    paginationOne: boostrapPaginatorOne.render(),
+                    paginationTwo: boostrapPaginatorTwo.render(),
+                    paginationThr: boostrapPaginatorThr.render(),
                     Permission :Permissions,
                     type :type,
                 },resultList));
@@ -855,25 +933,37 @@ var OrderController = {
             });
         }else{
             Base.multiDataRequest(req, res, [
-                {url: '/api/orders/review/gid', method: 'GET', resConfig: {keyName: 'selfList', is_must: true}},
-                {url: '/api/orders/review/waitApart/gid', method: 'GET', resConfig: {keyName: 'waitApart', is_must: true}},
+                {url: '/api/orders/review/gid?pageNo='+pageNoGid, method: 'GET', resConfig: {keyName: 'selfList', is_must: true}},
+                {url: '/api/orders/review/waitApart/gid?pageNo='+pageNoNext, method: 'GET', resConfig: {keyName: 'waitApart', is_must: true}},
                 {url: '/api/assist/brandinfo', method: 'GET', resConfig: {keyName: 'brandinfoList', is_must: true}},
                 {url: '/api/assist/order/difficulty', method: 'GET', resConfig: {keyName: 'difficultyList', is_must: true}},
                 {url: '/api/assist/space/prod', method: 'GET', resConfig: {keyName: 'prodList', is_must: true}},
                 {url: '/api/orders/review/reviewNumber', method: 'GET', resConfig: {keyName: 'reviewNumber', is_must: true}},
             ], function (req, res, resultList) {
 
-                var paginationInfo =  resultList.selfList;
-                var boostrapPaginator = new Pagination.TemplatePaginator(helper.genPageInfo({
-                    prelink: paramObject.withoutPageNo,
-                    current: paginationInfo.page,
-                    rowsPerPage: paginationInfo.pageSize,
-                    totalResult: paginationInfo.totalItems
+                var paginationOne =  resultList.selfList;
+                var paginationTwo =  resultList.waitApart;
+
+
+                var boostrapPaginatorOne = new Pagination.TemplatePaginator(helper.genPageInfo({
+                    prelink: paramObjectOne.withoutPageNo,
+                    current: paginationOne.page,
+                    rowsPerPage: paginationOne.pageSize,
+                    totalResult: paginationOne.totalItems,
+                    pageNoName: paramObjectOne.pageNoName
+                }));
+                var boostrapPaginatorTwo = new Pagination.TemplatePaginator(helper.genPageInfo({
+                    prelink: paramObjectTwo.withoutPageNo,
+                    current: paginationTwo.page,
+                    rowsPerPage: paginationTwo.pageSize,
+                    totalResult: paginationTwo.totalItems,
+                    pageNoName: paramObjectTwo.pageNoName
                 }));
 
                 var returnData = Base.mergeData(helper.mergeObject({
                     title: '订单审核 ',
-                    pagination: boostrapPaginator.render(),
+                    paginationOne: boostrapPaginatorOne.render(),
+                    paginationTwo: boostrapPaginatorTwo.render(),
                     Permission :Permissions,
                     type :type,
                 },resultList));
