@@ -47,11 +47,8 @@
             <% if(type == 'purcPackagelist'){ %>
             <div class="orderItemLayerTit">
                 <ul class="orderItemMenu">
-                    <a href="/system/purcPackagelist/<%= purcId%>?type=A">
-                        <li class="padding-10 <%= (showTYpe=='A'|| !showTYpe)? 'materielBak':''%>">配件</li>
-                    </a>
                     <a href="/system/purcPackagelist/<%= purcId%>?type=W">
-                        <li class="padding-10 <%= showTYpe=='W'? 'materielBak':''%> ">工件</li>
+                        <li class="padding-10 materielBak ">工件</li>
                     </a>
                 </ul>
             </div>
@@ -62,13 +59,21 @@
                 <div class="printBody"><%- printINfo %></div>
                 <%  } %>
 
-                <% if(type == 'arry' || type == 'purcPackagelist'){
+                <% if(type == 'arry'){
                 if(( showTYpe=='A' || !showTYpe ) && DWY_Helper.isCanLoop(printINfo.A)){
                 printINfo.A.forEach(function (element) { %>
                 <div class="printBody nopadding-table" id="tabDiv0"><%- element %></div>
                 <%  })
                 }
                 if(showTYpe=='W' && DWY_Helper.isCanLoop(printINfo.W)){
+                printINfo.W.forEach(function (element) { %>
+                <div class="printBody nopadding-table" id="tabDiv1"><%- element %></div>
+                <%  })
+                }
+                } %>
+
+                <% if(type == 'purcPackagelist'){
+                if(DWY_Helper.isCanLoop(printINfo.W)){
                 printINfo.W.forEach(function (element) { %>
                 <div class="printBody nopadding-table" id="tabDiv1"><%- element %></div>
                 <%  })
