@@ -30,9 +30,10 @@ var helper = {
             'CURRENT_PAGE_REPORT' : '搜索结果 {FromResult} - {ToResult} 共 {TotalResult}'
         };
 
+
         return helper.mergeObject(
             {
-                pageParamName: 'pageNo',
+                pageParamName: options.pageNoName?options.pageNoName:'pageNo',
                 prelink: '',
                 slashSeparator: false,
                 template: function (result) {
@@ -71,11 +72,12 @@ var helper = {
     },
 
     // 生成分页请求query
-    genPaginationQuery: function (req) {
+    genPaginationQuery: function (req, type) {
 
         var res = {};
 
         var param = '', param_no_page = '';
+        var pageNoType = type?type :'pageNo'
 
 
         if (Object.keys(req.query).length != 0) {
@@ -84,20 +86,22 @@ var helper = {
 
             param_no_page = JSON.parse(JSON.stringify(req.query));
 
-            if (param_no_page.pageNo) delete param_no_page.pageNo;
+            if (param_no_page[pageNoType]) delete param_no_page[pageNoType];
 
             param_no_page = queryString.stringify(param_no_page);
 
             return {
                 withQuestionMark: '?' + param,
-                withoutPageNo: param_no_page ? '?' + param_no_page : ''
+                withoutPageNo: param_no_page ? '?' + param_no_page : '',
+                pageNoName: pageNoType
             }
 
         }
 
         return {
             withQuestionMark: '',
-            withoutPageNo: ''
+            withoutPageNo: '',
+            pageNoName: pageNoType
         };
 
 

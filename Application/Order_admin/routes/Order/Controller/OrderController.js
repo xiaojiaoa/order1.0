@@ -914,14 +914,16 @@ var OrderController = {
     },
     // 订单排料页面
     nestingPage: function (req, res) {
-        var searchDown = req.query.searchDown
-        if( req.query.searchDown){
 
-        }
         var paramObject = helper.genPaginationQuery(req);
+        var paramObjectForGet = helper.genPaginationQuery(req, 'pageNoGid');
+
+        var pageNoGid = req.query.pageNoGid?req.query.pageNoGid:'1';
+        delete req.query.pageNoGid
+
         Base.multiDataRequest(req, res, [
             {url: '/api/orders/schedule?'+(queryString.stringify(req.query)), method: 'GET', resConfig: {keyName: 'scheduleAllList', is_must: true}},
-            {url: '/api/orders/schedule/gid?'+(queryString.stringify(req.query)), method: 'GET', resConfig: {keyName: 'scheduleList', is_must: true}},
+            {url: '/api/orders/schedule/gid?pageNo='+pageNoGid, method: 'GET', resConfig: {keyName: 'scheduleList', is_must: true}},
             {url: '/api/assist/deco/color', method: 'GET', resConfig: {keyName: 'colorList', is_must: true}},
             {url: '/api/assist/space/prod?spaceId=10', method: 'GET', resConfig: {keyName: 'prodList', is_must: true}},
             {url: '/api/assist/order/orderType', method: 'GET', resConfig: {keyName: 'orderTypeList', is_must: true}},
@@ -936,10 +938,11 @@ var OrderController = {
                 totalResult: paginationInfo.totalItems
             }));
             var boostrapPaginatorForGet = new Pagination.TemplatePaginator(helper.genPageInfo({
-                prelink: paramObject.withoutPageNo,
+                prelink: paramObjectForGet.withoutPageNo,
                 current: paginationInfoForGet.page,
                 rowsPerPage: paginationInfoForGet.pageSize,
-                totalResult: paginationInfoForGet.totalItems
+                totalResult: paginationInfoForGet.totalItems,
+                pageNoName: paramObjectForGet.pageNoName
             }));
 
             var returnData = Base.mergeData(helper.mergeObject({
