@@ -141,6 +141,17 @@
                                         <i class="fa fa-upload"></i>
                                         确认上传
                                     </button>
+                                    <% if(ordType != 1){ %>
+                                    <% }else{ %>
+
+                                    <% if (DWY_Helper.hasPermission(Permission.orderReview.passOrder.id, permission) && orderInfo.receiveGid == user.id ){ %>
+                                    <a class="btn btn-primary margin-left-20" id="check-pass-modal">提交审核</a>
+                                    <% } %>
+
+                                    <% } %>
+
+
+
                                 </div>
                             </div>
 
@@ -369,3 +380,4 @@
 
 
 <%- include('../layouts/foot'); %>
+<%- include('../order/check_pass')%>

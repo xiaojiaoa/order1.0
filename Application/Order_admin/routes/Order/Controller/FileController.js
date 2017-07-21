@@ -14,6 +14,9 @@ var helper = require('../config/helper');
 var request = require('request');
 var DWY_GLOBAL = require('../config/global');
 
+// 引入权限
+var Permissions = require('../config/permission');
+
 
 var FileController = {
 
@@ -41,11 +44,20 @@ var FileController = {
         var ordType = req.params.type;
         var tid = req.params.tid;
         var stcode = req.params.stcode;
+        var orderType;
+         if(ordType!= 1){
+             orderType='resupply';
+         }
+         else{
+             orderType='order';
+         }
 
         Base.multiDataRequest(req, res, [
                 {url: '/api/assist/orderfile/type?type='+stcode, method: 'GET', resConfig: {keyName: 'fileTypeInfo', is_must: true}},
                 {url: '/api/order/file/'+ lid+"?ordType="+ordType+"&tid="+tid, method: 'GET', resConfig: {keyName: 'fileInfo', is_must: false}},
-                {url: '/api/assist/order/fileNameType', method: 'GET', resConfig: {keyName: 'fileNameType', is_must: false}}
+                {url: '/api/assist/order/fileNameType', method: 'GET', resConfig: {keyName: 'fileNameType', is_must: false}},
+                {url: '/api/orders/'+tid, method: 'GET', resConfig: {keyName: 'orderInfo', is_must: true}},
+                {url: '/api/cofficient', method: 'GET', resConfig: {keyName: 'cofficientInfo', is_must: true}},
             ],
             function (req, res, resultList) {
                 var fileTypeList = {};
@@ -69,7 +81,9 @@ var FileController = {
                     tid:tid,
                     pid:'',
                     ordType:ordType,
-                    stcode:stcode
+                    stcode:stcode,
+                    Permission :Permissions,
+                    orderType:orderType,
                 }, resultList));
                 res.render('order/file/order_create', returnData);
             });
