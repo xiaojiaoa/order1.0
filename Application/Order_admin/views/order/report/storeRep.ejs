@@ -44,7 +44,7 @@
                                                 <option value="">- 请选择 -</option>
                                                 <% if(DWY_Helper.isCanLoop(storesList)){
                                                 storesList.forEach(function (element) { %>
-                                                <option value="<%= element.id %>" <%= (DWYRequest.query.bid == element.id)?"selected":"" %> >
+                                                <option value="<%= element.id %>" <%= (DWYRequest.query.channelId == element.id)?"selected":"" %> >
                                                     <%= element.storeName %>
                                                 </option>
                                                 <% })
