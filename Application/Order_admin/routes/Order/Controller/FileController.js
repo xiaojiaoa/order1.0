@@ -45,12 +45,9 @@ var FileController = {
         var tid = req.params.tid;
         var stcode = req.params.stcode;
         var orderType;
-         if(ordType!= 1){
-             orderType='resupply';
-         }
-         else{
-             orderType='order';
-         }
+        if(ordType== 1){
+            orderType='order';
+        }
 
         Base.multiDataRequest(req, res, [
                 {url: '/api/assist/orderfile/type?type='+stcode, method: 'GET', resConfig: {keyName: 'fileTypeInfo', is_must: true}},
@@ -94,10 +91,15 @@ var FileController = {
         var tid = req.params.tid;
         // var pid = req.params.pid;
         var stcode = req.params.stcode;
+        if(ordType== 2){
+            orderType='resupply';
+        }
         Base.multiDataRequest(req, res, [
                 {url: '/api/order/file/'+ lid+"?tid="+tid, method: 'GET', resConfig: {keyName: 'fileInfo', is_must: false}},
                 {url: '/api/assist/orderfile/type?type='+stcode, method: 'GET', resConfig: {keyName: 'fileTypeInfo', is_must: true}},
-                {url: '/api/assist/order/fileNameType', method: 'GET', resConfig: {keyName: 'fileNameType', is_must: false}}
+                {url: '/api/assist/order/fileNameType', method: 'GET', resConfig: {keyName: 'fileNameType', is_must: false}},
+                {url: '/api/orders/resupply/detail?tid='+tid, method: 'GET', resConfig: {keyName: 'resupplyInfo', is_must: true}},
+                {url: '/api/cofficient', method: 'GET', resConfig: {keyName: 'cofficientInfo', is_must: true}},
             ],
             function (req, res, resultList) {
                 var fileTypeList = {};
@@ -119,7 +121,9 @@ var FileController = {
                     lid:lid,
                     tid:tid,
                     ordType:ordType,
-                    stcode:stcode
+                    stcode:stcode,
+                    Permission :Permissions,
+                    orderType:orderType,
                 }, resultList));
                 res.render('order/file/order_create', returnData);
             });
