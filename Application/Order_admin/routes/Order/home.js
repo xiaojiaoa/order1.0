@@ -1573,7 +1573,7 @@ router.get('/inMateRep', Middleware.AuthCheck,Middleware.FilterEmptyField,Report
 //入库详情
 router.get('/inMateRep/detail', Middleware.AuthCheck,Middleware.FilterEmptyField,ReportController.inMateRepDetailPage);
 
-// 分页查询--报表管理列表
+// 分页查询--门店统计
 router.get('/storeRep', Middleware.AuthCheck,Middleware.FilterEmptyField,ReportController.storeRepPage);
 
 //展示成交客户的流水号

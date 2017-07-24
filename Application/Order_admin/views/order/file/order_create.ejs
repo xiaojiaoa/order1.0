@@ -141,6 +141,41 @@
                                         <i class="fa fa-upload"></i>
                                         确认上传
                                     </button>
+                                    <% if(ordType != 1){ %>
+
+                                    <% switch(resupplyInfo.status){
+                                        case 250:  %>
+
+                                    <% if (DWY_Helper.hasPermission(Permission.orderReview.passOrder.id, permission) && resupplyInfo.receiveGid == user.id ){ %>
+                                    <a class="btn btn-primary margin-left-20" id="check-pass-modal">提交审核</a>
+                                    <% } %>
+
+                                    <% break;
+                                        case 450: %>
+
+                                    <% if (DWY_Helper.hasPermission(Permission.resupplyOrderApart.passOrder.id, permission) && resupplyInfo.receiveGid == user.id  ){ %>
+                                    <a class="btn btn-primary margin-left-20 doPass" data-stcode="<%= resupplyInfo.status %>">确认拆单</a>
+
+                                    <% } %>
+                                    <% } %>
+
+                                    <% }else{ %>
+                                    <% switch(orderInfo.stcode){
+                                    case 250:  %>
+                                    <% if (DWY_Helper.hasPermission(Permission.orderReview.passOrder.id, permission) && orderInfo.receiveGid == user.id ){ %>
+                                    <a class="btn btn-primary margin-left-20" id="check-pass-modal">提交审核</a>
+                                    <% } %>
+                                    <%        break;
+                                        case 450: %>
+                                    <% if (DWY_Helper.hasPermission(Permission.orderApart.passOrder.id, permission) && orderInfo.receiveGid == user.id ){ %>
+                                    <a class="btn btn-primary margin-left-20 doPass" data-stcode="<%= orderInfo.stcode %>">确定拆单</a>
+                                    <% } %>
+                                    <%  } %>
+
+                                    <% } %>
+
+
+
                                 </div>
                             </div>
 
@@ -364,8 +399,93 @@
         })
     }
 
+    <% if(ordType==1){%>
+    $(".doPass").click(function () {
+        var orderStcode = $(this).attr('data-stcode');
+        var ajaxUrl = '';
+        var locationUrl = '';
+        var text = '';
+        switch (orderStcode){
+            case '450':
+                ajaxUrl = '/apart/doPass/<%= tid %>';
+                locationUrl = '/apartPage/getOrder';
+                text = '确定拆单完毕吗?';
+                break;
+            case '475':
+                ajaxUrl = '/apartCheck/doPass/<%= tid %>';
+                locationUrl = '/apartCheckPage/getOrder';
+                text = '确认拆单审核完毕吗?';
+                break;
+            case '635':
+                ajaxUrl = '/schedule/doPass/<%= tid %>';
+                locationUrl = '/orders/nesting';
+                text = '确定排料提交吗?';
+                break;
+
+        }
+        layer.confirm(text, {icon: 3, title: '提示'}, function (index) {
+            $.ajax({
+                url: ajaxUrl,
+                method: 'put',
+                success: function (data) {
+                    successLayout.hrefTo(locationUrl);
+                },
+                error: function (response) {
+                    layer.close(index)
+                    errorLayout.normal(response);
+                }
+            });
+        }, function (index) { layer.close(index) })
+    })
+    <%}%>
+    <% if(ordType==2){%>
+    $(".doPass").click(function () {
+        var orderStcode = $(this).attr('data-stcode');
+        var ajaxUrl = '';
+        var locationUrl = '';
+        var text = '';
+        switch (orderStcode) {
+            case '150':
+                ajaxUrl = '/resupplys/doPass/<%= tid %>';
+                locationUrl = '/orders/resupplys/accept';
+                text = '确定受理完毕吗?';
+                break;
+            case '450':
+                ajaxUrl = '/apart/doPass/<%= tid %>';
+                locationUrl = '/orders/resupplys/apart';
+                text = '确定拆单完毕吗?';
+                break;
+            case '475':
+                ajaxUrl = '/apartCheck/doPass/<%= tid %>';
+                locationUrl = '/orders/resupplys/apartCheck';
+                text = '确认拆单审核完毕吗?';
+                break;
+            case '635':
+                ajaxUrl = '/schedule/doPass/<%= tid %>';
+                locationUrl = '/orders/nesting';
+                text = '确定排料提交吗?';
+                break;
+        }
+        layer.confirm(text, {icon: 3, title: '提示'}, function (index) {
+            $.ajax({
+                url: ajaxUrl,
+                method: 'put',
+                success: function (data) {
+                    successLayout.hrefTo(locationUrl);
+                },
+                error: function (response) {
+                    layer.close(index)
+                    errorLayout.normal(response);
+                }
+            });
+        }, function (index) {
+            layer.close(index)
+        })
+    })
+    <%}%>
 
 </script>
 
 
 <%- include('../layouts/foot'); %>
+<%- include('../order/check_pass')%>

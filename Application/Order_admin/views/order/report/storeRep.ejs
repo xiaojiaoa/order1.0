@@ -40,11 +40,12 @@
                                     <div class="form-group">
                                         <label class="col-xs-4 control-label">门店:</label>
                                         <div class="col-xs-8">
-                                            <select class="form-control" name="channelId" >
+                                            <input class="form-control" placeholder="请输入门店" value="<%= DWYRequest.query.storeName %>" type="text" name="storeName">
+                                            <select class="form-control display-none" name="channelId" >
                                                 <option value="">- 请选择 -</option>
                                                 <% if(DWY_Helper.isCanLoop(storesList)){
                                                 storesList.forEach(function (element) { %>
-                                                <option value="<%= element.id %>" <%= (DWYRequest.query.bid == element.id)?"selected":"" %> >
+                                                <option value="<%= element.id %>" <%= (DWYRequest.query.channelId == element.id)?"selected":"" %> >
                                                     <%= element.storeName %>
                                                 </option>
                                                 <% })
