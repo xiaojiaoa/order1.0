@@ -121,8 +121,7 @@ var OrderController = {
         }, req, res), function (error, response, body) {
             if (!error && response.statusCode == 201) {
                 Base.handlerSuccess(res, req);
-                //res.redirect("/order/check/waitOrder");
-                res.redirect(req.session.backPath?req.session.backPath:"/order/check/waitOrder");
+                res.redirect("/order/detail/" + id);
             } else {
                 Base.handlerError(res, req, error, response, body);
             }
