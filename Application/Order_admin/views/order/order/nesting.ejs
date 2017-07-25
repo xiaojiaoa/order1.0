@@ -32,7 +32,12 @@
                         <table class="table table-bordered table-striped table-hover">
                             <thead>
                             <tr>
-                                <th>序号</th>
+                                <th>
+                                    <label  class="checkbox-inline">
+                                        <input type="checkbox" class="checkbox" id="checkAll"  />
+                                        <span>序号</span>
+                                    </label>
+                                </th>
                                 <th>加急</th>
                                 <th>试装</th>
                                 <th>收款</th>
@@ -294,7 +299,12 @@
                         <table class="table table-bordered table-striped">
                             <thead>
                             <tr>
-                                <th>序号</th>
+                                <th>
+                                    <label  class="checkbox-inline">
+                                        <input type="checkbox" class="checkbox" id="checkAllSec"  />
+                                        <span>序号</span>
+                                    </label>
+                                </th>
                                 <th>加急</th>
                                 <th>试装</th>
                                 <th>收款</th>
@@ -395,8 +405,35 @@
         pageSetUp();
         $(".fg-date-picker").flatpickr(data_time_picker.data_picker); // jQuery
 
-        //修改批次号
         var editBatchNum = $('#editBatchNum');
+        var checkedValue = $('#checkedValue');
+        $("#checkAll").change(function(){
+            if($(this).is(":checked")){
+                $(this).parents('table').find("tr input[name='role']:checkbox:not(:disabled)").prop('checked',true);
+                $("input[name='role']:checked").each(function (i) {
+                    editBatchNum.addClass(this.value + ',')
+                });
+            }else{
+                editBatchNum.removeClass();
+                $(this).parents('table').find("tr input[name='role']:checkbox:not(:disabled)").prop('checked',false);
+            }
+        })
+        $("#checkAllSec").change(function(){
+            if($(this).is(":checked")){
+                $(this).parents('table').find("tr input[name='roles']:checkbox:not(:disabled)").prop('checked',true);
+                $("input[name='roles']:checked").each(function (i) {
+                    checkedValue.addClass(this.value + ',')
+                });
+            }else{
+                checkedValue.removeClass();
+                $(this).parents('table').find("tr input[name='roles']:checkbox:not(:disabled)").prop('checked',false);
+            }
+        })
+
+
+
+        //修改批次号
+
         $("input[name='role']").change(function () {
             if($(this).is(':checked')){
                 editBatchNum.addClass(this.value+',')
@@ -444,7 +481,7 @@
                 layer.close(index)})
         })
         //标记为排料中
-        var checkedValue = $('#checkedValue');
+
         $("input[name='roles']").change(function () {
             if($(this).is(':checked')){
                 checkedValue.addClass(this.value+',');
@@ -475,7 +512,6 @@
                 },
                 function(index){layer.close(index)})
         })
-
 
     })
 </script>
