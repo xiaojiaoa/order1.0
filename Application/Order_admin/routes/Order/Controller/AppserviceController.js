@@ -464,7 +464,7 @@ var AppServiceController = {
         var id = req.params.id
         request(Base.mergeRequestOptions({
             method: 'get',
-            url: '/api/whse/app/cargoin/inscan/table/'+id,
+            url: '/api/whse/app/cargoin/inscan/table?'+queryString.stringify(req.query),
             headers:req.headers,
         }, req, res), function (error, response, body) {
             if (!error) {
