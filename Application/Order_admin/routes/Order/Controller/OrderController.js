@@ -383,7 +383,7 @@ var OrderController = {
         var type = req.params.type;
         var paramObject = helper.genPaginationQuery(req);
         Base.multiDataRequest(req, res, [
-            {url: '/api/orders/progress?tid='+tid, method: 'GET', resConfig: {keyName: 'progressList', is_must: true}},
+            {url: '/api/orders/progress?tid='+tid+'&'+queryString.stringify(req.query), method: 'GET', resConfig: {keyName: 'progressList', is_must: true}},
         ], function (req, res, resultList) {
 
             var paginationInfo = resultList.progressList;
@@ -1396,9 +1396,7 @@ var OrderController = {
         Base.multiDataRequest(req, res, [
             {url: '/api/stores/money/page?'+queryString.stringify(req.query), method: 'GET', resConfig: {keyName: 'moneyList', is_must: true}},
             {url: '/api/organizations/list', method: 'GET', resConfig: {keyName: 'organizationsList', is_must: true}},
-            {url: '/api/assist/order/stcodes', method: 'GET', resConfig: {keyName: 'statusInfo', is_must: false}},
             {url: '/api/assist/space/prod', method: 'GET', resConfig: {keyName: 'prodList', is_must: true}},
-            {url: '/api/assist/order/stcodes', method: 'GET', resConfig: {keyName: 'stcodeInfo', is_must: false}},
 
         ], function (req, res, resultList) {
             var paginationInfo =  resultList.moneyList;

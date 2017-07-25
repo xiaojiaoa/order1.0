@@ -1548,7 +1548,7 @@ router.get('/app/cargoin/page/classify', AppServiceController.cargoinPageClassif
 // 分页查看某订单的已扫入库包号
 router.get('/app/cargoin/page/tid', AppServiceController.cargoinPageTid);
 // 显示table包装大类
-router.get('/app/cargoin/table/:id', AppServiceController.cargoinTable);
+router.get('/app/cargoin/table', AppServiceController.cargoinTable);
 //
 router.post('/app/cargoin/cancel/:id',AppServiceController.cargoinCancel);
 
