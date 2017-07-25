@@ -1552,6 +1552,13 @@ router.get('/app/cargoin/table/:id', AppServiceController.cargoinTable);
 //
 router.post('/app/cargoin/cancel/:id',AppServiceController.cargoinCancel);
 
+// 是否需要重新分配货位
+router.post('/app/cargoin/dealCargoin', AppServiceController.dealCargoin);
+// 扫描已下架货笼
+router.post('/app/cargoin/unShelve', AppServiceController.unShelve);
+// 已扫描货笼显示分配界面
+router.post('/app/cargoin/unShelveShow', AppServiceController.unShelveShow);
+
 
 /*
 * 页面范围: 报表管理

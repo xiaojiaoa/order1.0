@@ -489,6 +489,52 @@ var AppServiceController = {
         })
     },
 
+    //是否需要重新分配货位
+    dealCargoin: function (req, res) {
+        request(Base.mergeRequestOptions({
+            method: 'post',
+            url: '/api/whse/app/cargoin/distribute/space',
+            form: req.body,
+            headers:req.headers,
+        }, req, res), function (error, response, body) {
+            if (!error) {
+                res.send(JSON.parse(body));
+            } else {
+                res.send(AppServiceController.error);
+            }
+        })
+    },
+    //扫描已下架
+    unShelve: function (req, res) {
+        request(Base.mergeRequestOptions({
+            method: 'post',
+            url: '/api/whse/app/cargoin/scanCage/offShelves',
+            form: req.body,
+            headers:req.headers,
+        }, req, res), function (error, response, body) {
+            if (!error) {
+                res.send(JSON.parse(body));
+            } else {
+                res.send(AppServiceController.error);
+            }
+        })
+    },
+    //已扫描货笼显示分配界面
+    unShelveShow: function (req, res) {
+        request(Base.mergeRequestOptions({
+            method: 'post',
+            url: '/api/whse/app/cargoin/cargoin',
+            form: req.body,
+            headers:req.headers,
+        }, req, res), function (error, response, body) {
+            if (!error) {
+                res.send(JSON.parse(body));
+            } else {
+                res.send(AppServiceController.error);
+            }
+        })
+    },
+
 };
 module.exports = AppServiceController;
 
