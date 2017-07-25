@@ -197,7 +197,17 @@
                                         </div>
                                     </div>
                                 </div>
+                                    <div class="col-xs-2">
+                                        <div class="form-group">
+                                            <label class="col-xs-4 control-label">识别码:</label>
+                                            <div class="col-xs-8">
+                                                <input class="form-control" placeholder="请输入识别码"
+                                                       value="<%= DWYRequest.query.scode %>" type="text" name="scode">
+                                            </div>
+                                        </div>
+                                    </div>
                             </div>
+
                             <input type="hidden" name="stairCatId" value="<%= DWYRequest.query.stairCatId %>">
                               <% if(DWY_GLOBAL.ButtonOpen!=1){ %>
                     </div>
@@ -292,6 +302,7 @@
                                 <th>外协</th>
                                 <th>欲扣数量</th>
                                 <th>包装类型</th>
+                                <th>识别码</th>
                                 <!--根据权限展示价格-->
                                 <% if(DWY_Helper.hasPermission(Permission.material.queryByPrice.id, permission)){%>
                                 <th>采购价格</th>
@@ -335,6 +346,8 @@
                                 <td><%= element.outsource == 1 ? '是' : '否' %></td>
                                 <td><%= element.subFrozen %></td>
                                 <td><%= DWY_Helper.getAssistVal(element.type, getPackageTypes)%></td>
+                                <td><%= element.scode%></td>
+                                <!--根据权限展示价格-->
                                 <% if(DWY_Helper.hasPermission(Permission.material.queryByPrice.id, permission)){%>
                                 <td><%= element.totalPrice %></td>
                                 <td><%= element.totalUnitPrice %></td>
