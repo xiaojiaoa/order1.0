@@ -1550,7 +1550,7 @@ router.get('/app/cargoin/page/tid', AppServiceController.cargoinPageTid);
 // 显示table包装大类
 router.get('/app/cargoin/table/:id', AppServiceController.cargoinTable);
 //
-router.post('/app/cargoin/cancel/:id',AppServiceController.cargoinCancel);
+router.get('/app/cargoin/cancel/:id',AppServiceController.cargoinCancel);
 
 
 /*
