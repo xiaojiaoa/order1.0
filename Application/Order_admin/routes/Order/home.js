@@ -1540,7 +1540,7 @@ router.get('/app/stock/order', AppServiceController.orderStock);
 router.get('/app/batchNumber/code', AppServiceController.batchNumberCode);
 
 // 判断某包装是否可以被入库扫描
-router.get('/app/cargoin/inscan/:packId',AppServiceController.cargoinInscan);
+router.post('/app/cargoin/inscan/:packId',AppServiceController.cargoinInscan);
 // 分页查看入库扫描所属的订单
 router.get('/app/cargoin/page', AppServiceController.cargoinPage);
 // 以包装大类为条件分页查找包装
