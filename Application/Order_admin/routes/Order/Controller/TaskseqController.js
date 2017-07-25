@@ -72,7 +72,7 @@ var TaskseqController = {
         var lid = req.params.lid;
         var paramObject = helper.genPaginationQuery(req);
         Base.multiDataRequest(req, res, [
-            {url: '/api/taskseqs/progress?lid='+lid, method: 'GET', resConfig: {keyName: 'progressList', is_must: true}},
+            {url: '/api/taskseqs/progress?lid='+lid+'&'+queryString.stringify(req.query), method: 'GET', resConfig: {keyName: 'progressList', is_must: true}},
         ], function (req, res, resultList) {
 
             var paginationInfo = resultList.progressList;
