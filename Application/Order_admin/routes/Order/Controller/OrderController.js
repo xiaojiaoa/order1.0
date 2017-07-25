@@ -383,7 +383,7 @@ var OrderController = {
         var type = req.params.type;
         var paramObject = helper.genPaginationQuery(req);
         Base.multiDataRequest(req, res, [
-            {url: '/api/orders/progress?tid='+tid, method: 'GET', resConfig: {keyName: 'progressList', is_must: true}},
+            {url: '/api/orders/progress?tid='+tid+'&'+queryString.stringify(req.query), method: 'GET', resConfig: {keyName: 'progressList', is_must: true}},
         ], function (req, res, resultList) {
 
             var paginationInfo = resultList.progressList;
