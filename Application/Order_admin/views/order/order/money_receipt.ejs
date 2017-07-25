@@ -196,7 +196,7 @@
                             <tr>
                                 <td width="84px"><%= DWY_Helper.incrementNum(DWYRequest.query.pageNo,index)%></td>
                                 <td><a href="/order/detail/<%= element.tid %>"><%= element.tid %></a></td>
-                                <td><%= DWY_Helper.getAssistVal(element.stcode,statusInfo) %></td>
+                                <td><%= element.stcodeName %></td>
                                 <td><%= element.orgName %></td>
                                 <td><%= element.storeName %></td>
                                 <td><%= element.prodTypeName %></td>
