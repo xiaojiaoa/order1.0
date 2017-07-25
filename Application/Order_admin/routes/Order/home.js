@@ -1539,6 +1539,19 @@ router.get('/app/stock/order', AppServiceController.orderStock);
 
 router.get('/app/batchNumber/code', AppServiceController.batchNumberCode);
 
+// 判断某包装是否可以被入库扫描
+router.get('/app/cargoin/inscan/:packId',AppServiceController.cargoinInscan);
+// 分页查看入库扫描所属的订单
+router.get('/app/cargoin/page', AppServiceController.cargoinPage);
+// 以包装大类为条件分页查找包装
+router.get('/app/cargoin/page/classify', AppServiceController.cargoinPageClassify);
+// 分页查看某订单的已扫入库包号
+router.get('/app/cargoin/page/tid', AppServiceController.cargoinPageTid);
+// 显示table包装大类
+router.get('/app/cargoin/table/:id', AppServiceController.cargoinTable);
+//
+router.post('/app/cargoin/cancel/:id',AppServiceController.cargoinCancel);
+
 
 /*
 * 页面范围: 报表管理

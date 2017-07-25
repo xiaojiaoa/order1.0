@@ -407,6 +407,88 @@ var AppServiceController = {
             }
         })
     },
+    cargoinInscan: function (req, res) {
+        var packId = req.params.packId
+        request(Base.mergeRequestOptions({
+            method: 'post',
+            url: '/api/whse/app/cargoin/inscan/'+packId,
+            headers:req.headers,
+        }, req, res), function (error, response, body) {
+            if (!error) {
+                res.send(JSON.parse(body));
+            } else {
+                res.send(AppServiceController.error);
+            }
+        })
+    },
+    cargoinPage: function (req, res) {
+        request(Base.mergeRequestOptions({
+            method: 'get',
+            url: '/api/whse/app/cargoin/inscan/page?'+queryString.stringify(req.query),
+            headers:req.headers,
+        }, req, res), function (error, response, body) {
+            if (!error) {
+                res.send(JSON.parse(body));
+            } else {
+                res.send(AppServiceController.error);
+            }
+        })
+    },
+    cargoinPageClassify: function (req, res) {
+        request(Base.mergeRequestOptions({
+            method: 'get',
+            url: '/api/whse/app/cargoin/inscan/page/classify?'+queryString.stringify(req.query),
+            headers:req.headers,
+        }, req, res), function (error, response, body) {
+            if (!error) {
+                res.send(JSON.parse(body));
+            } else {
+                res.send(AppServiceController.error);
+            }
+        })
+    },
+    cargoinPageTid: function (req, res) {
+        request(Base.mergeRequestOptions({
+            method: 'get',
+            url: '/api/whse/app/cargoin/inscan/page/tid?'+queryString.stringify(req.query),
+            headers:req.headers,
+        }, req, res), function (error, response, body) {
+            if (!error) {
+                res.send(JSON.parse(body));
+            } else {
+                res.send(AppServiceController.error);
+            }
+        })
+    },
+    cargoinTable: function (req, res) {
+        var id = req.params.id
+        request(Base.mergeRequestOptions({
+            method: 'get',
+            url: '/api/whse/app/cargoin/inscan/table/'+id,
+            headers:req.headers,
+        }, req, res), function (error, response, body) {
+            if (!error) {
+                res.send(JSON.parse(body));
+            } else {
+                res.send(AppServiceController.error);
+            }
+        })
+    },
+    cargoinCancel: function (req, res) {
+        var id = req.params.id
+        request(Base.mergeRequestOptions({
+            method: 'post',
+            url: '/api/whse/app/cargoin/inscan/cancel/'+id,
+            headers:req.headers,
+        }, req, res), function (error, response, body) {
+            if (!error) {
+                res.send(JSON.parse(body));
+            } else {
+                res.send(AppServiceController.error);
+            }
+        })
+    },
+
 };
 module.exports = AppServiceController;
 
