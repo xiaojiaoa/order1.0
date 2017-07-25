@@ -177,7 +177,7 @@
                                 <label class="checkbox-inline">
                                     <input type="checkbox" class="checkbox"
                                            name="roles" value="<%= element.id %>" uniqueId="<%= element.uniqueCode %>">
-                                    <span><%= index+1 %></span>
+                                    <span><%= DWY_Helper.incrementNum(DWYRequest.query.pageNo,index)%></span>
                                 </label>
                             </td>
                             <td><a href="/materialManage/detail/<%= bid %>/<%= element.id %>"><%= element.id %></a></td>

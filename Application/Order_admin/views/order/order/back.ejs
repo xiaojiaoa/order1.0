@@ -56,7 +56,7 @@
                             <% if(chgbackList.result.length>0){
                             chgbackList.result.forEach(function (element, index) {  %>
                             <tr>
-                                <td><%= index+1 %></td>
+                                <td><%= DWY_Helper.incrementNum(DWYRequest.query.pageNo,index)%></td>
                                 <td><%= element.causeName %></td>
                                 <td><%= element.reviewReasonTypeStr %></td>
                                 <td> <%= DWY_Helper.getLocalDate(element.createTime) %></td>

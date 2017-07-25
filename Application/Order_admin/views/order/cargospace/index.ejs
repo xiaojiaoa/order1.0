@@ -239,7 +239,7 @@
                             if(cargospaceList.result && (cargospaceList.result.length > 0) ){
                             cargospaceList.result.forEach(function (element, index) { %>
                             <tr>
-                                <td><%= index+1 %></td>
+                                <td><%= DWY_Helper.incrementNum(DWYRequest.query.pageNo,index)%></td>
                                 <td><%= element.whseName %></td>
                                 <td><%= element.regionName %></td>
                                 <td><a href="/cargospace/cargospace/detail/<%= element.spaceId %>"><%= (element.spaceId).substring(6,12) %></a></td>

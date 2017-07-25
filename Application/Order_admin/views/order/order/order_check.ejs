@@ -55,7 +55,7 @@
                             <% if(DWY_Helper.isCanLoop(selfList.result)){
                                 selfList.result.forEach(function (element, index) {  %>
                             <tr class="<%= (element.sign == 1) ? "mark-row":"" %>">
-                                <td><%= index+1 %></td>
+                                <td><%= index+1+(selfList.page-1)*20%></td>
                                 <td><a href="/order/detail/<%= element.tid %>"><%= element.tid %></a></td>
                                 <td><%= element.difficultyStr %></td>
                                 <td><%= element.typeStr %></td>
@@ -116,7 +116,7 @@
                             if(DWY_Helper.isCanLoop(waitApart.result) ){
                             waitApart.result.forEach(function (element, index) { %>
                             <tr>
-                                <td><%= index+1 %></td>
+                                <td><%= index+1+(waitApart.page-1)*20%></td>
                                 <td><a href="/order/detail/<%= element.tid %>"><%= element.tid %></a></td>
                                 <td><%= element.difficultyStr %></td>
                                 <td><%= element.typeStr %></td>
@@ -267,7 +267,7 @@
                     <% if( (type == 'getOrder')&&(DWY_Helper.isCanLoop(orderList.result)) ){
                     orderList.result.forEach(function (element, index) {  %>
                     <tr class="<%= (element.sign==1)?"mark-row":""%>">
-                        <td><%= index+1 %></td>
+                        <td><%= index+1+(orderList.page-1)*20%></td>
                         <td><a href="/order/detail/<%= element.tid %>"><%= element.tid %></a></td>
                         <td><%= element.difficultyStr %></td>
                         <td><%= element.typeStr %></td>

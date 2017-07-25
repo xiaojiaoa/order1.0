@@ -142,7 +142,7 @@
                             if( warehouseList.result && (warehouseList.result.length > 0)){
                             warehouseList.result.forEach(function (element, index) { %>
                             <tr class="<%= element.stcode == 1 ? '' : 'disabletr' %>">
-                                <td><%= index+1 %></td>
+                                <td><%= DWY_Helper.incrementNum(DWYRequest.query.pageNo,index)%></td>
                                 <td><%= element.whseId %></td>
                                 <td><%= element.name %></td>
                                 <td><a href="/factory/detail/<%= element.ftyId %>"><%= element.ftyName %></a></td>

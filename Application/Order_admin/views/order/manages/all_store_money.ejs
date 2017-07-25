@@ -111,7 +111,7 @@
                             if(DWY_Helper.isCanLoop(storeMoneyList.result) ){
                             storeMoneyList.result.forEach(function (element, index) { %>
                             <tr>
-                                <td><%= index+1 %></td>
+                                <td><%= DWY_Helper.incrementNum(DWYRequest.query.pageNo,index)%></td>
                                 <td><a href="/storesManage/detail/<%= element.bid %>"><%= element.bid %></a></td>
                                 <td><%= element.storeName %></td>
                                 <td><%= DWY_Helper.outputmoney(JSON.stringify(element.account)) %></td>

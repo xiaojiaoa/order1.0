@@ -547,6 +547,15 @@ app.locals.DWY_Helper = {
         }
         return a;
     },
+    //查询列表序号自增
+    incrementNum:function (string,index) {
+        if(!string || string==1){
+            return index+1
+        }
+        else{
+            return index+1+(string-1)*20;
+        }
+    },
 }
 
 

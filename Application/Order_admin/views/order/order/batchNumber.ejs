@@ -132,7 +132,7 @@
                             <% }else{
                             batchNumber.result.forEach(function (element, index) { %>
                             <tr>
-                                <td><%= index+1 %></td>
+                                <td><%= DWY_Helper.incrementNum(DWYRequest.query.pageNo,index)%></td>
                                 <td><a href="/orders/batchNumber/detail/<%= element.batchNumber %>/<%= element.factoryId %>"><%= element.batchNumber %></a></td>
                                 <td><%= element.factoryName %></td>
                                 <td><%= element.orderNumber %></td>

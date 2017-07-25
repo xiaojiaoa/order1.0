@@ -140,7 +140,7 @@
                             if(DWY_Helper.isCanLoop(outMateRepList.result)){
                             outMateRepList.result.forEach(function (element,index) { %>
                             <tr>
-                                <td><%= index+1 %></td>
+                                <td><%= DWY_Helper.incrementNum(DWYRequest.query.pageNo,index)%></td>
                                 <td><a href="/outMateRep/detail?mateId=<%= element.mateId %>&startDate=<%= DWYRequest.query.startDate%>&endDate=<%= DWYRequest.query.endDate%>"><%= element.mateId %></a></td>
                                 <td><%= element.mateName%></td>
                                 <td><%= element.catId %></td>

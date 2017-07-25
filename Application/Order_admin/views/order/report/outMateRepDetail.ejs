@@ -116,7 +116,7 @@
                             if(DWY_Helper.isCanLoop(outMateDetail.result)){
                             outMateDetail.result.forEach(function (element,index) { %>
                             <tr>
-                                <td><%= index+1 %></td>
+                                <td><%= DWY_Helper.incrementNum(DWYRequest.query.pageNo,index)%></td>
                                 <td><%= element.outId %></td>
                                 <td><%= DWY_Helper.getLocalDateYMD(element.outTime) %></td>
                                 <td><%= element.type%></td>

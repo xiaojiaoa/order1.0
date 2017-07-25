@@ -94,7 +94,7 @@
                                     var ifHasPermission = DWY_Helper.hasPermission(Permission.storage.queryAll.id, permission) %>
                                 <% cargoinList.result.forEach(function(element, index){ %>
                                 <tr class="cargoinDo" data-index="<%= index %>">
-                                    <td><%= index + 1 %></td>
+                                    <td><%= DWY_Helper.incrementNum(DWYRequest.query.pageNo,index)%></td>
                                     <td>
                                         <a href="/purchase/applyDetail/<%= element.reqId %>"><%= element.reqId %></a>
                                         <input type="hidden" id="reqId<%= index %>" value="<%= element.reqId %>">

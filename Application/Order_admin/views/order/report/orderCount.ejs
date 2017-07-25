@@ -151,7 +151,7 @@
                             if(DWY_Helper.isCanLoop(orderCountList.result)){
                             orderCountList.result.forEach(function (element,index) { %>
                             <tr>
-                                <td><%= index+1 %></td>
+                                <td><%= DWY_Helper.incrementNum(DWYRequest.query.pageNo,index)%></td>
                                 <td><a href="/orderCount/detail?name=<%= element.name%>&startDates=<%= DWYRequest.query.startDates%>&endDates=<%= DWYRequest.query.endDates%>"><%= element.name %></a></td>
                                 <td><%= element.id %></td>
                                 <td><%= element.standard %></td>

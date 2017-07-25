@@ -240,7 +240,7 @@
                             if(DWY_Helper.isCanLoop(taskseqList.result)){
                             taskseqList.result.forEach(function (element, index) { %>
                             <tr>
-                                <td><%= ++index %></td>
+                                <td><%= DWY_Helper.incrementNum(DWYRequest.query.pageNo,index)%></td>
                                 <td><%= element.storeName %></td>
                                 <td><a href="/customer/detail/<%= element.cid %>"><%= element.custName %></a></td>
                                 <td><%= element.custMobile %></td>

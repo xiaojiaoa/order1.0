@@ -121,7 +121,7 @@
                             if(DWY_Helper.isCanLoop(suppliersList.result)){
                                 suppliersList.result.forEach(function (element, index) { %>
                             <tr class="<%= ( element.isDeleted == 2 )? 'close-info':'' %>">
-                                <td><%= index+1 %></td>
+                                <td><%= DWY_Helper.incrementNum(DWYRequest.query.pageNo,index)%></td>
                                 <td><a href="supplier/detail/<%= element.id %>"><%= element.id %></a></td>
                                 <td><%= element.name %></td>
                                 <td><%= element.cateName %></td>

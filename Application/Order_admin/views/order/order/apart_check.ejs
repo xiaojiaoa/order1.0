@@ -58,7 +58,7 @@
                             if(DWY_Helper.isCanLoop(doingList.result) ){
                             doingList.result.forEach(function (element, index) { %>
                             <tr class="<%= (element.sign == 1) ? "mark-row":"" %>">
-                                <td><%= index+1 %></td>
+                                <td><%= index+1+(doingList.page-1)*20%></td>
                                 <td><%= element.colorStr %></td>
                                 <td><%= element.difficultyStr %></td>
                                 <td><%= element.typeStr %></td>
@@ -118,7 +118,7 @@
                             if(DWY_Helper.isCanLoop(waitApartReview.result) ){
                             waitApartReview.result.forEach(function (element, index) { %>
                             <tr>
-                                <td><%= index+1 %></td>
+                                <td><%= index+1+(waitApartReview.page-1)*20%></td>
                                 <td><%= element.colorStr %></td>
                                 <td><%= element.difficultyStr %></td>
                                 <td><%= element.typeStr %></td>
@@ -303,7 +303,7 @@
                     if((type == 'getOrder') && DWY_Helper.isCanLoop(apartReviewList.result)){
                     apartReviewList.result.forEach(function (element, index) { %>
                     <tr>
-                        <td><%= index+1 %></td>
+                        <td><%= DWY_Helper.incrementNum(DWYRequest.query.pageNo,index)%></td>
                         <td><%= element.colorStr %></td>
                         <td><%= element.difficultyStr %></td>
                         <td><%= element.typeStr %></td>

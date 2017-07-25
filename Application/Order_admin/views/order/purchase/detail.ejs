@@ -253,7 +253,7 @@
                                        <% }else{%>
                                         <input type="checkbox" class="checkbox" name="roles" value="<%= element.id %>" stcode="<%= element.stcode %>" isdirect="<%= element.isDirect %>"  disabled="disabled" />
                                         <%}%>
-                                        <span><%= index+1 %></span>
+                                        <span><%= DWY_Helper.incrementNum(DWYRequest.query.pageNo,index)%></span>
                                     </label>
                                 </td>
                                 <td><a href="/purchase/orderDetail/<%= element.id %>"><%= element.id %></a></td>

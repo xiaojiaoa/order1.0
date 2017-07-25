@@ -194,7 +194,7 @@
                             if(DWY_Helper.isCanLoop(moneyList.result)){
                             moneyList.result.forEach(function (element, index) { %>
                             <tr>
-                                <td width="84px"><%= index+1 %></td>
+                                <td width="84px"><%= DWY_Helper.incrementNum(DWYRequest.query.pageNo,index)%></td>
                                 <td><a href="/order/detail/<%= element.tid %>"><%= element.tid %></a></td>
                                 <td><%= DWY_Helper.getAssistVal(element.stcode,statusInfo) %></td>
                                 <td><%= element.orgName %></td>

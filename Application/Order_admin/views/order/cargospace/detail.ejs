@@ -117,7 +117,7 @@
                             if(DWY_Helper.isCanLoop(cargospaceList.result)){
                             cargospaceList.result.forEach(function (element, index) { %>
                             <tr>
-                                <td><%= index+1 %></td>
+                                <td><%= DWY_Helper.incrementNum(DWYRequest.query.pageNo,index)%></td>
                                 <td><%= element.typeName %></td>
                                 <td><%= element.cargoId %></td>
                                 <td><%= element.name %></td>

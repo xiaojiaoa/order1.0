@@ -165,7 +165,7 @@
                             if( regionList.result && (regionList.result.length > 0)  ){
                             regionList.result.forEach(function (element, index) { %>
                             <tr class="<%= element.stcode == 1 ? '' : 'disabletr' %>">
-                                <td><%= index+1 %></td>
+                                <td><%= DWY_Helper.incrementNum(DWYRequest.query.pageNo,index)%></td>
                                 <td><%= element.regionId %></td>
                                 <td><%= element.name %></td>
                                 <td><%= element.cargoName %></td>

@@ -132,7 +132,7 @@
                             if(DWY_Helper.isCanLoop(noticeInfoList.result)){
                             noticeInfoList.result.forEach(function (element, index) { %>
                             <tr>
-                                <td><%= index+1%></td>
+                                <td><%= DWY_Helper.incrementNum(DWYRequest.query.pageNo,index)%></td>
                                 <td><a href="/noticeInfo/detail/<%= element.id%>"><%= element.title %></a></td>
                                 <td><%= element.empName %></td>
                                 <td><%= DWY_Helper.getLocalDateYMD(element.addTime)%></td>

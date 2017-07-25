@@ -102,7 +102,7 @@
                             <%  if(DWY_Helper.isCanLoop(deliveryAll.result) ){
                             deliveryAll.result.forEach(function (element, index) { %>
                             <tr>
-                                <td width="5%"><%= ++index %></td>
+                                <td width="5%"><%= DWY_Helper.incrementNum(DWYRequest.query.pageNo,index)%></td>
                                 <td><a href="/productStock/order?diId=<%= element.diId %>&ifCanDo=1"><%= element.diId %></a></td>
                                 <td><%= element.totalOrderNum %></td>
                                 <td><%= element.notStockOrderNum %></td>

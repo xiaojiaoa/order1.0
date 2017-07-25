@@ -152,7 +152,7 @@
                             if(DWY_Helper.isCanLoop(organizationsList.result)  ){
                             organizationsList.result.forEach(function (element, index) { %>
                             <tr>
-                                <td><%= index+1 %></td>
+                                <td><%= DWY_Helper.incrementNum(DWYRequest.query.pageNo,index)%></td>
                                 <td><a href="/agency/detail/<%= element.id %>"><%= element.id %></a></td>
                                 <td><%= element.name %></td>
                                 <td><%= element.mobile %></td>

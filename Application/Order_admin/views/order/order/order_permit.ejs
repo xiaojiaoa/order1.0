@@ -146,7 +146,7 @@
                                     <label class="checkbox-inline">
                                         <input type="checkbox" class="checkbox" autocomplete="off"
                                                name="tids" value="<%= element.tid %>">
-                                        <span><%= index+1 %></span>
+                                        <span><%= DWY_Helper.incrementNum(DWYRequest.query.pageNo,index)%></span>
                                     </label>
                                 </td>
                                 <td><a href="/order/detail/<%= element.tid %>"><%= element.tid %></a></td>

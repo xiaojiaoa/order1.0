@@ -159,7 +159,7 @@
                             <% if(DWY_Helper.isCanLoop(deliveryList.result)){%>
                             <% deliveryList.result.forEach(function (element, index) {%>
                             <tr>
-                                <td><%= index+1 %></td>
+                                <td><%= DWY_Helper.incrementNum(DWYRequest.query.pageNo,index)%></td>
                                 <td><a href="/taskseq/index/<%=element.lid %>"><%=element.lid %></a></td>
                                 <td><%=element.contNo %></td>
                                 <td><%=element.cName %></td>

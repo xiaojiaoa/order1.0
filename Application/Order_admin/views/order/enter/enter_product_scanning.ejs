@@ -125,7 +125,7 @@
                                     <label class="checkbox-inline">
                                         <input type="checkbox" class="checkbox" autocomplete="off"
                                                name="pakgs" value="<%= element.packageLid %>" data-tid="<%= element.tid %>" <%= element.inScanType==1 ?"disabled":"" %>>
-                                        <span><%= index + 1 %></span>
+                                        <span><%= DWY_Helper.incrementNum(DWYRequest.query.pageNo,index)%></span>
                                     </label>
                                 </td>
                                 <td><%= element.packageLid %></td>

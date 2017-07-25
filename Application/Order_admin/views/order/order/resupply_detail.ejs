@@ -626,7 +626,7 @@
                             <% if(DWY_Helper.isCanLoop(deliveryInfo.result)){
                             deliveryInfo.result.forEach(function (element, index) { %>
                             <tr>
-                                <td><%= ++index %></td>
+                                <td><%= DWY_Helper.incrementNum(DWYRequest.query.pageNo,index)%></td>
                                 <td><%= element.packageLid %></td>
                                 <td><%= element.packageType %></td>
                                 <td><%= element.packageName %></td>
