@@ -82,7 +82,7 @@
                             <tr>
                                 <td>
                                     <label class="checkbox-inline">
-                                        <span><%= index+1 %></span>
+                                        <span><%= DWY_Helper.incrementNum(DWYRequest.query.pageNo,index)%></span>
                                     </label>
                                 </td>
                                 <td><%= element.tid %></td>

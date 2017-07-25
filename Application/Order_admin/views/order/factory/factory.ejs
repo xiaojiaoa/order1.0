@@ -131,7 +131,7 @@
                             if(DWY_Helper.isCanLoop(factoryList.result)){
                             factoryList.result.forEach(function (element, index) { %>
                             <tr class="<%= element.stcode == 1 ? '' : 'disabletr' %>">
-                                <td><%= index+1 %></td>
+                                <td><%= DWY_Helper.incrementNum(DWYRequest.query.pageNo,index)%></td>
                                 <td><%= element.ftyId %></td>
                                 <td><a href="/factory/detail/<%= element.ftyId %>"><%= element.name %></a></td>
                                 <td><%= DWY_Helper.getFactoryType(element.type) %></td>

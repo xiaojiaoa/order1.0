@@ -130,7 +130,7 @@
                             <%  if(DWY_Helper.isCanLoop(plateList.result) ){
                             plateList.result.forEach(function (element, index) { %>
                             <tr>
-                                <td><%= ++index %></td>
+                                <td><%= DWY_Helper.incrementNum(DWYRequest.query.pageNo,index)%></td>
                                 <td><a href="/outBred/deatil/<%= element.outId %>"><%= element.outId %></a></td>
                                 <td><%= DWY_Helper.getLocalDate(element.outDate) %></td>
                                 <td><%= element.outEmpName %></td>

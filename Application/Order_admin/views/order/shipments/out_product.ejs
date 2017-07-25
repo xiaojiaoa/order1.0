@@ -189,7 +189,7 @@
                             <%  if(DWY_Helper.isCanLoop(prodsList.result) ){
                             prodsList.result.forEach(function (element, index) { %>
                             <tr>
-                                <td><%= ++index %></td>
+                                <td><%= DWY_Helper.incrementNum(DWYRequest.query.pageNo,index)%></td>
                                 <td><a href="/outProduct/deatil/<%= element.tid %>"><%= element.outId %></a></td>
                                 <td><a href="/order/detail/<%= element.tid %>"><%= element.tid %></a></td>
                                 <td><%= DWY_Helper.getLocalDate(element.deliveryTime) %></td>

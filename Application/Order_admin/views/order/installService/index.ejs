@@ -103,7 +103,7 @@
                                 <td width="5%">
                                     <label  class="checkbox-inline">
                                         <input type="checkbox" class="checkbox" value="<%= element.tid %>" stcode="<%= element.stcode %>" name="roles" bid="<%= element.bid %>" />
-                                        <span><%= index+1 %></span>
+                                        <span><%= DWY_Helper.incrementNum(DWYRequest.query.pageNo,index)%></span>
                                     </label>
                                 </td>
                                 <td width="13%"><a href="/order/detail/<%= element.tid %>"><%= element.tid %></a></td>

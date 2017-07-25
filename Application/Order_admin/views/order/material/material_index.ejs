@@ -318,7 +318,7 @@
                             if(mateList.totalItems != 0  ){
                             mateList.result.forEach(function (element, index) { %>
                             <tr class="<%= ( element.stock < element.warning ) ? 'mark-row' : '' %> <%= ( element.stcode == 2 )? 'close-info':'' %>">
-                                <td><%= index + 1 %></td>
+                                <td><%= DWY_Helper.incrementNum(DWYRequest.query.pageNo,index)%></td>
                                 <td><a href="/materialManage/detail/<%= bid %>/<%= element.id %>"
                                                    class=" "><%= element.id %></a></td>
                                 <td><%= element.name %></td>

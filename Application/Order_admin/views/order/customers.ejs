@@ -208,9 +208,9 @@
                             <%
                             var num = 1;
                             if(customerList.result && (customerList.result instanceof Array) && customerList.result.length != 0  ){
-                            customerList.result.forEach(function (element) { %>
+                            customerList.result.forEach(function (element,index) { %>
                             <tr>
-                                <td><%= num %></td>
+                                <td><%= DWY_Helper.incrementNum(DWYRequest.query.pageNo,index)%></td>
                                 <td><a href="/customer/detail/<%= element.cid %>"><%= element.cid %></a></td>
                                 <td><%= element.name %></td>
                                 <td><%= element.mobile %></td>

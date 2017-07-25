@@ -218,7 +218,7 @@
                             <% if(prodList.result.length>0){%>
                             <% prodList.result.forEach(function (element, index) {%>
                             <tr>
-                                <td><%= index+1 %></td>
+                                <td><%= DWY_Helper.incrementNum(DWYRequest.query.pageNo,index)%></td>
                                 <td><%=element.batchNumber%></td>
                                 <td><a href="/enterProduct/detail/<%=element.inId %>"><%=element.inId %></a></td>
                                 <td><%=element.ftyName%></td>

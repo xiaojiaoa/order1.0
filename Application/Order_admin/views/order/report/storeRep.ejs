@@ -348,7 +348,7 @@
                             if(DWY_Helper.isCanLoop(storeRepList.result)){
                             storeRepList.result.forEach(function (element,index) { %>
                             <tr>
-                                <td><%= index+1 %></td>
+                                <td><%= DWY_Helper.incrementNum(DWYRequest.query.pageNo,index)%></td>
                                 <td><%= element.storeName %></td>
                                 <td><%= element.name %></td>
                                 <% if(type==99999996){%>

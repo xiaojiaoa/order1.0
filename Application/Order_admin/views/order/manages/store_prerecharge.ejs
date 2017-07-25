@@ -145,7 +145,7 @@
                             if(DWY_Helper.isCanLoop(preRechargeList.result)  ){
                             preRechargeList.result.forEach(function (element, index) { %>
                             <tr>
-                                <td><%= ++index  %></td>
+                                <td><%= DWY_Helper.incrementNum(DWYRequest.query.pageNo,index)%></td>
                                 <td><a href=""><%= element.bid %></a></td>
                                 <td><%=element.storeName %></td>
                                 <td><%=element.amount %></td>

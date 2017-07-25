@@ -179,7 +179,7 @@
                             if(DWY_Helper.isCanLoop(batchNumMatPricingList.result)){
                             batchNumMatPricingList.result.forEach(function (element,index) { %>
                             <tr>
-                                <td><%= index+1 %></td>
+                                <td><%= DWY_Helper.incrementNum(DWYRequest.query.pageNo,index)%></td>
                                 <td><a href="/orderMatPricing?name=<%= DWYRequest.query.name%>&startDate=<%= DWYRequest.query.startDate%>&endDate=<%= DWYRequest.query.endDate%>&batchNumber=<%=( DWYRequest.query.batchNumber)? DWYRequest.query.batchNumber:element.batchNumber%>&startDates=<%= DWYRequest.query.startDates%>&endDates=<%= DWYRequest.query.endDates%> %>"><%= element.batchNumber %></a></td>
                                 <td><%= element.name %></td>
                                 <td><%= element.totalPrice %></td>

@@ -104,7 +104,7 @@
                             <% if(DWY_Helper.isCanLoop(measureList.result)){
                             measureList.result.forEach(function (element, index) { %>
                             <tr>
-                                <td><%= index + 1 %></td>
+                                <td><%= DWY_Helper.incrementNum(DWYRequest.query.pageNo,index)%></td>
                                 <td><%= element.custName %></td>
                                 <td ><%= element.custMobile %></td>
                                 <td><%= element.realAddress %></td>

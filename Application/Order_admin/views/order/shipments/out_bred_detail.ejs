@@ -101,7 +101,7 @@
                             <% if(DWY_Helper.isCanLoop(plateInfo.result)){
                             plateInfo.result.forEach(function (element, index) { %>
                             <tr>
-                                <td><%= index + 1 %></td>
+                                <td><%= DWY_Helper.incrementNum(DWYRequest.query.pageNo,index)%></td>
                                 <td>
                                     <a href="/materialManage/detail/<%= user.bid %>/<%= element.mateId %>"><%= element.mateId %></a>
                                 </td>

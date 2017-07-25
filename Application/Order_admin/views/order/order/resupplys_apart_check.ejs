@@ -53,7 +53,7 @@
                             if(apartReviewingList.result && apartReviewingList.result.length>0 ){
                             apartReviewingList.result.forEach(function (element, index) { %>
                             <tr class="<%= (element.sign == 1) ? "mark-row":"" %>">
-                                <td><%= index+1 %></td>
+                                <td><%= index+1+(apartReviewingList.page-1)*20%></td>
                                 <td><%= element.brandName %></td>
                                 <td><%= element.colorStr %></td>
                                 <td><%= element.productTypeStr %></td>
@@ -115,7 +115,7 @@
                             if(DWY_Helper.isCanLoop(waitApartReview.result) ){
                             waitApartReview.result.forEach(function (element, index) { %>
                             <tr>
-                                <td><%= index+1 %></td>
+                                <td><%= index+1+(waitApartReview.page-1)*20%></td>
                                 <td><%= element.brandName %></td>
                                 <td><%= element.colorStr %></td>
                                 <td><%= element.productTypeStr %></td>
@@ -254,7 +254,7 @@
                     if(apartReviewList.result && apartReviewList.result.length>0 ){
                     apartReviewList.result.forEach(function (element, index) { %>
                     <tr>
-                        <td><%= index+1 %></td>
+                        <td><%= DWY_Helper.incrementNum(DWYRequest.query.pageNo,index)%></td>
                         <td><%= element.brandName %></td>
                         <td><%= element.colorStr %></td>
                         <td><%= element.productTypeStr %></td>

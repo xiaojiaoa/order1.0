@@ -263,7 +263,7 @@
                             if(resupplyList.result && resupplyList.result.length>0 ){
                             resupplyList.result.forEach(function (element, index) { %>
                             <tr>
-                                <td><%= index+1 %></td>
+                                <td><%= DWY_Helper.incrementNum(DWYRequest.query.pageNo,index)%></td>
                                 <td><%= element.brandStr %></td>
                                 <td><%= element.productTypeStr %></td>
                                 <td><a href="/order/resupply/detail/<%= element.tid %>"><%= element.tid %></a></td>

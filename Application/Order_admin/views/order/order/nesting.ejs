@@ -62,7 +62,7 @@
                                     <label class="checkbox-inline">
                                         <input type="checkbox" class="checkbox"
                                                name="role" value="<%= element.tid %>" <%= element.factoryId != user.bid?'disabled':'' %>>
-                                        <span><%= index+1 %></span>
+                                        <span><%= index+1+(scheduleList.page-1)*20%></span>
                                     </label>
                                 </td>
                                 <td><%= element.urgent %></td>
@@ -326,7 +326,7 @@
                                         <% }else{%>
                                         <input type="checkbox" class="checkbox" name="roles" value="<%= element.tid %>">
                                         <%} %>
-                                        <span><%= index+1 %></span>
+                                        <span><%= DWY_Helper.incrementNum(DWYRequest.query.pageNo,index)%></span>
                                     </label>
                                 </td>
                                 <td><%= element.urgent %></td>

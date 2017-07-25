@@ -217,7 +217,7 @@
                             if(DWY_Helper.isCanLoop(mateInAndOutList.result)){
                             mateInAndOutList.result.forEach(function (element, index) { %>
                             <tr>
-                                <td><%= index+1 %></td>
+                                <td><%= DWY_Helper.incrementNum(DWYRequest.query.pageNo,index)%></td>
                                 <td><%= element.mateId %></td>
                                 <td><%= element.mateName %></td>
                                 <td><%= element.catName%></td>

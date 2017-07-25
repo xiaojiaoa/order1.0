@@ -130,7 +130,7 @@
                                         <input type="checkbox" class="checkbox" autocomplete="off"
                                                name="pakgs"
                                                value="<%= element.pakgId %>" <%= element.stcode == 3 ? '' : 'disabled' %> >
-                                        <span><%= index + 1 %></span>
+                                        <span><%= DWY_Helper.incrementNum(DWYRequest.query.pageNo,index)%></span>
                                     </label>
                                 </td>
                                 <td>
