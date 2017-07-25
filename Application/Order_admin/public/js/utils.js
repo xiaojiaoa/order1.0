@@ -141,6 +141,17 @@ var DWY_Utils = DWY_Utils || {
                 }
                 return total;
             },
+            checkFuc: function (a, b) {
+                //点击全选/全不选影响复选框状态
+                $(a).click(function () {
+                    $(b).prop("checked", this.checked);
+                });
+                //复选框是否选中影响全选/全不选框状态-复选框的总数是否与选中的复选框数量相等
+                $(b).click(function () {
+                    var $tmp = $(b);
+                    $(a).prop("checked", $tmp.length == $tmp.filter(":checked").length);
+                });
+            }
         },
         AreaSelect:{
             find:function(id1,id2,areaData){

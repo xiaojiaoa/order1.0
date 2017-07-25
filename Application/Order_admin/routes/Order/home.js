@@ -371,8 +371,11 @@ router.get('/order/check/:type', Middleware.AuthCheck, Middleware.FilterEmptyFie
 //  订单流程记录页面
 router.get('/order/process', Middleware.AuthCheck, OrderController.processPage);
 
-//  订单许可页面
-router.get('/order/permit', Middleware.AuthCheck,Middleware.FilterEmptyField,Middleware.SetBackPath, OrderController.permitPage);
+//  订单加急页面
+router.get('/order/urgent', Middleware.AuthCheck,Middleware.FilterEmptyField,Middleware.SetBackPath, OrderController.urgentPage);
+
+//提交订单加急状态
+router.post('/orders/urgent/updateUrgent',Middleware.AuthCheck,OrderController.updateOrderUrgent);
 
 // 订单排料页面
 router.get('/orders/nesting', Middleware.AuthCheck,Middleware.FilterEmptyField,Middleware.SetBackPath, OrderController.nestingPage);

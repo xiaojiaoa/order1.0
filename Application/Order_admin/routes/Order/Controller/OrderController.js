@@ -974,17 +974,24 @@ var OrderController = {
     processPage: function (req, res) {
         res.render('order/order/order_process');
     },
-    permitPage: function (req, res) {
+    urgentPage: function (req, res) {
 
+        if(!req.query.urgent){
+            req.query.urgent=0;
+        }
         var paramObject = helper.genPaginationQuery(req);
+        req.query.regionTypes=req.query.regionTypes?req.query.regionTypes.toString(','):'';
         Base.multiDataRequest(req, res, [
-            {url: '/api/orders/assess?'+queryString.stringify(req.query), method: 'GET', resConfig: {keyName: 'assessList', is_must: true}},
-            {url: '/api/assist/brandinfo', method: 'GET', resConfig: {keyName: 'brandinfoList', is_must: true}},
-            {url: '/api/assist/order/difficulty', method: 'GET', resConfig: {keyName: 'difficultyList', is_must: true}},
-            {url: '/api/assist/space/prod', method: 'GET', resConfig: {keyName: 'prodList', is_must: true}},
+            {url: '/api/orders/urgent?'+ queryString.stringify(req.query), method: 'GET', resConfig: {keyName: 'orderList', is_must: true}},
+            {url: '/api/assist/order/stcodes', method: 'GET', resConfig: {keyName: 'stcodeInfo', is_must: false}},
+            {url: '/api/assist/brandinfo', method: 'GET', resConfig: {keyName: 'brandInfo', is_must: false}},
+            // {url: '/api/assist/space/prod', method: 'GET', resConfig: {keyName: 'prodInfo', is_must: false}},
+            {url: '/api/organizations/list', method: 'GET', resConfig: {keyName: 'organizationsList', is_must: false}},
+            {url: '/api/stores/list', method: 'GET', resConfig: {keyName: 'storesList', is_must: false}},
+            {url: '/api/orders/getRegionTypeByGid', method: 'GET', resConfig: {keyName: 'TypesList', is_must: true}},
         ], function (req, res, resultList) {
 
-            var paginationInfo =  resultList.assessList;
+            var paginationInfo =  resultList.orderList;
 
             var boostrapPaginator = new Pagination.TemplatePaginator(helper.genPageInfo({
                 prelink: paramObject.withoutPageNo,
@@ -998,8 +1005,24 @@ var OrderController = {
                 pagination: boostrapPaginator.render(),
                 Permission :Permissions,
             },resultList));
-            res.render('order/order/order_permit', returnData);
+            res.render('order/order/order_urgent', returnData);
         });
+    },
+    updateOrderUrgent: function (req, res) {
+        console.log("测试",req.body);
+        request(Base.mergeRequestOptions({
+            method: 'put',
+            url: '/api/orders/urgent/updateUrgent?'+queryString.stringify(req.body),
+        }, req, res), function (error, response, body) {
+            console.log('你大爷吗',response);
+            console.log('你大爷吗',response);
+            if (!error && response.statusCode == 201) {
+                Base.handlerSuccess(res, req);
+                res.redirect(req.session.backPath?req.session.backPath:"/order/urgent");
+            } else {
+                Base.handlerError(res, req, error, response, body);
+            }
+        })
     },
     // 订单排料页面
     nestingPage: function (req, res) {
@@ -1264,7 +1287,6 @@ var OrderController = {
             url: '/api/orders/package/packet/move?'+queryString.stringify(req.body),
         }, req, res), function (error, response, body) {
             if (!error && response.statusCode == 201) {
-
                 res.sendStatus(200);
             } else {
                 Base.handlerError(res, req, error, response, body);
