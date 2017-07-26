@@ -1565,6 +1565,16 @@ router.post('/app/cargoin/unShelveShow', AppServiceController.unShelveShow);
 router.post('/app/cargoin/scanCargoin', AppServiceController.scanCargoin);
 //取消扫描
 router.post('/app/cargoin/cancelScan', AppServiceController.cancelScanCargoin);
+//待上架
+router.post('/app/cargoin/waitRacking', AppServiceController.waitRacking);
+//入库确认上架
+router.post('/app/cargoin/confirmRacking', AppServiceController.confirmRacking);
+//入库时取消上架
+router.post('/app/cargoin/cancelRacking', AppServiceController.cancelRacking);
+//已扫描已入库但是已上架的包所属的货位
+router.get('/app/cargoin/shelvesSpace', AppServiceController.shelvesSpacePage);
+//已扫描已入库但是未上架的包所属的货位
+router.get('/app/cargoin/shelvesSpaceId', AppServiceController.shelvesSpace);
 
 
 /*
