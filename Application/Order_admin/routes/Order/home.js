@@ -1558,6 +1558,10 @@ router.post('/app/cargoin/dealCargoin', AppServiceController.dealCargoin);
 router.post('/app/cargoin/unShelve', AppServiceController.unShelve);
 // 已扫描货笼显示分配界面
 router.post('/app/cargoin/unShelveShow', AppServiceController.unShelveShow);
+//扫描货位
+router.post('/app/cargoin/scanCargoin', AppServiceController.scanCargoin);
+//取消扫描
+router.post('/app/cargoin/cancelScan', AppServiceController.cancelScanCargoin);
 
 
 /*
