@@ -567,6 +567,79 @@ var AppServiceController = {
         })
     },
 
+    waitRacking: function (req, res) {
+        request(Base.mergeRequestOptions({
+            method: 'post',
+            url: '/api/whse/app/cargoin/wate/shelves',
+            form: req.body,
+            headers:req.headers,
+        }, req, res), function (error, response, body) {
+            if (!error) {
+                res.send(JSON.parse(body));
+            } else {
+                res.send(AppServiceController.error);
+            }
+        })
+    },
+
+    confirmRacking: function (req, res) {
+        request(Base.mergeRequestOptions({
+            method: 'post',
+            url: '/api/whse/app/cargoin/shelves/space',
+            form: req.body,
+            headers:req.headers,
+        }, req, res), function (error, response, body) {
+            if (!error) {
+                res.send(JSON.parse(body));
+            } else {
+                res.send(AppServiceController.error);
+            }
+        })
+    },
+
+    cancelRacking: function (req, res) {
+        request(Base.mergeRequestOptions({
+            method: 'post',
+            url: '/api/whse/app/cargoin/offshelves/space',
+            form: req.body,
+            headers:req.headers,
+        }, req, res), function (error, response, body) {
+            if (!error) {
+                res.send(JSON.parse(body));
+            } else {
+                res.send(AppServiceController.error);
+            }
+        })
+    },
+
+    shelvesSpacePage: function (req, res) {
+        request(Base.mergeRequestOptions({
+            method: 'get',
+            url: '/api/whse/app/cargoin/shelves/space/page?'+queryString.stringify(req.query),
+            headers:req.headers,
+        }, req, res), function (error, response, body) {
+            if (!error) {
+                res.send(JSON.parse(body));
+            } else {
+                res.send(AppServiceController.error);
+            }
+        })
+    },
+    shelvesSpace: function (req, res) {
+        var spaceId = req.params.spaceId;
+        request(Base.mergeRequestOptions({
+            method: 'get',
+            url: '/api/whse/app/cargoin/offshelves/space?spaceId='+spaceId,
+            headers:req.headers,
+        }, req, res), function (error, response, body) {
+            if (!error) {
+                res.send(JSON.parse(body));
+            } else {
+                res.send(AppServiceController.error);
+            }
+        })
+    },
+
 };
 module.exports = AppServiceController;
 
