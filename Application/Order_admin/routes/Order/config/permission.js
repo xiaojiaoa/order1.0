@@ -265,7 +265,19 @@ var permissions = {
         query:{
             id:"541554",
             name:"补单查询"
-        }
+        },
+        queryByRevFranchisePrice:{
+            id:"531920",
+            name:"查看结算价"
+        },
+        queryByRetailPrice:{
+            id:"531921",
+            name:"查看零售价"
+        },
+        queryByFactoryPrice:{
+            id:"531922",
+            name:"查看出厂价"
+        },
     },
     resupplyOrderReview:{
         query:{
