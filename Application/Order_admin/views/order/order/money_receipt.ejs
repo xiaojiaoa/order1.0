@@ -182,6 +182,8 @@
                                 <th>零售价（元）</th>
                                 <th>结算价（元）</th>
                                 <th>出厂价（元）</th>
+                                <th>折后价</th>
+                                <th>折后备注</th>
                                 <th>收款类型</th>
                                 <!--<th>说明</th>-->
                                 <th>确认日期</th>
@@ -204,6 +206,8 @@
                                 <td><%= element.retailPrice %></td>
                                 <td><%= element.factoryPrice %></td>
                                 <td><%= element.revFranchisePrice %></td>
+                                <td><%= element.priceAfterDiscount %></td>
+                                <td><%= element.discountRemark %></td>
                                 <td><% if(element.payed < 20){ %>
                                     未付款
                                     <% }else{%>
@@ -217,7 +221,11 @@
                                     <a class="label label-primary optionThis" data-payed="<%=element.payed %>" data-tid="<%=element.tid %>" data-bid="<%=element.bid %>">锁定</a>
                                     <% } %>
                                     <% if(element.payed == 12 && element.payStcode == 1){  %>
-                                    <a class="label label-primary checkThis" data-type="pass" data-payed="<%=element.payed %>" data-tid="<%=element.tid %>" data-bid="<%=element.bid %>">确认收款</a>
+                                    <a class="label label-primary checkThis" data-type="pass"
+                                       data-payed="<%=element.payed %>"
+                                       data-tid="<%=element.tid %>"
+                                       data-bid="<%=element.bid %>"
+                                       data-factoryPrice="<%= element.factoryPrice %>">确认收款</a>
                                     <a class="label label-danger optionThis" data-type="notpass" data-payed="<%=element.payed %>" data-tid="<%=element.tid %>" data-bid="<%=element.bid %>">解锁</a>
                                     <% } %>
                                     <% if(element.payed == 21){  %>
@@ -249,7 +257,7 @@
 <%- include('../layouts/footer_common_script'); %>
 
 <form class="form-horizontal  layer-template" method="post" id="order_reject"  action="/collection/receiptCheck/pass">
-    <div class="col-xs-12" style="padding:20px;">
+    <div class="col-xs-12" style="padding-top:40px;padding-left: 50px;">
         <div class="form-group">
             <label class="col-xs-2 control-label"><span class="requird"></span> 类型:</label>
             <div class="col-xs-8">
@@ -261,9 +269,24 @@
 
         </div>
         <div class="form-group">
+            <label class="col-xs-2 control-label"> 结算价:</label>
+            <div class="col-xs-8">
+                <input class="form-control " type="text" readonly value=""  id="factoryPrice"/>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-xs-2 control-label"> 折后价:</label>
+            <div class="col-xs-6">
+                <input class="form-control " type="text"  value=""  name="priceAfterDiscount" id="priceAfterDiscount"/>
+            </div>
+            <div class="col-xs-4 tight-left">
+                <a class="btn-primary btn-sm btn" id="calculate">&nbsp;计算&nbsp;</a>
+            </div>
+        </div>
+        <div class="form-group">
             <label class="col-xs-2 control-label"> 折扣率:</label>
             <div class="col-xs-8">
-                <input class="form-control validate[funcCall[custom_validate_fn.isNotNFPN]]" type="text" placeholder="例:75折请输入0.75，没有折扣可以不输入" value="" name="discount" maxlength="4"/>
+                <input class="form-control" type="text" placeholder="" value="" name="discount" id="discount"  disabled />
             </div>
         </div>
         <div class="form-group">
@@ -302,12 +325,16 @@
 
         $('#search-form').validationEngine();
         $("#order_reject").validationEngine();
+
+        //点击确认收款按钮
         $(".checkThis").click(function () {
             var _self = $(this);
             var tid = _self.attr('data-tid');
             var bid = _self.attr('data-bid');
+            var factoryPrice=_self.attr('data-factoryPrice');
             $('#tid').val(tid);
             $('#bid').val(bid);
+            $("#factoryPrice").val(factoryPrice);
             layer.open({
                 title: false,
                 type: 1,
@@ -318,6 +345,14 @@
                 },
 
             });
+
+        })
+        //点击计算按钮
+        $('#calculate').click(function () {
+            var factoryPrice = $('#factoryPrice').val();
+            var priceAfterDiscount=$("#priceAfterDiscount").val();
+            //折扣率--保留小数点后两位需四舍五入
+            $("#discount").val((priceAfterDiscount/factoryPrice).toFixed(2));
 
         })
 
