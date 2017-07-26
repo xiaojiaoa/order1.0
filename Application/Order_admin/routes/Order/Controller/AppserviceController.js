@@ -626,10 +626,9 @@ var AppServiceController = {
         })
     },
     shelvesSpace: function (req, res) {
-        var spaceId = req.params.spaceId;
         request(Base.mergeRequestOptions({
             method: 'get',
-            url: '/api/whse/app/cargoin/offshelves/space?spaceId='+spaceId,
+            url: '/api/whse/app/cargoin/offshelves/space?'+queryString.stringify(req.query),
             headers:req.headers,
         }, req, res), function (error, response, body) {
             if (!error) {
