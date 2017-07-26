@@ -254,6 +254,8 @@ router.get('/networkCustomers', Middleware.AuthCheck,  CustomerController.networ
 // 获取客户详情页面
 router.get('/customer/detail/:cid', Middleware.AuthCheck, CustomerController.detailPage);
 
+router.post('/customer/assignStore', Middleware.AuthCheck, CustomerController.assignStore);
+
 /*
  * 页面范围: 订单相关
  * 控制器:   OrderController

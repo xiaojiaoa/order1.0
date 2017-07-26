@@ -28,6 +28,7 @@ var CustomerController = {
             {url: '/api/customers?'+ queryString.stringify(req.query), method: 'GET', resConfig: {keyName: 'customerList', is_must: true}},
             {url: '/api/assist/taskseq/status', method: 'GET', resConfig: {keyName: 'statusInfo', is_must: false}},
             {url: '/api/customers/getRegionTypeByGid', method: 'GET', resConfig: {keyName: 'TypesList', is_must: true}},
+            {url: '/api/stores/list', method: 'GET', resConfig: {keyName: 'storeList', is_must: true}},
         ], function (req, res, resultList) {
 
             var paginationInfo =  resultList.customerList;
@@ -56,6 +57,7 @@ var CustomerController = {
             {url: '/api/customers/company?'+ queryString.stringify(req.query), method: 'GET', resConfig: {keyName: 'customerList', is_must: true}},
             {url: '/api/assist/taskseq/status', method: 'GET', resConfig: {keyName: 'statusInfo', is_must: false}},
             {url: '/api/customers/getRegionTypeByGid', method: 'GET', resConfig: {keyName: 'TypesList', is_must: true}},
+            {url: '/api/stores/list', method: 'GET', resConfig: {keyName: 'storeList', is_must: true}},
 
         ], function (req, res, resultList) {
 
@@ -85,6 +87,7 @@ var CustomerController = {
             {url: '/api/customers/unused?'+ queryString.stringify(req.query), method: 'GET', resConfig: {keyName: 'customerList', is_must: true}},
             {url: '/api/assist/taskseq/status', method: 'GET', resConfig: {keyName: 'statusInfo', is_must: false}},
             {url: '/api/customers/getRegionTypeByGid', method: 'GET', resConfig: {keyName: 'TypesList', is_must: true}},
+            {url: '/api/stores/list', method: 'GET', resConfig: {keyName: 'storeList', is_must: true}},
 
         ], function (req, res, resultList) {
 
@@ -126,7 +129,26 @@ var CustomerController = {
                 }
 
             });
-    }
+    },
+
+    assignStore: function (req, res) {
+        var bid = req.body.bid;
+        var cid = req.body.customerid;
+        console.log('bid',bid);
+        console.log('cid',cid);
+        request(Base.mergeRequestOptions({
+            method: 'put',
+            url: '/api/customers/unused/'+cid+'?bid='+bid,
+        }, req, res), function (error, response, body) {
+            if (!error && response.statusCode == 201) {
+                Base.handlerSuccess(res, req);
+                res.redirect("/networkCustomers");
+            } else {
+                Base.handlerError(res, req, error, response, body);
+            }
+        })
+
+    },
 
 };
 
