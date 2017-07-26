@@ -1579,11 +1579,11 @@ router.get('/app/cargoin/shelvesSpace', AppServiceController.shelvesSpacePage);
 //已扫描已入库但是未上架的包所属的货位
 router.get('/app/cargoin/shelvesSpaceId', AppServiceController.shelvesSpace);
 //扫描包装流水号，显示货位号
-router.get('/app/cargoin/lidCargoShow', AppServiceController.lidCargoShow);
+router.get('/app/cargoin/lidCargoShow/:packageLid', AppServiceController.lidCargoShow);
 //订单货位查看功能
-router.get('/app/cargoin/orderCargoShow', AppServiceController.orderCargoShow);
+router.get('/app/cargoin/orderCargoShow/:tid', AppServiceController.orderCargoShow);
 //查看货位的上架下架等情况
-router.get('/app/cargoin/offshelvesShow', AppServiceController.offshelvesShow);
+router.get('/app/cargoin/offshelvesShow/:offshelves', AppServiceController.offshelvesShow);
 
 
 /*
