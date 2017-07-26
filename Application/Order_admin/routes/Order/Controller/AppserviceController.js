@@ -639,6 +639,49 @@ var AppServiceController = {
         })
     },
 
+    lidCargoShow: function (req, res) {
+        var packageLid = req.params.pakeageLid;
+        request(Base.mergeRequestOptions({
+            method: 'get',
+            url: '/api/whse/app/cargoin/space/packageLid/'+packageLid,
+            headers:req.headers,
+        }, req, res), function (error, response, body) {
+            if (!error) {
+                res.send(JSON.parse(body));
+            } else {
+                res.send(AppServiceController.error);
+            }
+        })
+    },
+    orderCargoShow: function (req, res) {
+        var tid = req.params.tid;
+        request(Base.mergeRequestOptions({
+            method: 'get',
+            url: '/api/whse/app/cargoin/space/tid/'+tid,
+            headers:req.headers,
+        }, req, res), function (error, response, body) {
+            if (!error) {
+                res.send(JSON.parse(body));
+            } else {
+                res.send(AppServiceController.error);
+            }
+        })
+    },
+    offshelvesShow: function (req, res) {
+        var offshelves = req.params.offshelves;
+        request(Base.mergeRequestOptions({
+            method: 'get',
+            url: '/api/whse/app/cargoin/offshelves/'+offshelves,
+            headers:req.headers,
+        }, req, res), function (error, response, body) {
+            if (!error) {
+                res.send(JSON.parse(body));
+            } else {
+                res.send(AppServiceController.error);
+            }
+        })
+    },
+
 };
 module.exports = AppServiceController;
 

@@ -68,6 +68,11 @@
                                         <i class="fa fa-search"></i>
                                         查询企业客户
                                     </a>
+                                    <span style="width: 20px;display: inline-block;"></span>
+                                    <a class="btn btn-primary" href="/networkCustomers">
+                                        <i class="fa fa-search"></i>
+                                        查询网络客户
+                                    </a>
                                     <% } %>
                                     <% if(type == 'companyCustomers'){ %>
                                     <span style="width: 20px;display: inline-block;"></span>
@@ -75,14 +80,36 @@
                                         <i class="fa fa-search"></i>
                                         查询普通客户
                                     </a>
+                                    <span style="width: 20px;display: inline-block;"></span>
+                                    <a class="btn btn-primary" href="/networkCustomers">
+                                        <i class="fa fa-search"></i>
+                                        查询网络客户
+                                    </a>
                                     <% } %>
+
+                                    <% if(type == 'networkCustomers'){ %>
+                                    <span style="width: 20px;display: inline-block;"></span>
+                                    <a class="btn btn-primary" href="/companyCustomers">
+                                        <i class="fa fa-search"></i>
+                                        查询企业客户
+                                    </a>
+
+                                    <span style="width: 20px;display: inline-block;"></span>
+                                    <a class="btn btn-primary" href="/customers">
+                                        <i class="fa fa-search"></i>
+                                        查询普通客户
+                                    </a>
+                                    <% } %>
+
                                     <label class="btn btn-default reset margin-left-20">
                                         重置
                                     </label>
+                                    <% if(type != 'networkCustomers'){ %>
                                     <label class="search margin-left-20">
                                         高级查询
                                         <i class="fa fa-chevron-down"></i>
                                     </label>
+                                    <%}%>
                                 </div>
                                 <%}%>
 
@@ -200,8 +227,13 @@
                                 <% if(type == 'companyCustomers'){ %>
                                 <th>企业名称</th>
                                 <% } %>
+                                <% if(type != 'networkCustomers'){ %>
                                 <th>流水号</th>
                                 <th>流水状态</th>
+                                <%}%>
+                                <% if(type == 'networkCustomers'){ %>
+                                <th>操作</th>
+                                <%}%>
                             </tr>
                             </thead>
                             <tbody>
@@ -217,6 +249,7 @@
                                 <% if(type == 'companyCustomers'){ %>
                                 <td><%= element.entpName %></td>
                                 <% } %>
+                                <% if(type != 'networkCustomers'){ %>
                                 <% if (element.custFlowDtos.length) { %>
                                 <% var custFlow = element.custFlowDtos[0] %>
                                 <td><a href="/taskseq/index/<%= custFlow.lid %>"><%= custFlow.lid %></a></td>
@@ -224,7 +257,10 @@
                                 <% }  else { %>
                                 <td></td>
                                 <td></td>
-                                <% } %>
+                                <% } }%>
+                                <% if(type == 'networkCustomers'){ %>
+                                <td><a class="label label-primary dealStore">分配店铺</a></td>
+                                <%}%>
                             </tr>
                             <% num++ })
                             }else{ %>
@@ -244,6 +280,24 @@
     <!-- END MAIN CONTENT -->
 
 </div>
+<form id="dealStore" class="col-xs-12 layer-template" action="">
+    <div class="col-xs-12" style="margin-top:20px;">
+        <div class="col-xs-2 margin-top-10 text-center">
+            门店名称:
+        </div>
+        <div class="col-xs-6">
+            <select class="form-control validate[required]" name="bid">
+                <option value="">--请选择--</option>
+
+            </select>
+
+
+        </div>
+    </div>
+    <div class="col-xs-12 text-center margin-top-10">
+        <button class="btn btn-primary margin-top-10" type="submit">确认指定</button>
+    </div>
+</form>
 <!-- END MAIN PANEL -->
 
 <%- include('layouts/footer'); %>
@@ -256,6 +310,7 @@
 
         pageSetUp();
         $("#search-customer").validationEngine();
+        $("#dealStore").validationEngine();
         $(".fg-date-picker").flatpickr(data_time_picker.data_picker); // jQuery
 
 
@@ -263,6 +318,19 @@
         var TypesList = <%-  JSON.stringify(TypesList) %>;
         $(".search").click(function(){
             DWY_Utils.AreaSelect.find("#areaParentId","#areaChidId",TypesList);
+        })
+
+        $(".dealStore").click(function(){
+            layer.open({
+                title: false,
+                type: 1,
+                area: '700px',
+                content: $('#dealStore'),
+                cancel: function () {
+                    //右上角关闭回调
+                },
+
+            });
         })
     })
 
