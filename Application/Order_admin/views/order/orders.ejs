@@ -287,7 +287,7 @@
                                 <% if(DWY_Helper.hasPermission(Permission.order.queryByRevFranchisePrice.id, permission)){%>
                                 <th>结算价</th>
                                 <th>折后价</th>
-                                <th class="display-none">折扣率</th>
+                                <th>折扣备注</th>
                                 <%}%>
                                 <% if(DWY_Helper.hasPermission(Permission.order.queryByRetailPrice.id, permission)){%>
                                 <th>零售价</th>
@@ -322,7 +322,7 @@
                                 <% if(DWY_Helper.hasPermission(Permission.order.queryByRevFranchisePrice.id, permission)){%>
                                 <td><%= element.revFranchisePrice %></td>
                                 <td><%= element.priceAfterDiscount %></td>
-                                <td class="display-none"><%= element.discount %></td>
+                                <td><%= element.discountRemark %></td>
                                 <%}%>
                                 <!--根据权限展示零售价-->
                                 <% if(DWY_Helper.hasPermission(Permission.order.queryByRetailPrice.id, permission)){%>
