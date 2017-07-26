@@ -299,7 +299,7 @@
                 if(DWY_Helper.isCanLoop(storeList)){
                 storeList.forEach(function (element) { %>
                 <option value="<%= element.id %>"  <%= (DWYRequest.query.regionTypeId == element.id )?"selected":"" %>>
-                    <%= element.address %>
+                    <%= element.storeName %>
                 </option>
                 <% })
                 }%>
