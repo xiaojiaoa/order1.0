@@ -204,8 +204,8 @@
                                 <td><%= element.prodTypeName %></td>
                                 <td><%= element.custName %></td>
                                 <td><%= element.retailPrice %></td>
-                                <td><%= element.factoryPrice %></td>
                                 <td><%= element.revFranchisePrice %></td>
+                                <td><%= element.factoryPrice %></td>
                                 <td><%= element.priceAfterDiscount %></td>
                                 <td><%= element.discountRemark %></td>
                                 <td><% if(element.payed < 20){ %>
@@ -225,7 +225,7 @@
                                        data-payed="<%=element.payed %>"
                                        data-tid="<%=element.tid %>"
                                        data-bid="<%=element.bid %>"
-                                       data-factoryPrice="<%= element.factoryPrice %>">确认收款</a>
+                                       data-price="<%= element.revFranchisePrice %>">确认收款</a>
                                     <a class="label label-danger optionThis" data-type="notpass" data-payed="<%=element.payed %>" data-tid="<%=element.tid %>" data-bid="<%=element.bid %>">解锁</a>
                                     <% } %>
                                     <% if(element.payed == 21){  %>
@@ -271,7 +271,7 @@
         <div class="form-group">
             <label class="col-xs-2 control-label"> 结算价:</label>
             <div class="col-xs-8">
-                <input class="form-control " type="text" readonly value=""  id="factoryPrice"/>
+                <input class="form-control " type="text" readonly value=""  id="price"/>
             </div>
         </div>
         <div class="form-group">
@@ -331,10 +331,10 @@
             var _self = $(this);
             var tid = _self.attr('data-tid');
             var bid = _self.attr('data-bid');
-            var factoryPrice=_self.attr('data-factoryPrice');
+            var price=_self.attr('data-price');
             $('#tid').val(tid);
             $('#bid').val(bid);
-            $("#factoryPrice").val(factoryPrice);
+            $("#price").val(price);
             layer.open({
                 title: false,
                 type: 1,
@@ -349,10 +349,10 @@
         })
         //点击计算按钮
         $('#calculate').click(function () {
-            var factoryPrice = $('#factoryPrice').val();
+            var price = $('#price').val();
             var priceAfterDiscount=$("#priceAfterDiscount").val();
             //折扣率--保留小数点后两位需四舍五入
-            $("#discount").val((priceAfterDiscount/factoryPrice).toFixed(2));
+            $("#discount").val((priceAfterDiscount/price).toFixed(2));
 
         })
 
