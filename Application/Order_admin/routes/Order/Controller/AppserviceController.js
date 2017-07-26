@@ -640,7 +640,7 @@ var AppServiceController = {
     },
 
     lidCargoShow: function (req, res) {
-        var packageLid = req.params.pakeageLid;
+        var packageLid = req.params.packageLid;
         request(Base.mergeRequestOptions({
             method: 'get',
             url: '/api/whse/app/cargoin/space/packageLid/'+packageLid,
