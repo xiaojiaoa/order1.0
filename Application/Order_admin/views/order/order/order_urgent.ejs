@@ -47,9 +47,10 @@
                                     <div class="form-group">
                                         <label class="col-xs-4 control-label">订单加急状态:</label>
                                         <div class="col-xs-8">
-                                            <select class="form-control" name="urgent">
-                                                <option value="1" <%= (DWYRequest.query.urgent ==1)?"selected":"" %>>是</option>
-                                                <option value="0" <%= (DWYRequest.query.urgent ==0)?"selected":"" %>>否</option>
+                                            <select class="form-control" name="urgentVal">
+                                                <option value="2" <%= (DWYRequest.query.urgentVal ==2)?"selected":"" %>>全部状态</option>
+                                                <option value="1" <%= (DWYRequest.query.urgentVal ==1)?"selected":"" %>>是</option>
+                                                <option value="0" <%= (DWYRequest.query.urgentVal ==0)?"selected":"" %>>否</option>
                                             </select>
                                         </div>
                                     </div>

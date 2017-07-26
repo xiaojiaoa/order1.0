@@ -975,8 +975,17 @@ var OrderController = {
         res.render('order/order/order_process');
     },
     urgentPage: function (req, res) {
-
-        if(!req.query.urgent){
+        if(!req.query.urgentVal){
+            req.query.urgent=0;
+            req.query.urgentVal=0;
+        }
+        if(req.query.urgentVal==2){
+            req.query.urgent="";
+        }
+        if(req.query.urgentVal==1){
+            req.query.urgent=1;
+        }
+        if(req.query.urgentVal==0){
             req.query.urgent=0;
         }
         var paramObject = helper.genPaginationQuery(req);
