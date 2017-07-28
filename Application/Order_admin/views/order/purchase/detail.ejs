@@ -371,7 +371,7 @@
             $("#purchaseReview").click(function(){
                 var stcodeStr = $("input[name=hids]").attr("stcodestr");
                 if(checkedValue.attr('class')==null||checkedValue.attr('class')=='') {
-                    layer.alert('请选择！', {icon: 3});
+                    layer.alert('请选择采购单！', {icon: 3});
                     return false;
                 }
                 if(stcodeStr.indexOf('30')>-1){
@@ -386,7 +386,7 @@
             //撤回采购单
             $("#purchaseRecall").click(function(){
                 if(checkedValue.attr('class')==null||checkedValue.attr('class')=='') {
-                    layer.alert('请选择！', {icon: 3});
+                    layer.alert('请选择采购单！', {icon: 3});
                     return false;
                 }
                 var stcodeStr = $("input[name=hids]").attr("stcodestr");
@@ -404,7 +404,7 @@
                 var stcodeStr = $("input[name=hids]").attr("stcodeStr"),
                     isImprests = $("input[name=hids]").attr("isImprests");
                 if(checkedValue.attr('class')==null||checkedValue.attr('class')=='') {
-                    layer.alert('请选择！', {icon: 3});
+                    layer.alert('请选择采购单！', {icon: 3});
                     return false;
                 }
                 if(stcodeStr.indexOf('10')>-1){
@@ -425,7 +425,7 @@
                     isdirect = $("input[name=hids]").attr("isdirect"),
                     gidVali = $("input[name=hids]").attr("gidvali");
                 if(checkedValue.attr('class')==null||checkedValue.attr('class')=='') {
-                    layer.alert('请选择！', {icon: 3});
+                    layer.alert('请选择采购单！', {icon: 3});
                     return false;
                 }
                 var val= $("input[name=gidHid]").val();
@@ -454,7 +454,7 @@
             })
             $("#print").click(function(){
                 if(checkedValue.attr('class')==null||checkedValue.attr('class')=='') {
-                    layer.alert('请选择！', {icon: 3});
+                    layer.alert('请选择采购单！', {icon: 3});
                     return false;
                 }
             })
