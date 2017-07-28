@@ -96,6 +96,29 @@
     <div class="dwy-clear"></div>
 </form>
 
+<form class="form-horizontal  layer-template" method="post" id="confirm-apart-resupply-order-form" action="/apart/doPass/byApartResupplyOrder" >
+
+    <div class="col-xs-12" style="padding-top: 20px;">
+        <div class="form-group">
+            <label class="col-xs-2 control-label"><span class="requird"></span>精确价格:</label>
+            <div class="col-xs-6">
+                <input class="form-control validate[required,custom[number],min[0]"  value="" name="money" id="money" data-prompt-position="bottomLeft:20,5">
+            </div>
+        </div>
+    </div>
+    <input value="<%= tid %>" name="tid" type="hidden">
+    <div class="col-xs-12">
+        <hr class="simple">
+        <div class="col-xs-12 text-center">
+            <button class="btn btn-primary " type="submit">
+                <i class="fa fa-save"></i>
+                确定拆单
+            </button>
+        </div>
+    </div>
+    <div class="dwy-clear"></div>
+</form>
+
 <script type="text/javascript">
 
     $(document).ready(function () {
@@ -132,6 +155,20 @@
                     type: 1,
                     area: '600px',
                     content: $('#confirm-apart-order-form'),
+                    cancel: function () {
+                        //右上角关闭回调
+                    },
+
+                });
+            }
+        });
+        $("#confirm-apart-resupply-order").on({
+            click:function () {
+                layer.open({
+                    title: false,
+                    type: 1,
+                    area: '600px',
+                    content: $('#confirm-apart-resupply-order-form'),
                     cancel: function () {
                         //右上角关闭回调
                     },

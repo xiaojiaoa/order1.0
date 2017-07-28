@@ -422,7 +422,7 @@
                                 <td>
                                     拆单中
                                     <% if (DWY_Helper.hasPermission(Permission.resupplyOrderApart.passOrder.id, permission) && resupplyInfo.receiveGid == user.id  ){ %>
-                                    <a class="label label-primary doPass" data-stcode="<%= resupplyInfo.status %>">确认拆单</a>
+                                    <a class="label label-primary" data-stcode="<%= resupplyInfo.status %>" id="confirm-apart-resupply-order">确认拆单</a>
                                     <% } %>
                                     <% if (DWY_Helper.hasPermission(Permission.resupplyOrderApart.sendBackOrder.id, permission) && resupplyInfo.receiveGid == user.id ){ %>
                                     <a class="label label-primary margin-left-20 reject-modal">拆单退回</a>

@@ -486,6 +486,7 @@ router.put('/apart/getTask/:tid', Middleware.AuthCheck, ApartController.getTask)
 
 //确认拆单
 router.post('/apart/doPass/byApartOrder', Middleware.AuthCheck, ApartController.doPassByApartOrder);
+router.post('/apart/doPass/byApartResupplyOrder', Middleware.AuthCheck, ApartController.doPassByApartResupplyOrder);
 
 // 解锁订单
 router.put('/apart/unlock/:tid', Middleware.AuthCheck, ApartController.doUnlock);
