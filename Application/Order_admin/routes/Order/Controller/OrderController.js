@@ -1505,6 +1505,7 @@ var OrderController = {
             form: req.body,
         }, req, res), function (error, response, body) {
             if (!error && response.statusCode == 201) {
+                Base.handlerSuccess(res,req);
                 res.redirect(req.session.backPath?req.session.backPath:'/collection');
             } else {
                 Base.handlerError(res, req, error, response, body);
@@ -1518,6 +1519,7 @@ var OrderController = {
             form: req.body,
         }, req, res), function (error, response, body) {
             if (!error && response.statusCode == 201) {
+                Base.handlerSuccess(res,req);
                 res.redirect(req.session.backPath?req.session.backPath:'/reconciliation');
             } else {
                 Base.handlerError(res, req, error, response, body);

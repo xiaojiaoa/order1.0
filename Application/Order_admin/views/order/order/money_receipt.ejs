@@ -238,6 +238,9 @@
                                     <% if(element.payed == 21){  %>
                                     <a class="label label-success optionThis" data-payed="<%=element.payed %>" data-tid="<%=element.tid %>" data-bid="<%=element.bid %>">对账</a>
                                     <% } %>
+                                    <% if(element.payed == 22){  %>
+                                     已对账
+                                    <% } %>
                                     <% if(element.payed == 20){  %>
                                     <a class="label label-success optionThis" data-payed=201 data-tid="<%=element.tid %>" data-bid="<%=element.bid %>">确认</a>
                                     <a class="label label-danger optionThis" data-payed=202  data-tid="<%=element.tid %>" data-bid="<%=element.bid %>">退回</a>
