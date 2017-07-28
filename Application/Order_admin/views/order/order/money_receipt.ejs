@@ -262,9 +262,9 @@
 <%- include('../layouts/footer_common_script'); %>
 
 <form class="form-horizontal  layer-template" method="post" id="order_reject"  action="/collection/receiptCheck/pass">
-    <div class="col-xs-12" style="padding-top:40px;padding-left: 50px;">
+    <div class="col-xs-12" style="padding:40px;">
         <div class="form-group">
-            <label class="col-xs-2 control-label"><span class="requird"></span> 类型:</label>
+            <label class="col-xs-3 control-label"><span class="requird"></span> 类型:</label>
             <div class="col-xs-8">
                 <select class="form-control" name="moneyType" >
                     <option value="5">已收款</option>
@@ -274,28 +274,38 @@
 
         </div>
         <div class="form-group">
-            <label class="col-xs-2 control-label"> 结算价:</label>
+            <label class="col-xs-3 control-label"> 结算价:</label>
             <div class="col-xs-8">
                 <input class="form-control " type="text" readonly value=""  id="price"/>
             </div>
         </div>
         <div class="form-group">
-            <label class="col-xs-2 control-label"> 折后价:</label>
-            <div class="col-xs-6">
-                <input class="form-control " type="text"  value=""  name="priceAfterDiscount" id="priceAfterDiscount"/>
+            <label class="col-xs-3 control-label">结算方式:</label>
+            <div class="col-xs-8">
+                <select class="form-control" name="settlementType" >
+                    <option value="0">直减</option>
+                    <option value="1">折扣率</option>
+                </select>
             </div>
-            <div class="col-xs-4 tight-left">
+
+        </div>
+        <div class="form-group">
+            <label class="col-xs-3 control-label">输入直减金额/折扣率:</label>
+            <div class="col-xs-6">
+                <input class="form-control" type="text" placeholder="请输入直减金额/折扣率" value="" name="discount" id="discount"  />
+            </div>
+            <div class="col-xs-3 tight-left">
                 <a class="btn-primary btn-sm btn" id="calculate">&nbsp;计算&nbsp;</a>
             </div>
         </div>
         <div class="form-group">
-            <label class="col-xs-2 control-label"> 折扣率:</label>
+            <label class="col-xs-3 control-label"> 折后价:</label>
             <div class="col-xs-8">
-                <input class="form-control" type="text" placeholder="" value="" name="discount" id="discount"  disabled />
+                <input class="form-control " type="text"  value=""  name="priceAfterDiscount" id="priceAfterDiscount"/>
             </div>
         </div>
         <div class="form-group">
-            <label class="col-xs-2 control-label"> 备注:</label>
+            <label class="col-xs-3 control-label"> 备注:</label>
             <div class="col-xs-8">
                <textarea class="form-control" name="discountRemark" placeholder="请输入备注" maxlength="256"></textarea>
             </div>
@@ -308,7 +318,7 @@
     <div class="col-xs-12">
         <hr class="simple">
         <div class="col-xs-12 text-center">
-            <button class="btn btn-primary " type="submit">
+            <button class="btn btn-primary " type="submit" id="subBtn">
                 确定
             </button>
         </div>
@@ -355,11 +365,29 @@
         //点击计算按钮
         $('#calculate').click(function () {
             var price = $('#price').val();
-            var priceAfterDiscount=$("#priceAfterDiscount").val();
-            //折扣率--保留小数点后两位需四舍五入
-            $("#discount").val((priceAfterDiscount/price).toFixed(2));
-
+            var discount=$("#discount").val();
+            var settlementType=$("select[name=settlementType]").val();
+            if(settlementType==0){
+                $("#priceAfterDiscount").val(price-discount);
+            }
+            if(settlementType==1){
+                $("#priceAfterDiscount").val((price*discount).toFixed(2));
+            }
         })
+
+        $("#subBtn").on({
+            click:function () {
+                var price = $('#price').val();
+                var discount=$("#discount").val();
+                var settlementType=$("select[name=settlementType]").val();
+                if(settlementType==0){
+                    $("#priceAfterDiscount").val(price-discount);
+                }
+                if(settlementType==1){
+                    $("#priceAfterDiscount").val((price*discount).toFixed(2));
+                }
+            }
+        });
 
         $(".optionThis").click(function () {
             var _self = $(this);
