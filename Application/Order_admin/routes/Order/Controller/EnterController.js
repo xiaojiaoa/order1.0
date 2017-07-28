@@ -93,10 +93,11 @@ var EnterController = {
         var inId = req.params.inId;
         var purId = req.params.purId;
         var stcode = req.params.stcode;
-        // console.log('/api/whse/cargoin/mate/review?inId='+inId+'&purId='+purId+'&stcode='+stcode)
+        var inMode = req.params.inMode;
+        if(purId == undefined) purId='';
         request(Base.mergeRequestOptions({
             method: 'put',
-            url: '/api/whse/cargoin/mate/review?inId='+inId+'&purId='+purId+'&stcode='+stcode
+            url: '/api/whse/cargoin/mate/review?inId='+inId+'&purIdS='+purId+'&stcode='+stcode+'&inMode='+inMode
         }, req, res), function (error, response, body) {
             if (!error && response.statusCode == 201) {
 
@@ -369,6 +370,36 @@ var EnterController = {
         })
 
     },
+
+    selectMatePage: function (req, res){
+        var paramObject = helper.genPaginationQuery(req);
+        var bid = req.query.bid? req.query.bid: req.session.user.bid;
+        Base.multiDataRequest(req, res, [
+                {url: '/api/categories/list/usable', method: 'GET', resConfig: {keyName: 'suppliersMaterialList', is_must: true}},
+                {url: '/api/materials?'+(queryString.stringify(req.query)), method: 'GET', resConfig: {keyName: 'supMaterialList', is_must: true}},
+                {url: '/api/whse/factory/list', method: 'GET', resConfig: {keyName: 'factoryList', is_must: true}},
+            ],
+            function (req, res, resultList) {
+                var paginationInfo =  resultList.supMaterialList;
+                var boostrapPaginator = new Pagination.TemplatePaginator(helper.genPageInfo({
+                    prelink: paramObject.withoutPageNo,
+                    current: paginationInfo.page,
+                    rowsPerPage: paginationInfo.pageSize,
+                    totalResult: paginationInfo.totalItems
+                }));
+
+                var returnData = Base.mergeData(helper.mergeObject({
+                    title: ' ',
+                    Permission :Permissions,
+                    pagination: boostrapPaginator.render(),
+                    bid:bid,
+                }, resultList));
+                res.render('order/enter/select_mate_enter', returnData);
+            });
+    },
+
+
+
 };
 
 module.exports = EnterController;

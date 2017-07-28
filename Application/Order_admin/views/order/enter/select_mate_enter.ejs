@@ -1,0 +1,944 @@
+<%- include('../layouts/head_top'); %>
+<%- include('../layouts/head_bottom'); %>
+<%- include('../layouts/header'); %>
+<%- include('../layouts/nav'); %>
+
+<style>
+    .tooltip{
+        z-index: 99999;
+    }
+    .tooltip-inner {
+        max-width: 200px;
+        padding: 3px 8px;
+        color: #fff;
+        text-align: center;
+        text-decoration: none;
+        background-color: #ee0101;
+        border-radius: 2px
+    }
+    .tooltip.top .tooltip-arrow{bottom:0;left:50%;margin-left:-5px;border-width:5px 5px 0;border-top-color:#ee0101}
+   .tip{
+        width:100%;
+    }
+    .tip p{
+        padding-right:32%;
+        color:#f00;
+        font-size:12px;
+    }
+    @media screen and (max-width: 1600px){
+        .tip p{
+            padding-right:23%;
+        }
+    }
+</style>
+<!-- MAIN PANEL -->
+<div id="main" role="main">
+    <div class="loading" id="loading"><i class="fa fa-circle-o-notch fa-spin text-primary"></i></div>
+
+    <!-- RIBBON -->
+    <div id="ribbon">
+
+        <!-- breadcrumb -->
+        <ol class="breadcrumb">
+            <li>后台管理</li>
+            <li><a class="back-url" href="/enterMaterial"> 原料入库</a></li>
+            <li><a class="back-url" href="/enterMaterial/stockOver"> 选取物料</a></li>
+            <li>回库</li>
+            <li><a class="back-url" href="javascript:history.go(-1)"> <i class="fa fa-chevron-left"></i>返回</a></li>
+        </ol>
+
+    </div>
+    <!-- END RIBBON -->
+
+
+    <!-- MAIN CONTENT -->
+    <div id="content">
+        <!-- well -->
+
+        <div class="well">
+            <!-- row -->
+            <form class="form-horizontal" id="search-customer">
+            <div class="row">
+                <div class="col-xs-3">
+                    <div class="form-group">
+                        <label class="col-xs-3 control-label">入库类型:</label>
+                        <div class="col-xs-8">
+                            <select class="form-control validate[required]" name="inMode">
+                                <option value="">- 请选择 -</option>
+                                <option value="2">回库</option>
+                                <option value="3">手动入库</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                    <div class="col-xs-12">
+                        <div class="table-responsive">
+                        <table class="table table-bordered table-striped localstorage table-hover table-editinput" id="contentArea">
+                            <thead>
+                            <tr class="len">
+                                <th>
+                                    <label class="checkbox-inline">
+                                        <span class="0">序号</span>
+                                    </label>
+                                </th>
+                                <th>物料编号</th>
+                                <th>物料名称</th>
+                                <th>物料批次号</th>
+                                <th width="100">实际入库数</th>
+                                <th class="display-none">单价</th>
+                                <th  id="withWidth">区域(必选)</th>
+                                <th>货位号(行列层)</th>
+                                <th>入库数量</th>
+                                <th width="50">仓库是否可用</th>
+                                <th width="50">操作</th>
+                            </tr>
+                            </thead>
+                            <tbody id="moreAddTR" class="purApplyTr">
+                            <% var initFtyId = DWY_Helper.getAssistInitFtyId(user.ftyId, factoryList);%>
+                            </tbody>
+                        </table>
+                    </div>
+                    </div>
+
+            </div>
+            </form>
+            <div class="row">
+                <div class="col-xs-12">
+                    <button class="btn btn-primary" id="toEnter">确认入库</button>
+                </div>
+            </div>
+        </div>
+        <div class="well">
+            <!-- row -->
+            <div class="row">
+                <!-- col -->
+                <div class="col-xs-12">
+                    <!--<legend>客户搜索</legend>-->
+                    <div class="row search-form">
+                        <form class="form-horizontal" method="get">
+                            <div class="col-xs-12">
+                                <!--输入字段-->
+                                <div class="col-xs-3">
+                                    <div class="form-group">
+                                        <label class="col-xs-4 control-label">物料编号:</label>
+                                        <div class="col-xs-8">
+                                            <input class="form-control" placeholder="请输入物料编号" type="text" value="<%= DWYRequest.query.materNo %>" name="materNo" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xs-3">
+                                    <div class="form-group">
+                                        <label class="col-xs-4 control-label">物料名称:</label>
+                                        <div class="col-xs-8">
+                                            <input class="form-control" placeholder="请输入物料名称" type="text" value="<%= DWYRequest.query.name %>" name="name">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xs-3">
+                                    <div class="form-group">
+                                        <label class="col-xs-4 control-label">物料分类:</label>
+                                        <div class="col-xs-8">
+                                            <select class="form-control" name="catId">
+                                                <option value="">- 请选择 -</option>
+                                                <%
+                                                if(DWY_Helper.isCanLoop(suppliersMaterialList)){
+                                                suppliersMaterialList.forEach(function (element, index) { %>
+                                                <% switch (DWY_Helper.judgeMateType(element.id)){
+                                                case "一级": %>
+                                                <option value="<%= element.id %>" <%= (DWYRequest.query.catId == element.id)?"selected":"" %>>
+                                                    <%= element.name %>
+                                                </option>
+                                                <%        break;
+                                                case "二级": %>
+                                                <option value="<%= element.id %>" <%= (DWYRequest.query.catId == element.id)?"selected":"" %>>
+                                                    &nbsp;&nbsp; &nbsp;&nbsp;<%= element.name %>
+                                                </option>
+                                                <%         break;
+                                                default: %>
+                                                <option value="<%= element.id %>" <%= (DWYRequest.query.catId == element.id)?"selected":"" %>>
+                                                    &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;  &nbsp;&nbsp; <%= element.name %>
+                                                </option>
+
+                                                <% } })}%>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xs-3 text-left">
+                                    <button class="btn btn-primary " type="submit">
+                                        <i class="fa fa-search"></i>
+                                        查询
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <!-- end row -->
+                </div>
+                <!-- end col -->
+            </div>
+            <!-- end row -->
+            <!-- end well -->
+            <form class="form-horizontal" method="post" id="creat-supplier" action="/purchase/applyCreat" >
+                <div class="col-xs-12">
+                    <legend>
+                    </legend>
+                </div>
+                <div class="col-xs-12">
+                    <div class="col-xs-12">
+                        <h6>物料列表</h6>
+                    </div>
+                    <div class="orderItemLayerTable">
+                        <table class="table table-bordered table-hover">
+                            <thead>
+                            <tr>
+                                <th>序号</th>
+                                <th>物料编号</th>
+                                <th>物料名称</th>
+                                <th>供应商名称</th>
+                                <th>分类名称</th>
+                                <th>真实库存</th>
+                                <th>预警数量</th>
+                                <th>可用库存</th>
+                                <th>单价</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <%
+                            if(DWY_Helper.isCanLoop(supMaterialList.result)){
+                            supMaterialList.result.forEach(function (element, index) { %>
+                            <tr class="len botTr">
+                                <td>
+                                    <label class="checkbox-inline">
+                                        <input type="checkbox" class="checkbox"
+                                               name="roles" value="<%= element.id %>" uniqueId="<%= element.id %>" mateId="<%= element.id %>"
+                                                <%= element.usable==0? 'disabled':''%> >
+                                        <span><%= DWY_Helper.incrementNum(DWYRequest.query.pageNo,index)%></span>
+                                    </label>
+                                </td>
+                                <td><a href="/materialManage/detail/<%= bid %>/<%= element.id %>"><%= element.id %></a></td>
+                                <td><%= element.name %></td>
+                                <td><%= element.suppName %></td>
+                                <td><%= element.catName %></td>
+                                <td><%= element.stock %></td>
+                                <td><%= element.warning %></td>
+                                <td><%= element.usable %></td>
+                                <td><%= element.price %></td>
+                                <td style="display:none"><%= element.suppId %></td>
+                                <%
+                                if(DWY_Helper.isCanLoop(element.mateUnitList)){
+                                element.mateUnitList.forEach(function(elementa,indexa){%>
+                                <td class="unitsId" style="display:none"><%= elementa.id %></td>
+                                <%
+                                })}%>
+                                <%
+                                if(DWY_Helper.isCanLoop(element.mateUnitList)){
+                                element.mateUnitList.forEach(function(elementa,indexa){%>
+                                <td class="units" style="display:none"><%= elementa.name %></td>
+                                <%
+                                })}%>
+                                <%
+                                if(DWY_Helper.isCanLoop(element.mateUnitList)){
+                                element.mateUnitList.forEach(function(elementa,indexa){%>
+                                <td class="unitsAmount" style="display:none"><%= elementa.amount %></td>
+                                <%
+                                })}%>
+                                <%  }) }else{%>
+                                <td colspan="9" class="text-align-center">暂无结果</td>
+                                <%}%>
+                            </tr>
+                            <input type="hidden" class="" id="checkedValue">
+                            </tbody>
+                        </table>
+
+                    </div>
+                    <%- pagination %>
+                </div>
+                <div class="dwy-clear"></div>
+            </form>
+        </div>
+    </div>
+    <!-- END MAIN CONTENT -->
+
+</div>
+
+<!-- END MAIN PANEL -->
+
+<%- include('../layouts/footer'); %>
+<%- include('../layouts/footer_common_script'); %>
+
+
+<script type="text/javascript">
+    $(document).ready(function () {
+
+
+        pageSetUp();
+        $("#search-customer").validationEngine();
+        $(".fg-date-time-picker").flatpickr(data_time_picker.data_picker); // jQuery
+
+        var storageKey = 'LIST_DATA_ENTERMATESELECT';
+        var listArry = DWY_Utils.StorageUtils.getListArr(storageKey);
+        if(listArry){
+            var cargoinList_result = listArry.length;
+        }
+        var contentArea = $('#moreAddTR');
+        var status = $('#statusFa');
+        var toEnter = $('#toEnter');
+        var checkedValue=$("#checkedValue");
+
+
+        var cargoinList = <%- JSON.stringify(factoryList) %>;
+
+
+        var loading = $("#loading");
+
+        // 初始化工厂联动
+        cargoinList.forEach(function (element, index) {
+            DWY_fty_region.init({
+                target: '.newtarget' + index,
+                factoryValue: '<%= initFtyId %>',
+                cargoId: 1,  // 类型，1物料，2包装
+                type: element.mateId,     // 物料时传物料编号， 包装时传工件、配件 id
+            });
+        })
+
+
+        var spaceIdCurrentINdex = 0;
+        var selectIndex = 0;
+
+        var windowScrollHeight = 0;
+        var spaceIdTipOffsetHeight = 0;
+        // 滚动弹窗跟随
+        $(window).scroll(function(){
+            windowScrollHeight = $(window).scrollTop();
+            $('.position-ulselect.active').css('top', spaceIdTipOffsetHeight-windowScrollHeight);
+        });
+        // 推荐货位小弹窗
+        contentArea.on('click', '.spaceIdInput', function () {
+            $('.position-ulselect').hide();
+            var _self = $(this);
+            var index = _self.attr('data-index'); // 赋值 :input 的index
+            selectIndex = _self.attr('data-parent');// 弹框的index ，与上一个不相等，弹框数量为原始条数，:input可增加删除
+            // 如果没有selectIndex 则是第一个货位，selectIndex与index一致
+            if (!selectIndex) {
+                selectIndex = index;
+            }
+            spaceIdCurrentINdex = index;
+            spaceIdTipOffsetHeight = _self.offset().top + 30;
+            var top = spaceIdTipOffsetHeight- windowScrollHeight;
+            var left = _self.offset().left;
+            var spaceIdTip = $('.spaceId-tip' + selectIndex);
+            spaceIdTip.css('top', top).css('left', left).fadeIn().addClass('active');
+        })
+
+        // 点击推荐货位
+        contentArea.on('click', '.position-ulselect li', function () {
+            loading.addClass('show-active');
+            var _this = $(this);
+            var value = _this.attr('data-value');
+            $("input[name=spaceId" + spaceIdCurrentINdex + "]").val(value);
+            DWY_fty_region.setValue({
+                target: '.newtarget' + spaceIdCurrentINdex, //必填，指定工厂联动父级元素
+                factoryValue: _this.attr('data-ftyId'),
+                warehouseValue: _this.attr('data-whseId'),
+                regionValue: _this.attr('data-regionId')
+            });
+            $('.position-ulselect').hide();
+            setTimeout(function () {
+                ifRegionIdUsable(spaceIdCurrentINdex);
+            }, 1000)
+        })
+
+        // 点击获取空货位
+        contentArea.on('click', '.position-ulselect .getEmptyOne', function () {
+            var cargoSpaceIn = '';
+            var mateId =$("input[name=cargoId" + selectIndex + "]").val()
+            loading.addClass('show-active');
+            $('.cargoinDo').each(function () {
+                var _self = $(this);
+                var indexTR = _self.attr('data-index');
+                $('#regionIdArea' + indexTR).find('.more-space').each(function () {
+                    var _element = $(this);
+                    var index = _element.attr('data-index');
+                    if(index == spaceIdCurrentINdex){return true;}
+//                    var ftyId = $("select[name=ftyId" + index + "]").val();
+                    var whseId = $("select[name=whseId" + index + "]").val();
+                    var regionId = $("select[name=regionId" + index + "]").val();
+                    var spaceId = $("input[name=spaceId" + index + "]").val();
+
+                    if(whseId && regionId && spaceId){
+                        var string = regionId+spaceId
+                        cargoSpaceIn += string+',';
+                    }
+
+                })
+            })
+
+            cargoSpaceIn = cargoSpaceIn.substring(0,cargoSpaceIn.length-1);
+            $.ajax({
+                url: '/enterMaterial/stockOver/getEmptyOne',
+                method: 'post',
+                data: {
+                    ftyId: '<%= initFtyId %>',
+                    cargoId: mateId,
+                    cargoSpaceIn: cargoSpaceIn,
+                },
+                success: function (data) {
+
+                    var data = JSON.parse(data)
+                    $("input[name=spaceId" + spaceIdCurrentINdex + "]").val(data.spaceIdShort);
+                    DWY_fty_region.setValue({
+                        target: '.newtarget' + spaceIdCurrentINdex, // 必填，指定工厂联动父级元素
+                        factoryValue: data.ftyId,
+                        warehouseValue: data.whseId,
+                        regionValue: data.regionId
+                    });
+                    $('.position-ulselect').hide();
+                    setTimeout(function () {
+                        ifRegionIdUsable(spaceIdCurrentINdex);
+                    }, 1000)
+                },
+                error: function (response) {
+                    errorLayout.normal(response);
+
+                }
+            });
+
+
+
+
+        })
+
+
+        $('body').bind('click', function (e) {
+            var target = $(e.target);
+            if (!target.is('.spaceIdInput') && !target.is('.position-ulselect *')) {
+                $('.position-ulselect').hide();
+            } else {
+            }
+
+        })
+
+        contentArea.on('input propertychange', ':text:not(.actualAmount)', function () {
+            var index = $(this).attr('data-index');
+            ifRegionIdUsable(index);
+        });
+        // 判断货位是否可用
+        function ifRegionIdUsable(index) {
+            var status = $('.status' + index);
+            status.empty();
+//            console.log('data-index', index);
+            if (validateRow(index)) {
+//                console.log(index + ':success');
+                $.ajax({
+                    url: '/enterMaterial/stockOver/toEnter/ifCanEnter',
+                    method: 'post',
+                    data: {
+                        regionId: $("select[name=regionId" + index + "]").val(),//所属区域编号
+                        spaceId: $("#spaceId" + index).val(),//货位号
+                        amount: $("#amount" + index).val(),//入库数量
+                    },
+                    success: function (data) {
+//                        console.log('data', data)
+                        if (data == 'true') {
+                            $("input[name=statusThis" + index + "]").val(1);
+                            status.html('<i class="fa fa-check text-success font-lg"></i>');
+                        } else {
+                            $("input[name=statusThis" + index + "]").val(0);
+                            status.html('<i class="fa fa-times text-danger font-lg"></i>');
+                        }
+                        loading.removeClass('show-active');
+                    },
+                    error: function (response) {
+//                        console.log('response', response)
+                        $("input[name=statusThis" + index + "]").val(0);
+                        if (response.responseText) {
+                            var data = JSON.parse(response.responseText);
+//                            console.log(data.msg)
+                            status.html('<span class="text-danger"  rel="tooltip" data-placement="top" data-original-title="' + data.msg + '"><i class="fa fa-times font-lg"></i></span>');
+                        } else {
+                            status.html('<span class="text-danger" rel="tooltip" data-placement="top" data-original-title="不可用"><i class="fa fa-times font-lg"></i></span>');
+                        }
+                        $(".text-danger").tooltip();
+                        loading.removeClass('show-active');
+                    }
+                });
+                $(".text-danger").tooltip();
+            }
+
+            loading.removeClass('show-active');
+        }
+
+        function validateRow(index) {
+            return $("select[name=regionId" + index + "]").val() && $("#spaceId" + index).validationEngine('validate') && $("#spaceId" + index).val() && $("#amount" + index).validationEngine('validate')
+
+        }
+
+
+
+
+
+
+        //刷新选中列表 这个函数根据每个页面不同需自己填写
+        function updateCheckedList(isInit) {
+            var parentEle = '.purApplyTr';
+            var storageKey = 'LIST_DATA_ENTERMATESELECT';
+            var listArr = DWY_Utils.StorageUtils.getListArr(storageKey);
+            var htmlStr = '';
+            if (listArr instanceof Array && listArr.length != 0) {
+                var len = listArr.length;
+
+                for (var i = 0; i < len; i++) {
+
+//                    var options = '';
+//                    var selectList = listArr[i].selectData
+//                    for(var j=0;j<selectList.length;j++){
+//                        options += '<option value="'+selectList[j].spaceId+'" data-nowAmount="'+selectList[j].nowAmount+'" data-mateBatchId="'+selectList[j].mateBatchId+'">'
+//                            +selectList[j].spaceId+'(库存数量 '+selectList[j].nowAmount+' , 物料批次号 '+selectList[j].mateBatchId+' )</option>'
+//                    }
+
+                    var itemHtml = ''
+                        + '<tr class="topTr cargoinDo" data-index="'+i+'" data-unique="'+listArr[i].id+'">'
+                        + '<td>'
+                        + '<label class="checkbox-inline">'
+                        + '<input type="checkbox" class="checkbox" name="roles" value="' + listArr[i].id + '" uniqueId="'+ listArr[i].id + '" checked>'
+                        + '<span>' + (i+1) + '</span>'
+                        + '</label>'
+                        + '</td>'
+                        + '<td><a href="/materialManage/detail/<%= bid %>/' + listArr[i].id + '">' + listArr[i].id + '</a></td>'
+                        + '<td>' + listArr[i].name + '</td>'
+                        + '<td class="display-none price'+i+'">' + listArr[i].price + '</td>'
+                        + '<td><input class="form-control validate[required,custom[number],min[1]]" value="" name="mateBatchId'+i+'" id="mateBatchId'+i+'" data-index="'+i+'"></td>'
+                        + '<td><input class="form-control actualAmount validate[required,custom[number]]" name="actualAmount'+i+'" id="actualAmount'+i+'" value="" data-index="'+i+'"></td>'
+                        + '<td class="no-padding" id="regionIdArea'+i+'">' +
+                            ' <div class="target more-space newtarget'+i+'" data-index="'+i+'">' +
+                                ' <select class="form-control ftyId validate[required]"name="ftyId'+i+'" data-index="'+i+'" disabled>' +
+                                    ' <option value="">- 工厂 -</option>' +
+                                    ' </select>' +
+                                    ' <select class="form-control whseId validate[required]"name="whseId'+i+'" data-index="'+i+'">' +
+                                    ' <option value="">- 仓库 -</option>' +
+                                    ' </select>' +
+                                    ' <select class="form-control regionId validate[required]"name="regionId'+i+'" data-index="'+i+'">' +
+                                    ' <option value="">- 区域 -</option>' +
+                                ' </select>' +
+                            ' </div>' +
+                        ' </td>'
+                        + '<td class="no-padding" id="spaceIdArea'+i+'">' +
+                            ' <input name="cargoId'+i+'" value="' + listArr[i].id + '" type="hidden">' +
+                            ' <input name="price'+i+'" value="' + listArr[i].price + '" type="hidden"> ' +
+                            ' <input name="amountTotal'+i+'" value="' + listArr[i].amount + '" type="hidden"> ' +
+                            ' <ul class="position-ulselect spaceId-tip'+i+'">' +
+                                ' <strong>推荐货位 <a class="label label-primary getEmptyOne">获取空货位</a></strong>' +
+                                ' <li data-ftyId="" data-whseId=""data-regionId=""data-value=""> (剩余可用  ) </li>' +
+                            ' </ul> ' +
+                            ' <div class="more-space">' +
+                                ' <input class="form-control spaceIdInput validate[required,custom[number],minSize[6],maxSize[6]]"name="spaceId'+i+'" placeholder="行列层，6位数字" id="spaceId'+i+'" data-index="'+i+'">' +
+                                ' <input name="statusThis'+i+'" value="0" type="hidden">' +
+                            ' </div>' +
+                        ' </td>'
+                        + '<td class="no-padding" id="amountArea'+i+'">' +
+                            ' <div class="more-space">' +
+                            ' <input class="form-control validate[required,custom[number],min[1]]" value="" name="amount'+i+'" id="amount'+i+'" data-index="'+i+'">' +
+                            ' </div>' +
+                        ' </td>'
+                        + '<td class="no-padding statusTD" id="statusArea'+i+'"><div class="more-space status'+i+'"></div></td>'
+                        + '<td class="no-padding" id="operationArea'+i+'">' +
+                            ' <div class="more-space">' +
+                                ' <a class="add-spaceid" data-index="'+i+'">' +
+                                ' <i class="fa fa-plus"></i>' +
+                                ' </a>' +
+                            ' </div>' +
+                        ' </td>'
+                        + '</tr>';
+                    htmlStr += itemHtml;
+                    // 判断是否是初始化 是的话保持下面列表状态同步
+                    if(isInit){
+                        var $ipts = $(".orderItemLayerTable input[name='roles']");
+                        var id = listArr[i].uniqueId;
+                        var iptslen = $ipts.length;
+                        for (var j = 0; j < iptslen; j++) {
+                            if(id == $ipts.eq(j).attr('uniqueId')){
+                                $ipts.eq(j).attr('checked',true);
+                            }
+                        }
+                    }
+
+
+                }
+                $(parentEle).html(htmlStr);
+
+
+            }else{
+                $(parentEle).html("");
+            }
+        }
+
+        function insertCheckedList(item) {
+
+            var parentEle = '.purApplyTr';
+            var storageKey = 'LIST_DATA_ENTERMATESELECT';
+            var listArr = DWY_Utils.StorageUtils.getListArr(storageKey);
+
+            var len = listArr.length;
+
+            var itemHtml = ''
+                + '<tr class="topTr cargoinDo" data-index="'+len+'" data-unique="'+item.id+'">'
+                + '<td>'
+                + '<label class="checkbox-inline">'
+                + '<input type="checkbox" class="checkbox" name="roles" value="' + item.id + '" uniqueId="'+ item.id + '" checked>'
+                + '<span>' + len + '</span>'
+                + '</label>'
+                + '</td>'
+                + '<td><a href="/materialManage/detail/<%= bid %>/' + item.id + '">' + item.id + '</a></td>'
+                + '<td>' + item.name + '</td>'
+                + '<td class="display-none price'+len+'">' + item.price + '</td>'
+                + '<td><input class="form-control validate[required,custom[number],min[1]]" value="" name="mateBatchId'+len+'" id="mateBatchId'+len+'" data-index="'+len+'"></td>'
+                + '<td><input class="form-control actualAmount validate[required,custom[number]]" name="actualAmount'+len+'" id="actualAmount'+len+'" value="" data-index="'+len+'"></td>'
+                + '<td class="no-padding" id="regionIdArea'+len+'">' +
+                ' <div class="target more-space newtarget'+len+'" data-index="'+len+'">' +
+                ' <select class="form-control ftyId validate[required]"name="ftyId'+len+'" data-index="'+len+'" disabled>' +
+                ' <option value="">- 工厂 -</option>' +
+                ' </select>' +
+                ' <select class="form-control whseId validate[required]"name="whseId'+len+'" data-index="'+len+'">' +
+                ' <option value="">- 仓库 -</option>' +
+                ' </select>' +
+                ' <select class="form-control regionId validate[required]"name="regionId'+len+'" data-index="'+len+'">' +
+                ' <option value="">- 区域 -</option>' +
+                ' </select>' +
+                ' </div>' +
+                ' </td>'
+                + '<td class="no-padding" id="spaceIdArea'+len+'">' +
+                ' <input name="cargoId'+len+'" value="' + item.id + '" type="hidden">' +
+                ' <input name="price'+len+'" value="' + item.price + '" type="hidden"> ' +
+                ' <input name="amountTotal'+len+'" value="' + item.amount + '" type="hidden"> ' +
+                ' <ul class="position-ulselect spaceId-tip'+len+'">' +
+                ' <strong>推荐货位 <a class="label label-primary getEmptyOne">获取空货位</a></strong>' +
+                ' <li data-ftyId="" data-whseId=""data-regionId=""data-value=""> (剩余可用  ) </li>' +
+                ' </ul> ' +
+                ' <div class="more-space">' +
+                ' <input class="form-control spaceIdInput validate[required,custom[number],minSize[6],maxSize[6]]"name="spaceId'+len+'" placeholder="行列层，6位数字" id="spaceId'+len+'" data-index="'+len+'">' +
+                ' <input name="statusThis'+len+'" value="0" type="hidden">' +
+                ' </div>' +
+                ' </td>'
+                + '<td class="no-padding" id="amountArea'+len+'">' +
+                ' <div class="more-space">' +
+                ' <input class="form-control validate[required,custom[number],min[1]]" value="" name="amount'+len+'" id="amount'+len+'" data-index="'+len+'">' +
+                ' </div>' +
+                ' </td>'
+                + '<td class="no-padding statusTD" id="statusArea'+len+'"><div class="more-space status'+len+'"></div></td>'
+                + '<td class="no-padding" id="operationArea'+len+'">' +
+                ' <div class="more-space">' +
+                ' <a class="add-spaceid" data-index="'+len+'">' +
+                ' <i class="fa fa-plus"></i>' +
+                ' </a>' +
+                ' </div>' +
+                ' </td>'
+                + '</tr>';
+            $(parentEle).append(itemHtml);
+
+            DWY_fty_region.init({
+                target: '.newtarget' + len,
+                factoryValue: '<%= initFtyId %>',
+                cargoId: 1,  //类型，1物料，2包装
+                type: item.id,     //物料时传物料编号， 包装时传工件、配件 id
+            });
+
+        }
+        function removeCheckedList(id){
+            $('.purApplyTr tr[data-unique='+id+']').remove();
+            var len = $(".purApplyTr tr").length;
+            for(var i=0;i<len;i++){
+                $(".purApplyTr tr td:first-child").find("span").text(i+1);
+            }
+        }
+        // 页面一加载先刷新一次读取localstorage
+        updateCheckedList(true);
+        $(".orderItemLayerTable input[name='roles']").on("change",function () {
+            var _self = $(this);
+
+            var $tds = $(this).parents("tr").children("td");
+            var unique=$(this).attr("uniqueId");
+//            var unit='';
+//            var unitId='';
+//            var unitAmount='';
+//            $(this).parents(".botTr").find(".units").each(function(){
+//                unit += $(this).html()+',';
+//            })
+//            $(this).parents(".botTr").find(".unitsId").each(function(){
+//                unitId += $(this).html()+',';
+//            })
+//            $(this).parents(".botTr").find(".unitsAmount").each(function(){
+//                unitAmount += $(this).html()+',';
+//            })
+
+            var mateId = $(this).val();
+                    // 获取整个条目数据
+                    var item = {
+                        uniqueId:unique,
+                        id : mateId,
+                        name : $tds.eq(2).html(),
+                        suppName: $tds.eq(3).html(),
+                        class_name : $tds.eq(4).html(),
+                        real_stock: $tds.eq(5).html(),
+                        warning_num : $tds.eq(6).html(),
+                        usable_stock : $tds.eq(7).html(),
+                        price : $tds.eq(8).html(),
+                        suppId : $tds.eq(9).html(),
+//                        unit : unit,
+//                        unitId : unitId,
+//                        unitAmount : unitAmount,
+//                        selectData: selectListData
+                    }
+                    // 选中添加  取消选中则删除
+                    if(_self.is(':checked')){
+
+                        DWY_Utils.StorageUtils.addItem(item,'uniqueId','LIST_DATA_ENTERMATESELECT',function(){
+                            insertCheckedList(item)
+                        })
+                    }else{
+                        DWY_Utils.StorageUtils.deletItem({
+                            uniqueId:unique
+                        },'uniqueId','LIST_DATA_ENTERMATESELECT',function(){
+                            removeCheckedList(unique)
+                        })
+                    }
+
+
+
+
+
+
+
+        })
+
+
+        $(".purApplyTr").on("change","input",function () {
+            var unique=$(this).attr("uniqueId");
+            // 点中删除
+            DWY_Utils.StorageUtils.deletItem({
+                uniqueId:unique
+            }, 'uniqueId','LIST_DATA_ENTERMATESELECT',function(){
+                // 与下面列表的选中状态保持一致
+                var $ipts = $(".orderItemLayerTable input[name='roles']");
+                var len = $ipts.length;
+                for (var i = 0; i < len; i++) {
+                    if(unique == $ipts.eq(i).attr('uniqueId')){
+                        $ipts.eq(i).attr('checked',false);
+                        removeCheckedList(unique);
+                        return;
+                    }
+                }
+            })
+        })
+
+
+        $(".purApplyTr input[name='roles']:checked").each(function(){
+            var val=$(this).val();
+            checkedValue.addClass(val+',');
+        });
+        $("input[name='roles']").change(function () {
+            if($(this).is(':checked')){
+                checkedValue.addClass(this.value+',');
+            }else{
+                checkedValue.removeClass(this.value+',');
+            }
+        });
+
+        contentArea.on('change','.spaceIdSelect',function () {
+            var _self = $(this);
+            var index = _self.attr('data-index');
+            var option = _self.find('option:selected').attr('data-nowAmount');
+            $("#amount"+index).attr('class','form-control validate[required,custom[number],min[1],max['+option+']]');
+
+        })
+
+
+
+
+
+        // 增加货位
+        $('.purApplyTr').on('click','.add-spaceid',function () {
+
+            var _self = $(this);
+            var index = _self.attr('data-index');
+            var cargoIdType = $("input[name=cargoId" + index + "]").val();
+
+            var regionIdHtml = '<div class="target more-space newtarget' + cargoinList_result + '" data-index="' + cargoinList_result + '">' +
+                '<select class="form-control ftyId validate[required]" name="ftyId' + cargoinList_result + '" data-index="' + cargoinList_result + '" disabled>' +
+                '<option value="">- 工厂 -</option>' +
+                '</select>' +
+                '<select class="form-control whseId validate[required]" name="whseId' + cargoinList_result + '" data-index="' + cargoinList_result + '">' +
+                '<option value="">- 仓库 -</option>' +
+                '</select>' +
+                '<select class="form-control regionId validate[required]" name="regionId' + cargoinList_result + '" data-index="' + cargoinList_result + '">' +
+                '<option value="">- 区域 -</option>' +
+                '</select>' +
+                '</div>';
+            $('#regionIdArea' + index).append(regionIdHtml);
+            var spaceIdHtml = '<div class="more-space newtarget' + cargoinList_result + '">' +
+                '<input class="form-control spaceIdInput validate[required,custom[number],minSize[6],maxSize[6]]" ' +
+                'name="spaceId' + cargoinList_result + '" placeholder="行列层，6位数字" id="spaceId' + cargoinList_result + '" data-index="' + cargoinList_result + '" ' +
+                'data-parent="' + index + '">' +
+                '<input name="statusThis' + cargoinList_result + '" value="0" type="hidden"></div>';
+            $('#spaceIdArea' + index).append(spaceIdHtml);
+            var amountHtml = '<div class="more-space newtarget' + cargoinList_result + '">' +
+                '<input class="form-control validate[required,custom[number],min[1]]"' +
+                'value="" name="amount' + cargoinList_result + '" id="amount' + cargoinList_result + '" data-index="' + cargoinList_result + '">' +
+                '</div>';
+            $('#amountArea' + index).append(amountHtml);
+
+            $('#statusArea' + index).append('<div class="more-space status' + cargoinList_result + ' newtarget' + cargoinList_result + '"></div>');
+            $('#operationArea' + index).append(' <div class="more-space newtarget' + cargoinList_result + '"> <a class="less-spaceid" data-index="' + cargoinList_result + '"><i class="fa fa-minus"></i></a> </div>');
+            DWY_fty_region.init({
+                target: '.newtarget' + cargoinList_result,
+                factory: '.ftyId',
+                warehouse: '.whseId',
+                region: '.regionId',
+                factoryValue: '<%= initFtyId %>',
+                cargoId: 1,  //类型，1物料，2包装
+                type: cargoIdType,     //物料时传物料编号， 包装时传工件、配件 id
+            });
+            ++cargoinList_result;
+
+        })
+        // 删除货位
+        contentArea.on('click', '.less-spaceid', function () {
+            var _self = $(this);
+            var index = _self.attr('data-index');
+            $('.newtarget' + index).remove();
+        })
+
+
+
+        $('#toEnter').click(function () {
+            if ($("#search-customer").validationEngine('validate')) {
+
+                var myArray = new Array();
+                var ifSubmit = false; // 主要判断仓库是否可以
+                var ifAmount = true;// 主要判断入库数量是否正确
+                var purIdNotIn = '';
+                $('.cargoinDo').each(function () {
+                    var _self = $(this);
+                    var indexTR = _self.attr('data-index');
+
+                    var cargoId = $("input[name=cargoId" + indexTR + "]").val();
+//                    var purId = $("input[name=purId" + indexTR + "]").val();
+                    var unitPrice = $("input[name=price" + indexTR + "]").val();
+//                    var reqId = $("#reqId" + indexTR).val();
+
+                    // 原料需要入库的数量
+                    var amountTotal = Number($("input[name=actualAmount" + indexTR + "]").val());
+                    // 实际填的总入库数量
+                    var amountActually = 0;
+
+                    $('#regionIdArea' + indexTR).find('.more-space').each(function () {
+                        var _element = $(this);
+                        var index = _element.attr('data-index');
+
+                        var ftyId = $("select[name=ftyId" + index + "]").val();
+                        var whseId = $("select[name=whseId" + index + "]").val();
+                        var regionId = $("select[name=regionId" + index + "]").val();
+                        var spaceId = $("input[name=spaceId" + index + "]").val();
+                        var statusThis = $("input[name=statusThis" + index + "]").val();
+                        var amount = $("input[name=amount" + index + "]").val();
+                        var mateBatchId = $("input[name=mateBatchId" + index + "]").val();
+
+                        amountActually += Number(amount);
+
+                        if (statusThis == 0) {
+                            console.log('break');
+                            ifSubmit = false;
+                            return false
+                        }
+
+                        var a = new Object();
+                        a = {
+                            ftyId: ftyId,
+                            whseId: whseId,
+                            regionId: regionId,
+                            spaceId: spaceId,
+                            cargoId: cargoId,
+//                            purId: purId,
+                            unitPrice: unitPrice,
+                            amount: amount,
+                            mateBatchId:mateBatchId
+//                            reqId: reqId,
+                        }
+                        myArray.push(a);
+                        ifSubmit = true;
+
+
+                    })
+
+                    if (!ifSubmit) {
+                        return false
+                    }
+//                    console.log('amountTotal', amountTotal)
+//                    console.log('amountActually', amountActually)
+                    if (amountTotal != amountActually) {
+                        ifAmount = false;
+                        purIdNotIn += cargoId + '</br>'
+                        return false
+                    }
+
+
+                })
+                if (!ifSubmit) {
+                    layer.msg('请先填写正确入库信息', {icon: 2, time: 2000});
+                    return;
+                }
+                if (!ifAmount) {
+                    layer.msg('以下物料单号入库数量不正确，该单号总入库数需要与该单号采购数量保持一致！</br>' + purIdNotIn, {icon: 2, time: 3000});
+                    return;
+                }
+
+                var inMode = $("select[name=inMode]").val();
+                var date = {
+                    inMode:inMode,
+                    list: myArray
+                };
+                console.log(date)
+
+                layer.confirm("确认提交？", {title: '提示'}, function (index) {
+                        loading.addClass('show-active');
+                        $.ajax({
+                            url: '/enterMaterial/stockOver/toEnter/doEnter',
+                            data: JSON.stringify(date),
+                            method: 'post',
+                            dataType: 'json',
+                            contentType: "application/json",
+                            success: function (data) {
+                                successLayout.hrefTo("/enterMaterial");
+
+                            },
+                            error: function (response) {
+                                layer.close(index)
+                                var status = response.status;
+                                if (status == 200) {
+                                    location.href = "/enterMaterial";
+                                    return;
+                                }
+                                loading.removeClass('show-active');
+                                errorLayout.normal(response);
+
+                            }
+                        });
+                    }, function (index) {
+                        layer.close(index)
+                    }
+                )
+
+
+            }
+
+        })
+
+    })
+
+
+</script>
+
+<!--include('./add_materials');-->
+<%- include('../layouts/foot'); %>

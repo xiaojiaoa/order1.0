@@ -123,6 +123,10 @@
                                         采购完成单
                                     </a>
                                     <% } %>
+                                    <a href="/enterMaterial/selectMate" class="btn btn-primary">
+                                        选取物料
+                                    </a>
+
                                 </div>
                             </div>
 
@@ -151,6 +155,7 @@
                                 <th>入库人</th>
                                 <th>状态</th>
                                 <th>审核人</th>
+                                <th>原料入库类型</th>
                                 <th  width="140">操作</th>
                             </tr>
                             </thead>
@@ -167,10 +172,11 @@
                                 <td><%= element.stcodeName %></td>
 
                                 <td><%= element.reviewName %></td>
+                                <td><%= element.inMode %></td>
                                 <td  width="140">
                                     <% if(element.stcode == 2 && DWY_Helper.hasPermission(Permission.cargoManages.mateInReview.id, permission)){ %>
                                     <a class="label label-primary checkThis" data-inId="<%= element.inId %>"
-                                       data-purId="<%= element.purId %>" data-type="1">审核</a>
+                                       data-purId="<%= element.purId %>" data-type="1" data-inMode="<%= element.inMode %>">审核</a>
                                     <a class="label label-danger checkThis" data-inId="<%= element.inId %>"
                                        data-purId="<%= element.purId %>" data-type="2">作废</a>
                                     <% } %>
@@ -212,13 +218,19 @@
     $(".checkThis").click(function () {
       var inId = $(this).attr('data-inId');
       var purId = $(this).attr('data-purId');
+      var inMode = $(this).attr('data-inMode');
 
       var type = $(this).attr('data-type');
       var text = type == 1 ? '确定提交审核?' : '确定退回?';
 
+        if(purId==''||purId==null||purId==undefined){
+            var url = '/enterMaterial/doPass/' + inId +'/'+type+'/'+inMode;
+        }else{
+            var url = '/enterMaterial/doPass/' + inId +'/'+type+'/'+ purId+'/'+inMode;
+        }
       layer.confirm(text, {icon: 3, title: '提示'}, function (index) {
         $.ajax({
-          url: '/enterMaterial/doPass/' + inId + '/' + purId+'/'+type,
+          url:url,
           method: 'put',
           success: function (data) {
             successLayout.reload();
