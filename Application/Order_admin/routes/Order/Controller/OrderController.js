@@ -1452,7 +1452,7 @@ var OrderController = {
         var cid =  req.params.cid;
 
         if(!req.query.type){
-            req.query.type = 1;
+            req.query.type = 2;
         }
 
         var paramObject = helper.genPaginationQuery(req);
@@ -1510,8 +1510,19 @@ var OrderController = {
                 Base.handlerError(res, req, error, response, body);
             }
         })
-
-
+    },
+    receiptCheckConfirm: function (req, res) {
+        request(Base.mergeRequestOptions({
+            method: 'post',
+            url: '/api/stores/money/confirm',
+            form: req.body,
+        }, req, res), function (error, response, body) {
+            if (!error && response.statusCode == 201) {
+                res.redirect(req.session.backPath?req.session.backPath:'/reconciliation');
+            } else {
+                Base.handlerError(res, req, error, response, body);
+            }
+        })
     },
     receiptCheckNotPass: function (req, res) {
         request(Base.mergeRequestOptions({

@@ -446,8 +446,10 @@ router.get('/reconciliation', Middleware.AuthCheck,Middleware.FilterEmptyField,M
 
 // 付款
 router.post('/collection/receiptCheck', Middleware.AuthCheck, OrderController.receiptCheck);
-// 确认收款
+// 确认收款--订单收款
 router.post('/collection/receiptCheck/pass', Middleware.AuthCheck, OrderController.receiptCheckPass);
+// 确认收款--收款确认
+router.post('/collection/receiptCheck/confirm', Middleware.AuthCheck, OrderController.receiptCheckConfirm);
 // 审核不通过
 router.post('/collection/receiptCheck/notpass', Middleware.AuthCheck, OrderController.receiptCheckNotPass);
 // 对账
