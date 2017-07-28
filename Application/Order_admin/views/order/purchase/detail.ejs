@@ -249,9 +249,9 @@
                                     <label class="checkbox-inline">
                                         <%
                                         if(element.stcode<=30){%>
-                                        <input type="checkbox" class="checkbox" name="roles" value="<%= element.id %>" stcode="<%= element.stcode %>" isdirect="<%= element.isDirect %>" gid="<%= element.empId %>" isimprest="<%= element.isImprest %>" suppid="<%= element.suppId %>" />
+                                        <input type="checkbox" class="checkbox validate[minCheckbox[1]]" name="roles" value="<%= element.id %>" stcode="<%= element.stcode %>" isdirect="<%= element.isDirect %>" gid="<%= element.empId %>" isimprest="<%= element.isImprest %>" suppid="<%= element.suppId %>" />
                                        <% }else{%>
-                                        <input type="checkbox" class="checkbox" name="roles" value="<%= element.id %>" stcode="<%= element.stcode %>" isdirect="<%= element.isDirect %>"  disabled="disabled" />
+                                        <input type="checkbox" class="checkbox validate[minCheckbox[1]]" name="roles" value="<%= element.id %>" stcode="<%= element.stcode %>" isdirect="<%= element.isDirect %>"  disabled="disabled" />
                                         <%}%>
                                         <span><%= DWY_Helper.incrementNum(DWYRequest.query.pageNo,index)%></span>
                                     </label>
@@ -336,6 +336,7 @@
                 $("input[name=hids]").attr("isimprests",isImprest);
                 $("input[name=hids]").attr("isdirect",isDirect);
                 $("input[name=hids]").attr("gidvali",gid);
+
                 if($(this).is(':checked')){
                     checkedValue.addClass(this.value+',');
                 }else{
@@ -345,10 +346,6 @@
             //合并采购单
             $("#purchaseMerge").click(function(){
                 var stcodeStr = $("input[name=hids]").attr("stcodestr");
-                if(checkedValue.attr('class')==null||checkedValue.attr('class')=='') {
-                    layer.alert('请选择！', {icon: 3});
-                    return false;
-                }
                var lenCheck =  $('input[name=roles]:checked').length;
                 if(lenCheck<=1){
                     layer.alert('请至少选择两条合并！', {icon: 3})
