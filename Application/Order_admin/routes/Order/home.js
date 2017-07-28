@@ -1633,6 +1633,13 @@ router.get('/storeRep', Middleware.AuthCheck,Middleware.FilterEmptyField,ReportC
 //展示成交客户的流水号
 router.get('/showTaskseq/:worker/:type/:gid', Middleware.AuthCheck,ReportController.showTaskseqPage);
 
+//任务计划
+router.get('/taskPlan', Middleware.AuthCheck,Middleware.FilterEmptyField,ReportController.taskPlanPage);
+
+//执行某任务计划
+router.post('/doTaskPlan',Middleware.AuthCheck,ReportController.doTaskPlan);
+
+
 
 /*
  * 页面范围: 财务统计

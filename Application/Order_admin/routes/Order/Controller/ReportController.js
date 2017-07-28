@@ -286,6 +286,45 @@ var ReportController = {
 
             });
     },
+    taskPlanPage: function (req, res) {
+        var baseUrl;
+        var taskId=req.query.taskId;
+        if(taskId){
+            baseUrl=[
+                {url: '/api/tasks/statement/list', method: 'GET', resConfig: {keyName: 'statementList', is_must: true}},
+                {url:'/api/tasks/statement/listDetail?'+queryString.stringify(req.query), method: 'GET', resConfig: {keyName: 'taskPlanList', is_must: true}},
+            ];
+        }
+        else{
+            baseUrl=[
+                {url: '/api/tasks/statement/list', method: 'GET', resConfig: {keyName: 'statementList', is_must: true}},
+            ]
+        }
+        Base.multiDataRequest(req, res, baseUrl,function (req, res, resultList) {
+
+            console.log(5858,JSON.stringify(resultList));
+            var returnData = Base.mergeData(helper.mergeObject({
+                title: ' ',
+                type:taskId
+            },resultList));
+            res.render('order/report/taskPlan',returnData);
+        });
+
+    },
+    doTaskPlan: function (req, res) {
+        request(Base.mergeRequestOptions({
+            method: 'post',
+            url: '/api/tasks/statement/taskManual',
+            form: req.body
+        }, req, res), function (error, response, body) {
+            if (!error && response.statusCode == 201) {
+                Base.handlerSuccess(res,req);
+                res.redirect('/taskPlan');
+            } else {
+                Base.handlerError(res, req, error, response, body);
+            }
+        })
+    },
 
 
 };
