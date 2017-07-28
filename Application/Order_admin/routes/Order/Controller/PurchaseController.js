@@ -374,7 +374,7 @@ var PurchaseController = {
             method: 'get',
             url: '/api/purchases/print?purcIds=' + purcIds,
         }, req, res), function (error, response, body) {
-            if (!error && response.statusCode == 201) {
+            if (!error && response.statusCode == 200) {
 
                 var bodyData =JSON.parse(body);
                 for(var i =0;i<bodyData.length;i++) {
