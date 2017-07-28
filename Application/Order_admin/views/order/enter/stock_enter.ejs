@@ -226,6 +226,7 @@
         var cargoinList = <%- JSON.stringify(cargoinList.result) %>;
         var ifHasPermissionaaa = <%- ifHasPermission %>;
 
+
         var loading = $("#loading");
 
         // 初始化工厂联动
@@ -518,9 +519,6 @@
                     purId: '<%= pid %>',
                     list: myArray
                 };
-
-//                console.log('233',myArray);
-
                 layer.confirm("确认提交？", {title: '提示'}, function (index) {
                     loading.addClass('show-active');
                         $.ajax({
