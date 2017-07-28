@@ -218,7 +218,7 @@
                                 <td>
                                     <label class="checkbox-inline">
                                         <input type="checkbox" class="checkbox"
-                                               name="roles" value="<%= element.id %>" uniqueId="<%= element.uniqueCode %>" mateId="<%= element.id %>"
+                                               name="roles" value="<%= element.id %>" uniqueId="<%= element.id %>" mateId="<%= element.id %>"
                                         <%= element.usable==0? 'disabled':''%> >
                                         <span><%= DWY_Helper.incrementNum(DWYRequest.query.pageNo,index)%></span>
                                     </label>
@@ -304,7 +304,7 @@
                         + '<tr class="topTr cargoinDo" data-index="'+i+'">'
                         + '<td>'
                         + '<label class="checkbox-inline">'
-                        + '<input type="checkbox" class="checkbox" name="roles" value="' + listArr[i].id + '" uniqueId="'+ listArr[i].uniqueId + '" checked>'
+                        + '<input type="checkbox" class="checkbox" name="roles" value="' + listArr[i].id + '" uniqueId="'+ listArr[i].id + '" checked>'
                         + '<span>' + (i+1) + '</span>'
                         + '</label>'
                         + '</td>'
@@ -496,7 +496,7 @@
 
 
         //增加货位
-        $('.add-spaceid').on('click',function () {
+        $('.purApplyTr').on('click','.add-spaceid',function () {
             var _self = $(this);
             var index = _self.attr('data-index');
             var select = $("#spaceId"+index).html();
@@ -516,6 +516,7 @@
             $('#operationArea'+index).append(' <div class="more-space newtarget'+cargoinList_result+'"> <a class="less-spaceid" data-index="'+cargoinList_result+'"><i class="fa fa-minus"></i></a> </div>');
 
             ++cargoinList_result;
+
 
         })
 
