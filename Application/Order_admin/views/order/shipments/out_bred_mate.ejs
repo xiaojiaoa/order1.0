@@ -637,7 +637,7 @@
                                 var status = response.status;
                                 if(status == 200){
                                     successLayout.hrefTo("/outBred");
-
+                                    localStorage.clear();
                                     return;
                                 }
                                 errorLayout.normal(response);
