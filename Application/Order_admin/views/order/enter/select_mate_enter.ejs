@@ -65,8 +65,11 @@
                         <div class="col-xs-8">
                             <select class="form-control validate[required]" name="inMode">
                                 <option value="">- 请选择 -</option>
-                                <option value="2">回库</option>
-                                <option value="3">手动入库</option>
+                                <%
+                                if(DWY_Helper.isCanLoop(inMode)){
+                                inMode.forEach(function (element, index) { %>
+                                <option value="<%= element.id %>"><%= element.name %></option>
+                                <%})}%>
                             </select>
                         </div>
                     </div>

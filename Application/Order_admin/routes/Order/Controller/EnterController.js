@@ -378,6 +378,8 @@ var EnterController = {
                 {url: '/api/categories/list/usable', method: 'GET', resConfig: {keyName: 'suppliersMaterialList', is_must: true}},
                 {url: '/api/materials?'+(queryString.stringify(req.query)), method: 'GET', resConfig: {keyName: 'supMaterialList', is_must: true}},
                 {url: '/api/whse/factory/list', method: 'GET', resConfig: {keyName: 'factoryList', is_must: true}},
+                {url: '/api/assist/cargo/inmode', method: 'GET', resConfig: {keyName: 'inMode', is_must: true}},
+
             ],
             function (req, res, resultList) {
                 var paginationInfo =  resultList.supMaterialList;
