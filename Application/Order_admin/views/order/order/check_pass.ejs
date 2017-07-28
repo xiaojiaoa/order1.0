@@ -14,12 +14,12 @@
     <input value="<%= tid %>" name="tid" type="hidden">
     <input value="<%= orderType %>" name="orderType" type="hidden">
     <!--<div class="col-xs-12">-->
-        <!--<div class="form-group">-->
-            <!--<label class="col-xs-2 control-label">零售总价:</label>-->
-            <!--<div class="col-xs-6">-->
-                <!--<input class="form-control"  value="" name="" readonly>-->
-            <!--</div>-->
-        <!--</div>-->
+    <!--<div class="form-group">-->
+    <!--<label class="col-xs-2 control-label">零售总价:</label>-->
+    <!--<div class="col-xs-6">-->
+    <!--<input class="form-control"  value="" name="" readonly>-->
+    <!--</div>-->
+    <!--</div>-->
     <!--</div>-->
     <div class="col-xs-12">
         <div class="form-group">
@@ -73,14 +73,35 @@
     <div class="dwy-clear"></div>
 </form>
 
+<form class="form-horizontal  layer-template" method="post" id="confirm-apart-order-form" action="/apart/doPass/byApartOrder" >
 
+    <div class="col-xs-12" style="padding-top: 20px;">
+        <div class="form-group">
+            <label class="col-xs-2 control-label"><span class="requird"></span>精确价格:</label>
+            <div class="col-xs-6">
+                <input class="form-control validate[required,custom[number],min[0]"  value="" name="money" id="money" data-prompt-position="bottomLeft:20,5">
+            </div>
+        </div>
+    </div>
+    <input value="<%= tid %>" name="tid" type="hidden">
+    <div class="col-xs-12">
+        <hr class="simple">
+        <div class="col-xs-12 text-center">
+            <button class="btn btn-primary " type="submit">
+                <i class="fa fa-save"></i>
+                确定拆单
+            </button>
+        </div>
+    </div>
+    <div class="dwy-clear"></div>
+</form>
 
 <script type="text/javascript">
 
     $(document).ready(function () {
 
         $("#check_pass").validationEngine();
-        
+
         $('#calculate').click(function () {
             var money = $('#money').val();
             $('#revFrncAccount').text(<%= cofficientInfo.revFrncPriceCoefficient %>*money)
@@ -103,7 +124,21 @@
             }
         })
 
+        // 确认拆单弹出框
+        $("#confirm-apart-order").on({
+            click:function () {
+                layer.open({
+                    title: false,
+                    type: 1,
+                    area: '600px',
+                    content: $('#confirm-apart-order-form'),
+                    cancel: function () {
+                        //右上角关闭回调
+                    },
 
+                });
+            }
+        });
         $('#modifyMoney').on({
             click: function (e) {
                 $.ajax({

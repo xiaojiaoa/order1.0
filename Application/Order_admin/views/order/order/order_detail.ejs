@@ -461,7 +461,7 @@
                                 <td>
                                     拆单中
                                     <% if (DWY_Helper.hasPermission(Permission.orderApart.passOrder.id, permission) && orderInfo.receiveGid == user.id ){ %>
-                                    <a class="label label-primary doPass" data-stcode="<%= orderInfo.stcode %>">确定拆单</a>
+                                    <a class="label label-primary" data-stcode="<%= orderInfo.stcode %>" id="confirm-apart-order">确定拆单</a>
                                     <% } %>
                                     <% if (DWY_Helper.hasPermission(Permission.orderApart.sendBackOrder.id, permission) && orderInfo.receiveGid == user.id ){ %>
                                     <a class="label label-primary margin-left-20 reject-modal"

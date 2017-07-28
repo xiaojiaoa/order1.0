@@ -484,6 +484,9 @@ router.get('/apartCheckPage/:type', Middleware.AuthCheck, Middleware.FilterEmpty
 // 标记为审核中 (待拆单)
 router.put('/apart/getTask/:tid', Middleware.AuthCheck, ApartController.getTask);
 
+//确认拆单
+router.post('/apart/doPass/byApartOrder', Middleware.AuthCheck, ApartController.doPassByApartOrder);
+
 // 解锁订单
 router.put('/apart/unlock/:tid', Middleware.AuthCheck, ApartController.doUnlock);
 
