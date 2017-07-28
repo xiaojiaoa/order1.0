@@ -1018,13 +1018,11 @@ var OrderController = {
         });
     },
     updateOrderUrgent: function (req, res) {
-        console.log("测试",req.body);
+     //   console.log("测试",req.body);
         request(Base.mergeRequestOptions({
             method: 'put',
             url: '/api/orders/urgent/updateUrgent?'+queryString.stringify(req.body),
         }, req, res), function (error, response, body) {
-            console.log('你大爷吗',response);
-            console.log('你大爷吗',response);
             if (!error && response.statusCode == 201) {
                 Base.handlerSuccess(res, req);
                 res.redirect(req.session.backPath?req.session.backPath:"/order/urgent");

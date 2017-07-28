@@ -134,8 +134,8 @@ var CustomerController = {
     assignStore: function (req, res) {
         var bid = req.body.bid;
         var cid = req.body.customerid;
-        console.log('bid',bid);
-        console.log('cid',cid);
+      //  console.log('bid',bid);
+    //    console.log('cid',cid);
         request(Base.mergeRequestOptions({
             method: 'put',
             url: '/api/customers/unused/'+cid+'?bid='+bid,

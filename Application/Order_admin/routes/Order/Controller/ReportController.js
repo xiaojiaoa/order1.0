@@ -302,7 +302,7 @@ var ReportController = {
         }
         Base.multiDataRequest(req, res, baseUrl,function (req, res, resultList) {
 
-            console.log(5858,JSON.stringify(resultList));
+         //   console.log(5858,JSON.stringify(resultList));
             var returnData = Base.mergeData(helper.mergeObject({
                 title: ' ',
                 type:taskId
