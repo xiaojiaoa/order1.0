@@ -64,7 +64,8 @@
                                         <div class="col-xs-8">
                                             <select class="form-control" name="type">
                                                 <% if(type=='receiptMoney'){%>
-                                                <option value="0">收款中</option>
+                                                <option value="0" <%= (DWYRequest.query.type==0)?'selected':''%>>收款中</option>
+                                                <option value="1" <%= (DWYRequest.query.type==1)?'selected':''%>>已收款</option>
                                                 <%}%>
                                                 <%if(type=='confirmMoney'){%>
                                                 <option value="1">已收款</option>
@@ -231,11 +232,11 @@
                                        data-price="<%= element.revFranchisePrice %>">确认收款</a>
                                     <a class="label label-danger optionThis" data-type="notpass" data-payed="<%=element.payed %>" data-tid="<%=element.tid %>" data-bid="<%=element.bid %>">解锁</a>
                                     <% } %>
+                                    <%if(type=='confirmMoney'){%>
                                     <% if(element.payed == 20){  %>
                                     <a class="label label-success optionThis" data-payed="<%=element.payed %>" data-tid="<%=element.tid %>" data-bid="<%=element.bid %>">对账</a>
                                     <a class="label label-success optionThis" data-payed=202  data-tid="<%=element.tid %>" data-bid="<%=element.bid %>">对账退回</a>
-                                    <% } %>
-
+                                    <% } }%>
                                 </td>
                             </tr>
                             <% })
