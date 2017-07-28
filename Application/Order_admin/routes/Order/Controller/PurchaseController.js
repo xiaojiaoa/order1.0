@@ -261,6 +261,7 @@ var PurchaseController = {
     },
     //采购单付款上传凭证 type=10
     uploadProof: function (req, res) {
+        var purchaseId = req.body.purchaseId;
         request(Base.mergeRequestOptions({
             method: 'post',
             url: '/api/purchase/reqmaterial/deposit',
@@ -269,7 +270,7 @@ var PurchaseController = {
             if (!error && response.statusCode == 201) {
                 Base.handlerSuccess(res, req);
               //  res.redirect("/purchase/detail");
-                res.redirect(req.session.backPath?req.session.backPath:"/purchase/detail");
+                res.redirect("/purchase/orderDetail/"+purchaseId);
             } else {
                 Base.handlerError(res, req, error, response, body);
             }
@@ -277,7 +278,7 @@ var PurchaseController = {
     },
     //采购单付款上传凭证 type=30
     uploadProof2: function (req, res) {
-        var purchaseId = req.body.purchaseId
+        var purchaseId = req.body.purchaseId;
         request(Base.mergeRequestOptions({
             method: 'post',
             url: '/api/purchase/reqmaterial/payment',
