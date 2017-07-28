@@ -368,6 +368,7 @@ var FactoryController = {
             {url: '/api/categories/list?parentId=0', method: 'GET', resConfig: {keyName: 'stairCategory', is_must: true}},
             {url: '/api/orders/package/packagetype', method: 'GET', resConfig: {keyName: 'assistantWarehouseType', is_must: true}},
             {url: '/api/roles/current/'+bid, method: 'GET', resConfig: {keyName: 'roleList', is_must: true}},
+            {url: '/api/assist/package/category', method: 'GET', resConfig: {keyName: 'packageCate', is_must: true}},
         ], function (req, res, resultList) {
 
             var returnData = Base.mergeData(helper.mergeObject({

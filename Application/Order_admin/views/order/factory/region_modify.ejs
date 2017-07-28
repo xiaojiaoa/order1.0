@@ -183,13 +183,11 @@
                                             <div class="col-xs-8">
                                                 <select class="form-control validate[required]" name="packgeCode">
                                                     <option value="">- 请选择 -</option>
-                                                    <% if(DWY_Helper.isCanLoop(assistantWarehouseType)){
-                                                    assistantWarehouseType.forEach(function (element) { %>
-                                                    <option value="<%= element.id %>" <%= regionInfo.regionType == element.id?'selected':'' %> >
-                                                        <%= element.name %>
-                                                    </option>
-                                                    <%   })
-                                                    } %>
+                                                    <%if(DWY_Helper.isCanLoop(packageCate)){
+                                                    packageCate.forEach(function(element,index){%>
+                                                    <option value="<%= element.id%>"><%= element.name%></option>
+                                                    <%})
+                                                    }%>
                                                 </select>
                                             </div>
                                         </div>
