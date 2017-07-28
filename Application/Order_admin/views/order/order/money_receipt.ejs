@@ -374,7 +374,7 @@
             var discount=$("#discount").val();
             var settlementType=$("select[name=settlementType]").val();
             if(settlementType==0){
-                $("#priceAfterDiscount").val(price-discount);
+                $("#priceAfterDiscount").val((price-discount).toFixed(2));
             }
             if(settlementType==1){
                 $("#priceAfterDiscount").val((price*discount).toFixed(2));
