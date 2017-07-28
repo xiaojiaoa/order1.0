@@ -64,12 +64,12 @@
                                         <div class="col-xs-8">
                                             <select class="form-control" name="type">
                                                 <% if(type=='receiptMoney'){%>
-                                                <option value="0" <%= (DWYRequest.query.type==0)?'selected':''%>>收款中</option>
-                                                <option value="1" <%= (DWYRequest.query.type==1)?'selected':''%>>已收款</option>
+                                                <option value="0" <%= (DWYRequest.query.type==0)?'selected':''%>>未付款</option>
+                                                <option value="1" <%= (DWYRequest.query.type==1)?'selected':''%>>已付款</option>
                                                 <%}%>
                                                 <%if(type=='confirmMoney'){%>
-                                                <option value="0" <%= (DWYRequest.query.type==0)?'selected':''%>>收款中</option>
-                                                <option value="1" <%= (DWYRequest.query.type==1)?'selected':''%>>已收款</option>
+                                                <option value="2" <%= (DWYRequest.query.type==2)?'selected':''%>>未付款</option>
+                                                <option value="3" <%= (DWYRequest.query.type==3)?'selected':''%>>已付款</option>
                                                 <%}%>
                                             </select>
                                         </div>
@@ -213,7 +213,7 @@
                                 <td><%= element.factoryPrice %></td>
                                 <td><%= element.priceAfterDiscount %></td>
                                 <td><%= element.discountRemark %></td>
-                                <td><% if(element.payed < 20){ %>
+                                <td><% if(element.payed <= 20){ %>
                                     未付款
                                     <% }else{%>
                                     已付款
@@ -222,6 +222,7 @@
                                 <td><%= DWY_Helper.getLocalDate(element.payTime) %></td>
                                 <td><%= DWY_Helper.getLocalDate(element.reconciliationTime) %></td>
                                 <td>
+                                    <%if(type=='receiptMoney'){%>
                                     <% if(element.payed == 10){  %>
                                     <a class="label label-primary optionThis" data-payed="<%=element.payed %>" data-tid="<%=element.tid %>" data-bid="<%=element.bid %>">锁定</a>
                                     <% } %>
@@ -232,14 +233,14 @@
                                        data-bid="<%=element.bid %>"
                                        data-price="<%= element.revFranchisePrice %>">确认收款</a>
                                     <a class="label label-danger optionThis" data-type="notpass" data-payed="<%=element.payed %>" data-tid="<%=element.tid %>" data-bid="<%=element.bid %>">解锁</a>
-                                    <% } %>
+                                    <% } }%>
                                     <%if(type=='confirmMoney'){%>
                                     <% if(element.payed == 21){  %>
                                     <a class="label label-success optionThis" data-payed="<%=element.payed %>" data-tid="<%=element.tid %>" data-bid="<%=element.bid %>">对账</a>
                                     <% } %>
                                     <% if(element.payed == 20){  %>
-                                    <a class="label label-success optionThis" data-payed="<%=element.payed %>" data-tid="<%=element.tid %>" data-bid="<%=element.bid %>">确认</a>
-                                    <a class="label label-danger optionThis" data-payed=202  data-tid="<%=element.tid %>" data-bid="<%=element.bid %>">对账退回</a>
+                                    <a class="label label-success optionThis" data-payed=201 data-tid="<%=element.tid %>" data-bid="<%=element.bid %>">确认</a>
+                                    <a class="label label-danger optionThis" data-payed=202  data-tid="<%=element.tid %>" data-bid="<%=element.bid %>">退回</a>
                                     <% } %>
                                     <%}%>
                                 </td>
@@ -412,13 +413,17 @@
                         text = '确认审核不通过？'
                     }
                     break;
-                case '20':
+                case '21':
                     ajaxUrl = '/collection/reconciliation'
                     text = '确认对账？'
                     break;
+                case '201':
+                    ajaxUrl = '/collection/receiptCheck/confirm'
+                    text = '确认收款？'
+                    break;
                 case '202':
                     ajaxUrl = '/collection/reconciliation/notPass'
-                    text = '确认对账退回？'
+                    text = '确认退回？'
                     break;
                 case '10':
                     ajaxUrl = '/collection/receiptCheck'
