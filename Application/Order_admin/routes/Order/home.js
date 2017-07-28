@@ -440,6 +440,10 @@ router.get('/order/exportParts/:tid',Middleware.AuthCheck,OrderController.export
 
 // 收款页面
 router.get('/collection', Middleware.AuthCheck,Middleware.FilterEmptyField,Middleware.SetBackPath, OrderController.receiptMoneyPage);
+
+//财务对账页面
+router.get('/reconciliation', Middleware.AuthCheck,Middleware.FilterEmptyField,Middleware.SetBackPath, OrderController.confirmMoneyPage);
+
 // 付款
 router.post('/collection/receiptCheck', Middleware.AuthCheck, OrderController.receiptCheck);
 // 确认收款
@@ -448,6 +452,8 @@ router.post('/collection/receiptCheck/pass', Middleware.AuthCheck, OrderControll
 router.post('/collection/receiptCheck/notpass', Middleware.AuthCheck, OrderController.receiptCheckNotPass);
 // 对账
 router.post('/collection/reconciliation', Middleware.AuthCheck, OrderController.reconciliation);
+//对账退回
+router.post('/collection/reconciliation/notPass', Middleware.AuthCheck, OrderController.reconciliationNotPass);
 
 // 批次号管理
 router.get('/orders/batchNumber', Middleware.AuthCheck,Middleware.SetBackPath,OrderController.batchPage);

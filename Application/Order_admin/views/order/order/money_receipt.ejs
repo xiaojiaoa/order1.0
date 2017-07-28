@@ -63,9 +63,12 @@
                                         <label class="col-xs-3 control-label">收款类型:</label>
                                         <div class="col-xs-8">
                                             <select class="form-control" name="type">
+                                                <% if(type=='receiptMoney'){%>
                                                 <option value="0">收款中</option>
-                                                <option value="1" <%= (DWYRequest.query.type == 1)?"selected":"" %>>已收款</option>
-                                                <option value="2" <%= (DWYRequest.query.type == 2)?"selected":"" %>>全部</option>
+                                                <%}%>
+                                                <%if(type=='confirmMoney'){%>
+                                                <option value="1">已收款</option>
+                                                <%}%>
                                             </select>
                                         </div>
                                     </div>
@@ -228,8 +231,9 @@
                                        data-price="<%= element.revFranchisePrice %>">确认收款</a>
                                     <a class="label label-danger optionThis" data-type="notpass" data-payed="<%=element.payed %>" data-tid="<%=element.tid %>" data-bid="<%=element.bid %>">解锁</a>
                                     <% } %>
-                                    <% if(element.payed == 21){  %>
+                                    <% if(element.payed == 20){  %>
                                     <a class="label label-success optionThis" data-payed="<%=element.payed %>" data-tid="<%=element.tid %>" data-bid="<%=element.bid %>">对账</a>
+                                    <a class="label label-success optionThis" data-payed=202  data-tid="<%=element.tid %>" data-bid="<%=element.bid %>">对账退回</a>
                                     <% } %>
 
                                 </td>
@@ -374,9 +378,13 @@
                         text = '确认审核不通过？'
                     }
                     break;
-                case '21':
+                case '20':
                     ajaxUrl = '/collection/reconciliation'
                     text = '确认对账？'
+                    break;
+                case '202':
+                    ajaxUrl = '/collection/reconciliation/notPass'
+                    text = '确认对账退回？'
                     break;
                 case '10':
                     ajaxUrl = '/collection/receiptCheck'
@@ -393,7 +401,7 @@
                         bid: bid,
                     },
                     success: function (data) {
-                        successLayout.hrefTo('/collection');
+                        successLayout.reload();
 
                     },
                     error: function (response) {

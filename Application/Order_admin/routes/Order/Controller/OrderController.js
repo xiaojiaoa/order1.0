@@ -1443,6 +1443,39 @@ var OrderController = {
                 cid:cid,
                 pagination: boostrapPaginator.render(),
                 Permission :Permissions,
+                type:'receiptMoney'
+            },resultList));
+            res.render('order/order/money_receipt', returnData);
+        });
+    },
+    confirmMoneyPage: function (req, res) {
+        var cid =  req.params.cid;
+
+        if(!req.query.type){
+            req.query.type = 1;
+        }
+
+        var paramObject = helper.genPaginationQuery(req);
+        Base.multiDataRequest(req, res, [
+            {url: '/api/stores/money/page?'+queryString.stringify(req.query), method: 'GET', resConfig: {keyName: 'moneyList', is_must: true}},
+            {url: '/api/organizations/list', method: 'GET', resConfig: {keyName: 'organizationsList', is_must: true}},
+            {url: '/api/assist/space/prod', method: 'GET', resConfig: {keyName: 'prodList', is_must: true}},
+
+        ], function (req, res, resultList) {
+            var paginationInfo =  resultList.moneyList;
+
+            var boostrapPaginator = new Pagination.TemplatePaginator(helper.genPageInfo({
+                prelink: paramObject.withoutPageNo,
+                current: paginationInfo.page,
+                rowsPerPage: paginationInfo.pageSize,
+                totalResult: paginationInfo.totalItems
+            }));
+            var returnData = Base.mergeData(helper.mergeObject({
+                title: ' ',
+                cid:cid,
+                pagination: boostrapPaginator.render(),
+                Permission :Permissions,
+                type:'confirmMoney'
             },resultList));
             res.render('order/order/money_receipt', returnData);
         });
@@ -1499,6 +1532,21 @@ var OrderController = {
         request(Base.mergeRequestOptions({
             method: 'post',
             url: '/api/stores/money/reconciliation',
+            form: req.body,
+        }, req, res), function (error, response, body) {
+            if (!error && response.statusCode == 201) {
+                res.sendStatus(200);
+            } else {
+                Base.handlerError(res, req, error, response, body);
+            }
+        })
+
+
+    },
+    reconciliationNotPass: function (req, res) {
+        request(Base.mergeRequestOptions({
+            method: 'post',
+            url: '/api/stores/money/reconciliation/notPass',
             form: req.body,
         }, req, res), function (error, response, body) {
             if (!error && response.statusCode == 201) {
