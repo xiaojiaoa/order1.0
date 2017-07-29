@@ -192,12 +192,12 @@
                         <table class="table table-bordered table-striped">
                             <thead>
                             <tr>
-                                <th>序号</th>
+                                <th>流水号</th>
+                                <th>补单号</th>
                                 <th>文件名</th>
                                 <th>文件类型</th>
-                                <!--<th>文件大小</th>-->
-                                <th>上传人</th>
                                 <th>上传时间</th>
+                                <th>上传柜员</th>
                                 <th>备注</th>
                             </tr>
                             </thead>
@@ -206,14 +206,12 @@
                             if(resupplyInfo.orderFiles){
                             resupplyInfo.orderFiles.forEach(function (element, index) { %>
                             <tr>
-                                <td><%= index + 1 %></td>
-                                <td>
-                                    <a href="<%= DWY_GLOBAL.Static %>/download?originalFileName=<%= element.fileName %>&url=<%= element.savePath %>"><%= element.fileName %></a>
-                                </td>
+                                <td><%= element.lid %></td>
+                                <td><%= element.tid  %></td>
+                                <td> <a href="<%= DWY_GLOBAL.Static %>/download?originalFileName=<%= element.fileName %>&url=<%= element.filePath %>"><%= element.fileName %></a></td>
                                 <td><%= element.fileTypeDesc %></td>
-
-                                <td><%= element.uploadName %></td>
                                 <td><%= element.addTime %></td>
+                                <td><%= element.uploadName %></td>
                                 <td><%= element.remark %></td>
                             </tr>
                             <% })
