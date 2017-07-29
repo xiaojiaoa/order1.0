@@ -130,8 +130,10 @@
 
         $('#calculate').click(function () {
             var money = $('#money').val();
-            $('#revFrncAccount').text(<%= cofficientInfo.revFrncPriceCoefficient %>*money)
-            $('#factoryAccount').text(<%= cofficientInfo.factoryPriceCoefficient %>*money)
+            var val1=<%= cofficientInfo.revFrncPriceCoefficient %>;
+            var val2=<%= cofficientInfo.factoryPriceCoefficient %>;
+            $('#revFrncAccount').text((val1*money).toFixed(2));
+            $('#factoryAccount').text((val2*money).toFixed(2));
         })
 
         //弹出类
