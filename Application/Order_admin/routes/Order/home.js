@@ -438,10 +438,10 @@ router.get('/order/exportWorkpiece/:tid',Middleware.AuthCheck,OrderController.ex
 // 订单详情--订单物料--配件导出
 router.get('/order/exportParts/:tid',Middleware.AuthCheck,OrderController.exportParts);
 
-// 收款页面
+// 订单改价页面
 router.get('/collection', Middleware.AuthCheck,Middleware.FilterEmptyField,Middleware.SetBackPath, OrderController.receiptMoneyPage);
 
-//财务对账页面
+// 收款确认页面
 router.get('/reconciliation', Middleware.AuthCheck,Middleware.FilterEmptyField,Middleware.SetBackPath, OrderController.confirmMoneyPage);
 
 // 付款
