@@ -185,7 +185,7 @@
                                                     <option value="">- 请选择 -</option>
                                                     <%if(DWY_Helper.isCanLoop(packageCate)){
                                                     packageCate.forEach(function(element,index){%>
-                                                    <option value="<%= element.id%>"><%= element.name%></option>
+                                                    <option value="<%= element.id%>" <%= (regionInfo.regionType == element.id)?'selected':'' %>><%= element.name%></option>
                                                     <%})
                                                     }%>
                                                 </select>
