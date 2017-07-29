@@ -131,10 +131,10 @@
                                 <% } %>
                                 <td><%= detaelement.typeName %></td>
                                 <td><%= detaelement.packageNum%></td>
-                                <td><%= detaelement.notInHouse%></td>
-                                <td><%= detaelement.inHouse %></td>
-                                <td><%= detaelement.stock%></td>
-                                <td><%= detaelement.send %></td>
+                                <td><a href="/orders/package/allInfo?packageStatus=1&lid=<%= element.lid%>"><%= detaelement.notInHouse%></a></td>
+                                <td><a href="/orders/package/allInfo?packageStatus=2&lid=<%= element.lid%>"><%= detaelement.inHouse %></a></td>
+                                <td><a href="/orders/package/allInfo?packageStatus=3&lid=<%= element.lid%>"><%= detaelement.stock%></a></td>
+                                <td><a href="/orders/package/allInfo?packageStatus=4&lid=<%= element.lid%>"><%= detaelement.send %></a></td>
 
                             </tr>
                             <% num++ }) %>
