@@ -129,12 +129,25 @@
                                 <td rowspan="<%= element.detailList.length  %>"><%= element.mobile%></td>
                                 <td rowspan="<%= element.detailList.length  %>"><%= element.lid%></td>
                                 <% } %>
+                                <%
+                                var val=detaelement.typeName;
+                                var type;
+                                    if(val=="普通订单"){
+                                        type=1
+                                    }
+                                    if(val=="补单"){
+                                        type=2
+                                    }
+                                    if(val=="增单"){
+                                        type=3
+                                    }
+                                %>
                                 <td><%= detaelement.typeName %></td>
                                 <td><%= detaelement.packageNum%></td>
-                                <td><a href="/orders/package/allInfo?packageStatus=1&lid=<%= element.lid%>"><%= detaelement.notInHouse%></a></td>
-                                <td><a href="/orders/package/allInfo?packageStatus=2&lid=<%= element.lid%>"><%= detaelement.inHouse %></a></td>
-                                <td><a href="/orders/package/allInfo?packageStatus=3&lid=<%= element.lid%>"><%= detaelement.stock%></a></td>
-                                <td><a href="/orders/package/allInfo?packageStatus=4&lid=<%= element.lid%>"><%= detaelement.send %></a></td>
+                                <td><a href="/orders/package/allInfo?packageStatus=1&lid=<%= element.lid%>&type=<%= type%>"><%= detaelement.notInHouse%></a></td>
+                                <td><a href="/orders/package/allInfo?packageStatus=2&lid=<%= element.lid%>&type=<%= type%>"><%= detaelement.inHouse %></a></td>
+                                <td><a href="/orders/package/allInfo?packageStatus=3&lid=<%= element.lid%>&type=<%= type%>"><%= detaelement.stock%></a></td>
+                                <td><a href="/orders/package/allInfo?packageStatus=4&lid=<%= element.lid%>&type=<%= type%>"><%= detaelement.send %></a></td>
 
                             </tr>
                             <% num++ }) %>
