@@ -231,7 +231,7 @@
                                        data-payed="<%=element.payed %>"
                                        data-tid="<%=element.tid %>"
                                        data-bid="<%=element.bid %>"
-                                       data-price="<%= element.revFranchisePrice %>">确认收款</a>
+                                       data-price="<%= element.revFranchisePrice %>">改价</a>
                                     <a class="label label-danger optionThis" data-type="notpass" data-payed="<%=element.payed %>" data-tid="<%=element.tid %>" data-bid="<%=element.bid %>">解锁</a>
                                     <% } }%>
                                     <%if(type=='confirmMoney'){%>
@@ -350,7 +350,7 @@
         $('#search-form').validationEngine();
         $("#order_reject").validationEngine();
 
-        //点击确认收款按钮
+        //点击改价按钮
         $(".checkThis").click(function () {
             var _self = $(this);
             var tid = _self.attr('data-tid');
