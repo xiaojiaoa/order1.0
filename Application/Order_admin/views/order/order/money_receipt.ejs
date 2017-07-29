@@ -165,7 +165,14 @@
             <!-- row -->
             <div class="row">
                 <div class="col-xs-12">
-                    <h6>待收款</h6>
+                    <h6>
+                        <%if(type=='receiptMoney'){%>
+                        订单改价
+                        <%}%>
+                        <%if(type=='confirmMoney'){%>
+                        收款确认
+                        <%}%>
+                    </h6>
                     <hr class="simple">
                 </div>
             </div>
