@@ -12,7 +12,14 @@
         <!-- breadcrumb -->
         <ol class="breadcrumb">
             <li>后台管理</li>
-            <li>订单收款</li>
+            <li>
+                <%if(type=='receiptMoney'){%>
+                订单改价
+                <%}%>
+                <%if(type=='confirmMoney'){%>
+                收款确认
+                <%}%>
+            </li>
         </ol>
         <!-- end breadcrumb -->
 
@@ -167,10 +174,10 @@
                 <div class="col-xs-12">
                     <h6>
                         <%if(type=='receiptMoney'){%>
-                        订单改价
+                        订单改价列表
                         <%}%>
                         <%if(type=='confirmMoney'){%>
-                        收款确认
+                        收款确认列表
                         <%}%>
                     </h6>
                     <hr class="simple">
@@ -195,6 +202,7 @@
                                 <th>结算价（元）</th>
                                 <th>出厂价（元）</th>
                                 <th>折后价</th>
+                                <th>精确价</th>
                                 <th>折扣备注</th>
                                 <th>收款类型</th>
                                 <!--<th>说明</th>-->
@@ -219,6 +227,7 @@
                                 <td><%= element.revFranchisePrice %></td>
                                 <td><%= element.factoryPrice %></td>
                                 <td><%= element.priceAfterDiscount %></td>
+                                <td><%= element.exactPrice %></td>
                                 <td><%= element.discountRemark %></td>
                                 <td><% if(element.payed <= 20){ %>
                                     未付款
