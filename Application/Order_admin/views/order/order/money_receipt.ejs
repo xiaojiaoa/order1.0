@@ -109,6 +109,20 @@
                                 <% if(DWY_GLOBAL.ButtonOpen!=1){  %>
                                 <div class="slideToggle display-none">
                                 <%}%>
+                                    <% if(type=='receiptMoney'){%>
+                                    <div class="col-xs-3">
+                                        <div class="form-group">
+                                            <label class="col-xs-3 control-label">客户姓名:</label>
+                                            <div class="col-xs-8">
+                                                <input class="form-control"
+                                                       value="<%= DWYRequest.query.custName %>"
+                                                       name="custName"
+                                                       placeholder="请输入客户姓名"
+                                                >
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <%}%>
                                     <div class="col-xs-3">
                                         <div class="form-group">
                                             <label class="col-xs-3 control-label">门店名:</label>
@@ -201,6 +215,9 @@
                             <thead>
                             <tr>
                                 <th width="84px">序号</th>
+                                <% if(type=='receiptMoney'){%>
+                                <th>客户姓名</th>
+                                <%}%>
                                 <th>订单号</th>
                                 <th>订单状态</th>
                                 <th>所属机构</th>
@@ -226,6 +243,9 @@
                             moneyList.result.forEach(function (element, index) { %>
                             <tr>
                                 <td width="84px"><%= DWY_Helper.incrementNum(DWYRequest.query.pageNo,index)%></td>
+                                <% if(type=='receiptMoney'){%>
+                                <td><%= element.custName%></td>
+                                <%}%>
                                 <td><a href="/order/detail/<%= element.tid %>"><%= element.tid %></a></td>
                                 <td><%= element.stcodeName %></td>
                                 <td><%= element.orgName %></td>
