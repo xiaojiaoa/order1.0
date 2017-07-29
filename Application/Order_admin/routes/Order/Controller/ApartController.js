@@ -150,23 +150,11 @@ var ApartController = {
         }, req, res), function (error, response, body) {
             if (!error && response.statusCode == 201) {
                 Base.handlerSuccess(res, req);
-                res.redirect("/apartPage/getOrder");
-            } else {
-                Base.handlerError(res, req, error, response, body);
-            }
-        })
-
-    },
-    doPassByApartResupplyOrder: function (req, res) {
-        var tid=req.body.tid;
-        var money=req.body.money;
-        request(Base.mergeRequestOptions({
-            method: 'put',
-            url: '/api/orders/apart/pass?tid='+tid+'&money='+money,
-        }, req, res), function (error, response, body) {
-            if (!error && response.statusCode == 201) {
-                Base.handlerSuccess(res, req);
-                res.redirect("/orders/resupplys/apart");
+                if(req.body.orderType == 'order'){
+                    res.redirect(req.session.backPath?req.session.backPath:"/apartPage/getOrder");
+                }else{
+                    res.redirect(req.session.backPath?req.session.backPath:"/orders/resupplys/apart");
+                }
             } else {
                 Base.handlerError(res, req, error, response, body);
             }

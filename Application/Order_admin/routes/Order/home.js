@@ -484,10 +484,6 @@ router.get('/apartCheckPage/:type', Middleware.AuthCheck, Middleware.FilterEmpty
 // 标记为审核中 (待拆单)
 router.put('/apart/getTask/:tid', Middleware.AuthCheck, ApartController.getTask);
 
-//确认拆单
-router.post('/apart/doPass/byApartOrder', Middleware.AuthCheck, ApartController.doPassByApartOrder);
-router.post('/apart/doPass/byApartResupplyOrder', Middleware.AuthCheck, ApartController.doPassByApartResupplyOrder);
-
 // 解锁订单
 router.put('/apart/unlock/:tid', Middleware.AuthCheck, ApartController.doUnlock);
 
@@ -496,6 +492,9 @@ router.post('/apart/notPass', Middleware.AuthCheck, ApartController.notPass);
 
 // 审核通过
 router.put('/apart/doPass/:tid', Middleware.AuthCheck, ApartController.doPass);
+
+//确认拆单
+router.post('/apart/doPass/byApart', Middleware.AuthCheck, ApartController.doPassByApartOrder);
 
 router.post('/apart/doPass/byMoney', Middleware.AuthCheck, ApartController.doPassByMoney);
 
