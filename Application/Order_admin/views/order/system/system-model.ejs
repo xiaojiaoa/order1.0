@@ -311,6 +311,11 @@
                 data.key="assistantSpaceProd";
                 data.spaceId=$(".level-3").find("input[name=parentId]").val();
                }
+               // 物料入库类型--禁止删除id=1的项
+               if(key=='assistantCargoInMode' && id==1){
+                  layer.alert("禁止删除此项",{icon:3});
+                  return;
+               }
             console.log("这个是删除等操作"+JSON.stringify(data));
             //ajax提交
             layer.confirm('确定删除该项?', {icon: 3, title: '提示'}, function (index) {
