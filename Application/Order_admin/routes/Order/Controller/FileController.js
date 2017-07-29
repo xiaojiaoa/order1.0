@@ -91,6 +91,7 @@ var FileController = {
         var tid = req.params.tid;
         // var pid = req.params.pid;
         var stcode = req.params.stcode;
+        var orderType;
         if(ordType== 2){
             orderType='resupply';
         }
