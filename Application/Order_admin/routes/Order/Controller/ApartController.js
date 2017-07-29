@@ -94,38 +94,6 @@ var ApartController = {
         })
 
     },
-    doPassByApartOrder: function (req, res) {
-        var tid=req.body.tid;
-        var money=req.body.money;
-        request(Base.mergeRequestOptions({
-            method: 'put',
-            url: '/api/orders/apart/pass?tid='+tid+'&money='+money,
-        }, req, res), function (error, response, body) {
-            if (!error && response.statusCode == 201) {
-                Base.handlerSuccess(res, req);
-                res.redirect("/apartPage/getOrder");
-            } else {
-                Base.handlerError(res, req, error, response, body);
-            }
-        })
-
-    },
-    doPassByApartResupplyOrder: function (req, res) {
-        var tid=req.body.tid;
-        var money=req.body.money;
-        request(Base.mergeRequestOptions({
-            method: 'put',
-            url: '/api/orders/apart/pass?tid='+tid+'&money='+money,
-        }, req, res), function (error, response, body) {
-            if (!error && response.statusCode == 201) {
-                Base.handlerSuccess(res, req);
-                res.redirect("/orders/resupplys/apart");
-            } else {
-                Base.handlerError(res, req, error, response, body);
-            }
-        })
-
-    },
     doUnlock: function (req, res) {
         var tid = req.params.tid;
         request(Base.mergeRequestOptions({
@@ -167,6 +135,38 @@ var ApartController = {
             if (!error && response.statusCode == 201) {
                 Base.handlerSuccess(res, req);
                 res.sendStatus(200);
+            } else {
+                Base.handlerError(res, req, error, response, body);
+            }
+        })
+
+    },
+    doPassByApartOrder: function (req, res) {
+        var tid=req.body.tid;
+        var money=req.body.money;
+        request(Base.mergeRequestOptions({
+            method: 'put',
+            url: '/api/orders/apart/pass?tid='+tid+'&money='+money,
+        }, req, res), function (error, response, body) {
+            if (!error && response.statusCode == 201) {
+                Base.handlerSuccess(res, req);
+                res.redirect("/apartPage/getOrder");
+            } else {
+                Base.handlerError(res, req, error, response, body);
+            }
+        })
+
+    },
+    doPassByApartResupplyOrder: function (req, res) {
+        var tid=req.body.tid;
+        var money=req.body.money;
+        request(Base.mergeRequestOptions({
+            method: 'put',
+            url: '/api/orders/apart/pass?tid='+tid+'&money='+money,
+        }, req, res), function (error, response, body) {
+            if (!error && response.statusCode == 201) {
+                Base.handlerSuccess(res, req);
+                res.redirect("/orders/resupplys/apart");
             } else {
                 Base.handlerError(res, req, error, response, body);
             }
