@@ -410,6 +410,12 @@
                             </tr>
 
                             <tr>
+                                <td>订单改价</td>
+                                <td><%= DWY_Helper.getLocalDate(orderStatusInfo.modifyPriceTime) %></td>
+                                <td>改价人</td>
+                                <td><%= orderStatusInfo.modifyPriceName %></td>
+                            </tr>
+                            <tr>
                                 <td>收款确认</td>
                                 <td><%= DWY_Helper.getLocalDate(orderStatusInfo.receiptTime) %></td>
                                 <td>确认人</td>
