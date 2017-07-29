@@ -123,6 +123,9 @@
 
     $(document).ready(function () {
 
+        $("#confirm-apart-order-form").validationEngine();
+        $("#confirm-apart-resupply-order-form").validationEngine();
+
         $("#check_pass").validationEngine();
 
         $('#calculate').click(function () {
@@ -147,7 +150,7 @@
             }
         })
 
-        // 确认拆单弹出框
+        // 确认订单拆单弹出框
         $("#confirm-apart-order").on({
             click:function () {
                 layer.open({

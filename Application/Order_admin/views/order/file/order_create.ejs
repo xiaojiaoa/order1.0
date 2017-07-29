@@ -168,7 +168,7 @@
                                     <%        break;
                                         case 450: %>
                                     <% if (DWY_Helper.hasPermission(Permission.orderApart.passOrder.id, permission) && orderInfo.receiveGid == user.id ){ %>
-                                    <a class="btn btn-primary margin-left-20 doPass" data-stcode="<%= orderInfo.stcode %>">确定拆单</a>
+                                    <a class="btn btn-primary margin-left-20" data-stcode="<%= orderInfo.stcode %>" id="confirm-apart-order">确定拆单</a>
                                     <% } %>
                                     <%  } %>
 
