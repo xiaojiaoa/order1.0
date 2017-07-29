@@ -581,17 +581,17 @@
         function insertCheckedList(item) {
 
             var parentEle = '.purApplyTr';
-//            var storageKey = 'LIST_DATA_ENTERMATESELECT';
-//            var listArr = DWY_Utils.StorageUtils.getListArr(storageKey);
-//
-//            var len = listArr.length;
+            var storageKey = 'LIST_DATA_ENTERMATESELECT';
+            var listArr = DWY_Utils.StorageUtils.getListArr(storageKey);
+
+            var len = listArr.length;
 
             var itemHtml = ''
                 + '<tr class="topTr cargoinDo" data-index="'+cargoinList_result+'" data-unique="'+item.id+'">'
                 + '<td>'
                 + '<label class="checkbox-inline">'
                 + '<input type="checkbox" class="checkbox" name="roles" value="' + item.id + '" uniqueId="'+ item.id + '" checked>'
-                + '<span>' + cargoinList_result + '</span>'
+                + '<span>' + len + '</span>'
                 + '</label>'
                 + '</td>'
                 + '<td><a href="/materialManage/detail/<%= bid %>/' + item.id + '">' + item.id + '</a></td>'
@@ -639,7 +639,6 @@
                 ' </div>' +
                 ' </td>'
                 + '</tr>';
-
             $(parentEle).append(itemHtml);
 
             DWY_fty_region.init({
@@ -655,7 +654,6 @@
             $('.purApplyTr tr[data-unique='+id+']').remove();
             var len = $(".purApplyTr tr").length;
             for(var i=0;i<len;i++){
-                console.log(i)
                 $(".purApplyTr tr td:first-child").find("span").text(i+1);
             }
         }
@@ -849,8 +847,7 @@
                         var spaceId = $("input[name=spaceId" + index + "]").val();
                         var statusThis = $("input[name=statusThis" + index + "]").val();
                         var amount = $("input[name=amount" + index + "]").val();
-                        var mateBatchId = $("input[name=mateBatchId" + index + "]").val();
-
+                        var mateBatchId = $("input[name=mateBatchId" + indexTR + "]").val();
                         amountActually += Number(amount);
 
                         if (statusThis == 0) {
@@ -905,7 +902,8 @@
                     inMode:inMode,
                     list: myArray
                 };
-                console.log(date)
+                console.log(date);
+//                return false;
 
                 layer.confirm("确认提交？", {title: '提示'}, function (index) {
                         loading.addClass('show-active');
