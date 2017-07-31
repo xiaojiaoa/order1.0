@@ -77,10 +77,12 @@ hr{
 .table-bordered2 > tbody > tr > td {
   border: 1px solid #ddd;
   width:10%;
-  text-align:left;
+  text-align:center;
 }
-.table-print2>tbody>tr>td:nth-child(odd){
-  width:18%;
-  text-align:left;
+.table-print2:last-child>tbody>tr>td:nth-child(odd){
+  width: 100px
+}
+.table-print2:last-child>tbody>tr:nth-of-type(2)>td:nth-child(odd){
+  width: 20%;
 }
 

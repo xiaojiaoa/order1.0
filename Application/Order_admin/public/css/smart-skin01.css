@@ -1,15 +1,22 @@
 /*订单系统登录页样式S*/
+html{
+    height:100%;
+}
 #smart-skin{
     background: url("../img/order-loginBg01.png") no-repeat center top;
     width:100%;
     height:100%;
     color: #000000;
     box-sizing: border-box;
+    max-width:1920px;
+    background-size:cover;
+    min-height: 960px;
 }
 #smart-skin #main{
   background-color: transparent!important;
     padding-top: 0px!important;
     padding-bottom: 0px!important;
+    height: 100%;
 }
 #smart-skin #header{
     background-color: transparent!important;
@@ -17,9 +24,10 @@
     float: left;
     margin-top:50px;
     margin-left:66px;
+    height:85px;
 }
 #smart-skin #logo-group{
-    background: url("../img/logo-white01.png") no-repeat center top;
+    background: url("../img/bulanshalogo.png") no-repeat center top;
     width:169px;
     height:82px;
 }
@@ -27,13 +35,15 @@
     display: none;
 }
 #smart-skin #content {
-    padding: 0px 8px;
+    padding: 0px;
     width: 100%;
+    height: 100%;
 }
 #smart-skin-row{
     background: rgba(255,255,255,1);
-    width: 900px;
-    min-height: 974px;
+    width: 47%;
+    min-height: 100%;
+    height:100%;
     float: right;
     margin-right: 0px;
     padding-left: 125px;
@@ -50,7 +60,7 @@
     font-weight: bold!important;
     color: #010101!important;
     text-align: left;
-    margin-top: 243px;
+    margin-top: 210px;
 }
 #smart-skin-row  .login-header-big:before{
     content: '';
@@ -58,17 +68,26 @@
     height:4px;
     background-color: #000000;
     position: absolute;
-    top: 122px;
-    right:100px;
+    top: 100px;
+    right:90px;
 }
 #smart-skin-row  .login-header-big span{
-    display: none;
+ /*   display: none;*/
 }
 #smart-skin-row .login-desc-box-l{
-    position: absolute;
-    top: 820px;
     min-height: 100px;
-    width: 70%;
+    width: 100%;
+    position: relative;
+    bottom: -560px;
+}
+#smart-skin-row:before{
+    content: '';
+    width: 69px;
+    height: 26px;
+    background: url('../img/order-loginBg02-2.png') no-repeat center top;
+    position: absolute;
+    bottom: 96px;
+    left: 120px;
 }
 #smart-skin-row .login-desc-box-l:after{
     content: '';
@@ -76,13 +95,15 @@
     height: 64px;
     background-color: #000000;
     position: absolute;
-    bottom: 48px;
-    right: -140px;
+    bottom: 45px;
+    right: 80px;
 }
 #smart-skin-row .login-desc-box-l span{
-    float: left;
     font-size:12px;
     color: #000;
+}
+#smart-skin-row .login-desc-box-l span:first-of-type{
+    display: block;
 }
 #smart-skin-row .login-desc-box-l span:last-of-type{
     display: none;
@@ -91,12 +112,14 @@
     text-align: center;
     width: 100%!important;
 }
-#smart-skin-row .paragraph-header span{
-    display: block;
+#smart-skin-row .paragraph-header{
+    text-align: left;
 }
 #smart-skin-row .well{
     border: 0px solid #F6A623;
-    width: 360px
+    width: 360px;
+    box-shadow: none;
+    margin-top:-80px;
 }
 #smart-skin-row .well header{
     display: none;
@@ -129,7 +152,7 @@
 #smart-skin-row .well footer{
      padding: 0px;
     border:0px;
-    background:transparent;
+    background: #ffffff;
 }
 #smart-skin-row .well .btn,#smart-skin-row .well .btn:hover{
     width:160px;

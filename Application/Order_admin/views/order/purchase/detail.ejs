@@ -247,12 +247,7 @@
                             <tr class="">
                                 <td>
                                     <label class="checkbox-inline">
-                                        <%
-                                        if(element.stcode<=30){%>
                                         <input type="checkbox" class="checkbox validate[minCheckbox[1]]" name="roles" value="<%= element.id %>" stcode="<%= element.stcode %>" isdirect="<%= element.isDirect %>" gid="<%= element.empId %>" isimprest="<%= element.isImprest %>" suppid="<%= element.suppId %>" />
-                                       <% }else{%>
-                                        <input type="checkbox" class="checkbox validate[minCheckbox[1]]" name="roles" value="<%= element.id %>" stcode="<%= element.stcode %>" isdirect="<%= element.isDirect %>"  disabled="disabled" />
-                                        <%}%>
                                         <span><%= DWY_Helper.incrementNum(DWYRequest.query.pageNo,index)%></span>
                                     </label>
                                 </td>
@@ -360,7 +355,19 @@
                     }
                 })
                 if(stcodeStr.indexOf('30')>-1){
-                    layer.alert('已审核采购单无法合并！', {icon: 3})
+                    layer.alert('仅能合并未审核订单！', {icon: 3})
+                    return false;
+                }
+                if(stcodeStr.indexOf('50')>-1){
+                    layer.alert('仅能合并未审核订单！', {icon: 3})
+                    return false;
+                }
+                if(stcodeStr.indexOf('70')>-1){
+                    layer.alert('仅能合并未审核订单！', {icon: 3})
+                    return false;
+                }
+                if(stcodeStr.indexOf('90')>-1){
+                    layer.alert('仅能合并未审核订单！', {icon: 3})
                     return false;
                 }
                 var tid = checkedValue.attr('class').replace(/[ ]/g,"");
@@ -375,7 +382,19 @@
                     return false;
                 }
                 if(stcodeStr.indexOf('30')>-1){
-                    layer.alert('该采购单已审核！', {icon: 3})
+                    layer.alert('该订单已审核！', {icon: 3})
+                    return false;
+                }
+                if(stcodeStr.indexOf('50')>-1){
+                    layer.alert('该订单已提交！', {icon: 3})
+                    return false;
+                }
+                if(stcodeStr.indexOf('70')>-1){
+                    layer.alert('该订单待审核！', {icon: 3})
+                    return false;
+                }
+                if(stcodeStr.indexOf('90')>-1){
+                    layer.alert('该订单已入库！', {icon: 3})
                     return false;
                 }
                 var tid = checkedValue.attr('class').replace(/[ ]/g,"");
@@ -390,7 +409,7 @@
                     return false;
                 }
                 var stcodeStr = $("input[name=hids]").attr("stcodestr");
-                if(stcodeStr.indexOf('10')>-1){
+                if(stcodeStr.indexOf('10')>-1 || stcodeStr.indexOf('50')>-1 || stcodeStr.indexOf('70')>-1 || stcodeStr.indexOf('90')>-1){
                     layer.alert('仅已审核采购单可撤回！', {icon: 3})
                     return false;
                 }
@@ -411,6 +430,18 @@
                     layer.alert('请先审核！', {icon: 3})
                     return false;
                 }
+                if(stcodeStr.indexOf('50')>-1){
+                    layer.alert('该订单已提交！', {icon: 3})
+                    return false;
+                }
+                if(stcodeStr.indexOf('70')>-1){
+                    layer.alert('该订单待审核！', {icon: 3})
+                    return false;
+                }
+                if(stcodeStr.indexOf('90')>-1){
+                    layer.alert('该订单已入库！', {icon: 3})
+                    return false;
+                }
                 if(isImprests.indexOf('1')>-1){
                     layer.alert('预付款未付清！', {icon: 3})
                     return false;
@@ -429,7 +460,7 @@
                     return false;
                 }
                 var val= $("input[name=gidHid]").val();
-                if(stcodeStr.indexOf('30')>-1){  //|| stcodeStr.indexOf('50')>-1 || stcodeStr.indexOf('70')>-1
+                if(stcodeStr.indexOf('30')>-1 || stcodeStr.indexOf('50')>-1 || stcodeStr.indexOf('70')>-1 || stcodeStr.indexOf('90')>-1){
                     layer.alert('仅能删除未审核采购单！', {icon: 3})
                     return false;
                 }
