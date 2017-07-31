@@ -355,7 +355,19 @@
                     }
                 })
                 if(stcodeStr.indexOf('30')>-1){
-                    layer.alert('已审核采购单无法合并！', {icon: 3})
+                    layer.alert('仅能合并未审核订单！', {icon: 3})
+                    return false;
+                }
+                if(stcodeStr.indexOf('50')>-1){
+                    layer.alert('仅能合并未审核订单！', {icon: 3})
+                    return false;
+                }
+                if(stcodeStr.indexOf('70')>-1){
+                    layer.alert('仅能合并未审核订单！', {icon: 3})
+                    return false;
+                }
+                if(stcodeStr.indexOf('90')>-1){
+                    layer.alert('仅能合并未审核订单！', {icon: 3})
                     return false;
                 }
                 var tid = checkedValue.attr('class').replace(/[ ]/g,"");
@@ -460,7 +472,19 @@
                     return false;
                 }
                 var val= $("input[name=gidHid]").val();
-                if(stcodeStr.indexOf('30')>-1){  //|| stcodeStr.indexOf('50')>-1 || stcodeStr.indexOf('70')>-1
+                if(stcodeStr.indexOf('30')>-1){
+                    layer.alert('仅能删除未审核采购单！', {icon: 3})
+                    return false;
+                }
+                if(stcodeStr.indexOf('50')>-1){
+                    layer.alert('仅能删除未审核采购单！', {icon: 3})
+                    return false;
+                }
+                if(stcodeStr.indexOf('70')>-1){
+                    layer.alert('仅能删除未审核采购单！', {icon: 3})
+                    return false;
+                }
+                if(stcodeStr.indexOf('90')>-1){
                     layer.alert('仅能删除未审核采购单！', {icon: 3})
                     return false;
                 }
