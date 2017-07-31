@@ -152,7 +152,7 @@ html{
 #smart-skin-row .well footer{
      padding: 0px;
     border:0px;
-    background:transparent;
+    background: #ffffff;
 }
 #smart-skin-row .well .btn,#smart-skin-row .well .btn:hover{
     width:160px;
