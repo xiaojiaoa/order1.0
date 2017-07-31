@@ -409,19 +409,7 @@
                     return false;
                 }
                 var stcodeStr = $("input[name=hids]").attr("stcodestr");
-                if(stcodeStr.indexOf('10')>-1){
-                    layer.alert('仅已审核采购单可撤回！', {icon: 3})
-                    return false;
-                }
-                if(stcodeStr.indexOf('50')>-1){
-                    layer.alert('仅已审核采购单可撤回！', {icon: 3})
-                    return false;
-                }
-                if(stcodeStr.indexOf('70')>-1){
-                    layer.alert('仅已审核采购单可撤回！', {icon: 3})
-                    return false;
-                }
-                if(stcodeStr.indexOf('90')>-1){
+                if(stcodeStr.indexOf('10')>-1 || stcodeStr.indexOf('50')>-1 || stcodeStr.indexOf('70')>-1 || stcodeStr.indexOf('90')>-1){
                     layer.alert('仅已审核采购单可撤回！', {icon: 3})
                     return false;
                 }
@@ -472,19 +460,7 @@
                     return false;
                 }
                 var val= $("input[name=gidHid]").val();
-                if(stcodeStr.indexOf('30')>-1){
-                    layer.alert('仅能删除未审核采购单！', {icon: 3})
-                    return false;
-                }
-                if(stcodeStr.indexOf('50')>-1){
-                    layer.alert('仅能删除未审核采购单！', {icon: 3})
-                    return false;
-                }
-                if(stcodeStr.indexOf('70')>-1){
-                    layer.alert('仅能删除未审核采购单！', {icon: 3})
-                    return false;
-                }
-                if(stcodeStr.indexOf('90')>-1){
+                if(stcodeStr.indexOf('30')>-1 || stcodeStr.indexOf('50')>-1 || stcodeStr.indexOf('70')>-1 || stcodeStr.indexOf('90')>-1){
                     layer.alert('仅能删除未审核采购单！', {icon: 3})
                     return false;
                 }
