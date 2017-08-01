@@ -1,0 +1,164 @@
+<%- include('../layouts/head_top'); %>
+<%- include('../layouts/head_bottom'); %>
+<%- include('../layouts/header'); %>
+<%- include('../layouts/nav'); %>
+
+
+<!-- MAIN PANEL -->
+<div id="main" role="main" class="mainFlex">
+
+    <!-- RIBBON -->
+    <div id="ribbon">
+
+        <!-- breadcrumb -->
+        <ol class="breadcrumb">
+            <li>后台管理</li>
+            <li>报表管理</li>
+        </ol>
+
+    </div>
+    <!-- END RIBBON -->
+
+
+    <!-- MAIN CONTENT -->
+    <div id="content" class="dis-flex">
+
+
+        <!-- well -->
+        <div class="well">
+            <!-- row -->
+            <div class="row">
+                <!-- col -->
+                <div class="col-xs-12">
+                    <!--<legend>客户搜索</legend>-->
+                    <!-- row -->
+                    <div class="row search-form">
+                        <form class="form-horizontal" method="get" id="search-customer">
+
+                            <div class="col-xs-12">
+
+                                <!--输入字段-->
+                                <div class="col-xs-3">
+                                    <div class="form-group">
+                                        <label class="col-xs-4 control-label">五金名称:</label>
+                                        <div class="col-xs-8">
+                                            <input class="form-control" placeholder="请输入五金名称" value="<%= DWYRequest.query.name %>" type="text" name="name">
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--输入字段-->
+                                <div class="col-xs-6">
+                                    <div class="form-group">
+                                        <label class="col-xs-2 control-label">日期范围:</label>
+                                        <div class="col-xs-4">
+                                            <input class="form-control fg-date-picker"
+                                                   value="<%= DWYRequest.query.startDates %>"
+                                                   name="startDates">
+                                        </div>
+                                        <label class="control-label " style="float: left"> 至 </label>
+                                        <div class="col-xs-4">
+                                            <input class="form-control fg-date-picker"
+                                                   value="<%= DWYRequest.query.endDates %>"
+                                                   name="endDates">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xs-3 text-left">
+
+                                    <button class="btn btn-primary " type="submit">
+                                        <i class="fa fa-search"></i>
+                                        查询
+                                    </button>
+                                </div>
+                            </div>
+
+
+                        </form>
+                    </div>
+                    <!-- end row -->
+                </div>
+                <!-- end col -->
+            </div>
+            <!-- end row -->
+        </div>
+        <!-- end well -->
+
+        <div class="well dis-flex">
+
+            <!-- row -->
+            <div class="row">
+                <div class="col-xs-12">
+                    <h6>报表列表</h6>
+                    <hr class="simple">
+                </div>
+            </div>
+            <%- include('./common_links'); %>
+            <!-- row -->
+            <div class="row dis-flex">
+                <div class="col-xs-12 dis-flex">
+                    <div class="table-responsive dis-flex">
+                        <table class="table table-bordered table-striped table-hover table-scroll2">
+                            <thead>
+                            <tr>
+                                <th>序号</th>
+                                <th>配件名称</th>
+                                <th>ID</th>
+                                <th>配件规格</th>
+                                <th>采购价格</th>
+                                <th>出厂价格</th>
+                                <th>配件总数</th>
+                                <th>物料号</th>
+                                <th>工厂所属机构号</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <%
+                            if(DWY_Helper.isCanLoop(pageAccessoryByMonthList.result)){
+                            pageAccessoryByMonthList.result.forEach(function (element,index) { %>
+                            <tr>
+                                <td><%= DWY_Helper.incrementNum(DWYRequest.query.pageNo,index)%></td>
+                                <td><%= element.name %></td>
+                                <td><%= element.id %></td>
+                                <td><%= element.standard %></td>
+                                <td><%= element.totalPrice %></td>
+                                <td><%= element.totalUnitPrice%></td>
+                                <td><%= element.amount %></td>
+                                <td><%= element.mid%></td>
+                                <td><%= element.factoryId%></td>
+                            </tr>
+                            <%})
+                            }else{ %>
+                            <tr>
+                                <td colspan="100" align="center">暂无结果</td>
+                            </tr>
+                            <% } %>
+
+                            </tbody>
+                        </table>
+                    </div>
+                    <%- pagination %>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- END MAIN CONTENT -->
+
+</div>
+<!-- END MAIN PANEL -->
+
+<%- include('../layouts/footer'); %>
+<%- include('../layouts/footer_common_script'); %>
+<%- include('./common_js'); %>
+
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+        $("#search-customer").validationEngine();
+        $(".fg-date-picker").flatpickr(data_time_picker.data_picker); // jQuery
+    })
+
+</script>
+
+
+<%- include('../layouts/foot'); %>

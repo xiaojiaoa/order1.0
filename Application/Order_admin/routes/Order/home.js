@@ -1609,44 +1609,50 @@ router.get('/app/cargoin/offshelvesShow/:offshelves', AppServiceController.offsh
 * */
 var ReportController = require('./Controller/ReportController');
 
-//分页查询订单物料计价
+// 分页查询订单物料计价
 router.get('/orderMatPricing', Middleware.AuthCheck,Middleware.FilterEmptyField,ReportController.orderMatPricingPage);
 
-//分页查询批次物料计价
+// 分页查询批次物料计价
 router.get('/batchNumMatPricing', Middleware.AuthCheck,Middleware.FilterEmptyField,ReportController.batchNumMatPricingPage);
 
-//分页查询订单计数
+// 分页查询五金汇总
 router.get('/orderCount', Middleware.AuthCheck,Middleware.FilterEmptyField,ReportController.orderCountPage);
 
-//订单计数详情
+// 订单计数详情
 router.get('/orderCount/detail', Middleware.AuthCheck,Middleware.FilterEmptyField,ReportController.orderCountDetailPage);
 
-//领料单
+// 领料单
 router.get('/pickMateRep', Middleware.AuthCheck,Middleware.FilterEmptyField,ReportController.pickMateRepPage);
 
-//出库
+// 出库
 router.get('/outMateRep', Middleware.AuthCheck,Middleware.FilterEmptyField,ReportController.outMateRepPage);
 
-//出库详情
+// 出库详情
 router.get('/outMateRep/detail', Middleware.AuthCheck,Middleware.FilterEmptyField,ReportController.outMateRepDetailPage);
 
-//入库
+// 入库
 router.get('/inMateRep', Middleware.AuthCheck,Middleware.FilterEmptyField,ReportController.inMateRepPage);
 
-//入库详情
+// 入库详情
 router.get('/inMateRep/detail', Middleware.AuthCheck,Middleware.FilterEmptyField,ReportController.inMateRepDetailPage);
 
 // 分页查询--门店统计
 router.get('/storeRep', Middleware.AuthCheck,Middleware.FilterEmptyField,ReportController.storeRepPage);
 
-//展示成交客户的流水号
+// 展示成交客户的流水号
 router.get('/showTaskseq/:worker/:type/:gid', Middleware.AuthCheck,ReportController.showTaskseqPage);
 
-//任务计划
+// 任务计划
 router.get('/taskPlan', Middleware.AuthCheck,Middleware.FilterEmptyField,ReportController.taskPlanPage);
 
-//执行某任务计划
+// 执行某任务计划
 router.post('/doTaskPlan',Middleware.AuthCheck,ReportController.doTaskPlan);
+
+// 按月查询物料计价
+router.get('/pageBatchByMonth', Middleware.AuthCheck,Middleware.FilterEmptyField,ReportController.pageBatchByMonth);
+
+// 按月查询五金汇总
+router.get('/pageAccessoryByMonth', Middleware.AuthCheck,Middleware.FilterEmptyField,ReportController.pageAccessoryByMonth);
 
 
 

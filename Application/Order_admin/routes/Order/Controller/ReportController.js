@@ -325,6 +325,54 @@ var ReportController = {
             }
         })
     },
+    pageBatchByMonth: function (req, res) {
+
+        var paramObject = helper.genPaginationQuery(req);
+        Base.multiDataRequest(req, res, [
+            {url: '/api/tasks/statement/pagebatchByMonth?'+ queryString.stringify(req.query), method: 'GET', resConfig: {keyName: 'pagebatchByMonthList', is_must: true}},
+        ], function (req, res, resultList) {
+
+            var paginationInfo = resultList.pagebatchByMonthList;
+
+            var boostrapPaginator = new Pagination.TemplatePaginator(helper.genPageInfo({
+                prelink: paramObject.withoutPageNo,
+                current: paginationInfo.page,
+                rowsPerPage: paginationInfo.pageSize,
+                totalResult: paginationInfo.totalItems
+            }));
+
+            var returnData = Base.mergeData(helper.mergeObject({
+                title: ' ',
+                pagination: boostrapPaginator.render()
+            },resultList));
+            res.render('order/report/pageBatchByMonth', returnData);
+        });
+
+    },
+    pageAccessoryByMonth: function (req, res) {
+
+        var paramObject = helper.genPaginationQuery(req);
+        Base.multiDataRequest(req, res, [
+            {url: '/api/tasks/statement/pageAccessoryByMonth?'+ queryString.stringify(req.query), method: 'GET', resConfig: {keyName: 'pageAccessoryByMonthList', is_must: true}},
+        ], function (req, res, resultList) {
+
+            var paginationInfo = resultList.pageAccessoryByMonthList;
+
+            var boostrapPaginator = new Pagination.TemplatePaginator(helper.genPageInfo({
+                prelink: paramObject.withoutPageNo,
+                current: paginationInfo.page,
+                rowsPerPage: paginationInfo.pageSize,
+                totalResult: paginationInfo.totalItems
+            }));
+
+            var returnData = Base.mergeData(helper.mergeObject({
+                title: ' ',
+                pagination: boostrapPaginator.render()
+            },resultList));
+            res.render('order/report/pageAccessoryByMonth', returnData);
+        });
+
+    },
 
 
 };
