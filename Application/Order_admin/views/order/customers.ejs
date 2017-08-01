@@ -64,7 +64,7 @@
                                     </div>
                                 </div>
                                 <% if(DWY_GLOBAL.ButtonOpen!=1){ %>
-                                <div class="col-xs-4 text-center">
+                                <div class="col-xs-6 text-center">
                                     <button class="btn btn-primary " type="submit">
                                         <i class="fa fa-search"></i>
                                         查询
@@ -111,18 +111,43 @@
                                     <label class="btn btn-default reset margin-left-20">
                                         重置
                                     </label>
-                                    <% if(type != 'networkCustomers'){ %>
+
                                     <label class="search margin-left-20">
                                         高级查询
                                         <i class="fa fa-chevron-down"></i>
                                     </label>
-                                    <%}%>
+
                                 </div>
                                 <%}%>
 
                                 <% if(DWY_GLOBAL.ButtonOpen!=1){ %>
                                 <div class="slideToggle display-none">
                                     <%}%>
+                                    <div class="col-xs-3">
+                                        <div class="form-group">
+                                            <label class="col-xs-4 control-label"> 建档人:</label>
+                                            <div class="col-xs-8">
+                                                <input class="form-control" placeholder="请输入建档人" value="<%= DWYRequest.query.createName %>" type="text" name="createName   ">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-3">
+                                        <div class="form-group">
+                                            <label class="col-xs-4 control-label"> 门店:</label>
+                                            <div class="col-xs-8">
+                                                <input class="form-control" placeholder="请输入门店" value="<%= DWYRequest.query.storeName  %>" type="text" name="storeName ">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-3">
+                                        <div class="form-group">
+                                            <label class="col-xs-4 control-label">客户地址:</label>
+                                            <div class="col-xs-8">
+                                                <input class="form-control" placeholder="请输入客户地址" value="<%= DWYRequest.query.customAddress %>" type="text" name="customAddress">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <% if(type != 'networkCustomers'){ %>
                                     <div class="col-xs-4">
                                         <div class="form-group">
                                             <label class="col-xs-3 control-label">建客日期:</label>
@@ -166,7 +191,7 @@
                                             </div>
                                         </div>
                                     </div>
-
+                                    <%}%>
                                     <% if(DWY_GLOBAL.ButtonOpen!=1){ %>
                                 </div>
                                 <%}%>
@@ -241,6 +266,9 @@
                                 <% if(type == 'networkCustomers'){ %>
                                 <th>操作</th>
                                 <%}%>
+                                <th>建档人</th>
+                                <th>门店</th>
+                                <th>客户地址</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -268,6 +296,9 @@
                                 <% if(type == 'networkCustomers'){ %>
                                 <td><a class="label label-primary dealStore" data-cid="<%= element.cid %>">分配店铺</a></td>
                                 <%}%>
+                                <th><%= element.createName %></th>
+                                <th><%= element.storeName %></th>
+                                <th><%= element.customAddress %></th>
                             </tr>
                             <% num++ })
                             }else{ %>
