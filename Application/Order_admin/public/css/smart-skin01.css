@@ -68,7 +68,7 @@ html{
     height:4px;
     background-color: #000000;
     position: absolute;
-    top: 100px;
+    top: 70px;
     right:90px;
 }
 #smart-skin-row  .login-header-big span{
@@ -84,14 +84,14 @@ html{
     height: 26px;
     background: url('../img/order-loginBg02-2.png') no-repeat center top;
     position: absolute;
-    bottom: 96px;
+    bottom: 20px;
     left: 120px;
 }
 #paragraph-header{
     position: absolute;
-    bottom: 96px;
+    bottom: 20px;
     right: 80px;
-    width:34%!important;
+    width:33%!important;
 }
 #smart-skin-row .paragraph-header:after{
     content: '';
