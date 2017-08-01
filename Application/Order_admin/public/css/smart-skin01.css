@@ -10,7 +10,7 @@ html{
     box-sizing: border-box;
     max-width:1920px;
     background-size:cover;
-    min-height: 960px;
+   /* min-height: 960px;*/
 }
 #smart-skin #main{
   background-color: transparent!important;
@@ -75,10 +75,8 @@ html{
  /*   display: none;*/
 }
 #smart-skin-row .login-desc-box-l{
-    min-height: 100px;
+    min-height: 100%;
     width: 100%;
-    position: relative;
-    bottom: -560px;
 }
 #smart-skin-row:before{
     content: '';
@@ -89,14 +87,20 @@ html{
     bottom: 96px;
     left: 120px;
 }
-#smart-skin-row .login-desc-box-l:after{
+#paragraph-header{
+    position: absolute;
+    bottom: 96px;
+    right: 80px;
+    width:34%!important;
+}
+#smart-skin-row .paragraph-header:after{
     content: '';
     width: 4px;
     height: 64px;
     background-color: #000000;
     position: absolute;
-    bottom: 45px;
-    right: 80px;
+    bottom: 0px;
+    right: 0px;
 }
 #smart-skin-row .login-desc-box-l span{
     font-size:12px;
@@ -119,7 +123,6 @@ html{
     border: 0px solid #F6A623;
     width: 360px;
     box-shadow: none;
-    margin-top:-80px;
 }
 #smart-skin-row .well header{
     display: none;
@@ -133,8 +136,8 @@ html{
 #smart-skin-row .well fieldset section .input input{
     font-size:16px;
     color: #000!important;
-    height:48px;
-    line-height:48px;
+    height:40px;
+    line-height:40px;
     margin-bottom:16px;
     background-color: #f9f8f4!important;
     border: 0px;
@@ -156,7 +159,8 @@ html{
 }
 #smart-skin-row .well .btn,#smart-skin-row .well .btn:hover{
     width:160px;
-    height:48px;
+    height:40px;
+    line-height:40px;
     background-color: #f5cf5c;
     border:0px;
     -webkit-border-radius:4px;
@@ -167,7 +171,7 @@ html{
     font-weight:bold;
     color: #000;
     float: left;
-    margin-top:60px;
+    margin-top:20px;
 }
 #smart-skin-row .well .btn span{
     width:20px;
