@@ -118,41 +118,7 @@
                     <hr class="simple">
                 </div>
             </div>
-            <div class="orderItemLayerTit">
-                <ul class="orderItemMenu">
-                    <a href="/batchNumMatPricing?name=<%= DWYRequest.query.name%>&startDate=<%= DWYRequest.query.startDate%>&endDate=<%= DWYRequest.query.endDate%>&batchNumber=<%= DWYRequest.query.batchNumber%>&startDates=<%= DWYRequest.query.startDates%>&endDates=<%= DWYRequest.query.endDates%>">
-                        <li class="padding-10 materielBak">
-                            批次物料计价
-                        </li>
-                    </a>
-                    <a href="/orderMatPricing?name=<%= DWYRequest.query.name%>&tid=<%= DWYRequest.query.tid%>&startDate=<%= DWYRequest.query.startDate%>&endDate=<%= DWYRequest.query.endDate%>&batchNumber=<%= DWYRequest.query.batchNumber%>&startDates=<%= DWYRequest.query.startDates%>&endDates=<%= DWYRequest.query.endDates%>">
-                        <li class="padding-10 ">
-                            订单物料计价
-                        </li>
-                    </a>
-                    <a href="/orderCount">
-                        <li class="padding-10 ">
-                            五金汇总
-                        </li>
-                    </a>
-                    <a href="/pickMateRep">
-                        <li class="padding-10">
-                            领料单
-                        </li>
-                    </a>
-                    <a href="/outMateRep">
-                        <li class="padding-10">
-                            出库
-                        </li>
-                    </a>
-                    <a href="/inMateRep">
-                        <li class="padding-10 ">
-                            入库
-                        </li>
-                    </a>
-                </ul>
-
-            </div>
+            <%- include('./common_links'); %>
             <!-- row -->
             <div class="row dis-flex">
                 <div class="col-xs-12 dis-flex">
@@ -214,6 +180,7 @@
 
 <%- include('../layouts/footer'); %>
 <%- include('../layouts/footer_common_script'); %>
+<%- include('./common_js'); %>
 
 
 <script type="text/javascript">

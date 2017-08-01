@@ -1,0 +1,10 @@
+<script>
+    $(".orderItemMenu a").each(function () {
+        var value=$(this).attr("href");
+        var windowUrl=window.location.href;
+        value=value.split("?")[0]
+        if(windowUrl.indexOf(value)>0){
+            $(this).find("li").addClass("materielBak");
+        }
+    })
+</script>
