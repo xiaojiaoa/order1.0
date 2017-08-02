@@ -60,7 +60,7 @@ html{
     font-weight: bold!important;
     color: #010101!important;
     text-align: left;
-    margin-top: 210px;
+    margin-top: 22%;
 }
 #smart-skin-row  .login-header-big:before{
     content: '';
@@ -84,12 +84,12 @@ html{
     height: 26px;
     background: url('../img/order-loginBg02-2.png') no-repeat center top;
     position: absolute;
-    bottom: 20px;
+    bottom: 40px;
     left: 120px;
 }
 #paragraph-header{
     position: absolute;
-    bottom: 20px;
+    bottom: 40px;
     right: 80px;
     width:33%!important;
 }
