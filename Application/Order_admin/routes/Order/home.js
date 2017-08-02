@@ -383,9 +383,9 @@ router.post('/orders/urgent/updateUrgent',Middleware.AuthCheck,OrderController.u
 // 订单排料页面
 router.get('/orders/nesting', Middleware.AuthCheck,Middleware.FilterEmptyField,Middleware.SetBackPath, OrderController.nestingPage);
 // 标记排料中页面
-router.post('/orders/getNestingTask/:cid', Middleware.AuthCheck, OrderController.getNestingTask);
+router.post('/orders/getNestingTask', Middleware.AuthCheck, OrderController.getNestingTask);
 // 修改批次页面
-router.post('/order/editBatchNum/:cid/:bid', Middleware.AuthCheck, OrderController.editBatchNum);
+router.post('/order/editBatchNum', Middleware.AuthCheck, OrderController.editBatchNum);
 // 标记为审核中 (待排料)
 router.put('/schedule/getTask/:tid', Middleware.AuthCheck, OrderController.getTaskSchedule);
 
@@ -1273,7 +1273,7 @@ router.post('/purchase/applyModify', Middleware.AuthCheck,PurchaseController.app
 // 请购单审核
 router.post('/purchase/applyReview/:tid', Middleware.AuthCheck,PurchaseController.purchaseApplyReview);
 //删除未审核请购单
-router.post('/applyPurchases/del/:purcIds', Middleware.AuthCheck,PurchaseController.applyPurchaseDel);
+router.post('/applyPurchases/del', Middleware.AuthCheck,PurchaseController.applyPurchaseDel);
 
 
 // 采购详情
@@ -1292,15 +1292,15 @@ router.post('/purchase/uploadProof', Middleware.AuthCheck,PurchaseController.upl
 router.post('/purchase/uploadProof2', Middleware.AuthCheck,PurchaseController.uploadProof2);
 
 // 合并采购单
-router.post('/purchases/merge/:tid', Middleware.AuthCheck,PurchaseController.purchaseMerge);
+router.post('/purchases/merge', Middleware.AuthCheck,PurchaseController.purchaseMerge);
 // 审核采购单
-router.post('/purchases/review/:tid', Middleware.AuthCheck,PurchaseController.purchaseReview);
+router.post('/purchases/review', Middleware.AuthCheck,PurchaseController.purchaseReview);
 // 撤回采购单
-router.post('/purchases/recall/:tid', Middleware.AuthCheck,PurchaseController.purchaseRecall);
+router.post('/purchases/recall', Middleware.AuthCheck,PurchaseController.purchaseRecall);
 // 提交采购单
-router.post('/purchases/submit/:tid', Middleware.AuthCheck,PurchaseController.purchaseSubmit);
+router.post('/purchases/submit', Middleware.AuthCheck,PurchaseController.purchaseSubmit);
 //删除未审核采购单
-router.post('/purchases/del/:purcIds', Middleware.AuthCheck,PurchaseController.purchaseDel);
+router.post('/purchases/del', Middleware.AuthCheck,PurchaseController.purchaseDel);
 
 //打印采购单
 router.get('/purchases/print/:purcIds', Middleware.AuthCheck,PurchaseController.printPurchase);

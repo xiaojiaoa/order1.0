@@ -1078,14 +1078,14 @@ var OrderController = {
     },
     // 标记为排料中
     getNestingTask: function (req, res) {
-        var ids = req.params.cid;
+        var ids = req.body.roles?req.body.roles.toString(','):'';
         request(Base.mergeRequestOptions({
             method: 'put',
             url: '/api/orders/schedule/getTask?tids='+ids,
         }, req, res), function (error, response, body) {
             if (!error && response.statusCode == 201) {
-
-                res.sendStatus(200)
+                Base.handlerSuccess(res, req);
+                res.redirect(req.session.backPath?req.session.backPath:"/order/nesting");
             }else{
                 Base.handlerError(res, req, error, response, body);
             }
@@ -1099,7 +1099,7 @@ var OrderController = {
         }, req, res), function (error, response, body) {
             if (!error && response.statusCode == 201) {
 
-                res.sendStatus(200);
+                Base.handlerSuccess(res, req);
             } else {
                 Base.handlerError(res, req, error, response, body);
             }
@@ -1107,15 +1107,14 @@ var OrderController = {
     },
     // 修改批次号
     editBatchNum: function (req, res) {
-        var cid = req.params.cid;
-        var bid = req.params.bid;
+        // console.log(req.body)
         request(Base.mergeRequestOptions({
             method: 'put',
-            url: '/api/orders/schedule/edit/batchnumber?batchNumber='+cid+'&tids='+bid,
+            url: '/api/orders/schedule/edit/batchnumber?'+queryString.stringify(req.body),
         }, req, res), function (error, response, body) {
             if (!error && response.statusCode == 201) {
-
-                res.sendStatus(200);
+                Base.handlerSuccess(res, req);
+                res.redirect(req.session.backPath?req.session.backPath:"/order/nesting");
             }else {
                     Base.handlerError(res, req, error, response, body);
                 }

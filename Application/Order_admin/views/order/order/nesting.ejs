@@ -34,7 +34,7 @@
                             <tr>
                                 <th>
                                     <label  class="checkbox-inline">
-                                        <input type="checkbox" class="checkbox" id="checkAll"  />
+                                        <input type="checkbox" class="checkbox" id="checkAll" name="checkAll"  />
                                         <span>序号</span>
                                     </label>
                                 </th>
@@ -65,7 +65,7 @@
                             <tr>
                                 <td>
                                     <label class="checkbox-inline">
-                                        <input type="checkbox" class="checkbox"
+                                        <input type="checkbox" class="checkbox validate[minCheckbox[1]]"
                                                name="role" value="<%= element.tid %>" <%= element.factoryId != user.bid?'disabled':'' %>>
                                         <span><%= index+1+(scheduleList.page-1)*20%></span>
                                     </label>
@@ -109,7 +109,7 @@
                     <hr class="simple">
                     <div class="col-xs-1 text-center">
                         <button class="btn btn-primary" id="editBatchNumSub">编辑批次号</button>
-                        <input  id="editBatchNum" class=""  type="hidden" />
+                        <!--<input  id="editBatchNum" class=""  type="hidden" />-->
                     </div>
                     <div class="col-xs-1">
                         <a class="btn btn-primary" href="/orders/batchNumber">批次列表</a>
@@ -294,98 +294,100 @@
                 <!-- end col -->
             </div>
             <div class="row margin-top-10">
-                <div class="col-xs-12">
-                    <div class="table-responsive">
-                        <table class="table table-bordered table-striped">
-                            <thead>
-                            <tr>
-                                <th>
-                                    <label  class="checkbox-inline">
-                                        <input type="checkbox" class="checkbox" id="checkAllSec"  />
-                                        <span>序号</span>
-                                    </label>
-                                </th>
-                                <th>加急</th>
-                                <th>试装</th>
-                                <th>收款</th>
-                                <th>下单完毕</th>
-                                <th>产品类型</th>
-                                <th>类型</th>
-                                <th>订单类型</th>
-                                <th>主材颜色</th>
-                                <th>订单号</th>
-                                <th>批次号</th>
-                                <th>专卖店</th>
-                                <th>客户名称</th>
-                                <th>下单日期</th>
-                                <th>零售价</th>
-                                <th>交货日期</th>
-                                <th>最近下单日期</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <%
-                            if(DWY_Helper.isCanLoop(scheduleAllList.result)){
-                            scheduleAllList.result.forEach(function (element, index) { %>
-                            <tr>
-                                <td>
-                                    <label class="checkbox-inline">
-                                        <%
-                                        if(element.received<21||element.received==null){%>
-                                        <input type="checkbox" class="checkbox" name="roles" value="<%= element.tid %>" disabled="disabled">
-                                        <% }else{%>
-                                        <input type="checkbox" class="checkbox" name="roles" value="<%= element.tid %>">
-                                        <%} %>
-                                        <span><%= DWY_Helper.incrementNum(DWYRequest.query.pageNo,index)%></span>
-                                    </label>
-                                </td>
-                                <td><%= element.urgent %></td>
-                                <td><%= element.tryInstall %></td>
+                <form class="form-horizontal" method="post" action="/orders/getNestingTask" id="waitNesting">
+                    <div class="col-xs-12">
+                        <div class="table-responsive">
+                            <table class="table table-bordered table-striped">
+                                <thead>
+                                <tr>
+                                    <th>
+                                        <label  class="checkbox-inline">
+                                            <input type="checkbox" class="checkbox" id="checkAllSec" name="checkAllSec"  />
+                                            <span>序号</span>
+                                        </label>
+                                    </th>
+                                    <th>加急</th>
+                                    <th>试装</th>
+                                    <th>收款</th>
+                                    <th>下单完毕</th>
+                                    <th>产品类型</th>
+                                    <th>类型</th>
+                                    <th>订单类型</th>
+                                    <th>主材颜色</th>
+                                    <th>订单号</th>
+                                    <th>批次号</th>
+                                    <th>专卖店</th>
+                                    <th>客户名称</th>
+                                    <th>下单日期</th>
+                                    <th>零售价</th>
+                                    <th>交货日期</th>
+                                    <th>最近下单日期</th>
+                                </tr>
+                                </thead>
+                                <tbody>
                                 <%
-                                    if(element.receivedStr=='否'){%>
-                                        <td><span class="padding-5" style="background:#fdcc9c;"><%= element.receivedStr %></span></td>
-                                    <%}else{%>
-                                        <td><%= element.receivedStr %></td>
-                                <%}%>
-                                <td><%= element.orderFinishStr %></td>
-                                <td><%= element.productTypeStr %></td>
-                                <td><%= element.orderTypeStr %></td>
-                                <td><%= element.typeStr %></td>
-                                <td><%= element.colorStr %></td>
-                                <td><a  <%=  element.orderType ==20  ?  "href=/order/resupply/detail/"+ element.tid :  "href=/order/detail/"+element.tid  %>  ><%= element.tid %></a></td>
-                                <%
-                                if(element.batchNumber == '0'){%>
-                                <td></td>
-                                <% }else{%>
-                                <td><a href="/orders/batchNumber/detail/<%= element.batchNumber %>/<%= element.factoryId %>"><%= element.batchNumber %></a></td>
-                                <%}%>
-                                <td><%= element.storeName %></td>
-                                <td>
-                                    <a href="/customer/detail/<%= element.cid %>"><%= element.cName %></a>
-                                    <span class="nesting-num" title="尚未到达待排料订单数量">(<%= element.orderScheduleNumber %>)</span>
-                                </td>
-                                <td><%= DWY_Helper.getLocalDate(element.orderTime) %></td>
-                                <td><%= element.retailPrice %></td>
-                                <td><%= DWY_Helper.getLocalDate(element.deliveryTime) %></td>
-                                <td><%= element.recentlyAddTimeStr %></td>
-                            </tr>
-                            <%  })
-                            }else{ %>
-                            <td colspan="20" class="text-align-center">暂无结果</td>
-                            <%  }%>
-                            </tbody>
-                        </table>
-                        <%- pagination %>
-                    </div>
+                                if(DWY_Helper.isCanLoop(scheduleAllList.result)){
+                                scheduleAllList.result.forEach(function (element, index) { %>
+                                <tr>
+                                    <td>
+                                        <label class="checkbox-inline">
+                                            <%
+                                            if(element.received<21||element.received==null){%>
+                                            <input type="checkbox" class="checkbox validate[minCheckbox[1]]" name="roles" value="<%= element.tid %>" disabled="disabled">
+                                            <% }else{%>
+                                            <input type="checkbox" class="checkbox validate[minCheckbox[1]]" name="roles" value="<%= element.tid %>">
+                                            <%} %>
+                                            <span><%= DWY_Helper.incrementNum(DWYRequest.query.pageNo,index)%></span>
+                                        </label>
+                                    </td>
+                                    <td><%= element.urgent %></td>
+                                    <td><%= element.tryInstall %></td>
+                                    <%
+                                        if(element.receivedStr=='否'){%>
+                                            <td><span class="padding-5" style="background:#fdcc9c;"><%= element.receivedStr %></span></td>
+                                        <%}else{%>
+                                            <td><%= element.receivedStr %></td>
+                                    <%}%>
+                                    <td><%= element.orderFinishStr %></td>
+                                    <td><%= element.productTypeStr %></td>
+                                    <td><%= element.orderTypeStr %></td>
+                                    <td><%= element.typeStr %></td>
+                                    <td><%= element.colorStr %></td>
+                                    <td><a  <%=  element.orderType ==20  ?  "href=/order/resupply/detail/"+ element.tid :  "href=/order/detail/"+element.tid  %>  ><%= element.tid %></a></td>
+                                    <%
+                                    if(element.batchNumber == '0'){%>
+                                    <td></td>
+                                    <% }else{%>
+                                    <td><a href="/orders/batchNumber/detail/<%= element.batchNumber %>/<%= element.factoryId %>"><%= element.batchNumber %></a></td>
+                                    <%}%>
+                                    <td><%= element.storeName %></td>
+                                    <td>
+                                        <a href="/customer/detail/<%= element.cid %>"><%= element.cName %></a>
+                                        <span class="nesting-num" title="尚未到达待排料订单数量">(<%= element.orderScheduleNumber %>)</span>
+                                    </td>
+                                    <td><%= DWY_Helper.getLocalDate(element.orderTime) %></td>
+                                    <td><%= element.retailPrice %></td>
+                                    <td><%= DWY_Helper.getLocalDate(element.deliveryTime) %></td>
+                                    <td><%= element.recentlyAddTimeStr %></td>
+                                </tr>
+                                <%  })
+                                }else{ %>
+                                <td colspan="20" class="text-align-center">暂无结果</td>
+                                <%  }%>
+                                </tbody>
+                            </table>
+                            <%- pagination %>
+                        </div>
 
-                </div>
-                <div class="col-xs-12">
+                    </div>
+                    <div class="col-xs-12">
                     <hr class="simple">
                     <div class="col-xs-1 text-center">
                         <button class="btn btn-primary" id="getNestingTask">标记为排料中</button>
                         <input type="hidden" class="" id="checkedValue">
                     </div>
                 </div>
+                </form>
             </div>
             <!-- end row -->
         </div>
@@ -397,6 +399,21 @@
 </div>
 <!-- END MAIN PANEL -->
 
+<form id="batchIdForm" class="col-xs-12 layer-template" action="/order/editBatchNum" method="post">
+    <div class="col-xs-12">
+        <div class="col-xs-2 margin-top-10 text-center">
+            批次号:
+        </div>
+        <div class="col-xs-6">
+            <input class="form-control" type="text" name='batchNumber' value=''>
+            <input name='tids' type='hidden' value=''>
+        </div>
+    </div>
+    <div class="col-xs-12 text-center margin-top-10">
+        <button type="submit" class="btn btn-primary" id="batchIdBtn">确认</button>
+    </div>
+</form>
+
 <%- include('../layouts/footer'); %>
 <%- include('../layouts/footer_common_script'); %>
 
@@ -404,113 +421,40 @@
     $(document).ready(function () {
         pageSetUp();
         $(".fg-date-picker").flatpickr(data_time_picker.data_picker); // jQuery
+        $("#batchIdForm").validationEngine({scroll:false});
+        $("#waitNesting").validationEngine({scroll:false});
 
-        var editBatchNum = $('#editBatchNum');
-        var checkedValue = $('#checkedValue');
-        $("#checkAll").change(function(){
-            if($(this).is(":checked")){
-                $(this).parents('table').find("tr input[name='role']:checkbox:not(:disabled)").prop('checked',true);
-                $("input[name='role']:checked").each(function (i) {
-                    editBatchNum.addClass(this.value + ',')
-                });
-            }else{
-                editBatchNum.removeClass();
-                $(this).parents('table').find("tr input[name='role']:checkbox:not(:disabled)").prop('checked',false);
-            }
-        })
-        $("#checkAllSec").change(function(){
-            if($(this).is(":checked")){
-                $(this).parents('table').find("tr input[name='roles']:checkbox:not(:disabled)").prop('checked',true);
-                $("input[name='roles']:checked").each(function (i) {
-                    checkedValue.addClass(this.value + ',')
-                });
-            }else{
-                checkedValue.removeClass();
-                $(this).parents('table').find("tr input[name='roles']:checkbox:not(:disabled)").prop('checked',false);
-            }
-        })
-
+        DWY_Utils.CommonMethods.checkFuc("input[name=checkAll]","input[name=role]:checkbox");
+        DWY_Utils.CommonMethods.checkFuc("input[name=checkAllSec]","input[name=roles]:checkbox");
 
 
         //修改批次号
-
-        $("input[name='role']").change(function () {
-            if($(this).is(':checked')){
-                editBatchNum.addClass(this.value+',')
-            }else{
-                editBatchNum.removeClass(this.value+',')
-            }
-        });
         $("#editBatchNumSub").click(function () {
-
             var cid;
-            var bid = editBatchNum.attr('class').replace(/[ ]/g,"");
-            bid = bid.substring(0,bid.length-1);
-            if(!bid){
-                layer.alert('请选择！', {icon: 3})
-                return;
-            }
-            layer.confirm("<div>批次号&nbsp<input id='batchInput'' value=''  /></div>",
-                    {title:'提示'},function(index){
-                    cid= $("#batchInput").val();
-                    var reg = /^(\d{1,12})$/;
-                    var r = cid.match(reg);
-                    if(r==null){
-                        layer.alert('请输入数字且长度不大于12！', {icon: 3})
-                        return false;
-                    }
-                        $.ajax({
-                        url: '/order/editBatchNum/'+cid+'/'+bid,
-                        method: 'post',
-                        success: function (data) {
-                            successLayout.reload();
-                        },
-                        error: function (response) {
-                            layer.close(index);
-                            errorLayout.normal(response);
-                        }
-                    });
-            },function(index){
-                layer.close(index)}
-                )
+            layer.open({
+                title: false,
+                type: 1,
+                area: '700px',
+                content: $('#batchIdForm'),
+                cancel: function () {
+                    //右上角关闭回调
+                },
+            });
         })
-        $("#nestingSub").click(function () {
-            layer.confirm('确定提交所选订单的排料吗？',{icon: 3, title:'提示'},function(index){
-                layer.close(index)
-            },function(index){
-                layer.close(index)})
-        })
-        //标记为排料中
-
-        $("input[name='roles']").change(function () {
-            if($(this).is(':checked')){
-                checkedValue.addClass(this.value+',');
-            }else{
-                checkedValue.removeClass(this.value+',');
-            }
-        });
-        $("#getNestingTask").click(function(){
-            if(checkedValue.attr('class')==null||checkedValue.attr('class')=='') {
-                layer.alert('请选择！', {icon: 3})
+        $("#batchIdBtn").click(function(){
+            var cid;
+            cid= $("input[name=batchNumber]").val();
+            var reg = /^(\d{1,12})$/;
+            var r = cid.match(reg);
+            if(r==null){
+                layer.alert('请输入数字且长度不大于12！', {icon: 3})
                 return false;
             }
-            var cid = checkedValue.attr('class').replace(/[ ]/g,"");
-            cid = cid.substring(0,cid.length-1);
-            layer.confirm('确认标记?',{icon: 3, title:'提示'},
-                function(index){
-                    $.ajax({
-                        url: '/orders/getNestingTask/'+cid,
-                        method: 'post',
-                        success: function (data) {
-                            successLayout.reload();
-                        },
-                        error: function (response) {
-                            layer.close(index)
-                            errorLayout.normal(response);
-                        }
-                    });
-                },
-                function(index){layer.close(index)})
+            var value=[];
+            $("input[name=role]:checked").each(function () {
+                value.push($(this).val());
+            });
+            $("input[name=tids]").val(value.toString(','));
         })
 
     })

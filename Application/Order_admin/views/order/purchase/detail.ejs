@@ -4,7 +4,7 @@
 <%- include('../layouts/nav'); %>
 
 <!-- MAIN PANEL -->
-<div id="main" role="main">
+<div id="main" role="main" class="mainFlex">
 
     <!-- RIBBON -->
     <div id="ribbon">
@@ -19,7 +19,7 @@
     </div>
     <!-- END RIBBON -->
     <!-- MAIN CONTENT -->
-    <div id="content">
+    <div id="content" class="dis-flex">
         <!-- start well -->
         <div class="well">
             <!-- row -->
@@ -179,7 +179,7 @@
             <!-- end row -->
         </div>
         <!-- end well -->
-        <div class="well">
+        <div class="well dis-flex">
             <!-- row -->
             <div class="row">
                 <!-- col -->
@@ -189,41 +189,37 @@
                     </legend>
                 </div>
             </div>
-            <div class="row">
-                    <div class="col-xs-4">
-                        <% if (DWY_Helper.hasPermission(Permission.purchase.merge.id, permission)){ %>
-                        <button class="btn btn-primary" id="purchaseMerge">合并</button>
-                        <% } %>
-                        <input type="hidden" class="" id="checkedValue" />
-                        <% if (DWY_Helper.hasPermission(Permission.purchase.check.id, permission)){ %>
-                        <button class="btn btn-primary" id="purchaseReview">审核</button>
-                        <button class="btn btn-primary" id="purchaseRecall">撤回</button>
-                        <% } %>
-                        <% if (DWY_Helper.hasPermission(Permission.purchase.commit.id, permission)){ %>
-                        <button class="btn btn-primary" id="purchaseSubmit">提交</button>
-                        <% } %>
-                        <% if (DWY_Helper.hasPermission(Permission.purchase.delete.id, permission)){ %>
-                        <button class="btn btn-danger" id="DelOrder">删除</button>
-                        <% } %>
-                        <% if (DWY_Helper.hasPermission(Permission.purchase.createP.id, permission)){ %>
-                        <a href="/purchase/create?mateType=10" class="btn btn-primary">新建采购单</a>
-                        <% } %>
-                        <a class="btn btn-primary" id="print" href="">打印</a>
-                        <!--<button class="btn btn-primary">打印</button>-->
-                    </div>
-            </div>
-            <div class="row margin-top-10">
-                <div class="col-xs-12">
-                    <div class="table-responsive">
-                        <table class="table table-bordered table-striped">
+            <form class="form-horizontal dis-flex purBtn" method="post" id="purForm">
+                <div class="row">
+                        <div class="col-xs-4">
+                            <% if (DWY_Helper.hasPermission(Permission.purchase.merge.id, permission)){ %>
+                            <button class="btn btn-primary" id="purchaseMerge">合并</button>
+                            <% } %>
+                            <input type="hidden" class="" id="checkedValue" />
+                            <% if (DWY_Helper.hasPermission(Permission.purchase.check.id, permission)){ %>
+                            <button class="btn btn-primary" id="purchaseReview">审核</button>
+                            <button class="btn btn-primary" id="purchaseRecall">撤回</button>
+                            <% } %>
+                            <% if (DWY_Helper.hasPermission(Permission.purchase.commit.id, permission)){ %>
+                            <button class="btn btn-primary" id="purchaseSubmit">提交</button>
+                            <% } %>
+                            <% if (DWY_Helper.hasPermission(Permission.purchase.delete.id, permission)){ %>
+                            <button class="btn btn-danger" id="DelOrder">删除</button>
+                            <% } %>
+                            <% if (DWY_Helper.hasPermission(Permission.purchase.createP.id, permission)){ %>
+                            <a href="/purchase/create?mateType=10" class="btn btn-primary">新建采购单</a>
+                            <% } %>
+                            <a class="btn btn-primary" id="print" href="">打印</a>
+                        </div>
+                </div>
+                <div class="row margin-top-10 dis-flex">
+                    <div class="col-xs-12 dis-flex">
+                        <div class="table-responsive dis-flex">
+                            <table class="table table-bordered table-striped table-hover table-scroll2">
                             <thead>
                             <tr>
                                 <th>
-                                    <!--<label class="checkbox-inline">-->
-                                        <!--<input type="checkbox" class="checkbox"-->
-                                               <!--id="checkAll"  />-->
-                                        <!--<span>序号</span>-->
-                                    <!--</label>-->序号
+                                    序号
                                 </th>
                                 <th>采购单编号</th>
                                 <th>供应商编号</th>
@@ -237,7 +233,6 @@
                                 <th>审核人</th>
                                 <th>采购状态</th>
                                 <th>付款状态</th>
-                                <!--<th>操作</th>-->
                             </tr>
                             </thead>
                             <tbody>
@@ -263,7 +258,8 @@
                                     外协请购
                                     <a class="label label-success margin-left-10" href="/purchase/export?purcId=<%= element.id %>">导出</a>
                                     <a class="label label-primary" href="/system/purcPackagelist/<%= element.id %>">包装</a>
-                                    <% }%></td>
+                                    <% }%>
+                                </td>
                                 <td><%= DWY_Helper.getLocalDate(element.deliveryDate) %></td>
                                 <td><%= DWY_Helper.getLocalDate(element.addTime) %></td>
                                 <td><%= element.empName %></td>
@@ -287,10 +283,11 @@
                             <input type="hidden" name="hids"  />
                             </tbody>
                         </table>
+                    </div>
                         <%- pagination %>
                     </div>
                 </div>
-            </div>
+            </form>
         </div>
     </div>
 </div>
@@ -300,217 +297,165 @@
         $(document).ready(function () {
             pageSetUp();
             $(".fg-date-picker").flatpickr(data_time_picker.data_picker); // jQuery
-
-            var checkedValue = $('#checkedValue');
-            var tid;
-//            $("#checkAll").change(function () {
-//                if($(this).is(":checked")){
-//                    $(":checkbox:not(:disabled)").prop('checked',true);
-//                    $("input[name='roles']:checked").each(function (i) {
-//                        checkedValue.addClass(this.value+',');
-//                    });
-//                }else{
-//                    $(":checkbox").prop('checked',false);
-//                    checkedValue.removeClass();
-//                }
-//            })
-            $("input[name='roles']").change(function () {
-                var vids='',
-                    isImprest='',
-                    isDirect='',
-                    gid='';
-                $('input[name=roles]').each(function(){
-                    if($(this).is(':checked')){
-                        vids += $(this).attr('stcode') + ',';
-                        isImprest += $(this).attr('isimprest') + ',';
-                        isDirect += $(this).attr('isdirect') + ',';
-                        gid += $(this).attr('gid') + ',';
-                    }
-                })
-                $("input[name=hids]").attr("stcodestr",vids);
-                $("input[name=hids]").attr("isimprests",isImprest);
-                $("input[name=hids]").attr("isdirect",isDirect);
-                $("input[name=hids]").attr("gidvali",gid);
-
-                if($(this).is(':checked')){
-                    checkedValue.addClass(this.value+',');
-                }else{
-                    checkedValue.removeClass(this.value+',');
-                }
-            });
+            $("#purForm").validationEngine({scroll:false});
+            var judgeCode=0;
             //合并采购单
-            $("#purchaseMerge").click(function(){
-                var stcodeStr = $("input[name=hids]").attr("stcodestr");
-               var lenCheck =  $('input[name=roles]:checked').length;
+            $("#purchaseMerge").on('click',function(){
+                judgeCode = 0;
+                var lenCheck =  $('input[name=roles]:checked').length;
                 if(lenCheck<=1){
                     layer.alert('请至少选择两条合并！', {icon: 3})
                     return false;
                 }
-                var val1 = $("input[name=roles]:checked:first-child").attr("suppid");
+                var stcodeStr = [];
+                var suppIdVal = $("input[name=roles]:checked:first-child").attr("suppid");
                 $("input[name=roles]:checked:not(:first)").each(function(){
-                    var val2 = $(this).attr("suppid");
-                    if(val1 != val2){
+                    var suppIdVal2 = $(this).attr("suppid");
+                    if(suppIdVal != suppIdVal2){
                         layer.alert('供应商不同无法合并！', {icon: 3});
-                        throw("供应商不同无法合并！");
+                        judgeCode = 1;
                     }
                 })
-                if(stcodeStr.indexOf('30')>-1){
-                    layer.alert('仅能合并未审核订单！', {icon: 3})
+                $("input[name=roles]:checked").each(function() {
+                    stcodeStr.push($(this).attr("stcode"));
+                    var stcode = stcodeStr.toString(",");
+                    if (stcode.indexOf('30') > -1 || stcode.indexOf('50') > -1 || stcode.indexOf('70') > -1 || stcode.indexOf('90') > -1) {
+                        layer.alert('仅能合并未审核订单！', {icon: 3})
+                        judgeCode = 1;
+                    }
+                })
+                console.log(judgeCode)
+                if(judgeCode!=0) {
                     return false;
                 }
-                if(stcodeStr.indexOf('50')>-1){
-                    layer.alert('仅能合并未审核订单！', {icon: 3})
-                    return false;
-                }
-                if(stcodeStr.indexOf('70')>-1){
-                    layer.alert('仅能合并未审核订单！', {icon: 3})
-                    return false;
-                }
-                if(stcodeStr.indexOf('90')>-1){
-                    layer.alert('仅能合并未审核订单！', {icon: 3})
-                    return false;
-                }
-                var tid = checkedValue.attr('class').replace(/[ ]/g,"");
-                tid = tid.substring(0,tid.length-1);
-                doAjax('确认合并?','/purchases/merge/'+tid);
+                $(".purBtn").attr('action','/purchases/merge');
             })
+
+
             //审核采购单
             $("#purchaseReview").click(function(){
-                var stcodeStr = $("input[name=hids]").attr("stcodestr");
-                if(checkedValue.attr('class')==null||checkedValue.attr('class')=='') {
-                    layer.alert('请选择采购单！', {icon: 3});
+                judgeCode = 0;
+                var stcodeStr = [];
+                $("input[name=roles]:checked").each(function() {
+                    stcodeStr.push($(this).attr("stcode"));
+                    if (stcodeStr.toString(",").indexOf('30') > -1) {
+                        layer.alert('该订单已审核！', {icon: 3})
+                        judgeCode = 1;
+                    }
+                    if (stcodeStr.toString(",").indexOf('50') > -1){
+                        layer.alert('该订单已提交！', {icon: 3})
+                        judgeCode = 1;
+                    }
+                    if (stcodeStr.toString(",").indexOf('70') > -1){
+                        layer.alert('该订单待出库审核！', {icon: 3})
+                        judgeCode = 1;
+                    }
+                    if (stcodeStr.toString(",").indexOf('90') > -1){
+                        layer.alert('该订单已入库！', {icon: 3})
+                        judgeCode = 1;
+                    }
+                })
+                if(judgeCode==1) {
                     return false;
                 }
-                if(stcodeStr.indexOf('30')>-1){
-                    layer.alert('该订单已审核！', {icon: 3})
-                    return false;
-                }
-                if(stcodeStr.indexOf('50')>-1){
-                    layer.alert('该订单已提交！', {icon: 3})
-                    return false;
-                }
-                if(stcodeStr.indexOf('70')>-1){
-                    layer.alert('该订单待审核！', {icon: 3})
-                    return false;
-                }
-                if(stcodeStr.indexOf('90')>-1){
-                    layer.alert('该订单已入库！', {icon: 3})
-                    return false;
-                }
-                var tid = checkedValue.attr('class').replace(/[ ]/g,"");
-                tid = tid.substring(0,tid.length-1);
-                doAjax('确认审核?',  '/purchases/review/'+tid);
+                $(".purBtn").attr('action','/purchases/review');
             })
 
             //撤回采购单
             $("#purchaseRecall").click(function(){
-                if(checkedValue.attr('class')==null||checkedValue.attr('class')=='') {
-                    layer.alert('请选择采购单！', {icon: 3});
+                judgeCode = 0;
+                var stcodeStr = [];
+                $("input[name=roles]:checked").each(function() {
+                    stcodeStr.push($(this).attr("stcode"));
+                    var stcode = stcodeStr.toString(",");
+                    if (stcode.indexOf('10') > -1 || stcode.indexOf('50') > -1 || stcode.indexOf('70') > -1 || stcode.indexOf('90') > -1) {
+                        layer.alert('仅已审核采购单可撤回！', {icon: 3})
+                        judgeCode = 1;
+                    }
+                })
+                if(judgeCode!=0) {
                     return false;
                 }
-                var stcodeStr = $("input[name=hids]").attr("stcodestr");
-                if(stcodeStr.indexOf('10')>-1 || stcodeStr.indexOf('50')>-1 || stcodeStr.indexOf('70')>-1 || stcodeStr.indexOf('90')>-1){
-                    layer.alert('仅已审核采购单可撤回！', {icon: 3})
-                    return false;
-                }
-                var tid = checkedValue.attr('class').replace(/[ ]/g,"");
-                tid = tid.substring(0,tid.length-1);
-                doAjax('确认撤回?',  '/purchases/recall/'+tid);
+                $(".purBtn").attr('action','/purchases/recall');
             })
 
             //提交采购单
             $("#purchaseSubmit").click(function(){
-                var stcodeStr = $("input[name=hids]").attr("stcodeStr"),
-                    isImprests = $("input[name=hids]").attr("isImprests");
-                if(checkedValue.attr('class')==null||checkedValue.attr('class')=='') {
-                    layer.alert('请选择采购单！', {icon: 3});
+                judgeCode = 0;
+                var stcodeStr = [];
+                var isImprests = [];
+                $("input[name=roles]:checked").each(function() {
+                    stcodeStr.push($(this).attr("stcode"));
+                    isImprests.push($(this).attr("isimprest"));
+                    if (stcodeStr.toString(",").indexOf('10') > -1) {
+                        layer.alert('请先审核！', {icon: 3})
+                        judgeCode = 1;
+                    }
+                    if (stcodeStr.toString(",").indexOf('50') > -1){
+                        layer.alert('该订单已提交！', {icon: 3})
+                        judgeCode = 1;
+                    }
+                    if (stcodeStr.toString(",").indexOf('70') > -1){
+                        layer.alert('该订单待出库审核！', {icon: 3})
+                        judgeCode = 1;
+                    }
+                    if (stcodeStr.toString(",").indexOf('90') > -1){
+                        layer.alert('该订单已入库！', {icon: 3})
+                        judgeCode = 1;
+                    }
+                    if (isImprests.toString(",").indexOf('1') > -1){
+                        layer.alert('预付款未付清！', {icon: 3})
+                        judgeCode = 1;
+                    }
+                })
+                if(judgeCode!=0) {
                     return false;
                 }
-                if(stcodeStr.indexOf('10')>-1){
-                    layer.alert('请先审核！', {icon: 3})
-                    return false;
-                }
-                if(stcodeStr.indexOf('50')>-1){
-                    layer.alert('该订单已提交！', {icon: 3})
-                    return false;
-                }
-                if(stcodeStr.indexOf('70')>-1){
-                    layer.alert('该订单待审核！', {icon: 3})
-                    return false;
-                }
-                if(stcodeStr.indexOf('90')>-1){
-                    layer.alert('该订单已入库！', {icon: 3})
-                    return false;
-                }
-                if(isImprests.indexOf('1')>-1){
-                    layer.alert('预付款未付清！', {icon: 3})
-                    return false;
-                }
-                var tid = checkedValue.attr('class').replace(/[ ]/g,"");
-                tid = tid.substring(0,tid.length-1);
-                doAjax('确认提交?',  '/purchases/submit/'+tid);
+                $(".purBtn").attr('action','/purchases/submit');
             })
             //删除采购单
             $("#DelOrder").click(function(){
-                var stcodeStr = $("input[name=hids]").attr("stcodestr"),
-                    isdirect = $("input[name=hids]").attr("isdirect"),
-                    gidVali = $("input[name=hids]").attr("gidvali");
-                if(checkedValue.attr('class')==null||checkedValue.attr('class')=='') {
-                    layer.alert('请选择采购单！', {icon: 3});
-                    return false;
-                }
+                judgeCode = 0;
+                var stcodeStr = [];
+                var isdirect = [];
+                var gid = [];
                 var val= $("input[name=gidHid]").val();
-                if(stcodeStr.indexOf('30')>-1 || stcodeStr.indexOf('50')>-1 || stcodeStr.indexOf('70')>-1 || stcodeStr.indexOf('90')>-1){
-                    layer.alert('仅能删除未审核采购单！', {icon: 3})
+                $("input[name=roles]:checked").each(function() {
+                    stcodeStr.push($(this).attr("stcode"));
+                    gid.push($(this).attr("gid"));
+                    var stcode = stcodeStr.toString(",");
+                    isdirect.push($(this).attr("isdirect"));
+                    var stcode = stcodeStr.toString(",");
+                    if (stcode.indexOf('30') > -1 || stcode.indexOf('50') > -1 || stcode.indexOf('70') > -1 || stcode.indexOf('90') > -1) {
+                        layer.alert('仅能删除未审核采购单！', {icon: 3})
+                        judgeCode = 1;
+                    }
+
+                    if (isdirect.toString(",").indexOf('0') > -1){
+                        layer.alert('已完成请购流程的采购单无法删除！', {icon: 3})
+                        judgeCode = 1;
+                    }
+                    console.log(isdirect.toString(","));return false;
+                    if(gid.toString(",").indexOf(val)==-1){
+                        layer.alert('仅能删除自己创建的采购单！', {icon: 3})
+                        judgeCode = 1;
+                    }
+
+                })
+                if(judgeCode!=0) {
                     return false;
                 }
-                if(isdirect.indexOf('0')>-1){
-                    layer.alert('已完成请购流程的采购单无法删除！', {icon: 3})
-                    return false;
-                }
-                if(gidVali.indexOf(val)==-1){
-                    layer.alert('仅能删除自己创建的采购单！', {icon: 3})
-                    return false;
-                }
-                var tid = checkedValue.attr('class').replace(/[ ]/g,"");
-                tid = tid.substring(0,tid.length-1);
-                doAjax('确认删除?', '/purchases/del/'+tid);
+                $(".purBtn").attr('action','/purchases/del');
             })
 
-
-            $("input[name='roles']").change(function () {
-                var purcIds = checkedValue.attr('class').replace(/[ ]/g,"");
-                purcIds = purcIds.substring(0,purcIds.length-1);
-                $("#print").attr("href","/purchases/print/"+purcIds);
-            })
             $("#print").click(function(){
-                if(checkedValue.attr('class')==null||checkedValue.attr('class')=='') {
-                    layer.alert('请选择采购单！', {icon: 3});
-                    return false;
-                }
+                var cid = [];
+                $("input[name=roles]:checked").each(function(){
+                    cid.push($(this).val());
+                    var purId = cid.toString(',');
+                    $("#print").attr("href","/purchases/print/"+purId);
+                })
             })
-
-
-            var doAjax = function (text,url) {
-                layer.confirm(text,{icon: 3, title:'提示'},
-                    function(index){
-                        $.ajax({
-                            url: url,
-                            method: 'post',
-                            data:{
-                                tid:tid,
-                            },
-                            success: function (data) {
-                                successLayout.reload();
-                            },
-                            error: function (response) {
-                                layer.close(index)
-                                errorLayout.normal(response);
-                            }
-                        });
-                    },
-                    function(index){layer.close(index)});
-            };
 
         })
     </script>

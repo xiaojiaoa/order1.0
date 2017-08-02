@@ -147,13 +147,16 @@ var PurchaseController = {
     },
     //删除请购单
     applyPurchaseDel: function (req, res) {
-        var purcIds = req.params.purcIds;
+        // var purcIds = req.params.purcIds;
+        var ids = req.body.roles?req.body.roles.toString(','):'';
+        // console.log('idididididi',ids)
         request(Base.mergeRequestOptions({
             method: 'put',
-            url: '/api/purchase/request/delete?reqIds='+purcIds,
+            url: '/api/purchase/request/delete?reqIds='+ids,
         }, req, res), function (error, response, body) {
             if (!error && response.statusCode == 201) {
-                res.sendStatus(200)
+                Base.handlerSuccess(res, req);
+                res.redirect("/purchase");
             }else{
                 Base.handlerError(res, req, error, response, body);
             }
@@ -286,7 +289,6 @@ var PurchaseController = {
         }, req, res), function (error, response, body) {
             if (!error && response.statusCode == 201) {
                 Base.handlerSuccess(res, req);
-                //  res.redirect("/purchase/detail");
                 res.redirect("/purchase/orderDetail/"+purchaseId);
             } else {
                 Base.handlerError(res, req, error, response, body);
@@ -295,14 +297,14 @@ var PurchaseController = {
     },
     //合并采购单
     purchaseMerge: function (req, res) {
-        var tid = req.params.tid;
+        var ids = req.body.roles?req.body.roles.toString(','):'';
         request(Base.mergeRequestOptions({
             method: 'put',
-            url: '/api/purchases/merge?purcIds='+tid,
+            url: '/api/purchases/merge?purcIds='+ids,
         }, req, res), function (error, response, body) {
             if (!error && response.statusCode == 201) {
-
-                res.sendStatus(200)
+                Base.handlerSuccess(res, req);
+                res.redirect("/purchase/detail/finance");
             }else{
                 Base.handlerError(res, req, error, response, body);
             }
@@ -310,14 +312,14 @@ var PurchaseController = {
     },
     //审核采购单
     purchaseReview: function (req, res) {
-        var tid = req.params.tid;
+        var ids = req.body.roles?req.body.roles.toString(','):'';
         request(Base.mergeRequestOptions({
             method: 'put',
-            url: '/api/purchases/review?purcIds='+tid,
+            url: '/api/purchases/review?purcIds='+ids,
         }, req, res), function (error, response, body) {
             if (!error && response.statusCode == 201) {
-
-                res.sendStatus(200)
+                Base.handlerSuccess(res, req);
+                res.redirect("/purchase/detail/finance");
             }else{
                 Base.handlerError(res, req, error, response, body);
             }
@@ -325,13 +327,14 @@ var PurchaseController = {
     },
     //撤回采购单
     purchaseRecall: function (req, res) {
-        var tid = req.params.tid;
+        var ids = req.body.roles?req.body.roles.toString(','):'';
         request(Base.mergeRequestOptions({
             method: 'put',
-            url: '/api/purchases/review/cancel?purcIds='+tid,
+            url: '/api/purchases/review/cancel?purcIds='+ids,
         }, req, res), function (error, response, body) {
             if (!error && response.statusCode == 201) {
-                res.sendStatus(200)
+                Base.handlerSuccess(res, req);
+                res.redirect("/purchase/detail/finance");
             }else{
                 Base.handlerError(res, req, error, response, body);
             }
@@ -339,14 +342,14 @@ var PurchaseController = {
     },
     //提交采购单
     purchaseSubmit: function (req, res) {
-        var tid = req.params.tid;
+        var ids = req.body.roles?req.body.roles.toString(','):'';
         request(Base.mergeRequestOptions({
             method: 'put',
-            url: '/api/purchases/submit?purcIds='+tid,
+            url: '/api/purchases/submit?purcIds='+ids,
         }, req, res), function (error, response, body) {
             if (!error && response.statusCode == 201) {
-
-                res.sendStatus(200)
+                Base.handlerSuccess(res, req);
+                res.redirect("/purchase/detail/finance");
             }else{
                 Base.handlerError(res, req, error, response, body);
             }
@@ -354,14 +357,14 @@ var PurchaseController = {
     },
     //删除采购单
     purchaseDel: function (req, res) {
-        var purcIds = req.params.purcIds;
+        var ids = req.body.roles?req.body.roles.toString(','):'';
         request(Base.mergeRequestOptions({
             method: 'put',
-            url: '/api/purchases/delete?purcIds='+purcIds,
+            url: '/api/purchases/delete?purcIds='+ids,
         }, req, res), function (error, response, body) {
             if (!error && response.statusCode == 201) {
-
-                res.sendStatus(200)
+                Base.handlerSuccess(res, req);
+                res.redirect("/purchase/detail/finance");
             }else{
                 Base.handlerError(res, req, error, response, body);
             }
