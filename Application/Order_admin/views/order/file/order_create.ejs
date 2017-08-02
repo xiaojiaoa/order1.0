@@ -437,8 +437,7 @@
             });
         }, function (index) { layer.close(index) })
     })
-    <%}%>
-    <% if(ordType==2){%>
+    <%}else{%>
     $(".doPass").click(function () {
         var orderStcode = $(this).attr('data-stcode');
         var ajaxUrl = '';

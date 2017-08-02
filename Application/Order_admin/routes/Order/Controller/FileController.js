@@ -92,7 +92,7 @@ var FileController = {
         // var pid = req.params.pid;
         var stcode = req.params.stcode;
         var orderType;
-        if(ordType== 2){
+        if(ordType== 2 || ordType== 3){
             orderType='resupply';
         }
         Base.multiDataRequest(req, res, [
