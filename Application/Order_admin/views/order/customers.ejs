@@ -210,8 +210,32 @@
                                         <i class="fa fa-search"></i>
                                         查询企业客户
                                     </a>
+                                    <span style="width: 20px;display: inline-block;"></span>
+                                    <a class="btn btn-primary" href="/networkCustomers">
+                                        <i class="fa fa-search"></i>
+                                        查询网络客户
+                                    </a>
                                     <% } %>
                                     <% if(type == 'companyCustomers'){ %>
+                                    <span style="width: 20px;display: inline-block;"></span>
+                                    <a class="btn btn-primary" href="/customers">
+                                        <i class="fa fa-search"></i>
+                                        查询普通客户
+                                    </a>
+                                    <span style="width: 20px;display: inline-block;"></span>
+                                    <a class="btn btn-primary" href="/networkCustomers">
+                                        <i class="fa fa-search"></i>
+                                        查询网络客户
+                                    </a>
+                                    <% } %>
+
+                                    <% if(type == 'networkCustomers'){ %>
+                                    <span style="width: 20px;display: inline-block;"></span>
+                                    <a class="btn btn-primary" href="/companyCustomers">
+                                        <i class="fa fa-search"></i>
+                                        查询企业客户
+                                    </a>
+
                                     <span style="width: 20px;display: inline-block;"></span>
                                     <a class="btn btn-primary" href="/customers">
                                         <i class="fa fa-search"></i>
@@ -267,6 +291,7 @@
                                 <th>操作</th>
                                 <%}%>
                                 <th>建档人</th>
+                                <th>建档时间</th>
                                 <th>门店</th>
                                 <th>客户地址</th>
                             </tr>
@@ -297,6 +322,7 @@
                                 <td><a class="label label-primary dealStore" data-cid="<%= element.cid %>">分配店铺</a></td>
                                 <%}%>
                                 <td><%= element.createName %></td>
+                                <td><%= DWY_Helper.getLocalDateYMD(element.addTime )%></td>
                                 <td><%= element.storeName %></td>
                                 <td><%= element.customAddress %></td>
                             </tr>
