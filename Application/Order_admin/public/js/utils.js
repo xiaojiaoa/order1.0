@@ -147,9 +147,9 @@ var DWY_Utils = DWY_Utils || {
                     $(b).filter(":checkbox:not(:disabled)").prop("checked", this.checked);
                 });
                 //复选框是否选中影响全选/全不选框状态-复选框的总数是否与选中的复选框数量相等
-                $(b).click(function () {
-                    var $tmp = $(b);
-                    $(a).filter(":checkbox:not(:disabled)").prop("checked", $tmp.length == $tmp.filter(":checked").length);
+                $(b).filter(":checkbox:not(:disabled)").click(function () {
+                    var $tmp = $(b).filter(":checkbox:not(:disabled)");
+                    $(a).prop("checked", $tmp.length == $tmp.filter(":checked").length);
                 });
             }
         },
