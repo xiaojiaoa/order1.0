@@ -256,6 +256,7 @@
                                 <th>补单建单时间</th>
                                 <th>补单原因</th>
                                 <th>补单当前状态</th>
+                                <th>收款日期</th>
                                 <!--根据权限展示价格-->
                                 <% if(DWY_Helper.hasPermission(Permission.resupply.queryByRevFranchisePrice.id, permission)){%>
                                 <th>结算价</th>
@@ -285,6 +286,7 @@
                                 <td><%= element.addTime %></td>
                                 <td><%= element.causeStr %></td>
                                 <td><%= element.statusStr %></td>
+                                <td><%= DWY_Helper.getLocalDate(element.receiptTime) %></td>
                                 <!--根据权限展示结算价-->
                                 <% if(DWY_Helper.hasPermission(Permission.resupply.queryByRevFranchisePrice.id, permission)){%>
                                 <td><%= element.revFranchisePrice %></td>
