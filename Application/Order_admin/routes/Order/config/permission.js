@@ -386,7 +386,7 @@ var permissions = {
         },
         queryEmployee:{
             id:"881043",
-            name:"查看柜员"
+            name:"查看员工"
         }
     },
     store :{
@@ -416,7 +416,7 @@ var permissions = {
         },
         queryEmployee:{
             id:"882043",
-            name:"查看柜员"
+            name:"查看员工"
         }
     },
     employeeManage :{
@@ -430,15 +430,15 @@ var permissions = {
         },
         update:{
           id   : "201031",
-          name :"修改本机构柜员信息"
+          name :"修改本机构员工信息"
         },
         updateAll:{
           id  :"201030",
-          name:"修改所有机构柜员信息"
+          name:"修改所有机构员工信息"
         },
         queryAll:{
             id:"881043",
-            name:"查询所有机构柜员"
+            name:"查询所有机构员工"
         }
     },
     gathering :{

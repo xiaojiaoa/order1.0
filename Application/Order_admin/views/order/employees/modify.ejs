@@ -13,8 +13,8 @@
         <!-- breadcrumb -->
         <ol class="breadcrumb">
             <li>后台管理</li>
-            <li><a class="back-url" href="/<%= type %>/employees/detail/<%= bid %>/<%= cid %>"> 柜员信息</a></li>
-            <li>修改柜员信息</li>
+            <li><a class="back-url" href="/<%= type %>/employees/detail/<%= bid %>/<%= cid %>"> 员工信息</a></li>
+            <li>修改员工信息</li>
             <li><a class="back-url" href="javascript:history.go(-1)"> <i class="fa fa-chevron-left"></i>返回</a></li>
         </ol>
         <!-- end breadcrumb -->
@@ -30,7 +30,7 @@
             <div class="row">
                 <!-- col -->
                 <div class="col-xs-12">
-                    <legend>修改柜员信息</legend>
+                    <legend>修改员工信息</legend>
 
                     <!-- row -->
                     <div class="row">
@@ -42,7 +42,7 @@
 
                                 <div class="col-xs-4">
                                     <div class="form-group">
-                                        <label class="col-xs-4 control-label "> <span class="requird"></span>柜员手机:
+                                        <label class="col-xs-4 control-label "> <span class="requird"></span>员工手机:
                                         </label>
                                         <div class="col-xs-8">
                                             <input class="form-control" type="tel" value="<%= employeesInfo.mobile %>" name="mobile"
@@ -54,7 +54,7 @@
 
                                 <div class="col-xs-4">
                                     <div class="form-group">
-                                        <label class="col-xs-4 control-label "><span class="requird"></span> 柜员姓名:
+                                        <label class="col-xs-4 control-label "><span class="requird"></span> 员工姓名:
                                         </label>
                                         <div class="col-xs-4 tight-right">
                                             <input class="form-control validate[required]" placeholder="输入姓名"
@@ -63,7 +63,7 @@
                                         </div>
                                         <div class="col-xs-4 tight-left">
                                             <select class="form-control" name="gender">
-                                                <option value="0">- 柜员性别 -</option>
+                                                <option value="0">- 员工性别 -</option>
                                                 <option value="1" <%= (employeesInfo.gender == 1) ? 'selected' : '' %> >
                                                     先生
                                                 </option>
@@ -268,7 +268,7 @@
                                 <!--输入字段-->
                                 <div class="col-xs-4">
                                     <div class="form-group">
-                                        <label class="col-xs-4 control-label ">柜员固定电话:
+                                        <label class="col-xs-4 control-label ">员工固定电话:
                                         </label>
                                         <div class="col-xs-8">
                                             <input class="form-control"

@@ -71,10 +71,10 @@
 
                                     <% if(!element.subDeparts || element.subDeparts.length==0){
                                     if(type == 'stores') {  %>
-                                    <a href="/stores/employees?bid=<%= bid %>&did=<%= element.id %>" class="label label-primary">查看柜员</a>
+                                    <a href="/stores/employees?bid=<%= bid %>&did=<%= element.id %>" class="label label-primary">查看员工</a>
                                     <% }else{
                                     %>
-                                    <a href="/organizations/employees?bid=<%= bid %>&did=<%= element.id %>" class="label label-primary">查看柜员</a>
+                                    <a href="/organizations/employees?bid=<%= bid %>&did=<%= element.id %>" class="label label-primary">查看员工</a>
                                     <%}
                                     }%>
 
@@ -98,10 +98,10 @@
                                     <a class="delete-department label label-danger"  selfId="<%= element.id %>">禁用</a>
                                     <% }%>
                                     <% if(type == 'stores') {  %>
-                                    <a href="/stores/employees?bid=<%= bid %>&did=<%= element.id %>" class="label label-primary">查看柜员</a>
+                                    <a href="/stores/employees?bid=<%= bid %>&did=<%= element.id %>" class="label label-primary">查看员工</a>
                                     <% }else{
                                     %>
-                                    <a href="/organizations/employees?bid=<%= bid %>&did=<%= element.id %>" class="label label-primary">查看柜员</a>
+                                    <a href="/organizations/employees?bid=<%= bid %>&did=<%= element.id %>" class="label label-primary">查看员工</a>
                                     <%} %>
 
                                     <%  }else{ %>

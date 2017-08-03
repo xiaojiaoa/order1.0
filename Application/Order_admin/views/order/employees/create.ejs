@@ -13,8 +13,8 @@
         <!-- breadcrumb -->
         <ol class="breadcrumb">
             <li>后台管理</li>
-            <li><a class="back-url" href="/organizations/employees">柜员管理</a></li>
-            <li>新增柜员</li>
+            <li><a class="back-url" href="/organizations/employees">员工管理</a></li>
+            <li>新增员工</li>
             <li><a class="back-url" href="javascript:history.go(-1)"><i class="fa fa-chevron-left"></i>返回</a></li>
         </ol>
         <!-- end breadcrumb -->
@@ -30,7 +30,7 @@
             <div class="row">
                 <!-- col -->
                 <div class="col-xs-12">
-                    <legend>新增柜员信息</legend>
+                    <legend>新增员工信息</legend>
 
                     <!-- row -->
                     <div class="row">
@@ -38,7 +38,7 @@
                             <div class="col-xs-12">
                                 <div class="col-xs-4">
                                     <div class="form-group">
-                                        <label class="col-xs-4 control-label "> <span class="requird"></span>柜员手机:
+                                        <label class="col-xs-4 control-label "> <span class="requird"></span>员工手机:
                                         </label>
                                         <div class="col-xs-8">
                                             <input class="form-control validate[required,funcCall[custom_validate_fn.isMobile]]"
@@ -50,7 +50,7 @@
                                 </div>
                                 <div class="col-xs-4">
                                     <div class="form-group">
-                                        <label class="col-xs-4 control-label "><span class="requird"></span> 柜员姓名:
+                                        <label class="col-xs-4 control-label "><span class="requird"></span> 员工姓名:
                                         </label>
                                         <div class="col-xs-4 tight-right">
                                             <input class="form-control validate[required]" placeholder="输入姓名"
@@ -59,7 +59,7 @@
                                         </div>
                                         <div class="col-xs-4 tight-left">
                                             <select class="form-control" name="gender">
-                                                <option value="0">- 柜员性别 -</option>
+                                                <option value="0">- 员工性别 -</option>
                                                 <option value="1" <%= (DWY_last_request_param.gender == 1) ? 'selected' : '' %> >
                                                     先生
                                                 </option>
@@ -253,7 +253,7 @@
                                 <!--输入字段-->
                                 <div class="col-xs-4">
                                     <div class="form-group">
-                                        <label class="col-xs-4 control-label ">柜员固定电话:
+                                        <label class="col-xs-4 control-label ">员工固定电话:
                                         </label>
                                         <div class="col-xs-8">
                                             <input class="form-control"

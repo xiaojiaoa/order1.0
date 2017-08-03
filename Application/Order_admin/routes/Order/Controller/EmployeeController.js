@@ -38,7 +38,7 @@ var EmployeeController = {
             }));
 
             var returnData = Base.mergeData(helper.mergeObject({
-                title: '柜员管理',
+                title: '员工管理',
                 type: type,
                 bid: bid,
                 did: did,

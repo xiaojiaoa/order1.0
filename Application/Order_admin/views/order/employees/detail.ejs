@@ -16,8 +16,8 @@
             <% if(type=='stores'){%>
             <li><a class="back-url" href="/storesManage">门店管理</a></li>
             <%}%>
-            <li><a class="back-url" href="/<%= type %>/employees?bid=<%= bid %>">柜员管理</a></li>
-            <li>柜员信息</li>
+            <li><a class="back-url" href="/<%= type %>/employees?bid=<%= bid %>">员工管理</a></li>
+            <li>员工信息</li>
             <li><a class="back-url" href="javascript:history.go(-1)"> <i class="fa fa-chevron-left"></i>返回</a></li>
         </ol>
         <!-- end breadcrumb -->
@@ -33,7 +33,7 @@
             <div class="row">
                 <!-- col -->
                 <div class="col-xs-12">
-                    <legend>柜员信息
+                    <legend>员工信息
                         <% if(employeesInfo.stcode == 2) { %>
                         <span class="label label-danger" id="close-icon">已关闭</span>
                         <% } %>
@@ -43,14 +43,14 @@
                         <table class="table table-bordered table-striped table-information <%= ( employeesInfo.stcode == 2 ) ? 'close-info' : '' %>">
                             <tbody>
                             <tr>
-                                <td>柜员号</td>
+                                <td>员工号</td>
                                 <td colspan="3"><h4><%= employeesInfo.id %></h4></td>
                             </tr>
 
                             <tr>
-                                <td width="20%">柜员手机</td>
+                                <td width="20%">员工手机</td>
                                 <td width="30%"><%= employeesInfo.mobile %></td>
-                                <td width="20%"> 柜员姓名</td>
+                                <td width="20%"> 员工姓名</td>
                                 <td width="30%">
                                     <%= employeesInfo.name %>
                                     <% switch(employeesInfo.gender){
@@ -114,7 +114,7 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td>柜员固定电话</td>
+                                <td>员工固定电话</td>
                                 <td><%= employeesInfo.telephone %></td>
                                 <td>生日</td>
                                 <td><%= DWY_Helper.getLocalDateYMD(employeesInfo.birthday) %></td>
@@ -181,7 +181,7 @@
                             <a class="btn btn-primary "
                                href="/<%= type %>/employees/modify/<%= employeesInfo.bid %>/<%= employeesInfo.id %>">
                                 <i class="fa fa-edit"></i>
-                                修改柜员信息
+                                修改员工信息
                             </a>
                             <% }%>
                             <% }%>
@@ -232,7 +232,7 @@
 
         $("#close-employee").on({
             click: function () {
-                layer.confirm('确定关闭该柜员账号？', {icon: 3, title: '提示'},
+                layer.confirm('确定关闭该员工账号？', {icon: 3, title: '提示'},
                     function (index) {
                         $.ajax({
                             url: '/<%= type %>/employees/setStatus/' + employeesId + '/2',
@@ -256,7 +256,7 @@
 
         $("#open-employee").on({
             click: function () {
-                layer.confirm('确定解锁该柜员账号？', {icon: 3, title: '提示'},
+                layer.confirm('确定解锁该员工账号？', {icon: 3, title: '提示'},
                     function (index) {
                         $.ajax({
                             url: '/<%= type %>/employees/setStatus/' + employeesId + '/1',
@@ -281,7 +281,7 @@
         $("#reset-password").on({
             click: function () {
 
-                layer.confirm('确定重置该柜员密码？', {icon: 3, title: '提示'},
+                layer.confirm('确定重置该员工密码？', {icon: 3, title: '提示'},
                     function (index) {
                         $.ajax({
                             url: '/<%= type %>/employees/resetPassword/' + employeesId,
@@ -306,7 +306,7 @@
 
         $("#open-login").on({
             click: function () {
-                layer.confirm('确定登陆解锁该柜员账号？', {icon: 3, title: '提示'},
+                layer.confirm('确定登陆解锁该员工账号？', {icon: 3, title: '提示'},
                     function (index) {
                         $.ajax({
                             url: '/employees/openLogin/' + employeesId ,
