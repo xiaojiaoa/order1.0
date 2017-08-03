@@ -1656,6 +1656,18 @@ var OrderController = {
             }
         })
     },
+    getBatchNumberFiles:function(req,res){
+        request(Base.mergeRequestOptions({
+            method: 'get',
+            url: '/api/orders/batchNumber/files/number?'+queryString.stringify(req.body),
+        }, req, res), function (error, response, body) {
+            if (!error && response.statusCode == 200) {
+                res.status(200).json(body);
+            } else {
+                Base.handlerError(res, req, error, response, body);
+            }
+        })
+    },
     downloadZip: function (req, res) {
         var batchNumber =  req.params.batchNumber;
         var factoryId =  req.params.factoryId;

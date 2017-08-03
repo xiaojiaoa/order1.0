@@ -469,6 +469,8 @@ router.post('/orders/batchNumber/package/packet', Middleware.apiLimiter,Middlewa
 // 撤销包装操作
 router.post('/orders/batchNumber/unpacket/packet', Middleware.apiLimiter,Middleware.AuthCheck,OrderController.doUnpacketBatchNumber);
 router.post('/orders/batchNumber/schedule', Middleware.apiLimiter,Middleware.AuthCheck,OrderController.doScheduleBatchNumber);
+router.post('/orders/batchNumber/files/number', Middleware.apiLimiter,Middleware.AuthCheck,OrderController.getBatchNumberFiles);
+
 /*
  * 页面范围: 拆单
  * 控制器:   TearController

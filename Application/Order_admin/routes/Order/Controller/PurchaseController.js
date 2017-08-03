@@ -454,7 +454,8 @@ var PurchaseController = {
     },
     exportPurchase: function (req, res) {
 
-        request(Base.mergeRequestOptions({
+        request
+        (Base.mergeRequestOptions({
             method: 'get',
             url: '/api/orders/batchNumber/export/purchase?'+queryString.stringify(req.query),
         }, req, res)).pipe(res)
