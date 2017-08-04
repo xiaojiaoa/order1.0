@@ -396,20 +396,24 @@
 
 
 
-        function regionFunc(data) {
+        function regionFunc(data,ele) {
             var scopesList=data;
             var sendType=$("#sendType")
             var sendValue=$("#sendValue");
+            var ele=ele;// 用来存储往后台传的查询参数
 
             //初始化select2
             sendValue.select2();
-            $("#regionId").val(sendValue.select2('val').toString(','));
+            //初始化ele
+            ele.val(sendValue.select2('val').toString(','));
 
-            $("select[name=regionTypeId]").change(function () {
+            //点击区域范围左侧
+            sendType.change(function () {
                 var sendTypeVal=$(this).val();
                 if(!sendTypeVal){
                     sendValue.html("<option value=''>-请选择-</option>");
                     sendValue.val([]).trigger("change");
+                    return false;
                 }
                 var html="<option value=''>-请选择-</option>";
                 var arry=[];
@@ -419,8 +423,9 @@
                 }
                 sendValue.html(html);
                 sendValue.val(arry).trigger("change");//选择大区的时候，小区所有值自动出现
-                $("#regionId").val(arry.toString(','));
+                ele.val(arry.toString(','));
             });
+            //点击区域范围右侧
             sendValue.on({
                 change:function () {
                     var value=sendValue.select2('val').toString(',');
@@ -429,16 +434,16 @@
                         sendValue.find("option").each(function () {
                             array.push($(this).attr("value"));
                         });
-                        $("#regionId").val(array.toString(','));
+                        ele.val(array.toString(','));
                     }
                     else{
-                        $("#regionId").val(value);
+                        ele.val(value);
                     }
 
                 }
             });
         }
-        regionFunc(<%- JSON.stringify(regionList)%>);
+        regionFunc(<%- JSON.stringify(regionList)%>, $("#regionId"));
 
 
     })
