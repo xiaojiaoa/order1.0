@@ -5,7 +5,7 @@ html, body {
     background: #fff;
 }
 
-td{
+td.white-space{
     white-space:pre;
 }
 
