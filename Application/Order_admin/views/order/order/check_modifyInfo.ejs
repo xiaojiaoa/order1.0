@@ -124,7 +124,7 @@
                 </div>
                 <div class="col-xs-4">
                     <select class="form-control validate[required]" name="prodType">
-                        <% spaceInfo[orderInfo.spaceId].data.forEach(function (element) {  %>
+                        <% spaceInfo.forEach(function (element) {  %>
                         <option value="<%= element.id %>" <%= (orderInfo.prodType == element.id)?"selected":"" %>>
                             <%= element.name %>
                         </option>
