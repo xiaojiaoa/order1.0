@@ -124,11 +124,13 @@
                 </div>
                 <div class="col-xs-4">
                     <select class="form-control validate[required]" name="prodType">
-                        <% spaceInfo.forEach(function (element) {  %>
+                        <% if(DWY_Helper.isCanLoop(spaceInfo)){
+                            spaceInfo.forEach(function (element) {  %>
                         <option value="<%= element.id %>" <%= (orderInfo.prodType == element.id)?"selected":"" %>>
                             <%= element.name %>
                         </option>
-                        <% }) %>
+                        <% })
+                        } %>
                     </select>
                 </div>
             </div>
@@ -138,11 +140,12 @@
                 <label class="col-xs-4 control-label"><span class="requird"></span> 主材颜色:</label>
                 <div class="col-xs-8">
                     <select class="form-control validate[required]" name="decoColorId">
-                        <% colorList.forEach(function (element) {  %>
+                        <% if(DWY_Helper.isCanLoop(colorList)){
+                            colorList.forEach(function (element) {  %>
                         <option value="<%= element.id %>" <%= (orderInfo.decoColorId == element.id)?"selected":"" %>>
                             <%= element.name %>
                         </option>
-                        <% }) %>
+                        <% })} %>
                     </select>
                 </div>
             </div>
@@ -163,11 +166,12 @@
                 <label class="col-xs-4 control-label"><span class="requird"></span> 订单类型:</label>
                 <div class="col-xs-8">
                     <select class="form-control validate[required]" name="type">
-                        <% typeList.forEach(function (element) {  %>
+                        <% if(DWY_Helper.isCanLoop(typeList)){
+                            typeList.forEach(function (element) {  %>
                         <option value="<%= element.id %>" <%= (orderInfo.type == element.id)?"selected":"" %>>
                             <%= element.name %>
                         </option>
-                        <% }) %>
+                        <% })} %>
                     </select>
                 </div>
             </div>
