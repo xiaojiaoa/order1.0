@@ -82,7 +82,7 @@ var OrderController = {
                 var spaceInfo = [];
                 resultList.spaceInfo.forEach(function (element, index) {
 
-                    if (element.spaceId !== undefined) {
+                    if (element.spaceId == resultList.orderInfo.spaceId) {
                         spaceInfo.push({id: element.id, name: element.name})
                     }
                 });
