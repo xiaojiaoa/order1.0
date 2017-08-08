@@ -8,56 +8,64 @@
         border-top:3px  dotted #000 !important;
     }
 </style>
-<!-- MAIN PANEL -->
 <div id="main" role="main">
 
-    <!-- RIBBON -->
     <div id="ribbon">
 
-        <!-- breadcrumb -->
         <ol class="breadcrumb">
             <li>后台管理</li>
             <li><a class="back-url" href="<%= backPath %>"> <i class="fa fa-chevron-left"></i>返回</a></li>
             <li>打印预览22</li>
         </ol>
-        <!-- end breadcrumb -->
 
 
     </div>
-    <!-- END RIBBON -->
-
-    <!-- MAIN CONTENT -->
     <div id="content">
 
+        <% var printINfoKeys = Object.keys(printINfo) %>
 
         <div class="prin-preview">
-            <div class="orderItemLayerTit">
-                <ul class="orderItemMenu">
-                    <a href="/system/printParts/<%= batchNumber%>/<%= factoryId%>?type=A">
-                        <li class="padding-10 <%= (showTYpe=='A'|| !showTYpe)? 'materielBak':''%>">配件</li>
-                    </a>
-                    <a href="/system/printParts/<%= batchNumber%>/<%= factoryId%>?type=W">
-                        <li class="padding-10 <%= showTYpe=='W'? 'materielBak':''%> ">工件</li>
-                    </a>
+
+            <div class="tab-pane">
+
+                <ul class="nav nav-tabs">
+
+                    <% if(DWY_Helper.isCanLoop(printINfoKeys)){
+                    printINfoKeys.forEach(function (element, index) {  %>
+
+                    <li class="<%= (index == 0)? 'active':''%>">
+                        <a href="#<%= element %>Div" data-toggle="tab"><%= element %></a>
+                    </li>
+                    <%  }) }%>
+
+
                 </ul>
+                <div class="tab-content padding-10">
+
+                    <%  var num = 0;
+                    for(var tabType in printINfo ){   %>
+
+                    <div class="tab-pane <%= (num == 0)? 'active':''%>" id="<%= tabType %>Div">
+
+                        <% if(DWY_Helper.isCanLoop(printINfo[tabType])){
+                        printINfo[tabType].forEach(function (element, index) { %>
+
+                        <div class="printBody nopadding-table">
+                            <%- element %>
+                        </div>
+
+                        <%  })
+                        } %>
+
+                    </div>
+
+                    <% num++ }   %>
+                </div>
+
             </div>
 
+            <div id="printHtml" class="display-none"></div>
 
-            <div id="printHtml">
-
-                <% if(( showTYpe=='A' || !showTYpe ) && DWY_Helper.isCanLoop(printINfo.A)){
-                printINfo.A.forEach(function (element, index) { %>
-                <div class="printBody nopadding-table printIndex<%= index %>" id="tabDiv0"><%- element %></div>
-                <%  })
-                }
-                if(showTYpe=='W' && DWY_Helper.isCanLoop(printINfo.W)){
-                printINfo.W.forEach(function (element) { %>
-                <div class="printBody nopadding-table" id="tabDiv1"><%- element %></div>
-                <%  })
-                } %>
-
-
-            </div>
         </div>
 
         <div class="form-horizontal fix-print">
@@ -68,6 +76,20 @@
                         <option value="0">A4</option>
                         <option value="1">小票</option>
                     </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="pull-left control-label">打印分类:</label>
+                <div class="col-xs-8">
+                    <% if(DWY_Helper.isCanLoop(printINfoKeys)){
+                    printINfoKeys.forEach(function (element, index) {  %>
+
+                    <label class="checkbox-inline">
+                        <input type="checkbox" class="checkbox"
+                               name="printType" value="<%= element %>">
+                        <span><%= element %></span>
+                    </label>
+                    <%  }) }%>
                 </div>
             </div>
             <button class="btn btn-primary " id="print">
@@ -91,12 +113,33 @@
 <script type="text/javascript">
 
     $(document).ready(function () {
-        $('body').on('click', '#print', function () {
-            $('.printIndex1').addClass('no-print')
 
-            $("#printHtml").print({
-                stylesheet : "/css/print.css",
+        var printHtml =  $('#printHtml');
+
+        $('body').on('click', '#print', function () {
+
+            printHtml.empty();
+
+            var value=[];
+            $("input[name=printType]:checked").each(function () {
+                value.push($(this).val())
             });
+            if(value.length>0){
+                value.forEach(function (element) {
+                    printHtml.append($('#'+element+'Div').html())
+
+                })
+
+                printHtml.print({
+                    stylesheet : "/css/print.css",
+                });
+            }else{
+                layer.alert('请先选择要打印的分类', {icon: 3})
+            }
+
+//            $('.printIndex1').addClass('no-print')
+
+
         })
 
     })
