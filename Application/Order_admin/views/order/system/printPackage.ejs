@@ -125,10 +125,11 @@
                 value.push($(this).val())
             });
             if(value.length>0){
+                var html = "";
                 value.forEach(function (element) {
-                    printHtml.append($('#'+element+'Div').html())
-
+                    html += $('#'+element+'Div').html();
                 })
+                printHtml.append(html);
 
                 printHtml.print({
                     stylesheet : "/css/print.css",
