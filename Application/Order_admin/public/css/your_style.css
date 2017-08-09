@@ -5,6 +5,10 @@ html, body {
     background: #fff;
 }
 
+td.white-space{
+    white-space:pre;
+}
+
 #divSmallBoxes {
     z-index: 99999999;
 }

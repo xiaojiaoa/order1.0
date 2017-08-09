@@ -80,14 +80,10 @@ var OrderController = {
             function (req, res, resultList) {
 
                 var spaceInfo = [];
-                resultList.spaceInfo.forEach(function(element,index){
-                    if( spaceInfo[element.spaceId] == undefined){
-                        spaceInfo[element.spaceId] = {};
-                        spaceInfo[element.spaceId].data = [];
+                resultList.spaceInfo.forEach(function (element, index) {
 
-                    }
-                    if(spaceInfo[element.spaceId]){
-                        spaceInfo[element.spaceId].data.push(element);
+                    if (element.spaceId == resultList.orderInfo.spaceId) {
+                        spaceInfo.push({id: element.id, name: element.name})
                     }
                 });
 

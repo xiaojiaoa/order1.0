@@ -1606,6 +1606,14 @@ router.get('/app/cargoin/orderCargoShow/:tid', AppServiceController.orderCargoSh
 //查看货位的上架下架等情况
 router.get('/app/cargoin/offshelvesShow/:offshelves', AppServiceController.offshelvesShow);
 
+//按订单号查询批次下的
+router.get('/app/cargoin/findBatchnumber/:batid', AppServiceController.findBatchnumber);
+//按订单号查询批次某流水下的
+router.get('/app/cargoin/findLid/:lid', AppServiceController.findLid);
+//按订单号查询批次流水某订单下的
+router.get('/app/cargoin/findTid/:tid', AppServiceController.findTid);
+//订单号查找未入库状态下的包装数量
+router.get('/app/cargoin/notinInfo/:tid', AppServiceController.notinInfo);
 
 /*
 * 页面范围: 报表管理

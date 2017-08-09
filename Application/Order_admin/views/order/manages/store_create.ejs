@@ -226,6 +226,24 @@
                                 </div>
                             </div>
                             <div class="col-xs-12">
+                                <div class="col-xs-4">
+                                    <div class="form-group">
+                                        <label class="col-xs-4 control-label">是否展示:</label>
+                                        <div class="col-xs-8">
+                                            <select class="form-control" name="visible">
+                                                <option value="1" <%= (DWY_last_request_param.visible == 1) ? 'selected' : '' %> >
+                                                    是
+                                                </option>
+                                                <option value="0" <%= (DWY_last_request_param.visible == 0) ? 'selected' : '' %> >
+                                                    否
+                                                </option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="col-xs-12">
 
                                 <div class="col-xs-8">
                                     <div class="form-group dwy-area">

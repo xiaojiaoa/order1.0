@@ -78,6 +78,10 @@
                                 <td><%= storeInfo.regionTypeName %></td>
                             </tr>
                             <tr>
+                                <td>是否展示</td>
+                                <td colspan="5"><%= DWY_Helper.getWhether(storeInfo.visible) %></td>
+                            </tr>
+                            <tr>
                                 <td>门店地址</td>
                                 <td colspan="5"><%= storeInfo.provinceStr %> <%= storeInfo.cityStr %> <%= storeInfo.areaStr %> <%= storeInfo.address %></td>
                             </tr>

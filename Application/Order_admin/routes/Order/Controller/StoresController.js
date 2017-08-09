@@ -49,20 +49,26 @@ var StoresController = {
             {url: '/api/stores/'+cid, method: 'GET', resConfig: {keyName: 'storeInfo', is_must: true}},
             {url: '/api/assist/store/types', method: 'GET', resConfig: {keyName: 'storeTypes', is_must: true}},
             {url: '/api/assist/store/addrTypes', method: 'GET', resConfig: {keyName: 'addrTypesList', is_must: true}},
-            {url: '/api/stores/money/page/'+cid+'?'+queryString.stringify(req.query), method: 'GET', resConfig: {keyName: 'moneyList', is_must: true}},
-            {url: '/api/stores/money/'+cid, method: 'GET', resConfig: {keyName: 'moneyInfo', is_must: true}},
+            {url: '/api/stores/money/page/'+cid+'?'+queryString.stringify(req.query), method: 'GET', resConfig: {keyName: 'moneyList', is_must: true, is_canBePass: true}},
+            {url: '/api/stores/money/'+cid, method: 'GET', resConfig: {keyName: 'moneyInfo', is_must: true, is_canBePass: true}},
         ], function (req, res, resultList) {
-            var paginationInfo =  resultList.moneyList;
+            // console.log('moneyList',resultList.moneyList)
+            var pagination = ''
+            if(!resultList.moneyList.code){
+                var paginationInfo =  resultList.moneyList;
 
-            var boostrapPaginator = new Pagination.TemplatePaginator(helper.genPageInfo({
-                prelink: paramObject.withoutPageNo,
-                current: paginationInfo.page,
-                rowsPerPage: paginationInfo.pageSize,
-                totalResult: paginationInfo.totalItems
-            }));
+                var boostrapPaginator = new Pagination.TemplatePaginator(helper.genPageInfo({
+                    prelink: paramObject.withoutPageNo,
+                    current: paginationInfo.page,
+                    rowsPerPage: paginationInfo.pageSize,
+                    totalResult: paginationInfo.totalItems
+                }));
+                pagination = boostrapPaginator.render()
+            }
+
             var returnData = Base.mergeData(helper.mergeObject({
                 title: ' ',
-                pagination: boostrapPaginator.render(),
+                pagination: pagination,
             },resultList));
             res.render('order/manages/store_detail', returnData);
         });
