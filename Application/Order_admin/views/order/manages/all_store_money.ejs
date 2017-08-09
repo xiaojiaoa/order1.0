@@ -110,17 +110,19 @@
                             <%
                             if(DWY_Helper.isCanLoop(storeMoneyList.result) ){
                             storeMoneyList.result.forEach(function (element, index) { %>
-                            <tr>
+                            <tr class="rechargeList">
                                 <td><%= DWY_Helper.incrementNum(DWYRequest.query.pageNo,index)%></td>
                                 <td><a href="/storesManage/detail/<%= element.bid %>"><%= element.bid %></a></td>
                                 <td><%= element.storeName %></td>
                                 <td><%= DWY_Helper.outputmoney(JSON.stringify(element.account)) %></td>
+                                <td class="display-none"><%= element.account %></td>
                                 <td><%= DWY_Helper.outputmoney(JSON.stringify(element.warnFunds)) %></td>
                                 <td><%= DWY_Helper.outputmoney(JSON.stringify(element.minFunds)) %></td>
                                 <td><%= DWY_Helper.outputmoney(JSON.stringify(element.frozenFunds)) %></td>
                                 <td>
                                     <a class="label label-primary recharge" id="<%= element.bid %>" data-type="list">充值</a>
                                     <a class="label label-success preRecharge" href="/storesManage/preRecharge/<%= element.bid %>"  data-type="list">预充值</a>
+                                    <a class="label label-primary editRecharge" data-id="<%= element.bid %>">冲正</a>
                                 </td>
                             </tr>
                             <%  })

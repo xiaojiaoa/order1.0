@@ -36,7 +36,42 @@
     </div>
     <div class="dwy-clear"></div>
 </form>
+<form class="form-horizontal  layer-template" method="post" id="rechargeDes" action="/storesManage/editRecharge" >
 
+    <div class="col-xs-12">
+
+        <div class="form-group">
+            <label class="col-xs-2 control-label"><span class="requird"></span> 冲正金额:</label>
+            <div class="col-xs-8">
+                <input type="hidden" name="bid" id="bid" value="">
+                <input class="form-control validate[required]" data-prompt-position="bottomLeft:20,5"
+                       value="" name="account">
+                <span code-data="元" class="unit"></span>
+            </div>
+
+        </div>
+
+    </div>
+    <div class="col-xs-12">
+
+        <div class="form-group">
+            <label class="col-xs-2 control-label"> 操作说明:</label>
+            <div class="col-xs-8">
+                <textarea name="describe" class="form-control" cols="30" rows="5"></textarea>
+            </div>
+
+        </div>
+    </div>
+    <div class="col-xs-12">
+        <hr class="simple">
+        <div class="col-xs-12 text-center">
+            <button class="btn btn-primary " type="submit" id="submit">
+                确认冲正
+            </button>
+        </div>
+    </div>
+    <div class="dwy-clear"></div>
+</form>
 <form id="rechargeForm" class="col-xs-12 layer-template" method="post" action="/storesManage/passPrerecharge">
     <div class="col-xs-12 moneyAmount" style="margin-top:20px;">
         <div class="col-xs-2 margin-top-10 text-right">
@@ -69,6 +104,7 @@
     $(document).ready(function () {
 
         $("#rechargeArea").validationEngine();
+        $("#rechargeDes").validationEngine();
 
         //弹出类
         $('.recharge').on({
@@ -83,6 +119,33 @@
                     type: 1,
                     area: '700px',
                     content: $('#rechargeArea'),
+                    cancel: function () {
+                        //右上角关闭回调
+                    },
+
+                });
+            }
+        })
+
+        $(".editRecharge").on({
+            click: function (e) {
+                var bid = $(this).attr("data-id");
+                var money = $(this).parents(".rechargeList").find("td").eq(4).html();
+                if($("tr").hasClass("rechargeChange")){
+                    var money2 = $(".rechargeChange:first-child").find("td").eq(1).html().length;
+                    var money3 = $(".rechargeChange:first-child").find("td").eq(1).html().substr(1, money2);
+                }
+                if(money!=undefined){
+                    $("#rechargeDes input[name=account]").val(money);
+                }else{
+                    $("#rechargeDes input[name=account]").val(money3);
+                }
+                $("#rechargeDes input[name=bid]").val(bid);
+                layer.open({
+                    title: false,
+                    type: 1,
+                    area: '700px',
+                    content: $('#rechargeDes'),
                     cancel: function () {
                         //右上角关闭回调
                     },

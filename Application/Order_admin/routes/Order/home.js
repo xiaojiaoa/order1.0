@@ -530,6 +530,8 @@ router.get('/storesManage/detail/:cid', Middleware.AuthCheck, StoresController.d
 
 // 门店详情页面-充值
 router.post('/storesManage/doRecharge', Middleware.AuthCheck, StoresController.doRecharge);
+//修改
+router.post('/storesManage/editRecharge', Middleware.AuthCheck, StoresController.editRecharge);
 
 
 // 所有门店资金页面

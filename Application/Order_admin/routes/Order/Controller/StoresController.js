@@ -157,6 +157,24 @@ var StoresController = {
 
 
     },
+    editRecharge: function (req, res) {
+        var cid = req.body.bid;
+        var account = req.body.account;
+        request(Base.mergeRequestOptions({
+            method: 'post',
+            url: '/api/stores/money/correction',
+            form: req.body,
+        }, req, res), function (error, response, body) {
+            if (!error && response.statusCode == 201) {
+                Base.handlerSuccess(res, req);
+                res.redirect("/storesManage/all/money");
+            } else {
+                Base.handlerError(res, req, error, response, body);
+            }
+        })
+
+
+    },
 
     allMoneyPage: function (req, res) {
         var paramObject = helper.genPaginationQuery(req);
