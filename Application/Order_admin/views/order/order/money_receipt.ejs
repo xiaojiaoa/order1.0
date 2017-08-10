@@ -127,7 +127,15 @@
                                         <div class="form-group">
                                             <label class="col-xs-3 control-label">门店名:</label>
                                             <div class="col-xs-8">
-                                                <input class="form-control" value="<%= DWYRequest.query.storeName %>" name="storeName"  >
+                                                <input class="form-control" value="<%= DWYRequest.query.storeName %>" placeholder="请输入门店名" name="storeName"  >
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-3">
+                                        <div class="form-group">
+                                            <label class="col-xs-3 control-label">门店负责人:</label>
+                                            <div class="col-xs-8">
+                                                <input class="form-control" value="<%= DWYRequest.query.storeGid %>" placeholder="请输入门店负责人" name="storeGid"  >
                                             </div>
                                         </div>
                                     </div>
@@ -135,7 +143,7 @@
                                         <div class="form-group">
                                             <label class="col-xs-3 control-label">合同号:</label>
                                             <div class="col-xs-8">
-                                                <input class="form-control" value="<%= DWYRequest.query.contNo %>" name="contNo"  >
+                                                <input class="form-control" value="<%= DWYRequest.query.contNo %>" placeholder="请输入合同号" name="contNo"  >
                                             </div>
                                         </div>
                                     </div>
