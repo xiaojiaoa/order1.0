@@ -1615,6 +1615,11 @@ router.get('/app/cargoin/findTid/:tid', AppServiceController.findTid);
 //订单号查找未入库状态下的包装数量
 router.get('/app/cargoin/notinInfo/:tid', AppServiceController.notinInfo);
 
+router.post('/app/orders/sort/view', AppServiceController.sortView);
+router.get('/app/orders/sort/batchNumber', AppServiceController.sortBatchNumber);
+router.get('/app/orders/sort/list', AppServiceController.sortList);
+router.get('/app/orders/sort/workPiece', AppServiceController.sortWorkPiece);
+
 /*
 * 页面范围: 报表管理
 * 控制器:   ReportController

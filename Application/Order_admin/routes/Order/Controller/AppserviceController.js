@@ -737,6 +737,59 @@ var AppServiceController = {
             }
         })
     },
+    sortView: function (req, res) {
+        request(Base.mergeRequestOptions({
+            method: 'post',
+            url: '/api/orders/sort/view',
+            form: req.body,
+            headers:req.headers,
+        }, req, res), function (error, response, body) {
+            if (!error) {
+                res.send(JSON.parse(body));
+            } else {
+                res.send(AppServiceController.error);
+            }
+        })
+    },
+    sortBatchNumber: function (req, res) {
+        request(Base.mergeRequestOptions({
+            method: 'get',
+            url: '/api/orders/sort/batchNumber?'+queryString.stringify(req.query),
+            headers:req.headers,
+        }, req, res), function (error, response, body) {
+            if (!error) {
+                res.send(JSON.parse(body));
+            } else {
+                res.send(AppServiceController.error);
+            }
+        })
+    },
+    sortList: function (req, res) {
+        request(Base.mergeRequestOptions({
+            method: 'get',
+            url: '/api/orders/sort/list?'+queryString.stringify(req.query),
+            headers:req.headers,
+        }, req, res), function (error, response, body) {
+            if (!error) {
+                res.send(JSON.parse(body));
+            } else {
+                res.send(AppServiceController.error);
+            }
+        })
+    },
+    sortWorkPiece: function (req, res) {
+        request(Base.mergeRequestOptions({
+            method: 'get',
+            url: '/api/orders/sort/workPiece?'+queryString.stringify(req.query),
+            headers:req.headers,
+        }, req, res), function (error, response, body) {
+            if (!error) {
+                res.send(JSON.parse(body));
+            } else {
+                res.send(AppServiceController.error);
+            }
+        })
+    },
 
 };
 module.exports = AppServiceController;
