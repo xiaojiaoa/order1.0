@@ -317,7 +317,7 @@
                             parentId="<%= element.parentId%>"
                             type="<%= element.type%>"
                             class="<%= (element.stcode==0)?"disable display-none":''%>">
-                            <td ><input class="border-0 text-align-center" type="text" value="<%= element.name%>" name="name" readonly/></td>
+                            <td ><input class="border-0 text-align-center" type="text" value="<%= element.name%>" name="name" readonly/><span><%= element.id%></span></td>
                         </tr>
                         <%    })
                         } else{%>

@@ -130,16 +130,6 @@
         $(".editRecharge").on({
             click: function (e) {
                 var bid = $(this).attr("data-id");
-                var money = $(this).parents(".rechargeList").find("td").eq(4).html();
-                if($("tr").hasClass("rechargeChange")){
-                    var money2 = $(".rechargeChange:first-child").find("td").eq(1).html().length;
-                    var money3 = $(".rechargeChange:first-child").find("td").eq(1).html().substr(1, money2);
-                }
-                if(money!=undefined){
-                    $("#rechargeDes input[name=account]").val(money);
-                }else{
-                    $("#rechargeDes input[name=account]").val(money3);
-                }
                 $("#rechargeDes input[name=bid]").val(bid);
                 layer.open({
                     title: false,
