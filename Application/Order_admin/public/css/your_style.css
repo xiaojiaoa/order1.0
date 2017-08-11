@@ -1161,7 +1161,7 @@ table > tbody > tr > td a.label:last-child {
     margin-bottom: 18px;
 }
 .printBody table td{
-    border: 1px solid #ddd;
+    border: 1px solid #ddd !important;
     padding: 8px 10px;
 }
 .fix-print{
@@ -1270,6 +1270,11 @@ table > tbody > tr > td a.label:last-child {
 }
 .table-print>thead>tr>th{
  border: none;
+}
+.table-print>thead>tr.allList>th{
+    border-left:1px solid #ddd !important;
+    border-right:1px solid #ddd !important;
+    border-bottom:1px solid #ddd !important;
 }
 .table-print tbody{
     border: 1px solid #ddd;

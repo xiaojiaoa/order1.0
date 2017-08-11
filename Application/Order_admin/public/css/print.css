@@ -85,4 +85,10 @@ hr{
 .table-print2:last-child>tbody>tr:nth-of-type(2)>td:nth-child(odd){
   width: 25%;
 }
+.table-print>thead>tr.allList>th{
+  border:1px solid #ddd !important;
+}
+.table-print3 tbody,.table-print3 tr,.table-print3 tr td{
+  text-align: center;
+}
 

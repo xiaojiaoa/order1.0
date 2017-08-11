@@ -295,7 +295,7 @@
                                      已对账
                                     <% } %>
                                     <% if(element.payed == 20){  %>
-                                    <a class="label label-success optionThis" data-payed=201 data-tid="<%=element.tid %>" data-bid="<%=element.bid %>">确认</a>
+                                    <a class="label label-success optionThis" data-payed=201 data-tid="<%=element.tid %>" data-bid="<%=element.bid %>"  data-moneytype="4" >确认</a>
                                     <a class="label label-danger optionThis" data-payed=202  data-tid="<%=element.tid %>" data-bid="<%=element.bid %>">退回</a>
                                     <% } %>
                                     <%}%>
@@ -460,6 +460,13 @@
 
             var ajaxUrl, text;
             var payed = _self.attr('data-payed');
+
+            // 设置ajax传递的数据
+            var passDate={
+                tid: tid,
+                bid: bid,
+            }
+
             switch (payed){
                 case '12':
                     var type = _self.attr('data-type');
@@ -478,6 +485,8 @@
                 case '201':
                     ajaxUrl = '/collection/receiptCheck/confirm'
                     text = '确认收款？'
+                    var moneyType=_self.attr('data-moneytype');
+                    passDate.moneyType=moneyType;
                     break;
                 case '202':
                     ajaxUrl = '/collection/reconciliation/notPass'
@@ -493,10 +502,7 @@
                 $.ajax({
                     url: ajaxUrl,
                     method: 'post',
-                    data: {
-                        tid: tid,
-                        bid: bid,
-                    },
+                    data:passDate,
                     success: function (data) {
                         successLayout.reload();
 
