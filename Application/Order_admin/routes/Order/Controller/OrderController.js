@@ -1593,7 +1593,7 @@ var OrderController = {
         var paramObject = helper.genPaginationQuery(req);
         Base.multiDataRequest(req, res, [
                 {url: '/api/orders/batchNumber/detail?batchNumber='+batchNumber+'&factoryId='+ factoryId, method: 'GET', resConfig: {keyName: 'batchInfo', is_must: true}},
-                {url: '/api/orders/batchNumber/orderDetail?batchNumber='+batchNumber+'&factoryId='+ factoryId, method: 'GET', resConfig: {keyName: 'orderDetail', is_must: true}},
+                {url: '/api/orders/batchNumber/orderDetail?batchNumber='+batchNumber+'&factoryId='+ factoryId+'&'+queryString.stringify(req.query), method: 'GET', resConfig: {keyName: 'orderDetail', is_must: true}},
             ],
             function (req, res, resultList) {
                 var paginationInfo =  resultList.orderDetail;
