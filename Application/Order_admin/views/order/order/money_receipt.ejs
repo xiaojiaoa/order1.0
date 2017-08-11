@@ -240,8 +240,8 @@
                                 <th>折扣备注</th>
                                 <th>收款类型</th>
                                 <!--<th>说明</th>-->
+                                <th>确认人</th>
                                 <th>确认日期</th>
-                                <th>对账日期</th>
                                 <th>操作</th>
                             </tr>
                             </thead>
@@ -271,9 +271,8 @@
                                     <% }else{%>
                                     已付款
                                     <% } %></td>
-                                <!--<td><element.describe</td>-->
-                                <td><%= DWY_Helper.getLocalDate(element.payTime) %></td>
-                                <td><%= DWY_Helper.getLocalDate(element.reconciliationTime) %></td>
+                                <td><%= element. receiptGid%></td>
+                                <td><%= DWY_Helper.getLocalDate(element.receiptTime) %></td>
                                 <td>
                                     <%if(type=='receiptMoney'){%>
                                     <% if(element.payed == 10){  %>
