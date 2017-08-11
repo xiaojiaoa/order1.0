@@ -559,6 +559,12 @@ router.post('/storesManage/doModify', Middleware.AuthCheck, StoresController.doM
 // 禁用/解锁 门店
 router.put('/storesManage/setStatus/:cid/:type', Middleware.AuthCheck, StoresController.setStatus);
 
+//  门店详情-配置价格系数按钮
+router.get('/storesManage/paramIndex/:cid', Middleware.AuthCheck, StoresController.paramIndexPage);
+
+// 提交价格系数配置
+router.post('/storesManage/doParam',Middleware.AuthCheck,StoresController.doParam);
+
 
 /*
  * 页面范围: 物料管理相关

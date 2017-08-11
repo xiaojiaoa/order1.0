@@ -282,6 +282,32 @@ var StoresController = {
         })
 
     },
+    paramIndexPage: function (req, res) {
+        var cid = req.params.cid;
+        Base.multiDataRequest(req, res, [
+            {url: '/api/stores/money/coefficient/'+cid, method: 'GET', resConfig: {keyName: 'paramInfo', is_must: true}},
+        ], function (req, res, resultList) {
+                var returnData = Base.mergeData(helper.mergeObject({
+                    title: ' ',
+                    cid:cid,
+                }, resultList));
+                res.render('order/manages/paramIndex', returnData);
+            });
+    },
+   doParam: function (req, res) {
+    request(Base.mergeRequestOptions({
+        method: 'post',
+        url: '/api/stores/money/coefficient',
+        form: req.body
+    }, req, res), function (error, response, body) {
+        if (!error && response.statusCode == 201) {
+            Base.handlerSuccess(res, req);
+            res.redirect('/storesManage/paramIndex/'+req.body.bid);
+        } else {
+            Base.handlerError(res, req, error, response, body);
+        }
+    })
+},
 
 };
 
