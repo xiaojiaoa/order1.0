@@ -101,6 +101,8 @@
                                 <th>订单号</th>
                                 <th>流水号</th>
                                 <th>订单类型</th>
+                                <th>主材颜色</th>
+                                <th>产品类型</th>
                                 <th>产品信息</th>
                                 <th>客户姓名</th>
                                 <th>拆单工件数量</th>
@@ -117,6 +119,8 @@
                                 <td><a href="/order/detail/<%= element.tid %>"><%= element.tid %></a></td>
                                 <td><a href="/taskseq/index/<%= element.lid %>"><%= element.lid %></a></td>
                                 <td><%= element.orderTypeName %></td>
+                                <td><%= element.decoColorStr %></td>
+                                <td><%= element.typeStr %></td>
                                 <td><%= element.prodName %></td>
                                 <td><%= element.custName %></td>
                                 <td><%= element.apartWorkPieceNumber %></td>
