@@ -87,7 +87,7 @@ var ApartController = {
             if (!error && response.statusCode == 201) {
 
                 res.sendStatus(200);
-                // res.redirect("/order/check/getOrder");
+
             } else {
                 Base.handlerError(res, req, error, response, body);
             }
