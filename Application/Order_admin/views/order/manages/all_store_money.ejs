@@ -122,7 +122,9 @@
                                 <td>
                                     <a class="label label-primary recharge" id="<%= element.bid %>" data-type="list">充值</a>
                                     <a class="label label-success preRecharge" href="/storesManage/preRecharge/<%= element.bid %>"  data-type="list">预充值</a>
+                                    <% if (DWY_Helper.hasPermission(Permission.storeFound.editRecharge.id, permission) ){ %>
                                     <a class="label label-primary editRecharge" data-id="<%= element.bid %>">冲正</a>
+                                    <%}%>
                                 </td>
                             </tr>
                             <%  })

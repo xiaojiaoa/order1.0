@@ -771,6 +771,12 @@ var permissions = {
             id:"",
             name:""
         }
+    },
+    storeFound:{
+        editRecharge:{
+            id:"302041",
+            name:"门店资金冲正按钮"
+        }
     }
 }
 
