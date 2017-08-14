@@ -190,6 +190,19 @@
                                         </div>
                                     </div>
                                 </div>
+                                <div class="col-xs-3">
+                                    <div class="form-group">
+                                        <label class="col-xs-4 control-label">收款状态:</label>
+                                        <div class="col-xs-8">
+                                            <select class="form-control" name="payStatus">
+                                                <option value="">- 请选择 -</option>
+                                                <option value="0"  <%= (DWYRequest.query.payStatus == 0)?"selected":"" %>>未付款</option>
+                                                <option value="1"  <%= (DWYRequest.query.payStatus == 1)?"selected":"" %>>已付款</option>
+                                            </select>
+
+                                        </div>
+                                    </div>
+                                </div>
                                 <div class="col-xs-4">
                                     <div class="form-group">
                                         <label class="col-xs-3 control-label">补单建单日期:</label>
@@ -256,6 +269,7 @@
                                 <th>补单建单时间</th>
                                 <th>补单原因</th>
                                 <th>补单当前状态</th>
+                                <th>收款状态</th>
                                 <th>收款日期</th>
                                 <!--根据权限展示价格-->
                                 <% if(DWY_Helper.hasPermission(Permission.resupply.queryByRevFranchisePrice.id, permission)){%>
@@ -286,6 +300,7 @@
                                 <td><%= element.addTime %></td>
                                 <td><%= element.causeStr %></td>
                                 <td><%= element.statusStr %></td>
+                                <td><%= element.payStatus %></td>
                                 <td><%= DWY_Helper.getLocalDate(element.receiptTime) %></td>
                                 <!--根据权限展示结算价-->
                                 <% if(DWY_Helper.hasPermission(Permission.resupply.queryByRevFranchisePrice.id, permission)){%>
