@@ -13,14 +13,7 @@
     </div>
     <input value="<%= tid %>" name="tid" type="hidden">
     <input value="<%= orderType %>" name="orderType" type="hidden">
-    <!--<div class="col-xs-12">-->
-    <!--<div class="form-group">-->
-    <!--<label class="col-xs-2 control-label">零售总价:</label>-->
-    <!--<div class="col-xs-6">-->
-    <!--<input class="form-control"  value="" name="" readonly>-->
-    <!--</div>-->
-    <!--</div>-->
-    <!--</div>-->
+
     <div class="col-xs-12">
         <div class="form-group">
             <label class="col-xs-2 control-label">最终计价:</label>
@@ -115,7 +108,7 @@
             $('#factoryAccount').text((val2*money).toFixed(2));
         })
 
-        //提交审核--弹出审核总价框
+        // 提交审核--弹出审核总价框
         $('#check-pass-modal').on({
             click: function (e) {
                 layer.open({
@@ -124,7 +117,7 @@
                     area: '700px',
                     content: $('#check_pass'),
                     cancel: function () {
-                        //右上角关闭回调
+                        // 右上角关闭回调
                     },
 
                 });
@@ -147,7 +140,7 @@
                             area: '700px',
                             content: $('#check_pass'),
                             cancel: function () {
-                                //右上角关闭回调
+                                // 右上角关闭回调
                             },
 
                         });
@@ -170,7 +163,7 @@
                     area: '600px',
                     content: $('#confirm-apart-order-form'),
                     cancel: function () {
-                        //右上角关闭回调
+                        // 右上角关闭回调
                     },
 
                 });
