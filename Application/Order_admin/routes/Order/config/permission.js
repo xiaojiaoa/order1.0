@@ -417,7 +417,11 @@ var permissions = {
         queryEmployee:{
             id:"882043",
             name:"查看员工"
-        }
+        },
+        setPrice:{
+            id:"886040",
+            name:"配置价格系数"
+        },
     },
     employeeManage :{
         createDepartment:{

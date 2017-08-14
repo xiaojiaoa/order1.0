@@ -37,7 +37,9 @@
                         <% }else{ %>
                         <a class="label label-primary" href="/storesManage/modify/<%= storeInfo.bid %>">修改</a>
                         <a class="label label-danger on-off-switch" id="closeStore" data-type="40">禁用</a>
+                        <% if (DWY_Helper.hasPermission(Permission.store.setPrice.id, permission) ){ %>
                         <a class="label label-primary" href="/storesManage/paramIndex/<%= storeInfo.bid%>">配置价格系数</a>
+                        <%}%>
                         <% } %>
                     </legend>
 

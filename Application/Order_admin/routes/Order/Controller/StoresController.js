@@ -69,6 +69,7 @@ var StoresController = {
             var returnData = Base.mergeData(helper.mergeObject({
                 title: ' ',
                 pagination: pagination,
+                Permission :Permissions,
             },resultList));
             res.render('order/manages/store_detail', returnData);
         });
