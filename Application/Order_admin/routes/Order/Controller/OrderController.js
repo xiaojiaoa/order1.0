@@ -65,7 +65,7 @@ var OrderController = {
                 {url: '/api/assist/order/stcodes', method: 'GET', resConfig: {keyName: 'stcodeInfo', is_must: false}},
                 {url: '/api/orders/package/delivery/'+tid+'?'+queryString.stringify(req.query), method: 'GET', resConfig: {keyName: 'deliveryInfo', is_must: true}},
                 {url: '/api/assist/order/difficulty', method: 'GET', resConfig: {keyName: 'difficultyList', is_must: true}},
-                {url: '/api/cofficient', method: 'GET', resConfig: {keyName: 'cofficientInfo', is_must: true}},
+                {url: '/api/cofficient/'+tid, method: 'GET', resConfig: {keyName: 'cofficientInfo', is_must: true}},
                 {url: '/api/orders/chgback/'+tid, method: 'GET', resConfig: {keyName: 'chgbackInfo', is_must: true}},
                 {url: '/api/orders/progress/'+tid, method: 'GET', resConfig: {keyName: 'progressInfo', is_must: true}},
                 {url: '/api/assist/space/prod', method: 'GET', resConfig: {keyName: 'spaceInfo', is_must: true}},
