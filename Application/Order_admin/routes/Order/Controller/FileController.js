@@ -54,7 +54,7 @@ var FileController = {
                 {url: '/api/order/file/'+ lid+"?ordType="+ordType+"&tid="+tid, method: 'GET', resConfig: {keyName: 'fileInfo', is_must: false}},
                 {url: '/api/assist/order/fileNameType', method: 'GET', resConfig: {keyName: 'fileNameType', is_must: false}},
                 {url: '/api/orders/'+tid, method: 'GET', resConfig: {keyName: 'orderInfo', is_must: true}},
-                {url: '/api/cofficient', method: 'GET', resConfig: {keyName: 'cofficientInfo', is_must: true}},
+                {url: '/api/cofficient/'+tid, method: 'GET', resConfig: {keyName: 'cofficientInfo', is_must: true}},
             ],
             function (req, res, resultList) {
                 var fileTypeList = {};
@@ -100,7 +100,7 @@ var FileController = {
                 {url: '/api/assist/orderfile/type?type='+stcode, method: 'GET', resConfig: {keyName: 'fileTypeInfo', is_must: true}},
                 {url: '/api/assist/order/fileNameType', method: 'GET', resConfig: {keyName: 'fileNameType', is_must: false}},
                 {url: '/api/orders/resupply/detail?tid='+tid, method: 'GET', resConfig: {keyName: 'resupplyInfo', is_must: true}},
-                {url: '/api/cofficient', method: 'GET', resConfig: {keyName: 'cofficientInfo', is_must: true}},
+                {url: '/api/cofficient/'+tid, method: 'GET', resConfig: {keyName: 'cofficientInfo', is_must: true}},
             ],
             function (req, res, resultList) {
                 var fileTypeList = {};
