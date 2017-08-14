@@ -1,0 +1,87 @@
+
+<form id="rechargeForm" class="col-xs-12 layer-template" method="post" action="/storesManage/passPrerecharge">
+    <div class="col-xs-12 moneyAmount" style="margin-top:20px;">
+        <div class="col-xs-2 margin-top-10 text-right">
+            <span class="requird money"></span>
+            金额:
+        </div>
+        <div class="col-xs-6">
+            <input class="form-control validate[required,custom[number]]" type="text" value="" name="realAmount" />
+        </div>
+    </div>
+    <div class="col-xs-12" style="margin-top:20px;">
+        <div class="col-xs-2 margin-top-10 text-right">
+            备注:
+        </div>
+        <div class="col-xs-6">
+            <textarea class="form-control" name="remark" cols="30" rows="5"></textarea>
+        </div>
+    </div>
+    <div class="col-xs-12 text-center margin-top-10">
+        <button class="btn btn-primary">确定通过</button>
+        <input type="hidden" name="tid" value="" />
+        <input type="hidden" name="bidRecharge" value="" />
+    </div>
+</form>
+
+<form id="rechargeBackForm" class="col-xs-12 layer-template" method="post" action="/storesManage/backPrerecharge">
+    <div class="col-xs-12" style="margin-top:20px;">
+        <div class="col-xs-2 margin-top-10 text-right">
+            备注:
+        </div>
+        <div class="col-xs-6">
+            <textarea class="form-control" name="remark" cols="30" rows="5"></textarea>
+        </div>
+    </div>
+    <div class="col-xs-12 text-center margin-top-10">
+        <button class="btn btn-primary">确定退回</button>
+        <input type="hidden" name="tid" value="" />
+        <input type="hidden" name="bidRecharge" value="" />
+    </div>
+</form>
+<script type="text/javascript">
+
+    $(document).ready(function () {
+
+        $("#rechargeForm").validationEngine();
+        $("#rechargeBackForm").validationEngine();
+        $(".rechargeModify").on({
+            click:function(){
+                var _self=$(this);
+                var tid=_self.data("id");
+                var bid=_self.data("bid");
+                $("input[name=tid]").val(tid);
+                $("input[name=bidRecharge]").val(bid);
+                layer.open({title:false,
+                    type:1,
+                    area:'700px',
+                    content:$('#rechargeForm'),
+                    cancel: function () {
+                        //右上角关闭回调
+                    },
+                })
+            }
+        })
+        $(".rechargeBack").on({
+            click:function(){
+                var _self=$(this);
+                var tid=_self.data("id");
+                var bid=_self.data("bid");
+                $("input[name=tid]").val(tid);
+                $("input[name=bidRecharge]").val(bid);
+                layer.open({title:false,
+                    type:1,
+                    area:'700px',
+                    content:$('#rechargeBackForm'),
+                    cancel: function () {
+                        //右上角关闭回调
+                    },
+                })
+            }
+        })
+
+
+
+    })
+
+</script>
