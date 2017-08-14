@@ -53,7 +53,7 @@
                                     <div class="form-group">
                                         <label class="col-xs-4 control-label ">审核价价格系数: </label>
                                         <div class="col-xs-8">
-                                            <input class="form-control validate[funcCall[custom_validate_fn.isDecimal]],groupRequired[someName]]"
+                                            <input class="form-control validate[funcCall[custom_validate_fn.isDecimal]],required]"
                                                    value="<%= paramInfo.revCoefficient %>" name="revCoefficient"
                                                    type="text" readonly>
                                             <span code-data="" class="unit"></span>
@@ -65,7 +65,7 @@
                                     <div class="form-group">
                                         <label class="col-xs-4 control-label ">工厂价价格系数: </label>
                                         <div class="col-xs-8">
-                                            <input class="form-control validate[funcCall[custom_validate_fn.isDecimal]],groupRequired[someName]]"
+                                            <input class="form-control validate[funcCall[custom_validate_fn.isDecimal]],required]"
                                                    value="<%= paramInfo.factoryCoefficient %>" name="factoryCoefficient"
                                                    type="text" readonly>
                                             <span code-data="" class="unit"></span>
