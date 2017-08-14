@@ -109,7 +109,6 @@
                                 <% if(DWY_GLOBAL.ButtonOpen!=1){  %>
                                 <div class="slideToggle display-none">
                                 <%}%>
-                                    <% if(type=='receiptMoney'){%>
                                     <div class="col-xs-3">
                                         <div class="form-group">
                                             <label class="col-xs-3 control-label">客户姓名:</label>
@@ -122,7 +121,6 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <%}%>
                                     <div class="col-xs-3">
                                         <div class="form-group">
                                             <label class="col-xs-3 control-label">门店名:</label>
@@ -147,6 +145,20 @@
                                             </div>
                                         </div>
                                     </div>
+                                    <%if(type=='confirmMoney'){%>
+                                    <div class="col-xs-3">
+                                        <div class="form-group">
+                                            <label class="col-xs-3 control-label">退回状态:</label>
+                                            <div class="col-xs-8">
+                                                <select class="form-control" name="backStatus">
+                                                    <option value="">- 请选择 -</option>
+                                                    <option value="0" <%= (DWYRequest.query.backStatus==0)?'selected':''%>>未退回</option>
+                                                    <option value="1" <%= (DWYRequest.query.backStatus==1)?'selected':''%>>已退回</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <%}%>
                                     <div class="col-xs-3">
                                             <div class="form-group">
                                                 <label class="col-xs-3 control-label">下单日期:</label>
@@ -223,15 +235,12 @@
                             <thead>
                             <tr>
                                 <th width="84px">序号</th>
-                                <% if(type=='receiptMoney'){%>
                                 <th>客户姓名</th>
-                                <%}%>
                                 <th>订单号</th>
                                 <th>订单状态</th>
                                 <th>所属机构</th>
                                 <th>所属门店</th>
                                 <th>产品名称</th>
-                                <th>客户名称</th>
                                 <th>零售价（元）</th>
                                 <th>结算价（元）</th>
                                 <th>出厂价（元）</th>
@@ -242,6 +251,10 @@
                                 <!--<th>说明</th>-->
                                 <th>确认人</th>
                                 <th>确认日期</th>
+                                <%if(type=='confirmMoney'){%>
+                                <th>退回人</th>
+                                <th>退回日期</th>
+                                <%}%>
                                 <th>操作</th>
                             </tr>
                             </thead>
@@ -251,15 +264,12 @@
                             moneyList.result.forEach(function (element, index) { %>
                             <tr>
                                 <td width="84px"><%= DWY_Helper.incrementNum(DWYRequest.query.pageNo,index)%></td>
-                                <% if(type=='receiptMoney'){%>
                                 <td><%= element.custName%></td>
-                                <%}%>
                                 <td><a href="/order/detail/<%= element.tid %>"><%= element.tid %></a></td>
                                 <td><%= element.stcodeName %></td>
                                 <td><%= element.orgName %></td>
                                 <td><%= element.storeName %></td>
                                 <td><%= element.prodTypeName %></td>
-                                <td><%= element.custName %></td>
                                 <td><%= element.retailPrice %></td>
                                 <td><%= element.revFranchisePrice %></td>
                                 <td><%= element.factoryPrice %></td>
@@ -273,6 +283,10 @@
                                     <% } %></td>
                                 <td><%= element. receiptGid%></td>
                                 <td><%= DWY_Helper.getLocalDate(element.receiptTime) %></td>
+                                <%if(type=='confirmMoney'){%>
+                                <td><%= element. backGid%></td>
+                                <td><%= DWY_Helper.getLocalDate(element.backTime) %></td>
+                                <%}%>
                                 <td>
                                     <%if(type=='receiptMoney'){%>
                                     <% if(element.payed == 10){  %>
