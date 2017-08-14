@@ -10,6 +10,11 @@ var custom_validate_fn = {
         var value = field.val();
         return (/^\d+(\.\d+)?$/gi.test(value)) ? true : '请输入正确的折扣率';
     },
+    // 验证大于0小于等于1的小数，并且小数点后只能输入4位
+    isDecimal: function (field, rules, i, options) {
+        var value = field.val();
+        return (/^1$|^0\.[1-9]{0,4}$/gi.test(value)) ? true : '请输入>0且<=1的数，小数点后只能输入4位';
+    },
     // 密码验证
     regexPassword: function (field, rules, i, options) {
         // -S-密码校验
