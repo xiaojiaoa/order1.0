@@ -278,6 +278,9 @@
         })
 
         $('#dwy_file_upload').on({
+            click: function () {
+                $(this).val('');
+            },
             change: function (e) {
                 var _this = $(this);
                 var choosedName =  _this.prop('files')[0].name;

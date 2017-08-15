@@ -1695,7 +1695,7 @@ var OrderController = {
 
                 var data = {
                     list:fileTypeList,
-                    fileName:req.body.batchNumber+'-拆单dwg文件'
+                    fileName:req.body.batchNumber+'-相关文件'
                 }
                 // console.log('fileTypeList',JSON.stringify(data))
                 request(Base.mergeRequestOptions({
