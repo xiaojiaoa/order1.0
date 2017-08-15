@@ -203,7 +203,11 @@ var permissions = {
         sendBackOrder:{
             id:"535021",
             name:"退回拆审订单"
-        }
+        },
+        backOrder:{
+            id:"535010",
+            name:"退回重审"
+        },
     },
     orderSchedule :{
         query:{
@@ -225,6 +229,10 @@ var permissions = {
         sendBackOrder:{
             id:"536021",
             name:"退回排料订单"
+        },
+        backOrder:{
+            id:"536010",
+            name:"退回重审"
         }
     },
     orderPackage :{
@@ -343,6 +351,10 @@ var permissions = {
         sendBackOrder:{
             id:"545021",
             name:"退回拆审订单"
+        },
+        backOrder:{
+            id:"545010",
+            name:"退回拆审"
         }
     },
     goodsAllocation :{
