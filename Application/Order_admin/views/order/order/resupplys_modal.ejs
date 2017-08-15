@@ -166,13 +166,81 @@
     <div class="dwy-clear"></div>
 </form>
 
+<form class="form-horizontal  layer-template" method="post" id="order_back"
+        <% if(resupplyInfo.status==475||resupplyInfo.status==635){%>
+        action='/schedu/notPass'
+        <%} %>
+>
 
+
+    <div class="col-xs-12">
+
+        <div class="form-group">
+            <label class="col-xs-2 control-label"><span class="requird"></span> 退回类型:</label>
+            <div class="col-xs-8">
+                <%
+                switch (resupplyInfo.status){
+                case 475:
+                if(DWY_Helper.isCanLoop(apartReviewReason)){
+                apartReviewReason.forEach(function (element) { %>
+                <label class="checkbox-inline">
+                    <input type="checkbox" class="checkbox validate[minCheckbox[1]]" name="causeStr" value="<%= element.id %>">
+                    <span> <%= element.name %></span>
+                </label>
+                <%  })
+                }else{ %>
+                <label class="pull-left control-label">-- 暂无可选项，请配置 --</label>
+                <%  }
+                    break;
+                case 635:
+                if(DWY_Helper.isCanLoop(scheduleReason)){
+                scheduleReason.forEach(function (element) { %>
+                <label class="checkbox-inline">
+                    <input type="checkbox" class="checkbox validate[minCheckbox[1]]" name="causeStr" value="<%= element.id %>">
+                    <span> <%= element.name %></span>
+                </label>
+                <%  })
+                }else{ %>
+                <label class="pull-left control-label">-- 暂无可选项，请配置 --</label>
+                <%  }
+                    break;
+                }  %>
+            </div>
+
+        </div>
+
+    </div>
+    <input value="<%= tid %>" name="tid" type="hidden">
+    <input value="<%= orderType %>" name="orderType" type="hidden">
+    <div class="col-xs-12">
+
+        <div class="form-group">
+            <label class="col-xs-2 control-label">退回原因:</label>
+            <div class="col-xs-8">
+                <textarea name="remark" class="form-control"
+                          placeholder="请填写退回原因"  cols="30"
+                          rows="5"></textarea>
+            </div>
+
+        </div>
+    </div>
+    <div class="col-xs-12">
+        <hr class="simple">
+        <div class="col-xs-12 text-center">
+            <button class="btn btn-primary " type="submit">
+                退回
+            </button>
+        </div>
+    </div>
+    <div class="dwy-clear"></div>
+</form>
 <script type="text/javascript">
 
     $(document).ready(function () {
 
         $("#check_pass_saveResupplyReason").validationEngine();
         $("#order_reject").validationEngine();
+        $("#order_back").validationEngine();
 
 
         //弹出类
@@ -200,6 +268,22 @@
                     type: 1,
                     area: '700px',
                     content: $('#order_reject'),
+                    cancel: function () {
+                        //右上角关闭回调
+                    },
+
+                });
+            }
+        })
+
+
+        $('.reject-back').on({
+            click: function (e) {
+                layer.open({
+                    title: false,
+                    type: 1,
+                    area: '700px',
+                    content: $('#order_back'),
                     cancel: function () {
                         //右上角关闭回调
                     },

@@ -463,6 +463,7 @@
                                     <% if (DWY_Helper.hasPermission(Permission.resupplyOrderReviewApart.sendBackOrder.id, permission)   && resupplyInfo.receiveGid == user.id ){ %>
                                     <a class="label label-primary margin-left-20 reject-modal">拆单审核退回</a>
                                     <% } %>
+                                    <a class="label label-primary margin-left-20 reject-back">退回重审</a>
                                 </td>
                                 <% break;
                                 case 472: %>
@@ -504,6 +505,7 @@
                                     <% if (DWY_Helper.hasPermission(Permission.orderSchedule.sendBackOrder.id, permission) && (resupplyInfo.packeted == 0) && resupplyInfo.receiveGid == user.id ){ %>
                                     <a class="label label-primary margin-left-20 reject-modal">排料退回</a>
                                     <% } %>
+                                    <a class="label label-primary margin-left-20 reject-back">退回重审</a>
                                 </td>
                                 <% break;
                                 case 632: %>
