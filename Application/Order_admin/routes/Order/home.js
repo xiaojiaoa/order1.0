@@ -395,6 +395,8 @@ router.put('/schedule/unlock/:tid', Middleware.AuthCheck, OrderController.doUnlo
 // 审核未通过（退单）
 router.post('/schedule/notPass', Middleware.AuthCheck, OrderController.notPassSchedule);
 
+router.post('/schedu/notPass', Middleware.AuthCheck, OrderController.notPassSche);
+
 // 审核通过
 router.put('/schedule/doPass/:tid', Middleware.AuthCheck, OrderController.doPassSchedule);
 

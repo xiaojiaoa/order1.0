@@ -95,12 +95,69 @@
     <div class="dwy-clear"></div>
 </form>
 
+<form class="form-horizontal  layer-template" method="post" id="order_back"
+        <% if(orderInfo.stcode==475||orderInfo.stcode==635){%>
+            action='/schedu/notPass'
+        <%} %>
+>
+    <div class="col-xs-12">
+        <div class="form-group">
+            <label class="col-xs-2 control-label"><span class="requird"></span> 退回类型:</label>
+            <div class="col-xs-8">
+                <%
+                switch (orderInfo.stcode){
+                    case 475:
+                apartReviewReason.forEach(function (element) { %>
+                <label class="checkbox-inline">
+                    <input type="checkbox" class="checkbox validate[minCheckbox[1]]" name="causeStr" value="<%= element.id %>">
+                    <span> <%= element.name %></span>
+                </label>
+                <%  })
+                    break;
+                case 635:
+                scheduleReason.forEach(function (element) { %>
+                <label class="checkbox-inline">
+                    <input type="checkbox" class="checkbox validate[minCheckbox[1]]" name="causeStr" value="<%= element.id %>">
+                    <span> <%= element.name %></span>
+                </label>
+                <%  })
+                    break;
+                }  %>
+            </div>
+
+        </div>
+
+    </div>
+    <input value="<%= tid %>" name="tid" type="hidden">
+    <div class="col-xs-12">
+
+        <div class="form-group">
+            <label class="col-xs-2 control-label">退回原因:</label>
+            <div class="col-xs-8">
+                <textarea name="remark" class="form-control"
+                          placeholder="请填写退回原因"  cols="30"
+                          rows="5"></textarea>
+            </div>
+
+        </div>
+    </div>
+    <div class="col-xs-12">
+        <hr class="simple">
+        <div class="col-xs-12 text-center">
+            <button class="btn btn-primary " type="submit">
+                退回
+            </button>
+        </div>
+    </div>
+    <div class="dwy-clear"></div>
+</form>
 
 <script type="text/javascript">
 
     $(document).ready(function () {
 
         $("#order_reject").validationEngine();
+        $("#order_back").validationEngine();
 
         $('.reject-modal').on({
             click: function (e) {
@@ -109,6 +166,20 @@
                     type: 1,
                     area: '700px',
                     content: $('#order_reject'),
+                    cancel: function () {
+                        // 右上角关闭回调
+                    },
+
+                });
+            }
+        })
+        $('.back-modal').on({
+            click: function (e) {
+                layer.open({
+                    title: false,
+                    type: 1,
+                    area: '700px',
+                    content: $('#order_back'),
                     cancel: function () {
                         // 右上角关闭回调
                     },

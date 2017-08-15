@@ -1145,6 +1145,23 @@ var OrderController = {
             }
         })
     },
+
+    notPassSche: function (req, res) {
+        req.body.causeStr =  req.body.causeStr.toString(',');
+        console.log('233333',req.body)
+        request(Base.mergeRequestOptions({
+            method: 'put',
+            url: '/api/orders/chgback/orderBack?'+queryString.stringify(req.body),
+        }, req, res), function (error, response, body) {
+            if (!error && response.statusCode == 201) {
+                Base.handlerSuccess(res, req);
+                res.redirect(req.session.backPath?req.session.backPath:"/order/check/waitOrder");
+            } else {
+                Base.handlerError(res, req, error, response, body);
+            }
+        })
+    },
+
     doPassSchedule: function (req, res) {
         var tid = req.params.tid;
         request(Base.mergeRequestOptions({
