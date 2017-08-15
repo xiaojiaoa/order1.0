@@ -463,7 +463,7 @@ router.post('/collection/reconciliation/notPass', Middleware.AuthCheck, OrderCon
 router.get('/orders/batchNumber', Middleware.AuthCheck,Middleware.SetBackPath,OrderController.batchPage);
 router.get('/orders/batchNumber/detail/:batchNumber/:factoryId', Middleware.AuthCheck, OrderController.batchDetail);
 
-router.get('/orders/batchNumber/downloadZip/:batchNumber/:factoryId', Middleware.AuthCheck, OrderController.downloadZip);
+router.post('/orders/batchNumber/downloadZip', Middleware.AuthCheck, OrderController.downloadZip);
 router.get('/orders/batchNumber/downloadPackage/:batchNumber/:factoryId', Middleware.AuthCheck, OrderController.downloadPackage);
 
 // 生成包装操作

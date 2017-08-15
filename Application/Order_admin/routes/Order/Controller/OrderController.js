@@ -1680,11 +1680,12 @@ var OrderController = {
         })
     },
     downloadZip: function (req, res) {
-        var batchNumber =  req.params.batchNumber;
-        var factoryId =  req.params.factoryId;
-
+        // var batchNumber =  req.params.batchNumber;
+        // var factoryId =  req.params.factoryId;
+        req.body.stcode = req.body.stcode?req.body.stcode.toString(','):'';
         Base.multiDataRequest(req, res, [
-                {url: '/api/orders/batchNumber/files?batchNumber='+batchNumber+'&factoryId='+ factoryId, method: 'GET', resConfig: {keyName: 'files', is_must: true}},
+                // {url: '/api/orders/batchNumber/files?batchNumber='+batchNumber+'&factoryId='+ factoryId, method: 'GET', resConfig: {keyName: 'files', is_must: true}},
+                {url: '/api/orders/batchNumber/files?'+queryString.stringify(req.body), method: 'GET', resConfig: {keyName: 'files', is_must: true}},
             ],
             function (req, res, resultList) {
                 var fileTypeList = [];
@@ -1694,7 +1695,7 @@ var OrderController = {
 
                 var data = {
                     list:fileTypeList,
-                    fileName:batchNumber+'-拆单dwg文件'
+                    fileName:req.body.batchNumber+'-拆单dwg文件'
                 }
                 // console.log('fileTypeList',JSON.stringify(data))
                 request(Base.mergeRequestOptions({
