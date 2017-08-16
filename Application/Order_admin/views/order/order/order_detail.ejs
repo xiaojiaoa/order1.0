@@ -563,7 +563,7 @@
                                     <% if (DWY_Helper.hasPermission(Permission.orderSchedule.sendBackOrder.id, permission)&& (orderInfo.packeted==0) && orderInfo.receiveGid == user.id ){ %>
                                     <a class="label label-primary margin-left-20 reject-modal">排料退回</a>
                                     <% } %>
-                                    <% if (DWY_Helper.hasPermission(Permission.orderSchedule.backOrder.id, permission) && orderInfo.receiveGid == user.id ){ %>
+                                    <% if (DWY_Helper.hasPermission(Permission.orderSchedule.backOrder.id, permission)&& (orderInfo.packeted==0) && orderInfo.receiveGid == user.id ){ %>
                                     <a class="label label-primary margin-left-20 back-modal">退回重审</a>
                                     <%}%>
                                 </td>
