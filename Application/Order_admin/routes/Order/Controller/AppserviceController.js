@@ -805,9 +805,10 @@ var AppServiceController = {
     },
 
     scanningCargoin: function (req, res) {
+        var spaceId = req.params.spaceId;
         request(Base.mergeRequestOptions({
             method: 'post',
-            url: '/api/whse/app/cargoin/inscan/space',
+            url: '/api/whse/app/cargoin/inscan/space/'+spaceId,
             form: req.body,
             headers:req.headers,
         }, req, res), function (error, response, body) {
@@ -819,9 +820,10 @@ var AppServiceController = {
         })
     },
     scanningGoods: function (req, res) {
+        var packageLid = req.params.packageLid;
         request(Base.mergeRequestOptions({
             method: 'post',
-            url: '/api/whse/app/cargoin/inscan/cargo',
+            url: '/api/whse/app/cargoin/inscan/cargo/'+packageLid,
             form: req.body,
             headers:req.headers,
         }, req, res), function (error, response, body) {

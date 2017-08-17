@@ -1625,9 +1625,9 @@ router.get('/app/cargoin/findTid/:tid', AppServiceController.findTid);
 router.get('/app/cargoin/notinInfo/:tid', AppServiceController.notinInfo);
 
 //入库-货位扫描
-router.post('/app/cargoin/scanningCargoin', AppServiceController.scanningCargoin);
+router.post('/app/cargoin/scanningCargoin/:spaceId', AppServiceController.scanningCargoin);
 //货物扫描
-router.post('/app/cargoin/goodsScanCargoin', AppServiceController.scanningGoods);
+router.post('/app/cargoin/goodsScanCargoin/:packageLid', AppServiceController.scanningGoods);
 //扫描后查询订单流水包装状态
 router.get('/app/cargoin/allList', AppServiceController.orderTaskStatusCargo);
 //入库操作是显示流水订单包装状态
