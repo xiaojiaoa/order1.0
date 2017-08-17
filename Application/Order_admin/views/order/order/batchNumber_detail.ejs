@@ -35,6 +35,9 @@
                         <% if(batchInfo.stcode==1){%>
                         <a class="label label-primary" href="/system/printParts/<%= batchInfo.batchNumber %>">打印装箱清单</a>
                         <%}%>
+                        <% if(batchInfo.stcode  == 2){ %>
+                        <a class="label label-primary" href="/orders/heap/<%= batchInfo.batchNumber %>/<%= batchInfo.factoryId %>">生成堆号</a>
+                        <%  } %>
                         </legend>
 
                     <!-- row -->

@@ -462,6 +462,7 @@ router.post('/collection/reconciliation/notPass', Middleware.AuthCheck, OrderCon
 // 批次号管理
 router.get('/orders/batchNumber', Middleware.AuthCheck,Middleware.SetBackPath,OrderController.batchPage);
 router.get('/orders/batchNumber/detail/:batchNumber/:factoryId', Middleware.AuthCheck, OrderController.batchDetail);
+router.get('/orders/heap/:batchNumber/:factoryId', Middleware.AuthCheck, OrderController.batchHeap);
 
 router.post('/orders/batchNumber/downloadZip', Middleware.AuthCheck, OrderController.downloadZip);
 router.get('/orders/batchNumber/downloadPackage/:batchNumber/:factoryId', Middleware.AuthCheck, OrderController.downloadPackage);

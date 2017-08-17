@@ -1628,6 +1628,23 @@ var OrderController = {
 
             });
     },
+    batchHeap:function(req,res){
+        request(Base.mergeRequestOptions({
+            method: 'post',
+            url: '/api/orders/heap',
+            form: {
+                batchNumber: req.params.batchNumber,
+                factoryId: req.params.factoryId,
+            }
+        }, req, res), function (error, response, body) {
+            if (!error && response.statusCode == 201) {
+                Base.handlerSuccess(res,req);
+                res.redirect('/orders/batchNumber/detail/'+req.params.batchNumber+'/'+ req.params.factoryId);
+            } else {
+                Base.handlerError(res, req, error, response, body);
+            }
+        })
+    },
     doPacketBatchNumber:function(req,res){
         request(Base.mergeRequestOptions({
             method: 'post',
