@@ -503,7 +503,7 @@ var SystemController = {
                     type: 'purcPackagelist',
                     showTYpe: type
                 }, {printINfo: JSON.parse(body)}));
-                res.render('order/system/print', returnData);
+                res.render('order/system/printPackage', returnData);
             } else {
                 Base.handlerError(res, req, error, response, body);
             }

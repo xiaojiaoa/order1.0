@@ -129,11 +129,19 @@
                 value.forEach(function (element) {
                     html += $('#'+element+'Div').html();
                 })
-                printHtml.append(html);
+
+//                for(var i = 0;i<5000;i++){
+//                    html += $('#totalDiv').html();
+//                }
+//                printHtml.append(html);
 
                 printHtml.print({
                     stylesheet : "/css/print.css",
+//                    timeout: 750,
+                    prepend: html,
+//                    deferred: $.Deferred(test),
                 });
+
             }else{
                 layer.alert('请先选择要打印的分类', {icon: 3})
             }
@@ -142,6 +150,8 @@
 
 
         })
+
+
 
     })
 
