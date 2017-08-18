@@ -105,9 +105,9 @@
                     + '<td style="line-height:32px">' + listArr[i].class_name + '</td>'
                     + '<td width="120px"><input name="price'+i+'" class="form-control price validate[required]" price="' + listArr[i].price + '" value="' + listArr[i].price + '" /></td>'
                     + '<td width="120px"><select data-index="' + i + '" name="unit' + i + '" class="form-control unitSelect">'+options+'</select></td>'
-                    + '<td width="120px"><input data-index="' + i + '" type="text" name="amount'+i+'" value="" class="form-control amountApply validate[required]" /> </td>'
+                    + '<td width="120px"><input data-index="' + i + '" type="text" name="amount'+i+'" value="" class="form-control amountApply validate[required,custom[number],min[1]]" /> </td>'
                     + '<td class="total'+i+'">0</td>'
-                    + '<td width="120px"><input type="text" class="form-control percentage" /></td>'
+                    + '<td width="120px"><input type="text" class="form-control percentage validate[custom[number],min[0],max[100]]" /></td>'
                     + '<td class="deposit'+i+'">0</td>'
                     + '<td><div class="col-xs-12"><input data-index="' + i + '" class="form-control fg-date-picker deliveryDate validate[required]" type="text" value="" name="deliveryDate'+i+'" /></div> </td>'
                     + '<td width="120px"><input name="minAmount'+i+'" class="form-control minAmount validate[required]" value="" /></td>'
@@ -130,7 +130,7 @@
         })
         $(".amountApply").change(function(){
             var index = $(this).attr('data-index');
-            var price=$(this).parents('td').siblings('.price'+index).text();
+            var price=$(this).parents('td').siblings().find('.price').val();
             var amount=$(this).val();
             var val=parseInt(price) * parseInt(amount);
             if(val.toString().length>8){
