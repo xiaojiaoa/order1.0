@@ -61,6 +61,15 @@
                                     </div>
                                 </div>
 
+                                <div class="col-xs-2">
+                                    <div class="form-group">
+                                        <label class="col-xs-4 control-label">订单号:</label>
+                                        <div class="col-xs-8">
+                                            <input class="form-control" value="<%= DWYRequest.query.tid %>" name="tid">
+                                        </div>
+                                    </div>
+                                </div>
+
 
                                 <div class="col-xs-2">
                                     <div class="form-group">
@@ -156,6 +165,10 @@
                                     <%}%>
                                     <% if(element.stcode>=1){%>
                                     <a class="label label-success" href="/orders/batchNumber/downloadPackage/<%= element.batchNumber %>/<%= element.factoryId %>">导出工件清单</a>
+                                    <%}%>
+                                    <%}%>
+                                    <% if (DWY_Helper.hasPermission(Permission.batchNumber.packageList.id, permission ) ){ %>
+                                    <% if(element.stcode>=1){%>
                                     <a class="label label-warning" href="/system/printParts/<%= element.batchNumber %>/<%= element.factoryId %>">装箱清单</a>
                                     <%}%>
                                     <%}%>

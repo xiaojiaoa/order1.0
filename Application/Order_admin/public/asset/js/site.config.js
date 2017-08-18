@@ -181,6 +181,34 @@ var data_time_picker_validate = function (selectedDates, dateStr, instance) {
     var $ele = $(instance.element);
     $ele.validationEngine("validate");
 };
+
+var mouth_picker={
+    showMonth:{
+        language: 'zh-CN',
+        format: 'yyyy-mm',
+        autoclose: true,
+        todayBtn: true,
+        startView: 'year',
+        minView:'year',
+        maxView:'decade',
+    },
+    changeMonth:function (ev) {
+        var $tar=$(ev.target);
+        if (ev.date.valueOf()){
+            if ($tar.next().length == 0) {
+                $tar.addClass('flatpickr-input').attr("readonly","readonly");
+                $tar.parent().append("<i class = 'close-picker fa fa-times'></i>");
+            }
+            $tar.next().on("click", function () {
+                $tar.val('');
+                $tar.next().remove();
+            })
+        }
+        else{
+            $tar.next().remove();
+        }
+    }
+};
 var uploadFuc = {
 
     uploadSingleFile: function (ajaxUrl,config,callBack) {

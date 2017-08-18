@@ -780,6 +780,10 @@ var permissions = {
         queryAll:{
             id:"539042",
             name:"查询所有机构库存记录"
+        },
+        packageList:{
+            id:"539080",
+            name:"查看批次包装清单"
         }
     },
     taskseq:{
@@ -793,7 +797,21 @@ var permissions = {
             id:"302041",
             name:"门店资金冲正按钮"
         }
-    }
+    },
+    report:{
+        order:{
+            id:"803010",
+            name:"订单相关报表"
+        },
+        store:{
+            id:"803020",
+            name:"门店相关报表"
+        },
+        factory:{
+            id:"803030",
+            name:"工厂相关报表"
+        },
+    },
 }
 
 module.exports = permissions;

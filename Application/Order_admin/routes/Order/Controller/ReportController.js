@@ -19,6 +19,13 @@ var Permissions = require('../config/permission');
 var _ = require('lodash');
 
 var ReportController = {
+    reportPage: function (req, res) {
+        var returnData = Base.mergeData(helper.mergeObject({
+            title: ' ',
+            Permission :Permissions,
+        }));
+        res.render('order/report/report', returnData);
+    },
     orderMatPricingPage: function (req, res) {
 
         var paramObject = helper.genPaginationQuery(req);
@@ -37,7 +44,8 @@ var ReportController = {
 
             var returnData = Base.mergeData(helper.mergeObject({
                 title: ' ',
-                pagination: boostrapPaginator.render()
+                pagination: boostrapPaginator.render(),
+                Permission :Permissions,
             },resultList));
             res.render('order/report/orderMatPricing', returnData);
         });
@@ -61,7 +69,8 @@ var ReportController = {
 
             var returnData = Base.mergeData(helper.mergeObject({
                 title: ' ',
-                pagination: boostrapPaginator.render()
+                pagination: boostrapPaginator.render(),
+                Permission :Permissions,
             },resultList));
             res.render('order/report/batchNumMatPricing', returnData);
         });
@@ -83,6 +92,7 @@ var ReportController = {
             var returnData = Base.mergeData(helper.mergeObject({
                 title: ' ',
                 pagination: boostrapPaginator.render(),
+                Permission :Permissions,
             },resultList));
             res.render('order/report/orderCount', returnData);
         });
@@ -130,7 +140,8 @@ var ReportController = {
 
             var returnData = Base.mergeData(helper.mergeObject({
                 title: ' ',
-                pagination: boostrapPaginator.render()
+                pagination: boostrapPaginator.render(),
+                Permission :Permissions,
             },resultList));
             res.render('order/report/pickMateRep', returnData);
         });
@@ -154,7 +165,8 @@ var ReportController = {
 
             var returnData = Base.mergeData(helper.mergeObject({
                 title: ' ',
-                pagination: boostrapPaginator.render()
+                pagination: boostrapPaginator.render(),
+                Permission :Permissions,
             },resultList));
             res.render('order/report/outMateRep', returnData);
         });
@@ -202,7 +214,8 @@ var ReportController = {
 
             var returnData = Base.mergeData(helper.mergeObject({
                 title: ' ',
-                pagination: boostrapPaginator.render()
+                pagination: boostrapPaginator.render(),
+                Permission :Permissions,
             },resultList));
             res.render('order/report/inMateRep', returnData);
         });
@@ -256,6 +269,7 @@ var ReportController = {
                 title: ' ',
                 type:type,
                 pagination: boostrapPaginator.render(),
+                Permission :Permissions,
             },resultList));
             res.render('order/report/storeRep', returnData);
         });
@@ -343,7 +357,8 @@ var ReportController = {
 
             var returnData = Base.mergeData(helper.mergeObject({
                 title: ' ',
-                pagination: boostrapPaginator.render()
+                pagination: boostrapPaginator.render(),
+                Permission :Permissions,
             },resultList));
             res.render('order/report/pageBatchByMonth', returnData);
         });
@@ -367,9 +382,43 @@ var ReportController = {
 
             var returnData = Base.mergeData(helper.mergeObject({
                 title: ' ',
-                pagination: boostrapPaginator.render()
+                pagination: boostrapPaginator.render(),
+                Permission :Permissions,
             },resultList));
             res.render('order/report/pageAccessoryByMonth', returnData);
+        });
+
+    },
+    reportOrderSource: function (req, res) {
+        if(!req.query.startTime){
+            var dayTime= new Date().format("yyyy-MM-dd");
+            return res.redirect('/report/order/source?startTime='+dayTime+'&endTime='+dayTime);
+        }
+        Base.multiDataRequest(req, res, [
+            {url: '/api/orders/stat/orderSource?'+ queryString.stringify(req.query), method: 'GET', resConfig: {keyName: 'dataList', is_must: true}},
+        ], function (req, res, resultList) {
+            var returnData = Base.mergeData(helper.mergeObject({
+                title: ' ',
+                Permission :Permissions,
+            },resultList));
+            res.render('order/report/reportOrderSource', returnData);
+        });
+
+    },
+    reportOrderState: function (req, res) {
+        console.log(56656,'/api/orders/stat/orderStatus?'+ queryString.stringify(req.query));
+        if(!req.query.startTime){
+            var dayTime= new Date().format("yyyy-MM-dd");
+            return res.redirect('/report/order/state?startTime='+dayTime+'&endTime='+dayTime);
+        }
+        Base.multiDataRequest(req, res, [
+            {url: '/api/orders/stat/orderStatus?'+ queryString.stringify(req.query), method: 'GET', resConfig: {keyName: 'dataList', is_must: true}},
+        ], function (req, res, resultList) {
+            var returnData = Base.mergeData(helper.mergeObject({
+                title: ' ',
+                Permission :Permissions,
+            },resultList));
+            res.render('order/report/reportOrderState', returnData);
         });
 
     },

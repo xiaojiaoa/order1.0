@@ -1637,6 +1637,16 @@ router.post('/app/cargoin/goodsScanCancel', AppServiceController.goodsScanCancle
 //货物入库且货位待上架
 router.post('/app/cargoin/cargoinRacking', AppServiceController.cargoinRacking);
 
+//移库扫描包
+router.post('/app/cargoin/cargoMovingPack', AppServiceController.cargoMovingPack);
+//移库扫描货位
+router.post('/app/cargoin/cargoMoving', AppServiceController.cargoMoving);
+//移库显示移库包装列表
+router.get('/app/cargoin/moveShowPacklist', AppServiceController.moveShowPacklist);
+//移库包装落位
+router.post('/app/cargoin/cargoPostingup', AppServiceController.cargoPostingup);
+
+
 router.post('/app/orders/sort/view', AppServiceController.sortView);
 router.get('/app/orders/sort/batchNumber', AppServiceController.sortBatchNumber);
 router.get('/app/orders/sort/list', AppServiceController.sortList);
@@ -1647,6 +1657,9 @@ router.get('/app/orders/sort/workPiece/scaned', AppServiceController.sortWorkPie
 * 控制器:   ReportController
 * */
 var ReportController = require('./Controller/ReportController');
+
+// 报表管理
+router.get('/report', Middleware.AuthCheck,Middleware.FilterEmptyField,ReportController.reportPage);
 
 // 分页查询订单物料计价
 router.get('/orderMatPricing', Middleware.AuthCheck,Middleware.FilterEmptyField,ReportController.orderMatPricingPage);
@@ -1692,6 +1705,12 @@ router.get('/pageBatchByMonth', Middleware.AuthCheck,Middleware.FilterEmptyField
 
 // 按月查询五金汇总
 router.get('/pageAccessoryByMonth', Middleware.AuthCheck,Middleware.FilterEmptyField,ReportController.pageAccessoryByMonth);
+
+// 订单来源分类报表
+router.get('/report/order/source', Middleware.AuthCheck,Middleware.FilterEmptyField,ReportController.reportOrderSource);
+
+// 订单状态分类报表
+router.get('/report/order/state', Middleware.AuthCheck,Middleware.FilterEmptyField,ReportController.reportOrderState);
 
 
 

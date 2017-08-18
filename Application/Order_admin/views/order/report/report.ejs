@@ -1,0 +1,48 @@
+<%- include('../layouts/head_top'); %>
+<%- include('../layouts/head_bottom'); %>
+<%- include('../layouts/header'); %>
+<%- include('../layouts/nav'); %>
+
+
+<!-- MAIN PANEL -->
+<div id="main" role="main" class="mainFlex">
+
+    <!-- RIBBON -->
+    <div id="ribbon">
+
+        <!-- breadcrumb -->
+        <ol class="breadcrumb">
+            <li>后台管理</li>
+            <li>报表管理</li>
+        </ol>
+
+    </div>
+    <!-- END RIBBON -->
+
+
+    <!-- MAIN CONTENT -->
+    <div id="content" class="dis-flex">
+
+        <%- include('./reportManage'); %>
+    </div>
+    <!-- END MAIN CONTENT -->
+
+</div>
+<!-- END MAIN PANEL -->
+
+<%- include('../layouts/footer'); %>
+<%- include('../layouts/footer_common_script'); %>
+<%- include('./common_js'); %>
+
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+        $("#search-customer").validationEngine();
+        $(".fg-date-picker").flatpickr(data_time_picker.data_picker); // jQuery
+    })
+
+</script>
+
+
+<%- include('../layouts/foot'); %>
