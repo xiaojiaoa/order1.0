@@ -889,6 +889,63 @@ var AppServiceController = {
         })
     },
 
+    cargoMovingPack: function (req, res) {
+        request(Base.mergeRequestOptions({
+            method: 'post',
+            url: '/api/whse/app/change/space/scan/package',
+            form: req.body,
+            headers:req.headers,
+        }, req, res), function (error, response, body) {
+            if (!error) {
+                res.send(JSON.parse(body));
+            } else {
+                res.send(AppServiceController.error);
+            }
+        })
+    },
+    cargoMoving: function (req, res) {
+        request(Base.mergeRequestOptions({
+            method: 'post',
+            url: '/api/whse/app/change/space/scan/space',
+            form: req.body,
+            headers:req.headers,
+        }, req, res), function (error, response, body) {
+            if (!error) {
+                res.send(JSON.parse(body));
+            } else {
+                res.send(AppServiceController.error);
+            }
+        })
+    },
+    moveShowPacklist: function (req, res) {
+        request(Base.mergeRequestOptions({
+            method: 'get',
+            url: '/api/whse/app/change/space/list?'+queryString.stringify(req.query),
+            headers:req.headers,
+        }, req, res), function (error, response, body) {
+            if (!error) {
+                res.send(JSON.parse(body));
+            } else {
+                res.send(AppServiceController.error);
+            }
+        })
+    },
+    cargoPostingup: function (req, res) {
+        request(Base.mergeRequestOptions({
+            method: 'post',
+            url: '/api/whse/app/change/space/change',
+            form: req.body,
+            headers:req.headers,
+        }, req, res), function (error, response, body) {
+            if (!error) {
+                res.send(JSON.parse(body));
+            } else {
+                res.send(AppServiceController.error);
+            }
+        })
+    },
+
+
 };
 module.exports = AppServiceController;
 
