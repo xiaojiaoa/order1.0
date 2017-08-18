@@ -780,6 +780,10 @@ var permissions = {
         queryAll:{
             id:"539042",
             name:"查询所有机构库存记录"
+        },
+        packageList:{
+            id:"539080",
+            name:"查看批次包装清单"
         }
     },
     taskseq:{
