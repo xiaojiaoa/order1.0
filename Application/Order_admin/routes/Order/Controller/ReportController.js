@@ -390,7 +390,6 @@ var ReportController = {
 
     },
     reportOrderSource: function (req, res) {
-        console.log(56565,req.query);
         if(!req.query.startTime){
             var dayTime= new Date().format("yyyy-MM-dd");
             return res.redirect('/report/order/source?startTime='+dayTime+'&endTime='+dayTime);
@@ -407,6 +406,7 @@ var ReportController = {
 
     },
     reportOrderState: function (req, res) {
+        console.log(56656,'/api/orders/stat/orderStatus?'+ queryString.stringify(req.query));
         if(!req.query.startTime){
             var dayTime= new Date().format("yyyy-MM-dd");
             return res.redirect('/report/order/state?startTime='+dayTime+'&endTime='+dayTime);
