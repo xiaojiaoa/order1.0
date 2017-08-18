@@ -1712,7 +1712,14 @@ router.get('/report/order/source', Middleware.AuthCheck,Middleware.FilterEmptyFi
 // 订单状态分类报表
 router.get('/report/order/state', Middleware.AuthCheck,Middleware.FilterEmptyField,ReportController.reportOrderState);
 
+// 门店补单率
+router.get('/report/suppRate/store', Middleware.AuthCheck,Middleware.FilterEmptyField,ReportController.suppRateStore);
 
+// 下单员补单率
+router.get('/report/suppRate/orderPeople', Middleware.AuthCheck,Middleware.FilterEmptyField,ReportController.suppRateOrderPeople);
+
+// 部门成本率
+router.get('/report/costRate/depart', Middleware.AuthCheck,Middleware.FilterEmptyField,ReportController.costRateDepart);
 
 /*
  * 页面范围: 财务统计

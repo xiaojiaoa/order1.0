@@ -422,6 +422,81 @@ var ReportController = {
         });
 
     },
+    suppRateStore: function (req, res) {
+
+        var paramObject = helper.genPaginationQuery(req);
+        Base.multiDataRequest(req, res, [
+            {url: '/api/orders/stat/storeResupplyRate?'+ queryString.stringify(req.query), method: 'GET', resConfig: {keyName: 'dataList', is_must: true}},
+        ], function (req, res, resultList) {
+
+            var paginationInfo = resultList.dataList;
+
+            var boostrapPaginator = new Pagination.TemplatePaginator(helper.genPageInfo({
+                prelink: paramObject.withoutPageNo,
+                current: paginationInfo.page,
+                rowsPerPage: paginationInfo.pageSize,
+                totalResult: paginationInfo.totalItems
+            }));
+
+            var returnData = Base.mergeData(helper.mergeObject({
+                title: ' ',
+                pagination: boostrapPaginator.render(),
+                Permission :Permissions,
+            },resultList));
+            res.render('order/report/suppRateStore', returnData);
+        });
+
+    },
+    suppRateOrderPeople: function (req, res) {
+
+        var paramObject = helper.genPaginationQuery(req);
+        Base.multiDataRequest(req, res, [
+            {url: '/api/orders/stat/employeeResupplyRate?'+ queryString.stringify(req.query), method: 'GET', resConfig: {keyName: 'dataList', is_must: true}},
+        ], function (req, res, resultList) {
+
+            var paginationInfo = resultList.dataList;
+
+            var boostrapPaginator = new Pagination.TemplatePaginator(helper.genPageInfo({
+                prelink: paramObject.withoutPageNo,
+                current: paginationInfo.page,
+                rowsPerPage: paginationInfo.pageSize,
+                totalResult: paginationInfo.totalItems
+            }));
+
+            var returnData = Base.mergeData(helper.mergeObject({
+                title: ' ',
+                pagination: boostrapPaginator.render(),
+                Permission :Permissions,
+            },resultList));
+            res.render('order/report/suppRateOrderPeople', returnData);
+        });
+
+    },
+    costRateDepart: function (req, res) {
+
+        var paramObject = helper.genPaginationQuery(req);
+        Base.multiDataRequest(req, res, [
+            {url: '/api/orders/stat/departmentResupplyRate?'+ queryString.stringify(req.query), method: 'GET', resConfig: {keyName: 'dataList', is_must: true}},
+        ], function (req, res, resultList) {
+
+            var paginationInfo = resultList.dataList;
+
+            var boostrapPaginator = new Pagination.TemplatePaginator(helper.genPageInfo({
+                prelink: paramObject.withoutPageNo,
+                current: paginationInfo.page,
+                rowsPerPage: paginationInfo.pageSize,
+                totalResult: paginationInfo.totalItems
+            }));
+
+            var returnData = Base.mergeData(helper.mergeObject({
+                title: ' ',
+                pagination: boostrapPaginator.render(),
+                Permission :Permissions,
+            },resultList));
+            res.render('order/report/costRateDepart', returnData);
+        });
+
+    },
 
 
 };

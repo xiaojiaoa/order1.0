@@ -1,0 +1,239 @@
+<%- include('../layouts/head_top'); %>
+<%- include('../layouts/head_bottom'); %>
+<%- include('../layouts/header'); %>
+<%- include('../layouts/nav'); %>
+
+
+<!-- MAIN PANEL -->
+<div id="main" role="main" class="mainFlex">
+
+    <!-- RIBBON -->
+    <div id="ribbon">
+
+        <!-- breadcrumb -->
+        <ol class="breadcrumb">
+            <li>后台管理</li>
+            <li>报表管理</li>
+        </ol>
+
+    </div>
+    <!-- END RIBBON -->
+
+
+    <!-- MAIN CONTENT -->
+    <div id="content" class="dis-flex">
+
+        <%- include('./reportManage'); %>
+        <!-- well -->
+        <div class="well">
+            <!-- row -->
+            <div class="row">
+                <!-- col -->
+                <div class="col-xs-12">
+                    <!--<legend>客户搜索</legend>-->
+                    <!-- row -->
+                    <div class="row search-form">
+                        <form class="form-horizontal" method="get" id="search-customer">
+
+
+                            <div class="col-xs-12">
+
+                                <!--输入字段-->
+                                <div class="col-xs-3">
+                                    <div class="form-group">
+                                        <label class="col-xs-4 control-label">门店名:</label>
+                                        <div class="col-xs-8">
+                                            <input class="form-control" placeholder="请输入门店名" value="<%= DWYRequest.query.storeName %>" type="text" name="storeName">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xs-4">
+                                    <div class="form-group">
+                                        <label class="col-xs-3 control-label">日期范围:</label>
+                                        <div class="col-xs-4">
+                                            <input class="form-control fg-date-picker"
+                                                   value="<%= DWYRequest.query.startDate %>"
+                                                   name="startDate">
+                                        </div>
+                                        <label class="control-label " style="float: left"> 至 </label>
+                                        <div class="col-xs-4">
+                                            <input class="form-control fg-date-picker"
+                                                   value="<%= DWYRequest.query.endDate %>"
+                                                   name="endDate">
+                                        </div>
+                                    </div>
+                                </div>
+                                <% if(DWY_GLOBAL.ButtonOpen!=1){ %>
+                                <div class="col-xs-3 text-center">
+                                    <button class="btn btn-primary " type="submit">
+                                        <i class="fa fa-search"></i>
+                                        查询
+                                    </button>
+                                    <label class="btn btn-default reset margin-left-20">
+                                        重置
+                                    </label>
+                                    <label class="search margin-left-20">
+                                        高级查询
+                                        <i class="fa fa-chevron-down"></i>
+                                    </label>
+                                </div>
+                                <%}%>
+                            <% if(DWY_GLOBAL.ButtonOpen!=1){ %>
+                            <div class="slideToggle display-none">
+                            <%}%>
+                                <div class="col-xs-3">
+                                    <div class="form-group">
+                                        <label class="col-xs-4 control-label">订单数:</label>
+                                        <div class="col-xs-8">
+                                            <div class="col-xs-6">
+                                                <select class="form-control" name="orderCountFilter">
+                                                    <option value="3" <%= (DWYRequest.query.dealAmountFilter == 3)?"selected":"" %>>=</option>
+                                                    <option value="1" <%= (DWYRequest.query.dealAmountFilter == 1)?"selected":"" %>>></option>
+                                                    <option value="2" <%= (DWYRequest.query.dealAmountFilter == 2)?"selected":"" %>>>=</option>
+                                                    <option value="4" <%= (DWYRequest.query.dealAmountFilter == 4)?"selected":"" %>><</option>
+                                                    <option value="5" <%= (DWYRequest.query.dealAmountFilter == 5)?"selected":"" %>><=</option>
+                                                </select>
+                                            </div>
+                                            <div class="col-xs-6">
+                                                <input class="form-control" placeholder="请输入订单数" value="<%= DWYRequest.query.orderCount %>" type="text" name="orderCount">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xs-3">
+                                    <div class="form-group">
+                                        <label class="col-xs-4 control-label">补单数:</label>
+                                        <div class="col-xs-8">
+                                            <div class="col-xs-6">
+                                                <select class="form-control" name="resupplyCountFilter">
+                                                    <option value="1" <%= (DWYRequest.query.resupplyCountFilter == 1)?"selected":"" %>>></option>
+                                                    <option value="2" <%= (DWYRequest.query.resupplyCountFilter == 2)?"selected":"" %>>>=</option>
+                                                    <option value="3" <%= (DWYRequest.query.resupplyCountFilter == 3)?"selected":"" %>>=</option>
+                                                    <option value="4" <%= (DWYRequest.query.resupplyCountFilter == 4)?"selected":"" %>><</option>
+                                                    <option value="5" <%= (DWYRequest.query.resupplyCountFilter == 5)?"selected":"" %>><=</option>
+                                                </select>
+                                            </div>
+                                            <div class="col-xs-6">
+                                                <input class="form-control" placeholder="请输入补单数" value="<%= DWYRequest.query.resupplyCount %>" type="text" name="resupplyCount">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xs-3">
+                                    <div class="form-group">
+                                        <label class="col-xs-4 control-label">补单率:</label>
+                                        <div class="col-xs-8">
+                                            <div class="col-xs-6">
+                                                <select class="form-control" name="rateFilter">
+                                                    <option value="1" <%= (DWYRequest.query.rateFilter == 1)?"selected":"" %>>></option>
+                                                    <option value="2" <%= (DWYRequest.query.rateFilter == 2)?"selected":"" %>>>=</option>
+                                                    <option value="3" <%= (DWYRequest.query.rateFilter == 3)?"selected":"" %>>=</option>
+                                                    <option value="4" <%= (DWYRequest.query.rateFilter == 4)?"selected":"" %>><</option>
+                                                    <option value="5" <%= (DWYRequest.query.rateFilter == 5)?"selected":"" %>><=</option>
+                                                </select>
+                                            </div>
+                                            <div class="col-xs-6">
+                                                <input class="form-control" placeholder="请输入补单率" value="<%= DWYRequest.query.rate %>" type="text" name="rate">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            <% if(DWY_GLOBAL.ButtonOpen!=1){ %>
+                            </div>
+                            <%}%>
+                            </div>
+                            <% if(DWY_GLOBAL.ButtonOpen==1){ %>
+                            <div class="col-xs-12">
+                                <hr class="simple">
+                                <div class="col-xs-12 text-center">
+                                    <input type="hidden" value="<%= DWYRequest.query.ifInitTime?DWYRequest.query.ifInitTime:'' %>" name="ifInitTime">
+                                    <button class="btn btn-primary " type="submit">
+                                        <i class="fa fa-search"></i>
+                                        查询
+                                    </button>
+
+                                </div>
+                            </div>
+                            <%}%>
+                        </form>
+                    </div>
+                    <!-- end row -->
+                </div>
+                <!-- end col -->
+            </div>
+            <!-- end row -->
+        </div>
+        <!-- end well -->
+
+        <div class="well dis-flex">
+
+            <!-- row -->
+            <div class="row">
+                <div class="col-xs-12">
+                    <h6>与门店相关报表</h6>
+                    <hr class="simple">
+                </div>
+            </div>
+             <%- include('./common_links2'); %>
+            <!-- row -->
+            <div class="row dis-flex">
+                <div class="col-xs-12 dis-flex">
+                    <div class="table-responsive dis-flex">
+                        <table class="table table-bordered table-striped table-hover table-scroll2">
+                            <thead>
+                            <tr>
+                                <th>序号</th>
+                                <th>店名</th>
+                                <th>订单数</th>
+                                <th>补单数</th>
+                                <th>补单率</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <%
+                            if(DWY_Helper.isCanLoop(dataList.result)){
+                            dataList.result.forEach(function (element,index) { %>
+                            <tr>
+                                <td><%= DWY_Helper.incrementNum(DWYRequest.query.pageNo,index)%></td>
+                                <td><%= element.storeName %></td>
+                                <td><%= element.orderCount %></td>
+                                <td><%= element.resupplyCount %></td>
+                                <td><%= element.rate %></td>
+                            </tr>
+                            <%})
+                            }else{ %>
+                            <tr>
+                                <td colspan="100" align="center">暂无结果</td>
+                            </tr>
+                            <% } %>
+
+                            </tbody>
+                        </table>
+                    </div>
+                    <%- pagination %>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- END MAIN CONTENT -->
+
+</div>
+<!-- END MAIN PANEL -->
+
+<%- include('../layouts/footer'); %>
+<%- include('../layouts/footer_common_script'); %>
+<%- include('./common_js'); %>
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+        $("#search-customer").validationEngine();
+        $(".fg-date-picker").flatpickr(data_time_picker.data_picker); // jQuery
+
+        $("input[name='res']").click();
+    })
+
+</script>
+
+
+<%- include('../layouts/foot'); %>
