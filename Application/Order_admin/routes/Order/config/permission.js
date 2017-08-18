@@ -797,7 +797,21 @@ var permissions = {
             id:"302041",
             name:"门店资金冲正按钮"
         }
-    }
+    },
+    report:{
+        order:{
+            id:"803010",
+            name:"订单相关报表"
+        },
+        store:{
+            id:"803020",
+            name:"门店相关报表"
+        },
+        factory:{
+            id:"803030",
+            name:"工厂相关报表"
+        },
+    },
 }
 
 module.exports = permissions;

@@ -1658,6 +1658,9 @@ router.get('/app/orders/sort/workPiece/scaned', AppServiceController.sortWorkPie
 * */
 var ReportController = require('./Controller/ReportController');
 
+// 报表管理
+router.get('/report', Middleware.AuthCheck,Middleware.FilterEmptyField,ReportController.reportPage);
+
 // 分页查询订单物料计价
 router.get('/orderMatPricing', Middleware.AuthCheck,Middleware.FilterEmptyField,ReportController.orderMatPricingPage);
 
@@ -1708,6 +1711,7 @@ router.get('/report/order/source', Middleware.AuthCheck,Middleware.FilterEmptyFi
 
 // 订单状态分类报表
 router.get('/report/order/state', Middleware.AuthCheck,Middleware.FilterEmptyField,ReportController.reportOrderState);
+
 
 
 /*

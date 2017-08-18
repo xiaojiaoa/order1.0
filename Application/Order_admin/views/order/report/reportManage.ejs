@@ -4,6 +4,7 @@
     <div class="row">
         <!-- col -->
         <div class="col-xs-12">
+            <% if (DWY_Helper.hasPermission(Permission.report.store.id, permission)){ %>
             <div class="col-xs-2">
                 <div class="widget-body">
 
@@ -14,7 +15,7 @@
                                     <a data-toggle="collapse" href="#collapseOne" class="collapsed">
                                         <i class="fa fa-lg fa-angle-down pull-right"></i>
                                         <i class="fa fa-lg fa-angle-up pull-right"></i>
-                                        与门店相关报表
+                                        门店相关报表
                                     </a>
                                 </h4>
                             </div>
@@ -35,6 +36,8 @@
 
                 </div>
             </div>
+            <%}%>
+            <% if (DWY_Helper.hasPermission(Permission.report.factory.id, permission)){ %>
             <div class="col-xs-2">
                 <div class="widget-body">
 
@@ -45,7 +48,7 @@
                                     <a data-toggle="collapse" href="#collapseTwo" class="collapsed">
                                         <i class="fa fa-lg fa-angle-down pull-right"></i>
                                         <i class="fa fa-lg fa-angle-up pull-right"></i>
-                                        与工厂相关报表
+                                        工厂相关报表
                                     </a>
                                 </h4>
                             </div>
@@ -100,6 +103,8 @@
 
                 </div>
             </div>
+            <%}%>
+            <% if (DWY_Helper.hasPermission(Permission.report.order.id, permission)){ %>
             <div class="col-xs-2">
                 <div class="widget-body">
 
@@ -110,7 +115,7 @@
                                     <a data-toggle="collapse" href="#collapseThree" class="collapsed">
                                         <i class="fa fa-lg fa-angle-down pull-right"></i>
                                         <i class="fa fa-lg fa-angle-up pull-right"></i>
-                                         与订单相关报表
+                                         订单相关报表
                                     </a>
                                 </h4>
                             </div>
@@ -136,6 +141,7 @@
 
                 </div>
             </div>
+            <%}%>
         </div>
         <!-- end col -->
     </div>
