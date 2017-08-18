@@ -373,6 +373,36 @@ var ReportController = {
         });
 
     },
+    reportOrderSource: function (req, res) {
+        if(!req.query.startTime){
+            var dayTime= new Date().format("yyyy-MM-dd");
+            return res.redirect('/report/order/source?startTime='+dayTime+'&endTime='+dayTime);
+        }
+        Base.multiDataRequest(req, res, [
+            {url: '/api/orders/stat/orderSource?'+ queryString.stringify(req.query), method: 'GET', resConfig: {keyName: 'dataList', is_must: true}},
+        ], function (req, res, resultList) {
+            var returnData = Base.mergeData(helper.mergeObject({
+                title: ' ',
+            },resultList));
+            res.render('order/report/reportOrderSource', returnData);
+        });
+
+    },
+    reportOrderState: function (req, res) {
+        if(!req.query.startTime){
+            var dayTime= new Date().format("yyyy-MM-dd");
+            return res.redirect('/report/order/state?startTime='+dayTime+'&endTime='+dayTime);
+        }
+        Base.multiDataRequest(req, res, [
+            {url: '/api/orders/stat/orderStatus?'+ queryString.stringify(req.query), method: 'GET', resConfig: {keyName: 'dataList', is_must: true}},
+        ], function (req, res, resultList) {
+            var returnData = Base.mergeData(helper.mergeObject({
+                title: ' ',
+            },resultList));
+            res.render('order/report/reportOrderState', returnData);
+        });
+
+    },
 
 
 };

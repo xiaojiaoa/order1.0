@@ -1693,6 +1693,11 @@ router.get('/pageBatchByMonth', Middleware.AuthCheck,Middleware.FilterEmptyField
 // 按月查询五金汇总
 router.get('/pageAccessoryByMonth', Middleware.AuthCheck,Middleware.FilterEmptyField,ReportController.pageAccessoryByMonth);
 
+// 订单来源分类报表
+router.get('/report/order/source', Middleware.AuthCheck,Middleware.FilterEmptyField,ReportController.reportOrderSource);
+
+// 订单状态分类报表
+router.get('/report/order/state', Middleware.AuthCheck,Middleware.FilterEmptyField,ReportController.reportOrderState);
 
 
 /*
