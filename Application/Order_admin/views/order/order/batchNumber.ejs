@@ -398,6 +398,9 @@
         var doAjax = function (text,url) {
             layer.confirm(text,{icon: 3, title:'提示'},
                 function(index){
+                    $('.layui-layer-btn0').css('pointer-events', 'none').addClass('btn').attr('disabled', true).html('处理中 <i class="fa fa-circle-o-notch fa-spin">');
+                    $('.layui-layer-btn1').hide();
+
                     $.ajax({
                         url: url,
                         method: 'post',
