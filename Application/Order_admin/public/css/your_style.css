@@ -439,16 +439,22 @@ tr > td > .separation:last-child {
 .orderItemLayerTit > ul li {
     list-style: none;
     float: none;
-    padding: 2px 5px;
+    padding: 0;
     text-align: left;
     display: inline-block;
     /*cursor: pointer;*/
+}
+.orderItemLayerTit > ul li a{
+    padding: 10px 15px;
+    display: block;
 }
 
 .orderItemMenu li.selected {
     color: #169BD5;
 }
-
+.orderItemMenu li:hover{
+    background: #eae8e8;
+}
 .btn-primary-other {
     background: #fff;
     color: #333;

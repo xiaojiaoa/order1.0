@@ -32,8 +32,8 @@
                     <% if(DWY_Helper.isCanLoop(printINfoKeys)){
                     printINfoKeys.forEach(function (element, index) {  %>
 
-                    <li class="padding-10 <%= (DWYRequest.query.type == element)? 'materielBak':''%>">
-                        <a href="/system/printParts/<%= batchNumber%>/<%= factoryId%>?type=<%= element %>"><%= element %> </a>
+                    <li class="<%= (DWYRequest.query.type == element)? 'materielBak':''%>">
+                        <a  href="/system/printParts/<%= batchNumber%>/<%= factoryId%>?type=<%= element %>"><%= element %> </a>
                     </li>
 
                     <%  }) }%>
