@@ -745,6 +745,7 @@ var AppServiceController = {
             headers:req.headers,
         }, req, res), function (error, response, body) {
             if (!error) {
+                console.log('sortView:',body)
                 res.send(JSON.parse(body));
             } else {
                 res.send(AppServiceController.error);

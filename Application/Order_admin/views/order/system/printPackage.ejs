@@ -57,7 +57,7 @@
             </div>
 
 
-            <!--<div id="printHtml" class="display-none"></div>-->
+            <div id="printArea" class="display-none"></div>
 
         </div>
 
@@ -85,9 +85,9 @@
                     <%  }) }%>
                 </div>
             </div>
-            <button class="btn btn-primary " id="print" disabled>
+            <button class="btn btn-primary " id="print">
                 <i class="fa fa-print"></i>&nbsp;
-                打印(打印方式待调整)
+                打印(仅供测试)
             </button>
 
         </div>
@@ -111,33 +111,58 @@
 
         $('body').on('click', '#print', function () {
 
-            printHtml.empty();
 
-            var value=[];
-            $("input[name=printType]:checked").each(function () {
-                value.push($(this).val())
-            });
-            if(value.length>0){
-                var html = "";
-                value.forEach(function (element) {
-                    html += $('#'+element+'Div').html();
-                })
+            $.ajax({
+                url: '/system/printParts/ajax/<%= batchNumber %>/<%= factoryId %>',
+                method: 'get',
+                success: function (data) {
 
-//                for(var i = 0;i<5000;i++){
-//                    html += $('#totalDiv').html();
-//                }
-//                printHtml.append(html);
-
-                printHtml.print({
+                    var result = JSON.parse(data).page.result;
+                    var html = '';
+                    result.forEach(function (element) {
+                        html += '<div class="printBody nopadding-table">'+element+' </div>';
+                    })
+                    $('#printArea').print({
                     stylesheet : "/css/print.css",
 //                    timeout: 750,
                     prepend: html,
 //                    deferred: $.Deferred(test),
                 });
 
-            }else{
-                layer.alert('请先选择要打印的分类', {icon: 3})
-            }
+                },
+                error: function (response) {
+                    errorLayout.normal(response);
+                }
+            });
+
+
+//            printHtml.empty();
+//
+//            var value=[];
+//            $("input[name=printType]:checked").each(function () {
+//                value.push($(this).val())
+//            });
+//            if(value.length>0){
+//                var html = "";
+//                value.forEach(function (element) {
+//                    html += $('#'+element+'Div').html();
+//                })
+//
+////                for(var i = 0;i<5000;i++){
+////                    html += $('#totalDiv').html();
+////                }
+////                printHtml.append(html);
+//
+//                printHtml.print({
+//                    stylesheet : "/css/print.css",
+////                    timeout: 750,
+//                    prepend: html,
+////                    deferred: $.Deferred(test),
+//                });
+//
+//            }else{
+//                layer.alert('请先选择要打印的分类', {icon: 3})
+//            }
 
 //            $('.printIndex1').addClass('no-print')
 

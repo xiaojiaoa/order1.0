@@ -1479,6 +1479,7 @@ router.get('/system/printOut/:id', Middleware.AuthCheck,SystemController.printOu
 router.get('/system/printPackageLid/:packageLid', Middleware.AuthCheck,SystemController.printPackageLid);
 
 router.get('/system/printParts/:batchNumber/:factoryId', Middleware.AuthCheck,SystemController.printParts);
+router.get('/system/printParts/ajax/:batchNumber/:factoryId', Middleware.AuthCheck,SystemController.printPartsAjax);
 
 router.get('/system/delivery/:id', Middleware.AuthCheck,SystemController.printDelivery);
 

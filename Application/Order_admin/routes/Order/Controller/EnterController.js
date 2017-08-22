@@ -128,8 +128,9 @@ var EnterController = {
             method: 'GET',
             url: '/api/purchase/reqmaterial/purchase?'+queryString.stringify(req.query)
         }, req, res), function (error, response, body) {
-            var returnData = JSON.parse(body);
+
             if (!error && response.statusCode == 200) {
+                var returnData = JSON.parse(body);
                 res.render('order/enter/enter_material_stock',returnData);
             } else {
                 Base.handlerError(res, req, error, response, body);
