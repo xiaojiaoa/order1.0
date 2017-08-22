@@ -455,18 +455,39 @@ var SystemController = {
     printParts: function (req, res) {
         var batchNumber = req.params.batchNumber;
         var factoryId = req.params.factoryId;
-        var type = req.query.type;
+
+        if(!req.query.type){
+            return res.redirect('/system/printParts/'+batchNumber+'/'+factoryId+'?pageNo=1&pageSize=10&type=total')
+        }
+        // req.query.type = req.query.type? req.query.type:'total';
+        req.query.pageNo = req.query.pageNo? req.query.pageNo:1;
+        req.query.pageSize = req.query.pageSize? req.query.pageSize:10;
+
+        var paramObject = helper.genPaginationQuery(req);
         request(Base.mergeRequestOptions({
             method: 'get',
-            url: '/api/orders/package/print/packagelist/' + batchNumber + '/' + factoryId,
+            url: '/api/orders/package/print/packagelist/' + batchNumber + '/' + factoryId+'?'+queryString.stringify(req.query),
         }, req, res), function (error, response, body) {
             if (!error && response.statusCode == 200) {
+
+                var printINfo = JSON.parse(body);
+                var paginationInfo =  printINfo[req.query.type];
+
+                var boostrapPaginator = new Pagination.TemplatePaginator(helper.genPageInfo({
+                    prelink: paramObject.withoutPageNo,
+                    current: paginationInfo.page,
+                    rowsPerPage: paginationInfo.pageSize,
+                    totalResult: paginationInfo.totalItems
+                }));
+
                 var returnData = Base.mergeData(helper.mergeObject({
                     batchNumber: batchNumber,
                     factoryId: factoryId,
                     type: 'arry',
-                    showTYpe: type
-                }, {printINfo: JSON.parse(body)}));
+                    showTYpe: req.query.type,
+                    printINfo: printINfo,
+                    pagination: boostrapPaginator.render(),
+                }));
                 res.render('order/system/printPackage', returnData);
             } else {
                 Base.handlerError(res, req, error, response, body);
@@ -503,7 +524,7 @@ var SystemController = {
                     type: 'purcPackagelist',
                     showTYpe: type
                 }, {printINfo: JSON.parse(body)}));
-                res.render('order/system/printPackage', returnData);
+                res.render('order/system/purcPackagelist', returnData);
             } else {
                 Base.handlerError(res, req, error, response, body);
             }

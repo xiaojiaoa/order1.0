@@ -26,38 +26,46 @@
 
         <div class="prin-preview">
 
-            <div class="orderItemLayerTit">
-                <ul class="orderItemMenu">
+
+            <div class="tab-pane">
+
+                <ul class="nav nav-tabs">
 
                     <% if(DWY_Helper.isCanLoop(printINfoKeys)){
                     printINfoKeys.forEach(function (element, index) {  %>
 
-                    <li class="padding-10 <%= (DWYRequest.query.type == element)? 'materielBak':''%>">
-                        <a href="/system/printParts/<%= batchNumber%>/<%= factoryId%>?type=<%= element %>"><%= element %> </a>
+                    <li class="<%= (index == 0)? 'active':''%>">
+                        <a href="#<%= element %>Div" data-toggle="tab"><%= element %></a>
                     </li>
-
                     <%  }) }%>
+
+
                 </ul>
-            </div>
+                <div class="tab-content padding-10">
 
-            <div><%- pagination%></div>
+                    <%  var num = 0;
+                            for(var tabType in printINfo ){   %>
 
-            <div id="printHtml">
+                    <div class="tab-pane <%= (num == 0)? 'active':''%>" id="<%= tabType %>Div">
 
-                <% if(DWY_Helper.isCanLoop(printINfo[showTYpe].result)){
-                printINfo[showTYpe].result.forEach(function (element, index) { %>
+                        <% if(DWY_Helper.isCanLoop(printINfo[tabType])){
+                        printINfo[tabType].forEach(function (element, index) { %>
 
-                <div class="printBody nopadding-table">
-                    <%- element %>
+                        <div class="printBody nopadding-table">
+                            <%- element %>
+                        </div>
+
+                        <%  })
+                        } %>
+
+                    </div>
+
+                    <% num++ }   %>
                 </div>
 
-                <%  })
-                } %>
-
             </div>
 
-
-            <!--<div id="printHtml" class="display-none"></div>-->
+            <div id="printHtml" class="display-none"></div>
 
         </div>
 
@@ -85,9 +93,9 @@
                     <%  }) }%>
                 </div>
             </div>
-            <button class="btn btn-primary " id="print" disabled>
+            <button class="btn btn-primary " id="print">
                 <i class="fa fa-print"></i>&nbsp;
-                打印(打印方式待调整)
+                打印
             </button>
 
         </div>

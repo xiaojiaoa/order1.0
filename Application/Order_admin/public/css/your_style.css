@@ -438,9 +438,10 @@ tr > td > .separation:last-child {
 
 .orderItemLayerTit > ul li {
     list-style: none;
-    float: left;
+    float: none;
     padding: 2px 5px;
     text-align: left;
+    display: inline-block;
     /*cursor: pointer;*/
 }
 
