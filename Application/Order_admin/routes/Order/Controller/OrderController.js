@@ -1736,6 +1736,13 @@ var OrderController = {
             url: '/api/orders/batchNumber/export?batchNumber='+batchNumber+'&factoryId='+factoryId,
         }, req, res)).pipe(res)
     },
+    exportOrder: function (req, res) {
+        request(Base.mergeRequestOptions({
+            method: 'post',
+            url: '/api/orders/orderPage/export',
+            form:JSON.parse(req.body.mytest),
+        }, req, res)).pipe(res)
+    },
 };
 
 module.exports = OrderController;

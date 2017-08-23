@@ -266,6 +266,9 @@ var OrderController = require('./Controller/OrderController');
 // 订单页面
 router.get('/orders', Middleware.AuthCheck,Middleware.FilterEmptyField, OrderController.listPage);
 
+// 导出订单清单
+router.post('/orders/export/order',Middleware.AuthCheck,OrderController.exportOrder);
+
 // 订单详情页面   订单信息（认领订单）
 router.get('/order/detail/:tid', Middleware.AuthCheck, OrderController.detailPage);
 
