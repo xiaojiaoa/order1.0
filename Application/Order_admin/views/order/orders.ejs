@@ -272,12 +272,14 @@
             <div class="row">
                 <div class="col-xs-12">
                     <h6>订单列表
+                        <% if(DWY_Helper.hasPermission(Permission.order.exportOrder.id, permission)){%>
                         <form class="" method="post" action="/orders/export/order" style="display: inline-block;">
                             <input type="hidden" name="mytest" value="<%= JSON.stringify( DWYRequest.query)%>">
                             <button class="label label-primary " type="submit">
                                 导出订单清单
                             </button>
                         </form></h6>
+                       <%}%>
                     <hr class="simple">
                 </div>
             </div>

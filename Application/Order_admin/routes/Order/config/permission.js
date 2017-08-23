@@ -128,6 +128,10 @@ var permissions = {
             id:"531557",
             name:"查看出厂价"
         },
+        exportOrder:{
+            id:"531559",
+            name:"导出订单列表"
+        },
     },
     orderAssess:{
       query:{
