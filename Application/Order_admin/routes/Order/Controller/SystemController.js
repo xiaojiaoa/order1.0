@@ -499,7 +499,7 @@ var SystemController = {
         var factoryId = req.params.factoryId;
         request(Base.mergeRequestOptions({
             method: 'get',
-            url: '/api/orders/package/print/packagelist/' + batchNumber + '/' + factoryId+'?pageNo=1&pageSize=5000',
+            url: '/api/orders/package/print/packagelist/' + batchNumber + '/' + factoryId+'?'+queryString.stringify(req.query),
         }, req, res), function (error, response, body) {
             if (!error && response.statusCode == 200) {
                 res.status(200).json(body);
