@@ -151,7 +151,15 @@
                                 <td>建单人</td>
                                 <td><%= orderInfo.channelName %></td>
                                 <td>设计师</td>
-                                <td><%= orderInfo.designer %> &nbsp;(<%= orderInfo.designerMobile %>) </td>
+                                <td>
+                                    <%= orderInfo.designer %> &nbsp;
+                                    <%if(orderInfo.designerTelephone){%>
+                                    (<%= orderInfo.designerTelephone %>)
+                                    <%} else{%>
+                                    (<%= orderInfo.designerMobile %>)
+                                    <%}%>
+
+                                </td>
                             </tr>
                             <tr>
                                 <td>建单时间</td>
