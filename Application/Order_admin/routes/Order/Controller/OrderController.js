@@ -38,7 +38,8 @@ var OrderController = {
             {url: '/api/organizations/list', method: 'GET', resConfig: {keyName: 'organizationsList', is_must: false}},
             {url: '/api/stores/list', method: 'GET', resConfig: {keyName: 'storesList', is_must: false}},
             {url: '/api/orders/getRegionTypeByGid', method: 'GET', resConfig: {keyName: 'TypesList', is_must: true}},
-            {url: '/api/orders/orderTag', method: 'GET', resConfig: {keyName: 'orderTag', is_must: true}}
+            {url: '/api/orders/orderTag', method: 'GET', resConfig: {keyName: 'orderTag', is_must: true}},
+            {url: '/api/assist/store/types', method: 'GET', resConfig: {keyName: 'storeTypes', is_must: true}}
         ], function (req, res, resultList) {
 
             var paginationInfo =  resultList.orderList;
@@ -417,7 +418,7 @@ var OrderController = {
                 {url: '/api/assist/resupply/reason', method: 'GET', resConfig: {keyName: 'reasonList', is_must: true}},
                 {url: '/api/assist/order/stcodes', method: 'GET', resConfig: {keyName: 'stcodesList', is_must: true}},
                 {url: '/api/orders/resupply/getRegionTypeByGid', method: 'GET', resConfig: {keyName: 'TypesList', is_must: true}},
-                {url: '/api/orders/orderTag', method: 'GET', resConfig: {keyName: 'orderTag', is_must: true}}
+                {url: '/api/orders/orderTag', method: 'GET', resConfig: {keyName: 'orderTag', is_must: true}},
             ],
             function (req, res, resultList) {
                 var paginationInfo =  resultList.resupplyList;
