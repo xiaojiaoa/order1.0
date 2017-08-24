@@ -461,6 +461,8 @@ router.post('/collection/receiptCheck/notpass', Middleware.AuthCheck, OrderContr
 router.post('/collection/reconciliation', Middleware.AuthCheck, OrderController.reconciliation);
 //对账退回
 router.post('/collection/reconciliation/notPass', Middleware.AuthCheck, OrderController.reconciliationNotPass);
+// 撤销付款
+router.post('/reconciliation/cancel', Middleware.AuthCheck, OrderController.reconciliationCancle);
 
 // 批次号管理
 router.get('/orders/batchNumber', Middleware.AuthCheck,Middleware.SetBackPath,OrderController.batchPage);

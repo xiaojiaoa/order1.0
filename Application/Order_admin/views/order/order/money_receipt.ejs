@@ -311,6 +311,9 @@
                                     <a class="label label-success optionThis" data-payed=201 data-tid="<%=element.tid %>" data-bid="<%=element.bid %>"  data-moneytype="4" >确认</a>
                                     <a class="label label-danger optionThis" data-payed=202  data-tid="<%=element.tid %>" data-bid="<%=element.bid %>">退回</a>
                                     <% } %>
+                                    <% if(element.payed > 20 &&  element.stcode<=632){  %>
+                                    <a class="label label-warning optionThis" data-payed=203 data-tid="<%=element.tid %>" data-bid="<%=element.bid %>">撤销</a>
+                                    <% } %>
                                     <%}%>
                                 </td>
                             </tr>
@@ -504,6 +507,10 @@
                 case '202':
                     ajaxUrl = '/collection/reconciliation/notPass'
                     text = '确认退回？'
+                    break;
+                case '203':
+                    ajaxUrl = '/reconciliation/cancel'
+                    text = '确认撤销？'
                     break;
                 case '10':
                     ajaxUrl = '/collection/receiptCheck'
