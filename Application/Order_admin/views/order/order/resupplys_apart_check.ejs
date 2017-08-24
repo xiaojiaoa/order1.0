@@ -289,7 +289,7 @@
                     <%
                     if(apartReviewList.result && apartReviewList.result.length>0 ){
                     apartReviewList.result.forEach(function (element, index) { %>
-                    <tr>
+                    <tr class="<%= (element.sign == 1) ? "mark-row":"" %>">
                         <td><%= DWY_Helper.incrementNum(DWYRequest.query.pageNo,index)%></td>
                         <td><%= element.brandName %></td>
                         <td><%= element.colorStr %></td>
