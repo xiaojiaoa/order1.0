@@ -318,7 +318,7 @@
                     <%
                     if((type == 'getOrder')&&(DWY_Helper.isCanLoop(apartList.result)) ){
                     apartList.result.forEach(function (element, index) { %>
-                    <tr>
+                    <tr class="<%= (element.sign == 1) ? "mark-row":"" %>">
                         <td><%= index+1+(apartList.page-1)*20%></td>
                         <td><%= element.colorStr %></td>
                         <td><%= element.difficultyStr %></td>
