@@ -27,6 +27,9 @@ var OrderController = {
 
         var paramObject = helper.genPaginationQuery(req);
         req.query.regionTypes=req.query.regionTypes?req.query.regionTypes.toString(','):'';
+        if(req.query.tagIds){
+            req.query.tagIds=req.query.tagIds.toString(',');
+        }
         Base.multiDataRequest(req, res, [
             {url: '/api/orders?'+ queryString.stringify(req.query), method: 'GET', resConfig: {keyName: 'orderList', is_must: true}},
             {url: '/api/assist/order/stcodes', method: 'GET', resConfig: {keyName: 'stcodeInfo', is_must: false}},
@@ -35,9 +38,11 @@ var OrderController = {
             {url: '/api/organizations/list', method: 'GET', resConfig: {keyName: 'organizationsList', is_must: false}},
             {url: '/api/stores/list', method: 'GET', resConfig: {keyName: 'storesList', is_must: false}},
             {url: '/api/orders/getRegionTypeByGid', method: 'GET', resConfig: {keyName: 'TypesList', is_must: true}},
+            {url: '/api/orders/orderTag', method: 'GET', resConfig: {keyName: 'orderTag', is_must: true}}
         ], function (req, res, resultList) {
 
             var paginationInfo =  resultList.orderList;
+        //    console.log(55555,resultList.orderList);
 
             var boostrapPaginator = new Pagination.TemplatePaginator(helper.genPageInfo({
                 prelink: paramObject.withoutPageNo,
@@ -402,6 +407,9 @@ var OrderController = {
     resupplyPage: function (req, res) {
         var paramObject = helper.genPaginationQuery(req);
         req.query.regionTypes=req.query.regionTypes?req.query.regionTypes.toString(','):'';
+        if(req.query.tagIds){
+            req.query.tagIds=req.query.tagIds.toString(',');
+        }
         Base.multiDataRequest(req, res, [
                 {url: '/api/orders/resupply?'+queryString.stringify(req.query), method: 'GET', resConfig: {keyName: 'resupplyList', is_must: false}},
                 {url: '/api/assist/brandinfo' , method: 'GET', resConfig: {keyName: 'brandInfo', is_must: true}},
@@ -409,9 +417,11 @@ var OrderController = {
                 {url: '/api/assist/resupply/reason', method: 'GET', resConfig: {keyName: 'reasonList', is_must: true}},
                 {url: '/api/assist/order/stcodes', method: 'GET', resConfig: {keyName: 'stcodesList', is_must: true}},
                 {url: '/api/orders/resupply/getRegionTypeByGid', method: 'GET', resConfig: {keyName: 'TypesList', is_must: true}},
+                {url: '/api/orders/orderTag', method: 'GET', resConfig: {keyName: 'orderTag', is_must: true}}
             ],
             function (req, res, resultList) {
                 var paginationInfo =  resultList.resupplyList;
+            //    console.log(66666,resultList.resupplyList);
 
                 var boostrapPaginator = new Pagination.TemplatePaginator(helper.genPageInfo({
                     prelink: paramObject.withoutPageNo,

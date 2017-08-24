@@ -88,6 +88,20 @@
                             <% if(DWY_GLOBAL.ButtonOpen!=1){ %>
                             <div class="slideToggle display-none">
                             <%}%>
+                                <div class="col-xs-6">
+                                    <div class="form-group">
+                                        <label class="col-xs-2 control-label">订单标签:</label>
+                                        <div class="col-xs-10">
+                                            <% var tagIds = DWYRequest.query.tagIds?(DWYRequest.query.tagIds).split(','):[] %>
+                                            <select multiple style="width:100%" class="select2 select2-offscreen" id="desStr" name="tagIds">
+                                                <% if(DWY_Helper.isCanLoop(orderTag)){
+                                                orderTag.forEach(function (element) { %>
+                                                <option value="<%= element.id %>" <%= DWY_Helper.getAssistMultiple( element.id,tagIds)?"selected":"" %>><%= element.name %></option>
+                                                <%  }) }  %>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
                                 <div class="col-xs-3">
                                     <div class="form-group">
                                         <label class="col-xs-4 control-label">流水号:</label>
@@ -264,6 +278,7 @@
                                 <th>产品类型</th>
                                 <th>补单号</th>
                                 <th>原订单号</th>
+                                <th>原订单标签</th>
                                 <th>产品信息</th>
                                 <th>补单建单人</th>
                                 <th>补单建单时间</th>
@@ -295,6 +310,7 @@
                                 <td><%= element.productTypeStr %></td>
                                 <td><a href="/order/resupply/detail/<%= element.tid %>"><%= element.tid %></a></td>
                                 <td><a href="/order/detail/<%= element.orgTid %>"><%= element.orgTid %></a></td>
+                                <td><%= element.tagName%></td>
                                 <td><%= element.productInfo %></td>
                                 <td><%= element.createOperator %></td>
                                 <td><%= element.addTime %></td>
