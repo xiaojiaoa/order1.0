@@ -271,7 +271,11 @@ var permissions = {
         queryAll:{
             id:"537044",
             name:"查询所有包装"
-        }
+        },
+        addPackage:{
+            id:"537050",
+            name:"增加包装"
+        },
     },
     resupply:{
         query:{
