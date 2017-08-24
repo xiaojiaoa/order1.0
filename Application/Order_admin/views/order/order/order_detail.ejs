@@ -498,7 +498,12 @@
                                 <%         break;
 
                                     default: %>
-                                <td><%= DWY_Helper.getLocalDate(orderStatusInfo.apartTime) %></td>
+                                <td>
+                                    <%= DWY_Helper.getLocalDate(orderStatusInfo.apartTime) %>
+                                    <% if (orderInfo.stcode == 472 && orderInfo.sendGid == user.id){ %>
+                                    <a class="label label-success" id="modifyExactMoney">修改精确价格</a>
+                                    <% } %>
+                                </td>
                                 <%  } %>
 
                                 <td>拆单人</td>

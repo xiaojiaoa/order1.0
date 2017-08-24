@@ -444,6 +444,9 @@
                                 default: %>
                                 <td>
                                     <%= DWY_Helper.getLocalDate(orderStatusInfo.apartTime) %>
+                                    <% if (resupplyInfo.status == 472 && resupplyInfo.sendGid == user.id){ %>
+                                    <a class="label label-success" id="modifyExactMoney">修改精确价格</a>
+                                    <% } %>
                                 </td>
                                 <% } %>
 

@@ -154,7 +154,7 @@
 
             }
         })
-        // 确认拆单弹出框
+        // 确认拆单弹出框--提交精确价格
         $("#confirm-apart-order").on({
             click:function () {
                 layer.open({
@@ -169,6 +169,36 @@
                 });
             }
         });
+        // 修改精确价格
+        $('#modifyExactMoney').on({
+            click: function (e) {
+                $.ajax({
+                    url: '/orders/getPriceInfo/<%= tid %>',
+                    method: 'put',
+                    success: function (data) {
+                        var data = JSON.parse(data)
+                        $('#confirm-apart-order-form').attr('action','/orders/getExactPriceInfo/modify');
+                        $('#confirm-apart-order-form #money').val(data.exactPrice);
+                        layer.open({
+                            title: false,
+                            type: 1,
+                            area: '700px',
+                            content: $('#confirm-apart-order-form'),
+                            cancel: function () {
+                                // 右上角关闭回调
+                            },
+
+                        });
+
+                    },
+                    error: function (response) {
+                        errorLayout.normal(response);
+                    }
+                });
+
+
+            }
+        })
 
 
     })

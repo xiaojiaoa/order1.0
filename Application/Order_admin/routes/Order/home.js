@@ -295,6 +295,9 @@ router.put('/orders/getPriceInfo/:tid', Middleware.AuthCheck, OrderController.ge
 // 修改审核价格
 router.post('/orders/getPriceInfo/modify', Middleware.AuthCheck, OrderController.modifyPriceInfo);
 
+// 修改精确价格
+router.post('/orders/getExactPriceInfo/modify', Middleware.AuthCheck, OrderController.modifyExactPriceInfo);
+
 // 所有修改价格记录
 router.get('/:type/priceLog/:tid', Middleware.AuthCheck, OrderController.priceLogAllPage);
 

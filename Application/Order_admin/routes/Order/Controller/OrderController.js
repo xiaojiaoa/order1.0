@@ -314,6 +314,24 @@ var OrderController = {
         })
 
     },
+    modifyExactPriceInfo: function (req, res) {
+        request(Base.mergeRequestOptions({
+            method: 'put',
+            url: '/api/orders/apart/updateExactPrice?'+queryString.stringify(req.body),
+        }, req, res), function (error, response, body) {
+            if (!error && response.statusCode == 201) {
+                Base.handlerSuccess(res, req);
+                if(req.body.orderType == 'order'){
+                    res.redirect(req.session.backPath?req.session.backPath:"/order/check/getOrder");
+                }else{
+                    res.redirect(req.session.backPath?req.session.backPath:"/orders/resupplys/apart");
+                }
+            } else {
+                Base.handlerError(res, req, error, response, body);
+            }
+        })
+
+    },
     priceLogAllPage: function (req, res) {
         var tid = req.params.tid;
         var type = req.params.type;
