@@ -135,6 +135,7 @@
                                         <td><%= element.weight %></td>
                                         <td class="display-none"></td>
                                         <td>
+                                            <% if(DWY_Helper.hasPermission(Permission.orderPackage.removePackage.id, permission) ){%>
                                             <select class="form-control"
                                                     name="destinationPackageLid"
                                                     class="destinationPackageLid"
@@ -146,6 +147,7 @@
                                                 <option value="<%= element.packageLid%>"> <%= element.name%></option>
                                                 <%})%>
                                             </select>
+                                            <%}%>
                                         </td>
                                     </tr>
                                     <%  })%>
@@ -190,6 +192,7 @@
                                         <td><%= element.unitStr %></td>
                                         <td class="display-none"></td>
                                         <td>
+                                            <% if(DWY_Helper.hasPermission(Permission.orderPackage.removePackage.id, permission) ){%>
                                             <select class="form-control"
                                                     name="destinationPackageLid"
                                                     class="destinationPackageLid"
@@ -201,6 +204,7 @@
                                                 <option value="<%= element.packageLid%>"> <%= element.name%></option>
                                                 <%})%>
                                             </select>
+                                            <%}%>
                                         </td>
                                     </tr>
                                     <%  })%>
