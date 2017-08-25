@@ -1829,6 +1829,48 @@ var OrderController = {
             }
         })
     },
+    reEditReviewResupply: function (req, res) {
+        var tid=req.params.tid;
+        request(Base.mergeRequestOptions({
+            method: 'put',
+            url: '/api/orders/resupply/review/reEdit/?tid='+tid,
+            form:req.params
+        }, req, res), function (error, response, body) {
+            if (!error && response.statusCode == 201) {
+                res.sendStatus(200);
+            } else {
+                Base.handlerError(res, req, error, response, body);
+            }
+        })
+
+    },
+    reEditApartResupply: function (req, res) {
+        var tid=req.params.tid;
+        request(Base.mergeRequestOptions({
+            method: 'put',
+            url: '/api/orders/resupply/apart/reEdit?tid='+tid,
+        }, req, res), function (error, response, body) {
+            if (!error && response.statusCode == 201) {
+                res.sendStatus(200);
+            } else {
+                Base.handlerError(res, req, error, response, body);
+            }
+        })
+
+    },
+    reEditApartReviewResupply: function (req, res) {
+        var tid=req.params.tid;
+        request(Base.mergeRequestOptions({
+            method: 'put',
+            url: '/api/orders/apartReview/reEdit?tid='+tid,
+        }, req, res), function (error, response, body) {
+            if (!error && response.statusCode == 201) {
+                res.sendStatus(200);
+            } else {
+                Base.handlerError(res, req, error, response, body);
+            }
+        })
+    },
 };
 
 module.exports = OrderController;

@@ -486,6 +486,10 @@ router.post('/orders/batchNumber/files/number', Middleware.apiLimiter,Middleware
 router.put('/orders/review/reEdit/:tid', Middleware.AuthCheck, OrderController.reEditReview);
 router.put('/orders/apart/reEdit/:tid', Middleware.AuthCheck, OrderController.reEditApart);
 router.put('/orders/apartReview/reEdit/:tid', Middleware.AuthCheck, OrderController.reEditApartReview);
+// 补单详情--重新编辑按钮
+router.put('/resupply/review/reEdit/:tid', Middleware.AuthCheck, OrderController.reEditReviewResupply);
+router.put('/resupply/apart/reEdit/:tid', Middleware.AuthCheck, OrderController.reEditApartResupply);
+router.put('/resupply/apartReview/reEdit/:tid', Middleware.AuthCheck, OrderController.reEditApartReviewResupply);
 
 /*
  * 页面范围: 拆单

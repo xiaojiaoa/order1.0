@@ -439,6 +439,10 @@
                                     <% if (DWY_Helper.hasPermission(Permission.resupplyOrderApart.takeOrder.id, permission) ){ %>
                                     <a class="label label-primary doGetTask" data-stcode="<%= resupplyInfo.status %>">标记为拆单中</a>
                                     <% } %>
+                                    <% if (DWY_Helper.hasPermission(Permission.orderReview.sendBackOrder.id, permission) && resupplyInfo.sendGid == user.id ){ %>
+                                    <a class="label label-primary margin-left-20 reject-modal">审核退回</a>
+                                    <a class="label label-primary margin-left-20 reEditBtn" data-stcode="review">重新编辑</a>
+                                    <% } %>
                                 </td>
                                 <% break;
                                 default: %>
@@ -477,6 +481,11 @@
                                     待拆单审核
                                     <% if (DWY_Helper.hasPermission(Permission.resupplyOrderReviewApart.takeOrder.id, permission) ){ %>
                                     <a class="label label-primary doGetTask" data-stcode="<%= resupplyInfo.status %>">标记为拆单审核中</a>
+                                    <% } %>
+                                    <% if (DWY_Helper.hasPermission(Permission.orderApart.sendBackOrder.id, permission) && resupplyInfo.sendGid == user.id ){ %>
+                                    <a class="label label-primary margin-left-20 reject-modal"
+                                       data-stcode="<%= resupplyInfo.stcode %>">拆单退回</a>
+                                    <a class="label label-primary margin-left-20 reEditBtn" data-stcode="apart">重新编辑</a>
                                     <% } %>
                                 </td>
                                 <% break;
@@ -521,6 +530,10 @@
                                     待排料
                                     <% if (DWY_Helper.hasPermission(Permission.orderSchedule.takeOrder.id, permission) ){ %>
                                     <a class="label label-primary doGetTask" data-stcode="<%= resupplyInfo.status %>">标记为排料中</a>
+                                    <% } %>
+                                    <% if (DWY_Helper.hasPermission(Permission.orderReviewApart.sendBackOrder.id, permission) && resupplyInfo.sendGid == user.id ){ %>
+                                    <a class="label label-primary margin-left-20 reject-modal">拆单审核退回</a>
+                                    <a class="label label-primary margin-left-20 reEditBtn" data-stcode="apartReview">重新编辑</a>
                                     <% } %>
                                 </td>
                                 <% break;
@@ -957,6 +970,41 @@
             })
         })
 
+    })
+    $(".reEditBtn").click(function () {
+        var orderStcode = $(this).attr('data-stcode');
+        var ajaxUrl = '';
+        var locationUrl = '';
+        var text = '确认重新编辑吗？';
+        switch (orderStcode){
+            case 'review':
+                ajaxUrl = '/resupply/review/reEdit/<%= tid %>';
+                locationUrl = '/apartPage/getOrder';
+                break;
+            case 'apart':
+                ajaxUrl = '/resupply/apart/reEdit/<%= tid %>';
+                locationUrl = '/apartCheckPage/getOrder';
+                break;
+            case 'apartReview':
+                ajaxUrl = '/resupply/apartReview/reEdit/<%= tid %>';
+                locationUrl = '/orders/nesting';
+                break;
+
+        }
+        layer.confirm(text, {icon: 3, title: '提示'}, function (index) {
+            $.ajax({
+                url: ajaxUrl,
+                method: 'put',
+                success: function (data) {
+                    //   successLayout.hrefTo(locationUrl);
+                    successLayout.reload();
+                },
+                error: function (response) {
+                    layer.close(index)
+                    errorLayout.normal(response);
+                }
+            });
+        }, function (index) { layer.close(index) })
     })
 
 </script>
