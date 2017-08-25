@@ -482,6 +482,11 @@ router.post('/orders/batchNumber/unpacket/packet', Middleware.apiLimiter,Middlew
 router.post('/orders/batchNumber/schedule', Middleware.apiLimiter,Middleware.AuthCheck,OrderController.doScheduleBatchNumber);
 router.post('/orders/batchNumber/files/number', Middleware.apiLimiter,Middleware.AuthCheck,OrderController.getBatchNumberFiles);
 
+// 订单详情--重新编辑按钮
+router.put('/orders/review/reEdit/:tid', Middleware.AuthCheck, OrderController.reEditReview);
+router.put('/orders/apart/reEdit/:tid', Middleware.AuthCheck, OrderController.reEditApart);
+router.put('/orders/apartReview/reEdit/:tid', Middleware.AuthCheck, OrderController.reEditApartReview);
+
 /*
  * 页面范围: 拆单
  * 控制器:   TearController

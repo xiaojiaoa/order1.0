@@ -1787,6 +1787,48 @@ var OrderController = {
             form:JSON.parse(req.body.mytest),
         }, req, res)).pipe(res)
     },
+   reEditReview: function (req, res) {
+        var tid=req.params.tid;
+        request(Base.mergeRequestOptions({
+            method: 'put',
+            url: '/api/orders/review/reEdit/?tid='+tid,
+            form:req.params
+        }, req, res), function (error, response, body) {
+            if (!error && response.statusCode == 201) {
+                res.sendStatus(200);
+            } else {
+                Base.handlerError(res, req, error, response, body);
+            }
+        })
+
+    },
+    reEditApart: function (req, res) {
+        var tid=req.params.tid;
+        request(Base.mergeRequestOptions({
+            method: 'put',
+            url: '/api/orders/apart/reEdit?tid='+tid,
+        }, req, res), function (error, response, body) {
+            if (!error && response.statusCode == 201) {
+                res.sendStatus(200);
+            } else {
+                Base.handlerError(res, req, error, response, body);
+            }
+        })
+
+    },
+    reEditApartReview: function (req, res) {
+        var tid=req.params.tid;
+        request(Base.mergeRequestOptions({
+            method: 'put',
+            url: '/api/orders/apartReview/reEdit?tid='+tid,
+        }, req, res), function (error, response, body) {
+            if (!error && response.statusCode == 201) {
+                res.sendStatus(200);
+            } else {
+                Base.handlerError(res, req, error, response, body);
+            }
+        })
+    },
 };
 
 module.exports = OrderController;
