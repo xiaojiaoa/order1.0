@@ -481,6 +481,7 @@ router.post('/orders/batchNumber/package/packet', Middleware.apiLimiter,Middlewa
 router.post('/orders/batchNumber/unpacket/packet', Middleware.apiLimiter,Middleware.AuthCheck,OrderController.doUnpacketBatchNumber);
 router.post('/orders/batchNumber/schedule', Middleware.apiLimiter,Middleware.AuthCheck,OrderController.doScheduleBatchNumber);
 router.post('/orders/batchNumber/files/number', Middleware.apiLimiter,Middleware.AuthCheck,OrderController.getBatchNumberFiles);
+router.post('/orders/batchNumber/validation', Middleware.AuthCheck, OrderController.batchNumberValidation);
 
 // 订单详情--重新编辑按钮
 router.put('/orders/review/reEdit/:tid', Middleware.AuthCheck, OrderController.reEditReview);
