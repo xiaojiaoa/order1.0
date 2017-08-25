@@ -337,7 +337,33 @@
             click: function (e) {
                 batchNumber = $(this).attr("batchNumber");
                 factoryId = $(this).attr("factoryId");
-                doAjax('确定排料吗？','/orders/batchNumber/schedule')
+//                doAjax('确定排料吗？','/orders/batchNumber/schedule')
+                $.ajax({
+                    url: '/orders/batchNumber/validation',
+                    method: 'post',
+                    data:{
+                        batchNumber:batchNumber,
+                        factoryId:factoryId
+                    },
+                    success: function (data) {
+                        data = data?JSON.parse(data):[];
+                        var text = '';
+                        if(data.length <= 0){
+                            text = '确定排料吗？'
+                        }else{
+                            data.forEach(function (element) {
+                                text += "客户："+element.custName+"（"+element.cid+"）下还有"+element.orderNumber+"单未在该批次中<br>"
+                            })
+                            text += '确认排料吗？'
+                        }
+
+                        doAjax(text,'/orders/batchNumber/schedule')
+                    },
+                    error: function (response) {
+                        errorLayout.normal(response);
+                    }
+                });
+
             }
         });
 
@@ -396,7 +422,7 @@
         })
 
         var doAjax = function (text,url) {
-            layer.confirm(text,{icon: 3, title:'提示'},
+            layer.confirm(text,{icon: 3, title:'提示',area: '500px',},
                 function(index){
                     $('.layui-layer-btn0').css('pointer-events', 'none').addClass('btn').attr('disabled', true).html('处理中 <i class="fa fa-circle-o-notch fa-spin">');
                     $('.layui-layer-btn1').hide();
