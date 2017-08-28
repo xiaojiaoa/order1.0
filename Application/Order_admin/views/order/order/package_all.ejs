@@ -179,6 +179,9 @@
                                 <th>包装类型</th>
                                 <th>包装状态</th>
                                 <th>货位编号</th>
+                                <th>入库时间</th>
+                                <th>备货时间</th>
+                                <th>发货时间</th>
                                 <th>操作</th>
                             </tr>
                             </thead>
@@ -190,20 +193,23 @@
                                 <td><%= DWY_Helper.incrementNum(DWYRequest.query.pageNo,index)%></td>
                                 <td><a  <%=  element.orderType ==20  ?  "href=/order/resupply/detail/"+ element.tid :  "href=/order/detail/"+element.tid  %>  ><%= element.tid %></a></a></td>
                                 <td><%= element.packageLid %></td>
-                                <th><%= element.lid %></th>
-                                <th><%= element.batchNumber %></th>
+                                <td><%= element.lid %></td>
+                                <td><%= element.batchNumber %></td>
                                 <td><%= element.packageNo %></td>
                                 <td><%= element.packageName %></td>
                                 <td><%= element.packageTypeStr %></td>
                                 <td><%= element.packageStatusStr %></td>
                                 <td><%= element.spaceId %></td>
+                                <td><%= DWY_Helper.getLocalDateYMD(element.inTime ) %></td>
+                                <td><%= DWY_Helper.getLocalDateYMD(element.stockTime  ) %></td>
+                                <td><%= DWY_Helper.getLocalDateYMD(element.outTime  ) %></td>
                                 <td>
                                     <a class="label label-primary" href="/system/printPackageLid/<%= element.packageLid %>">预览</a>
                                 </td>
                             </tr>
                             <%  })
                             }else{ %>
-                            <td colspan="10" class="text-align-center">暂无结果</td>
+                            <td colspan="14" class="text-align-center">暂无结果</td>
                             <%  }%>
                             </tbody>
                         </table>
