@@ -45,7 +45,15 @@
                                         </div>
                                     </div>
                                 </div>
-
+                                <!--输入字段-->
+                                <div class="col-xs-3">
+                                    <div class="form-group">
+                                        <label class="col-xs-4 control-label">包装流水号:</label>
+                                        <div class="col-xs-8">
+                                            <input class="form-control" placeholder="请输入包装流水号" type="text" value="<%= DWYRequest.query.packageLid %>" name="packageLid">
+                                        </div>
+                                    </div>
+                                </div>
                                 <% if (DWY_Helper.hasPermission(Permission.orderPackage.queryAll.id, permission)){ %>
                                 <div class="col-xs-3">
                                     <div class="form-group">
