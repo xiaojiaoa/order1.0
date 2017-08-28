@@ -1,26 +1,42 @@
 <%
-if(result&&result.length>0){
-result.forEach(function(element,index){%>
+    var allTotal = 0;
+var keys = Object.keys(result);
+if(keys && keys.length > 0){
+keys.forEach(function (key) {
+        allTotal =+ result[key].length;
+result[key].forEach(function(element, index){ %>
 <tr>
-    <td>
+
+    <% if(index == 0){ %>
+    <td rowspan="<%= result[key].length %>">
         <label class="checkbox-inline">
-            <input type="checkbox" class="checkbox validate[minCheckbox[1]]"
-                   name="list" value="<%= element.tid %>" <%= (element.type == null && element.stcode == 729)? '':'disabled' %>>
-            <span><%= ++index %></span>
+            <input type="checkbox" class="checkbox" name="batchId" value="<%= key %>">
+            <span> <%= key %></span>
         </label>
     </td>
-    <td><%= element.tid%></td>
+    <% } %>
+    <td>
+        <label class="checkbox-inline">
+            <input type="checkbox" class="checkbox validate[minCheckbox[1]]" parentId="<%= key %>"
+                   name="list"
+                   value="<%= element.tid %>" <%= (element.type == null && element.stcode == 729) ? '' : 'disabled' %>>
+            <span><%= element.tid %></span>
+        </label>
+    </td>
     <td><%= element.prodInfo %></td>
-    <td><%= element.gName%></td>
-    <td><%= element.stcodeName%></td>
+    <td><%= element.gName %></td>
+    <td><%= element.stcodeName %></td>
+
 </tr>
 
-<% }) %>
-<input type="hidden" value="<%= result.length %>" name="totalNum">
+<% })
+})
+%>
+<input type="hidden" value="<%= allTotal %>" name="totalNum">
 <input type="hidden" value="" name="noInNum">
 <% }else{ %>
 <tr>
     <td colspan="5" class="text-align-center">暂无结果</td>
 </tr>
-<%} %>
+<% } %>
 
