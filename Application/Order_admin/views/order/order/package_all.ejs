@@ -179,6 +179,9 @@
                                 <th>包装类型</th>
                                 <th>包装状态</th>
                                 <th>货位编号</th>
+                                <th>入库时间</th>
+                                <th>备货时间</th>
+                                <th>发货时间</th>
                                 <th>操作</th>
                             </tr>
                             </thead>
@@ -197,6 +200,9 @@
                                 <td><%= element.packageTypeStr %></td>
                                 <td><%= element.packageStatusStr %></td>
                                 <td><%= element.spaceId %></td>
+                                <td><%= DWY_Helper.getLocalDateYMD(element.inTime ) %></td>
+                                <td><%= DWY_Helper.getLocalDateYMD(element.stockTime  ) %></td>
+                                <td><%= DWY_Helper.getLocalDateYMD(element.outTime  ) %></td>
                                 <td>
                                     <a class="label label-primary" href="/system/printPackageLid/<%= element.packageLid %>">预览</a>
                                 </td>
