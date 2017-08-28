@@ -119,7 +119,14 @@
                             <tr>
                                 <td><%= DWY_Helper.incrementNum(DWYRequest.query.pageNo,index)%></td>
                                 <td><%= element.typeName %></td>
-                                <td><%= element.cargoId %></td>
+                                <td>
+                                    <% if(element.cargoType==2){ %>
+                                    <a href="/system/printPackageLid/<%= element.cargoId %>"> <%= element.cargoId %></a>
+
+                                    <% }else{ %>
+                                    <%= element.cargoId %>
+                                    <% }%>
+                                </td>
                                 <td><%= element.name %></td>
                                 <td><%= element.spaceId %></td>
                                 <td><%= element.amount %></td>

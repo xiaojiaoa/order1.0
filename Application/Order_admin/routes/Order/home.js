@@ -944,7 +944,7 @@ router.put('/getRegionList/perm/:whseId', Middleware.AuthCheck, CargospaceContro
 router.get('/cargospace', Middleware.AuthCheck, Middleware.FilterEmptyField, CargospaceController.listPage);
 
 // 货位详情页面
-router.get('/:type/cargospace/detail/:spaceId', Middleware.AuthCheck, CargospaceController.detailPage);
+router.get('/:type/cargospace/detail/:spaceId', Middleware.AuthCheck, Middleware.SetBackPath, CargospaceController.detailPage);
 
 // 新增货位页面
 router.get('/cargospace/create', Middleware.AuthCheck, CargospaceController.createPage);
