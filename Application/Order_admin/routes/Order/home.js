@@ -85,7 +85,11 @@ var Middleware = {
     AuthCheck: function (req, res, next) {
         if(req.method.toLowerCase() == 'get'){
             // req.session.preventPath = req.path;
-            req.session.preventPath = req.url;
+
+            if(!req.xhr){
+                req.session.preventPath = req.url;
+            }
+            // console.log('preventPath',req.session.preventPath)
         }
         if (!req.session.auth) {
             //console.log('SESSION HAS NO AUTH');
