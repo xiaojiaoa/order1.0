@@ -89,7 +89,7 @@ var Middleware = {
             if(!req.xhr){
                 req.session.preventPath = req.url;
             }
-            console.log('preventPath',req.session.preventPath)
+            // console.log('preventPath',req.session.preventPath)
         }
         if (!req.session.auth) {
             //console.log('SESSION HAS NO AUTH');
