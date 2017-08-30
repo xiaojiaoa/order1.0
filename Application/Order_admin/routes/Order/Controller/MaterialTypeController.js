@@ -46,7 +46,6 @@ var MaterialTypeController = {
             },resultList));
             res.render('order/material/material_type',returnData);
         });
-       // res.render('order/material/material_type');
     },
     materialTypeCreOnePage: function (req, res) {
         Base.multiDataRequest(req, res, [
@@ -57,7 +56,6 @@ var MaterialTypeController = {
             },resultList));
             res.render('order/material/material_type_creOne',returnData);
         });
-       // res.render('order/material/material_type_creOne');
     },
     materialTypeCreOtherPage: function (req, res) {
         var id =  req.params.id;
@@ -70,7 +68,6 @@ var MaterialTypeController = {
             },resultList));
             res.render('order/material/material_type_creOther',returnData);
         });
-        //res.render('order/material/material_type_creOther');
     },
     materialTypeCreOneDo: function (req, res) {
        // console.log('新建物料一级分类'+ JSON.stringify(req.body));
@@ -132,7 +129,6 @@ var MaterialTypeController = {
             },resultList));
             res.render('order/material/material_type_modify',returnData);
         });
-           // res.render('order/material/material_type_modify');
     },
     materialTypeDoModify: function (req, res) {
         // console.log('修改分类'+ JSON.stringify(req.body));

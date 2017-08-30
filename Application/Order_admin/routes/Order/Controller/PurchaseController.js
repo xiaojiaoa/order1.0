@@ -371,7 +371,7 @@ var PurchaseController = {
         })
     },
 
-    //打印采购单
+    // 打印采购单
     printPurchase: function (req, res) {
         var purcIds = req.params.purcIds;
         request(Base.mergeRequestOptions({
@@ -425,11 +425,11 @@ var PurchaseController = {
             res.render('order/purchase/create', returnData);
         });
     },
-    //新建采购单第一步
+    // 新建采购单第一步
     purchaseMaterialCreat: function (req, res) {
         res.render('order/purchase/createMaterial');
     },
-    //新建采购单 添加物料数量+预计交期
+    // 新建采购单 添加物料数量+预计交期
     materialCreate: function (req, res) {
         request(Base.mergeRequestOptions({
             method: 'post',
@@ -454,8 +454,7 @@ var PurchaseController = {
     },
     exportPurchase: function (req, res) {
 
-        request
-        (Base.mergeRequestOptions({
+        request(Base.mergeRequestOptions({
             method: 'get',
             url: '/api/orders/batchNumber/export/purchase?'+queryString.stringify(req.query),
         }, req, res)).pipe(res)

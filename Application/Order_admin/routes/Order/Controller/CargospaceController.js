@@ -30,8 +30,6 @@ var CargospaceController = {
             url: '/api/whse/factory/list',
         }, req, res), function (error, response, body) {
             if (!error && response.statusCode == 200) {
-                // Base.handlerSuccess(res, req);
-                // res.sendStatus(200);
                 res.status(200).json(body)
 
             } else {

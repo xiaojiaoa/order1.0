@@ -36,7 +36,7 @@
                         <a class="label label-primary" href="/system/printParts/<%= batchInfo.batchNumber %>">打印装箱清单</a>
                         <%}%>
                         <% if(batchInfo.stcode  == 2){ %>
-                        <a class="label label-primary" href="/orders/heap/<%= batchInfo.batchNumber %>/<%= batchInfo.factoryId %>">生成堆号</a>
+                        <a class="label label-primary"  id="doHeap" >生成堆号</a>
                         <%  } %>
                         </legend>
 
@@ -166,7 +166,26 @@
 
     $(document).ready(function () {
 
+        $("#doHeap").click(function () {
+            layer.confirm('确认生成堆号吗？', {icon: 3, title: '提示'}, function (index) {
+                $.ajax({
+                    url: "/orders/heap",
+                    method: 'post',
+                    data: {
+                        batchNumber:'<%= batchInfo.batchNumber %>',
+                        factoryId:'<%= batchInfo.factoryId %>'
+                    },
+                    success: function (data) {
 
+                        successLayout.reload();
+                    },
+                    error: function (response) {
+                        layer.close(index)
+                        errorLayout.normal(response);
+                    }
+                });
+            }, function (index) { layer.close(index) })
+        })
 
     })
 

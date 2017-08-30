@@ -222,7 +222,6 @@ var MaterialController = {
              },resultList));
              res.render('order/material/material_create_second',returnData);
          });
-       // res.render('order/material/material_create_second');
     },
     doCreate: function (req, res) {
         if(req.body.attributeValues){
@@ -358,7 +357,6 @@ var MaterialController = {
             },resultList));
             res.render('order/material/material_create_one',returnData);
         });
-        // res.render('order/material/material_create_one');
     },
     workpiecePage: function (req, res) {
         var mid =req.params.mid;
@@ -371,7 +369,6 @@ var MaterialController = {
             },resultList));
             res.render('order/material/material_workpiece',returnData);
         });
-        // res.render('order/material/material_workpiece');
     },
     materiel_accessoryPage: function (req, res) {
          var mid =req.params.mid;
@@ -384,7 +381,6 @@ var MaterialController = {
          },resultList));
          res.render('order/material/materiel_accessory',returnData);
          });
-       // res.render('order/material/materiel_modal');
     },
     fileDoCreate: function (req, res) {
          // console.log("上传的文件",JSON.stringify(req.body));

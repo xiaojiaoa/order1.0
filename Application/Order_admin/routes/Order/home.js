@@ -47,7 +47,7 @@ router.use(function (req, res, next) {
 // 错误或者正确信息处理
 router.use(function (req, res, next) {
 
-    if (req.session.DWY_message && ((new Date().getTime() - req.session.DWY_message.time) < 6000)) {
+    if (req.session.DWY_message && ((new Date().getTime() - req.session.DWY_message.time) < 2000)) {
         res.locals.DWY_message = req.session.DWY_message;
         req.session.DWY_message = '';
     } else {
@@ -89,7 +89,7 @@ var Middleware = {
             if(!req.xhr){
                 req.session.preventPath = req.url;
             }
-            // console.log('preventPath',req.session.preventPath)
+            console.log('preventPath',req.session.preventPath)
         }
         if (!req.session.auth) {
             //console.log('SESSION HAS NO AUTH');
@@ -474,7 +474,7 @@ router.post('/reconciliation/cancel', Middleware.AuthCheck, OrderController.reco
 // 批次号管理
 router.get('/orders/batchNumber', Middleware.AuthCheck,Middleware.SetBackPath,OrderController.batchPage);
 router.get('/orders/batchNumber/detail/:batchNumber/:factoryId', Middleware.AuthCheck, OrderController.batchDetail);
-router.get('/orders/heap/:batchNumber/:factoryId', Middleware.AuthCheck, OrderController.batchHeap);
+router.post('/orders/heap', Middleware.AuthCheck, OrderController.batchHeap);
 
 router.post('/orders/batchNumber/downloadZip', Middleware.AuthCheck, OrderController.downloadZip);
 router.get('/orders/batchNumber/downloadPackage/:batchNumber/:factoryId', Middleware.AuthCheck, OrderController.downloadPackage);
@@ -1334,13 +1334,13 @@ router.post('/purchases/review', Middleware.AuthCheck,PurchaseController.purchas
 router.post('/purchases/recall', Middleware.AuthCheck,PurchaseController.purchaseRecall);
 // 提交采购单
 router.post('/purchases/submit', Middleware.AuthCheck,PurchaseController.purchaseSubmit);
-//删除未审核采购单
+// 删除未审核采购单
 router.post('/purchases/del', Middleware.AuthCheck,PurchaseController.purchaseDel);
 
-//打印采购单
+// 打印采购单
 router.get('/purchases/print/:purcIds', Middleware.AuthCheck,PurchaseController.printPurchase);
 
-//新建采购单页面
+// 新建采购单页面
 router.get('/purchase/create', Middleware.AuthCheck,Middleware.FilterEmptyField,PurchaseController.purchaseCreatePage);
 
 // 新建采购单 选择物料信息列表
@@ -1448,7 +1448,7 @@ router.post('/registerDeliver/:tid', Middleware.AuthCheck,InstallserviceControll
 var SystemController = require('./Controller/SystemController');
 // 首页
  router.get('/system', Middleware.AuthCheck,Middleware.SetBackPath,SystemController.indexPage);
- //与上面路由的区别是，三级菜单是用ejs来实现的
+ // 与上面路由的区别是，三级菜单是用ejs来实现的
 router.get('/systems', Middleware.AuthCheck,Middleware.SetBackPath,SystemController.indexPageO);
 
 // 获取第二栏的可用内容
@@ -1674,7 +1674,7 @@ router.post('/app/orders/sort/view', AppServiceController.sortView);
 router.get('/app/orders/sort/batchNumber', AppServiceController.sortBatchNumber);
 router.get('/app/orders/sort/list', AppServiceController.sortList);
 router.get('/app/orders/sort/workPiece', AppServiceController.sortWorkPiece);
-router.get('/app/orders/sort/workPiece/scaned', AppServiceController.sortWorkPieceScaned)
+router.get('/app/orders/sort/workPiece/scaned', AppServiceController.sortWorkPieceScaned);
 /*
 * 页面范围: 报表管理
 * 控制器:   ReportController

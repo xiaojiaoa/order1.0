@@ -1275,7 +1275,6 @@ var OrderController = {
             },resultList));
             res.render('order/order/packedList', returnData);
         });
-        // res.render('order/order/packedList');
     },
     allInfoPage:function(req,res){
         var paramObject = helper.genPaginationQuery(req);
@@ -1297,7 +1296,6 @@ var OrderController = {
             },resultList));
             res.render('order/order/package_all', returnData);
         });
-       // res.render('order/order/packedList');
     },
     doPacket:function(req,res){
         var tid=req.params.tid;
@@ -1676,14 +1674,10 @@ var OrderController = {
         request(Base.mergeRequestOptions({
             method: 'post',
             url: '/api/orders/heap',
-            form: {
-                batchNumber: req.params.batchNumber,
-                factoryId: req.params.factoryId,
-            }
+            form: req.body
         }, req, res), function (error, response, body) {
             if (!error && response.statusCode == 201) {
-                Base.handlerSuccess(res,req);
-                res.redirect('/orders/batchNumber/detail/'+req.params.batchNumber+'/'+ req.params.factoryId);
+                res.sendStatus(200);
             } else {
                 Base.handlerError(res, req, error, response, body);
             }

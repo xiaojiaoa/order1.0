@@ -190,7 +190,6 @@ var InformationController = {
             },resultList));
             res.render('order/information/file_info',returnData);
         });
-        // res.render('order/information/file_info');
     },
     fileDoCreate: function (req, res) {
          req.body.shareScopes=JSON.parse(req.body.shareScopes);
