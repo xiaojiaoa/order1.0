@@ -208,7 +208,7 @@ var CargospaceController = {
         var paramObject = helper.genPaginationQuery(req);
         Base.multiDataRequest(req, res, [
             {url: '/api/whse/cargospace/'+spaceId, method: 'GET', resConfig: {keyName: 'cargospaceInfo', is_must: true}},
-            {url: '/api/whse/cargospace/page/index/'+spaceId, method: 'GET', resConfig: {keyName: 'cargospaceList', is_must: true}},
+            {url: '/api/whse/cargospace/page/index/'+spaceId+'?'+queryString.stringify(req.query), method: 'GET', resConfig: {keyName: 'cargospaceList', is_must: true}},
         ], function (req, res, resultList) {
             var paginationInfo = resultList.cargospaceList;
 
