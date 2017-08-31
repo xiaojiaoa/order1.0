@@ -51,7 +51,7 @@
                                     <div class="form-group">
                                         <label class="col-xs-2 control-label">选择月份:</label>
                                         <div class="col-xs-4">
-                                            <input class="form-control fg-date-picker"
+                                            <input class="form-control fg-month-picker"
                                                    value="<%= DWYRequest.query.date %>"
                                                    name="date">
                                         </div>
@@ -154,11 +154,6 @@
 
     $(document).ready(function () {
         $("#search-customer").validationEngine();
-     //   $(".fg-date-picker").flatpickr(data_time_picker.data_picker); // jQuery
-        $(".fg-date-picker").datetimepicker(mouth_picker.showMonth).on({
-            changeMonth: function(ev){
-                mouth_picker.changeMonth(ev);
-            }})
     })
 
 </script>

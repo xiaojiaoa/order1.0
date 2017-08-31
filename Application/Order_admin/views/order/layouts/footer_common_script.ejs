@@ -140,7 +140,20 @@
 
             $(".table-scroll2").freezeHeader();
         }
+       // 月份插件使用
+        if($(".fg-month-picker").length>0){
+            $(".fg-month-picker").datetimepicker(mouth_picker.showMonth).on({
+                changeMonth: function(ev){
+                    mouth_picker.changeMonth(ev);
+                }})
+            $("input.fg-month-picker").each(function () {
+                var _this=$(this);
+                if( _this.val()){
+                    _this.datetimepicker(mouth_picker.showMonth).trigger('changeMonth');
+                }
+            })
 
+        }
 
     })
 </script>
