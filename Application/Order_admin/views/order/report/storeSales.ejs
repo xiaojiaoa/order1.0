@@ -1,0 +1,167 @@
+<%- include('../layouts/head_top'); %>
+<%- include('../layouts/head_bottom'); %>
+<%- include('../layouts/header'); %>
+<%- include('../layouts/nav'); %>
+
+
+<!-- MAIN PANEL -->
+<div id="main" role="main" class="mainFlex">
+
+    <!-- RIBBON -->
+    <div id="ribbon">
+
+        <!-- breadcrumb -->
+        <ol class="breadcrumb">
+            <li>后台管理</li>
+            <li>报表管理</li>
+        </ol>
+
+    </div>
+    <!-- END RIBBON -->
+
+
+    <!-- MAIN CONTENT -->
+    <div id="content" class="dis-flex">
+
+        <%- include('./reportManage'); %>
+        <!-- well -->
+        <div class="well">
+            <!-- row -->
+            <div class="row">
+                <!-- col -->
+                <div class="col-xs-12">
+                    <!--<legend>客户搜索</legend>-->
+                    <!-- row -->
+                    <div class="row search-form">
+                        <form class="form-horizontal" method="get" id="search-customer">
+
+
+                            <div class="col-xs-12">
+
+                                <!--输入字段-->
+                                <div class="col-xs-2">
+                                    <div class="form-group">
+                                        <label class="col-xs-4 control-label">门店名:</label>
+                                        <div class="col-xs-8">
+                                            <input class="form-control" placeholder="请输入门店名" value="<%= DWYRequest.query.storeName %>" type="text" name="storeName">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xs-3">
+                                    <div class="form-group">
+                                        <label class="col-xs-2 control-label">选择月份:</label>
+                                        <div class="col-xs-4">
+                                            <input class="form-control fg-date-picker"
+                                                   value="<%= DWYRequest.query.date %>"
+                                                   name="date">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xs-3">
+                                    <div class="col-xs-12 text-center">
+                                        <input type="hidden" value="<%= DWYRequest.query.ifInitTime?DWYRequest.query.ifInitTime:'' %>" name="ifInitTime">
+                                        <button class="btn btn-primary " type="submit">
+                                            <i class="fa fa-search"></i>
+                                            查询
+                                        </button>
+
+                                    </div>
+                                </div>
+                            </div>
+
+                        </form>
+                    </div>
+                    <!-- end row -->
+                </div>
+                <!-- end col -->
+            </div>
+            <!-- end row -->
+        </div>
+        <!-- end well -->
+
+        <div class="well dis-flex">
+
+            <!-- row -->
+            <div class="row">
+                <div class="col-xs-12">
+                    <h6 class="receipt">
+                        <h6>门店相关报表</h6>
+
+                    </h6>
+                </div>
+            </div>
+            <div class="orderItemLayerTit">
+                <ul class="orderItemMenu">
+                    <a href="javascript:void(0)">
+                        <li class="padding-10 materielBak">
+                            门店销售
+                        </li>
+                    </a>
+                </ul>
+            </div>
+            <!-- row -->
+            <div class="row dis-flex">
+                <div class="col-xs-12 dis-flex">
+                    <div class="table-responsive dis-flex">
+                        <table class="table table-bordered table-striped table-hover table-scroll2">
+                            <thead>
+                            <tr>
+                                <th>序号</th>
+                                <th>门店名</th>
+                                <th>当月已审核订单结算价金额</th>
+                                <th>当月已审核订单折扣价金额</th>
+                                <th>当月已发货金额</th>
+                                <th>截至当月末在生产订单金额</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <%
+                            if(DWY_Helper.isCanLoop(dataList.result)){
+                            dataList.result.forEach(function (element,index) { %>
+                            <tr>
+                                <td><%= DWY_Helper.incrementNum(DWYRequest.query.pageNo,index)%></td>
+                                <td><%= element.storeName %></td>
+                                <td><%=element.reviewSettlement  %></td>
+                                <td><%=element.reviewDiscount  %></td>
+                                <td><%=element.sendOut  %></td>
+                                <td><%=element.schedule  %></td>
+                            </tr>
+                            <%})
+                            }else{ %>
+                            <tr>
+                                <td colspan="100" align="center">暂无结果</td>
+                            </tr>
+                            <% } %>
+
+                            </tbody>
+                        </table>
+                    </div>
+                    <%- pagination %>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- END MAIN CONTENT -->
+
+</div>
+<!-- END MAIN PANEL -->
+
+<%- include('../layouts/footer'); %>
+<%- include('../layouts/footer_common_script'); %>
+<%- include('./common_js'); %>
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+        $("#search-customer").validationEngine();
+     //   $(".fg-date-picker").flatpickr(data_time_picker.data_picker); // jQuery
+        $(".fg-date-picker").datetimepicker(mouth_picker.showMonth).on({
+            changeMonth: function(ev){
+                mouth_picker.changeMonth(ev);
+            }})
+    })
+
+</script>
+
+
+<%- include('../layouts/foot'); %>
