@@ -162,8 +162,8 @@
                             if(DWY_Helper.isCanLoop(dataList.page.result)){
                             dataList.page.result.forEach(function (element,index) { %>
                             <tr>
+                                <td><%= DWY_Helper.incrementNum(DWYRequest.query.pageNo,index)%></td>
                                 <td><%= element.storeName %></td>
-                                <td><%= element.frozenFunds %></td>
                                 <td><%= element.direction == 1?'+':'-'  %><%=element.money %></td>
                                 <td><%=DWY_Helper.getLocalDate(element.addTime)  %></td>
                                 <td><%=element.describe  %></td>
