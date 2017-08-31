@@ -1675,6 +1675,11 @@ router.get('/app/orders/sort/batchNumber', AppServiceController.sortBatchNumber)
 router.get('/app/orders/sort/list', AppServiceController.sortList);
 router.get('/app/orders/sort/workPiece', AppServiceController.sortWorkPiece);
 router.get('/app/orders/sort/workPiece/scaned', AppServiceController.sortWorkPieceScaned);
+
+
+router.get('/app/cargoin/shelves/space/:id', AppServiceController.cargoinShelvesSpace);
+
+
 /*
 * 页面范围: 报表管理
 * 控制器:   ReportController

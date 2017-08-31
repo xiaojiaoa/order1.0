@@ -804,6 +804,20 @@ var AppServiceController = {
             }
         })
     },
+    cargoinShelvesSpace: function (req, res) {
+        var id = req.params.id;
+        request(Base.mergeRequestOptions({
+            method: 'get',
+            url: '/api/whse/app/cargoin/shelves/space/'+id,
+            headers:req.headers,
+        }, req, res), function (error, response, body) {
+            if (!error) {
+                res.send(JSON.parse(body));
+            } else {
+                res.send(AppServiceController.error);
+            }
+        })
+    },
 
     scanningCargoin: function (req, res) {
         var spaceId = req.params.spaceId;
