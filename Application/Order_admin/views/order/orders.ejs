@@ -331,10 +331,11 @@
                                 <th>产品类型</th>
                                 <th>空间类型</th>
                                 <th>门店区域</th>
-                                <th>下单员工</th>
-                                <th>下单时间</th>
-                                <th>下单完毕时间</th>
-                                <th>审核时间</th>
+                                <th>建单员工</th>
+                                <th>建单日期</th>
+                                <th>提交审核日期</th>
+                                <th>下单完毕日期</th>
+                                <th>审核日期</th>
                                 <th>预计发货</th>
                                 <th>订单状态</th>
                                 <th>货位号</th>
@@ -376,6 +377,7 @@
                                 <td><%= element.regionType %>/<%= element.subRegionType %></td>
                                 <td><%= element.bname %>/<%= element.gname %></td>
                                 <td><%= DWY_Helper.getLocalDateYMD(element.createTime) %></td>
+                                <td><%= DWY_Helper.getLocalDateYMD(element.submitReviewTime) %></td>
                                 <td><%= DWY_Helper.getLocalDateYMD(element.sequenceEndTime) %></td>
                                 <td><%= DWY_Helper.getLocalDateYMD(element.reviewTime) %></td>
                                 <td><%= DWY_Helper.getLocalDateYMD(element.deliveryDate) %></td>
