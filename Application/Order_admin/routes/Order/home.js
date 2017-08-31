@@ -1744,6 +1744,9 @@ router.get('/report/suppRate/orderPeople', Middleware.AuthCheck,Middleware.Filte
 // 部门成本率
 router.get('/report/costRate/depart', Middleware.AuthCheck,Middleware.FilterEmptyField,ReportController.costRateDepart);
 
+// 门店资金流转信息报表
+router.get('/report/store/cashFlow', Middleware.AuthCheck,Middleware.FilterEmptyField,ReportController.cashFlowPage);
+
 /*
  * 页面范围: 财务统计
  * 控制器:   FinancialStatisticsController

@@ -1,0 +1,209 @@
+<%- include('../layouts/head_top'); %>
+<%- include('../layouts/head_bottom'); %>
+<%- include('../layouts/header'); %>
+<%- include('../layouts/nav'); %>
+
+
+<!-- MAIN PANEL -->
+<div id="main" role="main" class="mainFlex">
+
+    <!-- RIBBON -->
+    <div id="ribbon">
+
+        <!-- breadcrumb -->
+        <ol class="breadcrumb">
+            <li>后台管理</li>
+            <li>报表管理</li>
+        </ol>
+
+    </div>
+    <!-- END RIBBON -->
+
+
+    <!-- MAIN CONTENT -->
+    <div id="content" class="dis-flex">
+
+        <%- include('./reportManage'); %>
+        <!-- well -->
+        <div class="well">
+            <!-- row -->
+            <div class="row">
+                <!-- col -->
+                <div class="col-xs-12">
+                    <!--<legend>客户搜索</legend>-->
+                    <!-- row -->
+                    <div class="row search-form">
+                        <form class="form-horizontal" method="get" id="search-customer">
+
+
+                            <div class="col-xs-12">
+
+                                <!--输入字段-->
+                                <div class="col-xs-2">
+                                    <div class="form-group">
+                                        <label class="col-xs-4 control-label">门店名:</label>
+                                        <div class="col-xs-8">
+                                            <input class="form-control" placeholder="请输入门店名" value="<%= DWYRequest.query.storeName %>" type="text" name="storeName">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xs-2">
+                                    <div class="form-group">
+                                        <label class="col-xs-4 control-label">资金状态:</label>
+                                        <div class="col-xs-8">
+                                            <select class="form-control" name="fundsStatus">
+                                                <option value="" <%= (DWYRequest.query.fundsStatus =='')?"selected":"" %>>-请选择-</option>
+                                                <option value="2" <%= (DWYRequest.query.fundsStatus ==2)?"selected":"" %>>冻结</option>
+                                                <option value="1" <%= (DWYRequest.query.fundsStatus ==1)?"selected":"" %>>已收</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <% if(DWY_GLOBAL.ButtonOpen==1){ %>
+                                <div class="col-xs-3 text-center">
+                                    <button class="btn btn-primary " type="submit">
+                                        <i class="fa fa-search"></i>
+                                        查询
+                                    </button>
+                                    <label class="btn btn-default reset margin-left-20">
+                                        重置
+                                    </label>
+                                    <label class="search margin-left-20">
+                                        高级查询
+                                        <i class="fa fa-chevron-down"></i>
+                                    </label>
+                                </div>
+                                <%}%>
+                                <% if(DWY_GLOBAL.ButtonOpen==1){ %>
+                                <div class="slideToggle display-none">
+                                    <%}%>
+                                    <div class="col-xs-4">
+                                        <div class="form-group">
+                                            <label class="col-xs-2 control-label">日期:</label>
+                                            <div class="col-xs-4">
+                                                <input class="form-control fg-date-picker" placeholder="" type="text"  value="<%= DWYRequest.query.startDate %>"
+                                                       name="startDate">
+                                            </div>
+                                            <label class="control-label " style="float: left"> 至 </label>
+                                            <div class="col-xs-4">
+                                                <input class="form-control fg-date-picker" placeholder="" type="text"  value="<%= DWYRequest.query.endDate %>"
+                                                       name="endDate">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <% if(DWY_GLOBAL.ButtonOpen!=1){ %>
+                                    <div class="col-xs-3">
+                                        <div class="col-xs-12 text-center">
+                                            <input type="hidden" value="<%= DWYRequest.query.ifInitTime?DWYRequest.query.ifInitTime:'' %>" name="ifInitTime">
+                                            <button class="btn btn-primary " type="submit">
+                                                <i class="fa fa-search"></i>
+                                                查询
+                                            </button>
+
+                                        </div>
+                                    </div>
+                                    <%}%>
+                                    <% if(DWY_GLOBAL.ButtonOpen==1){ %>
+                                </div>
+                                <%}%>
+                            </div>
+
+                        </form>
+                    </div>
+                    <!-- end row -->
+                </div>
+                <!-- end col -->
+            </div>
+            <!-- end row -->
+        </div>
+        <!-- end well -->
+
+        <div class="well dis-flex">
+
+            <!-- row -->
+            <div class="row">
+                <div class="col-xs-12">
+                    <h6 class="receipt">
+                        <h6>门店相关报表</h6>
+
+                    </h6>
+                </div>
+            </div>
+            <div class="orderItemLayerTit">
+                <ul class="orderItemMenu">
+                    <a href="javascript:void(0)">
+                        <li class="padding-10 materielBak">
+                            门店资金流转
+                            <span class="amountMoney amountMoney1">付款总金额：<%= dataList.payAmount %></span>
+                        </li>
+                    </a>
+                </ul>
+            </div>
+            <!-- row -->
+            <div class="row dis-flex">
+                <div class="col-xs-12 dis-flex">
+                    <div class="table-responsive dis-flex">
+                        <table class="table table-bordered table-striped table-hover table-scroll2">
+                            <thead>
+                            <tr>
+                                <th>序号</th>
+                                <th>门店名</th>
+                                <th>交易金额（元）</th>
+                                <th>交易时间</th>
+                                <th>操作说明</th>
+                                <th>订单编号</th>
+                                <th>收款类型</th>
+                                <th>资金状态</th>
+                                <th>资金操作</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <%
+                            if(DWY_Helper.isCanLoop(dataList.page.result)){
+                            dataList.page.result.forEach(function (element,index) { %>
+                            <tr>
+                                <td><%= element.storeName %></td>
+                                <td><%= element.frozenFunds %></td>
+                                <td><%= element.direction == 1?'+':'-'  %><%=element.money %></td>
+                                <td><%=DWY_Helper.getLocalDate(element.addTime)  %></td>
+                                <td><%=element.describe  %></td>
+                                <td><a href="/order/detail/<%=element.tid  %>"><%=element.tid  %></a></td>
+                                <td><%=element.collectionTypeName  %></td>
+                                <td><%=element.fundsStatusName  %></td>
+                                <td><%=element.fundsOperation  %></td>
+                            </tr>
+                            <%})
+                            }else{ %>
+                            <tr>
+                                <td colspan="100" align="center">暂无结果</td>
+                            </tr>
+                            <% } %>
+
+                            </tbody>
+                        </table>
+                    </div>
+                    <%- pagination %>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- END MAIN CONTENT -->
+
+</div>
+<!-- END MAIN PANEL -->
+
+<%- include('../layouts/footer'); %>
+<%- include('../layouts/footer_common_script'); %>
+<%- include('./common_js'); %>
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+        $("#search-customer").validationEngine();
+        $(".fg-date-picker").flatpickr(data_time_picker.data_picker); // jQuery
+    })
+
+</script>
+
+
+<%- include('../layouts/foot'); %>
