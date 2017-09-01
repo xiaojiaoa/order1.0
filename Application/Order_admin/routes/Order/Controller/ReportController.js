@@ -522,6 +522,14 @@ var ReportController = {
         });
 
     },
+    exportcashFlow: function (req, res) {
+    //    console.log(1111,JSON.parse(req.body.mytest));
+        request(Base.mergeRequestOptions({
+            method: 'post',
+            url: '/api/stores/money/moneyPage/export',
+            form:JSON.parse(req.body.mytest),
+        }, req, res)).pipe(res)
+    },
     storeSalesPage: function (req, res) {
 
         var paramObject = helper.genPaginationQuery(req);

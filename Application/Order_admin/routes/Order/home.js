@@ -1751,6 +1751,8 @@ router.get('/report/costRate/depart', Middleware.AuthCheck,Middleware.FilterEmpt
 
 // 门店对账单报表
 router.get('/report/store/cashFlow', Middleware.AuthCheck,Middleware.FilterEmptyField,ReportController.cashFlowPage);
+// 导出门店对账单
+router.post('/orders/export/cashFlow',Middleware.AuthCheck,ReportController.exportcashFlow);
 
 // 门店销量报表
 router.get('/report/store/sales', Middleware.AuthCheck,Middleware.FilterEmptyField,ReportController.storeSalesPage);
