@@ -95,7 +95,9 @@ var MaterialController = {
                 if(!whseId){
                     resultList.regionList = [];
                 }
-
+                var getPackageType={};
+                helper.setChildDate(resultList.getPackageTypes,getPackageType);
+                resultList.getPackageType=_.orderBy(getPackageType,['id'],['asc']);
                 var returnData = Base.mergeData(helper.mergeObject({
                     title: ' ',
                     bid:bid,

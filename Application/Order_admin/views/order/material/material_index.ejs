@@ -57,6 +57,26 @@
                                         </div>
                                     </div>
                                 </div>
+                                <div class="col-xs-2">
+                                    <div class="form-group">
+                                        <label class="col-xs-4 control-label">包装类型：</label>
+                                        <div class="col-xs-8">
+                                            <select class="form-control validate[required]" name="type">
+                                                <option value="">- 请选择 -</option>
+                                                <% getPackageType.forEach(function (element, index) {
+                                                if(element.data.length != 0){%>
+                                                <option value="<%= element.id %>" ><%= element.name %></option>
+                                                <% element.data.forEach(function (element) {  %>
+                                                <option value="<%= element.id %>">&nbsp;&nbsp;&nbsp;&nbsp;<%= element.name %></option>
+                                                <%  }) %>
+                                                <%  }else{ %>
+                                                <option value="<%= element.id %>"><%= element.name %></option>
+                                                <%  }
+                                                }) %>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
                                 <% if(DWY_GLOBAL.ButtonOpen!=1){ %>
                                 <div class="col-xs-5 text-center">
                                     <button class="btn btn-primary " type="submit">
@@ -206,6 +226,7 @@
                                             </div>
                                         </div>
                                     </div>
+
                             </div>
 
                             <input type="hidden" name="stairCatId" value="<%= DWYRequest.query.stairCatId %>">
