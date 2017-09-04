@@ -1617,56 +1617,56 @@ router.post('/app/cargoin/dealCargoin', AppServiceController.dealCargoin);
 router.post('/app/cargoin/unShelve', AppServiceController.unShelve);
 // 已扫描货笼显示分配界面
 router.post('/app/cargoin/unShelveShow', AppServiceController.unShelveShow);
-//扫描货位
+// 扫描货位
 router.post('/app/cargoin/scanCargoin', AppServiceController.scanCargoin);
-//取消扫描
+// 取消扫描
 router.post('/app/cargoin/cancelScan', AppServiceController.cancelScanCargoin);
-//待上架
+// 待上架
 router.post('/app/cargoin/waitRacking', AppServiceController.waitRacking);
-//入库确认上架
+// 入库确认上架
 router.post('/app/cargoin/confirmRacking', AppServiceController.confirmRacking);
-//入库时取消上架
+// 入库时取消上架
 router.post('/app/cargoin/cancelRacking', AppServiceController.cancelRacking);
-//已扫描已入库但是已上架的包所属的货位
+// 已扫描已入库但是已上架的包所属的货位
 router.get('/app/cargoin/shelvesSpace', AppServiceController.shelvesSpacePage);
-//已扫描已入库但是未上架的包所属的货位
+// 已扫描已入库但是未上架的包所属的货位
 router.get('/app/cargoin/shelvesSpaceId', AppServiceController.shelvesSpace);
-//扫描包装流水号，显示货位号
+// 扫描包装流水号，显示货位号
 router.get('/app/cargoin/lidCargoShow/:packageLid', AppServiceController.lidCargoShow);
-//订单货位查看功能
+// 订单货位查看功能
 router.get('/app/cargoin/orderCargoShow/:tid', AppServiceController.orderCargoShow);
-//查看货位的上架下架等情况
+// 查看货位的上架下架等情况
 router.get('/app/cargoin/offshelvesShow/:offshelves', AppServiceController.offshelvesShow);
 
-//按订单号查询批次下的
+// 按订单号查询批次下的
 router.get('/app/cargoin/findBatchnumber/:batid', AppServiceController.findBatchnumber);
-//按订单号查询批次某流水下的
+// 按订单号查询批次某流水下的
 router.get('/app/cargoin/findLid/:lid', AppServiceController.findLid);
-//按订单号查询批次流水某订单下的
+// 按订单号查询批次流水某订单下的
 router.get('/app/cargoin/findTid/:tid', AppServiceController.findTid);
-//订单号查找未入库状态下的包装数量
+// 订单号查找未入库状态下的包装数量
 router.get('/app/cargoin/notinInfo/:tid', AppServiceController.notinInfo);
 
-//入库-货位扫描
+// 入库-货位扫描
 router.post('/app/cargoin/scanningCargoin/:spaceId', AppServiceController.scanningCargoin);
-//货物扫描
+// 货物扫描
 router.post('/app/cargoin/goodsScanCargoin/:packageLid', AppServiceController.scanningGoods);
-//扫描后查询订单流水包装状态
+// 扫描后查询订单流水包装状态
 router.get('/app/cargoin/allList', AppServiceController.orderTaskStatusCargo);
-//入库操作是显示流水订单包装状态
+// 入库操作是显示流水订单包装状态
 router.get('/app/cargoin/scanList', AppServiceController.orderTaskPackageCargo);
-//取消货物的扫描
+// 取消货物的扫描
 router.post('/app/cargoin/goodsScanCancel', AppServiceController.goodsScanCancle);
 //货物入库且货位待上架
 router.post('/app/cargoin/cargoinRacking', AppServiceController.cargoinRacking);
 
-//移库扫描包
+// 移库扫描包
 router.post('/app/cargoin/cargoMovingPack', AppServiceController.cargoMovingPack);
-//移库扫描货位
+// 移库扫描货位
 router.post('/app/cargoin/cargoMoving', AppServiceController.cargoMoving);
-//移库显示移库包装列表
+// 移库显示移库包装列表
 router.get('/app/cargoin/moveShowPacklist', AppServiceController.moveShowPacklist);
-//移库包装落位
+// 移库包装落位
 router.post('/app/cargoin/cargoPostingup', AppServiceController.cargoPostingup);
 
 
@@ -1678,6 +1678,10 @@ router.get('/app/orders/sort/workPiece/scaned', AppServiceController.sortWorkPie
 
 
 router.get('/app/cargoin/shelves/space/:id', AppServiceController.cargoinShelvesSpace);
+// 移库-移库扫描货位
+router.get('/app/change/space/:id', AppServiceController.changeSpace);
+// 移库-移库
+router.post('/app/doChange/space', AppServiceController.doChangeSpace);
 
 
 /*
