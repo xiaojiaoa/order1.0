@@ -171,6 +171,12 @@ nav ul span.menu-item-parent {
 .mark-row {
     background: #fdcc9c !important;
 }
+.mark-row1 {
+    background: #ffffcc !important;
+}
+.mark-row2 {
+    background: #cccc66 !important;
+}
 
 /*日历选择器*/
 .flatpickr-input[readonly] {

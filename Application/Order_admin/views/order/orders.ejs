@@ -363,7 +363,16 @@
                             </tr>
                             <% }else{
                             orderList.result.forEach(function (element, index) { %>
-                            <tr class=" <%= (element.stcode == 280) ? "mark-row":"" %>">
+                            <tr
+                                    <% if(element.stcode==280){%>
+                                    class="mark-row"
+                                    <%}%>
+                                    <% if(element.stcode==478){%>
+                                    class="mark-row1"
+                                    <%}%>
+                                    <% if(element.stcode==638){%>
+                                    class="mark-row2"
+                                    <%}%>>
                                 <td><%= DWY_Helper.incrementNum(DWYRequest.query.pageNo,index)%></td>
                                 <td><a href="/customer/detail/<%= element.cid %>"><%= element.name %></a></td>
                                 <td><a href="/taskseq/index/<%= element.lid %>"><%= element.lid %></a></td>
