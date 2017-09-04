@@ -435,7 +435,7 @@ var SystemController = {
         var packageLid = req.params.packageLid;
         request(Base.mergeRequestOptions({
             method: 'get',
-            url: '/api/orders/package/inventory/' + packageLid,
+            url: '/api/orders/package/inventory/' + packageLid+'?'+queryString.stringify(req.query),
         }, req, res), function (error, response, body) {
             if (!error && response.statusCode == 200) {
                 // console.log('printOut',body)
