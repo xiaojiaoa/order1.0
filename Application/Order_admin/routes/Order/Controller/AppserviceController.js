@@ -977,7 +977,9 @@ var AppServiceController = {
         request(Base.mergeRequestOptions({
             method: 'post',
             url: '/api/whse/app/change/space/change/space/cargo',
-            form: req.body,
+            // headers:{'Content-type':'application/json'},
+            body:JSON.stringify(req.body),
+            // form: req.body,
             headers:req.headers,
         }, req, res), function (error, response, body) {
             if (!error) {
