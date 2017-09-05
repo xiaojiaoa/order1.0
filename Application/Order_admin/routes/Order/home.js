@@ -1683,6 +1683,8 @@ router.get('/app/change/space/:id', AppServiceController.changeSpace);
 // 移库-移库
 router.post('/app/doChange/space', AppServiceController.doChangeSpace);
 
+router.get('/app/change/spaceScan/:id', AppServiceController.changeSpaceScan);
+
 
 /*
 * 页面范围: 报表管理

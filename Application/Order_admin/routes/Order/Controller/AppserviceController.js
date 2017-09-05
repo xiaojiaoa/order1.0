@@ -989,7 +989,20 @@ var AppServiceController = {
             }
         })
     },
-
+    changeSpaceScan: function (req, res) {
+        var id = req.params.id;
+        request(Base.mergeRequestOptions({
+            method: 'get',
+            url: '/api/whse/app/change/space/scan/'+id,
+            headers:req.headers,
+        }, req, res), function (error, response, body) {
+            if (!error) {
+                res.send(JSON.parse(body));
+            } else {
+                res.send(AppServiceController.error);
+            }
+        })
+    },
 };
 module.exports = AppServiceController;
 
