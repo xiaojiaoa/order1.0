@@ -335,6 +335,9 @@
                     <legend>订单列表
                         <a class="label label-primary"  href="/file/order/detail/<%= lid %>">相关附件</a>
                         <span class="label label-success">已下单完毕</span>
+                        <% if(taskseqInfo.sequenceEndTime){%>
+                        <span class="text-danger">下单完毕日期：<%=DWY_Helper.getLocalDate(taskseqInfo.sequenceEndTime)%></span>
+                        <%}%>
                     </legend>
                     <!-- row -->
 
