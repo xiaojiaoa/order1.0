@@ -68,8 +68,8 @@
 
                     <section>
                         <label class="label">验证码:</label>
-                        <label class="input"> <img id="validate-img" src=""
-                                                   alt="">
+                        <label class="input">
+                            <img id="validate-img" src="" alt="">
                             <input type="text" name="code" autocomplete="off"  placeholder="验证码">
                             <input type="hidden" name="baseId" autocomplete="off"   value="{{baseId}}" >
                             <b class="tooltip tooltip-top-right"> 请输入验证码</b>
@@ -148,9 +148,8 @@
         $("#login-form").validate({
             // Rules for form validation
             rules: {
-                username: {
+                userNo: {
                     required: true,
-                    email: true
                 },
                 password: {
                     required: true,
@@ -161,7 +160,7 @@
 
             // Messages for form validation
             messages: {
-                username: {
+                userNo: {
                     required: '请输入用户名',
                 },
                 password: {
