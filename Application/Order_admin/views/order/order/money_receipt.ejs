@@ -442,8 +442,8 @@
             });
 
         })
-        //点击计算按钮
-        $('#calculate').click(function () {
+        // 根据直销/折扣率的方式计算折后价的方法
+        function calculatePrice(){
             var price = $('#price').val();
             var discount=$("#discount").val();
             var settlementType=$("select[name=settlementType]").val();
@@ -458,24 +458,15 @@
                     $("#priceAfterDiscount").val(price);
                 }
             }
+        }
+        //点击计算按钮
+        $('#calculate').click(function () {
+           calculatePrice();
         })
 
         $("#subBtn").on({
             click:function () {
-                var price = $('#price').val();
-                var discount=$("#discount").val();
-                var settlementType=$("select[name=settlementType]").val();
-                if(settlementType==0){
-                    $("#priceAfterDiscount").val(price-discount);
-                }
-                if(settlementType==1){
-                    if(discount){
-                        $("#priceAfterDiscount").val((price*discount).toFixed(2));
-                    }
-                    else{
-                        $("#priceAfterDiscount").val(price);
-                    }
-                }
+             calculatePrice();
             }
         });
 
