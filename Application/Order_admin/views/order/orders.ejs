@@ -270,6 +270,36 @@
                                             </div>
                                         </div>
                                     </div>
+                                <div class="col-xs-4">
+                                    <div class="form-group">
+                                        <label class="col-xs-3 control-label">提交审核日期:</label>
+                                        <div class="col-xs-4">
+                                            <input class="form-control fg-date-picker" placeholder="" type="text" value="<%= DWYRequest.query.startSubmitReviewDate%>"
+                                                   name="startSubmitReviewDate">
+                                        </div>
+                                        <label class="from-to control-label "> 至 </label>
+                                        <div class="col-xs-4">
+                                            <input class="form-control fg-date-picker" placeholder="" type="text" value="<%= DWYRequest.query.endSubmitReviewDate%>"
+                                                   name="endSubmitReviewDate">
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xs-4">
+                                    <div class="form-group">
+                                        <label class="col-xs-3 control-label">审核日期:</label>
+                                        <div class="col-xs-4">
+                                            <input class="form-control fg-date-picker" placeholder="" type="text" value="<%= DWYRequest.query.startReviewDate%>"
+                                                   name="startReviewDate">
+                                        </div>
+                                        <label class="from-to control-label "> 至 </label>
+                                        <div class="col-xs-4">
+                                            <input class="form-control fg-date-picker" placeholder="" type="text" value="<%= DWYRequest.query.endReviewDate%>"
+                                                   name="endReviewDate">
+
+                                        </div>
+                                    </div>
+                                </div>
                             <% if(DWY_GLOBAL.ButtonOpen!=1){ %>
                             </div>
                             <%}%>
@@ -359,7 +389,7 @@
                             <tbody>
                             <% if(!DWY_Helper.isCanLoop(orderList.result)){%>
                             <tr>
-                                <td colspan="19" align="center">暂无结果</td>
+                                <td colspan="80" align="center">暂无结果</td>
                             </tr>
                             <% }else{
                             orderList.result.forEach(function (element, index) { %>
