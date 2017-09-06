@@ -974,13 +974,17 @@ var AppServiceController = {
         })
     },
     doChangeSpace: function (req, res) {
+        req.body.list = JSON.parse(req.body.list);
+        // console.log('body',req.body)
+        // console.log('headers',req.headers)
+        // console.log('stringify',JSON.stringify(req.body))
         request(Base.mergeRequestOptions({
             method: 'post',
             url: '/api/whse/app/change/space/change/space/cargo',
-            // headers:{'Content-type':'application/json'},
+            headers:{'Content-type':'application/json', 'access_token':req.headers.access_token},
             body:JSON.stringify(req.body),
             // form: req.body,
-            headers:req.headers,
+            // headers:req.headers,
         }, req, res), function (error, response, body) {
             if (!error) {
                 res.send(JSON.parse(body));
