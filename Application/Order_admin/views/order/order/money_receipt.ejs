@@ -451,7 +451,12 @@
                 $("#priceAfterDiscount").val((price-discount).toFixed(2));
             }
             if(settlementType==1){
-                $("#priceAfterDiscount").val((price*discount).toFixed(2));
+                if(discount){
+                    $("#priceAfterDiscount").val((price*discount).toFixed(2));
+                }
+                else{
+                    $("#priceAfterDiscount").val(price);
+                }
             }
         })
 
@@ -464,7 +469,12 @@
                     $("#priceAfterDiscount").val(price-discount);
                 }
                 if(settlementType==1){
-                    $("#priceAfterDiscount").val((price*discount).toFixed(2));
+                    if(discount){
+                        $("#priceAfterDiscount").val((price*discount).toFixed(2));
+                    }
+                    else{
+                        $("#priceAfterDiscount").val(price);
+                    }
                 }
             }
         });
