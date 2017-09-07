@@ -451,7 +451,7 @@
                 $("#priceAfterDiscount").val((price-discount).toFixed(2));
             }
             if(settlementType==1){
-                if(discount){
+                if(discount && discount!=0){
                     $("#priceAfterDiscount").val((price*discount).toFixed(2));
                 }
                 else{
