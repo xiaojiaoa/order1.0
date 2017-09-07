@@ -106,7 +106,7 @@
                                 <th>总包数</th>
                                 <th>未入库</th>
                                 <th>已入库</th>
-                                <th>未上架</th>
+                                <th>已入库未上架</th>
                                 <th>已备货</th>
                                 <th>已发货</th>
                             </tr>
@@ -147,7 +147,7 @@
                                 <td><a href="/orders/package/allInfo?lid=<%= element.lid%>&type=<%= type%>"><%= detaelement.packageNum%></a></td>
                                 <td><a href="/orders/package/allInfo?packageStatus=1&lid=<%= element.lid%>&type=<%= type%>"><%= detaelement.notInHouse%></a></td>
                                 <td><a href="/orders/package/allInfo?packageStatus=2&lid=<%= element.lid%>&type=<%= type%>"><%= detaelement.inHouse %></a></td>
-                                <td><%= detaelement.offShelves %></td>
+                                <td><a href="/orders/completeSet/unshelf?lid=<%= element.lid%>"><%= detaelement.offShelves %></a></td>
                                 <td><a href="/orders/package/allInfo?packageStatus=3&lid=<%= element.lid%>&type=<%= type%>"><%= detaelement.stock%></a></td>
                                 <td><a href="/orders/package/allInfo?packageStatus=4&lid=<%= element.lid%>&type=<%= type%>"><%= detaelement.send %></a></td>
 
@@ -156,7 +156,7 @@
                             <% } %>
                             <% })} else{ %>
                             <tr>
-                                <td colspan="100 text-center">暂无结果</td>
+                                <td colspan="100" class="text-center">暂无结果</td>
                             </tr>
                             <%}%>
                             </tbody>

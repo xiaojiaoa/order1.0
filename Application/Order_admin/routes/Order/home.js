@@ -1425,6 +1425,8 @@ router.get('/completeSet', Middleware.AuthCheck,CustomerProductController.custom
 // 客户产品列表-执行查询
 router.get('/orders/completeSet', Middleware.AuthCheck,Middleware.FilterEmptyField,CustomerProductController.customerProListPage);
 
+// 齐套查询--未上架页面
+router.get('/orders/completeSet/unshelf', Middleware.AuthCheck,Middleware.FilterEmptyField,CustomerProductController.unshelfPage);
 
 
 /*
