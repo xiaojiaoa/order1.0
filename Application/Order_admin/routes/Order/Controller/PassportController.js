@@ -9,8 +9,8 @@ var PassportController = {
     // 显示登录页面
     loginPage: function (req, res, next) {
 
-        res.render('passport/login', Base.mergeData(helper.mergeObject({title: '布兰莎订单数据系统'}, {})));
-        // 需要切换现版本的话，将login修改为login1即可
+        res.render('passport/login1', Base.mergeData(helper.mergeObject({title: '布兰莎订单数据系统'}, {})));
+        // 需要切换现版本的话，将login1修改为login即可
     },
 
     // 登录
