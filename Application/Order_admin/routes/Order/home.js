@@ -1110,6 +1110,12 @@ router.get('/productStock/pakg/:tid', Middleware.AuthCheck, OutWarehouseControll
 
 router.get('/productOut/pakg/:tid', Middleware.AuthCheck, OutWarehouseController.productOutPakgList);
 
+// 将货位中可以备货的包，订单，流水都备货
+router.post('/productOut/spaceid/stock', Middleware.AuthCheck, OutWarehouseController.productOutsSpaceidStock);
+
+// 将货位中可以备货的包，订单，流水都取消备货
+router.post('/productOut/spaceid/stockCancel', Middleware.AuthCheck, OutWarehouseController.productOutsSpaceidStockCancel);
+
 // 大板领料单页面
 router.get('/outBred', Middleware.AuthCheck, OutWarehouseController.outBredPage);
 
