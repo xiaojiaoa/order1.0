@@ -45,12 +45,11 @@
                             <thead>
                             <tr>
                                 <th>序号</th>
-                                <th>订单号</th>
-                                <th>包装总数</th>
-                                <th>交付日期</th>
-                                <th>客户号</th>
-                                <th>客户姓名</th>
-                                <!--<th>出厂价（元）</th>-->
+                                <th>货位号</th>
+                                <th>货位剩余数量</th>
+                                <th>最大库存数量</th>
+                                <th>已用库存数量</th>
+                                <th>货位状态</th>
                                 <th>操作</th>
                             </tr>
                             </thead>
@@ -59,22 +58,25 @@
                             stockList.result.forEach(function (element, index) { %>
                             <tr>
                                 <td><%= DWY_Helper.incrementNum(DWYRequest.query.pageNo,index)%></td>
-                                <td><a href="/order/detail/<%= element.tid %>"><%= element.tid %></a></td>
-                                <td><%= element.packageTotal %></td>
-                                <td><%= DWY_Helper.getLocalDate(element.deliveryDate) %></td>
-                                <td><%= element.custId %></td>
-                                <td><%= element.custName %></td>
-                                <!--<td><%= element.factoryPrice %></td>-->
+                                <td><a href="/cargospace/cargospace/detail/<%= element.spaceId %>"><%= element.spaceId %></a></td>
+                                <td><%= element.amountRemain == -1? '不限':element.amountRemain %></td>
+                                <td><%= element.maxAmount == 0? '不限':element.maxAmount %></td>
+                                <td><%= element.useAmount %></td>
+                                <td><%= element.spaceStcodeName %></td>
                                 <td>
-                                    <% if (DWY_Helper.hasPermission(Permission.cargoManages.deliveryPackage.id, permission) && ifCanDo == 2 ){ %>
-                                    <a class="label label-primary" href="/productStock/pakg/<%= element.tid %>" >备货</a>
+                                    <% if (DWY_Helper.hasPermission(Permission.cargoManages.deliveryPackage.id, permission) && ifCanDo == 2 && element.spaceStcode == 2 ){ %>
+                                    <!--<a class="label label-primary" href="/productStock/pakg/element.tid" >备货</a>-->
+                                    <a class="label label-primary doProductStock" data-spaceId="<%= element.spaceId %>" >备货</a>
+                                    <% } %>
+                                    <% if (element.spaceStcode == 3 ){ %>
+                                    <a class="label label-danger unProductStock" data-spaceId="<%= element.spaceId %>" >取消</a>
                                     <% } %>
                                 </td>
                             </tr>
                             <% })
                             }else{ %>
                             <tr>
-                                <td colspan="8" class="text-align-center">暂无数据</td>
+                                <td colspan="7" class="text-align-center">暂无数据</td>
                             </tr>
                             <% }  %>
 
@@ -99,9 +101,37 @@
 
     $(document).ready(function () {
 
-
         pageSetUp();
+        var spaceId;
 
+        $(".doProductStock").click(function (e) {
+            spaceId = $(this).attr('data-spaceId');
+            doAjax('确定备货？','/productOut/spaceid/stock')
+        })
+        $(".unProductStock").click(function (e) {
+            spaceId = $(this).attr('data-spaceId');
+            doAjax('确定取消？','/productOut/spaceid/stockCancel')
+        })
+
+        function doAjax(text,url) {
+            layer.confirm(text, {icon: 3, title: '提示'}, function (index) {
+                $.ajax({
+                    url: url,
+                    method: 'post',
+                    data: {
+                        spaceId: spaceId,
+                        diId: '<%= diId%>'
+                    },
+                    success: function (data) {
+                        successLayout.reload();
+                    },
+                    error: function (response) {
+                        layer.close(index)
+                        errorLayout.normal(response);
+                    }
+                });
+            }, function (index) { layer.close(index) })
+        }
     })
 
 </script>
