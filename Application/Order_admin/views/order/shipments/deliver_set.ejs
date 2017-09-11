@@ -147,11 +147,12 @@
 
         $('#confirm').click(function (e) {
             var checkTid = $('input[name=list]:checked').val();
-
             if(!checkTid){
                 e.preventDefault();
-                layer.msg('请选择订单', {icon: 2, time: 2000});
+
+                return layer.msg('请选择订单', {icon: 2, time: 2000});
             }
+            $('#check_pass').submit();
         })
         //弹出类
         $('.deliverThis').on({

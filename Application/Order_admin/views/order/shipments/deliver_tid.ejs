@@ -3,7 +3,8 @@
 var keys = Object.keys(result);
 if(keys && keys.length > 0){
 keys.forEach(function (key) {
-        allTotal =+ result[key].length;
+        allTotal += result[key].length;
+
 result[key].forEach(function(element, index){ %>
 <tr>
 

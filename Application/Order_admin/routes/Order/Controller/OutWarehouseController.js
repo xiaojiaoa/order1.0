@@ -85,7 +85,7 @@ var OutWarehouseController = {
             var length = tids.length;
             req.body.noInNum = totalNum-length
         }
-        // console.log('stringify',JSON.stringify(req.body));
+        console.log('stringify',JSON.stringify(req.body));
         request(Base.mergeRequestOptions({
             method: 'post',
             url: '/api/whse/cargout/delivery',
@@ -133,7 +133,7 @@ var OutWarehouseController = {
             method: 'post',
             url: '/api/whse/cargout/delivery/notice/review/'+id+'?stcode='+stcode,
         }, req, res), function (error, response, body) {
-            if (!error && response.statusCode == 200) {
+            if (!error && response.statusCode == 201) {
                 res.sendStatus(200);
             } else {
                 Base.handlerError(res, req, error, response, body);
@@ -146,7 +146,7 @@ var OutWarehouseController = {
             method: 'post',
             url: '/api/whse/cargout/delivery/notice/cancel/'+id,
         }, req, res), function (error, response, body) {
-            if (!error && response.statusCode == 200) {
+            if (!error && response.statusCode == 201) {
                 res.sendStatus(200);
             } else {
                 Base.handlerError(res, req, error, response, body);
@@ -465,7 +465,7 @@ var OutWarehouseController = {
                 diId: diId
             }
         }, req, res), function (error, response, body) {
-            if (!error && response.statusCode == 200) {
+            if (!error && response.statusCode == 201) {
                 Base.handlerSuccess(res, req);
                // res.redirect("/productStock");
                 res.redirect(req.session.backPath?req.session.backPath:"/productStock");
@@ -484,7 +484,7 @@ var OutWarehouseController = {
                 diId: diId
             }
         }, req, res), function (error, response, body) {
-            if (!error && response.statusCode == 200) {
+            if (!error && response.statusCode == 201) {
                 Base.handlerSuccess(res, req);
                 // res.redirect("/productStock");
                 res.redirect(req.session.backPath?req.session.backPath:"/productStock");
