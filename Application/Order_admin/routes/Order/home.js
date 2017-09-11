@@ -118,6 +118,7 @@ var Middleware = {
                         };
 
                         next();
+
                     } else {
                         res.redirect('/login');
                     }
