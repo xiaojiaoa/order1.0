@@ -64,11 +64,11 @@
                                 <td><%= element.useAmount %></td>
                                 <td><%= element.spaceStcodeName %></td>
                                 <td>
-                                    <% if (DWY_Helper.hasPermission(Permission.cargoManages.deliveryPackage.id, permission) && ifCanDo == 2 && element.spaceStcode == 2 ){ %>
+                                    <% if (DWY_Helper.hasPermission(Permission.cargoManages.deliveryPackage.id, permission) && ifCanDo == 2 && element.stcode == 2 ){ %>
                                     <!--<a class="label label-primary" href="/productStock/pakg/element.tid" >备货</a>-->
                                     <a class="label label-primary doProductStock" data-spaceId="<%= element.spaceId %>" >备货</a>
                                     <% } %>
-                                    <% if (element.spaceStcode == 3 ){ %>
+                                    <% if (element.stcode == 3 ){ %>
                                     <a class="label label-danger unProductStock" data-spaceId="<%= element.spaceId %>" >取消</a>
                                     <% } %>
                                 </td>
