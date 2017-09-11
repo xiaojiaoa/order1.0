@@ -173,8 +173,8 @@
                 <!-- col -->
                 <div class="col-xs-12">
                     <legend>相关文件
-
-                        <% if( ((resupplyInfo.status == 150 || resupplyInfo.status == 250 || resupplyInfo.status == 450 || resupplyInfo.status == 475
+                        
+                        <% if( ((resupplyInfo.status == 150 || resupplyInfo.status == 250 || resupplyInfo.status == 450 || resupplyInfo.status == 475 || resupplyInfo.status == 478
                                 || resupplyInfo.status == 550 || resupplyInfo.status == 650 || resupplyInfo.status == 635 || resupplyInfo.status == 638)&& resupplyInfo.receiveGid == user.id)
                                 || ((resupplyInfo.status == 290 || resupplyInfo.status == 472 || resupplyInfo.status == 632 ||resupplyInfo.status == 478 ||resupplyInfo.status == 638) && resupplyInfo.sendGid == user.id) ){ %>
                         <a class="label label-primary"
@@ -183,9 +183,9 @@
                         </a>
                         <% } %>
 
-                        <% if( resupplyInfo.status == 450 || resupplyInfo.status == 475 || resupplyInfo.status == 635){ %>
+
                         <a class="label label-primary" href="/order/workpiece/<%= tid %>?type=resupply">订单物料</a>
-                        <% } %>
+
                     </legend>
 
                     <div class="table-responsive">
