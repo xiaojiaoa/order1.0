@@ -464,7 +464,7 @@ var PurchaseController = {
         var id = req.params.id;
         request(Base.mergeRequestOptions({
             method: 'get',
-            url: '/api/suppliers/organ/'+id,
+            url: '/api/purchase/reqmaterial/supps/'+id,
         }, req, res), function (error, response, body) {
             if (!error && response.statusCode == 200) {
                 res.status(200).json(body);

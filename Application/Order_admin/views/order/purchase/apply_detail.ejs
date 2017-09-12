@@ -324,7 +324,7 @@
         $('#exportOutsource').click(function () {
 
             $.ajax({
-                url: '/outsource/suppliers/<%= (DWY_Helper.isCanLoop(purchaseRequestDetail.reqMaters))?purchaseRequestDetail.reqMaters[0].ftyId:'' %>',
+                url: '/outsource/suppliers/<%= tid%>',
                 method: 'get',
                 success: function (data) {
 
