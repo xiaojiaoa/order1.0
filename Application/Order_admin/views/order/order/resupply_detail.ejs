@@ -448,7 +448,7 @@
                                 default: %>
                                 <td>
                                     <%= DWY_Helper.getLocalDate(orderStatusInfo.apartTime) %>
-                                    <% if (resupplyInfo.status == 472 && resupplyInfo.sendGid == user.id){ %>
+                                    <% if ((resupplyInfo.status == 472 && resupplyInfo.sendGid == user.id)||(resupplyInfo.status == 478 && resupplyInfo.receiveGid == user.id)){ %>
                                     <a class="label label-success" id="modifyExactMoney">修改精确价格</a>
                                     <% } %>
                                 </td>
@@ -854,7 +854,7 @@
                 case '478':
                     ajaxUrl = '/apartCheck/getTaskAgain/<%= tid %>';
                     locationUrl = '/orders/resupplys/apart';
-                    text = '确认标记为拆单审核中?';
+                    text = '确认重新提交?';
                     break;
                 case '632':
                     ajaxUrl = '/schedule/getTask/<%= tid %>';
