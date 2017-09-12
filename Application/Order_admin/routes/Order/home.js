@@ -1694,6 +1694,15 @@ router.post('/app/doChange/space', AppServiceController.doChangeSpace);
 
 router.get('/app/change/spaceScan/:id', AppServiceController.changeSpaceScan);
 
+// 备货-从一个发货清单点入后显示的货位信息
+router.get('/app/stock/spaceid/:id', AppServiceController.stockSpace);
+// 备货-自己的可备货发货清单（已完成的）
+router.get('/app/stock/stockup/own', AppServiceController.stockupOwn);
+// 备货-将货位中可以备货的包，订单，流水都备货
+router.post('/app/stock/space', AppServiceController.doSpaceStock);
+// 备货-将货位中可以备货的包，订单，流水都取消备货
+router.get('/app/stock/space/cancel', AppServiceController.cancelSpaceStock);
+
 
 /*
 * 页面范围: 报表管理

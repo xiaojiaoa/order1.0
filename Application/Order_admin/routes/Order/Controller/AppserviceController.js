@@ -1007,6 +1007,61 @@ var AppServiceController = {
             }
         })
     },
+    stockSpace: function (req, res) {
+        var id = req.params.id;
+        request(Base.mergeRequestOptions({
+            method: 'get',
+            url: '/api/whse/app/stock/spaceid?diId='+id,
+            headers:req.headers,
+        }, req, res), function (error, response, body) {
+            if (!error) {
+                res.send(JSON.parse(body));
+            } else {
+                res.send(AppServiceController.error);
+            }
+        })
+    },
+    stockupOwn: function (req, res) {
+        request(Base.mergeRequestOptions({
+            method: 'get',
+            url: '/api/whse/app/stock/delivery/own/stockup',
+            headers:req.headers,
+        }, req, res), function (error, response, body) {
+            if (!error) {
+                res.send(JSON.parse(body));
+            } else {
+                res.send(AppServiceController.error);
+            }
+        })
+    },
+    doSpaceStock: function (req, res) {
+        request(Base.mergeRequestOptions({
+            method: 'post',
+            url: '/api/whse/app/stock/spaceid/stock',
+            form: req.body,
+            headers:req.headers,
+        }, req, res), function (error, response, body) {
+            if (!error) {
+                res.send(JSON.parse(body));
+            } else {
+                res.send(AppServiceController.error);
+            }
+        })
+    },
+    cancelSpaceStock: function (req, res) {
+        request(Base.mergeRequestOptions({
+            method: 'post',
+            url: '/api/whse/app/stock/spaceid/stock/cancel',
+            form: req.body,
+            headers:req.headers,
+        }, req, res), function (error, response, body) {
+            if (!error) {
+                res.send(JSON.parse(body));
+            } else {
+                res.send(AppServiceController.error);
+            }
+        })
+    },
 };
 module.exports = AppServiceController;
 
