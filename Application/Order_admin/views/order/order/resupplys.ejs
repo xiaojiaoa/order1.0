@@ -286,7 +286,7 @@
                                 <th>序号</th>
                                 <th>客户姓名</th>
                                 <th>流水号</th>
-                                <th>门店号</th>
+                                <th class="display-none">门店号</th>
                                 <th>门店名称</th>
                                 <th>品牌</th>
                                 <th>产品类型</th>
@@ -327,7 +327,7 @@
                                     <%}%>
                                 </td>
                                 <td><a href="/taskseq/index/<%= element.orgLid %>"><%= element.orgLid %></a></td>
-                                <td><%= element.bid %></td>
+                                <td class="display-none"><%= element.bid %></td>
                                 <td><%= element.bname %></td>
                                 <td><%= element.brandStr %></td>
                                 <td><%= element.productTypeStr %></td>
