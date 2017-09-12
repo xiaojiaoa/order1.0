@@ -54,6 +54,15 @@
                                         </div>
                                     </div>
                                 </div>
+                                <!--输入字段-->
+                                <div class="col-xs-3">
+                                    <div class="form-group">
+                                        <label class="col-xs-4 control-label">批次号:</label>
+                                        <div class="col-xs-8">
+                                            <input class="form-control" placeholder="请输入批次号" type="text" value="<%= DWYRequest.query.batchNumber %>" name="batchNumber">
+                                        </div>
+                                    </div>
+                                </div>
                                 <% if (DWY_Helper.hasPermission(Permission.orderPackage.queryAll.id, permission)){ %>
                                 <div class="col-xs-3">
                                     <div class="form-group">
