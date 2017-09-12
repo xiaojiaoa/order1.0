@@ -1701,7 +1701,7 @@ router.get('/app/stock/stockup/own', AppServiceController.stockupOwn);
 // 备货-将货位中可以备货的包，订单，流水都备货
 router.post('/app/stock/space', AppServiceController.doSpaceStock);
 // 备货-将货位中可以备货的包，订单，流水都取消备货
-router.get('/app/stock/space/cancel', AppServiceController.cancelSpaceStock);
+router.post('/app/stock/space/cancel', AppServiceController.cancelSpaceStock);
 
 
 /*
