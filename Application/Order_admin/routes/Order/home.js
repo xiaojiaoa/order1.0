@@ -1271,7 +1271,7 @@ router.get('/supplier/offer_product/:tid', Middleware.AuthCheck,Middleware.Filte
 router.post('/supplier/updateDate', Middleware.AuthCheck,SupplierController.updateDate);
 
 // 删除供应商物料关联
-router.post('/supplier/deleteRelate/:sid/:mid', Middleware.AuthCheck,SupplierController.deleteRelate);
+router.post('/supplier/deleteRelate', Middleware.AuthCheck,SupplierController.deleteRelate);
 
 // 供应商禁用+启用
 router.post('/supplier/supDoDelete/:tid/:type', Middleware.AuthCheck, SupplierController.supplierdoDelete);
@@ -1781,6 +1781,9 @@ router.post('/orders/export/cashFlow',Middleware.AuthCheck,ReportController.expo
 
 // 门店销量报表
 router.get('/report/store/sales', Middleware.AuthCheck,Middleware.FilterEmptyField,ReportController.storeSalesPage);
+
+// 排料工件报表
+router.get('/report/factory/workpiece_nesting', Middleware.AuthCheck,Middleware.FilterEmptyField,ReportController.workpieceNestingPage);
 /*
  * 页面范围: 财务统计
  * 控制器:   FinancialStatisticsController
