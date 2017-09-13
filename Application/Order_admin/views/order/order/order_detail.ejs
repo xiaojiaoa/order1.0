@@ -211,17 +211,31 @@
                                 </td>
                             </tr>
 
+
                             <%if(orderInfo.parentTid){%>
                             <tr>
                                 <td>母工程订单</td>
-
                                 <td colspan="5">
                                     <a class="order-number" href="/order/detail/<%= orderInfo.parentTid %>"><%= orderInfo.parentTid %></a>
-
-
                                 </td>
                             </tr>
                             <%}else{%>
+                            <tr>
+                                <td>是否是工程单</td>
+                                <td>
+                                    <% if(orderInfo.projectOrder==1){%>
+                                    是
+                                    <a class="label label-info open-multi-order pull-right"
+                                       href="/taskseq/openMultiOrder/<%= tid %>">
+                                        查看工程订单
+                                    </a>
+                                    <%} else{%>
+                                    否
+                                    <%}%>
+                                </td>
+                                <td>工程订单子订单数量</td>
+                                <td><%= orderInfo.orderNum %></td>
+                            </tr>
                             <tr>
                                 <td>同客户订单</td>
                                 <td colspan="3">

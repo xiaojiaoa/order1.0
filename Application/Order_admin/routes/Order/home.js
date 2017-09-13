@@ -1162,7 +1162,7 @@ router.get('/taskseq/communicatesAll/:lid', Middleware.AuthCheck,TaskseqControll
 router.post('/taskseq/communicates/doCreate', Middleware.AuthCheck,TaskseqController.doCreateCommunicate);
 
 // 查看工程订单
-router.get('/taskseq/openMultiOrder/:lid/:tid', Middleware.AuthCheck, TaskseqController.openMultiOrder);
+router.get('/taskseq/openMultiOrder/:tid', Middleware.AuthCheck, TaskseqController.openMultiOrder);
 
 
 /*
