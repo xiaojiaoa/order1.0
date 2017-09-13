@@ -56,20 +56,28 @@
                                 <td><%= DWY_Helper.getLocalDate(storeInfo.addTime) %></td>
                             </tr>
                             <tr>
-                                <td>责人姓名</td>
+                                <td>负责人姓名</td>
                                 <td><%= storeInfo.storeGid %></td>
                                 <td>店长电话</td>
                                 <td><%= storeInfo.mobile %></td>
-                                <td>门店类型</td>
-                                <td><%= DWY_Helper.getAssistVal(storeInfo.addrType, addrTypesList) %></td>
+                                <td></td>
+                                <td></td>
                             </tr>
                             <tr>
+                                <td>门店类型</td>
+                                <td><%= DWY_Helper.getAssistVal(storeInfo.addrType, addrTypesList) %></td>
                                 <td>经营类型</td>
                                 <td><%= DWY_Helper.getAssistVal(storeInfo.storeType, storeTypes) %></td>
+                                <td>其他类型</td>
+                                <td><%= storeInfo.infoTypeName %></td>
+                            </tr>
+                            <tr>
                                 <td>是否自带仓库</td>
                                 <td><%= DWY_Helper.getWhether(storeInfo.isWarehouse) %></td>
                                 <td>门店最低资金</td>
                                 <td><%= storeInfo.minFunds %> 元</td>
+                                <td></td>
+                                <td></td>
                             </tr>
 
                             <tr>
