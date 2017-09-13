@@ -123,7 +123,34 @@ var TaskseqController = {
         },resultList));
         res.render('order/taskseqs', returnData);
     });
-}
+},
+
+    openMultiOrder: function (req, res) {
+        var tid =  req.params.tid;
+        var lid =  req.params.lid;
+    var paramObject = helper.genPaginationQuery(req);
+    Base.multiDataRequest(req, res, [
+        {url: '/api/orders/childOrderList/?parentTid='+lid, method: 'GET', resConfig: {keyName: 'progressList', is_must: true}},
+    ], function (req, res, resultList) {
+
+        console.log(5555,resultList.progressList);
+        var paginationInfo = resultList.progressList;
+
+        var boostrapPaginator = new Pagination.TemplatePaginator(helper.genPageInfo({
+            prelink: paramObject.withoutPageNo,
+            current: paginationInfo.page,
+            rowsPerPage: paginationInfo.pageSize,
+            totalResult: paginationInfo.totalItems
+        }));
+
+        var returnData = Base.mergeData(helper.mergeObject({
+            title: ' ',
+            lid: lid,
+            pagination: boostrapPaginator.render()
+        }, resultList));
+        res.render('order/taskseq/open_multi_order', returnData);
+    });
+},
 
 };
 

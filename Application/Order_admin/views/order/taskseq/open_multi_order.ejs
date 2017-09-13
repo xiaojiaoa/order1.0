@@ -1,0 +1,94 @@
+<%- include('../layouts/head_top'); %>
+<%- include('../layouts/head_bottom'); %>
+<%- include('../layouts/header'); %>
+<%- include('../layouts/nav'); %>
+
+
+<!-- MAIN PANEL -->
+<div id="main" role="main">
+
+    <!-- RIBBON -->
+    <div id="ribbon">
+
+        <!-- breadcrumb -->
+        <ol class="breadcrumb">
+            <li>后台管理</li>
+            <li><a class="back-url" href="/taskseq/index/<%= lid %>">流水信息</a></li>
+            <li>查看工程订单</li>
+            <li><a class="back-url" href="javascript:history.go(-1)"><i class="fa fa-chevron-left"></i> 返回</a></li>
+        </ol>
+
+
+    </div>
+    <!-- END RIBBON -->
+
+
+    <!-- MAIN CONTENT -->
+    <div id="content">
+
+        <!-- well -->
+        <div class="well">
+            <!-- row -->
+            <div class="row">
+                <!-- col -->
+                <div class="col-xs-12">
+                    <legend>工程订单
+
+                    </legend>
+
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-striped">
+                            <thead>
+                            <tr>
+                                <th width="100">序号</th>
+                                <th>订单号</th>
+                                <th>品牌</th>
+                                <th>主材颜色</th>
+                                <th>产品类型</th>
+                                <th>下单员工</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <% if(DWY_Helper.isCanLoop(progressList.result)){
+                            progressList.result.forEach(function (element, index) { %>
+                            <tr>
+                                <td><%= DWY_Helper.incrementNum(DWYRequest.query.pageNo,index)%></td>
+                                <td>
+                                    <a href="/order/detail/<%= element.tid %>"><%= element.tid %></a>
+                                </td>
+                                <td><%= element.brandStr %></td>
+                                <td><%= element.decoColorStr %></td>
+                                <td><%= element.prodName %></td>
+                                <td><%= element.channelName%></td>
+                            </tr>
+                            <% })
+                            } %>
+
+                            </tbody>
+                        </table>
+                        <%- pagination %>
+                    </div>
+
+
+                    <!-- end row -->
+                </div>
+                <!-- end col -->
+            </div>
+            <!-- end row -->
+        </div>
+        <!-- end well -->
+
+
+    </div>
+    <!-- END MAIN CONTENT -->
+
+</div>
+<!-- END MAIN PANEL -->
+
+<%- include('../layouts/footer'); %>
+<%- include('../layouts/footer_common_script'); %>
+
+
+
+
+<%- include('../layouts/foot'); %>

@@ -1161,7 +1161,8 @@ router.get('/taskseq/communicatesAll/:lid', Middleware.AuthCheck,TaskseqControll
 // 新增交流信息
 router.post('/taskseq/communicates/doCreate', Middleware.AuthCheck,TaskseqController.doCreateCommunicate);
 
-
+// 查看工程订单
+router.get('/taskseq/openMultiOrder/:lid/:tid', Middleware.AuthCheck, TaskseqController.openMultiOrder);
 
 
 /*

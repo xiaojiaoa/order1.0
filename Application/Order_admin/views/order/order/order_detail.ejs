@@ -39,7 +39,7 @@
                         <a class="label label-primary" id="modifyInfo-modal">修改</a>
                         <% } %>
 
-                        <a class="label label-primary" href="/order/communicateAll/<%= tid %>">
+                        <a class="label label-primary <%= (orderInfo.parentTid && orderInfo.stcode<635) ?'display-none':'' %>" href="/order/communicateAll/<%= tid %>">
                             查看所有交流信息
                         </a>
                     </legend>
@@ -211,6 +211,17 @@
                                 </td>
                             </tr>
 
+                            <%if(orderInfo.parentTid){%>
+                            <tr>
+                                <td>母工程订单</td>
+
+                                <td colspan="5">
+                                    <a class="order-number" href="/order/detail/<%= orderInfo.parentTid %>"><%= orderInfo.parentTid %></a>
+
+
+                                </td>
+                            </tr>
+                            <%}else{%>
                             <tr>
                                 <td>同客户订单</td>
                                 <td colspan="3">
@@ -238,11 +249,13 @@
                                 <td colspan="3">
                                     <%
                                     if(DWY_Helper.isCanLoop(orderInfo.resupplys)){
-                                        orderInfo.resupplys.forEach(function (element) { %>
+                                    orderInfo.resupplys.forEach(function (element) { %>
                                     <a class="order-number" href="/order/resupply/detail/<%= element.tid %>/<%= element.resId %>"><%= element.tid %><%= element.resId %></a>
                                     <% })} %>
                                 </td>
                             </tr>
+                            <%}%>
+
 
 
                             </tbody>
@@ -265,10 +278,10 @@
                         <% if( ((orderInfo.stcode == 250 || orderInfo.stcode == 450 || orderInfo.stcode == 475 ||orderInfo.stcode == 478
                                 || orderInfo.stcode == 550 || orderInfo.stcode == 650 || orderInfo.stcode == 635 || orderInfo.stcode == 638)&& orderInfo.receiveGid == user.id)
                                 || ((orderInfo.stcode == 290 || orderInfo.stcode == 472 || orderInfo.stcode == 632 ||orderInfo.stcode == 478 ||orderInfo.stcode == 638) && orderInfo.sendGid == user.id) ){ %>
-                        <a class="label label-primary" href="/file/order/create/<%= orderInfo.lid %>/<%= orderInfo.stcode %>/1/<%= tid %>">文件管理</a>
+                        <a class="label label-primary <%= (orderInfo.parentTid && orderInfo.stcode<635) ?'display-none':'' %>" href="/file/order/create/<%= orderInfo.lid %>/<%= orderInfo.stcode %>/1/<%= tid %>">文件管理</a>
                         <% } %>
 
-                        <a class="label label-primary" href="/order/workpiece/<%= tid %>?type=order">订单物料</a>
+                        <a class="label label-primary <%= (orderInfo.parentTid && orderInfo.stcode<635) ?'display-none':'' %>" href="/order/workpiece/<%= tid %>?type=order">订单物料</a>
 
                     </legend>
 
@@ -316,7 +329,7 @@
                 <!-- col -->
                 <div class="col-xs-12 ">
                     <legend>退回信息
-                        <a class="label label-primary" href="/order/chgback/<%= tid %>">
+                        <a class="label label-primary <%= (orderInfo.parentTid && orderInfo.stcode<635) ?'display-none':'' %>" href="/order/chgback/<%= tid %>">
                             查看所有退回信息
                         </a>
                     </legend>
@@ -367,16 +380,16 @@
                         <!--(调试订单状态:<%= orderInfo.stcode %><%= DWY_Helper.getAssistVal(orderInfo.stcode, stcodeInfo) %> )-->
                         <%if(DWY_Helper.hasPermission(Permission.order.unlock.id, permission)||orderInfo.receiveGid == user.id){%>
                         <% if(orderInfo.stcode == 250){ %>
-                        <a class="label label-primary" id="doUnlock" data-stcode="<%= orderInfo.stcode %>">&nbsp; 解锁 &nbsp;</a>
+                        <a class="label label-primary <%= (orderInfo.parentTid && orderInfo.stcode<635) ?'display-none':'' %>" id="doUnlock" data-stcode="<%= orderInfo.stcode %>">&nbsp; 解锁 &nbsp;</a>
                         <% } %>
                         <% if(orderInfo.stcode == 450){ %>
-                        <a class="label label-primary" id="doUnlock" data-stcode="<%= orderInfo.stcode %>">&nbsp; 解锁 &nbsp;</a>
+                        <a class="label label-primary <%= (orderInfo.parentTid && orderInfo.stcode<635) ?'display-none':'' %>" id="doUnlock" data-stcode="<%= orderInfo.stcode %>">&nbsp; 解锁 &nbsp;</a>
                         <% } %>
                         <% if(orderInfo.stcode == 475){ %>
-                        <a class="label label-primary" id="doUnlock" data-stcode="<%= orderInfo.stcode %>">&nbsp; 解锁 &nbsp;</a>
+                        <a class="label label-primary <%= (orderInfo.parentTid && orderInfo.stcode<635) ?'display-none':'' %>" id="doUnlock" data-stcode="<%= orderInfo.stcode %>">&nbsp; 解锁 &nbsp;</a>
                         <% } %>
                         <% if((orderInfo.stcode == 635) && (orderInfo.packeted==0)){ %>
-                        <a class="label label-primary" id="doUnlock" data-stcode="<%= orderInfo.stcode %>">&nbsp; 解锁 &nbsp;</a>
+                        <a class="label label-primary <%= (orderInfo.parentTid && orderInfo.stcode<635) ?'display-none':'' %>" id="doUnlock" data-stcode="<%= orderInfo.stcode %>">&nbsp; 解锁 &nbsp;</a>
                         <% } %>
                         <!--<% if( DWY_Helper.hasPermission(Permission.orderAssess.assess.id, permission) && orderInfo.stcode == 220 && orderInfo.difficulty ){ %>-->
                         <!--<a class="label label-primary" id="returnPermit" data-stcode="<%= orderInfo.stcode %>">&nbsp; 评估退回 &nbsp;</a>-->
@@ -435,17 +448,17 @@
                                 <td width="30%">
                                     审核中
                                     <% if (DWY_Helper.hasPermission(Permission.orderReview.passOrder.id, permission) && orderInfo.receiveGid == user.id ){ %>
-                                    <a class="label label-primary" id="check-pass-modal">提交审核</a>
+                                    <a class="label label-primary <%= (orderInfo.parentTid && orderInfo.stcode<635) ?'display-none':'' %>" id="check-pass-modal">提交审核</a>
                                     <% } %>
                                     <% if (DWY_Helper.hasPermission(Permission.orderReview.sendBackOrder.id, permission) && orderInfo.receiveGid == user.id ){ %>
-                                    <a class="label label-primary margin-left-20 reject-modal">审核退回</a>
+                                    <a class="label label-primary margin-left-20 reject-modal <%= (orderInfo.parentTid && orderInfo.stcode<635) ?'display-none':'' %>">审核退回</a>
                                     <% } %>
                                 </td>
                                 <%        break;
                                     case 220: %>
                                 <td>待审核
                                     <% if (DWY_Helper.hasPermission(Permission.orderReview.takeOrder.id, permission) && orderInfo.difficulty){ %>
-                                    <a class="label label-primary doGetTask" id="submitOrder" data-stcode="<%= orderInfo.stcode %>">标记为审核中</a>
+                                    <a class="label label-primary doGetTask <%= (orderInfo.parentTid && orderInfo.stcode<635) ?'display-none':'' %>" id="submitOrder" data-stcode="<%= orderInfo.stcode %>">标记为审核中</a>
                                     <% } %>
                                 </td>
                                 <%         break;
@@ -456,7 +469,7 @@
                                         <td>
                                             <%= DWY_Helper.getLocalDate(orderStatusInfo.reviewTime) %>
                                             <% if (orderInfo.stcode == 290 && orderInfo.sendGid == user.id){ %>
-                                            <a class="label label-success" id="modifyMoney">修改总价</a>
+                                            <a class="label label-success <%= (orderInfo.parentTid && orderInfo.stcode<635) ?'display-none':'' %>" id="modifyMoney">修改总价</a>
                                              <% } %>
                                         </td>
                                 <%  } %>
@@ -485,10 +498,10 @@
                                 <td>
                                     拆单中
                                     <% if (DWY_Helper.hasPermission(Permission.orderApart.passOrder.id, permission) && orderInfo.receiveGid == user.id ){ %>
-                                    <a class="label label-primary" data-stcode="<%= orderInfo.stcode %>" id="confirm-apart-order">确定拆单</a>
+                                    <a class="label label-primary <%= (orderInfo.parentTid && orderInfo.stcode<635) ?'display-none':'' %>" data-stcode="<%= orderInfo.stcode %>" id="confirm-apart-order">确定拆单</a>
                                     <% } %>
                                     <% if (DWY_Helper.hasPermission(Permission.orderApart.sendBackOrder.id, permission) && orderInfo.receiveGid == user.id ){ %>
-                                    <a class="label label-primary margin-left-20 reject-modal"
+                                    <a class="label label-primary margin-left-20 reject-modal <%= (orderInfo.parentTid && orderInfo.stcode<635) ?'display-none':'' %>"
                                        data-stcode="<%= orderInfo.stcode %>">拆单退回</a>
                                     <% } %>
                                 </td>
@@ -497,11 +510,11 @@
                                 <td>
                                     待拆单
                                     <% if (DWY_Helper.hasPermission(Permission.orderApart.takeOrder.id, permission)  ){ %>
-                                    <a class="label label-primary doGetTask" data-stcode="<%= orderInfo.stcode %>">标记为拆单中</a>
+                                    <a class="label label-primary doGetTask <%= (orderInfo.parentTid && orderInfo.stcode<635) ?'display-none':'' %>" data-stcode="<%= orderInfo.stcode %>">标记为拆单中</a>
                                     <% } %>
                                     <% if (DWY_Helper.hasPermission(Permission.orderReview.sendBackOrder.id, permission) && orderInfo.sendGid == user.id ){ %>
-                                    <a class="label label-primary margin-left-20 reject-modal">审核退回</a>
-                                    <a class="label label-primary margin-left-20 reEditBtn" data-stcode="review">重新编辑</a>
+                                    <a class="label label-primary margin-left-20 reject-modal <%= (orderInfo.parentTid && orderInfo.stcode<635) ?'display-none':'' %>">审核退回</a>
+                                    <a class="label label-primary margin-left-20 reEditBtn <%= (orderInfo.parentTid && orderInfo.stcode<635) ?'display-none':'' %>" data-stcode="review">重新编辑</a>
                                     <% } %>
                                 </td>
                                 <%         break;
@@ -510,7 +523,7 @@
                                 <td>
                                     <%= DWY_Helper.getLocalDate(orderStatusInfo.apartTime) %>
                                     <% if ((orderInfo.stcode == 472 && orderInfo.sendGid == user.id)||(orderInfo.stcode == 478 && orderInfo.receiveGid  == user.id)){ %>
-                                    <a class="label label-success" id="modifyExactMoney">修改精确价格</a>
+                                    <a class="label label-success <%= (orderInfo.parentTid && orderInfo.stcode<635) ?'display-none':'' %>" id="modifyExactMoney">修改精确价格</a>
                                     <% } %>
                                 </td>
                                 <%  } %>
@@ -526,14 +539,14 @@
                                 <td>
                                     拆单审核中
                                     <% if (DWY_Helper.hasPermission(Permission.orderReviewApart.passOrder.id, permission) && orderInfo.receiveGid == user.id ){ %>
-                                    <a class="label label-primary doPass"  data-stcode="<%= orderInfo.stcode %>">确定审核</a>
+                                    <a class="label label-primary doPass <%= (orderInfo.parentTid && orderInfo.stcode<635) ?'display-none':'' %>"  data-stcode="<%= orderInfo.stcode %>">确定审核</a>
                                     <% } %>
                                     <% if (DWY_Helper.hasPermission(Permission.orderReviewApart.sendBackOrder.id, permission) && orderInfo.receiveGid == user.id ){ %>
-                                    <a class="label label-primary margin-left-20 reject-modal">拆单审核退回</a>
+                                    <a class="label label-primary margin-left-20 reject-modal <%= (orderInfo.parentTid && orderInfo.stcode<635) ?'display-none':'' %>">拆单审核退回</a>
                                     <% } %>
 
                                     <% if (DWY_Helper.hasPermission(Permission.orderReviewApart.backOrder.id, permission) && orderInfo.receiveGid == user.id ){ %>
-                                    <a class="label label-primary margin-left-20 back-modal">退回重审</a>
+                                    <a class="label label-primary margin-left-20 back-modal <%= (orderInfo.parentTid && orderInfo.stcode<635) ?'display-none':'' %>">退回重审</a>
                                     <%}%>
                                 </td>
                                 <%        break;
@@ -541,12 +554,12 @@
                                 <td>
                                     待拆单审核
                                     <% if (DWY_Helper.hasPermission(Permission.orderReviewApart.takeOrder.id, permission) ){ %>
-                                    <a class="label label-primary doGetTask" data-stcode="<%= orderInfo.stcode %>">标记为拆单审核中</a>
+                                    <a class="label label-primary doGetTask <%= (orderInfo.parentTid && orderInfo.stcode<635) ?'display-none':'' %>" data-stcode="<%= orderInfo.stcode %>">标记为拆单审核中</a>
                                     <% } %>
                                     <% if (DWY_Helper.hasPermission(Permission.orderApart.sendBackOrder.id, permission) && orderInfo.sendGid == user.id ){ %>
-                                    <a class="label label-primary margin-left-20 reject-modal"
+                                    <a class="label label-primary margin-left-20 reject-modal <%= (orderInfo.parentTid && orderInfo.stcode<635) ?'display-none':'' %>"
                                        data-stcode="<%= orderInfo.stcode %>">拆单退回</a>
-                                    <a class="label label-primary margin-left-20 reEditBtn" data-stcode="apart">重新编辑</a>
+                                    <a class="label label-primary margin-left-20 reEditBtn <%= (orderInfo.parentTid && orderInfo.stcode<635) ?'display-none':'' %>" data-stcode="apart">重新编辑</a>
                                     <% } %>
                                 </td>
                                 <%         break;
@@ -554,10 +567,10 @@
                                 <td>
                                     拆审退回
                                     <% if (DWY_Helper.hasPermission(Permission.orderApart.passOrder.id, permission) && orderInfo.receiveGid == user.id ){ %>
-                                    <a class="label label-primary doGetTask" data-stcode="<%= orderInfo.stcode %>">重新提交</a>
+                                    <a class="label label-primary doGetTask <%= (orderInfo.parentTid && orderInfo.stcode<635) ?'display-none':'' %>" data-stcode="<%= orderInfo.stcode %>">重新提交</a>
                                     <% } %>
                                     <% if (DWY_Helper.hasPermission(Permission.orderApart.sendBackOrder.id, permission) && orderInfo.receiveGid == user.id ){ %>
-                                    <a class="label label-primary margin-left-20 reject-modal"
+                                    <a class="label label-primary margin-left-20 reject-modal <%= (orderInfo.parentTid && orderInfo.stcode<635) ?'display-none':'' %>"
                                        data-stcode="<%= orderInfo.stcode %>">拆单退回</a>
                                     <% } %>
                                 </td>
@@ -591,11 +604,11 @@
                                 <td>
                                     待排料
                                     <% if (DWY_Helper.hasPermission(Permission.orderSchedule.takeOrder.id, permission) ){ %>
-                                    <a class="label label-primary doGetTask" data-stcode="<%= orderInfo.stcode %>">标记为排料中</a>
+                                    <a class="label label-primary doGetTask <%= (orderInfo.parentTid && orderInfo.stcode<635) ?'display-none':'' %>" data-stcode="<%= orderInfo.stcode %>">标记为排料中</a>
                                     <% } %>
                                     <% if (DWY_Helper.hasPermission(Permission.orderReviewApart.sendBackOrder.id, permission) && orderInfo.sendGid == user.id ){ %>
-                                    <a class="label label-primary margin-left-20 reject-modal">拆单审核退回</a>
-                                    <a class="label label-primary margin-left-20 reEditBtn" data-stcode="apartReview">重新编辑</a>
+                                    <a class="label label-primary margin-left-20 reject-modal <%= (orderInfo.parentTid && orderInfo.stcode<635) ?'display-none':'' %>">拆单审核退回</a>
+                                    <a class="label label-primary margin-left-20 reEditBtn <%= (orderInfo.parentTid && orderInfo.stcode<635) ?'display-none':'' %>" data-stcode="apartReview">重新编辑</a>
                                     <% } %>
                                 </td>
                                 <%        break;
@@ -744,10 +757,10 @@
                 <!-- col -->
                 <div class="col-xs-12">
                     <legend>交流信息
-                        <a class="label label-primary" href="/order/communicate/create/<%= tid %>">
+                        <a class="label label-primary <%= (orderInfo.parentTid && orderInfo.stcode<635) ?'display-none':'' %>" href="/order/communicate/create/<%= tid %>">
                             添加交流信息
                         </a>
-                        <a class="label label-primary" href="/order/communicateAll/<%= tid %>">
+                        <a class="label label-primary <%= (orderInfo.parentTid && orderInfo.stcode<635) ?'display-none':'' %>" href="/order/communicateAll/<%= tid %>">
                             查看所有交流信息
                         </a>
                     </legend>
@@ -803,7 +816,7 @@
                 <!-- col -->
                 <div class="col-xs-12">
                     <legend>修改价格记录
-                        <a class="label label-primary" href="/order/priceLog/<%= tid %>">
+                        <a class="label label-primary <%= (orderInfo.parentTid && orderInfo.stcode<635) ?'display-none':'' %>" href="/order/priceLog/<%= tid %>">
                             查看所有修改价格记录
                         </a>
                     </legend>

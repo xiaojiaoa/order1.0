@@ -371,7 +371,15 @@
                                 <% } %>
                                 <% } %>
 
-                                <td><a href="/order/detail/<%= orderelement.tid %>"><%= orderelement.tid %></a></td>
+                                <td>
+                                    <a href="/order/detail/<%= orderelement.tid %>"><%= orderelement.tid %></a>
+                                    <% if(orderelement.projectOrder  ==1){%>
+                                    <a class="label label-info open-multi-order pull-right"
+                                       href="/taskseq/openMultiOrder/<%= lid%>/<%= orderelement.tid %>">
+                                        查看工程订单
+                                    </a>
+                                    <%}%>
+                                </td>
                                 <td><%= orderelement.brandStr %></td>
                                 <td><%= orderelement.decoColorStr %></td>
                                 <td><%= orderelement.prodName %></td>
