@@ -86,7 +86,7 @@
                 </div>
                 <!-- end col -->
                 <div class="col-xs-12">
-                    <legend>
+                    <legend class="col-xs-4" style="border-bottom: none;">
                         供货信息
                         <% if (DWY_Helper.hasPermission(Permission.supplier.creae.id, permission) ){ %>
                         <a class="label label-primary " type="submit" href="/supplier/offer_product/<%= suppliersDetail.id  %>">
@@ -96,12 +96,50 @@
                         <% if (DWY_Helper.hasPermission(Permission.purchase.queryAll.id, permission)|| DWY_Helper.hasPermission(Permission.purchase.queryOrganization.id, permission) || DWY_Helper.hasPermission(Permission.purchase.query.id, permission) ||DWY_Helper.hasPermission(Permission.purchase.querySupplier.id, permission) ){ %>
                         <a class="label label-primary" href="/purchase/detail?suppId=<%= suppliersDetail.id  %>">查看采购单</a>
                         <%}%>
+                        <% if (DWY_Helper.hasPermission(Permission.supplier.creae.id, permission) ){ %>
+                        <button class="label label-primary deleteRelate">解除关联</button>
+                        <% } %>
                     </legend>
+                    <div class="col-xs-8">
+                        <form class="form-horizontal" method="get">
+                            <div class="col-xs-12">
+                                <!--输入字段-->
+                                <div class="col-xs-3">
+                                    <div class="form-group">
+                                        <label class="col-xs-4 control-label">物料名称:</label>
+                                        <div class="col-xs-8">
+                                            <input class="form-control" placeholder="请输入物料名称" type="text" value="<%= DWYRequest.query.mateName %>" name="mateName">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xs-3">
+                                    <div class="form-group">
+                                        <label class="col-xs-4 control-label">物料编号:</label>
+                                        <div class="col-xs-8">
+                                            <input class="form-control" placeholder="请输入物料编号" type="text" value="<%= DWYRequest.query.mateId %>" name="mateId">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xs-3 text-center">
+                                    <button class="btn btn-primary " type="submit">
+                                        筛选
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            <div class="col-xs-12">
                     <div class="table-responsive">
                         <table class="table table-bordered table-striped table-hover">
                             <thead>
                             <tr>
-                                <th>序号</th>
+                                <th>
+                                    <label  class="checkbox-inline">
+                                        <input type="checkbox" class="checkbox" id="checkAll" name="checkAll" />
+                                        <span>序号</span>
+                                    </label>
+                                </th>
                                 <th>物料编号</th>
                                 <th>物料分类名称</th>
                                 <th>物料名称</th>
@@ -115,7 +153,12 @@
                             if(suppliersDetail.materialsList && DWY_Helper.isCanLoop(suppliersDetail.materialsList)){
                             suppliersDetail.materialsList.forEach(function(element,index){%>
                             <tr>
-                                <td><%= index+1 %></td>
+                                <td>
+                                    <label class="checkbox-inline">
+                                        <input type="checkbox" class="checkbox " name="checkVal" data-mid="<%= element.id %>">
+                                        <span> <%= index+1 %></span>
+                                    </label>
+                                </td>
                                 <td><a href="/materialManage/detail/<%= bid %>/<%= element.id %>"><%= element.id %></a></td>
                                 <td><%= element.catName %></td>
                                 <td><%= element.name %></td>
@@ -123,7 +166,6 @@
                                 <td><%= element.outerCode %></td>
                                 <td class="supMatTd">
                                     <% if (DWY_Helper.hasPermission(Permission.supplier.creae.id, permission) ){ %>
-                                    <button class="label label-primary deleteRelate" sid="<%= tid %>" mid="<%= element.id %>">解除关联</button>
                                     <button class="label label-primary updateDate" mid="<%= element.id %>">修改日期</button>
                                     <% } %>
                                 </td>
@@ -150,7 +192,12 @@
 <script type="text/javascript">
     $(document).ready(function () {
         $(".fg-date-picker").flatpickr(data_time_picker.data_picker); // jQuery
-        $(".deleteRelate").click(function () {
+
+        //全选，全不选功能
+        DWY_Utils.CommonMethods.checkFuc("input[name=checkAll]","input[name=checkVal]:checkbox");
+
+
+     /*   $(".deleteRelate").click(function () {
             var sid = $(this).attr('sid');
             var mid = $(this).attr('mid');
             layer.confirm("解除关联？", {title: '提示'}, function (index) {
@@ -168,7 +215,55 @@
             }, function (index) {
                 layer.close(index);
             })
-        })
+        })*/
+
+        // 批量解除关联物料
+        $(".deleteRelate").on({
+            click:function () {
+                var value=[]; //保存选中的物料编号
+                var suppId=<%= tid%>;// 供应商编号
+                var list= {};
+                var listArry=[];
+                $("input[name=checkVal]:checked").each(function () {
+                    value.push($(this).data("mid"))
+                });
+                if(value.length==0){
+                    layer.msg('请选择物料！',{icon:2});
+                }
+                else{
+                    for(var i=0;i<value.length;i++){
+                        var aa={};
+                        aa.suppId=suppId;
+                        aa.mateId=value[i];
+                        listArry.push(aa);
+                    }
+                    list.list=listArry;
+                    layer.confirm("确认解除关联吗？", {title:'提示',icon:3,},
+                        function(index){
+                            $.ajax({
+                                url: '/supplier/deleteRelate',
+                                data:JSON.stringify(list),
+                                method: 'post',
+                                dataType: 'json',
+                                contentType:"application/json",
+                                success: function (data) {
+                                },
+                                error: function (response) {
+                                    layer.close(index)
+                                    var status = response.status;
+                                    if(status == 200){
+                                        successLayout.reload();
+                                        return;
+                                    }
+                                    errorLayout.normal(response);
+                                }
+                            });
+                        },function(index){
+                            layer.close(index)}
+                    )
+                }
+            }
+        });
         $(".supMatTd").on("click", ".updateDate", function () {
             var midS = $(this).attr('mid');
             $("input[name='mateId']").val(midS);
