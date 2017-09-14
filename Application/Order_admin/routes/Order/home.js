@@ -1161,10 +1161,10 @@ router.get('/taskseq/communicatesAll/:lid', Middleware.AuthCheck,TaskseqControll
 // 新增交流信息
 router.post('/taskseq/communicates/doCreate', Middleware.AuthCheck,TaskseqController.doCreateCommunicate);
 
-// 查看工程订单
+// 查看子订单
 router.get('/taskseq/openMultiOrder/:tid', Middleware.AuthCheck, TaskseqController.openMultiOrder);
 
-// 关闭工程订单子订单
+// 关闭子订单
 router.post('/taskseq/openMultiOrder/close', Middleware.AuthCheck, TaskseqController.closeMultiOrder);
 
 /*
