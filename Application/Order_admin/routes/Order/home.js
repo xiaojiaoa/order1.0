@@ -1329,7 +1329,8 @@ router.get('/purchase/detail/finance', Middleware.AuthCheck,Middleware.FilterEmp
 router.post('/purchases/Order/:tid', Middleware.AuthCheck,PurchaseController.purchaseOrder);
 // 采购单详情
 router.get('/purchase/orderDetail/:tid', Middleware.AuthCheck,PurchaseController.purchaseOrderDetail);
-
+// 采购单--下载文件
+router.post('/purchase/orderDetail/downloadZip', Middleware.AuthCheck, PurchaseController.downloadPurchaseFileZip);
 // 采购单详情--付款凭证上传type=10
 router.post('/purchase/uploadProof', Middleware.AuthCheck,PurchaseController.uploadProof);
 
@@ -1367,6 +1368,9 @@ router.get('/outsource/suppliers/:id', Middleware.AuthCheck,PurchaseController.s
 
 // 采购——外协——导出
 router.get('/purchase/export', Middleware.AuthCheck,PurchaseController.exportPurchase);
+
+// 供应商上传文件
+router.post('/purchases/suppfile/upload', Middleware.AuthCheck,PurchaseController.uploadSuppfile);
 
 /*
  * 页面范围: 网络预约相关
