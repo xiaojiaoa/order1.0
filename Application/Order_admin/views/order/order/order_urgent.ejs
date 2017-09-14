@@ -386,20 +386,22 @@
        // 设置tids,需弹出框确认后提交表单
         $("#subBtn").on({
             click:function () {
-                layer.confirm('确认提交吗？', {
-                    icon:3
-                }, function(index){
-                    var value=[];
-                    $("input[name=checkVal]:checked").each(function () {
-                        value.push($(this).data("tid"))
-                    });
-                    $("input[name=tids]").val(value.toString(','));
-                    $("#urgentForm").submit();
-                    layer.close(index);
+                var value=[];
+                $("input[name=checkVal]:checked").each(function () {
+                    value.push($(this).data("tid"))
                 });
+                if(value.length==0){
+                    layer.msg("请选择订单号",{icon:2,})
+                }else{
+                    layer.confirm('确认提交吗？', {
+                        icon:3
+                    }, function(index){
+                        $("input[name=tids]").val(value.toString(','));
+                        $("#urgentForm").submit();
+                        layer.close(index);
+                    });
+                }
             }
-
-
         });
 
 //区域查询
