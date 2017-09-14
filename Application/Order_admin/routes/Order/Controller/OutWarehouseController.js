@@ -85,7 +85,7 @@ var OutWarehouseController = {
             var length = tids.length;
             req.body.noInNum = totalNum-length
         }
-        console.log('stringify',JSON.stringify(req.body));
+        // console.log('stringify',JSON.stringify(req.body));
         request(Base.mergeRequestOptions({
             method: 'post',
             url: '/api/whse/cargout/delivery',

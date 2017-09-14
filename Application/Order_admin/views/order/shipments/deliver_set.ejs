@@ -77,8 +77,8 @@
                     </div>
                     <div class="col-xs-4">
                         <div class="form-group">
-                            <label class="col-xs-4 control-label"><span class="requird"></span> 预计到货时间:</label>
-                            <div class="col-xs-8">
+                            <label class="col-xs-5 control-label"><span class="requird"></span> 预计到货时间:</label>
+                            <div class="col-xs-7">
                                 <input class="form-control fg-date-time-picker validate[required]"  value=""
                                        name="arrivalTime">
                             </div>
@@ -105,8 +105,8 @@
                     </div>
                     <div class="col-xs-4">
                         <div class="form-group">
-                            <label class="col-xs-4 control-label"><span class="requird"></span> 预计安装时间:</label>
-                            <div class="col-xs-8">
+                            <label class="col-xs-5 control-label"><span class="requird"></span> 预计安装时间:</label>
+                            <div class="col-xs-7">
                                 <input class="form-control fg-date-time-picker validate[required]"  value=""
                                        name="installTime">
                             </div>
@@ -146,13 +146,16 @@
       $(".fg-date-time-picker").flatpickr(data_time_picker.data_picker); // jQuery
 
         $('#confirm').click(function (e) {
+          e.preventDefault();
             var checkTid = $('input[name=list]:checked').val();
             if(!checkTid){
-                e.preventDefault();
-
                 return layer.msg('请选择订单', {icon: 2, time: 2000});
             }
             $('#check_pass').submit();
+          if($("#check_pass").validationEngine('validate')){
+            $(this).attr('disabled', true).html('提交中...')
+          }
+
         })
         //弹出类
         $('.deliverThis').on({

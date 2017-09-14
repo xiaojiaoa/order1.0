@@ -21,6 +21,8 @@
 
     </div>
     <div id="content">
+        <!--<a href="javascript:CheckIsInstall()">查看本机是否安装了控件或云打印</a>-->
+        <p class="print-error" id="printLodopError"></p>
 
         <% var printINfoKeys = Object.keys(printINfo) %>
 
@@ -97,20 +99,19 @@
 
 </div>
 <!-- END MAIN PANEL -->
-
 <div class="printLoading">
     <p>正在获取数据。。。</p>
 </div>
 
 <%- include('../layouts/footer'); %>
 <%- include('../layouts/footer_common_script'); %>
-<script src="/asset/js/jQuery.print.js"></script>
+<!--<script src="/asset/js/jQuery.print.js"></script>-->
+<script src="/asset/js/Lodop/LodopFuncs.js"></script>
 
 <script type="text/javascript">
+    var LODOP;
 
     $(document).ready(function () {
-
-
         var loadIndex;
         $('body').on('click', '#print', function () {
 
@@ -124,47 +125,95 @@
                     shade: [0.2,'#000']
                 });
 
-                var html = "";
+                LODOP=getLodop();
 
-                getList(value, html, 1);
+                getList(value, 1);
 
 
             }else{
                 layer.alert('请先选择要打印的分类', {icon: 3})
             }
 
-
         })
 
-        function getList(types, html, page) {
+        function getList(types,  page) {
             var typeString = types.toString(',');
+            var html = "";
             $.ajax({
                 url: '/system/printParts/ajax/<%= batchNumber %>/<%= factoryId %>?pageNo='+page+'&pageSize=10&type='+typeString,
                 method: 'get',
                 success: function (data) {
 
+                    LODOP.PRINT_INIT("装箱清单打印");
+                    LODOP.SET_PRINT_PAGESIZE(1,0,0,"A4");
+
                     var resultData = JSON.parse(data);
                     types.forEach(function (type) {
                         if(resultData[type].result.length > 0){
                             resultData[type].result.forEach(function (element) {
-                                html += '<div class="printBody nopadding-table">'+element+' </div>';
+//                                html += '<div class="printBody nopadding-table">'+element+' </div>';
+                                LODOP.NewPage();
+                                LODOP.ADD_PRINT_HTML(20,20,"RightMargin:20","BottomMargin:20","<head><link rel='stylesheet' href='/css/print.css' /></head>" +
+                                    "<body><div class='printBody nopadding-table'>"+element+"</div></body>");
                             })
                         }
                     })
 
-                    if(resultData[types[0]].totalPages > page){
-                        getList(types, html, page+1)
+//                    doPrint(html, page);
+                    // 打印
+
+//                    LODOP.NewPage();
+//                    LODOP.ADD_PRINT_HTML(10,10,"RightMargin:10","BottomMargin:10","<head><link rel='stylesheet' href='/css/print.css' /></head><body>"+html+"</body>");
+                    LODOP.SET_PRINT_MODE("CUSTOM_TASK_NAME","装箱清单打印分页"+page);// 为每个打印单独设置任务名
+
+
+//                    LODOP.SET_PRINT_MODE("PRINT_START_PAGE",1);
+//                    LODOP.SET_PRINT_MODE("PRINT_END_PAGE",iPageCount-1);
+                    if(page == 1){
+                        console.log('PREVIEW')
+//                        var iPageCount=LODOP.GET_VALUE("PRINTSETUP_PAGE_COUNT","0");// 获得页数
+//                        console.log('iPageCount',iPageCount)
+
+                        LODOP.SET_PREVIEW_WINDOW(1,0,0,0,0,"打印前10页预览.开始打印");
+                        LODOP.SET_PRINT_MODE("AUTO_CLOSE_PREWINDOW",1);// 打印后自动关闭预览窗口
+                        LODOP.PREVIEW();
                     }else{
+                        console.log('PRINT')
+                        LODOP.PRINT();
+                    }
+                    if (LODOP.CVERSION){
+                        CLODOP.On_Return=function(TaskID,Value){
+                            console.log('TaskID',TaskID)
+                            console.log('Value',Value)
+                            if(Value > 0 && resultData[types[0]].totalPages > page){
+                                getList(types,page+1)
+                            }
+                            if(Value == 0){
+                                layer.close(loadIndex);
+                            }
+                        }
+                    }
 
-                        $('#printArea').print({
-                            stylesheet : "/css/print.css",
-                            // timeout: 750,
-                            prepend: html,
-                            // deferred: $.Deferred(test),
-                        });
-
+                    // 关闭加载层
+                    if(resultData[types[0]].totalPages == page){
                         layer.close(loadIndex);
                     }
+
+
+//                    if(resultData[types[0]].totalPages > page){
+//                        getList(types,page+1)
+//                    }
+//                    else{
+//
+//                        $('#printArea').print({
+//                            stylesheet : "/css/print.css",
+//                            // timeout: 750,
+//                            prepend: html,
+//                            // deferred: $.Deferred(test),
+//                        });
+//
+//                        layer.close(loadIndex);
+//                    }
 
                 },
                 error: function (response) {
@@ -176,7 +225,55 @@
 
 
 
+
     })
+
+    function CheckIsInstall() {
+        try{
+            LODOP=getLodop();
+//            if (LODOP.VERSION) {
+//                if (LODOP.CVERSION)
+//                {
+//                    alert("当前有C-Lodop云打印可用!\n C-Lodop版本:"+LODOP.CVERSION+"(内含Lodop"+LODOP.VERSION+")");
+//                }
+//                else
+//                {
+//                    alert("本机已成功安装了Lodop控件！\n 版本号:"+LODOP.VERSION);
+//                }
+//            }
+        }catch(err){
+            $('#print').attr('disabled', true)
+        }
+    }
+
+    function doPrint(html, page) {
+
+//        if(!confirm("下面的演示会产生大量的实际打印操作，确定继续吗？")) return;
+
+        LODOP.PRINT_INIT("装箱清单打印");
+        LODOP.SET_PRINT_PAGESIZE(1,0,0,"A4");
+
+        LODOP.NewPage();
+        LODOP.ADD_PRINT_HTML(10,10,"100%","100%","<head><link rel='stylesheet' href='/css/print.css' /></head><body>"+html+"</body>");
+
+        LODOP.SET_PRINT_MODE("CUSTOM_TASK_NAME","装箱清单打印分页"+page);//为每个打印单独设置任务名
+//        LODOP.PRINT();
+        if(page == 1){
+            LODOP.PREVIEW();
+        }
+
+
+        if (LODOP.CVERSION){
+            CLODOP.On_Return=function(TaskID,Value){
+                console.log('TaskID',TaskID)
+                console.log('Value',Value)
+            }
+        }
+
+
+    }
+
+    window.onload = CheckIsInstall; // 检测打印控件是否安装
 
 </script>
 

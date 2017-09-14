@@ -149,7 +149,7 @@ var Middleware = {
         next();
     },
     apiLimiter: new RateLimit({
-        windowMs: 1*1000, // 时间段 1 秒
+        windowMs: 3*1000, // 时间段 1 秒
         max: 1, // 时间段内限制每个IP的请求数
         delayMs: 0 ,// 禁用延迟
         skip: function (req, res) {
@@ -1048,7 +1048,7 @@ router.get('/waitSend', Middleware.AuthCheck, Middleware.FilterEmptyField, OutWa
 router.get('/delivery/tidList/:lid',OutWarehouseController.deliveryTidList);
 
 // 发货通知单页面
-router.post('/doDelivery', Middleware.AuthCheck, OutWarehouseController.doDelivery);
+router.post('/doDelivery', Middleware.AuthCheck, Middleware.apiLimiter, OutWarehouseController.doDelivery);
 
 // 发货通知单页面
 router.get('/deliveryNote', Middleware.AuthCheck,Middleware.FilterEmptyField,Middleware.SetBackPath, OutWarehouseController.deliveryNotePage);
