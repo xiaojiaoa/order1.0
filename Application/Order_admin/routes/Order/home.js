@@ -149,7 +149,7 @@ var Middleware = {
         next();
     },
     apiLimiter: new RateLimit({
-        windowMs: 1*1000, // 时间段 1 秒
+        windowMs: 3*1000, // 时间段 1 秒
         max: 1, // 时间段内限制每个IP的请求数
         delayMs: 0 ,// 禁用延迟
         skip: function (req, res) {
@@ -1048,7 +1048,7 @@ router.get('/waitSend', Middleware.AuthCheck, Middleware.FilterEmptyField, OutWa
 router.get('/delivery/tidList/:lid',OutWarehouseController.deliveryTidList);
 
 // 发货通知单页面
-router.post('/doDelivery', Middleware.AuthCheck, OutWarehouseController.doDelivery);
+router.post('/doDelivery', Middleware.AuthCheck, Middleware.apiLimiter, OutWarehouseController.doDelivery);
 
 // 发货通知单页面
 router.get('/deliveryNote', Middleware.AuthCheck,Middleware.FilterEmptyField,Middleware.SetBackPath, OutWarehouseController.deliveryNotePage);
@@ -1703,6 +1703,19 @@ router.get('/app/stock/stockup/own', AppServiceController.stockupOwn);
 router.post('/app/stock/space', AppServiceController.doSpaceStock);
 // 备货-将货位中可以备货的包，订单，流水都取消备货
 router.post('/app/stock/space/cancel', AppServiceController.cancelSpaceStock);
+
+// 出库-列出可以出库的发货清单
+router.get('/app/cargout/prod/delivery', AppServiceController.cargoutProdDelivery);
+// 出库-按照发货通知单查找订单号
+router.get('/app/cargout/prod/out/delivery', AppServiceController.cargoutProdOutDelivery);
+// 出库-按照发货通知单找出可发货货订单
+router.get('/app/cargoout/order/list/:id', AppServiceController.cargoutOrderList);
+// 出库-按照订单号查出包装
+router.get('/app/cargoout/package/list/:id', AppServiceController.cargoutPackageList);
+// 出库-出库
+router.post('/app/cargoout/prod', AppServiceController.cargooutProd);
+// 出库-出库回退
+router.post('/app/cargoout/prod/clean', AppServiceController.cargooutProdClean);
 
 
 /*
