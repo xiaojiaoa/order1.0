@@ -92,8 +92,12 @@
                             <thead>
                             <tr>
                                 <th>项目</th>
-                                <th>数量</th>
-                                <th>金额</th>
+                                <th>提交数量</th>
+                                <th>已审核数量</th>
+                                <th>已审金额</th>
+                                <th>已收款金额</th>
+                                <th>未审核订单数量</th>
+                                <th>建单中订单数量</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -102,8 +106,12 @@
                             dataList.forEach(function (element,index) { %>
                             <tr>
                                 <td><%= element.name %></td>
-                                <td><%= element.statCount %></td>
-                                <td><%= element.statSum %></td>
+                                <td><%= element.submitCount %></td>
+                                <td><%= element.reviewCount %></td>
+                                <td><%= element.reviewSum %></td>
+                                <td><%= element.recepitSum %></td>
+                                <td><%= element.unreviewCount %></td>
+                                <td><%= element.buildCount %></td>
                             </tr>
                             <%})
                             }else{ %>
