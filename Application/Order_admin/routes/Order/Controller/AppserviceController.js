@@ -1069,7 +1069,7 @@ var AppServiceController = {
     cargoutProdDelivery: function (req, res) {
         request(Base.mergeRequestOptions({
             method: 'get',
-            url: '/api/whse/cargout/prod/delivery',
+            url: '/api/whse/cargout/prod/delivery?' + queryString.stringify(req.query),
             headers: req.headers,
         }, req, res), function (error, response, body) {
             if (!error) {
@@ -1082,7 +1082,7 @@ var AppServiceController = {
     cargoutProdOutDelivery: function (req, res) {
         request(Base.mergeRequestOptions({
             method: 'get',
-            url: '/api/whse/cargout/prod/out/delivery',
+            url: '/api/whse/cargout/prod/out/delivery?' + queryString.stringify(req.query),
             headers: req.headers,
         }, req, res), function (error, response, body) {
             if (!error) {
@@ -1096,7 +1096,7 @@ var AppServiceController = {
         var id = req.params.id;
         request(Base.mergeRequestOptions({
             method: 'get',
-            url: '/api/whse/app/cargoout/order/list/'+id,
+            url: '/api/whse/app/cargoout/order/list/'+id+'?'+ queryString.stringify(req.query),
             headers: req.headers,
         }, req, res), function (error, response, body) {
             if (!error) {
