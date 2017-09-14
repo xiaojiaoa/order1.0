@@ -1797,6 +1797,8 @@ router.get('/report/store/sales', Middleware.AuthCheck,Middleware.FilterEmptyFie
 
 // 排料工件报表
 router.get('/report/factory/workpiece_nesting', Middleware.AuthCheck,Middleware.FilterEmptyField,ReportController.workpieceNestingPage);
+// 导出排料工件报表
+router.post('/report/factory/export/workpiece_nesting', Middleware.AuthCheck,Middleware.FilterEmptyField,ReportController.exportWorkpieceNesting);
 /*
  * 页面范围: 财务统计
  * 控制器:   FinancialStatisticsController

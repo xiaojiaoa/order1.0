@@ -580,7 +580,14 @@ var ReportController = {
         });
 
     },
-
+    exportWorkpieceNesting: function (req, res) {
+        //    console.log(1111,JSON.parse(req.body.mytest));
+        request(Base.mergeRequestOptions({
+            method: 'post',
+            url: '/api/orders/package/export/schedule',
+            form:JSON.parse(req.body.mytest),
+        }, req, res)).pipe(res)
+    },
 
 };
 module.exports = ReportController;
