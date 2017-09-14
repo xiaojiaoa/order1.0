@@ -531,7 +531,10 @@ var ReportController = {
         }, req, res)).pipe(res)
     },
     storeSalesPage: function (req, res) {
-
+        if(!req.query.date){
+            var dayTime= new Date().format("yyyy-MM");
+            return res.redirect('/report/store/sales?date='+dayTime);
+        }
         var paramObject = helper.genPaginationQuery(req);
         Base.multiDataRequest(req, res, [
             {url: '/api/orders/stat/storeSales?'+ queryString.stringify(req.query), method: 'GET', resConfig: {keyName: 'dataList', is_must: true}},
