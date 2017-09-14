@@ -1704,6 +1704,19 @@ router.post('/app/stock/space', AppServiceController.doSpaceStock);
 // 备货-将货位中可以备货的包，订单，流水都取消备货
 router.post('/app/stock/space/cancel', AppServiceController.cancelSpaceStock);
 
+// 出库-列出可以出库的发货清单
+router.get('/app/cargout/prod/delivery', AppServiceController.cargoutProdDelivery);
+// 出库-按照发货通知单查找订单号
+router.get('/app/cargout/prod/out/delivery', AppServiceController.cargoutProdOutDelivery);
+// 出库-按照发货通知单找出可发货货订单
+router.get('/app/cargoout/order/list/:id', AppServiceController.cargoutOrderList);
+// 出库-按照订单号查出包装
+router.get('/app/cargoout/package/list/:id', AppServiceController.cargoutPackageList);
+// 出库-出库
+router.post('/app/cargoout/prod', AppServiceController.cargooutProd);
+// 出库-出库回退
+router.post('/app/cargoout/prod/clean', AppServiceController.cargooutProdClean);
+
 
 /*
 * 页面范围: 报表管理

@@ -14,9 +14,9 @@ var request = require('request');
 
 var AppServiceController = {
 
-    error:{
-        msg:"服务器异常",
-        code:500
+    error: {
+        msg: "服务器异常",
+        code: 500
     },
 
     doLogin: function (req, res) {
@@ -34,7 +34,7 @@ var AppServiceController = {
         })
     },
 
-    refreshToken:function(req,res){
+    refreshToken: function (req, res) {
         var refreshToken = req.body.refresh_token;
         request(Base.mergeRequestOptions({
             method: 'POST',
@@ -53,22 +53,22 @@ var AppServiceController = {
         var tid = req.params.tid;
         request(Base.mergeRequestOptions({
             method: 'get',
-            url: '/api/whse/app/cargoout/package/list/'+tid,
-            headers:req.headers,
+            url: '/api/whse/app/cargoout/package/list/' + tid,
+            headers: req.headers,
         }, req, res), function (error, response, body) {
             if (!error) {
                 res.send(JSON.parse(body));
             } else {
                 res.send(AppServiceController.error);
             }
-              
+
         })
     },
     cargooutOrder: function (req, res) {
         request(Base.mergeRequestOptions({
             method: 'get',
-            url: '/api/whse/app/cargoout/order/list?'+queryString.stringify(req.query),
-            headers:req.headers,
+            url: '/api/whse/app/cargoout/order/list?' + queryString.stringify(req.query),
+            headers: req.headers,
         }, req, res), function (error, response, body) {
             if (!error) {
                 res.send(JSON.parse(body));
@@ -81,13 +81,13 @@ var AppServiceController = {
     getWhseSel: function (req, res) {
         request(Base.mergeRequestOptions({
             method: 'get',
-            url: '/api/whse/app/find/info?'+queryString.stringify(req.query),
-            headers:req.headers,
+            url: '/api/whse/app/find/info?' + queryString.stringify(req.query),
+            headers: req.headers,
         }, req, res), function (error, response, body) {
-            if (!error ) {
+            if (!error) {
                 var $data = JSON.parse(body);
                 res.send($data);
-            }else{
+            } else {
                 res.send(AppServiceController.error);
             }
         })
@@ -96,7 +96,7 @@ var AppServiceController = {
         request(Base.mergeRequestOptions({
             method: 'get',
             url: '/api/whse/app/cargoin/package/list',
-            headers:req.headers,
+            headers: req.headers,
         }, req, res), function (error, response, body) {
             if (!error) {
                 res.send(JSON.parse(body));
@@ -109,42 +109,47 @@ var AppServiceController = {
         request(Base.mergeRequestOptions({
             method: 'post',
             url: '/api/whse/app/cargoin/order/package/list',
-            headers:req.headers,
-            form:req.body
+            headers: req.headers,
+            form: req.body
         }, req, res), function (error, response, body) {
             if (!error) {
                 res.send(JSON.parse(body));
             } else {
-               res.send(AppServiceController.error);
+                res.send(AppServiceController.error);
             }
         })
     },
     cargoinOrderWeb: function (req, res) {
         Base.multiDataRequest(req, res, [
-                {url: '/api/whse/app/cargoin/order/package/list', method: 'post', form:req.body,resConfig: {keyName: 'packageList', is_must: false}},
+                {
+                    url: '/api/whse/app/cargoin/order/package/list',
+                    method: 'post',
+                    form: req.body,
+                    resConfig: {keyName: 'packageList', is_must: false}
+                },
                 {url: '/api/whse/factory/list', method: 'GET', resConfig: {keyName: 'factoryList', is_must: true}},
             ],
             function (req, res, resultList) {
                 var returnData = Base.mergeData(helper.mergeObject({
                     title: ' ',
                 }, resultList));
-            if(resultList.packageList.list.length>0){
-                res.render('order/enter/enter_product_scanning', returnData);
-            }else{
-                var error;
-                var msgid = '';
-                var arry = resultList.packageList.info.errorPackgeNos;
-                var length = arry.length;
-                for(var i=0;i<length;i++){
-                    msgid += arry[i] + ",</br>"
-                }
-                msgid = msgid.substring(0,msgid.length-6);
-                var response = {
-                    body: '{"code":8001,"msg":"导入包装号失败</br>'+msgid+'"}'
+                if (resultList.packageList.list.length > 0) {
+                    res.render('order/enter/enter_product_scanning', returnData);
+                } else {
+                    var error;
+                    var msgid = '';
+                    var arry = resultList.packageList.info.errorPackgeNos;
+                    var length = arry.length;
+                    for (var i = 0; i < length; i++) {
+                        msgid += arry[i] + ",</br>"
+                    }
+                    msgid = msgid.substring(0, msgid.length - 6);
+                    var response = {
+                        body: '{"code":8001,"msg":"导入包装号失败</br>' + msgid + '"}'
 
+                    }
+                    Base.handlerError(res, req, error, response);
                 }
-                Base.handlerError(res, req, error, response);
-            }
 
             });
     },
@@ -153,7 +158,7 @@ var AppServiceController = {
             method: 'post',
             url: '/api/whse/app/cargoin/package',
             form: req.body,
-            headers:req.headers,
+            headers: req.headers,
         }, req, res), function (error, response, body) {
             if (!error) {
                 res.send(JSON.parse(body));
@@ -167,7 +172,7 @@ var AppServiceController = {
             method: 'post',
             url: '/api/whse/app/cargoout/prod',
             form: req.body,
-            headers:req.headers,
+            headers: req.headers,
         }, req, res), function (error, response, body) {
             if (!error) {
                 res.send(JSON.parse(body));
@@ -179,23 +184,23 @@ var AppServiceController = {
     getWhse: function (req, res) {
         request(Base.mergeRequestOptions({
             method: 'get',
-            url: '/api/whse/app/ftyid?'+queryString.stringify(req.query),
-            headers:req.headers,
+            url: '/api/whse/app/ftyid?' + queryString.stringify(req.query),
+            headers: req.headers,
         }, req, res), function (error, response, body) {
-            if (!error ) {
+            if (!error) {
                 var $data = JSON.parse(body);
-                res.send($data);               
-            }else{
+                res.send($data);
+            } else {
                 res.send(AppServiceController.error);
             }
         })
     },
     isFull: function (req, res) {
-        
+
         request(Base.mergeRequestOptions({
             method: 'post',
             url: '/api/whse/app/usable',
-            headers:req.headers,
+            headers: req.headers,
             form: req.body
         }, req, res), function (error, response, body) {
             if (!error) {
@@ -211,7 +216,7 @@ var AppServiceController = {
         request(Base.mergeRequestOptions({
             method: 'post',
             url: '/api/whse/app/cargospace/find',
-            headers:req.headers,
+            headers: req.headers,
             form: req.body
         }, req, res), function (error, response, body) {
             if (!error) {
@@ -226,7 +231,7 @@ var AppServiceController = {
         request(Base.mergeRequestOptions({
             method: 'get',
             url: '/api/whse/app/stock/order/list',
-            headers:req.headers,
+            headers: req.headers,
         }, req, res), function (error, response, body) {
             if (!error) {
                 res.send(JSON.parse(body));
@@ -240,7 +245,7 @@ var AppServiceController = {
             method: 'post',
             url: '/api/whse/app/stock',
             form: req.body,
-            headers:req.headers,
+            headers: req.headers,
         }, req, res), function (error, response, body) {
             if (!error) {
                 res.send(JSON.parse(body));
@@ -252,8 +257,8 @@ var AppServiceController = {
     getStockList: function (req, res) {
         request(Base.mergeRequestOptions({
             method: 'get',
-            url: '/api/whse/app/stock/list?'+queryString.stringify(req.query),
-            headers:req.headers,
+            url: '/api/whse/app/stock/list?' + queryString.stringify(req.query),
+            headers: req.headers,
         }, req, res), function (error, response, body) {
             if (!error) {
                 res.send(JSON.parse(body));
@@ -265,8 +270,8 @@ var AppServiceController = {
     packagetype: function (req, res) {
         request(Base.mergeRequestOptions({
             method: 'get',
-            url: '/api/whse/app/packagetype?'+queryString.stringify(req.query),
-            headers:req.headers,
+            url: '/api/whse/app/packagetype?' + queryString.stringify(req.query),
+            headers: req.headers,
         }, req, res), function (error, response, body) {
             if (!error) {
                 res.send(JSON.parse(body));
@@ -278,8 +283,8 @@ var AppServiceController = {
     packagePage: function (req, res) {
         request(Base.mergeRequestOptions({
             method: 'get',
-            url: '/api/whse/app/cargoin/package/page?'+queryString.stringify(req.query),
-            headers:req.headers,
+            url: '/api/whse/app/cargoin/package/page?' + queryString.stringify(req.query),
+            headers: req.headers,
         }, req, res), function (error, response, body) {
             if (!error) {
                 res.send(JSON.parse(body));
@@ -291,8 +296,8 @@ var AppServiceController = {
     cargoinBatch: function (req, res) {
         request(Base.mergeRequestOptions({
             method: 'get',
-            url: '/api/whse/app/cargoin/batch/page?'+queryString.stringify(req.query),
-            headers:req.headers,
+            url: '/api/whse/app/cargoin/batch/page?' + queryString.stringify(req.query),
+            headers: req.headers,
         }, req, res), function (error, response, body) {
             if (!error) {
                 res.send(JSON.parse(body));
@@ -304,8 +309,8 @@ var AppServiceController = {
     cargoinOrderPage: function (req, res) {
         request(Base.mergeRequestOptions({
             method: 'get',
-            url: '/api/whse/app/cargoin/order/page?'+queryString.stringify(req.query),
-            headers:req.headers,
+            url: '/api/whse/app/cargoin/order/page?' + queryString.stringify(req.query),
+            headers: req.headers,
         }, req, res), function (error, response, body) {
             if (!error) {
                 res.send(JSON.parse(body));
@@ -317,8 +322,8 @@ var AppServiceController = {
     deliveryAll: function (req, res) {
         request(Base.mergeRequestOptions({
             method: 'get',
-            url: '/api/whse/app/stock/delivery/all?'+queryString.stringify(req.query),
-            headers:req.headers,
+            url: '/api/whse/app/stock/delivery/all?' + queryString.stringify(req.query),
+            headers: req.headers,
         }, req, res), function (error, response, body) {
             if (!error) {
                 res.send(JSON.parse(body));
@@ -330,8 +335,8 @@ var AppServiceController = {
     deliveryOwn: function (req, res) {
         request(Base.mergeRequestOptions({
             method: 'get',
-            url: '/api/whse/app/stock/delivery/own?'+queryString.stringify(req.query),
-            headers:req.headers,
+            url: '/api/whse/app/stock/delivery/own?' + queryString.stringify(req.query),
+            headers: req.headers,
         }, req, res), function (error, response, body) {
             if (!error) {
                 res.send(JSON.parse(body));
@@ -345,7 +350,7 @@ var AppServiceController = {
             method: 'post',
             url: '/api/whse/app/stock/unlock',
             form: req.body,
-            headers:req.headers,
+            headers: req.headers,
         }, req, res), function (error, response, body) {
             if (!error) {
                 res.send(JSON.parse(body));
@@ -359,7 +364,7 @@ var AppServiceController = {
             method: 'post',
             url: '/api/whse/app/stock/receive',
             form: req.body,
-            headers:req.headers,
+            headers: req.headers,
         }, req, res), function (error, response, body) {
             if (!error) {
                 res.send(JSON.parse(body));
@@ -371,8 +376,8 @@ var AppServiceController = {
     orderStock: function (req, res) {
         request(Base.mergeRequestOptions({
             method: 'get',
-            url: '/api/whse/app/stock/order?'+queryString.stringify(req.query),
-            headers:req.headers,
+            url: '/api/whse/app/stock/order?' + queryString.stringify(req.query),
+            headers: req.headers,
         }, req, res), function (error, response, body) {
             if (!error) {
                 res.send(JSON.parse(body));
@@ -384,8 +389,8 @@ var AppServiceController = {
     permission: function (req, res) {
         request(Base.mergeRequestOptions({
             method: 'get',
-            url: '/api/whse/app/permission?'+queryString.stringify(req.query),
-            headers:req.headers,
+            url: '/api/whse/app/permission?' + queryString.stringify(req.query),
+            headers: req.headers,
         }, req, res), function (error, response, body) {
             if (!error) {
                 res.send(JSON.parse(body));
@@ -397,8 +402,8 @@ var AppServiceController = {
     batchNumberCode: function (req, res) {
         request(Base.mergeRequestOptions({
             method: 'get',
-            url: '/api/orders/batchNumber/code?'+queryString.stringify(req.query),
-            headers:req.headers,
+            url: '/api/orders/batchNumber/code?' + queryString.stringify(req.query),
+            headers: req.headers,
         }, req, res), function (error, response, body) {
             if (!error) {
                 res.send(JSON.parse(body));
@@ -411,8 +416,8 @@ var AppServiceController = {
         var packId = req.params.packId
         request(Base.mergeRequestOptions({
             method: 'post',
-            url: '/api/whse/app/cargoin/inscan/'+packId,
-            headers:req.headers,
+            url: '/api/whse/app/cargoin/inscan/' + packId,
+            headers: req.headers,
         }, req, res), function (error, response, body) {
             if (!error) {
                 res.send(JSON.parse(body));
@@ -424,8 +429,8 @@ var AppServiceController = {
     cargoinPage: function (req, res) {
         request(Base.mergeRequestOptions({
             method: 'get',
-            url: '/api/whse/app/cargoin/inscan/page?'+queryString.stringify(req.query),
-            headers:req.headers,
+            url: '/api/whse/app/cargoin/inscan/page?' + queryString.stringify(req.query),
+            headers: req.headers,
         }, req, res), function (error, response, body) {
             if (!error) {
                 res.send(JSON.parse(body));
@@ -437,8 +442,8 @@ var AppServiceController = {
     cargoinPageClassify: function (req, res) {
         request(Base.mergeRequestOptions({
             method: 'get',
-            url: '/api/whse/app/cargoin/inscan/page/classify?'+queryString.stringify(req.query),
-            headers:req.headers,
+            url: '/api/whse/app/cargoin/inscan/page/classify?' + queryString.stringify(req.query),
+            headers: req.headers,
         }, req, res), function (error, response, body) {
             if (!error) {
                 res.send(JSON.parse(body));
@@ -450,8 +455,8 @@ var AppServiceController = {
     cargoinPageTid: function (req, res) {
         request(Base.mergeRequestOptions({
             method: 'get',
-            url: '/api/whse/app/cargoin/inscan/page/tid?'+queryString.stringify(req.query),
-            headers:req.headers,
+            url: '/api/whse/app/cargoin/inscan/page/tid?' + queryString.stringify(req.query),
+            headers: req.headers,
         }, req, res), function (error, response, body) {
             if (!error) {
                 res.send(JSON.parse(body));
@@ -464,8 +469,8 @@ var AppServiceController = {
         var id = req.params.id
         request(Base.mergeRequestOptions({
             method: 'get',
-            url: '/api/whse/app/cargoin/inscan/table?'+queryString.stringify(req.query),
-            headers:req.headers,
+            url: '/api/whse/app/cargoin/inscan/table?' + queryString.stringify(req.query),
+            headers: req.headers,
         }, req, res), function (error, response, body) {
             if (!error) {
                 res.send(JSON.parse(body));
@@ -478,8 +483,8 @@ var AppServiceController = {
         var id = req.params.id
         request(Base.mergeRequestOptions({
             method: 'post',
-            url: '/api/whse/app/cargoin/inscan/cancel/'+id,
-            headers:req.headers,
+            url: '/api/whse/app/cargoin/inscan/cancel/' + id,
+            headers: req.headers,
         }, req, res), function (error, response, body) {
             if (!error) {
                 res.send(JSON.parse(body));
@@ -495,7 +500,7 @@ var AppServiceController = {
             method: 'post',
             url: '/api/whse/app/cargoin/distribute/space',
             form: req.body,
-            headers:req.headers,
+            headers: req.headers,
         }, req, res), function (error, response, body) {
             if (!error) {
                 res.send(JSON.parse(body));
@@ -510,7 +515,7 @@ var AppServiceController = {
             method: 'post',
             url: '/api/whse/app/cargoin/scanCage/offShelves',
             form: req.body,
-            headers:req.headers,
+            headers: req.headers,
         }, req, res), function (error, response, body) {
             if (!error) {
                 res.send(JSON.parse(body));
@@ -525,7 +530,7 @@ var AppServiceController = {
             method: 'post',
             url: '/api/whse/app/cargoin/cargoin',
             form: req.body,
-            headers:req.headers,
+            headers: req.headers,
         }, req, res), function (error, response, body) {
             if (!error) {
                 res.send(JSON.parse(body));
@@ -540,7 +545,7 @@ var AppServiceController = {
             method: 'post',
             url: '/api/whse/app/cargoin/scan/space',
             form: req.body,
-            headers:req.headers,
+            headers: req.headers,
         }, req, res), function (error, response, body) {
             if (!error) {
                 res.send(JSON.parse(body));
@@ -551,13 +556,12 @@ var AppServiceController = {
     },
 
 
-
     cancelScanCargoin: function (req, res) {
         request(Base.mergeRequestOptions({
             method: 'post',
             url: '/api/whse/app/cargoin/cancel/scan/space',
             form: req.body,
-            headers:req.headers,
+            headers: req.headers,
         }, req, res), function (error, response, body) {
             if (!error) {
                 res.send(JSON.parse(body));
@@ -572,7 +576,7 @@ var AppServiceController = {
             method: 'post',
             url: '/api/whse/app/cargoin/wate/shelves',
             form: req.body,
-            headers:req.headers,
+            headers: req.headers,
         }, req, res), function (error, response, body) {
             if (!error) {
                 res.send(JSON.parse(body));
@@ -587,7 +591,7 @@ var AppServiceController = {
             method: 'post',
             url: '/api/whse/app/cargoin/shelves/space',
             form: req.body,
-            headers:req.headers,
+            headers: req.headers,
         }, req, res), function (error, response, body) {
             if (!error) {
                 res.send(JSON.parse(body));
@@ -602,7 +606,7 @@ var AppServiceController = {
             method: 'post',
             url: '/api/whse/app/cargoin/offshelves/space',
             form: req.body,
-            headers:req.headers,
+            headers: req.headers,
         }, req, res), function (error, response, body) {
             if (!error) {
                 res.send(JSON.parse(body));
@@ -615,8 +619,8 @@ var AppServiceController = {
     shelvesSpacePage: function (req, res) {
         request(Base.mergeRequestOptions({
             method: 'get',
-            url: '/api/whse/app/cargoin/shelves/space/page?'+queryString.stringify(req.query),
-            headers:req.headers,
+            url: '/api/whse/app/cargoin/shelves/space/page?' + queryString.stringify(req.query),
+            headers: req.headers,
         }, req, res), function (error, response, body) {
             if (!error) {
                 res.send(JSON.parse(body));
@@ -628,8 +632,8 @@ var AppServiceController = {
     shelvesSpace: function (req, res) {
         request(Base.mergeRequestOptions({
             method: 'get',
-            url: '/api/whse/app/cargoin/offshelves/space?'+queryString.stringify(req.query),
-            headers:req.headers,
+            url: '/api/whse/app/cargoin/offshelves/space?' + queryString.stringify(req.query),
+            headers: req.headers,
         }, req, res), function (error, response, body) {
             if (!error) {
                 res.send(JSON.parse(body));
@@ -643,8 +647,8 @@ var AppServiceController = {
         var packageLid = req.params.packageLid;
         request(Base.mergeRequestOptions({
             method: 'get',
-            url: '/api/whse/app/cargoin/space/packageLid/'+packageLid,
-            headers:req.headers,
+            url: '/api/whse/app/cargoin/space/packageLid/' + packageLid,
+            headers: req.headers,
         }, req, res), function (error, response, body) {
             if (!error) {
                 res.send(JSON.parse(body));
@@ -657,8 +661,8 @@ var AppServiceController = {
         var tid = req.params.tid;
         request(Base.mergeRequestOptions({
             method: 'get',
-            url: '/api/whse/app/cargoin/space/tid/'+tid,
-            headers:req.headers,
+            url: '/api/whse/app/cargoin/space/tid/' + tid,
+            headers: req.headers,
         }, req, res), function (error, response, body) {
             if (!error) {
                 res.send(JSON.parse(body));
@@ -671,8 +675,8 @@ var AppServiceController = {
         var offshelves = req.params.offshelves;
         request(Base.mergeRequestOptions({
             method: 'get',
-            url: '/api/whse/app/cargoin/offshelves/'+offshelves,
-            headers:req.headers,
+            url: '/api/whse/app/cargoin/offshelves/' + offshelves,
+            headers: req.headers,
         }, req, res), function (error, response, body) {
             if (!error) {
                 res.send(JSON.parse(body));
@@ -685,8 +689,8 @@ var AppServiceController = {
         var batid = req.params.batid;
         request(Base.mergeRequestOptions({
             method: 'get',
-            url: '/api/whse/app/cargoin/find/batchnumber/'+batid,
-            headers:req.headers,
+            url: '/api/whse/app/cargoin/find/batchnumber/' + batid,
+            headers: req.headers,
         }, req, res), function (error, response, body) {
             if (!error) {
                 res.send(JSON.parse(body));
@@ -699,8 +703,8 @@ var AppServiceController = {
         var lid = req.params.lid;
         request(Base.mergeRequestOptions({
             method: 'get',
-            url: '/api/whse/app/cargoin/find/lid/'+lid,
-            headers:req.headers,
+            url: '/api/whse/app/cargoin/find/lid/' + lid,
+            headers: req.headers,
         }, req, res), function (error, response, body) {
             if (!error) {
                 res.send(JSON.parse(body));
@@ -713,8 +717,8 @@ var AppServiceController = {
         var tid = req.params.tid;
         request(Base.mergeRequestOptions({
             method: 'get',
-            url: '/api/whse/app/cargoin/find/tid/'+tid,
-            headers:req.headers,
+            url: '/api/whse/app/cargoin/find/tid/' + tid,
+            headers: req.headers,
         }, req, res), function (error, response, body) {
             if (!error) {
                 res.send(JSON.parse(body));
@@ -727,8 +731,8 @@ var AppServiceController = {
         var tid = req.params.tid;
         request(Base.mergeRequestOptions({
             method: 'get',
-            url: '/api/whse/app/cargoin/notin/info?tid='+tid,
-            headers:req.headers,
+            url: '/api/whse/app/cargoin/notin/info?tid=' + tid,
+            headers: req.headers,
         }, req, res), function (error, response, body) {
             if (!error) {
                 res.send(JSON.parse(body));
@@ -742,7 +746,7 @@ var AppServiceController = {
             method: 'post',
             url: '/api/orders/sort/view',
             form: req.body,
-            headers:req.headers,
+            headers: req.headers,
         }, req, res), function (error, response, body) {
             if (!error) {
                 // console.log('sortView:',body)
@@ -755,8 +759,8 @@ var AppServiceController = {
     sortBatchNumber: function (req, res) {
         request(Base.mergeRequestOptions({
             method: 'get',
-            url: '/api/orders/sort/batchNumber?'+queryString.stringify(req.query),
-            headers:req.headers,
+            url: '/api/orders/sort/batchNumber?' + queryString.stringify(req.query),
+            headers: req.headers,
         }, req, res), function (error, response, body) {
             if (!error) {
                 res.send(JSON.parse(body));
@@ -768,8 +772,8 @@ var AppServiceController = {
     sortList: function (req, res) {
         request(Base.mergeRequestOptions({
             method: 'get',
-            url: '/api/orders/sort/list?'+queryString.stringify(req.query),
-            headers:req.headers,
+            url: '/api/orders/sort/list?' + queryString.stringify(req.query),
+            headers: req.headers,
         }, req, res), function (error, response, body) {
             if (!error) {
                 res.send(JSON.parse(body));
@@ -781,8 +785,8 @@ var AppServiceController = {
     sortWorkPiece: function (req, res) {
         request(Base.mergeRequestOptions({
             method: 'get',
-            url: '/api/orders/sort/workPiece?'+queryString.stringify(req.query),
-            headers:req.headers,
+            url: '/api/orders/sort/workPiece?' + queryString.stringify(req.query),
+            headers: req.headers,
         }, req, res), function (error, response, body) {
             if (!error) {
                 res.send(JSON.parse(body));
@@ -794,8 +798,8 @@ var AppServiceController = {
     sortWorkPieceScaned: function (req, res) {
         request(Base.mergeRequestOptions({
             method: 'get',
-            url: '/api/orders/sort/workPiece/scaned?'+queryString.stringify(req.query),
-            headers:req.headers,
+            url: '/api/orders/sort/workPiece/scaned?' + queryString.stringify(req.query),
+            headers: req.headers,
         }, req, res), function (error, response, body) {
             if (!error) {
                 res.send(JSON.parse(body));
@@ -808,8 +812,8 @@ var AppServiceController = {
         var id = req.params.id;
         request(Base.mergeRequestOptions({
             method: 'get',
-            url: '/api/whse/app/cargoin/shelves/space/'+id,
-            headers:req.headers,
+            url: '/api/whse/app/cargoin/shelves/space/' + id,
+            headers: req.headers,
         }, req, res), function (error, response, body) {
             if (!error) {
                 res.send(JSON.parse(body));
@@ -823,9 +827,9 @@ var AppServiceController = {
         var spaceId = req.params.spaceId;
         request(Base.mergeRequestOptions({
             method: 'post',
-            url: '/api/whse/app/cargoin/inscan/space/'+spaceId,
+            url: '/api/whse/app/cargoin/inscan/space/' + spaceId,
             form: req.body,
-            headers:req.headers,
+            headers: req.headers,
         }, req, res), function (error, response, body) {
             if (!error) {
                 res.send(JSON.parse(body));
@@ -838,9 +842,9 @@ var AppServiceController = {
         var packageLid = req.params.packageLid;
         request(Base.mergeRequestOptions({
             method: 'post',
-            url: '/api/whse/app/cargoin/inscan/cargo/'+packageLid,
+            url: '/api/whse/app/cargoin/inscan/cargo/' + packageLid,
             form: req.body,
-            headers:req.headers,
+            headers: req.headers,
         }, req, res), function (error, response, body) {
             if (!error) {
                 res.send(JSON.parse(body));
@@ -852,8 +856,8 @@ var AppServiceController = {
     orderTaskStatusCargo: function (req, res) {
         request(Base.mergeRequestOptions({
             method: 'get',
-            url: '/api/whse/app/cargoin/inscan/cargo/allList?'+queryString.stringify(req.query),
-            headers:req.headers,
+            url: '/api/whse/app/cargoin/inscan/cargo/allList?' + queryString.stringify(req.query),
+            headers: req.headers,
         }, req, res), function (error, response, body) {
             if (!error) {
                 res.send(JSON.parse(body));
@@ -865,8 +869,8 @@ var AppServiceController = {
     orderTaskPackageCargo: function (req, res) {
         request(Base.mergeRequestOptions({
             method: 'get',
-            url: '/api/whse/app/cargoin/inscan/cargo/scanList?'+queryString.stringify(req.query),
-            headers:req.headers,
+            url: '/api/whse/app/cargoin/inscan/cargo/scanList?' + queryString.stringify(req.query),
+            headers: req.headers,
         }, req, res), function (error, response, body) {
             if (!error) {
                 res.send(JSON.parse(body));
@@ -880,7 +884,7 @@ var AppServiceController = {
             method: 'post',
             url: '/api/whse/app/cargoin/inscan/cargo/changeScan',
             form: req.body,
-            headers:req.headers,
+            headers: req.headers,
         }, req, res), function (error, response, body) {
             if (!error) {
                 res.send(JSON.parse(body));
@@ -894,7 +898,7 @@ var AppServiceController = {
             method: 'post',
             url: '/api/whse/app/cargoin/cargoIn',
             form: req.body,
-            headers:req.headers,
+            headers: req.headers,
         }, req, res), function (error, response, body) {
             if (!error) {
                 res.send(JSON.parse(body));
@@ -909,7 +913,7 @@ var AppServiceController = {
             method: 'post',
             url: '/api/whse/app/change/space/scan/package',
             form: req.body,
-            headers:req.headers,
+            headers: req.headers,
         }, req, res), function (error, response, body) {
             if (!error) {
                 res.send(JSON.parse(body));
@@ -923,7 +927,7 @@ var AppServiceController = {
             method: 'post',
             url: '/api/whse/app/change/space/scan/space',
             form: req.body,
-            headers:req.headers,
+            headers: req.headers,
         }, req, res), function (error, response, body) {
             if (!error) {
                 res.send(JSON.parse(body));
@@ -935,8 +939,8 @@ var AppServiceController = {
     moveShowPacklist: function (req, res) {
         request(Base.mergeRequestOptions({
             method: 'get',
-            url: '/api/whse/app/change/space/list?'+queryString.stringify(req.query),
-            headers:req.headers,
+            url: '/api/whse/app/change/space/list?' + queryString.stringify(req.query),
+            headers: req.headers,
         }, req, res), function (error, response, body) {
             if (!error) {
                 res.send(JSON.parse(body));
@@ -950,7 +954,7 @@ var AppServiceController = {
             method: 'post',
             url: '/api/whse/app/change/space/change',
             form: req.body,
-            headers:req.headers,
+            headers: req.headers,
         }, req, res), function (error, response, body) {
             if (!error) {
                 res.send(JSON.parse(body));
@@ -963,8 +967,8 @@ var AppServiceController = {
         var id = req.params.id;
         request(Base.mergeRequestOptions({
             method: 'get',
-            url: '/api/whse/app/change/space/all/space/cargo?spaceId='+id,
-            headers:req.headers,
+            url: '/api/whse/app/change/space/all/space/cargo?spaceId=' + id,
+            headers: req.headers,
         }, req, res), function (error, response, body) {
             if (!error) {
                 res.send(JSON.parse(body));
@@ -981,8 +985,8 @@ var AppServiceController = {
         request(Base.mergeRequestOptions({
             method: 'post',
             url: '/api/whse/app/change/space/change/space/cargo',
-            headers:{'Content-type':'application/json', 'access_token':req.headers.access_token},
-            body:JSON.stringify(req.body),
+            headers: {'Content-type': 'application/json', 'access_token': req.headers.access_token},
+            body: JSON.stringify(req.body),
             // form: req.body,
             // headers:req.headers,
         }, req, res), function (error, response, body) {
@@ -997,8 +1001,8 @@ var AppServiceController = {
         var id = req.params.id;
         request(Base.mergeRequestOptions({
             method: 'get',
-            url: '/api/whse/app/change/space/scan/'+id,
-            headers:req.headers,
+            url: '/api/whse/app/change/space/scan/' + id,
+            headers: req.headers,
         }, req, res), function (error, response, body) {
             if (!error) {
                 res.send(JSON.parse(body));
@@ -1011,8 +1015,8 @@ var AppServiceController = {
         var id = req.params.id;
         request(Base.mergeRequestOptions({
             method: 'get',
-            url: '/api/whse/app/stock/spaceid?diId='+id,
-            headers:req.headers,
+            url: '/api/whse/app/stock/spaceid?diId=' + id,
+            headers: req.headers,
         }, req, res), function (error, response, body) {
             if (!error) {
                 res.send(JSON.parse(body));
@@ -1025,7 +1029,7 @@ var AppServiceController = {
         request(Base.mergeRequestOptions({
             method: 'get',
             url: '/api/whse/app/stock/delivery/own/stockup',
-            headers:req.headers,
+            headers: req.headers,
         }, req, res), function (error, response, body) {
             if (!error) {
                 res.send(JSON.parse(body));
@@ -1039,7 +1043,7 @@ var AppServiceController = {
             method: 'post',
             url: '/api/whse/app/stock/spaceid/stock',
             form: req.body,
-            headers:req.headers,
+            headers: req.headers,
         }, req, res), function (error, response, body) {
             if (!error) {
                 res.send(JSON.parse(body));
@@ -1053,7 +1057,89 @@ var AppServiceController = {
             method: 'post',
             url: '/api/whse/app/stock/spaceid/stock/cancel',
             form: req.body,
-            headers:req.headers,
+            headers: req.headers,
+        }, req, res), function (error, response, body) {
+            if (!error) {
+                res.send(JSON.parse(body));
+            } else {
+                res.send(AppServiceController.error);
+            }
+        })
+    },
+    cargoutProdDelivery: function (req, res) {
+        request(Base.mergeRequestOptions({
+            method: 'get',
+            url: '/api/whse/cargout/prod/delivery',
+            headers: req.headers,
+        }, req, res), function (error, response, body) {
+            if (!error) {
+                res.send(JSON.parse(body));
+            } else {
+                res.send(AppServiceController.error);
+            }
+        })
+    },
+    cargoutProdOutDelivery: function (req, res) {
+        request(Base.mergeRequestOptions({
+            method: 'get',
+            url: '/api/whse/cargout/prod/out/delivery',
+            headers: req.headers,
+        }, req, res), function (error, response, body) {
+            if (!error) {
+                res.send(JSON.parse(body));
+            } else {
+                res.send(AppServiceController.error);
+            }
+        })
+    },
+    cargoutOrderList: function (req, res) {
+        var id = req.params.id;
+        request(Base.mergeRequestOptions({
+            method: 'get',
+            url: '/api/whse/app/cargoout/order/list/'+id,
+            headers: req.headers,
+        }, req, res), function (error, response, body) {
+            if (!error) {
+                res.send(JSON.parse(body));
+            } else {
+                res.send(AppServiceController.error);
+            }
+        })
+    },
+    cargoutPackageList: function (req, res) {
+        var id = req.params.id;
+        request(Base.mergeRequestOptions({
+            method: 'get',
+            url: '/api/whse/app/cargoout/package/list/'+id,
+            headers: req.headers,
+        }, req, res), function (error, response, body) {
+            if (!error) {
+                res.send(JSON.parse(body));
+            } else {
+                res.send(AppServiceController.error);
+            }
+        })
+    },
+    cargooutProd: function (req, res) {
+        request(Base.mergeRequestOptions({
+            method: 'post',
+            url: '/api/whse/app/cargoout/prod',
+            form: req.body,
+            headers: req.headers,
+        }, req, res), function (error, response, body) {
+            if (!error) {
+                res.send(JSON.parse(body));
+            } else {
+                res.send(AppServiceController.error);
+            }
+        })
+    },
+    cargooutProdClean: function (req, res) {
+        request(Base.mergeRequestOptions({
+            method: 'post',
+            url: '/api/whse/app/cargoout/prod/clean',
+            form: req.body,
+            headers: req.headers,
         }, req, res), function (error, response, body) {
             if (!error) {
                 res.send(JSON.parse(body));
