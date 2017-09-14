@@ -1719,6 +1719,8 @@ router.post('/app/cargoout/prod', AppServiceController.cargooutProd);
 // 出库-出库回退
 router.post('/app/cargoout/prod/clean', AppServiceController.cargooutProdClean);
 
+router.get('/app/cargout/package/diId/:id', AppServiceController.cargoutPackageDiId);
+
 
 /*
 * 页面范围: 报表管理

@@ -1148,6 +1148,20 @@ var AppServiceController = {
             }
         })
     },
+  cargoutPackageDiId: function (req, res) {
+    var id = req.params.id;
+    request(Base.mergeRequestOptions({
+      method: 'get',
+      url: '/api/whse/app/cargoout/package/list/diId/'+id+'?'+ queryString.stringify(req.query),
+      headers: req.headers,
+    }, req, res), function (error, response, body) {
+      if (!error) {
+        res.send(JSON.parse(body));
+      } else {
+        res.send(AppServiceController.error);
+      }
+    })
+  },
 };
 module.exports = AppServiceController;
 
