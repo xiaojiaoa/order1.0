@@ -158,7 +158,7 @@ var TaskseqController = {
             url: '/api/orders/childOrder?'+queryString.stringify(req.body),
             form:req.body,
         }, req, res), function (error, response, body) {
-            if (!error && response.statusCode == 201) {
+            if (!error && response.statusCode == 200) {
                 Base.handlerSuccess(res, req);
                 res.redirect(req.session.backPath?req.session.backPath:"/taskseq/openMultiOrder/"+tid);
             } else {
