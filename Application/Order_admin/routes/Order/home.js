@@ -1164,6 +1164,8 @@ router.post('/taskseq/communicates/doCreate', Middleware.AuthCheck,TaskseqContro
 // 查看工程订单
 router.get('/taskseq/openMultiOrder/:tid', Middleware.AuthCheck, TaskseqController.openMultiOrder);
 
+// 关闭工程订单子订单
+router.post('/taskseq/openMultiOrder/close', Middleware.AuthCheck, TaskseqController.closeMultiOrder);
 
 /*
  * 页面范围: 文件上传相关

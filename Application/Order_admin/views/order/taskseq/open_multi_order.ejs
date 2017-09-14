@@ -32,14 +32,25 @@
                 <!-- col -->
                 <div class="col-xs-12">
                     <legend>工程订单
-
+                        <form class="" method="post" action="/taskseq/openMultiOrder/close" style="display: inline-block;" id="closeMultiOrderForm">
+                            <input type="hidden" name="lid" value="<%= parenttid%>">
+                            <input type="hidden" name="tids" value="">
+                            <a class="label label-primary margin-left-10"  id="closeMultiOrder">
+                                关闭子订单
+                            </a>
+                        </form>
                     </legend>
 
                     <div class="table-responsive">
                         <table class="table table-bordered table-striped">
                             <thead>
                             <tr>
-                                <th width="100">序号</th>
+                                <th width="100">
+                                    <label  class="checkbox-inline">
+                                        <input type="checkbox" class="checkbox" id="checkAll" name="checkAll" />
+                                        <span>序号</span>
+                                    </label>
+                                </th>
                                 <th>订单号</th>
                                 <th>品牌</th>
                                 <th>主材颜色</th>
@@ -51,7 +62,12 @@
                             <% if(DWY_Helper.isCanLoop(progressList.result)){
                             progressList.result.forEach(function (element, index) { %>
                             <tr>
-                                <td><%= DWY_Helper.incrementNum(DWYRequest.query.pageNo,index)%></td>
+                                <td>
+                                    <label class="checkbox-inline">
+                                        <input type="checkbox" class="checkbox " name="checkVal" data-tid="<%= element.tid %>" <%= element.stcode>=639?'disabled':'' %>>
+                                        <span><%= DWY_Helper.incrementNum(DWYRequest.query.pageNo,index)%></span>
+                                    </label>
+                                </td>
                                 <td>
                                     <a href="/order/detail/<%= element.tid %>"><%= element.tid %></a>
                                 </td>
@@ -86,7 +102,33 @@
 
 <%- include('../layouts/footer'); %>
 <%- include('../layouts/footer_common_script'); %>
+<script type="text/javascript">
+    $(document).ready(function () {
+        //全选，全不选功能
+        DWY_Utils.CommonMethods.checkFuc("input[name=checkAll]","input[name=checkVal]:checkbox");
 
+        // 设置tids,需弹出框确认后提交表单
+        $("#closeMultiOrder").on({
+            click:function () {
+                var value=[];
+                $("input[name=checkVal]:checked").each(function () {
+                    value.push($(this).data("tid"))
+                });
+                if(value.length==0){
+                    layer.msg("请选择订单号",{icon:2,})
+                }else{
+                    layer.confirm('确认关闭吗？', {
+                        icon:3
+                    }, function(index){
+                        $("input[name=tids]").val(value.toString(','));
+                        $("#closeMultiOrderForm").submit();
+                        layer.close(index);
+                    });
+                }
+            }
+        });
+    });
+</script>
 
 
 

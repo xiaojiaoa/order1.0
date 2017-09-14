@@ -143,11 +143,29 @@ var TaskseqController = {
 
         var returnData = Base.mergeData(helper.mergeObject({
             title: ' ',
+            parenttid:tid,
             pagination: boostrapPaginator.render()
         }, resultList));
         res.render('order/taskseq/open_multi_order', returnData);
     });
 },
+    closeMultiOrder: function (req, res) {
+       console.log("测试",req.body);
+       console.log(11111,'/api/orders/childOrder?'+queryString.stringify(req.body));
+       var tid=req.body.tid;
+        request(Base.mergeRequestOptions({
+            method: 'delete',
+            url: '/api/orders/childOrder?'+queryString.stringify(req.body),
+            form:req.body,
+        }, req, res), function (error, response, body) {
+            if (!error && response.statusCode == 201) {
+                Base.handlerSuccess(res, req);
+                res.redirect(req.session.backPath?req.session.backPath:"/taskseq/openMultiOrder/"+tid);
+            } else {
+                Base.handlerError(res, req, error, response, body);
+            }
+        })
+    },
 
 };
 
