@@ -150,8 +150,8 @@ var TaskseqController = {
     });
 },
     closeMultiOrder: function (req, res) {
-       console.log("测试",req.body);
-       console.log(11111,'/api/orders/childOrder?'+queryString.stringify(req.body));
+     //  console.log("测试",req.body);
+    //   console.log(11111,'/api/orders/childOrder?'+queryString.stringify(req.body));
        var tid=req.body.tid;
         request(Base.mergeRequestOptions({
             method: 'delete',

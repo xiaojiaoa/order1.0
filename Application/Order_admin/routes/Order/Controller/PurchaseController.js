@@ -265,12 +265,12 @@ var PurchaseController = {
     },
     downloadPurchaseFileZip: function (req, res) {
         var purcId=req.body.purcId;
-        console.log(1111,'/api/purchases/suppfile?purcId='+purcId);
+       // console.log(1111,'/api/purchases/suppfile?purcId='+purcId);
         Base.multiDataRequest(req, res, [
               {url: '/api/purchases/suppfile?purcId='+purcId, method: 'GET', resConfig: {keyName: 'files', is_must: true}},
             ],
             function (req, res, resultList) {
-            console.log(222,resultList.files);
+          //  console.log(222,resultList.files);
                 var fileTypeList = [];
                 resultList.files.forEach(function(element,index){
                     fileTypeList.push({url:element.path,originalFileName:element.fileName});
@@ -280,7 +280,7 @@ var PurchaseController = {
                     list:fileTypeList,
                     fileName:req.body.purcId+'-相关文件'
                 }
-                 console.log('fileTypeList',JSON.stringify(data))
+              //   console.log('fileTypeList',JSON.stringify(data))
                 request(Base.mergeRequestOptions({
                     http: DWY_GLOBAL.server.Static.http,
                     host: DWY_GLOBAL.server.Static.host,
@@ -509,7 +509,7 @@ var PurchaseController = {
         })
     },
     uploadSuppfile: function (req, res) {
-        console.log(2222,JSON.stringify(req.body));
+     //   console.log(2222,JSON.stringify(req.body));
         request(Base.mergeRequestOptions({
             method: 'post',
             url: '/api/purchase/request/suppfile',

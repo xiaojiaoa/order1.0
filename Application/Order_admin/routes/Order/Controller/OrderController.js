@@ -1177,7 +1177,7 @@ var OrderController = {
 
     notPassSche: function (req, res) {
         req.body.causeStr =  req.body.causeStr.toString(',');
-        console.log('233333',req.body)
+     //   console.log('233333',req.body)
         request(Base.mergeRequestOptions({
             method: 'put',
             url: '/api/orders/chgback/orderBack?'+queryString.stringify(req.body),
