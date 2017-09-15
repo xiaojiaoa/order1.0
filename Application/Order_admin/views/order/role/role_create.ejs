@@ -193,10 +193,11 @@
         var parentId = $(this).attr('parentId');
         if(parentId){
           $("input[value="+parentId+"]").prop('checked',true);
-        }else{
-          var value = $(this).val();
-            $("input[parentId="+value+"]").prop('checked',this.checked);
         }
+//        else{
+//          var value = $(this).val();
+//            $("input[parentId="+value+"]").prop('checked',this.checked);
+//        }
         
       })
         

@@ -119,7 +119,7 @@
                             orderDetail.result.forEach(function (element, index) {  %>
                             <tr class=" <%= (element.apartWorkPieceNumber && element.scheduleWorkPieceNumber && element.apartWorkPieceNumber != element.scheduleWorkPieceNumber) ? "mark-row":"" %>">
                                 <td><%= DWY_Helper.incrementNum(DWYRequest.query.pageNo,index)%></td>
-                                <td><a href="/order/detail/<%= element.tid %>"><%= element.tid %></a></td>
+                                <td><a href="/order/detail/<%= element.tid %>"><%= element.tid %></a>×<%= element.orderNum%></td>
                                 <td><a href="/taskseq/index/<%= element.lid %>"><%= element.lid %></a></td>
                                 <td><%= element.orderTypeName %></td>
                                 <td><%= element.decoColorStr %></td>

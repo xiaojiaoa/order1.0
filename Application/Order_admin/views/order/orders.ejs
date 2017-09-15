@@ -369,7 +369,7 @@
                                 <th>审核日期</th>
                                 <th>预计发货</th>
                                 <th>订单状态</th>
-                                <th>货位号</th>
+                                <th class="display-none">货位号</th>
                                 <th>收款状态</th>
                                 <th>收款日期</th>
                                 <!--根据权限展示价格-->
@@ -412,7 +412,7 @@
                                     <%}%>
                                 </td>
                                 <td><a href="/taskseq/index/<%= element.lid %>"><%= element.lid %></a></td>
-                                <td><a href="/order/detail/<%= element.tid %>"><%= element.tid %></a></td>
+                                <td><a href="/order/detail/<%= element.tid %>"><%= element.tid %></a>×<%= element.orderNum%></td>
                                 <td><%= element.orderNum %></td>
                                 <td><%= element.typeStr %></td>
                                 <td><%= element.tagName %></td>
@@ -428,7 +428,7 @@
                                 <td><%= DWY_Helper.getLocalDateYMD(element.reviewTime) %></td>
                                 <td><%= DWY_Helper.getLocalDateYMD(element.deliveryDate) %></td>
                                 <td><%= DWY_Helper.getAssistVal(element.stcode,stcodeInfo) %></td>
-                                <td><%= element.cargoSpaceIds %></td>
+                                <td class="display-none"><%= element.cargoSpaceIds %></td>
                                 <td><%= element.payStatus %></td>
                                 <td><%= DWY_Helper.getLocalDate(element.receiptTime) %></td>
                                 <!--根据权限展示结算价-->

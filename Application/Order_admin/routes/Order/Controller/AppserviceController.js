@@ -997,6 +997,21 @@ var AppServiceController = {
             }
         })
     },
+  doChangeSpaceInfo: function (req, res) {
+    req.body.list = JSON.parse(req.body.list);
+    request(Base.mergeRequestOptions({
+      method: 'post',
+      url: '/api/whse/app/change/space/change/space/cargo/info',
+      headers: {'Content-type': 'application/json', 'access_token': req.headers.access_token},
+      body: JSON.stringify(req.body),
+    }, req, res), function (error, response, body) {
+      if (!error) {
+        res.send(JSON.parse(body));
+      } else {
+        res.send(AppServiceController.error);
+      }
+    })
+  },
     changeSpaceScan: function (req, res) {
         var id = req.params.id;
         request(Base.mergeRequestOptions({
