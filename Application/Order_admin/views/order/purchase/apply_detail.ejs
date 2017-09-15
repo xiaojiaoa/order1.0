@@ -117,7 +117,10 @@
                                 <% if(purchaseRequestDetail.reqType==30 && DWY_Helper.isCanLoop(purchaseRequestDetail.reqMaters)){ %>
                                  <a class="label label-success margin-left-10" id="exportOutsource">导出</a>
                                 <% }%>
-                                <a class="label label-primary margin-left-10 display-none" id="suppUploadFile">上传供应商文件</a>
+                                <%
+                                if(DWY_Helper.isCanLoop(suppsList)){%>
+                                <a class="label label-primary margin-left-10" id="suppUploadFile">上传供应商文件</a>
+                                <%}%>
                             </legend>
                         </div>
                     </div>
