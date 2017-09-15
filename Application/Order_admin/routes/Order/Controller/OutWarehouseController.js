@@ -22,7 +22,7 @@ var OutWarehouseController = {
     waitSendPage: function (req, res) {
         var paramObject = helper.genPaginationQuery(req);
         Base.multiDataRequest(req, res, [
-                {url: '/api/whse/cargout/delivery/page?'+queryString.stringify(req.query), method: 'GET', resConfig: {keyName: 'deliveryList', is_must: false}},
+                {url: '/api/whse/cargout/delivery/page/cust?'+queryString.stringify(req.query), method: 'GET', resConfig: {keyName: 'deliveryList', is_must: false}},
                 {url: '/api/assist/taskseq/status', method: 'GET', resConfig: {keyName: 'statusInfo', is_must: false}},
             ],
             function (req, res, resultList) {
@@ -45,14 +45,14 @@ var OutWarehouseController = {
 
     },
     deliveryTidList:function(req,res){
-        var lid = req.params.lid;
+        var cid = req.params.cid;
         // 添加模板文件
         var path = req.app.get('views') + '/order/shipments/deliver_tid.ejs';
         var template = require(path);
 
 
         request(Base.mergeRequestOptions({
-            url: '/api/whse/cargout/delivery/list/' + lid,
+            url: '/api/whse/cargout/delivery/list/cid/' + cid,
             method: 'get',
             timeout: 5000
         }, req, res), function (error, response, body) {

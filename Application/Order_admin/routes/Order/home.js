@@ -1045,7 +1045,7 @@ var OutWarehouseController = require('./Controller/OutWarehouseController');
 router.get('/waitSend', Middleware.AuthCheck, Middleware.FilterEmptyField, OutWarehouseController.waitSendPage);
 
 //填写发货通知单-list
-router.get('/delivery/tidList/:lid',OutWarehouseController.deliveryTidList);
+router.get('/delivery/tidList/:cid',OutWarehouseController.deliveryTidList);
 
 // 发货通知单页面
 router.post('/doDelivery', Middleware.AuthCheck, Middleware.apiLimiter, OutWarehouseController.doDelivery);
