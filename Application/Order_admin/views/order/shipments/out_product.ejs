@@ -191,7 +191,7 @@
                             <tr>
                                 <td><%= DWY_Helper.incrementNum(DWYRequest.query.pageNo,index)%></td>
                                 <td><a href="/outProduct/deatil/<%= element.tid %>"><%= element.outId %></a></td>
-                                <td><a href="/order/detail/<%= element.tid %>"><%= element.tid %></a>×<%= element.orderNum%></td>
+                                <td><a href="/order/detail/<%= element.tid %>"><%= element.tid %></a><%if(element.orderNum){%>×<%=element.orderNum%><%}%></td>
                                 <td><%= DWY_Helper.getLocalDate(element.deliveryTime) %></td>
                                 <td><%= element.cName %></td>
                                 <td><%= element.ftyPrice %></td>

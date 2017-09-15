@@ -211,7 +211,7 @@
                                 <td><%= DWY_Helper.incrementNum(DWYRequest.query.pageNo,index)%></td>
                                 <td><a  <%=  element.orderType ==20  ?  "href=/order/resupply/detail/"+ element.tid :  "href=/order/detail/"+element.tid  %>  ><%= element.tid %></a></a></td>
                                 <td><%= element.packageLid %></td>
-                                <td><a href="/taskseq/index/<%= element.lid %>"><%= element.lid %></a>×<%= element.orderNum%></td>
+                                <td><a href="/taskseq/index/<%= element.lid %>"><%= element.lid %></a></td>
                                 <td><%= element.batchNumber %></td>
                                 <td><%= element.packageNo %></td>
                                 <td><%= element.packageName %></td>

@@ -318,7 +318,7 @@
                                 </td>
                                 <td><a href="/customer/detail/<%= element.cid %>"><%= element.name %></a></td>
                                 <td><a href="/taskseq/index/<%= element.lid %>"><%= element.lid %></a></td>
-                                <td><a href="/order/detail/<%= element.tid %>"><%= element.tid %></a>×<%= element.orderNum%></td>
+                                <td><a href="/order/detail/<%= element.tid %>"><%= element.tid %></a><%if(element.orderNum){%>×<%=element.orderNum%><%}%></td>
                                 <td><%= element.typeStr %></td>
                                 <td><%= DWY_Helper.getAssistVal(element.brandId,brandInfo) %></td>
                                 <td><%= element.prodInfo %></td>

@@ -63,7 +63,7 @@
                                 <td><%= element.difficultyStr %></td>
                                 <td><%= element.typeStr %></td>
                                 <td><%= element.productTypeStr %></td>
-                                <td><a href="/order/detail/<%= element.tid %>"><%= element.tid %></a>×<%= element.orderNum%></td>
+                                <td><a href="/order/detail/<%= element.tid %>"><%= element.tid %></a><%if(element.orderNum){%>×<%=element.orderNum%><%}%></td>
                                 <td><%= element.storeName %></td>
                                 <td><%= element.customerName %></td>
                                 <td><%= element.productInfo %></td>
@@ -123,7 +123,7 @@
                                 <td><%= element.difficultyStr %></td>
                                 <td><%= element.typeStr %></td>
                                 <td><%= element.productTypeStr %></td>
-                                <td><a href="/order/detail/<%= element.tid %>"><%= element.tid %></a>×<%= element.orderNum%></td>
+                                <td><a href="/order/detail/<%= element.tid %>"><%= element.tid %></a><%if(element.orderNum){%>×<%=element.orderNum%><%}%></td>
                                 <td><%= element.storeName %></td>
                                 <td><%= element.customerName %></td>
                                 <td><%= element.productInfo %></td>
@@ -324,7 +324,7 @@
                         <td><%= element.typeStr %></td>
                         <td><%= element.urgentStr %></td>
                         <td><%= element.productTypeStr %></td>
-                        <td><a href="/order/detail/<%= element.tid %>"><%= element.tid %></a>×<%= element.orderNum%></td>
+                        <td><a href="/order/detail/<%= element.tid %>"><%= element.tid %></a><%if(element.orderNum){%>×<%=element.orderNum%><%}%></td>
                         <td><%= element.storeName %></td>
                         <td><%= element.customerName %></td>
                         <td><%= element.productInfo %></td>
