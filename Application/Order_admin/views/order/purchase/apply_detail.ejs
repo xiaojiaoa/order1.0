@@ -237,8 +237,10 @@
                 <label class="col-xs-4 control-label"><%= element.name%></label>
                 <input type="hidden" value="<%= element.id%>" name="suppId<%= index%>">
                 <div class="col-xs-8">
-                    <input class="form-control validate[required]" readonly value=""
+                    <input class="form-control" readonly value=""
                            name="fileName<%= index%>">
+                    <input class="form-control"  type="hidden"  value=""
+                           name="path<%= index%>">
                 </div>
             </div>
         </div>
@@ -270,6 +272,10 @@
 //            $(this).addClass("selected").siblings().removeClass("selected");
 //            $(".orderItemLayerTable table").eq($(this).index()).show().siblings().hide();
 //        });
+
+        // 初始化表单
+        $("#suppUploadFile-form").validationEngine();
+
         $("#PurchaseOrder").click(function(){
             var tid=$("#purchaseId").val();
             layer.confirm('确认生成采购单?',{icon: 3, title:'提示'},
@@ -410,7 +416,6 @@
                 })
             }
         });
-        var dataShares=[];
         $(".upload_files").on({
             click:function () {
                 var _this=$(this);
@@ -422,14 +427,9 @@
                     var config = {
                         'file_name': _this.prop('files')[0],
                     }
-                    uploadFuc.uploadMultiFile('/template/upload/single/share', config,labelId,function (data) {
+                    uploadFuc.uploadSingleFile('/template/upload/single/share', config,labelId,function (data) {
                         $(`input[name=fileName${num}]`).val(data.data.name);
-                        var aaa = {};
-                        aaa.fileName = data.data.name;
-                        aaa.path = data.data.url;
-                        aaa.suppId= $(`input[name=suppId${num}]`).val();
-                        dataShares.push(aaa);
-                        console.log("测试", JSON.stringify(dataShares));
+                        $(`input[name=path${num}]`).val(data.data.url);
                     });
                 })
             }
@@ -437,7 +437,18 @@
         $("#suppUploadFileBtn").on({
             click:function () {
                 var tid=$("input[name=mytid]").val();
+                var dataShares=[];
                 var supplierFileDto={};
+                for(var i=0;i<$(".upload_files").length;i++){
+                    if($(`input[name=fileName${i}]`).val()){
+                        var aaa = {};
+                        aaa.fileName = $(`input[name=fileName${i}]`).val();
+                        aaa.path = $(`input[name=path${i}]`).val();
+                        aaa.suppId= $(`input[name=suppId${i}]`).val();
+                        dataShares.push(aaa);
+                    }
+                }
+              //  console.log("测试", JSON.stringify(dataShares));
                 supplierFileDto.reqId=tid;
                 supplierFileDto.supplierFiles=dataShares;
                 $.ajax({
@@ -452,7 +463,6 @@
                         if (response.status == 200) {
                             successLayout.hrefTo("/purchase/applyDetail/"+tid);
                         } else {
-                            layer.close(index)
                             errorLayout.normal(response);
                         }
                     }
