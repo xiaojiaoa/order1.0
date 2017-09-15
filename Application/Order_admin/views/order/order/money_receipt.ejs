@@ -266,7 +266,7 @@
                             <tr>
                                 <td width="84px"><%= DWY_Helper.incrementNum(DWYRequest.query.pageNo,index)%></td>
                                 <td><%= element.custName%></td>
-                                <td><a href="/order/detail/<%= element.tid %>"><%= element.tid %></a></td>
+                                <td><a href="/order/detail/<%= element.tid %>"><%= element.tid %></a>×<%= element.orderNum%></td>
                                 <td><%= element.stcodeName %></td>
                                 <td><%= element.orgName %></td>
                                 <td><%= element.storeName %></td>

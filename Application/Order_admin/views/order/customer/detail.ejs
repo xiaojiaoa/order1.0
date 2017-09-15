@@ -105,7 +105,7 @@
                                 <%
                                     var orderList="";
                                     element.orders.forEach(function (orderElement) {
-                                        orderList = orderList+"<a href=/order/detail/"+ orderElement.tid +">"+orderElement.tid+"     &nbsp</a>";
+                                        orderList = orderList+"<a href=/order/detail/"+ orderElement.tid +">"+orderElement.tid+"     &nbsp</a>"+'×'+orderElement.orderNum;
                                     })
                                 %>
                                 <td><%- orderList %></td>
