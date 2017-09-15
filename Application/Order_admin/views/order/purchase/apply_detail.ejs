@@ -234,11 +234,19 @@
         <!--输入字段-->
         <div class="col-xs-10">
             <div class="form-group  margin-top-10">
-                <label class="col-xs-4 control-label"><%= element.name%></label>
-                <input type="hidden" value="<%= element.id%>" name="suppId<%= index%>">
+                <label class="col-xs-4 control-label"><%= element.suppName%></label>
+                <input type="hidden" value="<%= element.suppId%>" name="suppId<%= index%>">
                 <div class="col-xs-8">
                     <input class="form-control validate[required]" readonly value=""
                            name="fileName<%= index%>">
+                    <div class="margin-top-10 text-danger">
+                        <label>文件名：
+                                <% if(element.supplierFile){
+                                if(element.supplierFile.fileName){ %>
+                                <%= element.supplierFile.fileName %>
+                            <% }}%>
+                        </label>
+                    </div>
                 </div>
             </div>
         </div>

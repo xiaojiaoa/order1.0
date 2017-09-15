@@ -119,7 +119,7 @@ var PurchaseController = {
         var bid = req.query.bid? req.query.bid: req.session.user.bid;
         Base.multiDataRequest(req, res, [
                 {url: '/api/purchase/request/'+tid, method: 'GET', resConfig: {keyName: 'purchaseRequestDetail', is_must: true}},
-                {url: '/api/purchase/reqmaterial/supps/'+tid, method: 'GET', resConfig: {keyName: 'suppsList', is_must: true}},
+                {url: '/api/purchase/request/suppfile?reqId='+tid, method: 'GET', resConfig: {keyName: 'suppsList', is_must: true}},
             ],
             function (req, res, resultList) {
                 var returnData = Base.mergeData(helper.mergeObject({
