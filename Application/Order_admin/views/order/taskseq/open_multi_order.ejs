@@ -73,7 +73,9 @@
                                 <td><%= element.prodInfo  %></td>
                                 <td><%= element.stcodeStr %></td>
                                 <td>
+                                    <% if(element.stcode<639){%>
                                     <a class="label label-success modify_prodInfo"  data-tid="<%=element.tid %>" data-prodInfo="<%=element.prodInfo %>">修改订单信息</a>
+                                    <%}%>
                                 </td>
                             </tr>
                             <% })
