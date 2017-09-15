@@ -591,6 +591,39 @@ var ReportController = {
             form:JSON.parse(req.body.mytest),
         }, req, res)).pipe(res)
     },
+    workpieceNestingAllPage: function (req, res) {
+       console.log(1111,'/api/orders/package/schedule/static?'+ queryString.stringify(req.query));
+        var paramObject = helper.genPaginationQuery(req);
+        Base.multiDataRequest(req, res, [
+            {url: '/api/orders/package/schedule/static?'+queryString.stringify(req.query), method: 'GET', resConfig: {keyName: 'dataList', is_must: true}},
+        ], function (req, res, resultList) {
+
+            var paginationInfo = resultList.dataList;
+
+            var boostrapPaginator = new Pagination.TemplatePaginator(helper.genPageInfo({
+                prelink: paramObject.withoutPageNo,
+                current: paginationInfo.page,
+                rowsPerPage: paginationInfo.pageSize,
+                totalResult: paginationInfo.totalItems
+            }));
+
+            var returnData = Base.mergeData(helper.mergeObject({
+                title: ' ',
+                pagination: boostrapPaginator.render(),
+                Permission :Permissions,
+            },resultList));
+            res.render('order/report/workpiece_nesting_all', returnData);
+        });
+
+    },
+    exportWorkpieceNestingAll: function (req, res) {
+         console.log(1111,JSON.parse(req.body.mytest));
+        request(Base.mergeRequestOptions({
+            method: 'post',
+            url: '/api/orders/package/export/static/schedule',
+            form:JSON.parse(req.body.mytest),
+        }, req, res)).pipe(res)
+    },
 
 };
 module.exports = ReportController;
