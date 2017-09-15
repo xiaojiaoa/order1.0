@@ -1724,7 +1724,7 @@ router.post('/app/cargoout/prod', AppServiceController.cargooutProd);
 router.post('/app/cargoout/prod/clean', AppServiceController.cargooutProdClean);
 
 router.get('/app/cargout/package/diId/:id', AppServiceController.cargoutPackageDiId);
-
+router.post('/app/doChange/space/info', AppServiceController.doChangeSpaceInfo);
 
 /*
 * 页面范围: 报表管理
