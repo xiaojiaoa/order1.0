@@ -25,10 +25,11 @@
         {
             change: function (e) {
                 var _this = $(this);
-                var congig = {
+                var labelId='#label-upload-file';
+                var config = {
                     'file_name': _this.prop('files')[0],
                 }
-                uploadFuc.uploadSingleFile('/template/upload/single/share', congig, function (data) {
+                uploadFuc.uploadSingleFile('/template/upload/single/share', config,labelId, function (data) {
 
                     var aaa = {};
                     aaa.name = data.data.name;
