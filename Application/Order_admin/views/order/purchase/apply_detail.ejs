@@ -227,12 +227,12 @@
 <form id="suppUploadFile-form" class="col-xs-12 layer-template" action="" method="post">
 
 
+    <%
+    if(DWY_Helper.isCanLoop(suppsList)){
+    suppsList.forEach(function (element, index) { %>
     <div class="col-xs-12  margin-top-10">
         <!--输入字段-->
-        <%
-        if(DWY_Helper.isCanLoop(suppsList)){
-        suppsList.forEach(function (element, index) { %>
-        <div class="col-xs-9">
+        <div class="col-xs-10">
             <div class="form-group  margin-top-10">
                 <label class="col-xs-4 control-label"><%= element.name%></label>
                 <input type="hidden" value="<%= element.id%>" name="suppId<%= index%>">
@@ -242,17 +242,19 @@
                 </div>
             </div>
         </div>
-        <%})}%>
-
-        <div class="col-xs-3">
-            <div class="col-xs-12 text-right">
-                <label for="dwy_file_upload" class="btn btn-primary" id="label-upload-file">
+        <div class="col-xs-2">
+            <div class="form-group  margin-top-10">
+                <label for="dwy_file_upload<%= index%>"
+                       class="btn btn-primary upload_files"
+                       id="label-upload-file<%= index%>"
+                       num="<%= index%>"
+                >
                     点击上传 <i class="fa fa-upload"></i></label>
-                <input type="file" name="file_name" id="dwy_file_upload" style="display: none;">
+                <input type="file" name="file_name<%= index%>" id="dwy_file_upload<%= index%>" style="display: none;">
             </div>
         </div>
     </div>
-
+    <%})}%>
 
     <div class="col-xs-12 text-center margin-top-10">
         <input type="hidden" value="<%= tid%>" name="mytid">
@@ -409,28 +411,29 @@
             }
         });
         var dataShares=[];
-        var num=0;
-        $("#dwy_file_upload").on(
-            {
-                change: function (e) {
+        $(".upload_files").on({
+            click:function () {
+                var _this=$(this);
+                var inputId='#'+_this.attr("for");
+                var labelId='#'+_this.attr("id");
+                var num=parseInt(_this.attr("num"));
+                $(inputId).on('change',function () {
                     var _this = $(this);
-                    var congig = {
+                    var config = {
                         'file_name': _this.prop('files')[0],
                     }
-                    uploadFuc.uploadSingleFile('/template/upload/single/share', congig, function (data) {
+                    uploadFuc.uploadMultiFile('/template/upload/single/share', config,labelId,function (data) {
                         $(`input[name=fileName${num}]`).val(data.data.name);
                         var aaa = {};
                         aaa.fileName = data.data.name;
                         aaa.path = data.data.url;
                         aaa.suppId= $(`input[name=suppId${num}]`).val();
                         dataShares.push(aaa);
-                        $("#label-upload-file").html('继续上传<i class="fa fa-upload">');
                         console.log("测试", JSON.stringify(dataShares));
-                        num++;
                     });
-                },
+                })
             }
-        );
+        });
         $("#suppUploadFileBtn").on({
             click:function () {
                 var tid=$("input[name=mytid]").val();
