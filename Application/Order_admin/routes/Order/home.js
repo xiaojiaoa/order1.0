@@ -479,6 +479,7 @@ router.post('/orders/heap', Middleware.AuthCheck, OrderController.batchHeap);
 
 router.post('/orders/batchNumber/downloadZip', Middleware.AuthCheck, OrderController.downloadZip);
 router.get('/orders/batchNumber/downloadPackage/:batchNumber/:factoryId', Middleware.AuthCheck, OrderController.downloadPackage);
+router.get('/orders/batchNumber/downloadAccessory/:batchNumber/:factoryId', Middleware.AuthCheck, OrderController.downloadAccessory);
 
 // 生成包装操作
 router.post('/orders/batchNumber/package/packet', Middleware.apiLimiter,Middleware.AuthCheck,OrderController.doPacketBatchNumber);
@@ -1809,14 +1810,26 @@ router.get('/report/store/sales', Middleware.AuthCheck,Middleware.FilterEmptyFie
 // 排料工件报表
 router.get('/report/factory/workpiece_nesting', Middleware.AuthCheck,Middleware.FilterEmptyField,ReportController.workpieceNestingPage);
 
-// 导出排料工件报表
+// 导出--排料工件报表
 router.post('/report/factory/export/workpiece_nesting', Middleware.AuthCheck,Middleware.FilterEmptyField,ReportController.exportWorkpieceNesting);
 
 // 排料工件汇总报表
 router.get('/report/factory/workpieceNesting/all', Middleware.AuthCheck,Middleware.FilterEmptyField,ReportController.workpieceNestingAllPage);
 
-// 导出排料工件汇总报表
+// 导出--排料工件汇总报表
 router.post('/report/factory/export/workpiece_nesting_all', Middleware.AuthCheck,Middleware.FilterEmptyField,ReportController.exportWorkpieceNestingAll);
+
+// 排料配件报表
+router.get('/report/factory/part_nesting', Middleware.AuthCheck,Middleware.FilterEmptyField,ReportController.partNestingPage);
+
+// 导出--排料配件报表
+router.post('/report/factory/export/part_nesting', Middleware.AuthCheck,Middleware.FilterEmptyField,ReportController.exportPartNesting);
+
+// 排料配件汇总报表
+router.get('/report/factory/partNesting/all', Middleware.AuthCheck,Middleware.FilterEmptyField,ReportController.partNestingAllPage);
+
+// 导出--排料配件汇总报表
+router.post('/report/factory/export/part_nesting_all', Middleware.AuthCheck,Middleware.FilterEmptyField,ReportController.exportPartNestingAll);
 
 
 

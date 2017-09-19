@@ -163,6 +163,7 @@
                                     <a class="label label-primary schedule" batchNumber="<%= element.batchNumber %>" factoryId="<%= element.factoryId %>">确认排料</a>
 
                                     <%}%>
+                                    <a class="label label-success" href="/orders/batchNumber/downloadAccessory/<%= element.batchNumber %>/<%= element.factoryId %>">导出配件清单</a>
                                     <% if(element.stcode>=1){%>
                                     <a class="label label-success" href="/orders/batchNumber/downloadPackage/<%= element.batchNumber %>/<%= element.factoryId %>">导出工件清单</a>
                                     <%}%>
