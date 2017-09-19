@@ -624,7 +624,7 @@ var ReportController = {
 
         var paramObject = helper.genPaginationQuery(req);
         Base.multiDataRequest(req, res, [
-            {url: '/api/orders/package/schedule?'+ queryString.stringify(req.query), method: 'GET', resConfig: {keyName: 'dataList', is_must: true}},
+            {url: '/api/orders/package/accessory/schedule?'+ queryString.stringify(req.query), method: 'GET', resConfig: {keyName: 'dataList', is_must: true}},
         ], function (req, res, resultList) {
 
             var paginationInfo = resultList.dataList;
@@ -648,14 +648,14 @@ var ReportController = {
     exportPartNesting: function (req, res) {
         request(Base.mergeRequestOptions({
             method: 'post',
-            url: '/api/orders/package/export/schedule',
+            url: '/api/orders/package/export/accessory/schedule',
             form:JSON.parse(req.body.mytest),
         }, req, res)).pipe(res)
     },
     partNestingAllPage: function (req, res) {
         var paramObject = helper.genPaginationQuery(req);
         Base.multiDataRequest(req, res, [
-            {url: '/api/orders/package/schedule/static?'+queryString.stringify(req.query), method: 'GET', resConfig: {keyName: 'dataList', is_must: true}},
+            {url: '/api/orders/package/accessory/schedule/static?'+queryString.stringify(req.query), method: 'GET', resConfig: {keyName: 'dataList', is_must: true}},
         ], function (req, res, resultList) {
 
             var paginationInfo = resultList.dataList;
@@ -679,7 +679,7 @@ var ReportController = {
     exportPartNestingAll: function (req, res) {
         request(Base.mergeRequestOptions({
             method: 'post',
-            url: '/api/orders/package/export/static/schedule',
+            url: '/api/orders/package/export/accessory/static/schedule',
             form:JSON.parse(req.body.mytest),
         }, req, res)).pipe(res)
     },
