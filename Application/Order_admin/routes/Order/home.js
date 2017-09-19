@@ -118,6 +118,7 @@ var Middleware = {
                         };
 
                         next();
+
                     } else {
                         res.redirect('/login');
                     }
@@ -148,7 +149,7 @@ var Middleware = {
         next();
     },
     apiLimiter: new RateLimit({
-        windowMs: 1*1000, // 时间段 1 秒
+        windowMs: 3*1000, // 时间段 1 秒
         max: 1, // 时间段内限制每个IP的请求数
         delayMs: 0 ,// 禁用延迟
         skip: function (req, res) {
@@ -478,6 +479,7 @@ router.post('/orders/heap', Middleware.AuthCheck, OrderController.batchHeap);
 
 router.post('/orders/batchNumber/downloadZip', Middleware.AuthCheck, OrderController.downloadZip);
 router.get('/orders/batchNumber/downloadPackage/:batchNumber/:factoryId', Middleware.AuthCheck, OrderController.downloadPackage);
+router.get('/orders/batchNumber/downloadAccessory/:batchNumber/:factoryId', Middleware.AuthCheck, OrderController.downloadAccessory);
 
 // 生成包装操作
 router.post('/orders/batchNumber/package/packet', Middleware.apiLimiter,Middleware.AuthCheck,OrderController.doPacketBatchNumber);
@@ -1044,10 +1046,10 @@ var OutWarehouseController = require('./Controller/OutWarehouseController');
 router.get('/waitSend', Middleware.AuthCheck, Middleware.FilterEmptyField, OutWarehouseController.waitSendPage);
 
 //填写发货通知单-list
-router.get('/delivery/tidList/:lid',OutWarehouseController.deliveryTidList);
+router.get('/delivery/tidList/:cid',OutWarehouseController.deliveryTidList);
 
 // 发货通知单页面
-router.post('/doDelivery', Middleware.AuthCheck, OutWarehouseController.doDelivery);
+router.post('/doDelivery', Middleware.AuthCheck, Middleware.apiLimiter, OutWarehouseController.doDelivery);
 
 // 发货通知单页面
 router.get('/deliveryNote', Middleware.AuthCheck,Middleware.FilterEmptyField,Middleware.SetBackPath, OutWarehouseController.deliveryNotePage);
@@ -1110,6 +1112,12 @@ router.get('/productStock/pakg/:tid', Middleware.AuthCheck, OutWarehouseControll
 
 router.get('/productOut/pakg/:tid', Middleware.AuthCheck, OutWarehouseController.productOutPakgList);
 
+// 将货位中可以备货的包，订单，流水都备货
+router.post('/productOut/spaceid/stock', Middleware.AuthCheck, OutWarehouseController.productOutsSpaceidStock);
+
+// 将货位中可以备货的包，订单，流水都取消备货
+router.post('/productOut/spaceid/stockCancel', Middleware.AuthCheck, OutWarehouseController.productOutsSpaceidStockCancel);
+
 // 大板领料单页面
 router.get('/outBred', Middleware.AuthCheck, OutWarehouseController.outBredPage);
 
@@ -1154,8 +1162,14 @@ router.get('/taskseq/communicatesAll/:lid', Middleware.AuthCheck,TaskseqControll
 // 新增交流信息
 router.post('/taskseq/communicates/doCreate', Middleware.AuthCheck,TaskseqController.doCreateCommunicate);
 
+// 查看子订单
+router.get('/taskseq/openMultiOrder/:tid', Middleware.AuthCheck, Middleware.SetBackPath,TaskseqController.openMultiOrder);
 
+// 查看子订单--关闭子订单
+router.post('/taskseq/openMultiOrder/close', Middleware.AuthCheck, TaskseqController.closeMultiOrder);
 
+// 查看子订单--修改订单信息
+router.post('/taskseq/openMultiOrder/modify', Middleware.AuthCheck, TaskseqController.modifyMultiOrder);
 
 /*
  * 页面范围: 文件上传相关
@@ -1263,7 +1277,7 @@ router.get('/supplier/offer_product/:tid', Middleware.AuthCheck,Middleware.Filte
 router.post('/supplier/updateDate', Middleware.AuthCheck,SupplierController.updateDate);
 
 // 删除供应商物料关联
-router.post('/supplier/deleteRelate/:sid/:mid', Middleware.AuthCheck,SupplierController.deleteRelate);
+router.post('/supplier/deleteRelate', Middleware.AuthCheck,SupplierController.deleteRelate);
 
 // 供应商禁用+启用
 router.post('/supplier/supDoDelete/:tid/:type', Middleware.AuthCheck, SupplierController.supplierdoDelete);
@@ -1319,7 +1333,8 @@ router.get('/purchase/detail/finance', Middleware.AuthCheck,Middleware.FilterEmp
 router.post('/purchases/Order/:tid', Middleware.AuthCheck,PurchaseController.purchaseOrder);
 // 采购单详情
 router.get('/purchase/orderDetail/:tid', Middleware.AuthCheck,PurchaseController.purchaseOrderDetail);
-
+// 采购单--下载文件
+router.post('/purchase/orderDetail/downloadZip', Middleware.AuthCheck, PurchaseController.downloadPurchaseFileZip);
 // 采购单详情--付款凭证上传type=10
 router.post('/purchase/uploadProof', Middleware.AuthCheck,PurchaseController.uploadProof);
 
@@ -1357,6 +1372,9 @@ router.get('/outsource/suppliers/:id', Middleware.AuthCheck,PurchaseController.s
 
 // 采购——外协——导出
 router.get('/purchase/export', Middleware.AuthCheck,PurchaseController.exportPurchase);
+
+// 供应商上传文件
+router.post('/purchases/suppfile/upload', Middleware.AuthCheck,PurchaseController.uploadSuppfile);
 
 /*
  * 页面范围: 网络预约相关
@@ -1425,6 +1443,8 @@ router.get('/completeSet', Middleware.AuthCheck,CustomerProductController.custom
 // 客户产品列表-执行查询
 router.get('/orders/completeSet', Middleware.AuthCheck,Middleware.FilterEmptyField,CustomerProductController.customerProListPage);
 
+// 齐套查询--未上架页面
+router.get('/orders/completeSet/unshelf', Middleware.AuthCheck,Middleware.FilterEmptyField,CustomerProductController.unshelfPage);
 
 
 /*
@@ -1617,56 +1637,56 @@ router.post('/app/cargoin/dealCargoin', AppServiceController.dealCargoin);
 router.post('/app/cargoin/unShelve', AppServiceController.unShelve);
 // 已扫描货笼显示分配界面
 router.post('/app/cargoin/unShelveShow', AppServiceController.unShelveShow);
-//扫描货位
+// 扫描货位
 router.post('/app/cargoin/scanCargoin', AppServiceController.scanCargoin);
-//取消扫描
+// 取消扫描
 router.post('/app/cargoin/cancelScan', AppServiceController.cancelScanCargoin);
-//待上架
+// 待上架
 router.post('/app/cargoin/waitRacking', AppServiceController.waitRacking);
-//入库确认上架
+// 入库确认上架
 router.post('/app/cargoin/confirmRacking', AppServiceController.confirmRacking);
-//入库时取消上架
+// 入库时取消上架
 router.post('/app/cargoin/cancelRacking', AppServiceController.cancelRacking);
-//已扫描已入库但是已上架的包所属的货位
+// 已扫描已入库但是已上架的包所属的货位
 router.get('/app/cargoin/shelvesSpace', AppServiceController.shelvesSpacePage);
-//已扫描已入库但是未上架的包所属的货位
+// 已扫描已入库但是未上架的包所属的货位
 router.get('/app/cargoin/shelvesSpaceId', AppServiceController.shelvesSpace);
-//扫描包装流水号，显示货位号
+// 扫描包装流水号，显示货位号
 router.get('/app/cargoin/lidCargoShow/:packageLid', AppServiceController.lidCargoShow);
-//订单货位查看功能
+// 订单货位查看功能
 router.get('/app/cargoin/orderCargoShow/:tid', AppServiceController.orderCargoShow);
-//查看货位的上架下架等情况
+// 查看货位的上架下架等情况
 router.get('/app/cargoin/offshelvesShow/:offshelves', AppServiceController.offshelvesShow);
 
-//按订单号查询批次下的
+// 按订单号查询批次下的
 router.get('/app/cargoin/findBatchnumber/:batid', AppServiceController.findBatchnumber);
-//按订单号查询批次某流水下的
+// 按订单号查询批次某流水下的
 router.get('/app/cargoin/findLid/:lid', AppServiceController.findLid);
-//按订单号查询批次流水某订单下的
+// 按订单号查询批次流水某订单下的
 router.get('/app/cargoin/findTid/:tid', AppServiceController.findTid);
-//订单号查找未入库状态下的包装数量
+// 订单号查找未入库状态下的包装数量
 router.get('/app/cargoin/notinInfo/:tid', AppServiceController.notinInfo);
 
-//入库-货位扫描
+// 入库-货位扫描
 router.post('/app/cargoin/scanningCargoin/:spaceId', AppServiceController.scanningCargoin);
-//货物扫描
+// 货物扫描
 router.post('/app/cargoin/goodsScanCargoin/:packageLid', AppServiceController.scanningGoods);
-//扫描后查询订单流水包装状态
+// 扫描后查询订单流水包装状态
 router.get('/app/cargoin/allList', AppServiceController.orderTaskStatusCargo);
-//入库操作是显示流水订单包装状态
+// 入库操作是显示流水订单包装状态
 router.get('/app/cargoin/scanList', AppServiceController.orderTaskPackageCargo);
-//取消货物的扫描
+// 取消货物的扫描
 router.post('/app/cargoin/goodsScanCancel', AppServiceController.goodsScanCancle);
 //货物入库且货位待上架
 router.post('/app/cargoin/cargoinRacking', AppServiceController.cargoinRacking);
 
-//移库扫描包
+// 移库扫描包
 router.post('/app/cargoin/cargoMovingPack', AppServiceController.cargoMovingPack);
-//移库扫描货位
+// 移库扫描货位
 router.post('/app/cargoin/cargoMoving', AppServiceController.cargoMoving);
-//移库显示移库包装列表
+// 移库显示移库包装列表
 router.get('/app/cargoin/moveShowPacklist', AppServiceController.moveShowPacklist);
-//移库包装落位
+// 移库包装落位
 router.post('/app/cargoin/cargoPostingup', AppServiceController.cargoPostingup);
 
 
@@ -1678,7 +1698,37 @@ router.get('/app/orders/sort/workPiece/scaned', AppServiceController.sortWorkPie
 
 
 router.get('/app/cargoin/shelves/space/:id', AppServiceController.cargoinShelvesSpace);
+// 移库-移库扫描货位
+router.get('/app/change/space/:id', AppServiceController.changeSpace);
+// 移库-移库
+router.post('/app/doChange/space', AppServiceController.doChangeSpace);
 
+router.get('/app/change/spaceScan/:id', AppServiceController.changeSpaceScan);
+
+// 备货-从一个发货清单点入后显示的货位信息
+router.get('/app/stock/spaceid/:id', AppServiceController.stockSpace);
+// 备货-自己的可备货发货清单（已完成的）
+router.get('/app/stock/stockup/own', AppServiceController.stockupOwn);
+// 备货-将货位中可以备货的包，订单，流水都备货
+router.post('/app/stock/space', AppServiceController.doSpaceStock);
+// 备货-将货位中可以备货的包，订单，流水都取消备货
+router.post('/app/stock/space/cancel', AppServiceController.cancelSpaceStock);
+
+// 出库-列出可以出库的发货清单
+router.get('/app/cargout/prod/delivery', AppServiceController.cargoutProdDelivery);
+// 出库-按照发货通知单查找订单号
+router.get('/app/cargout/prod/out/delivery', AppServiceController.cargoutProdOutDelivery);
+// 出库-按照发货通知单找出可发货货订单
+router.get('/app/cargoout/order/list/:id', AppServiceController.cargoutOrderList);
+// 出库-按照订单号查出包装
+router.get('/app/cargoout/package/list/:id', AppServiceController.cargoutPackageList);
+// 出库-出库
+router.post('/app/cargoout/prod', AppServiceController.cargooutProd);
+// 出库-出库回退
+router.post('/app/cargoout/prod/clean', AppServiceController.cargooutProdClean);
+
+router.get('/app/cargout/package/diId/:id', AppServiceController.cargoutPackageDiId);
+router.post('/app/doChange/space/info', AppServiceController.doChangeSpaceInfo);
 
 /*
 * 页面范围: 报表管理
@@ -1751,9 +1801,38 @@ router.get('/report/costRate/depart', Middleware.AuthCheck,Middleware.FilterEmpt
 
 // 门店对账单报表
 router.get('/report/store/cashFlow', Middleware.AuthCheck,Middleware.FilterEmptyField,ReportController.cashFlowPage);
+// 导出门店对账单
+router.post('/orders/export/cashFlow',Middleware.AuthCheck,ReportController.exportcashFlow);
 
 // 门店销量报表
 router.get('/report/store/sales', Middleware.AuthCheck,Middleware.FilterEmptyField,ReportController.storeSalesPage);
+
+// 排料工件报表
+router.get('/report/factory/workpiece_nesting', Middleware.AuthCheck,Middleware.FilterEmptyField,ReportController.workpieceNestingPage);
+
+// 导出--排料工件报表
+router.post('/report/factory/export/workpiece_nesting', Middleware.AuthCheck,Middleware.FilterEmptyField,ReportController.exportWorkpieceNesting);
+
+// 排料工件汇总报表
+router.get('/report/factory/workpieceNesting/all', Middleware.AuthCheck,Middleware.FilterEmptyField,ReportController.workpieceNestingAllPage);
+
+// 导出--排料工件汇总报表
+router.post('/report/factory/export/workpiece_nesting_all', Middleware.AuthCheck,Middleware.FilterEmptyField,ReportController.exportWorkpieceNestingAll);
+
+// 排料配件报表
+router.get('/report/factory/part_nesting', Middleware.AuthCheck,Middleware.FilterEmptyField,ReportController.partNestingPage);
+
+// 导出--排料配件报表
+router.post('/report/factory/export/part_nesting', Middleware.AuthCheck,Middleware.FilterEmptyField,ReportController.exportPartNesting);
+
+// 排料配件汇总报表
+router.get('/report/factory/partNesting/all', Middleware.AuthCheck,Middleware.FilterEmptyField,ReportController.partNestingAllPage);
+
+// 导出--排料配件汇总报表
+router.post('/report/factory/export/part_nesting_all', Middleware.AuthCheck,Middleware.FilterEmptyField,ReportController.exportPartNestingAll);
+
+
+
 /*
  * 页面范围: 财务统计
  * 控制器:   FinancialStatisticsController

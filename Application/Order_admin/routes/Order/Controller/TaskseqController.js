@@ -123,7 +123,64 @@ var TaskseqController = {
         },resultList));
         res.render('order/taskseqs', returnData);
     });
-}
+},
+
+    openMultiOrder: function (req, res) {
+        var tid =  req.params.tid;
+    var paramObject = helper.genPaginationQuery(req);
+    Base.multiDataRequest(req, res, [
+        {url: '/api/orders/childOrderList/?parentTid='+tid+'&'+queryString.stringify(req.query), method: 'GET', resConfig: {keyName: 'progressList', is_must: true}},
+    ], function (req, res, resultList) {
+
+        var paginationInfo = resultList.progressList;
+
+        var boostrapPaginator = new Pagination.TemplatePaginator(helper.genPageInfo({
+            prelink: paramObject.withoutPageNo,
+            current: paginationInfo.page,
+            rowsPerPage: paginationInfo.pageSize,
+            totalResult: paginationInfo.totalItems
+        }));
+
+        var returnData = Base.mergeData(helper.mergeObject({
+            title: ' ',
+            parenttid:tid,
+            pagination: boostrapPaginator.render()
+        }, resultList));
+        res.render('order/taskseq/open_multi_order', returnData);
+    });
+},
+    closeMultiOrder: function (req, res) {
+        //  console.log("测试",req.body);
+        //   console.log(11111,'/api/orders/childOrder?'+queryString.stringify(req.body));
+        var tid=req.body.tid;
+        request(Base.mergeRequestOptions({
+            method: 'delete',
+            url: '/api/orders/childOrder?'+queryString.stringify(req.body),
+            form:req.body,
+        }, req, res), function (error, response, body) {
+            if (!error && response.statusCode == 200) {
+                Base.handlerSuccess(res, req);
+                res.redirect(req.session.backPath?req.session.backPath:"/taskseq/openMultiOrder/"+tid);
+            } else {
+                Base.handlerError(res, req, error, response, body);
+            }
+        })
+    },
+    modifyMultiOrder: function (req, res) {
+        var tid=req.body.tid;
+        request(Base.mergeRequestOptions({
+            method: 'put',
+            url: '/api/orders/childOrder/prodInfo?'+queryString.stringify(req.body),
+            form:req.body,
+        }, req, res), function (error, response, body) {
+            if (!error && response.statusCode == 200) {
+                Base.handlerSuccess(res, req);
+                res.redirect(req.session.backPath?req.session.backPath:"/taskseq/openMultiOrder/"+tid);
+            } else {
+                Base.handlerError(res, req, error, response, body);
+            }
+        })
+    },
 
 };
 

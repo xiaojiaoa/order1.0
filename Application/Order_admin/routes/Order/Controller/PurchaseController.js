@@ -9,6 +9,7 @@ var queryString = require('qs');
 
 //自定义帮助函数
 var helper = require('../config/helper');
+var DWY_GLOBAL = require('../config/global');
 
 //请求模块
 var request = require('request');
@@ -112,13 +113,13 @@ var PurchaseController = {
         })
     },
 
-
     //请购单详情
     purchaseApplyDetailPage: function (req, res) {
         var tid = req.params.tid;
         var bid = req.query.bid? req.query.bid: req.session.user.bid;
         Base.multiDataRequest(req, res, [
                 {url: '/api/purchase/request/'+tid, method: 'GET', resConfig: {keyName: 'purchaseRequestDetail', is_must: true}},
+                {url: '/api/purchase/request/suppfile?reqId='+tid, method: 'GET', resConfig: {keyName: 'suppsList', is_must: true}},
             ],
             function (req, res, resultList) {
                 var returnData = Base.mergeData(helper.mergeObject({
@@ -261,6 +262,37 @@ var PurchaseController = {
                 }, resultList));
                 res.render('order/purchase/order_detail', returnData);
             });
+    },
+    downloadPurchaseFileZip: function (req, res) {
+        var purcId=req.body.purcId;
+       // console.log(1111,'/api/purchases/suppfile?purcId='+purcId);
+        Base.multiDataRequest(req, res, [
+              {url: '/api/purchases/suppfile?purcId='+purcId, method: 'GET', resConfig: {keyName: 'files', is_must: true}},
+            ],
+            function (req, res, resultList) {
+          //  console.log(222,resultList.files);
+                var fileTypeList = [];
+                resultList.files.forEach(function(element,index){
+                    fileTypeList.push({url:element.path,originalFileName:element.fileName});
+                });
+
+                var data = {
+                    list:fileTypeList,
+                    fileName:req.body.purcId+'-相关文件'
+                }
+              //   console.log('fileTypeList',JSON.stringify(data))
+                request(Base.mergeRequestOptions({
+                    http: DWY_GLOBAL.server.Static.http,
+                    host: DWY_GLOBAL.server.Static.host,
+                    port: DWY_GLOBAL.server.Static.port,
+                    headers:{'Content-type':'application/json'},
+                    method: 'post',
+                    url: '/zipDownload',
+                    body:JSON.stringify(data),
+                }, req, res)).pipe(res)
+
+            });
+
     },
     //采购单付款上传凭证 type=10
     uploadProof: function (req, res) {
@@ -464,7 +496,7 @@ var PurchaseController = {
         var id = req.params.id;
         request(Base.mergeRequestOptions({
             method: 'get',
-            url: '/api/suppliers/organ/'+id,
+            url: '/api/purchase/reqmaterial/supps/'+id,
         }, req, res), function (error, response, body) {
             if (!error && response.statusCode == 200) {
                 res.status(200).json(body);
@@ -473,6 +505,21 @@ var PurchaseController = {
 
                 res.status(500).json(body)
                 // Base.handlerError(res, req, error, response, body);
+            }
+        })
+    },
+    uploadSuppfile: function (req, res) {
+     //   console.log(2222,JSON.stringify(req.body));
+        request(Base.mergeRequestOptions({
+            method: 'post',
+            url: '/api/purchase/request/suppfile',
+            headers:{'Content-type':'application/json'},
+            body:JSON.stringify(req.body),
+        }, req, res), function (error, response, body) {
+            if (!error && response.statusCode == 201) {
+                res.sendStatus(200);
+            } else {
+                Base.handlerError(res, req, error, response, body);
             }
         })
     },

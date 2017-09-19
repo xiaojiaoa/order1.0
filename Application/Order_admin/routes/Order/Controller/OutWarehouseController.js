@@ -22,7 +22,7 @@ var OutWarehouseController = {
     waitSendPage: function (req, res) {
         var paramObject = helper.genPaginationQuery(req);
         Base.multiDataRequest(req, res, [
-                {url: '/api/whse/cargout/delivery/page?'+queryString.stringify(req.query), method: 'GET', resConfig: {keyName: 'deliveryList', is_must: false}},
+                {url: '/api/whse/cargout/delivery/page/cust?'+queryString.stringify(req.query), method: 'GET', resConfig: {keyName: 'deliveryList', is_must: false}},
                 {url: '/api/assist/taskseq/status', method: 'GET', resConfig: {keyName: 'statusInfo', is_must: false}},
             ],
             function (req, res, resultList) {
@@ -45,14 +45,14 @@ var OutWarehouseController = {
 
     },
     deliveryTidList:function(req,res){
-        var lid = req.params.lid;
+        var cid = req.params.cid;
         // 添加模板文件
         var path = req.app.get('views') + '/order/shipments/deliver_tid.ejs';
         var template = require(path);
 
 
         request(Base.mergeRequestOptions({
-            url: '/api/whse/cargout/delivery/list/' + lid,
+            url: '/api/whse/cargout/delivery/list/cid/' + cid,
             method: 'get',
             timeout: 5000
         }, req, res), function (error, response, body) {
@@ -133,7 +133,7 @@ var OutWarehouseController = {
             method: 'post',
             url: '/api/whse/cargout/delivery/notice/review/'+id+'?stcode='+stcode,
         }, req, res), function (error, response, body) {
-            if (!error && response.statusCode == 200) {
+            if (!error && response.statusCode == 201) {
                 res.sendStatus(200);
             } else {
                 Base.handlerError(res, req, error, response, body);
@@ -146,7 +146,7 @@ var OutWarehouseController = {
             method: 'post',
             url: '/api/whse/cargout/delivery/notice/cancel/'+id,
         }, req, res), function (error, response, body) {
-            if (!error && response.statusCode == 200) {
+            if (!error && response.statusCode == 201) {
                 res.sendStatus(200);
             } else {
                 Base.handlerError(res, req, error, response, body);
@@ -402,24 +402,55 @@ var OutWarehouseController = {
 
     },
     productStock: function (req, res) {
-        var paramObject = helper.genPaginationQuery(req);
+        var paramObjectOne = helper.genPaginationQuery(req, 'pageNoOwn');
+        var paramObjectTwo = helper.genPaginationQuery(req);
+        var paramObjectThr = helper.genPaginationQuery(req, 'pageNoStockup');
+
+
+        var pageNoOwn = req.query.pageNoOwn?req.query.pageNoOwn:'1';
+        delete req.query.pageNoOwn
+        var pageNoStockup = req.query.pageNoStockup?req.query.pageNoStockup:'1';
+        delete req.query.pageNoStockup
+
         Base.multiDataRequest(req, res, [
             {url: '/api/whse/stock/delivery/all?'+ queryString.stringify(req.query), method: 'GET', resConfig: {keyName: 'deliveryAll', is_must: true}},
-            {url: '/api/whse/stock/delivery/own', method: 'GET', resConfig: {keyName: 'deliveryOwn', is_must: true}},
+            {url: '/api/whse/stock/delivery/own?pageNo='+pageNoOwn, method: 'GET', resConfig: {keyName: 'deliveryOwn', is_must: true}},
+            {url: '/api/whse/stock/delivery/own/stockup?pageNo='+pageNoStockup, method: 'GET', resConfig: {keyName: 'deliveryStockup', is_must: true}},
         ], function (req, res, resultList) {
-            var paginationInfo =  resultList.deliveryAll;
 
-            var boostrapPaginator = new Pagination.TemplatePaginator(helper.genPageInfo({
-                prelink: paramObject.withoutPageNo,
-                current: paginationInfo.page,
-                rowsPerPage: paginationInfo.pageSize,
-                totalResult: paginationInfo.totalItems
+            var paginationOne =  resultList.deliveryOwn;
+            var paginationTwo =  resultList.deliveryAll;
+            var paginationThr =  resultList.deliveryStockup;
+
+            var boostrapPaginatorOne = new Pagination.TemplatePaginator(helper.genPageInfo({
+                prelink: paramObjectOne.withoutPageNo,
+                current: paginationOne.page,
+                rowsPerPage: paginationOne.pageSize,
+                totalResult: paginationOne.totalItems,
+                pageNoName: paramObjectOne.pageNoName
             }));
+            var boostrapPaginatorTwo = new Pagination.TemplatePaginator(helper.genPageInfo({
+                prelink: paramObjectTwo.withoutPageNo,
+                current: paginationTwo.page,
+                rowsPerPage: paginationTwo.pageSize,
+                totalResult: paginationTwo.totalItems,
+            }));
+            var boostrapPaginatorThr = new Pagination.TemplatePaginator(helper.genPageInfo({
+                prelink: paramObjectThr.withoutPageNo,
+                current: paginationThr.page,
+                rowsPerPage: paginationThr.pageSize,
+                totalResult: paginationThr.totalItems,
+                pageNoName: paramObjectThr.pageNoName
+            }));
+
+
 
             var returnData = Base.mergeData(helper.mergeObject({
                 title: ' ',
                 Permission :Permissions,
-                pagination: boostrapPaginator.render()
+                paginationOne: boostrapPaginatorOne.render(),
+                paginationTwo: boostrapPaginatorTwo.render(),
+                paginationThr: boostrapPaginatorThr.render(),
             },resultList));
             res.render('order/shipments/stock_delivery', returnData);
         });
@@ -434,7 +465,7 @@ var OutWarehouseController = {
                 diId: diId
             }
         }, req, res), function (error, response, body) {
-            if (!error && response.statusCode == 200) {
+            if (!error && response.statusCode == 201) {
                 Base.handlerSuccess(res, req);
                // res.redirect("/productStock");
                 res.redirect(req.session.backPath?req.session.backPath:"/productStock");
@@ -453,7 +484,7 @@ var OutWarehouseController = {
                 diId: diId
             }
         }, req, res), function (error, response, body) {
-            if (!error && response.statusCode == 200) {
+            if (!error && response.statusCode == 201) {
                 Base.handlerSuccess(res, req);
                 // res.redirect("/productStock");
                 res.redirect(req.session.backPath?req.session.backPath:"/productStock");
@@ -465,9 +496,11 @@ var OutWarehouseController = {
     },
     productStockOrder: function (req, res) {
         var ifCanDo = req.query.ifCanDo;
+        var diId = req.query.diId;
         var paramObject = helper.genPaginationQuery(req);
         Base.multiDataRequest(req, res, [
-            {url: '/api/whse/stock/order/page?diId='+ (req.query.diId), method: 'GET', resConfig: {keyName: 'stockList', is_must: true}},
+            // {url: '/api/whse/stock/order/page?diId='+ (req.query.diId), method: 'GET', resConfig: {keyName: 'stockList', is_must: true}},
+            {url: '/api/whse/stock/spaceid?diId='+ diId +'&'+queryString.stringify(req.query), method: 'GET', resConfig: {keyName: 'stockList', is_must: true}},
         ], function (req, res, resultList) {
             var paginationInfo =  resultList.stockList;
 
@@ -481,6 +514,7 @@ var OutWarehouseController = {
             var returnData = Base.mergeData(helper.mergeObject({
                 title: ' ',
                 ifCanDo: ifCanDo,
+                diId: diId,
                 Permission :Permissions,
                 pagination: boostrapPaginator.render()
             },resultList));
@@ -524,6 +558,34 @@ var OutWarehouseController = {
             },resultList));
             res.render('order/shipments/out_order_pakg', returnData);
         });
+
+    },
+    productOutsSpaceidStock: function (req, res) {
+        request(Base.mergeRequestOptions({
+            method: 'post',
+            url: '/api/whse/stock/spaceid/stock',
+            form: req.body,
+        }, req, res), function (error, response, body) {
+            if (!error && response.statusCode == 201) {
+                res.sendStatus(200);
+            } else {
+                Base.handlerError(res, req, error, response, body);
+            }
+        })
+
+    },
+    productOutsSpaceidStockCancel: function (req, res) {
+        request(Base.mergeRequestOptions({
+            method: 'post',
+            url: '/api/whse/stock/spaceid/stock/cancel',
+            form: req.body,
+        }, req, res), function (error, response, body) {
+            if (!error && response.statusCode == 201) {
+                res.sendStatus(200);
+            } else {
+                Base.handlerError(res, req, error, response, body);
+            }
+        })
 
     },
     outBredPage: function (req, res) {

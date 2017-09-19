@@ -46,27 +46,22 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-xs-3">
-                                    <div class="form-group">
-                                        <label class="col-xs-4 control-label">订单品牌:</label>
-                                        <div class="col-xs-8">
-                                            <select class="form-control" name="brandId">
-                                                <option value="">- 请选择 -</option>
-                                                <% brandInfo.forEach(function (element) {  %>
-                                                <option value="<%= element.id %>" <%= (DWYRequest.query.brandId == element.id)?"selected":"" %> >
-                                                    <%= element.name %>
-                                                </option>
-                                                <% }) %>
-                                            </select>
-                                        </div>
-                                    </div>
-                                </div>
+
                                 <div class="col-xs-3">
                                     <div class="form-group">
                                         <label class="col-xs-4 control-label">客户姓名:</label>
                                         <div class="col-xs-8">
                                             <input class="form-control"
                                                    placeholder="请输入客户姓名" type="text" value="<%= DWYRequest.query.custName %>" name="custName">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xs-3">
+                                    <div class="form-group">
+                                        <label class="col-xs-4 control-label">门店名:</label>
+                                        <div class="col-xs-8">
+                                            <input class="form-control"
+                                                   placeholder="请输入门店名" type="text" value="<%= DWYRequest.query.storeName %>" name="storeName">
                                         </div>
                                     </div>
                                 </div>
@@ -88,6 +83,21 @@
                             <% if(DWY_GLOBAL.ButtonOpen!=1){ %>
                             <div class="slideToggle display-none">
                             <%}%>
+                                <div class="col-xs-3">
+                                    <div class="form-group">
+                                        <label class="col-xs-4 control-label">订单品牌:</label>
+                                        <div class="col-xs-8">
+                                            <select class="form-control" name="brandId">
+                                                <option value="">- 请选择 -</option>
+                                                <% brandInfo.forEach(function (element) {  %>
+                                                <option value="<%= element.id %>" <%= (DWYRequest.query.brandId == element.id)?"selected":"" %> >
+                                                    <%= element.name %>
+                                                </option>
+                                                <% }) %>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
                                 <div class="col-xs-6">
                                     <div class="form-group">
                                         <label class="col-xs-2 control-label">订单标签:</label>
@@ -274,6 +284,10 @@
                             <thead>
                             <tr>
                                 <th>序号</th>
+                                <th>客户姓名</th>
+                                <th>流水号</th>
+                                <th class="display-none">门店号</th>
+                                <th>门店名称</th>
                                 <th>品牌</th>
                                 <th>产品类型</th>
                                 <th>补单号</th>
@@ -306,6 +320,15 @@
                             resupplyList.result.forEach(function (element, index) { %>
                             <tr>
                                 <td><%= DWY_Helper.incrementNum(DWYRequest.query.pageNo,index)%></td>
+                                <td>
+                                    <a href="/customer/detail/<%= element.cid %>"><%= element.name %></a>
+                                    <%if(element.name != element.contactName ){%>
+                                    <br> 联系人：<%= element.contactName%>
+                                    <%}%>
+                                </td>
+                                <td><a href="/taskseq/index/<%= element.orgLid %>"><%= element.orgLid %></a></td>
+                                <td class="display-none"><%= element.bid %></td>
+                                <td><%= element.bname %></td>
                                 <td><%= element.brandStr %></td>
                                 <td><%= element.productTypeStr %></td>
                                 <td><a href="/order/resupply/detail/<%= element.tid %>"><%= element.tid %></a></td>

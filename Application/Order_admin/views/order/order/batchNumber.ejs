@@ -164,8 +164,10 @@
 
                                     <%}%>
                                     <% if(element.stcode>=1){%>
-                                    <a class="label label-success" href="/orders/batchNumber/downloadPackage/<%= element.batchNumber %>/<%= element.factoryId %>">导出工件清单</a>
-                                    <%}%>
+                                    <a class="label label-success" href="/orders/batchNumber/downloadPackage/<%= element.batchNumber %>/<%= element.factoryId %>">导出工件</a>
+                                    <a class="label label-success" href="/orders/batchNumber/downloadAccessory/<%= element.batchNumber %>/<%= element.factoryId %>">导出配件</a>
+
+                                  <%}%>
                                     <%}%>
                                     <% if (DWY_Helper.hasPermission(Permission.batchNumber.packageList.id, permission ) ){ %>
                                     <% if(element.stcode>=1){%>

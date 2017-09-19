@@ -335,6 +335,9 @@
                     <legend>订单列表
                         <a class="label label-primary"  href="/file/order/detail/<%= lid %>">相关附件</a>
                         <span class="label label-success">已下单完毕</span>
+                        <% if(taskseqInfo.sequenceEndTime){%>
+                        <span class="text-danger">下单完毕日期：<%=DWY_Helper.getLocalDate(taskseqInfo.sequenceEndTime)%></span>
+                        <%}%>
                     </legend>
                     <!-- row -->
 
@@ -368,7 +371,15 @@
                                 <% } %>
                                 <% } %>
 
-                                <td><a href="/order/detail/<%= orderelement.tid %>"><%= orderelement.tid %></a></td>
+                                <td>
+                                    <a href="/order/detail/<%= orderelement.tid %>"><%= orderelement.tid %></a>
+                                    <% if(orderelement.projectOrder  ==1){%>
+                                    <a class="label label-info open-multi-order pull-right"
+                                       href="/taskseq/openMultiOrder/<%= orderelement.tid %>">
+                                        查看子订单
+                                    </a>
+                                    <%}%>
+                                </td>
                                 <td><%= orderelement.brandStr %></td>
                                 <td><%= orderelement.decoColorStr %></td>
                                 <td><%= orderelement.prodName %></td>

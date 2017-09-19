@@ -79,6 +79,7 @@ var StoresController = {
             {url: '/api/assist/store/types', method: 'GET', resConfig: {keyName: 'storeTypes', is_must: true}},
             {url: '/api/assist/store/addrTypes', method: 'GET', resConfig: {keyName: 'addrTypesList', is_must: true}},
             {url: '/api/assist/region/types/all', method: 'GET', resConfig: {keyName: 'TypesList', is_must: true}},
+            {url: '/api/assist/store/infoType', method: 'GET', resConfig: {keyName: 'infoTypeList', is_must: true}},
         ], function (req, res, resultList) {
 
             var returnData = Base.mergeData(helper.mergeObject({
@@ -94,9 +95,11 @@ var StoresController = {
             {url: '/api/stores/'+cid, method: 'GET', resConfig: {keyName: 'storeInfo', is_must: true}},
             {url: '/api/assist/store/types', method: 'GET', resConfig: {keyName: 'storeTypes', is_must: true}},
             {url: '/api/assist/store/addrTypes', method: 'GET', resConfig: {keyName: 'addrTypesList', is_must: true}},
-          {url: '/api/assist/region/types/all', method: 'GET', resConfig: {keyName: 'TypesList', is_must: true}},
+            {url: '/api/assist/region/types/all', method: 'GET', resConfig: {keyName: 'TypesList', is_must: true}},
+            {url: '/api/assist/store/infoType', method: 'GET', resConfig: {keyName: 'infoTypeList', is_must: true}},
 
         ], function (req, res, resultList) {
+
 
             var returnData = Base.mergeData(helper.mergeObject({
                 title: ' ',

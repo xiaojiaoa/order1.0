@@ -1,0 +1,254 @@
+<%- include('layouts/head_top'); %>
+<%- include('layouts/head_bottom'); %>
+<%- include('layouts/header'); %>
+<style>
+    #validate-img {
+        cursor: pointer;
+        width: 100%;
+        height: 100%;
+    }
+    #fix-alert{
+        /*position: absolute;*/
+        /*width: 100%;*/
+        /*top: 0;*/
+        /*z-index: 999;*/
+        opacity: 0.8;
+        font-size: 20px;
+        line-height: 50px;
+        display: none;
+    }
+    #fix-alert .alert{
+        margin-bottom: 0;
+    }
+    .browser-icon{
+        padding: 0 5px;
+        list-style: none;
+    }
+    .browser-icon li{
+        display: inline-block;
+        margin-right: 10px;
+    }
+    .browser-icon img{
+        width: 40px;
+        height:40px;
+        margin-right:10px;
+    }
+    html{
+        height:100%;
+    }
+    #smart-skin{
+        background:none;
+        width:100%;
+        height:100%;
+        color: #000000;
+        box-sizing: border-box;
+        max-width:1920px;
+        background-size:cover;
+        /* min-height: 960px;*/
+    }
+    #smart-skin #main{
+        background-color: transparent!important;
+        padding-top: 0px!important;
+        padding-bottom: 0px!important;
+        height: 100%;
+    }
+    #smart-skin #header{
+        display: none;
+    }
+    #smart-skin #content {
+        padding: 0px;
+        width: 100%;
+        height: 100%;
+    }
+    .smart-form{
+        position:static;
+    }
+    .smart-form .state-error+em {
+        float: left;
+        color: #ffffff;
+        margin-left: 20px;
+    }
+    :root input:-webkit-autofill,textarea:-webkit-autofill,select:-webkit-autofill{
+         box-shadow: 0 0 50px 50px #eeeeee inset !important;
+    }
+</style>
+
+<div class="os_container">
+    <span class="os_logo"></span>
+    <div class="os_main_bg">
+        <section class="os_form_bgbox">
+            <span class="os_form_bg"></span>
+        </section>
+    </div>
+    <span class="os_spoker"></span>
+    <section class="os_main">
+        <form action="/login" id="login-form" method="post" class="smart-form">
+        <div class="os_main_box">
+            <span class="os_title"></span>
+            <div class="os_cheng">
+                <div class="os_form_box">
+                    <section>
+                        <div class="os_name">
+                            <label class="input">
+                                <span class="os_name_icon floatl"></span>
+                                <input class="os_username floatl" type="text" placeholder="用户名" name="userNo" autocomplete="off"/>
+                                <b class="tooltip tooltip-top-right"><i class="fa fa-user txt-color-teal"></i>
+                                    请输入您的用户名</b>
+                            </label>
+                        </div>
+                    </section>
+
+                    <section>
+                        <div class="os_userpass">
+                            <label class="input">
+                            <span class="os_password_icon floatl"></span>
+                            <input class="os_password floatl" type="password" placeholder="密码" name="password" autocomplete="off"/>
+                            <b class="tooltip tooltip-top-right"><i class="fa fa-lock txt-color-teal"></i> 请输入密码</b>
+                            </label>
+                        </div>
+                    </section>
+
+                    <section>
+                        <div class="os_ver_code">
+                            <label class="input">
+                                <span class="os_vercode_icon floatl"></span>
+                                <input class="os_usercode floatl" type="text" placeholder="验证码" name="code" autocomplete="off"/>
+                                <div class="os_verification_code floatl">
+                                    <img id="validate-img" src="" alt="">
+                                    <input type="hidden" name="baseId" autocomplete="off"   value="{{baseId}}" >
+                                    <b class="tooltip tooltip-top-right"> 请输入验证码</b>
+                                </div>
+                            </label>
+                        </div>
+                    </section>
+
+                    <div class="os_submit_box">
+                        <button class="os_submit" type="submit">登录</button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        </form>
+    </section>
+</div>
+
+
+<%- include('layouts/footer_common_script'); %>
+
+<script type="text/javascript">
+
+    $(function(){
+
+        if (window.ActiveXObject || "ActiveXObject" in window){
+            $("#fix-alert").slideDown();
+        }else{
+            var userAgent = navigator.userAgent; //取得浏览器的userAgent字符串
+            var isEdge = userAgent.indexOf("Edge") > -1; //判断是否IE的Edge浏览器
+            if(isEdge){
+                $("#fix-alert").slideDown();
+            }
+        }
+
+//        var browsername=Whatbrowser();
+//        if(browsername!="chrome"){
+//            $("#fix-alert").slideDown();
+//        }
+        $('#alertClose').click(function () {
+            $("#fix-alert").slideUp();
+        })
+    });
+
+
+    runAllForms();
+
+    $(function () {
+        // Validation
+        $("#login-form").validate({
+            // Rules for form validation
+            rules: {
+                userNo: {
+                    required: true,
+                },
+                password: {
+                    required: true,
+                    minlength: 3,
+                    maxlength: 20
+                }
+            },
+
+            // Messages for form validation
+            messages: {
+                userNo: {
+                    required: '请输入用户名',
+                },
+                password: {
+                    required: '请输入密码',
+                    minlength: "请输入 3-20 位密码",
+                    maxlength: "请输入 3-20 位密码"
+                }
+            },
+
+            // Do not change code below
+            errorPlacement: function (error, element) {
+                error.insertAfter(element.parent());
+            },
+            submitHandler: function (form) {
+                $.ajax({
+                    url: '/login',
+                    method: 'POST',
+                    dataType: 'JSON',
+                    data: $(form).serialize(),
+                    success: function (data) {
+                        if (data.code) {
+                            getValidateInfo();
+                        } else {
+                            location.href = data.preventPath;
+                        }
+                    },
+                    error: function (response) {
+                        var data = JSON.parse(response.responseText);
+                        layer.msg(data.msg)
+                        getValidateInfo();
+                    }
+                });
+            }
+        });
+
+        //Get Validate Image & baseId
+        function getValidateInfo() {
+            $.ajax({
+                url: '/validateInfo',
+                success: function (data) {
+                    $('#validate-img').attr('src', 'data:image/png;base64,' + data.baseString);
+                    $('[name=baseId]').val(data.baseId);
+                },
+                error: function (response) {
+
+                    var data = JSON.parse(response.responseText);
+                    $.smallBox({
+                        title: "服务器异常",
+                        content: data.msg,
+                        color: "#C46A69",
+                        iconSmall: "fa fa-times fa-2x fadeInRight animated",
+                        timeout: 3000
+                    });
+                }
+            });
+        }
+
+        getValidateInfo();
+
+        $('#validate-img').on('click', function (e) {
+            getValidateInfo();
+        })
+
+
+
+
+    });
+</script>
+
+
+
+<%- include('layouts/foot'); %>

@@ -1,42 +1,94 @@
-<%
-    var allTotal = 0;
+<% var allTotal = 0;
 var keys = Object.keys(result);
-if(keys && keys.length > 0){
-keys.forEach(function (key) {
-        allTotal =+ result[key].length;
-result[key].forEach(function(element, index){ %>
-<tr>
-
-    <% if(index == 0){ %>
-    <td rowspan="<%= result[key].length %>">
-        <label class="checkbox-inline">
-            <input type="checkbox" class="checkbox" name="batchId" value="<%= key %>">
-            <span> <%= key %></span>
-        </label>
-    </td>
-    <% } %>
-    <td>
-        <label class="checkbox-inline">
-            <input type="checkbox" class="checkbox validate[minCheckbox[1]]" parentId="<%= key %>"
-                   name="list"
-                   value="<%= element.tid %>" <%= (element.type == null && element.stcode == 729) ? '' : 'disabled' %>>
-            <span><%= element.tid %></span>
-        </label>
-    </td>
-    <td><%= element.prodInfo %></td>
-    <td><%= element.gName %></td>
-    <td><%= element.stcodeName %></td>
-
-</tr>
-
-<% })
-})
 %>
+
+<ul class="nav nav-tabs">
+  <% if(keys && keys.length > 0){
+  keys.forEach(function (key, index) { %>
+
+  <li class="<%= index == 0 ? 'active' : '' %>">
+    <a href="#<%= key %>Div" data-toggle="tab"><%= key %></a>
+  </li>
+
+  <% })
+  } %>
+</ul>
+
+<div class="tab-content padding-10">
+
+  <% if(keys && keys.length > 0){
+    debugger
+  keys.forEach(function (key, index) { %>
+
+
+  <div class="tab-pane <%= index == 0 ? 'active' : '' %>" id="<%= key %>Div">
+    <div class="table-responsive">
+      <table class="table table-bordered table-striped" id="listTable">
+        <thead>
+        <tr>
+          <th>批次号</th>
+          <th>订单号</th>
+          <th>产品信息</th>
+          <th>建单人</th>
+          <th>状态</th>
+        </tr>
+        </thead>
+        <tbody>
+        <%
+          var listDate = result[key];  // 单个流水号里所有的数据
+          var lists = Object.keys(result[key]); // 单个流水号里的批次号数组
+        if(lists && lists.length > 0){
+        lists.forEach(function (list) {
+          allTotal += listDate[list].length;
+
+          // 循环每个批次号里的订单数据
+        listDate[list].forEach(function(tid, idx){ %>
+
+        <tr>
+
+          <% if(idx == 0){ %>
+          <td rowspan="<%= listDate[list].length %>">
+            <label class="checkbox-inline">
+              <input type="checkbox" class="checkbox" name="batchId" value="<%= list %>" parentLid="<%= key %>" >
+              <span> <%= list %></span>
+            </label>
+          </td>
+          <% } %>
+          <td>
+            <label class="checkbox-inline">
+              <input type="checkbox" class="checkbox validate[minCheckbox[1]]" parentId="<%= list %>"
+                     name="list" parentLid="<%= key %>"
+                     value="<%= tid.tid %>" <%= (tid.type == null && tid.stcode == 729) ? '' : 'disabled' %>>
+              <span><%= tid.tid %></span>
+            </label>
+          </td>
+          <td><%= tid.prodInfo %></td>
+          <td><%= tid.gName %></td>
+          <td><%= tid.stcodeName %></td>
+
+        </tr>
+
+        <% })
+        })
+        }else{  %>
+        <tr>
+          <td colspan="5" class="text-align-center">暂无结果</td>
+        </tr>
+        <% }
+        %>
+
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <% })
+  } %>
+
+
+</div>
+
 <input type="hidden" value="<%= allTotal %>" name="totalNum">
 <input type="hidden" value="" name="noInNum">
-<% }else{ %>
-<tr>
-    <td colspan="5" class="text-align-center">暂无结果</td>
-</tr>
-<% } %>
+
 

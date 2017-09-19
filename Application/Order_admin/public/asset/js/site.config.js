@@ -194,7 +194,6 @@ var mouth_picker={
     },
     changeMonth:function (ev) {
         var $tar=$(ev.target);
-        if (ev.date.valueOf()){
             if ($tar.next().length == 0) {
                 $tar.addClass('flatpickr-input').attr("readonly","readonly");
                 $tar.parent().append("<i class = 'close-picker fa fa-times'></i>");
@@ -203,18 +202,14 @@ var mouth_picker={
                 $tar.val('');
                 $tar.next().remove();
             })
-        }
-        else{
-            $tar.next().remove();
-        }
+
+
     }
 };
 var uploadFuc = {
-
-    uploadSingleFile: function (ajaxUrl,config,callBack) {
+    uploadSingleFile: function (ajaxUrl,config,labelID,callBack) {
         var _config = config || {};
-
-        var label = $("#label-upload-file");
+        var label =$(labelID);
         label.html('上传中<i class="fa fa-circle-o-notch fa-spin">');
         label.attr('disabled', true);
 
@@ -244,7 +239,7 @@ var uploadFuc = {
                 label.html('上传失败 <i class="fa fa-times">');
             }
         })
-    }
+    },
 };
 var DWY_area = {
     area: {},

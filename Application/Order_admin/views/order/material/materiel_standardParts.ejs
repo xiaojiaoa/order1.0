@@ -10,10 +10,11 @@
             {
                 change: function (e) {
                     var _this = $(this);
-                    var congig = {
+                    var labelId='#label-upload-file';
+                    var config = {
                         'file_name': _this.prop('files')[0],
                     }
-                    uploadFuc.uploadSingleFile('/template/upload/single/temporary', congig, function (data) {
+                    uploadFuc.uploadSingleFile('/template/upload/single/temporary', config,labelId, function (data) {
                         var mydata={
                             name:data.data.name,
                             size:data.data.size,

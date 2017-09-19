@@ -75,6 +75,12 @@
                                 <td>剩余存货数</td>
                                 <td colspan="3"><%= cargospaceInfo.amountRemain <0 ?'不限':cargospaceInfo.amountRemain %></td>
                             </tr>
+                            <tr>
+                                <td>条形码</td>
+                                <td colspan="5">
+                                    <img id="validate-img" src="data:image/jpg;base64,<%= cargospaceInfo.pic %>" style="width: 100px;">
+                                </td>
+                                </tr>
                             </tbody>
                         </table>
 
@@ -121,7 +127,7 @@
                                 <td><%= element.typeName %></td>
                                 <td>
                                     <% if(element.cargoType==2){ %>
-                                    <a href="/system/printPackageLid/<%= element.cargoId %>"> <%= element.cargoId %></a>
+                                    <a href="/system/printPackageLid/<%= element.cargoId %>?ftyId=<%= cargospaceInfo.ftyId %>"> <%= element.cargoId %></a>
 
                                     <% }else{ %>
                                     <%= element.cargoId %>

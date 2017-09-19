@@ -191,7 +191,7 @@
                                     <a class="label label-primary checkThis" data-inId="<%= element.inId %>"
                                        data-purId="<%= element.purId %>" data-type="1" data-inMode="<%= element.inMode %>">审核</a>
                                     <a class="label label-danger checkThis" data-inId="<%= element.inId %>"
-                                       data-purId="<%= element.purId %>" data-type="2">作废</a>
+                                       data-purId="<%= element.purId %>" data-type="2" data-inMode="<%= element.inMode %>">作废</a>
                                     <% } %>
                                 </td>
                             </tr>
@@ -232,7 +232,6 @@
       var inId = $(this).attr('data-inId');
       var purId = $(this).attr('data-purId');
       var inMode = $(this).attr('data-inMode');
-
       var type = $(this).attr('data-type');
       var text = type == 1 ? '确定提交审核?' : '确定退回?';
 
@@ -241,6 +240,7 @@
         }else{
             var url = '/enterMaterial/doPass/' + inId +'/'+type+'/'+ purId+'/'+inMode;
         }
+
       layer.confirm(text, {icon: 3, title: '提示'}, function (index) {
         $.ajax({
           url:url,

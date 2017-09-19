@@ -54,6 +54,15 @@
                                         </div>
                                     </div>
                                 </div>
+                                <!--输入字段-->
+                                <div class="col-xs-3">
+                                    <div class="form-group">
+                                        <label class="col-xs-4 control-label">批次号:</label>
+                                        <div class="col-xs-8">
+                                            <input class="form-control" placeholder="请输入批次号" type="text" value="<%= DWYRequest.query.batchNumber %>" name="batchNumber">
+                                        </div>
+                                    </div>
+                                </div>
                                 <% if (DWY_Helper.hasPermission(Permission.orderPackage.queryAll.id, permission)){ %>
                                 <div class="col-xs-3">
                                     <div class="form-group">
@@ -185,6 +194,7 @@
                                 <th>包装序号</th>
                                 <th>包装名称</th>
                                 <th>包装类型</th>
+                                <th>入库类型</th>
                                 <th>包装状态</th>
                                 <th>货位编号</th>
                                 <th>入库时间</th>
@@ -206,6 +216,7 @@
                                 <td><%= element.packageNo %></td>
                                 <td><%= element.packageName %></td>
                                 <td><%= element.packageTypeStr %></td>
+                                <td><%= element.packageClassifyStr %></td>
                                 <td><%= element.packageStatusStr %></td>
                                 <td><%= element.spaceId %></td>
                                 <td><%= DWY_Helper.getLocalDateYMD(element.inTime ) %></td>

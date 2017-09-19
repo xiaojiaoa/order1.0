@@ -42,10 +42,10 @@
                                 <!--输入字段-->
                                 <div class="col-xs-3">
                                     <div class="form-group">
-                                        <label class="col-xs-4 control-label">流水号:</label>
+                                        <label class="col-xs-4 control-label">客户号:</label>
                                         <div class="col-xs-8">
-                                            <input class="form-control" value="<%= DWYRequest.query.lid %>" type="text"
-                                                   name="lid">
+                                            <input class="form-control" value="<%= DWYRequest.query.cid %>" type="text"
+                                                   name="cid">
                                         </div>
                                     </div>
                                 </div>
@@ -58,50 +58,6 @@
                                         </div>
                                     </div>
                                 </div>
-                                <% if(DWY_GLOBAL.ButtonOpen!=1){ %>
-                                <div class="col-xs-3 text-center">
-                                    <button class="btn btn-primary " type="submit">
-                                        <i class="fa fa-search"></i>
-                                        查询
-                                    </button>
-                                    <label class="btn btn-default reset margin-left-20">
-                                        重置
-                                    </label>
-                                    <label class="search margin-left-20">
-                                        高级查询
-                                        <i class="fa fa-chevron-down"></i>
-                                    </label>
-                                </div>
-                                <%}%>
-
-                            <% if(DWY_GLOBAL.ButtonOpen!=1){ %>
-                            <div class="slideToggle display-none">
-                            <%}%>
-                                <!--输入字段-->
-                                <div class="col-xs-3">
-                                    <div class="form-group">
-                                        <label class="col-xs-4 control-label">合同号:</label>
-                                        <div class="col-xs-8">
-                                            <input class="form-control" value="<%= DWYRequest.query.contNo %>" type="text"
-                                                   name="contNo">
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-xs-3">
-                                    <div class="form-group">
-                                        <label class="col-xs-4 control-label">流水状态:</label>
-                                        <div class="col-xs-8">
-                                            <select class="form-control" name="stcode">
-                                                <option value="">- 请选择 -</option>
-                                                <% statusInfo.forEach(function (element) { %>
-                                                <option value="<%= element.id %>" <%= (DWYRequest.query.stcode == element.id )?"selected":"" %> >
-                                                    <%= element.name %>
-                                                </option>
-                                                <% }) %>
-                                            </select>
-                                        </div>
-                                    </div>
-                                </div>
                                 <div class="col-xs-3">
                                     <div class="form-group">
                                         <label class="col-xs-4 control-label">客户姓名:</label>
@@ -111,9 +67,15 @@
                                         </div>
                                     </div>
                                 </div>
-                            <% if(DWY_GLOBAL.ButtonOpen!=1){ %>
-                            </div>
-                            <%}%>
+                                <div class="col-xs-3 text-center">
+                                    <button class="btn btn-primary " type="submit">
+                                        <i class="fa fa-search"></i>
+                                        查询
+                                    </button>
+                                    <label class="btn btn-default reset margin-left-20">
+                                        重置
+                                    </label>
+                                </div>
                             </div>
                             <% if(DWY_GLOBAL.ButtonOpen==1){ %>
                             <div class="col-xs-12">
@@ -145,13 +107,11 @@
                             <thead>
                             <tr>
                                 <th>序号</th>
-                                <th>流水号</th>
-                                <th>合同号</th>
+                                <th>客户号</th>
                                 <th>客户姓名</th>
                                 <th>客户电话</th>
                                 <th>收货地址</th>
-                                <th>待发货日期</th>
-                                <th>流水状态</th>
+                                <th>门店地址</th>
                                 <th>操作</th>
                             </tr>
                             </thead>
@@ -160,17 +120,15 @@
                             <% deliveryList.result.forEach(function (element, index) {%>
                             <tr>
                                 <td><%= DWY_Helper.incrementNum(DWYRequest.query.pageNo,index)%></td>
-                                <td><a href="/taskseq/index/<%=element.lid %>"><%=element.lid %></a></td>
-                                <td><%=element.contNo %></td>
-                                <td><%=element.cName %></td>
+                                <td><%=element.cid %></td>
+                                <td><%=element.cname %></td>
                                 <td><%=element.mobile %></td>
                                 <td><%=element.customerAddress %></td>
-                                <td><%= DWY_Helper.getLocalDateYMD(element.deliveryTime) %></td>
-                                <td><%= element.stcodeName %></td>
+                                <td><%= element.storeAddress %></td>
                                 <td>
                                     <% if ( DWY_Helper.hasPermission(Permission.cargoManages.deliveryWrite.id, permission) ){ %>
-                                    <a class="cursor-pointer deliverThis label label-primary" data-lid="<%=element.lid %>"
-                                       data-contNo="<%=element.contNo %>" data-deliveryTime="<%=element.deliveryTime %>" data-cName="<%=element.cName %>"
+                                    <a class="cursor-pointer deliverThis label label-primary"
+                                       data-cid="<%=element.cid %>" data-deliveryTime="<%=element.deliveryTime %>" data-cName="<%=element.cname %>"
                                        data-mobile="<%=element.mobile %>" data-storeAddress="<%=element.storeAddress %>" data-customerAddress="<%=element.customerAddress %>"
                                     >填写发货通知单</a>
                                     <% } %>
@@ -180,7 +138,7 @@
                             <%})%>
                             <% } else {%>
                             <tr>
-                                <td colspan="9" class="text-align-center">暂无数据</td>
+                                <td colspan="7" class="text-align-center">暂无数据</td>
                             </tr>
                             <% }%>
                             </tbody>

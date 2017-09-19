@@ -241,6 +241,7 @@
                                 <th>所属机构</th>
                                 <th>所属门店</th>
                                 <th>产品名称</th>
+                                <th>订单数量</th>
                                 <th>零售价（元）</th>
                                 <th>结算价（元）</th>
                                 <th>出厂价（元）</th>
@@ -265,11 +266,12 @@
                             <tr>
                                 <td width="84px"><%= DWY_Helper.incrementNum(DWYRequest.query.pageNo,index)%></td>
                                 <td><%= element.custName%></td>
-                                <td><a href="/order/detail/<%= element.tid %>"><%= element.tid %></a></td>
+                                <td><a href="/order/detail/<%= element.tid %>"><%= element.tid %></a><%if(element.orderNum){%>×<%=element.orderNum%><%}%></td>
                                 <td><%= element.stcodeName %></td>
                                 <td><%= element.orgName %></td>
                                 <td><%= element.storeName %></td>
                                 <td><%= element.prodTypeName %></td>
+                                <td><%= element.orderNum %></td>
                                 <td><%= element.retailPrice %></td>
                                 <td><%= element.revFranchisePrice %></td>
                                 <td><%= element.factoryPrice %></td>
@@ -442,8 +444,8 @@
             });
 
         })
-        //点击计算按钮
-        $('#calculate').click(function () {
+        // 根据直销/折扣率的方式计算折后价的方法
+        function calculatePrice(){
             var price = $('#price').val();
             var discount=$("#discount").val();
             var settlementType=$("select[name=settlementType]").val();
@@ -451,21 +453,22 @@
                 $("#priceAfterDiscount").val((price-discount).toFixed(2));
             }
             if(settlementType==1){
-                $("#priceAfterDiscount").val((price*discount).toFixed(2));
+                if(discount && discount!=0){
+                    $("#priceAfterDiscount").val((price*discount).toFixed(2));
+                }
+                else{
+                    $("#priceAfterDiscount").val(price);
+                }
             }
+        }
+        //点击计算按钮
+        $('#calculate').click(function () {
+           calculatePrice();
         })
 
         $("#subBtn").on({
             click:function () {
-                var price = $('#price').val();
-                var discount=$("#discount").val();
-                var settlementType=$("select[name=settlementType]").val();
-                if(settlementType==0){
-                    $("#priceAfterDiscount").val(price-discount);
-                }
-                if(settlementType==1){
-                    $("#priceAfterDiscount").val((price*discount).toFixed(2));
-                }
+             calculatePrice();
             }
         });
 

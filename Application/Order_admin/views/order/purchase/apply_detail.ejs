@@ -117,6 +117,10 @@
                                 <% if(purchaseRequestDetail.reqType==30 && DWY_Helper.isCanLoop(purchaseRequestDetail.reqMaters)){ %>
                                  <a class="label label-success margin-left-10" id="exportOutsource">导出</a>
                                 <% }%>
+                                <%
+                                if(DWY_Helper.isCanLoop(suppsList)){%>
+                                <a class="label label-primary margin-left-10" id="suppUploadFile">上传供应商文件</a>
+                                <%}%>
                             </legend>
                         </div>
                     </div>
@@ -220,6 +224,53 @@
     </div>
 </form>
 
+<form id="suppUploadFile-form" class="col-xs-12 layer-template" action="" method="post">
+
+
+    <%
+    if(DWY_Helper.isCanLoop(suppsList)){
+    suppsList.forEach(function (element, index) { %>
+    <div class="col-xs-12  margin-top-10">
+        <!--输入字段-->
+        <div class="col-xs-10">
+            <div class="form-group  margin-top-10">
+                <label class="col-xs-4 control-label"><%= element.suppName%></label>
+                <input type="hidden" value="<%= element.suppId%>" name="suppId<%= index%>">
+                <div class="col-xs-8">
+                    <input class="form-control" readonly value=""
+                           name="fileName<%= index%>">
+                    <div class="margin-top-10 text-danger">
+                        <label>文件名：
+                                <% if(element.supplierFile){
+                                if(element.supplierFile.fileName){ %>
+                                <%= element.supplierFile.fileName %>
+                            <% }}%>
+                        </label>
+                    </div>
+                    <input class="form-control"  type="hidden"  value=""
+                           name="path<%= index%>">
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-2">
+            <div class="form-group  margin-top-10">
+                <label for="dwy_file_upload<%= index%>"
+                       class="btn btn-primary upload_files"
+                       id="label-upload-file<%= index%>"
+                       num="<%= index%>"
+                >
+                    点击上传 <i class="fa fa-upload"></i></label>
+                <input type="file" name="file_name<%= index%>" id="dwy_file_upload<%= index%>" style="display: none;">
+            </div>
+        </div>
+    </div>
+    <%})}%>
+
+    <div class="col-xs-12 text-center margin-top-10">
+        <input type="hidden" value="<%= tid%>" name="mytid">
+        <a class="btn btn-primary" id="suppUploadFileBtn">确定</a>
+    </div>
+</form>
 <%- include('../layouts/footer'); %>
 <%- include('../layouts/footer_common_script'); %>
 <script type="text/javascript">
@@ -229,6 +280,10 @@
 //            $(this).addClass("selected").siblings().removeClass("selected");
 //            $(".orderItemLayerTable table").eq($(this).index()).show().siblings().hide();
 //        });
+
+        // 初始化表单
+        $("#suppUploadFile-form").validationEngine();
+
         $("#PurchaseOrder").click(function(){
             var tid=$("#purchaseId").val();
             layer.confirm('确认生成采购单?',{icon: 3, title:'提示'},
@@ -324,7 +379,7 @@
         $('#exportOutsource').click(function () {
 
             $.ajax({
-                url: '/outsource/suppliers/<%= (DWY_Helper.isCanLoop(purchaseRequestDetail.reqMaters))?purchaseRequestDetail.reqMaters[0].ftyId:'' %>',
+                url: '/outsource/suppliers/<%= tid%>',
                 method: 'get',
                 success: function (data) {
 
@@ -356,6 +411,72 @@
 
         })
 
+        // 供应商上传文件
+        $('#suppUploadFile').on({
+            click:function () {
+                layer.open({title:false,
+                    type:1,
+                    area:'800px',
+                    content:$('#suppUploadFile-form'),
+                    cancel: function () {
+                        //右上角关闭回调
+                    },
+                })
+            }
+        });
+        $(".upload_files").on({
+            click:function () {
+                var _this=$(this);
+                var inputId='#'+_this.attr("for");
+                var labelId='#'+_this.attr("id");
+                var num=parseInt(_this.attr("num"));
+                $(inputId).on('change',function () {
+                    var _this = $(this);
+                    var config = {
+                        'file_name': _this.prop('files')[0],
+                    }
+                    uploadFuc.uploadSingleFile('/template/upload/single/share', config,labelId,function (data) {
+                        $(`input[name=fileName${num}]`).val(data.data.name);
+                        $(`input[name=path${num}]`).val(data.data.url);
+                    });
+                })
+            }
+        });
+        $("#suppUploadFileBtn").on({
+            click:function () {
+                var tid=$("input[name=mytid]").val();
+                var dataShares=[];
+                var supplierFileDto={};
+                for(var i=0;i<$(".upload_files").length;i++){
+                    if($(`input[name=fileName${i}]`).val()){
+                        var aaa = {};
+                        aaa.fileName = $(`input[name=fileName${i}]`).val();
+                        aaa.path = $(`input[name=path${i}]`).val();
+                        aaa.suppId= $(`input[name=suppId${i}]`).val();
+                        dataShares.push(aaa);
+                    }
+                }
+              //  console.log("测试", JSON.stringify(dataShares));
+                supplierFileDto.reqId=tid;
+                supplierFileDto.supplierFiles=dataShares;
+                $.ajax({
+                    url: '/purchases/suppfile/upload',
+                    data: JSON.stringify(supplierFileDto),
+                    method: 'post',
+                    dataType: 'json',
+                    contentType: "application/json",
+                    success: function (data) {
+                    },
+                    error: function (response) {
+                        if (response.status == 200) {
+                            successLayout.hrefTo("/purchase/applyDetail/"+tid);
+                        } else {
+                            errorLayout.normal(response);
+                        }
+                    }
+                });
+            }
+        });
 
     })
 </script>

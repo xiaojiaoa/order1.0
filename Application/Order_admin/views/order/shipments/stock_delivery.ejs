@@ -43,7 +43,7 @@
                                 <th width="5%">序号</th>
                                 <th>发货清单</th>
                                 <th>总订单数</th>
-                                <th>为备货订单数</th>
+                                <th>未备货订单数</th>
                                 <th>操作</th>
                             </tr>
                             </thead>
@@ -51,7 +51,7 @@
                             <%  if(DWY_Helper.isCanLoop(deliveryOwn.result) ){
                             deliveryOwn.result.forEach(function (element, index) { %>
                             <tr>
-                                <td width="5%"><%= ++index %></td>
+                                <td width="5%"><%= (deliveryOwn.page -1)  * deliveryOwn.pageSize + index +1 %></td>
                                 <td><a href="/productStock/order?diId=<%= element.diId %>&ifCanDo=2"><%= element.diId %></a></td>
                                 <td><%= element.totalOrderNum %></td>
                                 <td><%= element.notStockOrderNum %></td>
@@ -73,7 +73,7 @@
 
                             </tbody>
                         </table>
-
+                        <%- paginationOne %>
                     </div>
                 </div>
             </div>
@@ -94,7 +94,7 @@
                                 <th width="5%">序号</th>
                                 <th>发货清单</th>
                                 <th>总订单数</th>
-                                <th>为备货订单数</th>
+                                <th>未备货订单数</th>
                                 <th>操作</th>
                             </tr>
                             </thead>
@@ -124,8 +124,50 @@
 
                             </tbody>
                         </table>
-                        <%- pagination %>
+                        <%- paginationTwo %>
+                    </div>
+                </div>
+            </div>
+        </div>
 
+        <div class="well">
+            <div class="row">
+                <div class="col-xs-12">
+                    <h6>已完成发货清单</h6>
+                    <hr class="simple">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-striped table-hover">
+                            <thead>
+                            <tr>
+                                <th width="5%">序号</th>
+                                <th>发货清单</th>
+                                <th>总订单数</th>
+                                <th>未备货订单数</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <%  if(DWY_Helper.isCanLoop(deliveryStockup.result) ){
+                            deliveryStockup.result.forEach(function (element, index) { %>
+                            <tr>
+                                <td width="5%"><%= DWY_Helper.incrementNum(DWYRequest.query.pageNoStockup,index)%></td>
+                                <td><a href="/productStock/order?diId=<%= element.diId %>&ifCanDo=1"><%= element.diId %></a></td>
+                                <td><%= element.totalOrderNum %></td>
+                                <td><%= element.notStockOrderNum %></td>
+                            </tr>
+                            <% })
+                            }else{ %>
+                            <tr>
+                                <td colspan="4" class="text-align-center">暂无数据</td>
+                            </tr>
+                            <% }  %>
+
+                            </tbody>
+                        </table>
+                        <%- paginationThr %>
                     </div>
                 </div>
             </div>

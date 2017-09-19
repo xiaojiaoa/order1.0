@@ -354,10 +354,11 @@
             {
                 change: function (e) {
                     var _this = $(this);
-                    var congig = {
+                    var labelId='#label-upload-file';
+                    var config = {
                         'file_name': _this.prop('files')[0],
                     }
-                    uploadFuc.uploadSingleFile('/template/upload/single/materiel', congig, function (data) {
+                    uploadFuc.uploadSingleFile('/template/upload/single/materiel', config,labelId, function (data) {
                         $("#idPhotoOne").val(data.data.url);
                         $("#idPhotoOneName").html('<a  class="fancybox dwy_image" href="<%= DWY_GLOBAL.Static %>/preview?url=' + data.data.url + '" data-fancybox-group="gallery" title="'+data.data.name+'">'+data.data.name+'</a>')
                     });

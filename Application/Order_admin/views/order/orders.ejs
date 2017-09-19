@@ -270,6 +270,36 @@
                                             </div>
                                         </div>
                                     </div>
+                                <div class="col-xs-4">
+                                    <div class="form-group">
+                                        <label class="col-xs-3 control-label">提交审核日期:</label>
+                                        <div class="col-xs-4">
+                                            <input class="form-control fg-date-picker" placeholder="" type="text" value="<%= DWYRequest.query.startSubmitReviewDate%>"
+                                                   name="startSubmitReviewDate">
+                                        </div>
+                                        <label class="from-to control-label "> 至 </label>
+                                        <div class="col-xs-4">
+                                            <input class="form-control fg-date-picker" placeholder="" type="text" value="<%= DWYRequest.query.endSubmitReviewDate%>"
+                                                   name="endSubmitReviewDate">
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xs-4">
+                                    <div class="form-group">
+                                        <label class="col-xs-3 control-label">审核日期:</label>
+                                        <div class="col-xs-4">
+                                            <input class="form-control fg-date-picker" placeholder="" type="text" value="<%= DWYRequest.query.startReviewDate%>"
+                                                   name="startReviewDate">
+                                        </div>
+                                        <label class="from-to control-label "> 至 </label>
+                                        <div class="col-xs-4">
+                                            <input class="form-control fg-date-picker" placeholder="" type="text" value="<%= DWYRequest.query.endReviewDate%>"
+                                                   name="endReviewDate">
+
+                                        </div>
+                                    </div>
+                                </div>
                             <% if(DWY_GLOBAL.ButtonOpen!=1){ %>
                             </div>
                             <%}%>
@@ -324,6 +354,7 @@
                                 <th>客户姓名</th>
                                 <th>流水号</th>
                                 <th>订单号</th>
+                                <th>订单数量</th>
                                 <th>订单类型</th>
                                 <th>订单标签</th>
                                 <th>品牌</th>
@@ -331,13 +362,14 @@
                                 <th>产品类型</th>
                                 <th>空间类型</th>
                                 <th>门店区域</th>
-                                <th>下单员工</th>
-                                <th>下单时间</th>
-                                <th>下单完毕时间</th>
-                                <th>审核时间</th>
+                                <th>建单员工</th>
+                                <th>建单日期</th>
+                                <th>提交审核日期</th>
+                                <th>下单完毕日期</th>
+                                <th>审核日期</th>
                                 <th>预计发货</th>
                                 <th>订单状态</th>
-                                <th>货位号</th>
+                                <th class="display-none">货位号</th>
                                 <th>收款状态</th>
                                 <th>收款日期</th>
                                 <!--根据权限展示价格-->
@@ -358,15 +390,30 @@
                             <tbody>
                             <% if(!DWY_Helper.isCanLoop(orderList.result)){%>
                             <tr>
-                                <td colspan="19" align="center">暂无结果</td>
+                                <td colspan="80" align="center">暂无结果</td>
                             </tr>
                             <% }else{
                             orderList.result.forEach(function (element, index) { %>
-                            <tr class=" <%= (element.stcode == 280) ? "mark-row":"" %>">
+                            <tr
+                                    <% if(element.stcode==280){%>
+                                    class="mark-row"
+                                    <%}%>
+                                    <% if(element.stcode==478){%>
+                                    class="mark-row1"
+                                    <%}%>
+                                    <% if(element.stcode==638){%>
+                                    class="mark-row2"
+                                    <%}%>>
                                 <td><%= DWY_Helper.incrementNum(DWYRequest.query.pageNo,index)%></td>
-                                <td><a href="/customer/detail/<%= element.cid %>"><%= element.name %></a></td>
+                                <td>
+                                    <a href="/customer/detail/<%= element.cid %>"><%= element.name %></a>
+                                    <%if(element.name != element.contactName ){%>
+                                    <br> 联系人：<%= element.contactName%>
+                                    <%}%>
+                                </td>
                                 <td><a href="/taskseq/index/<%= element.lid %>"><%= element.lid %></a></td>
-                                <td><a href="/order/detail/<%= element.tid %>"><%= element.tid %></a></td>
+                                <td><a href="/order/detail/<%= element.tid %>"><%= element.tid %></a><%if(element.orderNum){%>×<%=element.orderNum%><%}%></td>
+                                <td><%= element.orderNum %></td>
                                 <td><%= element.typeStr %></td>
                                 <td><%= element.tagName %></td>
                                 <td><%= DWY_Helper.getAssistVal(element.brandId,brandInfo) %></td>
@@ -376,11 +423,12 @@
                                 <td><%= element.regionType %>/<%= element.subRegionType %></td>
                                 <td><%= element.bname %>/<%= element.gname %></td>
                                 <td><%= DWY_Helper.getLocalDateYMD(element.createTime) %></td>
+                                <td><%= DWY_Helper.getLocalDateYMD(element.submitReviewTime) %></td>
                                 <td><%= DWY_Helper.getLocalDateYMD(element.sequenceEndTime) %></td>
                                 <td><%= DWY_Helper.getLocalDateYMD(element.reviewTime) %></td>
                                 <td><%= DWY_Helper.getLocalDateYMD(element.deliveryDate) %></td>
                                 <td><%= DWY_Helper.getAssistVal(element.stcode,stcodeInfo) %></td>
-                                <td><%= element.cargoSpaceIds %></td>
+                                <td class="display-none"><%= element.cargoSpaceIds %></td>
                                 <td><%= element.payStatus %></td>
                                 <td><%= DWY_Helper.getLocalDate(element.receiptTime) %></td>
                                 <!--根据权限展示结算价-->

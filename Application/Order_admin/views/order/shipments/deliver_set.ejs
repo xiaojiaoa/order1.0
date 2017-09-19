@@ -1,239 +1,214 @@
 <div id="enter_pass" class="initdisplay-none">
-    <div class="col-xs-12 padding-10">
-        <!--<legend>客户搜索</legend>-->
-        <!-- row -->
-        <div class="form-horizontal">
+  <div class="col-xs-12 padding-10">
+    <!--<legend>客户搜索</legend>-->
+    <!-- row -->
+    <div class="form-horizontal">
 
-        <div class="col-xs-12">
-            <form class="form-horizontal" method="post" id="check_pass" action="/doDelivery" >
-                <div class="col-xs-12">
-                    <div class="col-xs-12">
-                        <div class="table-responsive">
-                            <table class="table table-bordered table-striped table-information">
-                                <tbody>
-                                <tr>
-                                    <td width="25%">流水号</td>
-                                    <td width="25%" id="lay-id"></td>
-                                    <td width="25%">合同号</td>
-                                    <td width="25%" id="lay-contNo"></td>
-                                </tr>
-                                <tr>
-                                    <td>客户姓名</td>
-                                    <td id="lay-cName"></td>
-                                    <td>客户电话</td>
-                                    <td id="lay-mobile"></td>
-                                </tr>
-                                <tr>
-                                    <td>收货地址</td>
-                                    <td id="lay-address" colspan="3">
-                                        <div class="dropdown-out">
-                                            <input class="form-control validate[required]" id="address" name="address" autocomplete="off">
-                                            <ul class="dropdown " id="addressList">
+      <div class="col-xs-12">
+        <form class="form-horizontal" method="post" id="check_pass" action="/doDelivery">
+          <div class="col-xs-12">
+            <div class="col-xs-12">
+              <div class="table-responsive">
+                <table class="table table-bordered table-striped table-information">
+                  <tbody>
 
-                                            </ul>
-                                        </div>
+                  <tr>
+                    <td>客户姓名</td>
+                    <td id="lay-cName"></td>
+                    <td>客户电话</td>
+                    <td id="lay-mobile"></td>
+                  </tr>
+                  <tr>
+                    <td>收货地址</td>
+                    <td id="lay-address" colspan="3">
+                      <div class="dropdown-out">
+                        <input class="form-control validate[required]" id="address" name="address" autocomplete="off">
+                        <ul class="dropdown " id="addressList">
 
-                                    </td>
-                                </tr>
-                                </tbody>
-                            </table>
+                        </ul>
+                      </div>
 
-                        </div>
-                    </div>
+                    </td>
+                  </tr>
+                  </tbody>
+                </table>
 
+              </div>
+            </div>
+
+          </div>
+
+          <div class="tab-pane" id="listTab">
+
+          </div>
+
+          <div class="col-xs-12">
+
+            <div class="col-xs-4">
+              <div class="form-group">
+                <label class="col-xs-4 control-label">司机姓名:</label>
+                <div class="col-xs-8">
+                  <input class="form-control" value="" name="driverName">
                 </div>
-
-                <div class="col-xs-12">
-                    <div class="table-responsive">
-                        <table class="table table-bordered table-striped" id="listTable">
-                            <thead>
-                            <tr>
-
-                                <th>批次号</th>
-                                <th>订单号</th>
-                                <th>产品信息</th>
-                                <th>建单人</th>
-                                <th>状态</th>
-
-                            </tr>
-                            </thead>
-                            <tbody id="layer-form-wrapper">
-
-
-
-                            </tbody>
-                        </table>
-                    </div>
+              </div>
+            </div>
+            <div class="col-xs-4">
+              <div class="form-group">
+                <label class="col-xs-5 control-label"><span class="requird"></span> 预计到货时间:</label>
+                <div class="col-xs-7">
+                  <input class="form-control fg-date-time-picker validate[required]" value=""
+                         name="arrivalTime">
                 </div>
-                <div class="col-xs-12">
-
-                    <div class="col-xs-4">
-                        <div class="form-group">
-                            <label class="col-xs-4 control-label">司机姓名:</label>
-                            <div class="col-xs-8">
-                                <input class="form-control" value="" name="driverName">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xs-4">
-                        <div class="form-group">
-                            <label class="col-xs-4 control-label"><span class="requird"></span> 预计到货时间:</label>
-                            <div class="col-xs-8">
-                                <input class="form-control fg-date-time-picker validate[required]"  value=""
-                                       name="arrivalTime">
-                            </div>
-                        </div>
-                    </div>
+              </div>
+            </div>
 
 
-                    <input name="lid" value="" id="input-lid"  type="hidden">
-                    <input name="contNo" value="" id="input-contNo"  type="hidden">
-                    <input name="deliveryTime" value="" id="input-deliveryTime"  type="hidden">
-                    <input name="custName" value="" id="input-cName"  type="hidden">
-                    <input name="mobile" value="" id="input-mobile"  type="hidden">
-                    <!--<input name="address" value="" id="input-address"  type="hidden">-->
+            <input name="deliveryTime" value="" id="input-deliveryTime" type="hidden">
+            <input name="custName" value="" id="input-cName" type="hidden">
+            <input name="cid" value="" id="input-cid" type="hidden">
+            <input name="mobile" value="" id="input-mobile" type="hidden">
+            <!--<input name="address" value="" id="input-address"  type="hidden">-->
+          </div>
+
+          <div class="col-xs-12">
+            <div class="col-xs-4">
+              <div class="form-group">
+                <label class="col-xs-4 control-label">物流车牌号:</label>
+                <div class="col-xs-8">
+                  <input class="form-control" value="" name="licensePlate">
                 </div>
-                <section></section>
-                <div class="col-xs-12">
-                    <div class="col-xs-4">
-                        <div class="form-group">
-                            <label class="col-xs-4 control-label">物流车牌号:</label>
-                            <div class="col-xs-8">
-                                <input class="form-control" value="" name="licensePlate">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xs-4">
-                        <div class="form-group">
-                            <label class="col-xs-4 control-label"><span class="requird"></span> 预计安装时间:</label>
-                            <div class="col-xs-8">
-                                <input class="form-control fg-date-time-picker validate[required]"  value=""
-                                       name="installTime">
-                            </div>
-                        </div>
-                    </div>
-
+              </div>
+            </div>
+            <div class="col-xs-4">
+              <div class="form-group">
+                <label class="col-xs-5 control-label"><span class="requird"></span> 预计安装时间:</label>
+                <div class="col-xs-7">
+                  <input class="form-control fg-date-time-picker validate[required]" value=""
+                         name="installTime">
                 </div>
+              </div>
+            </div>
 
-                <div class="col-xs-12">
-                    <hr class="simple">
-                    <div class="col-xs-12 text-center">
+          </div>
 
-                        <% if ( DWY_Helper.hasPermission(Permission.cargoManages.deliverySubmit.id, permission) ){ %>
-                        <button class="btn btn-primary margin-bottom-10" id="confirm">
-                            <i class="fa fa-save"></i>
-                            提交
-                        </button>
-                        <% } %>
+          <div class="col-xs-12">
+            <hr class="simple">
+            <div class="col-xs-12 text-center">
 
+              <% if ( DWY_Helper.hasPermission(Permission.cargoManages.deliverySubmit.id, permission) ){ %>
+              <button class="btn btn-primary margin-bottom-10" id="confirm">
+                <i class="fa fa-save"></i>
+                提交
+              </button>
+              <% } %>
 
-                    </div>
-                </div>
-                <div class="dwy-clear"></div>
+            </div>
+          </div>
+          <div class="dwy-clear"></div>
 
-            </form>
-        </div>
-        <!-- end row -->
+        </form>
+      </div>
+      <!-- end row -->
     </div>
-</div>
+  </div>
 </div>
 
 <script src="/js/layout-open-initValue.js"></script>
 <script type="text/javascript">
 
-    $(document).ready(function () {
-        $("#check_pass").validationEngine();
-      $(".fg-date-time-picker").flatpickr(data_time_picker.data_picker); // jQuery
+  $(document).ready(function () {
+    $("#check_pass").validationEngine();
+    $(".fg-date-time-picker").flatpickr(data_time_picker.data_picker); // jQuery
 
-        $('#confirm').click(function (e) {
-            var checkTid = $('input[name=list]:checked').val();
-
-            if(!checkTid){
-                e.preventDefault();
-                layer.msg('请选择订单', {icon: 2, time: 2000});
-            }
-        })
-        //弹出类
-        $('.deliverThis').on({
-            click: function (e) {
-                var id = $(this).attr('data-lid');
-                var contNo = $(this).attr('data-contNo');
-                var deliveryTime = $(this).attr('data-deliveryTime');
-                var cName = $(this).attr('data-cName');
-                var mobile = $(this).attr('data-mobile');
-                var storeAddress = $(this).attr('data-storeAddress');
-                var customerAddress = $(this).attr('data-customerAddress');
-
-                $('#lay-id').text(id);
-                $('#lay-contNo').text(contNo);
-                $('#lay-cName').text(cName);
-                $('#lay-mobile').text(mobile);
-//                $('#lay-address').text(address);
-
-                $('#input-lid').val(id);
-                $('#input-contNo').val(contNo);
-                $('#input-deliveryTime').val(deliveryTime);
-                $('#input-cName').val(cName);
-                $('#input-mobile').val(mobile);
-                $('#address').val(customerAddress);
-
-                var list = '<li>'+storeAddress+'</li><li >'+customerAddress+'</li>';
-                $('#addressList').html(list);
-
-                layer.open({
-                    title: '发货单',
-                    type: 1,
-                    area: ['1000px', '80%'],
-                    content: $('#enter_pass'),
-                    cancel: function () {
-                        $(':input').val('');
-                        //右上角关闭回调
-                    },
-                    success:function(){
-                        DWY_Layout_initValue.initValue({
-                            dataContainer:'#layer-form-wrapper',
-                            method:'GET',
-                            url:'/delivery/tidList/'+id,
-                        })
-                    }
-
-                });
-            }
-        })
-        var AddressList = $('#addressList');
-        $('#address').focus(function () {
-            AddressList.slideDown();
-        })
-        AddressList.on('click','li',function () {
-            var text = $(this).text();
-            $('#address').val(text);
-            AddressList.hide();
-        })
-        $('#enter_pass').bind('click', function (e) {
-            var target = $(e.target);
-            if (!target.is('#address') && !target.is('#addressList *')) {
-                AddressList.hide();
-            }
-
-        })
-
-
-        $("#checkAll").change(function () {
-            if ($(this).is(":checked")) {
-                $(":checkbox:not(:disabled)").prop('checked', true);
-            } else {
-                $(":checkbox").prop('checked', false);
-            }
-        })
-
-
-        $('#listTable').on('change', ':checkbox[name=batchId]', function () {
-            var value = $(this).val();
-            $(':checkbox[parentId='+value+']:not(:disabled)').prop('checked',this.checked)
-        })
-
-
+    $('#confirm').click(function (e) {
+      e.preventDefault();
+      var checkTid = $('input[name=list]:checked').val();
+      if (!checkTid) {
+        return layer.msg('请选择订单', {icon: 2, time: 2000});
+      }
+      $('#check_pass').submit();
+      if ($("#check_pass").validationEngine('validate')) {
+        $(this).attr('disabled', true).html('提交中...')
+      }
 
     })
+    //弹出类
+    $('.deliverThis').on({
+      click: function (e) {
+        var cid = $(this).attr('data-cid');
+        var deliveryTime = $(this).attr('data-deliveryTime');
+        var cName = $(this).attr('data-cName');
+        var mobile = $(this).attr('data-mobile');
+        var storeAddress = $(this).attr('data-storeAddress');
+        var customerAddress = $(this).attr('data-customerAddress');
+
+        $('#lay-cName').text(cName);
+        $('#lay-mobile').text(mobile);
+//                $('#lay-address').text(address);
+
+        $('#input-deliveryTime').val(deliveryTime);
+        $('#input-cid').val(cid);
+        $('#input-cName').val(cName);
+        $('#input-mobile').val(mobile);
+        $('#address').val(customerAddress);
+
+        var list = '<li>' + storeAddress + '</li><li >' + customerAddress + '</li>';
+        $('#addressList').html(list);
+
+        layer.open({
+          title: '发货单',
+          type: 1,
+          area: ['1000px', '80%'],
+          content: $('#enter_pass'),
+          cancel: function () {
+            $(':input').val('');
+            //右上角关闭回调
+          },
+          success: function () {
+            DWY_Layout_initValue.initValue({
+              dataContainer: '#listTab',
+              method: 'GET',
+              url: '/delivery/tidList/' + cid,
+            })
+          }
+
+        });
+      }
+    })
+    var AddressList = $('#addressList');
+    $('#address').focus(function () {
+      AddressList.slideDown();
+    })
+    AddressList.on('click', 'li', function () {
+      var text = $(this).text();
+      $('#address').val(text);
+      AddressList.hide();
+    })
+    $('#enter_pass').bind('click', function (e) {
+      var target = $(e.target);
+      if (!target.is('#address') && !target.is('#addressList *')) {
+        AddressList.hide();
+      }
+
+    })
+
+
+    $("#checkAll").change(function () {
+      if ($(this).is(":checked")) {
+        $(":checkbox:not(:disabled)").prop('checked', true);
+      } else {
+        $(":checkbox").prop('checked', false);
+      }
+    })
+
+
+    $('#listTab').on('change', ':checkbox[name=batchId]', function () {
+      var value = $(this).val();
+      var lid = $(this).attr('parentLid');
+      $(':checkbox[parentLid=' + lid + '][parentId=' + value + ']:not(:disabled)').prop('checked', this.checked)
+    })
+
+
+  })
 
 </script>

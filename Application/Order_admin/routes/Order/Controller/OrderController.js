@@ -1061,11 +1061,17 @@ var OrderController = {
         var paramObjectForGet = helper.genPaginationQuery(req, 'pageNoGid');
 
         var pageNoGid = req.query.pageNoGid?req.query.pageNoGid:'1';
-        delete req.query.pageNoGid
+        var tid= req.query.tid?req.query.tid:'';
+        var parentTid=req.query.parentTid?req.query.parentTid:'';
+        // var searchString = null;
+        // if(req.query.cName){
+        //     searchString += '&cName='+req.query.cName;
+        // }
+        var cName=req.query.cName?req.query.cName:'';
 
         Base.multiDataRequest(req, res, [
             {url: '/api/orders/schedule?'+(queryString.stringify(req.query)), method: 'GET', resConfig: {keyName: 'scheduleAllList', is_must: true}},
-            {url: '/api/orders/schedule/gid?pageNo='+pageNoGid, method: 'GET', resConfig: {keyName: 'scheduleList', is_must: true}},
+            {url: '/api/orders/schedule/gid?pageNo='+pageNoGid+"&tid="+tid+"&parentTid="+parentTid+'&cName='+cName, method: 'GET', resConfig: {keyName: 'scheduleList', is_must: true}},
             {url: '/api/assist/deco/color', method: 'GET', resConfig: {keyName: 'colorList', is_must: true}},
             {url: '/api/assist/space/prod?spaceId=10', method: 'GET', resConfig: {keyName: 'prodList', is_must: true}},
             {url: '/api/assist/order/orderType', method: 'GET', resConfig: {keyName: 'orderTypeList', is_must: true}},
@@ -1177,7 +1183,7 @@ var OrderController = {
 
     notPassSche: function (req, res) {
         req.body.causeStr =  req.body.causeStr.toString(',');
-        console.log('233333',req.body)
+     //   console.log('233333',req.body)
         request(Base.mergeRequestOptions({
             method: 'put',
             url: '/api/orders/chgback/orderBack?'+queryString.stringify(req.body),
@@ -1786,6 +1792,14 @@ var OrderController = {
             url: '/api/orders/batchNumber/export?batchNumber='+batchNumber+'&factoryId='+factoryId,
         }, req, res)).pipe(res)
     },
+  downloadAccessory: function (req, res) {
+    var batchNumber =  req.params.batchNumber;
+    var factoryId =  req.params.factoryId;
+    request(Base.mergeRequestOptions({
+      method: 'get',
+      url: '/api/orders/batchNumber/accessory/export?batchNumber='+batchNumber+'&factoryId='+factoryId,
+    }, req, res)).pipe(res)
+  },
     exportOrder: function (req, res) {
         request(Base.mergeRequestOptions({
             method: 'post',

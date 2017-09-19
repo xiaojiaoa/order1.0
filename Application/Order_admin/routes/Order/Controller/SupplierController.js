@@ -45,7 +45,7 @@ var SupplierController = {
         var tid = req.params.tid;
         var bid = req.query.bid? req.query.bid: req.session.user.bid;
         Base.multiDataRequest(req, res, [
-                {url: '/api/suppliers/'+tid, method: 'GET', resConfig: {keyName: 'suppliersDetail', is_must: true}},
+                {url: '/api/suppliers/'+tid+'?'+queryString.stringify(req.query), method: 'GET', resConfig: {keyName: 'suppliersDetail', is_must: true}},
             ],
             function (req, res, resultList) {
                 var returnData = Base.mergeData(helper.mergeObject({
@@ -191,16 +191,13 @@ var SupplierController = {
     },
     // 解除供应商物料关联
     deleteRelate:function(req,res){
-        var sid=req.params.sid;
-        var mid=req.params.mid;
-        //console.log(sid)
-        //console.log(mid)
         request(Base.mergeRequestOptions({
             method: 'delete',
-            url: '/api/suppliers/materials?suppId='+sid+'&mateId='+mid,
+            url: '/api/suppliers/materials/batch',
+            headers:{'Content-type':'application/json'},
+            body:JSON.stringify(req.body),
         }, req, res), function (error, response, body) {
             if (!error && response.statusCode == 204) {
-
                 res.sendStatus(200);
             } else {
                 Base.handlerError(res, req, error, response, body);

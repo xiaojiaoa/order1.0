@@ -1,0 +1,137 @@
+<%- include('../layouts/head_top'); %>
+<%- include('../layouts/head_bottom'); %>
+<%- include('../layouts/header'); %>
+<%- include('../layouts/nav'); %>
+
+<!-- MAIN PANEL -->
+<div id="main" role="main" class="mainFlex">
+
+    <!-- RIBBON -->
+    <div id="ribbon">
+
+        <!-- breadcrumb -->
+        <ol class="breadcrumb">
+            <li>后台管理</li>
+            <li>货位查看</li>
+            <li><a class="back-url" href="javascript:history.go(-1)"> <i class="fa fa-chevron-left"></i>返回</a></li>
+        </ol>
+        <!-- end breadcrumb -->
+
+
+    </div>
+    <!-- END RIBBON -->
+
+
+    <!-- MAIN CONTENT -->
+    <div id="content" class="dis-flex">
+
+        <div class="well dis-flex">
+
+            <!-- row -->
+            <div class="row">
+                <div class="col-xs-12">
+                    <h6>货位列表</h6>
+
+                    <hr class="simple">
+                </div>
+            </div>
+
+            <!-- row -->
+            <div class="row dis-flex">
+                <div class="col-xs-12 dis-flex">
+                    <div class="table-responsive dis-flex">
+                        <table class="table table-bordered table-striped table-hover table-scroll2">
+                            <thead>
+                            <tr>
+                                <th>序号</th>
+                                <th>仓库名称</th>
+                                <th>区域名称</th>
+                                <th>货位号</th>
+                                <th>所在行/列/层</th>
+                                <th>最大承重</th>
+                                <th>最大存货数量</th>
+                                <th>剩余存货数</th>
+                                <th>货架长宽高</th>
+                                <th>货位状态</th>
+                                <th>已用</th>
+                                <th class="display-none">操作</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <%
+                            if(cargospaceList.result && (cargospaceList.result.length > 0) ){
+                            cargospaceList.result.forEach(function (element, index) { %>
+                            <tr>
+                                <td><%= DWY_Helper.incrementNum(DWYRequest.query.pageNo,index)%></td>
+                                <td><%= element.whseName %></td>
+                                <td><%= element.regionName %></td>
+                                <td><a href="/cargospace/cargospace/detail/<%= element.spaceId %>"><%= (element.spaceId).substring(6,12) %></a></td>
+                                <td><%= element.spaceRow %>行<%= element.spaceColumn %>列<%= element.spaceLayer %>层</td>
+                                <td><% if( element.maxWeight==0) {%>
+                                    不限
+                                    <%} else{%>
+                                    <%= element.maxWeight%>KG
+                                    <%}%>
+                                </td>
+                                <td>
+                                    <% if( element.maxAmount==0) {%>
+                                    不限
+                                    <%} else{%>
+                                    <%= element.maxAmount%>件
+                                    <%}%>
+                                </td>
+                                <td><%= element.amountRemain <0 ?'不限':element.amountRemain %></td>
+
+                                <td><%= element.sizeLength %>*<%= element.sizeWidth %>*<%= element.sizeHeight %></td>
+                                <td><%= element.offShelvesName%></td>
+                                <td><%= element.useAmount%></td>
+                                <td class="display-none">
+                                    <% if( element.usable == 2 ){ %>
+                                    <% if (DWY_Helper.hasPermission(Permission.goodsAllocation.delete.id, permission) ){ %>
+                                    <a class="label label-primary openStore" data-id="<%= element.spaceId %>">启用</a>
+                                    <% } %>
+                                    <% }else{ %>
+                                    <% if (DWY_Helper.hasPermission(Permission.goodsAllocation.delete.id, permission) ){ %>
+                                    <a class="label label-primary" href="/cargospace/modify/<%= element.spaceId %>">修改</a>
+                                    <% } %>
+                                    <% if (DWY_Helper.hasPermission(Permission.goodsAllocation.delete.id, permission) ){ %>
+                                    <a class="label label-danger closeStore" data-id="<%= element.spaceId %>" >禁用</a>
+                                    <% } %>
+                                    <% } %>
+                                </td>
+                            </tr>
+                            <%  })
+                            }else{ %>
+                            <tr>
+                                <td colspan="11" align="center">暂无结果</td>
+                            </tr>
+                            <% } %>
+
+                            </tbody>
+                        </table>
+                    </div>
+                    <%- pagination %>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- END MAIN CONTENT -->
+
+</div>
+<!-- END MAIN PANEL -->
+
+<%- include('../layouts/footer'); %>
+<%- include('../layouts/footer_common_script'); %>
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+
+
+
+    })
+
+</script>
+
+
+<%- include('../layouts/foot'); %>
