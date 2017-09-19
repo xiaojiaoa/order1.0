@@ -479,6 +479,7 @@ router.post('/orders/heap', Middleware.AuthCheck, OrderController.batchHeap);
 
 router.post('/orders/batchNumber/downloadZip', Middleware.AuthCheck, OrderController.downloadZip);
 router.get('/orders/batchNumber/downloadPackage/:batchNumber/:factoryId', Middleware.AuthCheck, OrderController.downloadPackage);
+router.get('/orders/batchNumber/downloadAccessory/:batchNumber/:factoryId', Middleware.AuthCheck, OrderController.downloadAccessory);
 
 // 生成包装操作
 router.post('/orders/batchNumber/package/packet', Middleware.apiLimiter,Middleware.AuthCheck,OrderController.doPacketBatchNumber);
