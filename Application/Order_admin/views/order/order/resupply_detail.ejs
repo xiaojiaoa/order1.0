@@ -76,7 +76,7 @@
                                 <td>建单人</td>
                                 <td><%= resupplyInfo.createOperator %></td>
                                 <td>建单时间</td>
-                                <td><%= resupplyInfo.addTime %></td>
+                                <td><%=  DWY_Helper.getLocalDate(resupplyInfo.addTime) %></td>
                             </tr>
                             <tr>
                                 <td></td>
