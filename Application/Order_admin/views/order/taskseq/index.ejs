@@ -373,6 +373,7 @@
 
                                 <td>
                                     <a href="/order/detail/<%= orderelement.tid %>"><%= orderelement.tid %></a>
+                                    <%if(orderelement.orderNum){%>×<%=orderelement.orderNum%><%}%>
                                     <% if(orderelement.projectOrder  ==1){%>
                                     <a class="label label-info open-multi-order pull-right"
                                        href="/taskseq/openMultiOrder/<%= orderelement.tid %>">
