@@ -294,6 +294,10 @@ var permissions = {
             id:"531922",
             name:"查看出厂价"
         },
+        exportResupply:{
+            id:"531923",
+            name:"导出补单列表"
+        }
     },
     resupplyOrderReview:{
         query:{
