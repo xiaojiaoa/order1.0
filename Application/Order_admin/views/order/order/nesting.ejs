@@ -34,7 +34,18 @@
                         <!--<legend>客户搜索</legend>-->
                         <div class="row search-form">
                             <div class="col-xs-12">
-                                <input type="hidden" value="<%= queryString %>" >
+                                <input type="hidden" name="productType" value="<%= DWYRequest.query.productType %>" >
+                                <input type="hidden" name="color" value="<%= DWYRequest.query.color %>" >
+                                <input type="hidden" name="storeName" value="<%= DWYRequest.query.storeName %>" >
+                                <input type="hidden" name="cName" value="<%= DWYRequest.query.cName %>" >
+                                <input type="hidden" name="orderFinish" value="<%= DWYRequest.query.orderFinish %>" >
+                                <input type="hidden" name="type" value="<%= DWYRequest.query.type %>" >
+                                <input type="hidden" name="lid" value="<%= DWYRequest.query.lid %>" >
+                                <input type="hidden" name="payed" value="<%= DWYRequest.query.payed %>" >
+                                <input type="hidden" name="orderStartTime" value="<%= DWYRequest.query.orderStartTime %>" >
+                                <input type="hidden" name="orderEndTime" value="<%= DWYRequest.query.orderEndTime %>" >
+                                <input type="hidden" name="deliveryStartTime" value="<%= DWYRequest.query.deliveryStartTime %>" >
+                                <input type="hidden" name="deliveryEndTime" value="<%= DWYRequest.query.deliveryEndTime %>" >
                                 <div class="col-xs-3">
                                     <div class="form-group">
                                         <label class="col-xs-2 control-label">订单号:</label>
@@ -149,7 +160,7 @@
                                 </tr>
                                 <%  })
                                 }else{ %>
-                                <td colspan="20" class="text-align-center">暂无结果</td>
+                                <td colspan="19" class="text-align-center">暂无结果</td>
                                 <%  }%>
                                 </tbody>
                             </table>
@@ -186,7 +197,9 @@
                         <!--<legend>客户搜索</legend>-->
                         <div class="row search-form">
                             <div class="col-xs-12">
-
+                              <input type="hidden" name="tid" value="<%= DWYRequest.query.tid %>" >
+                              <input type="hidden" name="parentTid" value="<%= DWYRequest.query.parentTid %>" >
+                              <input type="hidden" name="cNameDo" value="<%= DWYRequest.query.cNameDo %>" >
                                 <div class="col-xs-2">
                                     <select class="form-control" name="productType">
                                         <option value="">- 产品类型 -</option>
@@ -438,7 +451,7 @@
                                 </tr>
                                 <%  })
                                 }else{ %>
-                                <td colspan="20" class="text-align-center">暂无结果</td>
+                                <td colspan="19" class="text-align-center">暂无结果</td>
                                 <%  }%>
                                 </tbody>
                             </table>
