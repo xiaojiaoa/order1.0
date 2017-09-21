@@ -18,7 +18,6 @@
     <!-- END RIBBON -->
     <!-- MAIN CONTENT -->
     <div id="content">
-        <form class="form-horizontal" method="get" id="search-customer">
 
         <div class="well">
             <!-- row -->
@@ -30,139 +29,145 @@
             </div>
             <div class="row">
                 <!-- col -->
-                <div class="col-xs-12">
-                    <!--<legend>客户搜索</legend>-->
-                    <div class="row search-form">
-                        <div class="col-xs-12">
-                            <div class="col-xs-3">
-                                <div class="form-group">
-                                    <label class="col-xs-2 control-label">订单号:</label>
-                                    <div class="col-xs-8">
-                                        <input class="form-control"  value="<%= DWYRequest.query.tid %>" type="text"
-                                               name="tid">
+                <form class="form-horizontal" method="get"  id="search-up">
+                    <div class="col-xs-12">
+                        <!--<legend>客户搜索</legend>-->
+                        <div class="row search-form">
+                            <div class="col-xs-12">
+                                <input type="hidden" value="<%= queryString %>" >
+                                <div class="col-xs-3">
+                                    <div class="form-group">
+                                        <label class="col-xs-2 control-label">订单号:</label>
+                                        <div class="col-xs-8">
+                                            <input class="form-control"  value="<%= DWYRequest.query.tid %>" type="text"
+                                                   name="tid">
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="col-xs-3">
-                                <div class="form-group">
-                                    <label class="col-xs-4 control-label">母订单号:</label>
-                                    <div class="col-xs-8">
-                                        <input class="form-control"  value="<%= DWYRequest.query.parentTid %>" type="text"
-                                               name="parentTid">
+                                <div class="col-xs-3">
+                                    <div class="form-group">
+                                        <label class="col-xs-4 control-label">母订单号:</label>
+                                        <div class="col-xs-8">
+                                            <input class="form-control"  value="<%= DWYRequest.query.parentTid %>" type="text"
+                                                   name="parentTid">
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="col-xs-3">
-                                <div class="form-group">
-                                    <label class="col-xs-4 control-label">客户名:</label>
-                                    <div class="col-xs-8">
-                                        <input class="form-control"  value="<%= DWYRequest.query.cNameDo %>" type="text"
-                                               name="cNameDo">
+                                <div class="col-xs-3">
+                                    <div class="form-group">
+                                        <label class="col-xs-4 control-label">客户名:</label>
+                                        <div class="col-xs-8">
+                                            <input class="form-control"  value="<%= DWYRequest.query.cNameDo %>" type="text"
+                                                   name="cNameDo">
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
 
-                            <div class="col-xs-3 text-center">
-                                <button class="btn btn-primary " type="submit">
-                                    <i class="fa fa-search"></i>
-                                    查询
-                                </button>
+                                <div class="col-xs-3 text-center">
+                                    <button class="btn btn-primary " type="submit">
+                                        <i class="fa fa-search"></i>
+                                        查询
+                                    </button>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
+                </form>
+
                 <!-- end col -->
             </div>
             <div class="row">
-                <div class="col-xs-12">
-                    <div class="table-responsive">
-                        <table class="table table-bordered table-striped table-hover">
-                            <thead>
-                            <tr>
-                                <th>
-                                    <label  class="checkbox-inline">
-                                        <input type="checkbox" class="checkbox" id="checkAll" name="checkAll"  />
-                                        <span>序号</span>
-                                    </label>
-                                </th>
-                                <th>加急</th>
-                                <th>试装</th>
-                                <th>收款</th>
-                                <th>包装</th>
-                                <th>下单完毕</th>
-                                <th>产品类型</th>
-                                <th>类型</th>
-                                <th>订单类型</th>
-                                <th>主材颜色</th>
-                                <th>订单号</th>
-                                <th>母订单号</th>
-                                <th>批次号</th>
-                                <th>专卖店</th>
-                                <th>客户名称</th>
-                                <th>下单日期</th>
-                                <th>零售价</th>
-                                <th>交货日期</th>
-                                <th>所属机构</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <%
-                            if(DWY_Helper.isCanLoop(scheduleList.result)){
-                            scheduleList.result.forEach(function (element, index) { %>
-                            <tr class="<%= (element.orderNum) ? "mark-row3":"" %>">
-                                <td>
-                                    <label class="checkbox-inline">
-                                        <input type="checkbox" class="checkbox validate[minCheckbox[1]]"
-                                               name="role" value="<%= element.tid %>" <%= element.factoryId != user.bid?'disabled':'' %>>
-                                        <span><%= index+1+(scheduleList.page-1)*20%></span>
-                                    </label>
-                                </td>
-                                <td><%= element.urgent %></td>
-                                <td><%= element.tryInstall %></td>
-                                <td><%= element.receivedStr %></td>
-                                <td class="text-left"><%= element.packageStatusStr %></td>
-                                <td><%= element.orderFinishStr %></td>
-                                <td><%= element.productTypeStr %></td>
-                                <td><%= element.orderTypeStr %></td>
-                                <td><%= element.typeStr %></td>
-                                <td><%= element.colorStr %></td>
-                                <td><a  <%=  element.orderType ==20  ?  "href=/order/resupply/detail/"+ element.tid :  "href=/order/detail/"+element.tid  %>  ><%= element.tid %></a></td>
-                                <td><a href="/order/detail/<%= element.parentTid %>"><%= element.parentTid %></a></td>
+                <form id="form-doing">
+                    <div class="col-xs-12">
+                        <div class="table-responsive">
+                            <table class="table table-bordered table-striped table-hover">
+                                <thead>
+                                <tr>
+                                    <th>
+                                        <label  class="checkbox-inline">
+                                            <input type="checkbox" class="checkbox" id="checkAll" name="checkAll"  />
+                                            <span>序号</span>
+                                        </label>
+                                    </th>
+                                    <th>加急</th>
+                                    <th>试装</th>
+                                    <th>收款</th>
+                                    <th>包装</th>
+                                    <th>下单完毕</th>
+                                    <th>产品类型</th>
+                                    <th>类型</th>
+                                    <th>订单类型</th>
+                                    <th>主材颜色</th>
+                                    <th>订单号</th>
+                                    <th>母订单号</th>
+                                    <th>批次号</th>
+                                    <th>专卖店</th>
+                                    <th>客户名称</th>
+                                    <th>下单日期</th>
+                                    <th>零售价</th>
+                                    <th>交货日期</th>
+                                    <th>所属机构</th>
+                                </tr>
+                                </thead>
+                                <tbody>
                                 <%
-                                if(element.batchNumber == '0'){%>
-                                <td></td>
-                                <% }else{%>
-                                <td><a href="/orders/batchNumber/detail/<%= element.batchNumber %>/<%= element.factoryId %>"><%= element.batchNumber %></a></td>
-                                <%}%>
-                                <td><%= element.storeName %></td>
-                                <td>
-                                    <a href="/customer/detail/<%= element.cid %>"><%= element.cName %></a>
-                                </td>
-                                <td><%= DWY_Helper.getLocalDateYMD(element.orderTime) %></td>
-                                <td><%= element.retailPrice %></td>
-                                <td><%= DWY_Helper.getLocalDateYMD(element.deliveryTime) %></td>
-                                <td><%= element.factoryName %></td>
-                            </tr>
-                            <%  })
-                            }else{ %>
-                            <td colspan="19" class="text-align-center">暂无结果</td>
-                            <%  }%>
-                            </tbody>
-                        </table>
-                        <%- paginationForGet %>
-                    </div>
+                                if(DWY_Helper.isCanLoop(scheduleList.result)){
+                                scheduleList.result.forEach(function (element, index) { %>
+                                <tr class="<%= (element.orderNum) ? "mark-row3":"" %>">
+                                    <td>
+                                        <label class="checkbox-inline">
+                                            <input type="checkbox" class="checkbox validate[minCheckbox[1]]"
+                                                   name="role" value="<%= element.tid %>" <%= element.factoryId != user.bid?'disabled':'' %>>
+                                            <span><%= index+1+(scheduleList.page-1)*20%></span>
+                                        </label>
+                                    </td>
+                                    <td><%= element.urgent %></td>
+                                    <td><%= element.tryInstall %></td>
+                                    <td><%= element.receivedStr %></td>
+                                    <td class="text-left"><%= element.packageStatusStr %></td>
+                                    <td><%= element.orderFinishStr %></td>
+                                    <td><%= element.productTypeStr %></td>
+                                    <td><%= element.orderTypeStr %></td>
+                                    <td><%= element.typeStr %></td>
+                                    <td><%= element.colorStr %></td>
+                                    <td><a  <%=  element.orderType ==20  ?  "href=/order/resupply/detail/"+ element.tid :  "href=/order/detail/"+element.tid  %>  ><%= element.tid %></a></td>
+                                    <td><a href="/order/detail/<%= element.parentTid %>"><%= element.parentTid %></a></td>
+                                  <%
+                                  if(element.batchNumber == '0'){%>
+                                    <td></td>
+                                  <% }else{%>
+                                    <td><a href="/orders/batchNumber/detail/<%= element.batchNumber %>/<%= element.factoryId %>"><%= element.batchNumber %></a></td>
+                                  <%}%>
+                                    <td><%= element.storeName %></td>
+                                    <td>
+                                        <a href="/customer/detail/<%= element.cid %>"><%= element.cName %></a>
+                                    </td>
+                                    <td><%= DWY_Helper.getLocalDateYMD(element.orderTime) %></td>
+                                    <td><%= element.retailPrice %></td>
+                                    <td><%= DWY_Helper.getLocalDateYMD(element.deliveryTime) %></td>
+                                    <td><%= element.factoryName %></td>
+                                </tr>
+                                <%  })
+                                }else{ %>
+                                <td colspan="20" class="text-align-center">暂无结果</td>
+                                <%  }%>
+                                </tbody>
+                            </table>
+                          <%- paginationForGet %>
+                        </div>
 
-                </div>
-                <div class="col-xs-12">
-                    <hr class="simple">
-                    <div class="col-xs-1 text-center">
-                        <button class="btn btn-primary" id="editBatchNumSub">编辑批次号</button>
-                        <!--<input  id="editBatchNum" class=""  type="hidden" />-->
                     </div>
-                    <div class="col-xs-1">
-                        <a class="btn btn-primary" href="/orders/batchNumber">批次列表</a>
+                    <div class="col-xs-12">
+                        <hr class="simple">
+                        <div class="col-xs-1 text-center">
+                            <label class="btn btn-primary" id="editBatchNumSub">编辑批次号</label>
+                            <!--<input  id="editBatchNum" class=""  type="hidden" />-->
+                        </div>
+                        <div class="col-xs-1">
+                            <a class="btn btn-primary" href="/orders/batchNumber">批次列表</a>
+                        </div>
                     </div>
-                </div>
+                </form>
             </div>
 
         </div>
@@ -176,177 +181,180 @@
             <!-- row -->
             <div class="row">
                 <!-- col -->
-                <div class="col-xs-12">
-                    <!--<legend>客户搜索</legend>-->
-                    <div class="row search-form">
-                        <div class="col-xs-12">
+                <form class="form-horizontal" method="get" id="search-down">
+                    <div class="col-xs-12">
+                        <!--<legend>客户搜索</legend>-->
+                        <div class="row search-form">
+                            <div class="col-xs-12">
 
-                            <div class="col-xs-2">
-                                <select class="form-control" name="productType">
-                                    <option value="">- 产品类型 -</option>
-                                  <%
-                                  if(DWY_Helper.isCanLoop(prodList)){
-                                  prodList.forEach(function (element) { %>
-                                    <option value="<%= element.id %>" <%= (DWYRequest.query.productType == element.id )?"selected":"" %> ><%= element.name %></option>
-                                  <% }) }%>
-                                </select>
-                            </div>
-                            <div class="col-xs-2">
-                                <div class="form-group">
-                                    <select class="form-control" name="color">
-                                        <option value="">- 颜色 -</option>
+                                <div class="col-xs-2">
+                                    <select class="form-control" name="productType">
+                                        <option value="">- 产品类型 -</option>
                                       <%
-                                      if(DWY_Helper.isCanLoop(colorList)){
-                                      colorList.forEach(function (element) { %>
-                                        <option value="<%= element.id %>" <%= (DWYRequest.query.color == element.id )?"selected":"" %> ><%= element.name %></option>
-                                      <% })} %>
+                                      if(DWY_Helper.isCanLoop(prodList)){
+                                      prodList.forEach(function (element) { %>
+                                        <option value="<%= element.id %>" <%= (DWYRequest.query.productType == element.id )?"selected":"" %> ><%= element.name %></option>
+                                      <% }) }%>
                                     </select>
                                 </div>
-                            </div>
-                            <div class="col-xs-3">
-                                <div class="form-group">
-                                    <label class="col-xs-4 control-label">专卖店名:</label>
-                                    <div class="col-xs-8">
-                                        <input class="form-control"  value="<%= DWYRequest.query.storeName %>" type="text"
-                                               name="storeName">
+                                <div class="col-xs-2">
+                                    <div class="form-group">
+                                        <select class="form-control" name="color">
+                                            <option value="">- 颜色 -</option>
+                                          <%
+                                          if(DWY_Helper.isCanLoop(colorList)){
+                                          colorList.forEach(function (element) { %>
+                                            <option value="<%= element.id %>" <%= (DWYRequest.query.color == element.id )?"selected":"" %> ><%= element.name %></option>
+                                          <% })} %>
+                                        </select>
                                     </div>
                                 </div>
-                            </div>
-                          <% if(DWY_GLOBAL.ButtonOpen!=1){ %>
-                            <div class="col-xs-3 text-center">
-                                <button class="btn btn-primary " type="submit">
-                                    <i class="fa fa-search"></i>
-                                    查询
-                                </button>
-                                <a      class="btn btn-primary reset margin-left-20"
-                                        href="/orders/nesting?productType=<%= DWYRequest.query.productType %>
+                                <div class="col-xs-3">
+                                    <div class="form-group">
+                                        <label class="col-xs-4 control-label">专卖店名:</label>
+                                        <div class="col-xs-8">
+                                            <input class="form-control"  value="<%= DWYRequest.query.storeName %>" type="text"
+                                                   name="storeName">
+                                        </div>
+                                    </div>
+                                </div>
+                              <% if(DWY_GLOBAL.ButtonOpen!=1){ %>
+                                <div class="col-xs-3 text-center">
+                                    <button class="btn btn-primary " type="submit">
+                                        <i class="fa fa-search"></i>
+                                        查询
+                                    </button>
+                                    <a      class="btn btn-primary reset margin-left-20"
+                                            href="/orders/nesting?productType=<%= DWYRequest.query.productType %>
                                                 &color=<%= DWYRequest.query.color %>&storeName=<%= DWYRequest.query.storeName %>
                                                 &cName=<%= DWYRequest.query.cName %>&orderFinish=1&type=<%= DWYRequest.query.type %>
                                                 &lid=<%= DWYRequest.query.lid %>&payed=2&orderStartTime=<%= DWYRequest.query.orderStartTime %>
                                                 &orderEndTime=<%= DWYRequest.query.orderEndTime %>
                                                 &deliveryStartTime=<%= DWYRequest.query.deliveryStartTime %>
                                                 &deliveryEndTime=<%= DWYRequest.query.deliveryEndTime %>&orderScheduleNumber=0">
-                                    查询可排料订单
-                                </a>
-                                <label class="btn btn-default reset margin-left-20">
-                                    重置
-                                </label>
-                                <label class="search margin-left-20">
-                                    高级查询
-                                    <i class="fa fa-chevron-down"></i>
-                                </label>
+                                        查询可排料订单
+                                    </a>
+                                    <label class="btn btn-default reset margin-left-20">
+                                        重置
+                                    </label>
+                                    <label class="search margin-left-20">
+                                        高级查询
+                                        <i class="fa fa-chevron-down"></i>
+                                    </label>
+                                </div>
+                              <%}%>
+
+                              <% if(DWY_GLOBAL.ButtonOpen!=1){  %>
+                                <div class="slideToggle display-none">
+                                  <% } %>
+                                    <div class="col-xs-3">
+                                        <div class="form-group">
+                                            <label class="col-xs-4 control-label">客户名称:</label>
+                                            <div class="col-xs-8">
+                                                <input class="form-control"  value="<%= DWYRequest.query.cName %>" type="text"
+                                                       name="cName">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-3">
+                                        <div class="form-group">
+                                            <label class="col-xs-4 control-label">是否下单完毕:</label>
+                                            <div class="col-xs-8">
+                                                <select class="form-control" name="orderFinish">
+                                                    <option value="">-  请选择 -</option>
+                                                    <option value="0" <%= (DWYRequest.query.orderFinish == 0 )?"selected":"" %> >未完毕</option>
+                                                    <option value="1" <%= (DWYRequest.query.orderFinish == 1 )?"selected":"" %> >已完毕</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-xs-3">
+                                        <div class="form-group">
+                                            <label class="col-xs-4 control-label">订单类别:</label>
+                                            <div class="col-xs-8">
+                                                <select class="form-control" name="type">
+                                                    <option value="">-  请选择 -</option>
+                                                  <% if(DWY_Helper.isCanLoop(orderTypeList)){
+                                                  orderTypeList.forEach(function (element) {  %>
+                                                    <option value="<%= element.id %>" <%= (DWYRequest.query.type == element.id )?"selected":"" %> ><%= element.name %></option>
+                                                  <%  })
+                                                  } %>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-xs-3">
+                                        <div class="form-group">
+                                            <label class="col-xs-4 control-label">流水号:</label>
+                                            <div class="col-xs-8">
+                                                <input class="form-control"  value="<%= DWYRequest.query.lid %>" type="text"
+                                                       name="lid">
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-xs-3">
+                                        <div class="form-group">
+                                            <label class="col-xs-4 control-label">是否收款:</label>
+                                            <div class="col-xs-8">
+                                                <select class="form-control" name="payed">
+                                                    <option value="">-  请选择 -</option>
+                                                    <option value="2" <%= (DWYRequest.query.payed == 2)?"selected":"" %> >已收款</option>
+                                                    <option value="1" <%= (DWYRequest.query.payed == 1 )?"selected":"" %> >未收款</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-4">
+                                        <div class="form-group">
+                                            <label class="col-xs-3 control-label">&nbsp下单日期</label>
+                                            <div class="col-xs-4">
+                                                <input class="form-control fg-date-picker" type="text"
+                                                       value="<%= DWYRequest.query.orderStartTime %>" name="orderStartTime">
+                                            </div>
+                                            <label class="control-label " style="float: left"> 至 </label>
+                                            <div class="col-xs-4">
+                                                <input class="form-control fg-date-picker" type="text"
+                                                       value="<%= DWYRequest.query.orderEndTime %>" name="orderEndTime">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-4">
+                                        <div class="form-group">
+                                            <label class="col-xs-3 control-label">&nbsp交货日期</label>
+                                            <div class="col-xs-4">
+                                                <input class="form-control fg-date-picker" type="text"
+                                                       value="<%= DWYRequest.query.deliveryStartTime %>" name="deliveryStartTime">
+                                            </div>
+                                            <label class="control-label" style="float: left"> 至 </label>
+                                            <div class="col-xs-4">
+                                                <input class="form-control fg-date-picker" type="text"
+                                                       value="<%= DWYRequest.query.deliveryEndTime %>" name="deliveryEndTime">
+                                            </div>
+                                        </div>
+                                    </div>
+                                  <% if(DWY_GLOBAL.ButtonOpen!=1){  %>
+                                </div>
+                              <% } %>
+
+                            </div>
+                          <% if(DWY_GLOBAL.ButtonOpen==1){ %>
+                            <div class="col-xs-12">
+                                <hr class="simple">
+                                <div class="col-xs-12 text-center">
+                                    <button class="btn btn-primary " type="submit">
+                                        <i class="fa fa-search"></i>
+                                        查询
+                                    </button>
+                                </div>
                             </div>
                           <%}%>
-
-                          <% if(DWY_GLOBAL.ButtonOpen!=1){  %>
-                            <div class="slideToggle display-none">
-                              <% } %>
-                                <div class="col-xs-3">
-                                    <div class="form-group">
-                                        <label class="col-xs-4 control-label">客户名称:</label>
-                                        <div class="col-xs-8">
-                                            <input class="form-control"  value="<%= DWYRequest.query.cName %>" type="text"
-                                                   name="cName">
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-xs-3">
-                                    <div class="form-group">
-                                        <label class="col-xs-4 control-label">是否下单完毕:</label>
-                                        <div class="col-xs-8">
-                                            <select class="form-control" name="orderFinish">
-                                                <option value="">-  请选择 -</option>
-                                                <option value="0" <%= (DWYRequest.query.orderFinish == 0 )?"selected":"" %> >未完毕</option>
-                                                <option value="1" <%= (DWYRequest.query.orderFinish == 1 )?"selected":"" %> >已完毕</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="col-xs-3">
-                                    <div class="form-group">
-                                        <label class="col-xs-4 control-label">订单类别:</label>
-                                        <div class="col-xs-8">
-                                            <select class="form-control" name="type">
-                                                <option value="">-  请选择 -</option>
-                                              <% if(DWY_Helper.isCanLoop(orderTypeList)){
-                                              orderTypeList.forEach(function (element) {  %>
-                                                <option value="<%= element.id %>" <%= (DWYRequest.query.type == element.id )?"selected":"" %> ><%= element.name %></option>
-                                              <%  })
-                                              } %>
-                                            </select>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="col-xs-3">
-                                    <div class="form-group">
-                                        <label class="col-xs-4 control-label">流水号:</label>
-                                        <div class="col-xs-8">
-                                            <input class="form-control"  value="<%= DWYRequest.query.lid %>" type="text"
-                                                   name="lid">
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="col-xs-3">
-                                    <div class="form-group">
-                                        <label class="col-xs-4 control-label">是否收款:</label>
-                                        <div class="col-xs-8">
-                                            <select class="form-control" name="payed">
-                                                <option value="">-  请选择 -</option>
-                                                <option value="2" <%= (DWYRequest.query.payed == 2)?"selected":"" %> >已收款</option>
-                                                <option value="1" <%= (DWYRequest.query.payed == 1 )?"selected":"" %> >未收款</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-xs-4">
-                                    <div class="form-group">
-                                        <label class="col-xs-3 control-label">&nbsp下单日期</label>
-                                        <div class="col-xs-4">
-                                            <input class="form-control fg-date-picker" type="text"
-                                                   value="<%= DWYRequest.query.orderStartTime %>" name="orderStartTime">
-                                        </div>
-                                        <label class="control-label " style="float: left"> 至 </label>
-                                        <div class="col-xs-4">
-                                            <input class="form-control fg-date-picker" type="text"
-                                                   value="<%= DWYRequest.query.orderEndTime %>" name="orderEndTime">
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-xs-4">
-                                    <div class="form-group">
-                                        <label class="col-xs-3 control-label">&nbsp交货日期</label>
-                                        <div class="col-xs-4">
-                                            <input class="form-control fg-date-picker" type="text"
-                                                   value="<%= DWYRequest.query.deliveryStartTime %>" name="deliveryStartTime">
-                                        </div>
-                                        <label class="control-label" style="float: left"> 至 </label>
-                                        <div class="col-xs-4">
-                                            <input class="form-control fg-date-picker" type="text"
-                                                   value="<%= DWYRequest.query.deliveryEndTime %>" name="deliveryEndTime">
-                                        </div>
-                                    </div>
-                                </div>
-                              <% if(DWY_GLOBAL.ButtonOpen!=1){  %>
-                            </div>
-                          <% } %>
-
                         </div>
-                      <% if(DWY_GLOBAL.ButtonOpen==1){ %>
-                        <div class="col-xs-12">
-                            <hr class="simple">
-                            <div class="col-xs-12 text-center">
-                                <button class="btn btn-primary " type="submit">
-                                    <i class="fa fa-search"></i>
-                                    查询
-                                </button>
-                            </div>
-                        </div>
-                      <%}%>
                     </div>
-                </div>
+                </form>
+
                 <!-- end col -->
             </div>
             <div class="row margin-top-10">
@@ -450,7 +458,6 @@
             <!-- end row -->
         </div>
 
-        </form>
     </div>
     <!-- end well -->
 </div>
@@ -482,24 +489,26 @@
         pageSetUp();
         $(".fg-date-picker").flatpickr(data_time_picker.data_picker); // jQuery
         $("#batchIdForm").validationEngine({scroll:false});
-        $("#waitNesting").validationEngine({scroll:false});
+        $("#waitNesting").validationEngine();
+        $("#form-doing").validationEngine({scroll:false});
 
         DWY_Utils.CommonMethods.checkFuc("input[name=checkAll]","input[name=role]:checkbox");
         DWY_Utils.CommonMethods.checkFuc("input[name=checkAllSec]","input[name=roles]:checkbox");
 
 
-        //修改批次号
+        // 修改批次号
         $("#editBatchNumSub").click(function () {
-            var cid;
-            layer.open({
-                title: false,
-                type: 1,
-                area: '700px',
-                content: $('#batchIdForm'),
-                cancel: function () {
-                    //右上角关闭回调
-                },
-            });
+            if($('#form-doing').validationEngine('validate')){
+                layer.open({
+                    title: false,
+                    type: 1,
+                    area: '700px',
+                    content: $('#batchIdForm'),
+                    cancel: function () {
+                        //右上角关闭回调
+                    },
+                });
+            }
         })
         $("#batchIdBtn").click(function(){
             var cid;

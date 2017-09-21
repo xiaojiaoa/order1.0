@@ -1103,14 +1103,12 @@ var OrderController = {
 
             var returnData = Base.mergeData(helper.mergeObject({
                 title: ' ',
+                queryString:queryString.stringify(req.query),
                 pagination: boostrapPaginator.render(),
                 paginationForGet: boostrapPaginatorForGet.render(),
                 Permission :Permissions,
             },resultList));
             res.render('order/order/nesting', returnData);
-
-
-
         });
     },
     // 标记为排料中
