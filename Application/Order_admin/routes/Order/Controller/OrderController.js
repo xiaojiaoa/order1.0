@@ -1813,6 +1813,13 @@ var OrderController = {
             form:JSON.parse(req.body.mytest),
         }, req, res)).pipe(res)
     },
+    exportResupply: function (req, res) {
+        request(Base.mergeRequestOptions({
+            method: 'post',
+            url: '/api/orders/resupply/resupplyPage/export',
+            form:JSON.parse(req.body.resupplys),
+        }, req, res)).pipe(res)
+    },
    reEditReview: function (req, res) {
         var tid=req.params.tid;
         request(Base.mergeRequestOptions({

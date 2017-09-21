@@ -273,6 +273,8 @@ router.get('/orders', Middleware.AuthCheck,Middleware.FilterEmptyField, OrderCon
 
 // 导出订单清单
 router.post('/orders/export/order',Middleware.AuthCheck,OrderController.exportOrder);
+// 导出补单清单
+router.post('/orders/export/resupply',Middleware.AuthCheck,OrderController.exportResupply);
 
 // 订单详情页面   订单信息（认领订单）
 router.get('/order/detail/:tid', Middleware.AuthCheck, OrderController.detailPage);
