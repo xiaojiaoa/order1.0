@@ -241,6 +241,20 @@
                                         </div>
                                     </div>
                                 </div>
+                                <div class="col-xs-4">
+                                    <div class="form-group">
+                                        <label class="col-xs-3 control-label">排产日期:</label>
+                                        <div class="col-xs-4">
+                                            <input class="form-control fg-date-picker" placeholder="" type="text" value="<%= DWYRequest.query.startScheduleDate %>"
+                                                   name="startScheduleDate">
+                                        </div>
+                                        <label class="from-to control-label "> 至 </label>
+                                        <div class="col-xs-4">
+                                            <input class="form-control fg-date-picker" placeholder="" type="text" value="<%= DWYRequest.query.endScheduleDate %>"
+                                                   name="endScheduleDate">
+                                        </div>
+                                    </div>
+                                </div>
                             <% if(DWY_GLOBAL.ButtonOpen!=1){ %>
                             </div>
                             <%}%>
@@ -297,6 +311,7 @@
                                 <th>补单建单人</th>
                                 <th>补单建单时间</th>
                                 <th>补单原因</th>
+                                <th>排产时间</th>
                                 <th>补单当前状态</th>
                                 <th>收款状态</th>
                                 <th>收款日期</th>
@@ -338,6 +353,7 @@
                                 <td><%= element.createOperator %></td>
                                 <td><%= element.addTime %></td>
                                 <td><%= element.causeStr %></td>
+                                <td><%= DWY_Helper.getLocalDateYMD(element.scheduleTime) %></td>
                                 <td><%= element.statusStr %></td>
                                 <td><%= element.payStatus %></td>
                                 <td><%= DWY_Helper.getLocalDate(element.receiptTime) %></td>
@@ -358,7 +374,7 @@
                             </tr>
                             <% })
                             }else{ %>
-                            <td colspan="12" class="text-align-center">暂无数据</td>
+                            <td colspan="21" class="text-align-center">暂无数据</td>
                             <% }%>
 
                             </tbody>
