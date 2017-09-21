@@ -137,7 +137,7 @@
                 if(value.length==0){
                     layer.msg("请选择订单号",{icon:2,})
                 }else{
-                    layer.confirm('确认关闭吗？', {
+                    layer.confirm('确认关闭订单吗？关闭之后无法恢复！', {
                         icon:3
                     }, function(index){
                         $("input[name=tids]").val(value.toString(','));
