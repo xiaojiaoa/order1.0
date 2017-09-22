@@ -121,12 +121,12 @@
                             <tr>
                                 <td width="12%">优惠券总计</td>
                                 <td width="21%"><%= couponInfo.amount %></td>
-                                <td>优惠券金额总计</td>
-                                <td><%= couponInfo.money %></td>
+                                <td width="12%">优惠券金额总计</td>
+                                <td width="21%"><%= couponInfo.money %></td>
                             </tr>
                             <tr>
-                                <td width="12%">已使用优惠券总计</td>
-                                <td width="21%"><%= couponInfo.usedAmount %></td>
+                                <td>已使用优惠券总计</td>
+                                <td><%= couponInfo.usedAmount %></td>
                                 <td>优惠券已用金额总计</td>
                                 <td><%= couponInfo.usedMoney %></td>
                             </tr>
@@ -138,7 +138,9 @@
                             </tr>
                             <tr>
                                 <td>未使用优惠券总计</td>
-                                <td colspan="3"><%= couponInfo.unusedAmount %></td>
+                                <td><%= couponInfo.unusedAmount %></td>
+                                <td>未使用优惠券金额总计</td>
+                                <td><%= couponInfo.unusedMoney %></td>
                             </tr>
                             </tbody>
                         </table>
