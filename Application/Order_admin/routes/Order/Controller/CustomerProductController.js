@@ -30,8 +30,10 @@ var CustomerProductController = {
     },
     customerProListPage: function (req, res) {
         // console.log("查询路径是什么", '/api/orders/completeSet?'+queryString.stringify(req.query));
+        req.query.regionTypes=req.query.regionTypes?req.query.regionTypes.toString(','):'';
         Base.multiDataRequest(req, res, [
             {url: '/api/orders/completeSet?'+queryString.stringify(req.query), method: 'GET', resConfig: {keyName: 'completeSetList', is_must: true}},
+            {url: '/api/orders/getRegionTypeByGid', method: 'GET', resConfig: {keyName: 'TypesList', is_must: true}},
         ], function (req, res, resultList) {
 
             // console.log(5555,resultList.completeSetList);
