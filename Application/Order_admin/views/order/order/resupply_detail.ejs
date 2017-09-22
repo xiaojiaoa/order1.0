@@ -514,8 +514,8 @@
                                 <td>
                                     排料中
                                     <% if (DWY_Helper.hasPermission(Permission.orderSchedule.passOrder.id, permission) && resupplyInfo.receiveGid == user.id ){ %>
-                                    <a class="label label-primary doPass"
-                                       data-stcode="<%= resupplyInfo.status %>">确认排料</a>
+                                    <!--<a class="label label-primary doPass"-->
+                                       <!--data-stcode="<%= resupplyInfo.status %>">确认排料</a>-->
                                     <% } %>
                                     <% if (DWY_Helper.hasPermission(Permission.orderSchedule.sendBackOrder.id, permission) && (resupplyInfo.packeted == 0) && resupplyInfo.receiveGid == user.id ){ %>
                                     <a class="label label-primary margin-left-20 reject-modal">排料退回</a>
