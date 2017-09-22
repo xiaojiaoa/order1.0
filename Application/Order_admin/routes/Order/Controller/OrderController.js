@@ -36,6 +36,7 @@ var OrderController = {
             {url: '/api/assist/brandinfo', method: 'GET', resConfig: {keyName: 'brandInfo', is_must: false}},
             // {url: '/api/assist/space/prod', method: 'GET', resConfig: {keyName: 'prodInfo', is_must: false}},
             {url: '/api/organizations/list', method: 'GET', resConfig: {keyName: 'organizationsList', is_must: false}},
+            {url: '/api/assist/order/couponType', method: 'GET', resConfig: {keyName: 'couponType', is_must: false}},
             {url: '/api/stores/list', method: 'GET', resConfig: {keyName: 'storesList', is_must: false}},
             {url: '/api/orders/getRegionTypeByGid', method: 'GET', resConfig: {keyName: 'TypesList', is_must: true}},
             {url: '/api/orders/orderTag', method: 'GET', resConfig: {keyName: 'orderTag', is_must: true}},
