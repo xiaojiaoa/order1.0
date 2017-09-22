@@ -1475,6 +1475,7 @@ var OrderController = {
             {url: '/api/stores/money/page?'+queryString.stringify(req.query), method: 'GET', resConfig: {keyName: 'moneyList', is_must: true}},
             {url: '/api/organizations/list', method: 'GET', resConfig: {keyName: 'organizationsList', is_must: true}},
             {url: '/api/assist/space/prod', method: 'GET', resConfig: {keyName: 'prodList', is_must: true}},
+            // {url: '/api/stores/money/coupon', method: 'GET', resConfig: {keyName: 'prodList', is_must: true}},
 
         ], function (req, res, resultList) {
             var paginationInfo =  resultList.moneyList;
@@ -1526,6 +1527,17 @@ var OrderController = {
             },resultList));
             res.render('order/order/money_receipt', returnData);
         });
+    },
+    coupon: function (req, res) {
+        var tid = req.params.tid;
+        request(Base.mergeRequestOptions({
+            method: 'get',
+            url: '/api/stores/money/coupon/'+tid,
+        }, req, res), function (error, response, body) {
+            if (!error && response.statusCode == 200) {
+                res.send(body);
+            }
+        })
     },
     receiptCheck: function (req, res) {
         // console.log('money',JSON.stringify(req.body))

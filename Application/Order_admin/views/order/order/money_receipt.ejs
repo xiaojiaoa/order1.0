@@ -343,7 +343,7 @@
 <%- include('../layouts/footer'); %>
 <%- include('../layouts/footer_common_script'); %>
 
-<form class="form-horizontal  layer-template" method="post" id="order_reject"  action="/collection/receiptCheck/pass">
+<form class="form-horizontal  layer-template" method="post" id="order_reject"  action="/collection/receiptCheck/pass" >
     <div class="col-xs-12" style="padding:40px;">
         <div class="form-group">
             <label class="col-xs-3 control-label"><span class="requird"></span> 类型:</label>
@@ -386,6 +386,16 @@
                 <input class="form-control " type="text"  value=""  name="priceAfterDiscount" id="priceAfterDiscount" readonly/>
             </div>
         </div>
+        <div class="form-group" id="couponCont">
+            <label class="col-xs-3 control-label"> 优惠券:</label>
+            <div class="col-xs-8">
+                <input class="form-control " type="text"  value=""   id="coupon" readonly/>
+            </div>
+            <div class="col-xs-1">
+                <input type="checkbox" class="form-control" value="" name="couponId" style="width:20px;height:20px;">
+            </div>
+        </div>
+
         <div class="form-group">
             <label class="col-xs-3 control-label"> 备注:</label>
             <div class="col-xs-8">
@@ -441,6 +451,30 @@
                     //右上角关闭回调
                 },
 
+            });
+            $.ajax({
+                url: '/coupon/'+tid,
+                method: 'get',
+                success: function (msg) {
+                    if(msg) {
+                        var data = $.parseJSON(msg);
+                        if (data == null || data == '') {
+                        } else {
+                            $("#coupon").val(data.ticketDesc);
+                            $("input[name=couponId]").val(data.id);
+                            setTimeout(function validat(){
+                                if (!$("input[name=couponId]").prop("checked")) {
+                                    layer.alert('您还有优惠券尚未使用！', {icon: 3});
+                                    return false;
+                                }
+                            },5000)
+                        }
+                    }
+                },
+                error: function (response) {
+//                    layer.close(index)
+                    errorLayout.normal(response);
+                }
             });
 
         })

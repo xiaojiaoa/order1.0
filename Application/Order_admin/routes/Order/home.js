@@ -169,8 +169,8 @@ var Middleware = {
     }),
     // 保存路由路径
     SetBackPath: function (req, res, next) {
-            req.session.backPath = req.url;
-            next();
+        req.session.backPath = req.url;
+        next();
     },
 };
 
@@ -455,6 +455,8 @@ router.get('/order/exportParts/:tid',Middleware.AuthCheck,OrderController.export
 
 // 订单改价页面
 router.get('/collection', Middleware.AuthCheck,Middleware.FilterEmptyField,Middleware.SetBackPath, OrderController.receiptMoneyPage);
+//订单优惠券信息
+router.get('/coupon/:tid', Middleware.AuthCheck,Middleware.FilterEmptyField, OrderController.coupon);
 
 // 收款确认页面
 router.get('/reconciliation', Middleware.AuthCheck,Middleware.FilterEmptyField,Middleware.SetBackPath, OrderController.confirmMoneyPage);
