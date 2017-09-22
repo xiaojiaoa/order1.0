@@ -1646,6 +1646,14 @@ var OrderController = {
 
 
     },
+
+    exportReceipt: function (req, res) {
+        request(Base.mergeRequestOptions({
+            method: 'post',
+            url: '/api/stores/money/export',
+            form:JSON.parse(req.body.receipt),
+        }, req, res)).pipe(res)
+    },
     batchPage: function (req, res) {
         var paramObject = helper.genPaginationQuery(req);
         Base.multiDataRequest(req, res, [

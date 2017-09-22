@@ -463,6 +463,8 @@ router.get('/coupon/:tid', Middleware.AuthCheck,Middleware.FilterEmptyField, Ord
 
 // 收款确认页面
 router.get('/reconciliation', Middleware.AuthCheck,Middleware.FilterEmptyField,Middleware.SetBackPath, OrderController.confirmMoneyPage);
+//导出收款列表
+router.post('/export/receipt', Middleware.AuthCheck,Middleware.FilterEmptyField, OrderController.exportReceipt);
 
 // 付款
 router.post('/collection/receiptCheck', Middleware.AuthCheck, OrderController.receiptCheck);

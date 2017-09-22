@@ -221,6 +221,12 @@
                         <%}%>
                         <%if(type=='confirmMoney'){%>
                         收款确认列表
+                        <form class="" method="post" action="/export/receipt" style="display: inline-block;">
+                            <input type="hidden" name="receipt" value="<%= JSON.stringify( DWYRequest.query)%>">
+                            <button class="label label-primary " type="submit">
+                                导出收款列表
+                            </button>
+                        </form>
                         <%}%>
                     </h6>
                     <hr class="simple">
