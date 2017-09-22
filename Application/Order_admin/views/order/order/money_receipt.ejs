@@ -424,6 +424,7 @@
     $(document).ready(function () {
 
         $(".fg-date-picker").flatpickr(data_time_picker.data_picker);  // jQuery
+        var flag=1;
 
         //重置
         $(".reset").click(function(){
@@ -435,6 +436,7 @@
 
         //点击改价按钮
         $(".checkThis").click(function () {
+            flag=1;
             var _self = $(this);
             var tid = _self.attr('data-tid');
             var bid = _self.attr('data-bid');
@@ -570,10 +572,15 @@
 
         })
         $("#order_reject").submit(function(){
-            if($("input[name=couponId]").length>0) {
-                if (!$("input[name=couponId]").prop("checked")) {
-                    layer.alert('您还有优惠券尚未使用！', {icon: 3});
-                    return false;
+            if(flag==1) {
+                if ($("input[name=couponId]").length > 0) {
+                    if (!$("input[name=couponId]").prop("checked")) {
+                        layer.alert('您还有优惠券尚未使用！', {icon: 3},function(index){
+                            layer.close(index);
+                            flag=2;
+                        });
+                        return false;
+                    }
                 }
             }
         })
