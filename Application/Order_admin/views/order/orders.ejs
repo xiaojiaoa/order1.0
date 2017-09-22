@@ -322,7 +322,7 @@
                                                 <option value="">- 请选择 -</option>
                                                 <%
                                                 couponType.forEach(function (element) { %>
-                                                <option value="<%= element.id %>" <%= (DWYRequest.query.factoryId == element.id)?"selected":"" %>><%= element.name %></option>
+                                                <option value="<%= element.id %>" <%= (DWYRequest.query.couponType == element.id)?"selected":"" %>><%= element.name %></option>
                                                 <%  }) %>
                                             </select>
 
@@ -526,7 +526,7 @@
         $(".fg-date-picker").flatpickr(data_time_picker.data_picker);  // jQuery
 
 
-//区域查询
+        //区域查询
         var TypesList = <%-  JSON.stringify(TypesList) %>;
         $(".search").click(function(){
             DWY_Utils.AreaSelect.find("#areaParentId","#areaChidId",TypesList);

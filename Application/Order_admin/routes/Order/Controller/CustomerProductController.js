@@ -19,8 +19,14 @@ var Permissions = require('../config/permission');
 
 var CustomerProductController = {
     customerProPage: function (req, res) {
-            res.render('order/product/index_unselect');
-
+        Base.multiDataRequest(req, res, [
+            {url: '/api/orders/getRegionTypeByGid', method: 'GET', resConfig: {keyName: 'TypesList', is_must: true}},
+        ], function (req, res, resultList) {
+            var returnData = Base.mergeData(helper.mergeObject({
+                title: ' ',
+            }, resultList));
+            res.render('order/product/index_unselect', returnData);
+        });
     },
     customerProListPage: function (req, res) {
         // console.log("查询路径是什么", '/api/orders/completeSet?'+queryString.stringify(req.query));

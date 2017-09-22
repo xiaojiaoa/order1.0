@@ -15,7 +15,7 @@
         <!-- breadcrumb -->
         <ol class="breadcrumb">
             <li>后台管理</li>
-            <li>成交情况统计</li>
+            <li>优惠券数据统计</li>
         </ol>
         <!-- end breadcrumb -->
 
@@ -30,72 +30,64 @@
 
         <div class="row-url">
             <a class="title-url" href="/countCustomer">客户跟进统计</a>
-            <a class="title-url active" href="/countDeal">成交情况统计</a>
-            <a class="title-url" href="/couponCount">优惠券数据统计</a>
+            <a class="title-url" href="/countDeal">成交情况统计</a>
+            <a class="title-url active" href="/couponCount">优惠券数据统计</a>
         </div>
 
         <div class="well">
             <!-- row -->
             <div class="row">
                 <!-- col -->
-                <div class="col-xs-12 ">
+                <div class="col-xs-12 dwy-show-content">
                     <!-- row -->
                     <div class="row search-form">
                         <form class="form-horizontal" method="get" id="search-customer">
 
                             <div class="col-xs-12">
-                                <div class="col-xs-2">
+                                <div class="col-xs-3">
                                     <div class="form-group">
-                                        <label class="col-xs-4 control-label">家居顾问:</label>
+                                        <label class="col-xs-4 control-label">优惠券类型:</label>
                                         <div class="col-xs-8">
-                                            <select class="form-control validate[required]" name="conid">
+                                            <select class="form-control validate[required]" name="couponType">
                                                 <option value="">- 请选择 -</option>
                                                 <%
-                                                if(DWY_Helper.isCanLoop(homeAdviserInfo)){
-                                                homeAdviserInfo.forEach(function (element) { %>
-                                                <option value="<%= element.id %>" <%= (DWYRequest.query.conid == element.id)?"selected":"" %> >
-                                                    <%= element.name %>
-                                                </option>
-                                                <% })
-                                                }  %>
-
+                                                couponType.forEach(function (element) { %>
+                                                <option value="<%= element.id %>" <%= (DWYRequest.query.couponType == element.id)?"selected":"" %>><%= element.name %></option>
+                                                <%  }) %>
                                             </select>
 
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-xs-2">
+                                <div class="col-xs-3">
                                     <div class="form-group">
-                                        <label class="col-xs-4 control-label">设计师:</label>
+                                        <label class="col-xs-4 control-label">优惠券状态:</label>
                                         <div class="col-xs-8">
-                                            <select class="form-control validate[required]" name="gid">
+                                            <select class="form-control" name="couponStatus">
                                                 <option value="">- 请选择 -</option>
-                                                <%
-                                                designerInfo.forEach(function (element) { %>
-                                                <option value="<%= element.id %>" <%= (DWYRequest.query.gid == element.id)?"selected":"" %> >
-                                                    <%= element.name %>
-                                                </option>
-                                                <% }) %>
+                                                <option value="0" <%= (DWYRequest.query.couponStatus == 0 )?"selected":"" %>>未使用</option>
+                                                <option value="1" <%= (DWYRequest.query.couponStatus == 1 )?"selected":"" %>>已关联订单</option>
+                                                <option value="2" <%= (DWYRequest.query.couponStatus == 2 )?"selected":"" %>>已使用</option>
                                             </select>
 
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-xs-4">
+                                <div class="col-xs-5">
                                     <div class="form-group">
                                         <label class="col-xs-2 control-label">时间段:</label>
                                         <div class="col-xs-4">
-                                            <input class="form-control fg-date-picker" placeholder="" type="text"  value="<%= DWYRequest.query.startDate %>"
-                                                   name="startDate">
+                                            <input class="form-control fg-date-picker" placeholder="" type="text"  value="<%= DWYRequest.query.startCouponDate %>"
+                                                   name="startCouponDate">
                                         </div>
                                         <label class="control-label " style="float: left"> 至 </label>
                                         <div class="col-xs-4">
-                                            <input class="form-control fg-date-picker" placeholder="" type="text"  value="<%= DWYRequest.query.endDate %>"
-                                                   name="endDate">
+                                            <input class="form-control fg-date-picker" placeholder="" type="text"  value="<%= DWYRequest.query.endCouponDate %>"
+                                                   name="endCouponDate">
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-xs-2 text-center">
+                                <div class="col-xs-1">
                                     <button class="btn btn-primary " type="submit">
                                         <i class="fa fa-search"></i>
                                         查询
@@ -103,6 +95,8 @@
                                 </div>
 
                             </div>
+
+
 
                         </form>
                     </div>
@@ -125,21 +119,26 @@
                         <table class="table table-bordered table-striped table-information">
                             <tbody>
                             <tr>
-                                <td width="12%">期间量尺数</td>
-                                <td width="21%"><%= dealInfo.meased %></td>
-                                <td width="12%">成交客户数</td>
-                                <td width="21%"><%= dealInfo.conStcode %></td>
+                                <td width="12%">优惠券总计</td>
+                                <td width="21%"><%= couponInfo.amount %></td>
+                                <td width="12%">已使用优惠券总计</td>
+                                <td width="21%"><%= couponInfo.usedAmount %></td>
                             </tr>
                             <tr>
-                                <td>成交率</td>
-                                <td><%= dealInfo.percent %> %</td>
-                                <td>平均成交时间</td>
-                                <td><%= dealInfo.dealTime %> 天</td>
+                                <td>优惠券金额总计</td>
+                                <td><%= couponInfo.money %></td>
+                                <td>未使用优惠券总计</td>
+                                <td><%= couponInfo.unusedAmount %></td>
                             </tr>
                             <tr>
-                                <td>单客户平均成交金额</td>
-                                <td colspan="3"><%= dealInfo.ordersum %> 元</td>
-
+                                <td>已关联优惠券总计</td>
+                                <td><%= couponInfo.associatedAmount %></td>
+                                <td>已关联优惠券金额总计</td>
+                                <td><%= couponInfo.associatedMoney %></td>
+                            </tr>
+                            <tr>
+                                <td>优惠券已用金额总计</td>
+                                <td colspan="3"><%= couponInfo.usedMoney %></td>
                             </tr>
                             </tbody>
                         </table>

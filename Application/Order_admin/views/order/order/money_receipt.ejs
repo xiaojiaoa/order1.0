@@ -343,7 +343,7 @@
 <%- include('../layouts/footer'); %>
 <%- include('../layouts/footer_common_script'); %>
 
-<form class="form-horizontal  layer-template" method="post" id="order_reject"  action="/collection/receiptCheck/pass" >
+<form class="form-horizontal  layer-template" method="post" id="order_reject"  action="/collection/receiptCheck/pass">
     <div class="col-xs-12" style="padding:40px;">
         <div class="form-group">
             <label class="col-xs-3 control-label"><span class="requird"></span> 类型:</label>
@@ -458,17 +458,13 @@
                 success: function (msg) {
                     if(msg) {
                         var data = $.parseJSON(msg);
-                        if (data == null || data == '') {
-                        } else {
-                            $("#coupon").val(data.ticketDesc);
-                            $("input[name=couponId]").val(data.id);
-                            setTimeout(function validat(){
-                                if (!$("input[name=couponId]").prop("checked")) {
-                                    layer.alert('您还有优惠券尚未使用！', {icon: 3});
-                                    return false;
-                                }
-                            },5000)
-                        }
+                        $("#coupon").val(data.ticketDesc);
+                        $("input[name=couponId]").val(data.id);
+                        $("#couponCont").removeClass("display-none");
+                    }
+                    if(msg==''||msg==null){
+                        $("#couponCont").addClass("display-none");
+                        $("#couponCont").find(".col-xs-1").remove();
                     }
                 },
                 error: function (response) {
@@ -573,9 +569,14 @@
 
 
         })
-
-
-
+        $("#order_reject").submit(function(){
+            if($("input[name=couponId]").length>0) {
+                if (!$("input[name=couponId]").prop("checked")) {
+                    layer.alert('您还有优惠券尚未使用！', {icon: 3});
+                    return false;
+                }
+            }
+        })
     })
 
 </script>

@@ -110,6 +110,18 @@ var IndexController = {
                 res.render('order/count/count_deal', returnData);
             });
     },
+    couponCountPage: function (req, res) {
+        Base.multiDataRequest(req, res, [
+                {url: '/api/taskseqs/custcount/coupon?'+ queryString.stringify(req.query), method: 'GET', resConfig: {keyName: 'couponInfo', is_must: true}},
+                {url: '/api/assist/order/couponType', method: 'GET', resConfig: {keyName: 'couponType', is_must: false}},
+            ],
+            function (req, res, resultList) {
+                var returnData = Base.mergeData(helper.mergeObject({
+                    title: ' ',
+                }, resultList));
+                res.render('order/count/count_coupon', returnData);
+            });
+    },
     getDownload: function (req, res) {
         res.redirect(downloadStatic+'/download?url='+"2017\\10003739\\1511400011704140002\\bls - 数据字典20170410-改.xlsx")
 

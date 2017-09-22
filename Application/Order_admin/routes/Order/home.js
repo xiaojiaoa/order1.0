@@ -224,6 +224,9 @@ router.put('/getHomeAdviserList/:sid/:did', Middleware.AuthCheck, IndexControlle
 // 成交情况统计
 router.get('/countDeal', Middleware.AuthCheck, IndexController.countDealPage);
 
+//优惠券数据统计
+router.get('/couponCount', Middleware.AuthCheck, IndexController.couponCountPage);
+
 
 router.get('/download', Middleware.AuthCheck, IndexController.getDownload);
 
