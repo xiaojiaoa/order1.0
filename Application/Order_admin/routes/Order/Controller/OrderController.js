@@ -1291,9 +1291,13 @@ var OrderController = {
     },
     allInfoPage:function(req,res){
         var paramObject = helper.genPaginationQuery(req);
+
+        req.query.regionTypes=req.query.regionTypes?req.query.regionTypes.toString(','):'';
         Base.multiDataRequest(req, res, [
             {url: '/api/orders/package?'+queryString.stringify(req.query), method: 'GET', resConfig: {keyName: 'packageAll', is_must: true}},
             {url: '/api/organizations/list', method: 'GET', resConfig: {keyName: 'organizationsList', is_must: true}},
+            {url: '/api/orders/getRegionTypeByGid', method: 'GET', resConfig: {keyName: 'TypesList', is_must: true}},
+
         ], function (req, res, resultList) {
             var paginationInfo =  resultList.packageAll;
             var boostrapPaginator = new Pagination.TemplatePaginator(helper.genPageInfo({

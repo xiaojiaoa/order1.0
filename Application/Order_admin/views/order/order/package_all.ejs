@@ -63,23 +63,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <% if (DWY_Helper.hasPermission(Permission.orderPackage.queryAll.id, permission)){ %>
-                                <div class="col-xs-3">
-                                    <div class="form-group">
-                                        <label class="col-xs-4 control-label">机构号:</label>
-                                        <div class="col-xs-8">
-                                            <select name="bid" id="" class="form-control">
-                                                <option value="">- 请选择 -</option>
-                                                <%
-                                                if(DWY_Helper.isCanLoop(organizationsList)){
-                                                organizationsList.forEach(function (element, index) { %>
-                                                <option value="<%= element.id %>" <%=( DWYRequest.query.bid ==element.id )? 'selected':'';%>><%= element.name %></option>
-                                                <%})}%>
-                                            </select>
-                                        </div>
-                                    </div>
-                                </div>
-                                <% } %>
+
                                 <% if(DWY_GLOBAL.ButtonOpen!=1){ %>
                                 <div class="col-xs-3 text-center">
                                     <button class="btn btn-primary " type="submit">
@@ -98,6 +82,32 @@
                                 <% if(DWY_GLOBAL.ButtonOpen!=1){  %>
                                 <div class="slideToggle display-none">
                                 <%}%>
+                                  <% if (DWY_Helper.hasPermission(Permission.orderPackage.queryAll.id, permission)){ %>
+                                    <div class="col-xs-3">
+                                        <div class="form-group">
+                                            <label class="col-xs-4 control-label">机构号:</label>
+                                            <div class="col-xs-8">
+                                                <select name="bid" id="" class="form-control">
+                                                    <option value="">- 请选择 -</option>
+                                                  <%
+                                                  if(DWY_Helper.isCanLoop(organizationsList)){
+                                                  organizationsList.forEach(function (element, index) { %>
+                                                    <option value="<%= element.id %>" <%=( DWYRequest.query.bid ==element.id )? 'selected':'';%>><%= element.name %></option>
+                                                  <%})}%>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                  <% } %>
+                                    <div class="col-xs-3">
+                                        <div class="form-group">
+                                            <label class="col-xs-4 control-label">门店名称:</label>
+                                            <div class="col-xs-8">
+                                                <input class="form-control " placeholder="请输入门店名称"
+                                                       value="<%= DWYRequest.query.storeName %>" type="text" name="storeName">
+                                            </div>
+                                        </div>
+                                    </div>
                                 <div class="col-xs-3">
                                         <div class="form-group">
                                             <label class="col-xs-4 control-label">包装状态:</label>
@@ -142,7 +152,37 @@
                                             </div>
                                         </div>
                                     </div>
-                                <% if(DWY_GLOBAL.ButtonOpen!=1){  %>
+                                    <div class="col-xs-6">
+                                        <div class="form-group">
+                                            <label class="col-xs-2 control-label">大区类型:</label>
+                                            <div class="col-xs-4">
+                                                <select class="form-control" id="areaParentId" name="regionTypeId">
+                                                    <option value="">- 请选择 -</option>
+                                                  <%
+                                                  if(DWY_Helper.isCanLoop(TypesList[0])){
+                                                  TypesList[0].forEach(function (element) { %>
+                                                    <option value="<%= element.id %>"  <%= (DWYRequest.query.regionTypeId == element.id )?"selected":"" %>>
+                                                      <%= element.name %>
+                                                    </option>
+                                                  <% })
+                                                  }%>
+
+                                                </select>
+
+                                            </div>
+                                            <div class="col-xs-6">
+                                              <% var desName = DWYRequest.query.regionTypes?(DWYRequest.query.regionTypes).split(','):[] %>
+                                                <select multiple style="width:100%" class="select2 select2-offscreen" id="areaChidId" name="regionTypes">
+                                                  <% if(DWY_Helper.isCanLoop(TypesList[DWYRequest.query.regionTypeId])){
+                                                  TypesList[DWYRequest.query.regionTypeId].forEach(function (element) { %>
+                                                    <option value="<%= element.id %>" <%= DWY_Helper.getAssistMultiple( element.id,desName)?"selected":"" %>><%= element.name %></option>
+                                                  <%  }) }  %>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                  <% if(DWY_GLOBAL.ButtonOpen!=1){  %>
                                 </div>
                                 <%}%>
                             </div>
@@ -259,6 +299,11 @@
         //对表单进行初始化验证
         $("#search-customer").validationEngine();
 
+        //区域查询
+        var TypesList = <%-  JSON.stringify(TypesList) %>;
+        $(".search").click(function(){
+            DWY_Utils.AreaSelect.find("#areaParentId","#areaChidId",TypesList);
+        })
     })
 
 </script>
