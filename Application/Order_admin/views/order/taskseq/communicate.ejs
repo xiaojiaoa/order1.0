@@ -67,7 +67,13 @@
 
                                     } %>
                                 </td>
-                                <td><%= element.mobile %></td>
+                                <td>
+                                    <%if(element.telephone){%>
+                                    <%= element.telephone %>
+                                    <%} else{%>
+                                    <%=  element.mobile %>
+                                    <%}%>
+                                </td>
                                 <td><%= DWY_Helper.getLocalDate(element.addTime) %></td>
                             </tr>
                             <% })
