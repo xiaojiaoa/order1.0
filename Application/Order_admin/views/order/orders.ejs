@@ -314,35 +314,6 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-xs-3">
-                                    <div class="form-group">
-                                        <label class="col-xs-4 control-label">优惠券类型:</label>
-                                        <div class="col-xs-8">
-                                            <select class="form-control" name="couponType">
-                                                <option value="">- 请选择 -</option>
-                                                <%
-                                                couponType.forEach(function (element) { %>
-                                                <option value="<%= element.id %>" <%= (DWYRequest.query.couponType == element.id)?"selected":"" %>><%= element.name %></option>
-                                                <%  }) %>
-                                            </select>
-
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-xs-4">
-                                    <div class="form-group">
-                                        <label class="col-xs-3 control-label">优惠券使用时间:</label>
-                                        <div class="col-xs-4">
-                                            <input class="form-control fg-date-picker" placeholder="" type="text" value="<%= DWYRequest.query.startCouponDate %>"
-                                                   name="startCouponDate">
-                                        </div>
-                                        <label class="from-to control-label "> 至 </label>
-                                        <div class="col-xs-4">
-                                            <input class="form-control fg-date-picker" placeholder="" type="text" value="<%= DWYRequest.query.endCouponDate %>"
-                                                   name="endCouponDate">
-                                        </div>
-                                    </div>
-                                </div>
                             <% if(DWY_GLOBAL.ButtonOpen!=1){ %>
                             </div>
                             <%}%>
@@ -423,8 +394,8 @@
                                 <th>折后价</th>
                                 <th>折扣备注</th>
                                 <%}%>
-                                <th>优惠券类型</th>
-                                <th>优惠券减免金额</th>
+                                <!--<th>优惠券类型</th>-->
+                                <!--<th>优惠券减免金额</th>-->
                                 <% if(DWY_Helper.hasPermission(Permission.order.queryByRetailPrice.id, permission)){%>
                                 <th>零售价</th>
                                 <%}%>
@@ -485,8 +456,6 @@
                                 <td><%= element.priceAfterDiscount %></td>
                                 <td><%= element.discountRemark %></td>
                                 <%}%>
-                                <td><%= element.couponTypeStr %></td>
-                                <td><%= element.denomination %></td>
                                 <!--根据权限展示零售价-->
                                 <% if(DWY_Helper.hasPermission(Permission.order.queryByRetailPrice.id, permission)){%>
                                 <td><%= element.retailPrice %></td>
