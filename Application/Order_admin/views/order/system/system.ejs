@@ -60,7 +60,12 @@
 
                 <div class="col-xs-8 table-responsive level-1
                         <%= (key=='assistantResupplyReason'|| key=='assistantOrderSpaceinfo')?"col-xs-3 ":''%>
-                       <%= (key=='assistantMaterialUnit'||key=='assistantPackageType') ||  key=='regionType'?"col-xs-4 ":''%>">
+                       <%= (key=='assistantMaterialUnit'||key=='assistantPackageType') ||  key=='regionType'|| key == 'assistantCargoInMode'?"col-xs-4 ":''%>">
+                        <% if(key == 'assistantCargoInMode'){%>
+                        <div data-level="level-1" class="text-align-center basicDataTit01 fixed-header">
+                            &nbsp;
+                        </div>
+                        <%}else{%>
                         <div data-level="level-1" class="text-align-center basicDataTit01 fixed-header">
                             <a class="label label-primary create status01 <%= (key == "assistantConfig")?"display-none":'' %>">新建</a>
                             <a class="label label-primary modify status01 ">修改</a>
@@ -73,6 +78,7 @@
                             <input type="hidden" name="listNum" value="" class="listNum"  type='text'/>
                             <input type="hidden" name="key" value="<%= key%>" class="key"  type='text'/>
                         </div>
+                        <% }%>
                         <div class="basicDataTit text-align-center basicDataTit01 fixed-header">
                             类别1
                             <%if(key=="assistantReviewReson"){%>
@@ -83,144 +89,154 @@
                             <tbody class="basicDataSec scrollTbody">
                             <!--展示类别1-->
                             <%if(key){
-                            if( DWY_Helper.isCanLoop(keyInfo)){
-                            keyInfo.forEach(function (element, index) { %>
-                            <% switch(key){
-                            case 'assistantConfig': %>
-                            <tr id="<%= element.id %>" stcode="<%= element.status %>" class="<%= (element.status==0)?"disable display-none":''%>">
-                                <td width="30%"><input class="border-0 text-align-center" type="text" value="<%= element.code %>" name="code" readonly/></td>
-                                <td width="30%"><input class="border-0 text-align-center" type="text" value="<%= element.value %>" name="value" readonly/></td>
-                                <td width="40%"><textarea class="border-0 text-align-center" name="remark" row="6"><%= element.remark %></textarea></td>
-                            </tr>
-                            <%
-                                break;
-                            case 'assistantBrandInfo':
-                            %>
-                            <tr id="<%= element.id %>" stcode="<%= element.stcode %>" class="<%= (element.stcode==0)?"disable display-none":''%>">
-                                <td ><input class="border-0 text-align-center" type="text" value="<%= element.name %>" name="name" readonly/></td>
-                            </tr>
-                            <%
-                                break;
-                            case 'assistantOrderSpaceinfo':
-                            if(element.parentId==0){%>
-                            <tr id="<%= element.id %>"
-                                stcode="<%= element.stcode %>"
-                                parentId="<%= element.parentId%>"
-                                class="<%= (element.stcode==0)?"disable display-none":''%> <%= (element.id==DWYRequest.query.classone)?"active":''%>"
-                                <% if(element.stcode==1){ %>
-                                onclick="location.href='/systems?key=<%= key%>&classone=<%= element.id %>'"
-                                    <%  } %>
-                            >
-                                <td ><input class="border-0 text-align-center" type="text" value="<%= element.name %>" name="name" readonly/></td>
-                            </tr>
-                            <%}
-                                break;
-                            case 'assistantSpaceProd':
-                            %>
-                            <tr id="<%= element.id %>" stcode="<%= element.stcode %>" class="<%= (element.stcode==0)?"disable display-none":''%>">
-                                <td ><input class="border-0 text-align-center" type="text" value="<%= element.name %>" name="name" readonly/></td>
-                                <td ><input class="border-0 text-align-center" type="text" value="<%= element.spaceId %>" name="spaceId" readonly/></td>
-                            </tr>
-                            <%
-                                break;
-                            case 'assistantResupplyReason':
-                            if(element.levelType==1){%>
-                            <tr id="<%= element.id %>"
-                                stcode="<%= element.stcode %>"
-                                parentId="<%= element.parentId%>"
-                                class="<%= (element.stcode==0)?"disable display-none":''%> <%= (element.id==DWYRequest.query.classone)?"active":''%>"
-                                <%　if(element.stcode==1){%>
-                                onclick="location.href='/systems?key=<%= key%>&classone=<%= element.id %>';"
-                                <%}%>
-                            >
-                                <td ><input class="border-0 text-align-center" type="text" value="<%= element.name %>" name="name" readonly/></td>
-                            </tr>
-                            <%}
-                                break;
-                            case 'assistantReviewReson':
-                            %>
-                            <tr id="<%= element.id %>" stcode="<%= element.stcode %>" class="<%= (element.stcode==0)?"disable display-none":''%>">
-                                <td ><input class="border-0 text-align-center" type="text" value="<%= element.name %>" name="name" readonly/></td>
-                                <td ><input class="border-0 text-align-center" type="text" value="<%= element.reasonType %>" name="reasonType" readonly/></td>
-                            </tr>
-                            <%
-                                break;
-                            case 'assistantTaskseqFileType':
-                            %>
-                            <tr id="<%= element.id %>" stcode="<%= element.stcode %>" class="<%= (element.stcode==0)?"disable display-none":''%>">
-                                <td ><input class="border-0 text-align-center" type="text" value="<%= element.type %>" name="type" readonly/></td>
-                                <td ><input class="border-0 text-align-center" type="text" value="<%= element.name %>" name="name" readonly/></td>
-                                <td ><input class="border-0 text-align-center" type="text" value="<%= element.fileExt %>" name="fileExt" readonly/></td>
-                            </tr>
-                            <%
-                                break;
-                            case 'assistantOrderFileType':
-                            %>
-                            <tr id="<%= element.id %>" stcode="<%= element.stcode %>" class="<%= (element.stcode==0)?"disable display-none":''%>">
-                                <td ><input class="border-0 text-align-center" type="text" value="<%= element.code %>" name="code" readonly/></td>
-                                <td ><input class="border-0 text-align-center" type="text" value="<%= element.name %>" name="name" readonly/></td>
-                                <td ><input class="border-0 text-align-center" type="text" value="<%= element.fileExt %>" name="fileExt" readonly/></td>
-                            </tr>
-                            <%
-                                break;
-                            case 'subPackageDao':
-                            %>
-                            <tr id="<%= element.id %>" stcode="<%= element.stcode %>" code="<%= element.code%>" class="<%= (element.stcode==0)?"disable display-none":''%>">
-                                <td ><input class="border-0 text-align-center" type="text" value="<%= element.name %>" name="name" readonly/></td>
-                                <td ><input class="border-0 text-align-center" type="text" value="<%= element.type %>" name="type" readonly/></td>
-                            </tr>
-                            <%
-                                break;
-                            case 'regionType':
-                            if(element.parentId==0){%>
-                            <tr id="<%= element.id %>"
-                                stcode="<%= element.stcode %>"
-                                parentId="<%= element.parentId%>"
-                                class="<%= (element.stcode==0)?"disable display-none":''%> <%= (element.id==DWYRequest.query.classone)?"active":''%>"
+                                if(key == 'assistantCargoInMode' ){
+                                    if(DWY_Helper.isCanLoop(cargoInModeList)){
+                                    cargoInModeList.forEach(function (cargoInModeList) {%>
+                                    <tr id="<%= cargoInModeList.id %>"
+                                        class="<%= (cargoInModeList.id==DWYRequest.query.classone)?"active":''%>"
+                                        onclick="location.href='/systems?key=<%= key%>&classone=<%= cargoInModeList.id %>';"
+                                    >
+                                        <td ><input class="border-0 text-align-center" type="text" value="<%= cargoInModeList.name %>" name="name" readonly/></td>
+                                    </tr>
+                                    <%})}
+                                }else if( DWY_Helper.isCanLoop(keyInfo)){
+                                    keyInfo.forEach(function (element, index) { %>
+                                <% switch(key){
+                                case 'assistantConfig': %>
+                                <tr id="<%= element.id %>" stcode="<%= element.status %>" class="<%= (element.status==0)?"disable display-none":''%>">
+                                    <td width="30%"><input class="border-0 text-align-center" type="text" value="<%= element.code %>" name="code" readonly/></td>
+                                    <td width="30%"><input class="border-0 text-align-center" type="text" value="<%= element.value %>" name="value" readonly/></td>
+                                    <td width="40%"><textarea class="border-0 text-align-center" name="remark" row="6"><%= element.remark %></textarea></td>
+                                </tr>
+                                <%
+                                    break;
+                                case 'assistantBrandInfo':
+                                %>
+                                <tr id="<%= element.id %>" stcode="<%= element.stcode %>" class="<%= (element.stcode==0)?"disable display-none":''%>">
+                                    <td ><input class="border-0 text-align-center" type="text" value="<%= element.name %>" name="name" readonly/></td>
+                                </tr>
+                                <%
+                                    break;
+                                case 'assistantOrderSpaceinfo':
+                                if(element.parentId==0){%>
+                                <tr id="<%= element.id %>"
+                                    stcode="<%= element.stcode %>"
+                                    parentId="<%= element.parentId%>"
+                                    class="<%= (element.stcode==0)?"disable display-none":''%> <%= (element.id==DWYRequest.query.classone)?"active":''%>"
+                                    <% if(element.stcode==1){ %>
+                                    onclick="location.href='/systems?key=<%= key%>&classone=<%= element.id %>'"
+                                        <%  } %>
+                                >
+                                    <td ><input class="border-0 text-align-center" type="text" value="<%= element.name %>" name="name" readonly/></td>
+                                </tr>
+                                <%}
+                                    break;
+                                case 'assistantSpaceProd':
+                                %>
+                                <tr id="<%= element.id %>" stcode="<%= element.stcode %>" class="<%= (element.stcode==0)?"disable display-none":''%>">
+                                    <td ><input class="border-0 text-align-center" type="text" value="<%= element.name %>" name="name" readonly/></td>
+                                    <td ><input class="border-0 text-align-center" type="text" value="<%= element.spaceId %>" name="spaceId" readonly/></td>
+                                </tr>
+                                <%
+                                    break;
+                                case 'assistantResupplyReason':
+                                if(element.levelType==1){%>
+                                <tr id="<%= element.id %>"
+                                    stcode="<%= element.stcode %>"
+                                    parentId="<%= element.parentId%>"
+                                    class="<%= (element.stcode==0)?"disable display-none":''%> <%= (element.id==DWYRequest.query.classone)?"active":''%>"
                                     <%　if(element.stcode==1){%>
-                                onclick="location.href='/systems?key=<%= key%>&classone=<%= element.id %>';"
+                                    onclick="location.href='/systems?key=<%= key%>&classone=<%= element.id %>';"
                                     <%}%>
-                            >
-                                <td ><input class="border-0 text-align-center" type="text" value="<%= element.name %>" name="name" readonly/></td>
-                            </tr>
-                            <%}
-                                break;
-                            case 'assistantMaterialUnit':
-                            if(element.parentId==0){%>
-                            <tr id="<%= element.id %>"
-                                stcode="<%= element.stcode %>"
-                                parentId="<%= element.parentId%>"
-                                class="<%= (element.stcode==0)?"disable display-none":''%> <%= (element.id==DWYRequest.query.classone)?"active":''%>"
-                                    <%　if(element.stcode==1){%>
-                                onclick="location.href='/systems?key=<%= key%>&classone=<%= element.id %>';"
-                                <%}%>
-                            >
-                                <td ><input class="border-0 text-align-center" type="text" value="<%= element.name %>" name="name" readonly/></td>
-                            </tr>
-                            <%}
-                                break;
-                            case 'assistantPackageType':
-                            if(element.parentId==0){%>
-                            <tr id="<%= element.id %>"
-                                stcode="<%= element.stcode %>"
-                                parentId="<%= element.parentId%>"
-                                type="<%= element.type%>"
-                                class="<%= (element.stcode==0)?"disable display-none":''%> <%= (element.id==DWYRequest.query.classone)?"active":''%>"
-                                    <%　if(element.stcode==1){%>
-                                onclick="location.href='/systems?key=<%= key%>&classone=<%= element.id %>';"
-                                <%}%>
-                            >
-                                <td ><input class="border-0 text-align-center" type="text" value="<%= element.name %>" name="name" readonly/><span><%= element.id%></span></td>
-                            </tr>
-                            <%}
-                                break;
-                            default:
-                            %>
-                            <tr id="<%= element.id %>" stcode="<%= element.stcode %>" class="<%= (element.stcode==0)?"disable display-none":''%>">
-                                <td ><input class="border-0 text-align-center" type="text" value="<%= element.name %>" name="name" readonly/></td>
-                            </tr>
-                            <% } })
-                            }else{ %>
+                                >
+                                    <td ><input class="border-0 text-align-center" type="text" value="<%= element.name %>" name="name" readonly/></td>
+                                </tr>
+                                <%}
+                                    break;
+                                case 'assistantReviewReson':
+                                %>
+                                <tr id="<%= element.id %>" stcode="<%= element.stcode %>" class="<%= (element.stcode==0)?"disable display-none":''%>">
+                                    <td ><input class="border-0 text-align-center" type="text" value="<%= element.name %>" name="name" readonly/></td>
+                                    <td ><input class="border-0 text-align-center" type="text" value="<%= element.reasonType %>" name="reasonType" readonly/></td>
+                                </tr>
+                                <%
+                                    break;
+                                case 'assistantTaskseqFileType':
+                                %>
+                                <tr id="<%= element.id %>" stcode="<%= element.stcode %>" class="<%= (element.stcode==0)?"disable display-none":''%>">
+                                    <td ><input class="border-0 text-align-center" type="text" value="<%= element.type %>" name="type" readonly/></td>
+                                    <td ><input class="border-0 text-align-center" type="text" value="<%= element.name %>" name="name" readonly/></td>
+                                    <td ><input class="border-0 text-align-center" type="text" value="<%= element.fileExt %>" name="fileExt" readonly/></td>
+                                </tr>
+                                <%
+                                    break;
+                                case 'assistantOrderFileType':
+                                %>
+                                <tr id="<%= element.id %>" stcode="<%= element.stcode %>" class="<%= (element.stcode==0)?"disable display-none":''%>">
+                                    <td ><input class="border-0 text-align-center" type="text" value="<%= element.code %>" name="code" readonly/></td>
+                                    <td ><input class="border-0 text-align-center" type="text" value="<%= element.name %>" name="name" readonly/></td>
+                                    <td ><input class="border-0 text-align-center" type="text" value="<%= element.fileExt %>" name="fileExt" readonly/></td>
+                                </tr>
+                                <%
+                                    break;
+                                case 'subPackageDao':
+                                %>
+                                <tr id="<%= element.id %>" stcode="<%= element.stcode %>" code="<%= element.code%>" class="<%= (element.stcode==0)?"disable display-none":''%>">
+                                    <td ><input class="border-0 text-align-center" type="text" value="<%= element.name %>" name="name" readonly/></td>
+                                    <td ><input class="border-0 text-align-center" type="text" value="<%= element.type %>" name="type" readonly/></td>
+                                </tr>
+                                <%
+                                    break;
+                                case 'regionType':
+                                if(element.parentId==0){%>
+                                <tr id="<%= element.id %>"
+                                    stcode="<%= element.stcode %>"
+                                    parentId="<%= element.parentId%>"
+                                    class="<%= (element.stcode==0)?"disable display-none":''%> <%= (element.id==DWYRequest.query.classone)?"active":''%>"
+                                        <%　if(element.stcode==1){%>
+                                    onclick="location.href='/systems?key=<%= key%>&classone=<%= element.id %>';"
+                                        <%}%>
+                                >
+                                    <td ><input class="border-0 text-align-center" type="text" value="<%= element.name %>" name="name" readonly/></td>
+                                </tr>
+                                <%}
+                                    break;
+                                case 'assistantMaterialUnit':
+                                if(element.parentId==0){%>
+                                <tr id="<%= element.id %>"
+                                    stcode="<%= element.stcode %>"
+                                    parentId="<%= element.parentId%>"
+                                    class="<%= (element.stcode==0)?"disable display-none":''%> <%= (element.id==DWYRequest.query.classone)?"active":''%>"
+                                        <%　if(element.stcode==1){%>
+                                    onclick="location.href='/systems?key=<%= key%>&classone=<%= element.id %>';"
+                                    <%}%>
+                                >
+                                    <td ><input class="border-0 text-align-center" type="text" value="<%= element.name %>" name="name" readonly/></td>
+                                </tr>
+                                <%}
+                                    break;
+                                case 'assistantPackageType':
+                                if(element.parentId==0){%>
+                                <tr id="<%= element.id %>"
+                                    stcode="<%= element.stcode %>"
+                                    parentId="<%= element.parentId%>"
+                                    type="<%= element.type%>"
+                                    class="<%= (element.stcode==0)?"disable display-none":''%> <%= (element.id==DWYRequest.query.classone)?"active":''%>"
+                                        <%　if(element.stcode==1){%>
+                                    onclick="location.href='/systems?key=<%= key%>&classone=<%= element.id %>';"
+                                    <%}%>
+                                >
+                                    <td ><input class="border-0 text-align-center" type="text" value="<%= element.name %>" name="name" readonly/><span><%= element.id%></span></td>
+                                </tr>
+                                <%} %>
+                                  <%  break;
+                                default:
+                                %>
+                                <tr id="<%= element.id %>" stcode="<%= element.stcode %>" class="<%= (element.stcode==0)?"disable display-none":''%>">
+                                    <td ><input class="border-0 text-align-center" type="text" value="<%= element.name %>" name="name" readonly/></td>
+                                </tr>
+                                <% } })
+                                }else{ %>
                             <tr class="noData">
                                 <td>暂无数据，请选择新建</td>
                             </tr>
@@ -236,7 +252,7 @@
 
                 <div class="table-responsive level-2 display-none
                       <%= (key=='assistantResupplyReason'|| key=='assistantOrderSpaceinfo')?"display-block col-xs-3 ":''%>
-                       <%= (key=='assistantMaterialUnit'||key=='assistantPackageType' || key=='regionType')?"display-block col-xs-4 ":''%>">
+                       <%= (key=='assistantMaterialUnit'||key=='assistantPackageType' || key=='regionType'|| key == 'assistantCargoInMode')?"display-block col-xs-4 ":''%>">
                     <div data-level="level-2" class="text-align-center basicDataTit01 fixed-header">
                         <a class="label label-primary create status01">新建</a>
                         <a class="label label-primary modify status01">修改</a>
@@ -337,6 +353,24 @@
                         </tr>
                         <%    })
                         } else{%>
+                        <tr class="noData"><td>暂无数据，请选择新建</td></tr>
+                        <% }}  %>
+
+                        <!--展示物料入库类型-类别2-->
+                        <% if(key=='assistantCargoInMode' && DWYRequest.query.classone){
+                        if(DWY_Helper.isCanLoop(cargoInModeInfo)){
+                        cargoInModeInfo.forEach(function (element,index) {%>
+                        <tr id="<%= element.id%>"
+                            stcode="<%= element.stcode%>"
+                            parentId="<%= element.parentId%>"
+                            type="<%= element.type%>"
+                            class="<%= (element.stcode==0)?"disable display-none":''%>">
+                            <td ><input class="border-0 text-align-center" type="text" value="<%= element.name%>" name="name" readonly/></td>
+                        </tr>
+                        <%    })
+                        }else if(key=='assistantCargoInMode' && DWYRequest.query.classone == 1){%>
+                            <tr><td>采购单入库</td></tr>
+                        <%} else{%>
                         <tr class="noData"><td>暂无数据，请选择新建</td></tr>
                         <% }}  %>
 

@@ -50,6 +50,7 @@ var SystemController = {
                 {url: '/api/assist', method: 'GET', resConfig: {keyName: 'basicDataList', is_must: true}},
                 {url: '/api/assist/list?key='+key, method: 'GET', resConfig: {keyName: 'keyInfo', is_must: true}},
                 {url: '/api/assist/package/category', method: 'GET', resConfig: {keyName: 'packageCate', is_must: true}},
+                {url: '/api/assist/cargo/inmode/parentId', method: 'GET', resConfig: {keyName: 'cargoInModeList', is_must: true}},
             ];
         }
 
@@ -103,6 +104,14 @@ var SystemController = {
                 {url: '/api/assist', method: 'GET', resConfig: {keyName: 'basicDataList', is_must: true}},
                 {url: '/api/assist/list?key='+key, method: 'GET', resConfig: {keyName: 'keyInfo', is_must: true}},
                 {url:  '/api/assist/region/types?parentId='+classone, method: 'GET', resConfig: {keyName: 'regionTypeInfo', is_must: true}},
+            ];
+        }
+        if(key =="assistantCargoInMode" && classone){
+            multiDataRequest= [
+                {url: '/api/assist', method: 'GET', resConfig: {keyName: 'basicDataList', is_must: true}},
+                {url: '/api/assist/list?key='+key, method: 'GET', resConfig: {keyName: 'keyInfo', is_must: true}},
+                {url: '/api/assist/cargo/inmode/'+classone, method: 'GET', resConfig: {keyName: 'cargoInModeInfo', is_must: true}},
+                {url: '/api/assist/cargo/inmode/parentId', method: 'GET', resConfig: {keyName: 'cargoInModeList', is_must: true}},
             ];
         }
 
@@ -164,7 +173,7 @@ var SystemController = {
                 if((req.session.backPath).indexOf("systems")>0){
                  return  res.redirect(req.session.backPath?req.session.backPath:"/systems");
                 }
-                res.redirect("/system");
+                res.redirect("/systems");
             } else {
                 Base.handlerError(res, req, error, response, body);
             }
@@ -181,7 +190,7 @@ var SystemController = {
                 if((req.session.backPath).indexOf("systems")>0){
                return  res.redirect(req.session.backPath?req.session.backPath:"/systems");
                 }
-                res.redirect("/system");
+                res.redirect("/systems");
             } else {
                 Base.handlerError(res, req, error, response, body);
             }
@@ -262,7 +271,7 @@ var SystemController = {
                 if((req.session.backPath).indexOf("systems")>0){
                     return  res.redirect(req.session.backPath?req.session.backPath:"/systems");
                 }
-                res.redirect("/system");
+                res.redirect("/systems");
             } else {
                 Base.handlerError(res, req, error, response, body);
             }
