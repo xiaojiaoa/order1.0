@@ -735,6 +735,20 @@
                 })
             }
 
+                var value = $("select[name=inMode]").find("option:selected").attr("parentid");
+                if (value == 3) {
+                    $(".cargoinDo").each(function(){
+                        var index = $(this).attr("data-index");
+                        console.log($("#mateBatchId" + index))
+                        $("#mateBatchId" + index).removeClass("validate[required]")
+                    })
+                }else{
+                    $(".cargoinDo").each(function(){
+                        var index = $(this).attr("data-index");
+                        $("#mateBatchId" + index).addClass("validate[required]")
+                    })
+                }
+
 
         })
 
@@ -959,10 +973,15 @@
         $("select[name=inMode]").change(function () {
             var value = $(this).find("option:selected").attr("parentid");
             if (value == 3) {
-                var len = $(".cargoinDo").length;
-                for(var i = 0;i<len;i++) {
-                    $("#mateBatchId" + i).removeClass("validate[required]")
-                }
+                $(".cargoinDo").each(function(){
+                    var index = $(this).attr("data-index");
+                    $("#mateBatchId" + index).removeClass("validate[required]")
+                })
+            }else{
+                $(".cargoinDo").each(function(){
+                    var index = $(this).attr("data-index");
+                    $("#mateBatchId" + index).addClass("validate[required]")
+                })
             }
         })
     })
