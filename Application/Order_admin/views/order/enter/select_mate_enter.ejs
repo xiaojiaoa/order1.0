@@ -511,6 +511,23 @@
                 var len = listArr.length;
 
                 for (var i = 0; i < len; i++) {
+                    if(!initFtyId){
+                        var strHtml = '<td class="text-danger">无所属工厂，无法操作，请先到<a href="/factory">"仓储管理"</a>进行新建 </td>'
+                    }else{
+                        var strHtml = '<td class="no-padding" id="regionIdArea' + i + '">' +
+                            ' <div class="target more-space newtarget' + i + '" data-index="' + i + '">' +
+                            ' <select class="form-control ftyId validate[required]" name="ftyId' + i + '" data-index="' + i + '" disabled>' +
+                            ' <option value="">- 工厂 -</option>' +
+                            ' </select>' +
+                            ' <select class="form-control whseId validate[required]" name="whseId' + i + '" data-index="' + i + '">' +
+                            ' <option value="">- 仓库 -</option>' +
+                            ' </select>' +
+                            ' <select class="form-control regionId validate[required]" name="regionId' + i + '" data-index="' + i + '">' +
+                            ' <option value="">- 区域 -</option>' +
+                            ' </select>' +
+                            ' </div>' +
+                            ' </td>'
+                    }
 
 //                    var options = '';
 //                    var selectList = listArr[i].selectData
@@ -532,19 +549,7 @@
                         + '<td class="display-none price' + i + '">' + listArr[i].price + '</td>'
                         + '<td><input class="form-control validate[required] validate[custom[number],min[1]]" value="" name="mateBatchId' + i + '" id="mateBatchId' + i + '" data-index="' + i + '"></td>'
                         + '<td><input class="form-control actualAmount validate[required,custom[number]]" name="actualAmount' + i + '" id="actualAmount' + i + '" value="" data-index="' + i + '"></td>'
-                        + '<td class="no-padding" id="regionIdArea' + i + '">' +
-                        ' <div class="target more-space newtarget' + i + '" data-index="' + i + '">' +
-                        ' <select class="form-control ftyId validate[required]"name="ftyId' + i + '" data-index="' + i + '" disabled>' +
-                        ' <option value="">- 工厂 -</option>' +
-                        ' </select>' +
-                        ' <select class="form-control whseId validate[required]"name="whseId' + i + '" data-index="' + i + '">' +
-                        ' <option value="">- 仓库 -</option>' +
-                        ' </select>' +
-                        ' <select class="form-control regionId validate[required]"name="regionId' + i + '" data-index="' + i + '">' +
-                        ' <option value="">- 区域 -</option>' +
-                        ' </select>' +
-                        ' </div>' +
-                        ' </td>'
+                        + strHtml
                         + '<td class="no-padding" id="spaceIdArea' + i + '">' +
                         ' <input name="cargoId' + i + '" value="' + listArr[i].id + '" type="hidden">' +
                         ' <input name="price' + i + '" value="' + listArr[i].price + '" type="hidden"> ' +
@@ -603,9 +608,23 @@
 
             var len = listArr.length;
 
-//            if(!initFtyId){
-//                var strHtml = '<td class="text-danger">无所属工厂，无法操作，请先到<a href="/factory">"仓储管理"</a>进行新建 </td>'
-//            }
+            if(!initFtyId){
+                var strHtml = '<td class="text-danger">无所属工厂，无法操作，请先到<a href="/factory">"仓储管理"</a>进行新建 </td>'
+            }else{
+                var strHtml = '<td class="no-padding" id="regionIdArea' + cargoinList_result + '">' +
+                    ' <div class="target more-space newtarget' + cargoinList_result + '" data-index="' + cargoinList_result + '">' +
+                    ' <select class="form-control ftyId validate[required]" name="ftyId' + cargoinList_result + '" data-index="' + cargoinList_result + '" disabled>' +
+                    ' <option value="">- 工厂 -</option>' +
+                    ' </select>' +
+                    ' <select class="form-control whseId validate[required]" name="whseId' + cargoinList_result + '" data-index="' + cargoinList_result + '">' +
+                    ' <option value="">- 仓库 -</option>' +
+                    ' </select>' +
+                    ' <select class="form-control regionId validate[required]" name="regionId' + cargoinList_result + '" data-index="' + cargoinList_result + '">' +
+                    ' <option value="">- 区域 -</option>' +
+                    ' </select>' +
+                    ' </div>' +
+                    ' </td>'
+            }
 
 
 
@@ -623,19 +642,7 @@
                 + '<td class="display-none price' + cargoinList_result + '">' + item.price + '</td>'
                 + '<td><input class="form-control validate[required] validate[custom[number],min[1]]" value="" name="mateBatchId' + cargoinList_result + '" id="mateBatchId' + cargoinList_result + '" data-index="' + cargoinList_result + '"></td>'
                 + '<td><input class="form-control actualAmount validate[required,custom[number]]" name="actualAmount' + cargoinList_result + '" id="actualAmount' + cargoinList_result + '" value="" data-index="' + cargoinList_result + '"></td>'
-                + '<td class="no-padding" id="regionIdArea' + cargoinList_result + '">' +
-                ' <div class="target more-space newtarget' + cargoinList_result + '" data-index="' + cargoinList_result + '">' +
-                ' <select class="form-control ftyId validate[required]" name="ftyId' + cargoinList_result + '" data-index="' + cargoinList_result + '" disabled>' +
-                ' <option value="">- 工厂 -</option>' +
-                ' </select>' +
-                ' <select class="form-control whseId validate[required]" name="whseId' + cargoinList_result + '" data-index="' + cargoinList_result + '">' +
-                ' <option value="">- 仓库 -</option>' +
-                ' </select>' +
-                ' <select class="form-control regionId validate[required]" name="regionId' + cargoinList_result + '" data-index="' + cargoinList_result + '">' +
-                ' <option value="">- 区域 -</option>' +
-                ' </select>' +
-                ' </div>' +
-                ' </td>'
+                + strHtml
                 + '<td class="no-padding" id="spaceIdArea' + cargoinList_result + '">' +
                 ' <input name="cargoId' + cargoinList_result + '" value="' + item.id + '" type="hidden">' +
                 ' <input name="price' + cargoinList_result + '" value="' + item.price + '" type="hidden"> ' +
@@ -690,18 +697,7 @@
 
             var $tds = $(this).parents("tr").children("td");
             var unique = $(this).attr("uniqueId");
-//            var unit='';
-//            var unitId='';
-//            var unitAmount='';
-//            $(this).parents(".botTr").find(".units").each(function(){
-//                unit += $(this).html()+',';
-//            })
-//            $(this).parents(".botTr").find(".unitsId").each(function(){
-//                unitId += $(this).html()+',';
-//            })
-//            $(this).parents(".botTr").find(".unitsAmount").each(function(){
-//                unitAmount += $(this).html()+',';
-//            })
+
 
             var mateId = $(this).val();
             // 获取整个条目数据
@@ -716,10 +712,7 @@
                 usable_stock: $tds.eq(7).html(),
                 price: $tds.eq(8).html(),
                 suppId: $tds.eq(9).html(),
-//                        unit : unit,
-//                        unitId : unitId,
-//                        unitAmount : unitAmount,
-//                        selectData: selectListData
+
             }
             // 选中添加  取消选中则删除
             if (_self.is(':checked')) {
@@ -739,7 +732,6 @@
                 if (value == 3) {
                     $(".cargoinDo").each(function(){
                         var index = $(this).attr("data-index");
-                        console.log($("#mateBatchId" + index))
                         $("#mateBatchId" + index).removeClass("validate[required]")
                     })
                 }else{
@@ -972,6 +964,7 @@
         })
         $("select[name=inMode]").change(function () {
             var value = $(this).find("option:selected").attr("parentid");
+            console.log(value)
             if (value == 3) {
                 $(".cargoinDo").each(function(){
                     var index = $(this).attr("data-index");
