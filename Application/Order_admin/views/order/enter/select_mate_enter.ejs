@@ -79,7 +79,7 @@
                                     <%
                                     if(DWY_Helper.isCanLoop(inMode)){
                                     inMode.forEach(function (element, index) { %>
-                                    <option value="<%= element.id %>"><%= element.name %></option>
+                                    <option value="<%= element.id %>" parentid="<%= element.parentId %>"><%= element.name %></option>
                                     <% })} %>
                                 </select>
                             </div>
@@ -314,6 +314,7 @@
         var cargoinList = <%- JSON.stringify(factoryList) %>;
 
 
+
         var loading = $("#loading");
 
         // 初始化工厂联动
@@ -332,6 +333,7 @@
 
         var windowScrollHeight = 0;
         var spaceIdTipOffsetHeight = 0;
+
         // 滚动弹窗跟随
         $(window).scroll(function () {
             windowScrollHeight = $(window).scrollTop();
@@ -528,7 +530,7 @@
                         + '<td><a href="/materialManage/detail/<%= bid %>/' + listArr[i].id + '">' + listArr[i].id + '</a></td>'
                         + '<td>' + listArr[i].name + '</td>'
                         + '<td class="display-none price' + i + '">' + listArr[i].price + '</td>'
-                        + '<td><input class="form-control validate[required,custom[number],min[1]]" value="" name="mateBatchId' + i + '" id="mateBatchId' + i + '" data-index="' + i + '"></td>'
+                        + '<td><input class="form-control validate[required] validate[custom[number],min[1]]" value="" name="mateBatchId' + i + '" id="mateBatchId' + i + '" data-index="' + i + '"></td>'
                         + '<td><input class="form-control actualAmount validate[required,custom[number]]" name="actualAmount' + i + '" id="actualAmount' + i + '" value="" data-index="' + i + '"></td>'
                         + '<td class="no-padding" id="regionIdArea' + i + '">' +
                         ' <div class="target more-space newtarget' + i + '" data-index="' + i + '">' +
@@ -619,7 +621,7 @@
                 + '<td><a href="/materialManage/detail/<%= bid %>/' + item.id + '">' + item.id + '</a></td>'
                 + '<td>' + item.name + '</td>'
                 + '<td class="display-none price' + cargoinList_result + '">' + item.price + '</td>'
-                + '<td><input class="form-control validate[required,custom[number],min[1]]" value="" name="mateBatchId' + cargoinList_result + '" id="mateBatchId' + cargoinList_result + '" data-index="' + cargoinList_result + '"></td>'
+                + '<td><input class="form-control validate[required] validate[custom[number],min[1]]" value="" name="mateBatchId' + cargoinList_result + '" id="mateBatchId' + cargoinList_result + '" data-index="' + cargoinList_result + '"></td>'
                 + '<td><input class="form-control actualAmount validate[required,custom[number]]" name="actualAmount' + cargoinList_result + '" id="actualAmount' + cargoinList_result + '" value="" data-index="' + cargoinList_result + '"></td>'
                 + '<td class="no-padding" id="regionIdArea' + cargoinList_result + '">' +
                 ' <div class="target more-space newtarget' + cargoinList_result + '" data-index="' + cargoinList_result + '">' +
@@ -954,7 +956,15 @@
             }
 
         })
-
+        $("select[name=inMode]").change(function () {
+            var value = $(this).find("option:selected").attr("parentid");
+            if (value == 3) {
+                var len = $(".cargoinDo").length;
+                for(var i = 0;i<len;i++) {
+                    $("#mateBatchId" + i).removeClass("validate[required]")
+                }
+            }
+        })
     })
 
 
