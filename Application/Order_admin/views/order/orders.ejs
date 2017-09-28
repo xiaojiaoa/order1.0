@@ -125,35 +125,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-xs-6">
-                                        <div class="form-group">
-                                            <label class="col-xs-2 control-label">大区类型:</label>
-                                            <div class="col-xs-4">
-                                                <select class="form-control" id="areaParentId" name="regionTypeId">
-                                                    <option value="">- 请选择 -</option>
-                                                    <%
-                                                    if(DWY_Helper.isCanLoop(TypesList[0])){
-                                                    TypesList[0].forEach(function (element) { %>
-                                                    <option value="<%= element.id %>"  <%= (DWYRequest.query.regionTypeId == element.id )?"selected":"" %>>
-                                                        <%= element.name %>
-                                                    </option>
-                                                    <% })
-                                                    }%>
 
-                                                </select>
-
-                                            </div>
-                                            <div class="col-xs-6" id="forTest">
-                                                <% var desName = DWYRequest.query.regionTypes?(DWYRequest.query.regionTypes).split(','):[] %>
-                                                <select multiple style="width:100%" class="select2 select2-offscreen" id="areaChidId" name="regionTypes">
-                                                    <% if(DWY_Helper.isCanLoop(TypesList[DWYRequest.query.regionTypeId])){
-                                                    TypesList[DWYRequest.query.regionTypeId].forEach(function (element) { %>
-                                                    <option value="<%= element.id %>" <%= DWY_Helper.getAssistMultiple( element.id,desName)?"selected":"" %>><%= element.name %></option>
-                                                    <%  }) }  %>
-                                                </select>
-                                            </div>
-                                        </div>
-                                    </div>
                                     <% if(user.bid == 9999){  %>
 
                                     <% } %>
@@ -189,20 +161,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-xs-6">
-                                        <div class="form-group">
-                                            <label class="col-xs-2 control-label">订单标签:</label>
-                                            <div class="col-xs-10">
-                                                <% var tagIds = DWYRequest.query.tagIds?(DWYRequest.query.tagIds).split(','):[] %>
-                                                <select multiple style="width:100%" class="select2 select2-offscreen" id="desStr" name="tagIds">
-                                                    <% if(DWY_Helper.isCanLoop(orderTag)){
-                                                    orderTag.forEach(function (element) { %>
-                                                    <option value="<%= element.id %>" <%= DWY_Helper.getAssistMultiple( element.id,tagIds)?"selected":"" %>><%= element.name %></option>
-                                                    <%  }) }  %>
-                                                </select>
-                                            </div>
-                                        </div>
-                                    </div>
+
                                     <div class="col-xs-3">
                                         <div class="form-group">
                                             <label class="col-xs-4 control-label">收款状态:</label>
@@ -340,6 +299,49 @@
                                             <div class="col-xs-4">
                                                 <input class="form-control fg-date-picker" placeholder="" type="text" value="<%= DWYRequest.query.endCouponDate %>"
                                                        name="endCouponDate">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-6">
+                                        <div class="form-group">
+                                            <label class="col-xs-2 control-label">订单标签:</label>
+                                            <div class="col-xs-10">
+                                                <% var tagIds = DWYRequest.query.tagIds?(DWYRequest.query.tagIds).split(','):[] %>
+                                                <select multiple style="width:100%" class="select2 select2-offscreen" id="desStr" name="tagIds">
+                                                    <% if(DWY_Helper.isCanLoop(orderTag)){
+                                                    orderTag.forEach(function (element) { %>
+                                                    <option value="<%= element.id %>" <%= DWY_Helper.getAssistMultiple( element.id,tagIds)?"selected":"" %>><%= element.name %></option>
+                                                    <%  }) }  %>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-6">
+                                        <div class="form-group">
+                                            <label class="col-xs-2 control-label">大区类型:</label>
+                                            <div class="col-xs-4">
+                                                <select class="form-control" id="areaParentId" name="regionTypeId">
+                                                    <option value="">- 请选择 -</option>
+                                                    <%
+                                                    if(DWY_Helper.isCanLoop(TypesList[0])){
+                                                    TypesList[0].forEach(function (element) { %>
+                                                    <option value="<%= element.id %>"  <%= (DWYRequest.query.regionTypeId == element.id )?"selected":"" %>>
+                                                        <%= element.name %>
+                                                    </option>
+                                                    <% })
+                                                    }%>
+
+                                                </select>
+
+                                            </div>
+                                            <div class="col-xs-6" id="forTest">
+                                                <% var desName = DWYRequest.query.regionTypes?(DWYRequest.query.regionTypes).split(','):[] %>
+                                                <select multiple style="width:100%" class="select2 select2-offscreen" id="areaChidId" name="regionTypes">
+                                                    <% if(DWY_Helper.isCanLoop(TypesList[DWYRequest.query.regionTypeId])){
+                                                    TypesList[DWYRequest.query.regionTypeId].forEach(function (element) { %>
+                                                    <option value="<%= element.id %>" <%= DWY_Helper.getAssistMultiple( element.id,desName)?"selected":"" %>><%= element.name %></option>
+                                                    <%  }) }  %>
+                                                </select>
                                             </div>
                                         </div>
                                     </div>
