@@ -103,9 +103,9 @@
                     + '<td style="line-height:32px" class="matName'+i+'">' + listArr[i].name + '</td>'
                     + '<td style="line-height:32px" class="suppName'+i+'">' + listArr[i].suppName + '</td>'
                     + '<td style="line-height:32px">' + listArr[i].class_name + '</td>'
-                    + '<td width="120px"><input name="price'+i+'" class="form-control price validate[required]" price="' + listArr[i].price + '" value="' + listArr[i].price + '" /></td>'
+                    + '<td width="120px"><input name="price'+i+'" class="form-control price validate[required]" price="' + listArr[i].price + '" value="' + listArr[i].price + '" data-index="' + i + '" /></td>'
                     + '<td width="120px"><select data-index="' + i + '" name="unit' + i + '" class="form-control unitSelect">'+options+'</select></td>'
-                    + '<td width="120px"><input data-index="' + i + '" type="text" name="amount'+i+'" value="" class="form-control amountApply validate[required,custom[number],min[1]]" /> </td>'
+                    + '<td width="120px"><input data-index="' + i + '" type="text" name="amount'+i+'" value="0" class="form-control amountApply validate[required,custom[number],min[1]]" /> </td>'
                     + '<td class="total'+i+'">0</td>'
                     + '<td width="120px"><input type="text" class="form-control percentage validate[custom[number],min[0],max[100]]" /></td>'
                     + '<td class="deposit'+i+'">0</td>'
@@ -138,6 +138,19 @@
                 return false;
             }
         })
+
+        $(".price, .amountApply").change(function(){
+            var index = $(this).attr('data-index');
+            var amount=$("input[name=amount"+index+"]").val();
+            var price=$("input[name=price"+index+"]").val();
+            var val=parseInt(price) * parseInt(amount);
+            if(val.toString().length>8){
+                layer.alert('您输入的数量过大，请重新输入！', {icon: 3});
+                return false;
+            }
+            $(".total"+index).text(val)
+        })
+
         $("#sub").click(function(){
             if($("#creat-supplier").validationEngine('validate')) {
                 var num = $('.amountApply').val();
@@ -223,7 +236,7 @@
 //                $(this).parents("td").siblings().find(".minAmount").val(value);
 //                $(this).parents("td").siblings(".total").text(parseInt(val)*parseInt(value));
                 $(this).parent().next().next().next().next().next().find(".minAmount").val(value);
-                $(this).parent().next().text(parseInt(val)*parseInt(value))
+//                $(this).parent().next().text(parseInt(val)*parseInt(value))
 
             });
         //输入预付款百分比 自动计算预付款金额
