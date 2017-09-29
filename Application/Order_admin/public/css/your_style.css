@@ -1361,3 +1361,14 @@ ul.dropdown li{
     color: red;
     font-size: 20px;
 }
+
+.show-this{
+    display: table !important;
+    width:100%;
+}
+.dept-2,.employee-3{
+    display:none;
+}
+.active{
+    background: #ccc;
+}

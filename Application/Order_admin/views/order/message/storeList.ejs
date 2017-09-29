@@ -1,0 +1,277 @@
+<%- include('../layouts/head_top'); %>
+<%- include('../layouts/head_bottom'); %>
+<%- include('../layouts/header'); %>
+<%- include('../layouts/nav'); %>
+<!-- MAIN PANEL -->
+<div id="main" role="main" class="mainFlex">
+    <!-- RIBBON -->
+    <div id="ribbon">
+        <!-- breadcrumb -->
+        <ol class="breadcrumb">
+            <li>后台管理</li>
+            <li>短信管理</li>
+        </ol>
+        <!-- end breadcrumb -->
+    </div>
+    <!-- END RIBBON -->
+    <!-- MAIN CONTENT -->
+    <div id="content" class="dis-flex">
+        <div class="well dis-flex">
+            <!-- row -->
+            <div class="row">
+                <div class="col-xs-12">
+                    <legend>门店列表</legend>
+                </div>
+            </div>
+            <div class="row dis-flex">
+                <div class="col-xs-12 dis-flex">
+                    <div class="row dis-flex">
+                        <div class="col-xs-12 dis-flex">
+                            <div class="col-xs-12 no-padding dis-flex">
+                                <div class="form-group dis-flex">
+                                    <div class="col-xs-12 dis-flex-row">
+                                        <div class="col-xs-4 dis-flex">
+                                            <div class="row">
+                                                <!-- col -->
+                                                <div class="col-xs-12">
+                                                    <div class="row search-form">
+                                                        <form class="form-horizontal" method="get" action="/storeList">
+
+                                                            <div class="col-xs-12">
+                                                                <div class="col-xs-3">
+                                                                    <div class="form-group">
+                                                                        <label class="col-xs-3 control-label text-left">门店名称:</label>
+                                                                        <div class="col-xs-8">
+                                                                            <input class="form-control" placeholder="请输入门店名称" type="text" value="<%= DWYRequest.query.storeName %>" name="storeName">
+                                                                            <input  type="hidden" value="store" name="type">
+                                                                            <input  type="hidden" value="<%= DWYRequest.query.messageId%>" name="messageId">
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-xs-1 text-center">
+                                                                    <button class="btn btn-primary " type="submit">
+                                                                        <i class="fa fa-search"></i>
+                                                                        查询
+                                                                    </button>
+                                                                </div>
+                                                            </div>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                                <!-- end col -->
+                                            </div>
+                                            <div class="table-responsive dis-flex">
+                                                <table class="table table-bordered table-striped table-scroll table-role dis-flex" id="tableOne">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>
+                                                                <label style="font-size:14px;font-weight:600">
+                                                                    门店
+                                                                </label>
+                                                            </th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                    <% if(DWY_Helper.isCanLoop(storeList.result)){
+                                                    storeList.result.forEach(function(element){
+                                                    %>
+                                                    <tr class="store-1  <%=(DWYRequest.query.sid ==  element.bid )?'active':'' %> <%=(DWYRequest.query.type == 'store')?'':'display-none' %>" data-id="<%= element.bid %>">
+                                                        <td>
+                                                            <a href="/storeList?sid=<%= element.bid %>&type=store&messageId=<%= messageId%>" style="display: block;line-height: 30px"><span><%= element.storeName %></span></a>
+                                                        </td>
+                                                    </tr>
+                                                    <%})}%>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+
+                                            <div class="col-xs-4 dis-flex">
+                                                <div class="row">
+                                                    <!-- col -->
+                                                    <div class="col-xs-12">
+                                                        <div class="row search-form">
+                                                            <form class="form-horizontal" method="get">
+
+                                                                <div class="col-xs-12">
+                                                                    <div class="col-xs-3">
+                                                                        <div class="form-group">
+                                                                            <label class="col-xs-3 control-label text-left">员工姓名:</label>
+                                                                            <div class="col-xs-8">
+                                                                                <input class="form-control" placeholder="请输入门店名称" type="text" value="<%= DWYRequest.query.name %>" name="name">
+                                                                                <input  type="hidden" value="store" name="type">
+                                                                                <input  type="hidden" value="<%= messageId%>" name="messageId">
+                                                                                <input type="hidden" name="sid" value="<%= sid %>">
+                                                                                <input type="hidden" name="oid" value="<%= oid %>">
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-xs-1 text-center">
+                                                                        <button class="btn btn-primary " type="submit">
+                                                                            <i class="fa fa-search"></i>
+                                                                            查询
+                                                                        </button>
+                                                                    </div>
+                                                                </div>
+                                                            </form>
+                                                        </div>
+                                                    </div>
+                                                    <!-- end col -->
+                                                </div>
+                                                <form class="dis-flex" action="/msg/selectStore" method="post" id="select-gid">
+                                                <div class="table-responsive dis-flex">
+                                                        <div class="orderItemLayerTit" style="height:40px;">
+                                                            <ul class="orderItemMenu">
+                                                                <a href="/storeList?sid=<%= sid %>&type=store&messageId=<%= messageId%>">
+                                                                    <li class="padding-10 <%= (!oid)?'materielBak':'' %>">门店员工</li>
+                                                                </a>
+                                                                <%if(DWY_Helper.isCanLoop(orzList)){
+                                                                orzList.forEach(function(element){%>
+                                                                <a href="/storeList?sid=<%= sid %>&oid=<%= element.id %>&type=store&messageId=<%= messageId%>">
+                                                                    <li class="padding-10 <%= (oid==element.id)?'materielBak':'' %>"><%= element.name %></li>
+                                                                </a>
+                                                                <%})}%>
+                                                            </ul>
+                                                        </div>
+                                                        <table class="table table-bordered table-striped table-scroll table-role dis-flex" id="tableTwo">
+                                                            <tbody class="dept">
+                                                                <% if(DWY_Helper.isCanLoop(employeesList.result)){
+                                                                employeesList.result.forEach(function(element){
+                                                                %>
+                                                                <tr class="store-1" data-id="<%= element.id %>">
+                                                                    <td>
+                                                                        <label class="checkbox-inline" >
+                                                                            <% if(gidsList.indexOf(element.id) <= -1){ %>
+                                                                            <input type="checkbox" class="checkbox validate[minCheckbox[1]]" name="gids" value="<%= element.id %>" />
+                                                                            <%  }%>
+                                                                            <span><%= element.name %></span>
+                                                                        </label>
+                                                                    </td>
+                                                                </tr>
+                                                                <%})}%>
+                                                            </tbody>
+                                                        </table>
+                                                        <%- pagination %>
+                                                    <input type="hidden" name="messageId" value="<%= messageId %>">
+                                                    <input type="hidden" name="bid" value="<%= sid %>">
+                                                        <div class="col-xs-12">
+                                                            <hr class="simple">
+                                                            <div class="col-xs-12 text-center">
+                                                                <button class="btn btn-primary " type="submit" id="select-submit">
+                                                                    <i class="fa fa-save"></i>
+                                                                    保存
+                                                                </button>
+                                                            </div>
+                                                        </div>
+                                                </div>
+                                                </form>
+                                        </div>
+
+                                        <div class="col-xs-4 dis-flex">
+                                            <form class="dis-flex" action="/msg/removeGid" method="post" id="remove-gid">
+                                                <input type="hidden" name="messageId" value="<%= messageId %>">
+                                                <input type="hidden" name="bid" value="<%= sid %>">
+                                                <div class="table-responsive dis-flex">
+                                                    <table class="table table-bordered table-striped table-scroll table-role dis-flex" id="tableThree">
+                                                        <thead>
+                                                        <tr>
+                                                            <th>
+                                                                <h6>
+                                                                    已选员工
+                                                                    <button class="label label-danger" id="remove-submit">删除</button>
+                                                                </h6>
+                                                            </th>
+                                                        </tr>
+                                                        </thead>
+                                                        <tbody class="employee">
+                                                        <% if(DWY_Helper.isCanLoop(gidsNameList)){
+                                                        gidsNameList.forEach(function(element){
+                                                        %>
+                                                        <tr>
+                                                            <td>
+                                                                <label class="checkbox-inline" >
+                                                                    <input type="checkbox" class="checkbox validate[minCheckbox[1]]" name="gids" value="<%= element.gid %>" />
+
+                                                                    <span><%= element.name %><%= element.mobile %></span>
+                                                                </label>
+                                                                <%if(element.type==2){%>
+                                                                <span class="badge bg-color-greenLight inbox-badge">机构</span>
+                                                                <%}%>
+                                                            </td>
+                                                        </tr>
+                                                        <%})}%>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </form>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!--</form>-->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+<%- include('../layouts/footer'); %>
+<%- include('../layouts/footer_common_script'); %>
+<script type="text/javascript">
+//    window.addEventListener("beforeunload", function(e) {
+//        var confirmationMessage = "钱钱钱钱钱钱钱钱钱钱钱钱钱";
+//        (e || window.event).returnValue = confirmationMessage; // Gecko and Trident
+//        return confirmationMessage; // Gecko and WebKit
+//    });
+
+    $(document).ready(function () {
+        pageSetUp();
+        $("input#checkAllOne").change(function () {
+            if ($(this).is(":checked")) {
+                $(":checkbox").prop('checked', true);
+            } else {
+                $(":checkbox").prop('checked', false);
+            }
+        })
+
+        //点击第一列表格
+        $("#tableOne tbody tr").on('click', function () {
+            $("#tableOne tr").removeClass('active')
+            $(this).addClass('active')
+        })
+        //点击第二列表格
+        $("#tableTwo tbody").on('click',"tr", function () {
+            $("#tableTwo tr").removeClass('active')
+            $(this).addClass('active')
+        })
+
+        $('#select-submit').click(function (e) {
+            e.preventDefault();
+           if($("#select-gid :checkbox:checked").length >0){
+               $("#select-gid").submit();
+           }else{
+               layer.alert('请先选择', {icon: 3})
+           }
+
+        })
+        $('#remove-submit').click(function (e) {
+            e.preventDefault();
+            if($("#remove-gid :checkbox:checked").length >0){
+                $("#remove-gid").submit();
+            }else{
+                layer.alert('请先选择', {icon: 3})
+            }
+
+        })
+
+
+    })
+</script>
+<%- include('../layouts/foot'); %>

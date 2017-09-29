@@ -1851,4 +1851,24 @@ var FinancialStatisticsController = require('./Controller/FinancialStatisticsCon
 router.get('/FinancialStatistics/index', Middleware.AuthCheck,Middleware.FilterEmptyField,FinancialStatisticsController.listPage);
 
 
+
+/*
+ * 页面范围: 短信相关
+ * 控制器:   MessageController
+ * */
+var MessageController = require('./Controller/MessageController');
+
+// 短信页面
+router.get('/message', Middleware.AuthCheck, MessageController.listPage);
+//获取门店列表
+router.get('/storeList', Middleware.AuthCheck,Middleware.SetBackPath, MessageController.storelistPage);
+// router.get('/storeList/:type', Middleware.AuthCheck, MessageController.storelistPage);
+// router.get('/storeList/:type/:sid', Middleware.AuthCheck, MessageController.storelistPage);
+//点击门店获取部门
+router.get('/dept/:sid', Middleware.AuthCheck, MessageController.getDepartList);
+//点击获取员工列表
+router.get('/employee/:sid/:did', Middleware.AuthCheck, MessageController.getEmployeeList);
+//选择员工发送短信
+router.post('/msg/selectStore', Middleware.AuthCheck, MessageController.selectEmployees);
+router.post('/msg/removeGid', Middleware.AuthCheck, MessageController.removeGid);
 module.exports = router;

@@ -1,0 +1,10 @@
+<%
+if(result&&result.length>0){
+result.forEach(function (element, index) { %>
+<tr data-id="61090001"  class="dept-2">
+    <td ><%= element.name%></td>
+</tr>
+<%  })
+}else{%>
+<tr class="noData"><td>暂无数据，请选择新建</td></tr>
+<% } %>

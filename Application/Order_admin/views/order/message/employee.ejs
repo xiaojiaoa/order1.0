@@ -1,0 +1,15 @@
+<%
+if(result&&result.length>0){
+result.forEach(function (element, index) { %>
+<tr class="employee-3"  data-id="<%= element.id %>">
+    <td>
+        <label>
+            <input type="checkbox" class="checkbox validate[minCheckbox[1]]" name="permission"  value="<%= element.id %>" />
+            <span><%= element.name %></span>
+        </label>
+    </td>
+</tr>
+<%  })
+}else{%>
+<tr class="noData"><td>暂无数据，请选择新建</td></tr>
+<% } %>

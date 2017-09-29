@@ -1,0 +1,69 @@
+<%- include('../layouts/head_top'); %>
+<%- include('../layouts/head_bottom'); %>
+<%- include('../layouts/header'); %>
+<%- include('../layouts/nav'); %>
+<!-- MAIN PANEL -->
+<div id="main" role="main" class="mainFlex">
+    <!-- RIBBON -->
+    <div id="ribbon">
+        <!-- breadcrumb -->
+        <ol class="breadcrumb">
+            <li>后台管理</li>
+            <li>短信管理</li>
+        </ol>
+        <!-- end breadcrumb -->
+    </div>
+    <!-- END RIBBON -->
+    <!-- MAIN CONTENT -->
+    <div id="content">
+        <div class="well">
+            <!-- row -->
+            <div class="row">
+                <div class="col-xs-12">
+                    <legend>短信类型</legend>
+                </div>
+            </div>
+            <div class="row dis-flex">
+                <div class="col-xs-12 dis-flex">
+                    <div class="table-responsive dis-flex">
+                        <table class="table table-bordered table-striped table-hover table-scroll2">
+                            <thead>
+                                <tr>
+                                    <th>短信类型</th>
+                                    <th>操作</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+
+                            <%if(DWY_Helper.isCanLoop(messageList)){
+                            messageList.forEach(function(element){%>
+                            <tr>
+                                <td><%= element.name%></td>
+                                <td>
+                                    <a href="/storeList?messageId=<%= element.id%>" class="label label-primary">门店列表</a>
+                                </td>
+                            </tr>
+                            <%})}%>
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+<%- include('../layouts/footer'); %>
+<%- include('../layouts/footer_common_script'); %>
+<script type="text/javascript">
+    $(document).ready(function () {
+        pageSetUp();
+        $(".fg-date-picker").flatpickr(data_time_picker.data_picker); // jQuery
+    })
+</script>
+<%- include('../layouts/foot'); %>
