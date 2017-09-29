@@ -41,7 +41,7 @@ var BaseController = {
 
         return helper.mergeObject({
             method: 'GET',
-            timeout: 30000
+            timeout: 600000
         }, options);
     },
 
