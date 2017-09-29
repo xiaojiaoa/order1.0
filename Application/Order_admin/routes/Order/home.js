@@ -1839,6 +1839,8 @@ router.get('/report/factory/partNesting/all', Middleware.AuthCheck,Middleware.Fi
 
 // 导出--排料配件汇总报表
 router.post('/report/factory/export/part_nesting_all', Middleware.AuthCheck,Middleware.FilterEmptyField,ReportController.exportPartNestingAll);
+// 图形报表
+router.get('/echart/:type', Middleware.AuthCheck,Middleware.FilterEmptyField,ReportController.echart);
 
 
 
@@ -1849,6 +1851,7 @@ router.post('/report/factory/export/part_nesting_all', Middleware.AuthCheck,Midd
 var FinancialStatisticsController = require('./Controller/FinancialStatisticsController');
 //财务统计
 router.get('/FinancialStatistics/index', Middleware.AuthCheck,Middleware.FilterEmptyField,FinancialStatisticsController.listPage);
+
 
 
 module.exports = router;

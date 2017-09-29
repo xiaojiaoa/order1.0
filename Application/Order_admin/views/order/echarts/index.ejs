@@ -1,0 +1,220 @@
+<%- include('../layouts/head_top'); %>
+<%- include('../layouts/head_bottom'); %>
+<%- include('../layouts/header'); %>
+<%- include('../layouts/nav'); %>
+
+
+<!-- MAIN PANEL -->
+<div id="main" role="main" class="mainFlex">
+
+    <!-- RIBBON -->
+    <div id="ribbon">
+
+        <!-- breadcrumb -->
+        <ol class="breadcrumb">
+            <li>后台管理</li>
+            <li>报表管理</li>
+        </ol>
+
+    </div>
+    <!-- END RIBBON -->
+
+
+    <!-- MAIN CONTENT -->
+    <div id="content" class="dis-flex">
+
+      <%- include('../report/reportManage'); %>
+
+        <div class="well">
+            <!-- row -->
+            <div class="row">
+                <!-- col -->
+                <div class="col-xs-12">
+                    <!--<legend>客户搜索</legend>-->
+                    <!-- row -->
+                    <div class="row search-form">
+                        <form class="form-horizontal" method="get" id="search-customer">
+                            <div class="col-xs-3">
+                                <div class="form-group">
+                                    <label class="col-xs-4 control-label">年份选择:</label>
+                                    <div class="col-xs-8">
+                                        <select class="form-control" name="startYearDate">
+                                          <% for(var i=2017; i<= currentYear;i++){  %>
+                                            <option value='<%= i %>' <%= (DWYRequest.query.startYearDate == i || (!DWYRequest.query.startYearDate && i == currentYear))?"selected":"" %>><%= i %> 年</option>
+                                          <% } %>
+
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xs-3">
+                                <button class="btn btn-primary " type="submit">
+                                    <i class="fa fa-search"></i>
+                                    查询
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                    <!-- end row -->
+                </div>
+                <!-- end col -->
+            </div>
+            <!-- end row -->
+        </div>
+
+        <div class="well dis-flex">
+
+            <!-- row -->
+            <div class="row dis-flex">
+                <div class="col-xs-12 dis-flex" id="echartBox" >
+                    <!--<div id="echartBox"  style="width: 600px;height:400px;"></div>-->
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- END MAIN CONTENT -->
+
+</div>
+<!-- END MAIN PANEL -->
+
+<%- include('../layouts/footer'); %>
+<%- include('../layouts/footer_common_script'); %>
+<%- include('../report/common_js'); %>
+<script src="/asset/js/echarts.min.js"></script>
+<script type="text/javascript">
+
+    $(document).ready(function () {
+        // 基于准备好的dom，初始化echarts实例
+        var myChart = echarts.init(document.getElementById('echartBox'));
+
+        var chartType = '<%= chartType %>';
+        var chartTitle = '<%= chartTitle %>';
+        var legendData = [];
+        var keys = [];
+        var xAxisValue = <%- JSON.stringify(dataList.xAxis) %>;
+        console.log(typeof  xAxisValue)
+        var seriesValue = [];
+        if(chartType == 'customer'){
+            legendData = ['新增客户','预约量尺', '成交客户'];
+            keys = ['addedAmount','dealtAmount', 'measuredAmount'];
+        }else if(chartType == 'order') {
+            legendData = ['订单数量','已收款订单', '已发货订单', '已关闭订单'];
+            keys = ['addedAmount','payedAmount', 'sentAmount', 'closedAmount'];
+        }else if(chartType == 'money') {
+            legendData = ['充值','收款'];
+            keys = ['rechargeMoney','receiptMoney'];
+        }
+
+        legendData.forEach(function (element, index) {
+            var config = new Object();
+            var dataSource = <%- JSON.stringify(dataList.data) %>
+            config = {
+                name: element,
+                type:'bar',
+                data: dataSource[keys[index]],
+                markPoint : {
+                    data : [
+                        {type : 'max', name: '最大值'},
+                        {type : 'min', name: '最小值'}
+                    ]
+                },
+                markLine : {
+                    data : [
+                        {type : 'average', name: '平均值'}
+                    ]
+                }
+            }
+            seriesValue.push(config);
+        })
+
+
+        // 指定图表的配置项和数据
+        option = {
+            title : {
+                text: chartTitle,
+                textStyle: {
+                    color: '#5ab1ef'
+                },
+            },
+            grid: {
+                show: true,
+                left: '5%',
+                right: '5%'
+            },
+            color: ['#2ec7c9', '#b6a2de', '#5ab1ef','#ffb980'],
+            tooltip : {
+                trigger: 'axis'
+            },
+            legend: {
+                data:legendData,
+            },
+             // 工具栏
+            toolbox: {
+                show : true,
+                feature : {
+                    dataView : {show: true, readOnly: false},
+                    magicType : {show: true, type: ['line', 'bar']},
+                    restore : {show: true},
+                    saveAsImage : {show: true}
+                }
+            },
+            calculable : true,
+            xAxis : [
+                {
+                    type : 'category',
+                    data : xAxisValue,
+                    splitLine: {
+                        show: true,
+                        lineStyle: {
+                            color: '#e9e9e9'
+                        }
+                    },
+                    axisLine: {
+                        lineStyle: {
+                            color: '#0f90cf',
+                            width: 2
+                        }
+                    },
+                    axisLabel: {
+                        color: '#000000'
+                    }
+                }
+            ],
+            yAxis : [
+                {
+                    type : 'value',
+                    splitLine: {
+                        show: false,
+                    },
+                    splitArea: {
+                        show: true,
+                        areaStyle: {
+                            color: ['#f2f2f2', '#fbfbfb']
+                        }
+                    },
+                    axisLine: {
+                        lineStyle: {
+                            color: '#0f90cf',
+                            width: 2
+                        }
+                    },
+                    axisTick: {
+                        show: false
+                    },
+                    axisLabel: {
+                        color: '#000000'
+                    }
+                }
+            ],
+            series : seriesValue
+        };
+
+
+        // 使用刚指定的配置项和数据显示图表。
+        myChart.setOption(option);
+    })
+
+</script>
+
+
+<%- include('../layouts/foot'); %>
