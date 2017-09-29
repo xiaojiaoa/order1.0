@@ -749,7 +749,7 @@ var ReportController = {
             }
 
             resultList.dataList = chertData;
-            // console.log('chertData',chertData)
+            console.log('chertData',chertData)
 
             var returnData = Base.mergeData(helper.mergeObject({
                 title: ' ',
