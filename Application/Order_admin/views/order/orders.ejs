@@ -246,6 +246,21 @@
                                     </div>
                                     <div class="col-xs-4">
                                         <div class="form-group">
+                                            <label class="col-xs-3 control-label">发货时间:</label>
+                                            <div class="col-xs-4">
+                                                <input class="form-control fg-date-picker" placeholder="" type="text" value="<%= DWYRequest.query.startSentDate%>"
+                                                       name="startSentDate">
+                                            </div>
+                                            <label class="from-to control-label "> 至 </label>
+                                            <div class="col-xs-4">
+                                                <input class="form-control fg-date-picker" placeholder="" type="text" value="<%= DWYRequest.query.endSentDate%>"
+                                                       name="endSentDate">
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-4">
+                                        <div class="form-group">
                                             <label class="col-xs-3 control-label">审核日期:</label>
                                             <div class="col-xs-4">
                                                 <input class="form-control fg-date-picker" placeholder="" type="text" value="<%= DWYRequest.query.startReviewDate%>"
@@ -418,6 +433,7 @@
                                 <th class="display-none">货位号</th>
                                 <th>收款状态</th>
                                 <th>收款日期</th>
+                                <th>发货日期</th>
                                 <!--根据权限展示价格-->
                                 <% if(DWY_Helper.hasPermission(Permission.order.queryByRevFranchisePrice.id, permission)){%>
                                 <th>结算价</th>
@@ -480,6 +496,7 @@
                                 <td class="display-none"><%= element.cargoSpaceIds %></td>
                                 <td><%= element.payStatus %></td>
                                 <td><%= DWY_Helper.getLocalDate(element.receiptTime) %></td>
+                                <td><%= DWY_Helper.getLocalDate(element.sentTime) %></td>
                                 <!--根据权限展示结算价-->
                                 <% if(DWY_Helper.hasPermission(Permission.order.queryByRevFranchisePrice.id, permission)){%>
                                 <td><%= element.revFranchisePrice %></td>

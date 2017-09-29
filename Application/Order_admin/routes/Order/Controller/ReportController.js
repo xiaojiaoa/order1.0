@@ -683,6 +683,85 @@ var ReportController = {
             form:JSON.parse(req.body.mytest),
         }, req, res)).pipe(res)
     },
+    echart: function (req, res) {
+        var currentYear = new Date().getFullYear();
+        var chartTitle = '';
+        var apiUrl = '';
+
+        var type = req.params.type;
+        var year = req.query.startYearDate? req.query.startYearDate: currentYear;
+        if(type == 'customer'){
+            chartTitle = year+'年客户统计';
+            apiUrl = '/api/orders/stat/countCustomer?startYearDate='+year+'&pattern=2'
+        }else if(type == 'order') {
+            chartTitle = year+'年订单统计';
+            apiUrl = '/api/orders/stat/countOrder?startYearDate='+year+'&pattern=2'
+        }else if(type == 'money') {
+            chartTitle = year+'年资金统计';
+            apiUrl = '/api/orders/stat/countMoney?startYearDate='+year+'&pattern=2'
+        }
+
+        Base.multiDataRequest(req, res, [
+            {url: apiUrl, method: 'GET', resConfig: {keyName: 'dataList', is_must: true}},
+        ], function (req, res, resultList) {
+
+            var dataList = resultList.dataList;
+            var chertData = {
+                xAxis: [],
+                data: {}
+            };
+            if(type == 'customer'){
+                chertData.data = {
+                    addedAmount: [],
+                    dealtAmount: [],
+                    measuredAmount: [],
+                }
+                for(var i=0; i<dataList.length; i++){
+                    chertData.xAxis.push(dataList[i].month);
+                    chertData.data.addedAmount.push(dataList[i].addedAmount);
+                    chertData.data.dealtAmount.push(dataList[i].dealtAmount);
+                    chertData.data.measuredAmount.push(dataList[i].measuredAmount);
+                }
+            }else if(type == 'order') {
+                chertData.data = {
+                    addedAmount: [],
+                    payedAmount: [],
+                    sentAmount: [],
+                    closedAmount: [],
+                }
+                for(var i=0; i<dataList.length; i++){
+                    chertData.xAxis.push(dataList[i].month);
+                    chertData.data.addedAmount.push(dataList[i].addedAmount);
+                    chertData.data.payedAmount.push(dataList[i].payedAmount);
+                    chertData.data.sentAmount.push(dataList[i].sentAmount);
+                    chertData.data.closedAmount.push(dataList[i].closedAmount);
+                }
+            }else if(type == 'money') {
+                chertData.data = {
+                    rechargeMoney: [],
+                    receiptMoney: [],
+                }
+                for(var i=0; i<dataList.length; i++){
+                    chertData.xAxis.push(dataList[i].month);
+                    chertData.data.rechargeMoney.push(dataList[i].rechargeMoney);
+                    chertData.data.receiptMoney.push(dataList[i].receiptMoney);
+                }
+            }
+
+            resultList.dataList = chertData;
+            // console.log('chertData',chertData)
+
+            var returnData = Base.mergeData(helper.mergeObject({
+                title: ' ',
+                currentYear: currentYear,
+                chartTitle: chartTitle,
+                chartType: type,
+                Permission :Permissions,
+            },resultList));
+            res.render('order/echarts/index', returnData);
+        });
+
+    },
 
 };
 module.exports = ReportController;

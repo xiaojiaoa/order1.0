@@ -1839,6 +1839,8 @@ router.get('/report/factory/partNesting/all', Middleware.AuthCheck,Middleware.Fi
 
 // 导出--排料配件汇总报表
 router.post('/report/factory/export/part_nesting_all', Middleware.AuthCheck,Middleware.FilterEmptyField,ReportController.exportPartNestingAll);
+// 图形报表
+router.get('/echart/:type', Middleware.AuthCheck,Middleware.FilterEmptyField,ReportController.echart);
 
 
 
@@ -1852,6 +1854,7 @@ router.get('/FinancialStatistics/index', Middleware.AuthCheck,Middleware.FilterE
 
 
 
+
 /*
  * 页面范围: 短信相关
  * 控制器:   MessageController
@@ -1862,8 +1865,6 @@ var MessageController = require('./Controller/MessageController');
 router.get('/message', Middleware.AuthCheck, MessageController.listPage);
 //获取门店列表
 router.get('/storeList', Middleware.AuthCheck,Middleware.SetBackPath, MessageController.storelistPage);
-// router.get('/storeList/:type', Middleware.AuthCheck, MessageController.storelistPage);
-// router.get('/storeList/:type/:sid', Middleware.AuthCheck, MessageController.storelistPage);
 //点击门店获取部门
 router.get('/dept/:sid', Middleware.AuthCheck, MessageController.getDepartList);
 //点击获取员工列表
