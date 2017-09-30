@@ -34,11 +34,11 @@
                                             <div class="row">
                                                 <!-- col -->
                                                 <div class="col-xs-12">
-                                                    <div class="row search-form">
+                                                    <div class="row">
                                                         <form class="form-horizontal" method="get" action="/storeList">
 
                                                             <div class="col-xs-12">
-                                                                <div class="col-xs-3">
+                                                                <div class="col-xs-9">
                                                                     <div class="form-group">
                                                                         <label class="col-xs-3 control-label text-left">门店名称:</label>
                                                                         <div class="col-xs-8">
@@ -92,11 +92,11 @@
                                             <div class="row">
                                                 <!-- col -->
                                                 <div class="col-xs-12">
-                                                    <div class="row search-form">
+                                                    <div class="row">
                                                         <form class="form-horizontal" method="get">
 
                                                             <div class="col-xs-12">
-                                                                <div class="col-xs-3">
+                                                                <div class="col-xs-9">
                                                                     <div class="form-group">
                                                                         <label class="col-xs-3 control-label text-left">员工姓名:</label>
                                                                         <div class="col-xs-8">
@@ -146,7 +146,7 @@
                                                             <td>
                                                                 <label class="checkbox-inline" >
                                                                   <% if(gidsList.indexOf(element.id) <= -1){ %>
-                                                                    <input type="checkbox" class="checkbox validate[minCheckbox[1]]" name="gids" value="<%= element.id %>" />
+                                                                    <input type="checkbox" class="checkbox" name="gids" value="<%= element.id %>" />
                                                                   <%  }%>
                                                                     <span><%= element.name %></span>
                                                                 </label>
@@ -177,9 +177,37 @@
                                         </div>
 
                                         <div class="col-xs-4 dis-flex">
+                                            <div class="row">
+                                                <div class="col-xs-12">
+                                                    <div class="row">
+                                                        <form class="form-horizontal" method="post" action="/msg/selectRoles" id="select-role">
+
+                                                            <div class="col-xs-12">
+                                                                <div class="col-xs-9">
+                                                                    <div class="form-group">
+                                                                        <label class="col-xs-3 control-label text-left">角色选择:</label>
+                                                                        <div class="col-xs-8">
+                                                                            <label class="checkbox-inline" >
+                                                                                <input type="checkbox" class="checkbox" name="types" value="51" <%= (roleState.indexOf(51) >-1)? "checked": null%> />
+                                                                                <span>设计师</span>
+                                                                            </label>
+                                                                            <input  type="hidden" value="<%= messageId%>" name="messageId">
+                                                                            <input type="hidden" name="bid" value="<%= sid %>">
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-xs-1 text-center">
+                                                                    <button class="btn btn-primary " type="submit" id="role-submit">
+                                                                        保存
+                                                                    </button>
+                                                                </div>
+                                                            </div>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </div>
                                             <form class="dis-flex" action="/msg/removeGid" method="post" id="remove-gid">
                                                 <input type="hidden" name="messageId" value="<%= messageId %>">
-                                                <input type="hidden" name="messageName" value="<%= messageName %>">
                                                 <input type="hidden" name="bid" value="<%= sid %>">
                                                 <div class="table-responsive dis-flex">
                                                     <table class="table table-bordered table-striped table-scroll table-role dis-flex" id="tableThree">
@@ -200,7 +228,7 @@
                                                         <tr>
                                                             <td>
                                                                 <label class="checkbox-inline" >
-                                                                    <input type="checkbox" class="checkbox validate[minCheckbox[1]]" name="gids" value="<%= element.gid %>" />
+                                                                    <input type="checkbox" class="checkbox" name="gids" value="<%= element.gid %>" />
 
                                                                     <span><%= element.name %><%= element.mobile %></span>
                                                                 </label>
@@ -283,6 +311,12 @@ window.onbeforeunload = function () {
                 layer.alert('请先选择', {icon: 3})
             }
 
+        })
+
+        $('#role-submit').click(function (e) {
+            e.preventDefault();
+            $("#select-role").submit();
+            userActions = false;
         })
 
 

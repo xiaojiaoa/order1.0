@@ -56,6 +56,7 @@ var MessageController = {
                 {url: employeeUrl+ sid+'&'+queryString.stringify(req.query), method: 'GET', resConfig: {keyName: 'employeesList', is_must: true}},
                 {url: '/api/message/getRelateGid?bid='+sid+'&messageId='+ req.query.messageId, method: 'GET', resConfig: {keyName: 'gidsList', is_must: true}},
                 {url: '/api/message/getRelateGidAndName?bid='+sid+'&messageId='+ req.query.messageId, method: 'GET', resConfig: {keyName: 'gidsNameList', is_must: true}},
+                {url: '/api/message/getRelateType?bid='+sid+'&messageId='+ req.query.messageId, method: 'GET', resConfig: {keyName: 'roleState', is_must: true}},
             ]
         }
 
@@ -66,6 +67,7 @@ var MessageController = {
                 {url: employeeUrl + oid +'&'+queryString.stringify(req.query), method: 'GET', resConfig: {keyName: 'employeesList', is_must: true}},
                 {url: '/api/message/getRelateGid?bid='+sid+'&messageId='+ req.query.messageId, method: 'GET', resConfig: {keyName: 'gidsList', is_must: true}},
                 {url: '/api/message/getRelateGidAndName?bid='+sid+'&messageId=' +req.query.messageId, method: 'GET', resConfig: {keyName: 'gidsNameList', is_must: true}},
+                {url: '/api/message/getRelateType?bid='+sid+'&messageId=' +req.query.messageId, method: 'GET', resConfig: {keyName: 'roleState', is_must: true}},
             ]
         }
         Base.multiDataRequest(req, res, multiDataRequest, function (req, res, resultList) {
@@ -90,7 +92,10 @@ var MessageController = {
             if(!resultList.gidsNameList){
                 resultList.gidsNameList = []
             }
-            // console.log('employeesList',resultList.employeesList)
+            if(!resultList.roleState){
+                resultList.roleState = []
+            }
+            // console.log('roleState',resultList.roleState)
             var returnData = Base.mergeData(helper.mergeObject({
                 title: ' ',
                 Permission:Permissions,
@@ -143,7 +148,6 @@ var MessageController = {
     },
     selectEmployees: function (req, res) {
         req.body.gids = req.body.gids.toString(',');
-        console.log('gids23333', req.body.gids)
         request(Base.mergeRequestOptions({
             method: 'put',
             url: '/api/message/saveGid?'+queryString.stringify(req.body),
@@ -158,10 +162,24 @@ var MessageController = {
     },
     removeGid: function (req, res) {
         req.body.gids = req.body.gids.toString(',');
-        console.log('removeGid', req.body.gids)
         request(Base.mergeRequestOptions({
             method: 'put',
             url: '/api/message/deleteGid?'+queryString.stringify(req.body),
+        }, req, res), function (error, response, body) {
+            if (!error && response.statusCode == 201) {
+                Base.handlerSuccess(res, req);
+                res.redirect(req.session.backPath?req.session.backPath:"/storeList");
+            } else {
+                Base.handlerError(res, req, error, response, body);
+            }
+        })
+    },
+    selectRoles: function (req, res) {
+        req.body.types = req.body.types?req.body.types.toString(','):'';
+        console.log('selectRoles', req.body)
+        request(Base.mergeRequestOptions({
+            method: 'put',
+            url: '/api/message/saveByType?'+queryString.stringify(req.body),
         }, req, res), function (error, response, body) {
             if (!error && response.statusCode == 201) {
                 Base.handlerSuccess(res, req);

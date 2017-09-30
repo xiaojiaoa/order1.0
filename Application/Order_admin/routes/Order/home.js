@@ -1876,4 +1876,5 @@ router.get('/employee/:sid/:did', Middleware.AuthCheck, MessageController.getEmp
 //选择员工发送短信
 router.post('/msg/selectStore', Middleware.AuthCheck, MessageController.selectEmployees);
 router.post('/msg/removeGid', Middleware.AuthCheck, MessageController.removeGid);
+router.post('/msg/selectRoles', Middleware.AuthCheck, MessageController.selectRoles);
 module.exports = router;
