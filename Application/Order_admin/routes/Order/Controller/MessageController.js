@@ -37,17 +37,20 @@ var MessageController = {
         var sid = req.query.sid;
         var oid = req.query.oid;
         var employeeUrl =(type=='store'&& !oid)?'/api/stores/employees?bid=':'/api/employees?bid=';
-        var storeSearch = {
-            storeName: req.query.storeName
+        var keepSearch = {
+            storeName: req.query.storeName,
+            sid: req.query.sid,
+            messageId: req.query.messageId,
+            type: req.query.type,
         }
         // console.log('storeList22222',employeeUrl+ sid+'&'+queryString.stringify(req.query))
         var multiDataRequest = [
-            {url: '/api/stores?' + queryString.stringify(storeSearch), method: 'GET', resConfig: {keyName: 'storeList', is_must: true}},
+            {url: '/api/stores?' + queryString.stringify(keepSearch), method: 'GET', resConfig: {keyName: 'storeList', is_must: true}},
             {url: '/api/organizations//list', method: 'GET', resConfig: {keyName: 'orzList', is_must: true}},
         ]
         if(type=='store'&& sid && !oid){
             multiDataRequest=[
-                {url: '/api/stores?' + queryString.stringify(storeSearch), method: 'GET', resConfig: {keyName: 'storeList', is_must: true}},
+                {url: '/api/stores?' + queryString.stringify(keepSearch), method: 'GET', resConfig: {keyName: 'storeList', is_must: true}},
                 {url: '/api/organizations//list', method: 'GET', resConfig: {keyName: 'orzList', is_must: true}},
                 {url: employeeUrl+ sid+'&'+queryString.stringify(req.query), method: 'GET', resConfig: {keyName: 'employeesList', is_must: true}},
                 {url: '/api/message/getRelateGid?bid='+sid+'&messageId='+ req.query.messageId, method: 'GET', resConfig: {keyName: 'gidsList', is_must: true}},
@@ -57,7 +60,7 @@ var MessageController = {
 
         if(type=='store'&& oid){
             multiDataRequest=[
-                {url: '/api/stores?' + queryString.stringify(storeSearch), method: 'GET', resConfig: {keyName: 'storeList', is_must: true}},
+                {url: '/api/stores?' + queryString.stringify(keepSearch), method: 'GET', resConfig: {keyName: 'storeList', is_must: true}},
                 {url: '/api/organizations//list?' + queryString.stringify(req.query), method: 'GET', resConfig: {keyName: 'orzList', is_must: true}},
                 {url: employeeUrl + oid +'&'+queryString.stringify(req.query), method: 'GET', resConfig: {keyName: 'employeesList', is_must: true}},
                 {url: '/api/message/getRelateGid?bid='+sid+'&messageId='+ req.query.messageId, method: 'GET', resConfig: {keyName: 'gidsList', is_must: true}},
@@ -94,6 +97,8 @@ var MessageController = {
                 pagination: paginationFinal,
                 sid:sid,
                 oid:oid,
+                storeName:req.query.storeName,
+                keepSearch: queryString.stringify(keepSearch),
                 messageId:req.query.messageId,
             }, resultList));
             res.render('order/message/storeList', returnData);

@@ -77,7 +77,7 @@
                                                     %>
                                                     <tr class="store-1  <%=(DWYRequest.query.sid ==  element.bid )?'active':'' %> <%=(DWYRequest.query.type == 'store')?'':'display-none' %>" data-id="<%= element.bid %>">
                                                         <td>
-                                                            <a href="/storeList?sid=<%= element.bid %>&type=store&messageId=<%= messageId%>" style="display: block;line-height: 30px"><span><%= element.storeName %></span></a>
+                                                            <a href="/storeList?sid=<%= element.bid %>&type=store&messageId=<%= messageId%>&storeName=<%= storeName%>" style="display: block;line-height: 30px"><span><%= element.storeName %></span></a>
                                                         </td>
                                                     </tr>
                                                     <%})}%>
@@ -86,85 +86,91 @@
                                             </div>
                                         </div>
 
-                                            <div class="col-xs-4 dis-flex">
-                                                <div class="row">
-                                                    <!-- col -->
-                                                    <div class="col-xs-12">
-                                                        <div class="row search-form">
-                                                            <form class="form-horizontal" method="get">
+                                        <% if(sid){ %>
+                                        <div class="col-xs-4 dis-flex">
+                                            <div class="row">
+                                                <!-- col -->
+                                                <div class="col-xs-12">
+                                                    <div class="row search-form">
+                                                        <form class="form-horizontal" method="get">
 
-                                                                <div class="col-xs-12">
-                                                                    <div class="col-xs-3">
-                                                                        <div class="form-group">
-                                                                            <label class="col-xs-3 control-label text-left">员工姓名:</label>
-                                                                            <div class="col-xs-8">
-                                                                                <input class="form-control" placeholder="请输入门店名称" type="text" value="<%= DWYRequest.query.name %>" name="name">
-                                                                                <input  type="hidden" value="store" name="type">
-                                                                                <input  type="hidden" value="<%= messageId%>" name="messageId">
-                                                                                <input type="hidden" name="sid" value="<%= sid %>">
-                                                                                <input type="hidden" name="oid" value="<%= oid %>">
-                                                                            </div>
+                                                            <div class="col-xs-12">
+                                                                <div class="col-xs-3">
+                                                                    <div class="form-group">
+                                                                        <label class="col-xs-3 control-label text-left">员工姓名:</label>
+                                                                        <div class="col-xs-8">
+                                                                            <input class="form-control" placeholder="请输入员工姓名" type="text" value="<%= DWYRequest.query.name %>" name="name">
+                                                                            <input  type="hidden" value="store" name="type">
+                                                                            <input  type="hidden" value="<%= messageId%>" name="messageId">
+                                                                            <input type="hidden" name="sid" value="<%= sid %>">
+                                                                            <input type="hidden" name="oid" value="<%= oid %>">
+                                                                            <input type="hidden" name="storeName" value="<%= storeName %>">
                                                                         </div>
                                                                     </div>
-                                                                    <div class="col-xs-1 text-center">
-                                                                        <button class="btn btn-primary " type="submit">
-                                                                            <i class="fa fa-search"></i>
-                                                                            查询
-                                                                        </button>
-                                                                    </div>
                                                                 </div>
-                                                            </form>
-                                                        </div>
+                                                                <div class="col-xs-1 text-center">
+                                                                    <button class="btn btn-primary " type="submit">
+                                                                        <i class="fa fa-search"></i>
+                                                                        查询
+                                                                    </button>
+                                                                </div>
+                                                            </div>
+                                                        </form>
                                                     </div>
-                                                    <!-- end col -->
                                                 </div>
-                                                <form class="dis-flex" action="/msg/selectStore" method="post" id="select-gid">
+                                                <!-- end col -->
+                                            </div>
+                                            <form class="dis-flex" action="/msg/selectStore" method="post" id="select-gid">
                                                 <div class="table-responsive dis-flex">
-                                                        <div class="orderItemLayerTit" style="height:40px;">
-                                                            <ul class="orderItemMenu">
-                                                                <a href="/storeList?sid=<%= sid %>&type=store&messageId=<%= messageId%>">
-                                                                    <li class="padding-10 <%= (!oid)?'materielBak':'' %>">门店员工</li>
-                                                                </a>
-                                                                <%if(DWY_Helper.isCanLoop(orzList)){
-                                                                orzList.forEach(function(element){%>
-                                                                <a href="/storeList?sid=<%= sid %>&oid=<%= element.id %>&type=store&messageId=<%= messageId%>">
-                                                                    <li class="padding-10 <%= (oid==element.id)?'materielBak':'' %>"><%= element.name %></li>
-                                                                </a>
-                                                                <%})}%>
-                                                            </ul>
-                                                        </div>
-                                                        <table class="table table-bordered table-striped table-scroll table-role dis-flex" id="tableTwo">
-                                                            <tbody class="dept">
-                                                                <% if(DWY_Helper.isCanLoop(employeesList.result)){
-                                                                employeesList.result.forEach(function(element){
-                                                                %>
-                                                                <tr class="store-1" data-id="<%= element.id %>">
-                                                                    <td>
-                                                                        <label class="checkbox-inline" >
-                                                                            <% if(gidsList.indexOf(element.id) <= -1){ %>
-                                                                            <input type="checkbox" class="checkbox validate[minCheckbox[1]]" name="gids" value="<%= element.id %>" />
-                                                                            <%  }%>
-                                                                            <span><%= element.name %></span>
-                                                                        </label>
-                                                                    </td>
-                                                                </tr>
-                                                                <%})}%>
-                                                            </tbody>
-                                                        </table>
-                                                        <%- pagination %>
+                                                    <div class="orderItemLayerTit" style="height:40px;">
+                                                        <ul class="orderItemMenu">
+                                                            <a href="/storeList?<%= keepSearch%>">
+                                                                <li class="padding-10 <%= (!oid)?'materielBak':'' %>">该门店员工</li>
+                                                            </a>
+                                                          <%if(DWY_Helper.isCanLoop(orzList)){
+                                                          orzList.forEach(function(element){%>
+                                                            <a href="/storeList?<%= keepSearch %>&oid=<%= element.id %>">
+                                                                <li class="padding-10 <%= (oid==element.id)?'materielBak':'' %>"><%= element.name %></li>
+                                                            </a>
+                                                          <%})}%>
+                                                        </ul>
+                                                    </div>
+                                                    <table class="table table-bordered table-striped table-scroll table-role dis-flex" id="tableTwo">
+                                                        <tbody class="dept">
+                                                        <% if(DWY_Helper.isCanLoop(employeesList.result)){
+                                                        employeesList.result.forEach(function(element){
+                                                        %>
+                                                        <tr class="store-1" data-id="<%= element.id %>">
+                                                            <td>
+                                                                <label class="checkbox-inline" >
+                                                                  <% if(gidsList.indexOf(element.id) <= -1){ %>
+                                                                    <input type="checkbox" class="checkbox validate[minCheckbox[1]]" name="gids" value="<%= element.id %>" />
+                                                                  <%  }%>
+                                                                    <span><%= element.name %></span>
+                                                                </label>
+                                                            </td>
+                                                        </tr>
+                                                        <%})}else{  %>
+                                                        <tr>
+                                                            <td>暂无数据</td>
+                                                        </tr>
+                                                        <%  }%>
+                                                        </tbody>
+                                                    </table>
+                                                  <%- pagination %>
                                                     <input type="hidden" name="messageId" value="<%= messageId %>">
                                                     <input type="hidden" name="bid" value="<%= sid %>">
-                                                        <div class="col-xs-12">
-                                                            <hr class="simple">
-                                                            <div class="col-xs-12 text-center">
-                                                                <button class="btn btn-primary " type="submit" id="select-submit">
-                                                                    <i class="fa fa-save"></i>
-                                                                    保存
-                                                                </button>
-                                                            </div>
+                                                    <div class="col-xs-12">
+                                                        <hr class="simple">
+                                                        <div class="col-xs-12 text-center">
+                                                            <button class="btn btn-primary " type="submit" id="select-submit">
+                                                                <i class="fa fa-save"></i>
+                                                                保存
+                                                            </button>
                                                         </div>
+                                                    </div>
                                                 </div>
-                                                </form>
+                                            </form>
                                         </div>
 
                                         <div class="col-xs-4 dis-flex">
@@ -194,9 +200,9 @@
 
                                                                     <span><%= element.name %><%= element.mobile %></span>
                                                                 </label>
-                                                                <%if(element.type==2){%>
+                                                              <%if(element.type==2){%>
                                                                 <span class="badge bg-color-greenLight inbox-badge">机构</span>
-                                                                <%}%>
+                                                              <%}%>
                                                             </td>
                                                         </tr>
                                                         <%})}%>
@@ -206,6 +212,8 @@
                                             </form>
 
                                         </div>
+                                      <% } %>
+
                                     </div>
                                 </div>
                             </div>
@@ -230,7 +238,13 @@
 //        (e || window.event).returnValue = confirmationMessage; // Gecko and Trident
 //        return confirmationMessage; // Gecko and WebKit
 //    });
-
+// 用户改变了勾选状态后切换提示用户数据未保存
+var userActions = false;
+window.onbeforeunload = function () {
+    if(userActions){
+        return "提示信息"
+    }
+}
     $(document).ready(function () {
         pageSetUp();
         $("input#checkAllOne").change(function () {
@@ -241,21 +255,16 @@
             }
         })
 
-        //点击第一列表格
-        $("#tableOne tbody tr").on('click', function () {
-            $("#tableOne tr").removeClass('active')
-            $(this).addClass('active')
-        })
-        //点击第二列表格
-        $("#tableTwo tbody").on('click',"tr", function () {
-            $("#tableTwo tr").removeClass('active')
-            $(this).addClass('active')
+        // 用户修改了 checkbox ，则把标记置为  true
+        $(':checkbox').change(function () {
+            userActions = true
         })
 
         $('#select-submit').click(function (e) {
             e.preventDefault();
            if($("#select-gid :checkbox:checked").length >0){
                $("#select-gid").submit();
+               userActions = false;
            }else{
                layer.alert('请先选择', {icon: 3})
            }
@@ -265,6 +274,7 @@
             e.preventDefault();
             if($("#remove-gid :checkbox:checked").length >0){
                 $("#remove-gid").submit();
+                userActions = false;
             }else{
                 layer.alert('请先选择', {icon: 3})
             }
