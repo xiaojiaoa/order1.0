@@ -41,6 +41,7 @@ var MessageController = {
             storeName: req.query.storeName,
             sid: req.query.sid,
             messageId: req.query.messageId,
+            messageName:req.query.messageName,
             type: req.query.type,
         }
         // console.log('storeList22222',employeeUrl+ sid+'&'+queryString.stringify(req.query))
@@ -66,7 +67,6 @@ var MessageController = {
                 {url: '/api/message/getRelateGid?bid='+sid+'&messageId='+ req.query.messageId, method: 'GET', resConfig: {keyName: 'gidsList', is_must: true}},
                 {url: '/api/message/getRelateGidAndName?bid='+sid+'&messageId=' +req.query.messageId, method: 'GET', resConfig: {keyName: 'gidsNameList', is_must: true}},
             ]
-            console.log(222222)
         }
         Base.multiDataRequest(req, res, multiDataRequest, function (req, res, resultList) {
 
@@ -100,6 +100,7 @@ var MessageController = {
                 storeName:req.query.storeName,
                 keepSearch: queryString.stringify(keepSearch),
                 messageId:req.query.messageId,
+                messageName:req.query.messageName,
             }, resultList));
             res.render('order/message/storeList', returnData);
         })
