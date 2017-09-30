@@ -83,6 +83,7 @@ var request = require('request');
 var Middleware = {
     // 检测SESSION 是否存在TOKEN (NODE),TODO 区分AJAX请求,以JSON格式返回
     AuthCheck: function (req, res, next) {
+        req.session.preventAction = req.url;
         if(req.method.toLowerCase() == 'get'){
             // req.session.preventPath = req.path;
 
@@ -156,6 +157,9 @@ var Middleware = {
             // if(req.method.toLowerCase() == 'get'){
             //     return true;
             // }
+            if(req.session.preventAction != req.url){
+                return true;
+            }
         },
         handler: function (req, res, next) {
             if(req.xhr){
@@ -1058,7 +1062,7 @@ router.get('/waitSend', Middleware.AuthCheck, Middleware.FilterEmptyField, OutWa
 router.get('/delivery/tidList/:cid',OutWarehouseController.deliveryTidList);
 
 // 发货通知单页面
-router.post('/doDelivery', Middleware.AuthCheck, Middleware.apiLimiter, OutWarehouseController.doDelivery);
+router.post('/doDelivery', Middleware.apiLimiter,Middleware.AuthCheck,  OutWarehouseController.doDelivery);
 
 // 发货通知单页面
 router.get('/deliveryNote', Middleware.AuthCheck,Middleware.FilterEmptyField,Middleware.SetBackPath, OutWarehouseController.deliveryNotePage);
