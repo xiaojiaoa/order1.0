@@ -152,6 +152,58 @@
             </div>
         </div>
 
+        <div class="well">
+
+            <!-- row -->
+            <div class="row">
+                <div class="col-xs-12">
+                    <h6>货位关联已扫描未入库包装</h6>
+
+                    <hr class="simple">
+                </div>
+            </div>
+
+            <!-- row -->
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-striped table-hover">
+                            <thead>
+                            <tr>
+                                <th>序号</th>
+                                <th>包装号</th>
+                                <th>客户号</th>
+                                <th>客户姓名</th>
+                                <th>订单号</th>
+                                <th>流水号</th>
+                                <th>批次号</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <%
+                            if(DWY_Helper.isCanLoop(cargospaceInfoMore)){
+                            cargospaceInfoMore.forEach(function (element, index) { %>
+                            <tr>
+                                <td><%= DWY_Helper.incrementNum(DWYRequest.query.pageNo,index)%></td>
+                                <td><%= element.pacakgeLid %></td>
+                                <td><a href="/customer/detail/<%= element.cid %>"><%= element.cid %></a></td>
+                                <td><%= element.cname %></td>
+                                <td><a href="/order/detail/<%= element.tid %>"><%= element.tid %></a></td>
+                                <td><a href="/taskseq/index/<%= element.lid %>"><%= element.lid %></a></td>
+                                <td><%= element.batchNumber %></td>
+                            </tr>
+                            <%  })
+                            }else{ %>
+                            <tr>
+                                <td colspan="7" align="center">暂无数据</td>
+                            </tr>
+                            <% } %>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
 
 
     </div>
