@@ -247,14 +247,10 @@ var ReportController = {
     },
     storeRepPage: function (req, res) {
 
-        var type=req.query.type;
-        if(!type){
-            type=99999996;
-        }
-       //  console.log(4545,'/api/stores/report?roleId='+type+'&'+queryString.stringify(req.query));
+
         var paramObject = helper.genPaginationQuery(req);
         Base.multiDataRequest(req, res, [
-            {url:  '/api/stores/report?roleId='+type+'&'+queryString.stringify(req.query), method: 'GET', resConfig: {keyName: 'storeRepList', is_must: true}},
+            {url:  '/api/stores/report/getReportByDesigner?'+queryString.stringify(req.query), method: 'GET', resConfig: {keyName: 'storeRepList', is_must: true}},
             {url: '/api/stores/list', method: 'GET', resConfig: {keyName: 'storesList', is_must: false}},
             {url: '/api/stores/report/getRegionTypeByGid', method: 'GET', resConfig: {keyName: 'regionList', is_must: true}},
         ], function (req, res, resultList) {
@@ -267,13 +263,60 @@ var ReportController = {
             }));
             var returnData = Base.mergeData(helper.mergeObject({
                 title: ' ',
-                type:type,
                 pagination: boostrapPaginator.render(),
                 Permission :Permissions,
             },resultList));
             res.render('order/report/storeRep', returnData);
         });
     },
+    storeRepAdviser: function (req, res) {
+
+        var paramObject = helper.genPaginationQuery(req);
+        Base.multiDataRequest(req, res, [
+            {url:  '/api/stores/report/getReportByAdviser?'+queryString.stringify(req.query), method: 'GET', resConfig: {keyName: 'storeRepList', is_must: true}},
+            {url: '/api/stores/list', method: 'GET', resConfig: {keyName: 'storesList', is_must: false}},
+            {url: '/api/stores/report/getRegionTypeByGid', method: 'GET', resConfig: {keyName: 'regionList', is_must: true}},
+        ], function (req, res, resultList) {
+            var paginationInfo = resultList.storeRepList;
+            var boostrapPaginator = new Pagination.TemplatePaginator(helper.genPageInfo({
+                prelink: paramObject.withoutPageNo,
+                current: paginationInfo.page,
+                rowsPerPage: paginationInfo.pageSize,
+                totalResult: paginationInfo.totalItems
+            }));
+            var returnData = Base.mergeData(helper.mergeObject({
+                title: ' ',
+                pagination: boostrapPaginator.render(),
+                Permission :Permissions,
+            },resultList));
+            res.render('order/report/storeRepAdviser', returnData);
+        });
+    },
+
+    storeRepWard: function (req, res) {
+
+        var paramObject = helper.genPaginationQuery(req);
+        Base.multiDataRequest(req, res, [
+            {url:  '/api/stores/report/getReportByWard?'+queryString.stringify(req.query), method: 'GET', resConfig: {keyName: 'storeRepList', is_must: true}},
+            {url: '/api/stores/list', method: 'GET', resConfig: {keyName: 'storesList', is_must: false}},
+            {url: '/api/stores/report/getRegionTypeByGid', method: 'GET', resConfig: {keyName: 'regionList', is_must: true}},
+        ], function (req, res, resultList) {
+            var paginationInfo = resultList.storeRepList;
+            var boostrapPaginator = new Pagination.TemplatePaginator(helper.genPageInfo({
+                prelink: paramObject.withoutPageNo,
+                current: paginationInfo.page,
+                rowsPerPage: paginationInfo.pageSize,
+                totalResult: paginationInfo.totalItems
+            }));
+            var returnData = Base.mergeData(helper.mergeObject({
+                title: ' ',
+                pagination: boostrapPaginator.render(),
+                Permission :Permissions,
+            },resultList));
+            res.render('order/report/storeRepWard', returnData);
+        });
+    },
+
     showTaskseqPage:function (req, res) {
         var worker=req.params.worker;
         var type=req.params.type;
@@ -761,6 +804,119 @@ var ReportController = {
             res.render('order/echarts/index', returnData);
         });
 
+    },
+
+    exportOrderSource: function (req, res) {
+        request(Base.mergeRequestOptions({
+            method: 'post',
+            url: '/api/orders/stat/export/orderSource',
+            form:JSON.parse(req.body.mytest),
+        }, req, res)).pipe(res)
+    },
+    exportStoreDesigner: function (req, res) {
+        request(Base.mergeRequestOptions({
+            method: 'post',
+            url: '/api/stores/report/export/getReportByDesigner',
+            form:JSON.parse(req.body.mytest),
+        }, req, res)).pipe(res)
+    },
+    exportStoreAdviser: function (req, res) {
+        request(Base.mergeRequestOptions({
+            method: 'post',
+            url: '/api/stores/report/export/getReportByAdviser',
+            form:JSON.parse(req.body.mytest),
+        }, req, res)).pipe(res)
+    },
+    exportStoreWard: function (req, res) {
+        request(Base.mergeRequestOptions({
+            method: 'post',
+            url: '/api/stores/report/export/getReportByWard',
+            form:JSON.parse(req.body.mytest),
+        }, req, res)).pipe(res)
+    },
+    exportStoreConditions: function (req, res) {
+        request(Base.mergeRequestOptions({
+            method: 'post',
+            url: '/api/orders/stat/export/getReportByConditions',
+            form:JSON.parse(req.body.mytest),
+        }, req, res)).pipe(res)
+    },
+    employeeResupplyRate: function (req, res) {
+        request(Base.mergeRequestOptions({
+            method: 'post',
+            url: '/api/orders/stat/export/employeeResupplyRate',
+            form:JSON.parse(req.body.mytest),
+        }, req, res)).pipe(res)
+    },
+    departmentResupplyRate: function (req, res) {
+        request(Base.mergeRequestOptions({
+            method: 'post',
+            url: '/api/orders/stat/export/departmentResupplyRate',
+            form:JSON.parse(req.body.mytest),
+        }, req, res)).pipe(res)
+    },
+    storeSales: function (req, res) {
+        request(Base.mergeRequestOptions({
+            method: 'post',
+            url: '/api/orders/stat/export/storeSales',
+            form:JSON.parse(req.body.mytest),
+        }, req, res)).pipe(res)
+    },
+    batchMaterPrice: function (req, res) {
+        request(Base.mergeRequestOptions({
+            method: 'post',
+            url: '/api/tasks/statement/export/pageBatchPriceByEveryDay',
+            form:JSON.parse(req.body.mytest),
+        }, req, res)).pipe(res)
+    },
+    orderMaterPrice: function (req, res) {
+        request(Base.mergeRequestOptions({
+            method: 'post',
+            url: '/api/tasks/statement/export/pagePriceByEveryDay',
+            form:JSON.parse(req.body.mytest),
+        }, req, res)).pipe(res)
+    },
+    materPriceMonth: function (req, res) {
+        request(Base.mergeRequestOptions({
+            method: 'post',
+            url: '/api/tasks/statement/export/pageBatchPriceByMonth',
+            form:JSON.parse(req.body.mytest),
+        }, req, res)).pipe(res)
+    },
+    accessoryTotal: function (req, res) {
+        request(Base.mergeRequestOptions({
+            method: 'post',
+            url: '/api/tasks/statement/export/pageAllAccessoryTotalAmount',
+            form:JSON.parse(req.body.mytest),
+        }, req, res)).pipe(res)
+    },
+    accessoryTotalMonth: function (req, res) {
+        request(Base.mergeRequestOptions({
+            method: 'post',
+            url: '/api/tasks/statement/export/pageAllAccessoryByMonth',
+            form:JSON.parse(req.body.mytest),
+        }, req, res)).pipe(res)
+    },
+    materialRequisition: function (req, res) {
+        request(Base.mergeRequestOptions({
+            method: 'post',
+            url: '/api/tasks/statement/export/pageMaterialRequisitionReport',
+            form:JSON.parse(req.body.mytest),
+        }, req, res)).pipe(res)
+    },
+    mateOut: function (req, res) {
+        request(Base.mergeRequestOptions({
+            method: 'post',
+            url: '/api/tasks/statement/export/pageMateOutReportByCondition',
+            form:JSON.parse(req.body.mytest),
+        }, req, res)).pipe(res)
+    },
+    mateIn: function (req, res) {
+        request(Base.mergeRequestOptions({
+            method: 'post',
+            url: '/api/tasks/statement/export/pageMaterialSummaryByInTime',
+            form:JSON.parse(req.body.mytest),
+        }, req, res)).pipe(res)
     },
 
 };

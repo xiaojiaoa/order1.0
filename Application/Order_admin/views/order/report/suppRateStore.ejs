@@ -170,7 +170,14 @@
             <!-- row -->
             <div class="row">
                 <div class="col-xs-12">
-                    <h6>门店相关报表</h6>
+                    <h6>门店相关报表
+                        <form class="" method="post" action="/report/store/export/conditions" style="display: inline-block;">
+                            <input type="hidden" name="mytest" value="<%= JSON.stringify( DWYRequest.query)%>">
+                            <button class="label label-primary " type="submit">
+                                导出清单
+                            </button>
+                        </form>
+                    </h6>
                     <hr class="simple">
                 </div>
             </div>

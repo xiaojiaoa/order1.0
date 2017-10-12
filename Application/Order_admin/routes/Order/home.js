@@ -1779,8 +1779,12 @@ router.get('/inMateRep', Middleware.AuthCheck,Middleware.FilterEmptyField,Report
 // 入库详情
 router.get('/inMateRep/detail', Middleware.AuthCheck,Middleware.FilterEmptyField,ReportController.inMateRepDetailPage);
 
-// 分页查询--门店统计
+// 分页查询--门店设计师统计
 router.get('/storeRep', Middleware.AuthCheck,Middleware.FilterEmptyField,ReportController.storeRepPage);
+//家居顾问
+router.get('/storeRepAdviser', Middleware.AuthCheck,Middleware.FilterEmptyField,ReportController.storeRepAdviser);
+//查房统计
+router.get('/storeRepWard', Middleware.AuthCheck,Middleware.FilterEmptyField,ReportController.storeRepWard);
 
 // 展示成交客户的流水号
 router.get('/showTaskseq/:worker/:type/:gid', Middleware.AuthCheck,ReportController.showTaskseqPage);
@@ -1845,6 +1849,56 @@ router.get('/report/factory/partNesting/all', Middleware.AuthCheck,Middleware.Fi
 router.post('/report/factory/export/part_nesting_all', Middleware.AuthCheck,Middleware.FilterEmptyField,ReportController.exportPartNestingAll);
 // 图形报表
 router.get('/echart/:type', Middleware.AuthCheck,Middleware.FilterEmptyField,ReportController.echart);
+
+//导出--订单来源报表
+router.post('/report/order/export/order_source', Middleware.AuthCheck,Middleware.FilterEmptyField,ReportController.exportOrderSource);
+
+//导出--设计师成交情况
+router.post('/report/store/export/designer', Middleware.AuthCheck,Middleware.FilterEmptyField,ReportController.exportStoreDesigner);
+
+//导出--家居顾问成交情况
+router.post('/report/store/export/adviser', Middleware.AuthCheck,Middleware.FilterEmptyField,ReportController.exportStoreAdviser);
+
+//导出--查房成交情况
+router.post('/report/store/export/ward', Middleware.AuthCheck,Middleware.FilterEmptyField,ReportController.exportStoreWard);
+
+//导出--门店补单率
+router.post('/report/store/export/conditions', Middleware.AuthCheck,Middleware.FilterEmptyField,ReportController.exportStoreConditions);
+
+//导出--下单员补单率
+router.post('/report/store/export/employeeResupplyRate', Middleware.AuthCheck,Middleware.FilterEmptyField,ReportController.employeeResupplyRate);
+
+//导出--部门成本率
+router.post('/report/store/export/departmentResupplyRate', Middleware.AuthCheck,Middleware.FilterEmptyField,ReportController.departmentResupplyRate);
+
+//导出--门店销售
+router.post('/report/store/export/storeSales', Middleware.AuthCheck,Middleware.FilterEmptyField,ReportController.storeSales);
+
+//导出--批次物料计价
+router.post('/report/factory/export/batchMaterPrice', Middleware.AuthCheck,Middleware.FilterEmptyField,ReportController.batchMaterPrice);
+
+//导出--订单物料计价
+router.post('/report/factory/export/orderMaterPrice', Middleware.AuthCheck,Middleware.FilterEmptyField,ReportController.orderMaterPrice);
+
+//导出--物料计价（按月）
+router.post('/report/factory/export/materPriceMonth', Middleware.AuthCheck,Middleware.FilterEmptyField,ReportController.materPriceMonth);
+
+//导出--五金汇总
+router.post('/report/factory/export/accessoryTotal', Middleware.AuthCheck,Middleware.FilterEmptyField,ReportController.accessoryTotal);
+
+//导出--五金汇总按月
+router.post('/report/factory/export/accessoryTotalMonth', Middleware.AuthCheck,Middleware.FilterEmptyField,ReportController.accessoryTotalMonth);
+
+//导出--领料单
+router.post('/report/factory/export/materialRequisition', Middleware.AuthCheck,Middleware.FilterEmptyField,ReportController.materialRequisition);
+
+//导出--出库
+router.post('/report/factory/export/mateOut', Middleware.AuthCheck,Middleware.FilterEmptyField,ReportController.mateOut);
+
+//导出--入库
+router.post('/report/factory/export/mateIn', Middleware.AuthCheck,Middleware.FilterEmptyField,ReportController.mateIn);
+
+
 
 
 

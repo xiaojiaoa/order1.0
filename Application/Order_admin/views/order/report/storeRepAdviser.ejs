@@ -55,15 +55,17 @@
                                         </div>
                                     </div>
                                 </div>
-                                <!--设计师字段-->
                                 <div class="col-xs-3">
                                     <div class="form-group">
-                                        <label class="col-xs-4 control-label">设计师:</label>
+                                        <label class="col-xs-4 control-label">家居顾问:</label>
                                         <div class="col-xs-8">
-                                            <input class="form-control" placeholder="请输入设计师" value="<%= DWYRequest.query.gName %>" type="text" name="gName">
+                                            <input class="form-control" placeholder="请输入家具顾问" value="<%= DWYRequest.query.gName %>" type="text" name="gName">
                                         </div>
                                     </div>
                                 </div>
+
+
+
                                 <div class="col-xs-3">
                                     <div class="form-group">
                                         <label class="col-xs-4 control-label">量尺数:</label>
@@ -83,6 +85,7 @@
                                         </div>
                                     </div>
                                 </div>
+
                                 <% if(DWY_GLOBAL.ButtonOpen!=1){ %>
                                 <div class="col-xs-3 text-center">
                                     <button class="btn btn-primary " type="submit" id="subBtn">
@@ -104,7 +107,7 @@
                                     <%}%>
                                     <div class="col-xs-6">
                                         <div class="form-group">
-                                            <input name="type" value="99999996" type="hidden"/>
+                                            <input name="type" value="99999997" type="hidden"/>
                                             <input name="regionId" value="" type="hidden" id="regionId"/>
                                             <label class="col-xs-2 control-label">区域范围:</label>
                                             <div class="col-xs-2">
@@ -216,14 +219,12 @@
             <div class="row">
                 <div class="col-xs-12">
                     <h6>门店相关报表
-                        <form class="" method="post" action="/report/store/export/designer" style="display: inline-block;">
+                        <form class="" method="post" action="/report/store/export/adviser" style="display: inline-block;">
                             <input type="hidden" name="mytest" value="<%= JSON.stringify( DWYRequest.query)%>">
                             <button class="label <%= (DWY_Helper.isCanLoop(storeRepList.result)?'label-primary':'label-grey')%>" type="submit" <%= (DWY_Helper.isCanLoop(storeRepList.result)?'':'disabled')%>>
                                 导出清单
                             </button>
                         </form>
-
-
                     </h6>
                     <hr class="simple">
                 </div>
@@ -231,12 +232,12 @@
             <div class="orderItemLayerTit">
                 <ul class="orderItemMenu">
                     <a href="/storeRep">
-                        <li class="padding-10 materielBak">
+                        <li class="padding-10">
                             设计师成交情况
                         </li>
                     </a>
                     <a href="/storeRepAdviser">
-                        <li class="padding-10">
+                        <li class="padding-10 materielBak">
                             家居顾问成交情况
                         </li>
                     </a>
@@ -258,7 +259,7 @@
                             <tr>
                                 <th>序号</th>
                                 <th>店名</th>
-                                <th>设计师</th>
+                                <th>家居顾问</th>
                                 <th>期间量尺数</th>
                                 <th>成交客户数</th>
                                 <th>成交率(%)</th>
@@ -274,8 +275,8 @@
                                 <td><%= DWY_Helper.incrementNum(DWYRequest.query.pageNo,index)%></td>
                                 <td><%= element.storeName %></td>
                                 <td><%= element.name %></td>
-                                <td><a href="/showTaskseq/designer/measured/<%= element.gid%>?startDate=<%= DWYRequest.query.startDate %>&endDate=<%= DWYRequest.query.endDate %>"><%= element.meased %></a></td>
-                                <td><a href="/showTaskseq/designer/deal/<%= element.gid%>?startDate=<%= DWYRequest.query.startDate %>&endDate=<%= DWYRequest.query.endDate %>"><%= element.conStcode %></a></td>
+                                <td><a href="/showTaskseq/advisor/measured/<%= element.gid%>?startDate=<%= DWYRequest.query.startDate %>&endDate=<%= DWYRequest.query.endDate %>"><%= element.meased %></a></td>
+                                <td><a href="/showTaskseq/advisor/deal/<%= element.gid%>?startDate=<%= DWYRequest.query.startDate %>&endDate=<%= DWYRequest.query.endDate %>"><%= element.conStcode %></a></td>
                                 <td><%= element.percent %></td>
                                 <td><%= element.dealTime %></td>
                                 <td><%= element.ordersum %></td>

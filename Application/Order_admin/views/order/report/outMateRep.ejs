@@ -79,7 +79,14 @@
             <!-- row -->
             <div class="row">
                 <div class="col-xs-12">
-                    <h6>工厂相关报表</h6>
+                    <h6>工厂相关报表
+                        <form class="" method="post" action="/report/factory/export/mateOut" style="display: inline-block;">
+                            <input type="hidden" name="mytest" value="<%= JSON.stringify( DWYRequest.query)%>">
+                            <button class="label  <%= (DWY_Helper.isCanLoop(outMateRepList.result)?'label-primary':'label-grey')%>" type="submit" <%= (DWY_Helper.isCanLoop(outMateRepList.result)?'':'disabled')%>>
+                                导出清单
+                            </button>
+                        </form>
+                    </h6>
                     <hr class="simple">
                 </div>
             </div>
