@@ -114,8 +114,8 @@
                             outMateRepList.result.forEach(function (element,index) { %>
                             <tr>
                                 <td><%= DWY_Helper.incrementNum(DWYRequest.query.pageNo,index)%></td>
-                                <td><a href="/inMateRep/detail?mId=<%= element.mId %>&startDate=<%= DWYRequest.query.startDate%>&endDate=<%= DWYRequest.query.endDate%>"><%= element.mId %></a></td>
-                                <td><%= element.mName%></td>
+                                <td><a href="/inMateRep/detail?mateId=<%= element.mateId %>&startDate=<%= DWYRequest.query.startDate%>&endDate=<%= DWYRequest.query.endDate%>"><%= element.mateId %></a></td>
+                                <td><%= element.mateName%></td>
                                 <td><%= element.catId %></td>
                                 <td><%= element.mcName %></td>
                                 <td><%= element.smAmount %></td>
