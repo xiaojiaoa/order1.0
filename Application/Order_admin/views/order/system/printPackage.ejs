@@ -232,10 +232,11 @@
                 $("#pageInfo").text(totalPage)
                 $("#printPageNo").replaceWith(
                     ' <input class="form-control validate[required, custom[integer],min[1],max[' + totalPage + ']]" placeholder="1/' + totalPage + '" type="text" ' +
-                    'id="printPageNo" value="">'
+                    'id="printPageNo" value="1">'
                 )
-                printNext.prop('disabled',true)
                 printPrv.prop('disabled',true)
+                ifDisableNext(1);
+
             } else {
                 $('#pageNumInputDiv').hide();
             }
