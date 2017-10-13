@@ -322,6 +322,8 @@ router.get('/:type/communicate/create/:tid', Middleware.AuthCheck, OrderControll
 
 // 所有交流信息页面
 router.get('/:type/communicateAll/:tid', Middleware.AuthCheck, OrderController.communicateAllPage);
+//所有日志信息页面
+router.get('/:type/logAll/:tid', Middleware.AuthCheck, OrderController.logInfoAllPage);
 
 // 新增交流信息
 router.post('/:type/communicate/doCreate', Middleware.AuthCheck, OrderController.doCreateCommunicate);

@@ -74,7 +74,8 @@ var OrderController = {
                 {url: '/api/assist/order/difficulty', method: 'GET', resConfig: {keyName: 'difficultyList', is_must: true}},
                 {url: '/api/cofficient/'+tid, method: 'GET', resConfig: {keyName: 'cofficientInfo', is_must: true}},
                 {url: '/api/orders/chgback/'+tid, method: 'GET', resConfig: {keyName: 'chgbackInfo', is_must: true}},
-                {url: '/api/orders/progress/'+tid, method: 'GET', resConfig: {keyName: 'progressInfo', is_must: true}},
+                {url: '/api/orders/progress?type=1&tid='+tid, method: 'GET', resConfig: {keyName: 'progressInfo', is_must: true}},
+                {url: '/api/orders/progress?tid='+tid, method: 'GET', resConfig: {keyName: 'logInfo', is_must: true}},
                 {url: '/api/assist/space/prod', method: 'GET', resConfig: {keyName: 'spaceInfo', is_must: true}},
                 {url: '/api/assist/review/reviewReason', method: 'GET', resConfig: {keyName: 'reviewReason', is_must: true}},
                 {url: '/api/assist/review/apartReason', method: 'GET', resConfig: {keyName: 'apartReason', is_must: true}},
@@ -402,7 +403,7 @@ var OrderController = {
         var type = req.params.type;
         var paramObject = helper.genPaginationQuery(req);
         Base.multiDataRequest(req, res, [
-            {url: '/api/orders/progress?tid='+tid+'&'+queryString.stringify(req.query), method: 'GET', resConfig: {keyName: 'progressList', is_must: true}},
+            {url: '/api/orders/progress?type=1&tid='+tid+'&'+queryString.stringify(req.query), method: 'GET', resConfig: {keyName: 'progressList', is_must: true}},
         ], function (req, res, resultList) {
 
             var paginationInfo = resultList.progressList;
@@ -421,6 +422,33 @@ var OrderController = {
                 pagination: boostrapPaginator.render()
             }, resultList));
             res.render('order/order/communicate', returnData);
+        });
+
+    },
+    logInfoAllPage: function (req, res) {
+        var tid = req.params.tid;
+        var type = req.params.type;
+        var paramObject = helper.genPaginationQuery(req);
+        Base.multiDataRequest(req, res, [
+            {url: '/api/orders/progress?tid='+tid+'&'+queryString.stringify(req.query), method: 'GET', resConfig: {keyName: 'progressList', is_must: true}},
+        ], function (req, res, resultList) {
+
+            var paginationInfo = resultList.progressList;
+
+            var boostrapPaginator = new Pagination.TemplatePaginator(helper.genPageInfo({
+                prelink: paramObject.withoutPageNo,
+                current: paginationInfo.page,
+                rowsPerPage: paginationInfo.pageSize,
+                totalResult: paginationInfo.totalItems
+            }));
+
+            var returnData = Base.mergeData(helper.mergeObject({
+                title: ' ',
+                tid: tid,
+                type: type,
+                pagination: boostrapPaginator.render()
+            }, resultList));
+            res.render('order/order/logInfo', returnData);
         });
 
     },
@@ -1191,7 +1219,6 @@ var OrderController = {
 
     notPassSche: function (req, res) {
         req.body.causeStr =  req.body.causeStr.toString(',');
-     //   console.log('233333',req.body)
         request(Base.mergeRequestOptions({
             method: 'put',
             url: '/api/orders/chgback/orderBack?'+queryString.stringify(req.body),
