@@ -856,8 +856,8 @@
                             </tr>
                             </thead>
                             <tbody>
-                            <% if(DWY_Helper.isCanLoop(logInfo)){
-                            logInfo.forEach(function (element, index) {  %>
+                            <% if(DWY_Helper.isCanLoop(logInfo.result)){
+                            logInfo.result.forEach(function (element, index) {  %>
                             <tr <% if(element.isRecent){  %>
                                     class="mark-row"
                                     <% } %>>

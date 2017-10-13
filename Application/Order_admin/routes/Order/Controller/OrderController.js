@@ -74,8 +74,8 @@ var OrderController = {
                 {url: '/api/assist/order/difficulty', method: 'GET', resConfig: {keyName: 'difficultyList', is_must: true}},
                 {url: '/api/cofficient/'+tid, method: 'GET', resConfig: {keyName: 'cofficientInfo', is_must: true}},
                 {url: '/api/orders/chgback/'+tid, method: 'GET', resConfig: {keyName: 'chgbackInfo', is_must: true}},
-                {url: '/api/orders/progress?type=1&tid='+tid, method: 'GET', resConfig: {keyName: 'progressInfo', is_must: true}},
-                {url: '/api/orders/progress?tid='+tid, method: 'GET', resConfig: {keyName: 'logInfo', is_must: true}},
+                {url: '/api/orders/progress?type=1&pageSize=5&tid='+tid, method: 'GET', resConfig: {keyName: 'progressInfo', is_must: true}},
+                {url: '/api/orders/progress?tid='+tid+'&pageSize=5', method: 'GET', resConfig: {keyName: 'logInfo', is_must: true}},
                 {url: '/api/assist/space/prod', method: 'GET', resConfig: {keyName: 'spaceInfo', is_must: true}},
                 {url: '/api/assist/review/reviewReason', method: 'GET', resConfig: {keyName: 'reviewReason', is_must: true}},
                 {url: '/api/assist/review/apartReason', method: 'GET', resConfig: {keyName: 'apartReason', is_must: true}},
@@ -872,7 +872,8 @@ var OrderController = {
 
                 // {url: '/api/assist/orderfile/type', method: 'GET', resConfig: {keyName: 'allFileTypeInfo', is_must: true}},
                 {url: '/api/orders/chgback/'+tid, method: 'GET', resConfig: {keyName: 'chgbackInfo', is_must: true}},
-                {url: '/api/orders/progress/'+tid, method: 'GET', resConfig: {keyName: 'progressInfo', is_must: true}},
+                {url: '/api/orders/progress?type=1&pageSize=5&tid='+tid, method: 'GET', resConfig: {keyName: 'progressInfo', is_must: true}},
+                {url: '/api/orders/progress?tid='+tid+'&pageSize=5', method: 'GET', resConfig: {keyName: 'logInfo', is_must: true}},
                 {url: '/api/orders/package/delivery/'+tid, method: 'GET', resConfig: {keyName: 'deliveryInfo', is_must: true}},
                 {url: '/api/orders/priceLog/'+tid, method: 'GET', resConfig: {keyName: 'priceLog', is_must: true}}
             ],

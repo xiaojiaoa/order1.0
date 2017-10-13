@@ -279,6 +279,70 @@
             <div class="row">
                 <!-- col -->
                 <div class="col-xs-12">
+                    <legend>交流信息
+                        <a class="label label-primary" href="/resupply/communicate/create/<%= tid %>">
+                            添加交流信息
+                        </a>
+                        <a class="label label-primary" href="/resupply/communicateAll/<%= tid %>">
+                            查看所有交流信息
+                        </a>
+                    </legend>
+
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-striped">
+                            <thead>
+                            <tr>
+                                <th width="100">序号</th>
+                                <th>交流信息</th>
+                                <th>新增员工</th>
+                                <th>员工角色</th>
+                                <th>员工手机</th>
+                                <th>新增日期</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <% if(DWY_Helper.isCanLoop(progressInfo.result)){
+                            progressInfo.result.forEach(function (element, index) { %>
+                            <tr <% if(element.isRecent){  %>
+                                    class="mark-row"
+                                    <% } %>>
+                                <td><%= index + 1 %></td>
+                                <td><%= element.content %></td>
+                                <td><%= element.name %></td>
+                                <td>
+                                    <% if(element.roleList){
+                                    element.roleList.forEach(function (element) { %>
+                                    <span class="separation"><%= element.name %></span>
+                                    <%  })
+
+                                    } %>
+                                </td>
+                                <td>
+                                    <%if(element.telephone){%>
+                                    <%= element.telephone %>
+                                    <%} else{%>
+                                    <%=  element.mobile %>
+                                    <%}%>
+                                </td>
+                                <td><%= DWY_Helper.getLocalDate(element.addTime) %></td>
+                            </tr>
+                            <% })
+                            } %>
+
+                            </tbody>
+                        </table>
+
+                    </div>
+
+
+                    <!-- end row -->
+                </div>
+                <!-- end col -->
+            </div>
+
+            <div class="row">
+                <!-- col -->
+                <div class="col-xs-12">
                     <legend>状态信息
                         (调试订单状态:<%= resupplyInfo.status %> <%= DWY_Helper.getAssistVal(resupplyInfo.status, stcodeInfo) %> )
                         <%if(DWY_Helper.hasPermission(Permission.order.unlock.id, permission)||resupplyInfo.receiveGid == user.id){%>
@@ -682,12 +746,10 @@
             <div class="row">
                 <!-- col -->
                 <div class="col-xs-12">
-                    <legend>交流信息
-                        <a class="label label-primary" href="/resupply/communicate/create/<%= tid %>">
-                            添加交流信息
-                        </a>
-                        <a class="label label-primary" href="/resupply/communicateAll/<%= tid %>">
-                            查看所有交流信息
+                    <legend>日志信息
+
+                        <a class="label label-primary" href="/resupply/logAll/<%= tid %>">
+                            查看所有日志信息
                         </a>
                     </legend>
 
@@ -696,7 +758,7 @@
                             <thead>
                             <tr>
                                 <th width="100">序号</th>
-                                <th>交流信息</th>
+                                <th>日志信息</th>
                                 <th>新增员工</th>
                                 <th>员工角色</th>
                                 <th>员工手机</th>
@@ -704,8 +766,8 @@
                             </tr>
                             </thead>
                             <tbody>
-                            <% if(DWY_Helper.isCanLoop(progressInfo)){
-                            progressInfo.forEach(function (element, index) { %>
+                            <% if(DWY_Helper.isCanLoop(logInfo.result)){
+                            logInfo.result.forEach(function (element, index) { %>
                             <tr <% if(element.isRecent){  %>
                                     class="mark-row"
                                     <% } %>>
