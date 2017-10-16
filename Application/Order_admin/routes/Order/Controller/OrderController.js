@@ -1847,18 +1847,49 @@ var OrderController = {
     downloadPackage: function (req, res) {
         var batchNumber =  req.params.batchNumber;
         var factoryId =  req.params.factoryId;
+        // request(Base.mergeRequestOptions({
+        //     method: 'get',
+        //     url: '/api/orders/batchNumber/export?batchNumber='+batchNumber+'&factoryId='+factoryId,
+        // }, req, res)).pipe(res)
+
         request(Base.mergeRequestOptions({
             method: 'get',
             url: '/api/orders/batchNumber/export?batchNumber='+batchNumber+'&factoryId='+factoryId,
-        }, req, res)).pipe(res)
+        }, req, res), function (error, response, body) {
+            if (!error && response.statusCode == 200) {
+                // req.pipe(response)
+                request(Base.mergeRequestOptions({
+                    method: 'get',
+                    url: '/api/orders/batchNumber/export?batchNumber='+batchNumber+'&factoryId='+factoryId,
+                }, req, res)).pipe(res)
+            } else {
+                Base.handlerError(res, req, error, response, body);
+            }
+        })
     },
     downloadZipProject: function (req, res) {
         var batchNumber =  req.params.batchNumber;
         var factoryId =  req.params.factoryId;
+        // request(Base.mergeRequestOptions({
+        //     method: 'get',
+        //     url: '/api/orders/batchNumber/export/project?batchNumber='+batchNumber+'&factoryId='+factoryId,
+        // }, req, res)).pipe(res)
+
         request(Base.mergeRequestOptions({
             method: 'get',
-            url: '/api/orders/batchNumber/export/project?batchNumber='+batchNumber+'&factoryId='+factoryId,
-        }, req, res)).pipe(res)
+            url:'/api/orders/batchNumber/export/project?batchNumber='+batchNumber+'&factoryId='+factoryId,
+        }, req, res), function (error, response, body) {
+            if (!error && response.statusCode == 200) {
+                // req.pipe(response)
+                request(Base.mergeRequestOptions({
+                    method: 'get',
+                    url: '/api/orders/batchNumber/export/project?batchNumber='+batchNumber+'&factoryId='+factoryId,
+                }, req, res)).pipe(res)
+            } else {
+                Base.handlerError(res, req, error, response, body);
+            }
+        })
+
     },
   downloadAccessory: function (req, res) {
     var batchNumber =  req.params.batchNumber;
