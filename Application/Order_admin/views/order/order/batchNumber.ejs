@@ -176,7 +176,11 @@
                                     <%}%>
                                     <!--<a class="label label-success download" href="/orders/batchNumber/downloadZip/<%= element.batchNumber %>/<%= element.factoryId %>">下载文件</a>-->
                                     <a class="label label-success download" data-batchNumber="<%= element.batchNumber %>" data-factoryId="<%= element.factoryId %>">下载文件</a>
+
+                                    <% if (DWY_Helper.hasPermission(Permission.batchNumber.projectFile.id, permission ) ){ %>
                                     <a class="label label-success" href="/orders/batchNumber/downloadProject/<%= element.batchNumber %>/<%= element.factoryId %>">工程单文件</a>
+                                    <%}%>
+
                                 </td>
                             </tr>
                             <%  })
