@@ -22,6 +22,7 @@ var MessageController = {
     listPage: function (req, res) {
         Base.multiDataRequest(req, res, [
                 {url: '/api/assist/order/messageInfo?' + queryString.stringify(req.query), method: 'GET', resConfig: {keyName: 'messageList', is_must: true}},
+                {url: '/api/roles/listByScope?scope=9', method: 'GET', resConfig: {keyName: 'roleList', is_must: true}},
             ], function (req, res, resultList) {
             var returnData = Base.mergeData(helper.mergeObject({
                 title: ' ',
@@ -110,6 +111,19 @@ var MessageController = {
             res.render('order/message/storeList', returnData);
         })
     },
+    roleMsgListPage: function (req, res){
+        var messageId = req.query.messageId;
+        Base.multiDataRequest(req, res, [
+            {url: '/api/roles/listByScope?scope=9', method: 'GET', resConfig: {keyName: 'roleList', is_must: true}},
+        ], function (req, res, resultList) {
+            var returnData = Base.mergeData(helper.mergeObject({
+                title: ' ',
+                Permission:Permissions,
+                messageId:messageId
+            }, resultList));
+            res.render('order/message/roleList', returnData);
+        })
+    },
     getDepartList: function (req, res) {
         var storeId = req.params.sid;
         var path = req.app.get('views')+'/order/message/deptList.ejs';
@@ -176,14 +190,14 @@ var MessageController = {
     },
     selectRoles: function (req, res) {
         req.body.types = req.body.types?req.body.types.toString(','):'';
-        console.log('selectRoles', req.body)
+        console.log('23333body',req.body)
         request(Base.mergeRequestOptions({
             method: 'put',
             url: '/api/message/saveByType?'+queryString.stringify(req.body),
         }, req, res), function (error, response, body) {
             if (!error && response.statusCode == 201) {
                 Base.handlerSuccess(res, req);
-                res.redirect(req.session.backPath?req.session.backPath:"/storeList");
+                res.redirect(req.session.backPath?req.session.backPath:"/message");
             } else {
                 Base.handlerError(res, req, error, response, body);
             }

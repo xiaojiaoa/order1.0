@@ -1297,6 +1297,33 @@ var OrderController = {
             res.render('order/order/package', returnData);
         });
     },
+
+    childOrder:function (req, res) {
+        var paramObject = helper.genPaginationQuery(req);
+        if(!req.query.pageSize) {
+            req.query.pageSize = 50;
+        }
+        var tid = req.params.tid;
+        Base.multiDataRequest(req, res, [
+             {url: '/api/projectorder/pageOrder?tid='+tid+'&'+queryString.stringify(req.query), method: 'GET', resConfig: {keyName: 'childrenOrderList', is_must: true}},
+        ], function (req, res, resultList) {
+            var paginationInfo =  resultList.childrenOrderList;
+            var boostrapPaginator = new Pagination.TemplatePaginator(helper.genPageInfo({
+                prelink: paramObject.withoutPageNo,
+                current: paginationInfo.page,
+                rowsPerPage: paginationInfo.pageSize,
+                totalResult: paginationInfo.totalItems
+            }));
+            var returnData = Base.mergeData(helper.mergeObject({
+                title: ' ',
+                pagination: boostrapPaginator.render(),
+                Permission :Permissions,
+                tid:tid,
+            },resultList));
+            res.render('order/order/open_child_order', returnData);
+        });
+        // res.render('order/order/open_child_order')
+    },
     packedListPage:function(req,res){
         var tid=req.params.tid;
         var pid=req.query.packageLid;
@@ -1953,6 +1980,35 @@ var OrderController = {
         }, req, res), function (error, response, body) {
             if (!error && response.statusCode == 201) {
                 res.sendStatus(200);
+            } else {
+                Base.handlerError(res, req, error, response, body);
+            }
+        })
+    },
+    // 子订单批量修改批次号
+    chOrderEditBatchNum: function (req, res) {
+        var tid = req.body.tid;
+        request(Base.mergeRequestOptions({
+            method: 'put',
+            url: '/api/projectorder/editBatchNumber?'+queryString.stringify(req.body),
+        }, req, res), function (error, response, body) {
+            if (!error && response.statusCode == 200) {
+                Base.handlerSuccess(res, req);
+                res.redirect("/order/nesting/childOrder/"+tid);
+            }else {
+                Base.handlerError(res, req, error, response, body);
+            }
+        })
+    },
+    //获取子订单数量
+    getNumberInfo: function (req, res) {
+        var tid = req.params.tid;
+        request(Base.mergeRequestOptions({
+            method: 'get',
+            url: '/api/projectorder/maxnumber?tid='+tid,
+        }, req, res), function (error, response, body) {
+            if (!error && response.statusCode == 200) {
+                res.status(200).json(body);
             } else {
                 Base.handlerError(res, req, error, response, body);
             }

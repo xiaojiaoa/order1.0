@@ -404,12 +404,21 @@ router.post('/orders/urgent/updateUrgent',Middleware.AuthCheck,OrderController.u
 
 // 订单排料页面
 router.get('/orders/nesting', Middleware.AuthCheck,Middleware.FilterEmptyField,Middleware.SetBackPath, OrderController.nestingPage);
-// 标记排料中页面
+// 标记排料中
 router.post('/orders/getNestingTask', Middleware.AuthCheck, OrderController.getNestingTask);
-// 修改批次页面
+// 修改批次
 router.post('/order/editBatchNum', Middleware.AuthCheck, OrderController.editBatchNum);
+
+//子订单批量修改批次号
+router.post('/order/chOrderEdit', Middleware.AuthCheck, OrderController.chOrderEditBatchNum);
+//获取子订单数量
+router.get('/order/orderNumber/:tid', Middleware.AuthCheck, OrderController.getNumberInfo);
+
 // 标记为审核中 (待排料)
 router.put('/schedule/getTask/:tid', Middleware.AuthCheck, OrderController.getTaskSchedule);
+
+//排料中查看子订单
+router.get('/order/nesting/childOrder/:tid', Middleware.AuthCheck,OrderController.childOrder);
 
 // 解锁订单
 router.put('/schedule/unlock/:tid', Middleware.AuthCheck, OrderController.doUnlockSchedule);
@@ -1925,6 +1934,8 @@ var MessageController = require('./Controller/MessageController');
 router.get('/message', Middleware.AuthCheck, MessageController.listPage);
 //获取门店列表
 router.get('/storeList', Middleware.AuthCheck,Middleware.SetBackPath, MessageController.storelistPage);
+//获取角色列表
+router.get('/roleMsgList', Middleware.AuthCheck,Middleware.SetBackPath, MessageController.roleMsgListPage);
 //点击门店获取部门
 router.get('/dept/:sid', Middleware.AuthCheck, MessageController.getDepartList);
 //点击获取员工列表
