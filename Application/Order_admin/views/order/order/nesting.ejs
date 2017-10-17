@@ -143,7 +143,7 @@
                                     <td><%= element.colorStr %></td>
                                     <td>
                                         <a  <%=  element.orderType ==20  ?  "href=/order/resupply/detail/"+ element.tid :  "href=/order/detail/"+element.tid  %>  ><%= element.tid %></a>
-                                        <a class="label label-primary display-none"
+                                        <a class="label label-primary <%= (element.orderNum)?'':'display-none' %>"
                                            href="/order/nesting/childOrder/<%= element.tid %>">
                                             设置批次号
                                         </a>

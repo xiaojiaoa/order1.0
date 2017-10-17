@@ -113,8 +113,10 @@ var MessageController = {
     },
     roleMsgListPage: function (req, res){
         var messageId = req.query.messageId;
+        var bid='';
         Base.multiDataRequest(req, res, [
             {url: '/api/roles/listByScope?scope=9', method: 'GET', resConfig: {keyName: 'roleList', is_must: true}},
+            {url: '/api/message/getRelateType?bid='+bid+'&messageId='+ messageId, method: 'GET', resConfig: {keyName: 'roleState', is_must: true}},
         ], function (req, res, resultList) {
             var returnData = Base.mergeData(helper.mergeObject({
                 title: ' ',

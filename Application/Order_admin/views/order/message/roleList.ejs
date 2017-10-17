@@ -42,7 +42,7 @@
                                         <tr data-id="<%= element.id %>">
                                             <td>
                                                 <label class="checkbox-inline" >
-                                                    <input type="checkbox" class="checkbox" name="types" value="<%= element.id %>" />
+                                                    <input type="checkbox" class="checkbox" name="types" value="<%= element.id %>" <%= (roleState.indexOf((element.id).toString())>-1?'checked':'')%> />
                                                     <span><%= element.name %></span>
                                                 </label>
                                             </td>
