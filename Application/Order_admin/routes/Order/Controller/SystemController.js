@@ -473,42 +473,65 @@ var SystemController = {
         req.query.pageSize = req.query.pageSize? req.query.pageSize:10;
 
         var paramObject = helper.genPaginationQuery(req);
-        request(Base.mergeRequestOptions({
-            method: 'get',
-            url: '/api/orders/package/print/packagelist/' + batchNumber + '/' + factoryId+'?'+queryString.stringify(req.query),
-        }, req, res), function (error, response, body) {
-            if (!error && response.statusCode == 200) {
+        Base.multiDataRequest(req, res, [
+            {url: '/api/orders/package/print/packagelist/'+batchNumber+'/'+factoryId+'?'+queryString.stringify(req.query), method: 'GET', resConfig: {keyName: 'printINfo', is_must: true}},
+            {url: '/api/orders/package/print/packagelist/num/'+batchNumber+'/'+factoryId+'?'+queryString.stringify(req.query), method: 'GET', resConfig: {keyName: 'packageNum', is_must: true}},
+        ], function (req, res, resultList) {
 
-                var printINfo = JSON.parse(body);
-                var paginationInfo =  printINfo[req.query.type];
+            // printINfo = JSON.parse(resultList.printINfo);
+            var paginationInfo =  resultList.printINfo[req.query.type];
 
-                var boostrapPaginator = new Pagination.TemplatePaginator(helper.genPageInfo({
-                    prelink: paramObject.withoutPageNo,
-                    current: paginationInfo.page,
-                    rowsPerPage: paginationInfo.pageSize,
-                    totalResult: paginationInfo.totalItems
-                }));
-
-                var returnData = Base.mergeData(helper.mergeObject({
-                    batchNumber: batchNumber,
-                    factoryId: factoryId,
-                    type: 'arry',
-                    showTYpe: req.query.type,
-                    printINfo: printINfo,
-                    pagination: boostrapPaginator.render(),
-                }));
-                res.render('order/system/printPackage', returnData);
-            } else {
-                Base.handlerError(res, req, error, response, body);
-            }
-        })
+            var boostrapPaginator = new Pagination.TemplatePaginator(helper.genPageInfo({
+                prelink: paramObject.withoutPageNo,
+                current: paginationInfo.page,
+                rowsPerPage: paginationInfo.pageSize,
+                totalResult: paginationInfo.totalItems
+            }));
+            var returnData = Base.mergeData(helper.mergeObject({
+                batchNumber: batchNumber,
+                factoryId: factoryId,
+                type: 'arry',
+                showTYpe: req.query.type,
+                pagination: boostrapPaginator.render(),
+            },resultList));
+            res.render('order/system/printPackage', returnData);
+        });
+        // request(Base.mergeRequestOptions({
+        //     method: 'get',
+        //     url: '/api/orders/package/print/packagelist/' + batchNumber + '/' + factoryId+'?'+queryString.stringify(req.query),
+        // }, req, res), function (error, response, body) {
+        //     if (!error && response.statusCode == 200) {
+        //
+        //         var printINfo = JSON.parse(body);
+        //         var paginationInfo =  printINfo[req.query.type];
+        //
+        //         var boostrapPaginator = new Pagination.TemplatePaginator(helper.genPageInfo({
+        //             prelink: paramObject.withoutPageNo,
+        //             current: paginationInfo.page,
+        //             rowsPerPage: paginationInfo.pageSize,
+        //             totalResult: paginationInfo.totalItems
+        //         }));
+        //
+        //         var returnData = Base.mergeData(helper.mergeObject({
+        //             batchNumber: batchNumber,
+        //             factoryId: factoryId,
+        //             type: 'arry',
+        //             showTYpe: req.query.type,
+        //             printINfo: printINfo,
+        //             pagination: boostrapPaginator.render(),
+        //         }));
+        //         res.render('order/system/printPackage', returnData);
+        //     } else {
+        //         Base.handlerError(res, req, error, response, body);
+        //     }
+        // })
     },
     printPartsAjax:function(req,res){
         var batchNumber = req.params.batchNumber;
         var factoryId = req.params.factoryId;
         request(Base.mergeRequestOptions({
             method: 'get',
-            url: '/api/orders/package/print/packagelist/' + batchNumber + '/' + factoryId+'?'+queryString.stringify(req.query),
+            url: '/api/orders/package/print/packagelist/list/' + batchNumber + '/' + factoryId+'?'+queryString.stringify(req.query),
         }, req, res), function (error, response, body) {
             if (!error && response.statusCode == 200) {
                 res.status(200).json(body);

@@ -6,283 +6,293 @@
 <!-- MAIN PANEL -->
 <div id="main" role="main" class="mainFlex">
 
-    <!-- RIBBON -->
-    <div id="ribbon">
+  <!-- RIBBON -->
+  <div id="ribbon">
 
-        <!-- breadcrumb -->
-        <ol class="breadcrumb">
-            <li>后台管理</li>
-            <li>批次号管理</li>
-        </ol>
+    <!-- breadcrumb -->
+    <ol class="breadcrumb">
+      <li>后台管理</li>
+      <li>批次号管理</li>
+    </ol>
 
-    </div>
-    <!-- END RIBBON -->
-
-
-    <!-- MAIN CONTENT -->
-    <div id="content" class="dis-flex">
+  </div>
+  <!-- END RIBBON -->
 
 
-        <!-- well -->
-        <div class="well">
-            <!-- row -->
-            <div class="row">
-                <!-- col -->
-                <div class="col-xs-12">
-                    <!--<legend>客户搜索</legend>-->
-                    <div class="row search-form">
-                        <form class="form-horizontal" method="get" id="search-customer">
-
-                            <div class="col-xs-12">
-
-                                <% if (DWY_Helper.hasPermission(Permission.batchNumber.queryAll.id, permission ) ){ %>
-                                <div class="col-xs-2">
-                                    <div class="form-group">
-                                        <label class="col-xs-4 control-label">机构号:</label>
-                                        <div class="col-xs-8">
-                                            <select class="form-control" name="factoryId">
-                                                <option value="">- 请选择 -</option>
-                                                <%
-                                                organizationsList.forEach(function (element) { %>
-                                                <option value="<%= element.id %>" <%= (DWYRequest.query.factoryId == element.id)?"selected":"" %>><%= element.name %></option>
-                                                <%  }) %>
-                                            </select>
-                                        </div>
-                                    </div>
-                                </div>
-                                <%}%>
-
-                                <div class="col-xs-2">
-                                    <div class="form-group">
-                                        <label class="col-xs-4 control-label">批次号:</label>
-                                        <div class="col-xs-8">
-                                            <input class="form-control" value="<%= DWYRequest.query.batchNumber %>" name="batchNumber">
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="col-xs-2">
-                                    <div class="form-group">
-                                        <label class="col-xs-4 control-label">订单号:</label>
-                                        <div class="col-xs-8">
-                                            <input class="form-control" value="<%= DWYRequest.query.tid %>" name="tid">
-                                        </div>
-                                    </div>
-                                </div>
+  <!-- MAIN CONTENT -->
+  <div id="content" class="dis-flex">
 
 
-                                <div class="col-xs-2">
-                                    <div class="form-group">
-                                        <label class="col-xs-4 control-label">批次状态:</label>
-                                        <div class="col-xs-8">
-                                            <select class="form-control" name="stcode">
-                                                <option value="">- 请选择 -</option>
-                                                <option value="0" <%= (DWYRequest.query.stcode == '0')?"selected":"" %>>未包装</option>
-                                                <option value="1" <%= (DWYRequest.query.stcode == '1')?"selected":"" %>>已包装</option>
-                                                <option value="2" <%= (DWYRequest.query.stcode == '2')?"selected":"" %>>已排料</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-xs-2 text-center">
-                                    <button class="btn btn-primary " type="submit">
-                                        <i class="fa fa-search"></i>
-                                        查询
-                                    </button>
-                                    <a class="btn btn-primary" href="/orders/package/allInfo">查看所有包装信息</a>
-                                </div>
-                            </div>
-                        </form>
+    <!-- well -->
+    <div class="well">
+      <!-- row -->
+      <div class="row">
+        <!-- col -->
+        <div class="col-xs-12">
+          <!--<legend>客户搜索</legend>-->
+          <div class="row search-form">
+            <form class="form-horizontal" method="get" id="search-customer">
+
+              <div class="col-xs-12">
+
+                <% if (DWY_Helper.hasPermission(Permission.batchNumber.queryAll.id, permission) ){ %>
+                <div class="col-xs-2">
+                  <div class="form-group">
+                    <label class="col-xs-4 control-label">机构号:</label>
+                    <div class="col-xs-8">
+                      <select class="form-control" name="factoryId">
+                        <option value="">- 请选择 -</option>
+                        <%
+                        organizationsList.forEach(function (element) { %>
+                        <option value="<%= element.id %>" <%= (DWYRequest.query.factoryId == element.id) ? "selected" : "" %>><%= element.name %></option>
+                        <% }) %>
+                      </select>
                     </div>
-                    <!-- end row -->
+                  </div>
                 </div>
-                <!-- end col -->
-            </div>
-            <!-- end row -->
-        </div>
-        <!-- end well -->
+                <% } %>
 
-        <div class="well dis-flex">
-
-            <!-- row -->
-            <div class="row">
-                <div class="col-xs-12">
-                    <h6>订单列表</h6>
-                    <hr class="simple">
-                </div>
-            </div>
-
-            <!-- row -->
-            <div class="row dis-flex">
-                <div class="col-xs-12 dis-flex">
-                    <div class="table-responsive dis-flex">
-                        <table class="table table-bordered table-striped table-hover table-scroll2">
-                            <thead>
-                            <tr>
-                                <th>序号</th>
-                                <th>批次号</th>
-                                <th>机构</th>
-                                <th>订单数量</th>
-                                <th>包装数量</th>
-
-                                <th>批次状态</th>
-                                <th>生成员工</th>
-                                <th>生成时间</th>
-                                <th>包装员工</th>
-                                <th>包装时间</th>
-                                <th>操作</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <% if(!DWY_Helper.isCanLoop(batchNumber.result)){%>
-                            <tr>
-                                <td colspan="10" align="center">暂无结果</td>
-                            </tr>
-                            <% }else{
-                            batchNumber.result.forEach(function (element, index) { %>
-                            <tr>
-                                <td><%= DWY_Helper.incrementNum(DWYRequest.query.pageNo,index)%></td>
-                                <td><a href="/orders/batchNumber/detail/<%= element.batchNumber %>/<%= element.factoryId %>"><%= element.batchNumber %></a></td>
-                                <td><%= element.factoryName %></td>
-                                <td><%= element.orderNumber %></td>
-                                <td><%= element.packetNumber %></td>
-                                <td><%= element.packageStr %></td>
-
-                                <td><%= element.gname %></td>
-                                <td><%= DWY_Helper.getLocalDateYMD(element.addTime) %></td>
-                                <td><%= element.packetGname %></td>
-                                <td><%= DWY_Helper.getLocalDateYMD(element.packetTime) %></td>
-                                <td>
-                                    <% if (DWY_Helper.hasPermission(Permission.orderPackage.create.id, permission ) ){ %>
-                                    <% if(element.stcode==0){%>
-                                    <a class="label label-primary crePackage" batchNumber="<%= element.batchNumber %>" factoryId="<%= element.factoryId %>">生成包装</a>
-                                    <a class="label label-primary import" batchNumber="<%= element.batchNumber %>" factoryId="<%= element.factoryId %>">上传文件</a>
-                                    <%}%>
-                                    <% if(element.stcode==1){%>
-                                    <a class="label label-danger undoPackingBtn" batchNumber="<%= element.batchNumber %>" factoryId="<%= element.factoryId %>">撤销包装</a>
-                                    <a class="label label-primary schedule" batchNumber="<%= element.batchNumber %>" factoryId="<%= element.factoryId %>">确认排料</a>
-
-                                    <%}%>
-                                    <% if(element.stcode>=1){%>
-                                    <a class="label label-success" href="/orders/batchNumber/downloadPackage/<%= element.batchNumber %>/<%= element.factoryId %>">导出工件</a>
-                                    <a class="label label-success" href="/orders/batchNumber/downloadAccessory/<%= element.batchNumber %>/<%= element.factoryId %>">导出配件</a>
-
-                                  <%}%>
-                                    <%}%>
-                                    <% if (DWY_Helper.hasPermission(Permission.batchNumber.packageList.id, permission ) ){ %>
-                                    <% if(element.stcode>=1){%>
-                                    <a class="label label-warning" href="/system/printParts/<%= element.batchNumber %>/<%= element.factoryId %>">装箱清单</a>
-                                    <%}%>
-                                    <%}%>
-                                    <!--<a class="label label-success download" href="/orders/batchNumber/downloadZip/<%= element.batchNumber %>/<%= element.factoryId %>">下载文件</a>-->
-                                    <a class="label label-success download" data-batchNumber="<%= element.batchNumber %>" data-factoryId="<%= element.factoryId %>">下载文件</a>
-
-                                </td>
-                            </tr>
-                            <%  })
-                            } %>
-                            </tbody>
-                        </table>
-
-
+                <div class="col-xs-2">
+                  <div class="form-group">
+                    <label class="col-xs-4 control-label">批次号:</label>
+                    <div class="col-xs-8">
+                      <input class="form-control" value="<%= DWYRequest.query.batchNumber %>" name="batchNumber">
                     </div>
-                    <%- pagination %>
+                  </div>
                 </div>
-            </div>
+
+                <div class="col-xs-2">
+                  <div class="form-group">
+                    <label class="col-xs-4 control-label">订单号:</label>
+                    <div class="col-xs-8">
+                      <input class="form-control" value="<%= DWYRequest.query.tid %>" name="tid">
+                    </div>
+                  </div>
+                </div>
+
+
+                <div class="col-xs-2">
+                  <div class="form-group">
+                    <label class="col-xs-4 control-label">批次状态:</label>
+                    <div class="col-xs-8">
+                      <select class="form-control" name="stcode">
+                        <option value="">- 请选择 -</option>
+                        <option value="0" <%= (DWYRequest.query.stcode == '0') ? "selected" : "" %>>未包装</option>
+                        <option value="1" <%= (DWYRequest.query.stcode == '1') ? "selected" : "" %>>已包装</option>
+                        <option value="2" <%= (DWYRequest.query.stcode == '2') ? "selected" : "" %>>已排料</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-xs-2 text-center">
+                  <button class="btn btn-primary " type="submit">
+                    <i class="fa fa-search"></i>
+                    查询
+                  </button>
+                  <a class="btn btn-primary" href="/orders/package/allInfo">查看所有包装信息</a>
+                </div>
+              </div>
+            </form>
+          </div>
+          <!-- end row -->
         </div>
+        <!-- end col -->
+      </div>
+      <!-- end row -->
     </div>
-    <!-- END MAIN CONTENT -->
+    <!-- end well -->
+
+    <div class="well dis-flex">
+
+      <!-- row -->
+      <div class="row">
+        <div class="col-xs-12">
+          <h6>订单列表</h6>
+          <hr class="simple">
+        </div>
+      </div>
+
+      <!-- row -->
+      <div class="row dis-flex">
+        <div class="col-xs-12 dis-flex">
+          <div class="table-responsive dis-flex">
+            <table class="table table-bordered table-striped table-hover table-scroll2">
+              <thead>
+              <tr>
+                <th>序号</th>
+                <th>批次号</th>
+                <th>机构</th>
+                <th>订单数量</th>
+                <th>包装数量</th>
+
+                <th>批次状态</th>
+                <th>生成员工</th>
+                <th>生成时间</th>
+                <th>包装员工</th>
+                <th>包装时间</th>
+                <th>操作</th>
+              </tr>
+              </thead>
+              <tbody>
+              <% if(!DWY_Helper.isCanLoop(batchNumber.result)){ %>
+              <tr>
+                <td colspan="10" align="center">暂无结果</td>
+              </tr>
+              <% }else{
+              batchNumber.result.forEach(function (element, index) { %>
+              <tr>
+                <td><%= DWY_Helper.incrementNum(DWYRequest.query.pageNo, index) %></td>
+                <td>
+                  <a href="/orders/batchNumber/detail/<%= element.batchNumber %>/<%= element.factoryId %>"><%= element.batchNumber %></a>
+                </td>
+                <td><%= element.factoryName %></td>
+                <td><%= element.orderNumber %></td>
+                <td><%= element.packetNumber %></td>
+                <td><%= element.packageStr %></td>
+
+                <td><%= element.gname %></td>
+                <td><%= DWY_Helper.getLocalDateYMD(element.addTime) %></td>
+                <td><%= element.packetGname %></td>
+                <td><%= DWY_Helper.getLocalDateYMD(element.packetTime) %></td>
+                <td>
+                  <% if (DWY_Helper.hasPermission(Permission.orderPackage.create.id, permission) ){ %>
+                  <% if(element.stcode == 0){ %>
+                  <a class="label label-primary crePackage" batchNumber="<%= element.batchNumber %>"
+                     factoryId="<%= element.factoryId %>">生成包装</a>
+                  <a class="label label-primary import" batchNumber="<%= element.batchNumber %>"
+                     factoryId="<%= element.factoryId %>">上传文件</a>
+                  <% } %>
+                  <% if(element.stcode == 1){ %>
+                  <a class="label label-danger undoPackingBtn" batchNumber="<%= element.batchNumber %>"
+                     factoryId="<%= element.factoryId %>">撤销包装</a>
+                  <a class="label label-primary schedule" batchNumber="<%= element.batchNumber %>"
+                     factoryId="<%= element.factoryId %>">确认排料</a>
+
+                  <% } %>
+                  <% if(element.stcode >= 1){ %>
+                  <a class="label label-success"
+                     href="/orders/batchNumber/downloadPackage/<%= element.batchNumber %>/<%= element.factoryId %>">导出工件</a>
+                  <a class="label label-success"
+                     href="/orders/batchNumber/downloadAccessory/<%= element.batchNumber %>/<%= element.factoryId %>">导出配件</a>
+
+                  <% } %>
+                  <% } %>
+                  <% if (DWY_Helper.hasPermission(Permission.batchNumber.packageList.id, permission) ){ %>
+                  <% if(element.stcode >= 1){ %>
+                  <a class="label label-warning"
+                     href="/system/printParts/<%= element.batchNumber %>/<%= element.factoryId %>">装箱清单</a>
+                  <% } %>
+                  <% } %>
+                  <!--<a class="label label-success download" href="/orders/batchNumber/downloadZip/<%= element.batchNumber %>/<%= element.factoryId %>">下载文件</a>-->
+                  <a class="label label-success download" data-batchNumber="<%= element.batchNumber %>"
+                     data-factoryId="<%= element.factoryId %>">下载文件</a>
+                  <% if (DWY_Helper.hasPermission(Permission.batchNumber.projectFile.id, permission) ){ %>
+                  <a class="label label-success" href="/orders/batchNumber/downloadProject/<%= element.batchNumber %>/<%= element.factoryId %>">工程单文件</a>
+                  <% } %>
+                </td>
+              </tr>
+              <% })
+              } %>
+              </tbody>
+            </table>
+          </div>
+          <%- pagination %>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- END MAIN CONTENT -->
 
 </div>
 <!-- END MAIN PANEL -->
 
 <form class="form-horizontal layer-template" method="post" action="/file/batchNumber/doCreate" id="file-order">
-    <div class="col-xs-12" style="padding-top: 20px">
-
-        <div class="col-xs-8">
-            <div class="form-group">
-                <label class="col-xs-3 control-label"><span class="requird"></span> 文件地址:</label>
-                <div class="col-xs-9">
-                    <input class="form-control validate[required]" readonly value="" name="savePath">
-                </div>
-            </div>
-        </div>
-
-        <div class="col-xs-4">
-            <div class="col-xs-12 text-left">
-                <label for="dwy_file_upload" class="btn btn-primary" id="label-upload-file">
-                    添加文件 <i class="fa fa-upload"></i> </label>
-                <input type="file" name="file_name" id="dwy_file_upload" style="display: none;">
-            </div>
-        </div>
-
-        <input type="hidden" name="fileName" value="">
-        <input type="hidden" name="fileExt" value="">
-        <input type="hidden" name="batchNumber" value="">
-        <input type="hidden" name="factoryId" value="">
-
-    </div>
-
+  <div class="col-xs-12" style="padding-top: 20px">
 
     <div class="col-xs-8">
-        <hr class="simple">
-        <div class="col-xs-12 text-center">
-            <button class="btn btn-primary " type="submit">
-                <i class="fa fa-upload"></i>
-                确认上传
-            </button>
+      <div class="form-group">
+        <label class="col-xs-3 control-label"><span class="requird"></span> 文件地址:</label>
+        <div class="col-xs-9">
+          <input class="form-control validate[required]" readonly value="" name="savePath">
         </div>
+      </div>
     </div>
-    <div class="dwy-clear"></div>
+
+    <div class="col-xs-4">
+      <div class="col-xs-12 text-left">
+        <label for="dwy_file_upload" class="btn btn-primary" id="label-upload-file">
+          添加文件 <i class="fa fa-upload"></i> </label>
+        <input type="file" name="file_name" id="dwy_file_upload" style="display: none;">
+      </div>
+    </div>
+
+    <input type="hidden" name="fileName" value="">
+    <input type="hidden" name="fileExt" value="">
+    <input type="hidden" name="batchNumber" value="">
+    <input type="hidden" name="factoryId" value="">
+
+  </div>
+
+
+  <div class="col-xs-8">
+    <hr class="simple">
+    <div class="col-xs-12 text-center">
+      <button class="btn btn-primary " type="submit">
+        <i class="fa fa-upload"></i>
+        确认上传
+      </button>
+    </div>
+  </div>
+  <div class="dwy-clear"></div>
 </form>
 
 <form class="form-horizontal layer-template" method="post" action="/orders/batchNumber/downloadZip" id="down-files">
-    <div class="col-xs-12">
-
-        <div class="col-xs-8">
-            <div class="form-group">
-                <label class="col-xs-3 control-label"> 文件类型:</label>
-                <div class="col-xs-9">
-                    <label class="checkbox-inline">
-                        <input type="checkbox" class="checkbox" value="1" name="stcode" >
-                        <span>建单阶段</span>
-                    </label>
-                    <label class="checkbox-inline">
-                        <input type="checkbox" class="checkbox" value="2" name="stcode" >
-                        <span>拆单阶段</span>
-                    </label>
-                    <label class="checkbox-inline">
-                        <input type="checkbox" class="checkbox" value="3" name="stcode" >
-                        <span>审核阶段</span>
-                    </label>
-                </div>
-            </div>
-        </div>
-
-        <div class="col-xs-8">
-            <div class="form-group">
-                <label class="col-xs-3 control-label"><span class="requird"></span> 文件名称:</label>
-                <div class="col-xs-9">
-                    <input class="form-control validate[required]"  value=".dwg" name="fileName">
-                </div>
-            </div>
-        </div>
-
-        <input type="hidden" name="batchNumber" value="">
-        <input type="hidden" name="factoryId" value="">
-
-    </div>
-
+  <div class="col-xs-12">
 
     <div class="col-xs-8">
-        <hr class="simple">
-        <div class="col-xs-12 text-center">
-            <button class="btn btn-primary " type="submit">
-                下载
-            </button>
+      <div class="form-group">
+        <label class="col-xs-3 control-label"> 文件类型:</label>
+        <div class="col-xs-9">
+          <label class="checkbox-inline">
+            <input type="checkbox" class="checkbox" value="1" name="stcode">
+            <span>建单阶段</span>
+          </label>
+          <label class="checkbox-inline">
+            <input type="checkbox" class="checkbox" value="2" name="stcode">
+            <span>拆单阶段</span>
+          </label>
+          <label class="checkbox-inline">
+            <input type="checkbox" class="checkbox" value="3" name="stcode">
+            <span>审核阶段</span>
+          </label>
         </div>
+      </div>
     </div>
-    <div class="dwy-clear"></div>
+
+    <div class="col-xs-8">
+      <div class="form-group">
+        <label class="col-xs-3 control-label"><span class="requird"></span> 文件名称:</label>
+        <div class="col-xs-9">
+          <input class="form-control validate[required]" value=".dwg" name="fileName">
+        </div>
+      </div>
+    </div>
+
+    <input type="hidden" name="batchNumber" value="">
+    <input type="hidden" name="factoryId" value="">
+
+  </div>
+
+
+  <div class="col-xs-8">
+    <hr class="simple">
+    <div class="col-xs-12 text-center">
+      <button class="btn btn-primary " type="submit">
+        下载
+      </button>
+    </div>
+  </div>
+  <div class="dwy-clear"></div>
 </form>
 
 <%- include('../layouts/footer'); %>
@@ -296,8 +306,8 @@
         $("#search-customer").validationEngine();
         $("#file-order").validationEngine({scroll: false});
         $("#down-files").validationEngine({scroll: false});
-        var  batchNumber;
-        var  factoryId;
+        var batchNumber;
+        var factoryId;
         $(".crePackage").on({
             click: function (e) {
                 batchNumber = $(this).attr("batchNumber");
@@ -305,20 +315,20 @@
                 $.ajax({
                     url: '/orders/batchNumber/files/number',
                     method: 'post',
-                    data:{
-                        batchNumber:batchNumber,
-                        factoryId:factoryId
+                    data: {
+                        batchNumber: batchNumber,
+                        factoryId: factoryId
                     },
                     success: function (data) {
                         data = JSON.parse(data);
                         var text = '';
-                        if(data.number > 0){
+                        if (data.number > 0) {
                             text = '确定生成包装吗？'
-                        }else{
+                        } else {
                             text = '尚未上传批次工件文件，确认包装吗？'
                         }
 
-                        doAjax(text,'/orders/batchNumber/package/packet')
+                        doAjax(text, '/orders/batchNumber/package/packet')
                     },
                     error: function (response) {
                         errorLayout.normal(response);
@@ -332,7 +342,7 @@
             click: function (e) {
                 batchNumber = $(this).attr("batchNumber");
                 factoryId = $(this).attr("factoryId");
-                doAjax('确定撤销包装吗？','/orders/batchNumber/unpacket/packet')
+                doAjax('确定撤销包装吗？', '/orders/batchNumber/unpacket/packet')
             }
         });
         $(".schedule").on({
@@ -343,23 +353,23 @@
                 $.ajax({
                     url: '/orders/batchNumber/validation',
                     method: 'post',
-                    data:{
-                        batchNumber:batchNumber,
-                        factoryId:factoryId
+                    data: {
+                        batchNumber: batchNumber,
+                        factoryId: factoryId
                     },
                     success: function (data) {
-                        data = data?JSON.parse(data):[];
+                        data = data ? JSON.parse(data) : [];
                         var text = '';
-                        if(data.length <= 0){
+                        if (data.length <= 0) {
                             text = '确定排料吗？'
-                        }else{
+                        } else {
                             data.forEach(function (element) {
-                                text += "客户："+element.custName+"（"+element.cid+"）下还有"+element.orderNumber+"单未在该批次中<br>"
+                                text += "客户：" + element.custName + "（" + element.cid + "）下还有" + element.orderNumber + "单未在该批次中<br>"
                             })
                             text += '确认排料吗？'
                         }
 
-                        doAjax(text,'/orders/batchNumber/schedule')
+                        doAjax(text, '/orders/batchNumber/schedule')
                     },
                     error: function (response) {
                         errorLayout.normal(response);
@@ -376,7 +386,8 @@
                     type: 1,
                     area: '700px',
                     content: $('#file-order'),
-                    cancel: function () {},
+                    cancel: function () {
+                    },
                 });
                 batchNumber = $(this).attr("batchNumber");
                 factoryId = $(this).attr("factoryId");
@@ -423,22 +434,22 @@
             }
         })
 
-        var doAjax = function (text,url) {
+        var doAjax = function (text, url) {
             var areaWidth = '';
-            if(url == '/orders/batchNumber/schedule'){
+            if (url == '/orders/batchNumber/schedule') {
                 areaWidth = '500px'
             }
-            layer.confirm(text,{icon: 3, title:'提示',area: areaWidth,},
-                function(index){
+            layer.confirm(text, {icon: 3, title: '提示', area: areaWidth,},
+                function (index) {
                     $('.layui-layer-btn0').css('pointer-events', 'none').addClass('btn').attr('disabled', true).html('处理中 <i class="fa fa-circle-o-notch fa-spin">');
                     $('.layui-layer-btn1').hide();
 
                     $.ajax({
                         url: url,
                         method: 'post',
-                        data:{
-                            batchNumber:batchNumber,
-                            factoryId:factoryId
+                        data: {
+                            batchNumber: batchNumber,
+                            factoryId: factoryId
                         },
                         success: function (data) {
                             successLayout.reload();
@@ -449,30 +460,16 @@
                         }
                     });
                 },
-                function(index){layer.close(index)});
+                function (index) {
+                    layer.close(index)
+                });
         }
 
 
-        $('.download').on({
-            click: function (e) {
-                layer.open({
-                    title: false,
-                    type: 1,
-                    area: '700px',
-                    content: $('#down-files'),
-                    cancel: function () {},
-                });
-                batchNumber = $(this).attr("data-batchNumber");
-                factoryId = $(this).attr("data-factoryId");
-                $('#down-files [name=batchNumber]').val(batchNumber);
-                $('#down-files [name=factoryId]').val(factoryId);
-            }
-        });
+
     })
 
 </script>
-
-
 
 
 <%- include('../layouts/foot'); %>

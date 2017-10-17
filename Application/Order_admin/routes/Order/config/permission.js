@@ -796,6 +796,10 @@ var permissions = {
         packageList:{
             id:"539080",
             name:"查看批次包装清单"
+        },
+        projectFile:{
+            id:"539088",
+            name:"下载工程单文件"
         }
     },
     taskseq:{

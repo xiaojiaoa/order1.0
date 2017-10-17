@@ -502,6 +502,8 @@ router.get('/orders/batchNumber/detail/:batchNumber/:factoryId', Middleware.Auth
 router.post('/orders/heap', Middleware.AuthCheck, OrderController.batchHeap);
 
 router.post('/orders/batchNumber/downloadZip', Middleware.AuthCheck, OrderController.downloadZip);
+router.post('/orders/batchNumber/downloadZipProject', Middleware.AuthCheck, OrderController.downloadZipProject);
+router.get('/orders/batchNumber/downloadProject/:batchNumber/:factoryId', Middleware.AuthCheck, OrderController.downloadZipProject);
 router.get('/orders/batchNumber/downloadPackage/:batchNumber/:factoryId', Middleware.AuthCheck, OrderController.downloadPackage);
 router.get('/orders/batchNumber/downloadAccessory/:batchNumber/:factoryId', Middleware.AuthCheck, OrderController.downloadAccessory);
 
