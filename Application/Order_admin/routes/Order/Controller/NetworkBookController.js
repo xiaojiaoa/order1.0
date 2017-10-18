@@ -27,7 +27,7 @@ var NetworkBookController = {
         var paramObject = helper.genPaginationQuery(req);
         Base.multiDataRequest(req, res, [
             {url: '/api/ebis/measure?'+ queryString.stringify(req.query), method: 'GET', resConfig: {keyName: 'measureList', is_must: true}},
-            {url: '/api/stores/list', method: 'GET', resConfig: {keyName: 'storesList', is_must: true}},
+            {url: '/api/stores/listEnableAndVisible', method: 'GET', resConfig: {keyName: 'storesList', is_must: true}},
         ], function (req, res, resultList) {
 
             var paginationInfo = resultList.measureList;
