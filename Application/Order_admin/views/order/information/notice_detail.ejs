@@ -12,8 +12,8 @@
         <!-- breadcrumb -->
         <ol class="breadcrumb">
             <li>后台管理</li>
-            <li><a class="back-url" href="/noticeInfo">文档共享</a></li>
-            <li>文档信息</li>
+            <li><a class="back-url" href="/noticeInfo">公告管理</a></li>
+            <li>公告信息</li>
             <li><a class="back-url" href="javascript:history.go(-1)"> <i class="fa fa-chevron-left"></i>返回</a></li>
         </ol>
         <!-- end breadcrumb -->
@@ -33,7 +33,7 @@
             <div class="row">
                 <!-- col -->
                 <div class="col-xs-12">
-                    <legend>文档信息
+                    <legend>公告信息
 
                         <% if (DWY_Helper.hasPermission(Permission.notice.update.id, permission) ){ %>
                         <a class=" label label-primary modify-noticeInfo margin-left-20 "
@@ -55,7 +55,7 @@
                                 <td><%= noticeInfo.empName %></td>
                                 <td>发表日期：</td>
                                 <td><%= DWY_Helper.getLocalDateYMD(noticeInfo.addTime)%></td>
-                                <td>文档类型：</td>
+                                <td>公告类型：</td>
                                 <td><%= noticeInfo.typeName %></td>
                             </tr>
                             <tr>
