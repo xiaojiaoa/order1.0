@@ -75,7 +75,7 @@
                 <!--col-->
                 <% if(!codeN){%>
                 <div class="col-xs-4 well height01" style="margin-left:10px;">
-                    <legend>公告信息 <a href="/noticeInfo" class="label label-primary">查看所有</a></legend>
+                    <legend>文档信息 <a href="/noticeInfo" class="label label-primary">查看所有</a></legend>
                     <!-- row -->
                     <div class="row">
                         <div class="col-xs-12">
@@ -159,36 +159,7 @@
                 <%}%>
 
                 <!-- end col -->
-                <!--col-->
-                <% if(!codeF){%>
-                <div class="col-xs-4 well height01" style="margin-left:10px;">
-                    <legend>资料信息     <a href="/fileInfo" class="label label-primary">查看所有</a></legend>
-                    <!-- row -->
-                    <div class="row">
-                        <div class="col-xs-12">
 
-                            <div class="table-responsive">
-                                <table class="table table-bordered table-striped">
-                                    <tbody>
-                                    <%
-                                    if(DWY_Helper.isCanLoop(fileInfo.result)){
-                                    fileInfo.result.forEach(function(element,index){%>
-                                    <tr>
-                                        <td><a href="<%= DWY_GLOBAL.Static %>/download?originalFileName=<%= element.name%>&url=<%= element.path %>"><%= element.name%></a></td>
-                                        <td><%= DWY_Helper.getLocalDateYMD(element.addTime) %></td>
-                                    </tr>
-                                    <%})
-                                    } %>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-
-                    </div>
-                    <!-- end row -->
-                </div>
-                <%}%>
-                <!--end col-->
             </div>
             <!-- end row -->
         </div>
