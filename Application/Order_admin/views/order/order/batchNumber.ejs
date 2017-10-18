@@ -466,6 +466,21 @@
         }
 
 
+        $('.download').on({
+            click: function (e) {
+                layer.open({
+                    title: false,
+                    type: 1,
+                    area: '700px',
+                    content: $('#down-files'),
+                    cancel: function () {},
+                });
+                batchNumber = $(this).attr("data-batchNumber");
+                factoryId = $(this).attr("data-factoryId");
+                $('#down-files [name=batchNumber]').val(batchNumber);
+                $('#down-files [name=factoryId]').val(factoryId);
+            }
+        });
 
     })
 
