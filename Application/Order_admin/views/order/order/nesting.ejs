@@ -320,7 +320,7 @@
                                             <div class="col-xs-8">
                                                 <select class="form-control" name="payed">
                                                     <option value="">-  请选择 -</option>
-                                                    <option value="2" selected>已收款</option>
+                                                    <option value="2" <%= (DWYRequest.query.payed == 2 )?"selected":"" %>>已收款</option>
                                                     <option value="1" <%= (DWYRequest.query.payed == 1 )?"selected":"" %> >未收款</option>
                                                 </select>
                                             </div>

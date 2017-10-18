@@ -1087,6 +1087,9 @@ var OrderController = {
     },
     // 订单排料页面
     nestingPage: function (req, res) {
+        if(!req.query.payed){
+            req.query.payed=2;
+        }
 
         var paramObject = helper.genPaginationQuery(req);
         var paramObjectForGet = helper.genPaginationQuery(req, 'pageNoGid');
@@ -1173,14 +1176,19 @@ var OrderController = {
     },
     // 修改批次号
     editBatchNum: function (req, res) {
-        // console.log(req.body)
+        var url,tid = req.body.batchtid;
+        if(req.body.batchType=='batchType'){
+            url ="/order/nesting/childOrder/"+tid;
+        }else{
+            url = "/orders/nesting";
+        }
         request(Base.mergeRequestOptions({
             method: 'put',
             url: '/api/orders/schedule/edit/batchnumber?'+queryString.stringify(req.body),
         }, req, res), function (error, response, body) {
             if (!error && response.statusCode == 201) {
                 Base.handlerSuccess(res, req);
-                res.redirect(req.session.backPath?req.session.backPath:"/order/nesting");
+                res.redirect(url);
             }else {
                     Base.handlerError(res, req, error, response, body);
                 }
