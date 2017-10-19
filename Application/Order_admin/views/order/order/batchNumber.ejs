@@ -230,17 +230,16 @@
     <input type="hidden" name="fileExt" value="">
     <input type="hidden" name="batchNumber" value="">
     <input type="hidden" name="factoryId" value="">
-
   </div>
 
 
   <div class="col-xs-8">
     <hr class="simple">
     <div class="col-xs-12 text-center">
-      <button class="btn btn-primary " type="submit">
+      <label class="btn btn-primary " id="fileSubmit">
         <i class="fa fa-upload"></i>
         确认上传
-      </button>
+      </label>
     </div>
   </div>
   <div class="dwy-clear"></div>
@@ -481,6 +480,15 @@
                 $('#down-files [name=factoryId]').val(factoryId);
             }
         });
+        
+        
+        $('#fileSubmit').click(function (e) {
+            if($('#file-order').validationEngine('validate')){
+                $(this).html('上传中   <i class="fa fa-circle-o-notch fa-spin">')
+                $(this).attr('disabled', true);
+                $('#file-order').submit()
+            }
+        })
 
     })
 
