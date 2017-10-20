@@ -140,11 +140,11 @@
                                     <td><%= element.orderTypeStr %></td>
                                     <td><%= element.typeStr %></td>
                                     <td><%= element.colorStr %></td>
-                                    <td>
+                                    <td style="width:200px;">
                                         <a  <%=  element.orderType ==20  ?  "href=/order/resupply/detail/"+ element.tid :  "href=/order/detail/"+element.tid  %>  ><%= element.tid %></a>
-                                        <%if(element.orderNum){%> * <%= element.orderNum %><%}%>
+                                        <%if(element.orderNum){%>×<%= element.orderNum %><%}%>
                                         <a class="label label-primary <%= (element.orderNum) ? "":"display-none" %>"
-                                           href="/order/nesting/childOrder/<%= element.tid %>">
+                                           href="/order/nesting/childOrder/<%= element.tid %>" style="display:block;width:72px;">
                                             设置批次号
                                         </a>
                                     </td>
