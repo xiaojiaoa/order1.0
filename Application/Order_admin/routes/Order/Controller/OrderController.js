@@ -2032,7 +2032,7 @@ var OrderController = {
             }
         })
     },
-    // 子订单批量修改批次号
+    // 子订单批量设置批次号
     chOrderEditBatchNum: function (req, res) {
         var tid = req.body.tid;
         request(Base.mergeRequestOptions({
@@ -2047,12 +2047,41 @@ var OrderController = {
             }
         })
     },
-    //获取子订单数量
+    // 子订单批量修改批次号
+    chOrderModBatchNum: function (req, res) {
+        var tid = req.body.tid;
+        request(Base.mergeRequestOptions({
+            method: 'put',
+            url: '/api/projectorder/modifyBatchNumber?'+queryString.stringify(req.body),
+        }, req, res), function (error, response, body) {
+            if (!error && response.statusCode == 200) {
+                Base.handlerSuccess(res, req);
+                res.redirect("/order/nesting/childOrder/"+tid);
+            }else {
+                Base.handlerError(res, req, error, response, body);
+            }
+        })
+    },
+    //获取子订单需设置批次号数量
     getNumberInfo: function (req, res) {
         var tid = req.params.tid;
         request(Base.mergeRequestOptions({
             method: 'get',
             url: '/api/projectorder/maxnumber?tid='+tid,
+        }, req, res), function (error, response, body) {
+            if (!error && response.statusCode == 200) {
+                res.status(200).json(body);
+            } else {
+                Base.handlerError(res, req, error, response, body);
+            }
+        })
+    },
+    //获取子订单需修改批次号数量
+    getNumber: function (req, res) {
+        var tid = req.params.tid;
+        request(Base.mergeRequestOptions({
+            method: 'get',
+            url: '/api/projectorder/maxModifyNumber?tid='+tid,
         }, req, res), function (error, response, body) {
             if (!error && response.statusCode == 200) {
                 res.status(200).json(body);

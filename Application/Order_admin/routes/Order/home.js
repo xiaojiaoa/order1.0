@@ -409,10 +409,16 @@ router.post('/orders/getNestingTask', Middleware.AuthCheck, OrderController.getN
 // 修改批次
 router.post('/order/editBatchNum', Middleware.AuthCheck, OrderController.editBatchNum);
 
-//子订单批量修改批次号
+//子订单批量设置批次号
 router.post('/order/chOrderEdit', Middleware.AuthCheck, OrderController.chOrderEditBatchNum);
-//获取子订单数量
+
+//子订单批量修改批次号
+router.post('/order/chOrderMod', Middleware.AuthCheck, OrderController.chOrderModBatchNum);
+
+//获取子订单需设置批次号数量
 router.get('/order/orderNumber/:tid', Middleware.AuthCheck, OrderController.getNumberInfo);
+//获取子订单需修改批次号数量
+router.get('/order/modOrderNumber/:tid', Middleware.AuthCheck, OrderController.getNumber);
 
 // 标记为审核中 (待排料)
 router.put('/schedule/getTask/:tid', Middleware.AuthCheck, OrderController.getTaskSchedule);
