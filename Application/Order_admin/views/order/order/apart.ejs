@@ -152,7 +152,7 @@
             <div class="row">
                 <div class="col-xs-12">
                     <h6>未拆单
-                        <a class="label label-primary"  href="/apartPage/getOrder">
+                        <a class="label label-primary"  href="/apartPage/getOrder?ordertyp=getorder">
 
                             获取订单
                         </a>
@@ -341,7 +341,9 @@
 
                     </tbody>
                 </table>
+                <% if(DWYRequest.query.ordertyp){%>
                 <%- paginationThr %>
+                <%}%>
             </div>
 
         </div>
