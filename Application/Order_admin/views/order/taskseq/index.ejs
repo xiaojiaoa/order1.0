@@ -3,7 +3,11 @@
 <%- include('../layouts/header'); %>
 <%- include('../layouts/nav'); %>
 
-
+<style>
+    .isShowS td,.isShowF td{
+        display:none;
+    }
+</style>
 <!-- MAIN PANEL -->
 <div id="main" role="main">
 
@@ -380,7 +384,7 @@
                             })
                             ordersTodo.forEach(function (orderelement, index) {
                             %>
-                            <tr class="<%= (orderelement.stcode == '999')?'display-none isShowF':''%>" style="border-bottom:1px solid #ddd">
+                            <tr class="<%= (orderelement.stcode == '999')?'isShow isShowF':''%>" style="border-bottom:1px solid #ddd">
                                 <% if (taskseqInfo.stcode >= 350 && taskseqInfo.stcode <540 && index == 0){ %>
                                 <td rowspan="<%= element.orders.length  %>"><%=element.spaceName %></td>
                                 <% } else{ %>
@@ -454,7 +458,7 @@
                                 })
                             ordersTodo.forEach(function (orderelement, index) {
                             %>
-                            <tr class="<%= (orderelement.stcode == 999)?'display-none isShowS':''%>" style="border-bottom:1px solid #ddd">
+                            <tr class="<%= (orderelement.stcode == 999)?'isShowS isshow':''%> " style="border-bottom:1px solid #ddd">
                                 <% if (taskseqInfo.stcode >= 350 && taskseqInfo.stcode <540 && index == 0){ %>
                                 <td rowspan="<%= element.orders.length  %>"><%=element.spaceName %></td>
                                 <% } else{ %>
@@ -566,19 +570,21 @@
         pageSetUp();
 
         $("#orderButton").click(function(){
-            $(".isShowF").toggleClass("display-none");
-            if($(".isShowF").hasClass("display-none")){
-                $(this).text("显示已删除订单")
-            }else{
+            if($(".isShow").hasClass("isShowF")){
+                $(".isShow").removeClass("isShowF")
                 $(this).text("隐藏已删除订单")
+            }else{
+                $(".isShow").addClass("isShowF")
+                $(this).text("显示已删除订单")
             }
         });
         $("#resupplyButton").click(function(){
-            $(".isShowS").toggleClass("display-none");
-            if($(".isShowS").hasClass("display-none")){
-                $(this).text("显示已删除订单")
-            }else{
+            if($(".isshow").hasClass("isShowS")){
+                $(".isshow").removeClass("isShowS")
                 $(this).text("隐藏已删除订单")
+            }else{
+                $(".isshow").addClass("isShowS")
+                $(this).text("显示已删除订单")
             }
         });
 
