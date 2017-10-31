@@ -454,7 +454,7 @@
                                 })
                             ordersTodo.forEach(function (orderelement, index) {
                             %>
-                            <tr class="<%= (orderelement.stcode == 999)?'display-none isShowS':''%>">
+                            <tr class="<%= (orderelement.stcode == 999)?'display-none isShowS':''%>" style="border-bottom:1px solid #ddd">
                                 <% if (taskseqInfo.stcode >= 350 && taskseqInfo.stcode <540 && index == 0){ %>
                                 <td rowspan="<%= element.orders.length  %>"><%=element.spaceName %></td>
                                 <% } else{ %>
