@@ -328,7 +328,7 @@
                             <td colspan="3"><%= couponInfo.ticketDesc %></td>
                         </tr>
 
-                       </tbody>
+                        </tbody>
                     </table>
 
                 </div>
@@ -344,6 +344,7 @@
                         <% if(taskseqInfo.sequenceEndTime){%>
                         <span class="text-danger">下单完毕日期：<%=DWY_Helper.getLocalDate(taskseqInfo.sequenceEndTime)%></span>
                         <%}%>
+                        <button class="label label-warning" id="orderButton">显示已删除订单</button>
                     </legend>
                     <!-- row -->
 
@@ -366,15 +367,26 @@
                             <tbody>
                             <%
                             seqSpaceInfo.forEach(function (element) {
-                                var num = 1;
-                            element.orders.forEach(function (orderelement) { %>
-                            <tr>
-                                <% if (taskseqInfo.stcode >= 350 && taskseqInfo.stcode <540 && num == 1){ %>
+                                var ordersTodo = [];
+                                var ordersList = [];
+                                var ordersListHideen = [];
+                            element.orders.forEach(function (orderelement) {
+                            if(orderelement.stcode == '999'){
+                                ordersListHideen.push(orderelement)
+                            }else{
+                                ordersList.push(orderelement)
+                            }
+                                ordersTodo = ordersList.concat(ordersListHideen);
+                            })
+                            ordersTodo.forEach(function (orderelement, index) {
+                            %>
+                            <tr class="<%= (orderelement.stcode == '999')?'display-none isShowF':''%>" style="border-bottom:1px solid #ddd">
+                                <% if (taskseqInfo.stcode >= 350 && taskseqInfo.stcode <540 && index == 0){ %>
                                 <td rowspan="<%= element.orders.length  %>"><%=element.spaceName %></td>
                                 <% } else{ %>
-                                <% if (num == 1){ %>
+                                <% if (index == 0){ %>
                                 <td rowspan="<%= element.orders.length  %>"><%=element.spaceName %></td>
-                                <% } %>
+                                <% }  %>
                                 <% } %>
 
                                 <td>
@@ -396,7 +408,7 @@
                                 <td><%=DWY_Helper.getLocalDate(orderelement.deliveryDate)%></td>
                                 <td><%=orderelement.stcodeStr %></td>
                             </tr>
-                            <% num++ })
+                            <% })
                             }) %>
                             </tbody>
                         </table>
@@ -407,7 +419,71 @@
                 </div>
                 <!-- end row -->
             </div>
+            <div class="row">
+                <!-- col -->
+                <div class="col-xs-12">
+                    <legend>补单列表
+                        <button class="label label-warning" id="resupplyButton">显示已删除订单</button>
+                    </legend>
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-striped">
+                            <thead>
+                            <tr>
+                                <th>空间名</th>
+                                <th>原订单号</th>
+                                <th>补单号</th>
+                                <th>补单原因</th>
+                                <th>零售价</th>
+                                <th>补单日期</th>
+                                <th>订单状态</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <%
+                            resupplyInfo.forEach(function (element) {
+                                var ordersTodo = [];
+                                var ordersList = [];
+                                var ordersListHideen = [];
+                                element.orders.forEach(function (orderelement) {
+                                    if(orderelement.stcode == '999'){
+                                        ordersListHideen.push(orderelement)
+                                    }else{
+                                        ordersList.push(orderelement)
+                                    }
+                                    ordersTodo = ordersList.concat(ordersListHideen);
+                                })
+                            ordersTodo.forEach(function (orderelement, index) {
+                            %>
+                            <tr class="<%= (orderelement.stcode == 999)?'display-none isShowS':''%>">
+                                <% if (taskseqInfo.stcode >= 350 && taskseqInfo.stcode <540 && index == 0){ %>
+                                <td rowspan="<%= element.orders.length  %>"><%=element.spaceName %></td>
+                                <% } else{ %>
+                                <% if (index == 0){ %>
+                                <td rowspan="<%= element.orders.length  %>"><%=element.spaceName %></td>
+                                <% }  %>
+                                <% } %>
+                                <td>
+                                    <a href="/order/detail/<%= orderelement.orgTid %>"><%= orderelement.orgTid %></a>
+                                </td>
+                                <td>
+                                    <a href="/order/resupply/detail/<%= orderelement.id %>"><%= orderelement.id %></a>
+                                </td>
+                                <td><%= orderelement.causeStr %></td>
+                                <td><%= orderelement.retailPrice%></td>
+                                <td><%= DWY_Helper.getLocalDate(orderelement.addTime)%></td>
+                                <td><%= orderelement.stcodeStr %></td>
+                            </tr>
+                            <% })
+                            }) %>
+                            </tbody>
+                        </table>
 
+                    </div>
+
+
+                </div>
+                <!-- end row -->
+            </div>
             <div class="row">
                 <!-- col -->
                 <div class="col-xs-12">
@@ -489,6 +565,22 @@
 
         pageSetUp();
 
+        $("#orderButton").click(function(){
+            $(".isShowF").toggleClass("display-none");
+            if($(".isShowF").hasClass("display-none")){
+                $(this).text("显示已删除订单")
+            }else{
+                $(this).text("隐藏已删除订单")
+            }
+        });
+        $("#resupplyButton").click(function(){
+            $(".isShowS").toggleClass("display-none");
+            if($(".isShowS").hasClass("display-none")){
+                $(this).text("显示已删除订单")
+            }else{
+                $(this).text("隐藏已删除订单")
+            }
+        });
 
     })
 
