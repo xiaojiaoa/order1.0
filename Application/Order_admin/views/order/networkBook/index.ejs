@@ -286,10 +286,7 @@
                     <label class="col-xs-4 control-label"><span class="requird"></span> 选择门店:</label>
                     <div class="col-xs-8">
                         <select class="form-control validate[required]" name="did">
-                            <option value="">- 请选择店铺-</option>
-                            <% storesList.forEach(function (element) { %>
-                            <option value="<%= element.id %>"><%= element.storeName %></option>
-                            <% }) %>
+
                         </select>
                     </div>
                 </div>
@@ -430,6 +427,21 @@
                             $('#whiceMobile').text('* 联系人电话');
                         }
 //                        var arry = eval(data);
+                        $.ajax({
+                            url: '/storeListAreaId/'+distCode,
+                            method: 'get',
+                            success: function (data) {
+                                var data = JSON.parse(data);
+                                var strHtml = '',initHtml='<option value="">- 请选择店铺-</option>';
+                                for(var j = 0;j<data.length;j++){
+                                    strHtml += '<option value='+data[j].id+'>'+data[j].storeName+'</option>';
+                                };
+                                $("select[name=did]").html(initHtml+strHtml);
+                            },error: function (response) {
+                                errorLayout.normal(response);
+                            }
+                        })
+
                         layer.open({
                             title: '分配店铺',
                             type: 1,

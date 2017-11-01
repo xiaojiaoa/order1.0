@@ -27,7 +27,7 @@ var NetworkBookController = {
         var paramObject = helper.genPaginationQuery(req);
         Base.multiDataRequest(req, res, [
             {url: '/api/ebis/measure?'+ queryString.stringify(req.query), method: 'GET', resConfig: {keyName: 'measureList', is_must: true}},
-            {url: '/api/stores/listEnableAndVisible', method: 'GET', resConfig: {keyName: 'storesList', is_must: true}},
+            // {url: '/api/stores/listEnableAndVisible', method: 'GET', resConfig: {keyName: 'storesList', is_must: true}},
         ], function (req, res, resultList) {
 
             var paginationInfo = resultList.measureList;
@@ -48,6 +48,19 @@ var NetworkBookController = {
             res.render('order/networkBook/index', returnData);
 
         });
+    },
+    storeListPage: function (req, res) {
+        var areaId = req.params.areaId;
+        request(Base.mergeRequestOptions({
+            method: 'GET',
+            url: '/api/stores/listEnableAndVisible?areaId='+areaId,
+        }, req, res), function (error, response, body) {
+            if (!error && response.statusCode == 200) {
+                res.status(200).json(body)
+            } else {
+                Base.handlerError(res, req, error, response, body);
+            }
+        })
     },
     measurePage: function (req, res) {
         var mobile = req.params.mobile;

@@ -1417,7 +1417,9 @@ var NetworkBookController = require('./Controller/NetworkBookController');
 // 网络预约
 router.get('/networkBook', Middleware.AuthCheck, Middleware.FilterEmptyField,Middleware.SetBackPath,NetworkBookController.indexPage);
 
-// 客户信息
+// 门店列表
+router.get('/storeListAreaId/:areaId', Middleware.AuthCheck, NetworkBookController.storeListPage);
+//客户信息
 router.put('/measure/:mobile', Middleware.AuthCheck, NetworkBookController.measurePage);
 
 // 分配门店创建量尺任务
