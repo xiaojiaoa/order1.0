@@ -436,7 +436,7 @@
                                     <td><%= element.orderTypeStr %></td>
                                     <td><%= element.typeStr %></td>
                                     <td><%= element.colorStr %></td>
-                                    <td><a  <%=  element.orderType ==20  ?  "href=/order/resupply/detail/"+ element.tid :  "href=/order/detail/"+element.tid  %>  ><%= element.tid %></a></td>
+                                    <td><a  <%=  element.orderType ==20  ?  "href=/order/resupply/detail/"+ element.tid :  "href=/order/detail/"+element.tid  %>  ><%= element.tid %></a><%if(element.orderNum){%>×<%=element.orderNum%><%}%></td>
                                     <%
                                     if(element.batchNumber == '0'){%>
                                     <td></td>
