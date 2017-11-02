@@ -923,6 +923,7 @@ var AppServiceController = {
         })
     },
     cargoMoving: function (req, res) {
+        console.log(JSON.stringify(req.body))
         request(Base.mergeRequestOptions({
             method: 'post',
             url: '/api/whse/app/change/space/scan/space',
@@ -950,6 +951,7 @@ var AppServiceController = {
         })
     },
     cargoPostingup: function (req, res) {
+        console.log(JSON.stringify(req.body))
         request(Base.mergeRequestOptions({
             method: 'post',
             url: '/api/whse/app/change/space/change',
