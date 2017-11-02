@@ -445,6 +445,10 @@
             }
             layer.confirm('确定移动该包装吗？',{icon: 3, title:'提示'},
                 function(index){
+                    layer.close(index);
+                    var loadIndex = layer.load(0, {
+                        shade: [0.2, '#000']
+                    });
                     $.ajax({
                         url: '/orders/package/packet/move',
                         method: 'post',
@@ -459,10 +463,10 @@
                                 var href="/orders/package/<%= tid%>";
                                 successLayout.hrefTo(href);
                             }
-
+                            layer.close(loadIndex);
                         },
                         error: function (response) {
-                            layer.close(index)
+                            layer.close(loadIndex)
                             errorLayout.normal(response);
                         }
                     });
