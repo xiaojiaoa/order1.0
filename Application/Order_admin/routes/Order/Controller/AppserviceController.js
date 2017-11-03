@@ -1177,6 +1177,17 @@ var AppServiceController = {
       }
     })
   },
+    appVersionInfo: function (req, res) {
+        Base.multiDataRequest(req, res, [
+            {url: '/api/whse/app/version', method: 'GET', resConfig: {keyName: 'versionInfo', is_must: true}},
+            {url: '/api/whse/app/path', method: 'GET', resConfig: {keyName: 'pathInfo', is_must: true}},
+        ], function (req, res, resultList) {
+            var returnData = Base.mergeData(helper.mergeObject({
+                title: 'app版本',
+            }, resultList));
+            res.render('order/appVersion', returnData);
+        })
+    },
 };
 module.exports = AppServiceController;
 
