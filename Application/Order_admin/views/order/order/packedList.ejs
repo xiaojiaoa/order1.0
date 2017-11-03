@@ -291,8 +291,8 @@
                           <div class="input-group">
                               <span class="input-group-addon packagePreName"></span>
                               <input
-                                      class="form-control validate[required,custom[onlyNumberSp],maxSize[3],minSize[3]]"
-                                      placeholder="请输入三位编码"
+                                      class="form-control validate[required,custom[onlyNumberSp],maxSize[4],minSize[3]]"
+                                      placeholder="请输入四位编码"
                                       value=""
                                       name="packageName01"
                                       type="">
@@ -308,8 +308,8 @@
                     <label class="col-xs-4 control-label"><span class="requird"></span>包装序号:</label>
                     <div class="col-xs-8">
                         <input
-                                class="form-control validate[required,custom[onlyNumberSp],maxSize[4]]"
-                                placeholder="请输入四位编码"
+                                class="form-control validate[required,custom[onlyNumberSp],maxSize[5],minSize[1]]"
+                                placeholder="请输入五位编码"
                                 value=""
                                 name="packageNo"
                                 type="">
@@ -332,10 +332,10 @@
                 <input type="hidden" name="pid" value="<%= pid%>"/>
                 <input type="hidden" name="packageName" value=""/>
 
-                <button class="btn btn-primary  margin-right-5" type="submit">
+                <label class="btn btn-primary  margin-right-5" type="submit" id="addPackageSubmit">
                     <i class="fa fa-save"></i>
                     提交
-                </button>
+                </label>
             </div>
         </div>
     </div>
@@ -346,6 +346,7 @@
 
     $(document).ready(function () {
         pageSetUp();
+
 
 
         //给tr添加链接
@@ -395,10 +396,11 @@
            $("input[name=packageName]").val($(".packagePreName").text()+$(this).val());
         })
 
+        var indexForAddDiv;
         //增加包装
         $(".addPackedBtn").on({
             click: function () {
-                layer.open({
+                indexForAddDiv = layer.open({
                     title:"",
                     type: 1,
                     area: '800px',
@@ -408,6 +410,18 @@
                     },
                 });
             }
+        })
+
+        $('#addPackageSubmit').click(function (e) {
+            e.preventDefault()
+            if ($("#addPacked-form").validationEngine('validate')){
+                $("#addPacked-form").submit();
+                layer.close(indexForAddDiv)
+                var loadIndex = layer.load(0, {
+                    shade: [0.2, '#000']
+                });
+            }
+
         })
 
         //撤销包装按钮
@@ -445,6 +459,10 @@
             }
             layer.confirm('确定移动该包装吗？',{icon: 3, title:'提示'},
                 function(index){
+                    layer.close(index);
+                    var loadIndex = layer.load(0, {
+                        shade: [0.2, '#000']
+                    });
                     $.ajax({
                         url: '/orders/package/packet/move',
                         method: 'post',
@@ -459,10 +477,10 @@
                                 var href="/orders/package/<%= tid%>";
                                 successLayout.hrefTo(href);
                             }
-
+                            layer.close(loadIndex);
                         },
                         error: function (response) {
-                            layer.close(index)
+                            layer.close(loadIndex)
                             errorLayout.normal(response);
                         }
                     });
