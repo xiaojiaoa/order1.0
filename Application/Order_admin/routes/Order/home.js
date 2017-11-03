@@ -1764,6 +1764,13 @@ router.post('/app/cargoout/prod/clean', AppServiceController.cargooutProdClean);
 router.get('/app/cargout/package/diId/:id', AppServiceController.cargoutPackageDiId);
 router.post('/app/doChange/space/info', AppServiceController.doChangeSpaceInfo);
 
+//app版本相关
+router.get('/appVersion', AppServiceController.appVersionInfo);
+
+router.post('/app/modifyVersion',Middleware.AuthCheck,Middleware.FilterEmptyField, AppServiceController.modifyAppVersion);
+
+router.post('/app/modifyPath',Middleware.AuthCheck,Middleware.FilterEmptyField, AppServiceController.modifyAppPath);
+
 /*
 * 页面范围: 报表管理
 * 控制器:   ReportController

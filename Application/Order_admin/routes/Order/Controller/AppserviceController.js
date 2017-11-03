@@ -1190,6 +1190,36 @@ var AppServiceController = {
             res.render('order/appVersion', returnData);
         })
     },
+    modifyAppVersion: function (req, res) {
+        console.log(233333,req.body);
+        request(Base.mergeRequestOptions({
+            method: 'POST',
+            url: '/api/whse/app/version',
+            form: req.body
+        }, req, res), function (error, response, body) {
+            if (!error && response.statusCode == 201) {
+                Base.handlerSuccess(res, req);
+                res.redirect("/appVersion");
+            } else {
+                Base.handlerError(res, req, error, response, body);
+            }
+        })
+    },
+    modifyAppPath: function (req, res) {
+        console.log('path22222',req.body);
+        request(Base.mergeRequestOptions({
+            method: 'POST',
+            url: '/api/whse/app/path',
+            form: req.body
+        }, req, res), function (error, response, body) {
+            if (!error && response.statusCode == 201) {
+                Base.handlerSuccess(res, req);
+                res.redirect("/appVersion");
+            } else {
+                Base.handlerError(res, req, error, response, body);
+            }
+        })
+    },
 };
 module.exports = AppServiceController;
 

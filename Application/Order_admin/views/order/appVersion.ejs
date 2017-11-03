@@ -1,0 +1,120 @@
+<%- include('layouts/head_top'); %>
+<%- include('layouts/head_bottom'); %>
+<%- include('layouts/header'); %>
+<%- include('layouts/nav'); %>
+
+
+<!-- MAIN PANEL -->
+<div id="main" role="main" class="mainFlex">
+
+    <div id="ribbon">
+        <ol class="breadcrumb">
+            <li>后台管理</li>
+            <li>APP版本</li>
+        </ol>
+    </div>
+    <!-- END RIBBON -->
+
+
+    <!-- MAIN CONTENT -->
+    <div id="content" class="dis-flex">
+        <!-- well -->
+        <div class="well dis-flex">
+
+            <!-- row -->
+            <div class="row">
+                <div class="col-xs-12">
+                    <h6>APP版本</h6>
+                    <hr class="simple">
+                </div>
+            </div>
+            <!-- row -->
+            <div class="row dis-flex">
+                <div class="col-xs-12 dis-flex">
+                    <form class="form-horizontal" method="post" action="/app/modifyVersion">
+                        <div class="col-xs-12">
+                            <div class="col-xs-4">
+                                <div class="form-group">
+                                    <label class="col-xs-4 control-label ">新版本名称: </label>
+                                    <div class="col-xs-8">
+                                        <input class="form-control"
+                                               value="<%= versionInfo.latestVersion %>" name="latestVersion">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xs-4">
+                                <div class="form-group">
+                                    <label class="col-xs-4 control-label ">最低可用版本名称: </label>
+                                    <div class="col-xs-8">
+                                        <input class="form-control"
+                                               value="<%= versionInfo.minimumVersion %>" name="minimumVersion">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xs-12">
+                            <div class="col-xs-4">
+                                <div class="form-group">
+                                    <label class="col-xs-4 control-label "> APP名称: </label>
+                                    <div class="col-xs-8">
+                                        <input class="form-control"
+                                               value="<%= versionInfo.fileName %>"  name="fileName">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xs-8">
+                            <hr class="simple">
+                            <div class="col-xs-12 text-center">
+                                <button class="btn btn-primary " type="submit">
+                                    <i class="fa fa-save"></i>
+                                    确认修改
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                    <div class="col-xs-12 margin-top-10">
+                        <form class="form-horizontal margin-top-10" method="post" action="/app/modifyPath">
+                            <div class="col-xs-12">
+                                <div class="col-xs-4">
+                                    <div class="form-group">
+                                        <label class="col-xs-4 control-label ">APP所在路径: </label>
+                                        <div class="col-xs-8">
+                                            <input class="form-control"
+                                                   value="<%= pathInfo.path %>"  name="path">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xs-5">
+                                <hr class="simple">
+                                <div class="col-xs-12 text-center">
+                                    <button class="btn btn-primary " type="submit">
+                                        <i class="fa fa-save"></i>
+                                        确认修改
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- end well -->
+    </div>
+    <!-- END MAIN CONTENT -->
+
+</div>
+<!-- END MAIN PANEL -->
+
+<%- include('layouts/footer'); %>
+<%- include('layouts/footer_common_script'); %>
+<!--END 选择店铺列表-->
+<script type="text/javascript">
+    $(document).ready(function () {
+
+    })
+</script>
+
+
+<%- include('layouts/foot'); %>
