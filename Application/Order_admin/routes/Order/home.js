@@ -587,6 +587,9 @@ router.get('/storesManage', Middleware.AuthCheck,Middleware.FilterEmptyField,Mid
 // 门店详情页面
 router.get('/storesManage/detail/:cid', Middleware.AuthCheck, StoresController.detailPage);
 
+//门店账户信息导出
+router.get('/storeManage/export/:bid', Middleware.AuthCheck,StoresController.exportAccounts);
+
 // 门店详情页面-充值
 router.post('/storesManage/doRecharge', Middleware.AuthCheck, StoresController.doRecharge);
 //修改

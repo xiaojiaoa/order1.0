@@ -133,6 +133,7 @@
                         <a class="label label-primary editRecharge" data-id="<%= storeInfo.bid %>">冲正</a>-->
                         <!--<a class="label label-primary" href="/storesManage/receiptMoney/<%= storeInfo.bid %>">收款</a>-->
                         <% } %>
+                        <a class="label label-primary margin-left-10" href="/storeManage/export/<%= storeInfo.bid %>">导出</a>
                     </h6>
 
                     <hr class="simple">
@@ -149,7 +150,10 @@
                                 <th>资金类型</th>
                                 <th>交易金额</th>
                                 <th>交易时间</th>
+                                <th>操作人</th>
                                 <th>操作说明</th>
+                                <th>操作订单数量</th>
+                                <th>工程单单价</th>
                                 <th>订单编号</th>
                             </tr>
                             </thead>
@@ -161,8 +165,11 @@
                                 <td><%= element.typeName %></td>
                                 <td><%= element.direction ==1?'+':'-' %><%= element.money %></td>
                                 <td><%= DWY_Helper.getLocalDate(element.addTime) %></td>
+                                <td><%= element.operationName %></td>
                                 <td><%= element.describe %></td>
-                                <td><a href="/order/detail/<%= element.tid %>"><%= element.tid %></a></td>
+                                <td><%= element.operationOrderNum %></td>
+                                <td><%= element.unitPrice %></td>
+                                <td><a href="/order/detail/<%= element.tid %>"><%= element.tid %></a><%if(element.orderNum){%>×<%=element.orderNum%><%}%></td>
                             </tr>
                             <% })
                             } %>

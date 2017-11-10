@@ -312,6 +312,13 @@ var StoresController = {
         }
     })
 },
+    exportAccounts: function (req, res) {
+        var bid = req.params.bid;
+        request(Base.mergeRequestOptions({
+            method: 'post',
+            url: '/api/stores/money/page/export?bid='+bid
+        }, req, res)).pipe(res)
+    },
 
 };
 
