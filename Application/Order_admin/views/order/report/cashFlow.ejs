@@ -91,6 +91,14 @@
                                             </div>
                                         </div>
                                     </div>
+                                    <div class="col-xs-2">
+                                        <label class="col-xs-3 control-label">请选择:</label>
+                                        <div class="form-group">
+                                            <div class="col-xs-8">
+                                                <input class="form-control fg-date-picker-month choiceMonth" placeholder="" type="text"  value="" />
+                                            </div>
+                                        </div>
+                                    </div>
                                     <% if(DWY_GLOBAL.ButtonOpen!=1){ %>
                                     <div class="col-xs-3">
                                         <div class="col-xs-12 text-center">
@@ -138,9 +146,15 @@
             <div class="orderItemLayerTit">
                 <ul class="orderItemMenu">
                     <a href="javascript:void(0)">
+                        门店资金流转：
                         <li class="padding-10 materielBak">
-                            门店资金流转
-                            <span class="amountMoney amountMoney1">付款总金额：<%= dataList.payAmount %></span>
+                            <span class="amountMoney amountMoney1">
+                                期初余额：<%= dataList.beginningBalance %>
+                                期末余额：<%= dataList.endingBalance %>
+                                本期扣款：<%= dataList.payAmount %>
+                                本期冲正：<%= dataList.correctionAmount %>
+                                本期充值：<%= dataList.rechargeAmount %>
+                            </span>
                         </li>
                     </a>
                 </ul>
@@ -205,6 +219,26 @@
     $(document).ready(function () {
         $("#search-customer").validationEngine();
         $(".fg-date-picker").flatpickr(data_time_picker.data_picker); // jQuery
+//        $(".fg-date-picker-month").flatpickr(data_time_picker.data_picker_month); // jQuery
+
+        $(".fg-date-picker-month").datetimepicker(mouth_picker.showMonth).on({
+            changeMonth: function(ev){
+                mouth_picker.changeMonth(ev);
+            }})
+
+        $(".choiceMonth").change(function(){
+            var val = $(this).val();
+            var inputVal = val.substr(0,8);
+            var month = val.substr(5,2);
+            $("input[name=startDate]").val(inputVal+'-01');
+            if(month == 1 || month == 3 || month == 5 || month == 7 || month == 8 || month == 10 || month == 12){
+                $("input[name=endDate]").val(inputVal+'-31');
+            }else{
+                $("input[name=endDate]").val(inputVal+'-30');
+            }
+
+
+        })
     })
 
 </script>
