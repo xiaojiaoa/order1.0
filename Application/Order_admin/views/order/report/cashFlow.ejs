@@ -149,8 +149,12 @@
                         门店资金流转：
                         <li class="padding-10 materielBak">
                             <span class="amountMoney amountMoney1">
+                                <%if(dataList.beginningBalance!=null){%>
                                 期初余额：<%= dataList.beginningBalance %>
+                                <%}%>
+                                <%if(dataList.endingBalance!=null){%>
                                 期末余额：<%= dataList.endingBalance %>
+                                <%}%>
                                 本期扣款：<%= dataList.payAmount %>
                                 本期冲正：<%= dataList.correctionAmount %>
                                 本期充值：<%= dataList.rechargeAmount %>
