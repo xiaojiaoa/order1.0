@@ -95,7 +95,7 @@
                                         <label class="col-xs-3 control-label">请选择:</label>
                                         <div class="form-group">
                                             <div class="col-xs-8">
-                                                <input class="form-control fg-date-picker-month choiceMonth" placeholder="" type="text"  value="" />
+                                                <input class="form-control fg-month-picker choiceMonth" placeholder="" type="text"  value="" />
                                             </div>
                                         </div>
                                     </div>
@@ -223,12 +223,6 @@
     $(document).ready(function () {
         $("#search-customer").validationEngine();
         $(".fg-date-picker").flatpickr(data_time_picker.data_picker); // jQuery
-//        $(".fg-date-picker-month").flatpickr(data_time_picker.data_picker_month); // jQuery
-
-        $(".fg-date-picker-month").datetimepicker(mouth_picker.showMonth).on({
-            changeMonth: function(ev){
-                mouth_picker.changeMonth(ev);
-            }})
 
         $(".choiceMonth").change(function(){
             var val = $(this).val();
@@ -240,8 +234,6 @@
             }else{
                 $("input[name=endDate]").val(inputVal+'-30');
             }
-
-
         })
     })
 

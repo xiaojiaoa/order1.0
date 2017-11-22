@@ -1838,6 +1838,36 @@ router.get('/report/order/source', Middleware.AuthCheck,Middleware.FilterEmptyFi
 // 订单状态分类报表
 router.get('/report/order/state', Middleware.AuthCheck,Middleware.FilterEmptyField,ReportController.reportOrderState);
 
+//生产明细报表--审单
+router.get('/report/order/product_detail', Middleware.AuthCheck,Middleware.FilterEmptyField,ReportController.productDetailOrder);
+
+//生产明细报表--拆单
+router.get('/report/order/separate_bill', Middleware.AuthCheck,Middleware.FilterEmptyField,ReportController.separateBillOrder);
+
+//生产明细报表--拆审
+router.get('/report/order/remove_trial', Middleware.AuthCheck,Middleware.FilterEmptyField,ReportController.removeTrialOrder);
+
+//生产明细报表--排料
+router.get('/report/order/nesting', Middleware.AuthCheck,Middleware.FilterEmptyField,ReportController.nestingOrder);
+
+//生产明细报表--退单明细
+router.get('/report/order/chargeback', Middleware.AuthCheck,Middleware.FilterEmptyField,ReportController.chargeBackOrder);
+
+//导出--生产明细报表--审单
+router.post('/report/order/export/product_detail', Middleware.AuthCheck,Middleware.FilterEmptyField,ReportController.exportProductDetail);
+
+//导出--生产明细报表--拆单
+router.post('/report/order/export/separate_bill', Middleware.AuthCheck,Middleware.FilterEmptyField,ReportController.exportSeparateBill);
+
+//导出--生产明细报表--拆审
+router.post('/report/order/export/remove_trial', Middleware.AuthCheck,Middleware.FilterEmptyField,ReportController.exportRemoveTrial);
+
+//导出--生产明细报表--排料
+router.post('/report/order/export/nesting', Middleware.AuthCheck,Middleware.FilterEmptyField,ReportController.exportNesting);
+
+//导出--生产明细报表--退单明细
+router.post('/report/order/export/chargeback', Middleware.AuthCheck,Middleware.FilterEmptyField,ReportController.exportChargeBack);
+
 // 门店补单率
 router.get('/report/suppRate/store', Middleware.AuthCheck,Middleware.FilterEmptyField,ReportController.suppRateStore);
 

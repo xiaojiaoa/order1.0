@@ -465,6 +465,179 @@ var ReportController = {
         });
 
     },
+    productDetailOrder: function (req, res) {
+        if(!req.query.startTime){
+            var dayTime= new Date().format("yyyy-MM-dd");
+            return res.redirect('/report/order/product_detail?startTime='+dayTime+'&endTime='+dayTime);
+        }
+        var paramObject = helper.genPaginationQuery(req);
+        Base.multiDataRequest(req, res, [
+            {url: '/api/orders/stat/review?'+ queryString.stringify(req.query), method: 'GET', resConfig: {keyName: 'dataList', is_must: true}},
+        ], function (req, res, resultList) {
+            var paginationInfo = resultList.dataList;
+
+            var boostrapPaginator = new Pagination.TemplatePaginator(helper.genPageInfo({
+                prelink: paramObject.withoutPageNo,
+                current: paginationInfo.page,
+                rowsPerPage: paginationInfo.pageSize,
+                totalResult: paginationInfo.totalItems
+            }));
+
+            var returnData = Base.mergeData(helper.mergeObject({
+                title: ' ',
+                pagination: boostrapPaginator.render(),
+                Permission :Permissions,
+            },resultList));
+            res.render('order/report/reportOrderExamination', returnData);
+        });
+    },
+    separateBillOrder: function (req, res) {
+
+        if(!req.query.startTime){
+            var dayTime= new Date().format("yyyy-MM-dd");
+            return res.redirect('/report/order/separate_bill?startTime='+dayTime+'&endTime='+dayTime);
+        }
+        var paramObject = helper.genPaginationQuery(req);
+        Base.multiDataRequest(req, res, [
+            {url: '/api/orders/stat/apart?'+ queryString.stringify(req.query), method: 'GET', resConfig: {keyName: 'dataList', is_must: true}},
+        ], function (req, res, resultList) {
+
+            var paginationInfo = resultList.dataList;
+
+            var boostrapPaginator = new Pagination.TemplatePaginator(helper.genPageInfo({
+                prelink: paramObject.withoutPageNo,
+                current: paginationInfo.page,
+                rowsPerPage: paginationInfo.pageSize,
+                totalResult: paginationInfo.totalItems
+            }));
+
+            var returnData = Base.mergeData(helper.mergeObject({
+                title: ' ',
+                pagination: boostrapPaginator.render(),
+                Permission :Permissions,
+            },resultList));
+            res.render('order/report/reportOrderSeparateBill', returnData);
+        });
+    },
+    removeTrialOrder: function (req, res) {
+        if(!req.query.startTime){
+            var dayTime= new Date().format("yyyy-MM-dd");
+            return res.redirect('/report/order/remove_trial?startTime='+dayTime+'&endTime='+dayTime);
+        }
+        var paramObject = helper.genPaginationQuery(req);
+        Base.multiDataRequest(req, res, [
+            {url: '/api/orders/stat/apartReview?'+ queryString.stringify(req.query), method: 'GET', resConfig: {keyName: 'dataList', is_must: true}},
+        ], function (req, res, resultList) {
+
+            var paginationInfo = resultList.dataList;
+
+            var boostrapPaginator = new Pagination.TemplatePaginator(helper.genPageInfo({
+                prelink: paramObject.withoutPageNo,
+                current: paginationInfo.page,
+                rowsPerPage: paginationInfo.pageSize,
+                totalResult: paginationInfo.totalItems
+            }));
+
+            var returnData = Base.mergeData(helper.mergeObject({
+                title: ' ',
+                pagination: boostrapPaginator.render(),
+                Permission :Permissions,
+            },resultList));
+            res.render('order/report/reportOrderRemoveTrial', returnData);
+        });
+    },
+    nestingOrder: function (req, res) {
+        if(!req.query.startTime){
+            var dayTime= new Date().format("yyyy-MM-dd");
+            return res.redirect('/report/order/nesting?startTime='+dayTime+'&endTime='+dayTime);
+        }
+        var paramObject = helper.genPaginationQuery(req);
+        Base.multiDataRequest(req, res, [
+            {url: '/api/orders/stat/schedule?'+ queryString.stringify(req.query), method: 'GET', resConfig: {keyName: 'dataList', is_must: true}},
+        ], function (req, res, resultList) {
+
+            var paginationInfo = resultList.dataList;
+
+            var boostrapPaginator = new Pagination.TemplatePaginator(helper.genPageInfo({
+                prelink: paramObject.withoutPageNo,
+                current: paginationInfo.page,
+                rowsPerPage: paginationInfo.pageSize,
+                totalResult: paginationInfo.totalItems
+            }));
+
+            var returnData = Base.mergeData(helper.mergeObject({
+                title: ' ',
+                pagination: boostrapPaginator.render(),
+                Permission :Permissions,
+            },resultList));
+            res.render('order/report/reportOrderNesting', returnData);
+        });
+    },
+    chargeBackOrder: function (req, res) {
+        if(!req.query.startTime){
+            var dayTime= new Date().format("yyyy-MM-dd");
+            return res.redirect('/report/order/chargeback?startTime='+dayTime+'&endTime='+dayTime);
+        }
+        var paramObject = helper.genPaginationQuery(req);
+        Base.multiDataRequest(req, res, [
+            {url: '/api/orders/stat/backOrder?'+ queryString.stringify(req.query), method: 'GET', resConfig: {keyName: 'dataList', is_must: true}},
+        ], function (req, res, resultList) {
+
+            var paginationInfo = resultList.dataList;
+
+            var boostrapPaginator = new Pagination.TemplatePaginator(helper.genPageInfo({
+                prelink: paramObject.withoutPageNo,
+                current: paginationInfo.page,
+                rowsPerPage: paginationInfo.pageSize,
+                totalResult: paginationInfo.totalItems
+            }));
+
+            var returnData = Base.mergeData(helper.mergeObject({
+                title: ' ',
+                pagination: boostrapPaginator.render(),
+                Permission :Permissions,
+            },resultList));
+            res.render('order/report/reportOrderChargeBack', returnData);
+        });
+    },
+    exportProductDetail: function (req, res) {
+        request(Base.mergeRequestOptions({
+            method: 'post',
+            url: '/api/orders/stat/export/review',
+            form:JSON.parse(req.body.mytest),
+        }, req, res)).pipe(res)
+    },
+    exportSeparateBill: function (req, res) {
+        request(Base.mergeRequestOptions({
+            method: 'post',
+            url: '/api/orders/stat/export/apart',
+            form:JSON.parse(req.body.mytest),
+        }, req, res)).pipe(res)
+    },
+    exportRemoveTrial: function (req, res) {
+        request(Base.mergeRequestOptions({
+            method: 'post',
+            url: '/api/orders/stat/export/apartReview',
+            form:JSON.parse(req.body.mytest),
+        }, req, res)).pipe(res)
+    },
+    exportNesting: function (req, res) {
+        request(Base.mergeRequestOptions({
+            method: 'post',
+            url: '/api/orders/stat/export/schedule',
+            form:JSON.parse(req.body.mytest),
+        }, req, res)).pipe(res)
+    },
+    exportChargeBack: function (req, res) {
+        request(Base.mergeRequestOptions({
+            method: 'post',
+            url: '/api/orders/stat/export/backOrder',
+            form:JSON.parse(req.body.mytest),
+        }, req, res)).pipe(res)
+    },
+
+
+
     suppRateStore: function (req, res) {
 
         var paramObject = helper.genPaginationQuery(req);
