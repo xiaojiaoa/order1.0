@@ -36,7 +36,14 @@
                         <form class="form-horizontal" method="get" id="search-customer">
 
                             <div class="col-xs-12">
-
+                                <div class="col-xs-2">
+                                    <div class="form-group">
+                                        <label class="col-xs-4 control-label">门店名:</label>
+                                        <div class="col-xs-8">
+                                            <input class="form-control" placeholder="请输入门店名" value="<%= DWYRequest.query.storeName %>" type="text" name="storeName">
+                                        </div>
+                                    </div>
+                                </div>
                                 <!--输入字段-->
                                 <div class="col-xs-4">
                                     <div class="form-group">
