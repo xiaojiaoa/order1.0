@@ -143,6 +143,11 @@ var helper = {
         }else{
             return link;
         }
+    },
+
+    editTitleInfo:function(){
+        var tit =  process.env.SITE_NAME_CONTENT?process.env.SITE_NAME_CONTENT:'布兰莎';
+        return tit;
     }
 };
 

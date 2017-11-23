@@ -1,4 +1,4 @@
-<body class="fixed-header fixed-navigation fixed-page-footer smart-style-2">
+<body class="fixed-header fixed-navigation fixed-page-footer <%= (DWY_GLOBAL.GlobalStyle)?DWY_GLOBAL.GlobalStyle:'smart-style-2' %>">
 
 <!-- #HEADER -->
 <header id="header">
@@ -11,7 +11,7 @@
 
     <!--&lt;!&ndash; END AJAX-DROPDOWN &ndash;&gt;-->
     <!--</div>-->
-    <div style="color: #fff;line-height: 30px;padding: 10px 30px;font-size: 24px;width: auto;font-style: italic;">布兰莎 - 订单数据系统 - <%= user.bname %>
+    <div style="color: #fff;line-height: 30px;padding: 10px 30px;font-size: 24px;width: auto;font-style: italic;"><%= DWY_GLOBAL.Title %>订单数据系统 - <%= user.bname %>
     </div>
 
     <!-- #TOGGLE LAYOUT BUTTONS -->

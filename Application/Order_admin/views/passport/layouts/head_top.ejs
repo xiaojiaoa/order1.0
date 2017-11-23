@@ -42,9 +42,14 @@
     <!--important 此处用来切换首页样式，去掉注释即可E-->
 
     <!--important 此处用来切换首页样式，去掉注释即可S -->
-    <link rel="stylesheet" type="text/css" media="screen" href="/css/smart-skin01.css">
+    <!--<link rel="stylesheet" type="text/css" media="screen" href="/css/smart-skin01.css">-->
     <!--important 此处用来切换首页样式，去掉注释即可E-->
-
+    <%if(DWY_GLOBAL.Style==='1'){%>
     <link rel="stylesheet" type="text/css"  media="screen" href="/css/order_system.css">
+    <%}else if(DWY_GLOBAL.Style==='2'){%>
+    <link rel="stylesheet" type="text/css"  media="screen" href="/css/order_test.css">
+    <%}else{%>
+    <link rel="stylesheet" type="text/css"  media="screen" href="/css/order_system.css">
+    <%}%>
 
 </head>

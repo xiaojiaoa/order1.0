@@ -8,8 +8,8 @@ var request = require('request');
 var PassportController = {
     // 显示登录页面
     loginPage: function (req, res, next) {
-
-        res.render('passport/login1', Base.mergeData(helper.mergeObject({title: '布兰莎订单数据系统'}, {})));
+        var style = process.env.STYLE_NAME?process.env.STYLE_NAME:'1';
+        res.render("passport/login"+style, Base.mergeData(helper.mergeObject({title: helper.editTitleInfo() + '订单数据系统'}, {})));
         // 需要切换现版本的话，将login1修改为login即可
     },
 
