@@ -100,7 +100,6 @@ var StoresController = {
 
         ], function (req, res, resultList) {
 
-
             var returnData = Base.mergeData(helper.mergeObject({
                 title: ' ',
                 cid:cid,
