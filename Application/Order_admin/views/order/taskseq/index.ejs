@@ -365,6 +365,7 @@
                                 <th>难度</th>
                                 <th>零售价（元）</th>
                                 <th>约定交付日期</th>
+                                <th>收款状态</th>
                                 <th>订单状态</th>
                             </tr>
                             </thead>
@@ -410,6 +411,7 @@
                                 <td><%=orderelement.difficulty%></td>
                                 <td><%=orderelement.retailPrice%></td>
                                 <td><%=DWY_Helper.getLocalDate(orderelement.deliveryDate)%></td>
+                                <td><%=orderelement.payStr %></td>
                                 <td><%=orderelement.stcodeStr %></td>
                             </tr>
                             <% })
@@ -439,6 +441,7 @@
                                 <th>补单原因</th>
                                 <th>零售价</th>
                                 <th>补单日期</th>
+                                <th>收款状态</th>
                                 <th>订单状态</th>
                             </tr>
                             </thead>
@@ -475,6 +478,7 @@
                                 <td><%= orderelement.causeStr %></td>
                                 <td><%= orderelement.retailPrice%></td>
                                 <td><%= DWY_Helper.getLocalDate(orderelement.addTime)%></td>
+                                <td><%= orderelement.payStr %></td>
                                 <td><%= orderelement.stcodeStr %></td>
                             </tr>
                             <% })
