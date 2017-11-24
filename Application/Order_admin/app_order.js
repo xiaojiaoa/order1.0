@@ -85,6 +85,9 @@ var DWY_GLOBAL = require('./routes/Order/config/global');
 app.locals.DWY_GLOBAL = {
     Static: DWY_GLOBAL.server.Static.remote_server(),
     ButtonOpen:2,
+    Style:process.env.STYLE_NAME,
+    Title:process.env.SITE_NAME_CONTENT?process.env.SITE_NAME_CONTENT:'布兰莎',
+    GlobalStyle:process.env.SMART_STYLE
 }
 
 // 格式化金额
@@ -154,6 +157,7 @@ app.locals.DWY_Helper = {
         }
 
     },
+
 
     // 增加时间格式化工具
     getLocalDate: function (timestamp) {

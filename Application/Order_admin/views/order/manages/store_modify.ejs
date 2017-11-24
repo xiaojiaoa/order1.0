@@ -275,12 +275,26 @@
                             </div>
                             <div class="col-xs-12">
                                 <div class="col-xs-8">
-                                    <div class="form-group">
+                                    <div class="form-group dwy-area">
                                         <label class="col-xs-2 control-label">门店所在行政区:</label>
-                                        <div class="col-xs-10">
-                                            <input class="form-control validate"
-                                                   value="<%= storeInfo.provinceStr %> <%= storeInfo.cityStr %> <%= storeInfo.areaStr %>"
-                                                   name="" readonly>
+                                        <div class="col-xs-10 no-padding">
+                                            <div class="col-xs-3">
+                                                <select class="form-control dwy-province validate[required]"
+                                                        name="provinceId" disabled>
+                                                    <option value="">- 省 -</option>
+                                                </select>
+                                            </div>
+                                            <div class="col-xs-3">
+                                                <select class="form-control dwy-city validate[required]" name="cityId" disabled>
+                                                    <option value="">- 市 -</option>
+                                                </select>
+                                            </div>
+                                            <div class="col-xs-3">
+                                                <select class="form-control dwy-district validate[required]"
+                                                        name="areaId">
+                                                    <option value="">- 区 -</option>
+                                                </select>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -352,6 +366,21 @@
 //        pageSetUp();
 
         $("#create-store").validationEngine();
+
+        DWY_area.init({
+            defaultValue:[
+                {
+                    name:'provinceId',
+                    value: '<%= storeInfo.provinceId %>',
+                    key:'province',
+                    linkcity:'cityId',
+                    linkdis:'areaId',
+                    cityId: '<%= storeInfo.cityId %>'
+                },
+                {name:'cityId', value: '<%= storeInfo.cityId %>', key:'city',linkdis:'areaId',disId: '<%= storeInfo.areaId %>'},
+                {name:'areaId', value: '<%= storeInfo.areaId %>', key:'district'},
+            ]
+        });
 
 
 //        结合html5标准事件 oninput 和 IE 专属事件 onpropertychange 事件来动态监听输入框值变化

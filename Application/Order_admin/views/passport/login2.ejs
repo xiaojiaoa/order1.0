@@ -3,11 +3,9 @@
 <%- include('layouts/header'); %>
 <style>
     #validate-img {
-        position: absolute;
-        right: 1px;
-        top: 1px;
-        height: 30px;
         cursor: pointer;
+        width: 100%;
+        height: 100%;
     }
     #fix-alert{
         /*position: absolute;*/
@@ -35,83 +33,105 @@
         height:40px;
         margin-right:10px;
     }
+    html{
+        height:100%;
+    }
+    #smart-skin{
+        background:none;
+        width:100%;
+        height:100%;
+        color: #000000;
+        box-sizing: border-box;
+        max-width:1920px;
+        background-size:cover;
+        /* min-height: 960px;*/
+    }
+    #smart-skin #main{
+        background-color: transparent!important;
+        padding-top: 0px!important;
+        padding-bottom: 0px!important;
+        height: 100%;
+    }
+    #smart-skin #header{
+        display: none;
+    }
+    #smart-skin #content {
+        padding: 0px;
+        width: 100%;
+        height: 100%;
+        background: url("../img/os_bg2.jpg") center center no-repeat;
+    }
+    .smart-form{
+        position:static;
+    }
+    .smart-form .state-error+em {
+        float: left;
+        color: #ffffff;
+        margin-left: 20px;
+    }
+    :root input:-webkit-autofill,textarea:-webkit-autofill,select:-webkit-autofill{
+        box-shadow: 0 0 50px 50px #eeeeee inset !important;
+    }
 </style>
 
-<div class="row" id="smart-skin-row">
-    <div class="col-xs-12 col-sm-12 col-md-7 col-lg-8 hidden-xs hidden-sm">
-        <h1 class="txt-color-red login-header-big"><span><%= DWY_GLOBAL.Title %></span>订单数据系统</h1>
+<div class="os_container">
+    <span class="os_logo"></span>
+    <div class="os_main_bg">
+        <section class="os_form_bgbox">
+            <span class="os_form_bg"></span>
+        </section>
     </div>
-    <div class="col-xs-12 col-sm-12 col-md-5 col-lg-4">
-        <div class="well no-padding">
-            <form action="/login" id="login-form" class="smart-form client-form" method="post">
-                <header>
-                    登录
-                </header>
+    <span class="os_spoker"></span>
+    <section class="os_main">
+        <form action="/login" id="login-form" method="post" class="smart-form">
+            <div class="os_main_box">
+                <div class="os_cheng">
+                    <div class="os_form_box">
+                        <span class="os_title"></span>
+                        <section>
+                            <div class="os_name">
+                                <label class="input">
+                                    <span class="os_name_icon floatl"></span>
+                                    <input class="os_username floatl" type="text" placeholder="用户名" name="userNo" autocomplete="off"/>
+                                    <b class="tooltip tooltip-top-right"><i class="fa fa-user txt-color-teal"></i>
+                                        请输入您的用户名</b>
+                                </label>
+                            </div>
+                        </section>
 
-                <fieldset>
+                        <section>
+                            <div class="os_userpass">
+                                <label class="input">
+                                    <span class="os_password_icon floatl"></span>
+                                    <input class="os_password floatl" type="password" placeholder="密码" name="password" autocomplete="off"/>
+                                    <b class="tooltip tooltip-top-right"><i class="fa fa-lock txt-color-teal"></i> 请输入密码</b>
+                                </label>
+                            </div>
+                        </section>
 
-                    <section>
-                        <label class="label">用户名:</label>
-                        <label class="input"> <i class="icon-append fa fa-user"></i>
-                            <input type="text" name="userNo" autocomplete="off" placeholder="用户名" >
-                            <b class="tooltip tooltip-top-right"><i class="fa fa-user txt-color-teal"></i>
-                                请输入您的用户名</b></label>
-                    </section>
+                        <section>
+                            <div class="os_ver_code">
+                                <label class="input">
+                                    <span class="os_vercode_icon floatl"></span>
+                                    <input class="os_usercode floatl" type="text" placeholder="验证码" name="code" autocomplete="off"/>
+                                    <div class="os_verification_code floatl">
+                                        <img id="validate-img" src="" alt="">
+                                        <input type="hidden" name="baseId" autocomplete="off"   value="{{baseId}}" >
+                                        <b class="tooltip tooltip-top-right"> 请输入验证码</b>
+                                    </div>
+                                </label>
+                            </div>
+                        </section>
 
-                    <section>
-                        <label class="label">密码:</label>
-                        <label class="input"> <i class="icon-append fa fa-lock"></i>
-                            <input type="password" name="password" autocomplete="off"   placeholder="密码">
-                            <b class="tooltip tooltip-top-right"><i class="fa fa-lock txt-color-teal"></i> 请输入密码</b>
-                        </label>
-                    </section>
+                        <div class="os_submit_box">
+                            <button class="os_submit" type="submit">登录</button>
+                        </div>
+                    </div>
+                </div>
 
-                    <section>
-                        <label class="label">验证码:</label>
-                        <label class="input">
-                            <img id="validate-img" src="" alt="">
-                            <input type="text" name="code" autocomplete="off"  placeholder="验证码">
-                            <input type="hidden" name="baseId" autocomplete="off"   value="{{baseId}}" >
-                            <b class="tooltip tooltip-top-right"> 请输入验证码</b>
-                        </label>
-                    </section>
-                    <!---->
-                    <!--<section>-->
-                    <!--<label class="label">验证码:</label>-->
-                    <!--<label class="input"> <img id="validate-img" src="data:image/png;base64,{{baseString}}"-->
-                    <!--alt="">-->
-                    <!--<input type="text" name="code" autocomplete="off">-->
-                    <!--<input type="hidden" name="baseId" autocomplete="off" value="{{baseId}}">-->
-                    <!--<b class="tooltip tooltip-top-right"> 请输入验证码</b>-->
-                    <!--</label>-->
-                    <!--</section>-->
-
-                    <!--<section>-->
-                    <!--<label class="checkbox">-->
-                    <!--<input type="checkbox" name="remember" checked="">-->
-                    <!--<i></i>保持我的登录状态</label>-->
-                    <!--</section>-->
-                </fieldset>
-                <footer>
-                    <button type="submit" class="btn btn-primary">
-                        登<span></span>录
-                    </button>
-                </footer>
-            </form>
-
-        </div>
-
-
-    </div>
-    <div class="col-xs-12 col-sm-12 col-md-7 col-lg-8 hidden-xs hidden-sm" id="paragraph-header">
-            <div class="pull-left login-desc-box-l">
-                <h4 class="paragraph-header">
-                    <span><%= DWY_GLOBAL.Title %>全屋定制 - 中国定制家居十大品牌</span>
-                    <span>提供专业的全屋定制服务，一站式的家居定制，让购买家具省心放心！</span>
-                    <span></span>
-                </h4>
             </div>
-    </div>
+        </form>
+    </section>
 </div>
 
 
