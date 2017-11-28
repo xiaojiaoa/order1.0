@@ -73,13 +73,23 @@
                             </tr>
                             <tr>
                                 <td>量尺空间</td>
-                                <td colspan="3"><%= taskseqInfo.spaceStr %> &nbsp;  (<%= taskseqInfo.parentSpaceStr %>)</td>
+                                <td><%= taskseqInfo.spaceStr %> &nbsp;  (<%= taskseqInfo.parentSpaceStr %>)</td>
+                                <td>收货人姓名</td>
+                                <td>
+                                    <%= taskseqInfo.contactName %>
+                                    <label class="label label-primary editContactName">修改</label>
+                                </td>
                                 <td>希望量尺时间</td>
                                 <td><%= DWY_Helper.getLocalDate(taskseqInfo.appointmentTime) %></td>
                             </tr>
                             <tr>
                                 <td>客户地址</td>
-                                <td colspan="3"><%= taskseqInfo.address %></td>
+                                <td><%= taskseqInfo.address %></td>
+                                <td>收货人电话</td>
+                                <td>
+                                    <%= taskseqInfo.contactMobile %>
+                                    <label class="label label-primary editContactMobile">修改</label>
+                                </td>
                                 <td>楼盘位置</td>
                                 <td><%= taskseqInfo.realEstate %>（<%= taskseqInfo.realEstateGps %>）</td>
                             </tr>
@@ -566,12 +576,32 @@
 <%- include('../layouts/footer'); %>
 <%- include('../layouts/footer_common_script'); %>
 
-
+<form class="form-horizontal  layer-template" method="post" id="contactName_form"  action="/taskseq/modify/contact">
+    <div class="col-xs-12" style="padding:40px;">
+        <div class="form-group">
+            <label class="col-xs-3 control-label"> 收货人姓名:</label>
+            <div class="col-xs-8">
+                <input class="form-control validate[required]" type="text" value="" id="contactPro"  name="contactName" />
+            </div>
+        </div>
+    </div>
+    <input value="<%= lid %>" name="lid" id="lid" type="hidden">
+    <div class="col-xs-12">
+        <hr class="simple">
+        <div class="col-xs-12 text-center">
+            <button class="btn btn-primary " type="submit">
+                确定
+            </button>
+        </div>
+    </div>
+    <div class="dwy-clear"></div>
+</form>
 <script type="text/javascript">
 
     $(document).ready(function () {
 
         pageSetUp();
+        $("#contactName_form").validationEngine();
 
         $("#orderButton").click(function(){
             if($(".isShow").hasClass("isShowF")){
@@ -591,6 +621,36 @@
                 $(this).text("显示已删除订单")
             }
         });
+        var editContactName = $(".editContactName");
+        var editContactMobile = $(".editContactMobile");
+        editContactName.click(function(){
+            layer.open({
+                title: false,
+                type: 1,
+                area: '500px',
+                content: $('#contactName_form'),
+                cancel: function () {
+                    // 右上角关闭回调
+                },
+            });
+            $("#contactName_form .control-label").text('收货人姓名');
+            $("#contactPro").attr('name','contactName');
+            $("#contactPro").attr('class','form-control validate[required]');
+        })
+        editContactMobile.click(function(){
+            layer.open({
+                title: false,
+                type: 1,
+                area: '500px',
+                content: $('#contactName_form'),
+                cancel: function () {
+                    // 右上角关闭回调
+                },
+            });
+            $("#contactName_form .control-label").text('收货人电话');
+            $("#contactPro").attr('name','contactMobile');
+            $("#contactPro").attr('class','form-control validate[required,funcCall[custom_validate_fn.isMobile]]');
+        })
 
     })
 

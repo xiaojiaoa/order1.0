@@ -1206,6 +1206,9 @@ router.post('/taskseq/openMultiOrder/close', Middleware.AuthCheck, TaskseqContro
 // 查看子订单--修改订单信息
 router.post('/taskseq/openMultiOrder/modify', Middleware.AuthCheck, TaskseqController.modifyMultiOrder);
 
+//修改流水详情收货人姓名/电话
+router.post('/taskseq/modify/contact', Middleware.AuthCheck, TaskseqController.modifyContact);
+
 /*
  * 页面范围: 文件上传相关
  * 控制器:   FileController
