@@ -56,7 +56,7 @@
                             <tr>
                                 <td width="20%">订单信息</td>
                                 <td width="30%"><%= orderInfo.prodInfo %></td>
-                                <td width="20%">订单类型</td>
+                                <td width="20%">商品类型</td>
                                 <td width="30%"><%= orderInfo.typeStr %></td>
                             </tr>
                             <tr>
@@ -85,10 +85,8 @@
                             </tr>
                             <tr>
                                 <td>流水号</td>
-                                <td><a href="/taskseq/index/<%= orderInfo.lid %>"><%= orderInfo.lid %></a>
+                                <td colspan="3"><a href="/taskseq/index/<%= orderInfo.lid %>"><%= orderInfo.lid %></a>
                                 </td>
-                                <td>订单类型</td>
-                                <td><%= orderInfo.typeStr %></td>
                             </tr>
                             <tr>
                                 <td>收货地址</td>
