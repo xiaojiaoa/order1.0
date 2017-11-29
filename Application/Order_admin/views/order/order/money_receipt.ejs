@@ -44,15 +44,9 @@
                                 <% if (DWY_Helper.hasPermission(Permission.gathering.queryAll.id, permission) ){ %>
                                 <div class="col-xs-3">
                                     <div class="form-group">
-                                        <label class="col-xs-3 control-label">机构号:</label>
+                                        <label class="col-xs-3 control-label">流水号:</label>
                                         <div class="col-xs-8">
-                                            <select class="form-control" name="orgId">
-                                                <option value="">- 请选择 -</option>
-                                                <%
-                                                organizationsList.forEach(function (element) { %>
-                                                <option value="<%= element.id %>" <%= (DWYRequest.query.orgId == element.id)?"selected":"" %>><%= element.name %></option>
-                                                <%  }) %>
-                                            </select>
+                                            <input class="form-control" type="text" name="lid" value="<%= DWYRequest.query.lid %>" />
                                         </div>
                                     </div>
                                 </div>
@@ -244,7 +238,7 @@
                                 <th>客户姓名</th>
                                 <th>订单号</th>
                                 <th>订单状态</th>
-                                <th>所属机构</th>
+                                <th>流水号</th>
                                 <th>所属门店</th>
                                 <th>产品名称</th>
                                 <th>订单数量</th>
@@ -274,7 +268,7 @@
                                 <td><%= element.custName%></td>
                                 <td><a href="/order/detail/<%= element.tid %>"><%= element.tid %></a><%if(element.orderNum){%>×<%=element.orderNum%><%}%></td>
                                 <td><%= element.stcodeName %></td>
-                                <td><%= element.orgName %></td>
+                                <td><a href="/taskseq/index/<%= element.lid %>"><%= element.lid %></a></td>
                                 <td><%= element.storeName %></td>
                                 <td><%= element.prodTypeName %></td>
                                 <td><%= element.orderNum %></td>

@@ -487,7 +487,7 @@ router.get('/reconciliation', Middleware.AuthCheck,Middleware.FilterEmptyField,M
 //导出收款列表
 router.post('/export/receipt', Middleware.AuthCheck,Middleware.FilterEmptyField, OrderController.exportReceipt);
 
-// 付款
+// 付款\
 router.post('/collection/receiptCheck', Middleware.AuthCheck, OrderController.receiptCheck);
 // 确认收款--订单收款
 router.post('/collection/receiptCheck/pass', Middleware.AuthCheck, OrderController.receiptCheckPass);
@@ -626,6 +626,10 @@ router.get('/storesManage/paramIndex/:cid', Middleware.AuthCheck, StoresControll
 
 // 提交价格系数配置
 router.post('/storesManage/doParam',Middleware.AuthCheck,StoresController.doParam);
+
+// 导出门店列表
+router.post('/storesManage/export',Middleware.AuthCheck,StoresController.exportStoreList);
+
 
 
 /*

@@ -319,6 +319,14 @@ var StoresController = {
         }, req, res)).pipe(res)
     },
 
+    exportStoreList: function (req, res) {
+        request(Base.mergeRequestOptions({
+            method: 'post',
+            url: '/api/stores/money/export/page',
+            form:JSON.parse(req.body.mytest),
+        }, req, res)).pipe(res)
+    },
+
 };
 
 module.exports = StoresController;

@@ -89,7 +89,14 @@
             <!-- row -->
             <div class="row">
                 <div class="col-xs-12">
-                    <h6>门店列表</h6>
+                    <h6>门店列表
+                        <form class="" method="post" action="/storesManage/export" style="display: inline-block;">
+                            <input type="hidden" name="mytest" value="<%= JSON.stringify( DWYRequest.query)%>">
+                            <button class="label label-primary " type="submit">
+                                导出列表
+                            </button>
+                        </form>
+                    </h6>
 
                     <hr class="simple">
                 </div>
