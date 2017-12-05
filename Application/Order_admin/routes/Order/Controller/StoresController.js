@@ -326,6 +326,22 @@ var StoresController = {
             form:JSON.parse(req.body.mytest),
         }, req, res)).pipe(res)
     },
+    regIntegration: function (req, res) {
+        request(Base.mergeRequestOptions({
+            method: 'post',
+            url: '/api/stores/credit/bind',
+            form: req.body,
+        }, req, res), function (error, response, body) {
+            if (!error && response.statusCode == 201) {
+                $data = JSON.parse(body);
+                return res.send($data);
+                Base.handlerSuccess(res, req);
+                res.redirect("/storesManage");
+            } else {
+                Base.handlerError(res, req, error, response, body);
+            }
+        })
+    },
 
 };
 

@@ -5,7 +5,7 @@
 
 <!-- MAIN PANEL -->
 <div id="main" role="main" class="mainFlex">
-
+    <div class="loading" id="loading"><i class="fa fa-circle-o-notch fa-spin text-primary"></i></div>
     <!-- RIBBON -->
     <div id="ribbon">
 
@@ -187,7 +187,14 @@
             <!-- row -->
             <div class="row">
                 <div class="col-xs-12">
-                    <h6>门店列表</h6>
+                    <h6>门店列表
+                        <% if(DWY_Helper.hasPermission(Permission.store.integration.id, permission)){%>
+                        <!--<form method="post" action="/store/user/regIntegration" style="display: inline-block;" id="registerForm">-->
+                            <!--<button type="submit" class="label label-primary" id="register">注册绑定积分联盟</button>-->
+                        <!--</form>-->
+                        <button class="label label-primary" id="register">注册绑定积分联盟</button>
+                        <%}%>
+                    </h6>
 
                     <hr class="simple">
                 </div>
@@ -280,7 +287,22 @@
 <%- include('../layouts/footer'); %>
 <%- include('../layouts/footer_common_script'); %>
 
+<form class="form-horizontal  layer-template" id="info_form">
+    <table class="table table-bordered table-striped table-hover table-scroll2">
+        <thead>
+        <tr>
+        </tr>
+        </thead>
+        <tbody>
+        </tbody>
+    </table>
+    <div class="col-xs-12">
+        <div class="text-center">
+            <button class="btn btn-primary margin-bottom-10" style="padding:10px 15px" id="confirmInfo">确定</button>
+        </div>
+    </div>
 
+</form>
 <script type="text/javascript">
 
     $(document).ready(function () {
@@ -293,6 +315,40 @@
         var TypesList = <%-  JSON.stringify(TypesList) %>;
         $(".search").click(function(){
             DWY_Utils.AreaSelect.find("#areaParentId","#areaChidId",TypesList);
+        })
+
+        $("#register").click(function(){
+            $.ajax({
+                url: '/store/user/regIntegration',
+                method: 'post',
+                success: function (data) {
+                    layer.open({
+                        title: '信息',
+                        move: '.layui-layer-title',
+                        type: 1,
+                        area: ['1060px','600px'],
+                        content: $('#info_form'),
+                        cancel: function () {
+                            successLayout.reload();
+                        },
+                    });
+                    var str = '';
+                    for(var i = 0;i<data.length;i++){
+                        str +=  '<tr>' +
+                                    '<td>' + data[i] + '</td>' +
+                                '</tr>'
+                    }
+                    $("#info_form table tbody").html(str);
+                    $("#confirmInfo").click(function(){
+                        successLayout.reload();
+                    })
+                },
+                error: function (response) {
+                    errorLayout.normal(response);
+                }
+            });
+            $("#loading").addClass("show-active");
+//            $("#registerForm").submit();
         })
     })
 

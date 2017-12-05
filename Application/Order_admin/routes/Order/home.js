@@ -630,6 +630,8 @@ router.post('/storesManage/doParam',Middleware.AuthCheck,StoresController.doPara
 // 导出门店列表
 router.post('/storesManage/export',Middleware.AuthCheck,StoresController.exportStoreList);
 
+//绑定所有积分联盟员工至积分联盟
+router.post('/store/user/regIntegration', Middleware.AuthCheck, StoresController.regIntegration);
 
 
 /*

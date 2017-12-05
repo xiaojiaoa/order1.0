@@ -446,6 +446,10 @@ var permissions = {
             id:"886040",
             name:"配置价格系数"
         },
+        integration:{
+            id:"882045",
+            name:"注册绑定积分联盟"
+        },
     },
     employeeManage :{
         createDepartment:{
