@@ -109,6 +109,30 @@ var MaterialController = {
             });
 
     },
+
+    export: function (req, res) {
+        var query = queryString.stringify(req.body)
+        res.status(200).json(query);
+    },
+  exportDownload: function (req, res) {
+
+    request(Base.mergeRequestOptions({
+      method: 'get',
+      url: '/api/materials/export?'+ queryString.stringify(req.query),
+    }, req, res), function (error, response, body) {
+      if (!error && response.statusCode == 200) {
+        // req.pipe(response)
+        request(Base.mergeRequestOptions({
+          method: 'get',
+          url: '/api/materials/export?'+ queryString.stringify(req.query),
+        }, req, res)).pipe(res)
+      } else {
+        Base.handlerError(res, req, error, response, body);
+      }
+    })
+  },
+
+
     detailPage: function (req, res) {
         var mid =req.params.mid;
         var bid = req.params.bid;

@@ -643,6 +643,10 @@ var  MaterialController = require('./Controller/MaterialController');
 // 物料管理首页
 router.get('/materialManage', Middleware.AuthCheck,Middleware.FilterEmptyField,Middleware.SetBackPath,MaterialController.indexPage);
 
+
+router.post('/materials/export', Middleware.AuthCheck,Middleware.FilterEmptyField,MaterialController.export);
+router.get('/materials/export/download', Middleware.AuthCheck,Middleware.FilterEmptyField,MaterialController.exportDownload);
+
 // 物料详情页面
 router.get('/materialManage/detail/:bid/:mid', Middleware.AuthCheck, Middleware.SetBackPath,MaterialController.detailPage);
 

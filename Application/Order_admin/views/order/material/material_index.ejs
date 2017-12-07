@@ -274,6 +274,10 @@
                         <% if (DWY_Helper.hasPermission(Permission.material.creae.id, permission) ){ %>
                         <a class="label label-primary" href="/materialManage/material/creStepO">新建物料</a>
                         <% } %>
+
+                      <% if (!DWYRequest.query.stairCatId){ %>
+                        <a class="label label-success" id="materialsExport" >导出</a>
+                      <% } %>
                     </h6>
                     <hr class="simple">
                 </div>
@@ -435,6 +439,21 @@
     $(document).ready(function () {
         pageSetUp();
 
+        $('#materialsExport').click(function () {
+          var aaa = '<%= DWYRequest.query %>'
+          $.ajax({
+            url: '/materials/export',
+            method: 'post',
+            data: <%- JSON.stringify(DWYRequest.query) %>,
+            success: function (data) {
+              console.log(data)
+              location.href = '/materials/export/download?'+data
+            },
+            error: function (response) {
+              errorLayout.normal(response);
+            }
+          });
+        })
     })
 
 
