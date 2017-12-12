@@ -805,6 +805,55 @@ var ReportController = {
             form:JSON.parse(req.body.mytest),
         }, req, res)).pipe(res)
     },
+  workpieceApartPage: function (req, res) {
+
+    var paramObject = helper.genPaginationQuery(req);
+    Base.multiDataRequest(req, res, [
+      {url: '/api/orders/package/apart?'+ queryString.stringify(req.query), method: 'GET', resConfig: {keyName: 'dataList', is_must: true}},
+    ], function (req, res, resultList) {
+
+      var paginationInfo = resultList.dataList;
+
+      var boostrapPaginator = new Pagination.TemplatePaginator(helper.genPageInfo({
+        prelink: paramObject.withoutPageNo,
+        current: paginationInfo.page,
+        rowsPerPage: paginationInfo.pageSize,
+        totalResult: paginationInfo.totalItems
+      }));
+
+      var returnData = Base.mergeData(helper.mergeObject({
+        title: ' ',
+        pagination: boostrapPaginator.render(),
+        Permission :Permissions,
+      },resultList));
+      res.render('order/report/workpiece_apart', returnData);
+    });
+
+  },
+  workpieceApartAllPage: function (req, res) {
+    var paramObject = helper.genPaginationQuery(req);
+    Base.multiDataRequest(req, res, [
+      {url: '/api/orders/package/apart/static?'+queryString.stringify(req.query), method: 'GET', resConfig: {keyName: 'dataList', is_must: true}},
+    ], function (req, res, resultList) {
+
+      var paginationInfo = resultList.dataList;
+
+      var boostrapPaginator = new Pagination.TemplatePaginator(helper.genPageInfo({
+        prelink: paramObject.withoutPageNo,
+        current: paginationInfo.page,
+        rowsPerPage: paginationInfo.pageSize,
+        totalResult: paginationInfo.totalItems
+      }));
+
+      var returnData = Base.mergeData(helper.mergeObject({
+        title: ' ',
+        pagination: boostrapPaginator.render(),
+        Permission :Permissions,
+      },resultList));
+      res.render('order/report/workpiece_apart_all', returnData);
+    });
+
+  },
     workpieceNestingAllPage: function (req, res) {
         var paramObject = helper.genPaginationQuery(req);
         Base.multiDataRequest(req, res, [
@@ -899,6 +948,55 @@ var ReportController = {
             form:JSON.parse(req.body.mytest),
         }, req, res)).pipe(res)
     },
+  partApartPage: function (req, res) {
+
+    var paramObject = helper.genPaginationQuery(req);
+    Base.multiDataRequest(req, res, [
+      {url: '/api/orders/package/accessory/apart?'+ queryString.stringify(req.query), method: 'GET', resConfig: {keyName: 'dataList', is_must: true}},
+    ], function (req, res, resultList) {
+
+      var paginationInfo = resultList.dataList;
+
+      var boostrapPaginator = new Pagination.TemplatePaginator(helper.genPageInfo({
+        prelink: paramObject.withoutPageNo,
+        current: paginationInfo.page,
+        rowsPerPage: paginationInfo.pageSize,
+        totalResult: paginationInfo.totalItems
+      }));
+
+      var returnData = Base.mergeData(helper.mergeObject({
+        title: ' ',
+        pagination: boostrapPaginator.render(),
+        Permission :Permissions,
+      },resultList));
+      res.render('order/report/part_apart', returnData);
+    });
+
+  },
+  partApartAllPage: function (req, res) {
+    var paramObject = helper.genPaginationQuery(req);
+    Base.multiDataRequest(req, res, [
+      {url: '/api/orders/package/accessory/apart/static?'+queryString.stringify(req.query), method: 'GET', resConfig: {keyName: 'dataList', is_must: true}},
+    ], function (req, res, resultList) {
+
+      var paginationInfo = resultList.dataList;
+
+      var boostrapPaginator = new Pagination.TemplatePaginator(helper.genPageInfo({
+        prelink: paramObject.withoutPageNo,
+        current: paginationInfo.page,
+        rowsPerPage: paginationInfo.pageSize,
+        totalResult: paginationInfo.totalItems
+      }));
+
+      var returnData = Base.mergeData(helper.mergeObject({
+        title: ' ',
+        pagination: boostrapPaginator.render(),
+        Permission :Permissions,
+      },resultList));
+      res.render('order/report/part_apart_all', returnData);
+    });
+
+  },
     echart: function (req, res) {
         var currentYear = new Date().getFullYear();
         var chartTitle = '';
