@@ -50,7 +50,10 @@
                    if(classDom.find("input[name=parentId]").length!=0){
                        $("#assistantPackageTypeParent").val(classDom.find("input[name=parentId]").val());
                        $("#assistantPackageType-form .modifyBtn").data("class","level-2");
+
                    }
+                 $('#assistantPackageType-form')[0].reset();
+
                    layer.open({
                         title:false,
                         type:1,
@@ -96,10 +99,12 @@
                     });
                 }
                 else if(key=='assistantPackageType'){
+
                     status02(classDom);
                     $(".desktop-detected *").css("pointer-events","auto");
                     //给表单赋值
                     $("#assistantPackageTypeType").val(classDom.find("tr").eq(listNum).attr("type"));
+                    $("#assistantPackageTypeMergeType").val(classDom.find("tr").eq(listNum).attr("mergeType"));
                     $("#assistantPackageTypeName").val(classDom.find("tr").eq(listNum).find("input[name=name]").val());
                     $("#assistantPackageTypeId").val(classDom.find("tr").eq(listNum).attr("id"));
                     if(classDom.find("input[name=parentId]").length!=0){

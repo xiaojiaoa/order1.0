@@ -51,6 +51,7 @@ var SystemController = {
                 {url: '/api/assist/list?key='+key, method: 'GET', resConfig: {keyName: 'keyInfo', is_must: true}},
                 {url: '/api/assist/package/category', method: 'GET', resConfig: {keyName: 'packageCate', is_must: true}},
                 {url: '/api/assist/cargo/inmode/parentId', method: 'GET', resConfig: {keyName: 'cargoInModeList', is_must: true}},
+                {url: '/api/assist/merge/type', method: 'GET', resConfig: {keyName: 'mergeType', is_must: true}},
             ];
         }
 
@@ -97,6 +98,7 @@ var SystemController = {
                 {url: '/api/assist/list?key='+key, method: 'GET', resConfig: {keyName: 'keyInfo', is_must: true}},
                 {url: '/api/assist/package/types/'+classone,method: 'GET', resConfig: {keyName: 'packageTypeInfo', is_must: true}},
                 {url: '/api/assist/package/category', method: 'GET', resConfig: {keyName: 'packageCate', is_must: true}},
+                {url: '/api/assist/merge/type', method: 'GET', resConfig: {keyName: 'mergeType', is_must: true}},
             ];
         }
         if(key =="regionType" && classone){
@@ -116,7 +118,7 @@ var SystemController = {
         }
 
         Base.multiDataRequest(req, res, multiDataRequest, function (req, res, resultList) {
-             //  console.log(66666,resultList);
+              console.log(66666,resultList);
                 var returnData = Base.mergeData(helper.mergeObject({
                     title: ' ',
                     Permission: Permissions,
