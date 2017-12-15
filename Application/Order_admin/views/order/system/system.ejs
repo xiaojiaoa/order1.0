@@ -221,6 +221,7 @@
                                     stcode="<%= element.stcode %>"
                                     parentId="<%= element.parentId%>"
                                     type="<%= element.type%>"
+                                    mergeType="<%= element.mergeType%>"
                                     class="<%= (element.stcode==0)?"disable display-none":''%> <%= (element.id==DWYRequest.query.classone)?"active":''%>"
                                         <%　if(element.stcode==1){%>
                                     onclick="location.href='/systems?key=<%= key%>&classone=<%= element.id %>';"
@@ -332,6 +333,7 @@
                             stcode="<%= element.stcode%>"
                             parentId="<%= element.parentId%>"
                             type="<%= element.type%>"
+                            mergeType="<%= element.mergeType%>"
                             class="<%= (element.stcode==0)?"disable display-none":''%>">
                             <td ><input class="border-0 text-align-center" type="text" value="<%= element.name%>" name="name" readonly/><span><%= element.id%></span></td>
                         </tr>
@@ -526,6 +528,28 @@
                             }%>
                         </select>
                         <p class="text-danger margin-top-10">备注：入库分类只是跟入库相关</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="row">
+
+        <div class="col-xs-12">
+            <div class="col-xs-8">
+                <div class="form-group">
+                    <label class="col-xs-4 control-label"><span class="requird"></span>归集类型:</label>
+                    <div class="col-xs-8">
+                        <select class="form-control validate[required]" name="mergeType" id="assistantPackageTypeMergeType">
+                            <option value=""> -请选择- </option>
+                          <%if(key=="assistantPackageType" && DWY_Helper.isCanLoop(mergeType)){
+                          mergeType.forEach(function(element){%>
+                            <option value="<%= element.id%>"><%= element.name%></option>
+                          <%})
+                          }%>
+                        </select>
                     </div>
                 </div>
             </div>
