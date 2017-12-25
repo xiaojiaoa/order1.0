@@ -73,6 +73,22 @@ var CustomerProductController = {
 
     },
 
+    unshelfExport: function (req, res) {
+        request(Base.mergeRequestOptions({
+            method: 'get',
+            url: '/api/orders/completeSet/export?'+ queryString.stringify(req.query),
+        }, req, res), function (error, response, body) {
+            if (!error && response.statusCode == 200) {
+                request(Base.mergeRequestOptions({
+                    method: 'get',
+                    url: '/api/orders/completeSet/export?'+ queryString.stringify(req.query),
+                }, req, res)).pipe(res)
+            } else {
+                Base.handlerError(res, req, error, response, body);
+            }
+        })
+    },
+
 };
 
 module.exports = CustomerProductController;

@@ -1495,6 +1495,8 @@ router.get('/orders/completeSet', Middleware.AuthCheck,Middleware.FilterEmptyFie
 
 // 齐套查询--未上架页面
 router.get('/orders/completeSet/unshelf', Middleware.AuthCheck,Middleware.FilterEmptyField,CustomerProductController.unshelfPage);
+//导出
+router.get('/orders/completeSet/export', Middleware.AuthCheck,Middleware.FilterEmptyField,CustomerProductController.unshelfExport);
 
 
 /*

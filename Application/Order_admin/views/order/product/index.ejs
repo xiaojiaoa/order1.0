@@ -129,6 +129,17 @@
                       </div>
                     </div>
                   </div>
+                  <div class="col-xs-3">
+                    <div class="form-group">
+                      <label class="col-xs-4 control-label">状态:</label>
+                      <div class="col-xs-8">
+                        <select class="form-control" name="stcode">
+                          <option value="">全部</option>
+                          <option value="745" <%= (DWYRequest.query.stcode == 745 )?"selected":"" %> >未发货完成</option>
+                        </select>
+                      </div>
+                    </div>
+                  </div>
                   <% if(DWY_GLOBAL.ButtonOpen != 1){ %>
                 </div>
                 <% } %>
@@ -159,7 +170,13 @@
       <!-- row -->
       <div class="row">
         <div class="col-xs-12">
-          <h6>客户产品列表</h6>
+          <h6>客户产品列表
+            <form class="" method="get" action="/orders/completeSet/export" style="display: inline-block;">
+              <button class="label label-primary"  type="submit">
+                导出清单
+              </button>
+            </form>
+          </h6>
 
           <hr class="simple">
         </div>
