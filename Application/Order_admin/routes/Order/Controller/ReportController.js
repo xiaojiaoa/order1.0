@@ -805,6 +805,20 @@ var ReportController = {
             form:JSON.parse(req.body.mytest),
         }, req, res)).pipe(res)
     },
+  exportWorkpieceApart: function (req, res) {
+    request(Base.mergeRequestOptions({
+      method: 'post',
+      url: '/api/orders/package/export/apart',
+      form:JSON.parse(req.body.mytest),
+    }, req, res)).pipe(res)
+  },
+  exportWorkpieceApartAll: function (req, res) {
+    request(Base.mergeRequestOptions({
+      method: 'post',
+      url: '/api/orders/package/export/static/apart',
+      form:JSON.parse(req.body.mytest),
+    }, req, res)).pipe(res)
+  },
   workpieceApartPage: function (req, res) {
 
     var paramObject = helper.genPaginationQuery(req);
@@ -948,6 +962,20 @@ var ReportController = {
             form:JSON.parse(req.body.mytest),
         }, req, res)).pipe(res)
     },
+  exportPartApart: function (req, res) {
+    request(Base.mergeRequestOptions({
+      method: 'post',
+      url: '/api/orders/package/export/accessory/apart',
+      form:JSON.parse(req.body.mytest),
+    }, req, res)).pipe(res)
+  },
+  exportPartApartAll: function (req, res) {
+    request(Base.mergeRequestOptions({
+      method: 'post',
+      url: '/api/orders/package/export/accessory/static/apart',
+      form:JSON.parse(req.body.mytest),
+    }, req, res)).pipe(res)
+  },
   partApartPage: function (req, res) {
 
     var paramObject = helper.genPaginationQuery(req);

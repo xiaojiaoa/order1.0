@@ -1908,9 +1908,14 @@ router.get('/report/factory/workpiece_nesting', Middleware.AuthCheck,Middleware.
 
 // 拆单工件报表
 router.get('/report/factory/workpiece_apart', Middleware.AuthCheck,Middleware.FilterEmptyField,ReportController.workpieceApartPage);
-
 // 导出--拆单工件报表
+router.post('/report/factory/export/workpiece_apart', Middleware.AuthCheck,Middleware.FilterEmptyField,ReportController.exportWorkpieceApart);
+
+// 拆单工件汇总
 router.get('/report/factory/workpieceApart/all', Middleware.AuthCheck,Middleware.FilterEmptyField,ReportController.workpieceApartAllPage);
+// 导出--拆单工件汇总
+router.post('/report/factory/export/workpiece_apart_all', Middleware.AuthCheck,Middleware.FilterEmptyField,ReportController.exportWorkpieceApartAll);
+
 
 // 导出--排料工件报表
 router.post('/report/factory/export/workpiece_nesting', Middleware.AuthCheck,Middleware.FilterEmptyField,ReportController.exportWorkpieceNesting);
@@ -1935,8 +1940,15 @@ router.post('/report/factory/export/part_nesting_all', Middleware.AuthCheck,Midd
 
 // 拆单配件报表
 router.get('/report/factory/part_apart', Middleware.AuthCheck,Middleware.FilterEmptyField,ReportController.partApartPage);
+
+// 导出--拆单配件报表
+router.post('/report/factory/export/part_apart', Middleware.AuthCheck,Middleware.FilterEmptyField,ReportController.exportPartApart);
+
 // 拆单配件汇总报表
 router.get('/report/factory/partApart/all', Middleware.AuthCheck,Middleware.FilterEmptyField,ReportController.partApartAllPage);
+
+// 导出--拆单配件汇总报表
+router.post('/report/factory/export/part_apart_all', Middleware.AuthCheck,Middleware.FilterEmptyField,ReportController.exportPartApartAll);
 
 // 图形报表
 router.get('/echart/:type', Middleware.AuthCheck,Middleware.FilterEmptyField,ReportController.echart);
