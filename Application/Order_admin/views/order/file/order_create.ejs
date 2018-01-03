@@ -227,7 +227,7 @@
                                     <a class="label label-danger" onclick="deleteFile(<%= element.id %>)">删除</a>
                                     <% } %>
                                     <a class="label label-primary" href="<%= DWY_GLOBAL.Static %>/download?originalFileName=<%= element.fileName %>&url=<%= element.filePath %>">下载</a>
-                                    <button class="label label-primary reSubmit">重新上传</button>
+                                    <button class="label label-primary reSubmit" data-val="<%= element.id %>">重新上传</button>
                                 </td>
                                 <input type="hidden" name="fileId" value="<%= element.id %>">
                             </tr>
@@ -310,9 +310,9 @@
 
         })
 
-        var fileId = $("input[name=fileId]").val();
-        $("input[name=id]").val(fileId);
         $(".reSubmit").click(function(){
+          var fileId = $(this).attr('data-val');
+          $("input[name=id]").val(fileId);
           layer.open({
             title: false,
             type: 1,

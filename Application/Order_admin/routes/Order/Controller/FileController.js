@@ -201,7 +201,6 @@ var FileController = {
       var tid = req.body.tid;
       var ordType = req.body.ordType;
       var stcode = req.body.stcode;
-      console.log(req.body);
       request(Base.mergeRequestOptions({
         method: 'post',
         url: '/api/order/file/reSave',
