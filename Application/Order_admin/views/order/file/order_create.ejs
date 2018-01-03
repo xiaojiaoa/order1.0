@@ -227,7 +227,9 @@
                                     <a class="label label-danger" onclick="deleteFile(<%= element.id %>)">删除</a>
                                     <% } %>
                                     <a class="label label-primary" href="<%= DWY_GLOBAL.Static %>/download?originalFileName=<%= element.fileName %>&url=<%= element.filePath %>">下载</a>
+                                    <button class="label label-primary reSubmit">重新上传</button>
                                 </td>
+                                <input type="hidden" name="fileId" value="<%= element.id %>">
                             </tr>
                             <% })
                             } %>
@@ -262,7 +264,38 @@
 <%- include('../layouts/footer'); %>
 <%- include('../layouts/footer_common_script'); %>
 
-
+<form id="fileUpload" class="col-xs-12 layer-template" action="/file/order/reSubmit" method="post">
+    <div class="col-xs-12" style="margin-top:20px;">
+        <div class="col-xs-8">
+            <div class="form-group">
+                <label class="col-xs-3 control-label"></span>
+                    文件地址:</label>
+                <div class="col-xs-9">
+                    <input class="form-control" readonly value=""
+                           name="fileName">
+                    <input name="id" value="" type="hidden" />
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-4">
+            <div class="col-xs-12 text-left">
+                <label for="dwy_file_upload2" class="btn btn-primary" id="label-upload-file2">
+                    点击上传 <i class="fa fa-upload"></i> </label>
+                <input type="file" name="file_name" id="dwy_file_upload2" style="display: none;">
+            </div>
+        </div>
+        <input type="hidden" name="savePath" value="">
+        <input type="hidden" name="fileSize" value="">
+        <input type="hidden" name="fileExt" value="">
+        <input type="hidden" name="lid" value="<%= lid %>">
+        <input type="hidden" name="tid" value="<%= tid %>">
+        <input type="hidden" name="ordType" value="<%= ordType %>">
+        <input type="hidden" name="stcode" value="<%= stcode %>">
+    </div>
+    <div class="col-xs-12 text-center margin-top-10">
+        <button class="btn btn-primary margin-top-10" type="submit">上传</button>
+    </div>
+</form>
 <script type="text/javascript">
 
     $(document).ready(function () {
@@ -277,6 +310,20 @@
 
         })
 
+        var fileId = $("input[name=fileId]").val();
+        $("input[name=id]").val(fileId);
+        $(".reSubmit").click(function(){
+          layer.open({
+            title: false,
+            type: 1,
+            area: '700px',
+            content: $('#fileUpload'),
+            cancel: function () {
+              //右上角关闭回调
+            },
+
+          });
+        })
         $('#dwy_file_upload').on({
             click: function () {
                 $(this).val('');
@@ -332,6 +379,40 @@
             }
         })
 
+        $('#dwy_file_upload2').on({
+            change: function (e) {
+              var _this = $(this);
+                var label = $("#label-upload-file2");
+                var formData = new FormData();
+                formData.append('file_name', _this.prop('files')[0])
+                label.html('上传中 <i class="fa fa-circle-o-notch fa-spin">');
+                label.attr('disabled', true);
+                $.ajax({
+                  url: '/template/upload/single/order',
+                  data: formData,
+                  type: 'POST',
+                  // THIS MUST BE DONE FOR FILE UPLOADING
+                  processData: false, // 不处理发送的数据，因为data值是Formdata对象，不需要对数据做处理
+                  contentType: false, // 不设置Content-type请求头
+                  success: function (data) {
+                    label.attr('disabled', false);
+                    if (data.code == 200) {
+                       $('#fileUpload [name=fileName]').val(data.data.name);
+                       $('#fileUpload [name=fileSize]').val(data.data.size);
+                       $('#fileUpload [name=savePath]').val(data.data.url);
+                       $('#fileUpload [name=fileExt]').val(data.data.ext);
+                      label.html('上传成功 <i class="fa fa-check">');
+                    } else {
+                      label.html('上传失败 <i class="fa fa-times">');
+                    }
+                  },
+                  error: function () {
+                    label.attr('disabled', false);
+                    label.html('上传失败 <i class="fa fa-times">');
+                  }
+                })
+            }
+        })
 
 //        function simuFormSubmit($files) {
 //            var form = document.createElement('form')

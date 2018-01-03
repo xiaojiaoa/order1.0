@@ -195,6 +195,30 @@ var FileController = {
             }
         })
     },
+
+    reSubmitFile: function (req, res) {
+      var lid = req.body.lid;
+      var tid = req.body.tid;
+      var ordType = req.body.ordType;
+      var stcode = req.body.stcode;
+      console.log(req.body);
+      request(Base.mergeRequestOptions({
+        method: 'post',
+        url: '/api/order/file/reSave',
+        form:req.body,
+      }, req, res), function (error, response, body) {
+        if (!error && response.statusCode == 201) {
+          Base.handlerSuccess(res, req);
+          if(ordType != 1){
+            res.redirect("/file/resupply/create/"+lid+"/"+stcode+"/"+ordType+"/"+tid);
+          }else{
+            res.redirect("/file/order/create/"+lid+"/"+stcode+"/"+ordType+"/"+tid);
+          }
+        } else {
+          Base.handlerError(res, req, error, response, body);
+        }
+      })
+    },
     doCreateBatchNumberFile: function (req, res) {
         //console.log('doCreateBatchNumberFile',JSON.stringify(req.body))
         request(Base.mergeRequestOptions({

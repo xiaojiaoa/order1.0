@@ -1248,6 +1248,8 @@ router.post('/file/doCreate', Middleware.AuthCheck, FileController.doCreate);
 
 // 新增订单文件上传
 router.post('/file/order/doCreate', Middleware.AuthCheck, FileController.doCreateOrderFile);
+//订单--文件--重新上传
+router.post('/file/order/reSubmit', Middleware.AuthCheck, FileController.reSubmitFile);
 
 // 批次号文件上传
 router.post('/file/batchNumber/doCreate', Middleware.AuthCheck, FileController.doCreateBatchNumberFile);
