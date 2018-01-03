@@ -70,6 +70,10 @@ var permissions = {
             id :"506040",
             name : "文件上传"
         },
+        resubmit : {
+          id :"999998",
+          name : "文件重新上传"
+        },
         create:{
             id:"506010",
             name:"新增个人客户信息"
