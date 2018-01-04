@@ -207,6 +207,7 @@
                                 <th>上传人</th>
                                 <th>上传时间</th>
                                 <th>备注</th>
+                                <th>是否损坏</th>
                                 <th width="200">操作</th>
                             </tr>
                             </thead>
@@ -222,6 +223,13 @@
                                 <td><%= element.uploadName %></td>
                                 <td><%= element.addTime %></td>
                                 <td><%= element.remark %></td>
+                                <%if(element.damageFlag){%>
+                                <td>是</td>
+                                <% }else if(element.damageFlag == false){%>
+                                <td>否</td>
+                                <% }else{%>
+                                <td></td>
+                                <% }%>
                                 <td>
                                     <% if(element.delFlag == true){  %>
                                     <a class="label label-danger" onclick="deleteFile(<%= element.id %>)">删除</a>
