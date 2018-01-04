@@ -100,6 +100,7 @@
                                             <span>序号</span>
                                         </label>
                                     </th>
+                                    <th>是否损坏</th>
                                     <th>加急</th>
                                     <th>试装</th>
                                     <th>收款</th>
@@ -131,6 +132,13 @@
                                             <span><%= index+1+(scheduleList.page-1)*20%></span>
                                         </label>
                                     </td>
+                                    <%if(element.damageFlag){%>
+                                    <td>是</td>
+                                    <% }else if(element.damageFlag == false){%>
+                                    <td>否</td>
+                                    <% }else{%>
+                                    <td></td>
+                                    <% }%>
                                     <td><%= element.urgent %></td>
                                     <td><%= element.tryInstall %></td>
                                     <td><%= element.receivedStr %></td>
@@ -388,6 +396,7 @@
                                             <span>序号</span>
                                         </label>
                                     </th>
+                                    <th>是否损坏</th>
                                     <th>加急</th>
                                     <th>试装</th>
                                     <th>收款</th>
@@ -421,8 +430,15 @@
                                             <input type="checkbox" class="checkbox validate[minCheckbox[1]]" name="roles" value="<%= element.tid %>">
                                             <%} %>
                                             <span><%= DWY_Helper.incrementNum(DWYRequest.query.pageNo,index)%></span>
-                                        </label>
+                                    <td>是</td>
+                                    </label>
                                     </td>
+                                    <%if(element.damageFlag){%>
+                                   <% }else if(element.damageFlag == false){%>
+                                    <td>否</td>
+                                    <% }else{%>
+                                    <td></td>
+                                    <% }%>
                                     <td><%= element.urgent %></td>
                                     <td><%= element.tryInstall %></td>
                                     <%
