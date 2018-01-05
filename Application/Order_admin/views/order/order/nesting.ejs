@@ -132,13 +132,14 @@
                                             <span><%= index+1+(scheduleList.page-1)*20%></span>
                                         </label>
                                     </td>
+                                    <td>
                                     <%if(element.damageFlag){%>
-                                    <td>是</td>
+                                    是
                                     <% }else if(element.damageFlag == false){%>
-                                    <td>否</td>
+                                    否
                                     <% }else{%>
-                                    <td></td>
                                     <% }%>
+                                    </td>
                                     <td><%= element.urgent %></td>
                                     <td><%= element.tryInstall %></td>
                                     <td><%= element.receivedStr %></td>
@@ -430,15 +431,16 @@
                                             <input type="checkbox" class="checkbox validate[minCheckbox[1]]" name="roles" value="<%= element.tid %>">
                                             <%} %>
                                             <span><%= DWY_Helper.incrementNum(DWYRequest.query.pageNo,index)%></span>
-                                    <td>是</td>
                                     </label>
                                     </td>
-                                    <%if(element.damageFlag){%>
-                                   <% }else if(element.damageFlag == false){%>
-                                    <td>否</td>
-                                    <% }else{%>
-                                    <td></td>
-                                    <% }%>
+                                    <td>
+                                        <%if(element.damageFlag){%>
+                                        是
+                                        <% }else if(element.damageFlag == false){%>
+                                        否
+                                        <% }else{%>
+                                        <% }%>
+                                    </td>
                                     <td><%= element.urgent %></td>
                                     <td><%= element.tryInstall %></td>
                                     <%

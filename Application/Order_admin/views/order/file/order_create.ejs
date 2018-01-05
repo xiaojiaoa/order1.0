@@ -223,13 +223,14 @@
                                 <td><%= element.uploadName %></td>
                                 <td><%= element.addTime %></td>
                                 <td><%= element.remark %></td>
+                                <td>
                                 <%if(element.damageFlag){%>
-                                <td>是</td>
+                                是
                                 <% }else if(element.damageFlag == false){%>
-                                <td>否</td>
+                                否
                                 <% }else{%>
-                                <td></td>
                                 <% }%>
+                                </td>
                                 <td>
                                     <% if(element.delFlag == true){  %>
                                     <a class="label label-danger" onclick="deleteFile(<%= element.id %>)">删除</a>
