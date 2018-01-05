@@ -394,8 +394,12 @@
             change: function (e) {
               var _this = $(this);
                 var label = $("#label-upload-file2");
+                var lid = $("[name=lid]");
+                var tid = $("[name=tid]");
                 var formData = new FormData();
                 formData.append('file_name', _this.prop('files')[0])
+                formData.append('lid', lid.val())
+                formData.append('tid', tid.val())
                 label.html('上传中 <i class="fa fa-circle-o-notch fa-spin">');
                 label.attr('disabled', true);
                 $.ajax({
