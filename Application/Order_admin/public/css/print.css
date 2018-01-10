@@ -91,4 +91,17 @@ hr{
 .table-print3 tbody,.table-print3 tr,.table-print3 tr td{
   text-align: center;
 }
+.packageTable tr{
+  height:17px;
+}
+.packageTable tr:first-of-type{
+  height:20px;
+}
+.packageTable2 tr:last-child{
+  height:76px;
+}
+.packageBorder tr:last-child td{
+  border-bottom:0;
+}
+
 
