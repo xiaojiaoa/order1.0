@@ -117,6 +117,6 @@ hr{
   border-bottom:0;
 }
 .printPage{
-  page-break-before: always;
+  page-break-after: always;
 }
 
