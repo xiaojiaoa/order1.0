@@ -102,6 +102,14 @@
           </div>
         </div>
         <div class="form-group" id="pageNumInputDiv" style="display: none">
+        <label class="pull-left control-label">版本选择:</label>
+        <div class="col-xs-9">
+            <select class="form-control" id="select">
+                <option value="1">旧模板</option>
+                <option value="2">新模板</option>
+            </select>
+        </div>
+
           <p><label class="control-label text-success margin-bottom-10">已勾选的分类共 <span id="pageInfo">0</span> 页（<span id="printPageSizeText">300</span>条/页）</label>
           </p>
           <label class="pull-left control-label">打印页码:</label>
@@ -147,7 +155,7 @@
 <script type="text/javascript">
 
     $(document).ready(function () {
-
+      
         $("#print-form").validationEngine({scroll: false});
 
         var loadIndex;
@@ -162,6 +170,7 @@
                 var value = [];
                 var page = $('#printPageNo').val();
                 var printpPageSize = $('#printpPageSize').val()
+                var stcode = $('#select option:selected').val();
                 $("input[name=printType]:checked").each(function () {
                     value.push($(this).val())
                 });
@@ -170,7 +179,7 @@
                 });
 
 
-                getList(value, printpPageSize, page);
+                getList(value, printpPageSize, page, stcode);
             }
         })
 
@@ -243,13 +252,12 @@
 
         })
 
-        function getList(types, pageSize, page) {
+        function getList(types, pageSize, page, stcode) {
             var typeString = types.toString(',');
             $.ajax({
-                url: '/system/printParts/ajax/<%= batchNumber %>/<%= factoryId %>?pageNo=' + page + '&pageSize='+pageSize+'&type=' + typeString,
+                url: '/system/printParts/ajax/<%= batchNumber %>/<%= factoryId %>?pageNo=' + page + '&pageSize='+pageSize+'&type=' + typeString+'&stcode='+stcode,
                 method: 'get',
                 success: function (data) {
-
                     var resultData = JSON.parse(data);
 
                     var html='';
