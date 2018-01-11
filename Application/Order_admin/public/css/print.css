@@ -116,5 +116,7 @@ hr{
 .packageBorder tr:last-child td{
   border-bottom:0;
 }
-
+.printPage{
+  page-break-before: always;
+}
 
