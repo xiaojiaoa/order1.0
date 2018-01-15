@@ -91,21 +91,25 @@ hr{
 .table-print3 tbody,.table-print3 tr,.table-print3 tr td{
   text-align: center;
 }
+.packageTable>tbody>tr>td,.packageTable2>tbody>tr>td,.packageTablePadding0>tbody>tr>td{
+  padding:0;
+  margin:0;
+}
 .packageTable tr{
-  height:17.5px;
+  height:17px;
   box-sizing: border-box;
 }
 .packageTable tr:first-of-type{
-  height:19px!important;
+  height:18px!important;
 }
 .packageTable2 tr{
   box-sizing: border-box;
 }
 .packageTable2 tr:first-child td{
-  height:37px;
+  height:33px;
 }
 .packageTable2 tr:nth-of-type(2) td{
-  height:34px;
+  height:30px;
 }
 .packageTable2 tr:nth-of-type(3){
   height:17px;
