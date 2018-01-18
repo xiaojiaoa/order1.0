@@ -1901,6 +1901,8 @@ router.post('/orders/export/cashFlow',Middleware.AuthCheck,ReportController.expo
 
 // 门店销量报表
 router.get('/report/store/sales', Middleware.AuthCheck,Middleware.FilterEmptyField,ReportController.storeSalesPage);
+//销售区域报表
+router.get('/report/store/salesAreas', Middleware.AuthCheck,Middleware.FilterEmptyField,ReportController.storeSalesAreasPage);
 
 // 排料工件报表
 router.get('/report/factory/workpiece_nesting', Middleware.AuthCheck,Middleware.FilterEmptyField,ReportController.workpieceNestingPage);
@@ -1976,6 +1978,8 @@ router.post('/report/store/export/departmentResupplyRate', Middleware.AuthCheck,
 
 //导出--门店销售
 router.post('/report/store/export/storeSales', Middleware.AuthCheck,Middleware.FilterEmptyField,ReportController.storeSales);
+//导出--门店销售区域统计
+router.post('/report/store/export/storeSalesAreas', Middleware.AuthCheck,Middleware.FilterEmptyField,ReportController.storeSalesAreas);
 
 //导出--批次物料计价
 router.post('/report/factory/export/batchMaterPrice', Middleware.AuthCheck,Middleware.FilterEmptyField,ReportController.batchMaterPrice);

@@ -773,6 +773,36 @@ var ReportController = {
         });
 
     },
+
+    storeSalesAreasPage: function (req, res) {
+    if(!req.query.startDate){
+      var dayTime= new Date().format("yyyy-MM-dd");
+      return res.redirect('/report/store/salesAreas?startDate='+dayTime+'&endDate='+dayTime);
+    }
+    var paramObject = helper.genPaginationQuery(req);
+    Base.multiDataRequest(req, res, [
+      {url: '/api/stores/report/pageSaleDistrict?'+ queryString.stringify(req.query), method: 'GET', resConfig: {keyName: 'dataList', is_must: true}},
+    ], function (req, res, resultList) {
+
+      var paginationInfo = resultList.dataList;
+
+      var boostrapPaginator = new Pagination.TemplatePaginator(helper.genPageInfo({
+        prelink: paramObject.withoutPageNo,
+        current: paginationInfo.page,
+        rowsPerPage: paginationInfo.pageSize,
+        totalResult: paginationInfo.totalItems
+      }));
+
+      var returnData = Base.mergeData(helper.mergeObject({
+        title: ' ',
+        pagination: boostrapPaginator.render(),
+        Permission :Permissions,
+      },resultList));
+      res.render('order/report/storeSalesAreas', returnData);
+    });
+
+    },
+
     workpieceNestingPage: function (req, res) {
 
         var paramObject = helper.genPaginationQuery(req);
@@ -1159,6 +1189,13 @@ var ReportController = {
             method: 'post',
             url: '/api/orders/stat/export/storeSales',
             form:JSON.parse(req.body.mytest),
+        }, req, res)).pipe(res)
+    },
+    storeSalesAreas: function (req, res) {
+        request(Base.mergeRequestOptions({
+          method: 'post',
+          url: '/api/stores/report/export/saleDistrict',
+          form:JSON.parse(req.body.salesAreas),
         }, req, res)).pipe(res)
     },
     batchMaterPrice: function (req, res) {
