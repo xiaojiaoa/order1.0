@@ -417,7 +417,7 @@
                                 <th>订单数量</th>
                                 <th>商品类型</th>
                                 <th>订单标签</th>
-                                <th>品牌</th>
+                                <th>空间风格</th>
                                 <th>产品信息</th>
                                 <th>产品类型</th>
                                 <th>空间类型</th>
@@ -481,7 +481,8 @@
                                 <td><%= element.orderNum %></td>
                                 <td><%= element.typeStr %></td>
                                 <td><%= element.tagName %></td>
-                                <td><%= DWY_Helper.getAssistVal(element.brandId,brandInfo) %></td>
+                                <!--<td><%= DWY_Helper.getAssistVal(element.brandId,brandInfo) %></td>-->
+                                <td><%= element.spaceStyleStr %></td>
                                 <td style="word-break:break-all;width: 200px;"><%= element.prodInfo %></td>
                                 <td><%= element.prodName %></td>
                                 <td><%= element.parentSpaceinfoName %>/<%= element.spaceName %></td>
