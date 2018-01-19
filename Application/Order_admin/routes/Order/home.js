@@ -1547,7 +1547,7 @@ router.put('/orderSpaceinfo/:parentId', Middleware.AuthCheck, SystemController.o
 router.put('/orderSpaceinfoTwo/:spaceId', Middleware.AuthCheck, SystemController.orderSpaceinfoTwoPage);
 
 // 基础数据--清除缓存
-router.get('/api/clearCache', Middleware.AuthCheck, SystemController.doClearCache);
+router.get('/system/clearCache', Middleware.AuthCheck, SystemController.doClearCache);
 
 // 获取物料单位二的内容
 router.put('/assistantMaterialUnitTwo/:parentId', Middleware.AuthCheck, SystemController.assistantMaterialUnitPage);
