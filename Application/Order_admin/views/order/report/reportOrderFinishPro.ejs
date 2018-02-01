@@ -93,6 +93,9 @@
                                 <th rowspan="2">齐套日期</th>
                                 <th rowspan="2">名称</th>
                                 <th rowspan="2">订单号</th>
+                                <th rowspan="2">上月结存（套）</th>
+                                <th colspan="2">上月明细</th>
+                                <th rowspan="2">入库数量</th>
                                 <th colspan="2">明细</th>
                                 <th rowspan="2">合计（包）</th>
                                 <th rowspan="2">发货通知日期</th>
@@ -104,6 +107,8 @@
                             <tr>
                                 <th>工件</th>
                                 <th>配件</th>
+                                <th>工件</th>
+                                <th>配件</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -112,13 +117,17 @@
                             dataList.result.forEach(function (element,index) { %>
                             <tr>
                                 <td><%= DWY_Helper.incrementNum(DWYRequest.query.pageNo,index)%></td>
-                                <td><%= DWY_Helper.getLocalDate(element.inStorageTimeStr) %></td>
+                                <td><%= element.inStorageTimeStr %></td>
                                 <td><%= element.prodInfo %></td>
                                 <td><%= element.tid %></td>
+                                <td><%= element.preTotalStorage %></td>
+                                <td><%= element.preWorkPieceStorage %></td>
+                                <td><%= element.preAccessoryStorage %></td>
+                                <td><%= element.currentTotal %></td>
                                 <td><%= element.workPieceStorage %></td>
                                 <td><%= element.accessoryStorage %></td>
                                 <td><%= element.packageTotal %></td>
-                                <td><%= DWY_Helper.getLocalDate(element.reviewTimeStr) %></td>
+                                <td><%= element.reviewTimeStr %>手动</td>
                                 <td><%= element.customName %></td>
                                 <td><%= element.batchNumber %></td>
                                 <td><%= element.retailPrice %></td>
@@ -127,7 +136,7 @@
                             <%})
                             }else{ %>
                             <tr>
-                                <td colspan="13" align="center">暂无结果</td>
+                                <td colspan="16" align="center">暂无结果</td>
                             </tr>
                             <% } %>
 

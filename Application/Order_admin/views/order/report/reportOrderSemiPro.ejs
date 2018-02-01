@@ -95,6 +95,9 @@
                                     <th rowspan="2">名称</th>
                                     <th rowspan="2">订单号</th>
                                     <th rowspan="2">订单总包数</th>
+                                    <th rowspan="2">上月结存（包）</th>
+                                    <th colspan="2">上月结存明细（包）</th>
+                                    <th rowspan="2">入库数量</th>
                                     <th colspan="2">入库明细（包）</th>
                                     <th rowspan="2">齐套日期（转入成品）</th>
                                     <th rowspan="2">半成品结存（包数）</th>
@@ -106,6 +109,8 @@
                                 <tr>
                                     <th>工件</th>
                                     <th>配件</th>
+                                    <th>工件</th>
+                                    <th>配件</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -114,14 +119,18 @@
                             dataList.result.forEach(function (element,index) { %>
                             <tr>
                                 <th><%= DWY_Helper.incrementNum(DWYRequest.query.pageNo,index)%></th>
-                                <td><%= DWY_Helper.getLocalDate(element.scheduleTimeStr) %></td>
-                                <td><%= DWY_Helper.getLocalDate(element.intTimeStr) %></td>
+                                <td><%= element.scheduleTimeStr %></td>
+                                <td><%= element.inTimeStr %></td>
                                 <td><%= element.prodInfo %></td>
                                 <td><%= element.tid %></td>
                                 <td><%= element.packageTotal %></td>
+                                <td><%= element.preTotalStorage %></td>
+                                <td><%= element.preWorkPieceStorage %></td>
+                                <td><%= element.preAccessoryStorage %></td>
+                                <td><%= element.totalStorage %></td>
                                 <td><%= element.workPieceStorage %></td>
                                 <td><%= element.accessoryStorage %></td>
-                                <td><%= DWY_Helper.getLocalDate(element.inStorageTimeStr) %></td>
+                                <td><%= element.inStorageTimeStr %></td>
                                 <td><%= element.totalStorage %></td>
                                 <td><%= element.customName %></td>
                                 <td><%= element.batchNumber %></td>

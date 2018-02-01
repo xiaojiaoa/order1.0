@@ -37,8 +37,11 @@
                 elem.append('<tfoot>'+obj.header.html()+'</tfoot>')
                 var tfoot = elem.find('tfoot')
                 tfoot.find('th').each(function (index) {
-                    var cellWidth = obj.header.find('th').eq(index).css('width');
-                    var cellHeight = obj.header.find('th').eq(index).css('height');
+                    var theadTh = obj.header.find('th').eq(index);
+                    var cellWidth = theadTh.css('width');
+                    var cellHeight = theadTh.css('height');
+                    theadTh.attr('width', cellWidth);
+                    theadTh.attr('height', cellHeight);
                     $(this).css('width', cellWidth);
                     $(this).css('height', cellHeight);
                     $(this).attr('index', index);
