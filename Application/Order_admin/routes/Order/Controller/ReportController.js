@@ -465,6 +465,58 @@ var ReportController = {
         });
 
     },
+    reportOrderSemiPro: function (req, res) {
+      if(!req.query.startTime){
+        var dayTime= new Date().format("yyyy-MM-dd");
+        return res.redirect('/report/order/semiPro?startTime='+dayTime+'&endTime='+dayTime);
+      }
+      var paramObject = helper.genPaginationQuery(req);
+      Base.multiDataRequest(req, res, [
+        {url: '/api/whse/report/halflist?'+ queryString.stringify(req.query), method: 'GET', resConfig: {keyName: 'dataList', is_must: true}},
+      ], function (req, res, resultList) {
+        var paginationInfo = resultList.dataList;
+
+        var boostrapPaginator = new Pagination.TemplatePaginator(helper.genPageInfo({
+          prelink: paramObject.withoutPageNo,
+          current: paginationInfo.page,
+          rowsPerPage: paginationInfo.pageSize,
+          totalResult: paginationInfo.totalItems
+        }));
+
+        var returnData = Base.mergeData(helper.mergeObject({
+          title: ' ',
+          pagination: boostrapPaginator.render(),
+          Permission :Permissions,
+        },resultList));
+        res.render('order/report/reportOrderSemiPro', returnData);
+      });
+    },
+    reportOrderfinishPro: function (req, res) {
+      if(!req.query.startTime){
+        var dayTime= new Date().format("yyyy-MM-dd");
+        return res.redirect('/report/order/finishPro?startTime='+dayTime+'&endTime='+dayTime);
+      }
+      var paramObject = helper.genPaginationQuery(req);
+      Base.multiDataRequest(req, res, [
+        {url: '/api/whse/report/list?'+ queryString.stringify(req.query), method: 'GET', resConfig: {keyName: 'dataList', is_must: true}},
+      ], function (req, res, resultList) {
+        var paginationInfo = resultList.dataList;
+
+        var boostrapPaginator = new Pagination.TemplatePaginator(helper.genPageInfo({
+          prelink: paramObject.withoutPageNo,
+          current: paginationInfo.page,
+          rowsPerPage: paginationInfo.pageSize,
+          totalResult: paginationInfo.totalItems
+        }));
+
+        var returnData = Base.mergeData(helper.mergeObject({
+          title: ' ',
+          pagination: boostrapPaginator.render(),
+          Permission :Permissions,
+        },resultList));
+        res.render('order/report/reportOrderFinishPro', returnData);
+      });
+    },
     productDetailOrder: function (req, res) {
         if(!req.query.startTime){
             var dayTime= new Date().format("yyyy-MM-dd");
@@ -605,6 +657,20 @@ var ReportController = {
             method: 'post',
             url: '/api/orders/stat/export/review',
             form:JSON.parse(req.body.mytest),
+        }, req, res)).pipe(res)
+    },
+   exportSemiPro: function (req, res) {
+        request(Base.mergeRequestOptions({
+          method: 'post',
+          url: '/api/orders/stat/export/review',
+          form:JSON.parse(req.body.order),
+        }, req, res)).pipe(res)
+    },
+    exportFinishPro: function (req, res) {
+        request(Base.mergeRequestOptions({
+          method: 'post',
+          url: '/api/orders/stat/export/review',
+          form:JSON.parse(req.body.order),
         }, req, res)).pipe(res)
     },
     exportSeparateBill: function (req, res) {

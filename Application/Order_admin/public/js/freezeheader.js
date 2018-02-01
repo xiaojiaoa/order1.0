@@ -41,9 +41,10 @@
                     var cellHeight = obj.header.find('th').eq(index).css('height');
                     $(this).css('width', cellWidth);
                     $(this).css('height', cellHeight);
-                    tfoot.css('position','absolute').css('top',0);
-                    obj.header.find('th').css('height',$(this).css('height'));
+                    $(this).attr('index', index);
+                    // obj.header.find('th').css('height',$(this).css('height'));
                 });
+                tfoot.css('position','absolute').css('top',0);
                 // elem.append(footer)
                 $(window).resize(function() {
                     tfoot.find('th').each(function (index) {

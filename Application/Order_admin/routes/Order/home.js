@@ -1885,6 +1885,26 @@ router.post('/report/order/export/nesting', Middleware.AuthCheck,Middleware.Filt
 //导出--生产明细报表--退单明细
 router.post('/report/order/export/chargeback', Middleware.AuthCheck,Middleware.FilterEmptyField,ReportController.exportChargeBack);
 
+
+
+
+//半成品仓库收发存明细
+router.get('/report/order/semiPro', Middleware.AuthCheck,Middleware.FilterEmptyField,ReportController.reportOrderSemiPro);
+
+//成品仓库收发存明细
+router.get('/report/order/finishPro', Middleware.AuthCheck,Middleware.FilterEmptyField,ReportController.reportOrderfinishPro);
+
+//导出-半成品仓库收发存
+router.post('/report/order/export/semiPro', Middleware.AuthCheck,Middleware.FilterEmptyField,ReportController.exportSemiPro);
+
+//导出-成品仓库收发存
+router.post('/report/order/export/finishPro', Middleware.AuthCheck,Middleware.FilterEmptyField,ReportController.exportFinishPro);
+
+
+
+
+
+
 // 门店补单率
 router.get('/report/suppRate/store', Middleware.AuthCheck,Middleware.FilterEmptyField,ReportController.suppRateStore);
 
