@@ -20,9 +20,12 @@ var Permissions = require('../config/permission');
 var NetworkBookController = {
     indexPage: function (req, res) {
         var stcode = req.query.stcode;
-       // console.log('stcode',stcode)
         if(stcode == undefined){
             return  res.redirect('/networkBook?stcode=1')
+        }
+        if(stcode == '3'){
+            req.query.stcode = '';
+            return  res.redirect('/networkBook')
         }
         var paramObject = helper.genPaginationQuery(req);
         Base.multiDataRequest(req, res, [

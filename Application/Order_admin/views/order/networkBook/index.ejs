@@ -46,8 +46,8 @@
                                     <div class="form-group">
                                         <label class="col-xs-4 control-label">状态:</label>
                                         <div class="col-xs-8">
-                                            <select class="form-control"  name="stcode"  >
-                                                <option value="">全部</option>
+                                            <select class="form-control"  name="stcode">
+                                                <option value="3">全部</option>
                                                 <option value="0" <%= DWYRequest.query.stcode == '0' ? 'selected':'' %>>已删除</option>
                                                 <option value="1" <%= DWYRequest.query.stcode == 1 ? 'selected':'' %>>未分配</option>
                                                 <option value="2" <%= DWYRequest.query.stcode == 2 ? 'selected':'' %>>已分配</option>
