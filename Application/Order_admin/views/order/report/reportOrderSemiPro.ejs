@@ -71,7 +71,7 @@
             <!-- row -->
             <div class="row">
                 <div class="col-xs-12">
-                    <h6>订单相关报表
+                    <h6>半成品仓库收发存明细
                         <form class="" method="post" action="/report/order/export/semiPro" style="display: inline-block;">
                             <input type="hidden" name="order" value="<%= JSON.stringify( DWYRequest.query)%>">
                             <button class="label label-primary " type="submit">
@@ -120,7 +120,7 @@
                             <tr>
                                 <th><%= DWY_Helper.incrementNum(DWYRequest.query.pageNo,index)%></th>
                                 <td><%= element.scheduleTimeStr %></td>
-                                <td><%= element.inTimeStr %></td>
+                                <td><%= element.minInTimeStr %></td>
                                 <td><%= element.prodInfo %></td>
                                 <td><%= element.tid %></td>
                                 <td><%= element.packageTotal %></td>
@@ -131,7 +131,7 @@
                                 <td><%= element.workPieceStorage %></td>
                                 <td><%= element.accessoryStorage %></td>
                                 <td><%= element.inStorageTimeStr %></td>
-                                <td><%= element.totalStorage %></td>
+                                <td><%= element.halfStorage %></td>
                                 <td><%= element.customName %></td>
                                 <td><%= element.batchNumber %></td>
                                 <td><%= element.retailPrice %></td>

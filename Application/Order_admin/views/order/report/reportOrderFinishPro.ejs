@@ -71,7 +71,7 @@
             <!-- row -->
             <div class="row">
                 <div class="col-xs-12">
-                    <h6>订单相关报表
+                    <h6>成品仓库收发存明细
                         <form class="" method="post" action="/report/order/export/finishPro" style="display: inline-block;">
                             <input type="hidden" name="order" value="<%= JSON.stringify( DWYRequest.query)%>">
                             <button class="label label-primary " type="submit">
@@ -94,19 +94,20 @@
                                 <th rowspan="2">名称</th>
                                 <th rowspan="2">订单号</th>
                                 <th rowspan="2">上月结存（套）</th>
-                                <th colspan="2">上月明细</th>
-                                <th rowspan="2">入库数量</th>
-                                <th colspan="2">明细</th>
+                                <!--<th colspan="2">上月明细</th>-->
+                                <th rowspan="2">入库数量(套)</th>
+                                <th colspan="2">明细（包）</th>
                                 <th rowspan="2">合计（包）</th>
-                                <th rowspan="2">发货通知日期</th>
+                                <th rowspan="2">发货日期</th>
+                                <th rowspan="2">发出数量（套）</th>
                                 <th rowspan="2">客户</th>
                                 <th rowspan="2">批次号</th>
                                 <th rowspan="2">零售价</th>
                                 <th rowspan="2">结算价</th>
                             </tr>
                             <tr>
-                                <th>工件</th>
-                                <th>配件</th>
+                                <!--<th>工件</th>-->
+                                <!--<th>配件</th>-->
                                 <th>工件</th>
                                 <th>配件</th>
                             </tr>
@@ -117,17 +118,18 @@
                             dataList.result.forEach(function (element,index) { %>
                             <tr>
                                 <td><%= DWY_Helper.incrementNum(DWYRequest.query.pageNo,index)%></td>
-                                <td><%= element.inStorageTimeStr %></td>
+                                <td><%= element.minInTimeStr %></td>
                                 <td><%= element.prodInfo %></td>
                                 <td><%= element.tid %></td>
-                                <td><%= element.preTotalStorage %></td>
-                                <td><%= element.preWorkPieceStorage %></td>
-                                <td><%= element.preAccessoryStorage %></td>
-                                <td><%= element.currentTotal %></td>
+                                <td><%= element.preStorageSet%></td>
+                                <!--<td><%= element.preWorkPieceStorage %></td>-->
+                                <!--<td><%= element.preAccessoryStorage %></td>-->
+                                <td><%= element.currentStorageSet%></td>
                                 <td><%= element.workPieceStorage %></td>
                                 <td><%= element.accessoryStorage %></td>
-                                <td><%= element.packageTotal %></td>
-                                <td><%= element.reviewTimeStr %>手动</td>
+                                <td><%= element.currentStorage %></td>
+                                <td><%= element.sendOutTimeStr %></td>
+                                <td>1</td>
                                 <td><%= element.customName %></td>
                                 <td><%= element.batchNumber %></td>
                                 <td><%= element.retailPrice %></td>
