@@ -119,13 +119,13 @@
                             dataList.result.forEach(function (element,index) { %>
                             <tr>
                                 <td><%= DWY_Helper.incrementNum(DWYRequest.query.pageNo,index)%></td>
-                                <td><%= element.minInTimeStr %></td>
+                                <td><%= element.inStorageTimeStr %></td>
                                 <td><%= element.prodInfo %></td>
                                 <td><%= element.tid %></td>
                                 <td><%= element.preStorageSet%></td>
                                 <!--<td><%= element.preWorkPieceStorage %></td>-->
                                 <!--<td><%= element.preAccessoryStorage %></td>-->
-                                <td>1</td>
+                                <td><%= element.currentStorageSet%></td>
                                 <td><%= element.workPieceStorage %></td>
                                 <td><%= element.accessoryStorage %></td>
                                 <td><%= element.currentStorage %></td>
