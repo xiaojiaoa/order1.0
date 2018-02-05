@@ -662,14 +662,14 @@ var ReportController = {
    exportSemiPro: function (req, res) {
         request(Base.mergeRequestOptions({
           method: 'post',
-          url: '/api/orders/stat/export/review',
+          url: '/api/whse/report/export/halfList',
           form:JSON.parse(req.body.order),
         }, req, res)).pipe(res)
     },
     exportFinishPro: function (req, res) {
         request(Base.mergeRequestOptions({
           method: 'post',
-          url: '/api/orders/stat/export/review',
+          url: '/api/whse/report/export/list',
           form:JSON.parse(req.body.order),
         }, req, res)).pipe(res)
     },
