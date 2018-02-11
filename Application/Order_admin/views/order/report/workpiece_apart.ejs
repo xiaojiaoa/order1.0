@@ -67,7 +67,7 @@
                                     <%}%>
                                     <div class="col-xs-4">
                                         <div class="form-group">
-                                            <label class="col-xs-2 control-label">日期:</label>
+                                            <label class="col-xs-2 control-label">排料日期:</label>
                                             <div class="col-xs-4">
                                                 <input class="form-control fg-date-picker" placeholder="" type="text"  value="<%= DWYRequest.query.startTime %>"
                                                        name="startTime">
@@ -76,6 +76,18 @@
                                             <div class="col-xs-4">
                                                 <input class="form-control fg-date-picker" placeholder="" type="text"  value="<%= DWYRequest.query.endTime %>"
                                                        name="endTime">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-xs-2 control-label">改价日期:</label>
+                                            <div class="col-xs-4">
+                                                <input class="form-control fg-date-picker" placeholder="" type="text"  value="<%= DWYRequest.query.startPriceTime %>"
+                                                       name="startPriceTime">
+                                            </div>
+                                            <label class="control-label " style="float: left"> 至 </label>
+                                            <div class="col-xs-4">
+                                                <input class="form-control fg-date-picker" placeholder="" type="text"  value="<%= DWYRequest.query.endPriceTime %>"
+                                                       name="endPriceTime">
                                             </div>
                                         </div>
                                     </div>
@@ -146,6 +158,7 @@
                                 <th>排料时间</th>
                                 <th>拆单时间</th>
                                 <th>订单状态</th>
+                                <th>改价时间</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -166,9 +179,10 @@
                                 <td><%= element.amount %></td>
                                 <td><%= element.batchNumber %></td>
                                 <td><%= element.tid %></td>
-                                <td><%=DWY_Helper.getLocalDateYMD(element.apartTime)  %></td>
                                 <td><%=DWY_Helper.getLocalDateYMD(element.scheduleTime)  %></td>
+                                <td><%=DWY_Helper.getLocalDateYMD(element.apartTime)  %></td>
                                 <td><%= element.statusName %></td>
+                                <td><%=DWY_Helper.getLocalDateYMD(element.modifyPriceTime)  %></td>
                             </tr>
                             <%})
                             }else{ %>
