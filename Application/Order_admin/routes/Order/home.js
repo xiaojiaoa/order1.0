@@ -1972,6 +1972,12 @@ router.get('/report/factory/partApart/all', Middleware.AuthCheck,Middleware.Filt
 // 导出--拆单配件汇总报表
 router.post('/report/factory/export/part_apart_all', Middleware.AuthCheck,Middleware.FilterEmptyField,ReportController.exportPartApartAll);
 
+//订单改价
+router.get('/report/factory/modify_price', Middleware.AuthCheck,Middleware.FilterEmptyField,ReportController.modifyPricePage);
+
+//订单改价导出
+router.post('/report/factory/export/modify_price', Middleware.AuthCheck,Middleware.FilterEmptyField,ReportController.exportModifyPrice);
+
 // 图形报表
 router.get('/echart/:type', Middleware.AuthCheck,Middleware.FilterEmptyField,ReportController.echart);
 
