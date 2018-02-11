@@ -143,6 +143,7 @@
                             <thead>
                             <tr>
                                 <th>序号</th>
+                                <th>改价时间</th>
                                 <th>物料编码</th>
                                 <th>物料名称</th>
                                 <th>工件名</th>
@@ -158,7 +159,6 @@
                                 <th>排料时间</th>
                                 <th>拆单时间</th>
                                 <th>订单状态</th>
-                                <th>改价时间</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -167,6 +167,7 @@
                             dataList.result.forEach(function (element,index) { %>
                             <tr>
                                 <td><%= DWY_Helper.incrementNum(DWYRequest.query.pageNo,index)%></td>
+                                <td><%=DWY_Helper.getLocalDateYMD(element.modifyPriceTime)  %></td>
                                 <td><%= element.mateId %></td>
                                 <td><%= element.mateName %></td>
                                 <td><%= element.name %></td>
@@ -182,7 +183,6 @@
                                 <td><%=DWY_Helper.getLocalDateYMD(element.scheduleTime)  %></td>
                                 <td><%=DWY_Helper.getLocalDateYMD(element.apartTime)  %></td>
                                 <td><%= element.statusName %></td>
-                                <td><%=DWY_Helper.getLocalDateYMD(element.modifyPriceTime)  %></td>
                             </tr>
                             <%})
                             }else{ %>
