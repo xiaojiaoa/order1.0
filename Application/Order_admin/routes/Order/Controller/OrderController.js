@@ -1072,7 +1072,7 @@ var OrderController = {
         });
     },
     updateOrderUrgent: function (req, res) {
-     //   console.log("测试",req.body);
+       // console.log("测试",req.body);
         request(Base.mergeRequestOptions({
             method: 'put',
             url: '/api/orders/urgent/updateUrgent?'+queryString.stringify(req.body),
@@ -1085,6 +1085,20 @@ var OrderController = {
             }
         })
     },
+  updateDeliveryDate: function (req, res) {
+      // console.log("测试",req.body);
+    request(Base.mergeRequestOptions({
+      method: 'put',
+      url: '/api/orders/urgent/updateDeliveryDate?'+queryString.stringify(req.body),
+    }, req, res), function (error, response, body) {
+      if (!error && response.statusCode == 201) {
+        Base.handlerSuccess(res, req);
+        res.redirect(req.session.backPath?req.session.backPath:"/order/urgent");
+      } else {
+        Base.handlerError(res, req, error, response, body);
+      }
+    })
+  },
     // 订单排料页面
     nestingPage: function (req, res) {
         if(!req.query.payed){

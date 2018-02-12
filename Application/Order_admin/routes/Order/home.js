@@ -401,6 +401,7 @@ router.get('/order/urgent', Middleware.AuthCheck,Middleware.FilterEmptyField,Mid
 
 //提交订单加急状态
 router.post('/orders/urgent/updateUrgent',Middleware.AuthCheck,OrderController.updateOrderUrgent);
+router.post('/orders/urgent/updateUrgent/updateDeliveryDate',Middleware.AuthCheck,OrderController.updateDeliveryDate);
 
 // 订单排料页面
 router.get('/orders/nesting', Middleware.AuthCheck,Middleware.FilterEmptyField,Middleware.SetBackPath, OrderController.nestingPage);
