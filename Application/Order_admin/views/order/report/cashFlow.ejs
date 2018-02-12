@@ -99,6 +99,26 @@
                                             </div>
                                         </div>
                                     </div>
+                                    <div class="col-xs-3">
+                                        <div class="form-group">
+                                            <label class="col-xs-4 control-label">业务类型:</label>
+                                            <div class="col-xs-8">
+                                                <div class="col-xs-6">
+                                                    <select class="form-control" name="type">
+                                                        <option value="">- 请选择 -</option>
+                                                        <option value="1" <%= (DWYRequest.query.type == 1)?"selected":"" %>>充值</option>
+                                                        <option value="2" <%= (DWYRequest.query.type == 2)?"selected":"" %>>待收款</option>
+                                                        <option value="3" <%= (DWYRequest.query.type == 3)?"selected":"" %>>已收款</option>
+                                                        <option value="4" <%= (DWYRequest.query.type == 4)?"selected":"" %>>待收款冻结资金</option>
+                                                        <option value="5" <%= (DWYRequest.query.type == 5)?"selected":"" %>>已收款冻结资金</option>
+                                                        <option value="6" <%= (DWYRequest.query.type == 6)?"selected":"" %>>解冻资金</option>
+                                                        <option value="7" <%= (DWYRequest.query.type == 7)?"selected":"" %>>冲正</option>
+                                                        <option value="9" <%= (DWYRequest.query.type == 9)?"selected":"" %>>作废</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                     <% if(DWY_GLOBAL.ButtonOpen!=1){ %>
                                     <div class="col-xs-3">
                                         <div class="col-xs-12 text-center">
@@ -172,10 +192,15 @@
                             <tr>
                                 <th>序号</th>
                                 <th>门店名</th>
+                                <th>负责人</th>
                                 <th>日期</th>
                                 <th>业务类型</th>
+                                <th>操作人</th>
                                 <th>金额（元）</th>
+                                <th>单价</th>
                                 <th>余额</th>
+                                <th>订单套数</th>
+                                <th>操作说明</th>
                                 <th>订单编号</th>
                                 <th>订单当前状态</th>
                             </tr>
@@ -187,10 +212,15 @@
                             <tr>
                                 <td><%= DWY_Helper.incrementNum(DWYRequest.query.pageNo,index)%></td>
                                 <td><%= element.storeName %></td>
+                                <td><%= element.chargeMan %></td>
                                 <td><%=DWY_Helper.getLocalDateYMD(element.addTime)  %></td>
                                 <td><%=element.fundsOperation  %></td>
+                                <td><%=element.operationName  %></td>
                                 <td><%= element.direction == 1?'+':'-'  %><%=element.money %></td>
+                                <td><%= element.unitPrice %></td>
                                 <td><%=element.account  %></td>
+                                <td><%=element.orderNum  %></td>
+                                <td><%=element.describe  %></td>
                                 <td><a href="/order/detail/<%=element.tid  %>"><%=element.tid  %></a></td>
                                 <td><%=element.stcodeName  %></td>
                             </tr>
