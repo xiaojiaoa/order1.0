@@ -571,17 +571,17 @@
 
           var value = $("select[name=color]").val();
           if(value != "" && value != undefined && value != null){
-            $(".matColor:first span").css({"border-bottom":"2px solid #f00","padding-bottom":"5px"});
+            $(".matColor:first span").css("border-bottom","2px solid #f00");
             $(".matColor:first .colorClose").css("display","inline-block");
           }
 
         $(".matColor").click(function(e){
-            $(this).find("span").css({"border-bottom":"2px solid #f00","padding-bottom":"5px"});
+            $(this).find("span").css("border-bottom","2px solid #f00");
             var id = $(this).attr("id");
             $("select[name=color]").val(id);
             $(this).find(".colorClose").css("display","inline-block");
             $(this).parent("tr").siblings().find(".colorClose").css("display","none");
-            $(this).parent("tr").siblings().find(".matColor span").css({"border-bottom":"0","padding-bottom":"0"});
+            $(this).parent("tr").siblings().find(".matColor span").css("border-bottom","0");
             $("#search-down").submit();
             e.stopPropagation();
         })
@@ -589,7 +589,7 @@
             e.stopPropagation();//阻止冒泡事件
             $("select[name=color]").val("");
             $(this).hide();
-            $(this).siblings("span").css({"border-bottom":"0","padding-bottom":"0"});
+            $(this).siblings("span").css("border-bottom","0");
             $("#search-down").submit();
         })
 

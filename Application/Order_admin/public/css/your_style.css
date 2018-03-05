@@ -1382,6 +1382,6 @@ ul.dropdown li{
 .colorClose .color{
     color:#f00;
     cursor: pointer;
-    width:20px;
+    width:1px;
     height:20px;
 }
