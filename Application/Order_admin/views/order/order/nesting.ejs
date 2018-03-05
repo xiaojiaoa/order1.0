@@ -362,6 +362,15 @@
                                             </div>
                                         </div>
                                     </div>
+                                    <div class="col-xs-3">
+                                        <div class="form-group">
+                                            <label class="col-xs-4 control-label">排产间隔></label>
+                                            <div class="col-xs-8">
+                                                <input class="form-control"  value="<%= DWYRequest.query.interval %>" type="text"
+                                                       name="interval">
+                                            </div>
+                                        </div>
+                                    </div>
                                   <% if(DWY_GLOBAL.ButtonOpen!=1){  %>
                                 </div>
                               <% } %>
@@ -397,7 +406,7 @@
                                             <span>序号</span>
                                         </label>
                                     </th>
-                                    <th>是否缺失</th>
+                                    <th>排产间隔天数</th>
                                     <th>加急</th>
                                     <th>试装</th>
                                     <th>收款</th>
@@ -434,12 +443,7 @@
                                     </label>
                                     </td>
                                     <td>
-                                        <%if(element.damageFlag){%>
-                                        是
-                                        <% }else if(element.damageFlag == false){%>
-                                        否
-                                        <% }else{%>
-                                        <% }%>
+                                        <%= element.interval %>
                                     </td>
                                     <td><%= element.urgent %></td>
                                     <td><%= element.tryInstall %></td>
@@ -453,7 +457,10 @@
                                     <td><%= element.productTypeStr %></td>
                                     <td><%= element.orderTypeStr %></td>
                                     <td><%= element.typeStr %></td>
-                                    <td><%= element.colorStr %></td>
+                                    <td class="matColor" id="<%= element.color %>">
+                                        <span><%= element.colorStr %></span>
+                                        <div class="colorClose"><i class="fa fa-times color"></i></div>
+                                    </td>
                                     <td><a  <%=  element.orderType ==20  ?  "href=/order/resupply/detail/"+ element.tid :  "href=/order/detail/"+element.tid  %>  ><%= element.tid %></a><%if(element.orderNum){%>×<%=element.orderNum%><%}%></td>
                                     <%
                                     if(element.batchNumber == '0'){%>
@@ -560,6 +567,21 @@
                 value.push($(this).val());
             });
             $("input[name=tids]").val(value.toString(','));
+        })
+        $(".matColor").click(function(e){
+            $(this).find("span").css({"border-bottom":"2px solid #f00","padding-bottom":"5px"});
+            var id = $(this).attr("id");
+            $("select[name=color]").val(id);
+            $(this).find(".colorClose").css("display","inline-block");
+            $(this).parent("tr").siblings().find(".colorClose").css("display","none");
+            $(this).parent("tr").siblings().find(".matColor span").css({"border-bottom":"0","padding-bottom":"0"});
+            $("#search-down").submit();
+            e.stopPropagation();
+        })
+        $(".colorClose").click(function(e){
+            e.stopPropagation();//阻止冒泡事件
+            $("select[name=color]").val("");
+            $(this).hide();
         })
 
     })

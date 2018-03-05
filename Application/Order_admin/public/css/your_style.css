@@ -1372,3 +1372,16 @@ ul.dropdown li{
 .active{
     background: #ccc;
 }
+.matColor{
+    cursor: pointer;
+    font-size:8px;
+}
+.colorClose{
+    display:none;
+}
+.colorClose .color{
+    color:#f00;
+    cursor: pointer;
+    width:20px;
+    height:20px;
+}
