@@ -95,14 +95,14 @@ hr{
   padding:0;
   margin:0;
 }
-.packageTablePadding0>tbody>tr.setHeight{
-  height:20px !important;
-}
 .packageTablePadding0>tbody>tr{
   box-sizing: border-box;
 }
 .packageTablePadding0>tbody>tr.setHeight{
   height:25px !important;
+}
+.packageTablePadding0>tbody>tr.setHeight td{
+  font-size:8px;
 }
 
 .printPage{
