@@ -95,20 +95,8 @@ hr{
   padding:0;
   margin:0;
 }
-.packageTablePadding0>tbody>tr{
-  box-sizing: border-box;
-}
-.packageTablePadding0>tbody>tr.setHeight{
-  height:25px !important;
-}
-.packageTablePadding0>tbody>tr.setHeight td{
-  font-size:8px;
-}
 
-.printPage{
-  page-break-after: always;
-}
-
+/*最初版样式*/
 .packageTablePadding1>tbody>tr>td{
 line-height: 14px;
 }
@@ -138,3 +126,45 @@ height:37px;
 border-bottom:0;
 }
 
+/*第二版样式*/
+.packageTablePadding0>tbody>tr{
+  box-sizing: border-box;
+}
+.packageTablePadding0>tbody>tr.setHeight{
+  height:25px !important;
+}
+.packageTablePadding0>tbody>tr.setHeight td{
+  font-size:8px;
+}
+
+/*第三版样式*/
+.tableWidth{
+  width:540px;
+}
+.packageTableLeft,.packageTableRight>tbody>tr{
+  box-sizing: border-box;
+}
+.packageTableLeft>tbody>tr>td,.packageTableRight>tbody>tr>td{
+  padding:0;
+  margin:0;
+  font-size:8px;
+}
+.packageTableLeft,.packageTableRight{
+  height:200px;
+  margin-bottom:0;
+  float:left;
+}
+.packageTableLeft{
+  width:240px;
+  border-right:0;
+}
+.packageTableRight{
+  width:300px;
+}
+.packageTableRight .setHeightThird td{
+  height:23px !important;
+  border-left:0;
+}
+.packageTableLeft .font18{
+  font-size:18px;
+}
